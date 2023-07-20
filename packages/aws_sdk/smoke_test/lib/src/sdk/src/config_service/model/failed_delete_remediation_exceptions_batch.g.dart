@@ -70,9 +70,7 @@ class FailedDeleteRemediationExceptionsBatchBuilder
           _i3.ListBuilder<_i2.RemediationExceptionResourceKey>? failedItems) =>
       _$this._failedItems = failedItems;
 
-  FailedDeleteRemediationExceptionsBatchBuilder() {
-    FailedDeleteRemediationExceptionsBatch._init(this);
-  }
+  FailedDeleteRemediationExceptionsBatchBuilder();
 
   FailedDeleteRemediationExceptionsBatchBuilder get _$this {
     final $v = _$v;

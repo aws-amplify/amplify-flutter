@@ -42,8 +42,6 @@ abstract class InvalidIdentityTokenException
   static const List<_i2.SmithySerializer<InvalidIdentityTokenException>>
       serializers = [InvalidIdentityTokenExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidIdentityTokenExceptionBuilder b) {}
   @override
   String? get message;
   @override

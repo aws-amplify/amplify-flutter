@@ -39,9 +39,6 @@ abstract class Parameter
     ParameterAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ParameterBuilder b) {}
-
   /// The key associated with the parameter. If you don't specify a key and value for a particular parameter, CloudFormation uses the default value that's specified in your template.
   String? get parameterKey;
 

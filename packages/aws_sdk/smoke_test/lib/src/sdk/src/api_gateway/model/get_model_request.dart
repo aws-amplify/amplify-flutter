@@ -126,8 +126,6 @@ abstract class GetModelRequestPayload
 
   const GetModelRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetModelRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

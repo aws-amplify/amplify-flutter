@@ -102,9 +102,7 @@ class StackSetOperationResultSummaryBuilder
   set organizationalUnitId(String? organizationalUnitId) =>
       _$this._organizationalUnitId = organizationalUnitId;
 
-  StackSetOperationResultSummaryBuilder() {
-    StackSetOperationResultSummary._init(this);
-  }
+  StackSetOperationResultSummaryBuilder();
 
   StackSetOperationResultSummaryBuilder get _$this {
     final $v = _$v;

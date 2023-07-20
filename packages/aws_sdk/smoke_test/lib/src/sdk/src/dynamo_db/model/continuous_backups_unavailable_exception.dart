@@ -45,8 +45,6 @@ abstract class ContinuousBackupsUnavailableException
     ContinuousBackupsUnavailableExceptionAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ContinuousBackupsUnavailableExceptionBuilder b) {}
   @override
   String? get message;
   @override

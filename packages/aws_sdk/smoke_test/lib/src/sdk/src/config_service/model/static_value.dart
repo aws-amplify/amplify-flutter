@@ -30,9 +30,6 @@ abstract class StaticValue
     StaticValueAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StaticValueBuilder b) {}
-
   /// A list of values. For example, the ARN of the assumed role.
   _i2.BuiltList<String> get values;
   @override

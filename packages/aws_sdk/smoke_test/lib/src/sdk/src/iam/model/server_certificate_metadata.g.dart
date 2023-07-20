@@ -108,9 +108,7 @@ class ServerCertificateMetadataBuilder
   DateTime? get expiration => _$this._expiration;
   set expiration(DateTime? expiration) => _$this._expiration = expiration;
 
-  ServerCertificateMetadataBuilder() {
-    ServerCertificateMetadata._init(this);
-  }
+  ServerCertificateMetadataBuilder();
 
   ServerCertificateMetadataBuilder get _$this {
     final $v = _$v;

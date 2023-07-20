@@ -38,9 +38,7 @@ class DeactivateTypeOutputBuilder
     implements Builder<DeactivateTypeOutput, DeactivateTypeOutputBuilder> {
   _$DeactivateTypeOutput? _$v;
 
-  DeactivateTypeOutputBuilder() {
-    DeactivateTypeOutput._init(this);
-  }
+  DeactivateTypeOutputBuilder();
 
   @override
   void replace(DeactivateTypeOutput other) {

@@ -45,9 +45,7 @@ class RecordsEventBuilder
   _i2.Uint8List? get payload => _$this._payload;
   set payload(_i2.Uint8List? payload) => _$this._payload = payload;
 
-  RecordsEventBuilder() {
-    RecordsEvent._init(this);
-  }
+  RecordsEventBuilder();
 
   RecordsEventBuilder get _$this {
     final $v = _$v;

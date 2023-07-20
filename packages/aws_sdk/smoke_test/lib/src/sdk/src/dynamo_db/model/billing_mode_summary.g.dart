@@ -65,9 +65,7 @@ class BillingModeSummaryBuilder
       _$this._lastUpdateToPayPerRequestDateTime =
           lastUpdateToPayPerRequestDateTime;
 
-  BillingModeSummaryBuilder() {
-    BillingModeSummary._init(this);
-  }
+  BillingModeSummaryBuilder();
 
   BillingModeSummaryBuilder get _$this {
     final $v = _$v;

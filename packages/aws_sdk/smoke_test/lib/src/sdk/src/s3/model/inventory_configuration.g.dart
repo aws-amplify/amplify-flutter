@@ -125,9 +125,7 @@ class InventoryConfigurationBuilder
   set schedule(_i6.InventoryScheduleBuilder? schedule) =>
       _$this._schedule = schedule;
 
-  InventoryConfigurationBuilder() {
-    InventoryConfiguration._init(this);
-  }
+  InventoryConfigurationBuilder();
 
   InventoryConfigurationBuilder get _$this {
     final $v = _$v;

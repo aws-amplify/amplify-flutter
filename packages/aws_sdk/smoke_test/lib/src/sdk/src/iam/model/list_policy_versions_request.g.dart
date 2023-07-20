@@ -71,9 +71,7 @@ class ListPolicyVersionsRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  ListPolicyVersionsRequestBuilder() {
-    ListPolicyVersionsRequest._init(this);
-  }
+  ListPolicyVersionsRequestBuilder();
 
   ListPolicyVersionsRequestBuilder get _$this {
     final $v = _$v;

@@ -61,9 +61,6 @@ abstract class ReplicaDescription
     ReplicaDescriptionAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicaDescriptionBuilder b) {}
-
   /// The name of the Region.
   String? get regionName;
 

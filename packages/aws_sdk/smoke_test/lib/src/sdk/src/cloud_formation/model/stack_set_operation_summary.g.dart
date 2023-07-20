@@ -123,9 +123,7 @@ class StackSetOperationSummaryBuilder
           _i5.StackSetOperationPreferencesBuilder? operationPreferences) =>
       _$this._operationPreferences = operationPreferences;
 
-  StackSetOperationSummaryBuilder() {
-    StackSetOperationSummary._init(this);
-  }
+  StackSetOperationSummaryBuilder();
 
   StackSetOperationSummaryBuilder get _$this {
     final $v = _$v;

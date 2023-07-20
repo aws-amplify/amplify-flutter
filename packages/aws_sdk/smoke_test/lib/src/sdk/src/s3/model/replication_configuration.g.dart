@@ -66,9 +66,7 @@ class ReplicationConfigurationBuilder
   set rules(_i3.ListBuilder<_i2.ReplicationRule>? rules) =>
       _$this._rules = rules;
 
-  ReplicationConfigurationBuilder() {
-    ReplicationConfiguration._init(this);
-  }
+  ReplicationConfigurationBuilder();
 
   ReplicationConfigurationBuilder get _$this {
     final $v = _$v;

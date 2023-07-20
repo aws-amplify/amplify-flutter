@@ -80,9 +80,7 @@ class SseDescriptionBuilder
           DateTime? inaccessibleEncryptionDateTime) =>
       _$this._inaccessibleEncryptionDateTime = inaccessibleEncryptionDateTime;
 
-  SseDescriptionBuilder() {
-    SseDescription._init(this);
-  }
+  SseDescriptionBuilder();
 
   SseDescriptionBuilder get _$this {
     final $v = _$v;

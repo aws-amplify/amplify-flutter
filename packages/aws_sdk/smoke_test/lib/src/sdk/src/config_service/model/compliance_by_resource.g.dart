@@ -69,9 +69,7 @@ class ComplianceByResourceBuilder
   set compliance(_i2.ComplianceBuilder? compliance) =>
       _$this._compliance = compliance;
 
-  ComplianceByResourceBuilder() {
-    ComplianceByResource._init(this);
-  }
+  ComplianceByResourceBuilder();
 
   ComplianceByResourceBuilder get _$this {
     final $v = _$v;

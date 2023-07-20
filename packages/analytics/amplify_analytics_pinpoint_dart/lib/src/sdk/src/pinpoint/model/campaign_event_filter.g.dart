@@ -65,9 +65,7 @@ class CampaignEventFilterBuilder
   _i3.FilterType? get filterType => _$this._filterType;
   set filterType(_i3.FilterType? filterType) => _$this._filterType = filterType;
 
-  CampaignEventFilterBuilder() {
-    CampaignEventFilter._init(this);
-  }
+  CampaignEventFilterBuilder();
 
   CampaignEventFilterBuilder get _$this {
     final $v = _$v;

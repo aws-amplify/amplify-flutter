@@ -49,8 +49,6 @@ abstract class MalformedEnumInput
     MalformedEnumInputRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedEnumInputBuilder b) {}
   _i3.EnumString? get string;
   _i5.BuiltList<_i3.EnumString>? get list;
   _i5.BuiltMap<_i3.EnumString, _i3.EnumString>? get map;

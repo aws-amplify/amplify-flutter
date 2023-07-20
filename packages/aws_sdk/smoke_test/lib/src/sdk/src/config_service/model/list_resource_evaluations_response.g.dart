@@ -66,9 +66,7 @@ class ListResourceEvaluationsResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListResourceEvaluationsResponseBuilder() {
-    ListResourceEvaluationsResponse._init(this);
-  }
+  ListResourceEvaluationsResponseBuilder();
 
   ListResourceEvaluationsResponseBuilder get _$this {
     final $v = _$v;

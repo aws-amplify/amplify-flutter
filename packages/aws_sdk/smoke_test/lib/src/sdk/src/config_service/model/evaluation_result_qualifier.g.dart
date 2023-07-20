@@ -81,9 +81,7 @@ class EvaluationResultQualifierBuilder
   set evaluationMode(_i2.EvaluationMode? evaluationMode) =>
       _$this._evaluationMode = evaluationMode;
 
-  EvaluationResultQualifierBuilder() {
-    EvaluationResultQualifier._init(this);
-  }
+  EvaluationResultQualifierBuilder();
 
   EvaluationResultQualifierBuilder get _$this {
     final $v = _$v;

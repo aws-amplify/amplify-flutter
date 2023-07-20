@@ -48,9 +48,7 @@ class ObjectLockLegalHoldBuilder
   _i2.ObjectLockLegalHoldStatus? get status => _$this._status;
   set status(_i2.ObjectLockLegalHoldStatus? status) => _$this._status = status;
 
-  ObjectLockLegalHoldBuilder() {
-    ObjectLockLegalHold._init(this);
-  }
+  ObjectLockLegalHoldBuilder();
 
   ObjectLockLegalHoldBuilder get _$this {
     final $v = _$v;

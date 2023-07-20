@@ -53,9 +53,6 @@ abstract class GetBucketTaggingRequest
   static const List<_i1.SmithySerializer<GetBucketTaggingRequestPayload>>
       serializers = [GetBucketTaggingRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketTaggingRequestBuilder b) {}
-
   /// The name of the bucket for which to get the tagging information.
   String get bucket;
 
@@ -110,8 +107,6 @@ abstract class GetBucketTaggingRequestPayload
 
   const GetBucketTaggingRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketTaggingRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

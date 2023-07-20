@@ -49,9 +49,6 @@ abstract class DescribeTypeInput
     DescribeTypeInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeTypeInputBuilder b) {}
-
   /// The kind of extension.
   ///
   /// Conditional: You must specify either `TypeName` and `Type`, or `Arn`.

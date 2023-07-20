@@ -61,9 +61,7 @@ class ConditionBuilder implements Builder<Condition, ConditionBuilder> {
   set comparisonOperator(_i3.ComparisonOperator? comparisonOperator) =>
       _$this._comparisonOperator = comparisonOperator;
 
-  ConditionBuilder() {
-    Condition._init(this);
-  }
+  ConditionBuilder();
 
   ConditionBuilder get _$this {
     final $v = _$v;

@@ -74,9 +74,7 @@ class KinesisDataStreamDestinationBuilder
   set destinationStatusDescription(String? destinationStatusDescription) =>
       _$this._destinationStatusDescription = destinationStatusDescription;
 
-  KinesisDataStreamDestinationBuilder() {
-    KinesisDataStreamDestination._init(this);
-  }
+  KinesisDataStreamDestinationBuilder();
 
   KinesisDataStreamDestinationBuilder get _$this {
     final $v = _$v;

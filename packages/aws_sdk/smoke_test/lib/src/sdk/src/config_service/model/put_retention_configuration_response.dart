@@ -40,9 +40,6 @@ abstract class PutRetentionConfigurationResponse
   static const List<_i3.SmithySerializer<PutRetentionConfigurationResponse>>
       serializers = [PutRetentionConfigurationResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutRetentionConfigurationResponseBuilder b) {}
-
   /// Returns a retention configuration object.
   _i2.RetentionConfiguration? get retentionConfiguration;
   @override

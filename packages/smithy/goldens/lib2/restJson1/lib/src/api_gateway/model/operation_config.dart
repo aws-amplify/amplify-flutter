@@ -30,9 +30,6 @@ abstract class OperationConfig
     OperationConfigRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OperationConfigBuilder b) {}
-
   /// Configuration specific to S3.
   _i2.S3Config? get s3;
   @override

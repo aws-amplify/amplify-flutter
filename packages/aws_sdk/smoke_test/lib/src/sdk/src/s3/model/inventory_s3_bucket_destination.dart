@@ -47,9 +47,6 @@ abstract class InventoryS3BucketDestination
   static const List<_i4.SmithySerializer<InventoryS3BucketDestination>>
       serializers = [InventoryS3BucketDestinationRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InventoryS3BucketDestinationBuilder b) {}
-
   /// The account ID that owns the destination S3 bucket. If no account ID is provided, the owner is not validated before exporting data.
   ///
   /// Although this value is optional, we strongly recommend that you set it to help prevent problems if the destination bucket ownership changes.

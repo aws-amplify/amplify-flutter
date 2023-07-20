@@ -37,9 +37,6 @@ abstract class Stats
     StatsRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StatsBuilder b) {}
-
   /// The total number of object bytes scanned.
   _i2.Int64? get bytesScanned;
 

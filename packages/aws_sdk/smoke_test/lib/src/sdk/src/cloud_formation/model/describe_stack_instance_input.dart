@@ -48,9 +48,6 @@ abstract class DescribeStackInstanceInput
   static const List<_i1.SmithySerializer<DescribeStackInstanceInput>>
       serializers = [DescribeStackInstanceInputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeStackInstanceInputBuilder b) {}
-
   /// The name or the unique stack ID of the stack set that you want to get stack instance information for.
   String get stackSetName;
 

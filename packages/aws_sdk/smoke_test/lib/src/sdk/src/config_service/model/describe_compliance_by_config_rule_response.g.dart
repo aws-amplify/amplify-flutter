@@ -70,9 +70,7 @@ class DescribeComplianceByConfigRuleResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeComplianceByConfigRuleResponseBuilder() {
-    DescribeComplianceByConfigRuleResponse._init(this);
-  }
+  DescribeComplianceByConfigRuleResponseBuilder();
 
   DescribeComplianceByConfigRuleResponseBuilder get _$this {
     final $v = _$v;

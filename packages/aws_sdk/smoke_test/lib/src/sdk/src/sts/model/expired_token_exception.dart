@@ -41,8 +41,6 @@ abstract class ExpiredTokenException
     ExpiredTokenExceptionAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ExpiredTokenExceptionBuilder b) {}
   @override
   String? get message;
   @override

@@ -50,8 +50,6 @@ abstract class MalformedTimestampHeaderDateTimeInput
     MalformedTimestampHeaderDateTimeInputRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedTimestampHeaderDateTimeInputBuilder b) {}
   DateTime get timestamp;
   @override
   MalformedTimestampHeaderDateTimeInputPayload getPayload() =>
@@ -84,8 +82,6 @@ abstract class MalformedTimestampHeaderDateTimeInputPayload
 
   const MalformedTimestampHeaderDateTimeInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedTimestampHeaderDateTimeInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

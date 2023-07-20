@@ -39,9 +39,6 @@ abstract class Projection
     ProjectionAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ProjectionBuilder b) {}
-
   /// The set of attributes that are projected into the index:
   ///
   /// *   `KEYS_ONLY` \- Only the index and primary keys are projected into the index.

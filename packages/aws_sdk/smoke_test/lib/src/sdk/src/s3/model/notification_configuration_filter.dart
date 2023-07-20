@@ -33,9 +33,6 @@ abstract class NotificationConfigurationFilter
   static const List<_i3.SmithySerializer<NotificationConfigurationFilter>>
       serializers = [NotificationConfigurationFilterRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NotificationConfigurationFilterBuilder b) {}
-
   /// A container for object key name prefix and suffix filtering rules.
   _i2.S3KeyFilter? get key;
   @override

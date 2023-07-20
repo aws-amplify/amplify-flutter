@@ -65,9 +65,6 @@ abstract class GetUsagePlanKeysRequest
   static const List<_i1.SmithySerializer<GetUsagePlanKeysRequestPayload>>
       serializers = [GetUsagePlanKeysRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetUsagePlanKeysRequestBuilder b) {}
-
   /// The Id of the UsagePlan resource representing the usage plan containing the to-be-retrieved UsagePlanKey resource representing a plan customer.
   String get usagePlanId;
 
@@ -138,8 +135,6 @@ abstract class GetUsagePlanKeysRequestPayload
 
   const GetUsagePlanKeysRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetUsagePlanKeysRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

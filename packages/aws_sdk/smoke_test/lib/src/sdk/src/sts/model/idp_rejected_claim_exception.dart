@@ -46,8 +46,6 @@ abstract class IdpRejectedClaimException
   static const List<_i2.SmithySerializer<IdpRejectedClaimException>>
       serializers = [IdpRejectedClaimExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(IdpRejectedClaimExceptionBuilder b) {}
   @override
   String? get message;
   @override

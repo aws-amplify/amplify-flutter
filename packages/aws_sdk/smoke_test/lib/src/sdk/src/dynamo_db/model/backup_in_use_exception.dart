@@ -42,8 +42,6 @@ abstract class BackupInUseException
     BackupInUseExceptionAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BackupInUseExceptionBuilder b) {}
   @override
   String? get message;
   @override

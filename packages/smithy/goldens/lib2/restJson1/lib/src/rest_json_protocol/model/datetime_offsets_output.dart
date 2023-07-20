@@ -34,8 +34,6 @@ abstract class DatetimeOffsetsOutput
     DatetimeOffsetsOutputRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DatetimeOffsetsOutputBuilder b) {}
   DateTime? get datetime;
   @override
   List<Object?> get props => [datetime];

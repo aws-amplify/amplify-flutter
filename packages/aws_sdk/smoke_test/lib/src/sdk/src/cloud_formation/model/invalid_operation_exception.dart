@@ -40,8 +40,6 @@ abstract class InvalidOperationException
   static const List<_i2.SmithySerializer<InvalidOperationException>>
       serializers = [InvalidOperationExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidOperationExceptionBuilder b) {}
   @override
   String? get message;
   @override

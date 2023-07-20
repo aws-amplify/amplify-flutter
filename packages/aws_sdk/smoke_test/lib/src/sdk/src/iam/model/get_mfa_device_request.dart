@@ -42,9 +42,6 @@ abstract class GetMfaDeviceRequest
     GetMfaDeviceRequestAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetMfaDeviceRequestBuilder b) {}
-
   /// Serial number that uniquely identifies the MFA device. For this API, we only accept FIDO security key [ARNs](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html).
   String get serialNumber;
 

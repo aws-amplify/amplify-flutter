@@ -51,9 +51,7 @@ class DescribeExportInputBuilder
   String? get exportArn => _$this._exportArn;
   set exportArn(String? exportArn) => _$this._exportArn = exportArn;
 
-  DescribeExportInputBuilder() {
-    DescribeExportInput._init(this);
-  }
+  DescribeExportInputBuilder();
 
   DescribeExportInputBuilder get _$this {
     final $v = _$v;

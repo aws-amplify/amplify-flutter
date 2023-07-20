@@ -355,7 +355,7 @@ class GetObjectOperation extends _i1.HttpOperation<_i2.GetObjectRequestPayload,
   int successCode([_i4.GetObjectOutput? output]) => 200;
   @override
   _i4.GetObjectOutput buildOutput(
-    _i3.Stream<List<int>>? payload,
+    _i3.Stream<List<int>> payload,
     _i8.AWSBaseHttpResponse response,
   ) =>
       _i4.GetObjectOutput.fromResponse(

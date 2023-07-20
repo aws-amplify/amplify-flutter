@@ -65,9 +65,7 @@ class DeletePolicyVersionRequestBuilder
   String? get versionId => _$this._versionId;
   set versionId(String? versionId) => _$this._versionId = versionId;
 
-  DeletePolicyVersionRequestBuilder() {
-    DeletePolicyVersionRequest._init(this);
-  }
+  DeletePolicyVersionRequestBuilder();
 
   DeletePolicyVersionRequestBuilder get _$this {
     final $v = _$v;

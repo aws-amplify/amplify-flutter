@@ -45,9 +45,6 @@ abstract class ListSigningCertificatesRequest
   static const List<_i1.SmithySerializer<ListSigningCertificatesRequest>>
       serializers = [ListSigningCertificatesRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListSigningCertificatesRequestBuilder b) {}
-
   /// The name of the IAM user whose signing certificates you want to examine.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

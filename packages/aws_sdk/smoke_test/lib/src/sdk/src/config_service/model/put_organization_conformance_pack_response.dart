@@ -41,9 +41,6 @@ abstract class PutOrganizationConformancePackResponse
     PutOrganizationConformancePackResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutOrganizationConformancePackResponseBuilder b) {}
-
   /// ARN of the organization conformance pack.
   String? get organizationConformancePackArn;
   @override

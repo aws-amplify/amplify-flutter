@@ -41,9 +41,6 @@ abstract class SseDescription
     SseDescriptionAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SseDescriptionBuilder b) {}
-
   /// Represents the current state of server-side encryption. The only supported values are:
   ///
   /// *   `ENABLED` \- Server-side encryption is enabled.

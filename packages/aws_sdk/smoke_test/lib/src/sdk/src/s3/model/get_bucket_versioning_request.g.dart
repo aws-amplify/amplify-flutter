@@ -64,9 +64,7 @@ class GetBucketVersioningRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetBucketVersioningRequestBuilder() {
-    GetBucketVersioningRequest._init(this);
-  }
+  GetBucketVersioningRequestBuilder();
 
   GetBucketVersioningRequestBuilder get _$this {
     final $v = _$v;
@@ -139,9 +137,7 @@ class GetBucketVersioningRequestPayloadBuilder
             GetBucketVersioningRequestPayloadBuilder> {
   _$GetBucketVersioningRequestPayload? _$v;
 
-  GetBucketVersioningRequestPayloadBuilder() {
-    GetBucketVersioningRequestPayload._init(this);
-  }
+  GetBucketVersioningRequestPayloadBuilder();
 
   @override
   void replace(GetBucketVersioningRequestPayload other) {

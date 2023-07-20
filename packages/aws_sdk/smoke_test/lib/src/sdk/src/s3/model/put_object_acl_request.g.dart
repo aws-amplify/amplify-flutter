@@ -180,9 +180,7 @@ class PutObjectAclRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  PutObjectAclRequestBuilder() {
-    PutObjectAclRequest._init(this);
-  }
+  PutObjectAclRequestBuilder();
 
   PutObjectAclRequestBuilder get _$this {
     final $v = _$v;

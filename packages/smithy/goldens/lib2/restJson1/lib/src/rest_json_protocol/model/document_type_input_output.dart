@@ -50,8 +50,6 @@ abstract class DocumentTypeInputOutput
   static const List<_i1.SmithySerializer<DocumentTypeInputOutput>> serializers =
       [DocumentTypeInputOutputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DocumentTypeInputOutputBuilder b) {}
   String? get stringValue;
   _i3.JsonObject? get documentValue;
   @override

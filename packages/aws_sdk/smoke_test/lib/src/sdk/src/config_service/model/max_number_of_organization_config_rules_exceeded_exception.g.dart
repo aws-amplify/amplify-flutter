@@ -73,9 +73,7 @@ class MaxNumberOfOrganizationConfigRulesExceededExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  MaxNumberOfOrganizationConfigRulesExceededExceptionBuilder() {
-    MaxNumberOfOrganizationConfigRulesExceededException._init(this);
-  }
+  MaxNumberOfOrganizationConfigRulesExceededExceptionBuilder();
 
   MaxNumberOfOrganizationConfigRulesExceededExceptionBuilder get _$this {
     final $v = _$v;

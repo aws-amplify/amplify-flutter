@@ -43,9 +43,6 @@ abstract class GetSessionTokenRequest
   static const List<_i1.SmithySerializer<GetSessionTokenRequest>> serializers =
       [GetSessionTokenRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetSessionTokenRequestBuilder b) {}
-
   /// The duration, in seconds, that the credentials should remain valid. Acceptable durations for IAM user sessions range from 900 seconds (15 minutes) to 129,600 seconds (36 hours), with 43,200 seconds (12 hours) as the default. Sessions for Amazon Web Services account owners are restricted to a maximum of 3,600 seconds (one hour). If the duration is longer than one hour, the session for Amazon Web Services account owners defaults to one hour.
   int? get durationSeconds;
 

@@ -35,8 +35,6 @@ abstract class DeleteStoredQueryResponse
   static const List<_i2.SmithySerializer<DeleteStoredQueryResponse>>
       serializers = [DeleteStoredQueryResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteStoredQueryResponseBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

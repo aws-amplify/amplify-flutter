@@ -30,9 +30,6 @@ abstract class Tagging
     TaggingRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TaggingBuilder b) {}
-
   /// A collection for a set of tags
   _i3.BuiltList<_i2.Tag> get tagSet;
   @override

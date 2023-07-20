@@ -42,8 +42,6 @@ abstract class TableInUseException
     TableInUseExceptionAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TableInUseExceptionBuilder b) {}
   @override
   String? get message;
   @override

@@ -47,9 +47,6 @@ abstract class GenerateClientCertificateRequest
   static const List<_i1.SmithySerializer<GenerateClientCertificateRequest>>
       serializers = [GenerateClientCertificateRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GenerateClientCertificateRequestBuilder b) {}
-
   /// The description of the ClientCertificate.
   String? get description;
 

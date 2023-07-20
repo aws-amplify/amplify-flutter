@@ -69,9 +69,7 @@ class ListPoliciesGrantingServiceAccessEntryBuilder
   set policies(_i3.ListBuilder<_i2.PolicyGrantingServiceAccess>? policies) =>
       _$this._policies = policies;
 
-  ListPoliciesGrantingServiceAccessEntryBuilder() {
-    ListPoliciesGrantingServiceAccessEntry._init(this);
-  }
+  ListPoliciesGrantingServiceAccessEntryBuilder();
 
   ListPoliciesGrantingServiceAccessEntryBuilder get _$this {
     final $v = _$v;

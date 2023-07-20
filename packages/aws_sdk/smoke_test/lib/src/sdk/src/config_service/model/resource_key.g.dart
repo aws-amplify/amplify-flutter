@@ -60,9 +60,7 @@ class ResourceKeyBuilder implements Builder<ResourceKey, ResourceKeyBuilder> {
   String? get resourceId => _$this._resourceId;
   set resourceId(String? resourceId) => _$this._resourceId = resourceId;
 
-  ResourceKeyBuilder() {
-    ResourceKey._init(this);
-  }
+  ResourceKeyBuilder();
 
   ResourceKeyBuilder get _$this {
     final $v = _$v;

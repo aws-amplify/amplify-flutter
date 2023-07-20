@@ -68,9 +68,7 @@ class FlushStageAuthorizersCacheRequestBuilder
   String? get stageName => _$this._stageName;
   set stageName(String? stageName) => _$this._stageName = stageName;
 
-  FlushStageAuthorizersCacheRequestBuilder() {
-    FlushStageAuthorizersCacheRequest._init(this);
-  }
+  FlushStageAuthorizersCacheRequestBuilder();
 
   FlushStageAuthorizersCacheRequestBuilder get _$this {
     final $v = _$v;
@@ -147,9 +145,7 @@ class FlushStageAuthorizersCacheRequestPayloadBuilder
             FlushStageAuthorizersCacheRequestPayloadBuilder> {
   _$FlushStageAuthorizersCacheRequestPayload? _$v;
 
-  FlushStageAuthorizersCacheRequestPayloadBuilder() {
-    FlushStageAuthorizersCacheRequestPayload._init(this);
-  }
+  FlushStageAuthorizersCacheRequestPayloadBuilder();
 
   @override
   void replace(FlushStageAuthorizersCacheRequestPayload other) {

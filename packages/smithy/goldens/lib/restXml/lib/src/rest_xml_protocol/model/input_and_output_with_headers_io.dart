@@ -225,8 +225,6 @@ abstract class InputAndOutputWithHeadersIo
   static const List<_i1.SmithySerializer<InputAndOutputWithHeadersIoPayload>>
       serializers = [InputAndOutputWithHeadersIoRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InputAndOutputWithHeadersIoBuilder b) {}
   String? get headerString;
   int? get headerByte;
   int? get headerShort;
@@ -350,8 +348,6 @@ abstract class InputAndOutputWithHeadersIoPayload
 
   const InputAndOutputWithHeadersIoPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InputAndOutputWithHeadersIoPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

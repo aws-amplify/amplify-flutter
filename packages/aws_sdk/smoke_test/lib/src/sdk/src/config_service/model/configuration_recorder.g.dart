@@ -68,9 +68,7 @@ class ConfigurationRecorderBuilder
   set recordingGroup(_i2.RecordingGroupBuilder? recordingGroup) =>
       _$this._recordingGroup = recordingGroup;
 
-  ConfigurationRecorderBuilder() {
-    ConfigurationRecorder._init(this);
-  }
+  ConfigurationRecorderBuilder();
 
   ConfigurationRecorderBuilder get _$this {
     final $v = _$v;

@@ -18,10 +18,9 @@ abstract class UpdateTerminationProtectionInput
         Built<UpdateTerminationProtectionInput,
             UpdateTerminationProtectionInputBuilder> {
   factory UpdateTerminationProtectionInput({
-    bool? enableTerminationProtection,
+    required bool enableTerminationProtection,
     required String stackName,
   }) {
-    enableTerminationProtection ??= false;
     return _$UpdateTerminationProtectionInput._(
       enableTerminationProtection: enableTerminationProtection,
       stackName: stackName,
@@ -43,11 +42,6 @@ abstract class UpdateTerminationProtectionInput
 
   static const List<_i1.SmithySerializer<UpdateTerminationProtectionInput>>
       serializers = [UpdateTerminationProtectionInputAwsQuerySerializer()];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateTerminationProtectionInputBuilder b) {
-    b.enableTerminationProtection = false;
-  }
 
   /// Whether to enable termination protection on the specified stack.
   bool get enableTerminationProtection;

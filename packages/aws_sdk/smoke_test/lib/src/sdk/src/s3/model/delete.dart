@@ -36,9 +36,6 @@ abstract class Delete
     DeleteRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBuilder b) {}
-
   /// The object to delete.
   _i3.BuiltList<_i2.ObjectIdentifier> get objects;
 

@@ -49,9 +49,6 @@ abstract class RequiredActivatedType
     RequiredActivatedTypeAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RequiredActivatedTypeBuilder b) {}
-
   /// An alias assigned to the public extension, in this account and Region. If you specify an alias for the extension, CloudFormation treats the alias as the extension type name within this account and Region. You must use the alias to refer to the extension in your templates, API calls, and CloudFormation console.
   String? get typeNameAlias;
 

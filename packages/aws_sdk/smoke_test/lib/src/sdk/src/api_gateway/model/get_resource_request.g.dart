@@ -73,9 +73,7 @@ class GetResourceRequestBuilder
       _$this._embed ??= new _i3.ListBuilder<String>();
   set embed(_i3.ListBuilder<String>? embed) => _$this._embed = embed;
 
-  GetResourceRequestBuilder() {
-    GetResourceRequest._init(this);
-  }
+  GetResourceRequestBuilder();
 
   GetResourceRequestBuilder get _$this {
     final $v = _$v;
@@ -161,9 +159,7 @@ class GetResourceRequestPayloadBuilder
         Builder<GetResourceRequestPayload, GetResourceRequestPayloadBuilder> {
   _$GetResourceRequestPayload? _$v;
 
-  GetResourceRequestPayloadBuilder() {
-    GetResourceRequestPayload._init(this);
-  }
+  GetResourceRequestPayloadBuilder();
 
   @override
   void replace(GetResourceRequestPayload other) {

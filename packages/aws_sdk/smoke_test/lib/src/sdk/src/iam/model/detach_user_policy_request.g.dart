@@ -64,9 +64,7 @@ class DetachUserPolicyRequestBuilder
   String? get policyArn => _$this._policyArn;
   set policyArn(String? policyArn) => _$this._policyArn = policyArn;
 
-  DetachUserPolicyRequestBuilder() {
-    DetachUserPolicyRequest._init(this);
-  }
+  DetachUserPolicyRequestBuilder();
 
   DetachUserPolicyRequestBuilder get _$this {
     final $v = _$v;

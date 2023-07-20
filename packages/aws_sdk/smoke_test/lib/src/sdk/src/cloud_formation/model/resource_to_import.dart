@@ -38,9 +38,6 @@ abstract class ResourceToImport
     ResourceToImportAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceToImportBuilder b) {}
-
   /// The type of resource to import into your stack, such as `AWS::S3::Bucket`. For a list of supported resource types, see [Resources that support import operations](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resource-import-supported-resources.html) in the CloudFormation User Guide.
   String get resourceType;
 

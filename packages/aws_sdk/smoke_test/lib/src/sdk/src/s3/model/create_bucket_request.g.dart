@@ -143,9 +143,7 @@ class CreateBucketRequestBuilder
   set objectOwnership(_i5.ObjectOwnership? objectOwnership) =>
       _$this._objectOwnership = objectOwnership;
 
-  CreateBucketRequestBuilder() {
-    CreateBucketRequest._init(this);
-  }
+  CreateBucketRequestBuilder();
 
   CreateBucketRequestBuilder get _$this {
     final $v = _$v;

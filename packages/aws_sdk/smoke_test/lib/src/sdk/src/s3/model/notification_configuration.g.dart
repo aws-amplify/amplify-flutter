@@ -99,9 +99,7 @@ class NotificationConfigurationBuilder
           _i5.EventBridgeConfigurationBuilder? eventBridgeConfiguration) =>
       _$this._eventBridgeConfiguration = eventBridgeConfiguration;
 
-  NotificationConfigurationBuilder() {
-    NotificationConfiguration._init(this);
-  }
+  NotificationConfigurationBuilder();
 
   NotificationConfigurationBuilder get _$this {
     final $v = _$v;

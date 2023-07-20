@@ -38,9 +38,6 @@ abstract class UploadSshPublicKeyResponse
   static const List<_i3.SmithySerializer<UploadSshPublicKeyResponse>>
       serializers = [UploadSshPublicKeyResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UploadSshPublicKeyResponseBuilder b) {}
-
   /// Contains information about the SSH public key.
   _i2.SshPublicKey? get sshPublicKey;
   @override

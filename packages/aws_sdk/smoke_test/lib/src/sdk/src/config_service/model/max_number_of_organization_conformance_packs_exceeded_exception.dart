@@ -51,10 +51,6 @@ abstract class MaxNumberOfOrganizationConformancePacksExceededException
     MaxNumberOfOrganizationConformancePacksExceededExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      MaxNumberOfOrganizationConformancePacksExceededExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

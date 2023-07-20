@@ -169,9 +169,7 @@ class ListMultipartUploadsOutputBuilder
   set requestCharged(_i6.RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
-  ListMultipartUploadsOutputBuilder() {
-    ListMultipartUploadsOutput._init(this);
-  }
+  ListMultipartUploadsOutputBuilder();
 
   ListMultipartUploadsOutputBuilder get _$this {
     final $v = _$v;
@@ -400,9 +398,7 @@ class ListMultipartUploadsOutputPayloadBuilder
   set uploads(_i7.ListBuilder<_i3.MultipartUpload>? uploads) =>
       _$this._uploads = uploads;
 
-  ListMultipartUploadsOutputPayloadBuilder() {
-    ListMultipartUploadsOutputPayload._init(this);
-  }
+  ListMultipartUploadsOutputPayloadBuilder();
 
   ListMultipartUploadsOutputPayloadBuilder get _$this {
     final $v = _$v;

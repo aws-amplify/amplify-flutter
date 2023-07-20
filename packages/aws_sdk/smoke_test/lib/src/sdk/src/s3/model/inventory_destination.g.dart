@@ -56,9 +56,7 @@ class InventoryDestinationBuilder
           _i2.InventoryS3BucketDestinationBuilder? s3BucketDestination) =>
       _$this._s3BucketDestination = s3BucketDestination;
 
-  InventoryDestinationBuilder() {
-    InventoryDestination._init(this);
-  }
+  InventoryDestinationBuilder();
 
   InventoryDestinationBuilder get _$this {
     final $v = _$v;

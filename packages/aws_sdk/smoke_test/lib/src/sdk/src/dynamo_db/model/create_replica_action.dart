@@ -30,9 +30,6 @@ abstract class CreateReplicaAction
     CreateReplicaActionAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateReplicaActionBuilder b) {}
-
   /// The Region of the replica to be added.
   String get regionName;
   @override

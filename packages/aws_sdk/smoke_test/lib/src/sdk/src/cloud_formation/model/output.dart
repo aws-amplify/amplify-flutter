@@ -38,9 +38,6 @@ abstract class Output
     OutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OutputBuilder b) {}
-
   /// The key associated with the output.
   String? get outputKey;
 

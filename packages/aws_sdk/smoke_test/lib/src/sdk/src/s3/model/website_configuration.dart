@@ -46,9 +46,6 @@ abstract class WebsiteConfiguration
     WebsiteConfigurationRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(WebsiteConfigurationBuilder b) {}
-
   /// The name of the error document for the website.
   _i2.ErrorDocument? get errorDocument;
 

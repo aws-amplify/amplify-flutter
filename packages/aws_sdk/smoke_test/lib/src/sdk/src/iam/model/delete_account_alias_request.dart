@@ -36,9 +36,6 @@ abstract class DeleteAccountAliasRequest
   static const List<_i1.SmithySerializer<DeleteAccountAliasRequest>>
       serializers = [DeleteAccountAliasRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteAccountAliasRequestBuilder b) {}
-
   /// The name of the account alias to delete.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of lowercase letters, digits, and dashes. You cannot start or finish with a dash, nor can you have two dashes in a row.

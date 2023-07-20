@@ -41,8 +41,6 @@ abstract class NotFound
     NotFoundRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NotFoundBuilder b) {}
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
         namespace: 'com.amazonaws.s3',

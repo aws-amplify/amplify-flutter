@@ -109,13 +109,13 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
   /// Factory constructors for each member.
   Iterable<Constructor> get _factoryConstructors sync* {
     for (final member in members) {
-      final memberSymbol = memberSymbols[member]!;
-      final transformedSymbol = memberSymbol.transformedSymbol;
+      final memberSymbol = memberSymbols[member]!.unboxed;
       final targetShape = context.shapeFor(member.target);
+      final transformedSymbol = member.friendlySymbol.unboxed;
       final isStructureShape =
           targetShape is StructureShape && member.target != Shape.unit;
       final requiresTransformation =
-          memberSymbol.requiresConstructorTransformation || isStructureShape;
+          (memberSymbol != transformedSymbol) || isStructureShape;
       yield Constructor((c) {
         c
           ..constant = !requiresTransformation
@@ -123,7 +123,7 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
           ..name = variantName(member);
 
         switch (targetShape) {
-          case final StructureShape struct when isStructureShape:
+          case final StructureShape struct when member.target != Shape.unit:
             final structGenerator = StructureGenerator(struct, context);
             c.optionalParameters.addAll(
               structGenerator.members.map(structGenerator.memberParameter),
@@ -191,10 +191,9 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
   /// Factory constructors for each member.
   Iterable<Class> get _variantClasses sync* {
     for (final member in members) {
-      final memberSymbol = memberSymbols[member]!;
-      final requiresTransformation =
-          memberSymbol.requiresConstructorTransformation;
-      final transformedSymbol = memberSymbol.transformedSymbol;
+      final memberSymbol = memberSymbols[member]!.unboxed;
+      final transformedSymbol = member.friendlySymbol.unboxed;
+      final requiresTransformation = memberSymbol != transformedSymbol;
       final variantName = this.variantName(member);
       final ctor = Constructor(
         (ctor) => ctor
@@ -203,7 +202,7 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
             if (requiresTransformation)
               Parameter(
                 (p) => p
-                  ..type = transformedSymbol.unboxed
+                  ..type = transformedSymbol
                   ..name = variantName,
               )
             else if (member.target != Shape.unit)
@@ -216,7 +215,7 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
           ..initializers.addAll([
             if (requiresTransformation)
               refer('this').property('_').call([
-                memberSymbol.transformToInternal(
+                member.transformFromFriendly(
                   name: variantName,
                   isNullable: false,
                 ),
@@ -259,7 +258,7 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
                   ..modifier = FieldModifier.final$
                   ..annotations.add(DartTypes.core.override)
                   ..name = variantName
-                  ..type = memberSymbols[member]!.unboxed,
+                  ..type = memberSymbol,
               ),
           ])
           ..methods.addAll([
@@ -276,7 +275,7 @@ class UnionGenerator extends LibraryGenerator<UnionShape>
               Method(
                 (m) => m
                   ..annotations.add(DartTypes.core.override)
-                  ..returns = memberSymbols[member]!.unboxed
+                  ..returns = memberSymbol
                   ..name = variantName
                   ..type = MethodType.getter
                   ..lambda = true

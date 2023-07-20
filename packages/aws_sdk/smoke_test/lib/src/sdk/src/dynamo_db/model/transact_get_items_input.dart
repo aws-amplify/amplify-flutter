@@ -47,9 +47,6 @@ abstract class TransactGetItemsInput
     TransactGetItemsInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TransactGetItemsInputBuilder b) {}
-
   /// An ordered array of up to 100 `TransactGetItem` objects, each of which contains a `Get` structure.
   _i5.BuiltList<_i3.TransactGetItem> get transactItems;
 

@@ -51,9 +51,6 @@ abstract class GetOrganizationConfigRuleDetailedStatusResponse
     GetOrganizationConfigRuleDetailedStatusResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetOrganizationConfigRuleDetailedStatusResponseBuilder b) {}
-
   /// A list of `MemberAccountStatus` objects.
   _i3.BuiltList<_i2.MemberAccountStatus>?
       get organizationConfigRuleDetailedStatus;

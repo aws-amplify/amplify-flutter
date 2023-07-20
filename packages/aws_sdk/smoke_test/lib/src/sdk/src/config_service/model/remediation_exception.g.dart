@@ -96,9 +96,7 @@ class RemediationExceptionBuilder
   set expirationTime(DateTime? expirationTime) =>
       _$this._expirationTime = expirationTime;
 
-  RemediationExceptionBuilder() {
-    RemediationException._init(this);
-  }
+  RemediationExceptionBuilder();
 
   RemediationExceptionBuilder get _$this {
     final $v = _$v;

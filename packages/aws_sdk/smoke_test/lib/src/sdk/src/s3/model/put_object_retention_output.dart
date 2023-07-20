@@ -43,9 +43,6 @@ abstract class PutObjectRetentionOutput
   static const List<_i2.SmithySerializer<PutObjectRetentionOutputPayload>>
       serializers = [PutObjectRetentionOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectRetentionOutputBuilder b) {}
-
   /// If present, indicates that the requester was successfully charged for the request.
   _i3.RequestCharged? get requestCharged;
   @override
@@ -78,8 +75,6 @@ abstract class PutObjectRetentionOutputPayload
 
   const PutObjectRetentionOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectRetentionOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

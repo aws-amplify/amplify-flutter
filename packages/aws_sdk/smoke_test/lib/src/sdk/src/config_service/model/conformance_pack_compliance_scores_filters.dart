@@ -38,9 +38,6 @@ abstract class ConformancePackComplianceScoresFilters
     ConformancePackComplianceScoresFiltersAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConformancePackComplianceScoresFiltersBuilder b) {}
-
   /// The names of the conformance packs whose compliance scores you want to include in the conformance pack compliance score result set. You can include up to 25 conformance packs in the `ConformancePackNames` array of strings, each with a character limit of 256 characters for the conformance pack name.
   _i2.BuiltList<String> get conformancePackNames;
   @override

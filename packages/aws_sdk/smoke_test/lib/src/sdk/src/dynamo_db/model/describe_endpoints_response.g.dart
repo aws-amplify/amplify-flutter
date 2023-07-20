@@ -54,9 +54,7 @@ class DescribeEndpointsResponseBuilder
   set endpoints(_i3.ListBuilder<_i2.Endpoint>? endpoints) =>
       _$this._endpoints = endpoints;
 
-  DescribeEndpointsResponseBuilder() {
-    DescribeEndpointsResponse._init(this);
-  }
+  DescribeEndpointsResponseBuilder();
 
   DescribeEndpointsResponseBuilder get _$this {
     final $v = _$v;

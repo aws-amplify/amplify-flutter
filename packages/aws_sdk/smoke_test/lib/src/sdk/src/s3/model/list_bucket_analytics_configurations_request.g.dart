@@ -78,9 +78,7 @@ class ListBucketAnalyticsConfigurationsRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  ListBucketAnalyticsConfigurationsRequestBuilder() {
-    ListBucketAnalyticsConfigurationsRequest._init(this);
-  }
+  ListBucketAnalyticsConfigurationsRequestBuilder();
 
   ListBucketAnalyticsConfigurationsRequestBuilder get _$this {
     final $v = _$v;
@@ -161,9 +159,7 @@ class ListBucketAnalyticsConfigurationsRequestPayloadBuilder
             ListBucketAnalyticsConfigurationsRequestPayloadBuilder> {
   _$ListBucketAnalyticsConfigurationsRequestPayload? _$v;
 
-  ListBucketAnalyticsConfigurationsRequestPayloadBuilder() {
-    ListBucketAnalyticsConfigurationsRequestPayload._init(this);
-  }
+  ListBucketAnalyticsConfigurationsRequestPayloadBuilder();
 
   @override
   void replace(ListBucketAnalyticsConfigurationsRequestPayload other) {

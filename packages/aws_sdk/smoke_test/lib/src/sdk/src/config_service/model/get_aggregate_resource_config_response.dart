@@ -40,9 +40,6 @@ abstract class GetAggregateResourceConfigResponse
   static const List<_i3.SmithySerializer<GetAggregateResourceConfigResponse>>
       serializers = [GetAggregateResourceConfigResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetAggregateResourceConfigResponseBuilder b) {}
-
   /// Returns a `ConfigurationItem` object.
   _i2.ConfigurationItem? get configurationItem;
   @override

@@ -54,9 +54,7 @@ class DeleteServiceLinkedRoleRequestBuilder
   String? get roleName => _$this._roleName;
   set roleName(String? roleName) => _$this._roleName = roleName;
 
-  DeleteServiceLinkedRoleRequestBuilder() {
-    DeleteServiceLinkedRoleRequest._init(this);
-  }
+  DeleteServiceLinkedRoleRequestBuilder();
 
   DeleteServiceLinkedRoleRequestBuilder get _$this {
     final $v = _$v;

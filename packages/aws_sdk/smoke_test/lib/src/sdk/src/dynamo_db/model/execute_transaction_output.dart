@@ -46,9 +46,6 @@ abstract class ExecuteTransactionOutput
   static const List<_i5.SmithySerializer<ExecuteTransactionOutput>>
       serializers = [ExecuteTransactionOutputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ExecuteTransactionOutputBuilder b) {}
-
   /// The response to a PartiQL transaction.
   _i4.BuiltList<_i2.ItemResponse>? get responses;
 

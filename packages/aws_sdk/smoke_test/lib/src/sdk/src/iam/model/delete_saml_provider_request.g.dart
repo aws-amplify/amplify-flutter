@@ -54,9 +54,7 @@ class DeleteSamlProviderRequestBuilder
   set samlProviderArn(String? samlProviderArn) =>
       _$this._samlProviderArn = samlProviderArn;
 
-  DeleteSamlProviderRequestBuilder() {
-    DeleteSamlProviderRequest._init(this);
-  }
+  DeleteSamlProviderRequestBuilder();
 
   DeleteSamlProviderRequestBuilder get _$this {
     final $v = _$v;

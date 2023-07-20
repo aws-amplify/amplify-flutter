@@ -94,9 +94,6 @@ abstract class CreateChangeSetInput
     CreateChangeSetInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateChangeSetInputBuilder b) {}
-
   /// The name or the unique ID of the stack for which you are creating a change set. CloudFormation generates the change set by comparing this stack's information with the information that you submit, such as a modified template or different parameter input values.
   String get stackName;
 

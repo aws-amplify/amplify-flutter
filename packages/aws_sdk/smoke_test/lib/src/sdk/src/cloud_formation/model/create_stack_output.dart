@@ -36,9 +36,6 @@ abstract class CreateStackOutput
     CreateStackOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateStackOutputBuilder b) {}
-
   /// Unique identifier of the stack.
   String? get stackId;
   @override

@@ -70,9 +70,6 @@ abstract class GetObjectAclRequest
   static const List<_i1.SmithySerializer<GetObjectAclRequestPayload>>
       serializers = [GetObjectAclRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectAclRequestBuilder b) {}
-
   /// The bucket name that contains the object for which to get the ACL information.
   ///
   /// When using this action with an access point, you must direct requests to the access point hostname. The access point hostname takes the form _AccessPointName_-_AccountId_.s3-accesspoint._Region_.amazonaws.com. When using this action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see [Using access points](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html) in the _Amazon S3 User Guide_.
@@ -152,8 +149,6 @@ abstract class GetObjectAclRequestPayload
 
   const GetObjectAclRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectAclRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

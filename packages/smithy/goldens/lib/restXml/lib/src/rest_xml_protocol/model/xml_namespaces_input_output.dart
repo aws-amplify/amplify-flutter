@@ -45,8 +45,6 @@ abstract class XmlNamespacesInputOutput
   static const List<_i1.SmithySerializer<XmlNamespacesInputOutput>>
       serializers = [XmlNamespacesInputOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(XmlNamespacesInputOutputBuilder b) {}
   _i3.XmlNamespaceNested? get nested;
   @override
   XmlNamespacesInputOutput getPayload() => this;

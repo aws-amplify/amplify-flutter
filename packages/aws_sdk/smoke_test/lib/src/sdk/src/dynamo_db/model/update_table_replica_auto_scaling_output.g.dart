@@ -60,9 +60,7 @@ class UpdateTableReplicaAutoScalingOutputBuilder
               tableAutoScalingDescription) =>
       _$this._tableAutoScalingDescription = tableAutoScalingDescription;
 
-  UpdateTableReplicaAutoScalingOutputBuilder() {
-    UpdateTableReplicaAutoScalingOutput._init(this);
-  }
+  UpdateTableReplicaAutoScalingOutputBuilder();
 
   UpdateTableReplicaAutoScalingOutputBuilder get _$this {
     final $v = _$v;

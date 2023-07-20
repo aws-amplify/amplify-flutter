@@ -70,9 +70,6 @@ abstract class PutBucketRequestPaymentRequest
   static const List<_i1.SmithySerializer<_i2.RequestPaymentConfiguration>>
       serializers = [PutBucketRequestPaymentRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketRequestPaymentRequestBuilder b) {}
-
   /// The bucket name.
   String get bucket;
 

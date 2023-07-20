@@ -55,9 +55,7 @@ class RegionDisabledExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  RegionDisabledExceptionBuilder() {
-    RegionDisabledException._init(this);
-  }
+  RegionDisabledExceptionBuilder();
 
   RegionDisabledExceptionBuilder get _$this {
     final $v = _$v;

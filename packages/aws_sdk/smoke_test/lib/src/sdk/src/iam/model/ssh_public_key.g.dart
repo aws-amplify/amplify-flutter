@@ -105,9 +105,7 @@ class SshPublicKeyBuilder
   DateTime? get uploadDate => _$this._uploadDate;
   set uploadDate(DateTime? uploadDate) => _$this._uploadDate = uploadDate;
 
-  SshPublicKeyBuilder() {
-    SshPublicKey._init(this);
-  }
+  SshPublicKeyBuilder();
 
   SshPublicKeyBuilder get _$this {
     final $v = _$v;

@@ -77,9 +77,7 @@ class ParameterBuilder implements Builder<Parameter, ParameterBuilder> {
   set resolvedValue(String? resolvedValue) =>
       _$this._resolvedValue = resolvedValue;
 
-  ParameterBuilder() {
-    Parameter._init(this);
-  }
+  ParameterBuilder();
 
   ParameterBuilder get _$this {
     final $v = _$v;

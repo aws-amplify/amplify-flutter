@@ -43,9 +43,7 @@ class ResponseCodeHttpFallbackInputOutputBuilder
             ResponseCodeHttpFallbackInputOutputBuilder> {
   _$ResponseCodeHttpFallbackInputOutput? _$v;
 
-  ResponseCodeHttpFallbackInputOutputBuilder() {
-    ResponseCodeHttpFallbackInputOutput._init(this);
-  }
+  ResponseCodeHttpFallbackInputOutputBuilder();
 
   @override
   void replace(ResponseCodeHttpFallbackInputOutput other) {

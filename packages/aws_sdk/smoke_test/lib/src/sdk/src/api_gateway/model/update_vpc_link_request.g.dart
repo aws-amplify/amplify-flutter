@@ -63,9 +63,7 @@ class UpdateVpcLinkRequestBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateVpcLinkRequestBuilder() {
-    UpdateVpcLinkRequest._init(this);
-  }
+  UpdateVpcLinkRequestBuilder();
 
   UpdateVpcLinkRequestBuilder get _$this {
     final $v = _$v;
@@ -162,9 +160,7 @@ class UpdateVpcLinkRequestPayloadBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateVpcLinkRequestPayloadBuilder() {
-    UpdateVpcLinkRequestPayload._init(this);
-  }
+  UpdateVpcLinkRequestPayloadBuilder();
 
   UpdateVpcLinkRequestPayloadBuilder get _$this {
     final $v = _$v;

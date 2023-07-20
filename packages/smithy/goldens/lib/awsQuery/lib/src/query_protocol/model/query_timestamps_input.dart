@@ -44,8 +44,6 @@ abstract class QueryTimestampsInput
     QueryTimestampsInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(QueryTimestampsInputBuilder b) {}
   DateTime? get normalFormat;
   DateTime? get epochMember;
   DateTime? get epochTarget;

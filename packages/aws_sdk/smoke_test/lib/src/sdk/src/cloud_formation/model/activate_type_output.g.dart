@@ -48,9 +48,7 @@ class ActivateTypeOutputBuilder
   String? get arn => _$this._arn;
   set arn(String? arn) => _$this._arn = arn;
 
-  ActivateTypeOutputBuilder() {
-    ActivateTypeOutput._init(this);
-  }
+  ActivateTypeOutputBuilder();
 
   ActivateTypeOutputBuilder get _$this {
     final $v = _$v;

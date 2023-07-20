@@ -41,8 +41,6 @@ abstract class InvalidGreeting
     InvalidGreetingAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidGreetingBuilder b) {}
   @override
   String? get message;
   @override

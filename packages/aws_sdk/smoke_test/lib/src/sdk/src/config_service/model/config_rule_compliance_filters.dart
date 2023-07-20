@@ -42,9 +42,6 @@ abstract class ConfigRuleComplianceFilters
   static const List<_i3.SmithySerializer<ConfigRuleComplianceFilters>>
       serializers = [ConfigRuleComplianceFiltersAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConfigRuleComplianceFiltersBuilder b) {}
-
   /// The name of the Config rule.
   String? get configRuleName;
 

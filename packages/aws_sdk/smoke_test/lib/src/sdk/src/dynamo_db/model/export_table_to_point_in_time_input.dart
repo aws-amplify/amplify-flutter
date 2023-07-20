@@ -32,9 +32,6 @@ abstract class ExportTableToPointInTimeInput
     String? s3SseKmsKeyId,
     _i4.ExportFormat? exportFormat,
   }) {
-    clientToken ??= const bool.hasEnvironment('SMITHY_TEST')
-        ? '00000000-0000-4000-8000-000000000000'
-        : _i2.uuid(secure: true);
     return _$ExportTableToPointInTimeInput._(
       tableArn: tableArn,
       exportTime: exportTime,

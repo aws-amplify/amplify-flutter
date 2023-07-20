@@ -54,8 +54,6 @@ abstract class ConstantAndVariableQueryStringInput
           _i1.SmithySerializer<ConstantAndVariableQueryStringInputPayload>>
       serializers = [ConstantAndVariableQueryStringInputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConstantAndVariableQueryStringInputBuilder b) {}
   String? get baz;
   String? get maybeSet;
   @override
@@ -96,8 +94,6 @@ abstract class ConstantAndVariableQueryStringInputPayload
 
   const ConstantAndVariableQueryStringInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConstantAndVariableQueryStringInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

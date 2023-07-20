@@ -40,9 +40,6 @@ abstract class CampaignEventFilter
     CampaignEventFilterRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CampaignEventFilterBuilder b) {}
-
   /// The dimension settings of the event filter for the campaign.
   _i2.EventDimensions get dimensions;
 

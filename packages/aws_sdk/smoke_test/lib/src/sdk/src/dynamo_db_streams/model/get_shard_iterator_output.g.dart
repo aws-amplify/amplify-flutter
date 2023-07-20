@@ -50,9 +50,7 @@ class GetShardIteratorOutputBuilder
   set shardIterator(String? shardIterator) =>
       _$this._shardIterator = shardIterator;
 
-  GetShardIteratorOutputBuilder() {
-    GetShardIteratorOutput._init(this);
-  }
+  GetShardIteratorOutputBuilder();
 
   GetShardIteratorOutputBuilder get _$this {
     final $v = _$v;

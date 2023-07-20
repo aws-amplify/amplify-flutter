@@ -42,8 +42,6 @@ abstract class CredentialReportNotPresentException
   static const List<_i2.SmithySerializer<CredentialReportNotPresentException>>
       serializers = [CredentialReportNotPresentExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CredentialReportNotPresentExceptionBuilder b) {}
   @override
   String? get message;
   @override

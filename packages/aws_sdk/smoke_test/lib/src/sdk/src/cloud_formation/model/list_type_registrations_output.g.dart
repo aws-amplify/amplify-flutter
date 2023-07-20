@@ -62,9 +62,7 @@ class ListTypeRegistrationsOutputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListTypeRegistrationsOutputBuilder() {
-    ListTypeRegistrationsOutput._init(this);
-  }
+  ListTypeRegistrationsOutputBuilder();
 
   ListTypeRegistrationsOutputBuilder get _$this {
     final $v = _$v;

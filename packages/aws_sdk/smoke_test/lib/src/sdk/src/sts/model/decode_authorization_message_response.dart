@@ -40,9 +40,6 @@ abstract class DecodeAuthorizationMessageResponse
   static const List<_i2.SmithySerializer<DecodeAuthorizationMessageResponse>>
       serializers = [DecodeAuthorizationMessageResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DecodeAuthorizationMessageResponseBuilder b) {}
-
   /// The API returns a response with the decoded message.
   String? get decodedMessage;
   @override

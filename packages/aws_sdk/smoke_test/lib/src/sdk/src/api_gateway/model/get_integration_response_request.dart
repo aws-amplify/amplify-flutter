@@ -66,9 +66,6 @@ abstract class GetIntegrationResponseRequest
   static const List<_i1.SmithySerializer<GetIntegrationResponseRequestPayload>>
       serializers = [GetIntegrationResponseRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetIntegrationResponseRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -145,8 +142,6 @@ abstract class GetIntegrationResponseRequestPayload
 
   const GetIntegrationResponseRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetIntegrationResponseRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

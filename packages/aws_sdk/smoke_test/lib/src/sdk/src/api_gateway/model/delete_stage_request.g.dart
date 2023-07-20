@@ -63,9 +63,7 @@ class DeleteStageRequestBuilder
   String? get stageName => _$this._stageName;
   set stageName(String? stageName) => _$this._stageName = stageName;
 
-  DeleteStageRequestBuilder() {
-    DeleteStageRequest._init(this);
-  }
+  DeleteStageRequestBuilder();
 
   DeleteStageRequestBuilder get _$this {
     final $v = _$v;
@@ -136,9 +134,7 @@ class DeleteStageRequestPayloadBuilder
         Builder<DeleteStageRequestPayload, DeleteStageRequestPayloadBuilder> {
   _$DeleteStageRequestPayload? _$v;
 
-  DeleteStageRequestPayloadBuilder() {
-    DeleteStageRequestPayload._init(this);
-  }
+  DeleteStageRequestPayloadBuilder();
 
   @override
   void replace(DeleteStageRequestPayload other) {

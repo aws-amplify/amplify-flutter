@@ -95,9 +95,7 @@ class GlobalTableDescriptionBuilder
   set globalTableName(String? globalTableName) =>
       _$this._globalTableName = globalTableName;
 
-  GlobalTableDescriptionBuilder() {
-    GlobalTableDescription._init(this);
-  }
+  GlobalTableDescriptionBuilder();
 
   GlobalTableDescriptionBuilder get _$this {
     final $v = _$v;

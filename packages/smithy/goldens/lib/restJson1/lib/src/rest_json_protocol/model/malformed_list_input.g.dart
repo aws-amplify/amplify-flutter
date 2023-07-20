@@ -50,9 +50,7 @@ class MalformedListInputBuilder
   set bodyList(_i3.ListBuilder<String>? bodyList) =>
       _$this._bodyList = bodyList;
 
-  MalformedListInputBuilder() {
-    MalformedListInput._init(this);
-  }
+  MalformedListInputBuilder();
 
   MalformedListInputBuilder get _$this {
     final $v = _$v;

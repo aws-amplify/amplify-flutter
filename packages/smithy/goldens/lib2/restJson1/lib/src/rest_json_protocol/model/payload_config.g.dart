@@ -45,9 +45,7 @@ class PayloadConfigBuilder
   int? get data => _$this._data;
   set data(int? data) => _$this._data = data;
 
-  PayloadConfigBuilder() {
-    PayloadConfig._init(this);
-  }
+  PayloadConfigBuilder();
 
   PayloadConfigBuilder get _$this {
     final $v = _$v;

@@ -60,9 +60,7 @@ class EndpointConfigurationBuilder
   set vpcEndpointIds(_i3.ListBuilder<String>? vpcEndpointIds) =>
       _$this._vpcEndpointIds = vpcEndpointIds;
 
-  EndpointConfigurationBuilder() {
-    EndpointConfiguration._init(this);
-  }
+  EndpointConfigurationBuilder();
 
   EndpointConfigurationBuilder get _$this {
     final $v = _$v;

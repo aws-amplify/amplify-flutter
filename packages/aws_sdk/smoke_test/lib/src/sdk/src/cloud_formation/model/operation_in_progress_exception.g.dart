@@ -56,9 +56,7 @@ class OperationInProgressExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  OperationInProgressExceptionBuilder() {
-    OperationInProgressException._init(this);
-  }
+  OperationInProgressExceptionBuilder();
 
   OperationInProgressExceptionBuilder get _$this {
     final $v = _$v;

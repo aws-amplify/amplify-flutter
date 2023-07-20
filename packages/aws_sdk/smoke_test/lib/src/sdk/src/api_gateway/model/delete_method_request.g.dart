@@ -76,9 +76,7 @@ class DeleteMethodRequestBuilder
   String? get httpMethod => _$this._httpMethod;
   set httpMethod(String? httpMethod) => _$this._httpMethod = httpMethod;
 
-  DeleteMethodRequestBuilder() {
-    DeleteMethodRequest._init(this);
-  }
+  DeleteMethodRequestBuilder();
 
   DeleteMethodRequestBuilder get _$this {
     final $v = _$v;
@@ -152,9 +150,7 @@ class DeleteMethodRequestPayloadBuilder
         Builder<DeleteMethodRequestPayload, DeleteMethodRequestPayloadBuilder> {
   _$DeleteMethodRequestPayload? _$v;
 
-  DeleteMethodRequestPayloadBuilder() {
-    DeleteMethodRequestPayload._init(this);
-  }
+  DeleteMethodRequestPayloadBuilder();
 
   @override
   void replace(DeleteMethodRequestPayload other) {

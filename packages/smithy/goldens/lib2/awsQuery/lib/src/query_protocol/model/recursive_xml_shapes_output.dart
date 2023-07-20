@@ -37,8 +37,6 @@ abstract class RecursiveXmlShapesOutput
   static const List<_i3.SmithySerializer<RecursiveXmlShapesOutput>>
       serializers = [RecursiveXmlShapesOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RecursiveXmlShapesOutputBuilder b) {}
   _i2.RecursiveXmlShapesOutputNested1? get nested;
   @override
   List<Object?> get props => [nested];

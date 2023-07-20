@@ -56,9 +56,7 @@ class FlattenedXmlMapWithXmlNamespaceOutputBuilder
       _$this._myMap ??= new _i2.MapBuilder<String, String>();
   set myMap(_i2.MapBuilder<String, String>? myMap) => _$this._myMap = myMap;
 
-  FlattenedXmlMapWithXmlNamespaceOutputBuilder() {
-    FlattenedXmlMapWithXmlNamespaceOutput._init(this);
-  }
+  FlattenedXmlMapWithXmlNamespaceOutputBuilder();
 
   FlattenedXmlMapWithXmlNamespaceOutputBuilder get _$this {
     final $v = _$v;

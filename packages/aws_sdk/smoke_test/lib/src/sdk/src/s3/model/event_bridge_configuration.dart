@@ -31,8 +31,6 @@ abstract class EventBridgeConfiguration
   static const List<_i2.SmithySerializer<EventBridgeConfiguration>>
       serializers = [EventBridgeConfigurationRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EventBridgeConfigurationBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

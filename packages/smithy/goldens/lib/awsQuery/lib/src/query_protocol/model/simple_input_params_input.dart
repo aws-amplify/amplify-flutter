@@ -58,8 +58,6 @@ abstract class SimpleInputParamsInput
   static const List<_i1.SmithySerializer<SimpleInputParamsInput>> serializers =
       [SimpleInputParamsInputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SimpleInputParamsInputBuilder b) {}
   String? get foo;
   String? get bar;
   bool? get baz;

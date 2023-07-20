@@ -68,9 +68,6 @@ abstract class AccountLimit
     AccountLimitAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AccountLimitBuilder b) {}
-
   /// The name of the account limit.
   ///
   /// Values: `ConcurrentResourcesLimit` | `StackLimit` | `StackOutputsLimit`

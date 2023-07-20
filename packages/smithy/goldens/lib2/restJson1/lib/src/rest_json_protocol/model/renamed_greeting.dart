@@ -26,8 +26,6 @@ abstract class RenamedGreeting
     RenamedGreetingRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RenamedGreetingBuilder b) {}
   String? get salutation;
   @override
   List<Object?> get props => [salutation];

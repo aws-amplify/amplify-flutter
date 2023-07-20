@@ -101,9 +101,7 @@ class UpdateIntegrationResponseRequestBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateIntegrationResponseRequestBuilder() {
-    UpdateIntegrationResponseRequest._init(this);
-  }
+  UpdateIntegrationResponseRequestBuilder();
 
   UpdateIntegrationResponseRequestBuilder get _$this {
     final $v = _$v;
@@ -214,9 +212,7 @@ class UpdateIntegrationResponseRequestPayloadBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateIntegrationResponseRequestPayloadBuilder() {
-    UpdateIntegrationResponseRequestPayload._init(this);
-  }
+  UpdateIntegrationResponseRequestPayloadBuilder();
 
   UpdateIntegrationResponseRequestPayloadBuilder get _$this {
     final $v = _$v;

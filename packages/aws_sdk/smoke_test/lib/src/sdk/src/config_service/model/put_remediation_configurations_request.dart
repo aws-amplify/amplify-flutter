@@ -42,9 +42,6 @@ abstract class PutRemediationConfigurationsRequest
   static const List<_i1.SmithySerializer<PutRemediationConfigurationsRequest>>
       serializers = [PutRemediationConfigurationsRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutRemediationConfigurationsRequestBuilder b) {}
-
   /// A list of remediation configuration objects.
   _i4.BuiltList<_i3.RemediationConfiguration> get remediationConfigurations;
   @override

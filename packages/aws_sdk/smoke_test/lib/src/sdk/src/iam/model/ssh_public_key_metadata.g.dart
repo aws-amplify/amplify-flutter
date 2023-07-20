@@ -88,9 +88,7 @@ class SshPublicKeyMetadataBuilder
   DateTime? get uploadDate => _$this._uploadDate;
   set uploadDate(DateTime? uploadDate) => _$this._uploadDate = uploadDate;
 
-  SshPublicKeyMetadataBuilder() {
-    SshPublicKeyMetadata._init(this);
-  }
+  SshPublicKeyMetadataBuilder();
 
   SshPublicKeyMetadataBuilder get _$this {
     final $v = _$v;

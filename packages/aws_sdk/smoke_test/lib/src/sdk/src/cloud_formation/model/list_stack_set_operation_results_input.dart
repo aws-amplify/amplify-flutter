@@ -56,9 +56,6 @@ abstract class ListStackSetOperationResultsInput
   static const List<_i1.SmithySerializer<ListStackSetOperationResultsInput>>
       serializers = [ListStackSetOperationResultsInputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListStackSetOperationResultsInputBuilder b) {}
-
   /// The name or unique ID of the stack set that you want to get operation results for.
   String get stackSetName;
 

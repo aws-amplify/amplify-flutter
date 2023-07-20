@@ -59,9 +59,6 @@ abstract class DescribeStackDriftDetectionStatusOutput
     DescribeStackDriftDetectionStatusOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeStackDriftDetectionStatusOutputBuilder b) {}
-
   /// The ID of the stack.
   String get stackId;
 

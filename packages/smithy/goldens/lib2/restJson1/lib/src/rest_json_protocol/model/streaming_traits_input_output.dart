@@ -37,7 +37,7 @@ abstract class StreamingTraitsInputOutput
   const StreamingTraitsInputOutput._();
 
   factory StreamingTraitsInputOutput.fromRequest(
-    _i2.Stream<List<int>>? payload,
+    _i2.Stream<List<int>> payload,
     _i3.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
@@ -50,7 +50,7 @@ abstract class StreamingTraitsInputOutput
 
   /// Constructs a [StreamingTraitsInputOutput] from a [payload] and [response].
   factory StreamingTraitsInputOutput.fromResponse(
-    _i2.Stream<List<int>>? payload,
+    _i2.Stream<List<int>> payload,
     _i3.AWSBaseHttpResponse response,
   ) =>
       StreamingTraitsInputOutput.build((b) {
@@ -60,8 +60,9 @@ abstract class StreamingTraitsInputOutput
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.Stream<List<int>>?>> serializers =
-      [StreamingTraitsInputOutputRestJson1Serializer()];
+  static const List<_i1.SmithySerializer<_i2.Stream<List<int>>>> serializers = [
+    StreamingTraitsInputOutputRestJson1Serializer()
+  ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(StreamingTraitsInputOutputBuilder b) {
@@ -69,9 +70,9 @@ abstract class StreamingTraitsInputOutput
   }
 
   String? get foo;
-  _i2.Stream<List<int>>? get blob;
+  _i2.Stream<List<int>> get blob;
   @override
-  _i2.Stream<List<int>>? getPayload() => blob;
+  _i2.Stream<List<int>> getPayload() => blob;
   @override
   List<Object?> get props => [
         foo,

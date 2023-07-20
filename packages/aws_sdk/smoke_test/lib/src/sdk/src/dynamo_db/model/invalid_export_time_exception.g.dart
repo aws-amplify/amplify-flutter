@@ -62,9 +62,7 @@ class InvalidExportTimeExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InvalidExportTimeExceptionBuilder() {
-    InvalidExportTimeException._init(this);
-  }
+  InvalidExportTimeExceptionBuilder();
 
   InvalidExportTimeExceptionBuilder get _$this {
     final $v = _$v;

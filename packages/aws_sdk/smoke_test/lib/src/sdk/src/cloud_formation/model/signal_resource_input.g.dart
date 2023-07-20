@@ -88,9 +88,7 @@ class SignalResourceInputBuilder
   _i3.ResourceSignalStatus? get status => _$this._status;
   set status(_i3.ResourceSignalStatus? status) => _$this._status = status;
 
-  SignalResourceInputBuilder() {
-    SignalResourceInput._init(this);
-  }
+  SignalResourceInputBuilder();
 
   SignalResourceInputBuilder get _$this {
     final $v = _$v;

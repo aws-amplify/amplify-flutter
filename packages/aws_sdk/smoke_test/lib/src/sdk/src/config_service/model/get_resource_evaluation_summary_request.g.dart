@@ -59,9 +59,7 @@ class GetResourceEvaluationSummaryRequestBuilder
   set resourceEvaluationId(String? resourceEvaluationId) =>
       _$this._resourceEvaluationId = resourceEvaluationId;
 
-  GetResourceEvaluationSummaryRequestBuilder() {
-    GetResourceEvaluationSummaryRequest._init(this);
-  }
+  GetResourceEvaluationSummaryRequestBuilder();
 
   GetResourceEvaluationSummaryRequestBuilder get _$this {
     final $v = _$v;

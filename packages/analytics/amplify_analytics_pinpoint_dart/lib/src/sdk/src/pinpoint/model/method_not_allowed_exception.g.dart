@@ -65,9 +65,7 @@ class MethodNotAllowedExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  MethodNotAllowedExceptionBuilder() {
-    MethodNotAllowedException._init(this);
-  }
+  MethodNotAllowedExceptionBuilder();
 
   MethodNotAllowedExceptionBuilder get _$this {
     final $v = _$v;

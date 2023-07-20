@@ -34,8 +34,6 @@ abstract class StructArg
     StructArgAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StructArgBuilder b) {}
   String? get stringArg;
   bool? get otherArg;
   StructArg? get recursiveArg;

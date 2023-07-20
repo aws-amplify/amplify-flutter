@@ -116,9 +116,7 @@ class ImportSummaryBuilder
   DateTime? get endTime => _$this._endTime;
   set endTime(DateTime? endTime) => _$this._endTime = endTime;
 
-  ImportSummaryBuilder() {
-    ImportSummary._init(this);
-  }
+  ImportSummaryBuilder();
 
   ImportSummaryBuilder get _$this {
     final $v = _$v;

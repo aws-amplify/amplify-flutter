@@ -58,9 +58,7 @@ class MalformedRequestBodyInputBuilder
   double? get float => _$this._float;
   set float(double? float) => _$this._float = float;
 
-  MalformedRequestBodyInputBuilder() {
-    MalformedRequestBodyInput._init(this);
-  }
+  MalformedRequestBodyInputBuilder();
 
   MalformedRequestBodyInputBuilder get _$this {
     final $v = _$v;

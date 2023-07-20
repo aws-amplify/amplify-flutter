@@ -52,9 +52,6 @@ abstract class OrganizationConformancePack
   static const List<_i4.SmithySerializer<OrganizationConformancePack>>
       serializers = [OrganizationConformancePackAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OrganizationConformancePackBuilder b) {}
-
   /// The name you assign to an organization conformance pack.
   String get organizationConformancePackName;
 

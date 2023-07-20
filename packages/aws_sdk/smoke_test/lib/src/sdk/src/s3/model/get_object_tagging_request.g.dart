@@ -95,9 +95,7 @@ class GetObjectTaggingRequestBuilder
   set requestPayer(_i3.RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
-  GetObjectTaggingRequestBuilder() {
-    GetObjectTaggingRequest._init(this);
-  }
+  GetObjectTaggingRequestBuilder();
 
   GetObjectTaggingRequestBuilder get _$this {
     final $v = _$v;
@@ -175,9 +173,7 @@ class GetObjectTaggingRequestPayloadBuilder
             GetObjectTaggingRequestPayloadBuilder> {
   _$GetObjectTaggingRequestPayload? _$v;
 
-  GetObjectTaggingRequestPayloadBuilder() {
-    GetObjectTaggingRequestPayload._init(this);
-  }
+  GetObjectTaggingRequestPayloadBuilder();
 
   @override
   void replace(GetObjectTaggingRequestPayload other) {

@@ -54,9 +54,6 @@ abstract class IntegrationResponse
     IntegrationResponseRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(IntegrationResponseBuilder b) {}
-
   /// Specifies the status code that is used to map the integration response to an existing MethodResponse.
   String? get statusCode;
 

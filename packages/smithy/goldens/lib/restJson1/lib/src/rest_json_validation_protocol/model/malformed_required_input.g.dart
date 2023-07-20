@@ -78,9 +78,7 @@ class MalformedRequiredInputBuilder
   set stringInHeader(String? stringInHeader) =>
       _$this._stringInHeader = stringInHeader;
 
-  MalformedRequiredInputBuilder() {
-    MalformedRequiredInput._init(this);
-  }
+  MalformedRequiredInputBuilder();
 
   MalformedRequiredInputBuilder get _$this {
     final $v = _$v;
@@ -168,9 +166,7 @@ class MalformedRequiredInputPayloadBuilder
   String? get string => _$this._string;
   set string(String? string) => _$this._string = string;
 
-  MalformedRequiredInputPayloadBuilder() {
-    MalformedRequiredInputPayload._init(this);
-  }
+  MalformedRequiredInputPayloadBuilder();
 
   MalformedRequiredInputPayloadBuilder get _$this {
     final $v = _$v;

@@ -42,9 +42,6 @@ abstract class DeleteMarkerEntry
     DeleteMarkerEntryRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteMarkerEntryBuilder b) {}
-
   /// The account that created the delete marker.>
   _i2.Owner? get owner;
 

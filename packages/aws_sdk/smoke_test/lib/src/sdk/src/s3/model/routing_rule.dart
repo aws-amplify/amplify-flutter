@@ -37,9 +37,6 @@ abstract class RoutingRule
     RoutingRuleRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RoutingRuleBuilder b) {}
-
   /// A container for describing a condition that must be met for the specified redirect to apply. For example, 1. If request is for pages in the `/docs` folder, redirect to the `/documents` folder. 2. If request results in HTTP error 4xx, redirect request to another host where you might process the error.
   _i2.Condition? get condition;
 

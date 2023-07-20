@@ -51,9 +51,7 @@ class UpdateSamlProviderResponseBuilder
   set samlProviderArn(String? samlProviderArn) =>
       _$this._samlProviderArn = samlProviderArn;
 
-  UpdateSamlProviderResponseBuilder() {
-    UpdateSamlProviderResponse._init(this);
-  }
+  UpdateSamlProviderResponseBuilder();
 
   UpdateSamlProviderResponseBuilder get _$this {
     final $v = _$v;

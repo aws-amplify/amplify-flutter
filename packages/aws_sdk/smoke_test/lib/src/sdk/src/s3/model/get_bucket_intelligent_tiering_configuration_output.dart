@@ -53,9 +53,6 @@ abstract class GetBucketIntelligentTieringConfigurationOutput
     GetBucketIntelligentTieringConfigurationOutputRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketIntelligentTieringConfigurationOutputBuilder b) {}
-
   /// Container for S3 Intelligent-Tiering configuration.
   _i3.IntelligentTieringConfiguration? get intelligentTieringConfiguration;
   @override

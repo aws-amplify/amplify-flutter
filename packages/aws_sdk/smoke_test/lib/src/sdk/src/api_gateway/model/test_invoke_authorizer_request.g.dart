@@ -132,9 +132,7 @@ class TestInvokeAuthorizerRequestBuilder
   set additionalContext(_i3.MapBuilder<String, String>? additionalContext) =>
       _$this._additionalContext = additionalContext;
 
-  TestInvokeAuthorizerRequestBuilder() {
-    TestInvokeAuthorizerRequest._init(this);
-  }
+  TestInvokeAuthorizerRequestBuilder();
 
   TestInvokeAuthorizerRequestBuilder get _$this {
     final $v = _$v;
@@ -310,9 +308,7 @@ class TestInvokeAuthorizerRequestPayloadBuilder
   set stageVariables(_i3.MapBuilder<String, String>? stageVariables) =>
       _$this._stageVariables = stageVariables;
 
-  TestInvokeAuthorizerRequestPayloadBuilder() {
-    TestInvokeAuthorizerRequestPayload._init(this);
-  }
+  TestInvokeAuthorizerRequestPayloadBuilder();
 
   TestInvokeAuthorizerRequestPayloadBuilder get _$this {
     final $v = _$v;

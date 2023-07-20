@@ -60,9 +60,6 @@ abstract class GetGatewayResponsesRequest
   static const List<_i1.SmithySerializer<GetGatewayResponsesRequestPayload>>
       serializers = [GetGatewayResponsesRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetGatewayResponsesRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -125,8 +122,6 @@ abstract class GetGatewayResponsesRequestPayload
 
   const GetGatewayResponsesRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetGatewayResponsesRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

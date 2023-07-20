@@ -60,9 +60,7 @@ class ListStackInstancesOutputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListStackInstancesOutputBuilder() {
-    ListStackInstancesOutput._init(this);
-  }
+  ListStackInstancesOutputBuilder();
 
   ListStackInstancesOutputBuilder get _$this {
     final $v = _$v;

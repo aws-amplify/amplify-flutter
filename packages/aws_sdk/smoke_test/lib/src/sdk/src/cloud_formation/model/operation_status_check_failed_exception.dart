@@ -42,8 +42,6 @@ abstract class OperationStatusCheckFailedException
   static const List<_i2.SmithySerializer<OperationStatusCheckFailedException>>
       serializers = [OperationStatusCheckFailedExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OperationStatusCheckFailedExceptionBuilder b) {}
   @override
   String? get message;
   @override

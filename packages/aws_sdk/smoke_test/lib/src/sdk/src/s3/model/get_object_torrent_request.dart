@@ -65,9 +65,6 @@ abstract class GetObjectTorrentRequest
   static const List<_i1.SmithySerializer<GetObjectTorrentRequestPayload>>
       serializers = [GetObjectTorrentRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectTorrentRequestBuilder b) {}
-
   /// The name of the bucket containing the object for which to get the torrent files.
   String get bucket;
 
@@ -140,8 +137,6 @@ abstract class GetObjectTorrentRequestPayload
 
   const GetObjectTorrentRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectTorrentRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

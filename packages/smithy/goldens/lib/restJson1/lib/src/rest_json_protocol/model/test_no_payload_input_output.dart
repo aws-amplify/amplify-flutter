@@ -54,8 +54,6 @@ abstract class TestNoPayloadInputOutput
   static const List<_i1.SmithySerializer<TestNoPayloadInputOutputPayload>>
       serializers = [TestNoPayloadInputOutputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TestNoPayloadInputOutputBuilder b) {}
   String? get testId;
   @override
   TestNoPayloadInputOutputPayload getPayload() =>
@@ -87,8 +85,6 @@ abstract class TestNoPayloadInputOutputPayload
 
   const TestNoPayloadInputOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TestNoPayloadInputOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

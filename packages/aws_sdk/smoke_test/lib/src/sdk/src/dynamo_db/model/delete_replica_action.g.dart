@@ -51,9 +51,7 @@ class DeleteReplicaActionBuilder
   String? get regionName => _$this._regionName;
   set regionName(String? regionName) => _$this._regionName = regionName;
 
-  DeleteReplicaActionBuilder() {
-    DeleteReplicaAction._init(this);
-  }
+  DeleteReplicaActionBuilder();
 
   DeleteReplicaActionBuilder get _$this {
     final $v = _$v;

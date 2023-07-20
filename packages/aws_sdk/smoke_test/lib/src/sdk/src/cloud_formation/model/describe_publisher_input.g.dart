@@ -48,9 +48,7 @@ class DescribePublisherInputBuilder
   String? get publisherId => _$this._publisherId;
   set publisherId(String? publisherId) => _$this._publisherId = publisherId;
 
-  DescribePublisherInputBuilder() {
-    DescribePublisherInput._init(this);
-  }
+  DescribePublisherInputBuilder();
 
   DescribePublisherInputBuilder get _$this {
     final $v = _$v;

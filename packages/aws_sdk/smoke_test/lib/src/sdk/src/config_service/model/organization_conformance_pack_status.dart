@@ -46,9 +46,6 @@ abstract class OrganizationConformancePackStatus
   static const List<_i3.SmithySerializer<OrganizationConformancePackStatus>>
       serializers = [OrganizationConformancePackStatusAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OrganizationConformancePackStatusBuilder b) {}
-
   /// The name that you assign to organization conformance pack.
   String get organizationConformancePackName;
 

@@ -54,9 +54,7 @@ class CreateAccessKeyResponseBuilder
   set accessKey(_i2.AccessKeyBuilder? accessKey) =>
       _$this._accessKey = accessKey;
 
-  CreateAccessKeyResponseBuilder() {
-    CreateAccessKeyResponse._init(this);
-  }
+  CreateAccessKeyResponseBuilder();
 
   CreateAccessKeyResponseBuilder get _$this {
     final $v = _$v;

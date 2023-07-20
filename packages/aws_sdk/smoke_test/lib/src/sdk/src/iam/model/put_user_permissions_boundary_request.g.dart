@@ -69,9 +69,7 @@ class PutUserPermissionsBoundaryRequestBuilder
   set permissionsBoundary(String? permissionsBoundary) =>
       _$this._permissionsBoundary = permissionsBoundary;
 
-  PutUserPermissionsBoundaryRequestBuilder() {
-    PutUserPermissionsBoundaryRequest._init(this);
-  }
+  PutUserPermissionsBoundaryRequestBuilder();
 
   PutUserPermissionsBoundaryRequestBuilder get _$this {
     final $v = _$v;

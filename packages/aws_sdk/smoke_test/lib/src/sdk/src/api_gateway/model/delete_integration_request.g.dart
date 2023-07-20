@@ -77,9 +77,7 @@ class DeleteIntegrationRequestBuilder
   String? get httpMethod => _$this._httpMethod;
   set httpMethod(String? httpMethod) => _$this._httpMethod = httpMethod;
 
-  DeleteIntegrationRequestBuilder() {
-    DeleteIntegrationRequest._init(this);
-  }
+  DeleteIntegrationRequestBuilder();
 
   DeleteIntegrationRequestBuilder get _$this {
     final $v = _$v;
@@ -155,9 +153,7 @@ class DeleteIntegrationRequestPayloadBuilder
             DeleteIntegrationRequestPayloadBuilder> {
   _$DeleteIntegrationRequestPayload? _$v;
 
-  DeleteIntegrationRequestPayloadBuilder() {
-    DeleteIntegrationRequestPayload._init(this);
-  }
+  DeleteIntegrationRequestPayloadBuilder();
 
   @override
   void replace(DeleteIntegrationRequestPayload other) {

@@ -55,9 +55,6 @@ abstract class GetDocumentationPartRequest
   static const List<_i1.SmithySerializer<GetDocumentationPartRequestPayload>>
       serializers = [GetDocumentationPartRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetDocumentationPartRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -114,8 +111,6 @@ abstract class GetDocumentationPartRequestPayload
 
   const GetDocumentationPartRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetDocumentationPartRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

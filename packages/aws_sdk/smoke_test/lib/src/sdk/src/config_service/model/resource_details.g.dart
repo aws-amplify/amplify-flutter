@@ -89,9 +89,7 @@ class ResourceDetailsBuilder
               resourceConfigurationSchemaType) =>
       _$this._resourceConfigurationSchemaType = resourceConfigurationSchemaType;
 
-  ResourceDetailsBuilder() {
-    ResourceDetails._init(this);
-  }
+  ResourceDetailsBuilder();
 
   ResourceDetailsBuilder get _$this {
     final $v = _$v;

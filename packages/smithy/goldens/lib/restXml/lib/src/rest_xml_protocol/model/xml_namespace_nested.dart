@@ -34,8 +34,6 @@ abstract class XmlNamespaceNested
     XmlNamespaceNestedRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(XmlNamespaceNestedBuilder b) {}
   String? get foo;
   _i2.BuiltList<String>? get values;
   @override

@@ -91,9 +91,7 @@ class BatchDescribeTypeConfigurationsOutputBuilder
           _i5.ListBuilder<_i4.TypeConfigurationDetails>? typeConfigurations) =>
       _$this._typeConfigurations = typeConfigurations;
 
-  BatchDescribeTypeConfigurationsOutputBuilder() {
-    BatchDescribeTypeConfigurationsOutput._init(this);
-  }
+  BatchDescribeTypeConfigurationsOutputBuilder();
 
   BatchDescribeTypeConfigurationsOutputBuilder get _$this {
     final $v = _$v;

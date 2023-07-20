@@ -22,20 +22,14 @@ abstract class HttpRequestWithLabelsInput
         _i1.HasPayload<HttpRequestWithLabelsInputPayload> {
   factory HttpRequestWithLabelsInput({
     required String string,
-    int? short,
-    int? integer,
-    _i3.Int64? long,
-    double? float,
-    double? double_,
-    bool? boolean,
+    required int short,
+    required int integer,
+    required _i3.Int64 long,
+    required double float,
+    required double double_,
+    required bool boolean,
     required DateTime timestamp,
   }) {
-    short ??= 0;
-    integer ??= 0;
-    long ??= _i3.Int64.ZERO;
-    float ??= 0;
-    double_ ??= 0;
-    boolean ??= false;
     return _$HttpRequestWithLabelsInput._(
       string: string,
       short: short,
@@ -91,17 +85,6 @@ abstract class HttpRequestWithLabelsInput
 
   static const List<_i1.SmithySerializer<HttpRequestWithLabelsInputPayload>>
       serializers = [HttpRequestWithLabelsInputRestXmlSerializer()];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpRequestWithLabelsInputBuilder b) {
-    b
-      ..short = 0
-      ..integer = 0
-      ..long = _i3.Int64.ZERO
-      ..float = 0
-      ..double_ = 0
-      ..boolean = false;
-  }
 
   String get string;
   int get short;
@@ -210,8 +193,6 @@ abstract class HttpRequestWithLabelsInputPayload
 
   const HttpRequestWithLabelsInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpRequestWithLabelsInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -98,9 +98,7 @@ class AutoScalingTargetTrackingScalingPolicyConfigurationDescriptionBuilder
   double? get targetValue => _$this._targetValue;
   set targetValue(double? targetValue) => _$this._targetValue = targetValue;
 
-  AutoScalingTargetTrackingScalingPolicyConfigurationDescriptionBuilder() {
-    AutoScalingTargetTrackingScalingPolicyConfigurationDescription._init(this);
-  }
+  AutoScalingTargetTrackingScalingPolicyConfigurationDescriptionBuilder();
 
   AutoScalingTargetTrackingScalingPolicyConfigurationDescriptionBuilder
       get _$this {

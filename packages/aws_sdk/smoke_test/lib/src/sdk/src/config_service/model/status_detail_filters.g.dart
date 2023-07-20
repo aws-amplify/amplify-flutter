@@ -61,9 +61,7 @@ class StatusDetailFiltersBuilder
           _i2.MemberAccountRuleStatus? memberAccountRuleStatus) =>
       _$this._memberAccountRuleStatus = memberAccountRuleStatus;
 
-  StatusDetailFiltersBuilder() {
-    StatusDetailFilters._init(this);
-  }
+  StatusDetailFiltersBuilder();
 
   StatusDetailFiltersBuilder get _$this {
     final $v = _$v;

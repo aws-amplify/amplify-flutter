@@ -82,9 +82,7 @@ class DescribePublisherOutputBuilder
   set publisherProfile(String? publisherProfile) =>
       _$this._publisherProfile = publisherProfile;
 
-  DescribePublisherOutputBuilder() {
-    DescribePublisherOutput._init(this);
-  }
+  DescribePublisherOutputBuilder();
 
   DescribePublisherOutputBuilder get _$this {
     final $v = _$v;

@@ -50,9 +50,6 @@ abstract class DescribeOrganizationConfigRuleStatusesResponse
     DescribeOrganizationConfigRuleStatusesResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeOrganizationConfigRuleStatusesResponseBuilder b) {}
-
   /// A list of `OrganizationConfigRuleStatus` objects.
   _i3.BuiltList<_i2.OrganizationConfigRuleStatus>?
       get organizationConfigRuleStatuses;

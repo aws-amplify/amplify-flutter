@@ -40,9 +40,6 @@ abstract class GetBucketLifecycleConfigurationOutput
   static const List<_i4.SmithySerializer<GetBucketLifecycleConfigurationOutput>>
       serializers = [GetBucketLifecycleConfigurationOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketLifecycleConfigurationOutputBuilder b) {}
-
   /// Container for a lifecycle rule.
   _i3.BuiltList<_i2.LifecycleRule>? get rules;
   @override

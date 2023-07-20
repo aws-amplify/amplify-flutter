@@ -85,9 +85,7 @@ class AdminListUserAuthEventsRequestBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  AdminListUserAuthEventsRequestBuilder() {
-    AdminListUserAuthEventsRequest._init(this);
-  }
+  AdminListUserAuthEventsRequestBuilder();
 
   AdminListUserAuthEventsRequestBuilder get _$this {
     final $v = _$v;

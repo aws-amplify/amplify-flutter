@@ -33,9 +33,6 @@ abstract class GetPolicyRequest
     GetPolicyRequestAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetPolicyRequestBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the managed policy that you want information about.
   ///
   /// For more information about ARNs, see [Amazon Resource Names (ARNs)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) in the _Amazon Web Services General Reference_.

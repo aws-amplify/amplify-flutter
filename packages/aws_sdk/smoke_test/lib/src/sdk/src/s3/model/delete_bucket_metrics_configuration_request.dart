@@ -62,9 +62,6 @@ abstract class DeleteBucketMetricsConfigurationRequest
     DeleteBucketMetricsConfigurationRequestRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBucketMetricsConfigurationRequestBuilder b) {}
-
   /// The name of the bucket containing the metrics configuration to delete.
   String get bucket;
 
@@ -128,8 +125,6 @@ abstract class DeleteBucketMetricsConfigurationRequestPayload
 
   const DeleteBucketMetricsConfigurationRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBucketMetricsConfigurationRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

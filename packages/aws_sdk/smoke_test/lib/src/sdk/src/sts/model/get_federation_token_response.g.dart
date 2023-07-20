@@ -73,9 +73,7 @@ class GetFederationTokenResponseBuilder
   set packedPolicySize(int? packedPolicySize) =>
       _$this._packedPolicySize = packedPolicySize;
 
-  GetFederationTokenResponseBuilder() {
-    GetFederationTokenResponse._init(this);
-  }
+  GetFederationTokenResponseBuilder();
 
   GetFederationTokenResponseBuilder get _$this {
     final $v = _$v;

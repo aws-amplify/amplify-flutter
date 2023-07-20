@@ -50,9 +50,7 @@ class DetectStackSetDriftOutputBuilder
   String? get operationId => _$this._operationId;
   set operationId(String? operationId) => _$this._operationId = operationId;
 
-  DetectStackSetDriftOutputBuilder() {
-    DetectStackSetDriftOutput._init(this);
-  }
+  DetectStackSetDriftOutputBuilder();
 
   DetectStackSetDriftOutputBuilder get _$this {
     final $v = _$v;

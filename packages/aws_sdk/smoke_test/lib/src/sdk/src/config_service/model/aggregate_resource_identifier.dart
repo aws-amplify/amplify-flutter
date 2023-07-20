@@ -44,9 +44,6 @@ abstract class AggregateResourceIdentifier
   static const List<_i3.SmithySerializer<AggregateResourceIdentifier>>
       serializers = [AggregateResourceIdentifierAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AggregateResourceIdentifierBuilder b) {}
-
   /// The 12-digit account ID of the source account.
   String get sourceAccountId;
 

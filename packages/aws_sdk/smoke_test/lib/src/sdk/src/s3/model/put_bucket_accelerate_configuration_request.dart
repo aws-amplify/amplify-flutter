@@ -68,9 +68,6 @@ abstract class PutBucketAccelerateConfigurationRequest
     PutBucketAccelerateConfigurationRequestRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketAccelerateConfigurationRequestBuilder b) {}
-
   /// The name of the bucket for which the accelerate configuration is set.
   String get bucket;
 

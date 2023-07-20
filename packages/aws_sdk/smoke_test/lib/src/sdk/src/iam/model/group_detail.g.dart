@@ -107,9 +107,7 @@ class GroupDetailBuilder implements Builder<GroupDetail, GroupDetailBuilder> {
           _i4.ListBuilder<_i3.AttachedPolicy>? attachedManagedPolicies) =>
       _$this._attachedManagedPolicies = attachedManagedPolicies;
 
-  GroupDetailBuilder() {
-    GroupDetail._init(this);
-  }
+  GroupDetailBuilder();
 
   GroupDetailBuilder get _$this {
     final $v = _$v;

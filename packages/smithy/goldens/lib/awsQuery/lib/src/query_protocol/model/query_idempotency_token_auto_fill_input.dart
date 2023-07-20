@@ -18,9 +18,6 @@ abstract class QueryIdempotencyTokenAutoFillInput
         Built<QueryIdempotencyTokenAutoFillInput,
             QueryIdempotencyTokenAutoFillInputBuilder> {
   factory QueryIdempotencyTokenAutoFillInput({String? token}) {
-    token ??= const bool.hasEnvironment('SMITHY_TEST')
-        ? '00000000-0000-4000-8000-000000000000'
-        : _i2.uuid(secure: true);
     return _$QueryIdempotencyTokenAutoFillInput._(token: token);
   }
 

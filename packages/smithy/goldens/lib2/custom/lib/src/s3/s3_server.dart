@@ -170,7 +170,7 @@ class _S3Server extends _i1.HttpServer<S3ServerBase> {
         specifiedType: const FullType(
           _i7.GetObjectOutput,
           [
-            FullType.nullable(
+            FullType(
               _i4.Stream,
               [
                 FullType(

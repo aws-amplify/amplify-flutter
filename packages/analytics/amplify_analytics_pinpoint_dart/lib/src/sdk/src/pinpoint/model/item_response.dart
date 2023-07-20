@@ -41,9 +41,6 @@ abstract class ItemResponse
     ItemResponseRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ItemResponseBuilder b) {}
-
   /// The response that was received after the endpoint data was accepted.
   _i2.EndpointItemResponse? get endpointItemResponse;
 

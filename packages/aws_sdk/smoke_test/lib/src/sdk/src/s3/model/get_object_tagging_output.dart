@@ -49,9 +49,6 @@ abstract class GetObjectTaggingOutput
   static const List<_i2.SmithySerializer<GetObjectTaggingOutputPayload>>
       serializers = [GetObjectTaggingOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectTaggingOutputBuilder b) {}
-
   /// The versionId of the object for which you got the tagging information.
   String? get versionId;
 
@@ -94,9 +91,6 @@ abstract class GetObjectTaggingOutputPayload
       _$GetObjectTaggingOutputPayload;
 
   const GetObjectTaggingOutputPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectTaggingOutputPayloadBuilder b) {}
 
   /// Contains the tag set.
   _i4.BuiltList<_i3.Tag> get tagSet;

@@ -47,9 +47,7 @@ class ItemResponseBuilder
   set item(_i3.MapBuilder<String, _i2.AttributeValue>? item) =>
       _$this._item = item;
 
-  ItemResponseBuilder() {
-    ItemResponse._init(this);
-  }
+  ItemResponseBuilder();
 
   ItemResponseBuilder get _$this {
     final $v = _$v;

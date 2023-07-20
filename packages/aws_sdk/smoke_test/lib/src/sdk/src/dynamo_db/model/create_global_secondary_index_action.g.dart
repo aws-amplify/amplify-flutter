@@ -95,9 +95,7 @@ class CreateGlobalSecondaryIndexActionBuilder
           _i4.ProvisionedThroughputBuilder? provisionedThroughput) =>
       _$this._provisionedThroughput = provisionedThroughput;
 
-  CreateGlobalSecondaryIndexActionBuilder() {
-    CreateGlobalSecondaryIndexAction._init(this);
-  }
+  CreateGlobalSecondaryIndexActionBuilder();
 
   CreateGlobalSecondaryIndexActionBuilder get _$this {
     final $v = _$v;

@@ -114,9 +114,6 @@ abstract class SelectObjectContentRequest
   static const List<_i1.SmithySerializer<SelectObjectContentRequestPayload>>
       serializers = [SelectObjectContentRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SelectObjectContentRequestBuilder b) {}
-
   /// The S3 bucket.
   String get bucket;
 
@@ -270,9 +267,6 @@ abstract class SelectObjectContentRequestPayload
       _$SelectObjectContentRequestPayload;
 
   const SelectObjectContentRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SelectObjectContentRequestPayloadBuilder b) {}
 
   /// The expression that is used to query the object.
   String get expression;

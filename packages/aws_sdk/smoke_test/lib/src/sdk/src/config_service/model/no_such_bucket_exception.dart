@@ -42,9 +42,6 @@ abstract class NoSuchBucketException
     NoSuchBucketExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NoSuchBucketExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

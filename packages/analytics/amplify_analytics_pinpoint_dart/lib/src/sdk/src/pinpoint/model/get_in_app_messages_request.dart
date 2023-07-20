@@ -52,9 +52,6 @@ abstract class GetInAppMessagesRequest
   static const List<_i1.SmithySerializer<GetInAppMessagesRequestPayload>>
       serializers = [GetInAppMessagesRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetInAppMessagesRequestBuilder b) {}
-
   /// The unique identifier for the application. This identifier is displayed as the **Project ID** on the Amazon Pinpoint console.
   String get applicationId;
 
@@ -111,8 +108,6 @@ abstract class GetInAppMessagesRequestPayload
 
   const GetInAppMessagesRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetInAppMessagesRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

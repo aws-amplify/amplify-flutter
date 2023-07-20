@@ -48,8 +48,6 @@ abstract class MalformedStringInput
   static const List<_i1.SmithySerializer<MalformedStringInputPayload>>
       serializers = [MalformedStringInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedStringInputBuilder b) {}
   _i3.JsonObject? get blob;
   @override
   MalformedStringInputPayload getPayload() => MalformedStringInputPayload();
@@ -78,8 +76,6 @@ abstract class MalformedStringInputPayload
 
   const MalformedStringInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedStringInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

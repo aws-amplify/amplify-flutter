@@ -39,9 +39,6 @@ abstract class Encryption
     EncryptionRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EncryptionBuilder b) {}
-
   /// The server-side encryption algorithm used when storing job results in Amazon S3 (for example, AES256, `aws:kms`).
   _i2.ServerSideEncryption get encryptionType;
 

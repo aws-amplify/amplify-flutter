@@ -41,9 +41,6 @@ abstract class UntagPolicyRequest
     UntagPolicyRequestAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UntagPolicyRequestBuilder b) {}
-
   /// The ARN of the IAM customer managed policy from which you want to remove tags.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

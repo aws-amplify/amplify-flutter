@@ -50,9 +50,6 @@ abstract class DescribeConfigRuleEvaluationStatusResponse
     DescribeConfigRuleEvaluationStatusResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeConfigRuleEvaluationStatusResponseBuilder b) {}
-
   /// Status information about your Config managed rules.
   _i3.BuiltList<_i2.ConfigRuleEvaluationStatus>?
       get configRulesEvaluationStatus;

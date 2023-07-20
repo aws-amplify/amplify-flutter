@@ -48,8 +48,6 @@ abstract class MalformedContentTypeWithoutBodyEmptyInputInput
     MalformedContentTypeWithoutBodyEmptyInputInputRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedContentTypeWithoutBodyEmptyInputInputBuilder b) {}
   String? get header;
   @override
   MalformedContentTypeWithoutBodyEmptyInputInputPayload getPayload() =>
@@ -83,9 +81,6 @@ abstract class MalformedContentTypeWithoutBodyEmptyInputInputPayload
 
   const MalformedContentTypeWithoutBodyEmptyInputInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -61,9 +61,7 @@ class MetricDimensionBuilder
   double? get value => _$this._value;
   set value(double? value) => _$this._value = value;
 
-  MetricDimensionBuilder() {
-    MetricDimension._init(this);
-  }
+  MetricDimensionBuilder();
 
   MetricDimensionBuilder get _$this {
     final $v = _$v;

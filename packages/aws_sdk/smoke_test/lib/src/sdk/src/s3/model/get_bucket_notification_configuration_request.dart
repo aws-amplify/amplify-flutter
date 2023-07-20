@@ -57,9 +57,6 @@ abstract class GetBucketNotificationConfigurationRequest
     GetBucketNotificationConfigurationRequestRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketNotificationConfigurationRequestBuilder b) {}
-
   /// The name of the bucket for which to get the notification configuration.
   ///
   /// To use this API operation against an access point, provide the alias of the access point in place of the bucket name.
@@ -119,9 +116,6 @@ abstract class GetBucketNotificationConfigurationRequestPayload
 
   const GetBucketNotificationConfigurationRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      GetBucketNotificationConfigurationRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -37,9 +37,6 @@ abstract class CreateGlobalTableOutput
   static const List<_i3.SmithySerializer<CreateGlobalTableOutput>> serializers =
       [CreateGlobalTableOutputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateGlobalTableOutputBuilder b) {}
-
   /// Contains the details of the global table.
   _i2.GlobalTableDescription? get globalTableDescription;
   @override

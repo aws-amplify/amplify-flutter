@@ -95,9 +95,6 @@ abstract class DescribeChangeSetOutput
   static const List<_i11.SmithySerializer<DescribeChangeSetOutput>>
       serializers = [DescribeChangeSetOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeChangeSetOutputBuilder b) {}
-
   /// The name of the change set.
   String? get changeSetName;
 

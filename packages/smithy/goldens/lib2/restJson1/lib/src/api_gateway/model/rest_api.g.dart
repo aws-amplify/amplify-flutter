@@ -166,9 +166,7 @@ class RestApiBuilder implements Builder<RestApi, RestApiBuilder> {
   set disableExecuteApiEndpoint(bool? disableExecuteApiEndpoint) =>
       _$this._disableExecuteApiEndpoint = disableExecuteApiEndpoint;
 
-  RestApiBuilder() {
-    RestApi._init(this);
-  }
+  RestApiBuilder();
 
   RestApiBuilder get _$this {
     final $v = _$v;

@@ -39,9 +39,6 @@ abstract class DeletedObject
     DeletedObjectRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeletedObjectBuilder b) {}
-
   /// The name of the deleted object.
   String? get key;
 

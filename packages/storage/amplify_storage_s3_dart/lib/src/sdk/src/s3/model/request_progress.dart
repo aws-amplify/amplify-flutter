@@ -29,9 +29,6 @@ abstract class RequestProgress
     RequestProgressRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RequestProgressBuilder b) {}
-
   /// Specifies whether periodic QueryProgress frames should be sent. Valid values: TRUE, FALSE. Default value: FALSE.
   bool? get enabled;
   @override

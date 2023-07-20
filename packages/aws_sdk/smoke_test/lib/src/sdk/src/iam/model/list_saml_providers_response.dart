@@ -43,9 +43,6 @@ abstract class ListSamlProvidersResponse
   static const List<_i4.SmithySerializer<ListSamlProvidersResponse>>
       serializers = [ListSamlProvidersResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListSamlProvidersResponseBuilder b) {}
-
   /// The list of SAML provider resource objects defined in IAM for this Amazon Web Services account.
   _i3.BuiltList<_i2.SamlProviderListEntry>? get samlProviderList;
   @override

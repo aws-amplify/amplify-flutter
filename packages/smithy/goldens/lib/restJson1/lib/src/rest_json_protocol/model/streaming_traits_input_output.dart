@@ -62,8 +62,6 @@ abstract class StreamingTraitsInputOutput
   static const List<_i1.SmithySerializer<_i2.Stream<List<int>>?>> serializers =
       [StreamingTraitsInputOutputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StreamingTraitsInputOutputBuilder b) {}
   String? get foo;
   _i2.Stream<List<int>>? get blob;
   @override

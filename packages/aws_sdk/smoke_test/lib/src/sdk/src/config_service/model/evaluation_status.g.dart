@@ -60,9 +60,7 @@ class EvaluationStatusBuilder
   set failureReason(String? failureReason) =>
       _$this._failureReason = failureReason;
 
-  EvaluationStatusBuilder() {
-    EvaluationStatus._init(this);
-  }
+  EvaluationStatusBuilder();
 
   EvaluationStatusBuilder get _$this {
     final $v = _$v;

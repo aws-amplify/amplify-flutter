@@ -39,9 +39,6 @@ abstract class Credentials
     CredentialsAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CredentialsBuilder b) {}
-
   /// The access key ID that identifies the temporary security credentials.
   String get accessKeyId;
 

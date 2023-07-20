@@ -41,9 +41,6 @@ abstract class ListExportsInput
     ListExportsInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListExportsInputBuilder b) {}
-
   /// The Amazon Resource Name (ARN) associated with the exported table.
   String? get tableArn;
 

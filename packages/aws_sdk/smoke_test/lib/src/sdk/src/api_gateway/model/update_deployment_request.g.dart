@@ -77,9 +77,7 @@ class UpdateDeploymentRequestBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateDeploymentRequestBuilder() {
-    UpdateDeploymentRequest._init(this);
-  }
+  UpdateDeploymentRequestBuilder();
 
   UpdateDeploymentRequestBuilder get _$this {
     final $v = _$v;
@@ -179,9 +177,7 @@ class UpdateDeploymentRequestPayloadBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateDeploymentRequestPayloadBuilder() {
-    UpdateDeploymentRequestPayload._init(this);
-  }
+  UpdateDeploymentRequestPayloadBuilder();
 
   UpdateDeploymentRequestPayloadBuilder get _$this {
     final $v = _$v;

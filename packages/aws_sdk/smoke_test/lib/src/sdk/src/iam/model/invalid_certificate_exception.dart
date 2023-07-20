@@ -40,8 +40,6 @@ abstract class InvalidCertificateException
   static const List<_i2.SmithySerializer<InvalidCertificateException>>
       serializers = [InvalidCertificateExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidCertificateExceptionBuilder b) {}
   @override
   String? get message;
   @override

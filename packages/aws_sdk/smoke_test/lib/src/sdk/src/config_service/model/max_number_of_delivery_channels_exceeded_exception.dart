@@ -46,9 +46,6 @@ abstract class MaxNumberOfDeliveryChannelsExceededException
     MaxNumberOfDeliveryChannelsExceededExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MaxNumberOfDeliveryChannelsExceededExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

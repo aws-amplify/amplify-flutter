@@ -46,9 +46,6 @@ abstract class ConfigExportDeliveryInfo
   static const List<_i3.SmithySerializer<ConfigExportDeliveryInfo>>
       serializers = [ConfigExportDeliveryInfoAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConfigExportDeliveryInfoBuilder b) {}
-
   /// Status of the last attempted delivery.
   _i2.DeliveryStatus? get lastStatus;
 

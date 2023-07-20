@@ -51,9 +51,7 @@ class DescribeOrganizationsAccessInputBuilder
   _i3.CallAs? get callAs => _$this._callAs;
   set callAs(_i3.CallAs? callAs) => _$this._callAs = callAs;
 
-  DescribeOrganizationsAccessInputBuilder() {
-    DescribeOrganizationsAccessInput._init(this);
-  }
+  DescribeOrganizationsAccessInputBuilder();
 
   DescribeOrganizationsAccessInputBuilder get _$this {
     final $v = _$v;

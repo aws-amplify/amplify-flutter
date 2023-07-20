@@ -17,8 +17,7 @@ abstract class ResponseCodeRequiredOutput
         Built<ResponseCodeRequiredOutput, ResponseCodeRequiredOutputBuilder>,
         _i2.EmptyPayload,
         _i2.HasPayload<ResponseCodeRequiredOutputPayload> {
-  factory ResponseCodeRequiredOutput({int? responseCode}) {
-    responseCode ??= 0;
+  factory ResponseCodeRequiredOutput({required int responseCode}) {
     return _$ResponseCodeRequiredOutput._(responseCode: responseCode);
   }
 
@@ -39,11 +38,6 @@ abstract class ResponseCodeRequiredOutput
 
   static const List<_i2.SmithySerializer<ResponseCodeRequiredOutputPayload>>
       serializers = [ResponseCodeRequiredOutputRestJson1Serializer()];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResponseCodeRequiredOutputBuilder b) {
-    b.responseCode = 0;
-  }
 
   int get responseCode;
   @override
@@ -76,8 +70,6 @@ abstract class ResponseCodeRequiredOutputPayload
 
   const ResponseCodeRequiredOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResponseCodeRequiredOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

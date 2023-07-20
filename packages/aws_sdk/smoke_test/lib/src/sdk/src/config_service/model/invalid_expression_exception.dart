@@ -41,9 +41,6 @@ abstract class InvalidExpressionException
   static const List<_i2.SmithySerializer<InvalidExpressionException>>
       serializers = [InvalidExpressionExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidExpressionExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

@@ -48,8 +48,6 @@ abstract class PackedPolicyTooLargeException
   static const List<_i2.SmithySerializer<PackedPolicyTooLargeException>>
       serializers = [PackedPolicyTooLargeExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PackedPolicyTooLargeExceptionBuilder b) {}
   @override
   String? get message;
   @override

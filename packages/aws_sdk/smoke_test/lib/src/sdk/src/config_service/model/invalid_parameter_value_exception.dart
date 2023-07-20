@@ -43,9 +43,6 @@ abstract class InvalidParameterValueException
   static const List<_i2.SmithySerializer<InvalidParameterValueException>>
       serializers = [InvalidParameterValueExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidParameterValueExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

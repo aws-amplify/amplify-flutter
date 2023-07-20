@@ -77,9 +77,7 @@ class RelationshipBuilder
   set relationshipName(String? relationshipName) =>
       _$this._relationshipName = relationshipName;
 
-  RelationshipBuilder() {
-    Relationship._init(this);
-  }
+  RelationshipBuilder();
 
   RelationshipBuilder get _$this {
     final $v = _$v;

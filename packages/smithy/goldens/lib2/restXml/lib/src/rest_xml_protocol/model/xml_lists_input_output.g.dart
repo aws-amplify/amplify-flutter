@@ -215,9 +215,7 @@ class XmlListsInputOutputBuilder
           _i6.ListBuilder<_i5.StructureListMember>? flattenedStructureList) =>
       _$this._flattenedStructureList = flattenedStructureList;
 
-  XmlListsInputOutputBuilder() {
-    XmlListsInputOutput._init(this);
-  }
+  XmlListsInputOutputBuilder();
 
   XmlListsInputOutputBuilder get _$this {
     final $v = _$v;

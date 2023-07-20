@@ -42,8 +42,6 @@ abstract class RequestLimitExceeded
     RequestLimitExceededAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RequestLimitExceededBuilder b) {}
   @override
   String? get message;
   @override

@@ -48,9 +48,6 @@ abstract class DescribeConfigurationRecorderStatusRequest
     DescribeConfigurationRecorderStatusRequestAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeConfigurationRecorderStatusRequestBuilder b) {}
-
   /// The name(s) of the configuration recorder. If the name is not specified, the action returns the current status of all the configuration recorders associated with the account.
   _i3.BuiltList<String>? get configurationRecorderNames;
   @override

@@ -36,9 +36,6 @@ abstract class Stream
     StreamAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StreamBuilder b) {}
-
   /// The Amazon Resource Name (ARN) for the stream.
   String? get streamArn;
 

@@ -49,9 +49,6 @@ abstract class GetBucketWebsiteOutput
   static const List<_i7.SmithySerializer<GetBucketWebsiteOutput>> serializers =
       [GetBucketWebsiteOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketWebsiteOutputBuilder b) {}
-
   /// Specifies the redirect behavior of all requests to a website endpoint of an Amazon S3 bucket.
   _i2.RedirectAllRequestsTo? get redirectAllRequestsTo;
 

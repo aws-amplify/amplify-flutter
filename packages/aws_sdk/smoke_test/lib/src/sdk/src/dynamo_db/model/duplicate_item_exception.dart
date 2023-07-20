@@ -41,8 +41,6 @@ abstract class DuplicateItemException
   static const List<_i2.SmithySerializer<DuplicateItemException>> serializers =
       [DuplicateItemExceptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DuplicateItemExceptionBuilder b) {}
   @override
   String? get message;
   @override

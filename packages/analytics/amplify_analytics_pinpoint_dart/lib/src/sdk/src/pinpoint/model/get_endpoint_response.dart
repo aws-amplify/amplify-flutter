@@ -41,9 +41,6 @@ abstract class GetEndpointResponse
     GetEndpointResponseRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetEndpointResponseBuilder b) {}
-
   /// Provides information about the channel type and other settings for an endpoint.
   _i3.EndpointResponse get endpointResponse;
   @override

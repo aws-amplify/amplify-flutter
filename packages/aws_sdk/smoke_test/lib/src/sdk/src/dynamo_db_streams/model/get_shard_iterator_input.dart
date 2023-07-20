@@ -51,9 +51,6 @@ abstract class GetShardIteratorInput
     GetShardIteratorInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetShardIteratorInputBuilder b) {}
-
   /// The Amazon Resource Name (ARN) for the stream.
   String get streamArn;
 

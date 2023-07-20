@@ -117,9 +117,7 @@ class GetItemInputBuilder
           _i5.MapBuilder<String, String>? expressionAttributeNames) =>
       _$this._expressionAttributeNames = expressionAttributeNames;
 
-  GetItemInputBuilder() {
-    GetItemInput._init(this);
-  }
+  GetItemInputBuilder();
 
   GetItemInputBuilder get _$this {
     final $v = _$v;

@@ -103,9 +103,7 @@ class JsonIntEnumsInputOutputBuilder
   set integerEnumMap(_i3.MapBuilder<String, int>? integerEnumMap) =>
       _$this._integerEnumMap = integerEnumMap;
 
-  JsonIntEnumsInputOutputBuilder() {
-    JsonIntEnumsInputOutput._init(this);
-  }
+  JsonIntEnumsInputOutputBuilder();
 
   JsonIntEnumsInputOutputBuilder get _$this {
     final $v = _$v;

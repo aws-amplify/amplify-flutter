@@ -37,9 +37,6 @@ abstract class CreateServiceLinkedRoleResponse
   static const List<_i3.SmithySerializer<CreateServiceLinkedRoleResponse>>
       serializers = [CreateServiceLinkedRoleResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateServiceLinkedRoleResponseBuilder b) {}
-
   /// A Role object that contains details about the newly created role.
   _i2.Role? get role;
   @override

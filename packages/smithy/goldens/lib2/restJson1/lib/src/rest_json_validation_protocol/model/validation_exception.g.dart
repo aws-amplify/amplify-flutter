@@ -76,9 +76,7 @@ class ValidationExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ValidationExceptionBuilder() {
-    ValidationException._init(this);
-  }
+  ValidationExceptionBuilder();
 
   ValidationExceptionBuilder get _$this {
     final $v = _$v;

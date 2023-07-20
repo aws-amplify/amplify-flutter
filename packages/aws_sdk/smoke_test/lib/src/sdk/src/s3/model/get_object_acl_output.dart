@@ -59,9 +59,6 @@ abstract class GetObjectAclOutput
   static const List<_i2.SmithySerializer<GetObjectAclOutputPayload>>
       serializers = [GetObjectAclOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectAclOutputBuilder b) {}
-
   /// Container for the bucket owner's display name and ID.
   _i3.Owner? get owner;
 
@@ -114,9 +111,6 @@ abstract class GetObjectAclOutputPayload
       _$GetObjectAclOutputPayload;
 
   const GetObjectAclOutputPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectAclOutputPayloadBuilder b) {}
 
   /// A list of grants.
   _i6.BuiltList<_i4.Grant>? get grants;

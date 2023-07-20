@@ -63,9 +63,7 @@ class ListGlobalTablesOutputBuilder
   set lastEvaluatedGlobalTableName(String? lastEvaluatedGlobalTableName) =>
       _$this._lastEvaluatedGlobalTableName = lastEvaluatedGlobalTableName;
 
-  ListGlobalTablesOutputBuilder() {
-    ListGlobalTablesOutput._init(this);
-  }
+  ListGlobalTablesOutputBuilder();
 
   ListGlobalTablesOutputBuilder get _$this {
     final $v = _$v;

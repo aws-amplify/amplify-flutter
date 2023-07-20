@@ -103,9 +103,7 @@ class OrganizationConformancePackStatusBuilder
   set lastUpdateTime(DateTime? lastUpdateTime) =>
       _$this._lastUpdateTime = lastUpdateTime;
 
-  OrganizationConformancePackStatusBuilder() {
-    OrganizationConformancePackStatus._init(this);
-  }
+  OrganizationConformancePackStatusBuilder();
 
   OrganizationConformancePackStatusBuilder get _$this {
     final $v = _$v;

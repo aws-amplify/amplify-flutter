@@ -42,9 +42,6 @@ abstract class ConfigStreamDeliveryInfo
   static const List<_i3.SmithySerializer<ConfigStreamDeliveryInfo>>
       serializers = [ConfigStreamDeliveryInfoAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConfigStreamDeliveryInfoBuilder b) {}
-
   /// Status of the last attempted delivery.
   ///
   /// **Note** Providing an SNS topic on a [DeliveryChannel](https://docs.aws.amazon.com/config/latest/APIReference/API_DeliveryChannel.html) for Config is optional. If the SNS delivery is turned off, the last status will be **Not_Applicable**.

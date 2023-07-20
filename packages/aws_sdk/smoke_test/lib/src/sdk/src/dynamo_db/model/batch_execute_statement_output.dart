@@ -46,9 +46,6 @@ abstract class BatchExecuteStatementOutput
   static const List<_i5.SmithySerializer<BatchExecuteStatementOutput>>
       serializers = [BatchExecuteStatementOutputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BatchExecuteStatementOutputBuilder b) {}
-
   /// The response to each PartiQL statement in the batch.
   _i4.BuiltList<_i2.BatchStatementResponse>? get responses;
 

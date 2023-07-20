@@ -40,9 +40,6 @@ abstract class DescribeContinuousBackupsOutput
   static const List<_i3.SmithySerializer<DescribeContinuousBackupsOutput>>
       serializers = [DescribeContinuousBackupsOutputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeContinuousBackupsOutputBuilder b) {}
-
   /// Represents the continuous backups and point in time recovery settings on the table.
   _i2.ContinuousBackupsDescription? get continuousBackupsDescription;
   @override

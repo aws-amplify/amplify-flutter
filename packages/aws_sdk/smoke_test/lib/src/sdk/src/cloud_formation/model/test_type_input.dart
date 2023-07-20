@@ -47,9 +47,6 @@ abstract class TestTypeInput
     TestTypeInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TestTypeInputBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the extension.
   ///
   /// Conditional: You must specify `Arn`, or `TypeName` and `Type`.

@@ -119,9 +119,7 @@ class PutObjectLockConfigurationRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  PutObjectLockConfigurationRequestBuilder() {
-    PutObjectLockConfigurationRequest._init(this);
-  }
+  PutObjectLockConfigurationRequestBuilder();
 
   PutObjectLockConfigurationRequestBuilder get _$this {
     final $v = _$v;

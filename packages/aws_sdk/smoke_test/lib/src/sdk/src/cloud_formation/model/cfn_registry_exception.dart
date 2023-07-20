@@ -41,8 +41,6 @@ abstract class CfnRegistryException
     CfnRegistryExceptionAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CfnRegistryExceptionBuilder b) {}
   @override
   String? get message;
   @override

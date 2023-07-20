@@ -160,9 +160,7 @@ class UpdateTableInputBuilder
   set deletionProtectionEnabled(bool? deletionProtectionEnabled) =>
       _$this._deletionProtectionEnabled = deletionProtectionEnabled;
 
-  UpdateTableInputBuilder() {
-    UpdateTableInput._init(this);
-  }
+  UpdateTableInputBuilder();
 
   UpdateTableInputBuilder get _$this {
     final $v = _$v;

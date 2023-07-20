@@ -70,9 +70,7 @@ class PhysicalResourceIdContextKeyValuePairBuilder
   String? get value => _$this._value;
   set value(String? value) => _$this._value = value;
 
-  PhysicalResourceIdContextKeyValuePairBuilder() {
-    PhysicalResourceIdContextKeyValuePair._init(this);
-  }
+  PhysicalResourceIdContextKeyValuePairBuilder();
 
   PhysicalResourceIdContextKeyValuePairBuilder get _$this {
     final $v = _$v;

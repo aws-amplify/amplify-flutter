@@ -40,8 +40,6 @@ abstract class DeleteEvaluationResultsResponse
   static const List<_i2.SmithySerializer<DeleteEvaluationResultsResponse>>
       serializers = [DeleteEvaluationResultsResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteEvaluationResultsResponseBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

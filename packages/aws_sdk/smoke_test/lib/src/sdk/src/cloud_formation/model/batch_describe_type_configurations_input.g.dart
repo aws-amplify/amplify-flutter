@@ -69,9 +69,7 @@ class BatchDescribeTypeConfigurationsInputBuilder
               typeConfigurationIdentifiers) =>
       _$this._typeConfigurationIdentifiers = typeConfigurationIdentifiers;
 
-  BatchDescribeTypeConfigurationsInputBuilder() {
-    BatchDescribeTypeConfigurationsInput._init(this);
-  }
+  BatchDescribeTypeConfigurationsInputBuilder();
 
   BatchDescribeTypeConfigurationsInputBuilder get _$this {
     final $v = _$v;

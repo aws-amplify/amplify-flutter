@@ -41,9 +41,6 @@ abstract class EventRiskType
     EventRiskTypeAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EventRiskTypeBuilder b) {}
-
   /// The risk decision.
   _i2.RiskDecisionType? get riskDecision;
 

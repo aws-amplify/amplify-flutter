@@ -48,10 +48,6 @@ abstract class MaxNumberOfRetentionConfigurationsExceededException
     MaxNumberOfRetentionConfigurationsExceededExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      MaxNumberOfRetentionConfigurationsExceededExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

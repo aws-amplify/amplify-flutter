@@ -26,8 +26,6 @@ abstract class PayloadWithXmlNamespace
   static const List<_i2.SmithySerializer<PayloadWithXmlNamespace>> serializers =
       [PayloadWithXmlNamespaceRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PayloadWithXmlNamespaceBuilder b) {}
   String? get name;
   @override
   List<Object?> get props => [name];

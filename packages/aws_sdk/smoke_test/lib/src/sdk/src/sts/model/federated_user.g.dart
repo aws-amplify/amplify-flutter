@@ -60,9 +60,7 @@ class FederatedUserBuilder
   String? get arn => _$this._arn;
   set arn(String? arn) => _$this._arn = arn;
 
-  FederatedUserBuilder() {
-    FederatedUser._init(this);
-  }
+  FederatedUserBuilder();
 
   FederatedUserBuilder get _$this {
     final $v = _$v;

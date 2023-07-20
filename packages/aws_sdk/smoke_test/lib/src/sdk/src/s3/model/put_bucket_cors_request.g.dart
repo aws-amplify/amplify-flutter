@@ -96,9 +96,7 @@ class PutBucketCorsRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  PutBucketCorsRequestBuilder() {
-    PutBucketCorsRequest._init(this);
-  }
+  PutBucketCorsRequestBuilder();
 
   PutBucketCorsRequestBuilder get _$this {
     final $v = _$v;

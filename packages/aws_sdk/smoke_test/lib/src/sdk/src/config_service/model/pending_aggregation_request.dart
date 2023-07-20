@@ -36,9 +36,6 @@ abstract class PendingAggregationRequest
   static const List<_i2.SmithySerializer<PendingAggregationRequest>>
       serializers = [PendingAggregationRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PendingAggregationRequestBuilder b) {}
-
   /// The 12-digit account ID of the account requesting to aggregate data.
   String? get requesterAccountId;
 

@@ -52,9 +52,7 @@ class GetBucketLocationRequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  GetBucketLocationRequestBuilder() {
-    GetBucketLocationRequest._init(this);
-  }
+  GetBucketLocationRequestBuilder();
 
   GetBucketLocationRequestBuilder get _$this {
     final $v = _$v;
@@ -124,9 +122,7 @@ class GetBucketLocationRequestPayloadBuilder
             GetBucketLocationRequestPayloadBuilder> {
   _$GetBucketLocationRequestPayload? _$v;
 
-  GetBucketLocationRequestPayloadBuilder() {
-    GetBucketLocationRequestPayload._init(this);
-  }
+  GetBucketLocationRequestPayloadBuilder();
 
   @override
   void replace(GetBucketLocationRequestPayload other) {

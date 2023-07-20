@@ -36,9 +36,6 @@ abstract class DeleteSamlProviderRequest
   static const List<_i1.SmithySerializer<DeleteSamlProviderRequest>>
       serializers = [DeleteSamlProviderRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteSamlProviderRequestBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the SAML provider to delete.
   String get samlProviderArn;
   @override

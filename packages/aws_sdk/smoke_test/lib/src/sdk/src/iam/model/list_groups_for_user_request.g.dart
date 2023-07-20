@@ -71,9 +71,7 @@ class ListGroupsForUserRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  ListGroupsForUserRequestBuilder() {
-    ListGroupsForUserRequest._init(this);
-  }
+  ListGroupsForUserRequestBuilder();
 
   ListGroupsForUserRequestBuilder get _$this {
     final $v = _$v;

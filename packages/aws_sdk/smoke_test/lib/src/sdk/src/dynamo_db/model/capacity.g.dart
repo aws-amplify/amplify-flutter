@@ -66,9 +66,7 @@ class CapacityBuilder implements Builder<Capacity, CapacityBuilder> {
   set capacityUnits(double? capacityUnits) =>
       _$this._capacityUnits = capacityUnits;
 
-  CapacityBuilder() {
-    Capacity._init(this);
-  }
+  CapacityBuilder();
 
   CapacityBuilder get _$this {
     final $v = _$v;

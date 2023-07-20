@@ -43,8 +43,6 @@ abstract class InternalServerException
   static const List<_i2.SmithySerializer<InternalServerException>> serializers =
       [InternalServerExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InternalServerExceptionBuilder b) {}
   @override
   String? get message;
   int? get code;

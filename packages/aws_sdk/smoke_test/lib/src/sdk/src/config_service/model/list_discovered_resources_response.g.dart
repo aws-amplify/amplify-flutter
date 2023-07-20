@@ -66,9 +66,7 @@ class ListDiscoveredResourcesResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListDiscoveredResourcesResponseBuilder() {
-    ListDiscoveredResourcesResponse._init(this);
-  }
+  ListDiscoveredResourcesResponseBuilder();
 
   ListDiscoveredResourcesResponseBuilder get _$this {
     final $v = _$v;

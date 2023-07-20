@@ -57,9 +57,7 @@ class PutRemediationExceptionsResponseBuilder
               failedBatches) =>
       _$this._failedBatches = failedBatches;
 
-  PutRemediationExceptionsResponseBuilder() {
-    PutRemediationExceptionsResponse._init(this);
-  }
+  PutRemediationExceptionsResponseBuilder();
 
   PutRemediationExceptionsResponseBuilder get _$this {
     final $v = _$v;

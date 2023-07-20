@@ -53,8 +53,6 @@ abstract class DocumentTypeAsPayloadInputOutput
     DocumentTypeAsPayloadInputOutputRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DocumentTypeAsPayloadInputOutputBuilder b) {}
   _i2.JsonObject? get documentValue;
   @override
   _i2.JsonObject? getPayload() => documentValue;

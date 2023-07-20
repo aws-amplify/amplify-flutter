@@ -53,9 +53,7 @@ class StackInstanceComprehensiveStatusBuilder
   set detailedStatus(_i2.StackInstanceDetailedStatus? detailedStatus) =>
       _$this._detailedStatus = detailedStatus;
 
-  StackInstanceComprehensiveStatusBuilder() {
-    StackInstanceComprehensiveStatus._init(this);
-  }
+  StackInstanceComprehensiveStatusBuilder();
 
   StackInstanceComprehensiveStatusBuilder get _$this {
     final $v = _$v;

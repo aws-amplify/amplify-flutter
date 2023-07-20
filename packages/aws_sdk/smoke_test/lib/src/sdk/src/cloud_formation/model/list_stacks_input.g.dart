@@ -57,9 +57,7 @@ class ListStacksInputBuilder
   set stackStatusFilter(_i4.ListBuilder<_i3.StackStatus>? stackStatusFilter) =>
       _$this._stackStatusFilter = stackStatusFilter;
 
-  ListStacksInputBuilder() {
-    ListStacksInput._init(this);
-  }
+  ListStacksInputBuilder();
 
   ListStacksInputBuilder get _$this {
     final $v = _$v;

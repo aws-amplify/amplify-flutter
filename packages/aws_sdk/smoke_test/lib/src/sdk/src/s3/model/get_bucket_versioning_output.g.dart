@@ -59,9 +59,7 @@ class GetBucketVersioningOutputBuilder
   set mfaDelete(_i3.MfaDeleteStatus? mfaDelete) =>
       _$this._mfaDelete = mfaDelete;
 
-  GetBucketVersioningOutputBuilder() {
-    GetBucketVersioningOutput._init(this);
-  }
+  GetBucketVersioningOutputBuilder();
 
   GetBucketVersioningOutputBuilder get _$this {
     final $v = _$v;

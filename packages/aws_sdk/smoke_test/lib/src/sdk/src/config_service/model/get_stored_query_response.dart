@@ -35,9 +35,6 @@ abstract class GetStoredQueryResponse
   static const List<_i3.SmithySerializer<GetStoredQueryResponse>> serializers =
       [GetStoredQueryResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetStoredQueryResponseBuilder b) {}
-
   /// Returns a `StoredQuery` object.
   _i2.StoredQuery? get storedQuery;
   @override

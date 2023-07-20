@@ -28,9 +28,6 @@ abstract class TransactWriteItemsInput
     _i5.ReturnItemCollectionMetrics? returnItemCollectionMetrics,
     String? clientRequestToken,
   }) {
-    clientRequestToken ??= const bool.hasEnvironment('SMITHY_TEST')
-        ? '00000000-0000-4000-8000-000000000000'
-        : _i2.uuid(secure: true);
     return _$TransactWriteItemsInput._(
       transactItems: _i6.BuiltList(transactItems),
       returnConsumedCapacity: returnConsumedCapacity,

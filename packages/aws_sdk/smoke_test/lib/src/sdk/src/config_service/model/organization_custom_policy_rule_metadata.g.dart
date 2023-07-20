@@ -173,9 +173,7 @@ class OrganizationCustomPolicyRuleMetadataBuilder
           _i4.ListBuilder<String>? debugLogDeliveryAccounts) =>
       _$this._debugLogDeliveryAccounts = debugLogDeliveryAccounts;
 
-  OrganizationCustomPolicyRuleMetadataBuilder() {
-    OrganizationCustomPolicyRuleMetadata._init(this);
-  }
+  OrganizationCustomPolicyRuleMetadataBuilder();
 
   OrganizationCustomPolicyRuleMetadataBuilder get _$this {
     final $v = _$v;

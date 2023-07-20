@@ -42,9 +42,6 @@ abstract class InvalidRoleException
     InvalidRoleExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidRoleExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

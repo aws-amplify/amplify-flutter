@@ -47,8 +47,6 @@ abstract class XmlMapsXmlNameInputOutput
   static const List<_i1.SmithySerializer<XmlMapsXmlNameInputOutput>>
       serializers = [XmlMapsXmlNameInputOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(XmlMapsXmlNameInputOutputBuilder b) {}
   _i4.BuiltMap<String, _i3.GreetingStruct>? get myMap;
   @override
   XmlMapsXmlNameInputOutput getPayload() => this;

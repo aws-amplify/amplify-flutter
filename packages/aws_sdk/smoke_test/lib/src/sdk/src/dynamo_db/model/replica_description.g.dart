@@ -145,9 +145,7 @@ class ReplicaDescriptionBuilder
           _i5.TableClassSummaryBuilder? replicaTableClassSummary) =>
       _$this._replicaTableClassSummary = replicaTableClassSummary;
 
-  ReplicaDescriptionBuilder() {
-    ReplicaDescription._init(this);
-  }
+  ReplicaDescriptionBuilder();
 
   ReplicaDescriptionBuilder get _$this {
     final $v = _$v;

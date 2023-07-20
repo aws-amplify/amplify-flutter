@@ -132,9 +132,7 @@ class QueryMapsInputBuilder
           _i4.NestedStructWithMapBuilder? nestedStructWithMap) =>
       _$this._nestedStructWithMap = nestedStructWithMap;
 
-  QueryMapsInputBuilder() {
-    QueryMapsInput._init(this);
-  }
+  QueryMapsInputBuilder();
 
   QueryMapsInputBuilder get _$this {
     final $v = _$v;

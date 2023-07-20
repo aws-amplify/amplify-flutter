@@ -84,9 +84,7 @@ class RemediationExecutionStepBuilder
   DateTime? get stopTime => _$this._stopTime;
   set stopTime(DateTime? stopTime) => _$this._stopTime = stopTime;
 
-  RemediationExecutionStepBuilder() {
-    RemediationExecutionStep._init(this);
-  }
+  RemediationExecutionStepBuilder();
 
   RemediationExecutionStepBuilder get _$this {
     final $v = _$v;

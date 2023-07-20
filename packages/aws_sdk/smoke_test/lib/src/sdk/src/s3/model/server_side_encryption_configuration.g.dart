@@ -57,9 +57,7 @@ class ServerSideEncryptionConfigurationBuilder
   set rules(_i3.ListBuilder<_i2.ServerSideEncryptionRule>? rules) =>
       _$this._rules = rules;
 
-  ServerSideEncryptionConfigurationBuilder() {
-    ServerSideEncryptionConfiguration._init(this);
-  }
+  ServerSideEncryptionConfigurationBuilder();
 
   ServerSideEncryptionConfigurationBuilder get _$this {
     final $v = _$v;

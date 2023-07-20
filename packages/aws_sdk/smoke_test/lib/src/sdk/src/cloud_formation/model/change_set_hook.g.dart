@@ -99,9 +99,7 @@ class ChangeSetHookBuilder
   set targetDetails(_i4.ChangeSetHookTargetDetailsBuilder? targetDetails) =>
       _$this._targetDetails = targetDetails;
 
-  ChangeSetHookBuilder() {
-    ChangeSetHook._init(this);
-  }
+  ChangeSetHookBuilder();
 
   ChangeSetHookBuilder get _$this {
     final $v = _$v;

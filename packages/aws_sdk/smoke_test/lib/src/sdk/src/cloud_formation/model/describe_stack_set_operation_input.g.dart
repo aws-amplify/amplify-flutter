@@ -74,9 +74,7 @@ class DescribeStackSetOperationInputBuilder
   _i3.CallAs? get callAs => _$this._callAs;
   set callAs(_i3.CallAs? callAs) => _$this._callAs = callAs;
 
-  DescribeStackSetOperationInputBuilder() {
-    DescribeStackSetOperationInput._init(this);
-  }
+  DescribeStackSetOperationInputBuilder();
 
   DescribeStackSetOperationInputBuilder get _$this {
     final $v = _$v;

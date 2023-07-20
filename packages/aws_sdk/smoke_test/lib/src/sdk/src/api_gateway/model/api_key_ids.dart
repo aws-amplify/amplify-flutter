@@ -43,9 +43,6 @@ abstract class ApiKeyIds
     ApiKeyIdsRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ApiKeyIdsBuilder b) {}
-
   /// A list of all the ApiKey identifiers.
   _i2.BuiltList<String>? get ids;
 

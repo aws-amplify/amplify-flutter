@@ -36,8 +36,6 @@ abstract class DeleteStackSetOutput
     DeleteStackSetOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteStackSetOutputBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

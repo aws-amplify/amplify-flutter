@@ -81,9 +81,7 @@ class AggregateComplianceByConfigRuleBuilder
   String? get awsRegion => _$this._awsRegion;
   set awsRegion(String? awsRegion) => _$this._awsRegion = awsRegion;
 
-  AggregateComplianceByConfigRuleBuilder() {
-    AggregateComplianceByConfigRule._init(this);
-  }
+  AggregateComplianceByConfigRuleBuilder();
 
   AggregateComplianceByConfigRuleBuilder get _$this {
     final $v = _$v;

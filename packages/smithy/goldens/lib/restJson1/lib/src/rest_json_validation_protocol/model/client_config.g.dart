@@ -107,9 +107,7 @@ class ClientConfigBuilder
   String? get awsProfile => _$this._awsProfile;
   set awsProfile(String? awsProfile) => _$this._awsProfile = awsProfile;
 
-  ClientConfigBuilder() {
-    ClientConfig._init(this);
-  }
+  ClientConfigBuilder();
 
   ClientConfigBuilder get _$this {
     final $v = _$v;

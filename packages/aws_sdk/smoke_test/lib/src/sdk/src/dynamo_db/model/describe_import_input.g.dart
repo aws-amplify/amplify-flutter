@@ -51,9 +51,7 @@ class DescribeImportInputBuilder
   String? get importArn => _$this._importArn;
   set importArn(String? importArn) => _$this._importArn = importArn;
 
-  DescribeImportInputBuilder() {
-    DescribeImportInput._init(this);
-  }
+  DescribeImportInputBuilder();
 
   DescribeImportInputBuilder get _$this {
     final $v = _$v;

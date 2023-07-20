@@ -70,9 +70,6 @@ abstract class UpdateGlobalTableSettingsInput
   static const List<_i1.SmithySerializer<UpdateGlobalTableSettingsInput>>
       serializers = [UpdateGlobalTableSettingsInputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateGlobalTableSettingsInputBuilder b) {}
-
   /// The name of the global table
   String get globalTableName;
 

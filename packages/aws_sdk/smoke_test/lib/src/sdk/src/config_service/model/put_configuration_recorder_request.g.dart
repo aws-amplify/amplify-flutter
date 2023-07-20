@@ -59,9 +59,7 @@ class PutConfigurationRecorderRequestBuilder
           _i3.ConfigurationRecorderBuilder? configurationRecorder) =>
       _$this._configurationRecorder = configurationRecorder;
 
-  PutConfigurationRecorderRequestBuilder() {
-    PutConfigurationRecorderRequest._init(this);
-  }
+  PutConfigurationRecorderRequestBuilder();
 
   PutConfigurationRecorderRequestBuilder get _$this {
     final $v = _$v;

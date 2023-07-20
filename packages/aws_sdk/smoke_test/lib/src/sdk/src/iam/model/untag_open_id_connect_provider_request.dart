@@ -44,9 +44,6 @@ abstract class UntagOpenIdConnectProviderRequest
   static const List<_i1.SmithySerializer<UntagOpenIdConnectProviderRequest>>
       serializers = [UntagOpenIdConnectProviderRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UntagOpenIdConnectProviderRequestBuilder b) {}
-
   /// The ARN of the OIDC provider in IAM from which you want to remove tags.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

@@ -75,9 +75,7 @@ class ListStackSetsInputBuilder
   _i4.CallAs? get callAs => _$this._callAs;
   set callAs(_i4.CallAs? callAs) => _$this._callAs = callAs;
 
-  ListStackSetsInputBuilder() {
-    ListStackSetsInput._init(this);
-  }
+  ListStackSetsInputBuilder();
 
   ListStackSetsInputBuilder get _$this {
     final $v = _$v;

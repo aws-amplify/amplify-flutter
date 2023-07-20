@@ -74,9 +74,7 @@ class AccessKeyMetadataBuilder
   DateTime? get createDate => _$this._createDate;
   set createDate(DateTime? createDate) => _$this._createDate = createDate;
 
-  AccessKeyMetadataBuilder() {
-    AccessKeyMetadata._init(this);
-  }
+  AccessKeyMetadataBuilder();
 
   AccessKeyMetadataBuilder get _$this {
     final $v = _$v;

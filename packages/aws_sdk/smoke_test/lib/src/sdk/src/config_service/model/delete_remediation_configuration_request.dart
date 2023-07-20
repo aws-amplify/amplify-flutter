@@ -45,9 +45,6 @@ abstract class DeleteRemediationConfigurationRequest
     DeleteRemediationConfigurationRequestAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteRemediationConfigurationRequestBuilder b) {}
-
   /// The name of the Config rule for which you want to delete remediation configuration.
   String get configRuleName;
 

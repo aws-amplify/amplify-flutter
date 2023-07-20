@@ -107,9 +107,7 @@ class ListStackSetOperationResultsInputBuilder
   set filters(_i5.ListBuilder<_i4.OperationResultFilter>? filters) =>
       _$this._filters = filters;
 
-  ListStackSetOperationResultsInputBuilder() {
-    ListStackSetOperationResultsInput._init(this);
-  }
+  ListStackSetOperationResultsInputBuilder();
 
   ListStackSetOperationResultsInputBuilder get _$this {
     final $v = _$v;

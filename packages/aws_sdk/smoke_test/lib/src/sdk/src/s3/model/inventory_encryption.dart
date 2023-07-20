@@ -38,9 +38,6 @@ abstract class InventoryEncryption
     InventoryEncryptionRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InventoryEncryptionBuilder b) {}
-
   /// Specifies the use of SSE-S3 to encrypt delivered inventory reports.
   _i2.Sses3? get sses3;
 

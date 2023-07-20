@@ -76,9 +76,7 @@ class ListOpenIdConnectProviderTagsRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  ListOpenIdConnectProviderTagsRequestBuilder() {
-    ListOpenIdConnectProviderTagsRequest._init(this);
-  }
+  ListOpenIdConnectProviderTagsRequestBuilder();
 
   ListOpenIdConnectProviderTagsRequestBuilder get _$this {
     final $v = _$v;

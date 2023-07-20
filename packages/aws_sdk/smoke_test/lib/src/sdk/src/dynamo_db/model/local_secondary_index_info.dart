@@ -41,9 +41,6 @@ abstract class LocalSecondaryIndexInfo
   static const List<_i5.SmithySerializer<LocalSecondaryIndexInfo>> serializers =
       [LocalSecondaryIndexInfoAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(LocalSecondaryIndexInfoBuilder b) {}
-
   /// Represents the name of the local secondary index.
   String? get indexName;
 

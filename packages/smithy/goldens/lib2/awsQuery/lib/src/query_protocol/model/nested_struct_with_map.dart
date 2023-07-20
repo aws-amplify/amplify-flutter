@@ -29,8 +29,6 @@ abstract class NestedStructWithMap
     NestedStructWithMapAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NestedStructWithMapBuilder b) {}
   _i2.BuiltMap<String, String>? get mapArg;
   @override
   List<Object?> get props => [mapArg];

@@ -45,9 +45,6 @@ abstract class DescribeStackResourcesOutput
   static const List<_i4.SmithySerializer<DescribeStackResourcesOutput>>
       serializers = [DescribeStackResourcesOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeStackResourcesOutputBuilder b) {}
-
   /// A list of `StackResource` structures.
   _i3.BuiltList<_i2.StackResource>? get stackResources;
   @override

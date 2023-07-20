@@ -69,9 +69,7 @@ class ProvisionedThroughputExceededExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ProvisionedThroughputExceededExceptionBuilder() {
-    ProvisionedThroughputExceededException._init(this);
-  }
+  ProvisionedThroughputExceededExceptionBuilder();
 
   ProvisionedThroughputExceededExceptionBuilder get _$this {
     final $v = _$v;

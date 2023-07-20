@@ -51,9 +51,6 @@ abstract class CreateRoleRequest
     CreateRoleRequestAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateRoleRequestBuilder b) {}
-
   /// The path to the role. For more information about paths, see [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html) in the _IAM User Guide_.
   ///
   /// This parameter is optional. If it is not included, it defaults to a slash (/).

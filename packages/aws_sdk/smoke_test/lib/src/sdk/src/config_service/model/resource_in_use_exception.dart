@@ -83,9 +83,6 @@ abstract class ResourceInUseException
   static const List<_i2.SmithySerializer<ResourceInUseException>> serializers =
       [ResourceInUseExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceInUseExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

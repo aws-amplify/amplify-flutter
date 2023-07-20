@@ -33,8 +33,6 @@ abstract class StructureListMember
     StructureListMemberRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StructureListMemberBuilder b) {}
   String? get a;
   String? get b;
   @override

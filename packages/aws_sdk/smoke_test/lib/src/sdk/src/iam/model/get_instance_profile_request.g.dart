@@ -55,9 +55,7 @@ class GetInstanceProfileRequestBuilder
   set instanceProfileName(String? instanceProfileName) =>
       _$this._instanceProfileName = instanceProfileName;
 
-  GetInstanceProfileRequestBuilder() {
-    GetInstanceProfileRequest._init(this);
-  }
+  GetInstanceProfileRequestBuilder();
 
   GetInstanceProfileRequestBuilder get _$this {
     final $v = _$v;

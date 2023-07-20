@@ -42,9 +42,6 @@ abstract class ListTagsOfResourceOutput
   static const List<_i4.SmithySerializer<ListTagsOfResourceOutput>>
       serializers = [ListTagsOfResourceOutputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListTagsOfResourceOutputBuilder b) {}
-
   /// The tags currently associated with the Amazon DynamoDB resource.
   _i3.BuiltList<_i2.Tag>? get tags;
 

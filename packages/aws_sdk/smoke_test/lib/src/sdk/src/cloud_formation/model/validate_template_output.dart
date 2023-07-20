@@ -54,9 +54,6 @@ abstract class ValidateTemplateOutput
   static const List<_i5.SmithySerializer<ValidateTemplateOutput>> serializers =
       [ValidateTemplateOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ValidateTemplateOutputBuilder b) {}
-
   /// A list of `TemplateParameter` structures.
   _i4.BuiltList<_i2.TemplateParameter>? get parameters;
 

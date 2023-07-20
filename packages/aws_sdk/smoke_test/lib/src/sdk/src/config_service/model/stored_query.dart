@@ -41,9 +41,6 @@ abstract class StoredQuery
     StoredQueryAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StoredQueryBuilder b) {}
-
   /// The ID of the query.
   String? get queryId;
 

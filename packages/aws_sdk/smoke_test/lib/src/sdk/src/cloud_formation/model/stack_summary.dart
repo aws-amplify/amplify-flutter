@@ -57,9 +57,6 @@ abstract class StackSummary
     StackSummaryAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackSummaryBuilder b) {}
-
   /// Unique stack identifier.
   String? get stackId;
 

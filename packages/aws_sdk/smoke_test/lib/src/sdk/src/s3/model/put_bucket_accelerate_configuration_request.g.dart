@@ -95,9 +95,7 @@ class PutBucketAccelerateConfigurationRequestBuilder
   set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
-  PutBucketAccelerateConfigurationRequestBuilder() {
-    PutBucketAccelerateConfigurationRequest._init(this);
-  }
+  PutBucketAccelerateConfigurationRequestBuilder();
 
   PutBucketAccelerateConfigurationRequestBuilder get _$this {
     final $v = _$v;

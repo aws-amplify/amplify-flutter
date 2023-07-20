@@ -70,9 +70,7 @@ class UpdateGlobalSecondaryIndexActionBuilder
           _i2.ProvisionedThroughputBuilder? provisionedThroughput) =>
       _$this._provisionedThroughput = provisionedThroughput;
 
-  UpdateGlobalSecondaryIndexActionBuilder() {
-    UpdateGlobalSecondaryIndexAction._init(this);
-  }
+  UpdateGlobalSecondaryIndexActionBuilder();
 
   UpdateGlobalSecondaryIndexActionBuilder get _$this {
     final $v = _$v;

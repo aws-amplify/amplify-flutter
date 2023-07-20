@@ -145,9 +145,7 @@ class ListObjectVersionsRequestBuilder
               optionalObjectAttributes) =>
       _$this._optionalObjectAttributes = optionalObjectAttributes;
 
-  ListObjectVersionsRequestBuilder() {
-    ListObjectVersionsRequest._init(this);
-  }
+  ListObjectVersionsRequestBuilder();
 
   ListObjectVersionsRequestBuilder get _$this {
     final $v = _$v;
@@ -248,9 +246,7 @@ class ListObjectVersionsRequestPayloadBuilder
             ListObjectVersionsRequestPayloadBuilder> {
   _$ListObjectVersionsRequestPayload? _$v;
 
-  ListObjectVersionsRequestPayloadBuilder() {
-    ListObjectVersionsRequestPayload._init(this);
-  }
+  ListObjectVersionsRequestPayloadBuilder();
 
   @override
   void replace(ListObjectVersionsRequestPayload other) {

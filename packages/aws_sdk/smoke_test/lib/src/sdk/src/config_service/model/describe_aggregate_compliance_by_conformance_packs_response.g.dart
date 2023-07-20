@@ -79,9 +79,7 @@ class DescribeAggregateComplianceByConformancePacksResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeAggregateComplianceByConformancePacksResponseBuilder() {
-    DescribeAggregateComplianceByConformancePacksResponse._init(this);
-  }
+  DescribeAggregateComplianceByConformancePacksResponseBuilder();
 
   DescribeAggregateComplianceByConformancePacksResponseBuilder get _$this {
     final $v = _$v;

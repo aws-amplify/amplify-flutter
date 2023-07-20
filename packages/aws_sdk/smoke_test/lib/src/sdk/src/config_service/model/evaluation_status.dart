@@ -37,9 +37,6 @@ abstract class EvaluationStatus
     EvaluationStatusAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EvaluationStatusBuilder b) {}
-
   /// The status of an execution. The valid values are In_Progress, Succeeded or Failed.
   _i2.ResourceEvaluationStatus get status;
 

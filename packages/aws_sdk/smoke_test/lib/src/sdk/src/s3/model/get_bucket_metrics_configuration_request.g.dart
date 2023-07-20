@@ -78,9 +78,7 @@ class GetBucketMetricsConfigurationRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetBucketMetricsConfigurationRequestBuilder() {
-    GetBucketMetricsConfigurationRequest._init(this);
-  }
+  GetBucketMetricsConfigurationRequestBuilder();
 
   GetBucketMetricsConfigurationRequestBuilder get _$this {
     final $v = _$v;
@@ -160,9 +158,7 @@ class GetBucketMetricsConfigurationRequestPayloadBuilder
             GetBucketMetricsConfigurationRequestPayloadBuilder> {
   _$GetBucketMetricsConfigurationRequestPayload? _$v;
 
-  GetBucketMetricsConfigurationRequestPayloadBuilder() {
-    GetBucketMetricsConfigurationRequestPayload._init(this);
-  }
+  GetBucketMetricsConfigurationRequestPayloadBuilder();
 
   @override
   void replace(GetBucketMetricsConfigurationRequestPayload other) {

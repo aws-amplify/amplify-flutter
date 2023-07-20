@@ -56,9 +56,7 @@ class IdpCommunicationErrorExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  IdpCommunicationErrorExceptionBuilder() {
-    IdpCommunicationErrorException._init(this);
-  }
+  IdpCommunicationErrorExceptionBuilder();
 
   IdpCommunicationErrorExceptionBuilder get _$this {
     final $v = _$v;

@@ -40,9 +40,6 @@ abstract class PutAggregationAuthorizationResponse
   static const List<_i3.SmithySerializer<PutAggregationAuthorizationResponse>>
       serializers = [PutAggregationAuthorizationResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutAggregationAuthorizationResponseBuilder b) {}
-
   /// Returns an AggregationAuthorization object.
   _i2.AggregationAuthorization? get aggregationAuthorization;
   @override

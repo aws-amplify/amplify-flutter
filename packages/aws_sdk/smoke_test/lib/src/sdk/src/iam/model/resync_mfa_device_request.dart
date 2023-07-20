@@ -45,9 +45,6 @@ abstract class ResyncMfaDeviceRequest
   static const List<_i1.SmithySerializer<ResyncMfaDeviceRequest>> serializers =
       [ResyncMfaDeviceRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResyncMfaDeviceRequestBuilder b) {}
-
   /// The name of the user whose MFA device you want to resynchronize.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

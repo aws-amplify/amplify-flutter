@@ -47,9 +47,6 @@ abstract class ListContributorInsightsOutput
   static const List<_i4.SmithySerializer<ListContributorInsightsOutput>>
       serializers = [ListContributorInsightsOutputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListContributorInsightsOutputBuilder b) {}
-
   /// A list of ContributorInsightsSummary.
   _i3.BuiltList<_i2.ContributorInsightsSummary>?
       get contributorInsightsSummaries;

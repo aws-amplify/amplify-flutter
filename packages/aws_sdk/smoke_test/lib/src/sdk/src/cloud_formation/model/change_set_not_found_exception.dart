@@ -40,8 +40,6 @@ abstract class ChangeSetNotFoundException
   static const List<_i2.SmithySerializer<ChangeSetNotFoundException>>
       serializers = [ChangeSetNotFoundExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ChangeSetNotFoundExceptionBuilder b) {}
   @override
   String? get message;
   @override

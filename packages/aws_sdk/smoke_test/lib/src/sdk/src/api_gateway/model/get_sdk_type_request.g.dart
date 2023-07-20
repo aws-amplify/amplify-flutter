@@ -49,9 +49,7 @@ class GetSdkTypeRequestBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  GetSdkTypeRequestBuilder() {
-    GetSdkTypeRequest._init(this);
-  }
+  GetSdkTypeRequestBuilder();
 
   GetSdkTypeRequestBuilder get _$this {
     final $v = _$v;
@@ -119,9 +117,7 @@ class GetSdkTypeRequestPayloadBuilder
         Builder<GetSdkTypeRequestPayload, GetSdkTypeRequestPayloadBuilder> {
   _$GetSdkTypeRequestPayload? _$v;
 
-  GetSdkTypeRequestPayloadBuilder() {
-    GetSdkTypeRequestPayload._init(this);
-  }
+  GetSdkTypeRequestPayloadBuilder();
 
   @override
   void replace(GetSdkTypeRequestPayload other) {

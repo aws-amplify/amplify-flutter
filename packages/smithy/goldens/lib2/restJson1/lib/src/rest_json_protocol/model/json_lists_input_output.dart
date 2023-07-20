@@ -77,8 +77,6 @@ abstract class JsonListsInputOutput
     JsonListsInputOutputRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(JsonListsInputOutputBuilder b) {}
   _i6.BuiltList<String>? get stringList;
   _i6.BuiltList<String?>? get sparseStringList;
   _i6.BuiltSet<String>? get stringSet;

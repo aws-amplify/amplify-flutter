@@ -50,9 +50,6 @@ abstract class UpdateEndpointsBatchRequest
   static const List<_i1.SmithySerializer<_i2.EndpointBatchRequest>>
       serializers = [UpdateEndpointsBatchRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateEndpointsBatchRequestBuilder b) {}
-
   /// The unique identifier for the application. This identifier is displayed as the **Project ID** on the Amazon Pinpoint console.
   String get applicationId;
 

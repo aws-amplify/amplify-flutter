@@ -45,9 +45,6 @@ abstract class NoSuchOrganizationConfigRuleException
     NoSuchOrganizationConfigRuleExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NoSuchOrganizationConfigRuleExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

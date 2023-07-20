@@ -56,9 +56,7 @@ class TieringBuilder implements Builder<Tiering, TieringBuilder> {
   set accessTier(_i2.IntelligentTieringAccessTier? accessTier) =>
       _$this._accessTier = accessTier;
 
-  TieringBuilder() {
-    Tiering._init(this);
-  }
+  TieringBuilder();
 
   TieringBuilder get _$this {
     final $v = _$v;

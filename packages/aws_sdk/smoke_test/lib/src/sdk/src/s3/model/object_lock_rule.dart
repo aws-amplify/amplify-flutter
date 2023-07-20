@@ -30,9 +30,6 @@ abstract class ObjectLockRule
     ObjectLockRuleRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ObjectLockRuleBuilder b) {}
-
   /// The default Object Lock retention mode and period that you want to apply to new objects placed in the specified bucket. Bucket settings require both a mode and a period. The period can be either `Days` or `Years` but you must select one. You cannot specify `Days` and `Years` at the same time.
   _i2.DefaultRetention? get defaultRetention;
   @override

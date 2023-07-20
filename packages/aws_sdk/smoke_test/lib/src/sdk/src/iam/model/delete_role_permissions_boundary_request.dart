@@ -37,9 +37,6 @@ abstract class DeleteRolePermissionsBoundaryRequest
   static const List<_i1.SmithySerializer<DeleteRolePermissionsBoundaryRequest>>
       serializers = [DeleteRolePermissionsBoundaryRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteRolePermissionsBoundaryRequestBuilder b) {}
-
   /// The name (friendly name, not ARN) of the IAM role from which you want to remove the permissions boundary.
   String get roleName;
   @override

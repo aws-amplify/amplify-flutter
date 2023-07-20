@@ -36,9 +36,6 @@ abstract class Capacity
     CapacityAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CapacityBuilder b) {}
-
   /// The total number of read capacity units consumed on a table or an index.
   double? get readCapacityUnits;
 

@@ -38,9 +38,6 @@ abstract class CreateTableOutput
     CreateTableOutputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateTableOutputBuilder b) {}
-
   /// Represents the properties of the table.
   _i2.TableDescription? get tableDescription;
   @override

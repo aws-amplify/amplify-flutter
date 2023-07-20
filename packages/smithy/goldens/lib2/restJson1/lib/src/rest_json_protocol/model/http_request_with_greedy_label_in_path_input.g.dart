@@ -70,9 +70,7 @@ class HttpRequestWithGreedyLabelInPathInputBuilder
   String? get baz => _$this._baz;
   set baz(String? baz) => _$this._baz = baz;
 
-  HttpRequestWithGreedyLabelInPathInputBuilder() {
-    HttpRequestWithGreedyLabelInPathInput._init(this);
-  }
+  HttpRequestWithGreedyLabelInPathInputBuilder();
 
   HttpRequestWithGreedyLabelInPathInputBuilder get _$this {
     final $v = _$v;
@@ -150,9 +148,7 @@ class HttpRequestWithGreedyLabelInPathInputPayloadBuilder
             HttpRequestWithGreedyLabelInPathInputPayloadBuilder> {
   _$HttpRequestWithGreedyLabelInPathInputPayload? _$v;
 
-  HttpRequestWithGreedyLabelInPathInputPayloadBuilder() {
-    HttpRequestWithGreedyLabelInPathInputPayload._init(this);
-  }
+  HttpRequestWithGreedyLabelInPathInputPayloadBuilder();
 
   @override
   void replace(HttpRequestWithGreedyLabelInPathInputPayload other) {

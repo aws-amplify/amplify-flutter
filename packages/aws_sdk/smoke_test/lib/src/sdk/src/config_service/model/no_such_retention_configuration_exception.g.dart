@@ -69,9 +69,7 @@ class NoSuchRetentionConfigurationExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  NoSuchRetentionConfigurationExceptionBuilder() {
-    NoSuchRetentionConfigurationException._init(this);
-  }
+  NoSuchRetentionConfigurationExceptionBuilder();
 
   NoSuchRetentionConfigurationExceptionBuilder get _$this {
     final $v = _$v;

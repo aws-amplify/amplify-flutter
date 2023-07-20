@@ -39,9 +39,6 @@ abstract class RestoreTableFromBackupOutput
   static const List<_i3.SmithySerializer<RestoreTableFromBackupOutput>>
       serializers = [RestoreTableFromBackupOutputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RestoreTableFromBackupOutputBuilder b) {}
-
   /// The description of the table created from an existing backup.
   _i2.TableDescription? get tableDescription;
   @override

@@ -66,9 +66,7 @@ class SamlProviderListEntryBuilder
   DateTime? get createDate => _$this._createDate;
   set createDate(DateTime? createDate) => _$this._createDate = createDate;
 
-  SamlProviderListEntryBuilder() {
-    SamlProviderListEntry._init(this);
-  }
+  SamlProviderListEntryBuilder();
 
   SamlProviderListEntryBuilder get _$this {
     final $v = _$v;

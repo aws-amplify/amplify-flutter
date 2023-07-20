@@ -55,8 +55,6 @@ abstract class HttpPayloadWithXmlNameInputOutput
   static const List<_i1.SmithySerializer<_i2.PayloadWithXmlName?>> serializers =
       [HttpPayloadWithXmlNameInputOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpPayloadWithXmlNameInputOutputBuilder b) {}
   _i2.PayloadWithXmlName? get nested;
   @override
   _i2.PayloadWithXmlName? getPayload() => nested ?? _i2.PayloadWithXmlName();

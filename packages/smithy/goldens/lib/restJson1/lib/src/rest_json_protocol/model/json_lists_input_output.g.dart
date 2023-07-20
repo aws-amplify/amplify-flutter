@@ -153,9 +153,7 @@ class JsonListsInputOutputBuilder
   set structureList(_i5.ListBuilder<_i4.StructureListMember>? structureList) =>
       _$this._structureList = structureList;
 
-  JsonListsInputOutputBuilder() {
-    JsonListsInputOutput._init(this);
-  }
+  JsonListsInputOutputBuilder();
 
   JsonListsInputOutputBuilder get _$this {
     final $v = _$v;

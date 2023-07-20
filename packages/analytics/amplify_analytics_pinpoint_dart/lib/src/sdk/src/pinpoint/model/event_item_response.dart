@@ -35,9 +35,6 @@ abstract class EventItemResponse
     EventItemResponseRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EventItemResponseBuilder b) {}
-
   /// A custom message that's returned in the response as a result of processing the event.
   String? get message;
 

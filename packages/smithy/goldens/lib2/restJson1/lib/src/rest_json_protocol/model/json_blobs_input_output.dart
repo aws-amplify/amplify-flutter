@@ -45,8 +45,6 @@ abstract class JsonBlobsInputOutput
     JsonBlobsInputOutputRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(JsonBlobsInputOutputBuilder b) {}
   _i3.Uint8List? get data;
   @override
   JsonBlobsInputOutput getPayload() => this;

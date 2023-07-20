@@ -78,8 +78,6 @@ abstract class XmlListsOutput
     XmlListsOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(XmlListsOutputBuilder b) {}
   _i4.BuiltList<String>? get stringList;
   _i4.BuiltSet<String>? get stringSet;
   _i4.BuiltList<int>? get integerList;

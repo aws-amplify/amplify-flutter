@@ -38,9 +38,6 @@ abstract class DeleteTableOutput
     DeleteTableOutputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteTableOutputBuilder b) {}
-
   /// Represents the properties of a table.
   _i2.TableDescription? get tableDescription;
   @override

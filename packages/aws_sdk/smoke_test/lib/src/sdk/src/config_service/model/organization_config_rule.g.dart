@@ -139,9 +139,7 @@ class OrganizationConfigRuleBuilder
       _$this._organizationCustomPolicyRuleMetadata =
           organizationCustomPolicyRuleMetadata;
 
-  OrganizationConfigRuleBuilder() {
-    OrganizationConfigRule._init(this);
-  }
+  OrganizationConfigRuleBuilder();
 
   OrganizationConfigRuleBuilder get _$this {
     final $v = _$v;

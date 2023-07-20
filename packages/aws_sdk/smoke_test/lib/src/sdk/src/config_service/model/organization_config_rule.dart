@@ -55,9 +55,6 @@ abstract class OrganizationConfigRule
   static const List<_i6.SmithySerializer<OrganizationConfigRule>> serializers =
       [OrganizationConfigRuleAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OrganizationConfigRuleBuilder b) {}
-
   /// The name that you assign to organization Config rule.
   String get organizationConfigRuleName;
 

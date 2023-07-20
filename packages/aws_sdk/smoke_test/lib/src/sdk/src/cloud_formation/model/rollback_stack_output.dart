@@ -34,9 +34,6 @@ abstract class RollbackStackOutput
     RollbackStackOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RollbackStackOutputBuilder b) {}
-
   /// Unique identifier of the stack.
   String? get stackId;
   @override

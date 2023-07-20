@@ -36,9 +36,6 @@ abstract class GetShardIteratorOutput
   static const List<_i2.SmithySerializer<GetShardIteratorOutput>> serializers =
       [GetShardIteratorOutputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetShardIteratorOutputBuilder b) {}
-
   /// The position in the shard from which to start reading stream records sequentially. A shard iterator specifies this position using the sequence number of a stream record in a shard.
   String? get shardIterator;
   @override

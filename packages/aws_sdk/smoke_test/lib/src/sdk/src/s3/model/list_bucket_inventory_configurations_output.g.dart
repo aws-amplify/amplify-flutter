@@ -91,9 +91,7 @@ class ListBucketInventoryConfigurationsOutputBuilder
   set nextContinuationToken(String? nextContinuationToken) =>
       _$this._nextContinuationToken = nextContinuationToken;
 
-  ListBucketInventoryConfigurationsOutputBuilder() {
-    ListBucketInventoryConfigurationsOutput._init(this);
-  }
+  ListBucketInventoryConfigurationsOutputBuilder();
 
   ListBucketInventoryConfigurationsOutputBuilder get _$this {
     final $v = _$v;

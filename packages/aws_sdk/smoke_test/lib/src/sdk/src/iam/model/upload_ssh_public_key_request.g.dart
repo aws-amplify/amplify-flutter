@@ -66,9 +66,7 @@ class UploadSshPublicKeyRequestBuilder
   set sshPublicKeyBody(String? sshPublicKeyBody) =>
       _$this._sshPublicKeyBody = sshPublicKeyBody;
 
-  UploadSshPublicKeyRequestBuilder() {
-    UploadSshPublicKeyRequest._init(this);
-  }
+  UploadSshPublicKeyRequestBuilder();
 
   UploadSshPublicKeyRequestBuilder get _$this {
     final $v = _$v;

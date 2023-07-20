@@ -537,7 +537,7 @@ void main() {
           )}$testKey',
         );
         expect(request.contentType, await testLocalFile.contentType);
-        expect(await request.body?.toList(), equals([testBytes]));
+        expect(await request.body.toList(), equals([testBytes]));
       });
 
       test(
@@ -901,7 +901,7 @@ void main() {
           );
           partNumbers.add(request.partNumber!);
           bytes.add(
-            await request.body!.toList().then(
+            await request.body.toList().then(
                   (collectedBytes) =>
                       collectedBytes.expand((bytes) => bytes).toList(),
                 ),

@@ -42,9 +42,6 @@ abstract class ListGlobalTablesOutput
   static const List<_i4.SmithySerializer<ListGlobalTablesOutput>> serializers =
       [ListGlobalTablesOutputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListGlobalTablesOutputBuilder b) {}
-
   /// List of global table names.
   _i3.BuiltList<_i2.GlobalTable>? get globalTables;
 

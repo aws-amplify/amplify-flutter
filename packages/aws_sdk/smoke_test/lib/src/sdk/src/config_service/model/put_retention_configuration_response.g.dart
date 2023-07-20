@@ -58,9 +58,7 @@ class PutRetentionConfigurationResponseBuilder
           _i2.RetentionConfigurationBuilder? retentionConfiguration) =>
       _$this._retentionConfiguration = retentionConfiguration;
 
-  PutRetentionConfigurationResponseBuilder() {
-    PutRetentionConfigurationResponse._init(this);
-  }
+  PutRetentionConfigurationResponseBuilder();
 
   PutRetentionConfigurationResponseBuilder get _$this {
     final $v = _$v;

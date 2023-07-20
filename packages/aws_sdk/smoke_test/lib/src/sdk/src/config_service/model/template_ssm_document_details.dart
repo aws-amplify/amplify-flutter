@@ -42,9 +42,6 @@ abstract class TemplateSsmDocumentDetails
   static const List<_i2.SmithySerializer<TemplateSsmDocumentDetails>>
       serializers = [TemplateSsmDocumentDetailsAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TemplateSsmDocumentDetailsBuilder b) {}
-
   /// The name or Amazon Resource Name (ARN) of the SSM document to use to create a conformance pack. If you use the document name, Config checks only your account and Amazon Web Services Region for the SSM document. If you want to use an SSM document from another Region or account, you must provide the ARN.
   String get documentName;
 

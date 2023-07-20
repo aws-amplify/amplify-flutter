@@ -51,9 +51,6 @@ abstract class PutResourceConfigRequest
   static const List<_i1.SmithySerializer<PutResourceConfigRequest>>
       serializers = [PutResourceConfigRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutResourceConfigRequestBuilder b) {}
-
   /// The type of the resource. The custom resource type must be registered with CloudFormation.
   ///
   /// You cannot use the organization names “amzn”, “amazon”, “alexa”, “custom” with custom resource types. It is the first part of the ResourceType up to the first ::.

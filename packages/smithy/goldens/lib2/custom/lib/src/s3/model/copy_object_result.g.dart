@@ -47,9 +47,7 @@ class CopyObjectResultBuilder
   String? get eTag => _$this._eTag;
   set eTag(String? eTag) => _$this._eTag = eTag;
 
-  CopyObjectResultBuilder() {
-    CopyObjectResult._init(this);
-  }
+  CopyObjectResultBuilder();
 
   CopyObjectResultBuilder get _$this {
     final $v = _$v;

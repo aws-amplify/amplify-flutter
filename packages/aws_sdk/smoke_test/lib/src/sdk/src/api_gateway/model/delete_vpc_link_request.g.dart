@@ -51,9 +51,7 @@ class DeleteVpcLinkRequestBuilder
   String? get vpcLinkId => _$this._vpcLinkId;
   set vpcLinkId(String? vpcLinkId) => _$this._vpcLinkId = vpcLinkId;
 
-  DeleteVpcLinkRequestBuilder() {
-    DeleteVpcLinkRequest._init(this);
-  }
+  DeleteVpcLinkRequestBuilder();
 
   DeleteVpcLinkRequestBuilder get _$this {
     final $v = _$v;
@@ -122,9 +120,7 @@ class DeleteVpcLinkRequestPayloadBuilder
             DeleteVpcLinkRequestPayloadBuilder> {
   _$DeleteVpcLinkRequestPayload? _$v;
 
-  DeleteVpcLinkRequestPayloadBuilder() {
-    DeleteVpcLinkRequestPayload._init(this);
-  }
+  DeleteVpcLinkRequestPayloadBuilder();
 
   @override
   void replace(DeleteVpcLinkRequestPayload other) {

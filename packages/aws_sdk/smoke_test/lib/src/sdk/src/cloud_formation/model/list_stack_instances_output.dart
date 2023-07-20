@@ -43,9 +43,6 @@ abstract class ListStackInstancesOutput
   static const List<_i4.SmithySerializer<ListStackInstancesOutput>>
       serializers = [ListStackInstancesOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListStackInstancesOutputBuilder b) {}
-
   /// A list of `StackInstanceSummary` structures that contain information about the specified stack instances.
   _i3.BuiltList<_i2.StackInstanceSummary>? get summaries;
 

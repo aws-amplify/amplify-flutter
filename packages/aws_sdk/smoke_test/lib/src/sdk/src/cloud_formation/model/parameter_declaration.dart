@@ -46,9 +46,6 @@ abstract class ParameterDeclaration
     ParameterDeclarationAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ParameterDeclarationBuilder b) {}
-
   /// The name that's associated with the parameter.
   String? get parameterKey;
 

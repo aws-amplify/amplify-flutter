@@ -51,9 +51,7 @@ class DescribeBackupOutputBuilder
   set backupDescription(_i2.BackupDescriptionBuilder? backupDescription) =>
       _$this._backupDescription = backupDescription;
 
-  DescribeBackupOutputBuilder() {
-    DescribeBackupOutput._init(this);
-  }
+  DescribeBackupOutputBuilder();
 
   DescribeBackupOutputBuilder get _$this {
     final $v = _$v;

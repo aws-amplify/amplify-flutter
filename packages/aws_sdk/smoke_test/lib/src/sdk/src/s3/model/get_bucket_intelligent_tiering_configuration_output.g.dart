@@ -66,9 +66,7 @@ class GetBucketIntelligentTieringConfigurationOutputBuilder
               intelligentTieringConfiguration) =>
       _$this._intelligentTieringConfiguration = intelligentTieringConfiguration;
 
-  GetBucketIntelligentTieringConfigurationOutputBuilder() {
-    GetBucketIntelligentTieringConfigurationOutput._init(this);
-  }
+  GetBucketIntelligentTieringConfigurationOutputBuilder();
 
   GetBucketIntelligentTieringConfigurationOutputBuilder get _$this {
     final $v = _$v;

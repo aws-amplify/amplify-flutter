@@ -56,9 +56,7 @@ class ListTablesInputBuilder
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
 
-  ListTablesInputBuilder() {
-    ListTablesInput._init(this);
-  }
+  ListTablesInputBuilder();
 
   ListTablesInputBuilder get _$this {
     final $v = _$v;

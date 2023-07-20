@@ -71,9 +71,6 @@ abstract class StackEvent
     StackEventAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackEventBuilder b) {}
-
   /// The unique ID name of the instance of the stack.
   String get stackId;
 

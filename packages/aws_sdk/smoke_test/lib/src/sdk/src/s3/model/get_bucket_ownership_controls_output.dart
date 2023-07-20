@@ -47,9 +47,6 @@ abstract class GetBucketOwnershipControlsOutput
   static const List<_i2.SmithySerializer<_i3.OwnershipControls?>> serializers =
       [GetBucketOwnershipControlsOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketOwnershipControlsOutputBuilder b) {}
-
   /// The `OwnershipControls` (BucketOwnerEnforced, BucketOwnerPreferred, or ObjectWriter) currently in effect for this Amazon S3 bucket.
   _i3.OwnershipControls? get ownershipControls;
   @override

@@ -61,9 +61,6 @@ abstract class ReplicationRule
     ReplicationRuleRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicationRuleBuilder b) {}
-
   /// A unique identifier for the rule. The maximum value is 255 characters.
   String? get id;
 

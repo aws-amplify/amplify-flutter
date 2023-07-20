@@ -43,9 +43,6 @@ abstract class GetObjectRetentionOutput
   static const List<_i2.SmithySerializer<_i3.ObjectLockRetention?>>
       serializers = [GetObjectRetentionOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectRetentionOutputBuilder b) {}
-
   /// The container element for an object's retention settings.
   _i3.ObjectLockRetention? get retention;
   @override

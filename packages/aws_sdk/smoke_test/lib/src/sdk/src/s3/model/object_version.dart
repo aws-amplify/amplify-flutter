@@ -59,9 +59,6 @@ abstract class ObjectVersion
     ObjectVersionRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ObjectVersionBuilder b) {}
-
   /// The entity tag is an MD5 hash of that version of the object.
   String? get eTag;
 

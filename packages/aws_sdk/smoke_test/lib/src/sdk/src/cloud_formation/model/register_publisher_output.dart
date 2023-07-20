@@ -33,9 +33,6 @@ abstract class RegisterPublisherOutput
   static const List<_i2.SmithySerializer<RegisterPublisherOutput>> serializers =
       [RegisterPublisherOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RegisterPublisherOutputBuilder b) {}
-
   /// The ID assigned this account by CloudFormation for publishing extensions.
   String? get publisherId;
   @override

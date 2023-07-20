@@ -75,9 +75,7 @@ class ListInstanceProfilesForRoleRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  ListInstanceProfilesForRoleRequestBuilder() {
-    ListInstanceProfilesForRoleRequest._init(this);
-  }
+  ListInstanceProfilesForRoleRequestBuilder();
 
   ListInstanceProfilesForRoleRequestBuilder get _$this {
     final $v = _$v;

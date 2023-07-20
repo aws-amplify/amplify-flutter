@@ -36,8 +36,6 @@ abstract class XmlNamespacesOutput
     XmlNamespacesOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(XmlNamespacesOutputBuilder b) {}
   _i2.XmlNamespaceNested? get nested;
   @override
   List<Object?> get props => [nested];

@@ -135,9 +135,7 @@ class CreateDeploymentRequestBuilder
   set tracingEnabled(bool? tracingEnabled) =>
       _$this._tracingEnabled = tracingEnabled;
 
-  CreateDeploymentRequestBuilder() {
-    CreateDeploymentRequest._init(this);
-  }
+  CreateDeploymentRequestBuilder();
 
   CreateDeploymentRequestBuilder get _$this {
     final $v = _$v;
@@ -321,9 +319,7 @@ class CreateDeploymentRequestPayloadBuilder
   set variables(_i5.MapBuilder<String, String>? variables) =>
       _$this._variables = variables;
 
-  CreateDeploymentRequestPayloadBuilder() {
-    CreateDeploymentRequestPayload._init(this);
-  }
+  CreateDeploymentRequestPayloadBuilder();
 
   CreateDeploymentRequestPayloadBuilder get _$this {
     final $v = _$v;

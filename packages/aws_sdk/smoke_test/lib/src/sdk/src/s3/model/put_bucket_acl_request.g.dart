@@ -151,9 +151,7 @@ class PutBucketAclRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  PutBucketAclRequestBuilder() {
-    PutBucketAclRequest._init(this);
-  }
+  PutBucketAclRequestBuilder();
 
   PutBucketAclRequestBuilder get _$this {
     final $v = _$v;

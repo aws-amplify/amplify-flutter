@@ -42,9 +42,6 @@ abstract class PutDeliveryChannelRequest
   static const List<_i1.SmithySerializer<PutDeliveryChannelRequest>>
       serializers = [PutDeliveryChannelRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutDeliveryChannelRequestBuilder b) {}
-
   /// The configuration delivery channel object that delivers the configuration information to an Amazon S3 bucket and to an Amazon SNS topic.
   _i3.DeliveryChannel get deliveryChannel;
   @override

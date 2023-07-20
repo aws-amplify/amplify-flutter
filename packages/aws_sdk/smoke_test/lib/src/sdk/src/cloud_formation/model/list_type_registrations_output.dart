@@ -43,9 +43,6 @@ abstract class ListTypeRegistrationsOutput
   static const List<_i3.SmithySerializer<ListTypeRegistrationsOutput>>
       serializers = [ListTypeRegistrationsOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListTypeRegistrationsOutputBuilder b) {}
-
   /// A list of extension registration tokens.
   ///
   /// Use DescribeTypeRegistration to return detailed information about a type registration request.

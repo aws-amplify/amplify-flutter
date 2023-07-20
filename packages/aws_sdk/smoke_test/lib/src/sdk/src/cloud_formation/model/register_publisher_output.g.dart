@@ -49,9 +49,7 @@ class RegisterPublisherOutputBuilder
   String? get publisherId => _$this._publisherId;
   set publisherId(String? publisherId) => _$this._publisherId = publisherId;
 
-  RegisterPublisherOutputBuilder() {
-    RegisterPublisherOutput._init(this);
-  }
+  RegisterPublisherOutputBuilder();
 
   RegisterPublisherOutputBuilder get _$this {
     final $v = _$v;

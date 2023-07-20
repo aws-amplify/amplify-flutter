@@ -42,9 +42,6 @@ abstract class StorageClassAnalysisDataExport
   static const List<_i4.SmithySerializer<StorageClassAnalysisDataExport>>
       serializers = [StorageClassAnalysisDataExportRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StorageClassAnalysisDataExportBuilder b) {}
-
   /// The version of the output schema to use when exporting data. Must be `V_1`.
   _i2.StorageClassAnalysisSchemaVersion get outputSchemaVersion;
 

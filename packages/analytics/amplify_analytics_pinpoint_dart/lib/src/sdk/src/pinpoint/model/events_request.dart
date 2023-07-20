@@ -32,9 +32,6 @@ abstract class EventsRequest
     EventsRequestRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EventsRequestBuilder b) {}
-
   /// The batch of events to process. For each item in a batch, the endpoint ID acts as a key that has an EventsBatch object as its value.
   _i3.BuiltMap<String, _i2.EventsBatch> get batchItem;
   @override

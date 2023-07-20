@@ -42,8 +42,6 @@ abstract class ObjectNotInActiveTierError
   static const List<_i2.SmithySerializer<ObjectNotInActiveTierError>>
       serializers = [ObjectNotInActiveTierErrorRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ObjectNotInActiveTierErrorBuilder b) {}
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
         namespace: 'com.amazonaws.s3',

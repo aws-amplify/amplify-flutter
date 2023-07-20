@@ -40,8 +40,6 @@ abstract class GetBucketLocationOutput
   static const List<_i2.SmithySerializer<_i3.BucketLocationConstraint?>>
       serializers = [GetBucketLocationOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketLocationOutputBuilder b) {}
   _i3.BucketLocationConstraint? get locationConstraint;
   @override
   _i3.BucketLocationConstraint? getPayload() => locationConstraint;

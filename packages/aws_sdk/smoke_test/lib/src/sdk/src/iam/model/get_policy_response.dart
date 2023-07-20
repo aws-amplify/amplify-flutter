@@ -37,9 +37,6 @@ abstract class GetPolicyResponse
     GetPolicyResponseAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetPolicyResponseBuilder b) {}
-
   /// A structure containing details about the policy.
   _i2.Policy? get policy;
   @override

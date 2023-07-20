@@ -43,9 +43,6 @@ abstract class CreateVirtualMfaDeviceResponse
   static const List<_i3.SmithySerializer<CreateVirtualMfaDeviceResponse>>
       serializers = [CreateVirtualMfaDeviceResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateVirtualMfaDeviceResponseBuilder b) {}
-
   /// A structure containing details about the new virtual MFA device.
   _i2.VirtualMfaDevice get virtualMfaDevice;
   @override

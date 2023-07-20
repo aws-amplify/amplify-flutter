@@ -62,9 +62,7 @@ class GenerateClientCertificateRequestBuilder
       _$this._tags ??= new _i3.MapBuilder<String, String>();
   set tags(_i3.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
-  GenerateClientCertificateRequestBuilder() {
-    GenerateClientCertificateRequest._init(this);
-  }
+  GenerateClientCertificateRequestBuilder();
 
   GenerateClientCertificateRequestBuilder get _$this {
     final $v = _$v;

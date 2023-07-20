@@ -54,9 +54,7 @@ class RestoreTableToPointInTimeOutputBuilder
   set tableDescription(_i2.TableDescriptionBuilder? tableDescription) =>
       _$this._tableDescription = tableDescription;
 
-  RestoreTableToPointInTimeOutputBuilder() {
-    RestoreTableToPointInTimeOutput._init(this);
-  }
+  RestoreTableToPointInTimeOutputBuilder();
 
   RestoreTableToPointInTimeOutputBuilder get _$this {
     final $v = _$v;

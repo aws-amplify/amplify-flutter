@@ -41,9 +41,6 @@ abstract class DeliverConfigSnapshotRequest
   static const List<_i1.SmithySerializer<DeliverConfigSnapshotRequest>>
       serializers = [DeliverConfigSnapshotRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeliverConfigSnapshotRequestBuilder b) {}
-
   /// The name of the delivery channel through which the snapshot is delivered.
   String get deliveryChannelName;
   @override

@@ -43,9 +43,6 @@ abstract class DescribeRemediationConfigurationsRequest
     DescribeRemediationConfigurationsRequestAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeRemediationConfigurationsRequestBuilder b) {}
-
   /// A list of Config rule names of remediation configurations for which you want details.
   _i3.BuiltList<String> get configRuleNames;
   @override

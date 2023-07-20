@@ -92,9 +92,7 @@ class SelectParametersBuilder
           _i4.OutputSerializationBuilder? outputSerialization) =>
       _$this._outputSerialization = outputSerialization;
 
-  SelectParametersBuilder() {
-    SelectParameters._init(this);
-  }
+  SelectParametersBuilder();
 
   SelectParametersBuilder get _$this {
     final $v = _$v;

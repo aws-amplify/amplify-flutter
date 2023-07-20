@@ -37,7 +37,7 @@ abstract class GetObjectOutput
 
   /// Constructs a [GetObjectOutput] from a [payload] and [response].
   factory GetObjectOutput.fromResponse(
-    _i3.Stream<List<int>>? payload,
+    _i3.Stream<List<int>> payload,
     _i1.AWSBaseHttpResponse response,
   ) =>
       GetObjectOutput.build((b) {
@@ -50,19 +50,20 @@ abstract class GetObjectOutput
         }
       });
 
-  static const List<_i2.SmithySerializer<_i3.Stream<List<int>>?>> serializers =
-      [GetObjectOutputRestXmlSerializer()];
+  static const List<_i2.SmithySerializer<_i3.Stream<List<int>>>> serializers = [
+    GetObjectOutputRestXmlSerializer()
+  ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetObjectOutputBuilder b) {
     b.body = const _i3.Stream.empty();
   }
 
-  _i3.Stream<List<int>>? get body;
+  _i3.Stream<List<int>> get body;
   int? get contentLength;
   String? get contentRange;
   @override
-  _i3.Stream<List<int>>? getPayload() => body;
+  _i3.Stream<List<int>> getPayload() => body;
   @override
   List<Object?> get props => [
         body,

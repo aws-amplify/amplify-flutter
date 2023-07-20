@@ -44,9 +44,6 @@ abstract class ListPolicyVersionsRequest
   static const List<_i1.SmithySerializer<ListPolicyVersionsRequest>>
       serializers = [ListPolicyVersionsRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListPolicyVersionsRequestBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the IAM policy for which you want the versions.
   ///
   /// For more information about ARNs, see [Amazon Resource Names (ARNs)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) in the _Amazon Web Services General Reference_.

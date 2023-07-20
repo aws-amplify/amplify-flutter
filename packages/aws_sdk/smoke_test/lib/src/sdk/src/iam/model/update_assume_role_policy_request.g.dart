@@ -67,9 +67,7 @@ class UpdateAssumeRolePolicyRequestBuilder
   set policyDocument(String? policyDocument) =>
       _$this._policyDocument = policyDocument;
 
-  UpdateAssumeRolePolicyRequestBuilder() {
-    UpdateAssumeRolePolicyRequest._init(this);
-  }
+  UpdateAssumeRolePolicyRequestBuilder();
 
   UpdateAssumeRolePolicyRequestBuilder get _$this {
     final $v = _$v;

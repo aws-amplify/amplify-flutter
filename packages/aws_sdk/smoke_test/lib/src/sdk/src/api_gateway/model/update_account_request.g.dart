@@ -51,9 +51,7 @@ class UpdateAccountRequestBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateAccountRequestBuilder() {
-    UpdateAccountRequest._init(this);
-  }
+  UpdateAccountRequestBuilder();
 
   UpdateAccountRequestBuilder get _$this {
     final $v = _$v;

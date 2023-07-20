@@ -46,9 +46,6 @@ abstract class GetDomainNameRequest
   static const List<_i1.SmithySerializer<GetDomainNameRequestPayload>>
       serializers = [GetDomainNameRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetDomainNameRequestBuilder b) {}
-
   /// The name of the DomainName resource.
   String get domainName;
   @override
@@ -90,8 +87,6 @@ abstract class GetDomainNameRequestPayload
 
   const GetDomainNameRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetDomainNameRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

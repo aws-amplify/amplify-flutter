@@ -46,9 +46,6 @@ abstract class MaxNumberOfConfigRulesExceededException
     MaxNumberOfConfigRulesExceededExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MaxNumberOfConfigRulesExceededExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

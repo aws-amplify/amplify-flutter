@@ -37,8 +37,6 @@ abstract class MalformedTimestampBodyHttpDateInput
   static const List<_i1.SmithySerializer<MalformedTimestampBodyHttpDateInput>>
       serializers = [MalformedTimestampBodyHttpDateInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedTimestampBodyHttpDateInputBuilder b) {}
   DateTime get timestamp;
   @override
   MalformedTimestampBodyHttpDateInput getPayload() => this;

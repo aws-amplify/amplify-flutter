@@ -52,9 +52,7 @@ class ConstantQueryStringInputBuilder
   String? get hello => _$this._hello;
   set hello(String? hello) => _$this._hello = hello;
 
-  ConstantQueryStringInputBuilder() {
-    ConstantQueryStringInput._init(this);
-  }
+  ConstantQueryStringInputBuilder();
 
   ConstantQueryStringInputBuilder get _$this {
     final $v = _$v;
@@ -124,9 +122,7 @@ class ConstantQueryStringInputPayloadBuilder
             ConstantQueryStringInputPayloadBuilder> {
   _$ConstantQueryStringInputPayload? _$v;
 
-  ConstantQueryStringInputPayloadBuilder() {
-    ConstantQueryStringInputPayload._init(this);
-  }
+  ConstantQueryStringInputPayloadBuilder();
 
   @override
   void replace(ConstantQueryStringInputPayload other) {

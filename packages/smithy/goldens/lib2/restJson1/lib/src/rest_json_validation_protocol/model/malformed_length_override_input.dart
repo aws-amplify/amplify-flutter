@@ -54,8 +54,6 @@ abstract class MalformedLengthOverrideInput
   static const List<_i1.SmithySerializer<MalformedLengthOverrideInput>>
       serializers = [MalformedLengthOverrideInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedLengthOverrideInputBuilder b) {}
   _i3.Uint8List? get blob;
   String? get string;
   String? get minString;

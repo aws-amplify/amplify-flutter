@@ -38,9 +38,6 @@ abstract class Shard
     ShardAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ShardBuilder b) {}
-
   /// The system-generated identifier for this shard.
   String? get shardId;
 

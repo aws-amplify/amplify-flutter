@@ -56,9 +56,7 @@ class DeleteConformancePackRequestBuilder
   set conformancePackName(String? conformancePackName) =>
       _$this._conformancePackName = conformancePackName;
 
-  DeleteConformancePackRequestBuilder() {
-    DeleteConformancePackRequest._init(this);
-  }
+  DeleteConformancePackRequestBuilder();
 
   DeleteConformancePackRequestBuilder get _$this {
     final $v = _$v;

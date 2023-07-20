@@ -71,7 +71,7 @@ abstract class UploadPartRequest
   const UploadPartRequest._();
 
   factory UploadPartRequest.fromRequest(
-    _i2.Stream<List<int>>? payload,
+    _i2.Stream<List<int>> payload,
     _i3.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
@@ -138,8 +138,9 @@ abstract class UploadPartRequest
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.Stream<List<int>>?>> serializers =
-      [UploadPartRequestRestXmlSerializer()];
+  static const List<_i1.SmithySerializer<_i2.Stream<List<int>>>> serializers = [
+    UploadPartRequestRestXmlSerializer()
+  ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UploadPartRequestBuilder b) {
@@ -147,7 +148,7 @@ abstract class UploadPartRequest
   }
 
   /// Object data.
-  _i2.Stream<List<int>>? get body;
+  _i2.Stream<List<int>> get body;
 
   /// The name of the bucket to which the multipart upload was initiated.
   ///
@@ -219,7 +220,7 @@ abstract class UploadPartRequest
   }
 
   @override
-  _i2.Stream<List<int>>? getPayload() => body;
+  _i2.Stream<List<int>> getPayload() => body;
   @override
   List<Object?> get props => [
         body,

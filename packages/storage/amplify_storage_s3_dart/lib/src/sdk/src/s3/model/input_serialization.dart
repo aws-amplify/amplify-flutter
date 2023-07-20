@@ -48,9 +48,6 @@ abstract class InputSerialization
     InputSerializationRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InputSerializationBuilder b) {}
-
   /// Describes the serialization of a CSV-encoded object.
   _i2.CsvInput? get csv;
 

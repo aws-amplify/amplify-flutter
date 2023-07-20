@@ -94,9 +94,7 @@ class PutBucketIntelligentTieringConfigurationRequestBuilder
               intelligentTieringConfiguration) =>
       _$this._intelligentTieringConfiguration = intelligentTieringConfiguration;
 
-  PutBucketIntelligentTieringConfigurationRequestBuilder() {
-    PutBucketIntelligentTieringConfigurationRequest._init(this);
-  }
+  PutBucketIntelligentTieringConfigurationRequestBuilder();
 
   PutBucketIntelligentTieringConfigurationRequestBuilder get _$this {
     final $v = _$v;

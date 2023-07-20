@@ -55,9 +55,7 @@ class GenerateOrganizationsAccessReportResponseBuilder
   String? get jobId => _$this._jobId;
   set jobId(String? jobId) => _$this._jobId = jobId;
 
-  GenerateOrganizationsAccessReportResponseBuilder() {
-    GenerateOrganizationsAccessReportResponse._init(this);
-  }
+  GenerateOrganizationsAccessReportResponseBuilder();
 
   GenerateOrganizationsAccessReportResponseBuilder get _$this {
     final $v = _$v;

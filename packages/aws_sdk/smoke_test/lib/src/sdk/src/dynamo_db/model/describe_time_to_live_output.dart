@@ -38,9 +38,6 @@ abstract class DescribeTimeToLiveOutput
   static const List<_i3.SmithySerializer<DescribeTimeToLiveOutput>>
       serializers = [DescribeTimeToLiveOutputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeTimeToLiveOutputBuilder b) {}
-
   _i2.TimeToLiveDescription? get timeToLiveDescription;
   @override
   List<Object?> get props => [timeToLiveDescription];

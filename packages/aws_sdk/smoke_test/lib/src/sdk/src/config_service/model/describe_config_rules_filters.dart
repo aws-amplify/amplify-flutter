@@ -32,9 +32,6 @@ abstract class DescribeConfigRulesFilters
   static const List<_i3.SmithySerializer<DescribeConfigRulesFilters>>
       serializers = [DescribeConfigRulesFiltersAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeConfigRulesFiltersBuilder b) {}
-
   /// The mode of an evaluation. The valid values are Detective or Proactive.
   _i2.EvaluationMode? get evaluationMode;
   @override

@@ -40,9 +40,6 @@ abstract class PatchOperation
     PatchOperationRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PatchOperationBuilder b) {}
-
   /// An update operation to be performed with this PATCH request. The valid value can be add, remove, replace or copy. Not all valid operations are supported for a given resource. Support of the operations depends on specific operational contexts. Attempts to apply an unsupported operation on a resource will return an error message..
   _i2.Op? get op;
 

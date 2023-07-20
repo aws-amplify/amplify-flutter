@@ -37,8 +37,6 @@ abstract class FlattenedXmlMapOutput
     FlattenedXmlMapOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(FlattenedXmlMapOutputBuilder b) {}
   _i3.BuiltMap<String, _i2.FooEnum>? get myMap;
   @override
   List<Object?> get props => [myMap];

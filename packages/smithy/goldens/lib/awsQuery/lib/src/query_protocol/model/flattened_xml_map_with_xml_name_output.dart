@@ -38,8 +38,6 @@ abstract class FlattenedXmlMapWithXmlNameOutput
   static const List<_i3.SmithySerializer<FlattenedXmlMapWithXmlNameOutput>>
       serializers = [FlattenedXmlMapWithXmlNameOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(FlattenedXmlMapWithXmlNameOutputBuilder b) {}
   _i2.BuiltMap<String, String>? get myMap;
   @override
   List<Object?> get props => [myMap];

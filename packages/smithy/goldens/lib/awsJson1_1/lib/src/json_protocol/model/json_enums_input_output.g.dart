@@ -102,9 +102,7 @@ class JsonEnumsInputOutputBuilder
   set fooEnumMap(_i4.MapBuilder<String, _i3.FooEnum>? fooEnumMap) =>
       _$this._fooEnumMap = fooEnumMap;
 
-  JsonEnumsInputOutputBuilder() {
-    JsonEnumsInputOutput._init(this);
-  }
+  JsonEnumsInputOutputBuilder();
 
   JsonEnumsInputOutputBuilder get _$this {
     final $v = _$v;

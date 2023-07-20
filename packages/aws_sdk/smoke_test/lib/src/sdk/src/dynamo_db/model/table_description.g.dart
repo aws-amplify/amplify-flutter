@@ -293,9 +293,7 @@ class TableDescriptionBuilder
   set deletionProtectionEnabled(bool? deletionProtectionEnabled) =>
       _$this._deletionProtectionEnabled = deletionProtectionEnabled;
 
-  TableDescriptionBuilder() {
-    TableDescription._init(this);
-  }
+  TableDescriptionBuilder();
 
   TableDescriptionBuilder get _$this {
     final $v = _$v;

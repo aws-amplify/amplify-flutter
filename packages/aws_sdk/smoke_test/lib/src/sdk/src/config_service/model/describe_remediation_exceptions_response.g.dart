@@ -69,9 +69,7 @@ class DescribeRemediationExceptionsResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeRemediationExceptionsResponseBuilder() {
-    DescribeRemediationExceptionsResponse._init(this);
-  }
+  DescribeRemediationExceptionsResponseBuilder();
 
   DescribeRemediationExceptionsResponseBuilder get _$this {
     final $v = _$v;

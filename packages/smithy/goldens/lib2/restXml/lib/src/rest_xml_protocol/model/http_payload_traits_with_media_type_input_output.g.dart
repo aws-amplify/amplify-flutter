@@ -64,9 +64,7 @@ class HttpPayloadTraitsWithMediaTypeInputOutputBuilder
   _i2.Uint8List? get blob => _$this._blob;
   set blob(_i2.Uint8List? blob) => _$this._blob = blob;
 
-  HttpPayloadTraitsWithMediaTypeInputOutputBuilder() {
-    HttpPayloadTraitsWithMediaTypeInputOutput._init(this);
-  }
+  HttpPayloadTraitsWithMediaTypeInputOutputBuilder();
 
   HttpPayloadTraitsWithMediaTypeInputOutputBuilder get _$this {
     final $v = _$v;

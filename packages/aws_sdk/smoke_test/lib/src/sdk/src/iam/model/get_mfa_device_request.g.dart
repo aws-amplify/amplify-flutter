@@ -61,9 +61,7 @@ class GetMfaDeviceRequestBuilder
   String? get userName => _$this._userName;
   set userName(String? userName) => _$this._userName = userName;
 
-  GetMfaDeviceRequestBuilder() {
-    GetMfaDeviceRequest._init(this);
-  }
+  GetMfaDeviceRequestBuilder();
 
   GetMfaDeviceRequestBuilder get _$this {
     final $v = _$v;

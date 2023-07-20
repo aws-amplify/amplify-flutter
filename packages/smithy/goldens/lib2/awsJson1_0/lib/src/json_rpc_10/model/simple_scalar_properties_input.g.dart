@@ -60,9 +60,7 @@ class SimpleScalarPropertiesInputBuilder
   double? get doubleValue => _$this._doubleValue;
   set doubleValue(double? doubleValue) => _$this._doubleValue = doubleValue;
 
-  SimpleScalarPropertiesInputBuilder() {
-    SimpleScalarPropertiesInput._init(this);
-  }
+  SimpleScalarPropertiesInputBuilder();
 
   SimpleScalarPropertiesInputBuilder get _$this {
     final $v = _$v;

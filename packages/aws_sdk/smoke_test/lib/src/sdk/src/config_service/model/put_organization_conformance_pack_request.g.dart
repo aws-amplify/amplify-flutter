@@ -134,9 +134,7 @@ class PutOrganizationConformancePackRequestBuilder
   set excludedAccounts(_i4.ListBuilder<String>? excludedAccounts) =>
       _$this._excludedAccounts = excludedAccounts;
 
-  PutOrganizationConformancePackRequestBuilder() {
-    PutOrganizationConformancePackRequest._init(this);
-  }
+  PutOrganizationConformancePackRequestBuilder();
 
   PutOrganizationConformancePackRequestBuilder get _$this {
     final $v = _$v;

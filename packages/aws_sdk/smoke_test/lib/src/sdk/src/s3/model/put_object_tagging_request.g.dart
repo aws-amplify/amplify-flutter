@@ -126,9 +126,7 @@ class PutObjectTaggingRequestBuilder
   set requestPayer(_i5.RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
-  PutObjectTaggingRequestBuilder() {
-    PutObjectTaggingRequest._init(this);
-  }
+  PutObjectTaggingRequestBuilder();
 
   PutObjectTaggingRequestBuilder get _$this {
     final $v = _$v;

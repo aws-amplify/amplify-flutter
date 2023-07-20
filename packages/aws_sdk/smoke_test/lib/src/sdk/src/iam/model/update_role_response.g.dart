@@ -38,9 +38,7 @@ class UpdateRoleResponseBuilder
     implements Builder<UpdateRoleResponse, UpdateRoleResponseBuilder> {
   _$UpdateRoleResponse? _$v;
 
-  UpdateRoleResponseBuilder() {
-    UpdateRoleResponse._init(this);
-  }
+  UpdateRoleResponseBuilder();
 
   @override
   void replace(UpdateRoleResponse other) {

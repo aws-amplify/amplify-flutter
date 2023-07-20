@@ -36,9 +36,6 @@ abstract class TableClassSummary
     TableClassSummaryAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TableClassSummaryBuilder b) {}
-
   /// The table class of the specified table. Valid values are `STANDARD` and `STANDARD\_INFREQUENT\_ACCESS`.
   _i2.TableClass? get tableClass;
 

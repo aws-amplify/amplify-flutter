@@ -69,9 +69,7 @@ class DeleteRemediationConfigurationRequestBuilder
   String? get resourceType => _$this._resourceType;
   set resourceType(String? resourceType) => _$this._resourceType = resourceType;
 
-  DeleteRemediationConfigurationRequestBuilder() {
-    DeleteRemediationConfigurationRequest._init(this);
-  }
+  DeleteRemediationConfigurationRequestBuilder();
 
   DeleteRemediationConfigurationRequestBuilder get _$this {
     final $v = _$v;

@@ -91,9 +91,7 @@ class AccessKeyBuilder implements Builder<AccessKey, AccessKeyBuilder> {
   DateTime? get createDate => _$this._createDate;
   set createDate(DateTime? createDate) => _$this._createDate = createDate;
 
-  AccessKeyBuilder() {
-    AccessKey._init(this);
-  }
+  AccessKeyBuilder();
 
   AccessKeyBuilder get _$this {
     final $v = _$v;

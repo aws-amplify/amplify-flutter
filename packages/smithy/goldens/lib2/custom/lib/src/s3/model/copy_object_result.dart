@@ -26,8 +26,6 @@ abstract class CopyObjectResult
     CopyObjectResultRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CopyObjectResultBuilder b) {}
   String? get eTag;
   @override
   List<Object?> get props => [eTag];

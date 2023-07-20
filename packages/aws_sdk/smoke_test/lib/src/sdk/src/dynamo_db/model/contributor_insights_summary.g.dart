@@ -71,9 +71,7 @@ class ContributorInsightsSummaryBuilder
           _i2.ContributorInsightsStatus? contributorInsightsStatus) =>
       _$this._contributorInsightsStatus = contributorInsightsStatus;
 
-  ContributorInsightsSummaryBuilder() {
-    ContributorInsightsSummary._init(this);
-  }
+  ContributorInsightsSummaryBuilder();
 
   ContributorInsightsSummaryBuilder get _$this {
     final $v = _$v;

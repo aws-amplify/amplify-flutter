@@ -120,9 +120,7 @@ class PutOrganizationConfigRuleRequestBuilder
       _$this._organizationCustomPolicyRuleMetadata =
           organizationCustomPolicyRuleMetadata;
 
-  PutOrganizationConfigRuleRequestBuilder() {
-    PutOrganizationConfigRuleRequest._init(this);
-  }
+  PutOrganizationConfigRuleRequestBuilder();
 
   PutOrganizationConfigRuleRequestBuilder get _$this {
     final $v = _$v;

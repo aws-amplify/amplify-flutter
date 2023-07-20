@@ -54,9 +54,6 @@ abstract class GetBucketAccelerateConfigurationOutput
           _i2.SmithySerializer<GetBucketAccelerateConfigurationOutputPayload>>
       serializers = [GetBucketAccelerateConfigurationOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketAccelerateConfigurationOutputBuilder b) {}
-
   /// The accelerate configuration of the bucket.
   _i3.BucketAccelerateStatus? get status;
 
@@ -100,9 +97,6 @@ abstract class GetBucketAccelerateConfigurationOutputPayload
           updates]) = _$GetBucketAccelerateConfigurationOutputPayload;
 
   const GetBucketAccelerateConfigurationOutputPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketAccelerateConfigurationOutputPayloadBuilder b) {}
 
   /// The accelerate configuration of the bucket.
   _i3.BucketAccelerateStatus? get status;

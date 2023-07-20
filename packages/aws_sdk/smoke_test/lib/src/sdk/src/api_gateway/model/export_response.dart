@@ -56,9 +56,6 @@ abstract class ExportResponse
     ExportResponseRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ExportResponseBuilder b) {}
-
   /// The content-type header value in the HTTP response. This will correspond to a valid 'accept' type in the request.
   String? get contentType;
 

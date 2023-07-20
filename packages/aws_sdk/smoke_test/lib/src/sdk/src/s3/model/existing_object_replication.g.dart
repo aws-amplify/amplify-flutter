@@ -53,9 +53,7 @@ class ExistingObjectReplicationBuilder
   set status(_i2.ExistingObjectReplicationStatus? status) =>
       _$this._status = status;
 
-  ExistingObjectReplicationBuilder() {
-    ExistingObjectReplication._init(this);
-  }
+  ExistingObjectReplicationBuilder();
 
   ExistingObjectReplicationBuilder get _$this {
     final $v = _$v;

@@ -61,9 +61,7 @@ class DeleteStackSetInputBuilder
   _i3.CallAs? get callAs => _$this._callAs;
   set callAs(_i3.CallAs? callAs) => _$this._callAs = callAs;
 
-  DeleteStackSetInputBuilder() {
-    DeleteStackSetInput._init(this);
-  }
+  DeleteStackSetInputBuilder();
 
   DeleteStackSetInputBuilder get _$this {
     final $v = _$v;

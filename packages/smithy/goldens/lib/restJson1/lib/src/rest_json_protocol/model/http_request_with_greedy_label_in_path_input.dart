@@ -56,8 +56,6 @@ abstract class HttpRequestWithGreedyLabelInPathInput
     HttpRequestWithGreedyLabelInPathInputRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpRequestWithGreedyLabelInPathInputBuilder b) {}
   String get foo;
   String get baz;
   @override
@@ -112,8 +110,6 @@ abstract class HttpRequestWithGreedyLabelInPathInputPayload
 
   const HttpRequestWithGreedyLabelInPathInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpRequestWithGreedyLabelInPathInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -47,9 +47,7 @@ class TestTypeOutputBuilder
   set typeVersionArn(String? typeVersionArn) =>
       _$this._typeVersionArn = typeVersionArn;
 
-  TestTypeOutputBuilder() {
-    TestTypeOutput._init(this);
-  }
+  TestTypeOutputBuilder();
 
   TestTypeOutputBuilder get _$this {
     final $v = _$v;

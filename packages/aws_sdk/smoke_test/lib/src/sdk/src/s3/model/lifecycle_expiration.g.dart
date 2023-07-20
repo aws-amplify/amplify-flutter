@@ -68,9 +68,7 @@ class LifecycleExpirationBuilder
   set expiredObjectDeleteMarker(bool? expiredObjectDeleteMarker) =>
       _$this._expiredObjectDeleteMarker = expiredObjectDeleteMarker;
 
-  LifecycleExpirationBuilder() {
-    LifecycleExpiration._init(this);
-  }
+  LifecycleExpirationBuilder();
 
   LifecycleExpirationBuilder get _$this {
     final $v = _$v;

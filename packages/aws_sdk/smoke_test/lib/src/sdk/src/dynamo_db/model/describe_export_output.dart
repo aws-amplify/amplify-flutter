@@ -36,9 +36,6 @@ abstract class DescribeExportOutput
     DescribeExportOutputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeExportOutputBuilder b) {}
-
   /// Represents the properties of the export.
   _i2.ExportDescription? get exportDescription;
   @override

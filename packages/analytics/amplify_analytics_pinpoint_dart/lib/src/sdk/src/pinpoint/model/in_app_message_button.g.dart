@@ -80,9 +80,7 @@ class InAppMessageButtonBuilder
       _$this._web ??= new _i2.OverrideButtonConfigurationBuilder();
   set web(_i2.OverrideButtonConfigurationBuilder? web) => _$this._web = web;
 
-  InAppMessageButtonBuilder() {
-    InAppMessageButton._init(this);
-  }
+  InAppMessageButtonBuilder();
 
   InAppMessageButtonBuilder get _$this {
     final $v = _$v;

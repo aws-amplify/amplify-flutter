@@ -47,9 +47,7 @@ class CreateStackOutputBuilder
   String? get stackId => _$this._stackId;
   set stackId(String? stackId) => _$this._stackId = stackId;
 
-  CreateStackOutputBuilder() {
-    CreateStackOutput._init(this);
-  }
+  CreateStackOutputBuilder();
 
   CreateStackOutputBuilder get _$this {
     final $v = _$v;

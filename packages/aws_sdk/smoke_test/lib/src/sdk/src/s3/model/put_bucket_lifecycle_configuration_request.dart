@@ -68,9 +68,6 @@ abstract class PutBucketLifecycleConfigurationRequest
   static const List<_i1.SmithySerializer<_i2.BucketLifecycleConfiguration?>>
       serializers = [PutBucketLifecycleConfigurationRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketLifecycleConfigurationRequestBuilder b) {}
-
   /// The name of the bucket for which to set the configuration.
   String get bucket;
 

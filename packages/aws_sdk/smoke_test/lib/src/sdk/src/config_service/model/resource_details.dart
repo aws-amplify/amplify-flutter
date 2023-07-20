@@ -41,9 +41,6 @@ abstract class ResourceDetails
     ResourceDetailsAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceDetailsBuilder b) {}
-
   /// A unique resource ID for an evaluation.
   String get resourceId;
 

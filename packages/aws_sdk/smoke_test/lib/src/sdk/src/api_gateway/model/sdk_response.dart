@@ -56,9 +56,6 @@ abstract class SdkResponse
     SdkResponseRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SdkResponseBuilder b) {}
-
   /// The content-type header value in the HTTP response.
   String? get contentType;
 

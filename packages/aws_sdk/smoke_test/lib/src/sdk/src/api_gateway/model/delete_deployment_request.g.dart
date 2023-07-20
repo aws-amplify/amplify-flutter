@@ -65,9 +65,7 @@ class DeleteDeploymentRequestBuilder
   String? get deploymentId => _$this._deploymentId;
   set deploymentId(String? deploymentId) => _$this._deploymentId = deploymentId;
 
-  DeleteDeploymentRequestBuilder() {
-    DeleteDeploymentRequest._init(this);
-  }
+  DeleteDeploymentRequestBuilder();
 
   DeleteDeploymentRequestBuilder get _$this {
     final $v = _$v;
@@ -139,9 +137,7 @@ class DeleteDeploymentRequestPayloadBuilder
             DeleteDeploymentRequestPayloadBuilder> {
   _$DeleteDeploymentRequestPayload? _$v;
 
-  DeleteDeploymentRequestPayloadBuilder() {
-    DeleteDeploymentRequestPayload._init(this);
-  }
+  DeleteDeploymentRequestPayloadBuilder();
 
   @override
   void replace(DeleteDeploymentRequestPayload other) {

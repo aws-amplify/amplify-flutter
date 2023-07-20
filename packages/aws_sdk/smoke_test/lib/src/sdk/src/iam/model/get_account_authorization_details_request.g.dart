@@ -75,9 +75,7 @@ class GetAccountAuthorizationDetailsRequestBuilder
   String? get marker => _$this._marker;
   set marker(String? marker) => _$this._marker = marker;
 
-  GetAccountAuthorizationDetailsRequestBuilder() {
-    GetAccountAuthorizationDetailsRequest._init(this);
-  }
+  GetAccountAuthorizationDetailsRequestBuilder();
 
   GetAccountAuthorizationDetailsRequestBuilder get _$this {
     final $v = _$v;

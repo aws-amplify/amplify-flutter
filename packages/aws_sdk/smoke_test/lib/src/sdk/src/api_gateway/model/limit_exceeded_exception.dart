@@ -52,8 +52,6 @@ abstract class LimitExceededException
   static const List<_i2.SmithySerializer<LimitExceededExceptionPayload>>
       serializers = [LimitExceededExceptionRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(LimitExceededExceptionBuilder b) {}
   String? get retryAfterSeconds;
   @override
   String? get message;
@@ -110,8 +108,6 @@ abstract class LimitExceededExceptionPayload
 
   const LimitExceededExceptionPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(LimitExceededExceptionPayloadBuilder b) {}
   String? get message;
   @override
   List<Object?> get props => [message];

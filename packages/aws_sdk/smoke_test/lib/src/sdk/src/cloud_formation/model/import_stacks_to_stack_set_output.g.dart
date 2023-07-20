@@ -51,9 +51,7 @@ class ImportStacksToStackSetOutputBuilder
   String? get operationId => _$this._operationId;
   set operationId(String? operationId) => _$this._operationId = operationId;
 
-  ImportStacksToStackSetOutputBuilder() {
-    ImportStacksToStackSetOutput._init(this);
-  }
+  ImportStacksToStackSetOutputBuilder();
 
   ImportStacksToStackSetOutputBuilder get _$this {
     final $v = _$v;

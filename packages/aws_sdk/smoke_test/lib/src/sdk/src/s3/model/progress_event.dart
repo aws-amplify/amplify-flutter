@@ -30,9 +30,6 @@ abstract class ProgressEvent
     ProgressEventRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ProgressEventBuilder b) {}
-
   /// The Progress event details.
   _i2.Progress? get details;
   @override

@@ -131,9 +131,7 @@ class PutIntegrationResponseRequestBuilder
   set contentHandling(_i3.ContentHandlingStrategy? contentHandling) =>
       _$this._contentHandling = contentHandling;
 
-  PutIntegrationResponseRequestBuilder() {
-    PutIntegrationResponseRequest._init(this);
-  }
+  PutIntegrationResponseRequestBuilder();
 
   PutIntegrationResponseRequestBuilder get _$this {
     final $v = _$v;
@@ -283,9 +281,7 @@ class PutIntegrationResponseRequestPayloadBuilder
   set selectionPattern(String? selectionPattern) =>
       _$this._selectionPattern = selectionPattern;
 
-  PutIntegrationResponseRequestPayloadBuilder() {
-    PutIntegrationResponseRequestPayload._init(this);
-  }
+  PutIntegrationResponseRequestPayloadBuilder();
 
   PutIntegrationResponseRequestPayloadBuilder get _$this {
     final $v = _$v;

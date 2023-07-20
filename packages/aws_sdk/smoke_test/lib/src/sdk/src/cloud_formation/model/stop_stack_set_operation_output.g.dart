@@ -40,9 +40,7 @@ class StopStackSetOperationOutputBuilder
             StopStackSetOperationOutputBuilder> {
   _$StopStackSetOperationOutput? _$v;
 
-  StopStackSetOperationOutputBuilder() {
-    StopStackSetOperationOutput._init(this);
-  }
+  StopStackSetOperationOutputBuilder();
 
   @override
   void replace(StopStackSetOperationOutput other) {

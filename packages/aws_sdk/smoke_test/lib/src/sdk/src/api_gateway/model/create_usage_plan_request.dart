@@ -58,9 +58,6 @@ abstract class CreateUsagePlanRequest
   static const List<_i1.SmithySerializer<CreateUsagePlanRequest>> serializers =
       [CreateUsagePlanRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateUsagePlanRequestBuilder b) {}
-
   /// The name of the usage plan.
   String get name;
 

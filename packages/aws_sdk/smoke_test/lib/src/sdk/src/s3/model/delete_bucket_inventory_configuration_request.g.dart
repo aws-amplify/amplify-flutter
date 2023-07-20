@@ -79,9 +79,7 @@ class DeleteBucketInventoryConfigurationRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  DeleteBucketInventoryConfigurationRequestBuilder() {
-    DeleteBucketInventoryConfigurationRequest._init(this);
-  }
+  DeleteBucketInventoryConfigurationRequestBuilder();
 
   DeleteBucketInventoryConfigurationRequestBuilder get _$this {
     final $v = _$v;
@@ -164,9 +162,7 @@ class DeleteBucketInventoryConfigurationRequestPayloadBuilder
             DeleteBucketInventoryConfigurationRequestPayloadBuilder> {
   _$DeleteBucketInventoryConfigurationRequestPayload? _$v;
 
-  DeleteBucketInventoryConfigurationRequestPayloadBuilder() {
-    DeleteBucketInventoryConfigurationRequestPayload._init(this);
-  }
+  DeleteBucketInventoryConfigurationRequestPayloadBuilder();
 
   @override
   void replace(DeleteBucketInventoryConfigurationRequestPayload other) {

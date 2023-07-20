@@ -64,9 +64,6 @@ abstract class UpdateBasePathMappingRequest
   static const List<_i1.SmithySerializer<UpdateBasePathMappingRequestPayload>>
       serializers = [UpdateBasePathMappingRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateBasePathMappingRequestBuilder b) {}
-
   /// The domain name of the BasePathMapping resource to change.
   String get domainName;
 
@@ -135,9 +132,6 @@ abstract class UpdateBasePathMappingRequestPayload
       _$UpdateBasePathMappingRequestPayload;
 
   const UpdateBasePathMappingRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateBasePathMappingRequestPayloadBuilder b) {}
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;

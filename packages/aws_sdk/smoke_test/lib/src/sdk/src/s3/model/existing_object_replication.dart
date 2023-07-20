@@ -33,9 +33,6 @@ abstract class ExistingObjectReplication
   static const List<_i3.SmithySerializer<ExistingObjectReplication>>
       serializers = [ExistingObjectReplicationRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ExistingObjectReplicationBuilder b) {}
-
   /// Specifies whether Amazon S3 replicates existing source bucket objects.
   _i2.ExistingObjectReplicationStatus get status;
   @override

@@ -55,9 +55,7 @@ class AttachedPolicyBuilder
   String? get policyArn => _$this._policyArn;
   set policyArn(String? policyArn) => _$this._policyArn = policyArn;
 
-  AttachedPolicyBuilder() {
-    AttachedPolicy._init(this);
-  }
+  AttachedPolicyBuilder();
 
   AttachedPolicyBuilder get _$this {
     final $v = _$v;

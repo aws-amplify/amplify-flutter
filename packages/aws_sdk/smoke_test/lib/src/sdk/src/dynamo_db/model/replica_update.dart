@@ -57,9 +57,6 @@ abstract class ReplicaUpdate
     ReplicaUpdateAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicaUpdateBuilder b) {}
-
   /// The parameters required for creating a replica on an existing global table.
   _i2.CreateReplicaAction? get create;
 

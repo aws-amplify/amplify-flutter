@@ -63,9 +63,7 @@ class GetGroupPolicyRequestBuilder
   String? get policyName => _$this._policyName;
   set policyName(String? policyName) => _$this._policyName = policyName;
 
-  GetGroupPolicyRequestBuilder() {
-    GetGroupPolicyRequest._init(this);
-  }
+  GetGroupPolicyRequestBuilder();
 
   GetGroupPolicyRequestBuilder get _$this {
     final $v = _$v;

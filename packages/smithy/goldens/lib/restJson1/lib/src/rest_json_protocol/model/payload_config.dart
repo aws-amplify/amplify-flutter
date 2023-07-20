@@ -26,8 +26,6 @@ abstract class PayloadConfig
     PayloadConfigRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PayloadConfigBuilder b) {}
   int? get data;
   @override
   List<Object?> get props => [data];

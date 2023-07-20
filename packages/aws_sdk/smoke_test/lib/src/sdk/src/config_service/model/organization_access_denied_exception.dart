@@ -76,9 +76,6 @@ abstract class OrganizationAccessDeniedException
   static const List<_i2.SmithySerializer<OrganizationAccessDeniedException>>
       serializers = [OrganizationAccessDeniedExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OrganizationAccessDeniedExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

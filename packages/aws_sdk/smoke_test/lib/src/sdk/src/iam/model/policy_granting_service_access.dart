@@ -51,9 +51,6 @@ abstract class PolicyGrantingServiceAccess
   static const List<_i4.SmithySerializer<PolicyGrantingServiceAccess>>
       serializers = [PolicyGrantingServiceAccessAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PolicyGrantingServiceAccessBuilder b) {}
-
   /// The policy name.
   String get policyName;
 

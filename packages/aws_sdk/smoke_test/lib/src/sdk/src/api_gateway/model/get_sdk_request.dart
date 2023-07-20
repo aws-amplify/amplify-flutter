@@ -61,9 +61,6 @@ abstract class GetSdkRequest
     GetSdkRequestRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetSdkRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -135,8 +132,6 @@ abstract class GetSdkRequestPayload
 
   const GetSdkRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetSdkRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

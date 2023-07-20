@@ -45,9 +45,6 @@ abstract class DeleteAggregationAuthorizationRequest
     DeleteAggregationAuthorizationRequestAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteAggregationAuthorizationRequestBuilder b) {}
-
   /// The 12-digit account ID of the account authorized to aggregate data.
   String get authorizedAccountId;
 

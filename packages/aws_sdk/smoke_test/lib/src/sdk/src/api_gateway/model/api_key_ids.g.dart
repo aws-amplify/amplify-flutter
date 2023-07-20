@@ -54,9 +54,7 @@ class ApiKeyIdsBuilder implements Builder<ApiKeyIds, ApiKeyIdsBuilder> {
   set warnings(_i2.ListBuilder<String>? warnings) =>
       _$this._warnings = warnings;
 
-  ApiKeyIdsBuilder() {
-    ApiKeyIds._init(this);
-  }
+  ApiKeyIdsBuilder();
 
   ApiKeyIdsBuilder get _$this {
     final $v = _$v;

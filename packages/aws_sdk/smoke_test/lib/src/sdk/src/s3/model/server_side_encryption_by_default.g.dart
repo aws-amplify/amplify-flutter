@@ -66,9 +66,7 @@ class ServerSideEncryptionByDefaultBuilder
   set kmsMasterKeyId(String? kmsMasterKeyId) =>
       _$this._kmsMasterKeyId = kmsMasterKeyId;
 
-  ServerSideEncryptionByDefaultBuilder() {
-    ServerSideEncryptionByDefault._init(this);
-  }
+  ServerSideEncryptionByDefaultBuilder();
 
   ServerSideEncryptionByDefaultBuilder get _$this {
     final $v = _$v;

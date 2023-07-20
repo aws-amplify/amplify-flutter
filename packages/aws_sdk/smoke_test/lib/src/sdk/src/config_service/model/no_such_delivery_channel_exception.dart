@@ -43,9 +43,6 @@ abstract class NoSuchDeliveryChannelException
   static const List<_i2.SmithySerializer<NoSuchDeliveryChannelException>>
       serializers = [NoSuchDeliveryChannelExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NoSuchDeliveryChannelExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

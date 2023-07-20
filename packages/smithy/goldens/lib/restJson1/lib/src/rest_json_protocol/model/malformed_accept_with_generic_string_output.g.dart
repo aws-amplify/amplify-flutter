@@ -55,9 +55,7 @@ class MalformedAcceptWithGenericStringOutputBuilder
   String? get payload => _$this._payload;
   set payload(String? payload) => _$this._payload = payload;
 
-  MalformedAcceptWithGenericStringOutputBuilder() {
-    MalformedAcceptWithGenericStringOutput._init(this);
-  }
+  MalformedAcceptWithGenericStringOutputBuilder();
 
   MalformedAcceptWithGenericStringOutputBuilder get _$this {
     final $v = _$v;

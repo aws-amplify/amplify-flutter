@@ -41,8 +41,6 @@ abstract class UploadMultipartPartOutput
   static const List<_i2.SmithySerializer<UploadMultipartPartOutputPayload>>
       serializers = [UploadMultipartPartOutputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UploadMultipartPartOutputBuilder b) {}
   String? get checksum;
   @override
   UploadMultipartPartOutputPayload getPayload() =>
@@ -74,8 +72,6 @@ abstract class UploadMultipartPartOutputPayload
 
   const UploadMultipartPartOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UploadMultipartPartOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

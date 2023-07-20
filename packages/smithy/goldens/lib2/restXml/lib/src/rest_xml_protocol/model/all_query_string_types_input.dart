@@ -191,8 +191,6 @@ abstract class AllQueryStringTypesInput
   static const List<_i1.SmithySerializer<AllQueryStringTypesInputPayload>>
       serializers = [AllQueryStringTypesInputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AllQueryStringTypesInputBuilder b) {}
   String? get queryString;
   _i6.BuiltList<String>? get queryStringList;
   _i6.BuiltSet<String>? get queryStringSet;
@@ -346,8 +344,6 @@ abstract class AllQueryStringTypesInputPayload
 
   const AllQueryStringTypesInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AllQueryStringTypesInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

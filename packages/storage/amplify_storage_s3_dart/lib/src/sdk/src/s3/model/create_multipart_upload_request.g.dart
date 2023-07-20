@@ -343,9 +343,7 @@ class CreateMultipartUploadRequestBuilder
   set checksumAlgorithm(_i9.ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
-  CreateMultipartUploadRequestBuilder() {
-    CreateMultipartUploadRequest._init(this);
-  }
+  CreateMultipartUploadRequestBuilder();
 
   CreateMultipartUploadRequestBuilder get _$this {
     final $v = _$v;
@@ -489,9 +487,7 @@ class CreateMultipartUploadRequestPayloadBuilder
             CreateMultipartUploadRequestPayloadBuilder> {
   _$CreateMultipartUploadRequestPayload? _$v;
 
-  CreateMultipartUploadRequestPayloadBuilder() {
-    CreateMultipartUploadRequestPayload._init(this);
-  }
+  CreateMultipartUploadRequestPayloadBuilder();
 
   @override
   void replace(CreateMultipartUploadRequestPayload other) {

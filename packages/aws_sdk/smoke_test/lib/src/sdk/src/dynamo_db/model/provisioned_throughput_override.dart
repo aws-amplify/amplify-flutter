@@ -34,9 +34,6 @@ abstract class ProvisionedThroughputOverride
   static const List<_i3.SmithySerializer<ProvisionedThroughputOverride>>
       serializers = [ProvisionedThroughputOverrideAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ProvisionedThroughputOverrideBuilder b) {}
-
   /// Replica-specific read capacity units. If not specified, uses the source table's read capacity settings.
   _i2.Int64? get readCapacityUnits;
   @override

@@ -94,9 +94,6 @@ abstract class ListMultipartUploadsRequest
   static const List<_i1.SmithySerializer<ListMultipartUploadsRequestPayload>>
       serializers = [ListMultipartUploadsRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListMultipartUploadsRequestBuilder b) {}
-
   /// The name of the bucket to which the multipart upload was initiated.
   ///
   /// When using this action with an access point, you must direct requests to the access point hostname. The access point hostname takes the form _AccessPointName_-_AccountId_.s3-accesspoint._Region_.amazonaws.com. When using this action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see [Using access points](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html) in the _Amazon S3 User Guide_.
@@ -217,8 +214,6 @@ abstract class ListMultipartUploadsRequestPayload
 
   const ListMultipartUploadsRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListMultipartUploadsRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

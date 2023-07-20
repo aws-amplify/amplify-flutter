@@ -57,9 +57,7 @@ class ListTypesOutputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListTypesOutputBuilder() {
-    ListTypesOutput._init(this);
-  }
+  ListTypesOutputBuilder();
 
   ListTypesOutputBuilder get _$this {
     final $v = _$v;

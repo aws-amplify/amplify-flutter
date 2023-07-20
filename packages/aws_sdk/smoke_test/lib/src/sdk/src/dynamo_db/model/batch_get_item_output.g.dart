@@ -82,9 +82,7 @@ class BatchGetItemOutputBuilder
           _i5.ListBuilder<_i4.ConsumedCapacity>? consumedCapacity) =>
       _$this._consumedCapacity = consumedCapacity;
 
-  BatchGetItemOutputBuilder() {
-    BatchGetItemOutput._init(this);
-  }
+  BatchGetItemOutputBuilder();
 
   BatchGetItemOutputBuilder get _$this {
     final $v = _$v;

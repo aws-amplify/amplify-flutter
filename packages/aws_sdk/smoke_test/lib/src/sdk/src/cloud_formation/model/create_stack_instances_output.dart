@@ -34,9 +34,6 @@ abstract class CreateStackInstancesOutput
   static const List<_i2.SmithySerializer<CreateStackInstancesOutput>>
       serializers = [CreateStackInstancesOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateStackInstancesOutputBuilder b) {}
-
   /// The unique identifier for this stack set operation.
   String? get operationId;
   @override

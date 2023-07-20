@@ -57,9 +57,7 @@ class GetServerCertificateResponseBuilder
   set serverCertificate(_i2.ServerCertificateBuilder? serverCertificate) =>
       _$this._serverCertificate = serverCertificate;
 
-  GetServerCertificateResponseBuilder() {
-    GetServerCertificateResponse._init(this);
-  }
+  GetServerCertificateResponseBuilder();
 
   GetServerCertificateResponseBuilder get _$this {
     final $v = _$v;

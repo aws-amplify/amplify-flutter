@@ -37,9 +37,6 @@ abstract class EstimateTemplateCostOutput
   static const List<_i2.SmithySerializer<EstimateTemplateCostOutput>>
       serializers = [EstimateTemplateCostOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EstimateTemplateCostOutputBuilder b) {}
-
   /// An Amazon Web Services Simple Monthly Calculator URL with a query string that describes the resources required to run the template.
   String? get url;
   @override

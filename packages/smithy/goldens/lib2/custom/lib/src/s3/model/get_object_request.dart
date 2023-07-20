@@ -56,8 +56,6 @@ abstract class GetObjectRequest
   static const List<_i1.SmithySerializer<GetObjectRequestPayload>> serializers =
       [GetObjectRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectRequestBuilder b) {}
   String get bucket;
   String get key;
   String? get range;
@@ -114,8 +112,6 @@ abstract class GetObjectRequestPayload
 
   const GetObjectRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

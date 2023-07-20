@@ -51,8 +51,6 @@ abstract class MalformedPatternInput
     MalformedPatternInputRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedPatternInputBuilder b) {}
   String? get string;
   String? get evilString;
   _i4.BuiltList<String>? get list;

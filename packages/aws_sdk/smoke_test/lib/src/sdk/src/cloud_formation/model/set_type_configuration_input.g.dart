@@ -93,9 +93,7 @@ class SetTypeConfigurationInputBuilder
   _i3.ThirdPartyType? get type => _$this._type;
   set type(_i3.ThirdPartyType? type) => _$this._type = type;
 
-  SetTypeConfigurationInputBuilder() {
-    SetTypeConfigurationInput._init(this);
-  }
+  SetTypeConfigurationInputBuilder();
 
   SetTypeConfigurationInputBuilder get _$this {
     final $v = _$v;

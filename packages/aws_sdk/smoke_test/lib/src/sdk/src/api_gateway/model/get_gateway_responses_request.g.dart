@@ -71,9 +71,7 @@ class GetGatewayResponsesRequestBuilder
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
 
-  GetGatewayResponsesRequestBuilder() {
-    GetGatewayResponsesRequest._init(this);
-  }
+  GetGatewayResponsesRequestBuilder();
 
   GetGatewayResponsesRequestBuilder get _$this {
     final $v = _$v;
@@ -148,9 +146,7 @@ class GetGatewayResponsesRequestPayloadBuilder
             GetGatewayResponsesRequestPayloadBuilder> {
   _$GetGatewayResponsesRequestPayload? _$v;
 
-  GetGatewayResponsesRequestPayloadBuilder() {
-    GetGatewayResponsesRequestPayload._init(this);
-  }
+  GetGatewayResponsesRequestPayloadBuilder();
 
   @override
   void replace(GetGatewayResponsesRequestPayload other) {

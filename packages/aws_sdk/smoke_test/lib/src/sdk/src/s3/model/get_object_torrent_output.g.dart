@@ -8,7 +8,7 @@ part of 'get_object_torrent_output.dart';
 
 class _$GetObjectTorrentOutput extends GetObjectTorrentOutput {
   @override
-  final _i3.Stream<List<int>>? body;
+  final _i3.Stream<List<int>> body;
   @override
   final _i4.RequestCharged? requestCharged;
 
@@ -16,7 +16,11 @@ class _$GetObjectTorrentOutput extends GetObjectTorrentOutput {
           [void Function(GetObjectTorrentOutputBuilder)? updates]) =>
       (new GetObjectTorrentOutputBuilder()..update(updates))._build();
 
-  _$GetObjectTorrentOutput._({this.body, this.requestCharged}) : super._();
+  _$GetObjectTorrentOutput._({required this.body, this.requestCharged})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        body, r'GetObjectTorrentOutput', 'body');
+  }
 
   @override
   GetObjectTorrentOutput rebuild(
@@ -89,7 +93,9 @@ class GetObjectTorrentOutputBuilder
   _$GetObjectTorrentOutput _build() {
     final _$result = _$v ??
         new _$GetObjectTorrentOutput._(
-            body: body, requestCharged: requestCharged);
+            body: BuiltValueNullFieldError.checkNotNull(
+                body, r'GetObjectTorrentOutput', 'body'),
+            requestCharged: requestCharged);
     replace(_$result);
     return _$result;
   }

@@ -38,9 +38,7 @@ class NoInputAndOutputInputBuilder
     implements Builder<NoInputAndOutputInput, NoInputAndOutputInputBuilder> {
   _$NoInputAndOutputInput? _$v;
 
-  NoInputAndOutputInputBuilder() {
-    NoInputAndOutputInput._init(this);
-  }
+  NoInputAndOutputInputBuilder();
 
   @override
   void replace(NoInputAndOutputInput other) {

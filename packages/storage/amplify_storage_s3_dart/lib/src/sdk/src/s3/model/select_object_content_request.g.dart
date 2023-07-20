@@ -178,9 +178,7 @@ class SelectObjectContentRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  SelectObjectContentRequestBuilder() {
-    SelectObjectContentRequest._init(this);
-  }
+  SelectObjectContentRequestBuilder();
 
   SelectObjectContentRequestBuilder get _$this {
     final $v = _$v;
@@ -374,9 +372,7 @@ class SelectObjectContentRequestPayloadBuilder
   set scanRange(_i7.ScanRangeBuilder? scanRange) =>
       _$this._scanRange = scanRange;
 
-  SelectObjectContentRequestPayloadBuilder() {
-    SelectObjectContentRequestPayload._init(this);
-  }
+  SelectObjectContentRequestPayloadBuilder();
 
   SelectObjectContentRequestPayloadBuilder get _$this {
     final $v = _$v;

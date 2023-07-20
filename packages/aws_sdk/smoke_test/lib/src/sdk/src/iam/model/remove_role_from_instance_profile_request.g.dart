@@ -70,9 +70,7 @@ class RemoveRoleFromInstanceProfileRequestBuilder
   String? get roleName => _$this._roleName;
   set roleName(String? roleName) => _$this._roleName = roleName;
 
-  RemoveRoleFromInstanceProfileRequestBuilder() {
-    RemoveRoleFromInstanceProfileRequest._init(this);
-  }
+  RemoveRoleFromInstanceProfileRequestBuilder();
 
   RemoveRoleFromInstanceProfileRequestBuilder get _$this {
     final $v = _$v;

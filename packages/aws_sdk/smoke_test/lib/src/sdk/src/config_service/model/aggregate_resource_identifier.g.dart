@@ -100,9 +100,7 @@ class AggregateResourceIdentifierBuilder
   String? get resourceName => _$this._resourceName;
   set resourceName(String? resourceName) => _$this._resourceName = resourceName;
 
-  AggregateResourceIdentifierBuilder() {
-    AggregateResourceIdentifier._init(this);
-  }
+  AggregateResourceIdentifierBuilder();
 
   AggregateResourceIdentifierBuilder get _$this {
     final $v = _$v;

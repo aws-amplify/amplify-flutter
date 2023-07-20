@@ -55,9 +55,7 @@ class UsagePlanKeysBuilder
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  UsagePlanKeysBuilder() {
-    UsagePlanKeys._init(this);
-  }
+  UsagePlanKeysBuilder();
 
   UsagePlanKeysBuilder get _$this {
     final $v = _$v;

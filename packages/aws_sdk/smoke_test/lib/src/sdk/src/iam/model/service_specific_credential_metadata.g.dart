@@ -116,9 +116,7 @@ class ServiceSpecificCredentialMetadataBuilder
   String? get serviceName => _$this._serviceName;
   set serviceName(String? serviceName) => _$this._serviceName = serviceName;
 
-  ServiceSpecificCredentialMetadataBuilder() {
-    ServiceSpecificCredentialMetadata._init(this);
-  }
+  ServiceSpecificCredentialMetadataBuilder();
 
   ServiceSpecificCredentialMetadataBuilder get _$this {
     final $v = _$v;

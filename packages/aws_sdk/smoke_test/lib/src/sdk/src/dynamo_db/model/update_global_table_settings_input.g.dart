@@ -135,9 +135,7 @@ class UpdateGlobalTableSettingsInputBuilder
           _i8.ListBuilder<_i7.ReplicaSettingsUpdate>? replicaSettingsUpdate) =>
       _$this._replicaSettingsUpdate = replicaSettingsUpdate;
 
-  UpdateGlobalTableSettingsInputBuilder() {
-    UpdateGlobalTableSettingsInput._init(this);
-  }
+  UpdateGlobalTableSettingsInputBuilder();
 
   UpdateGlobalTableSettingsInputBuilder get _$this {
     final $v = _$v;

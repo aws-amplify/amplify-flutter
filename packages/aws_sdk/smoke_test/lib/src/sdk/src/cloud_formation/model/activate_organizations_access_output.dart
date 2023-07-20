@@ -37,8 +37,6 @@ abstract class ActivateOrganizationsAccessOutput
   static const List<_i2.SmithySerializer<ActivateOrganizationsAccessOutput>>
       serializers = [ActivateOrganizationsAccessOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ActivateOrganizationsAccessOutputBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

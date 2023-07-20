@@ -48,9 +48,7 @@ class MediaTypeHeaderOutputBuilder
   _i3.JsonObject? get json => _$this._json;
   set json(_i3.JsonObject? json) => _$this._json = json;
 
-  MediaTypeHeaderOutputBuilder() {
-    MediaTypeHeaderOutput._init(this);
-  }
+  MediaTypeHeaderOutputBuilder();
 
   MediaTypeHeaderOutputBuilder get _$this {
     final $v = _$v;
@@ -116,9 +114,7 @@ class MediaTypeHeaderOutputPayloadBuilder
             MediaTypeHeaderOutputPayloadBuilder> {
   _$MediaTypeHeaderOutputPayload? _$v;
 
-  MediaTypeHeaderOutputPayloadBuilder() {
-    MediaTypeHeaderOutputPayload._init(this);
-  }
+  MediaTypeHeaderOutputPayloadBuilder();
 
   @override
   void replace(MediaTypeHeaderOutputPayload other) {

@@ -66,9 +66,7 @@ class DescribeConfigurationRecorderStatusResponseBuilder
               configurationRecordersStatus) =>
       _$this._configurationRecordersStatus = configurationRecordersStatus;
 
-  DescribeConfigurationRecorderStatusResponseBuilder() {
-    DescribeConfigurationRecorderStatusResponse._init(this);
-  }
+  DescribeConfigurationRecorderStatusResponseBuilder();
 
   DescribeConfigurationRecorderStatusResponseBuilder get _$this {
     final $v = _$v;

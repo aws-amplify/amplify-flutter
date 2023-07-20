@@ -69,9 +69,7 @@ class OrganizationAllFeaturesNotEnabledExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  OrganizationAllFeaturesNotEnabledExceptionBuilder() {
-    OrganizationAllFeaturesNotEnabledException._init(this);
-  }
+  OrganizationAllFeaturesNotEnabledExceptionBuilder();
 
   OrganizationAllFeaturesNotEnabledExceptionBuilder get _$this {
     final $v = _$v;

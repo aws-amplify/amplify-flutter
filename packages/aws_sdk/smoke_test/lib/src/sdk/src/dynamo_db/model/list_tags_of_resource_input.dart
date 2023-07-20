@@ -41,9 +41,6 @@ abstract class ListTagsOfResourceInput
   static const List<_i1.SmithySerializer<ListTagsOfResourceInput>> serializers =
       [ListTagsOfResourceInputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListTagsOfResourceInputBuilder b) {}
-
   /// The Amazon DynamoDB resource with tags to be listed. This value is an Amazon Resource Name (ARN).
   String get resourceArn;
 

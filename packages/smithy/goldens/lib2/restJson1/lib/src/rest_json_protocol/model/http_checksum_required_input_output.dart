@@ -44,8 +44,6 @@ abstract class HttpChecksumRequiredInputOutput
   static const List<_i1.SmithySerializer<HttpChecksumRequiredInputOutput>>
       serializers = [HttpChecksumRequiredInputOutputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpChecksumRequiredInputOutputBuilder b) {}
   String? get foo;
   @override
   HttpChecksumRequiredInputOutput getPayload() => this;

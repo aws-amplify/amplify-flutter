@@ -20,11 +20,10 @@ abstract class MalformedFloatInput
         _i1.HasPayload<MalformedFloatInputPayload> {
   factory MalformedFloatInput({
     double? floatInBody,
-    double? floatInPath,
+    required double floatInPath,
     double? floatInQuery,
     double? floatInHeader,
   }) {
-    floatInPath ??= 0;
     return _$MalformedFloatInput._(
       floatInBody: floatInBody,
       floatInPath: floatInPath,
@@ -60,11 +59,6 @@ abstract class MalformedFloatInput
 
   static const List<_i1.SmithySerializer<MalformedFloatInputPayload>>
       serializers = [MalformedFloatInputRestJson1Serializer()];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedFloatInputBuilder b) {
-    b.floatInPath = 0;
-  }
 
   double? get floatInBody;
   double get floatInPath;
@@ -127,8 +121,6 @@ abstract class MalformedFloatInputPayload
 
   const MalformedFloatInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedFloatInputPayloadBuilder b) {}
   double? get floatInBody;
   @override
   List<Object?> get props => [floatInBody];

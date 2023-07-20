@@ -55,9 +55,7 @@ class DescribeDeliveryChannelsResponseBuilder
           _i3.ListBuilder<_i2.DeliveryChannel>? deliveryChannels) =>
       _$this._deliveryChannels = deliveryChannels;
 
-  DescribeDeliveryChannelsResponseBuilder() {
-    DescribeDeliveryChannelsResponse._init(this);
-  }
+  DescribeDeliveryChannelsResponseBuilder();
 
   DescribeDeliveryChannelsResponseBuilder get _$this {
     final $v = _$v;

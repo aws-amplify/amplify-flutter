@@ -57,9 +57,6 @@ abstract class ServiceLastAccessed
     ServiceLastAccessedAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ServiceLastAccessedBuilder b) {}
-
   /// The name of the service in which access was attempted.
   String get serviceName;
 

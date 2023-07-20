@@ -43,9 +43,6 @@ abstract class BackupDescription
     BackupDescriptionAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BackupDescriptionBuilder b) {}
-
   /// Contains the details of the backup created for the table.
   _i2.BackupDetails? get backupDetails;
 

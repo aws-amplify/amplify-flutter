@@ -57,9 +57,7 @@ class GetObjectLockConfigurationOutputBuilder
           _i3.ObjectLockConfigurationBuilder? objectLockConfiguration) =>
       _$this._objectLockConfiguration = objectLockConfiguration;
 
-  GetObjectLockConfigurationOutputBuilder() {
-    GetObjectLockConfigurationOutput._init(this);
-  }
+  GetObjectLockConfigurationOutputBuilder();
 
   GetObjectLockConfigurationOutputBuilder get _$this {
     final $v = _$v;

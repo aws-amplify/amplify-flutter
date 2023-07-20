@@ -50,9 +50,6 @@ abstract class DescribeKinesisStreamingDestinationOutput
     DescribeKinesisStreamingDestinationOutputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeKinesisStreamingDestinationOutputBuilder b) {}
-
   /// The name of the table being described.
   String? get tableName;
 

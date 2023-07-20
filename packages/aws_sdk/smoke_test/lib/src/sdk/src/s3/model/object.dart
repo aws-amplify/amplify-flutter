@@ -54,9 +54,6 @@ abstract class S3Object
     ObjectRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(S3ObjectBuilder b) {}
-
   /// The name that you assign to an object. You use the object key to retrieve the object.
   String? get key;
 

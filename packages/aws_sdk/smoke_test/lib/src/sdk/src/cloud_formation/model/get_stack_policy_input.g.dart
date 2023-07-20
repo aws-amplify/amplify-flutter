@@ -51,9 +51,7 @@ class GetStackPolicyInputBuilder
   String? get stackName => _$this._stackName;
   set stackName(String? stackName) => _$this._stackName = stackName;
 
-  GetStackPolicyInputBuilder() {
-    GetStackPolicyInput._init(this);
-  }
+  GetStackPolicyInputBuilder();
 
   GetStackPolicyInputBuilder get _$this {
     final $v = _$v;

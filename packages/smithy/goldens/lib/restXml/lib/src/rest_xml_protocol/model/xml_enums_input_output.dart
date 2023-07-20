@@ -59,8 +59,6 @@ abstract class XmlEnumsInputOutput
     XmlEnumsInputOutputRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(XmlEnumsInputOutputBuilder b) {}
   _i3.FooEnum? get fooEnum1;
   _i3.FooEnum? get fooEnum2;
   _i3.FooEnum? get fooEnum3;

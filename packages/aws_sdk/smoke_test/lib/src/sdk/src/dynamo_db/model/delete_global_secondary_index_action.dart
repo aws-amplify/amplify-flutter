@@ -32,9 +32,6 @@ abstract class DeleteGlobalSecondaryIndexAction
   static const List<_i2.SmithySerializer<DeleteGlobalSecondaryIndexAction>>
       serializers = [DeleteGlobalSecondaryIndexActionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteGlobalSecondaryIndexActionBuilder b) {}
-
   /// The name of the global secondary index to be deleted.
   String get indexName;
   @override

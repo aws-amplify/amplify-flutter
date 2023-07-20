@@ -75,9 +75,6 @@ abstract class PutBucketReplicationRequest
   static const List<_i1.SmithySerializer<_i2.ReplicationConfiguration>>
       serializers = [PutBucketReplicationRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketReplicationRequestBuilder b) {}
-
   /// The name of the bucket
   String get bucket;
 

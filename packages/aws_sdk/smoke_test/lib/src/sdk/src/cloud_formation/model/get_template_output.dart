@@ -46,9 +46,6 @@ abstract class GetTemplateOutput
     GetTemplateOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetTemplateOutputBuilder b) {}
-
   /// Structure containing the template body. (For more information, go to [Template Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html) in the CloudFormation User Guide.)
   ///
   /// CloudFormation returns the same template that was used when the stack was created.

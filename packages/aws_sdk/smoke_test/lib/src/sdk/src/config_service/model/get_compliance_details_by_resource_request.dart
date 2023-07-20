@@ -55,9 +55,6 @@ abstract class GetComplianceDetailsByResourceRequest
     GetComplianceDetailsByResourceRequestAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetComplianceDetailsByResourceRequestBuilder b) {}
-
   /// The type of the Amazon Web Services resource for which you want compliance information.
   String? get resourceType;
 

@@ -64,9 +64,7 @@ class ValidationExceptionFieldBuilder
   String? get message => _$this._message;
   set message(String? message) => _$this._message = message;
 
-  ValidationExceptionFieldBuilder() {
-    ValidationExceptionField._init(this);
-  }
+  ValidationExceptionFieldBuilder();
 
   ValidationExceptionFieldBuilder get _$this {
     final $v = _$v;

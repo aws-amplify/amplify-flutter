@@ -34,9 +34,6 @@ abstract class GetAccessKeyInfoResponse
   static const List<_i2.SmithySerializer<GetAccessKeyInfoResponse>>
       serializers = [GetAccessKeyInfoResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetAccessKeyInfoResponseBuilder b) {}
-
   /// The number used to identify the Amazon Web Services account.
   String? get account;
   @override

@@ -41,9 +41,6 @@ abstract class CancellationReason
     CancellationReasonAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CancellationReasonBuilder b) {}
-
   /// Item in the request which caused the transaction to get cancelled.
   _i3.BuiltMap<String, _i2.AttributeValue>? get item;
 

@@ -38,9 +38,6 @@ abstract class VersioningConfiguration
   static const List<_i4.SmithySerializer<VersioningConfiguration>> serializers =
       [VersioningConfigurationRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(VersioningConfigurationBuilder b) {}
-
   /// Specifies whether MFA delete is enabled in the bucket versioning configuration. This element is only returned if the bucket has been configured with MFA delete. If the bucket has never been so configured, this element is not returned.
   _i2.MfaDelete? get mfaDelete;
 

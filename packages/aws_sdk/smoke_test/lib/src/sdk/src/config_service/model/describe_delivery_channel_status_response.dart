@@ -48,9 +48,6 @@ abstract class DescribeDeliveryChannelStatusResponse
     DescribeDeliveryChannelStatusResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeDeliveryChannelStatusResponseBuilder b) {}
-
   /// A list that contains the status of a specified delivery channel.
   _i3.BuiltList<_i2.DeliveryChannelStatus>? get deliveryChannelsStatus;
   @override

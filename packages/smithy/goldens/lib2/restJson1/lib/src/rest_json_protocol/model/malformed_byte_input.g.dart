@@ -81,9 +81,7 @@ class MalformedByteInputBuilder
   int? get byteInHeader => _$this._byteInHeader;
   set byteInHeader(int? byteInHeader) => _$this._byteInHeader = byteInHeader;
 
-  MalformedByteInputBuilder() {
-    MalformedByteInput._init(this);
-  }
+  MalformedByteInputBuilder();
 
   MalformedByteInputBuilder get _$this {
     final $v = _$v;
@@ -167,9 +165,7 @@ class MalformedByteInputPayloadBuilder
   int? get byteInBody => _$this._byteInBody;
   set byteInBody(int? byteInBody) => _$this._byteInBody = byteInBody;
 
-  MalformedByteInputPayloadBuilder() {
-    MalformedByteInputPayload._init(this);
-  }
+  MalformedByteInputPayloadBuilder();
 
   MalformedByteInputPayloadBuilder get _$this {
     final $v = _$v;

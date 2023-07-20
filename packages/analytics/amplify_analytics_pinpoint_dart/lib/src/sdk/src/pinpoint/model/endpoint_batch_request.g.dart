@@ -52,9 +52,7 @@ class EndpointBatchRequestBuilder
       _$this._item ??= new _i3.ListBuilder<_i2.EndpointBatchItem>();
   set item(_i3.ListBuilder<_i2.EndpointBatchItem>? item) => _$this._item = item;
 
-  EndpointBatchRequestBuilder() {
-    EndpointBatchRequest._init(this);
-  }
+  EndpointBatchRequestBuilder();
 
   EndpointBatchRequestBuilder get _$this {
     final $v = _$v;

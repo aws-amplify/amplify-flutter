@@ -58,9 +58,7 @@ class XmlNamespaceNestedBuilder
       _$this._values ??= new _i2.ListBuilder<String>();
   set values(_i2.ListBuilder<String>? values) => _$this._values = values;
 
-  XmlNamespaceNestedBuilder() {
-    XmlNamespaceNested._init(this);
-  }
+  XmlNamespaceNestedBuilder();
 
   XmlNamespaceNestedBuilder get _$this {
     final $v = _$v;

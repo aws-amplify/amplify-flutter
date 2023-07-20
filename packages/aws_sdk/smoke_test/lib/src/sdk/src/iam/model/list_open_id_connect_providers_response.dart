@@ -46,9 +46,6 @@ abstract class ListOpenIdConnectProvidersResponse
   static const List<_i4.SmithySerializer<ListOpenIdConnectProvidersResponse>>
       serializers = [ListOpenIdConnectProvidersResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListOpenIdConnectProvidersResponseBuilder b) {}
-
   /// The list of IAM OIDC provider resource objects defined in the Amazon Web Services account.
   _i3.BuiltList<_i2.OpenIdConnectProviderListEntry>?
       get openIdConnectProviderList;

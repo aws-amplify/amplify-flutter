@@ -77,9 +77,7 @@ class PointInTimeRecoveryDescriptionBuilder
   set latestRestorableDateTime(DateTime? latestRestorableDateTime) =>
       _$this._latestRestorableDateTime = latestRestorableDateTime;
 
-  PointInTimeRecoveryDescriptionBuilder() {
-    PointInTimeRecoveryDescription._init(this);
-  }
+  PointInTimeRecoveryDescriptionBuilder();
 
   PointInTimeRecoveryDescriptionBuilder get _$this {
     final $v = _$v;

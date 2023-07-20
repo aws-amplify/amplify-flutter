@@ -94,9 +94,7 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
   _i3.OwnerBuilder get owner => _$this._owner ??= new _i3.OwnerBuilder();
   set owner(_i3.OwnerBuilder? owner) => _$this._owner = owner;
 
-  S3ObjectBuilder() {
-    S3Object._init(this);
-  }
+  S3ObjectBuilder();
 
   S3ObjectBuilder get _$this {
     final $v = _$v;

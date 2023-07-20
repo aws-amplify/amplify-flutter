@@ -63,9 +63,7 @@ class TagResourceRequestBuilder
       _$this._tags ??= new _i3.MapBuilder<String, String>();
   set tags(_i3.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
-  TagResourceRequestBuilder() {
-    TagResourceRequest._init(this);
-  }
+  TagResourceRequestBuilder();
 
   TagResourceRequestBuilder get _$this {
     final $v = _$v;
@@ -162,9 +160,7 @@ class TagResourceRequestPayloadBuilder
       _$this._tags ??= new _i3.MapBuilder<String, String>();
   set tags(_i3.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
-  TagResourceRequestPayloadBuilder() {
-    TagResourceRequestPayload._init(this);
-  }
+  TagResourceRequestPayloadBuilder();
 
   TagResourceRequestPayloadBuilder get _$this {
     final $v = _$v;

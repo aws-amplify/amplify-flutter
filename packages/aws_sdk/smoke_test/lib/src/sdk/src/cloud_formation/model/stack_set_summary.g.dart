@@ -128,9 +128,7 @@ class StackSetSummaryBuilder
   set managedExecution(_i6.ManagedExecutionBuilder? managedExecution) =>
       _$this._managedExecution = managedExecution;
 
-  StackSetSummaryBuilder() {
-    StackSetSummary._init(this);
-  }
+  StackSetSummaryBuilder();
 
   StackSetSummaryBuilder get _$this {
     final $v = _$v;

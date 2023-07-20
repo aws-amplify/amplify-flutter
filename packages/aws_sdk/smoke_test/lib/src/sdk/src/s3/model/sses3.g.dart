@@ -34,9 +34,7 @@ class _$Sses3 extends Sses3 {
 class Sses3Builder implements Builder<Sses3, Sses3Builder> {
   _$Sses3? _$v;
 
-  Sses3Builder() {
-    Sses3._init(this);
-  }
+  Sses3Builder();
 
   @override
   void replace(Sses3 other) {

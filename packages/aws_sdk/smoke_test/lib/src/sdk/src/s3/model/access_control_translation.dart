@@ -31,9 +31,6 @@ abstract class AccessControlTranslation
   static const List<_i3.SmithySerializer<AccessControlTranslation>>
       serializers = [AccessControlTranslationRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AccessControlTranslationBuilder b) {}
-
   /// Specifies the replica ownership. For default and valid values, see [PUT bucket replication](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTreplication.html) in the _Amazon S3 API Reference_.
   _i2.OwnerOverride get owner;
   @override

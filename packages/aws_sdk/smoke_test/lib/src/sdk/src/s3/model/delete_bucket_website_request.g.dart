@@ -64,9 +64,7 @@ class DeleteBucketWebsiteRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  DeleteBucketWebsiteRequestBuilder() {
-    DeleteBucketWebsiteRequest._init(this);
-  }
+  DeleteBucketWebsiteRequestBuilder();
 
   DeleteBucketWebsiteRequestBuilder get _$this {
     final $v = _$v;
@@ -139,9 +137,7 @@ class DeleteBucketWebsiteRequestPayloadBuilder
             DeleteBucketWebsiteRequestPayloadBuilder> {
   _$DeleteBucketWebsiteRequestPayload? _$v;
 
-  DeleteBucketWebsiteRequestPayloadBuilder() {
-    DeleteBucketWebsiteRequestPayload._init(this);
-  }
+  DeleteBucketWebsiteRequestPayloadBuilder();
 
   @override
   void replace(DeleteBucketWebsiteRequestPayload other) {

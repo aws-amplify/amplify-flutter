@@ -65,9 +65,6 @@ abstract class Condition
     ConditionAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConditionBuilder b) {}
-
   /// One or more values to evaluate against the supplied attribute. The number of values in the list depends on the `ComparisonOperator` being used.
   ///
   /// For type Number, value comparisons are numeric.

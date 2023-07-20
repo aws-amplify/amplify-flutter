@@ -89,9 +89,7 @@ class GetAggregateConformancePackComplianceSummaryResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  GetAggregateConformancePackComplianceSummaryResponseBuilder() {
-    GetAggregateConformancePackComplianceSummaryResponse._init(this);
-  }
+  GetAggregateConformancePackComplianceSummaryResponseBuilder();
 
   GetAggregateConformancePackComplianceSummaryResponseBuilder get _$this {
     final $v = _$v;

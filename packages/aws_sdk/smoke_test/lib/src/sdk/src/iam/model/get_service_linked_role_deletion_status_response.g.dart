@@ -70,9 +70,7 @@ class GetServiceLinkedRoleDeletionStatusResponseBuilder
   set reason(_i3.DeletionTaskFailureReasonTypeBuilder? reason) =>
       _$this._reason = reason;
 
-  GetServiceLinkedRoleDeletionStatusResponseBuilder() {
-    GetServiceLinkedRoleDeletionStatusResponse._init(this);
-  }
+  GetServiceLinkedRoleDeletionStatusResponseBuilder();
 
   GetServiceLinkedRoleDeletionStatusResponseBuilder get _$this {
     final $v = _$v;

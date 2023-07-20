@@ -111,9 +111,6 @@ abstract class TableDescription
     TableDescriptionAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TableDescriptionBuilder b) {}
-
   /// An array of `AttributeDefinition` objects. Each of these objects describes one attribute in the table and index key schema.
   ///
   /// Each `AttributeDefinition` object in this array is composed of:

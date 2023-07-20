@@ -59,9 +59,7 @@ class ListStackSetsOutputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListStackSetsOutputBuilder() {
-    ListStackSetsOutput._init(this);
-  }
+  ListStackSetsOutputBuilder();
 
   ListStackSetsOutputBuilder get _$this {
     final $v = _$v;

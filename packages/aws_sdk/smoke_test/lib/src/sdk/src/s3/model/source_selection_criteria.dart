@@ -39,9 +39,6 @@ abstract class SourceSelectionCriteria
   static const List<_i4.SmithySerializer<SourceSelectionCriteria>> serializers =
       [SourceSelectionCriteriaRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SourceSelectionCriteriaBuilder b) {}
-
   /// A container for filter information for the selection of Amazon S3 objects encrypted with Amazon Web Services KMS. If you include `SourceSelectionCriteria` in the replication configuration, this element is required.
   _i2.SseKmsEncryptedObjects? get sseKmsEncryptedObjects;
 

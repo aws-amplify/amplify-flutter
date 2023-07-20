@@ -83,9 +83,7 @@ class MalformedDoubleInputBuilder
   set doubleInHeader(double? doubleInHeader) =>
       _$this._doubleInHeader = doubleInHeader;
 
-  MalformedDoubleInputBuilder() {
-    MalformedDoubleInput._init(this);
-  }
+  MalformedDoubleInputBuilder();
 
   MalformedDoubleInputBuilder get _$this {
     final $v = _$v;
@@ -171,9 +169,7 @@ class MalformedDoubleInputPayloadBuilder
   double? get doubleInBody => _$this._doubleInBody;
   set doubleInBody(double? doubleInBody) => _$this._doubleInBody = doubleInBody;
 
-  MalformedDoubleInputPayloadBuilder() {
-    MalformedDoubleInputPayload._init(this);
-  }
+  MalformedDoubleInputPayloadBuilder();
 
   MalformedDoubleInputPayloadBuilder get _$this {
     final $v = _$v;

@@ -40,9 +40,6 @@ abstract class UntagRoleRequest
     UntagRoleRequestAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UntagRoleRequestBuilder b) {}
-
   /// The name of the IAM role from which you want to remove tags.
   ///
   /// This parameter accepts (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters that consist of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

@@ -79,9 +79,7 @@ class UpdateGatewayResponseRequestBuilder
   set patchOperations(_i5.ListBuilder<_i4.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateGatewayResponseRequestBuilder() {
-    UpdateGatewayResponseRequest._init(this);
-  }
+  UpdateGatewayResponseRequestBuilder();
 
   UpdateGatewayResponseRequestBuilder get _$this {
     final $v = _$v;
@@ -184,9 +182,7 @@ class UpdateGatewayResponseRequestPayloadBuilder
   set patchOperations(_i5.ListBuilder<_i4.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateGatewayResponseRequestPayloadBuilder() {
-    UpdateGatewayResponseRequestPayload._init(this);
-  }
+  UpdateGatewayResponseRequestPayloadBuilder();
 
   UpdateGatewayResponseRequestPayloadBuilder get _$this {
     final $v = _$v;

@@ -61,9 +61,7 @@ class ComplianceByConfigRuleBuilder
   set compliance(_i2.ComplianceBuilder? compliance) =>
       _$this._compliance = compliance;
 
-  ComplianceByConfigRuleBuilder() {
-    ComplianceByConfigRule._init(this);
-  }
+  ComplianceByConfigRuleBuilder();
 
   ComplianceByConfigRuleBuilder get _$this {
     final $v = _$v;

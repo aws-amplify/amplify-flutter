@@ -54,9 +54,7 @@ class GetAccessKeyLastUsedRequestBuilder
   String? get accessKeyId => _$this._accessKeyId;
   set accessKeyId(String? accessKeyId) => _$this._accessKeyId = accessKeyId;
 
-  GetAccessKeyLastUsedRequestBuilder() {
-    GetAccessKeyLastUsedRequest._init(this);
-  }
+  GetAccessKeyLastUsedRequestBuilder();
 
   GetAccessKeyLastUsedRequestBuilder get _$this {
     final $v = _$v;

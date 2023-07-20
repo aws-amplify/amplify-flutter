@@ -65,9 +65,7 @@ class GetBucketRequestPaymentRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetBucketRequestPaymentRequestBuilder() {
-    GetBucketRequestPaymentRequest._init(this);
-  }
+  GetBucketRequestPaymentRequestBuilder();
 
   GetBucketRequestPaymentRequestBuilder get _$this {
     final $v = _$v;
@@ -142,9 +140,7 @@ class GetBucketRequestPaymentRequestPayloadBuilder
             GetBucketRequestPaymentRequestPayloadBuilder> {
   _$GetBucketRequestPaymentRequestPayload? _$v;
 
-  GetBucketRequestPaymentRequestPayloadBuilder() {
-    GetBucketRequestPaymentRequestPayload._init(this);
-  }
+  GetBucketRequestPaymentRequestPayloadBuilder();
 
   @override
   void replace(GetBucketRequestPaymentRequestPayload other) {

@@ -42,9 +42,6 @@ abstract class ListAccountAliasesRequest
   static const List<_i1.SmithySerializer<ListAccountAliasesRequest>>
       serializers = [ListAccountAliasesRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListAccountAliasesRequestBuilder b) {}
-
   /// Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the `Marker` element in the response that you received to indicate where the next call should start.
   String? get marker;
 

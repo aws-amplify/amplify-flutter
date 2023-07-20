@@ -46,8 +46,6 @@ abstract class MediaTypeHeaderOutput
   static const List<_i2.SmithySerializer<MediaTypeHeaderOutputPayload>>
       serializers = [MediaTypeHeaderOutputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MediaTypeHeaderOutputBuilder b) {}
   _i3.JsonObject? get json;
   @override
   MediaTypeHeaderOutputPayload getPayload() => MediaTypeHeaderOutputPayload();
@@ -78,8 +76,6 @@ abstract class MediaTypeHeaderOutputPayload
 
   const MediaTypeHeaderOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MediaTypeHeaderOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -56,9 +56,7 @@ class DeleteInstanceProfileRequestBuilder
   set instanceProfileName(String? instanceProfileName) =>
       _$this._instanceProfileName = instanceProfileName;
 
-  DeleteInstanceProfileRequestBuilder() {
-    DeleteInstanceProfileRequest._init(this);
-  }
+  DeleteInstanceProfileRequestBuilder();
 
   DeleteInstanceProfileRequestBuilder get _$this {
     final $v = _$v;

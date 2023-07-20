@@ -46,9 +46,6 @@ abstract class ProvisionedThroughputExceededException
     ProvisionedThroughputExceededExceptionAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ProvisionedThroughputExceededExceptionBuilder b) {}
-
   /// You exceeded your maximum allowed provisioned throughput.
   @override
   String? get message;

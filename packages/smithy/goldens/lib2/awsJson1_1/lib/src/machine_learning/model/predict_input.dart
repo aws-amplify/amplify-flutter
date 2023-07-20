@@ -42,8 +42,6 @@ abstract class PredictInput
     PredictInputAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PredictInputBuilder b) {}
   String get mlModelId;
   _i3.BuiltMap<String, String> get record;
   String get predictEndpoint;

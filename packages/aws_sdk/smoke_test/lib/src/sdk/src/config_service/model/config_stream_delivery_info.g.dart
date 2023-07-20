@@ -83,9 +83,7 @@ class ConfigStreamDeliveryInfoBuilder
   set lastStatusChangeTime(DateTime? lastStatusChangeTime) =>
       _$this._lastStatusChangeTime = lastStatusChangeTime;
 
-  ConfigStreamDeliveryInfoBuilder() {
-    ConfigStreamDeliveryInfo._init(this);
-  }
+  ConfigStreamDeliveryInfoBuilder();
 
   ConfigStreamDeliveryInfoBuilder get _$this {
     final $v = _$v;

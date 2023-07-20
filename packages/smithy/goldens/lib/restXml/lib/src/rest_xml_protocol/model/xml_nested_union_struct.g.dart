@@ -114,9 +114,7 @@ class XmlNestedUnionStructBuilder
   double? get doubleValue => _$this._doubleValue;
   set doubleValue(double? doubleValue) => _$this._doubleValue = doubleValue;
 
-  XmlNestedUnionStructBuilder() {
-    XmlNestedUnionStruct._init(this);
-  }
+  XmlNestedUnionStructBuilder();
 
   XmlNestedUnionStructBuilder get _$this {
     final $v = _$v;

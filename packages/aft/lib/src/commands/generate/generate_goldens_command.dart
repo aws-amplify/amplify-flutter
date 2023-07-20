@@ -24,6 +24,10 @@ const awsProtocols = [
   'restXml',
   'restXmlWithNamespace',
 ];
+// Skip generating V1 since we use V2-specific traits and test descriptions.
+const skipV1 = [
+  'custom',
+];
 
 /// Command for generating the AWS SDK for a given package and `sdk.yaml` file.
 class GenerateGoldensCommand extends AmplifyCommand {
@@ -311,6 +315,9 @@ override_platforms:
         continue;
       }
       for (final version in SmithyVersion.values) {
+        if (version == SmithyVersion.v1 && skipV1.contains(protocolName)) {
+          continue;
+        }
         final ast = await _transform(
           version,
           modelPath,

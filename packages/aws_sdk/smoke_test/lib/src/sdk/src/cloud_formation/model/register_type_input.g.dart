@@ -105,9 +105,7 @@ class RegisterTypeInputBuilder
   set clientRequestToken(String? clientRequestToken) =>
       _$this._clientRequestToken = clientRequestToken;
 
-  RegisterTypeInputBuilder() {
-    RegisterTypeInput._init(this);
-  }
+  RegisterTypeInputBuilder();
 
   RegisterTypeInputBuilder get _$this {
     final $v = _$v;

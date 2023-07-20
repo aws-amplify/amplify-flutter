@@ -43,9 +43,6 @@ abstract class UploadSigningCertificateRequest
   static const List<_i1.SmithySerializer<UploadSigningCertificateRequest>>
       serializers = [UploadSigningCertificateRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UploadSigningCertificateRequestBuilder b) {}
-
   /// The name of the user the signing certificate is for.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

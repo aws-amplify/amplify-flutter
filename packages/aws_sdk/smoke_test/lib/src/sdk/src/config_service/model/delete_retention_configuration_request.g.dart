@@ -60,9 +60,7 @@ class DeleteRetentionConfigurationRequestBuilder
   set retentionConfigurationName(String? retentionConfigurationName) =>
       _$this._retentionConfigurationName = retentionConfigurationName;
 
-  DeleteRetentionConfigurationRequestBuilder() {
-    DeleteRetentionConfigurationRequest._init(this);
-  }
+  DeleteRetentionConfigurationRequestBuilder();
 
   DeleteRetentionConfigurationRequestBuilder get _$this {
     final $v = _$v;

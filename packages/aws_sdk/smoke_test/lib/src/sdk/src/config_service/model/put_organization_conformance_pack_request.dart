@@ -61,9 +61,6 @@ abstract class PutOrganizationConformancePackRequest
     PutOrganizationConformancePackRequestAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutOrganizationConformancePackRequestBuilder b) {}
-
   /// Name of the organization conformance pack you want to create.
   String get organizationConformancePackName;
 

@@ -70,9 +70,7 @@ class CreateServiceSpecificCredentialRequestBuilder
   String? get serviceName => _$this._serviceName;
   set serviceName(String? serviceName) => _$this._serviceName = serviceName;
 
-  CreateServiceSpecificCredentialRequestBuilder() {
-    CreateServiceSpecificCredentialRequest._init(this);
-  }
+  CreateServiceSpecificCredentialRequestBuilder();
 
   CreateServiceSpecificCredentialRequestBuilder get _$this {
     final $v = _$v;

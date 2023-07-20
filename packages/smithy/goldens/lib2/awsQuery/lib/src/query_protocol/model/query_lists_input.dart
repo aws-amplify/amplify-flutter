@@ -58,8 +58,6 @@ abstract class QueryListsInput
     QueryListsInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(QueryListsInputBuilder b) {}
   _i5.BuiltList<String>? get listArg;
   _i5.BuiltList<_i3.GreetingStruct>? get complexListArg;
   _i5.BuiltList<String>? get flattenedListArg;

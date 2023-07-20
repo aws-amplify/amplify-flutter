@@ -60,9 +60,6 @@ abstract class GetBasePathMappingsRequest
   static const List<_i1.SmithySerializer<GetBasePathMappingsRequestPayload>>
       serializers = [GetBasePathMappingsRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBasePathMappingsRequestBuilder b) {}
-
   /// The domain name of a BasePathMapping resource.
   String get domainName;
 
@@ -125,8 +122,6 @@ abstract class GetBasePathMappingsRequestPayload
 
   const GetBasePathMappingsRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBasePathMappingsRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

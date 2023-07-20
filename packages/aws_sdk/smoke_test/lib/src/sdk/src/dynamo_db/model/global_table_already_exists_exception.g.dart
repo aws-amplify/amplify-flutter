@@ -67,9 +67,7 @@ class GlobalTableAlreadyExistsExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  GlobalTableAlreadyExistsExceptionBuilder() {
-    GlobalTableAlreadyExistsException._init(this);
-  }
+  GlobalTableAlreadyExistsExceptionBuilder();
 
   GlobalTableAlreadyExistsExceptionBuilder get _$this {
     final $v = _$v;

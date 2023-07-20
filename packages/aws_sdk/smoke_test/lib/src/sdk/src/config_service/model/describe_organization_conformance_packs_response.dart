@@ -50,9 +50,6 @@ abstract class DescribeOrganizationConformancePacksResponse
     DescribeOrganizationConformancePacksResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeOrganizationConformancePacksResponseBuilder b) {}
-
   /// Returns a list of OrganizationConformancePacks objects.
   _i3.BuiltList<_i2.OrganizationConformancePack>?
       get organizationConformancePacks;

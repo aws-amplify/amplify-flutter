@@ -96,9 +96,7 @@ class CompletedPartBuilder
   int? get partNumber => _$this._partNumber;
   set partNumber(int? partNumber) => _$this._partNumber = partNumber;
 
-  CompletedPartBuilder() {
-    CompletedPart._init(this);
-  }
+  CompletedPartBuilder();
 
   CompletedPartBuilder get _$this {
     final $v = _$v;

@@ -48,9 +48,6 @@ abstract class DeregisterTypeInput
     DeregisterTypeInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeregisterTypeInputBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the extension.
   ///
   /// Conditional: You must specify either `TypeName` and `Type`, or `Arn`.

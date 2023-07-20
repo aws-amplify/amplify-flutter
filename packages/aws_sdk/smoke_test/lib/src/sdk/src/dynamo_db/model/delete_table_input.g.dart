@@ -50,9 +50,7 @@ class DeleteTableInputBuilder
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
 
-  DeleteTableInputBuilder() {
-    DeleteTableInput._init(this);
-  }
+  DeleteTableInputBuilder();
 
   DeleteTableInputBuilder get _$this {
     final $v = _$v;

@@ -66,9 +66,7 @@ class DeleteBasePathMappingRequestBuilder
   String? get basePath => _$this._basePath;
   set basePath(String? basePath) => _$this._basePath = basePath;
 
-  DeleteBasePathMappingRequestBuilder() {
-    DeleteBasePathMappingRequest._init(this);
-  }
+  DeleteBasePathMappingRequestBuilder();
 
   DeleteBasePathMappingRequestBuilder get _$this {
     final $v = _$v;
@@ -143,9 +141,7 @@ class DeleteBasePathMappingRequestPayloadBuilder
             DeleteBasePathMappingRequestPayloadBuilder> {
   _$DeleteBasePathMappingRequestPayload? _$v;
 
-  DeleteBasePathMappingRequestPayloadBuilder() {
-    DeleteBasePathMappingRequestPayload._init(this);
-  }
+  DeleteBasePathMappingRequestPayloadBuilder();
 
   @override
   void replace(DeleteBasePathMappingRequestPayload other) {

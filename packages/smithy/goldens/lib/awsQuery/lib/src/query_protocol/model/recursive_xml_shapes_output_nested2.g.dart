@@ -65,9 +65,7 @@ class RecursiveXmlShapesOutputNested2Builder
           _i2.RecursiveXmlShapesOutputNested1Builder? recursiveMember) =>
       _$this._recursiveMember = recursiveMember;
 
-  RecursiveXmlShapesOutputNested2Builder() {
-    RecursiveXmlShapesOutputNested2._init(this);
-  }
+  RecursiveXmlShapesOutputNested2Builder();
 
   RecursiveXmlShapesOutputNested2Builder get _$this {
     final $v = _$v;

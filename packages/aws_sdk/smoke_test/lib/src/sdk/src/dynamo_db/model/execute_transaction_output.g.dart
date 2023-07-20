@@ -64,9 +64,7 @@ class ExecuteTransactionOutputBuilder
           _i4.ListBuilder<_i3.ConsumedCapacity>? consumedCapacity) =>
       _$this._consumedCapacity = consumedCapacity;
 
-  ExecuteTransactionOutputBuilder() {
-    ExecuteTransactionOutput._init(this);
-  }
+  ExecuteTransactionOutputBuilder();
 
   ExecuteTransactionOutputBuilder get _$this {
     final $v = _$v;

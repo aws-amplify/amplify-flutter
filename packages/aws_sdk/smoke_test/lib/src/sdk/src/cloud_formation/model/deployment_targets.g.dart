@@ -82,9 +82,7 @@ class DeploymentTargetsBuilder
   set accountFilterType(_i2.AccountFilterType? accountFilterType) =>
       _$this._accountFilterType = accountFilterType;
 
-  DeploymentTargetsBuilder() {
-    DeploymentTargets._init(this);
-  }
+  DeploymentTargetsBuilder();
 
   DeploymentTargetsBuilder get _$this {
     final $v = _$v;

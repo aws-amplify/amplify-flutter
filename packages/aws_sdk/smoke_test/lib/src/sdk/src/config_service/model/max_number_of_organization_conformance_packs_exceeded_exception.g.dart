@@ -73,9 +73,7 @@ class MaxNumberOfOrganizationConformancePacksExceededExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  MaxNumberOfOrganizationConformancePacksExceededExceptionBuilder() {
-    MaxNumberOfOrganizationConformancePacksExceededException._init(this);
-  }
+  MaxNumberOfOrganizationConformancePacksExceededExceptionBuilder();
 
   MaxNumberOfOrganizationConformancePacksExceededExceptionBuilder get _$this {
     final $v = _$v;

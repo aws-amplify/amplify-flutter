@@ -44,9 +44,6 @@ abstract class AnalyticsS3BucketDestination
   static const List<_i3.SmithySerializer<AnalyticsS3BucketDestination>>
       serializers = [AnalyticsS3BucketDestinationRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AnalyticsS3BucketDestinationBuilder b) {}
-
   /// Specifies the file format used when exporting data to Amazon S3.
   _i2.AnalyticsS3ExportFileFormat get format;
 

@@ -57,9 +57,7 @@ class TableClassSummaryBuilder
   set lastUpdateDateTime(DateTime? lastUpdateDateTime) =>
       _$this._lastUpdateDateTime = lastUpdateDateTime;
 
-  TableClassSummaryBuilder() {
-    TableClassSummary._init(this);
-  }
+  TableClassSummaryBuilder();
 
   TableClassSummaryBuilder get _$this {
     final $v = _$v;

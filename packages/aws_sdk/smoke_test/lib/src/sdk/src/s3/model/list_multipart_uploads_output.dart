@@ -91,9 +91,6 @@ abstract class ListMultipartUploadsOutput
   static const List<_i2.SmithySerializer<ListMultipartUploadsOutputPayload>>
       serializers = [ListMultipartUploadsOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListMultipartUploadsOutputBuilder b) {}
-
   /// The name of the bucket to which the multipart upload was initiated. Does not return the access point ARN or access point alias if used.
   String? get bucket;
 
@@ -243,9 +240,6 @@ abstract class ListMultipartUploadsOutputPayload
       _$ListMultipartUploadsOutputPayload;
 
   const ListMultipartUploadsOutputPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListMultipartUploadsOutputPayloadBuilder b) {}
 
   /// The name of the bucket to which the multipart upload was initiated. Does not return the access point ARN or access point alias if used.
   String? get bucket;

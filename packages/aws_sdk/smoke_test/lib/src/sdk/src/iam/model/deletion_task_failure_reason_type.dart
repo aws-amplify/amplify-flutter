@@ -47,9 +47,6 @@ abstract class DeletionTaskFailureReasonType
   static const List<_i4.SmithySerializer<DeletionTaskFailureReasonType>>
       serializers = [DeletionTaskFailureReasonTypeAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeletionTaskFailureReasonTypeBuilder b) {}
-
   /// A short description of the reason that the service-linked role deletion failed.
   String? get reason;
 

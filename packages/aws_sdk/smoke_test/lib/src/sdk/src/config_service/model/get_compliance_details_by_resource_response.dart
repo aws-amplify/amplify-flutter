@@ -49,9 +49,6 @@ abstract class GetComplianceDetailsByResourceResponse
     GetComplianceDetailsByResourceResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetComplianceDetailsByResourceResponseBuilder b) {}
-
   /// Indicates whether the specified Amazon Web Services resource complies each Config rule.
   _i3.BuiltList<_i2.EvaluationResult>? get evaluationResults;
 

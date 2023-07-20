@@ -29,8 +29,6 @@ abstract class NestedStructWithList
     NestedStructWithListAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NestedStructWithListBuilder b) {}
   _i2.BuiltList<String>? get listArg;
   @override
   List<Object?> get props => [listArg];

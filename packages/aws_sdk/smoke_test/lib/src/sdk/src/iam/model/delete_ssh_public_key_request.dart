@@ -42,9 +42,6 @@ abstract class DeleteSshPublicKeyRequest
   static const List<_i1.SmithySerializer<DeleteSshPublicKeyRequest>>
       serializers = [DeleteSshPublicKeyRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteSshPublicKeyRequestBuilder b) {}
-
   /// The name of the IAM user associated with the SSH public key.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

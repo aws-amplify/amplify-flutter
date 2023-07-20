@@ -47,8 +47,6 @@ abstract class PutAndGetInlineDocumentsInputOutput
   static const List<_i1.SmithySerializer<PutAndGetInlineDocumentsInputOutput>>
       serializers = [PutAndGetInlineDocumentsInputOutputAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutAndGetInlineDocumentsInputOutputBuilder b) {}
   _i3.JsonObject? get inlineDocument;
   @override
   PutAndGetInlineDocumentsInputOutput getPayload() => this;

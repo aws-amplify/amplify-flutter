@@ -37,8 +37,6 @@ abstract class NestedStructuresInput
     NestedStructuresInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NestedStructuresInputBuilder b) {}
   _i3.StructArg? get nested;
   @override
   NestedStructuresInput getPayload() => this;

@@ -47,9 +47,6 @@ abstract class LimitExceededException
   static const List<_i2.SmithySerializer<LimitExceededException>> serializers =
       [LimitExceededExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(LimitExceededExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

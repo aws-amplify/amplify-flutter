@@ -54,9 +54,7 @@ class UsagePlansBuilder implements Builder<UsagePlans, UsagePlansBuilder> {
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  UsagePlansBuilder() {
-    UsagePlans._init(this);
-  }
+  UsagePlansBuilder();
 
   UsagePlansBuilder get _$this {
     final $v = _$v;

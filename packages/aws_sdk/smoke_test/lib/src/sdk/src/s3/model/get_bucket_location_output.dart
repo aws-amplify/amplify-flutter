@@ -40,9 +40,6 @@ abstract class GetBucketLocationOutput
   static const List<_i2.SmithySerializer<_i3.BucketLocationConstraint?>>
       serializers = [GetBucketLocationOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketLocationOutputBuilder b) {}
-
   /// Specifies the Region where the bucket resides. For a list of all the Amazon S3 supported location constraints by Region, see [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region). Buckets in Region `us-east-1` have a LocationConstraint of `null`.
   _i3.BucketLocationConstraint? get locationConstraint;
   @override

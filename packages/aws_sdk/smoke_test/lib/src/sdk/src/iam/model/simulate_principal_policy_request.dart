@@ -70,9 +70,6 @@ abstract class SimulatePrincipalPolicyRequest
   static const List<_i1.SmithySerializer<SimulatePrincipalPolicyRequest>>
       serializers = [SimulatePrincipalPolicyRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SimulatePrincipalPolicyRequestBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of a user, group, or role whose policies you want to include in the simulation. If you specify a user, group, or role, the simulation includes all policies that are associated with that entity. If you specify a user, the simulation also includes all policies that are attached to any groups the user belongs to.
   ///
   /// The maximum length of the policy document that you can pass in this operation, including whitespace, is listed below. To view the maximum character counts of a managed policy with no whitespaces, see [IAM and STS character quotas](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length).

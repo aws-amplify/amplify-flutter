@@ -63,9 +63,7 @@ class InvalidSnsTopicArnExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InvalidSnsTopicArnExceptionBuilder() {
-    InvalidSnsTopicArnException._init(this);
-  }
+  InvalidSnsTopicArnExceptionBuilder();
 
   InvalidSnsTopicArnExceptionBuilder get _$this {
     final $v = _$v;

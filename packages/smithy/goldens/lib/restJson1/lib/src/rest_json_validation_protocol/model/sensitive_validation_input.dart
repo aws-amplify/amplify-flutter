@@ -36,8 +36,6 @@ abstract class SensitiveValidationInput
   static const List<_i1.SmithySerializer<SensitiveValidationInput>>
       serializers = [SensitiveValidationInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SensitiveValidationInputBuilder b) {}
   String? get string;
   @override
   SensitiveValidationInput getPayload() => this;

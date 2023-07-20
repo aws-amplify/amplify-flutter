@@ -35,9 +35,6 @@ abstract class TimeWindow
     TimeWindowAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TimeWindowBuilder b) {}
-
   /// The start time of an execution.
   DateTime? get startTime;
 

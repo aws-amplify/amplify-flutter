@@ -56,9 +56,6 @@ abstract class ListStackInstancesInput
   static const List<_i1.SmithySerializer<ListStackInstancesInput>> serializers =
       [ListStackInstancesInputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListStackInstancesInputBuilder b) {}
-
   /// The name or unique ID of the stack set that you want to list stack instances for.
   String get stackSetName;
 

@@ -37,9 +37,6 @@ abstract class SdkTypes
     SdkTypesRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SdkTypesBuilder b) {}
-
   /// The current page of elements from this collection.
   _i3.BuiltList<_i2.SdkType>? get items;
   @override

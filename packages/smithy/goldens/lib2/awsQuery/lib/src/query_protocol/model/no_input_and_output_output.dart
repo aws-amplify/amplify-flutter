@@ -35,8 +35,6 @@ abstract class NoInputAndOutputOutput
   static const List<_i2.SmithySerializer<NoInputAndOutputOutput>> serializers =
       [NoInputAndOutputOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NoInputAndOutputOutputBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

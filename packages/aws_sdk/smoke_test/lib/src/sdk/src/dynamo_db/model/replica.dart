@@ -28,9 +28,6 @@ abstract class Replica
     ReplicaAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicaBuilder b) {}
-
   /// The Region where the replica needs to be created.
   String? get regionName;
   @override

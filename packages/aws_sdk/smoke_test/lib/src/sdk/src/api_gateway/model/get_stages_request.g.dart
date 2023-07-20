@@ -60,9 +60,7 @@ class GetStagesRequestBuilder
   String? get deploymentId => _$this._deploymentId;
   set deploymentId(String? deploymentId) => _$this._deploymentId = deploymentId;
 
-  GetStagesRequestBuilder() {
-    GetStagesRequest._init(this);
-  }
+  GetStagesRequestBuilder();
 
   GetStagesRequestBuilder get _$this {
     final $v = _$v;
@@ -132,9 +130,7 @@ class GetStagesRequestPayloadBuilder
         Builder<GetStagesRequestPayload, GetStagesRequestPayloadBuilder> {
   _$GetStagesRequestPayload? _$v;
 
-  GetStagesRequestPayloadBuilder() {
-    GetStagesRequestPayload._init(this);
-  }
+  GetStagesRequestPayloadBuilder();
 
   @override
   void replace(GetStagesRequestPayload other) {

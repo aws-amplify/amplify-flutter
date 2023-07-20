@@ -41,9 +41,6 @@ abstract class TagPolicyRequest
     TagPolicyRequestAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TagPolicyRequestBuilder b) {}
-
   /// The ARN of the IAM customer managed policy to which you want to add tags.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

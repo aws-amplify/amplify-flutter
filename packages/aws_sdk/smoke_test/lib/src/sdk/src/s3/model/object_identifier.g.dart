@@ -58,9 +58,7 @@ class ObjectIdentifierBuilder
   String? get versionId => _$this._versionId;
   set versionId(String? versionId) => _$this._versionId = versionId;
 
-  ObjectIdentifierBuilder() {
-    ObjectIdentifier._init(this);
-  }
+  ObjectIdentifierBuilder();
 
   ObjectIdentifierBuilder get _$this {
     final $v = _$v;

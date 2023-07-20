@@ -38,9 +38,6 @@ abstract class GlobalTable
     GlobalTableAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GlobalTableBuilder b) {}
-
   /// The global table name.
   String? get globalTableName;
 

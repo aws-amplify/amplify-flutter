@@ -79,9 +79,7 @@ class UpdateDocumentationPartRequestBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateDocumentationPartRequestBuilder() {
-    UpdateDocumentationPartRequest._init(this);
-  }
+  UpdateDocumentationPartRequestBuilder();
 
   UpdateDocumentationPartRequestBuilder get _$this {
     final $v = _$v;
@@ -187,9 +185,7 @@ class UpdateDocumentationPartRequestPayloadBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateDocumentationPartRequestPayloadBuilder() {
-    UpdateDocumentationPartRequestPayload._init(this);
-  }
+  UpdateDocumentationPartRequestPayloadBuilder();
 
   UpdateDocumentationPartRequestPayloadBuilder get _$this {
     final $v = _$v;

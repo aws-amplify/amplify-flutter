@@ -38,9 +38,6 @@ abstract class ServerSideEncryptionRule
   static const List<_i3.SmithySerializer<ServerSideEncryptionRule>>
       serializers = [ServerSideEncryptionRuleRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ServerSideEncryptionRuleBuilder b) {}
-
   /// Specifies the default server-side encryption to apply to new objects in the bucket. If a PUT Object request doesn't specify any server-side encryption, this default encryption will be applied.
   _i2.ServerSideEncryptionByDefault? get applyServerSideEncryptionByDefault;
 

@@ -40,9 +40,7 @@ class ContinueUpdateRollbackOutputBuilder
             ContinueUpdateRollbackOutputBuilder> {
   _$ContinueUpdateRollbackOutput? _$v;
 
-  ContinueUpdateRollbackOutputBuilder() {
-    ContinueUpdateRollbackOutput._init(this);
-  }
+  ContinueUpdateRollbackOutputBuilder();
 
   @override
   void replace(ContinueUpdateRollbackOutput other) {

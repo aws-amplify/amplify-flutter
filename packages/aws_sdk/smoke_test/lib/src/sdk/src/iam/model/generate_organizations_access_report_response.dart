@@ -39,9 +39,6 @@ abstract class GenerateOrganizationsAccessReportResponse
     GenerateOrganizationsAccessReportResponseAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GenerateOrganizationsAccessReportResponseBuilder b) {}
-
   /// The job identifier that you can use in the GetOrganizationsAccessReport operation.
   String? get jobId;
   @override

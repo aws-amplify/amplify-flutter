@@ -95,9 +95,7 @@ class ProvisionedThroughputDescriptionBuilder
   set writeCapacityUnits(_i2.Int64? writeCapacityUnits) =>
       _$this._writeCapacityUnits = writeCapacityUnits;
 
-  ProvisionedThroughputDescriptionBuilder() {
-    ProvisionedThroughputDescription._init(this);
-  }
+  ProvisionedThroughputDescriptionBuilder();
 
   ProvisionedThroughputDescriptionBuilder get _$this {
     final $v = _$v;

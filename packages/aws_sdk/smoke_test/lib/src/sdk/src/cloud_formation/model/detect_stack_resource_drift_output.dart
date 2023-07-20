@@ -40,9 +40,6 @@ abstract class DetectStackResourceDriftOutput
   static const List<_i3.SmithySerializer<DetectStackResourceDriftOutput>>
       serializers = [DetectStackResourceDriftOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DetectStackResourceDriftOutputBuilder b) {}
-
   /// Information about whether the resource's actual configuration has drifted from its expected template configuration, including actual and expected property values and any differences detected.
   _i2.StackResourceDrift get stackResourceDrift;
   @override

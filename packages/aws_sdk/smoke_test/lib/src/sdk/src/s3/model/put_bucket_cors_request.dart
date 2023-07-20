@@ -70,9 +70,6 @@ abstract class PutBucketCorsRequest
     PutBucketCorsRequestRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketCorsRequestBuilder b) {}
-
   /// Specifies the bucket impacted by the `cors`configuration.
   String get bucket;
 

@@ -51,9 +51,6 @@ abstract class ClientCertificate
     ClientCertificateRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ClientCertificateBuilder b) {}
-
   /// The identifier of the client certificate.
   String? get clientCertificateId;
 

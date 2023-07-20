@@ -150,9 +150,7 @@ class ConfigRuleBuilder implements Builder<ConfigRule, ConfigRuleBuilder> {
           _i7.ListBuilder<_i6.EvaluationModeConfiguration>? evaluationModes) =>
       _$this._evaluationModes = evaluationModes;
 
-  ConfigRuleBuilder() {
-    ConfigRule._init(this);
-  }
+  ConfigRuleBuilder();
 
   ConfigRuleBuilder get _$this {
     final $v = _$v;

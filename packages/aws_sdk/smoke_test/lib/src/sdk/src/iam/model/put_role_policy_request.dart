@@ -44,9 +44,6 @@ abstract class PutRolePolicyRequest
     PutRolePolicyRequestAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutRolePolicyRequestBuilder b) {}
-
   /// The name of the role to associate the policy with.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

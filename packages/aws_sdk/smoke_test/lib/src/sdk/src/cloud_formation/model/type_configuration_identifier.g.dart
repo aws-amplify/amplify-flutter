@@ -91,9 +91,7 @@ class TypeConfigurationIdentifierBuilder
   String? get typeName => _$this._typeName;
   set typeName(String? typeName) => _$this._typeName = typeName;
 
-  TypeConfigurationIdentifierBuilder() {
-    TypeConfigurationIdentifier._init(this);
-  }
+  TypeConfigurationIdentifierBuilder();
 
   TypeConfigurationIdentifierBuilder get _$this {
     final $v = _$v;

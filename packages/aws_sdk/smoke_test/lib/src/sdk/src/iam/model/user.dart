@@ -74,9 +74,6 @@ abstract class User
     UserAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UserBuilder b) {}
-
   /// The path to the user. For more information about paths, see [IAM identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html) in the _IAM User Guide_.
   ///
   /// The ARN of the policy used to set the permissions boundary for the user.

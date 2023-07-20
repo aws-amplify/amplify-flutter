@@ -52,9 +52,6 @@ abstract class UpdateReplicationGroupMemberAction
   static const List<_i6.SmithySerializer<UpdateReplicationGroupMemberAction>>
       serializers = [UpdateReplicationGroupMemberActionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateReplicationGroupMemberActionBuilder b) {}
-
   /// The Region where the replica exists.
   String get regionName;
 

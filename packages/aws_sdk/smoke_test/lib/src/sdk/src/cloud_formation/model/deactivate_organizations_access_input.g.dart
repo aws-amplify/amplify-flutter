@@ -43,9 +43,7 @@ class DeactivateOrganizationsAccessInputBuilder
             DeactivateOrganizationsAccessInputBuilder> {
   _$DeactivateOrganizationsAccessInput? _$v;
 
-  DeactivateOrganizationsAccessInputBuilder() {
-    DeactivateOrganizationsAccessInput._init(this);
-  }
+  DeactivateOrganizationsAccessInputBuilder();
 
   @override
   void replace(DeactivateOrganizationsAccessInput other) {

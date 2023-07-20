@@ -73,9 +73,7 @@ class MaxNumberOfRetentionConfigurationsExceededExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  MaxNumberOfRetentionConfigurationsExceededExceptionBuilder() {
-    MaxNumberOfRetentionConfigurationsExceededException._init(this);
-  }
+  MaxNumberOfRetentionConfigurationsExceededExceptionBuilder();
 
   MaxNumberOfRetentionConfigurationsExceededExceptionBuilder get _$this {
     final $v = _$v;

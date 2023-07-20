@@ -209,9 +209,7 @@ class ScanInputBuilder implements Builder<ScanInput, ScanInputBuilder> {
   set consistentRead(bool? consistentRead) =>
       _$this._consistentRead = consistentRead;
 
-  ScanInputBuilder() {
-    ScanInput._init(this);
-  }
+  ScanInputBuilder();
 
   ScanInputBuilder get _$this {
     final $v = _$v;

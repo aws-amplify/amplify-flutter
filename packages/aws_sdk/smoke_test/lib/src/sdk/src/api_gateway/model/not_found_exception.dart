@@ -40,8 +40,6 @@ abstract class NotFoundException
     NotFoundExceptionRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NotFoundExceptionBuilder b) {}
   @override
   String? get message;
   @override

@@ -35,9 +35,6 @@ abstract class PutConformancePackResponse
   static const List<_i2.SmithySerializer<PutConformancePackResponse>>
       serializers = [PutConformancePackResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutConformancePackResponseBuilder b) {}
-
   /// ARN of the conformance pack.
   String? get conformancePackArn;
   @override

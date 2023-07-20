@@ -60,9 +60,7 @@ class DescribeConfigurationRecorderStatusRequestBuilder
           _i3.ListBuilder<String>? configurationRecorderNames) =>
       _$this._configurationRecorderNames = configurationRecorderNames;
 
-  DescribeConfigurationRecorderStatusRequestBuilder() {
-    DescribeConfigurationRecorderStatusRequest._init(this);
-  }
+  DescribeConfigurationRecorderStatusRequestBuilder();
 
   DescribeConfigurationRecorderStatusRequestBuilder get _$this {
     final $v = _$v;

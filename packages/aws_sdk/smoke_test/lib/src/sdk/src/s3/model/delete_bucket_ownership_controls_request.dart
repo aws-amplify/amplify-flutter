@@ -55,9 +55,6 @@ abstract class DeleteBucketOwnershipControlsRequest
           _i1.SmithySerializer<DeleteBucketOwnershipControlsRequestPayload>>
       serializers = [DeleteBucketOwnershipControlsRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBucketOwnershipControlsRequestBuilder b) {}
-
   /// The Amazon S3 bucket whose `OwnershipControls` you want to delete.
   String get bucket;
 
@@ -113,8 +110,6 @@ abstract class DeleteBucketOwnershipControlsRequestPayload
 
   const DeleteBucketOwnershipControlsRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBucketOwnershipControlsRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

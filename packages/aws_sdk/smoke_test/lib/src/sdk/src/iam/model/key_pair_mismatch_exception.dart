@@ -40,8 +40,6 @@ abstract class KeyPairMismatchException
   static const List<_i2.SmithySerializer<KeyPairMismatchException>>
       serializers = [KeyPairMismatchExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(KeyPairMismatchExceptionBuilder b) {}
   @override
   String? get message;
   @override

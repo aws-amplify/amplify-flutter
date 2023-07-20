@@ -41,9 +41,6 @@ abstract class DeleteDeliveryChannelRequest
   static const List<_i1.SmithySerializer<DeleteDeliveryChannelRequest>>
       serializers = [DeleteDeliveryChannelRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteDeliveryChannelRequestBuilder b) {}
-
   /// The name of the delivery channel to delete.
   String get deliveryChannelName;
   @override

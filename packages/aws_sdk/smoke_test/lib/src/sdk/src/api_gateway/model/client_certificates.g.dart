@@ -59,9 +59,7 @@ class ClientCertificatesBuilder
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  ClientCertificatesBuilder() {
-    ClientCertificates._init(this);
-  }
+  ClientCertificatesBuilder();
 
   ClientCertificatesBuilder get _$this {
     final $v = _$v;

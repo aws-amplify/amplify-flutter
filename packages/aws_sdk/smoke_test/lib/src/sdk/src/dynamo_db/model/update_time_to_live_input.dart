@@ -47,9 +47,6 @@ abstract class UpdateTimeToLiveInput
     UpdateTimeToLiveInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateTimeToLiveInputBuilder b) {}
-
   /// The name of the table to be configured.
   String get tableName;
 

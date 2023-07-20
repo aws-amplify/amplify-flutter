@@ -80,9 +80,6 @@ abstract class UpdateTableInput
     UpdateTableInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateTableInputBuilder b) {}
-
   /// An array of attributes that describe the key schema for the table and indexes. If you are adding a new global secondary index to the table, `AttributeDefinitions` must include the key element(s) of the new index.
   _i11.BuiltList<_i3.AttributeDefinition>? get attributeDefinitions;
 

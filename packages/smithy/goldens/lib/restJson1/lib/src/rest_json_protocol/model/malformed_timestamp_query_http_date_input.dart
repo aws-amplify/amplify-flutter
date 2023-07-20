@@ -48,8 +48,6 @@ abstract class MalformedTimestampQueryHttpDateInput
           _i1.SmithySerializer<MalformedTimestampQueryHttpDateInputPayload>>
       serializers = [MalformedTimestampQueryHttpDateInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedTimestampQueryHttpDateInputBuilder b) {}
   DateTime get timestamp;
   @override
   MalformedTimestampQueryHttpDateInputPayload getPayload() =>
@@ -82,8 +80,6 @@ abstract class MalformedTimestampQueryHttpDateInputPayload
 
   const MalformedTimestampQueryHttpDateInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedTimestampQueryHttpDateInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

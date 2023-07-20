@@ -60,9 +60,7 @@ class DeleteConfigurationRecorderRequestBuilder
   set configurationRecorderName(String? configurationRecorderName) =>
       _$this._configurationRecorderName = configurationRecorderName;
 
-  DeleteConfigurationRecorderRequestBuilder() {
-    DeleteConfigurationRecorderRequest._init(this);
-  }
+  DeleteConfigurationRecorderRequestBuilder();
 
   DeleteConfigurationRecorderRequestBuilder get _$this {
     final $v = _$v;

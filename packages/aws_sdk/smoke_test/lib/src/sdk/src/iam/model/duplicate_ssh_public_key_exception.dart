@@ -42,8 +42,6 @@ abstract class DuplicateSshPublicKeyException
   static const List<_i2.SmithySerializer<DuplicateSshPublicKeyException>>
       serializers = [DuplicateSshPublicKeyExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DuplicateSshPublicKeyExceptionBuilder b) {}
   @override
   String? get message;
   @override

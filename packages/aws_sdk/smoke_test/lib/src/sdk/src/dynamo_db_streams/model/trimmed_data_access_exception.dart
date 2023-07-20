@@ -59,9 +59,6 @@ abstract class TrimmedDataAccessException
   static const List<_i2.SmithySerializer<TrimmedDataAccessException>>
       serializers = [TrimmedDataAccessExceptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TrimmedDataAccessExceptionBuilder b) {}
-
   /// "The data you are trying to access has been trimmed.
   @override
   String? get message;

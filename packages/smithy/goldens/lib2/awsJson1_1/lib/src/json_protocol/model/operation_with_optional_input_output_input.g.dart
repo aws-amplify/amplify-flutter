@@ -55,9 +55,7 @@ class OperationWithOptionalInputOutputInputBuilder
   String? get value => _$this._value;
   set value(String? value) => _$this._value = value;
 
-  OperationWithOptionalInputOutputInputBuilder() {
-    OperationWithOptionalInputOutputInput._init(this);
-  }
+  OperationWithOptionalInputOutputInputBuilder();
 
   OperationWithOptionalInputOutputInputBuilder get _$this {
     final $v = _$v;

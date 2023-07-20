@@ -60,9 +60,6 @@ abstract class UsagePlan
     UsagePlanRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UsagePlanBuilder b) {}
-
   /// The identifier of a UsagePlan resource.
   String? get id;
 

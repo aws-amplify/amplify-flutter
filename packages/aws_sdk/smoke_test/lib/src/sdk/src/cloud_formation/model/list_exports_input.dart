@@ -33,9 +33,6 @@ abstract class ListExportsInput
     ListExportsInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListExportsInputBuilder b) {}
-
   /// A string (provided by the ListExports response output) that identifies the next page of exported output values that you asked to retrieve.
   String? get nextToken;
   @override

@@ -39,9 +39,6 @@ abstract class ReplicaModifications
     ReplicaModificationsRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicaModificationsBuilder b) {}
-
   /// Specifies whether Amazon S3 replicates modifications on replicas.
   _i2.ReplicaModificationsStatus get status;
   @override

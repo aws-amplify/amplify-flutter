@@ -42,9 +42,6 @@ abstract class InternalServerError
     InternalServerErrorAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InternalServerErrorBuilder b) {}
-
   /// The server encountered an internal error trying to fulfill the request.
   @override
   String? get message;

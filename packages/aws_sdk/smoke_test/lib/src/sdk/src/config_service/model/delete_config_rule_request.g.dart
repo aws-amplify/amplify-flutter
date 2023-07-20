@@ -54,9 +54,7 @@ class DeleteConfigRuleRequestBuilder
   set configRuleName(String? configRuleName) =>
       _$this._configRuleName = configRuleName;
 
-  DeleteConfigRuleRequestBuilder() {
-    DeleteConfigRuleRequest._init(this);
-  }
+  DeleteConfigRuleRequestBuilder();
 
   DeleteConfigRuleRequestBuilder get _$this {
     final $v = _$v;

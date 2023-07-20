@@ -61,9 +61,7 @@ class RegisterPublisherInputBuilder
   set connectionArn(String? connectionArn) =>
       _$this._connectionArn = connectionArn;
 
-  RegisterPublisherInputBuilder() {
-    RegisterPublisherInput._init(this);
-  }
+  RegisterPublisherInputBuilder();
 
   RegisterPublisherInputBuilder get _$this {
     final $v = _$v;

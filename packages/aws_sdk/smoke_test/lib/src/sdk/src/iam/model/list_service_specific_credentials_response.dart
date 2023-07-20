@@ -47,9 +47,6 @@ abstract class ListServiceSpecificCredentialsResponse
     ListServiceSpecificCredentialsResponseAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListServiceSpecificCredentialsResponseBuilder b) {}
-
   /// A list of structures that each contain details about a service-specific credential.
   _i3.BuiltList<_i2.ServiceSpecificCredentialMetadata>?
       get serviceSpecificCredentials;

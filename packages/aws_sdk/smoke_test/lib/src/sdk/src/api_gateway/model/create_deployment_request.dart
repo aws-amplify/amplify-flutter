@@ -82,9 +82,6 @@ abstract class CreateDeploymentRequest
   static const List<_i1.SmithySerializer<CreateDeploymentRequestPayload>>
       serializers = [CreateDeploymentRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateDeploymentRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -206,9 +203,6 @@ abstract class CreateDeploymentRequestPayload
       _$CreateDeploymentRequestPayload;
 
   const CreateDeploymentRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateDeploymentRequestPayloadBuilder b) {}
 
   /// Enables a cache cluster for the Stage resource specified in the input.
   bool? get cacheClusterEnabled;

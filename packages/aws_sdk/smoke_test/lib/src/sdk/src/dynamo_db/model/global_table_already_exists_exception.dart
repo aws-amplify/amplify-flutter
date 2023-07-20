@@ -43,8 +43,6 @@ abstract class GlobalTableAlreadyExistsException
   static const List<_i2.SmithySerializer<GlobalTableAlreadyExistsException>>
       serializers = [GlobalTableAlreadyExistsExceptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GlobalTableAlreadyExistsExceptionBuilder b) {}
   @override
   String? get message;
   @override

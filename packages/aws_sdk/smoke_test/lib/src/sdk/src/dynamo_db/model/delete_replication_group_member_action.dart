@@ -32,9 +32,6 @@ abstract class DeleteReplicationGroupMemberAction
   static const List<_i2.SmithySerializer<DeleteReplicationGroupMemberAction>>
       serializers = [DeleteReplicationGroupMemberActionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteReplicationGroupMemberActionBuilder b) {}
-
   /// The Region where the replica exists.
   String get regionName;
   @override

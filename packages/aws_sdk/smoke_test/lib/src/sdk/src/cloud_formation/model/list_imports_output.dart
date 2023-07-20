@@ -40,9 +40,6 @@ abstract class ListImportsOutput
     ListImportsOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListImportsOutputBuilder b) {}
-
   /// A list of stack names that are importing the specified exported output value.
   _i2.BuiltList<String>? get imports;
 

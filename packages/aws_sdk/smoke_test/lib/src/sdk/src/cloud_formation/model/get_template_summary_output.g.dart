@@ -8,24 +8,26 @@ part of 'get_template_summary_output.dart';
 
 class _$GetTemplateSummaryOutput extends GetTemplateSummaryOutput {
   @override
-  final _i5.BuiltList<_i2.ParameterDeclaration>? parameters;
+  final _i6.BuiltList<_i2.ParameterDeclaration>? parameters;
   @override
   final String? description;
   @override
-  final _i5.BuiltList<_i3.Capability>? capabilities;
+  final _i6.BuiltList<_i3.Capability>? capabilities;
   @override
   final String? capabilitiesReason;
   @override
-  final _i5.BuiltList<String>? resourceTypes;
+  final _i6.BuiltList<String>? resourceTypes;
   @override
   final String? version;
   @override
   final String? metadata;
   @override
-  final _i5.BuiltList<String>? declaredTransforms;
+  final _i6.BuiltList<String>? declaredTransforms;
   @override
-  final _i5.BuiltList<_i4.ResourceIdentifierSummary>?
+  final _i6.BuiltList<_i4.ResourceIdentifierSummary>?
       resourceIdentifierSummaries;
+  @override
+  final _i5.Warnings? warnings;
 
   factory _$GetTemplateSummaryOutput(
           [void Function(GetTemplateSummaryOutputBuilder)? updates]) =>
@@ -40,7 +42,8 @@ class _$GetTemplateSummaryOutput extends GetTemplateSummaryOutput {
       this.version,
       this.metadata,
       this.declaredTransforms,
-      this.resourceIdentifierSummaries})
+      this.resourceIdentifierSummaries,
+      this.warnings})
       : super._();
 
   @override
@@ -64,7 +67,8 @@ class _$GetTemplateSummaryOutput extends GetTemplateSummaryOutput {
         version == other.version &&
         metadata == other.metadata &&
         declaredTransforms == other.declaredTransforms &&
-        resourceIdentifierSummaries == other.resourceIdentifierSummaries;
+        resourceIdentifierSummaries == other.resourceIdentifierSummaries &&
+        warnings == other.warnings;
   }
 
   @override
@@ -79,6 +83,7 @@ class _$GetTemplateSummaryOutput extends GetTemplateSummaryOutput {
     _$hash = $jc(_$hash, metadata.hashCode);
     _$hash = $jc(_$hash, declaredTransforms.hashCode);
     _$hash = $jc(_$hash, resourceIdentifierSummaries.hashCode);
+    _$hash = $jc(_$hash, warnings.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -89,20 +94,20 @@ class GetTemplateSummaryOutputBuilder
         Builder<GetTemplateSummaryOutput, GetTemplateSummaryOutputBuilder> {
   _$GetTemplateSummaryOutput? _$v;
 
-  _i5.ListBuilder<_i2.ParameterDeclaration>? _parameters;
-  _i5.ListBuilder<_i2.ParameterDeclaration> get parameters =>
-      _$this._parameters ??= new _i5.ListBuilder<_i2.ParameterDeclaration>();
-  set parameters(_i5.ListBuilder<_i2.ParameterDeclaration>? parameters) =>
+  _i6.ListBuilder<_i2.ParameterDeclaration>? _parameters;
+  _i6.ListBuilder<_i2.ParameterDeclaration> get parameters =>
+      _$this._parameters ??= new _i6.ListBuilder<_i2.ParameterDeclaration>();
+  set parameters(_i6.ListBuilder<_i2.ParameterDeclaration>? parameters) =>
       _$this._parameters = parameters;
 
   String? _description;
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  _i5.ListBuilder<_i3.Capability>? _capabilities;
-  _i5.ListBuilder<_i3.Capability> get capabilities =>
-      _$this._capabilities ??= new _i5.ListBuilder<_i3.Capability>();
-  set capabilities(_i5.ListBuilder<_i3.Capability>? capabilities) =>
+  _i6.ListBuilder<_i3.Capability>? _capabilities;
+  _i6.ListBuilder<_i3.Capability> get capabilities =>
+      _$this._capabilities ??= new _i6.ListBuilder<_i3.Capability>();
+  set capabilities(_i6.ListBuilder<_i3.Capability>? capabilities) =>
       _$this._capabilities = capabilities;
 
   String? _capabilitiesReason;
@@ -110,10 +115,10 @@ class GetTemplateSummaryOutputBuilder
   set capabilitiesReason(String? capabilitiesReason) =>
       _$this._capabilitiesReason = capabilitiesReason;
 
-  _i5.ListBuilder<String>? _resourceTypes;
-  _i5.ListBuilder<String> get resourceTypes =>
-      _$this._resourceTypes ??= new _i5.ListBuilder<String>();
-  set resourceTypes(_i5.ListBuilder<String>? resourceTypes) =>
+  _i6.ListBuilder<String>? _resourceTypes;
+  _i6.ListBuilder<String> get resourceTypes =>
+      _$this._resourceTypes ??= new _i6.ListBuilder<String>();
+  set resourceTypes(_i6.ListBuilder<String>? resourceTypes) =>
       _$this._resourceTypes = resourceTypes;
 
   String? _version;
@@ -124,24 +129,27 @@ class GetTemplateSummaryOutputBuilder
   String? get metadata => _$this._metadata;
   set metadata(String? metadata) => _$this._metadata = metadata;
 
-  _i5.ListBuilder<String>? _declaredTransforms;
-  _i5.ListBuilder<String> get declaredTransforms =>
-      _$this._declaredTransforms ??= new _i5.ListBuilder<String>();
-  set declaredTransforms(_i5.ListBuilder<String>? declaredTransforms) =>
+  _i6.ListBuilder<String>? _declaredTransforms;
+  _i6.ListBuilder<String> get declaredTransforms =>
+      _$this._declaredTransforms ??= new _i6.ListBuilder<String>();
+  set declaredTransforms(_i6.ListBuilder<String>? declaredTransforms) =>
       _$this._declaredTransforms = declaredTransforms;
 
-  _i5.ListBuilder<_i4.ResourceIdentifierSummary>? _resourceIdentifierSummaries;
-  _i5.ListBuilder<_i4.ResourceIdentifierSummary>
+  _i6.ListBuilder<_i4.ResourceIdentifierSummary>? _resourceIdentifierSummaries;
+  _i6.ListBuilder<_i4.ResourceIdentifierSummary>
       get resourceIdentifierSummaries => _$this._resourceIdentifierSummaries ??=
-          new _i5.ListBuilder<_i4.ResourceIdentifierSummary>();
+          new _i6.ListBuilder<_i4.ResourceIdentifierSummary>();
   set resourceIdentifierSummaries(
-          _i5.ListBuilder<_i4.ResourceIdentifierSummary>?
+          _i6.ListBuilder<_i4.ResourceIdentifierSummary>?
               resourceIdentifierSummaries) =>
       _$this._resourceIdentifierSummaries = resourceIdentifierSummaries;
 
-  GetTemplateSummaryOutputBuilder() {
-    GetTemplateSummaryOutput._init(this);
-  }
+  _i5.WarningsBuilder? _warnings;
+  _i5.WarningsBuilder get warnings =>
+      _$this._warnings ??= new _i5.WarningsBuilder();
+  set warnings(_i5.WarningsBuilder? warnings) => _$this._warnings = warnings;
+
+  GetTemplateSummaryOutputBuilder();
 
   GetTemplateSummaryOutputBuilder get _$this {
     final $v = _$v;
@@ -156,6 +164,7 @@ class GetTemplateSummaryOutputBuilder
       _declaredTransforms = $v.declaredTransforms?.toBuilder();
       _resourceIdentifierSummaries =
           $v.resourceIdentifierSummaries?.toBuilder();
+      _warnings = $v.warnings?.toBuilder();
       _$v = null;
     }
     return this;
@@ -189,7 +198,8 @@ class GetTemplateSummaryOutputBuilder
               metadata: metadata,
               declaredTransforms: _declaredTransforms?.build(),
               resourceIdentifierSummaries:
-                  _resourceIdentifierSummaries?.build());
+                  _resourceIdentifierSummaries?.build(),
+              warnings: _warnings?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -206,6 +216,8 @@ class GetTemplateSummaryOutputBuilder
         _declaredTransforms?.build();
         _$failedField = 'resourceIdentifierSummaries';
         _resourceIdentifierSummaries?.build();
+        _$failedField = 'warnings';
+        _warnings?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GetTemplateSummaryOutput', _$failedField, e.toString());

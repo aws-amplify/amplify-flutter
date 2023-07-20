@@ -77,9 +77,7 @@ class GetSshPublicKeyRequestBuilder
   _i3.EncodingType? get encoding => _$this._encoding;
   set encoding(_i3.EncodingType? encoding) => _$this._encoding = encoding;
 
-  GetSshPublicKeyRequestBuilder() {
-    GetSshPublicKeyRequest._init(this);
-  }
+  GetSshPublicKeyRequestBuilder();
 
   GetSshPublicKeyRequestBuilder get _$this {
     final $v = _$v;

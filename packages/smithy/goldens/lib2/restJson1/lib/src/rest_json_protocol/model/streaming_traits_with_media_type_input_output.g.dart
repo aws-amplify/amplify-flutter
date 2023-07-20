@@ -11,7 +11,7 @@ class _$StreamingTraitsWithMediaTypeInputOutput
   @override
   final String? foo;
   @override
-  final _i2.Stream<List<int>>? blob;
+  final _i2.Stream<List<int>> blob;
 
   factory _$StreamingTraitsWithMediaTypeInputOutput(
           [void Function(StreamingTraitsWithMediaTypeInputOutputBuilder)?
@@ -19,8 +19,11 @@ class _$StreamingTraitsWithMediaTypeInputOutput
       (new StreamingTraitsWithMediaTypeInputOutputBuilder()..update(updates))
           ._build();
 
-  _$StreamingTraitsWithMediaTypeInputOutput._({this.foo, this.blob})
-      : super._();
+  _$StreamingTraitsWithMediaTypeInputOutput._({this.foo, required this.blob})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        blob, r'StreamingTraitsWithMediaTypeInputOutput', 'blob');
+  }
 
   @override
   StreamingTraitsWithMediaTypeInputOutput rebuild(
@@ -95,7 +98,10 @@ class StreamingTraitsWithMediaTypeInputOutputBuilder
 
   _$StreamingTraitsWithMediaTypeInputOutput _build() {
     final _$result = _$v ??
-        new _$StreamingTraitsWithMediaTypeInputOutput._(foo: foo, blob: blob);
+        new _$StreamingTraitsWithMediaTypeInputOutput._(
+            foo: foo,
+            blob: BuiltValueNullFieldError.checkNotNull(
+                blob, r'StreamingTraitsWithMediaTypeInputOutput', 'blob'));
     replace(_$result);
     return _$result;
   }

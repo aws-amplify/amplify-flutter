@@ -115,9 +115,7 @@ class DestinationBuilder implements Builder<Destination, DestinationBuilder> {
       _$this._metrics ??= new _i6.MetricsBuilder();
   set metrics(_i6.MetricsBuilder? metrics) => _$this._metrics = metrics;
 
-  DestinationBuilder() {
-    Destination._init(this);
-  }
+  DestinationBuilder();
 
   DestinationBuilder get _$this {
     final $v = _$v;

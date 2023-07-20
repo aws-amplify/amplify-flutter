@@ -53,9 +53,7 @@ class RestoreTableFromBackupOutputBuilder
   set tableDescription(_i2.TableDescriptionBuilder? tableDescription) =>
       _$this._tableDescription = tableDescription;
 
-  RestoreTableFromBackupOutputBuilder() {
-    RestoreTableFromBackupOutput._init(this);
-  }
+  RestoreTableFromBackupOutputBuilder();
 
   RestoreTableFromBackupOutputBuilder get _$this {
     final $v = _$v;

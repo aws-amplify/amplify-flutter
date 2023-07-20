@@ -71,9 +71,7 @@ class DescribeChangeSetInputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeChangeSetInputBuilder() {
-    DescribeChangeSetInput._init(this);
-  }
+  DescribeChangeSetInputBuilder();
 
   DescribeChangeSetInputBuilder get _$this {
     final $v = _$v;

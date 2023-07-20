@@ -37,9 +37,6 @@ abstract class GetServerCertificateRequest
   static const List<_i1.SmithySerializer<GetServerCertificateRequest>>
       serializers = [GetServerCertificateRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetServerCertificateRequestBuilder b) {}
-
   /// The name of the server certificate you want to retrieve information about.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
