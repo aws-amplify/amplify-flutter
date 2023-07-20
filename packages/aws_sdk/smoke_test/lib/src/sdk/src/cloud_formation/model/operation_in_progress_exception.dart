@@ -42,8 +42,6 @@ abstract class OperationInProgressException
   static const List<_i2.SmithySerializer<OperationInProgressException>>
       serializers = [OperationInProgressExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OperationInProgressExceptionBuilder b) {}
   @override
   String? get message;
   @override

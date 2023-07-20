@@ -120,9 +120,7 @@ class GetResourceEvaluationSummaryResponseBuilder
   set resourceDetails(_i6.ResourceDetailsBuilder? resourceDetails) =>
       _$this._resourceDetails = resourceDetails;
 
-  GetResourceEvaluationSummaryResponseBuilder() {
-    GetResourceEvaluationSummaryResponse._init(this);
-  }
+  GetResourceEvaluationSummaryResponseBuilder();
 
   GetResourceEvaluationSummaryResponseBuilder get _$this {
     final $v = _$v;

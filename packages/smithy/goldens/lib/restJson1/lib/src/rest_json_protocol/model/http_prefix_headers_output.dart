@@ -57,8 +57,6 @@ abstract class HttpPrefixHeadersOutput
   static const List<_i2.SmithySerializer<HttpPrefixHeadersOutputPayload>>
       serializers = [HttpPrefixHeadersOutputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpPrefixHeadersOutputBuilder b) {}
   String? get foo;
   _i3.BuiltMap<String, String>? get fooMap;
   @override
@@ -98,8 +96,6 @@ abstract class HttpPrefixHeadersOutputPayload
 
   const HttpPrefixHeadersOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpPrefixHeadersOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

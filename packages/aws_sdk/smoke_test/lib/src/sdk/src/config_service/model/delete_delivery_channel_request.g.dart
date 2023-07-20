@@ -56,9 +56,7 @@ class DeleteDeliveryChannelRequestBuilder
   set deliveryChannelName(String? deliveryChannelName) =>
       _$this._deliveryChannelName = deliveryChannelName;
 
-  DeleteDeliveryChannelRequestBuilder() {
-    DeleteDeliveryChannelRequest._init(this);
-  }
+  DeleteDeliveryChannelRequestBuilder();
 
   DeleteDeliveryChannelRequestBuilder get _$this {
     final $v = _$v;

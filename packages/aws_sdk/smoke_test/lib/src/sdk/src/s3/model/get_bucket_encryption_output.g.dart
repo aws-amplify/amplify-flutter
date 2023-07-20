@@ -61,9 +61,7 @@ class GetBucketEncryptionOutputBuilder
       _$this._serverSideEncryptionConfiguration =
           serverSideEncryptionConfiguration;
 
-  GetBucketEncryptionOutputBuilder() {
-    GetBucketEncryptionOutput._init(this);
-  }
+  GetBucketEncryptionOutputBuilder();
 
   GetBucketEncryptionOutputBuilder get _$this {
     final $v = _$v;

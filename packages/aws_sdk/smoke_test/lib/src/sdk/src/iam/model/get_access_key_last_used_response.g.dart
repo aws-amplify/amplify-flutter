@@ -62,9 +62,7 @@ class GetAccessKeyLastUsedResponseBuilder
   set accessKeyLastUsed(_i2.AccessKeyLastUsedBuilder? accessKeyLastUsed) =>
       _$this._accessKeyLastUsed = accessKeyLastUsed;
 
-  GetAccessKeyLastUsedResponseBuilder() {
-    GetAccessKeyLastUsedResponse._init(this);
-  }
+  GetAccessKeyLastUsedResponseBuilder();
 
   GetAccessKeyLastUsedResponseBuilder get _$this {
     final $v = _$v;

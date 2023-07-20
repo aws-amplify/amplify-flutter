@@ -36,8 +36,6 @@ abstract class DeactivateTypeOutput
     DeactivateTypeOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeactivateTypeOutputBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

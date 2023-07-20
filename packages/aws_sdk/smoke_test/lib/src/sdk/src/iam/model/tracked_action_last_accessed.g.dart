@@ -82,9 +82,7 @@ class TrackedActionLastAccessedBuilder
   set lastAccessedRegion(String? lastAccessedRegion) =>
       _$this._lastAccessedRegion = lastAccessedRegion;
 
-  TrackedActionLastAccessedBuilder() {
-    TrackedActionLastAccessed._init(this);
-  }
+  TrackedActionLastAccessedBuilder();
 
   TrackedActionLastAccessedBuilder get _$this {
     final $v = _$v;

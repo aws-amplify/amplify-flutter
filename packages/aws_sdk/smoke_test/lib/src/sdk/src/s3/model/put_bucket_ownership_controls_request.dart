@@ -65,9 +65,6 @@ abstract class PutBucketOwnershipControlsRequest
     PutBucketOwnershipControlsRequestRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketOwnershipControlsRequestBuilder b) {}
-
   /// The name of the Amazon S3 bucket whose `OwnershipControls` you want to set.
   String get bucket;
 

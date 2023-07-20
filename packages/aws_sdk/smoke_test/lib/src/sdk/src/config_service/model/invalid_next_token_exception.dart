@@ -41,9 +41,6 @@ abstract class InvalidNextTokenException
   static const List<_i2.SmithySerializer<InvalidNextTokenException>>
       serializers = [InvalidNextTokenExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidNextTokenExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

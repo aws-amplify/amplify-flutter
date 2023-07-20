@@ -47,9 +47,6 @@ abstract class GetClientCertificateRequest
   static const List<_i1.SmithySerializer<GetClientCertificateRequestPayload>>
       serializers = [GetClientCertificateRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetClientCertificateRequestBuilder b) {}
-
   /// The identifier of the ClientCertificate resource to be described.
   String get clientCertificateId;
   @override
@@ -94,8 +91,6 @@ abstract class GetClientCertificateRequestPayload
 
   const GetClientCertificateRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetClientCertificateRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

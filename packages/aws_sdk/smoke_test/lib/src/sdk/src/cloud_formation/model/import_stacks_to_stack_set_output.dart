@@ -36,9 +36,6 @@ abstract class ImportStacksToStackSetOutput
   static const List<_i2.SmithySerializer<ImportStacksToStackSetOutput>>
       serializers = [ImportStacksToStackSetOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ImportStacksToStackSetOutputBuilder b) {}
-
   /// The unique identifier for the stack set operation.
   String? get operationId;
   @override

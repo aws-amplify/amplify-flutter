@@ -199,9 +199,7 @@ class StackEventBuilder implements Builder<StackEvent, StackEventBuilder> {
   set hookFailureMode(_i5.HookFailureMode? hookFailureMode) =>
       _$this._hookFailureMode = hookFailureMode;
 
-  StackEventBuilder() {
-    StackEvent._init(this);
-  }
+  StackEventBuilder();
 
   StackEventBuilder get _$this {
     final $v = _$v;

@@ -42,9 +42,6 @@ abstract class PutRemediationExceptionsResponse
   static const List<_i4.SmithySerializer<PutRemediationExceptionsResponse>>
       serializers = [PutRemediationExceptionsResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutRemediationExceptionsResponseBuilder b) {}
-
   /// Returns a list of failed remediation exceptions batch objects. Each object in the batch consists of a list of failed items and failure messages.
   _i3.BuiltList<_i2.FailedRemediationExceptionBatch>? get failedBatches;
   @override

@@ -82,9 +82,6 @@ abstract class StackSet
     StackSetAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackSetBuilder b) {}
-
   /// The name that's associated with the stack set.
   String? get stackSetName;
 

@@ -51,9 +51,6 @@ abstract class SignalResourceInput
     SignalResourceInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SignalResourceInputBuilder b) {}
-
   /// The stack name or unique stack ID that includes the resource that you want to signal.
   String get stackName;
 

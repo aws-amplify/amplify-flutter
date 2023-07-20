@@ -57,9 +57,7 @@ class GetOpenIdConnectProviderRequestBuilder
   set openIdConnectProviderArn(String? openIdConnectProviderArn) =>
       _$this._openIdConnectProviderArn = openIdConnectProviderArn;
 
-  GetOpenIdConnectProviderRequestBuilder() {
-    GetOpenIdConnectProviderRequest._init(this);
-  }
+  GetOpenIdConnectProviderRequestBuilder();
 
   GetOpenIdConnectProviderRequestBuilder get _$this {
     final $v = _$v;

@@ -39,9 +39,7 @@ class ListSamlProvidersRequestBuilder
         Builder<ListSamlProvidersRequest, ListSamlProvidersRequestBuilder> {
   _$ListSamlProvidersRequest? _$v;
 
-  ListSamlProvidersRequestBuilder() {
-    ListSamlProvidersRequest._init(this);
-  }
+  ListSamlProvidersRequestBuilder();
 
   @override
   void replace(ListSamlProvidersRequest other) {

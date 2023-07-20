@@ -97,9 +97,7 @@ class PutBucketNotificationConfigurationRequestBuilder
   set skipDestinationValidation(bool? skipDestinationValidation) =>
       _$this._skipDestinationValidation = skipDestinationValidation;
 
-  PutBucketNotificationConfigurationRequestBuilder() {
-    PutBucketNotificationConfigurationRequest._init(this);
-  }
+  PutBucketNotificationConfigurationRequestBuilder();
 
   PutBucketNotificationConfigurationRequestBuilder get _$this {
     final $v = _$v;

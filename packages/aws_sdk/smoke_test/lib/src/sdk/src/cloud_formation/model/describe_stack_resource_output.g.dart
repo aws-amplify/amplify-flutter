@@ -54,9 +54,7 @@ class DescribeStackResourceOutputBuilder
           _i2.StackResourceDetailBuilder? stackResourceDetail) =>
       _$this._stackResourceDetail = stackResourceDetail;
 
-  DescribeStackResourceOutputBuilder() {
-    DescribeStackResourceOutput._init(this);
-  }
+  DescribeStackResourceOutputBuilder();
 
   DescribeStackResourceOutputBuilder get _$this {
     final $v = _$v;

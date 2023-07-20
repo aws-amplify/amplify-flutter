@@ -86,9 +86,7 @@ class StoredQueryBuilder implements Builder<StoredQuery, StoredQueryBuilder> {
   String? get expression => _$this._expression;
   set expression(String? expression) => _$this._expression = expression;
 
-  StoredQueryBuilder() {
-    StoredQuery._init(this);
-  }
+  StoredQueryBuilder();
 
   StoredQueryBuilder get _$this {
     final $v = _$v;

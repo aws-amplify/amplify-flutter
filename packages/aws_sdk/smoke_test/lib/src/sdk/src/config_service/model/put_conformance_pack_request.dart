@@ -59,9 +59,6 @@ abstract class PutConformancePackRequest
   static const List<_i1.SmithySerializer<PutConformancePackRequest>>
       serializers = [PutConformancePackRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutConformancePackRequestBuilder b) {}
-
   /// The unique name of the conformance pack you want to deploy.
   String get conformancePackName;
 

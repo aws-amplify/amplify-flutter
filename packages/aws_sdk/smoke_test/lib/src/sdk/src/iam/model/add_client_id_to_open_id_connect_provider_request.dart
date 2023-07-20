@@ -46,9 +46,6 @@ abstract class AddClientIdToOpenIdConnectProviderRequest
     AddClientIdToOpenIdConnectProviderRequestAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AddClientIdToOpenIdConnectProviderRequestBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the IAM OpenID Connect (OIDC) provider resource to add the client ID to. You can get a list of OIDC provider ARNs by using the ListOpenIDConnectProviders operation.
   String get openIdConnectProviderArn;
 

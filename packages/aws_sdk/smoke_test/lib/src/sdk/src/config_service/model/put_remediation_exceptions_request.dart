@@ -50,9 +50,6 @@ abstract class PutRemediationExceptionsRequest
   static const List<_i1.SmithySerializer<PutRemediationExceptionsRequest>>
       serializers = [PutRemediationExceptionsRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutRemediationExceptionsRequestBuilder b) {}
-
   /// The name of the Config rule for which you want to create remediation exception.
   String get configRuleName;
 

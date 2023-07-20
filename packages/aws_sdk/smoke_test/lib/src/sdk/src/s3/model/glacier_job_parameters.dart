@@ -31,9 +31,6 @@ abstract class GlacierJobParameters
     GlacierJobParametersRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GlacierJobParametersBuilder b) {}
-
   /// Retrieval tier at which the restore will be processed.
   _i2.Tier get tier;
   @override

@@ -67,9 +67,7 @@ class ListStreamsInputBuilder
   set exclusiveStartStreamArn(String? exclusiveStartStreamArn) =>
       _$this._exclusiveStartStreamArn = exclusiveStartStreamArn;
 
-  ListStreamsInputBuilder() {
-    ListStreamsInput._init(this);
-  }
+  ListStreamsInputBuilder();
 
   ListStreamsInputBuilder get _$this {
     final $v = _$v;

@@ -40,8 +40,6 @@ abstract class InvalidPublicKeyException
   static const List<_i2.SmithySerializer<InvalidPublicKeyException>>
       serializers = [InvalidPublicKeyExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidPublicKeyExceptionBuilder b) {}
   @override
   String? get message;
   @override

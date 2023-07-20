@@ -70,9 +70,7 @@ class UsagePlanKeyBuilder
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
-  UsagePlanKeyBuilder() {
-    UsagePlanKey._init(this);
-  }
+  UsagePlanKeyBuilder();
 
   UsagePlanKeyBuilder get _$this {
     final $v = _$v;

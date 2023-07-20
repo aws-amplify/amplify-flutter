@@ -56,9 +56,6 @@ abstract class StackSetOperationSummary
   static const List<_i6.SmithySerializer<StackSetOperationSummary>>
       serializers = [StackSetOperationSummaryAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackSetOperationSummaryBuilder b) {}
-
   /// The unique ID of the stack set operation.
   String? get operationId;
 

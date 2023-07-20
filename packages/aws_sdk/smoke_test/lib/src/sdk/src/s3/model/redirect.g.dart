@@ -86,9 +86,7 @@ class RedirectBuilder implements Builder<Redirect, RedirectBuilder> {
   set replaceKeyWith(String? replaceKeyWith) =>
       _$this._replaceKeyWith = replaceKeyWith;
 
-  RedirectBuilder() {
-    Redirect._init(this);
-  }
+  RedirectBuilder();
 
   RedirectBuilder get _$this {
     final $v = _$v;

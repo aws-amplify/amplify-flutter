@@ -57,9 +57,7 @@ class EndpointItemResponseBuilder
   int? get statusCode => _$this._statusCode;
   set statusCode(int? statusCode) => _$this._statusCode = statusCode;
 
-  EndpointItemResponseBuilder() {
-    EndpointItemResponse._init(this);
-  }
+  EndpointItemResponseBuilder();
 
   EndpointItemResponseBuilder get _$this {
     final $v = _$v;

@@ -44,9 +44,7 @@ class TemplateBuilder implements Builder<Template, TemplateBuilder> {
   String? get value => _$this._value;
   set value(String? value) => _$this._value = value;
 
-  TemplateBuilder() {
-    Template._init(this);
-  }
+  TemplateBuilder();
 
   TemplateBuilder get _$this {
     final $v = _$v;

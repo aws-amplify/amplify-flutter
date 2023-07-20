@@ -28,8 +28,6 @@ abstract class ContinuationEvent
     ContinuationEventRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ContinuationEventBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -43,9 +43,6 @@ abstract class ListImportsOutput
     ListImportsOutputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListImportsOutputBuilder b) {}
-
   /// A list of `ImportSummary` objects.
   _i3.BuiltList<_i2.ImportSummary>? get importSummaryList;
 

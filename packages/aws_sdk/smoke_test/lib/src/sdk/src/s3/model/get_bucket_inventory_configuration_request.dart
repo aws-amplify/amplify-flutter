@@ -60,9 +60,6 @@ abstract class GetBucketInventoryConfigurationRequest
           _i1.SmithySerializer<GetBucketInventoryConfigurationRequestPayload>>
       serializers = [GetBucketInventoryConfigurationRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketInventoryConfigurationRequestBuilder b) {}
-
   /// The name of the bucket containing the inventory configuration to retrieve.
   String get bucket;
 
@@ -126,8 +123,6 @@ abstract class GetBucketInventoryConfigurationRequestPayload
 
   const GetBucketInventoryConfigurationRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketInventoryConfigurationRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -81,9 +81,6 @@ abstract class DomainName
     DomainNameRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DomainNameBuilder b) {}
-
   /// The custom domain name as an API host name, for example, `my-api.example.com`.
   String? get domainName;
 

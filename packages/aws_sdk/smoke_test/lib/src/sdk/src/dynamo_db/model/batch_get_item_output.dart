@@ -63,9 +63,6 @@ abstract class BatchGetItemOutput
     BatchGetItemOutputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BatchGetItemOutputBuilder b) {}
-
   /// A map of table name to a list of items. Each object in `Responses` consists of a table name, along with a map of attribute data consisting of the data type and attribute value.
   _i5.BuiltListMultimap<String, _i5.BuiltMap<String, _i2.AttributeValue>>?
       get responses;

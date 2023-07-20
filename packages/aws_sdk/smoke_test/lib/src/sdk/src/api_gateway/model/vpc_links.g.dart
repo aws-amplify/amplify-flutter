@@ -54,9 +54,7 @@ class VpcLinksBuilder implements Builder<VpcLinks, VpcLinksBuilder> {
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  VpcLinksBuilder() {
-    VpcLinks._init(this);
-  }
+  VpcLinksBuilder();
 
   VpcLinksBuilder get _$this {
     final $v = _$v;

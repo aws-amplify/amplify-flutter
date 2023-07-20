@@ -48,9 +48,6 @@ abstract class Statement
     StatementAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StatementBuilder b) {}
-
   /// The identifier of the policy that was provided as an input.
   String? get sourcePolicyId;
 

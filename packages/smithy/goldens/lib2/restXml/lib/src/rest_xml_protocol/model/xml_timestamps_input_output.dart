@@ -59,8 +59,6 @@ abstract class XmlTimestampsInputOutput
   static const List<_i1.SmithySerializer<XmlTimestampsInputOutput>>
       serializers = [XmlTimestampsInputOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(XmlTimestampsInputOutputBuilder b) {}
   DateTime? get normal;
   DateTime? get dateTime;
   DateTime? get dateTimeOnTarget;

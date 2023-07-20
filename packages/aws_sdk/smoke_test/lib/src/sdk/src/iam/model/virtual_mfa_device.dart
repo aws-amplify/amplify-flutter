@@ -48,9 +48,6 @@ abstract class VirtualMfaDevice
     VirtualMfaDeviceAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(VirtualMfaDeviceBuilder b) {}
-
   /// The serial number associated with `VirtualMFADevice`.
   String get serialNumber;
 

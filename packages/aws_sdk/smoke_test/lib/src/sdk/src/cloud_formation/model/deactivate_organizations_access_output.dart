@@ -37,8 +37,6 @@ abstract class DeactivateOrganizationsAccessOutput
   static const List<_i2.SmithySerializer<DeactivateOrganizationsAccessOutput>>
       serializers = [DeactivateOrganizationsAccessOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeactivateOrganizationsAccessOutputBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

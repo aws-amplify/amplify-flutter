@@ -43,9 +43,6 @@ abstract class GetBucketVersioningOutput
   static const List<_i4.SmithySerializer<GetBucketVersioningOutput>>
       serializers = [GetBucketVersioningOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketVersioningOutputBuilder b) {}
-
   /// The versioning state of the bucket.
   _i2.BucketVersioningStatus? get status;
 

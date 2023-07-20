@@ -46,9 +46,6 @@ abstract class NoSuchConfigRuleInConformancePackException
     NoSuchConfigRuleInConformancePackExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NoSuchConfigRuleInConformancePackExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

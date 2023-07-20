@@ -72,9 +72,7 @@ class DescribeConfigRulesRequestBuilder
   set filters(_i3.DescribeConfigRulesFiltersBuilder? filters) =>
       _$this._filters = filters;
 
-  DescribeConfigRulesRequestBuilder() {
-    DescribeConfigRulesRequest._init(this);
-  }
+  DescribeConfigRulesRequestBuilder();
 
   DescribeConfigRulesRequestBuilder get _$this {
     final $v = _$v;

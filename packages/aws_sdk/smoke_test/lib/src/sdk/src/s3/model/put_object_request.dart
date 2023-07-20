@@ -117,7 +117,7 @@ abstract class PutObjectRequest
   const PutObjectRequest._();
 
   factory PutObjectRequest.fromRequest(
-    _i2.Stream<List<int>>? payload,
+    _i2.Stream<List<int>> payload,
     _i3.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
@@ -269,8 +269,9 @@ abstract class PutObjectRequest
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.Stream<List<int>>?>> serializers =
-      [PutObjectRequestRestXmlSerializer()];
+  static const List<_i1.SmithySerializer<_i2.Stream<List<int>>>> serializers = [
+    PutObjectRequestRestXmlSerializer()
+  ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(PutObjectRequestBuilder b) {
@@ -283,7 +284,7 @@ abstract class PutObjectRequest
   _i4.ObjectCannedAcl? get acl;
 
   /// Object data.
-  _i2.Stream<List<int>>? get body;
+  _i2.Stream<List<int>> get body;
 
   /// The bucket name to which the PUT action was initiated.
   ///
@@ -430,7 +431,7 @@ abstract class PutObjectRequest
   }
 
   @override
-  _i2.Stream<List<int>>? getPayload() => body;
+  _i2.Stream<List<int>> getPayload() => body;
   @override
   List<Object?> get props => [
         acl,

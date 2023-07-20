@@ -141,9 +141,7 @@ class TestInvokeMethodRequestBuilder
   set stageVariables(_i3.MapBuilder<String, String>? stageVariables) =>
       _$this._stageVariables = stageVariables;
 
-  TestInvokeMethodRequestBuilder() {
-    TestInvokeMethodRequest._init(this);
-  }
+  TestInvokeMethodRequestBuilder();
 
   TestInvokeMethodRequestBuilder get _$this {
     final $v = _$v;
@@ -316,9 +314,7 @@ class TestInvokeMethodRequestPayloadBuilder
   set stageVariables(_i3.MapBuilder<String, String>? stageVariables) =>
       _$this._stageVariables = stageVariables;
 
-  TestInvokeMethodRequestPayloadBuilder() {
-    TestInvokeMethodRequestPayload._init(this);
-  }
+  TestInvokeMethodRequestPayloadBuilder();
 
   TestInvokeMethodRequestPayloadBuilder get _$this {
     final $v = _$v;

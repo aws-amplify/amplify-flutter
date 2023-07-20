@@ -42,9 +42,6 @@ abstract class StopConfigurationRecorderRequest
   static const List<_i1.SmithySerializer<StopConfigurationRecorderRequest>>
       serializers = [StopConfigurationRecorderRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StopConfigurationRecorderRequestBuilder b) {}
-
   /// The name of the recorder object that records each configuration change made to the resources.
   String get configurationRecorderName;
   @override

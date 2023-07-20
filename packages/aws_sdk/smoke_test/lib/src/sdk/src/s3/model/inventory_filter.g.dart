@@ -48,9 +48,7 @@ class InventoryFilterBuilder
   String? get prefix => _$this._prefix;
   set prefix(String? prefix) => _$this._prefix = prefix;
 
-  InventoryFilterBuilder() {
-    InventoryFilter._init(this);
-  }
+  InventoryFilterBuilder();
 
   InventoryFilterBuilder get _$this {
     final $v = _$v;

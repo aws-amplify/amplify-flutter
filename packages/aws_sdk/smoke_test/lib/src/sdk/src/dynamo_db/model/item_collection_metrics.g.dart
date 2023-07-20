@@ -64,9 +64,7 @@ class ItemCollectionMetricsBuilder
   set sizeEstimateRangeGb(_i3.ListBuilder<double>? sizeEstimateRangeGb) =>
       _$this._sizeEstimateRangeGb = sizeEstimateRangeGb;
 
-  ItemCollectionMetricsBuilder() {
-    ItemCollectionMetrics._init(this);
-  }
+  ItemCollectionMetricsBuilder();
 
   ItemCollectionMetricsBuilder get _$this {
     final $v = _$v;

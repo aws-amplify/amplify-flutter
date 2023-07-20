@@ -50,9 +50,6 @@ abstract class AggregateComplianceByConformancePack
   static const List<_i3.SmithySerializer<AggregateComplianceByConformancePack>>
       serializers = [AggregateComplianceByConformancePackAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AggregateComplianceByConformancePackBuilder b) {}
-
   /// The name of the conformance pack.
   String? get conformancePackName;
 

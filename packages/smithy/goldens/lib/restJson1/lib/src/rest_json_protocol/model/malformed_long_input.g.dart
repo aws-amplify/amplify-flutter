@@ -82,9 +82,7 @@ class MalformedLongInputBuilder
   set longInHeader(_i3.Int64? longInHeader) =>
       _$this._longInHeader = longInHeader;
 
-  MalformedLongInputBuilder() {
-    MalformedLongInput._init(this);
-  }
+  MalformedLongInputBuilder();
 
   MalformedLongInputBuilder get _$this {
     final $v = _$v;
@@ -168,9 +166,7 @@ class MalformedLongInputPayloadBuilder
   _i3.Int64? get longInBody => _$this._longInBody;
   set longInBody(_i3.Int64? longInBody) => _$this._longInBody = longInBody;
 
-  MalformedLongInputPayloadBuilder() {
-    MalformedLongInputPayload._init(this);
-  }
+  MalformedLongInputPayloadBuilder();
 
   MalformedLongInputPayloadBuilder get _$this {
     final $v = _$v;

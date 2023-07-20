@@ -41,9 +41,6 @@ abstract class NoSuchConfigRuleException
   static const List<_i2.SmithySerializer<NoSuchConfigRuleException>>
       serializers = [NoSuchConfigRuleExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NoSuchConfigRuleExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

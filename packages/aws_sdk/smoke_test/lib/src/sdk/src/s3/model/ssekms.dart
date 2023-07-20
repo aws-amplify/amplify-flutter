@@ -28,9 +28,6 @@ abstract class Ssekms
     SsekmsRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SsekmsBuilder b) {}
-
   /// Specifies the ID of the Key Management Service (KMS) symmetric encryption customer managed key to use for encrypting inventory reports.
   String get keyId;
   @override

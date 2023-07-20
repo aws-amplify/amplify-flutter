@@ -55,9 +55,7 @@ class PolicyDetailBuilder
   set policyDocument(String? policyDocument) =>
       _$this._policyDocument = policyDocument;
 
-  PolicyDetailBuilder() {
-    PolicyDetail._init(this);
-  }
+  PolicyDetailBuilder();
 
   PolicyDetailBuilder get _$this {
     final $v = _$v;

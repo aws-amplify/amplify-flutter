@@ -47,9 +47,6 @@ abstract class DescribePublisherOutput
   static const List<_i4.SmithySerializer<DescribePublisherOutput>> serializers =
       [DescribePublisherOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribePublisherOutputBuilder b) {}
-
   /// The ID of the extension publisher.
   String? get publisherId;
 

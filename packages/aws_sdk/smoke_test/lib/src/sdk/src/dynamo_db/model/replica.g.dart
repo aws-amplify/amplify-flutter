@@ -44,9 +44,7 @@ class ReplicaBuilder implements Builder<Replica, ReplicaBuilder> {
   String? get regionName => _$this._regionName;
   set regionName(String? regionName) => _$this._regionName = regionName;
 
-  ReplicaBuilder() {
-    Replica._init(this);
-  }
+  ReplicaBuilder();
 
   ReplicaBuilder get _$this {
     final $v = _$v;

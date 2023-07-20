@@ -51,9 +51,6 @@ abstract class DefaultRetention
     DefaultRetentionRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DefaultRetentionBuilder b) {}
-
   /// The default Object Lock retention mode you want to apply to new objects placed in the specified bucket. Must be used with either `Days` or `Years`.
   _i2.ObjectLockRetentionMode? get mode;
 

@@ -42,9 +42,6 @@ abstract class TooManyTagsException
     TooManyTagsExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TooManyTagsExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

@@ -71,9 +71,7 @@ class StorageClassAnalysisDataExportBuilder
   set destination(_i3.AnalyticsExportDestinationBuilder? destination) =>
       _$this._destination = destination;
 
-  StorageClassAnalysisDataExportBuilder() {
-    StorageClassAnalysisDataExport._init(this);
-  }
+  StorageClassAnalysisDataExportBuilder();
 
   StorageClassAnalysisDataExportBuilder get _$this {
     final $v = _$v;

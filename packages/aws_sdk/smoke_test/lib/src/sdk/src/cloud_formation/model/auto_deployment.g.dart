@@ -58,9 +58,7 @@ class AutoDeploymentBuilder
   set retainStacksOnAccountRemoval(bool? retainStacksOnAccountRemoval) =>
       _$this._retainStacksOnAccountRemoval = retainStacksOnAccountRemoval;
 
-  AutoDeploymentBuilder() {
-    AutoDeployment._init(this);
-  }
+  AutoDeploymentBuilder();
 
   AutoDeploymentBuilder get _$this {
     final $v = _$v;

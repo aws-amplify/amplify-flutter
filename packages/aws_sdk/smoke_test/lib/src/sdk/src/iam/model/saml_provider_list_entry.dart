@@ -38,9 +38,6 @@ abstract class SamlProviderListEntry
     SamlProviderListEntryAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SamlProviderListEntryBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the SAML provider.
   String? get arn;
 

@@ -41,9 +41,6 @@ abstract class InvalidResultTokenException
   static const List<_i2.SmithySerializer<InvalidResultTokenException>>
       serializers = [InvalidResultTokenExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidResultTokenExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

@@ -34,9 +34,6 @@ abstract class AnalyticsExportDestination
   static const List<_i3.SmithySerializer<AnalyticsExportDestination>>
       serializers = [AnalyticsExportDestinationRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AnalyticsExportDestinationBuilder b) {}
-
   /// A destination signifying output to an S3 bucket.
   _i2.AnalyticsS3BucketDestination get s3BucketDestination;
   @override

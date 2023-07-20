@@ -65,9 +65,7 @@ class GetModelTemplateRequestBuilder
   String? get modelName => _$this._modelName;
   set modelName(String? modelName) => _$this._modelName = modelName;
 
-  GetModelTemplateRequestBuilder() {
-    GetModelTemplateRequest._init(this);
-  }
+  GetModelTemplateRequestBuilder();
 
   GetModelTemplateRequestBuilder get _$this {
     final $v = _$v;
@@ -139,9 +137,7 @@ class GetModelTemplateRequestPayloadBuilder
             GetModelTemplateRequestPayloadBuilder> {
   _$GetModelTemplateRequestPayload? _$v;
 
-  GetModelTemplateRequestPayloadBuilder() {
-    GetModelTemplateRequestPayload._init(this);
-  }
+  GetModelTemplateRequestPayloadBuilder();
 
   @override
   void replace(GetModelTemplateRequestPayload other) {

@@ -45,9 +45,6 @@ abstract class ListStackSetOperationsOutput
   static const List<_i4.SmithySerializer<ListStackSetOperationsOutput>>
       serializers = [ListStackSetOperationsOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListStackSetOperationsOutputBuilder b) {}
-
   /// A list of `StackSetOperationSummary` structures that contain summary information about operations for the specified stack set.
   _i3.BuiltList<_i2.StackSetOperationSummary>? get summaries;
 

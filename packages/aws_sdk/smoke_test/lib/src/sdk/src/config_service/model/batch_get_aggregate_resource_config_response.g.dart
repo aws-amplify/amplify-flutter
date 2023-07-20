@@ -77,9 +77,7 @@ class BatchGetAggregateResourceConfigResponseBuilder
               unprocessedResourceIdentifiers) =>
       _$this._unprocessedResourceIdentifiers = unprocessedResourceIdentifiers;
 
-  BatchGetAggregateResourceConfigResponseBuilder() {
-    BatchGetAggregateResourceConfigResponse._init(this);
-  }
+  BatchGetAggregateResourceConfigResponseBuilder();
 
   BatchGetAggregateResourceConfigResponseBuilder get _$this {
     final $v = _$v;

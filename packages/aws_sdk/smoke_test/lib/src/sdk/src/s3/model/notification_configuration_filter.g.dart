@@ -52,9 +52,7 @@ class NotificationConfigurationFilterBuilder
       _$this._key ??= new _i2.S3KeyFilterBuilder();
   set key(_i2.S3KeyFilterBuilder? key) => _$this._key = key;
 
-  NotificationConfigurationFilterBuilder() {
-    NotificationConfigurationFilter._init(this);
-  }
+  NotificationConfigurationFilterBuilder();
 
   NotificationConfigurationFilterBuilder get _$this {
     final $v = _$v;

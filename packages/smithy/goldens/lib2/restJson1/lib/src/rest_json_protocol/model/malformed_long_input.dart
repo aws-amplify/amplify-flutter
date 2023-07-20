@@ -21,11 +21,10 @@ abstract class MalformedLongInput
         _i1.HasPayload<MalformedLongInputPayload> {
   factory MalformedLongInput({
     _i3.Int64? longInBody,
-    _i3.Int64? longInPath,
+    required _i3.Int64 longInPath,
     _i3.Int64? longInQuery,
     _i3.Int64? longInHeader,
   }) {
-    longInPath ??= _i3.Int64.ZERO;
     return _$MalformedLongInput._(
       longInBody: longInBody,
       longInPath: longInPath,
@@ -61,11 +60,6 @@ abstract class MalformedLongInput
 
   static const List<_i1.SmithySerializer<MalformedLongInputPayload>>
       serializers = [MalformedLongInputRestJson1Serializer()];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedLongInputBuilder b) {
-    b.longInPath = _i3.Int64.ZERO;
-  }
 
   _i3.Int64? get longInBody;
   _i3.Int64 get longInPath;
@@ -128,8 +122,6 @@ abstract class MalformedLongInputPayload
 
   const MalformedLongInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedLongInputPayloadBuilder b) {}
   _i3.Int64? get longInBody;
   @override
   List<Object?> get props => [longInBody];

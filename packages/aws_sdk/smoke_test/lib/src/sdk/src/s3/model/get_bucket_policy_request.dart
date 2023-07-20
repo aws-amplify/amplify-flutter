@@ -53,9 +53,6 @@ abstract class GetBucketPolicyRequest
   static const List<_i1.SmithySerializer<GetBucketPolicyRequestPayload>>
       serializers = [GetBucketPolicyRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketPolicyRequestBuilder b) {}
-
   /// The bucket name for which to get the bucket policy.
   ///
   /// To use this API operation against an access point, provide the alias of the access point in place of the bucket name.
@@ -113,8 +110,6 @@ abstract class GetBucketPolicyRequestPayload
 
   const GetBucketPolicyRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketPolicyRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

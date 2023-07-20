@@ -70,9 +70,7 @@ class ListPolicyTagsRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  ListPolicyTagsRequestBuilder() {
-    ListPolicyTagsRequest._init(this);
-  }
+  ListPolicyTagsRequestBuilder();
 
   ListPolicyTagsRequestBuilder get _$this {
     final $v = _$v;

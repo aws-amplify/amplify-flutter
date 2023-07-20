@@ -52,9 +52,6 @@ abstract class CreateReplicationGroupMemberAction
   static const List<_i6.SmithySerializer<CreateReplicationGroupMemberAction>>
       serializers = [CreateReplicationGroupMemberActionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateReplicationGroupMemberActionBuilder b) {}
-
   /// The Region where the new replica will be created.
   String get regionName;
 

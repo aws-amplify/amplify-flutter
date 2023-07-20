@@ -47,9 +47,6 @@ abstract class CreateOpenIdConnectProviderResponse
   static const List<_i4.SmithySerializer<CreateOpenIdConnectProviderResponse>>
       serializers = [CreateOpenIdConnectProviderResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateOpenIdConnectProviderResponseBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the new IAM OpenID Connect provider that is created. For more information, see OpenIDConnectProviderListEntry.
   String? get openIdConnectProviderArn;
 

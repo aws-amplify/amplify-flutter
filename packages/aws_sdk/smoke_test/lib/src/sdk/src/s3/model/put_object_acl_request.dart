@@ -122,9 +122,6 @@ abstract class PutObjectAclRequest
   static const List<_i1.SmithySerializer<_i2.AccessControlPolicy?>>
       serializers = [PutObjectAclRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectAclRequestBuilder b) {}
-
   /// The canned ACL to apply to the object. For more information, see [Canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL).
   _i4.ObjectCannedAcl? get acl;
 

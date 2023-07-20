@@ -62,9 +62,7 @@ class TransitionBuilder implements Builder<Transition, TransitionBuilder> {
   set storageClass(_i2.TransitionStorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
-  TransitionBuilder() {
-    Transition._init(this);
-  }
+  TransitionBuilder();
 
   TransitionBuilder get _$this {
     final $v = _$v;

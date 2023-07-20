@@ -38,9 +38,6 @@ abstract class ReplicationConfiguration
   static const List<_i4.SmithySerializer<ReplicationConfiguration>>
       serializers = [ReplicationConfigurationRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicationConfigurationBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role that Amazon S3 assumes when replicating objects. For more information, see [How to Set Up Replication](https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-how-setup.html) in the _Amazon S3 User Guide_.
   String get role;
 

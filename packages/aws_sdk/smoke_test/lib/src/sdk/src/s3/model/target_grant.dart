@@ -44,9 +44,6 @@ abstract class TargetGrant
     TargetGrantRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TargetGrantBuilder b) {}
-
   /// Container for the person being granted permissions.
   _i2.Grantee? get grantee;
 

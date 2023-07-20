@@ -73,9 +73,7 @@ class DeleteItemOutputBuilder
           _i4.ItemCollectionMetricsBuilder? itemCollectionMetrics) =>
       _$this._itemCollectionMetrics = itemCollectionMetrics;
 
-  DeleteItemOutputBuilder() {
-    DeleteItemOutput._init(this);
-  }
+  DeleteItemOutputBuilder();
 
   DeleteItemOutputBuilder get _$this {
     final $v = _$v;

@@ -136,8 +136,6 @@ abstract class TransactionInProgressException
   static const List<_i2.SmithySerializer<TransactionInProgressException>>
       serializers = [TransactionInProgressExceptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TransactionInProgressExceptionBuilder b) {}
   @override
   String? get message;
   @override

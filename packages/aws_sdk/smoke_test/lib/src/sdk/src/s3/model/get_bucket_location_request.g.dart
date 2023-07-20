@@ -63,9 +63,7 @@ class GetBucketLocationRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetBucketLocationRequestBuilder() {
-    GetBucketLocationRequest._init(this);
-  }
+  GetBucketLocationRequestBuilder();
 
   GetBucketLocationRequestBuilder get _$this {
     final $v = _$v;
@@ -137,9 +135,7 @@ class GetBucketLocationRequestPayloadBuilder
             GetBucketLocationRequestPayloadBuilder> {
   _$GetBucketLocationRequestPayload? _$v;
 
-  GetBucketLocationRequestPayloadBuilder() {
-    GetBucketLocationRequestPayload._init(this);
-  }
+  GetBucketLocationRequestPayloadBuilder();
 
   @override
   void replace(GetBucketLocationRequestPayload other) {

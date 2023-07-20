@@ -39,9 +39,6 @@ abstract class DeleteOpenIdConnectProviderRequest
   static const List<_i1.SmithySerializer<DeleteOpenIdConnectProviderRequest>>
       serializers = [DeleteOpenIdConnectProviderRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteOpenIdConnectProviderRequestBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the IAM OpenID Connect provider resource object to delete. You can get a list of OpenID Connect provider resource ARNs by using the ListOpenIDConnectProviders operation.
   String get openIdConnectProviderArn;
   @override

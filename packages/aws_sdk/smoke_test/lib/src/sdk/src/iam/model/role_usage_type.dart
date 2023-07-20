@@ -42,9 +42,6 @@ abstract class RoleUsageType
     RoleUsageTypeAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RoleUsageTypeBuilder b) {}
-
   /// The name of the Region where the service-linked role is being used.
   String? get region;
 

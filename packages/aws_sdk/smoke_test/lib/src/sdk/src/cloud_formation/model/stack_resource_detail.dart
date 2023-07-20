@@ -62,9 +62,6 @@ abstract class StackResourceDetail
     StackResourceDetailAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackResourceDetailBuilder b) {}
-
   /// The name associated with the stack.
   String? get stackName;
 

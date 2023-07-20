@@ -46,9 +46,6 @@ abstract class TooManyRequestsException
   static const List<_i2.SmithySerializer<TooManyRequestsException>>
       serializers = [TooManyRequestsExceptionRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TooManyRequestsExceptionBuilder b) {}
-
   /// The message that's returned from the API.
   @override
   String? get message;

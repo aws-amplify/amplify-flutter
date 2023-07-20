@@ -77,9 +77,7 @@ class PutRolePolicyRequestBuilder
   set policyDocument(String? policyDocument) =>
       _$this._policyDocument = policyDocument;
 
-  PutRolePolicyRequestBuilder() {
-    PutRolePolicyRequest._init(this);
-  }
+  PutRolePolicyRequestBuilder();
 
   PutRolePolicyRequestBuilder get _$this {
     final $v = _$v;

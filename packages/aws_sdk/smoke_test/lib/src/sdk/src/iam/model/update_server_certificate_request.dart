@@ -45,9 +45,6 @@ abstract class UpdateServerCertificateRequest
   static const List<_i1.SmithySerializer<UpdateServerCertificateRequest>>
       serializers = [UpdateServerCertificateRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateServerCertificateRequestBuilder b) {}
-
   /// The name of the server certificate that you want to update.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

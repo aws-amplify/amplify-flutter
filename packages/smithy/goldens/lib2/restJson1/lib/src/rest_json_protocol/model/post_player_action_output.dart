@@ -35,8 +35,6 @@ abstract class PostPlayerActionOutput
   static const List<_i3.SmithySerializer<PostPlayerActionOutput>> serializers =
       [PostPlayerActionOutputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PostPlayerActionOutputBuilder b) {}
   _i2.PlayerAction get action;
   @override
   List<Object?> get props => [action];

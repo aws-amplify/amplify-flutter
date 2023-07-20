@@ -57,9 +57,7 @@ class DetectStackResourceDriftOutputBuilder
   set stackResourceDrift(_i2.StackResourceDriftBuilder? stackResourceDrift) =>
       _$this._stackResourceDrift = stackResourceDrift;
 
-  DetectStackResourceDriftOutputBuilder() {
-    DetectStackResourceDriftOutput._init(this);
-  }
+  DetectStackResourceDriftOutputBuilder();
 
   DetectStackResourceDriftOutputBuilder get _$this {
     final $v = _$v;

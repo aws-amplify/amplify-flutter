@@ -54,9 +54,7 @@ class GrantBuilder implements Builder<Grant, GrantBuilder> {
   _i3.Permission? get permission => _$this._permission;
   set permission(_i3.Permission? permission) => _$this._permission = permission;
 
-  GrantBuilder() {
-    Grant._init(this);
-  }
+  GrantBuilder();
 
   GrantBuilder get _$this {
     final $v = _$v;

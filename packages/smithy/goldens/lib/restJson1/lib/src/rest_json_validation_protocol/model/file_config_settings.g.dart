@@ -108,9 +108,7 @@ class FileConfigSettingsBuilder
   int? get maxAttempts => _$this._maxAttempts;
   set maxAttempts(int? maxAttempts) => _$this._maxAttempts = maxAttempts;
 
-  FileConfigSettingsBuilder() {
-    FileConfigSettings._init(this);
-  }
+  FileConfigSettingsBuilder();
 
   FileConfigSettingsBuilder get _$this {
     final $v = _$v;

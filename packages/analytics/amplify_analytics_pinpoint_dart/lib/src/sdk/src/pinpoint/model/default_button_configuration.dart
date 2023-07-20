@@ -46,9 +46,6 @@ abstract class DefaultButtonConfiguration
   static const List<_i3.SmithySerializer<DefaultButtonConfiguration>>
       serializers = [DefaultButtonConfigurationRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DefaultButtonConfigurationBuilder b) {}
-
   /// The background color of the button.
   String? get backgroundColor;
 

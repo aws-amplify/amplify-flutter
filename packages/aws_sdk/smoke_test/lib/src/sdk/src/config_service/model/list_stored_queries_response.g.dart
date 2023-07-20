@@ -63,9 +63,7 @@ class ListStoredQueriesResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListStoredQueriesResponseBuilder() {
-    ListStoredQueriesResponse._init(this);
-  }
+  ListStoredQueriesResponseBuilder();
 
   ListStoredQueriesResponseBuilder get _$this {
     final $v = _$v;

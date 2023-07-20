@@ -45,9 +45,6 @@ abstract class StartRemediationExecutionResponse
   static const List<_i4.SmithySerializer<StartRemediationExecutionResponse>>
       serializers = [StartRemediationExecutionResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StartRemediationExecutionResponseBuilder b) {}
-
   /// Returns a failure message. For example, the resource is already compliant.
   String? get failureMessage;
 

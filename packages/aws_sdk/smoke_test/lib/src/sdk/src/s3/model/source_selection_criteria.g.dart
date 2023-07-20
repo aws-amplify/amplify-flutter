@@ -67,9 +67,7 @@ class SourceSelectionCriteriaBuilder
           _i3.ReplicaModificationsBuilder? replicaModifications) =>
       _$this._replicaModifications = replicaModifications;
 
-  SourceSelectionCriteriaBuilder() {
-    SourceSelectionCriteria._init(this);
-  }
+  SourceSelectionCriteriaBuilder();
 
   SourceSelectionCriteriaBuilder get _$this {
     final $v = _$v;

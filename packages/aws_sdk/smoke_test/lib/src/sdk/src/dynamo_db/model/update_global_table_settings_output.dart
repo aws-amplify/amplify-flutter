@@ -46,9 +46,6 @@ abstract class UpdateGlobalTableSettingsOutput
   static const List<_i4.SmithySerializer<UpdateGlobalTableSettingsOutput>>
       serializers = [UpdateGlobalTableSettingsOutputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateGlobalTableSettingsOutputBuilder b) {}
-
   /// The name of the global table.
   String? get globalTableName;
 

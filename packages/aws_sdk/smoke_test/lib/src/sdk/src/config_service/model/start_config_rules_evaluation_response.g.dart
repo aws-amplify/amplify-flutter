@@ -43,9 +43,7 @@ class StartConfigRulesEvaluationResponseBuilder
             StartConfigRulesEvaluationResponseBuilder> {
   _$StartConfigRulesEvaluationResponse? _$v;
 
-  StartConfigRulesEvaluationResponseBuilder() {
-    StartConfigRulesEvaluationResponse._init(this);
-  }
+  StartConfigRulesEvaluationResponseBuilder();
 
   @override
   void replace(StartConfigRulesEvaluationResponse other) {

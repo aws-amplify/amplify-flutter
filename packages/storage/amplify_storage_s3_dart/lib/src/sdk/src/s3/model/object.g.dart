@@ -118,9 +118,7 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
   set restoreStatus(_i6.RestoreStatusBuilder? restoreStatus) =>
       _$this._restoreStatus = restoreStatus;
 
-  S3ObjectBuilder() {
-    S3Object._init(this);
-  }
+  S3ObjectBuilder();
 
   S3ObjectBuilder get _$this {
     final $v = _$v;

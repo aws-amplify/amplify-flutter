@@ -69,9 +69,7 @@ class UpdateUserRequestBuilder
   String? get newUserName => _$this._newUserName;
   set newUserName(String? newUserName) => _$this._newUserName = newUserName;
 
-  UpdateUserRequestBuilder() {
-    UpdateUserRequest._init(this);
-  }
+  UpdateUserRequestBuilder();
 
   UpdateUserRequestBuilder get _$this {
     final $v = _$v;

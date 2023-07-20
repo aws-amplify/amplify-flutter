@@ -56,9 +56,7 @@ class RoleUsageTypeBuilder
   set resources(_i2.ListBuilder<String>? resources) =>
       _$this._resources = resources;
 
-  RoleUsageTypeBuilder() {
-    RoleUsageType._init(this);
-  }
+  RoleUsageTypeBuilder();
 
   RoleUsageTypeBuilder get _$this {
     final $v = _$v;

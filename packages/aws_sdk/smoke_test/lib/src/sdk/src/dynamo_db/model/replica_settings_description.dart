@@ -71,9 +71,6 @@ abstract class ReplicaSettingsDescription
   static const List<_i9.SmithySerializer<ReplicaSettingsDescription>>
       serializers = [ReplicaSettingsDescriptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicaSettingsDescriptionBuilder b) {}
-
   /// The Region name of the replica.
   String get regionName;
 

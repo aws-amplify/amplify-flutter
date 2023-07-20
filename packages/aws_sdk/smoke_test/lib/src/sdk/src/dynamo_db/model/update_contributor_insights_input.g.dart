@@ -79,9 +79,7 @@ class UpdateContributorInsightsInputBuilder
           _i3.ContributorInsightsAction? contributorInsightsAction) =>
       _$this._contributorInsightsAction = contributorInsightsAction;
 
-  UpdateContributorInsightsInputBuilder() {
-    UpdateContributorInsightsInput._init(this);
-  }
+  UpdateContributorInsightsInputBuilder();
 
   UpdateContributorInsightsInputBuilder get _$this {
     final $v = _$v;

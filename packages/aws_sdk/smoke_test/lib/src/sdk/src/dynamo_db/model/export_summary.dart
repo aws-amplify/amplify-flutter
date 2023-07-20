@@ -37,9 +37,6 @@ abstract class ExportSummary
     ExportSummaryAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ExportSummaryBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the export.
   String? get exportArn;
 

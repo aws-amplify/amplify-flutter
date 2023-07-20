@@ -47,9 +47,6 @@ abstract class BatchGetItemInput
     BatchGetItemInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BatchGetItemInputBuilder b) {}
-
   /// A map of one or more table names and, for each table, a map that describes one or more items to retrieve from that table. Each table name can be used only once per `BatchGetItem` request.
   ///
   /// Each element in the map of items to retrieve consists of the following:

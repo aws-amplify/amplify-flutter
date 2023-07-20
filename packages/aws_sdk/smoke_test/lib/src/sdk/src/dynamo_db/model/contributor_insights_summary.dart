@@ -40,9 +40,6 @@ abstract class ContributorInsightsSummary
   static const List<_i3.SmithySerializer<ContributorInsightsSummary>>
       serializers = [ContributorInsightsSummaryAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ContributorInsightsSummaryBuilder b) {}
-
   /// Name of the table associated with the summary.
   String? get tableName;
 

@@ -37,9 +37,6 @@ abstract class UpdateSamlProviderResponse
   static const List<_i2.SmithySerializer<UpdateSamlProviderResponse>>
       serializers = [UpdateSamlProviderResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateSamlProviderResponseBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the SAML provider that was updated.
   String? get samlProviderArn;
   @override

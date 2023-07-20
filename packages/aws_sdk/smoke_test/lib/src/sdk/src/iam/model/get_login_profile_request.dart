@@ -35,9 +35,6 @@ abstract class GetLoginProfileRequest
   static const List<_i1.SmithySerializer<GetLoginProfileRequest>> serializers =
       [GetLoginProfileRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetLoginProfileRequestBuilder b) {}
-
   /// The name of the user whose login profile you want to retrieve.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

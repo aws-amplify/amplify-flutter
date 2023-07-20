@@ -132,9 +132,7 @@ class ReplicaGlobalSecondaryIndexSettingsDescriptionBuilder
       _$this._provisionedWriteCapacityAutoScalingSettings =
           provisionedWriteCapacityAutoScalingSettings;
 
-  ReplicaGlobalSecondaryIndexSettingsDescriptionBuilder() {
-    ReplicaGlobalSecondaryIndexSettingsDescription._init(this);
-  }
+  ReplicaGlobalSecondaryIndexSettingsDescriptionBuilder();
 
   ReplicaGlobalSecondaryIndexSettingsDescriptionBuilder get _$this {
     final $v = _$v;

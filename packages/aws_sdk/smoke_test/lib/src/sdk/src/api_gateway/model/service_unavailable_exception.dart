@@ -52,8 +52,6 @@ abstract class ServiceUnavailableException
   static const List<_i2.SmithySerializer<ServiceUnavailableExceptionPayload>>
       serializers = [ServiceUnavailableExceptionRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ServiceUnavailableExceptionBuilder b) {}
   String? get retryAfterSeconds;
   @override
   String? get message;
@@ -110,8 +108,6 @@ abstract class ServiceUnavailableExceptionPayload
 
   const ServiceUnavailableExceptionPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ServiceUnavailableExceptionPayloadBuilder b) {}
   String? get message;
   @override
   List<Object?> get props => [message];

@@ -39,9 +39,6 @@ abstract class GetOrganizationCustomRulePolicyResponse
     GetOrganizationCustomRulePolicyResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetOrganizationCustomRulePolicyResponseBuilder b) {}
-
   /// The policy definition containing the logic for your organization Config Custom Policy rule.
   String? get policyText;
   @override

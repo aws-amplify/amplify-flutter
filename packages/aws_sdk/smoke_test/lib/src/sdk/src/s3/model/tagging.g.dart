@@ -47,9 +47,7 @@ class TaggingBuilder implements Builder<Tagging, TaggingBuilder> {
       _$this._tagSet ??= new _i3.ListBuilder<_i2.Tag>();
   set tagSet(_i3.ListBuilder<_i2.Tag>? tagSet) => _$this._tagSet = tagSet;
 
-  TaggingBuilder() {
-    Tagging._init(this);
-  }
+  TaggingBuilder();
 
   TaggingBuilder get _$this {
     final $v = _$v;

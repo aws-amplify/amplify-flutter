@@ -75,9 +75,7 @@ class GetAggregateResourceConfigRequestBuilder
           _i3.AggregateResourceIdentifierBuilder? resourceIdentifier) =>
       _$this._resourceIdentifier = resourceIdentifier;
 
-  GetAggregateResourceConfigRequestBuilder() {
-    GetAggregateResourceConfigRequest._init(this);
-  }
+  GetAggregateResourceConfigRequestBuilder();
 
   GetAggregateResourceConfigRequestBuilder get _$this {
     final $v = _$v;

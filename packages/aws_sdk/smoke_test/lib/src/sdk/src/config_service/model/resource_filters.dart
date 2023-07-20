@@ -39,9 +39,6 @@ abstract class ResourceFilters
     ResourceFiltersAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceFiltersBuilder b) {}
-
   /// The 12-digit source account ID.
   String? get accountId;
 

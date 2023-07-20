@@ -40,9 +40,6 @@ abstract class RemediationParameterValue
   static const List<_i4.SmithySerializer<RemediationParameterValue>>
       serializers = [RemediationParameterValueAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RemediationParameterValueBuilder b) {}
-
   /// The value is dynamic and changes at run-time.
   _i2.ResourceValue? get resourceValue;
 

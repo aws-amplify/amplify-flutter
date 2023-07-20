@@ -49,9 +49,7 @@ class DescribeAccountLimitsInputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeAccountLimitsInputBuilder() {
-    DescribeAccountLimitsInput._init(this);
-  }
+  DescribeAccountLimitsInputBuilder();
 
   DescribeAccountLimitsInputBuilder get _$this {
     final $v = _$v;

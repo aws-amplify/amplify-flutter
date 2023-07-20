@@ -54,8 +54,6 @@ abstract class HttpChecksumReallyNotRequiredInput
     HttpChecksumReallyNotRequiredInputRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpChecksumReallyNotRequiredInputBuilder b) {}
   _i4.ChecksumAlgorithm? get checksumAlgorithm;
   _i2.Uint8List? get content;
   @override

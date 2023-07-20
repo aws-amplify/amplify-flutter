@@ -45,9 +45,6 @@ abstract class ListInstanceProfilesForRoleRequest
   static const List<_i1.SmithySerializer<ListInstanceProfilesForRoleRequest>>
       serializers = [ListInstanceProfilesForRoleRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListInstanceProfilesForRoleRequestBuilder b) {}
-
   /// The name of the role to list instance profiles for.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

@@ -64,9 +64,7 @@ class AttachUserPolicyRequestBuilder
   String? get policyArn => _$this._policyArn;
   set policyArn(String? policyArn) => _$this._policyArn = policyArn;
 
-  AttachUserPolicyRequestBuilder() {
-    AttachUserPolicyRequest._init(this);
-  }
+  AttachUserPolicyRequestBuilder();
 
   AttachUserPolicyRequestBuilder get _$this {
     final $v = _$v;

@@ -102,9 +102,6 @@ abstract class ConfigSnapshotDeliveryProperties
   static const List<_i3.SmithySerializer<ConfigSnapshotDeliveryProperties>>
       serializers = [ConfigSnapshotDeliveryPropertiesAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConfigSnapshotDeliveryPropertiesBuilder b) {}
-
   /// The frequency with which Config delivers configuration snapshots.
   _i2.MaximumExecutionFrequency? get deliveryFrequency;
   @override

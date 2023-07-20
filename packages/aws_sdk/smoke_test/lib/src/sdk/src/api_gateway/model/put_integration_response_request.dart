@@ -86,9 +86,6 @@ abstract class PutIntegrationResponseRequest
   static const List<_i1.SmithySerializer<PutIntegrationResponseRequestPayload>>
       serializers = [PutIntegrationResponseRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutIntegrationResponseRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -206,9 +203,6 @@ abstract class PutIntegrationResponseRequestPayload
           updates]) = _$PutIntegrationResponseRequestPayload;
 
   const PutIntegrationResponseRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutIntegrationResponseRequestPayloadBuilder b) {}
 
   /// Specifies how to handle response payload content type conversions. Supported values are `CONVERT\_TO\_BINARY` and `CONVERT\_TO\_TEXT`, with the following behaviors:
   ///

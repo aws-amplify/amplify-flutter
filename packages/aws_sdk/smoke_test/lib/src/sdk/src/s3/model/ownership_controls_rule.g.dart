@@ -53,9 +53,7 @@ class OwnershipControlsRuleBuilder
   set objectOwnership(_i2.ObjectOwnership? objectOwnership) =>
       _$this._objectOwnership = objectOwnership;
 
-  OwnershipControlsRuleBuilder() {
-    OwnershipControlsRule._init(this);
-  }
+  OwnershipControlsRuleBuilder();
 
   OwnershipControlsRuleBuilder get _$this {
     final $v = _$v;

@@ -39,9 +39,6 @@ abstract class SelectObjectContentOutput
   static const List<_i2.SmithySerializer<_i3.SelectObjectContentEventStream?>>
       serializers = [];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SelectObjectContentOutputBuilder b) {}
-
   /// The array of results.
   _i3.SelectObjectContentEventStream? get payload;
   @override

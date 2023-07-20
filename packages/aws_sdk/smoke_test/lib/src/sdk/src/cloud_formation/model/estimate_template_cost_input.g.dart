@@ -70,9 +70,7 @@ class EstimateTemplateCostInputBuilder
   set parameters(_i4.ListBuilder<_i3.Parameter>? parameters) =>
       _$this._parameters = parameters;
 
-  EstimateTemplateCostInputBuilder() {
-    EstimateTemplateCostInput._init(this);
-  }
+  EstimateTemplateCostInputBuilder();
 
   EstimateTemplateCostInputBuilder get _$this {
     final $v = _$v;

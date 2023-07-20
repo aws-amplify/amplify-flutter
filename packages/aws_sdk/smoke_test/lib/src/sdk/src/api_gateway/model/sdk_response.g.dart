@@ -63,9 +63,7 @@ class SdkResponseBuilder implements Builder<SdkResponse, SdkResponseBuilder> {
   _i3.Uint8List? get body => _$this._body;
   set body(_i3.Uint8List? body) => _$this._body = body;
 
-  SdkResponseBuilder() {
-    SdkResponse._init(this);
-  }
+  SdkResponseBuilder();
 
   SdkResponseBuilder get _$this {
     final $v = _$v;

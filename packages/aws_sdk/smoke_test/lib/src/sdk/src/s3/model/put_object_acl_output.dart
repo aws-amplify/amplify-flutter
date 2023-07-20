@@ -43,9 +43,6 @@ abstract class PutObjectAclOutput
   static const List<_i2.SmithySerializer<PutObjectAclOutputPayload>>
       serializers = [PutObjectAclOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectAclOutputBuilder b) {}
-
   /// If present, indicates that the requester was successfully charged for the request.
   _i3.RequestCharged? get requestCharged;
   @override
@@ -75,8 +72,6 @@ abstract class PutObjectAclOutputPayload
 
   const PutObjectAclOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectAclOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

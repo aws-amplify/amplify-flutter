@@ -41,9 +41,6 @@ abstract class UpdateUserRequest
     UpdateUserRequestAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateUserRequestBuilder b) {}
-
   /// Name of the user to update. If you're changing the name of the user, this is the original user name.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

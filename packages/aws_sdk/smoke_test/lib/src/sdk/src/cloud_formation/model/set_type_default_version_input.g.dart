@@ -76,9 +76,7 @@ class SetTypeDefaultVersionInputBuilder
   String? get versionId => _$this._versionId;
   set versionId(String? versionId) => _$this._versionId = versionId;
 
-  SetTypeDefaultVersionInputBuilder() {
-    SetTypeDefaultVersionInput._init(this);
-  }
+  SetTypeDefaultVersionInputBuilder();
 
   SetTypeDefaultVersionInputBuilder get _$this {
     final $v = _$v;

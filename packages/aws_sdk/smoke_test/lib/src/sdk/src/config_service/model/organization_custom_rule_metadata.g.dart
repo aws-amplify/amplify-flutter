@@ -151,9 +151,7 @@ class OrganizationCustomRuleMetadataBuilder
   set tagValueScope(String? tagValueScope) =>
       _$this._tagValueScope = tagValueScope;
 
-  OrganizationCustomRuleMetadataBuilder() {
-    OrganizationCustomRuleMetadata._init(this);
-  }
+  OrganizationCustomRuleMetadataBuilder();
 
   OrganizationCustomRuleMetadataBuilder get _$this {
     final $v = _$v;

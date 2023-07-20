@@ -42,8 +42,6 @@ abstract class PasswordPolicyViolationException
   static const List<_i2.SmithySerializer<PasswordPolicyViolationException>>
       serializers = [PasswordPolicyViolationExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PasswordPolicyViolationExceptionBuilder b) {}
   @override
   String? get message;
   @override

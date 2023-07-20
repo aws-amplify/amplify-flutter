@@ -99,9 +99,7 @@ class OrganizationConfigRuleStatusBuilder
   set lastUpdateTime(DateTime? lastUpdateTime) =>
       _$this._lastUpdateTime = lastUpdateTime;
 
-  OrganizationConfigRuleStatusBuilder() {
-    OrganizationConfigRuleStatus._init(this);
-  }
+  OrganizationConfigRuleStatusBuilder();
 
   OrganizationConfigRuleStatusBuilder get _$this {
     final $v = _$v;

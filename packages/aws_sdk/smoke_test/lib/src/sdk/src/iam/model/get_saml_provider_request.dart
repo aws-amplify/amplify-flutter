@@ -35,9 +35,6 @@ abstract class GetSamlProviderRequest
   static const List<_i1.SmithySerializer<GetSamlProviderRequest>> serializers =
       [GetSamlProviderRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetSamlProviderRequestBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the SAML provider resource object in IAM to get information about.
   ///
   /// For more information about ARNs, see [Amazon Resource Names (ARNs)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) in the _Amazon Web Services General Reference_.

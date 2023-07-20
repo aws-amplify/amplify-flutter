@@ -132,9 +132,7 @@ class ListMultipartUploadsRequestBuilder
   set requestPayer(_i4.RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
-  ListMultipartUploadsRequestBuilder() {
-    ListMultipartUploadsRequest._init(this);
-  }
+  ListMultipartUploadsRequestBuilder();
 
   ListMultipartUploadsRequestBuilder get _$this {
     final $v = _$v;
@@ -222,9 +220,7 @@ class ListMultipartUploadsRequestPayloadBuilder
             ListMultipartUploadsRequestPayloadBuilder> {
   _$ListMultipartUploadsRequestPayload? _$v;
 
-  ListMultipartUploadsRequestPayloadBuilder() {
-    ListMultipartUploadsRequestPayload._init(this);
-  }
+  ListMultipartUploadsRequestPayloadBuilder();
 
   @override
   void replace(ListMultipartUploadsRequestPayload other) {

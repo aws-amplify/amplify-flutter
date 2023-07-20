@@ -122,9 +122,7 @@ class ExecuteStatementInputBuilder
       _$this._returnValuesOnConditionCheckFailure =
           returnValuesOnConditionCheckFailure;
 
-  ExecuteStatementInputBuilder() {
-    ExecuteStatementInput._init(this);
-  }
+  ExecuteStatementInputBuilder();
 
   ExecuteStatementInputBuilder get _$this {
     final $v = _$v;

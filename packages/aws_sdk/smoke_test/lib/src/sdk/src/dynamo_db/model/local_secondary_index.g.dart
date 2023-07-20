@@ -80,9 +80,7 @@ class LocalSecondaryIndexBuilder
   set projection(_i3.ProjectionBuilder? projection) =>
       _$this._projection = projection;
 
-  LocalSecondaryIndexBuilder() {
-    LocalSecondaryIndex._init(this);
-  }
+  LocalSecondaryIndexBuilder();
 
   LocalSecondaryIndexBuilder get _$this {
     final $v = _$v;

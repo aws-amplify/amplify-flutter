@@ -53,9 +53,7 @@ class PostUnionWithJsonNameOutputBuilder
   _i2.UnionWithJsonName? get value => _$this._value;
   set value(_i2.UnionWithJsonName? value) => _$this._value = value;
 
-  PostUnionWithJsonNameOutputBuilder() {
-    PostUnionWithJsonNameOutput._init(this);
-  }
+  PostUnionWithJsonNameOutputBuilder();
 
   PostUnionWithJsonNameOutputBuilder get _$this {
     final $v = _$v;

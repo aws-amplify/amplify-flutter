@@ -80,9 +80,6 @@ abstract class PutItemInput
     PutItemInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutItemInputBuilder b) {}
-
   /// The name of the table to contain the item.
   String get tableName;
 

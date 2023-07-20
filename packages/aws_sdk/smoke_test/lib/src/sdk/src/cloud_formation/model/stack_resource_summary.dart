@@ -54,9 +54,6 @@ abstract class StackResourceSummary
     StackResourceSummaryAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackResourceSummaryBuilder b) {}
-
   /// The logical name of the resource specified in the template.
   String get logicalResourceId;
 

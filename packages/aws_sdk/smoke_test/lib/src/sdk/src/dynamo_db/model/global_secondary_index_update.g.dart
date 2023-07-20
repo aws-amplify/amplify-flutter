@@ -73,9 +73,7 @@ class GlobalSecondaryIndexUpdateBuilder
   set delete(_i4.DeleteGlobalSecondaryIndexActionBuilder? delete) =>
       _$this._delete = delete;
 
-  GlobalSecondaryIndexUpdateBuilder() {
-    GlobalSecondaryIndexUpdate._init(this);
-  }
+  GlobalSecondaryIndexUpdateBuilder();
 
   GlobalSecondaryIndexUpdateBuilder get _$this {
     final $v = _$v;

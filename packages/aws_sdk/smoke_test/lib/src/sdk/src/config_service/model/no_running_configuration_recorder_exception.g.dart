@@ -69,9 +69,7 @@ class NoRunningConfigurationRecorderExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  NoRunningConfigurationRecorderExceptionBuilder() {
-    NoRunningConfigurationRecorderException._init(this);
-  }
+  NoRunningConfigurationRecorderExceptionBuilder();
 
   NoRunningConfigurationRecorderExceptionBuilder get _$this {
     final $v = _$v;

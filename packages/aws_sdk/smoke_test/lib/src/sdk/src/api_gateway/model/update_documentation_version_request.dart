@@ -65,9 +65,6 @@ abstract class UpdateDocumentationVersionRequest
           _i1.SmithySerializer<UpdateDocumentationVersionRequestPayload>>
       serializers = [UpdateDocumentationVersionRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateDocumentationVersionRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi..
   String get restApiId;
 
@@ -135,9 +132,6 @@ abstract class UpdateDocumentationVersionRequestPayload
           updates]) = _$UpdateDocumentationVersionRequestPayload;
 
   const UpdateDocumentationVersionRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateDocumentationVersionRequestPayloadBuilder b) {}
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;

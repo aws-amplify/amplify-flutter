@@ -46,9 +46,6 @@ abstract class GetTemplateInput
     GetTemplateInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetTemplateInputBuilder b) {}
-
   /// The name or the unique stack ID that's associated with the stack, which aren't always interchangeable:
   ///
   /// *   Running stacks: You can specify either the stack's name or its unique stack ID.

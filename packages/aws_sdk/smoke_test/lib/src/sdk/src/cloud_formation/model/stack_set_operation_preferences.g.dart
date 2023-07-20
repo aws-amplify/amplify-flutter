@@ -106,9 +106,7 @@ class StackSetOperationPreferencesBuilder
   set maxConcurrentPercentage(int? maxConcurrentPercentage) =>
       _$this._maxConcurrentPercentage = maxConcurrentPercentage;
 
-  StackSetOperationPreferencesBuilder() {
-    StackSetOperationPreferences._init(this);
-  }
+  StackSetOperationPreferencesBuilder();
 
   StackSetOperationPreferencesBuilder get _$this {
     final $v = _$v;

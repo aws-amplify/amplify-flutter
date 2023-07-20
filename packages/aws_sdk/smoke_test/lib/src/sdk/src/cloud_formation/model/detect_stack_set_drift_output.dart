@@ -34,9 +34,6 @@ abstract class DetectStackSetDriftOutput
   static const List<_i2.SmithySerializer<DetectStackSetDriftOutput>>
       serializers = [DetectStackSetDriftOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DetectStackSetDriftOutputBuilder b) {}
-
   /// The ID of the drift detection stack set operation.
   ///
   /// You can use this operation ID with DescribeStackSetOperation to monitor the progress of the drift detection operation.

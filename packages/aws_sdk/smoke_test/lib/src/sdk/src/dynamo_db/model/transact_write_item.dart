@@ -44,9 +44,6 @@ abstract class TransactWriteItem
     TransactWriteItemAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TransactWriteItemBuilder b) {}
-
   /// A request to perform a check item operation.
   _i2.ConditionCheck? get conditionCheck;
 

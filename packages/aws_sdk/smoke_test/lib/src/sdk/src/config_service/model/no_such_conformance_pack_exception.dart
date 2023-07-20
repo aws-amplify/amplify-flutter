@@ -43,9 +43,6 @@ abstract class NoSuchConformancePackException
   static const List<_i2.SmithySerializer<NoSuchConformancePackException>>
       serializers = [NoSuchConformancePackExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NoSuchConformancePackExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

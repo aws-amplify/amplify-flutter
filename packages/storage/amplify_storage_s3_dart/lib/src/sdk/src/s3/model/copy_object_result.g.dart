@@ -99,9 +99,7 @@ class CopyObjectResultBuilder
   set checksumSha256(String? checksumSha256) =>
       _$this._checksumSha256 = checksumSha256;
 
-  CopyObjectResultBuilder() {
-    CopyObjectResult._init(this);
-  }
+  CopyObjectResultBuilder();
 
   CopyObjectResultBuilder get _$this {
     final $v = _$v;

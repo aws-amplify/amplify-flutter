@@ -127,7 +127,7 @@ class GetObjectTorrentOperation extends _i1.HttpOperation<
   int successCode([_i4.GetObjectTorrentOutput? output]) => 200;
   @override
   _i4.GetObjectTorrentOutput buildOutput(
-    _i3.Stream<List<int>>? payload,
+    _i3.Stream<List<int>> payload,
     _i8.AWSBaseHttpResponse response,
   ) =>
       _i4.GetObjectTorrentOutput.fromResponse(

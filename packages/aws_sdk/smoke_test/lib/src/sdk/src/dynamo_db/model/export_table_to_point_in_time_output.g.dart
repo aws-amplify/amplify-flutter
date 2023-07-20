@@ -53,9 +53,7 @@ class ExportTableToPointInTimeOutputBuilder
   set exportDescription(_i2.ExportDescriptionBuilder? exportDescription) =>
       _$this._exportDescription = exportDescription;
 
-  ExportTableToPointInTimeOutputBuilder() {
-    ExportTableToPointInTimeOutput._init(this);
-  }
+  ExportTableToPointInTimeOutputBuilder();
 
   ExportTableToPointInTimeOutputBuilder get _$this {
     final $v = _$v;

@@ -71,9 +71,7 @@ class DescribeConfigRuleEvaluationStatusResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeConfigRuleEvaluationStatusResponseBuilder() {
-    DescribeConfigRuleEvaluationStatusResponse._init(this);
-  }
+  DescribeConfigRuleEvaluationStatusResponseBuilder();
 
   DescribeConfigRuleEvaluationStatusResponseBuilder get _$this {
     final $v = _$v;

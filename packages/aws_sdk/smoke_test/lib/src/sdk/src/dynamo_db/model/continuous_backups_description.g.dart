@@ -74,9 +74,7 @@ class ContinuousBackupsDescriptionBuilder
               pointInTimeRecoveryDescription) =>
       _$this._pointInTimeRecoveryDescription = pointInTimeRecoveryDescription;
 
-  ContinuousBackupsDescriptionBuilder() {
-    ContinuousBackupsDescription._init(this);
-  }
+  ContinuousBackupsDescriptionBuilder();
 
   ContinuousBackupsDescriptionBuilder get _$this {
     final $v = _$v;

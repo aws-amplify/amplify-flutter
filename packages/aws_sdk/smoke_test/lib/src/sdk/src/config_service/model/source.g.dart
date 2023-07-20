@@ -82,9 +82,7 @@ class SourceBuilder implements Builder<Source, SourceBuilder> {
           _i4.CustomPolicyDetailsBuilder? customPolicyDetails) =>
       _$this._customPolicyDetails = customPolicyDetails;
 
-  SourceBuilder() {
-    Source._init(this);
-  }
+  SourceBuilder();
 
   SourceBuilder get _$this {
     final $v = _$v;

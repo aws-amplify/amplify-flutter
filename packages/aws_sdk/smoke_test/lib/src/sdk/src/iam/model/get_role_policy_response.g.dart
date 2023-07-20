@@ -77,9 +77,7 @@ class GetRolePolicyResponseBuilder
   set policyDocument(String? policyDocument) =>
       _$this._policyDocument = policyDocument;
 
-  GetRolePolicyResponseBuilder() {
-    GetRolePolicyResponse._init(this);
-  }
+  GetRolePolicyResponseBuilder();
 
   GetRolePolicyResponseBuilder get _$this {
     final $v = _$v;

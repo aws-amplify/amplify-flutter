@@ -91,9 +91,7 @@ class ListBucketMetricsConfigurationsOutputBuilder
               metricsConfigurationList) =>
       _$this._metricsConfigurationList = metricsConfigurationList;
 
-  ListBucketMetricsConfigurationsOutputBuilder() {
-    ListBucketMetricsConfigurationsOutput._init(this);
-  }
+  ListBucketMetricsConfigurationsOutputBuilder();
 
   ListBucketMetricsConfigurationsOutputBuilder get _$this {
     final $v = _$v;

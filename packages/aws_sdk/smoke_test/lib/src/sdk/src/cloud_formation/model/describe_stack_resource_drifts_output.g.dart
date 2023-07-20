@@ -70,9 +70,7 @@ class DescribeStackResourceDriftsOutputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeStackResourceDriftsOutputBuilder() {
-    DescribeStackResourceDriftsOutput._init(this);
-  }
+  DescribeStackResourceDriftsOutputBuilder();
 
   DescribeStackResourceDriftsOutputBuilder get _$this {
     final $v = _$v;

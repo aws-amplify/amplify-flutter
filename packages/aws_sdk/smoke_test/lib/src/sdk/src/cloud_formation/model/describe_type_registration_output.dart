@@ -48,9 +48,6 @@ abstract class DescribeTypeRegistrationOutput
   static const List<_i3.SmithySerializer<DescribeTypeRegistrationOutput>>
       serializers = [DescribeTypeRegistrationOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeTypeRegistrationOutputBuilder b) {}
-
   /// The current status of the extension registration request.
   _i2.RegistrationStatus? get progressStatus;
 

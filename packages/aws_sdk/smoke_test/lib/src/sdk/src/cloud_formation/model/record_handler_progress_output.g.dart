@@ -40,9 +40,7 @@ class RecordHandlerProgressOutputBuilder
             RecordHandlerProgressOutputBuilder> {
   _$RecordHandlerProgressOutput? _$v;
 
-  RecordHandlerProgressOutputBuilder() {
-    RecordHandlerProgressOutput._init(this);
-  }
+  RecordHandlerProgressOutputBuilder();
 
   @override
   void replace(RecordHandlerProgressOutput other) {

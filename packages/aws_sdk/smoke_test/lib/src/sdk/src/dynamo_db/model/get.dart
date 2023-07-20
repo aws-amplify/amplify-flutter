@@ -43,9 +43,6 @@ abstract class Get
     GetAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBuilder b) {}
-
   /// A map of attribute names to `AttributeValue` objects that specifies the primary key of the item to retrieve.
   _i3.BuiltMap<String, _i2.AttributeValue> get key;
 

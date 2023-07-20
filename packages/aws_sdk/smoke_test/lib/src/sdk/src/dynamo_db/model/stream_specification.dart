@@ -18,10 +18,9 @@ abstract class StreamSpecification
     implements Built<StreamSpecification, StreamSpecificationBuilder> {
   /// Represents the DynamoDB Streams configuration for a table in DynamoDB.
   factory StreamSpecification({
-    bool? streamEnabled,
+    required bool streamEnabled,
     _i2.StreamViewType? streamViewType,
   }) {
-    streamEnabled ??= false;
     return _$StreamSpecification._(
       streamEnabled: streamEnabled,
       streamViewType: streamViewType,
@@ -38,11 +37,6 @@ abstract class StreamSpecification
   static const List<_i3.SmithySerializer<StreamSpecification>> serializers = [
     StreamSpecificationAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StreamSpecificationBuilder b) {
-    b.streamEnabled = false;
-  }
 
   /// Indicates whether DynamoDB Streams is enabled (true) or disabled (false) on the table.
   bool get streamEnabled;

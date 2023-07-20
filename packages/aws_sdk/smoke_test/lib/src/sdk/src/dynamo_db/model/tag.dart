@@ -46,9 +46,6 @@ abstract class Tag
     TagAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TagBuilder b) {}
-
   /// The key of the tag. Tag keys are case sensitive. Each DynamoDB table can only have up to one tag with the same key. If you try to add an existing tag (same key), the existing tag value will be updated to the new value.
   String get key;
 

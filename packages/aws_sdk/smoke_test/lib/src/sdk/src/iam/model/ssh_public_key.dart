@@ -50,9 +50,6 @@ abstract class SshPublicKey
     SshPublicKeyAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SshPublicKeyBuilder b) {}
-
   /// The name of the IAM user associated with the SSH public key.
   String get userName;
 

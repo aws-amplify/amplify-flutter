@@ -73,9 +73,7 @@ class MaxNumberOfConfigurationRecordersExceededExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  MaxNumberOfConfigurationRecordersExceededExceptionBuilder() {
-    MaxNumberOfConfigurationRecordersExceededException._init(this);
-  }
+  MaxNumberOfConfigurationRecordersExceededExceptionBuilder();
 
   MaxNumberOfConfigurationRecordersExceededExceptionBuilder get _$this {
     final $v = _$v;

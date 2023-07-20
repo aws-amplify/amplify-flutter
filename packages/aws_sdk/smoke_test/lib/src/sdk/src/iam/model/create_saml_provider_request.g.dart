@@ -75,9 +75,7 @@ class CreateSamlProviderRequestBuilder
       _$this._tags ??= new _i4.ListBuilder<_i3.Tag>();
   set tags(_i4.ListBuilder<_i3.Tag>? tags) => _$this._tags = tags;
 
-  CreateSamlProviderRequestBuilder() {
-    CreateSamlProviderRequest._init(this);
-  }
+  CreateSamlProviderRequestBuilder();
 
   CreateSamlProviderRequestBuilder get _$this {
     final $v = _$v;

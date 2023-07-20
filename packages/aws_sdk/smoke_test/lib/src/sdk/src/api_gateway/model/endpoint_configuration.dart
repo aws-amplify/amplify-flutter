@@ -40,9 +40,6 @@ abstract class EndpointConfiguration
     EndpointConfigurationRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EndpointConfigurationBuilder b) {}
-
   /// A list of endpoint types of an API (RestApi) or its custom domain name (DomainName). For an edge-optimized API and its custom domain name, the endpoint type is `"EDGE"`. For a regional API and its custom domain name, the endpoint type is `REGIONAL`. For a private API, the endpoint type is `PRIVATE`.
   _i3.BuiltList<_i2.EndpointType>? get types;
 

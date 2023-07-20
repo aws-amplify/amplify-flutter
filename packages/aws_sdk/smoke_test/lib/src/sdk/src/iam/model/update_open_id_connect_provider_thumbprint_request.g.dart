@@ -76,9 +76,7 @@ class UpdateOpenIdConnectProviderThumbprintRequestBuilder
   set thumbprintList(_i3.ListBuilder<String>? thumbprintList) =>
       _$this._thumbprintList = thumbprintList;
 
-  UpdateOpenIdConnectProviderThumbprintRequestBuilder() {
-    UpdateOpenIdConnectProviderThumbprintRequest._init(this);
-  }
+  UpdateOpenIdConnectProviderThumbprintRequestBuilder();
 
   UpdateOpenIdConnectProviderThumbprintRequestBuilder get _$this {
     final $v = _$v;

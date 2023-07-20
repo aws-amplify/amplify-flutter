@@ -42,9 +42,6 @@ abstract class Grantee
     GranteeRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GranteeBuilder b) {}
-
   /// Screen name of the grantee.
   String? get displayName;
 

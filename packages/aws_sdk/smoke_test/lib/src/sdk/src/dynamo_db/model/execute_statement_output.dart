@@ -51,9 +51,6 @@ abstract class ExecuteStatementOutput
   static const List<_i5.SmithySerializer<ExecuteStatementOutput>> serializers =
       [ExecuteStatementOutputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ExecuteStatementOutputBuilder b) {}
-
   /// If a read operation was used, this property will contain the result of the read operation; a map of attribute names and their values. For the write operations this value will be empty.
   _i4.BuiltList<_i4.BuiltMap<String, _i2.AttributeValue>>? get items;
 

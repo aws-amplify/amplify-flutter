@@ -260,9 +260,6 @@ abstract class HeadObjectOutput
   static const List<_i2.SmithySerializer<HeadObjectOutputPayload>> serializers =
       [HeadObjectOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HeadObjectOutputBuilder b) {}
-
   /// Specifies whether the object retrieved was (true) or was not (false) a Delete Marker. If false, this response header does not appear in the response.
   bool? get deleteMarker;
 
@@ -581,8 +578,6 @@ abstract class HeadObjectOutputPayload
 
   const HeadObjectOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HeadObjectOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

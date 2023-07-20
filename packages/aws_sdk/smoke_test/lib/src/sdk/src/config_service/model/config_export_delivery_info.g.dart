@@ -103,9 +103,7 @@ class ConfigExportDeliveryInfoBuilder
   set nextDeliveryTime(DateTime? nextDeliveryTime) =>
       _$this._nextDeliveryTime = nextDeliveryTime;
 
-  ConfigExportDeliveryInfoBuilder() {
-    ConfigExportDeliveryInfo._init(this);
-  }
+  ConfigExportDeliveryInfoBuilder();
 
   ConfigExportDeliveryInfoBuilder get _$this {
     final $v = _$v;

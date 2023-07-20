@@ -56,9 +56,7 @@ class ReplicaUpdateBuilder
       _$this._delete ??= new _i3.DeleteReplicaActionBuilder();
   set delete(_i3.DeleteReplicaActionBuilder? delete) => _$this._delete = delete;
 
-  ReplicaUpdateBuilder() {
-    ReplicaUpdate._init(this);
-  }
+  ReplicaUpdateBuilder();
 
   ReplicaUpdateBuilder get _$this {
     final $v = _$v;

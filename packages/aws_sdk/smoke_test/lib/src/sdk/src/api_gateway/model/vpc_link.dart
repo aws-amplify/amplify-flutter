@@ -54,9 +54,6 @@ abstract class VpcLink
     VpcLinkRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(VpcLinkBuilder b) {}
-
   /// The identifier of the VpcLink. It is used in an Integration to reference this VpcLink.
   String? get id;
 

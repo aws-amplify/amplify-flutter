@@ -48,9 +48,6 @@ abstract class TransactWriteItemsOutput
   static const List<_i5.SmithySerializer<TransactWriteItemsOutput>>
       serializers = [TransactWriteItemsOutputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TransactWriteItemsOutputBuilder b) {}
-
   /// The capacity units consumed by the entire `TransactWriteItems` operation. The values of the list are ordered according to the ordering of the `TransactItems` request parameter.
   _i4.BuiltList<_i2.ConsumedCapacity>? get consumedCapacity;
 

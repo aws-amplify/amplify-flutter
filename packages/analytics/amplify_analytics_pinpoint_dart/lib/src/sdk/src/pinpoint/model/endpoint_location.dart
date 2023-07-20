@@ -43,9 +43,6 @@ abstract class EndpointLocation
     EndpointLocationRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EndpointLocationBuilder b) {}
-
   /// The name of the city where the endpoint is located.
   String? get city;
 

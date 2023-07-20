@@ -41,9 +41,6 @@ abstract class GetAccountSummaryResponse
   static const List<_i4.SmithySerializer<GetAccountSummaryResponse>>
       serializers = [GetAccountSummaryResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetAccountSummaryResponseBuilder b) {}
-
   /// A set of key–value pairs containing information about IAM entity usage and IAM quotas.
   _i3.BuiltMap<_i2.SummaryKeyType, int>? get summaryMap;
   @override

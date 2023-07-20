@@ -59,9 +59,6 @@ abstract class GetMethodRequest
   static const List<_i1.SmithySerializer<GetMethodRequestPayload>> serializers =
       [GetMethodRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetMethodRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -125,8 +122,6 @@ abstract class GetMethodRequestPayload
 
   const GetMethodRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetMethodRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

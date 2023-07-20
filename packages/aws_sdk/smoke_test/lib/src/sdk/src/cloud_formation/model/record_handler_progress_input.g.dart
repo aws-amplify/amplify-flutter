@@ -118,9 +118,7 @@ class RecordHandlerProgressInputBuilder
   set clientRequestToken(String? clientRequestToken) =>
       _$this._clientRequestToken = clientRequestToken;
 
-  RecordHandlerProgressInputBuilder() {
-    RecordHandlerProgressInput._init(this);
-  }
+  RecordHandlerProgressInputBuilder();
 
   RecordHandlerProgressInputBuilder get _$this {
     final $v = _$v;

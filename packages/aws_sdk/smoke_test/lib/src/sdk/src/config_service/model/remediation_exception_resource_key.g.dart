@@ -61,9 +61,7 @@ class RemediationExceptionResourceKeyBuilder
   String? get resourceId => _$this._resourceId;
   set resourceId(String? resourceId) => _$this._resourceId = resourceId;
 
-  RemediationExceptionResourceKeyBuilder() {
-    RemediationExceptionResourceKey._init(this);
-  }
+  RemediationExceptionResourceKeyBuilder();
 
   RemediationExceptionResourceKeyBuilder get _$this {
     final $v = _$v;

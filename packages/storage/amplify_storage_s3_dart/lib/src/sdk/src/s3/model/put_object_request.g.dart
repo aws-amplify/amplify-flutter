@@ -10,7 +10,7 @@ class _$PutObjectRequest extends PutObjectRequest {
   @override
   final _i4.ObjectCannedAcl? acl;
   @override
-  final _i2.Stream<List<int>>? body;
+  final _i2.Stream<List<int>> body;
   @override
   final String bucket;
   @override
@@ -88,7 +88,7 @@ class _$PutObjectRequest extends PutObjectRequest {
 
   _$PutObjectRequest._(
       {this.acl,
-      this.body,
+      required this.body,
       required this.bucket,
       this.cacheControl,
       this.contentDisposition,
@@ -125,6 +125,7 @@ class _$PutObjectRequest extends PutObjectRequest {
       this.objectLockLegalHoldStatus,
       this.expectedBucketOwner})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(body, r'PutObjectRequest', 'body');
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'PutObjectRequest', 'bucket');
     BuiltValueNullFieldError.checkNotNull(key, r'PutObjectRequest', 'key');
@@ -475,7 +476,8 @@ class PutObjectRequestBuilder
       _$result = _$v ??
           new _$PutObjectRequest._(
               acl: acl,
-              body: body,
+              body: BuiltValueNullFieldError.checkNotNull(
+                  body, r'PutObjectRequest', 'body'),
               bucket: BuiltValueNullFieldError.checkNotNull(
                   bucket, r'PutObjectRequest', 'bucket'),
               cacheControl: cacheControl,

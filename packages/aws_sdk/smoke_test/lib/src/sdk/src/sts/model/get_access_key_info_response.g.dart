@@ -49,9 +49,7 @@ class GetAccessKeyInfoResponseBuilder
   String? get account => _$this._account;
   set account(String? account) => _$this._account = account;
 
-  GetAccessKeyInfoResponseBuilder() {
-    GetAccessKeyInfoResponse._init(this);
-  }
+  GetAccessKeyInfoResponseBuilder();
 
   GetAccessKeyInfoResponseBuilder get _$this {
     final $v = _$v;

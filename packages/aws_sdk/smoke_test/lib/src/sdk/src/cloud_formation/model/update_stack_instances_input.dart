@@ -35,9 +35,6 @@ abstract class UpdateStackInstancesInput
     String? operationId,
     _i6.CallAs? callAs,
   }) {
-    operationId ??= const bool.hasEnvironment('SMITHY_TEST')
-        ? '00000000-0000-4000-8000-000000000000'
-        : _i2.uuid(secure: true);
     return _$UpdateStackInstancesInput._(
       stackSetName: stackSetName,
       accounts: accounts == null ? null : _i7.BuiltList(accounts),

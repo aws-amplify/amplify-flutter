@@ -107,9 +107,7 @@ class UpdateReplicationGroupMemberActionBuilder
   set tableClassOverride(_i4.TableClass? tableClassOverride) =>
       _$this._tableClassOverride = tableClassOverride;
 
-  UpdateReplicationGroupMemberActionBuilder() {
-    UpdateReplicationGroupMemberAction._init(this);
-  }
+  UpdateReplicationGroupMemberActionBuilder();
 
   UpdateReplicationGroupMemberActionBuilder get _$this {
     final $v = _$v;

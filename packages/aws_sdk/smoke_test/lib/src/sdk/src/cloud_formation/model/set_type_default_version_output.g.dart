@@ -40,9 +40,7 @@ class SetTypeDefaultVersionOutputBuilder
             SetTypeDefaultVersionOutputBuilder> {
   _$SetTypeDefaultVersionOutput? _$v;
 
-  SetTypeDefaultVersionOutputBuilder() {
-    SetTypeDefaultVersionOutput._init(this);
-  }
+  SetTypeDefaultVersionOutputBuilder();
 
   @override
   void replace(SetTypeDefaultVersionOutput other) {

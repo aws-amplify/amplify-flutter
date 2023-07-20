@@ -87,9 +87,6 @@ abstract class TestInvokeMethodRequest
   static const List<_i1.SmithySerializer<TestInvokeMethodRequestPayload>>
       serializers = [TestInvokeMethodRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TestInvokeMethodRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -215,9 +212,6 @@ abstract class TestInvokeMethodRequestPayload
       _$TestInvokeMethodRequestPayload;
 
   const TestInvokeMethodRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TestInvokeMethodRequestPayloadBuilder b) {}
 
   /// The simulated request body of an incoming invocation request.
   String? get body;

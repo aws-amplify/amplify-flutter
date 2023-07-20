@@ -67,9 +67,7 @@ class TagInstanceProfileRequestBuilder
       _$this._tags ??= new _i4.ListBuilder<_i3.Tag>();
   set tags(_i4.ListBuilder<_i3.Tag>? tags) => _$this._tags = tags;
 
-  TagInstanceProfileRequestBuilder() {
-    TagInstanceProfileRequest._init(this);
-  }
+  TagInstanceProfileRequestBuilder();
 
   TagInstanceProfileRequestBuilder get _$this {
     final $v = _$v;

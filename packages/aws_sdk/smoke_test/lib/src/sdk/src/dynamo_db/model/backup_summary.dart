@@ -55,9 +55,6 @@ abstract class BackupSummary
     BackupSummaryAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BackupSummaryBuilder b) {}
-
   /// Name of the table.
   String? get tableName;
 

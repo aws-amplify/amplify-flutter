@@ -127,9 +127,7 @@ class QueryIdempotencyTokenAutoFillInputPayloadBuilder
             QueryIdempotencyTokenAutoFillInputPayloadBuilder> {
   _$QueryIdempotencyTokenAutoFillInputPayload? _$v;
 
-  QueryIdempotencyTokenAutoFillInputPayloadBuilder() {
-    QueryIdempotencyTokenAutoFillInputPayload._init(this);
-  }
+  QueryIdempotencyTokenAutoFillInputPayloadBuilder();
 
   @override
   void replace(QueryIdempotencyTokenAutoFillInputPayload other) {

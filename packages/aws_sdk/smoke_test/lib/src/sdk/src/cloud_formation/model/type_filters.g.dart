@@ -63,9 +63,7 @@ class TypeFiltersBuilder implements Builder<TypeFilters, TypeFiltersBuilder> {
   set typeNamePrefix(String? typeNamePrefix) =>
       _$this._typeNamePrefix = typeNamePrefix;
 
-  TypeFiltersBuilder() {
-    TypeFilters._init(this);
-  }
+  TypeFiltersBuilder();
 
   TypeFiltersBuilder get _$this {
     final $v = _$v;

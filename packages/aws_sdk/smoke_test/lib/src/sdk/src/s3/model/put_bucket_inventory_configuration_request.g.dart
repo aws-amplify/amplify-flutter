@@ -96,9 +96,7 @@ class PutBucketInventoryConfigurationRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  PutBucketInventoryConfigurationRequestBuilder() {
-    PutBucketInventoryConfigurationRequest._init(this);
-  }
+  PutBucketInventoryConfigurationRequestBuilder();
 
   PutBucketInventoryConfigurationRequestBuilder get _$this {
     final $v = _$v;

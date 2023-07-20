@@ -56,9 +56,7 @@ class UnmodifiableEntityExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  UnmodifiableEntityExceptionBuilder() {
-    UnmodifiableEntityException._init(this);
-  }
+  UnmodifiableEntityExceptionBuilder();
 
   UnmodifiableEntityExceptionBuilder get _$this {
     final $v = _$v;

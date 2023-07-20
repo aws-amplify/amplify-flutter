@@ -43,9 +43,6 @@ abstract class UntagResourceRequest
     UntagResourceRequestAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UntagResourceRequestBuilder b) {}
-
   /// The Amazon Resource Name (ARN) that identifies the resource for which to list the tags. Currently, the supported resources are `ConfigRule`, `ConfigurationAggregator` and `AggregatorAuthorization`.
   String get resourceArn;
 

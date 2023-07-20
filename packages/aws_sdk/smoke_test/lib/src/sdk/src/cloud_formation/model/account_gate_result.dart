@@ -49,9 +49,6 @@ abstract class AccountGateResult
     AccountGateResultAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AccountGateResultBuilder b) {}
-
   /// The status of the account gate function.
   ///
   /// *   `SUCCEEDED`: The account gate function has determined that the account and Region passes any requirements for a stack set operation to occur. CloudFormation proceeds with the stack operation in that account and Region.

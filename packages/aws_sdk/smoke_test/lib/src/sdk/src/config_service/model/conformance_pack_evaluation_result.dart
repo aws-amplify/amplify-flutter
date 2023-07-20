@@ -48,9 +48,6 @@ abstract class ConformancePackEvaluationResult
   static const List<_i4.SmithySerializer<ConformancePackEvaluationResult>>
       serializers = [ConformancePackEvaluationResultAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConformancePackEvaluationResultBuilder b) {}
-
   /// The compliance type. The allowed values are `COMPLIANT` and `NON_COMPLIANT`. `INSUFFICIENT_DATA` is not supported.
   _i2.ConformancePackComplianceType get complianceType;
 

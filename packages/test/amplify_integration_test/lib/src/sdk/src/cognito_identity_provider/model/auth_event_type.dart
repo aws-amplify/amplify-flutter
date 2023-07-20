@@ -61,9 +61,6 @@ abstract class AuthEventType
     AuthEventTypeAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AuthEventTypeBuilder b) {}
-
   /// The event ID.
   String? get eventId;
 

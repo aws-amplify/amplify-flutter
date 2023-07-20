@@ -35,9 +35,6 @@ abstract class BucketLifecycleConfiguration
   static const List<_i4.SmithySerializer<BucketLifecycleConfiguration>>
       serializers = [BucketLifecycleConfigurationRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BucketLifecycleConfigurationBuilder b) {}
-
   /// A lifecycle rule for individual objects in an Amazon S3 bucket.
   _i3.BuiltList<_i2.LifecycleRule> get rules;
   @override

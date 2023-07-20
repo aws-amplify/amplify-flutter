@@ -40,8 +40,6 @@ abstract class IdempotentParameterMismatch
   static const List<_i2.SmithySerializer<IdempotentParameterMismatch>>
       serializers = [IdempotentParameterMismatchAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(IdempotentParameterMismatchBuilder b) {}
   @override
   String? get message;
   @override

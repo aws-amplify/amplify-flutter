@@ -66,9 +66,7 @@ class StackDriftInformationSummaryBuilder
   set lastCheckTimestamp(DateTime? lastCheckTimestamp) =>
       _$this._lastCheckTimestamp = lastCheckTimestamp;
 
-  StackDriftInformationSummaryBuilder() {
-    StackDriftInformationSummary._init(this);
-  }
+  StackDriftInformationSummaryBuilder();
 
   StackDriftInformationSummaryBuilder get _$this {
     final $v = _$v;

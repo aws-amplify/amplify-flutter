@@ -67,9 +67,7 @@ class GetDocumentationPartRequestBuilder
   set documentationPartId(String? documentationPartId) =>
       _$this._documentationPartId = documentationPartId;
 
-  GetDocumentationPartRequestBuilder() {
-    GetDocumentationPartRequest._init(this);
-  }
+  GetDocumentationPartRequestBuilder();
 
   GetDocumentationPartRequestBuilder get _$this {
     final $v = _$v;
@@ -146,9 +144,7 @@ class GetDocumentationPartRequestPayloadBuilder
             GetDocumentationPartRequestPayloadBuilder> {
   _$GetDocumentationPartRequestPayload? _$v;
 
-  GetDocumentationPartRequestPayloadBuilder() {
-    GetDocumentationPartRequestPayload._init(this);
-  }
+  GetDocumentationPartRequestPayloadBuilder();
 
   @override
   void replace(GetDocumentationPartRequestPayload other) {

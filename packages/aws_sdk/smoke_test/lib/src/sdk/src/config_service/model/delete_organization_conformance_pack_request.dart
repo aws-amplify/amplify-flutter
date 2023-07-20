@@ -42,9 +42,6 @@ abstract class DeleteOrganizationConformancePackRequest
     DeleteOrganizationConformancePackRequestAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteOrganizationConformancePackRequestBuilder b) {}
-
   /// The name of organization conformance pack that you want to delete.
   String get organizationConformancePackName;
   @override

@@ -114,9 +114,7 @@ class DeleteObjectsRequestBuilder
   set checksumAlgorithm(_i5.ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
-  DeleteObjectsRequestBuilder() {
-    DeleteObjectsRequest._init(this);
-  }
+  DeleteObjectsRequestBuilder();
 
   DeleteObjectsRequestBuilder get _$this {
     final $v = _$v;

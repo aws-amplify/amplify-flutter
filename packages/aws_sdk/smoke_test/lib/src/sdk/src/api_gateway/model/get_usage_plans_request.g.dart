@@ -65,9 +65,7 @@ class GetUsagePlansRequestBuilder
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
 
-  GetUsagePlansRequestBuilder() {
-    GetUsagePlansRequest._init(this);
-  }
+  GetUsagePlansRequestBuilder();
 
   GetUsagePlansRequestBuilder get _$this {
     final $v = _$v;
@@ -137,9 +135,7 @@ class GetUsagePlansRequestPayloadBuilder
             GetUsagePlansRequestPayloadBuilder> {
   _$GetUsagePlansRequestPayload? _$v;
 
-  GetUsagePlansRequestPayloadBuilder() {
-    GetUsagePlansRequestPayload._init(this);
-  }
+  GetUsagePlansRequestPayloadBuilder();
 
   @override
   void replace(GetUsagePlansRequestPayload other) {

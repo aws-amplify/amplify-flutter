@@ -42,9 +42,6 @@ abstract class EntityDetails
     EntityDetailsAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EntityDetailsBuilder b) {}
-
   /// The `EntityInfo` object that contains details about the entity (user or role).
   _i2.EntityInfo get entityInfo;
 

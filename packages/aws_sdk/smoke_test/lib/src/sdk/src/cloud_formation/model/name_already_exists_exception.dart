@@ -40,8 +40,6 @@ abstract class NameAlreadyExistsException
   static const List<_i2.SmithySerializer<NameAlreadyExistsException>>
       serializers = [NameAlreadyExistsExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NameAlreadyExistsExceptionBuilder b) {}
   @override
   String? get message;
   @override

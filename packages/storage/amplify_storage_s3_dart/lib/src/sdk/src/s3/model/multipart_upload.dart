@@ -52,9 +52,6 @@ abstract class MultipartUpload
     MultipartUploadRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MultipartUploadBuilder b) {}
-
   /// Upload ID that identifies the multipart upload.
   String? get uploadId;
 

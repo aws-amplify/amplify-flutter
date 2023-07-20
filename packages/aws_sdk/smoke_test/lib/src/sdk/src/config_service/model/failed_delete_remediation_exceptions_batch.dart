@@ -44,9 +44,6 @@ abstract class FailedDeleteRemediationExceptionsBatch
     FailedDeleteRemediationExceptionsBatchAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(FailedDeleteRemediationExceptionsBatchBuilder b) {}
-
   /// Returns a failure message for delete remediation exception. For example, Config creates an exception due to an internal error.
   String? get failureMessage;
 

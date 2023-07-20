@@ -40,8 +40,6 @@ abstract class CopyObjectOutput
     CopyObjectOutputRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CopyObjectOutputBuilder b) {}
   _i3.CopyObjectResult? get copyObjectResult;
   @override
   _i3.CopyObjectResult? getPayload() =>

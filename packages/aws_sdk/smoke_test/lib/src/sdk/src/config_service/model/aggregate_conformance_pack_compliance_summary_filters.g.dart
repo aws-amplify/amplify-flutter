@@ -68,9 +68,7 @@ class AggregateConformancePackComplianceSummaryFiltersBuilder
   String? get awsRegion => _$this._awsRegion;
   set awsRegion(String? awsRegion) => _$this._awsRegion = awsRegion;
 
-  AggregateConformancePackComplianceSummaryFiltersBuilder() {
-    AggregateConformancePackComplianceSummaryFilters._init(this);
-  }
+  AggregateConformancePackComplianceSummaryFiltersBuilder();
 
   AggregateConformancePackComplianceSummaryFiltersBuilder get _$this {
     final $v = _$v;

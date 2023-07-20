@@ -82,9 +82,6 @@ abstract class UpdateStackInput
     UpdateStackInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateStackInputBuilder b) {}
-
   /// The name or unique stack ID of the stack to update.
   String get stackName;
 

@@ -54,9 +54,7 @@ class DescribeDeliveryChannelsRequestBuilder
   set deliveryChannelNames(_i3.ListBuilder<String>? deliveryChannelNames) =>
       _$this._deliveryChannelNames = deliveryChannelNames;
 
-  DescribeDeliveryChannelsRequestBuilder() {
-    DescribeDeliveryChannelsRequest._init(this);
-  }
+  DescribeDeliveryChannelsRequestBuilder();
 
   DescribeDeliveryChannelsRequestBuilder get _$this {
     final $v = _$v;

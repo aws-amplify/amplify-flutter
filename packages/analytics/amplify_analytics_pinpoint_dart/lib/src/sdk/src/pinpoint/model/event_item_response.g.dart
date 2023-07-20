@@ -56,9 +56,7 @@ class EventItemResponseBuilder
   int? get statusCode => _$this._statusCode;
   set statusCode(int? statusCode) => _$this._statusCode = statusCode;
 
-  EventItemResponseBuilder() {
-    EventItemResponse._init(this);
-  }
+  EventItemResponseBuilder();
 
   EventItemResponseBuilder get _$this {
     final $v = _$v;

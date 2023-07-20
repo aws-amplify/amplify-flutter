@@ -34,8 +34,6 @@ abstract class GreetingWithErrorsOutput
   static const List<_i2.SmithySerializer<GreetingWithErrorsOutput>>
       serializers = [GreetingWithErrorsOutputAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GreetingWithErrorsOutputBuilder b) {}
   String? get greeting;
   @override
   List<Object?> get props => [greeting];

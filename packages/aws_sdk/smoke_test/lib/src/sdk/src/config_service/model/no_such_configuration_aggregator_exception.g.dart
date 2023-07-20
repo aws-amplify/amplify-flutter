@@ -69,9 +69,7 @@ class NoSuchConfigurationAggregatorExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  NoSuchConfigurationAggregatorExceptionBuilder() {
-    NoSuchConfigurationAggregatorException._init(this);
-  }
+  NoSuchConfigurationAggregatorExceptionBuilder();
 
   NoSuchConfigurationAggregatorExceptionBuilder get _$this {
     final $v = _$v;

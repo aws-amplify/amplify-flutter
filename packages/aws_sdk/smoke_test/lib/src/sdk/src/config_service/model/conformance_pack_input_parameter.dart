@@ -38,9 +38,6 @@ abstract class ConformancePackInputParameter
   static const List<_i2.SmithySerializer<ConformancePackInputParameter>>
       serializers = [ConformancePackInputParameterAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConformancePackInputParameterBuilder b) {}
-
   /// One part of a key-value pair.
   String get parameterName;
 

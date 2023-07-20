@@ -47,9 +47,6 @@ abstract class ContextEntry
     ContextEntryAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ContextEntryBuilder b) {}
-
   /// The full name of a condition context key, including the service prefix. For example, `aws:SourceIp` or `s3:VersionId`.
   String? get contextKeyName;
 

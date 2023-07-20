@@ -49,9 +49,7 @@ class ObjectLockRuleBuilder
   set defaultRetention(_i2.DefaultRetentionBuilder? defaultRetention) =>
       _$this._defaultRetention = defaultRetention;
 
-  ObjectLockRuleBuilder() {
-    ObjectLockRule._init(this);
-  }
+  ObjectLockRuleBuilder();
 
   ObjectLockRuleBuilder get _$this {
     final $v = _$v;

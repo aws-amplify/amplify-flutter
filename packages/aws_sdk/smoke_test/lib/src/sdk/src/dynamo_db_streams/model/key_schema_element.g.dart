@@ -63,9 +63,7 @@ class KeySchemaElementBuilder
   _i2.KeyType? get keyType => _$this._keyType;
   set keyType(_i2.KeyType? keyType) => _$this._keyType = keyType;
 
-  KeySchemaElementBuilder() {
-    KeySchemaElement._init(this);
-  }
+  KeySchemaElementBuilder();
 
   KeySchemaElementBuilder get _$this {
     final $v = _$v;

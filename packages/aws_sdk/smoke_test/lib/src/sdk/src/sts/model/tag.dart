@@ -34,9 +34,6 @@ abstract class Tag
     TagAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TagBuilder b) {}
-
   /// The key for a session tag.
   ///
   /// You can pass up to 50 session tags. The plain text session tag keys can’t exceed 128 characters. For these and additional limits, see [IAM and STS Character Limits](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html#reference_iam-limits-entity-length) in the _IAM User Guide_.

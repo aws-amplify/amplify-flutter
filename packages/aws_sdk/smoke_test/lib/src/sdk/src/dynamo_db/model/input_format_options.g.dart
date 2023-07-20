@@ -48,9 +48,7 @@ class InputFormatOptionsBuilder
   _i2.CsvOptionsBuilder get csv => _$this._csv ??= new _i2.CsvOptionsBuilder();
   set csv(_i2.CsvOptionsBuilder? csv) => _$this._csv = csv;
 
-  InputFormatOptionsBuilder() {
-    InputFormatOptions._init(this);
-  }
+  InputFormatOptionsBuilder();
 
   InputFormatOptionsBuilder get _$this {
     final $v = _$v;

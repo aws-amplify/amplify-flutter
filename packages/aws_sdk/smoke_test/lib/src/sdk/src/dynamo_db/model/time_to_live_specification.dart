@@ -16,10 +16,9 @@ abstract class TimeToLiveSpecification
     implements Built<TimeToLiveSpecification, TimeToLiveSpecificationBuilder> {
   /// Represents the settings used to enable or disable Time to Live (TTL) for the specified table.
   factory TimeToLiveSpecification({
-    bool? enabled,
+    required bool enabled,
     required String attributeName,
   }) {
-    enabled ??= false;
     return _$TimeToLiveSpecification._(
       enabled: enabled,
       attributeName: attributeName,
@@ -35,11 +34,6 @@ abstract class TimeToLiveSpecification
 
   static const List<_i2.SmithySerializer<TimeToLiveSpecification>> serializers =
       [TimeToLiveSpecificationAwsJson10Serializer()];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TimeToLiveSpecificationBuilder b) {
-    b.enabled = false;
-  }
 
   /// Indicates whether TTL is to be enabled (true) or disabled (false) on the table.
   bool get enabled;

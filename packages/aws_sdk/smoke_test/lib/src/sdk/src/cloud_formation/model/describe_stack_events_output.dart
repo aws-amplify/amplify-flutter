@@ -46,9 +46,6 @@ abstract class DescribeStackEventsOutput
   static const List<_i4.SmithySerializer<DescribeStackEventsOutput>>
       serializers = [DescribeStackEventsOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeStackEventsOutputBuilder b) {}
-
   /// A list of `StackEvents` structures.
   _i3.BuiltList<_i2.StackEvent>? get stackEvents;
 

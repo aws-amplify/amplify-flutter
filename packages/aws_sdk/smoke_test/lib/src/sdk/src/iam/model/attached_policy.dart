@@ -47,9 +47,6 @@ abstract class AttachedPolicy
     AttachedPolicyAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AttachedPolicyBuilder b) {}
-
   /// The friendly name of the attached policy.
   String? get policyName;
 

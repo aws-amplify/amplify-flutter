@@ -72,9 +72,7 @@ class ReplicationGroupUpdateBuilder
   set delete(_i4.DeleteReplicationGroupMemberActionBuilder? delete) =>
       _$this._delete = delete;
 
-  ReplicationGroupUpdateBuilder() {
-    ReplicationGroupUpdate._init(this);
-  }
+  ReplicationGroupUpdateBuilder();
 
   ReplicationGroupUpdateBuilder get _$this {
     final $v = _$v;

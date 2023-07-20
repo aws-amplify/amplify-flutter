@@ -121,9 +121,7 @@ class ServiceLastAccessedBuilder
               trackedActionsLastAccessed) =>
       _$this._trackedActionsLastAccessed = trackedActionsLastAccessed;
 
-  ServiceLastAccessedBuilder() {
-    ServiceLastAccessed._init(this);
-  }
+  ServiceLastAccessedBuilder();
 
   ServiceLastAccessedBuilder get _$this {
     final $v = _$v;

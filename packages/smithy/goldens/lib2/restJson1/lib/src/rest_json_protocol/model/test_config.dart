@@ -26,8 +26,6 @@ abstract class TestConfig
     TestConfigRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TestConfigBuilder b) {}
   int? get timeout;
   @override
   List<Object?> get props => [timeout];

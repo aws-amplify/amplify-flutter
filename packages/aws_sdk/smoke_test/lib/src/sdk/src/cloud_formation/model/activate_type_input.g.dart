@@ -138,9 +138,7 @@ class ActivateTypeInputBuilder
   set majorVersion(_i6.Int64? majorVersion) =>
       _$this._majorVersion = majorVersion;
 
-  ActivateTypeInputBuilder() {
-    ActivateTypeInput._init(this);
-  }
+  ActivateTypeInputBuilder();
 
   ActivateTypeInputBuilder get _$this {
     final $v = _$v;

@@ -38,9 +38,6 @@ abstract class OperationResultFilter
     OperationResultFilterAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OperationResultFilterBuilder b) {}
-
   /// The type of filter to apply.
   _i2.OperationResultFilterName? get name;
 

@@ -58,9 +58,7 @@ class VersioningConfigurationBuilder
   _i3.BucketVersioningStatus? get status => _$this._status;
   set status(_i3.BucketVersioningStatus? status) => _$this._status = status;
 
-  VersioningConfigurationBuilder() {
-    VersioningConfiguration._init(this);
-  }
+  VersioningConfigurationBuilder();
 
   VersioningConfigurationBuilder get _$this {
     final $v = _$v;

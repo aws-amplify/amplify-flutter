@@ -80,9 +80,7 @@ class SessionBuilder implements Builder<Session, SessionBuilder> {
   set stopTimestamp(String? stopTimestamp) =>
       _$this._stopTimestamp = stopTimestamp;
 
-  SessionBuilder() {
-    Session._init(this);
-  }
+  SessionBuilder();
 
   SessionBuilder get _$this {
     final $v = _$v;

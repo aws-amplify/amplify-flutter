@@ -55,9 +55,6 @@ abstract class GetModelTemplateRequest
   static const List<_i1.SmithySerializer<GetModelTemplateRequestPayload>>
       serializers = [GetModelTemplateRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetModelTemplateRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -114,8 +111,6 @@ abstract class GetModelTemplateRequestPayload
 
   const GetModelTemplateRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetModelTemplateRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

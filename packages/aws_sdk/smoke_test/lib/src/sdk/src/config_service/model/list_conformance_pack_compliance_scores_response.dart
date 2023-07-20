@@ -50,9 +50,6 @@ abstract class ListConformancePackComplianceScoresResponse
     ListConformancePackComplianceScoresResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListConformancePackComplianceScoresResponseBuilder b) {}
-
   /// The `nextToken` string that you can use to get the next page of results in a paginated response.
   String? get nextToken;
 

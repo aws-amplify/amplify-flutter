@@ -58,9 +58,6 @@ abstract class UntagResourceRequest
   static const List<_i1.SmithySerializer<UntagResourceRequestPayload>>
       serializers = [UntagResourceRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UntagResourceRequestBuilder b) {}
-
   /// The ARN of a resource that can be tagged.
   String get resourceArn;
 
@@ -112,8 +109,6 @@ abstract class UntagResourceRequestPayload
 
   const UntagResourceRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UntagResourceRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -51,9 +51,7 @@ class GetSessionTokenResponseBuilder
   set credentials(_i2.CredentialsBuilder? credentials) =>
       _$this._credentials = credentials;
 
-  GetSessionTokenResponseBuilder() {
-    GetSessionTokenResponse._init(this);
-  }
+  GetSessionTokenResponseBuilder();
 
   GetSessionTokenResponseBuilder get _$this {
     final $v = _$v;

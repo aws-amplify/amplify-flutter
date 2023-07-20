@@ -73,9 +73,6 @@ abstract class CreateDomainNameRequest
   static const List<_i1.SmithySerializer<CreateDomainNameRequest>> serializers =
       [CreateDomainNameRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateDomainNameRequestBuilder b) {}
-
   /// The name of the DomainName resource.
   String get domainName;
 

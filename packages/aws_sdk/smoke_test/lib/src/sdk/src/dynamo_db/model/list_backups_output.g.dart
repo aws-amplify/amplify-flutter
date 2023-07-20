@@ -60,9 +60,7 @@ class ListBackupsOutputBuilder
   set lastEvaluatedBackupArn(String? lastEvaluatedBackupArn) =>
       _$this._lastEvaluatedBackupArn = lastEvaluatedBackupArn;
 
-  ListBackupsOutputBuilder() {
-    ListBackupsOutput._init(this);
-  }
+  ListBackupsOutputBuilder();
 
   ListBackupsOutputBuilder get _$this {
     final $v = _$v;

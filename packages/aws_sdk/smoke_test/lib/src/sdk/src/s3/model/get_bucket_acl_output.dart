@@ -43,9 +43,6 @@ abstract class GetBucketAclOutput
     GetBucketAclOutputRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketAclOutputBuilder b) {}
-
   /// Container for the bucket owner's display name and ID.
   _i2.Owner? get owner;
 

@@ -60,9 +60,6 @@ abstract class ExecuteStatementInput
     ExecuteStatementInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ExecuteStatementInputBuilder b) {}
-
   /// The PartiQL statement representing the operation to run.
   String get statement;
 

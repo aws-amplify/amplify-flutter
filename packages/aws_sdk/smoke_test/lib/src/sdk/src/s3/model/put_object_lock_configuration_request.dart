@@ -86,9 +86,6 @@ abstract class PutObjectLockConfigurationRequest
   static const List<_i1.SmithySerializer<_i2.ObjectLockConfiguration?>>
       serializers = [PutObjectLockConfigurationRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectLockConfigurationRequestBuilder b) {}
-
   /// The bucket whose Object Lock configuration you want to create or replace.
   String get bucket;
 

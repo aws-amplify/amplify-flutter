@@ -56,9 +56,7 @@ class DeleteEvaluationResultsRequestBuilder
   set configRuleName(String? configRuleName) =>
       _$this._configRuleName = configRuleName;
 
-  DeleteEvaluationResultsRequestBuilder() {
-    DeleteEvaluationResultsRequest._init(this);
-  }
+  DeleteEvaluationResultsRequestBuilder();
 
   DeleteEvaluationResultsRequestBuilder get _$this {
     final $v = _$v;

@@ -41,9 +41,6 @@ abstract class Scope
     ScopeAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ScopeBuilder b) {}
-
   /// The resource types of only those Amazon Web Services resources that you want to trigger an evaluation for the rule. You can only specify one type if you also specify a resource ID for `ComplianceResourceId`.
   _i2.BuiltList<String>? get complianceResourceTypes;
 

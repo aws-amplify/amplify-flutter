@@ -69,9 +69,7 @@ class ListServerCertificatesRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  ListServerCertificatesRequestBuilder() {
-    ListServerCertificatesRequest._init(this);
-  }
+  ListServerCertificatesRequestBuilder();
 
   ListServerCertificatesRequestBuilder get _$this {
     final $v = _$v;

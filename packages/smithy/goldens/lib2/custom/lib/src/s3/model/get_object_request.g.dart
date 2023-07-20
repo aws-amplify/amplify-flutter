@@ -69,9 +69,7 @@ class GetObjectRequestBuilder
   String? get range => _$this._range;
   set range(String? range) => _$this._range = range;
 
-  GetObjectRequestBuilder() {
-    GetObjectRequest._init(this);
-  }
+  GetObjectRequestBuilder();
 
   GetObjectRequestBuilder get _$this {
     final $v = _$v;
@@ -144,9 +142,7 @@ class GetObjectRequestPayloadBuilder
         Builder<GetObjectRequestPayload, GetObjectRequestPayloadBuilder> {
   _$GetObjectRequestPayload? _$v;
 
-  GetObjectRequestPayloadBuilder() {
-    GetObjectRequestPayload._init(this);
-  }
+  GetObjectRequestPayloadBuilder();
 
   @override
   void replace(GetObjectRequestPayload other) {

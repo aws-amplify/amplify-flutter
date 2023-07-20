@@ -78,9 +78,7 @@ class GetOrganizationConfigRuleDetailedStatusResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  GetOrganizationConfigRuleDetailedStatusResponseBuilder() {
-    GetOrganizationConfigRuleDetailedStatusResponse._init(this);
-  }
+  GetOrganizationConfigRuleDetailedStatusResponseBuilder();
 
   GetOrganizationConfigRuleDetailedStatusResponseBuilder get _$this {
     final $v = _$v;

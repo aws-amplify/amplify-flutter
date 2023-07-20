@@ -50,9 +50,7 @@ class EvaluationModeConfigurationBuilder
   _i2.EvaluationMode? get mode => _$this._mode;
   set mode(_i2.EvaluationMode? mode) => _$this._mode = mode;
 
-  EvaluationModeConfigurationBuilder() {
-    EvaluationModeConfiguration._init(this);
-  }
+  EvaluationModeConfigurationBuilder();
 
   EvaluationModeConfigurationBuilder get _$this {
     final $v = _$v;

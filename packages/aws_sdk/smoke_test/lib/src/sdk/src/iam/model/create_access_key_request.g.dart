@@ -48,9 +48,7 @@ class CreateAccessKeyRequestBuilder
   String? get userName => _$this._userName;
   set userName(String? userName) => _$this._userName = userName;
 
-  CreateAccessKeyRequestBuilder() {
-    CreateAccessKeyRequest._init(this);
-  }
+  CreateAccessKeyRequestBuilder();
 
   CreateAccessKeyRequestBuilder get _$this {
     final $v = _$v;

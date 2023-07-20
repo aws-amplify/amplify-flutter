@@ -57,9 +57,7 @@ class ValidateTemplateInputBuilder
   String? get templateUrl => _$this._templateUrl;
   set templateUrl(String? templateUrl) => _$this._templateUrl = templateUrl;
 
-  ValidateTemplateInputBuilder() {
-    ValidateTemplateInput._init(this);
-  }
+  ValidateTemplateInputBuilder();
 
   ValidateTemplateInputBuilder get _$this {
     final $v = _$v;

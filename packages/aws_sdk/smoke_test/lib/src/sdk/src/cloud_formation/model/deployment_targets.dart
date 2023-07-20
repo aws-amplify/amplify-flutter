@@ -50,9 +50,6 @@ abstract class DeploymentTargets
     DeploymentTargetsAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeploymentTargetsBuilder b) {}
-
   /// The names of one or more Amazon Web Services accounts for which you want to deploy stack set updates.
   _i3.BuiltList<String>? get accounts;
 

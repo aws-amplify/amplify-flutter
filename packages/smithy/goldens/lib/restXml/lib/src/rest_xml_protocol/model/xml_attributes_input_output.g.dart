@@ -58,9 +58,7 @@ class XmlAttributesInputOutputBuilder
   String? get attr => _$this._attr;
   set attr(String? attr) => _$this._attr = attr;
 
-  XmlAttributesInputOutputBuilder() {
-    XmlAttributesInputOutput._init(this);
-  }
+  XmlAttributesInputOutputBuilder();
 
   XmlAttributesInputOutputBuilder get _$this {
     final $v = _$v;

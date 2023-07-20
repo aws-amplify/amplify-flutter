@@ -44,9 +44,7 @@ class DeleteRemediationConfigurationResponseBuilder
             DeleteRemediationConfigurationResponseBuilder> {
   _$DeleteRemediationConfigurationResponse? _$v;
 
-  DeleteRemediationConfigurationResponseBuilder() {
-    DeleteRemediationConfigurationResponse._init(this);
-  }
+  DeleteRemediationConfigurationResponseBuilder();
 
   @override
   void replace(DeleteRemediationConfigurationResponse other) {

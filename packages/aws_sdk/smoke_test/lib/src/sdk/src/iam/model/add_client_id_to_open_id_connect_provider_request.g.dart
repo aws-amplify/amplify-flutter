@@ -73,9 +73,7 @@ class AddClientIdToOpenIdConnectProviderRequestBuilder
   String? get clientId => _$this._clientId;
   set clientId(String? clientId) => _$this._clientId = clientId;
 
-  AddClientIdToOpenIdConnectProviderRequestBuilder() {
-    AddClientIdToOpenIdConnectProviderRequest._init(this);
-  }
+  AddClientIdToOpenIdConnectProviderRequestBuilder();
 
   AddClientIdToOpenIdConnectProviderRequestBuilder get _$this {
     final $v = _$v;

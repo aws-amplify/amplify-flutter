@@ -40,8 +40,6 @@ abstract class PolicyEvaluationException
   static const List<_i2.SmithySerializer<PolicyEvaluationException>>
       serializers = [PolicyEvaluationExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PolicyEvaluationExceptionBuilder b) {}
   @override
   String? get message;
   @override

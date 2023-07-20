@@ -33,8 +33,6 @@ abstract class HostLabelInput
     HostLabelInputRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HostLabelInputBuilder b) {}
   String get label;
   @override
   String labelFor(String key) {

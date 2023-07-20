@@ -50,9 +50,6 @@ abstract class TypeVersionSummary
     TypeVersionSummaryAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TypeVersionSummaryBuilder b) {}
-
   /// The kind of extension.
   _i2.RegistryType? get type;
 

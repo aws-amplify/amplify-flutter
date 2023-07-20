@@ -50,9 +50,6 @@ abstract class AggregateEvaluationResult
   static const List<_i4.SmithySerializer<AggregateEvaluationResult>>
       serializers = [AggregateEvaluationResultAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AggregateEvaluationResultBuilder b) {}
-
   /// Uniquely identifies the evaluation result.
   _i2.EvaluationResultIdentifier? get evaluationResultIdentifier;
 

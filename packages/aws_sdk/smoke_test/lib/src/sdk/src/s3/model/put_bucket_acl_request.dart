@@ -105,9 +105,6 @@ abstract class PutBucketAclRequest
   static const List<_i1.SmithySerializer<_i2.AccessControlPolicy?>>
       serializers = [PutBucketAclRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketAclRequestBuilder b) {}
-
   /// The canned ACL to apply to the bucket.
   _i4.BucketCannedAcl? get acl;
 

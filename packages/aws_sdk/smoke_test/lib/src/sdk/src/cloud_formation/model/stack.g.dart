@@ -263,9 +263,7 @@ class StackBuilder implements Builder<Stack, StackBuilder> {
   set driftInformation(_i8.StackDriftInformationBuilder? driftInformation) =>
       _$this._driftInformation = driftInformation;
 
-  StackBuilder() {
-    Stack._init(this);
-  }
+  StackBuilder();
 
   StackBuilder get _$this {
     final $v = _$v;

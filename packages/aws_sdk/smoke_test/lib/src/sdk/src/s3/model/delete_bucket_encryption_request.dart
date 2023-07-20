@@ -54,9 +54,6 @@ abstract class DeleteBucketEncryptionRequest
   static const List<_i1.SmithySerializer<DeleteBucketEncryptionRequestPayload>>
       serializers = [DeleteBucketEncryptionRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBucketEncryptionRequestBuilder b) {}
-
   /// The name of the bucket containing the server-side encryption configuration to delete.
   String get bucket;
 
@@ -111,8 +108,6 @@ abstract class DeleteBucketEncryptionRequestPayload
 
   const DeleteBucketEncryptionRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBucketEncryptionRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

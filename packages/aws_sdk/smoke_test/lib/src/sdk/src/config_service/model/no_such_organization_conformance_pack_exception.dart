@@ -52,9 +52,6 @@ abstract class NoSuchOrganizationConformancePackException
     NoSuchOrganizationConformancePackExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NoSuchOrganizationConformancePackExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

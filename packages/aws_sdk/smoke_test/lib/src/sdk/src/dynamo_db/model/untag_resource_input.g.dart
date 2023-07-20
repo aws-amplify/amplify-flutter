@@ -64,9 +64,7 @@ class UntagResourceInputBuilder
       _$this._tagKeys ??= new _i3.ListBuilder<String>();
   set tagKeys(_i3.ListBuilder<String>? tagKeys) => _$this._tagKeys = tagKeys;
 
-  UntagResourceInputBuilder() {
-    UntagResourceInput._init(this);
-  }
+  UntagResourceInputBuilder();
 
   UntagResourceInputBuilder get _$this {
     final $v = _$v;

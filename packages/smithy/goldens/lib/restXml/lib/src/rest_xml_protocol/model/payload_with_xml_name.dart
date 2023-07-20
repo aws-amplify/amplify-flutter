@@ -27,8 +27,6 @@ abstract class PayloadWithXmlName
     PayloadWithXmlNameRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PayloadWithXmlNameBuilder b) {}
   String? get name;
   @override
   List<Object?> get props => [name];

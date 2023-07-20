@@ -53,9 +53,6 @@ abstract class ConditionCheck
     ConditionCheckAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConditionCheckBuilder b) {}
-
   /// The primary key of the item to be checked. Each element consists of an attribute name and a value for that attribute.
   _i4.BuiltMap<String, _i2.AttributeValue> get key;
 

@@ -107,9 +107,7 @@ class QueryListsInputBuilder
   set nestedWithList(_i4.NestedStructWithListBuilder? nestedWithList) =>
       _$this._nestedWithList = nestedWithList;
 
-  QueryListsInputBuilder() {
-    QueryListsInput._init(this);
-  }
+  QueryListsInputBuilder();
 
   QueryListsInputBuilder get _$this {
     final $v = _$v;

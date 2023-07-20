@@ -54,9 +54,6 @@ abstract class ListTypeRegistrationsInput
   static const List<_i1.SmithySerializer<ListTypeRegistrationsInput>>
       serializers = [ListTypeRegistrationsInputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListTypeRegistrationsInputBuilder b) {}
-
   /// The kind of extension.
   ///
   /// Conditional: You must specify either `TypeName` and `Type`, or `Arn`.

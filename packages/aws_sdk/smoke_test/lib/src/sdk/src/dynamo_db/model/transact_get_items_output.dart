@@ -45,9 +45,6 @@ abstract class TransactGetItemsOutput
   static const List<_i5.SmithySerializer<TransactGetItemsOutput>> serializers =
       [TransactGetItemsOutputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TransactGetItemsOutputBuilder b) {}
-
   /// If the _ReturnConsumedCapacity_ value was `TOTAL`, this is an array of `ConsumedCapacity` objects, one for each table addressed by `TransactGetItem` objects in the _TransactItems_ parameter. These `ConsumedCapacity` objects report the read-capacity units consumed by the `TransactGetItems` call in that table.
   _i4.BuiltList<_i2.ConsumedCapacity>? get consumedCapacity;
 

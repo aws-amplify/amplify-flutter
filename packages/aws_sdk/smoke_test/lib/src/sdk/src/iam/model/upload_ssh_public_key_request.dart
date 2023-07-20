@@ -42,9 +42,6 @@ abstract class UploadSshPublicKeyRequest
   static const List<_i1.SmithySerializer<UploadSshPublicKeyRequest>>
       serializers = [UploadSshPublicKeyRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UploadSshPublicKeyRequestBuilder b) {}
-
   /// The name of the IAM user to associate the SSH public key with.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

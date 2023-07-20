@@ -38,9 +38,6 @@ abstract class StackInstanceFilter
     StackInstanceFilterAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackInstanceFilterBuilder b) {}
-
   /// The type of filter to apply.
   _i2.StackInstanceFilterName? get name;
 

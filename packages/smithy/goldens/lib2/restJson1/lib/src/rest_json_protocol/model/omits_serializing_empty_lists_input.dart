@@ -113,8 +113,6 @@ abstract class OmitsSerializingEmptyListsInput
           _i1.SmithySerializer<OmitsSerializingEmptyListsInputPayload>>
       serializers = [OmitsSerializingEmptyListsInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OmitsSerializingEmptyListsInputBuilder b) {}
   _i5.BuiltList<String>? get queryStringList;
   _i5.BuiltList<int>? get queryIntegerList;
   _i5.BuiltList<double>? get queryDoubleList;
@@ -185,8 +183,6 @@ abstract class OmitsSerializingEmptyListsInputPayload
 
   const OmitsSerializingEmptyListsInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OmitsSerializingEmptyListsInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

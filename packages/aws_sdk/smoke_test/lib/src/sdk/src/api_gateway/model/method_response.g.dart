@@ -69,9 +69,7 @@ class MethodResponseBuilder
   set responseModels(_i2.MapBuilder<String, String>? responseModels) =>
       _$this._responseModels = responseModels;
 
-  MethodResponseBuilder() {
-    MethodResponse._init(this);
-  }
+  MethodResponseBuilder();
 
   MethodResponseBuilder get _$this {
     final $v = _$v;

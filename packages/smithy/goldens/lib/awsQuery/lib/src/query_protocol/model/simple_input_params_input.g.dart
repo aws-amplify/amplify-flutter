@@ -123,9 +123,7 @@ class SimpleInputParamsInputBuilder
   int? get integerEnum => _$this._integerEnum;
   set integerEnum(int? integerEnum) => _$this._integerEnum = integerEnum;
 
-  SimpleInputParamsInputBuilder() {
-    SimpleInputParamsInput._init(this);
-  }
+  SimpleInputParamsInputBuilder();
 
   SimpleInputParamsInputBuilder get _$this {
     final $v = _$v;

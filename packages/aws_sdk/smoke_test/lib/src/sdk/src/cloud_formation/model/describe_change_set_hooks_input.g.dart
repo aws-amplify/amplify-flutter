@@ -85,9 +85,7 @@ class DescribeChangeSetHooksInputBuilder
   set logicalResourceId(String? logicalResourceId) =>
       _$this._logicalResourceId = logicalResourceId;
 
-  DescribeChangeSetHooksInputBuilder() {
-    DescribeChangeSetHooksInput._init(this);
-  }
+  DescribeChangeSetHooksInputBuilder();
 
   DescribeChangeSetHooksInputBuilder get _$this {
     final $v = _$v;

@@ -67,9 +67,7 @@ class DeleteRequestValidatorRequestBuilder
   set requestValidatorId(String? requestValidatorId) =>
       _$this._requestValidatorId = requestValidatorId;
 
-  DeleteRequestValidatorRequestBuilder() {
-    DeleteRequestValidatorRequest._init(this);
-  }
+  DeleteRequestValidatorRequestBuilder();
 
   DeleteRequestValidatorRequestBuilder get _$this {
     final $v = _$v;
@@ -146,9 +144,7 @@ class DeleteRequestValidatorRequestPayloadBuilder
             DeleteRequestValidatorRequestPayloadBuilder> {
   _$DeleteRequestValidatorRequestPayload? _$v;
 
-  DeleteRequestValidatorRequestPayloadBuilder() {
-    DeleteRequestValidatorRequestPayload._init(this);
-  }
+  DeleteRequestValidatorRequestPayloadBuilder();
 
   @override
   void replace(DeleteRequestValidatorRequestPayload other) {

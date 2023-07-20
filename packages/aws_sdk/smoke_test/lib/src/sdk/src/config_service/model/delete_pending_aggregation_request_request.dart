@@ -46,9 +46,6 @@ abstract class DeletePendingAggregationRequestRequest
     DeletePendingAggregationRequestRequestAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeletePendingAggregationRequestRequestBuilder b) {}
-
   /// The 12-digit account ID of the account requesting to aggregate data.
   String get requesterAccountId;
 

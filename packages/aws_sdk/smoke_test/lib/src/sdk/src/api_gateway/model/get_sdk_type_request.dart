@@ -45,9 +45,6 @@ abstract class GetSdkTypeRequest
   static const List<_i1.SmithySerializer<GetSdkTypeRequestPayload>>
       serializers = [GetSdkTypeRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetSdkTypeRequestBuilder b) {}
-
   /// The identifier of the queried SdkType instance.
   String get id;
   @override
@@ -89,8 +86,6 @@ abstract class GetSdkTypeRequestPayload
 
   const GetSdkTypeRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetSdkTypeRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

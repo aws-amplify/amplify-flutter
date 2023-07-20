@@ -46,9 +46,6 @@ abstract class DeleteDomainNameRequest
   static const List<_i1.SmithySerializer<DeleteDomainNameRequestPayload>>
       serializers = [DeleteDomainNameRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteDomainNameRequestBuilder b) {}
-
   /// The name of the DomainName resource to be deleted.
   String get domainName;
   @override
@@ -93,8 +90,6 @@ abstract class DeleteDomainNameRequestPayload
 
   const DeleteDomainNameRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteDomainNameRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

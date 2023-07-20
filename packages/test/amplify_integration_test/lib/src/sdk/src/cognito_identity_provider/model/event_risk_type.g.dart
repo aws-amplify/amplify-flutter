@@ -67,9 +67,7 @@ class EventRiskTypeBuilder
   set compromisedCredentialsDetected(bool? compromisedCredentialsDetected) =>
       _$this._compromisedCredentialsDetected = compromisedCredentialsDetected;
 
-  EventRiskTypeBuilder() {
-    EventRiskType._init(this);
-  }
+  EventRiskTypeBuilder();
 
   EventRiskTypeBuilder get _$this {
     final $v = _$v;

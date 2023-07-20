@@ -45,9 +45,6 @@ abstract class GetAggregateResourceConfigRequest
   static const List<_i1.SmithySerializer<GetAggregateResourceConfigRequest>>
       serializers = [GetAggregateResourceConfigRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetAggregateResourceConfigRequestBuilder b) {}
-
   /// The name of the configuration aggregator.
   String get configurationAggregatorName;
 

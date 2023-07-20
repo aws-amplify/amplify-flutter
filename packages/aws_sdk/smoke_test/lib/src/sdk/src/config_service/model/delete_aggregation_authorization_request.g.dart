@@ -72,9 +72,7 @@ class DeleteAggregationAuthorizationRequestBuilder
   set authorizedAwsRegion(String? authorizedAwsRegion) =>
       _$this._authorizedAwsRegion = authorizedAwsRegion;
 
-  DeleteAggregationAuthorizationRequestBuilder() {
-    DeleteAggregationAuthorizationRequest._init(this);
-  }
+  DeleteAggregationAuthorizationRequestBuilder();
 
   DeleteAggregationAuthorizationRequestBuilder get _$this {
     final $v = _$v;

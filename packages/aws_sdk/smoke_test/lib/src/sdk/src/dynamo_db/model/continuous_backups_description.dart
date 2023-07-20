@@ -42,9 +42,6 @@ abstract class ContinuousBackupsDescription
   static const List<_i4.SmithySerializer<ContinuousBackupsDescription>>
       serializers = [ContinuousBackupsDescriptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ContinuousBackupsDescriptionBuilder b) {}
-
   /// `ContinuousBackupsStatus` can be one of the following states: ENABLED, DISABLED
   _i2.ContinuousBackupsStatus get continuousBackupsStatus;
 

@@ -28,8 +28,6 @@ abstract class Sses3
     Sses3RestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(Sses3Builder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -70,9 +70,7 @@ class GetAuthorizersRequestBuilder
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
 
-  GetAuthorizersRequestBuilder() {
-    GetAuthorizersRequest._init(this);
-  }
+  GetAuthorizersRequestBuilder();
 
   GetAuthorizersRequestBuilder get _$this {
     final $v = _$v;
@@ -145,9 +143,7 @@ class GetAuthorizersRequestPayloadBuilder
             GetAuthorizersRequestPayloadBuilder> {
   _$GetAuthorizersRequestPayload? _$v;
 
-  GetAuthorizersRequestPayloadBuilder() {
-    GetAuthorizersRequestPayload._init(this);
-  }
+  GetAuthorizersRequestPayloadBuilder();
 
   @override
   void replace(GetAuthorizersRequestPayload other) {

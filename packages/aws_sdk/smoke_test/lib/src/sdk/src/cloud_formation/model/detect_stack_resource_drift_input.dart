@@ -43,9 +43,6 @@ abstract class DetectStackResourceDriftInput
   static const List<_i1.SmithySerializer<DetectStackResourceDriftInput>>
       serializers = [DetectStackResourceDriftInputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DetectStackResourceDriftInputBuilder b) {}
-
   /// The name of the stack to which the resource belongs.
   String get stackName;
 

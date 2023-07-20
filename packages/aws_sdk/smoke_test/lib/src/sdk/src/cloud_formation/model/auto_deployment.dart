@@ -35,9 +35,6 @@ abstract class AutoDeployment
     AutoDeploymentAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AutoDeploymentBuilder b) {}
-
   /// If set to `true`, StackSets automatically deploys additional stack instances to Organizations accounts that are added to a target organization or organizational unit (OU) in the specified Regions. If an account is removed from a target organization or OU, StackSets deletes stack instances from the account in the specified Regions.
   bool? get enabled;
 

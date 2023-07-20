@@ -63,9 +63,7 @@ class UpdateRestApiRequestBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateRestApiRequestBuilder() {
-    UpdateRestApiRequest._init(this);
-  }
+  UpdateRestApiRequestBuilder();
 
   UpdateRestApiRequestBuilder get _$this {
     final $v = _$v;
@@ -162,9 +160,7 @@ class UpdateRestApiRequestPayloadBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateRestApiRequestPayloadBuilder() {
-    UpdateRestApiRequestPayload._init(this);
-  }
+  UpdateRestApiRequestPayloadBuilder();
 
   UpdateRestApiRequestPayloadBuilder get _$this {
     final $v = _$v;

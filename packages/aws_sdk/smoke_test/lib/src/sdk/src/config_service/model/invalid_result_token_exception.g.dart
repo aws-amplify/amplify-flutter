@@ -63,9 +63,7 @@ class InvalidResultTokenExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InvalidResultTokenExceptionBuilder() {
-    InvalidResultTokenException._init(this);
-  }
+  InvalidResultTokenExceptionBuilder();
 
   InvalidResultTokenExceptionBuilder get _$this {
     final $v = _$v;

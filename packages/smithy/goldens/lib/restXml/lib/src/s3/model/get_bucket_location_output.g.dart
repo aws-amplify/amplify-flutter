@@ -52,9 +52,7 @@ class GetBucketLocationOutputBuilder
   set locationConstraint(_i3.BucketLocationConstraint? locationConstraint) =>
       _$this._locationConstraint = locationConstraint;
 
-  GetBucketLocationOutputBuilder() {
-    GetBucketLocationOutput._init(this);
-  }
+  GetBucketLocationOutputBuilder();
 
   GetBucketLocationOutputBuilder get _$this {
     final $v = _$v;

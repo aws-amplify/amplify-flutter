@@ -88,10 +88,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
             if (shape.isOutputShape || shape.isError) fromResponseConstructor,
           ])
           ..methods.addAll([
-            defaultValues(
-              members: members,
-              builderSymbol: builderSymbol,
-            ),
+            if (_initializer case final init?) init,
             ..._fieldGetters(isPayload: false),
             ..._httpInputOverrides,
             if (shape.isInputShape || hasPayload) _getPayload,
@@ -128,10 +125,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
             _privateConstructor,
           ])
           ..methods.addAll([
-            defaultValues(
-              members: payloadMembers,
-              builderSymbol: payloadBuilderSymbol,
-            ),
+            if (_payloadInitializer case final init?) init,
             ..._fieldGetters(isPayload: true),
             _props(payloadMembers),
             _toString(isPayload: true),
@@ -151,16 +145,31 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
       final memberExpressions = <String, Expression>{};
       for (final member in members) {
         final propertyName = member.dartName(ShapeType.structure);
-        final memberSymbol = memberSymbols[member]!;
-        final defaultValue = _defaultValueAssignment(member);
+        final targetShape = context.shapeFor(member.target);
+        final symbolOverrides =
+            context.overridesFor(member) ?? context.overridesFor(targetShape);
+        var defaultValue = member.defaultValue(context);
+        if (defaultValue != null && symbolOverrides != null) {
+          final (value, isConst) = defaultValue;
+          defaultValue = (
+            symbolOverrides.transformToFriendly(
+              value,
+              isNullable: false,
+              isConst: isConst,
+            ),
+            isConst
+          );
+        }
         final isNullable =
-            memberSymbol.typeRef.isNullable! && defaultValue == null;
-        memberExpressions[propertyName] = memberSymbol.transformToInternal(
+            member.isNullable(context, shape) && defaultValue == null;
+        memberExpressions[propertyName] = member.transformFromFriendly(
           name: propertyName,
           isNullable: isNullable,
         );
         if (defaultValue != null) {
-          b.addExpression(defaultValue);
+          b.addExpression(
+            refer(propertyName).assignNullAware(defaultValue.$1),
+          );
         }
       }
       b.addExpression(
@@ -211,11 +220,12 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
 
   /// Creates a constructor [Parameter] for [member].
   Parameter memberParameter(MemberShape member) {
-    final deprecatedAnnotation = member.deprecatedAnnotation ??
-        context.shapeFor(member.target).deprecatedAnnotation;
-    final symbol = memberSymbols[member]!.transformFromInternal();
+    final targetShape = context.shapeFor(member.target);
+    final deprecatedAnnotation =
+        member.deprecatedAnnotation ?? targetShape.deprecatedAnnotation;
+    final symbol = member.friendlySymbol;
     final defaultValue = member.defaultValue(context);
-    final isNullable = symbol.typeRef.isNullable! ||
+    final isNullable = member.isNullable(context, shape) ||
         defaultValue != null ||
         _defaultValueAssignment(member) != null;
 
@@ -359,8 +369,20 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
           ]).code,
       );
 
+  /// The initializer (bv `_init` method) for the main struct.
+  Method? get _initializer => defaultValues(
+        members: members,
+        builderSymbol: builderSymbol,
+      );
+
+  /// The initializer (bv `_init` method) for the payload struct.
+  Method? get _payloadInitializer => defaultValues(
+        members: payloadMembers,
+        builderSymbol: payloadBuilderSymbol,
+      );
+
   /// Adds default values to relevant properties.
-  Method defaultValues({
+  Method? defaultValues({
     required List<MemberShape> members,
     required Reference builderSymbol,
   }) {
@@ -376,9 +398,10 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
         currentExpresson = defaultValue;
       }
     }
-    if (currentExpresson != null) {
-      block.addExpression(currentExpresson);
+    if (currentExpresson == null) {
+      return null;
     }
+    block.addExpression(currentExpresson);
     return Method.returnsVoid(
       (m) => m
         ..annotations.add(
@@ -404,9 +427,14 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
     bool cascade = false,
   }) {
     final propertyName = member.dartName(ShapeType.structure);
-    final assign = switch (builder) {
-      != null when !cascade => builder.property(propertyName).assign,
-      != null when cascade => builder.cascade(propertyName).assign,
+    final targetShape = context.shapeFor(member.target);
+    final assign = switch ((builder, cascade, targetShape)) {
+      (final builder?, false, ListShape _ || MapShape _) => (Expression v) =>
+          builder.property(propertyName).property('addAll').call([v]),
+      (final builder?, false, _) => builder.property(propertyName).assign,
+      (final builder?, true, ListShape _ || MapShape _) => (Expression v) =>
+          builder.cascade(propertyName).property('addAll').call([v]),
+      (final builder?, true, _) => builder.cascade(propertyName).assign,
       _ => refer(propertyName).assignNullAware,
     };
     // In tests, client implementations that automatically provide values for
@@ -424,13 +452,11 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
         ),
       );
     }
-    final targetShape = context.shapeFor(member.target);
-    final defaultValue =
-        member.defaultValue(context) ?? targetShape.defaultValue(context);
+    final defaultValue = member.defaultValue(context);
     if (defaultValue == null) {
       return null;
     }
-    return assign(defaultValue);
+    return assign(defaultValue.$1);
   }
 
   /// Fields for this type.

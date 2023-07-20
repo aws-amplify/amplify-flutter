@@ -73,9 +73,6 @@ abstract class PutBucketPolicyRequest
     PutBucketPolicyRequestRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketPolicyRequestBuilder b) {}
-
   /// The name of the bucket.
   String get bucket;
 

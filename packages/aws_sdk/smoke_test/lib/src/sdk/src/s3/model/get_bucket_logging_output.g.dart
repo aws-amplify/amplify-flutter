@@ -51,9 +51,7 @@ class GetBucketLoggingOutputBuilder
   set loggingEnabled(_i2.LoggingEnabledBuilder? loggingEnabled) =>
       _$this._loggingEnabled = loggingEnabled;
 
-  GetBucketLoggingOutputBuilder() {
-    GetBucketLoggingOutput._init(this);
-  }
+  GetBucketLoggingOutputBuilder();
 
   GetBucketLoggingOutputBuilder get _$this {
     final $v = _$v;

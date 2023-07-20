@@ -62,9 +62,7 @@ class DescribeConfigRulesResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeConfigRulesResponseBuilder() {
-    DescribeConfigRulesResponse._init(this);
-  }
+  DescribeConfigRulesResponseBuilder();
 
   DescribeConfigRulesResponseBuilder get _$this {
     final $v = _$v;

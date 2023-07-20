@@ -72,9 +72,7 @@ class KinesisStreamingDestinationOutputBuilder
   set destinationStatus(_i2.DestinationStatus? destinationStatus) =>
       _$this._destinationStatus = destinationStatus;
 
-  KinesisStreamingDestinationOutputBuilder() {
-    KinesisStreamingDestinationOutput._init(this);
-  }
+  KinesisStreamingDestinationOutputBuilder();
 
   KinesisStreamingDestinationOutputBuilder get _$this {
     final $v = _$v;

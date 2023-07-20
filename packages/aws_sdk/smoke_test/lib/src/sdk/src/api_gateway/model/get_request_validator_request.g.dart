@@ -66,9 +66,7 @@ class GetRequestValidatorRequestBuilder
   set requestValidatorId(String? requestValidatorId) =>
       _$this._requestValidatorId = requestValidatorId;
 
-  GetRequestValidatorRequestBuilder() {
-    GetRequestValidatorRequest._init(this);
-  }
+  GetRequestValidatorRequestBuilder();
 
   GetRequestValidatorRequestBuilder get _$this {
     final $v = _$v;
@@ -144,9 +142,7 @@ class GetRequestValidatorRequestPayloadBuilder
             GetRequestValidatorRequestPayloadBuilder> {
   _$GetRequestValidatorRequestPayload? _$v;
 
-  GetRequestValidatorRequestPayloadBuilder() {
-    GetRequestValidatorRequestPayload._init(this);
-  }
+  GetRequestValidatorRequestPayloadBuilder();
 
   @override
   void replace(GetRequestValidatorRequestPayload other) {

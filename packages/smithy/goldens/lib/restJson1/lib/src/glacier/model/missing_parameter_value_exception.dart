@@ -47,8 +47,6 @@ abstract class MissingParameterValueException
   static const List<_i2.SmithySerializer<MissingParameterValueException>>
       serializers = [MissingParameterValueExceptionRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MissingParameterValueExceptionBuilder b) {}
   String? get type;
   String? get code;
   @override

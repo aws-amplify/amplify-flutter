@@ -35,9 +35,7 @@ class ParquetInputBuilder
     implements Builder<ParquetInput, ParquetInputBuilder> {
   _$ParquetInput? _$v;
 
-  ParquetInputBuilder() {
-    ParquetInput._init(this);
-  }
+  ParquetInputBuilder();
 
   @override
   void replace(ParquetInput other) {

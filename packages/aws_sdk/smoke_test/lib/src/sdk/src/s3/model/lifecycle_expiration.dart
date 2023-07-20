@@ -44,9 +44,6 @@ abstract class LifecycleExpiration
     LifecycleExpirationRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(LifecycleExpirationBuilder b) {}
-
   /// Indicates at what date the object is to be moved or deleted. The date value must conform to the ISO 8601 format. The time is always midnight UTC.
   DateTime? get date;
 

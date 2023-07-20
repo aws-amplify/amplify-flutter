@@ -40,9 +40,6 @@ abstract class ExportTableToPointInTimeOutput
   static const List<_i3.SmithySerializer<ExportTableToPointInTimeOutput>>
       serializers = [ExportTableToPointInTimeOutputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ExportTableToPointInTimeOutputBuilder b) {}
-
   /// Contains a description of the table export.
   _i2.ExportDescription? get exportDescription;
   @override

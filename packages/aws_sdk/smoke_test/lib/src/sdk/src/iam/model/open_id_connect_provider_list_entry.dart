@@ -32,9 +32,6 @@ abstract class OpenIdConnectProviderListEntry
   static const List<_i2.SmithySerializer<OpenIdConnectProviderListEntry>>
       serializers = [OpenIdConnectProviderListEntryAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OpenIdConnectProviderListEntryBuilder b) {}
-
   /// The Amazon Resource Name (ARN). ARNs are unique identifiers for Amazon Web Services resources.
   ///
   /// For more information about ARNs, go to [Amazon Resource Names (ARNs)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) in the _Amazon Web Services General Reference_.

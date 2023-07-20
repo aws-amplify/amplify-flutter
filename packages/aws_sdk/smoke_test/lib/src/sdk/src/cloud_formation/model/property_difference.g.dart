@@ -89,9 +89,7 @@ class PropertyDifferenceBuilder
   set differenceType(_i2.DifferenceType? differenceType) =>
       _$this._differenceType = differenceType;
 
-  PropertyDifferenceBuilder() {
-    PropertyDifference._init(this);
-  }
+  PropertyDifferenceBuilder();
 
   PropertyDifferenceBuilder get _$this {
     final $v = _$v;

@@ -174,9 +174,7 @@ class PutItemInputBuilder
       _$this._returnValuesOnConditionCheckFailure =
           returnValuesOnConditionCheckFailure;
 
-  PutItemInputBuilder() {
-    PutItemInput._init(this);
-  }
+  PutItemInputBuilder();
 
   PutItemInputBuilder get _$this {
     final $v = _$v;

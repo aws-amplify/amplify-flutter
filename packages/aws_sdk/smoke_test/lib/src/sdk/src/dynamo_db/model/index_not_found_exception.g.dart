@@ -61,9 +61,7 @@ class IndexNotFoundExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  IndexNotFoundExceptionBuilder() {
-    IndexNotFoundException._init(this);
-  }
+  IndexNotFoundExceptionBuilder();
 
   IndexNotFoundExceptionBuilder get _$this {
     final $v = _$v;

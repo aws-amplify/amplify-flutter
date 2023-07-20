@@ -36,9 +36,6 @@ abstract class DescribeExportInput
     DescribeExportInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeExportInputBuilder b) {}
-
   /// The Amazon Resource Name (ARN) associated with the export.
   String get exportArn;
   @override

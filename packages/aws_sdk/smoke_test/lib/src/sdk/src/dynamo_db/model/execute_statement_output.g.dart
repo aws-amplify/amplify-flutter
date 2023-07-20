@@ -87,9 +87,7 @@ class ExecuteStatementOutputBuilder
           _i4.MapBuilder<String, _i2.AttributeValue>? lastEvaluatedKey) =>
       _$this._lastEvaluatedKey = lastEvaluatedKey;
 
-  ExecuteStatementOutputBuilder() {
-    ExecuteStatementOutput._init(this);
-  }
+  ExecuteStatementOutputBuilder();
 
   ExecuteStatementOutputBuilder get _$this {
     final $v = _$v;

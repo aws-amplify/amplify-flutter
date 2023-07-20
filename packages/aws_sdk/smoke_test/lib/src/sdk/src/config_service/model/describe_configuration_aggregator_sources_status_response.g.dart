@@ -74,9 +74,7 @@ class DescribeConfigurationAggregatorSourcesStatusResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeConfigurationAggregatorSourcesStatusResponseBuilder() {
-    DescribeConfigurationAggregatorSourcesStatusResponse._init(this);
-  }
+  DescribeConfigurationAggregatorSourcesStatusResponseBuilder();
 
   DescribeConfigurationAggregatorSourcesStatusResponseBuilder get _$this {
     final $v = _$v;

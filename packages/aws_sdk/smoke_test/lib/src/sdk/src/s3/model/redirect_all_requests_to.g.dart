@@ -61,9 +61,7 @@ class RedirectAllRequestsToBuilder
   _i2.Protocol? get protocol => _$this._protocol;
   set protocol(_i2.Protocol? protocol) => _$this._protocol = protocol;
 
-  RedirectAllRequestsToBuilder() {
-    RedirectAllRequestsTo._init(this);
-  }
+  RedirectAllRequestsToBuilder();
 
   RedirectAllRequestsToBuilder get _$this {
     final $v = _$v;

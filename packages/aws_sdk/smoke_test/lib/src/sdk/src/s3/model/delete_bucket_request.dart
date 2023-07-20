@@ -53,9 +53,6 @@ abstract class DeleteBucketRequest
   static const List<_i1.SmithySerializer<DeleteBucketRequestPayload>>
       serializers = [DeleteBucketRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBucketRequestBuilder b) {}
-
   /// Specifies the bucket being deleted.
   String get bucket;
 
@@ -107,8 +104,6 @@ abstract class DeleteBucketRequestPayload
 
   const DeleteBucketRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBucketRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

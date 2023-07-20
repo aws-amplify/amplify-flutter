@@ -79,9 +79,7 @@ class DeleteBucketMetricsConfigurationRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  DeleteBucketMetricsConfigurationRequestBuilder() {
-    DeleteBucketMetricsConfigurationRequest._init(this);
-  }
+  DeleteBucketMetricsConfigurationRequestBuilder();
 
   DeleteBucketMetricsConfigurationRequestBuilder get _$this {
     final $v = _$v;
@@ -162,9 +160,7 @@ class DeleteBucketMetricsConfigurationRequestPayloadBuilder
             DeleteBucketMetricsConfigurationRequestPayloadBuilder> {
   _$DeleteBucketMetricsConfigurationRequestPayload? _$v;
 
-  DeleteBucketMetricsConfigurationRequestPayloadBuilder() {
-    DeleteBucketMetricsConfigurationRequestPayload._init(this);
-  }
+  DeleteBucketMetricsConfigurationRequestPayloadBuilder();
 
   @override
   void replace(DeleteBucketMetricsConfigurationRequestPayload other) {

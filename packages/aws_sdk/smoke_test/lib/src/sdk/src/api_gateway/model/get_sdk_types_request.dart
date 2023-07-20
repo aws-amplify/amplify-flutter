@@ -55,9 +55,6 @@ abstract class GetSdkTypesRequest
   static const List<_i1.SmithySerializer<GetSdkTypesRequestPayload>>
       serializers = [GetSdkTypesRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetSdkTypesRequestBuilder b) {}
-
   /// The current pagination position in the paged result set.
   String? get position;
 
@@ -97,8 +94,6 @@ abstract class GetSdkTypesRequestPayload
 
   const GetSdkTypesRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetSdkTypesRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

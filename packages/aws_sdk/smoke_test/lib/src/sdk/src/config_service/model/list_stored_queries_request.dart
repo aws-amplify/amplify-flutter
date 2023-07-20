@@ -20,7 +20,6 @@ abstract class ListStoredQueriesRequest
     String? nextToken,
     int? maxResults,
   }) {
-    maxResults ??= 0;
     return _$ListStoredQueriesRequest._(
       nextToken: nextToken,
       maxResults: maxResults,
@@ -43,16 +42,11 @@ abstract class ListStoredQueriesRequest
   static const List<_i1.SmithySerializer<ListStoredQueriesRequest>>
       serializers = [ListStoredQueriesRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListStoredQueriesRequestBuilder b) {
-    b.maxResults = 0;
-  }
-
   /// The nextToken string returned in a previous request that you use to request the next page of results in a paginated response.
   String? get nextToken;
 
   /// The maximum number of results to be returned with a single call.
-  int get maxResults;
+  int? get maxResults;
   @override
   ListStoredQueriesRequest getPayload() => this;
   @override
@@ -132,19 +126,20 @@ class ListStoredQueriesRequestAwsJson11Serializer
   }) {
     final result$ = <Object?>[];
     final ListStoredQueriesRequest(:nextToken, :maxResults) = object;
-    result$.addAll([
-      'MaxResults',
-      serializers.serialize(
-        maxResults,
-        specifiedType: const FullType(int),
-      ),
-    ]);
     if (nextToken != null) {
       result$
         ..add('NextToken')
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (maxResults != null) {
+      result$
+        ..add('MaxResults')
+        ..add(serializers.serialize(
+          maxResults,
+          specifiedType: const FullType(int),
         ));
     }
     return result$;

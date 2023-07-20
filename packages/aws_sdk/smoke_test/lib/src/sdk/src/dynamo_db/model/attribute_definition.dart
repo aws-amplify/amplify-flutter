@@ -38,9 +38,6 @@ abstract class AttributeDefinition
     AttributeDefinitionAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AttributeDefinitionBuilder b) {}
-
   /// A name for the attribute.
   String get attributeName;
 

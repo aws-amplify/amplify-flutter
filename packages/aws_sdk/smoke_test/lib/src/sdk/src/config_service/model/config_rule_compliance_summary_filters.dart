@@ -38,9 +38,6 @@ abstract class ConfigRuleComplianceSummaryFilters
   static const List<_i2.SmithySerializer<ConfigRuleComplianceSummaryFilters>>
       serializers = [ConfigRuleComplianceSummaryFiltersAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConfigRuleComplianceSummaryFiltersBuilder b) {}
-
   /// The 12-digit account ID of the source account.
   String? get accountId;
 

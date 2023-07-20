@@ -95,9 +95,7 @@ class GetServiceLastAccessedDetailsWithEntitiesRequestBuilder
   String? get marker => _$this._marker;
   set marker(String? marker) => _$this._marker = marker;
 
-  GetServiceLastAccessedDetailsWithEntitiesRequestBuilder() {
-    GetServiceLastAccessedDetailsWithEntitiesRequest._init(this);
-  }
+  GetServiceLastAccessedDetailsWithEntitiesRequestBuilder();
 
   GetServiceLastAccessedDetailsWithEntitiesRequestBuilder get _$this {
     final $v = _$v;

@@ -48,8 +48,6 @@ abstract class NestedCollectionsInput
   static const List<_i1.SmithySerializer<NestedCollectionsInput>> serializers =
       [NestedCollectionsInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NestedCollectionsInputBuilder b) {}
   _i3.BuiltListMultimap<String, _i3.BuiltListMultimap<String, String>?>?
       get mapOfListOfMapOfLists;
   @override

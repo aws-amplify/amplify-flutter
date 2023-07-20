@@ -50,9 +50,6 @@ abstract class SetTypeConfigurationInput
   static const List<_i1.SmithySerializer<SetTypeConfigurationInput>>
       serializers = [SetTypeConfigurationInputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SetTypeConfigurationInputBuilder b) {}
-
   /// The Amazon Resource Name (ARN) for the extension, in this account and Region.
   ///
   /// For public extensions, this will be the ARN assigned when you [activate the type](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ActivateType.html) in this account and Region. For private extensions, this will be the ARN assigned when you [register the type](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html) in this account and Region.

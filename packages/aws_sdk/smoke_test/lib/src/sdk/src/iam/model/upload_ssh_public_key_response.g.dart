@@ -52,9 +52,7 @@ class UploadSshPublicKeyResponseBuilder
   set sshPublicKey(_i2.SshPublicKeyBuilder? sshPublicKey) =>
       _$this._sshPublicKey = sshPublicKey;
 
-  UploadSshPublicKeyResponseBuilder() {
-    UploadSshPublicKeyResponse._init(this);
-  }
+  UploadSshPublicKeyResponseBuilder();
 
   UploadSshPublicKeyResponseBuilder get _$this {
     final $v = _$v;

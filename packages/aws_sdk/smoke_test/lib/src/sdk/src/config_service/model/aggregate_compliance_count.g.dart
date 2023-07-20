@@ -61,9 +61,7 @@ class AggregateComplianceCountBuilder
   set complianceSummary(_i2.ComplianceSummaryBuilder? complianceSummary) =>
       _$this._complianceSummary = complianceSummary;
 
-  AggregateComplianceCountBuilder() {
-    AggregateComplianceCount._init(this);
-  }
+  AggregateComplianceCountBuilder();
 
   AggregateComplianceCountBuilder get _$this {
     final $v = _$v;

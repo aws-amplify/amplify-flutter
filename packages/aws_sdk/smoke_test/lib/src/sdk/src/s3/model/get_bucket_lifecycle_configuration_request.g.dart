@@ -69,9 +69,7 @@ class GetBucketLifecycleConfigurationRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetBucketLifecycleConfigurationRequestBuilder() {
-    GetBucketLifecycleConfigurationRequest._init(this);
-  }
+  GetBucketLifecycleConfigurationRequestBuilder();
 
   GetBucketLifecycleConfigurationRequestBuilder get _$this {
     final $v = _$v;
@@ -148,9 +146,7 @@ class GetBucketLifecycleConfigurationRequestPayloadBuilder
             GetBucketLifecycleConfigurationRequestPayloadBuilder> {
   _$GetBucketLifecycleConfigurationRequestPayload? _$v;
 
-  GetBucketLifecycleConfigurationRequestPayloadBuilder() {
-    GetBucketLifecycleConfigurationRequestPayload._init(this);
-  }
+  GetBucketLifecycleConfigurationRequestPayloadBuilder();
 
   @override
   void replace(GetBucketLifecycleConfigurationRequestPayload other) {

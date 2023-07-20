@@ -43,9 +43,6 @@ abstract class TableAutoScalingDescription
   static const List<_i5.SmithySerializer<TableAutoScalingDescription>>
       serializers = [TableAutoScalingDescriptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TableAutoScalingDescriptionBuilder b) {}
-
   /// The name of the table.
   String? get tableName;
 

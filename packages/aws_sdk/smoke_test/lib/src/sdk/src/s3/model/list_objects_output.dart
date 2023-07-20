@@ -84,9 +84,6 @@ abstract class ListObjectsOutput
   static const List<_i2.SmithySerializer<ListObjectsOutputPayload>>
       serializers = [ListObjectsOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListObjectsOutputBuilder b) {}
-
   /// A flag that indicates whether Amazon S3 returned all of the results that satisfied the search criteria.
   bool? get isTruncated;
 
@@ -221,9 +218,6 @@ abstract class ListObjectsOutputPayload
       _$ListObjectsOutputPayload;
 
   const ListObjectsOutputPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListObjectsOutputPayloadBuilder b) {}
 
   /// All of the keys (up to 1,000) rolled up in a common prefix count as a single return when calculating the number of returns.
   ///

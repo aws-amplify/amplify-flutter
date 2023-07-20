@@ -68,9 +68,7 @@ class GetComplianceDetailsByConfigRuleResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  GetComplianceDetailsByConfigRuleResponseBuilder() {
-    GetComplianceDetailsByConfigRuleResponse._init(this);
-  }
+  GetComplianceDetailsByConfigRuleResponseBuilder();
 
   GetComplianceDetailsByConfigRuleResponseBuilder get _$this {
     final $v = _$v;

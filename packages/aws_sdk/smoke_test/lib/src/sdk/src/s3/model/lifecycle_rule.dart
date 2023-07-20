@@ -71,9 +71,6 @@ abstract class LifecycleRule
     LifecycleRuleRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(LifecycleRuleBuilder b) {}
-
   /// Specifies the expiration for the lifecycle of the object in the form of date, days and, whether the object has a delete marker.
   _i2.LifecycleExpiration? get expiration;
 

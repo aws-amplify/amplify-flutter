@@ -88,9 +88,7 @@ class EntityInfoBuilder implements Builder<EntityInfo, EntityInfoBuilder> {
   String? get path => _$this._path;
   set path(String? path) => _$this._path = path;
 
-  EntityInfoBuilder() {
-    EntityInfo._init(this);
-  }
+  EntityInfoBuilder();
 
   EntityInfoBuilder get _$this {
     final $v = _$v;

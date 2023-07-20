@@ -52,9 +52,7 @@ class GetSshPublicKeyResponseBuilder
   set sshPublicKey(_i2.SshPublicKeyBuilder? sshPublicKey) =>
       _$this._sshPublicKey = sshPublicKey;
 
-  GetSshPublicKeyResponseBuilder() {
-    GetSshPublicKeyResponse._init(this);
-  }
+  GetSshPublicKeyResponseBuilder();
 
   GetSshPublicKeyResponseBuilder get _$this {
     final $v = _$v;

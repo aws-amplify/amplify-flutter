@@ -74,9 +74,7 @@ class RequestTimeoutExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  RequestTimeoutExceptionBuilder() {
-    RequestTimeoutException._init(this);
-  }
+  RequestTimeoutExceptionBuilder();
 
   RequestTimeoutExceptionBuilder get _$this {
     final $v = _$v;

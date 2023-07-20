@@ -114,9 +114,7 @@ class PutBuilder implements Builder<Put, PutBuilder> {
       _$this._returnValuesOnConditionCheckFailure =
           returnValuesOnConditionCheckFailure;
 
-  PutBuilder() {
-    Put._init(this);
-  }
+  PutBuilder();
 
   PutBuilder get _$this {
     final $v = _$v;

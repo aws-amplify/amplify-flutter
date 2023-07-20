@@ -82,9 +82,7 @@ class ConfigRuleComplianceFiltersBuilder
   String? get awsRegion => _$this._awsRegion;
   set awsRegion(String? awsRegion) => _$this._awsRegion = awsRegion;
 
-  ConfigRuleComplianceFiltersBuilder() {
-    ConfigRuleComplianceFilters._init(this);
-  }
+  ConfigRuleComplianceFiltersBuilder();
 
   ConfigRuleComplianceFiltersBuilder get _$this {
     final $v = _$v;

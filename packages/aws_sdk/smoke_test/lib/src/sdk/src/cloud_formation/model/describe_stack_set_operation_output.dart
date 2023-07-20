@@ -40,9 +40,6 @@ abstract class DescribeStackSetOperationOutput
   static const List<_i3.SmithySerializer<DescribeStackSetOperationOutput>>
       serializers = [DescribeStackSetOperationOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeStackSetOperationOutputBuilder b) {}
-
   /// The specified stack set operation.
   _i2.StackSetOperation? get stackSetOperation;
   @override

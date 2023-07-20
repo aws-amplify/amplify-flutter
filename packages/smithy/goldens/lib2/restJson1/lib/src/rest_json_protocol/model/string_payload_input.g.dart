@@ -48,9 +48,7 @@ class StringPayloadInputBuilder
   String? get payload => _$this._payload;
   set payload(String? payload) => _$this._payload = payload;
 
-  StringPayloadInputBuilder() {
-    StringPayloadInput._init(this);
-  }
+  StringPayloadInputBuilder();
 
   StringPayloadInputBuilder get _$this {
     final $v = _$v;

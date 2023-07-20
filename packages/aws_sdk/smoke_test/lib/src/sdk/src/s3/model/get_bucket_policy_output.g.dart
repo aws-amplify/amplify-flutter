@@ -48,9 +48,7 @@ class GetBucketPolicyOutputBuilder
   String? get policy => _$this._policy;
   set policy(String? policy) => _$this._policy = policy;
 
-  GetBucketPolicyOutputBuilder() {
-    GetBucketPolicyOutput._init(this);
-  }
+  GetBucketPolicyOutputBuilder();
 
   GetBucketPolicyOutputBuilder get _$this {
     final $v = _$v;

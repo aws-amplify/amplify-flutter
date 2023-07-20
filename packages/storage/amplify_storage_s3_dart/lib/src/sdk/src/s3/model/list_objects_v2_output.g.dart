@@ -167,9 +167,7 @@ class ListObjectsV2OutputBuilder
   set requestCharged(_i6.RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
-  ListObjectsV2OutputBuilder() {
-    ListObjectsV2Output._init(this);
-  }
+  ListObjectsV2OutputBuilder();
 
   ListObjectsV2OutputBuilder get _$this {
     final $v = _$v;
@@ -395,9 +393,7 @@ class ListObjectsV2OutputPayloadBuilder
   String? get startAfter => _$this._startAfter;
   set startAfter(String? startAfter) => _$this._startAfter = startAfter;
 
-  ListObjectsV2OutputPayloadBuilder() {
-    ListObjectsV2OutputPayload._init(this);
-  }
+  ListObjectsV2OutputPayloadBuilder();
 
   ListObjectsV2OutputPayloadBuilder get _$this {
     final $v = _$v;

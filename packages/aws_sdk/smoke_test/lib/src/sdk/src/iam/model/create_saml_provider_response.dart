@@ -45,9 +45,6 @@ abstract class CreateSamlProviderResponse
   static const List<_i4.SmithySerializer<CreateSamlProviderResponse>>
       serializers = [CreateSamlProviderResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateSamlProviderResponseBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the new SAML provider resource in IAM.
   String? get samlProviderArn;
 

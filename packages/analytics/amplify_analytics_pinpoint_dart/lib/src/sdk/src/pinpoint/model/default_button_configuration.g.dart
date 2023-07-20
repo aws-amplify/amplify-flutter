@@ -104,9 +104,7 @@ class DefaultButtonConfigurationBuilder
   String? get textColor => _$this._textColor;
   set textColor(String? textColor) => _$this._textColor = textColor;
 
-  DefaultButtonConfigurationBuilder() {
-    DefaultButtonConfiguration._init(this);
-  }
+  DefaultButtonConfigurationBuilder();
 
   DefaultButtonConfigurationBuilder get _$this {
     final $v = _$v;

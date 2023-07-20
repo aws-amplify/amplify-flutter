@@ -54,9 +54,7 @@ class DescribeContinuousBackupsInputBuilder
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
 
-  DescribeContinuousBackupsInputBuilder() {
-    DescribeContinuousBackupsInput._init(this);
-  }
+  DescribeContinuousBackupsInputBuilder();
 
   DescribeContinuousBackupsInputBuilder get _$this {
     final $v = _$v;

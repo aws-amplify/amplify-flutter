@@ -53,9 +53,7 @@ class StartResourceEvaluationResponseBuilder
   set resourceEvaluationId(String? resourceEvaluationId) =>
       _$this._resourceEvaluationId = resourceEvaluationId;
 
-  StartResourceEvaluationResponseBuilder() {
-    StartResourceEvaluationResponse._init(this);
-  }
+  StartResourceEvaluationResponseBuilder();
 
   StartResourceEvaluationResponseBuilder get _$this {
     final $v = _$v;

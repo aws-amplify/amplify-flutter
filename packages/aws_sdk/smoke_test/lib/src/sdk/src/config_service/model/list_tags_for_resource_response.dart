@@ -42,9 +42,6 @@ abstract class ListTagsForResourceResponse
   static const List<_i4.SmithySerializer<ListTagsForResourceResponse>>
       serializers = [ListTagsForResourceResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListTagsForResourceResponseBuilder b) {}
-
   /// The tags for the resource.
   _i3.BuiltList<_i2.Tag>? get tags;
 

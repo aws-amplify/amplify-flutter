@@ -51,9 +51,7 @@ class CreateServiceLinkedRoleResponseBuilder
   _i2.RoleBuilder get role => _$this._role ??= new _i2.RoleBuilder();
   set role(_i2.RoleBuilder? role) => _$this._role = role;
 
-  CreateServiceLinkedRoleResponseBuilder() {
-    CreateServiceLinkedRoleResponse._init(this);
-  }
+  CreateServiceLinkedRoleResponseBuilder();
 
   CreateServiceLinkedRoleResponseBuilder get _$this {
     final $v = _$v;

@@ -64,9 +64,7 @@ class TemplateSsmDocumentDetailsBuilder
   set documentVersion(String? documentVersion) =>
       _$this._documentVersion = documentVersion;
 
-  TemplateSsmDocumentDetailsBuilder() {
-    TemplateSsmDocumentDetails._init(this);
-  }
+  TemplateSsmDocumentDetailsBuilder();
 
   TemplateSsmDocumentDetailsBuilder get _$this {
     final $v = _$v;

@@ -45,9 +45,6 @@ abstract class TagOpenIdConnectProviderRequest
   static const List<_i1.SmithySerializer<TagOpenIdConnectProviderRequest>>
       serializers = [TagOpenIdConnectProviderRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TagOpenIdConnectProviderRequestBuilder b) {}
-
   /// The ARN of the OIDC identity provider in IAM to which you want to add tags.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

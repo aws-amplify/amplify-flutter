@@ -36,9 +36,6 @@ abstract class DescribeBackupInput
     DescribeBackupInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeBackupInputBuilder b) {}
-
   /// The Amazon Resource Name (ARN) associated with the backup.
   String get backupArn;
   @override

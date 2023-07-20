@@ -47,9 +47,6 @@ abstract class GetAccessKeyLastUsedResponse
   static const List<_i3.SmithySerializer<GetAccessKeyLastUsedResponse>>
       serializers = [GetAccessKeyLastUsedResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetAccessKeyLastUsedResponseBuilder b) {}
-
   /// The name of the IAM user that owns this access key.
   String? get userName;
 

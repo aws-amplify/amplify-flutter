@@ -47,9 +47,6 @@ abstract class PolicyRole
     PolicyRoleAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PolicyRoleBuilder b) {}
-
   /// The name (friendly name, not ARN) identifying the role.
   String? get roleName;
 

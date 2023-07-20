@@ -69,9 +69,7 @@ class ListGlobalTablesInputBuilder
   String? get regionName => _$this._regionName;
   set regionName(String? regionName) => _$this._regionName = regionName;
 
-  ListGlobalTablesInputBuilder() {
-    ListGlobalTablesInput._init(this);
-  }
+  ListGlobalTablesInputBuilder();
 
   ListGlobalTablesInputBuilder get _$this {
     final $v = _$v;

@@ -42,8 +42,6 @@ abstract class BucketAlreadyOwnedByYou
   static const List<_i2.SmithySerializer<BucketAlreadyOwnedByYou>> serializers =
       [BucketAlreadyOwnedByYouRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BucketAlreadyOwnedByYouBuilder b) {}
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
         namespace: 'com.amazonaws.s3',

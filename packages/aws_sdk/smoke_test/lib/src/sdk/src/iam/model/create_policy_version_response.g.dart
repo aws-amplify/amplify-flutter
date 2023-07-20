@@ -53,9 +53,7 @@ class CreatePolicyVersionResponseBuilder
   set policyVersion(_i2.PolicyVersionBuilder? policyVersion) =>
       _$this._policyVersion = policyVersion;
 
-  CreatePolicyVersionResponseBuilder() {
-    CreatePolicyVersionResponse._init(this);
-  }
+  CreatePolicyVersionResponseBuilder();
 
   CreatePolicyVersionResponseBuilder get _$this {
     final $v = _$v;

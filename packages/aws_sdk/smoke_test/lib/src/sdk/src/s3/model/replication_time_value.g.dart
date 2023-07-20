@@ -48,9 +48,7 @@ class ReplicationTimeValueBuilder
   int? get minutes => _$this._minutes;
   set minutes(int? minutes) => _$this._minutes = minutes;
 
-  ReplicationTimeValueBuilder() {
-    ReplicationTimeValue._init(this);
-  }
+  ReplicationTimeValueBuilder();
 
   ReplicationTimeValueBuilder get _$this {
     final $v = _$v;

@@ -55,9 +55,7 @@ class PutAndGetInlineDocumentsInputOutputBuilder
   set inlineDocument(_i3.JsonObject? inlineDocument) =>
       _$this._inlineDocument = inlineDocument;
 
-  PutAndGetInlineDocumentsInputOutputBuilder() {
-    PutAndGetInlineDocumentsInputOutput._init(this);
-  }
+  PutAndGetInlineDocumentsInputOutputBuilder();
 
   PutAndGetInlineDocumentsInputOutputBuilder get _$this {
     final $v = _$v;

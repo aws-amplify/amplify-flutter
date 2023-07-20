@@ -79,9 +79,7 @@ class ModelBuilder implements Builder<Model, ModelBuilder> {
   String? get contentType => _$this._contentType;
   set contentType(String? contentType) => _$this._contentType = contentType;
 
-  ModelBuilder() {
-    Model._init(this);
-  }
+  ModelBuilder();
 
   ModelBuilder get _$this {
     final $v = _$v;

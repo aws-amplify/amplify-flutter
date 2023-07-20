@@ -58,9 +58,7 @@ class PointInTimeRecoverySpecificationBuilder
   set pointInTimeRecoveryEnabled(bool? pointInTimeRecoveryEnabled) =>
       _$this._pointInTimeRecoveryEnabled = pointInTimeRecoveryEnabled;
 
-  PointInTimeRecoverySpecificationBuilder() {
-    PointInTimeRecoverySpecification._init(this);
-  }
+  PointInTimeRecoverySpecificationBuilder();
 
   PointInTimeRecoverySpecificationBuilder get _$this {
     final $v = _$v;

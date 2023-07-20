@@ -52,8 +52,6 @@ abstract class InvalidObjectState
     InvalidObjectStateRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidObjectStateBuilder b) {}
   _i3.StorageClass? get storageClass;
   _i4.IntelligentTieringAccessTier? get accessTier;
   @override

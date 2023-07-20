@@ -83,9 +83,7 @@ class DeleteStackInputBuilder
   set clientRequestToken(String? clientRequestToken) =>
       _$this._clientRequestToken = clientRequestToken;
 
-  DeleteStackInputBuilder() {
-    DeleteStackInput._init(this);
-  }
+  DeleteStackInputBuilder();
 
   DeleteStackInputBuilder get _$this {
     final $v = _$v;

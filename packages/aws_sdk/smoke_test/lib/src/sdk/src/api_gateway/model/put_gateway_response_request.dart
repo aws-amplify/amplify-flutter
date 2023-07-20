@@ -73,9 +73,6 @@ abstract class PutGatewayResponseRequest
   static const List<_i1.SmithySerializer<PutGatewayResponseRequestPayload>>
       serializers = [PutGatewayResponseRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutGatewayResponseRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -162,9 +159,6 @@ abstract class PutGatewayResponseRequestPayload
       _$PutGatewayResponseRequestPayload;
 
   const PutGatewayResponseRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutGatewayResponseRequestPayloadBuilder b) {}
 
   /// Response parameters (paths, query strings and headers) of the GatewayResponse as a string-to-string map of key-value pairs.
   _i4.BuiltMap<String, String>? get responseParameters;

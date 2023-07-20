@@ -28,8 +28,6 @@ abstract class NestedWithNamespace
     NestedWithNamespaceRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NestedWithNamespaceBuilder b) {}
   String? get attrField;
   @override
   List<Object?> get props => [attrField];

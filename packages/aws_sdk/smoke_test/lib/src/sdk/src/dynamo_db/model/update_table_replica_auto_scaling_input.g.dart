@@ -107,9 +107,7 @@ class UpdateTableReplicaAutoScalingInputBuilder
           _i6.ListBuilder<_i5.ReplicaAutoScalingUpdate>? replicaUpdates) =>
       _$this._replicaUpdates = replicaUpdates;
 
-  UpdateTableReplicaAutoScalingInputBuilder() {
-    UpdateTableReplicaAutoScalingInput._init(this);
-  }
+  UpdateTableReplicaAutoScalingInputBuilder();
 
   UpdateTableReplicaAutoScalingInputBuilder get _$this {
     final $v = _$v;

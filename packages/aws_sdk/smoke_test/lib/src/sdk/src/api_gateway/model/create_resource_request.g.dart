@@ -74,9 +74,7 @@ class CreateResourceRequestBuilder
   String? get pathPart => _$this._pathPart;
   set pathPart(String? pathPart) => _$this._pathPart = pathPart;
 
-  CreateResourceRequestBuilder() {
-    CreateResourceRequest._init(this);
-  }
+  CreateResourceRequestBuilder();
 
   CreateResourceRequestBuilder get _$this {
     final $v = _$v;
@@ -164,9 +162,7 @@ class CreateResourceRequestPayloadBuilder
   String? get pathPart => _$this._pathPart;
   set pathPart(String? pathPart) => _$this._pathPart = pathPart;
 
-  CreateResourceRequestPayloadBuilder() {
-    CreateResourceRequestPayload._init(this);
-  }
+  CreateResourceRequestPayloadBuilder();
 
   CreateResourceRequestPayloadBuilder get _$this {
     final $v = _$v;

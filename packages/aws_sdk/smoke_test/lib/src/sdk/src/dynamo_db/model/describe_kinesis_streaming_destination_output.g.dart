@@ -73,9 +73,7 @@ class DescribeKinesisStreamingDestinationOutputBuilder
               kinesisDataStreamDestinations) =>
       _$this._kinesisDataStreamDestinations = kinesisDataStreamDestinations;
 
-  DescribeKinesisStreamingDestinationOutputBuilder() {
-    DescribeKinesisStreamingDestinationOutput._init(this);
-  }
+  DescribeKinesisStreamingDestinationOutputBuilder();
 
   DescribeKinesisStreamingDestinationOutputBuilder get _$this {
     final $v = _$v;

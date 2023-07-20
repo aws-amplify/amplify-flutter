@@ -47,9 +47,7 @@ class JsonUnionsOutputBuilder
   _i2.MyUnion? get contents => _$this._contents;
   set contents(_i2.MyUnion? contents) => _$this._contents = contents;
 
-  JsonUnionsOutputBuilder() {
-    JsonUnionsOutput._init(this);
-  }
+  JsonUnionsOutputBuilder();
 
   JsonUnionsOutputBuilder get _$this {
     final $v = _$v;

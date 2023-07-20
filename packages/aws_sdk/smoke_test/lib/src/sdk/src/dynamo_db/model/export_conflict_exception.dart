@@ -41,8 +41,6 @@ abstract class ExportConflictException
   static const List<_i2.SmithySerializer<ExportConflictException>> serializers =
       [ExportConflictExceptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ExportConflictExceptionBuilder b) {}
   @override
   String? get message;
   @override

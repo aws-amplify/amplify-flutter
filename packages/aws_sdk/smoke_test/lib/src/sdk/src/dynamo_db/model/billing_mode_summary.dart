@@ -44,9 +44,6 @@ abstract class BillingModeSummary
     BillingModeSummaryAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BillingModeSummaryBuilder b) {}
-
   /// Controls how you are charged for read and write throughput and how you manage capacity. This setting can be changed later.
   ///
   /// *   `PROVISIONED` \- Sets the read/write capacity mode to `PROVISIONED`. We recommend using `PROVISIONED` for predictable workloads.

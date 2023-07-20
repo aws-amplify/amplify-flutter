@@ -49,9 +49,6 @@ abstract class AggregatedSourceStatus
   static const List<_i4.SmithySerializer<AggregatedSourceStatus>> serializers =
       [AggregatedSourceStatusAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AggregatedSourceStatusBuilder b) {}
-
   /// The source account ID or an organization.
   String? get sourceId;
 

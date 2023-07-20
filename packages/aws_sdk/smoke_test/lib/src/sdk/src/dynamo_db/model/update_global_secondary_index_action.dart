@@ -40,9 +40,6 @@ abstract class UpdateGlobalSecondaryIndexAction
   static const List<_i3.SmithySerializer<UpdateGlobalSecondaryIndexAction>>
       serializers = [UpdateGlobalSecondaryIndexActionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateGlobalSecondaryIndexActionBuilder b) {}
-
   /// The name of the global secondary index to be updated.
   String get indexName;
 

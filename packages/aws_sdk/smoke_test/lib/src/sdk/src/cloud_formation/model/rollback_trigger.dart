@@ -35,9 +35,6 @@ abstract class RollbackTrigger
     RollbackTriggerAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RollbackTriggerBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the rollback trigger.
   ///
   /// If a specified trigger is missing, the entire stack operation fails and is rolled back.

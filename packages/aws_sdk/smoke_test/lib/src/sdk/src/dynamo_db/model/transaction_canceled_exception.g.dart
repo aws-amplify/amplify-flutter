@@ -77,9 +77,7 @@ class TransactionCanceledExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  TransactionCanceledExceptionBuilder() {
-    TransactionCanceledException._init(this);
-  }
+  TransactionCanceledExceptionBuilder();
 
   TransactionCanceledExceptionBuilder get _$this {
     final $v = _$v;

@@ -35,9 +35,6 @@ abstract class DeleteConfigRuleRequest
   static const List<_i1.SmithySerializer<DeleteConfigRuleRequest>> serializers =
       [DeleteConfigRuleRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteConfigRuleRequestBuilder b) {}
-
   /// The name of the Config rule that you want to delete.
   String get configRuleName;
   @override

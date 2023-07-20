@@ -30,9 +30,6 @@ abstract class PolicyDescriptorType
     PolicyDescriptorTypeAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PolicyDescriptorTypeBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the IAM managed policy to use as a session policy for the role. For more information about ARNs, see [Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) in the _Amazon Web Services General Reference_.
   String? get arn;
   @override

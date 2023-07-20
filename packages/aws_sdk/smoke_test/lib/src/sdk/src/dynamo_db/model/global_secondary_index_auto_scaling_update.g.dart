@@ -75,9 +75,7 @@ class GlobalSecondaryIndexAutoScalingUpdateBuilder
       _$this._provisionedWriteCapacityAutoScalingUpdate =
           provisionedWriteCapacityAutoScalingUpdate;
 
-  GlobalSecondaryIndexAutoScalingUpdateBuilder() {
-    GlobalSecondaryIndexAutoScalingUpdate._init(this);
-  }
+  GlobalSecondaryIndexAutoScalingUpdateBuilder();
 
   GlobalSecondaryIndexAutoScalingUpdateBuilder get _$this {
     final $v = _$v;

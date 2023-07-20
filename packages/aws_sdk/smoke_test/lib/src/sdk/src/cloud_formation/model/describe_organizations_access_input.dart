@@ -39,9 +39,6 @@ abstract class DescribeOrganizationsAccessInput
   static const List<_i1.SmithySerializer<DescribeOrganizationsAccessInput>>
       serializers = [DescribeOrganizationsAccessInputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeOrganizationsAccessInputBuilder b) {}
-
   /// \[Service-managed permissions\] Specifies whether you are acting as an account administrator in the organization's management account or as a delegated administrator in a member account.
   ///
   /// By default, `SELF` is specified.

@@ -36,9 +36,6 @@ abstract class SequenceNumberRange
     SequenceNumberRangeAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SequenceNumberRangeBuilder b) {}
-
   /// The first sequence number for the stream records contained within a shard. String contains numeric characters only.
   String? get startingSequenceNumber;
 

@@ -62,9 +62,6 @@ abstract class GetResourceEvaluationSummaryResponse
   static const List<_i7.SmithySerializer<GetResourceEvaluationSummaryResponse>>
       serializers = [GetResourceEvaluationSummaryResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetResourceEvaluationSummaryResponseBuilder b) {}
-
   /// The unique `ResourceEvaluationId` of Amazon Web Services resource execution for which you want to retrieve the evaluation summary.
   String? get resourceEvaluationId;
 

@@ -60,9 +60,7 @@ class DescribeStackEventsOutputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeStackEventsOutputBuilder() {
-    DescribeStackEventsOutput._init(this);
-  }
+  DescribeStackEventsOutputBuilder();
 
   DescribeStackEventsOutputBuilder get _$this {
     final $v = _$v;

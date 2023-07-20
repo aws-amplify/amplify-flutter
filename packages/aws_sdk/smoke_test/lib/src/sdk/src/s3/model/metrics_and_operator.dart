@@ -40,9 +40,6 @@ abstract class MetricsAndOperator
     MetricsAndOperatorRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MetricsAndOperatorBuilder b) {}
-
   /// The prefix used when evaluating an AND predicate.
   String? get prefix;
 

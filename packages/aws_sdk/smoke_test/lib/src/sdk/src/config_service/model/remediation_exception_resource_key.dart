@@ -38,9 +38,6 @@ abstract class RemediationExceptionResourceKey
   static const List<_i2.SmithySerializer<RemediationExceptionResourceKey>>
       serializers = [RemediationExceptionResourceKeyAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RemediationExceptionResourceKeyBuilder b) {}
-
   /// The type of a resource.
   String? get resourceType;
 

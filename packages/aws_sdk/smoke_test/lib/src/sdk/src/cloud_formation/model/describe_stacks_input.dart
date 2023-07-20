@@ -45,9 +45,6 @@ abstract class DescribeStacksInput
     DescribeStacksInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeStacksInputBuilder b) {}
-
   /// If you don't pass a parameter to `StackName`, the API returns a response that describes all resources in the account. This requires `ListStacks` and `DescribeStacks` permissions.
   ///
   /// The IAM policy below can be added to IAM policies when you want to limit resource-level permissions and avoid returning a response when no parameter is sent in the request:

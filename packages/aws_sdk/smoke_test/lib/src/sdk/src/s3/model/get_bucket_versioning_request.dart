@@ -53,9 +53,6 @@ abstract class GetBucketVersioningRequest
   static const List<_i1.SmithySerializer<GetBucketVersioningRequestPayload>>
       serializers = [GetBucketVersioningRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketVersioningRequestBuilder b) {}
-
   /// The name of the bucket for which to get the versioning information.
   String get bucket;
 
@@ -110,8 +107,6 @@ abstract class GetBucketVersioningRequestPayload
 
   const GetBucketVersioningRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketVersioningRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

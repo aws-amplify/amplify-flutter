@@ -66,9 +66,7 @@ class ListMfaDevicesRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  ListMfaDevicesRequestBuilder() {
-    ListMfaDevicesRequest._init(this);
-  }
+  ListMfaDevicesRequestBuilder();
 
   ListMfaDevicesRequestBuilder get _$this {
     final $v = _$v;

@@ -65,9 +65,7 @@ class DeleteBucketEncryptionRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  DeleteBucketEncryptionRequestBuilder() {
-    DeleteBucketEncryptionRequest._init(this);
-  }
+  DeleteBucketEncryptionRequestBuilder();
 
   DeleteBucketEncryptionRequestBuilder get _$this {
     final $v = _$v;
@@ -141,9 +139,7 @@ class DeleteBucketEncryptionRequestPayloadBuilder
             DeleteBucketEncryptionRequestPayloadBuilder> {
   _$DeleteBucketEncryptionRequestPayload? _$v;
 
-  DeleteBucketEncryptionRequestPayloadBuilder() {
-    DeleteBucketEncryptionRequestPayload._init(this);
-  }
+  DeleteBucketEncryptionRequestPayloadBuilder();
 
   @override
   void replace(DeleteBucketEncryptionRequestPayload other) {

@@ -39,8 +39,6 @@ abstract class PredictorNotMountedException
   static const List<_i2.SmithySerializer<PredictorNotMountedException>>
       serializers = [PredictorNotMountedExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PredictorNotMountedExceptionBuilder b) {}
   @override
   String? get message;
   @override

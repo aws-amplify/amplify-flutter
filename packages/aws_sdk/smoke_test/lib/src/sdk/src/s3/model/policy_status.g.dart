@@ -45,9 +45,7 @@ class PolicyStatusBuilder
   bool? get isPublic => _$this._isPublic;
   set isPublic(bool? isPublic) => _$this._isPublic = isPublic;
 
-  PolicyStatusBuilder() {
-    PolicyStatus._init(this);
-  }
+  PolicyStatusBuilder();
 
   PolicyStatusBuilder get _$this {
     final $v = _$v;

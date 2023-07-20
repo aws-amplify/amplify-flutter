@@ -44,9 +44,6 @@ abstract class CancelUpdateStackInput
   static const List<_i1.SmithySerializer<CancelUpdateStackInput>> serializers =
       [CancelUpdateStackInputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CancelUpdateStackInputBuilder b) {}
-
   /// If you don't pass a parameter to `StackName`, the API returns a response that describes all resources in the account.
   ///
   /// The IAM policy below can be added to IAM policies when you want to limit resource-level permissions and avoid returning a response when no parameter is sent in the request:

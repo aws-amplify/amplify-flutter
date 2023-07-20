@@ -55,9 +55,7 @@ class GenerateServiceLastAccessedDetailsResponseBuilder
   String? get jobId => _$this._jobId;
   set jobId(String? jobId) => _$this._jobId = jobId;
 
-  GenerateServiceLastAccessedDetailsResponseBuilder() {
-    GenerateServiceLastAccessedDetailsResponse._init(this);
-  }
+  GenerateServiceLastAccessedDetailsResponseBuilder();
 
   GenerateServiceLastAccessedDetailsResponseBuilder get _$this {
     final $v = _$v;

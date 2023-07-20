@@ -58,9 +58,7 @@ class NestedCollectionsInputBuilder
               mapOfListOfMapOfLists) =>
       _$this._mapOfListOfMapOfLists = mapOfListOfMapOfLists;
 
-  NestedCollectionsInputBuilder() {
-    NestedCollectionsInput._init(this);
-  }
+  NestedCollectionsInputBuilder();
 
   NestedCollectionsInputBuilder get _$this {
     final $v = _$v;

@@ -39,8 +39,6 @@ abstract class HttpResponseCodeOutput
   static const List<_i2.SmithySerializer<HttpResponseCodeOutputPayload>>
       serializers = [HttpResponseCodeOutputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpResponseCodeOutputBuilder b) {}
   int? get status;
   @override
   HttpResponseCodeOutputPayload getPayload() => HttpResponseCodeOutputPayload();
@@ -71,8 +69,6 @@ abstract class HttpResponseCodeOutputPayload
 
   const HttpResponseCodeOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpResponseCodeOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

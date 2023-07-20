@@ -41,9 +41,6 @@ abstract class ErrorDetails
     ErrorDetailsAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ErrorDetailsBuilder b) {}
-
   /// Detailed information about the reason that the operation failed.
   String get message;
 

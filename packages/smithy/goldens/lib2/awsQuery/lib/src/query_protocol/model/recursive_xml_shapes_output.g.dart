@@ -51,9 +51,7 @@ class RecursiveXmlShapesOutputBuilder
   set nested(_i2.RecursiveXmlShapesOutputNested1Builder? nested) =>
       _$this._nested = nested;
 
-  RecursiveXmlShapesOutputBuilder() {
-    RecursiveXmlShapesOutput._init(this);
-  }
+  RecursiveXmlShapesOutputBuilder();
 
   RecursiveXmlShapesOutputBuilder get _$this {
     final $v = _$v;

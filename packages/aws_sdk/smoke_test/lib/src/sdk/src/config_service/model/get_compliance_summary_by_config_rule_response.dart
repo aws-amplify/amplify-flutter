@@ -43,9 +43,6 @@ abstract class GetComplianceSummaryByConfigRuleResponse
     GetComplianceSummaryByConfigRuleResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetComplianceSummaryByConfigRuleResponseBuilder b) {}
-
   /// The number of Config rules that are compliant and the number that are noncompliant, up to a maximum of 25 for each.
   _i2.ComplianceSummary? get complianceSummary;
   @override

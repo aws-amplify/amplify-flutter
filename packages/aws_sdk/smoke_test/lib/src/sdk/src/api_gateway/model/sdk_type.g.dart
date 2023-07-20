@@ -79,9 +79,7 @@ class SdkTypeBuilder implements Builder<SdkType, SdkTypeBuilder> {
               configurationProperties) =>
       _$this._configurationProperties = configurationProperties;
 
-  SdkTypeBuilder() {
-    SdkType._init(this);
-  }
+  SdkTypeBuilder();
 
   SdkTypeBuilder get _$this {
     final $v = _$v;

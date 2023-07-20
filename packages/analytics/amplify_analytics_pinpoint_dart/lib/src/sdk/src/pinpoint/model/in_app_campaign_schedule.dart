@@ -42,9 +42,6 @@ abstract class InAppCampaignSchedule
     InAppCampaignScheduleRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InAppCampaignScheduleBuilder b) {}
-
   /// The scheduled time after which the in-app message should not be shown. Timestamp is in ISO 8601 format.
   String? get endDate;
 

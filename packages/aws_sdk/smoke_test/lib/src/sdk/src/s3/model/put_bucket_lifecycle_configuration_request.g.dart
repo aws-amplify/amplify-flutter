@@ -93,9 +93,7 @@ class PutBucketLifecycleConfigurationRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  PutBucketLifecycleConfigurationRequestBuilder() {
-    PutBucketLifecycleConfigurationRequest._init(this);
-  }
+  PutBucketLifecycleConfigurationRequestBuilder();
 
   PutBucketLifecycleConfigurationRequestBuilder get _$this {
     final $v = _$v;

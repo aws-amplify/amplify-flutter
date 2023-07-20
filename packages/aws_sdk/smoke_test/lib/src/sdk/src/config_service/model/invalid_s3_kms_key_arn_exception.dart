@@ -41,9 +41,6 @@ abstract class InvalidS3KmsKeyArnException
   static const List<_i2.SmithySerializer<InvalidS3KmsKeyArnException>>
       serializers = [InvalidS3KmsKeyArnExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidS3KmsKeyArnExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

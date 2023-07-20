@@ -64,9 +64,7 @@ class TransactionInProgressExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  TransactionInProgressExceptionBuilder() {
-    TransactionInProgressException._init(this);
-  }
+  TransactionInProgressExceptionBuilder();
 
   TransactionInProgressExceptionBuilder get _$this {
     final $v = _$v;

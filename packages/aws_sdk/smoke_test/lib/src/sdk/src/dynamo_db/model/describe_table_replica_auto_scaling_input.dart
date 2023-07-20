@@ -37,9 +37,6 @@ abstract class DescribeTableReplicaAutoScalingInput
   static const List<_i1.SmithySerializer<DescribeTableReplicaAutoScalingInput>>
       serializers = [DescribeTableReplicaAutoScalingInputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeTableReplicaAutoScalingInputBuilder b) {}
-
   /// The name of the table.
   String get tableName;
   @override

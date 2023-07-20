@@ -56,8 +56,6 @@ abstract class CopyObjectRequest
   static const List<_i1.SmithySerializer<CopyObjectRequestPayload>>
       serializers = [CopyObjectRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CopyObjectRequestBuilder b) {}
   String get bucket;
   String get copySource;
   String get key;
@@ -114,8 +112,6 @@ abstract class CopyObjectRequestPayload
 
   const CopyObjectRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CopyObjectRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

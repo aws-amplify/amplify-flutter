@@ -76,9 +76,7 @@ class BackupDescriptionBuilder
           _i4.SourceTableFeatureDetailsBuilder? sourceTableFeatureDetails) =>
       _$this._sourceTableFeatureDetails = sourceTableFeatureDetails;
 
-  BackupDescriptionBuilder() {
-    BackupDescription._init(this);
-  }
+  BackupDescriptionBuilder();
 
   BackupDescriptionBuilder get _$this {
     final $v = _$v;

@@ -50,9 +50,6 @@ abstract class CreatePolicyRequest
     CreatePolicyRequestAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreatePolicyRequestBuilder b) {}
-
   /// The friendly name of the policy.
   ///
   /// IAM user, group, role, and policy names must be unique within the account. Names are not distinguished by case. For example, you cannot create resources named both "MyResource" and "myresource".

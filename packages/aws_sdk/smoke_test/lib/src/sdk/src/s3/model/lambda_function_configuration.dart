@@ -44,9 +44,6 @@ abstract class LambdaFunctionConfiguration
   static const List<_i5.SmithySerializer<LambdaFunctionConfiguration>>
       serializers = [LambdaFunctionConfigurationRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(LambdaFunctionConfigurationBuilder b) {}
-
   /// An optional unique identifier for configurations in a notification configuration. If you don't provide one, Amazon S3 will assign an ID.
   String? get id;
 

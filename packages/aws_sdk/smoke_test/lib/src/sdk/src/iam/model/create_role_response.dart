@@ -38,9 +38,6 @@ abstract class CreateRoleResponse
     CreateRoleResponseAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateRoleResponseBuilder b) {}
-
   /// A structure containing details about the new role.
   _i2.Role get role;
   @override

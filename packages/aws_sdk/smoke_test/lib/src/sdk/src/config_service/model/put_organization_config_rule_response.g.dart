@@ -55,9 +55,7 @@ class PutOrganizationConfigRuleResponseBuilder
   set organizationConfigRuleArn(String? organizationConfigRuleArn) =>
       _$this._organizationConfigRuleArn = organizationConfigRuleArn;
 
-  PutOrganizationConfigRuleResponseBuilder() {
-    PutOrganizationConfigRuleResponse._init(this);
-  }
+  PutOrganizationConfigRuleResponseBuilder();
 
   PutOrganizationConfigRuleResponseBuilder get _$this {
     final $v = _$v;

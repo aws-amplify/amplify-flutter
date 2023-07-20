@@ -56,9 +56,7 @@ class BatchGetResourceConfigRequestBuilder
   set resourceKeys(_i4.ListBuilder<_i3.ResourceKey>? resourceKeys) =>
       _$this._resourceKeys = resourceKeys;
 
-  BatchGetResourceConfigRequestBuilder() {
-    BatchGetResourceConfigRequest._init(this);
-  }
+  BatchGetResourceConfigRequestBuilder();
 
   BatchGetResourceConfigRequestBuilder get _$this {
     final $v = _$v;

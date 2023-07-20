@@ -76,9 +76,7 @@ class SelectAggregateResourceConfigResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  SelectAggregateResourceConfigResponseBuilder() {
-    SelectAggregateResourceConfigResponse._init(this);
-  }
+  SelectAggregateResourceConfigResponseBuilder();
 
   SelectAggregateResourceConfigResponseBuilder get _$this {
     final $v = _$v;

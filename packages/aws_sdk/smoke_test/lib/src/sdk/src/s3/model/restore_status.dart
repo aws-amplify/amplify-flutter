@@ -35,9 +35,6 @@ abstract class RestoreStatus
     RestoreStatusRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RestoreStatusBuilder b) {}
-
   /// Specifies whether the object is currently being restored. If the object restoration is in progress, the header returns the value `TRUE`. For example:
   ///
   /// `x-amz-optional-object-attributes: IsRestoreInProgress="true"`

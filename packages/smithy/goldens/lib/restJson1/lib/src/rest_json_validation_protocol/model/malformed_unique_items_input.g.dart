@@ -207,9 +207,7 @@ class MalformedUniqueItemsInputBuilder
   set unionList(_i8.SetBuilder<_i7.FooUnion>? unionList) =>
       _$this._unionList = unionList;
 
-  MalformedUniqueItemsInputBuilder() {
-    MalformedUniqueItemsInput._init(this);
-  }
+  MalformedUniqueItemsInputBuilder();
 
   MalformedUniqueItemsInputBuilder get _$this {
     final $v = _$v;

@@ -54,9 +54,6 @@ abstract class UpdateStackSetInput
     _i10.CallAs? callAs,
     _i11.ManagedExecution? managedExecution,
   }) {
-    operationId ??= const bool.hasEnvironment('SMITHY_TEST')
-        ? '00000000-0000-4000-8000-000000000000'
-        : _i2.uuid(secure: true);
     return _$UpdateStackSetInput._(
       stackSetName: stackSetName,
       description: description,

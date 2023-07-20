@@ -55,9 +55,6 @@ abstract class S3Location
     S3LocationRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(S3LocationBuilder b) {}
-
   /// The name of the bucket where the restore results will be placed.
   String get bucketName;
 

@@ -42,8 +42,6 @@ abstract class NoSuchUpload
     NoSuchUploadRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NoSuchUploadBuilder b) {}
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
         namespace: 'com.amazonaws.s3',

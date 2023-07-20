@@ -57,9 +57,6 @@ abstract class DescribeChangeSetHooksOutput
   static const List<_i5.SmithySerializer<DescribeChangeSetHooksOutput>>
       serializers = [DescribeChangeSetHooksOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeChangeSetHooksOutputBuilder b) {}
-
   /// The change set identifier (stack ID).
   String? get changeSetId;
 

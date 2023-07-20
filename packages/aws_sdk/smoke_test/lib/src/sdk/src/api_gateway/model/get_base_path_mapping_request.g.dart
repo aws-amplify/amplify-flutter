@@ -65,9 +65,7 @@ class GetBasePathMappingRequestBuilder
   String? get basePath => _$this._basePath;
   set basePath(String? basePath) => _$this._basePath = basePath;
 
-  GetBasePathMappingRequestBuilder() {
-    GetBasePathMappingRequest._init(this);
-  }
+  GetBasePathMappingRequestBuilder();
 
   GetBasePathMappingRequestBuilder get _$this {
     final $v = _$v;
@@ -140,9 +138,7 @@ class GetBasePathMappingRequestPayloadBuilder
             GetBasePathMappingRequestPayloadBuilder> {
   _$GetBasePathMappingRequestPayload? _$v;
 
-  GetBasePathMappingRequestPayloadBuilder() {
-    GetBasePathMappingRequestPayload._init(this);
-  }
+  GetBasePathMappingRequestPayloadBuilder();
 
   @override
   void replace(GetBasePathMappingRequestPayload other) {

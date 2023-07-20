@@ -57,9 +57,6 @@ abstract class DeleteDocumentationVersionRequest
           _i1.SmithySerializer<DeleteDocumentationVersionRequestPayload>>
       serializers = [DeleteDocumentationVersionRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteDocumentationVersionRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -117,8 +114,6 @@ abstract class DeleteDocumentationVersionRequestPayload
 
   const DeleteDocumentationVersionRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteDocumentationVersionRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

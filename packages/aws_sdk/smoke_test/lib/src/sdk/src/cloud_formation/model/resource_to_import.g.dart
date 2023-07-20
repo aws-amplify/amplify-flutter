@@ -78,9 +78,7 @@ class ResourceToImportBuilder
   set resourceIdentifier(_i2.MapBuilder<String, String>? resourceIdentifier) =>
       _$this._resourceIdentifier = resourceIdentifier;
 
-  ResourceToImportBuilder() {
-    ResourceToImport._init(this);
-  }
+  ResourceToImportBuilder();
 
   ResourceToImportBuilder get _$this {
     final $v = _$v;

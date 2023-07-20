@@ -71,9 +71,7 @@ class ConformancePackComplianceScoreBuilder
   set lastUpdatedTime(DateTime? lastUpdatedTime) =>
       _$this._lastUpdatedTime = lastUpdatedTime;
 
-  ConformancePackComplianceScoreBuilder() {
-    ConformancePackComplianceScore._init(this);
-  }
+  ConformancePackComplianceScoreBuilder();
 
   ConformancePackComplianceScoreBuilder get _$this {
     final $v = _$v;

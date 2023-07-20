@@ -29,9 +29,6 @@ abstract class JsonOutput
     JsonOutputRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(JsonOutputBuilder b) {}
-
   /// The value used to separate individual records in the output. If no value is specified, Amazon S3 uses a newline character ('\\n').
   String? get recordDelimiter;
   @override

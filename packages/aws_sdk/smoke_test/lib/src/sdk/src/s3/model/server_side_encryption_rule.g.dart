@@ -69,9 +69,7 @@ class ServerSideEncryptionRuleBuilder
   set bucketKeyEnabled(bool? bucketKeyEnabled) =>
       _$this._bucketKeyEnabled = bucketKeyEnabled;
 
-  ServerSideEncryptionRuleBuilder() {
-    ServerSideEncryptionRule._init(this);
-  }
+  ServerSideEncryptionRuleBuilder();
 
   ServerSideEncryptionRuleBuilder get _$this {
     final $v = _$v;

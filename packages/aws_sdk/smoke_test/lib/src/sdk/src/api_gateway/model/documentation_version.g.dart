@@ -66,9 +66,7 @@ class DocumentationVersionBuilder
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  DocumentationVersionBuilder() {
-    DocumentationVersion._init(this);
-  }
+  DocumentationVersionBuilder();
 
   DocumentationVersionBuilder get _$this {
     final $v = _$v;

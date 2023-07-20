@@ -51,9 +51,7 @@ class CreateGroupResponseBuilder
   _i2.GroupBuilder get group => _$this._group ??= new _i2.GroupBuilder();
   set group(_i2.GroupBuilder? group) => _$this._group = group;
 
-  CreateGroupResponseBuilder() {
-    CreateGroupResponse._init(this);
-  }
+  CreateGroupResponseBuilder();
 
   CreateGroupResponseBuilder get _$this {
     final $v = _$v;

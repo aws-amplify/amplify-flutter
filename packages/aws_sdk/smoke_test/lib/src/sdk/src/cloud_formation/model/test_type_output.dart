@@ -33,9 +33,6 @@ abstract class TestTypeOutput
     TestTypeOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TestTypeOutputBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the extension.
   String? get typeVersionArn;
   @override

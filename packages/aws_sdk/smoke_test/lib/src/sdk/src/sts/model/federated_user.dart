@@ -35,9 +35,6 @@ abstract class FederatedUser
     FederatedUserAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(FederatedUserBuilder b) {}
-
   /// The string that identifies the federated user associated with the credentials, similar to the unique ID of an IAM user.
   String get federatedUserId;
 

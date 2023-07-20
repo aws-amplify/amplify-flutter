@@ -55,9 +55,6 @@ abstract class FlushStageCacheRequest
   static const List<_i1.SmithySerializer<FlushStageCacheRequestPayload>>
       serializers = [FlushStageCacheRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(FlushStageCacheRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -113,8 +110,6 @@ abstract class FlushStageCacheRequestPayload
 
   const FlushStageCacheRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(FlushStageCacheRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

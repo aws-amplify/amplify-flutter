@@ -41,9 +41,7 @@ class DeleteEvaluationResultsResponseBuilder
             DeleteEvaluationResultsResponseBuilder> {
   _$DeleteEvaluationResultsResponse? _$v;
 
-  DeleteEvaluationResultsResponseBuilder() {
-    DeleteEvaluationResultsResponse._init(this);
-  }
+  DeleteEvaluationResultsResponseBuilder();
 
   @override
   void replace(DeleteEvaluationResultsResponse other) {

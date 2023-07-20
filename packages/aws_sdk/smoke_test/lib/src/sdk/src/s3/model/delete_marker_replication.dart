@@ -43,9 +43,6 @@ abstract class DeleteMarkerReplication
   static const List<_i3.SmithySerializer<DeleteMarkerReplication>> serializers =
       [DeleteMarkerReplicationRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteMarkerReplicationBuilder b) {}
-
   /// Indicates whether to replicate delete markers.
   ///
   /// Indicates whether to replicate delete markers.

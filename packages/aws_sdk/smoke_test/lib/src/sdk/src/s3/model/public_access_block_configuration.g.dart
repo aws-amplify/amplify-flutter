@@ -84,9 +84,7 @@ class PublicAccessBlockConfigurationBuilder
   set restrictPublicBuckets(bool? restrictPublicBuckets) =>
       _$this._restrictPublicBuckets = restrictPublicBuckets;
 
-  PublicAccessBlockConfigurationBuilder() {
-    PublicAccessBlockConfiguration._init(this);
-  }
+  PublicAccessBlockConfigurationBuilder();
 
   PublicAccessBlockConfigurationBuilder get _$this {
     final $v = _$v;

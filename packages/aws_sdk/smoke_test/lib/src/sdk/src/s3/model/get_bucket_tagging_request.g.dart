@@ -63,9 +63,7 @@ class GetBucketTaggingRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetBucketTaggingRequestBuilder() {
-    GetBucketTaggingRequest._init(this);
-  }
+  GetBucketTaggingRequestBuilder();
 
   GetBucketTaggingRequestBuilder get _$this {
     final $v = _$v;
@@ -136,9 +134,7 @@ class GetBucketTaggingRequestPayloadBuilder
             GetBucketTaggingRequestPayloadBuilder> {
   _$GetBucketTaggingRequestPayload? _$v;
 
-  GetBucketTaggingRequestPayloadBuilder() {
-    GetBucketTaggingRequestPayload._init(this);
-  }
+  GetBucketTaggingRequestPayloadBuilder();
 
   @override
   void replace(GetBucketTaggingRequestPayload other) {

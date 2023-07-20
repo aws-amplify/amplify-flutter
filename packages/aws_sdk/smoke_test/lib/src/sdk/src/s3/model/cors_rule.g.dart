@@ -106,9 +106,7 @@ class CorsRuleBuilder implements Builder<CorsRule, CorsRuleBuilder> {
   set maxAgeSeconds(int? maxAgeSeconds) =>
       _$this._maxAgeSeconds = maxAgeSeconds;
 
-  CorsRuleBuilder() {
-    CorsRule._init(this);
-  }
+  CorsRuleBuilder();
 
   CorsRuleBuilder get _$this {
     final $v = _$v;

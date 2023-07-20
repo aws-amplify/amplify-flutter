@@ -215,9 +215,7 @@ class CreateStackInputBuilder
   set enableTerminationProtection(bool? enableTerminationProtection) =>
       _$this._enableTerminationProtection = enableTerminationProtection;
 
-  CreateStackInputBuilder() {
-    CreateStackInput._init(this);
-  }
+  CreateStackInputBuilder();
 
   CreateStackInputBuilder get _$this {
     final $v = _$v;

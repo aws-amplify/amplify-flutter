@@ -58,9 +58,7 @@ class DescribeStackEventsInputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeStackEventsInputBuilder() {
-    DescribeStackEventsInput._init(this);
-  }
+  DescribeStackEventsInputBuilder();
 
   DescribeStackEventsInputBuilder get _$this {
     final $v = _$v;

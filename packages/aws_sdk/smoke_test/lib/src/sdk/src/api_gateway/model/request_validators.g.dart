@@ -58,9 +58,7 @@ class RequestValidatorsBuilder
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  RequestValidatorsBuilder() {
-    RequestValidators._init(this);
-  }
+  RequestValidatorsBuilder();
 
   RequestValidatorsBuilder get _$this {
     final $v = _$v;

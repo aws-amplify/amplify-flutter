@@ -41,9 +41,6 @@ abstract class DetachRolePolicyRequest
   static const List<_i1.SmithySerializer<DetachRolePolicyRequest>> serializers =
       [DetachRolePolicyRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DetachRolePolicyRequestBuilder b) {}
-
   /// The name (friendly name, not ARN) of the IAM role to detach the policy from.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

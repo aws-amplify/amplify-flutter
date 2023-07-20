@@ -61,9 +61,7 @@ class LimitExceededExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  LimitExceededExceptionBuilder() {
-    LimitExceededException._init(this);
-  }
+  LimitExceededExceptionBuilder();
 
   LimitExceededExceptionBuilder get _$this {
     final $v = _$v;

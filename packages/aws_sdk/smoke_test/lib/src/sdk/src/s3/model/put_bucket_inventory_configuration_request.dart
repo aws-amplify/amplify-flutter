@@ -71,9 +71,6 @@ abstract class PutBucketInventoryConfigurationRequest
   static const List<_i1.SmithySerializer<_i2.InventoryConfiguration>>
       serializers = [PutBucketInventoryConfigurationRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketInventoryConfigurationRequestBuilder b) {}
-
   /// The name of the bucket where the inventory configuration will be stored.
   String get bucket;
 

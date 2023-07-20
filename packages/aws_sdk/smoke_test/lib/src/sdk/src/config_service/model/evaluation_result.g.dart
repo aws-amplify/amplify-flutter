@@ -102,9 +102,7 @@ class EvaluationResultBuilder
   String? get resultToken => _$this._resultToken;
   set resultToken(String? resultToken) => _$this._resultToken = resultToken;
 
-  EvaluationResultBuilder() {
-    EvaluationResult._init(this);
-  }
+  EvaluationResultBuilder();
 
   EvaluationResultBuilder get _$this {
     final $v = _$v;

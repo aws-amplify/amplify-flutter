@@ -114,9 +114,7 @@ class RestoreObjectRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  RestoreObjectRequestBuilder() {
-    RestoreObjectRequest._init(this);
-  }
+  RestoreObjectRequestBuilder();
 
   RestoreObjectRequestBuilder get _$this {
     final $v = _$v;

@@ -64,9 +64,7 @@ class NoSuchDeliveryChannelExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  NoSuchDeliveryChannelExceptionBuilder() {
-    NoSuchDeliveryChannelException._init(this);
-  }
+  NoSuchDeliveryChannelExceptionBuilder();
 
   NoSuchDeliveryChannelExceptionBuilder get _$this {
     final $v = _$v;

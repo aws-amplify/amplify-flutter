@@ -18,8 +18,8 @@ abstract class PointInTimeRecoverySpecification
         Built<PointInTimeRecoverySpecification,
             PointInTimeRecoverySpecificationBuilder> {
   /// Represents the settings used to enable point in time recovery.
-  factory PointInTimeRecoverySpecification({bool? pointInTimeRecoveryEnabled}) {
-    pointInTimeRecoveryEnabled ??= false;
+  factory PointInTimeRecoverySpecification(
+      {required bool pointInTimeRecoveryEnabled}) {
     return _$PointInTimeRecoverySpecification._(
         pointInTimeRecoveryEnabled: pointInTimeRecoveryEnabled);
   }
@@ -33,11 +33,6 @@ abstract class PointInTimeRecoverySpecification
 
   static const List<_i2.SmithySerializer<PointInTimeRecoverySpecification>>
       serializers = [PointInTimeRecoverySpecificationAwsJson10Serializer()];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PointInTimeRecoverySpecificationBuilder b) {
-    b.pointInTimeRecoveryEnabled = false;
-  }
 
   /// Indicates whether point in time recovery is enabled (true) or disabled (false) on the table.
   bool get pointInTimeRecoveryEnabled;

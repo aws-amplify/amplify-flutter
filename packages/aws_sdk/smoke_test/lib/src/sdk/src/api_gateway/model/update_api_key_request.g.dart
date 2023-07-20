@@ -63,9 +63,7 @@ class UpdateApiKeyRequestBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateApiKeyRequestBuilder() {
-    UpdateApiKeyRequest._init(this);
-  }
+  UpdateApiKeyRequestBuilder();
 
   UpdateApiKeyRequestBuilder get _$this {
     final $v = _$v;
@@ -161,9 +159,7 @@ class UpdateApiKeyRequestPayloadBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateApiKeyRequestPayloadBuilder() {
-    UpdateApiKeyRequestPayload._init(this);
-  }
+  UpdateApiKeyRequestPayloadBuilder();
 
   UpdateApiKeyRequestPayloadBuilder get _$this {
     final $v = _$v;

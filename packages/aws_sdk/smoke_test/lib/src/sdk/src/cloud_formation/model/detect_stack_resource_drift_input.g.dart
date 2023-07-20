@@ -67,9 +67,7 @@ class DetectStackResourceDriftInputBuilder
   set logicalResourceId(String? logicalResourceId) =>
       _$this._logicalResourceId = logicalResourceId;
 
-  DetectStackResourceDriftInputBuilder() {
-    DetectStackResourceDriftInput._init(this);
-  }
+  DetectStackResourceDriftInputBuilder();
 
   DetectStackResourceDriftInputBuilder get _$this {
     final $v = _$v;

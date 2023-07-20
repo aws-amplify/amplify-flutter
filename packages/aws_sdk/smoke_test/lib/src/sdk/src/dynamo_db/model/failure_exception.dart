@@ -35,9 +35,6 @@ abstract class FailureException
     FailureExceptionAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(FailureExceptionBuilder b) {}
-
   /// Exception name.
   String? get exceptionName;
 

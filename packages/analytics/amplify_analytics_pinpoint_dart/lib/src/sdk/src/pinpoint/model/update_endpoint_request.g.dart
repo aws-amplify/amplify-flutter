@@ -79,9 +79,7 @@ class UpdateEndpointRequestBuilder
   set endpointRequest(_i2.EndpointRequestBuilder? endpointRequest) =>
       _$this._endpointRequest = endpointRequest;
 
-  UpdateEndpointRequestBuilder() {
-    UpdateEndpointRequest._init(this);
-  }
+  UpdateEndpointRequestBuilder();
 
   UpdateEndpointRequestBuilder get _$this {
     final $v = _$v;

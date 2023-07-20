@@ -120,9 +120,7 @@ class ReplicaAutoScalingDescriptionBuilder
   set replicaStatus(_i4.ReplicaStatus? replicaStatus) =>
       _$this._replicaStatus = replicaStatus;
 
-  ReplicaAutoScalingDescriptionBuilder() {
-    ReplicaAutoScalingDescription._init(this);
-  }
+  ReplicaAutoScalingDescriptionBuilder();
 
   ReplicaAutoScalingDescriptionBuilder get _$this {
     final $v = _$v;

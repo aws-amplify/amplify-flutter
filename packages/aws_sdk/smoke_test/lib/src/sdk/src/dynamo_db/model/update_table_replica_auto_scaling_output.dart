@@ -40,9 +40,6 @@ abstract class UpdateTableReplicaAutoScalingOutput
   static const List<_i3.SmithySerializer<UpdateTableReplicaAutoScalingOutput>>
       serializers = [UpdateTableReplicaAutoScalingOutputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateTableReplicaAutoScalingOutputBuilder b) {}
-
   /// Returns information about the auto scaling settings of a table with replicas.
   _i2.TableAutoScalingDescription? get tableAutoScalingDescription;
   @override

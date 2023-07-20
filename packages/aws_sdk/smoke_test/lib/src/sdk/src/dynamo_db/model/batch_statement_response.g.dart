@@ -69,9 +69,7 @@ class BatchStatementResponseBuilder
   set item(_i4.MapBuilder<String, _i3.AttributeValue>? item) =>
       _$this._item = item;
 
-  BatchStatementResponseBuilder() {
-    BatchStatementResponse._init(this);
-  }
+  BatchStatementResponseBuilder();
 
   BatchStatementResponseBuilder get _$this {
     final $v = _$v;

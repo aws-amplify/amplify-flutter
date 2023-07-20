@@ -50,9 +50,7 @@ class DeleteTableOutputBuilder
   set tableDescription(_i2.TableDescriptionBuilder? tableDescription) =>
       _$this._tableDescription = tableDescription;
 
-  DeleteTableOutputBuilder() {
-    DeleteTableOutput._init(this);
-  }
+  DeleteTableOutputBuilder();
 
   DeleteTableOutputBuilder get _$this {
     final $v = _$v;

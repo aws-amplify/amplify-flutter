@@ -67,9 +67,7 @@ class GetObjectLockConfigurationRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetObjectLockConfigurationRequestBuilder() {
-    GetObjectLockConfigurationRequest._init(this);
-  }
+  GetObjectLockConfigurationRequestBuilder();
 
   GetObjectLockConfigurationRequestBuilder get _$this {
     final $v = _$v;
@@ -145,9 +143,7 @@ class GetObjectLockConfigurationRequestPayloadBuilder
             GetObjectLockConfigurationRequestPayloadBuilder> {
   _$GetObjectLockConfigurationRequestPayload? _$v;
 
-  GetObjectLockConfigurationRequestPayloadBuilder() {
-    GetObjectLockConfigurationRequestPayload._init(this);
-  }
+  GetObjectLockConfigurationRequestPayloadBuilder();
 
   @override
   void replace(GetObjectLockConfigurationRequestPayload other) {

@@ -63,9 +63,7 @@ class RollbackConfigurationBuilder
   set monitoringTimeInMinutes(int? monitoringTimeInMinutes) =>
       _$this._monitoringTimeInMinutes = monitoringTimeInMinutes;
 
-  RollbackConfigurationBuilder() {
-    RollbackConfiguration._init(this);
-  }
+  RollbackConfigurationBuilder();
 
   RollbackConfigurationBuilder get _$this {
     final $v = _$v;

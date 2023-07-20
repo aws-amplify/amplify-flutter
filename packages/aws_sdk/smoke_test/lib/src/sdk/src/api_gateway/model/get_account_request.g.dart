@@ -37,9 +37,7 @@ class GetAccountRequestBuilder
     implements Builder<GetAccountRequest, GetAccountRequestBuilder> {
   _$GetAccountRequest? _$v;
 
-  GetAccountRequestBuilder() {
-    GetAccountRequest._init(this);
-  }
+  GetAccountRequestBuilder();
 
   @override
   void replace(GetAccountRequest other) {

@@ -57,9 +57,7 @@ class RestoreStatusBuilder
   set restoreExpiryDate(DateTime? restoreExpiryDate) =>
       _$this._restoreExpiryDate = restoreExpiryDate;
 
-  RestoreStatusBuilder() {
-    RestoreStatus._init(this);
-  }
+  RestoreStatusBuilder();
 
   RestoreStatusBuilder get _$this {
     final $v = _$v;

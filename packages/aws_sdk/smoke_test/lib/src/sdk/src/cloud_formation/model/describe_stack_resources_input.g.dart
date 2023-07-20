@@ -71,9 +71,7 @@ class DescribeStackResourcesInputBuilder
   set physicalResourceId(String? physicalResourceId) =>
       _$this._physicalResourceId = physicalResourceId;
 
-  DescribeStackResourcesInputBuilder() {
-    DescribeStackResourcesInput._init(this);
-  }
+  DescribeStackResourcesInputBuilder();
 
   DescribeStackResourcesInputBuilder get _$this {
     final $v = _$v;

@@ -34,9 +34,6 @@ abstract class Tag
     TagRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TagBuilder b) {}
-
   /// Name of the object key.
   String get key;
 

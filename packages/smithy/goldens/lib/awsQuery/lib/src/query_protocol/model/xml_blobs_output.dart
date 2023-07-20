@@ -35,8 +35,6 @@ abstract class XmlBlobsOutput
     XmlBlobsOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(XmlBlobsOutputBuilder b) {}
   _i2.Uint8List? get data;
   @override
   List<Object?> get props => [data];

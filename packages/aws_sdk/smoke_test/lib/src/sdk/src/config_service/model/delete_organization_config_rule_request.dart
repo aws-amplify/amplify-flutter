@@ -39,9 +39,6 @@ abstract class DeleteOrganizationConfigRuleRequest
   static const List<_i1.SmithySerializer<DeleteOrganizationConfigRuleRequest>>
       serializers = [DeleteOrganizationConfigRuleRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteOrganizationConfigRuleRequestBuilder b) {}
-
   /// The name of organization Config rule that you want to delete.
   String get organizationConfigRuleName;
   @override

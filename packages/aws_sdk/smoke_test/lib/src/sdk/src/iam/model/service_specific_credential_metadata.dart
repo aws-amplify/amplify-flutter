@@ -47,9 +47,6 @@ abstract class ServiceSpecificCredentialMetadata
   static const List<_i3.SmithySerializer<ServiceSpecificCredentialMetadata>>
       serializers = [ServiceSpecificCredentialMetadataAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ServiceSpecificCredentialMetadataBuilder b) {}
-
   /// The name of the IAM user associated with the service-specific credential.
   String get userName;
 

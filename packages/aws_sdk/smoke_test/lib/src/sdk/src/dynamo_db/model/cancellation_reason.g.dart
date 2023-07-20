@@ -67,9 +67,7 @@ class CancellationReasonBuilder
   String? get message => _$this._message;
   set message(String? message) => _$this._message = message;
 
-  CancellationReasonBuilder() {
-    CancellationReason._init(this);
-  }
+  CancellationReasonBuilder();
 
   CancellationReasonBuilder get _$this {
     final $v = _$v;

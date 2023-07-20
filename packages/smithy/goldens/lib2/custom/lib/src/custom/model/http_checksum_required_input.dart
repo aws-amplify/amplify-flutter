@@ -42,8 +42,6 @@ abstract class HttpChecksumRequiredInput
     HttpChecksumRequiredInputRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpChecksumRequiredInputBuilder b) {}
   _i2.Uint8List? get content;
   @override
   _i2.Uint8List? getPayload() => content;

@@ -69,9 +69,7 @@ class PutExternalEvaluationRequestBuilder
   set externalEvaluation(_i3.ExternalEvaluationBuilder? externalEvaluation) =>
       _$this._externalEvaluation = externalEvaluation;
 
-  PutExternalEvaluationRequestBuilder() {
-    PutExternalEvaluationRequest._init(this);
-  }
+  PutExternalEvaluationRequestBuilder();
 
   PutExternalEvaluationRequestBuilder get _$this {
     final $v = _$v;

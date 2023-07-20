@@ -44,9 +44,6 @@ abstract class TopicConfiguration
     TopicConfigurationRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TopicConfigurationBuilder b) {}
-
   /// An optional unique identifier for configurations in a notification configuration. If you don't provide one, Amazon S3 will assign an ID.
   String? get id;
 

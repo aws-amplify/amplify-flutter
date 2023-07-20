@@ -61,9 +61,7 @@ class QueryParamsAsStringListMapInputBuilder
       _$this._foo ??= new _i3.ListMultimapBuilder<String, String>();
   set foo(_i3.ListMultimapBuilder<String, String>? foo) => _$this._foo = foo;
 
-  QueryParamsAsStringListMapInputBuilder() {
-    QueryParamsAsStringListMapInput._init(this);
-  }
+  QueryParamsAsStringListMapInputBuilder();
 
   QueryParamsAsStringListMapInputBuilder get _$this {
     final $v = _$v;
@@ -148,9 +146,7 @@ class QueryParamsAsStringListMapInputPayloadBuilder
             QueryParamsAsStringListMapInputPayloadBuilder> {
   _$QueryParamsAsStringListMapInputPayload? _$v;
 
-  QueryParamsAsStringListMapInputPayloadBuilder() {
-    QueryParamsAsStringListMapInputPayload._init(this);
-  }
+  QueryParamsAsStringListMapInputPayloadBuilder();
 
   @override
   void replace(QueryParamsAsStringListMapInputPayload other) {

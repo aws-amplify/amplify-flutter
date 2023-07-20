@@ -54,9 +54,7 @@ class DescribeStackSetOperationOutputBuilder
   set stackSetOperation(_i2.StackSetOperationBuilder? stackSetOperation) =>
       _$this._stackSetOperation = stackSetOperation;
 
-  DescribeStackSetOperationOutputBuilder() {
-    DescribeStackSetOperationOutput._init(this);
-  }
+  DescribeStackSetOperationOutputBuilder();
 
   DescribeStackSetOperationOutputBuilder get _$this {
     final $v = _$v;

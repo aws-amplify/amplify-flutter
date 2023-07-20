@@ -39,9 +39,6 @@ abstract class InAppMessageBodyConfig
   static const List<_i3.SmithySerializer<InAppMessageBodyConfig>> serializers =
       [InAppMessageBodyConfigRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InAppMessageBodyConfigBuilder b) {}
-
   /// The alignment of the text. Valid values: LEFT, CENTER, RIGHT.
   _i2.Alignment get alignment;
 

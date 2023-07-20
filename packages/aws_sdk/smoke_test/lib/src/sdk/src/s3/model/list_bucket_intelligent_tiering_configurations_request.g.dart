@@ -73,9 +73,7 @@ class ListBucketIntelligentTieringConfigurationsRequestBuilder
   set continuationToken(String? continuationToken) =>
       _$this._continuationToken = continuationToken;
 
-  ListBucketIntelligentTieringConfigurationsRequestBuilder() {
-    ListBucketIntelligentTieringConfigurationsRequest._init(this);
-  }
+  ListBucketIntelligentTieringConfigurationsRequestBuilder();
 
   ListBucketIntelligentTieringConfigurationsRequestBuilder get _$this {
     final $v = _$v;
@@ -156,9 +154,7 @@ class ListBucketIntelligentTieringConfigurationsRequestPayloadBuilder
             ListBucketIntelligentTieringConfigurationsRequestPayloadBuilder> {
   _$ListBucketIntelligentTieringConfigurationsRequestPayload? _$v;
 
-  ListBucketIntelligentTieringConfigurationsRequestPayloadBuilder() {
-    ListBucketIntelligentTieringConfigurationsRequestPayload._init(this);
-  }
+  ListBucketIntelligentTieringConfigurationsRequestPayloadBuilder();
 
   @override
   void replace(ListBucketIntelligentTieringConfigurationsRequestPayload other) {

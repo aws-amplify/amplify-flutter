@@ -51,9 +51,7 @@ class GetDomainNameRequestBuilder
   String? get domainName => _$this._domainName;
   set domainName(String? domainName) => _$this._domainName = domainName;
 
-  GetDomainNameRequestBuilder() {
-    GetDomainNameRequest._init(this);
-  }
+  GetDomainNameRequestBuilder();
 
   GetDomainNameRequestBuilder get _$this {
     final $v = _$v;
@@ -122,9 +120,7 @@ class GetDomainNameRequestPayloadBuilder
             GetDomainNameRequestPayloadBuilder> {
   _$GetDomainNameRequestPayload? _$v;
 
-  GetDomainNameRequestPayloadBuilder() {
-    GetDomainNameRequestPayload._init(this);
-  }
+  GetDomainNameRequestPayloadBuilder();
 
   @override
   void replace(GetDomainNameRequestPayload other) {

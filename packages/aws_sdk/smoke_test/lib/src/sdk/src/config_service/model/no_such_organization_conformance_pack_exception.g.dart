@@ -69,9 +69,7 @@ class NoSuchOrganizationConformancePackExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  NoSuchOrganizationConformancePackExceptionBuilder() {
-    NoSuchOrganizationConformancePackException._init(this);
-  }
+  NoSuchOrganizationConformancePackExceptionBuilder();
 
   NoSuchOrganizationConformancePackExceptionBuilder get _$this {
     final $v = _$v;

@@ -63,9 +63,7 @@ class NoncurrentVersionExpirationBuilder
   set newerNoncurrentVersions(int? newerNoncurrentVersions) =>
       _$this._newerNoncurrentVersions = newerNoncurrentVersions;
 
-  NoncurrentVersionExpirationBuilder() {
-    NoncurrentVersionExpiration._init(this);
-  }
+  NoncurrentVersionExpirationBuilder();
 
   NoncurrentVersionExpirationBuilder get _$this {
     final $v = _$v;

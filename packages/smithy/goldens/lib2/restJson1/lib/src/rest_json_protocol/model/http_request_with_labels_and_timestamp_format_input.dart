@@ -102,8 +102,6 @@ abstract class HttpRequestWithLabelsAndTimestampFormatInput
     HttpRequestWithLabelsAndTimestampFormatInputRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpRequestWithLabelsAndTimestampFormatInputBuilder b) {}
   DateTime get memberEpochSeconds;
   DateTime get memberHttpDate;
   DateTime get memberDateTime;
@@ -212,9 +210,6 @@ abstract class HttpRequestWithLabelsAndTimestampFormatInputPayload
 
   const HttpRequestWithLabelsAndTimestampFormatInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

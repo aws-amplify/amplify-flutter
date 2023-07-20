@@ -50,8 +50,6 @@ abstract class QueryPrecedenceInput
   static const List<_i1.SmithySerializer<QueryPrecedenceInputPayload>>
       serializers = [QueryPrecedenceInputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(QueryPrecedenceInputBuilder b) {}
   String? get foo;
   _i3.BuiltMap<String, String>? get baz;
   @override
@@ -88,8 +86,6 @@ abstract class QueryPrecedenceInputPayload
 
   const QueryPrecedenceInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(QueryPrecedenceInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

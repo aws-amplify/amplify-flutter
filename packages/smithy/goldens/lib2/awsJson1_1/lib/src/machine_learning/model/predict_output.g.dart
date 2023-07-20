@@ -47,9 +47,7 @@ class PredictOutputBuilder
   set prediction(_i2.PredictionBuilder? prediction) =>
       _$this._prediction = prediction;
 
-  PredictOutputBuilder() {
-    PredictOutput._init(this);
-  }
+  PredictOutputBuilder();
 
   PredictOutputBuilder get _$this {
     final $v = _$v;

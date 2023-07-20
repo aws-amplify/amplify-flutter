@@ -56,9 +56,7 @@ class DescribeTypeRegistrationInputBuilder
   set registrationToken(String? registrationToken) =>
       _$this._registrationToken = registrationToken;
 
-  DescribeTypeRegistrationInputBuilder() {
-    DescribeTypeRegistrationInput._init(this);
-  }
+  DescribeTypeRegistrationInputBuilder();
 
   DescribeTypeRegistrationInputBuilder get _$this {
     final $v = _$v;

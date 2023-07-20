@@ -59,9 +59,6 @@ abstract class ChangeSetSummary
     ChangeSetSummaryAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ChangeSetSummaryBuilder b) {}
-
   /// The ID of the stack with which the change set is associated.
   String? get stackId;
 

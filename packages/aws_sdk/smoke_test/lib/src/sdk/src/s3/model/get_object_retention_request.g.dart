@@ -95,9 +95,7 @@ class GetObjectRetentionRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetObjectRetentionRequestBuilder() {
-    GetObjectRetentionRequest._init(this);
-  }
+  GetObjectRetentionRequestBuilder();
 
   GetObjectRetentionRequestBuilder get _$this {
     final $v = _$v;
@@ -176,9 +174,7 @@ class GetObjectRetentionRequestPayloadBuilder
             GetObjectRetentionRequestPayloadBuilder> {
   _$GetObjectRetentionRequestPayload? _$v;
 
-  GetObjectRetentionRequestPayloadBuilder() {
-    GetObjectRetentionRequestPayload._init(this);
-  }
+  GetObjectRetentionRequestPayloadBuilder();
 
   @override
   void replace(GetObjectRetentionRequestPayload other) {

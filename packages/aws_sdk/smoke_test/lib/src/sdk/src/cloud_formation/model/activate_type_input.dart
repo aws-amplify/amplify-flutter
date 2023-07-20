@@ -62,9 +62,6 @@ abstract class ActivateTypeInput
     ActivateTypeInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ActivateTypeInputBuilder b) {}
-
   /// The extension type.
   ///
   /// Conditional: You must specify `PublicTypeArn`, or `TypeName`, `Type`, and `PublisherId`.

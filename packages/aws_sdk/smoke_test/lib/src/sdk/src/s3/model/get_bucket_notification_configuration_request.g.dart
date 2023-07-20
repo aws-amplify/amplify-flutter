@@ -69,9 +69,7 @@ class GetBucketNotificationConfigurationRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetBucketNotificationConfigurationRequestBuilder() {
-    GetBucketNotificationConfigurationRequest._init(this);
-  }
+  GetBucketNotificationConfigurationRequestBuilder();
 
   GetBucketNotificationConfigurationRequestBuilder get _$this {
     final $v = _$v;
@@ -151,9 +149,7 @@ class GetBucketNotificationConfigurationRequestPayloadBuilder
             GetBucketNotificationConfigurationRequestPayloadBuilder> {
   _$GetBucketNotificationConfigurationRequestPayload? _$v;
 
-  GetBucketNotificationConfigurationRequestPayloadBuilder() {
-    GetBucketNotificationConfigurationRequestPayload._init(this);
-  }
+  GetBucketNotificationConfigurationRequestPayloadBuilder();
 
   @override
   void replace(GetBucketNotificationConfigurationRequestPayload other) {

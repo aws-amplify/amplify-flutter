@@ -53,9 +53,7 @@ class RequestPaymentConfigurationBuilder
   _i2.Payer? get payer => _$this._payer;
   set payer(_i2.Payer? payer) => _$this._payer = payer;
 
-  RequestPaymentConfigurationBuilder() {
-    RequestPaymentConfiguration._init(this);
-  }
+  RequestPaymentConfigurationBuilder();
 
   RequestPaymentConfigurationBuilder get _$this {
     final $v = _$v;

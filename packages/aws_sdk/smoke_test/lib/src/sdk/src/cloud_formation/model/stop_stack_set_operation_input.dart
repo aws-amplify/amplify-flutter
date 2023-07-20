@@ -46,9 +46,6 @@ abstract class StopStackSetOperationInput
   static const List<_i1.SmithySerializer<StopStackSetOperationInput>>
       serializers = [StopStackSetOperationInputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StopStackSetOperationInputBuilder b) {}
-
   /// The name or unique ID of the stack set that you want to stop the operation for.
   String get stackSetName;
 

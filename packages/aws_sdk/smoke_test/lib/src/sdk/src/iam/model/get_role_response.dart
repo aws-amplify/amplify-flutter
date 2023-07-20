@@ -37,9 +37,6 @@ abstract class GetRoleResponse
     GetRoleResponseAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetRoleResponseBuilder b) {}
-
   /// A structure containing details about the IAM role.
   _i2.Role get role;
   @override

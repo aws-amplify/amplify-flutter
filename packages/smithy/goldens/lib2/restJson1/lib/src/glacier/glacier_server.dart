@@ -101,7 +101,7 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
     try {
       final payload = (await _uploadArchiveProtocol.wireSerializer.deserialize(
         await awsRequest.bodyBytes,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i4.Stream,
           [
             FullType(
@@ -110,7 +110,7 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
             )
           ],
         ),
-      ) as _i4.Stream<List<int>>?);
+      ) as _i4.Stream<List<int>>);
       final input = _i6.UploadArchiveInput.fromRequest(
         payload,
         awsRequest,
@@ -237,7 +237,7 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
       final payload =
           (await _uploadMultipartPartProtocol.wireSerializer.deserialize(
         await awsRequest.bodyBytes,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i4.Stream,
           [
             FullType(
@@ -246,7 +246,7 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
             )
           ],
         ),
-      ) as _i4.Stream<List<int>>?);
+      ) as _i4.Stream<List<int>>);
       final input = _i8.UploadMultipartPartInput.fromRequest(
         payload,
         awsRequest,

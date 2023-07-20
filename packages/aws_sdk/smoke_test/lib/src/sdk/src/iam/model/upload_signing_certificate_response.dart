@@ -42,9 +42,6 @@ abstract class UploadSigningCertificateResponse
   static const List<_i3.SmithySerializer<UploadSigningCertificateResponse>>
       serializers = [UploadSigningCertificateResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UploadSigningCertificateResponseBuilder b) {}
-
   /// Information about the certificate.
   _i2.SigningCertificate get certificate;
   @override

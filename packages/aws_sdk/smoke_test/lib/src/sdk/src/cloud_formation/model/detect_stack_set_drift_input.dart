@@ -26,9 +26,6 @@ abstract class DetectStackSetDriftInput
     String? operationId,
     _i4.CallAs? callAs,
   }) {
-    operationId ??= const bool.hasEnvironment('SMITHY_TEST')
-        ? '00000000-0000-4000-8000-000000000000'
-        : _i2.uuid(secure: true);
     return _$DetectStackSetDriftInput._(
       stackSetName: stackSetName,
       operationPreferences: operationPreferences,

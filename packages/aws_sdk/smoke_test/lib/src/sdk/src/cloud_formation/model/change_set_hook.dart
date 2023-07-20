@@ -49,9 +49,6 @@ abstract class ChangeSetHook
     ChangeSetHookAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ChangeSetHookBuilder b) {}
-
   /// Specifies the points in provisioning logic where a hook is invoked.
   _i2.HookInvocationPoint? get invocationPoint;
 

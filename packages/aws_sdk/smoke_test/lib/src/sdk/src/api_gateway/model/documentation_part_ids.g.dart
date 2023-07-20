@@ -60,9 +60,7 @@ class DocumentationPartIdsBuilder
   set warnings(_i2.ListBuilder<String>? warnings) =>
       _$this._warnings = warnings;
 
-  DocumentationPartIdsBuilder() {
-    DocumentationPartIds._init(this);
-  }
+  DocumentationPartIdsBuilder();
 
   DocumentationPartIdsBuilder get _$this {
     final $v = _$v;

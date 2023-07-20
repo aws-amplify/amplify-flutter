@@ -47,9 +47,7 @@ class GetPolicyResponseBuilder
   _i2.PolicyBuilder get policy => _$this._policy ??= new _i2.PolicyBuilder();
   set policy(_i2.PolicyBuilder? policy) => _$this._policy = policy;
 
-  GetPolicyResponseBuilder() {
-    GetPolicyResponse._init(this);
-  }
+  GetPolicyResponseBuilder();
 
   GetPolicyResponseBuilder get _$this {
     final $v = _$v;

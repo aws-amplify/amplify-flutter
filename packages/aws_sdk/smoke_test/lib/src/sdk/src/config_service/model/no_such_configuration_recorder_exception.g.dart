@@ -68,9 +68,7 @@ class NoSuchConfigurationRecorderExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  NoSuchConfigurationRecorderExceptionBuilder() {
-    NoSuchConfigurationRecorderException._init(this);
-  }
+  NoSuchConfigurationRecorderExceptionBuilder();
 
   NoSuchConfigurationRecorderExceptionBuilder get _$this {
     final $v = _$v;

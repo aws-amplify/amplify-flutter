@@ -52,9 +52,6 @@ abstract class Destination
     DestinationRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DestinationBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the bucket where you want Amazon S3 to store the results.
   String get bucket;
 

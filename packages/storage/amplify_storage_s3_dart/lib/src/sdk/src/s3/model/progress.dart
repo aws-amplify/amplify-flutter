@@ -37,9 +37,6 @@ abstract class Progress
     ProgressRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ProgressBuilder b) {}
-
   /// The current number of object bytes scanned.
   _i2.Int64? get bytesScanned;
 

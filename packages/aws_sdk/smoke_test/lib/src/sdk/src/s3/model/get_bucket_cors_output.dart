@@ -37,9 +37,6 @@ abstract class GetBucketCorsOutput
     GetBucketCorsOutputRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketCorsOutputBuilder b) {}
-
   /// A set of origins and methods (cross-origin access that you want to allow). You can add up to 100 rules to the configuration.
   _i3.BuiltList<_i2.CorsRule>? get corsRules;
   @override

@@ -83,9 +83,7 @@ class GetOrganizationsAccessReportRequestBuilder
   _i3.SortKeyType? get sortKey => _$this._sortKey;
   set sortKey(_i3.SortKeyType? sortKey) => _$this._sortKey = sortKey;
 
-  GetOrganizationsAccessReportRequestBuilder() {
-    GetOrganizationsAccessReportRequest._init(this);
-  }
+  GetOrganizationsAccessReportRequestBuilder();
 
   GetOrganizationsAccessReportRequestBuilder get _$this {
     final $v = _$v;

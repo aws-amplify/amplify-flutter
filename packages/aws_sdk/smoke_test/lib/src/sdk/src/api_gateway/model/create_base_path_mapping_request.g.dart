@@ -85,9 +85,7 @@ class CreateBasePathMappingRequestBuilder
   String? get stage => _$this._stage;
   set stage(String? stage) => _$this._stage = stage;
 
-  CreateBasePathMappingRequestBuilder() {
-    CreateBasePathMappingRequest._init(this);
-  }
+  CreateBasePathMappingRequestBuilder();
 
   CreateBasePathMappingRequestBuilder get _$this {
     final $v = _$v;
@@ -198,9 +196,7 @@ class CreateBasePathMappingRequestPayloadBuilder
   String? get stage => _$this._stage;
   set stage(String? stage) => _$this._stage = stage;
 
-  CreateBasePathMappingRequestPayloadBuilder() {
-    CreateBasePathMappingRequestPayload._init(this);
-  }
+  CreateBasePathMappingRequestPayloadBuilder();
 
   CreateBasePathMappingRequestPayloadBuilder get _$this {
     final $v = _$v;

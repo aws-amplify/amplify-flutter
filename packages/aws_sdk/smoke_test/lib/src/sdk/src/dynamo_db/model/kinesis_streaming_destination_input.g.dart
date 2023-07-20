@@ -67,9 +67,7 @@ class KinesisStreamingDestinationInputBuilder
   String? get streamArn => _$this._streamArn;
   set streamArn(String? streamArn) => _$this._streamArn = streamArn;
 
-  KinesisStreamingDestinationInputBuilder() {
-    KinesisStreamingDestinationInput._init(this);
-  }
+  KinesisStreamingDestinationInputBuilder();
 
   KinesisStreamingDestinationInputBuilder get _$this {
     final $v = _$v;

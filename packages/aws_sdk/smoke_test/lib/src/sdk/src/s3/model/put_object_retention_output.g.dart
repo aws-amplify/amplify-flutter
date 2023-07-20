@@ -51,9 +51,7 @@ class PutObjectRetentionOutputBuilder
   set requestCharged(_i3.RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
-  PutObjectRetentionOutputBuilder() {
-    PutObjectRetentionOutput._init(this);
-  }
+  PutObjectRetentionOutputBuilder();
 
   PutObjectRetentionOutputBuilder get _$this {
     final $v = _$v;
@@ -121,9 +119,7 @@ class PutObjectRetentionOutputPayloadBuilder
             PutObjectRetentionOutputPayloadBuilder> {
   _$PutObjectRetentionOutputPayload? _$v;
 
-  PutObjectRetentionOutputPayloadBuilder() {
-    PutObjectRetentionOutputPayload._init(this);
-  }
+  PutObjectRetentionOutputPayloadBuilder();
 
   @override
   void replace(PutObjectRetentionOutputPayload other) {

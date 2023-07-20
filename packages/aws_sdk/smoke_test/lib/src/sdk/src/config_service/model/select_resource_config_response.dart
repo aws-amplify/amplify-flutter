@@ -47,9 +47,6 @@ abstract class SelectResourceConfigResponse
   static const List<_i4.SmithySerializer<SelectResourceConfigResponse>>
       serializers = [SelectResourceConfigResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SelectResourceConfigResponseBuilder b) {}
-
   /// Returns the results for the SQL query.
   _i3.BuiltList<String>? get results;
 

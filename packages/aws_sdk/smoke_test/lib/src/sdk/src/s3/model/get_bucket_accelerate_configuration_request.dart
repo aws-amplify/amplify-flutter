@@ -64,9 +64,6 @@ abstract class GetBucketAccelerateConfigurationRequest
     GetBucketAccelerateConfigurationRequestRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketAccelerateConfigurationRequestBuilder b) {}
-
   /// The name of the bucket for which the accelerate configuration is retrieved.
   String get bucket;
 
@@ -130,8 +127,6 @@ abstract class GetBucketAccelerateConfigurationRequestPayload
 
   const GetBucketAccelerateConfigurationRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketAccelerateConfigurationRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

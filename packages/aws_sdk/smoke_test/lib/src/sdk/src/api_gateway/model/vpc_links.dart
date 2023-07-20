@@ -43,9 +43,6 @@ abstract class VpcLinks
     VpcLinksRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(VpcLinksBuilder b) {}
-
   /// The current page of elements from this collection.
   _i3.BuiltList<_i2.VpcLink>? get items;
 

@@ -57,9 +57,7 @@ class ErrorDetailsBuilder
   String? get code => _$this._code;
   set code(String? code) => _$this._code = code;
 
-  ErrorDetailsBuilder() {
-    ErrorDetails._init(this);
-  }
+  ErrorDetailsBuilder();
 
   ErrorDetailsBuilder get _$this {
     final $v = _$v;

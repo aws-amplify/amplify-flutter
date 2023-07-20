@@ -37,9 +37,6 @@ abstract class CreateAccessKeyResponse
   static const List<_i3.SmithySerializer<CreateAccessKeyResponse>> serializers =
       [CreateAccessKeyResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateAccessKeyResponseBuilder b) {}
-
   /// A structure with details about the access key.
   _i2.AccessKey get accessKey;
   @override

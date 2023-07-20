@@ -74,9 +74,6 @@ abstract class RestoreTableToPointInTimeInput
   static const List<_i1.SmithySerializer<RestoreTableToPointInTimeInput>>
       serializers = [RestoreTableToPointInTimeInputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RestoreTableToPointInTimeInputBuilder b) {}
-
   /// The DynamoDB table that will be restored. This value is an Amazon Resource Name (ARN).
   String? get sourceTableArn;
 

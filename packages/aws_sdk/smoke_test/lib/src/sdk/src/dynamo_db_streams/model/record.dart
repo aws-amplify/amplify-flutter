@@ -50,9 +50,6 @@ abstract class Record
     RecordAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RecordBuilder b) {}
-
   /// A globally unique identifier for the event that was recorded in this stream record.
   String? get eventId;
 

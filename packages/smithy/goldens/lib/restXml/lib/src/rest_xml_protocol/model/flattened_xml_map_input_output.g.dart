@@ -51,9 +51,7 @@ class FlattenedXmlMapInputOutputBuilder
   set myMap(_i4.MapBuilder<String, _i3.FooEnum>? myMap) =>
       _$this._myMap = myMap;
 
-  FlattenedXmlMapInputOutputBuilder() {
-    FlattenedXmlMapInputOutput._init(this);
-  }
+  FlattenedXmlMapInputOutputBuilder();
 
   FlattenedXmlMapInputOutputBuilder get _$this {
     final $v = _$v;

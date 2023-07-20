@@ -105,9 +105,7 @@ class RecordBuilder implements Builder<Record, RecordBuilder> {
   set userIdentity(_i4.IdentityBuilder? userIdentity) =>
       _$this._userIdentity = userIdentity;
 
-  RecordBuilder() {
-    Record._init(this);
-  }
+  RecordBuilder();
 
   RecordBuilder get _$this {
     final $v = _$v;

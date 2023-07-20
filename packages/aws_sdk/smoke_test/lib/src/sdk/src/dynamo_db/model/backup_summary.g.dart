@@ -133,9 +133,7 @@ class BackupSummaryBuilder
   set backupSizeBytes(_i4.Int64? backupSizeBytes) =>
       _$this._backupSizeBytes = backupSizeBytes;
 
-  BackupSummaryBuilder() {
-    BackupSummary._init(this);
-  }
+  BackupSummaryBuilder();
 
   BackupSummaryBuilder get _$this {
     final $v = _$v;

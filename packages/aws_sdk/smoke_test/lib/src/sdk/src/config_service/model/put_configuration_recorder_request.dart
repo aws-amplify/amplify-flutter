@@ -44,9 +44,6 @@ abstract class PutConfigurationRecorderRequest
   static const List<_i1.SmithySerializer<PutConfigurationRecorderRequest>>
       serializers = [PutConfigurationRecorderRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutConfigurationRecorderRequestBuilder b) {}
-
   /// An object for the configuration recorder to record configuration changes for specified resource types.
   _i3.ConfigurationRecorder get configurationRecorder;
   @override

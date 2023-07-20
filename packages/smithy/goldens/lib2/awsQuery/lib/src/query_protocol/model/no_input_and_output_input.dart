@@ -38,8 +38,6 @@ abstract class NoInputAndOutputInput
     NoInputAndOutputInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NoInputAndOutputInputBuilder b) {}
   @override
   NoInputAndOutputInput getPayload() => this;
   @override

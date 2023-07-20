@@ -76,9 +76,6 @@ abstract class PutBucketVersioningRequest
   static const List<_i1.SmithySerializer<_i2.VersioningConfiguration>>
       serializers = [PutBucketVersioningRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketVersioningRequestBuilder b) {}
-
   /// The bucket name.
   String get bucket;
 

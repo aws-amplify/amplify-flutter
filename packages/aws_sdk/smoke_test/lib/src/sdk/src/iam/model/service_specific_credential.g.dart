@@ -125,9 +125,7 @@ class ServiceSpecificCredentialBuilder
   _i2.StatusType? get status => _$this._status;
   set status(_i2.StatusType? status) => _$this._status = status;
 
-  ServiceSpecificCredentialBuilder() {
-    ServiceSpecificCredential._init(this);
-  }
+  ServiceSpecificCredentialBuilder();
 
   ServiceSpecificCredentialBuilder get _$this {
     final $v = _$v;

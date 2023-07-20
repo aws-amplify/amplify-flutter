@@ -38,9 +38,7 @@ class DeleteStackSetOutputBuilder
     implements Builder<DeleteStackSetOutput, DeleteStackSetOutputBuilder> {
   _$DeleteStackSetOutput? _$v;
 
-  DeleteStackSetOutputBuilder() {
-    DeleteStackSetOutput._init(this);
-  }
+  DeleteStackSetOutputBuilder();
 
   @override
   void replace(DeleteStackSetOutput other) {

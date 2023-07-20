@@ -72,9 +72,6 @@ abstract class PutBucketEncryptionRequest
   static const List<_i1.SmithySerializer<_i2.ServerSideEncryptionConfiguration>>
       serializers = [PutBucketEncryptionRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketEncryptionRequestBuilder b) {}
-
   /// Specifies default encryption for a bucket using server-side encryption with different key options. By default, all buckets have a default encryption configuration that uses server-side encryption with Amazon S3 managed keys (SSE-S3). You can optionally configure default encryption for a bucket by using server-side encryption with an Amazon Web Services KMS key (SSE-KMS) or a customer-provided key (SSE-C). For information about the bucket default encryption feature, see [Amazon S3 Bucket Default Encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html) in the _Amazon S3 User Guide_.
   String get bucket;
 

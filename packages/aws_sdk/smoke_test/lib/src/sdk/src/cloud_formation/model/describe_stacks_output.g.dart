@@ -58,9 +58,7 @@ class DescribeStacksOutputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeStacksOutputBuilder() {
-    DescribeStacksOutput._init(this);
-  }
+  DescribeStacksOutputBuilder();
 
   DescribeStacksOutputBuilder get _$this {
     final $v = _$v;

@@ -39,9 +39,7 @@ class DeleteStoredQueryResponseBuilder
         Builder<DeleteStoredQueryResponse, DeleteStoredQueryResponseBuilder> {
   _$DeleteStoredQueryResponse? _$v;
 
-  DeleteStoredQueryResponseBuilder() {
-    DeleteStoredQueryResponse._init(this);
-  }
+  DeleteStoredQueryResponseBuilder();
 
   @override
   void replace(DeleteStoredQueryResponse other) {

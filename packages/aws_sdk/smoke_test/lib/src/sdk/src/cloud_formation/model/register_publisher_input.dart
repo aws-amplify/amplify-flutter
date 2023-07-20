@@ -41,9 +41,6 @@ abstract class RegisterPublisherInput
   static const List<_i1.SmithySerializer<RegisterPublisherInput>> serializers =
       [RegisterPublisherInputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RegisterPublisherInputBuilder b) {}
-
   /// Whether you accept the [Terms and Conditions](https://cloudformation-registry-documents.s3.amazonaws.com/Terms_and_Conditions_for_AWS_CloudFormation_Registry_Publishers.pdf) for publishing extensions in the CloudFormation registry. You must accept the terms and conditions in order to register to publish public extensions to the CloudFormation registry.
   ///
   /// The default is `false`.

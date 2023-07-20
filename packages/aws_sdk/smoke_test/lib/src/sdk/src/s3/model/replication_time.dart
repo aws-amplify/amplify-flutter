@@ -39,9 +39,6 @@ abstract class ReplicationTime
     ReplicationTimeRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicationTimeBuilder b) {}
-
   /// Specifies whether the replication time is enabled.
   _i2.ReplicationTimeStatus get status;
 

@@ -98,9 +98,7 @@ class PutBucketWebsiteRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  PutBucketWebsiteRequestBuilder() {
-    PutBucketWebsiteRequest._init(this);
-  }
+  PutBucketWebsiteRequestBuilder();
 
   PutBucketWebsiteRequestBuilder get _$this {
     final $v = _$v;

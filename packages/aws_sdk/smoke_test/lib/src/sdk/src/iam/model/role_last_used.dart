@@ -41,9 +41,6 @@ abstract class RoleLastUsed
     RoleLastUsedAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RoleLastUsedBuilder b) {}
-
   /// The date and time, in [ISO 8601 date-time format](http://www.iso.org/iso/iso8601) that the role was last used.
   ///
   /// This field is null if the role has not been used within the IAM tracking period. For more information about the tracking period, see [Regions where data is tracked](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period) in the _IAM User Guide_.

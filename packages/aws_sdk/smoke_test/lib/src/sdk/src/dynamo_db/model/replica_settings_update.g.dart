@@ -117,9 +117,7 @@ class ReplicaSettingsUpdateBuilder
   set replicaTableClass(_i5.TableClass? replicaTableClass) =>
       _$this._replicaTableClass = replicaTableClass;
 
-  ReplicaSettingsUpdateBuilder() {
-    ReplicaSettingsUpdate._init(this);
-  }
+  ReplicaSettingsUpdateBuilder();
 
   ReplicaSettingsUpdateBuilder get _$this {
     final $v = _$v;

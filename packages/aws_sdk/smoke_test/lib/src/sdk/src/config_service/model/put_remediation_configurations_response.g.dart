@@ -58,9 +58,7 @@ class PutRemediationConfigurationsResponseBuilder
           _i3.ListBuilder<_i2.FailedRemediationBatch>? failedBatches) =>
       _$this._failedBatches = failedBatches;
 
-  PutRemediationConfigurationsResponseBuilder() {
-    PutRemediationConfigurationsResponse._init(this);
-  }
+  PutRemediationConfigurationsResponseBuilder();
 
   PutRemediationConfigurationsResponseBuilder get _$this {
     final $v = _$v;

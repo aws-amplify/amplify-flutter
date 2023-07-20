@@ -58,9 +58,6 @@ abstract class SourceTableDetails
     SourceTableDetailsAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SourceTableDetailsBuilder b) {}
-
   /// The name of the table for which the backup was created.
   String get tableName;
 

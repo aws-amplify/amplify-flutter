@@ -51,9 +51,7 @@ class SetTypeConfigurationOutputBuilder
   set configurationArn(String? configurationArn) =>
       _$this._configurationArn = configurationArn;
 
-  SetTypeConfigurationOutputBuilder() {
-    SetTypeConfigurationOutput._init(this);
-  }
+  SetTypeConfigurationOutputBuilder();
 
   SetTypeConfigurationOutputBuilder get _$this {
     final $v = _$v;

@@ -68,9 +68,6 @@ abstract class GetResourcesRequest
   static const List<_i1.SmithySerializer<GetResourcesRequestPayload>>
       serializers = [GetResourcesRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetResourcesRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -138,8 +135,6 @@ abstract class GetResourcesRequestPayload
 
   const GetResourcesRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetResourcesRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

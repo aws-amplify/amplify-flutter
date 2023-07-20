@@ -83,9 +83,7 @@ class GetSdkRequestBuilder
   set parameters(_i3.MapBuilder<String, String>? parameters) =>
       _$this._parameters = parameters;
 
-  GetSdkRequestBuilder() {
-    GetSdkRequest._init(this);
-  }
+  GetSdkRequestBuilder();
 
   GetSdkRequestBuilder get _$this {
     final $v = _$v;
@@ -173,9 +171,7 @@ class GetSdkRequestPayloadBuilder
     implements Builder<GetSdkRequestPayload, GetSdkRequestPayloadBuilder> {
   _$GetSdkRequestPayload? _$v;
 
-  GetSdkRequestPayloadBuilder() {
-    GetSdkRequestPayload._init(this);
-  }
+  GetSdkRequestPayloadBuilder();
 
   @override
   void replace(GetSdkRequestPayload other) {

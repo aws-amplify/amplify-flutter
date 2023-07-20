@@ -61,9 +61,7 @@ class StreamingTraitsRequireLengthInputBuilder
   _i2.Stream<List<int>>? get blob => _$this._blob;
   set blob(_i2.Stream<List<int>>? blob) => _$this._blob = blob;
 
-  StreamingTraitsRequireLengthInputBuilder() {
-    StreamingTraitsRequireLengthInput._init(this);
-  }
+  StreamingTraitsRequireLengthInputBuilder();
 
   StreamingTraitsRequireLengthInputBuilder get _$this {
     final $v = _$v;

@@ -48,9 +48,6 @@ abstract class GenerateServiceLastAccessedDetailsRequest
     GenerateServiceLastAccessedDetailsRequestAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GenerateServiceLastAccessedDetailsRequestBuilder b) {}
-
   /// The ARN of the IAM resource (user, group, role, or managed policy) used to generate information about when the resource was last used in an attempt to access an Amazon Web Services service.
   String get arn;
 

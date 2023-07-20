@@ -42,8 +42,6 @@ abstract class IdpCommunicationErrorException
   static const List<_i2.SmithySerializer<IdpCommunicationErrorException>>
       serializers = [IdpCommunicationErrorExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(IdpCommunicationErrorExceptionBuilder b) {}
   @override
   String? get message;
   @override

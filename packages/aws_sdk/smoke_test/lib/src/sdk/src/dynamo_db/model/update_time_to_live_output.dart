@@ -37,9 +37,6 @@ abstract class UpdateTimeToLiveOutput
   static const List<_i3.SmithySerializer<UpdateTimeToLiveOutput>> serializers =
       [UpdateTimeToLiveOutputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateTimeToLiveOutputBuilder b) {}
-
   /// Represents the output of an `UpdateTimeToLive` operation.
   _i2.TimeToLiveSpecification? get timeToLiveSpecification;
   @override

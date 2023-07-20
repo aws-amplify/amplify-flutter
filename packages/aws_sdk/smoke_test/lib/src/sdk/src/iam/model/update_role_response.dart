@@ -36,8 +36,6 @@ abstract class UpdateRoleResponse
     UpdateRoleResponseAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateRoleResponseBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

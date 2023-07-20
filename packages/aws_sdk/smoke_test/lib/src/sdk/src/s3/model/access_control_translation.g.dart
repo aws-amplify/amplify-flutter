@@ -52,9 +52,7 @@ class AccessControlTranslationBuilder
   _i2.OwnerOverride? get owner => _$this._owner;
   set owner(_i2.OwnerOverride? owner) => _$this._owner = owner;
 
-  AccessControlTranslationBuilder() {
-    AccessControlTranslation._init(this);
-  }
+  AccessControlTranslationBuilder();
 
   AccessControlTranslationBuilder get _$this {
     final $v = _$v;

@@ -70,9 +70,7 @@ class GetDeploymentsRequestBuilder
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
 
-  GetDeploymentsRequestBuilder() {
-    GetDeploymentsRequest._init(this);
-  }
+  GetDeploymentsRequestBuilder();
 
   GetDeploymentsRequestBuilder get _$this {
     final $v = _$v;
@@ -145,9 +143,7 @@ class GetDeploymentsRequestPayloadBuilder
             GetDeploymentsRequestPayloadBuilder> {
   _$GetDeploymentsRequestPayload? _$v;
 
-  GetDeploymentsRequestPayloadBuilder() {
-    GetDeploymentsRequestPayload._init(this);
-  }
+  GetDeploymentsRequestPayloadBuilder();
 
   @override
   void replace(GetDeploymentsRequestPayload other) {

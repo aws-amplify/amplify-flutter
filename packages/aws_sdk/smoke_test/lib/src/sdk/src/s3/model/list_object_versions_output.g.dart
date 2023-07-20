@@ -180,9 +180,7 @@ class ListObjectVersionsOutputBuilder
   set requestCharged(_i7.RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
-  ListObjectVersionsOutputBuilder() {
-    ListObjectVersionsOutput._init(this);
-  }
+  ListObjectVersionsOutputBuilder();
 
   ListObjectVersionsOutputBuilder get _$this {
     final $v = _$v;
@@ -426,9 +424,7 @@ class ListObjectVersionsOutputPayloadBuilder
   set versions(_i8.ListBuilder<_i3.ObjectVersion>? versions) =>
       _$this._versions = versions;
 
-  ListObjectVersionsOutputPayloadBuilder() {
-    ListObjectVersionsOutputPayload._init(this);
-  }
+  ListObjectVersionsOutputPayloadBuilder();
 
   ListObjectVersionsOutputPayloadBuilder get _$this {
     final $v = _$v;

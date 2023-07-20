@@ -73,9 +73,7 @@ class StopStackSetOperationInputBuilder
   _i3.CallAs? get callAs => _$this._callAs;
   set callAs(_i3.CallAs? callAs) => _$this._callAs = callAs;
 
-  StopStackSetOperationInputBuilder() {
-    StopStackSetOperationInput._init(this);
-  }
+  StopStackSetOperationInputBuilder();
 
   StopStackSetOperationInputBuilder get _$this {
     final $v = _$v;

@@ -69,9 +69,7 @@ class GenerateOrganizationsAccessReportRequestBuilder
   set organizationsPolicyId(String? organizationsPolicyId) =>
       _$this._organizationsPolicyId = organizationsPolicyId;
 
-  GenerateOrganizationsAccessReportRequestBuilder() {
-    GenerateOrganizationsAccessReportRequest._init(this);
-  }
+  GenerateOrganizationsAccessReportRequestBuilder();
 
   GenerateOrganizationsAccessReportRequestBuilder get _$this {
     final $v = _$v;

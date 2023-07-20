@@ -25,9 +25,6 @@ abstract class ExecuteTransactionInput
     String? clientRequestToken,
     _i4.ReturnConsumedCapacity? returnConsumedCapacity,
   }) {
-    clientRequestToken ??= const bool.hasEnvironment('SMITHY_TEST')
-        ? '00000000-0000-4000-8000-000000000000'
-        : _i2.uuid(secure: true);
     return _$ExecuteTransactionInput._(
       transactStatements: _i5.BuiltList(transactStatements),
       clientRequestToken: clientRequestToken,

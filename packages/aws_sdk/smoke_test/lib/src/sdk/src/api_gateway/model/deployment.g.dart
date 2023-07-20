@@ -76,9 +76,7 @@ class DeploymentBuilder implements Builder<Deployment, DeploymentBuilder> {
               apiSummary) =>
       _$this._apiSummary = apiSummary;
 
-  DeploymentBuilder() {
-    Deployment._init(this);
-  }
+  DeploymentBuilder();
 
   DeploymentBuilder get _$this {
     final $v = _$v;

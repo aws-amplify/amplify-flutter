@@ -45,9 +45,7 @@ class TagsBuilder implements Builder<Tags, TagsBuilder> {
       _$this._tags ??= new _i2.MapBuilder<String, String>();
   set tags(_i2.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
-  TagsBuilder() {
-    Tags._init(this);
-  }
+  TagsBuilder();
 
   TagsBuilder get _$this {
     final $v = _$v;

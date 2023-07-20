@@ -82,9 +82,7 @@ class BatchWriteItemInputBuilder
           _i5.ReturnItemCollectionMetrics? returnItemCollectionMetrics) =>
       _$this._returnItemCollectionMetrics = returnItemCollectionMetrics;
 
-  BatchWriteItemInputBuilder() {
-    BatchWriteItemInput._init(this);
-  }
+  BatchWriteItemInputBuilder();
 
   BatchWriteItemInputBuilder get _$this {
     final $v = _$v;

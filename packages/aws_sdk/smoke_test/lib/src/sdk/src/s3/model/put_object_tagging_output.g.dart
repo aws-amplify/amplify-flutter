@@ -48,9 +48,7 @@ class PutObjectTaggingOutputBuilder
   String? get versionId => _$this._versionId;
   set versionId(String? versionId) => _$this._versionId = versionId;
 
-  PutObjectTaggingOutputBuilder() {
-    PutObjectTaggingOutput._init(this);
-  }
+  PutObjectTaggingOutputBuilder();
 
   PutObjectTaggingOutputBuilder get _$this {
     final $v = _$v;
@@ -117,9 +115,7 @@ class PutObjectTaggingOutputPayloadBuilder
             PutObjectTaggingOutputPayloadBuilder> {
   _$PutObjectTaggingOutputPayload? _$v;
 
-  PutObjectTaggingOutputPayloadBuilder() {
-    PutObjectTaggingOutputPayload._init(this);
-  }
+  PutObjectTaggingOutputPayloadBuilder();
 
   @override
   void replace(PutObjectTaggingOutputPayload other) {

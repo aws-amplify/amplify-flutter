@@ -62,9 +62,7 @@ class MutualTlsAuthenticationInputBuilder
   set truststoreVersion(String? truststoreVersion) =>
       _$this._truststoreVersion = truststoreVersion;
 
-  MutualTlsAuthenticationInputBuilder() {
-    MutualTlsAuthenticationInput._init(this);
-  }
+  MutualTlsAuthenticationInputBuilder();
 
   MutualTlsAuthenticationInputBuilder get _$this {
     final $v = _$v;

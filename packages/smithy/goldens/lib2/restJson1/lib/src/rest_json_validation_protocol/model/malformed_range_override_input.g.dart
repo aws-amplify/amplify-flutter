@@ -179,9 +179,7 @@ class MalformedRangeOverrideInputBuilder
   double? get maxFloat => _$this._maxFloat;
   set maxFloat(double? maxFloat) => _$this._maxFloat = maxFloat;
 
-  MalformedRangeOverrideInputBuilder() {
-    MalformedRangeOverrideInput._init(this);
-  }
+  MalformedRangeOverrideInputBuilder();
 
   MalformedRangeOverrideInputBuilder get _$this {
     final $v = _$v;

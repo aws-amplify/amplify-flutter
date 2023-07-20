@@ -58,9 +58,7 @@ class ObjectLockRetentionBuilder
   set retainUntilDate(DateTime? retainUntilDate) =>
       _$this._retainUntilDate = retainUntilDate;
 
-  ObjectLockRetentionBuilder() {
-    ObjectLockRetention._init(this);
-  }
+  ObjectLockRetentionBuilder();
 
   ObjectLockRetentionBuilder get _$this {
     final $v = _$v;

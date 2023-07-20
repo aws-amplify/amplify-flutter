@@ -77,9 +77,7 @@ class DescribeComplianceByConfigRuleRequestBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeComplianceByConfigRuleRequestBuilder() {
-    DescribeComplianceByConfigRuleRequest._init(this);
-  }
+  DescribeComplianceByConfigRuleRequestBuilder();
 
   DescribeComplianceByConfigRuleRequestBuilder get _$this {
     final $v = _$v;

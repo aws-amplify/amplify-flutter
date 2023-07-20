@@ -89,9 +89,7 @@ class ResyncMfaDeviceRequestBuilder
   set authenticationCode2(String? authenticationCode2) =>
       _$this._authenticationCode2 = authenticationCode2;
 
-  ResyncMfaDeviceRequestBuilder() {
-    ResyncMfaDeviceRequest._init(this);
-  }
+  ResyncMfaDeviceRequestBuilder();
 
   ResyncMfaDeviceRequestBuilder get _$this {
     final $v = _$v;

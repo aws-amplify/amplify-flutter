@@ -39,9 +39,6 @@ abstract class CreateBackupInput
     CreateBackupInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateBackupInputBuilder b) {}
-
   /// The name of the table.
   String get tableName;
 

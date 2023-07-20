@@ -68,9 +68,7 @@ class ContextEntryBuilder
   set contextKeyType(_i2.ContextKeyTypeEnum? contextKeyType) =>
       _$this._contextKeyType = contextKeyType;
 
-  ContextEntryBuilder() {
-    ContextEntry._init(this);
-  }
+  ContextEntryBuilder();
 
   ContextEntryBuilder get _$this {
     final $v = _$v;

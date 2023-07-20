@@ -66,9 +66,7 @@ class SetDefaultPolicyVersionRequestBuilder
   String? get versionId => _$this._versionId;
   set versionId(String? versionId) => _$this._versionId = versionId;
 
-  SetDefaultPolicyVersionRequestBuilder() {
-    SetDefaultPolicyVersionRequest._init(this);
-  }
+  SetDefaultPolicyVersionRequestBuilder();
 
   SetDefaultPolicyVersionRequestBuilder get _$this {
     final $v = _$v;

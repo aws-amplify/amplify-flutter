@@ -79,7 +79,7 @@ class StreamingTraitsOperation extends _i1.HttpOperation<
   int successCode([_i3.StreamingTraitsInputOutput? output]) => 200;
   @override
   _i3.StreamingTraitsInputOutput buildOutput(
-    _i2.Stream<List<int>>? payload,
+    _i2.Stream<List<int>> payload,
     _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.StreamingTraitsInputOutput.fromResponse(

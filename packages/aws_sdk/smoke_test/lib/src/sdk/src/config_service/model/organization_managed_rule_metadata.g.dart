@@ -129,9 +129,7 @@ class OrganizationManagedRuleMetadataBuilder
   set tagValueScope(String? tagValueScope) =>
       _$this._tagValueScope = tagValueScope;
 
-  OrganizationManagedRuleMetadataBuilder() {
-    OrganizationManagedRuleMetadata._init(this);
-  }
+  OrganizationManagedRuleMetadataBuilder();
 
   OrganizationManagedRuleMetadataBuilder get _$this {
     final $v = _$v;

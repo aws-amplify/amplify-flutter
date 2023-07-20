@@ -55,9 +55,6 @@ abstract class DeleteModelRequest
   static const List<_i1.SmithySerializer<DeleteModelRequestPayload>>
       serializers = [DeleteModelRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteModelRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -111,8 +108,6 @@ abstract class DeleteModelRequestPayload
 
   const DeleteModelRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteModelRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

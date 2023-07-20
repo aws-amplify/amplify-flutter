@@ -33,9 +33,6 @@ abstract class ParameterConstraints
     ParameterConstraintsAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ParameterConstraintsBuilder b) {}
-
   /// A list of values that are permitted for a parameter.
   _i2.BuiltList<String>? get allowedValues;
   @override

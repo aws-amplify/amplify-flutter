@@ -117,9 +117,7 @@ class AssumeRoleWithWebIdentityResponseBuilder
   set sourceIdentity(String? sourceIdentity) =>
       _$this._sourceIdentity = sourceIdentity;
 
-  AssumeRoleWithWebIdentityResponseBuilder() {
-    AssumeRoleWithWebIdentityResponse._init(this);
-  }
+  AssumeRoleWithWebIdentityResponseBuilder();
 
   AssumeRoleWithWebIdentityResponseBuilder get _$this {
     final $v = _$v;

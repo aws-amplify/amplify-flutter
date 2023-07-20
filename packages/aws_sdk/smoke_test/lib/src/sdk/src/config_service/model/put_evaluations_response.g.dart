@@ -51,9 +51,7 @@ class PutEvaluationsResponseBuilder
   set failedEvaluations(_i3.ListBuilder<_i2.Evaluation>? failedEvaluations) =>
       _$this._failedEvaluations = failedEvaluations;
 
-  PutEvaluationsResponseBuilder() {
-    PutEvaluationsResponse._init(this);
-  }
+  PutEvaluationsResponseBuilder();
 
   PutEvaluationsResponseBuilder get _$this {
     final $v = _$v;

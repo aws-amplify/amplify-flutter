@@ -46,9 +46,6 @@ abstract class ItemCollectionSizeLimitExceededException
     ItemCollectionSizeLimitExceededExceptionAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ItemCollectionSizeLimitExceededExceptionBuilder b) {}
-
   /// The total size of an item collection has exceeded the maximum limit of 10 gigabytes.
   @override
   String? get message;

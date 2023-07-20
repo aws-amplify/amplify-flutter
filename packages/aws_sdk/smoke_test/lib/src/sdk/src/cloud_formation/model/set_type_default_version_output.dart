@@ -35,8 +35,6 @@ abstract class SetTypeDefaultVersionOutput
   static const List<_i2.SmithySerializer<SetTypeDefaultVersionOutput>>
       serializers = [SetTypeDefaultVersionOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SetTypeDefaultVersionOutputBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

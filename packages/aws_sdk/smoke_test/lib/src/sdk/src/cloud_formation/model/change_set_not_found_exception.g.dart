@@ -55,9 +55,7 @@ class ChangeSetNotFoundExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ChangeSetNotFoundExceptionBuilder() {
-    ChangeSetNotFoundException._init(this);
-  }
+  ChangeSetNotFoundExceptionBuilder();
 
   ChangeSetNotFoundExceptionBuilder get _$this {
     final $v = _$v;

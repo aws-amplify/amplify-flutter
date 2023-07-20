@@ -35,9 +35,6 @@ abstract class SsmControls
     SsmControlsAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SsmControlsBuilder b) {}
-
   /// The maximum percentage of remediation actions allowed to run in parallel on the non-compliant resources for that specific rule. You can specify a percentage, such as 10%. The default value is 10.
   int? get concurrentExecutionRatePercentage;
 

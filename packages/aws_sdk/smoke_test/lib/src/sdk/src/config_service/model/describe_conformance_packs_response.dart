@@ -47,9 +47,6 @@ abstract class DescribeConformancePacksResponse
   static const List<_i4.SmithySerializer<DescribeConformancePacksResponse>>
       serializers = [DescribeConformancePacksResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeConformancePacksResponseBuilder b) {}
-
   /// Returns a list of `ConformancePackDetail` objects.
   _i3.BuiltList<_i2.ConformancePackDetail>? get conformancePackDetails;
 

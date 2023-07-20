@@ -58,9 +58,7 @@ class DeleteRolePermissionsBoundaryRequestBuilder
   String? get roleName => _$this._roleName;
   set roleName(String? roleName) => _$this._roleName = roleName;
 
-  DeleteRolePermissionsBoundaryRequestBuilder() {
-    DeleteRolePermissionsBoundaryRequest._init(this);
-  }
+  DeleteRolePermissionsBoundaryRequestBuilder();
 
   DeleteRolePermissionsBoundaryRequestBuilder get _$this {
     final $v = _$v;

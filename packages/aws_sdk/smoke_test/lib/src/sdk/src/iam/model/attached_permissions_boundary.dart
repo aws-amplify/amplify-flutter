@@ -50,9 +50,6 @@ abstract class AttachedPermissionsBoundary
   static const List<_i3.SmithySerializer<AttachedPermissionsBoundary>>
       serializers = [AttachedPermissionsBoundaryAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AttachedPermissionsBoundaryBuilder b) {}
-
   /// The permissions boundary usage type that indicates what type of IAM resource is used as the permissions boundary for an entity. This data type can only have a value of `Policy`.
   _i2.PermissionsBoundaryAttachmentType? get permissionsBoundaryType;
 

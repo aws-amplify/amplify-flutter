@@ -38,8 +38,6 @@ abstract class HttpPrefixHeadersInResponseInput
   static const List<_i1.SmithySerializer<HttpPrefixHeadersInResponseInput>>
       serializers = [HttpPrefixHeadersInResponseInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpPrefixHeadersInResponseInputBuilder b) {}
   @override
   HttpPrefixHeadersInResponseInput getPayload() => this;
   @override

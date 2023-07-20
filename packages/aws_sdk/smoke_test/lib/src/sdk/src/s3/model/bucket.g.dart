@@ -54,9 +54,7 @@ class BucketBuilder implements Builder<Bucket, BucketBuilder> {
   set creationDate(DateTime? creationDate) =>
       _$this._creationDate = creationDate;
 
-  BucketBuilder() {
-    Bucket._init(this);
-  }
+  BucketBuilder();
 
   BucketBuilder get _$this {
     final $v = _$v;

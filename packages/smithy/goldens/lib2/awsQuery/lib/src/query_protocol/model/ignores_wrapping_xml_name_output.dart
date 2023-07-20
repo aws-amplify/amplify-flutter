@@ -36,8 +36,6 @@ abstract class IgnoresWrappingXmlNameOutput
   static const List<_i2.SmithySerializer<IgnoresWrappingXmlNameOutput>>
       serializers = [IgnoresWrappingXmlNameOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(IgnoresWrappingXmlNameOutputBuilder b) {}
   String? get foo;
   @override
   List<Object?> get props => [foo];

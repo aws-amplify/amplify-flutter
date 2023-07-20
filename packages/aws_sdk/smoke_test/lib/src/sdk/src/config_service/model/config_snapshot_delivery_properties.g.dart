@@ -54,9 +54,7 @@ class ConfigSnapshotDeliveryPropertiesBuilder
   set deliveryFrequency(_i2.MaximumExecutionFrequency? deliveryFrequency) =>
       _$this._deliveryFrequency = deliveryFrequency;
 
-  ConfigSnapshotDeliveryPropertiesBuilder() {
-    ConfigSnapshotDeliveryProperties._init(this);
-  }
+  ConfigSnapshotDeliveryPropertiesBuilder();
 
   ConfigSnapshotDeliveryPropertiesBuilder get _$this {
     final $v = _$v;

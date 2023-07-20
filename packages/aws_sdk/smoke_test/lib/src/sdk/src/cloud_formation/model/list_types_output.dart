@@ -43,9 +43,6 @@ abstract class ListTypesOutput
     ListTypesOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListTypesOutputBuilder b) {}
-
   /// A list of `TypeSummary` structures that contain information about the specified extensions.
   _i3.BuiltList<_i2.TypeSummary>? get typeSummaries;
 

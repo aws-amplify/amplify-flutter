@@ -42,9 +42,6 @@ abstract class KinesisDataStreamDestination
   static const List<_i3.SmithySerializer<KinesisDataStreamDestination>>
       serializers = [KinesisDataStreamDestinationAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(KinesisDataStreamDestinationBuilder b) {}
-
   /// The ARN for a specific Kinesis data stream.
   String? get streamArn;
 

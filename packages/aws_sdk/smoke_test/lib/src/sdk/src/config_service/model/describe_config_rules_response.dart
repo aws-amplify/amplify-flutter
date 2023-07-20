@@ -43,9 +43,6 @@ abstract class DescribeConfigRulesResponse
   static const List<_i4.SmithySerializer<DescribeConfigRulesResponse>>
       serializers = [DescribeConfigRulesResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeConfigRulesResponseBuilder b) {}
-
   /// The details about your Config rules.
   _i3.BuiltList<_i2.ConfigRule>? get configRules;
 

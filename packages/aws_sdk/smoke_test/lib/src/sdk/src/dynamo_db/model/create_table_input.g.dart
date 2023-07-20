@@ -182,9 +182,7 @@ class CreateTableInputBuilder
   set deletionProtectionEnabled(bool? deletionProtectionEnabled) =>
       _$this._deletionProtectionEnabled = deletionProtectionEnabled;
 
-  CreateTableInputBuilder() {
-    CreateTableInput._init(this);
-  }
+  CreateTableInputBuilder();
 
   CreateTableInputBuilder get _$this {
     final $v = _$v;

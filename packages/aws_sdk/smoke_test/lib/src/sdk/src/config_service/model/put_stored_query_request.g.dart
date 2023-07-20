@@ -64,9 +64,7 @@ class PutStoredQueryRequestBuilder
       _$this._tags ??= new _i5.ListBuilder<_i4.Tag>();
   set tags(_i5.ListBuilder<_i4.Tag>? tags) => _$this._tags = tags;
 
-  PutStoredQueryRequestBuilder() {
-    PutStoredQueryRequest._init(this);
-  }
+  PutStoredQueryRequestBuilder();
 
   PutStoredQueryRequestBuilder get _$this {
     final $v = _$v;

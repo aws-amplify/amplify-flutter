@@ -42,9 +42,7 @@ class ActivateOrganizationsAccessOutputBuilder
             ActivateOrganizationsAccessOutputBuilder> {
   _$ActivateOrganizationsAccessOutput? _$v;
 
-  ActivateOrganizationsAccessOutputBuilder() {
-    ActivateOrganizationsAccessOutput._init(this);
-  }
+  ActivateOrganizationsAccessOutputBuilder();
 
   @override
   void replace(ActivateOrganizationsAccessOutput other) {

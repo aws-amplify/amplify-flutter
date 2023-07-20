@@ -62,9 +62,7 @@ class ImportConflictExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ImportConflictExceptionBuilder() {
-    ImportConflictException._init(this);
-  }
+  ImportConflictExceptionBuilder();
 
   ImportConflictExceptionBuilder get _$this {
     final $v = _$v;

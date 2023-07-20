@@ -45,9 +45,6 @@ abstract class UsagePlans
     UsagePlansRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UsagePlansBuilder b) {}
-
   /// The current page of elements from this collection.
   _i3.BuiltList<_i2.UsagePlan>? get items;
 

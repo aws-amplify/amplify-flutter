@@ -83,9 +83,7 @@ class DeleteMarkerEntryBuilder
   set lastModified(DateTime? lastModified) =>
       _$this._lastModified = lastModified;
 
-  DeleteMarkerEntryBuilder() {
-    DeleteMarkerEntry._init(this);
-  }
+  DeleteMarkerEntryBuilder();
 
   DeleteMarkerEntryBuilder get _$this {
     final $v = _$v;

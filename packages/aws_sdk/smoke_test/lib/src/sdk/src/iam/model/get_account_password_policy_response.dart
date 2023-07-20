@@ -41,9 +41,6 @@ abstract class GetAccountPasswordPolicyResponse
   static const List<_i3.SmithySerializer<GetAccountPasswordPolicyResponse>>
       serializers = [GetAccountPasswordPolicyResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetAccountPasswordPolicyResponseBuilder b) {}
-
   /// A structure that contains details about the account's password policy.
   _i2.PasswordPolicy get passwordPolicy;
   @override

@@ -104,9 +104,7 @@ class PutBucketEncryptionRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  PutBucketEncryptionRequestBuilder() {
-    PutBucketEncryptionRequest._init(this);
-  }
+  PutBucketEncryptionRequestBuilder();
 
   PutBucketEncryptionRequestBuilder get _$this {
     final $v = _$v;

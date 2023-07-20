@@ -58,9 +58,7 @@ class GetComplianceSummaryByResourceTypeRequestBuilder
   set resourceTypes(_i3.ListBuilder<String>? resourceTypes) =>
       _$this._resourceTypes = resourceTypes;
 
-  GetComplianceSummaryByResourceTypeRequestBuilder() {
-    GetComplianceSummaryByResourceTypeRequest._init(this);
-  }
+  GetComplianceSummaryByResourceTypeRequestBuilder();
 
   GetComplianceSummaryByResourceTypeRequestBuilder get _$this {
     final $v = _$v;

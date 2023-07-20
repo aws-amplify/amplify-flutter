@@ -42,9 +42,6 @@ abstract class GetOrganizationCustomRulePolicyRequest
     GetOrganizationCustomRulePolicyRequestAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetOrganizationCustomRulePolicyRequestBuilder b) {}
-
   /// The name of your organization Config Custom Policy rule.
   String get organizationConfigRuleName;
   @override

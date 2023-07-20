@@ -42,8 +42,6 @@ abstract class MalformedCertificateException
   static const List<_i2.SmithySerializer<MalformedCertificateException>>
       serializers = [MalformedCertificateExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedCertificateExceptionBuilder b) {}
   @override
   String? get message;
   @override

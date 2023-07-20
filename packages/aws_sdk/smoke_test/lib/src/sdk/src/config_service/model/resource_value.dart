@@ -31,9 +31,6 @@ abstract class ResourceValue
     ResourceValueAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceValueBuilder b) {}
-
   /// The value is a resource ID.
   _i2.ResourceValueType get value;
   @override

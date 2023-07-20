@@ -101,9 +101,7 @@ class PutBucketRequestPaymentRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  PutBucketRequestPaymentRequestBuilder() {
-    PutBucketRequestPaymentRequest._init(this);
-  }
+  PutBucketRequestPaymentRequestBuilder();
 
   PutBucketRequestPaymentRequestBuilder get _$this {
     final $v = _$v;

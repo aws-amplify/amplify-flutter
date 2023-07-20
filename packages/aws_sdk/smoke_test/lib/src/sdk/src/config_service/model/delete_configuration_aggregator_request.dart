@@ -39,9 +39,6 @@ abstract class DeleteConfigurationAggregatorRequest
   static const List<_i1.SmithySerializer<DeleteConfigurationAggregatorRequest>>
       serializers = [DeleteConfigurationAggregatorRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteConfigurationAggregatorRequestBuilder b) {}
-
   /// The name of the configuration aggregator.
   String get configurationAggregatorName;
   @override

@@ -74,9 +74,7 @@ class PredictInputBuilder
   set predictEndpoint(String? predictEndpoint) =>
       _$this._predictEndpoint = predictEndpoint;
 
-  PredictInputBuilder() {
-    PredictInput._init(this);
-  }
+  PredictInputBuilder();
 
   PredictInputBuilder get _$this {
     final $v = _$v;

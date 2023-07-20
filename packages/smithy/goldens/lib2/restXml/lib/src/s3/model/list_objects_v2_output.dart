@@ -65,8 +65,6 @@ abstract class ListObjectsV2Output
     ListObjectsV2OutputRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListObjectsV2OutputBuilder b) {}
   bool? get isTruncated;
   _i5.BuiltList<_i2.S3Object>? get contents;
   String? get name;

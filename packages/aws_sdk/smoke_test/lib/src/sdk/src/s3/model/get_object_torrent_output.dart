@@ -37,7 +37,7 @@ abstract class GetObjectTorrentOutput
 
   /// Constructs a [GetObjectTorrentOutput] from a [payload] and [response].
   factory GetObjectTorrentOutput.fromResponse(
-    _i3.Stream<List<int>>? payload,
+    _i3.Stream<List<int>> payload,
     _i1.AWSBaseHttpResponse response,
   ) =>
       GetObjectTorrentOutput.build((b) {
@@ -48,8 +48,9 @@ abstract class GetObjectTorrentOutput
         }
       });
 
-  static const List<_i2.SmithySerializer<_i3.Stream<List<int>>?>> serializers =
-      [GetObjectTorrentOutputRestXmlSerializer()];
+  static const List<_i2.SmithySerializer<_i3.Stream<List<int>>>> serializers = [
+    GetObjectTorrentOutputRestXmlSerializer()
+  ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(GetObjectTorrentOutputBuilder b) {
@@ -57,12 +58,12 @@ abstract class GetObjectTorrentOutput
   }
 
   /// A Bencoded dictionary as defined by the BitTorrent specification
-  _i3.Stream<List<int>>? get body;
+  _i3.Stream<List<int>> get body;
 
   /// If present, indicates that the requester was successfully charged for the request.
   _i4.RequestCharged? get requestCharged;
   @override
-  _i3.Stream<List<int>>? getPayload() => body;
+  _i3.Stream<List<int>> getPayload() => body;
   @override
   List<Object?> get props => [
         body,

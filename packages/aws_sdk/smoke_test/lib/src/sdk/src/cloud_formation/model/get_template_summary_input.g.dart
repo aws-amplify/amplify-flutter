@@ -17,6 +17,8 @@ class _$GetTemplateSummaryInput extends GetTemplateSummaryInput {
   final String? stackSetName;
   @override
   final _i3.CallAs? callAs;
+  @override
+  final _i4.TemplateSummaryConfig? templateSummaryConfig;
 
   factory _$GetTemplateSummaryInput(
           [void Function(GetTemplateSummaryInputBuilder)? updates]) =>
@@ -27,7 +29,8 @@ class _$GetTemplateSummaryInput extends GetTemplateSummaryInput {
       this.templateUrl,
       this.stackName,
       this.stackSetName,
-      this.callAs})
+      this.callAs,
+      this.templateSummaryConfig})
       : super._();
 
   @override
@@ -47,7 +50,8 @@ class _$GetTemplateSummaryInput extends GetTemplateSummaryInput {
         templateUrl == other.templateUrl &&
         stackName == other.stackName &&
         stackSetName == other.stackSetName &&
-        callAs == other.callAs;
+        callAs == other.callAs &&
+        templateSummaryConfig == other.templateSummaryConfig;
   }
 
   @override
@@ -58,6 +62,7 @@ class _$GetTemplateSummaryInput extends GetTemplateSummaryInput {
     _$hash = $jc(_$hash, stackName.hashCode);
     _$hash = $jc(_$hash, stackSetName.hashCode);
     _$hash = $jc(_$hash, callAs.hashCode);
+    _$hash = $jc(_$hash, templateSummaryConfig.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -88,9 +93,14 @@ class GetTemplateSummaryInputBuilder
   _i3.CallAs? get callAs => _$this._callAs;
   set callAs(_i3.CallAs? callAs) => _$this._callAs = callAs;
 
-  GetTemplateSummaryInputBuilder() {
-    GetTemplateSummaryInput._init(this);
-  }
+  _i4.TemplateSummaryConfigBuilder? _templateSummaryConfig;
+  _i4.TemplateSummaryConfigBuilder get templateSummaryConfig =>
+      _$this._templateSummaryConfig ??= new _i4.TemplateSummaryConfigBuilder();
+  set templateSummaryConfig(
+          _i4.TemplateSummaryConfigBuilder? templateSummaryConfig) =>
+      _$this._templateSummaryConfig = templateSummaryConfig;
+
+  GetTemplateSummaryInputBuilder();
 
   GetTemplateSummaryInputBuilder get _$this {
     final $v = _$v;
@@ -100,6 +110,7 @@ class GetTemplateSummaryInputBuilder
       _stackName = $v.stackName;
       _stackSetName = $v.stackSetName;
       _callAs = $v.callAs;
+      _templateSummaryConfig = $v.templateSummaryConfig?.toBuilder();
       _$v = null;
     }
     return this;
@@ -120,13 +131,27 @@ class GetTemplateSummaryInputBuilder
   GetTemplateSummaryInput build() => _build();
 
   _$GetTemplateSummaryInput _build() {
-    final _$result = _$v ??
-        new _$GetTemplateSummaryInput._(
-            templateBody: templateBody,
-            templateUrl: templateUrl,
-            stackName: stackName,
-            stackSetName: stackSetName,
-            callAs: callAs);
+    _$GetTemplateSummaryInput _$result;
+    try {
+      _$result = _$v ??
+          new _$GetTemplateSummaryInput._(
+              templateBody: templateBody,
+              templateUrl: templateUrl,
+              stackName: stackName,
+              stackSetName: stackSetName,
+              callAs: callAs,
+              templateSummaryConfig: _templateSummaryConfig?.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'templateSummaryConfig';
+        _templateSummaryConfig?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GetTemplateSummaryInput', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

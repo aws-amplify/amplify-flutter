@@ -42,9 +42,6 @@ abstract class ResourceEvaluationFilters
   static const List<_i4.SmithySerializer<ResourceEvaluationFilters>>
       serializers = [ResourceEvaluationFiltersAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceEvaluationFiltersBuilder b) {}
-
   /// Filters all resource evaluations results based on an evaluation mode. the valid value for this API is `Proactive`.
   _i2.EvaluationMode? get evaluationMode;
 

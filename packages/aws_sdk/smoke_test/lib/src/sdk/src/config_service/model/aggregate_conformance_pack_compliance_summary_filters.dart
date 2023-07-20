@@ -41,10 +41,6 @@ abstract class AggregateConformancePackComplianceSummaryFilters
     AggregateConformancePackComplianceSummaryFiltersAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      AggregateConformancePackComplianceSummaryFiltersBuilder b) {}
-
   /// The 12-digit Amazon Web Services account ID of the source account.
   String? get accountId;
 

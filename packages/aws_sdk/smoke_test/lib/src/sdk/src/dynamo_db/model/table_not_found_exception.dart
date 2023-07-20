@@ -41,8 +41,6 @@ abstract class TableNotFoundException
   static const List<_i2.SmithySerializer<TableNotFoundException>> serializers =
       [TableNotFoundExceptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TableNotFoundExceptionBuilder b) {}
   @override
   String? get message;
   @override

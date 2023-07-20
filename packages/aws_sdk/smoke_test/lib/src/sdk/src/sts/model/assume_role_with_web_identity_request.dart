@@ -56,9 +56,6 @@ abstract class AssumeRoleWithWebIdentityRequest
   static const List<_i1.SmithySerializer<AssumeRoleWithWebIdentityRequest>>
       serializers = [AssumeRoleWithWebIdentityRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AssumeRoleWithWebIdentityRequestBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the role that the caller is assuming.
   String get roleArn;
 

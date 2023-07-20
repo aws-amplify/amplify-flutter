@@ -78,9 +78,6 @@ abstract class InstanceProfile
     InstanceProfileAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InstanceProfileBuilder b) {}
-
   /// The path to the instance profile. For more information about paths, see [IAM identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html) in the _IAM User Guide_.
   String get path;
 

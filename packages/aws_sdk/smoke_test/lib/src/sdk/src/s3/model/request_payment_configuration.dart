@@ -31,9 +31,6 @@ abstract class RequestPaymentConfiguration
   static const List<_i3.SmithySerializer<RequestPaymentConfiguration>>
       serializers = [RequestPaymentConfigurationRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RequestPaymentConfigurationBuilder b) {}
-
   /// Specifies who pays for the download and request fees.
   _i2.Payer get payer;
   @override

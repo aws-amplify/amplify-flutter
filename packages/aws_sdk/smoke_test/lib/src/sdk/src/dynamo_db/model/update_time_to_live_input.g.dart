@@ -68,9 +68,7 @@ class UpdateTimeToLiveInputBuilder
           _i3.TimeToLiveSpecificationBuilder? timeToLiveSpecification) =>
       _$this._timeToLiveSpecification = timeToLiveSpecification;
 
-  UpdateTimeToLiveInputBuilder() {
-    UpdateTimeToLiveInput._init(this);
-  }
+  UpdateTimeToLiveInputBuilder();
 
   UpdateTimeToLiveInputBuilder get _$this {
     final $v = _$v;

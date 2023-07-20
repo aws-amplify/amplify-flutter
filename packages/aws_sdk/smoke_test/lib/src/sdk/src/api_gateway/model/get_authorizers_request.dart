@@ -60,9 +60,6 @@ abstract class GetAuthorizersRequest
   static const List<_i1.SmithySerializer<GetAuthorizersRequestPayload>>
       serializers = [GetAuthorizersRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetAuthorizersRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -124,8 +121,6 @@ abstract class GetAuthorizersRequestPayload
 
   const GetAuthorizersRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetAuthorizersRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

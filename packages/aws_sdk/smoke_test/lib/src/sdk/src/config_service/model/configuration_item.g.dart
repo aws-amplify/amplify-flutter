@@ -223,9 +223,7 @@ class ConfigurationItemBuilder
           _i5.MapBuilder<String, String>? supplementaryConfiguration) =>
       _$this._supplementaryConfiguration = supplementaryConfiguration;
 
-  ConfigurationItemBuilder() {
-    ConfigurationItem._init(this);
-  }
+  ConfigurationItemBuilder();
 
   ConfigurationItemBuilder get _$this {
     final $v = _$v;

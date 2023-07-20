@@ -46,9 +46,6 @@ abstract class GetMfaDeviceResponse
     GetMfaDeviceResponseAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetMfaDeviceResponseBuilder b) {}
-
   /// The friendly name identifying the user.
   String? get userName;
 

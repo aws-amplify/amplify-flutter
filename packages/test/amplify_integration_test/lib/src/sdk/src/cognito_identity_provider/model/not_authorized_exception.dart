@@ -40,9 +40,6 @@ abstract class NotAuthorizedException
   static const List<_i2.SmithySerializer<NotAuthorizedException>> serializers =
       [NotAuthorizedExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NotAuthorizedExceptionBuilder b) {}
-
   /// The message returned when the Amazon Cognito service returns a not authorized exception.
   @override
   String? get message;

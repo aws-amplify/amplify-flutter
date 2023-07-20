@@ -52,9 +52,6 @@ abstract class Put
     PutAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBuilder b) {}
-
   /// A map of attribute name to attribute values, representing the primary key of the item to be written by `PutItem`. All of the table's primary key attributes must be specified, and their data types must match those of the table's key schema. If any attributes are present in the item that are part of an index key schema for the table, their types must match the index key schema.
   _i4.BuiltMap<String, _i2.AttributeValue> get item;
 

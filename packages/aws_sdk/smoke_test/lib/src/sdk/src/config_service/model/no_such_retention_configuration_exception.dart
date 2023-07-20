@@ -45,9 +45,6 @@ abstract class NoSuchRetentionConfigurationException
     NoSuchRetentionConfigurationExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NoSuchRetentionConfigurationExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

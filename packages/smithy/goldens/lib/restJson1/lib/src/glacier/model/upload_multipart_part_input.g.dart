@@ -104,9 +104,7 @@ class UploadMultipartPartInputBuilder
   _i2.Stream<List<int>>? get body => _$this._body;
   set body(_i2.Stream<List<int>>? body) => _$this._body = body;
 
-  UploadMultipartPartInputBuilder() {
-    UploadMultipartPartInput._init(this);
-  }
+  UploadMultipartPartInputBuilder();
 
   UploadMultipartPartInputBuilder get _$this {
     final $v = _$v;

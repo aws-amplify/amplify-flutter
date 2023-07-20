@@ -57,9 +57,6 @@ abstract class SourceTableFeatureDetails
   static const List<_i8.SmithySerializer<SourceTableFeatureDetails>>
       serializers = [SourceTableFeatureDetailsAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SourceTableFeatureDetailsBuilder b) {}
-
   /// Represents the LSI properties for the table when the backup was created. It includes the IndexName, KeySchema and Projection for the LSIs on the table at the time of backup.
   _i7.BuiltList<_i2.LocalSecondaryIndexInfo>? get localSecondaryIndexes;
 

@@ -57,9 +57,7 @@ class DescribeGlobalTableSettingsInputBuilder
   set globalTableName(String? globalTableName) =>
       _$this._globalTableName = globalTableName;
 
-  DescribeGlobalTableSettingsInputBuilder() {
-    DescribeGlobalTableSettingsInput._init(this);
-  }
+  DescribeGlobalTableSettingsInputBuilder();
 
   DescribeGlobalTableSettingsInputBuilder get _$this {
     final $v = _$v;

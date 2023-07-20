@@ -61,9 +61,7 @@ class DeleteConfigurationAggregatorRequestBuilder
   set configurationAggregatorName(String? configurationAggregatorName) =>
       _$this._configurationAggregatorName = configurationAggregatorName;
 
-  DeleteConfigurationAggregatorRequestBuilder() {
-    DeleteConfigurationAggregatorRequest._init(this);
-  }
+  DeleteConfigurationAggregatorRequestBuilder();
 
   DeleteConfigurationAggregatorRequestBuilder get _$this {
     final $v = _$v;

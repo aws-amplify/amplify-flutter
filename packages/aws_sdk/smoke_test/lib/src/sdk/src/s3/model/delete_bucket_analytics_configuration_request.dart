@@ -62,9 +62,6 @@ abstract class DeleteBucketAnalyticsConfigurationRequest
     DeleteBucketAnalyticsConfigurationRequestRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBucketAnalyticsConfigurationRequestBuilder b) {}
-
   /// The name of the bucket from which an analytics configuration is deleted.
   String get bucket;
 
@@ -128,9 +125,6 @@ abstract class DeleteBucketAnalyticsConfigurationRequestPayload
 
   const DeleteBucketAnalyticsConfigurationRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      DeleteBucketAnalyticsConfigurationRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

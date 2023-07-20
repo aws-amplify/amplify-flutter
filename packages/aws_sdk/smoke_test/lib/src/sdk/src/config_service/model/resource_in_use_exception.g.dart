@@ -61,9 +61,7 @@ class ResourceInUseExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ResourceInUseExceptionBuilder() {
-    ResourceInUseException._init(this);
-  }
+  ResourceInUseExceptionBuilder();
 
   ResourceInUseExceptionBuilder get _$this {
     final $v = _$v;

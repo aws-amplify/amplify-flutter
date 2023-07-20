@@ -41,9 +41,6 @@ abstract class DeleteObjectTaggingOutput
   static const List<_i2.SmithySerializer<DeleteObjectTaggingOutputPayload>>
       serializers = [DeleteObjectTaggingOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteObjectTaggingOutputBuilder b) {}
-
   /// The versionId of the object the tag-set was removed from.
   String? get versionId;
   @override
@@ -76,8 +73,6 @@ abstract class DeleteObjectTaggingOutputPayload
 
   const DeleteObjectTaggingOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteObjectTaggingOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

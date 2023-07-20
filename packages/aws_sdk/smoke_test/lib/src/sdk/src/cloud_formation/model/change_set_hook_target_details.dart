@@ -40,9 +40,6 @@ abstract class ChangeSetHookTargetDetails
   static const List<_i4.SmithySerializer<ChangeSetHookTargetDetails>>
       serializers = [ChangeSetHookTargetDetailsAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ChangeSetHookTargetDetailsBuilder b) {}
-
   /// The name of the type.
   _i2.HookTargetType? get targetType;
 

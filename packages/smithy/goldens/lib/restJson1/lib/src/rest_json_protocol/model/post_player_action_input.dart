@@ -38,8 +38,6 @@ abstract class PostPlayerActionInput
     PostPlayerActionInputRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PostPlayerActionInputBuilder b) {}
   _i3.PlayerAction? get action;
   @override
   PostPlayerActionInput getPayload() => this;

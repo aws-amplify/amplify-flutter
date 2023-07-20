@@ -48,9 +48,6 @@ abstract class SetTypeDefaultVersionInput
   static const List<_i1.SmithySerializer<SetTypeDefaultVersionInput>>
       serializers = [SetTypeDefaultVersionInputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SetTypeDefaultVersionInputBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the extension for which you want version summary information.
   ///
   /// Conditional: You must specify either `TypeName` and `Type`, or `Arn`.

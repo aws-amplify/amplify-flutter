@@ -70,9 +70,7 @@ class StartRemediationExecutionRequestBuilder
   set resourceKeys(_i4.ListBuilder<_i3.ResourceKey>? resourceKeys) =>
       _$this._resourceKeys = resourceKeys;
 
-  StartRemediationExecutionRequestBuilder() {
-    StartRemediationExecutionRequest._init(this);
-  }
+  StartRemediationExecutionRequestBuilder();
 
   StartRemediationExecutionRequestBuilder get _$this {
     final $v = _$v;

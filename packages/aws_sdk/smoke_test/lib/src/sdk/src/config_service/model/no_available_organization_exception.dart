@@ -43,9 +43,6 @@ abstract class NoAvailableOrganizationException
   static const List<_i2.SmithySerializer<NoAvailableOrganizationException>>
       serializers = [NoAvailableOrganizationExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NoAvailableOrganizationExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

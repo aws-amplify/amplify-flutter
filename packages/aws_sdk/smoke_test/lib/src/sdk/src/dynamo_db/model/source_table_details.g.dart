@@ -142,9 +142,7 @@ class SourceTableDetailsBuilder
   set billingMode(_i5.BillingMode? billingMode) =>
       _$this._billingMode = billingMode;
 
-  SourceTableDetailsBuilder() {
-    SourceTableDetails._init(this);
-  }
+  SourceTableDetailsBuilder();
 
   SourceTableDetailsBuilder get _$this {
     final $v = _$v;

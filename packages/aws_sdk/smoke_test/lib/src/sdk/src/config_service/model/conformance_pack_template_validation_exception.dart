@@ -46,9 +46,6 @@ abstract class ConformancePackTemplateValidationException
     ConformancePackTemplateValidationExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConformancePackTemplateValidationExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

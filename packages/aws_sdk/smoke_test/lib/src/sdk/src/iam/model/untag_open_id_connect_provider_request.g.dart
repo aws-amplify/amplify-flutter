@@ -70,9 +70,7 @@ class UntagOpenIdConnectProviderRequestBuilder
       _$this._tagKeys ??= new _i3.ListBuilder<String>();
   set tagKeys(_i3.ListBuilder<String>? tagKeys) => _$this._tagKeys = tagKeys;
 
-  UntagOpenIdConnectProviderRequestBuilder() {
-    UntagOpenIdConnectProviderRequest._init(this);
-  }
+  UntagOpenIdConnectProviderRequestBuilder();
 
   UntagOpenIdConnectProviderRequestBuilder get _$this {
     final $v = _$v;

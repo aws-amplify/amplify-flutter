@@ -41,9 +41,6 @@ abstract class PutObjectTaggingOutput
   static const List<_i2.SmithySerializer<PutObjectTaggingOutputPayload>>
       serializers = [PutObjectTaggingOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectTaggingOutputBuilder b) {}
-
   /// The versionId of the object the tag-set was added to.
   String? get versionId;
   @override
@@ -75,8 +72,6 @@ abstract class PutObjectTaggingOutputPayload
 
   const PutObjectTaggingOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectTaggingOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

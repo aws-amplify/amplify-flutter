@@ -53,9 +53,6 @@ abstract class GetBucketLocationRequest
   static const List<_i1.SmithySerializer<GetBucketLocationRequestPayload>>
       serializers = [GetBucketLocationRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketLocationRequestBuilder b) {}
-
   /// The name of the bucket for which to get the location.
   ///
   /// To use this API operation against an access point, provide the alias of the access point in place of the bucket name.
@@ -114,8 +111,6 @@ abstract class GetBucketLocationRequestPayload
 
   const GetBucketLocationRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketLocationRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

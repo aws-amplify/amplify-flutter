@@ -47,9 +47,6 @@ abstract class CreateInstanceProfileRequest
   static const List<_i1.SmithySerializer<CreateInstanceProfileRequest>>
       serializers = [CreateInstanceProfileRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateInstanceProfileRequestBuilder b) {}
-
   /// The name of the instance profile to create.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

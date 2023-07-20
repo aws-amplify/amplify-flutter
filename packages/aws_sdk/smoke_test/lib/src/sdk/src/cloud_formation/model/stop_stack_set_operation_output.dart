@@ -35,8 +35,6 @@ abstract class StopStackSetOperationOutput
   static const List<_i2.SmithySerializer<StopStackSetOperationOutput>>
       serializers = [StopStackSetOperationOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StopStackSetOperationOutputBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -65,9 +65,7 @@ class GetBucketPolicyStatusRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetBucketPolicyStatusRequestBuilder() {
-    GetBucketPolicyStatusRequest._init(this);
-  }
+  GetBucketPolicyStatusRequestBuilder();
 
   GetBucketPolicyStatusRequestBuilder get _$this {
     final $v = _$v;
@@ -141,9 +139,7 @@ class GetBucketPolicyStatusRequestPayloadBuilder
             GetBucketPolicyStatusRequestPayloadBuilder> {
   _$GetBucketPolicyStatusRequestPayload? _$v;
 
-  GetBucketPolicyStatusRequestPayloadBuilder() {
-    GetBucketPolicyStatusRequestPayload._init(this);
-  }
+  GetBucketPolicyStatusRequestPayloadBuilder();
 
   @override
   void replace(GetBucketPolicyStatusRequestPayload other) {

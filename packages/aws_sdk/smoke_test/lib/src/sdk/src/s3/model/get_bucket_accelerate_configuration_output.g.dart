@@ -65,9 +65,7 @@ class GetBucketAccelerateConfigurationOutputBuilder
   set requestCharged(_i4.RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
-  GetBucketAccelerateConfigurationOutputBuilder() {
-    GetBucketAccelerateConfigurationOutput._init(this);
-  }
+  GetBucketAccelerateConfigurationOutputBuilder();
 
   GetBucketAccelerateConfigurationOutputBuilder get _$this {
     final $v = _$v;
@@ -153,9 +151,7 @@ class GetBucketAccelerateConfigurationOutputPayloadBuilder
   _i3.BucketAccelerateStatus? get status => _$this._status;
   set status(_i3.BucketAccelerateStatus? status) => _$this._status = status;
 
-  GetBucketAccelerateConfigurationOutputPayloadBuilder() {
-    GetBucketAccelerateConfigurationOutputPayload._init(this);
-  }
+  GetBucketAccelerateConfigurationOutputPayloadBuilder();
 
   GetBucketAccelerateConfigurationOutputPayloadBuilder get _$this {
     final $v = _$v;

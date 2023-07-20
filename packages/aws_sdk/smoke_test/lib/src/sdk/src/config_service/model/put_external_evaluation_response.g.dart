@@ -40,9 +40,7 @@ class PutExternalEvaluationResponseBuilder
             PutExternalEvaluationResponseBuilder> {
   _$PutExternalEvaluationResponse? _$v;
 
-  PutExternalEvaluationResponseBuilder() {
-    PutExternalEvaluationResponse._init(this);
-  }
+  PutExternalEvaluationResponseBuilder();
 
   @override
   void replace(PutExternalEvaluationResponse other) {

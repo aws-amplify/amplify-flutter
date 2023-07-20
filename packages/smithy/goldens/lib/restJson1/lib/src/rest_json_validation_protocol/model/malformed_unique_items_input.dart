@@ -80,8 +80,6 @@ abstract class MalformedUniqueItemsInput
   static const List<_i1.SmithySerializer<MalformedUniqueItemsInput>>
       serializers = [MalformedUniqueItemsInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedUniqueItemsInputBuilder b) {}
   _i8.BuiltSet<_i3.Uint8List>? get blobList;
   _i8.BuiltSet<bool>? get booleanList;
   _i8.BuiltSet<String>? get stringList;

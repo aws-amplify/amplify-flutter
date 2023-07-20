@@ -87,9 +87,7 @@ class WebsiteConfigurationBuilder
   set routingRules(_i6.ListBuilder<_i5.RoutingRule>? routingRules) =>
       _$this._routingRules = routingRules;
 
-  WebsiteConfigurationBuilder() {
-    WebsiteConfiguration._init(this);
-  }
+  WebsiteConfigurationBuilder();
 
   WebsiteConfigurationBuilder get _$this {
     final $v = _$v;

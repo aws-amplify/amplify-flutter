@@ -66,9 +66,7 @@ class RecursiveShapesInputOutputNested2Builder
           _i2.RecursiveShapesInputOutputNested1Builder? recursiveMember) =>
       _$this._recursiveMember = recursiveMember;
 
-  RecursiveShapesInputOutputNested2Builder() {
-    RecursiveShapesInputOutputNested2._init(this);
-  }
+  RecursiveShapesInputOutputNested2Builder();
 
   RecursiveShapesInputOutputNested2Builder get _$this {
     final $v = _$v;

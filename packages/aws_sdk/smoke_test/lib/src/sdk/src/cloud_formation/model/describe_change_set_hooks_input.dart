@@ -46,9 +46,6 @@ abstract class DescribeChangeSetHooksInput
   static const List<_i1.SmithySerializer<DescribeChangeSetHooksInput>>
       serializers = [DescribeChangeSetHooksInputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeChangeSetHooksInputBuilder b) {}
-
   /// The name or Amazon Resource Name (ARN) of the change set that you want to describe.
   String get changeSetName;
 

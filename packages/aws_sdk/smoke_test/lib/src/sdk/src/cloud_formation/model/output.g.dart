@@ -71,9 +71,7 @@ class OutputBuilder implements Builder<Output, OutputBuilder> {
   String? get exportName => _$this._exportName;
   set exportName(String? exportName) => _$this._exportName = exportName;
 
-  OutputBuilder() {
-    Output._init(this);
-  }
+  OutputBuilder();
 
   OutputBuilder get _$this {
     final $v = _$v;

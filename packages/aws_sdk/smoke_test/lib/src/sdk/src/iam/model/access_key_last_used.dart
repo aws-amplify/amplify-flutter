@@ -43,9 +43,6 @@ abstract class AccessKeyLastUsed
     AccessKeyLastUsedAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AccessKeyLastUsedBuilder b) {}
-
   /// The date and time, in [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the access key was most recently used. This field is null in the following situations:
   ///
   /// *   The user does not have an access key.

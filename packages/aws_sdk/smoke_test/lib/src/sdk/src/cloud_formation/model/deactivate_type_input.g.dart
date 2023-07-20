@@ -65,9 +65,7 @@ class DeactivateTypeInputBuilder
   String? get arn => _$this._arn;
   set arn(String? arn) => _$this._arn = arn;
 
-  DeactivateTypeInputBuilder() {
-    DeactivateTypeInput._init(this);
-  }
+  DeactivateTypeInputBuilder();
 
   DeactivateTypeInputBuilder get _$this {
     final $v = _$v;

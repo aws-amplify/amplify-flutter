@@ -58,9 +58,7 @@ class AnalyticsExportDestinationBuilder
           _i2.AnalyticsS3BucketDestinationBuilder? s3BucketDestination) =>
       _$this._s3BucketDestination = s3BucketDestination;
 
-  AnalyticsExportDestinationBuilder() {
-    AnalyticsExportDestination._init(this);
-  }
+  AnalyticsExportDestinationBuilder();
 
   AnalyticsExportDestinationBuilder get _$this {
     final $v = _$v;

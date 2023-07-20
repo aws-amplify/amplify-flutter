@@ -51,9 +51,7 @@ class DeleteUsagePlanRequestBuilder
   String? get usagePlanId => _$this._usagePlanId;
   set usagePlanId(String? usagePlanId) => _$this._usagePlanId = usagePlanId;
 
-  DeleteUsagePlanRequestBuilder() {
-    DeleteUsagePlanRequest._init(this);
-  }
+  DeleteUsagePlanRequestBuilder();
 
   DeleteUsagePlanRequestBuilder get _$this {
     final $v = _$v;
@@ -122,9 +120,7 @@ class DeleteUsagePlanRequestPayloadBuilder
             DeleteUsagePlanRequestPayloadBuilder> {
   _$DeleteUsagePlanRequestPayload? _$v;
 
-  DeleteUsagePlanRequestPayloadBuilder() {
-    DeleteUsagePlanRequestPayload._init(this);
-  }
+  DeleteUsagePlanRequestPayloadBuilder();
 
   @override
   void replace(DeleteUsagePlanRequestPayload other) {

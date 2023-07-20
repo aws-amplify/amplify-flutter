@@ -39,9 +39,6 @@ abstract class ApiStage
     ApiStageRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ApiStageBuilder b) {}
-
   /// API Id of the associated API stage in a usage plan.
   String? get apiId;
 

@@ -58,9 +58,7 @@ class FractionalSecondsOutputBuilder
   DateTime? get httpdate => _$this._httpdate;
   set httpdate(DateTime? httpdate) => _$this._httpdate = httpdate;
 
-  FractionalSecondsOutputBuilder() {
-    FractionalSecondsOutput._init(this);
-  }
+  FractionalSecondsOutputBuilder();
 
   FractionalSecondsOutputBuilder get _$this {
     final $v = _$v;

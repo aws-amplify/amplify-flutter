@@ -80,9 +80,7 @@ class ResourceChangeDetailBuilder
   set causingEntity(String? causingEntity) =>
       _$this._causingEntity = causingEntity;
 
-  ResourceChangeDetailBuilder() {
-    ResourceChangeDetail._init(this);
-  }
+  ResourceChangeDetailBuilder();
 
   ResourceChangeDetailBuilder get _$this {
     final $v = _$v;

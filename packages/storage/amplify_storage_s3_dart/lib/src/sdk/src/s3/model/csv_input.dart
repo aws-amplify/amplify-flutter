@@ -46,9 +46,6 @@ abstract class CsvInput
     CsvInputRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CsvInputBuilder b) {}
-
   /// Describes the first line of input. Valid values are:
   ///
   /// *   `NONE`: First line is not a header.

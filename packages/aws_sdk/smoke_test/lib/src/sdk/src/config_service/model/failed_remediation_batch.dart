@@ -38,9 +38,6 @@ abstract class FailedRemediationBatch
   static const List<_i4.SmithySerializer<FailedRemediationBatch>> serializers =
       [FailedRemediationBatchAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(FailedRemediationBatchBuilder b) {}
-
   /// Returns a failure message. For example, the resource is already compliant.
   String? get failureMessage;
 

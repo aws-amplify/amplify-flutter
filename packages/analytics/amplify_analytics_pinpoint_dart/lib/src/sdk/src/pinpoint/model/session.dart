@@ -38,9 +38,6 @@ abstract class Session
     SessionRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SessionBuilder b) {}
-
   /// The duration of the session, in milliseconds.
   int? get duration;
 

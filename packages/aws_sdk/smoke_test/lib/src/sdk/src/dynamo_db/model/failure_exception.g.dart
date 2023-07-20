@@ -59,9 +59,7 @@ class FailureExceptionBuilder
   set exceptionDescription(String? exceptionDescription) =>
       _$this._exceptionDescription = exceptionDescription;
 
-  FailureExceptionBuilder() {
-    FailureException._init(this);
-  }
+  FailureExceptionBuilder();
 
   FailureExceptionBuilder get _$this {
     final $v = _$v;

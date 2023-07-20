@@ -40,9 +40,6 @@ abstract class PutConfigurationAggregatorResponse
   static const List<_i3.SmithySerializer<PutConfigurationAggregatorResponse>>
       serializers = [PutConfigurationAggregatorResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutConfigurationAggregatorResponseBuilder b) {}
-
   /// Returns a ConfigurationAggregator object.
   _i2.ConfigurationAggregator? get configurationAggregator;
   @override

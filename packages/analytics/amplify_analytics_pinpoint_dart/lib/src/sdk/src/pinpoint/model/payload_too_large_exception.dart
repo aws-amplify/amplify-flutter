@@ -46,9 +46,6 @@ abstract class PayloadTooLargeException
   static const List<_i2.SmithySerializer<PayloadTooLargeException>>
       serializers = [PayloadTooLargeExceptionRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PayloadTooLargeExceptionBuilder b) {}
-
   /// The message that's returned from the API.
   @override
   String? get message;

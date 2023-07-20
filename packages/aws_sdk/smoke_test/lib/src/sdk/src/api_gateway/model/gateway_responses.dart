@@ -45,9 +45,6 @@ abstract class GatewayResponses
     GatewayResponsesRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GatewayResponsesBuilder b) {}
-
   /// Returns the entire collection, because of no pagination support.
   _i3.BuiltList<_i2.GatewayResponse>? get items;
 

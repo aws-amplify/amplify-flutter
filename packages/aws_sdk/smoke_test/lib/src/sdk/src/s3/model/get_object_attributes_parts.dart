@@ -46,9 +46,6 @@ abstract class GetObjectAttributesParts
   static const List<_i4.SmithySerializer<GetObjectAttributesParts>>
       serializers = [GetObjectAttributesPartsRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectAttributesPartsBuilder b) {}
-
   /// The total number of parts.
   int? get totalPartsCount;
 

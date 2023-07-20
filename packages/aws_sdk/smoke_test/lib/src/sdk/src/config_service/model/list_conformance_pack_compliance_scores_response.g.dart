@@ -80,9 +80,7 @@ class ListConformancePackComplianceScoresResponseBuilder
               conformancePackComplianceScores) =>
       _$this._conformancePackComplianceScores = conformancePackComplianceScores;
 
-  ListConformancePackComplianceScoresResponseBuilder() {
-    ListConformancePackComplianceScoresResponse._init(this);
-  }
+  ListConformancePackComplianceScoresResponseBuilder();
 
   ListConformancePackComplianceScoresResponseBuilder get _$this {
     final $v = _$v;

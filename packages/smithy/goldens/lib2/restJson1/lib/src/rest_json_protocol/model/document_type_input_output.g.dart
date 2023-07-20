@@ -60,9 +60,7 @@ class DocumentTypeInputOutputBuilder
   set documentValue(_i3.JsonObject? documentValue) =>
       _$this._documentValue = documentValue;
 
-  DocumentTypeInputOutputBuilder() {
-    DocumentTypeInputOutput._init(this);
-  }
+  DocumentTypeInputOutputBuilder();
 
   DocumentTypeInputOutputBuilder get _$this {
     final $v = _$v;

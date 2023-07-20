@@ -46,9 +46,6 @@ abstract class MethodNotAllowedException
   static const List<_i2.SmithySerializer<MethodNotAllowedException>>
       serializers = [MethodNotAllowedExceptionRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MethodNotAllowedExceptionBuilder b) {}
-
   /// The message that's returned from the API.
   @override
   String? get message;

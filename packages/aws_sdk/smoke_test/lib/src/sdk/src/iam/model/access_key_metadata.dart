@@ -46,9 +46,6 @@ abstract class AccessKeyMetadata
     AccessKeyMetadataAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AccessKeyMetadataBuilder b) {}
-
   /// The name of the IAM user that the key is associated with.
   String? get userName;
 

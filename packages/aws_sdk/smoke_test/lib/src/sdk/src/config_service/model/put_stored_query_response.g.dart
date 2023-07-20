@@ -48,9 +48,7 @@ class PutStoredQueryResponseBuilder
   String? get queryArn => _$this._queryArn;
   set queryArn(String? queryArn) => _$this._queryArn = queryArn;
 
-  PutStoredQueryResponseBuilder() {
-    PutStoredQueryResponse._init(this);
-  }
+  PutStoredQueryResponseBuilder();
 
   PutStoredQueryResponseBuilder get _$this {
     final $v = _$v;

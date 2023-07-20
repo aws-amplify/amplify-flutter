@@ -41,9 +41,6 @@ abstract class GetBucketPolicyStatusOutput
     GetBucketPolicyStatusOutputRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketPolicyStatusOutputBuilder b) {}
-
   /// The policy status for the specified bucket.
   _i3.PolicyStatus? get policyStatus;
   @override

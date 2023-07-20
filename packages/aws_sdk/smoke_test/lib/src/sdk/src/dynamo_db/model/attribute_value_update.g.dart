@@ -57,9 +57,7 @@ class AttributeValueUpdateBuilder
   _i3.AttributeAction? get action => _$this._action;
   set action(_i3.AttributeAction? action) => _$this._action = action;
 
-  AttributeValueUpdateBuilder() {
-    AttributeValueUpdate._init(this);
-  }
+  AttributeValueUpdateBuilder();
 
   AttributeValueUpdateBuilder get _$this {
     final $v = _$v;

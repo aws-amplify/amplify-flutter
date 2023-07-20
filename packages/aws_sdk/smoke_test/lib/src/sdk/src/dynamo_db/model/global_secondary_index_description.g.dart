@@ -136,9 +136,7 @@ class GlobalSecondaryIndexDescriptionBuilder
   String? get indexArn => _$this._indexArn;
   set indexArn(String? indexArn) => _$this._indexArn = indexArn;
 
-  GlobalSecondaryIndexDescriptionBuilder() {
-    GlobalSecondaryIndexDescription._init(this);
-  }
+  GlobalSecondaryIndexDescriptionBuilder();
 
   GlobalSecondaryIndexDescriptionBuilder get _$this {
     final $v = _$v;

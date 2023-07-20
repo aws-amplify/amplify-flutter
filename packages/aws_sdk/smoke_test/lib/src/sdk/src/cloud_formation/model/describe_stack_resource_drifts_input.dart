@@ -52,9 +52,6 @@ abstract class DescribeStackResourceDriftsInput
   static const List<_i1.SmithySerializer<DescribeStackResourceDriftsInput>>
       serializers = [DescribeStackResourceDriftsInputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeStackResourceDriftsInputBuilder b) {}
-
   /// The name of the stack for which you want drift information.
   String get stackName;
 

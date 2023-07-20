@@ -46,8 +46,6 @@ abstract class PointInTimeRecoveryUnavailableException
     PointInTimeRecoveryUnavailableExceptionAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PointInTimeRecoveryUnavailableExceptionBuilder b) {}
   @override
   String? get message;
   @override

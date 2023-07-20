@@ -50,9 +50,7 @@ class CopyObjectOutputBuilder
   set copyObjectResult(_i3.CopyObjectResultBuilder? copyObjectResult) =>
       _$this._copyObjectResult = copyObjectResult;
 
-  CopyObjectOutputBuilder() {
-    CopyObjectOutput._init(this);
-  }
+  CopyObjectOutputBuilder();
 
   CopyObjectOutputBuilder get _$this {
     final $v = _$v;

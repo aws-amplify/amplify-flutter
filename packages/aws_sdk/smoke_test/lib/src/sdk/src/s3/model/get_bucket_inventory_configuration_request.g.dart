@@ -79,9 +79,7 @@ class GetBucketInventoryConfigurationRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetBucketInventoryConfigurationRequestBuilder() {
-    GetBucketInventoryConfigurationRequest._init(this);
-  }
+  GetBucketInventoryConfigurationRequestBuilder();
 
   GetBucketInventoryConfigurationRequestBuilder get _$this {
     final $v = _$v;
@@ -161,9 +159,7 @@ class GetBucketInventoryConfigurationRequestPayloadBuilder
             GetBucketInventoryConfigurationRequestPayloadBuilder> {
   _$GetBucketInventoryConfigurationRequestPayload? _$v;
 
-  GetBucketInventoryConfigurationRequestPayloadBuilder() {
-    GetBucketInventoryConfigurationRequestPayload._init(this);
-  }
+  GetBucketInventoryConfigurationRequestPayloadBuilder();
 
   @override
   void replace(GetBucketInventoryConfigurationRequestPayload other) {

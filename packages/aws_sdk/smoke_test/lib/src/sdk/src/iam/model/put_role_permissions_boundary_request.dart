@@ -43,9 +43,6 @@ abstract class PutRolePermissionsBoundaryRequest
   static const List<_i1.SmithySerializer<PutRolePermissionsBoundaryRequest>>
       serializers = [PutRolePermissionsBoundaryRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutRolePermissionsBoundaryRequestBuilder b) {}
-
   /// The name (friendly name, not ARN) of the IAM role for which you want to set the permissions boundary.
   String get roleName;
 

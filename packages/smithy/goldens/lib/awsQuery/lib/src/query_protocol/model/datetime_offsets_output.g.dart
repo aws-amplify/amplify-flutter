@@ -48,9 +48,7 @@ class DatetimeOffsetsOutputBuilder
   DateTime? get datetime => _$this._datetime;
   set datetime(DateTime? datetime) => _$this._datetime = datetime;
 
-  DatetimeOffsetsOutputBuilder() {
-    DatetimeOffsetsOutput._init(this);
-  }
+  DatetimeOffsetsOutputBuilder();
 
   DatetimeOffsetsOutputBuilder get _$this {
     final $v = _$v;

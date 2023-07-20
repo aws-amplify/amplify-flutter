@@ -36,9 +36,6 @@ abstract class GetAccessKeyLastUsedRequest
   static const List<_i1.SmithySerializer<GetAccessKeyLastUsedRequest>>
       serializers = [GetAccessKeyLastUsedRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetAccessKeyLastUsedRequestBuilder b) {}
-
   /// The identifier of an access key.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters that can consist of any upper or lowercased letter or digit.

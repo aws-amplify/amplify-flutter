@@ -105,9 +105,7 @@ class CreateUsagePlanRequestBuilder
       _$this._tags ??= new _i6.MapBuilder<String, String>();
   set tags(_i6.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
-  CreateUsagePlanRequestBuilder() {
-    CreateUsagePlanRequest._init(this);
-  }
+  CreateUsagePlanRequestBuilder();
 
   CreateUsagePlanRequestBuilder get _$this {
     final $v = _$v;

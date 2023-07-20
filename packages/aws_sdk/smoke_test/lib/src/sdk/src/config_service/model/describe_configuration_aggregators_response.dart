@@ -50,9 +50,6 @@ abstract class DescribeConfigurationAggregatorsResponse
     DescribeConfigurationAggregatorsResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeConfigurationAggregatorsResponseBuilder b) {}
-
   /// Returns a ConfigurationAggregators object.
   _i3.BuiltList<_i2.ConfigurationAggregator>? get configurationAggregators;
 

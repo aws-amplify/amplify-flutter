@@ -19,7 +19,7 @@ void main() {
             builderSymbol: generator.payloadBuilderSymbol,
           );
           final emitter = buildEmitter(Allocator.none);
-          final output = method.accept(emitter).toString();
+          final output = method?.accept(emitter).toString();
           expect(output, contains('b.defaultValue = 0'));
         }
       });
@@ -45,7 +45,10 @@ void main() {
           })
           ..traits = TraitMap.fromTraits(const [InputTrait()]),
       );
-      final context = createTestContext([primitive, struct]);
+      final context = createTestContext(
+        [primitive, struct],
+        version: SmithyVersion.v1,
+      );
       testDefaultValue(struct, context);
     });
 

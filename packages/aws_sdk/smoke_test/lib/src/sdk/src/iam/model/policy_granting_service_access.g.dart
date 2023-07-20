@@ -95,9 +95,7 @@ class PolicyGrantingServiceAccessBuilder
   String? get entityName => _$this._entityName;
   set entityName(String? entityName) => _$this._entityName = entityName;
 
-  PolicyGrantingServiceAccessBuilder() {
-    PolicyGrantingServiceAccess._init(this);
-  }
+  PolicyGrantingServiceAccessBuilder();
 
   PolicyGrantingServiceAccessBuilder get _$this {
     final $v = _$v;

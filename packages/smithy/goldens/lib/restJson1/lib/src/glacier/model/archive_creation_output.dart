@@ -55,8 +55,6 @@ abstract class ArchiveCreationOutput
   static const List<_i2.SmithySerializer<ArchiveCreationOutputPayload>>
       serializers = [ArchiveCreationOutputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ArchiveCreationOutputBuilder b) {}
   String? get location;
   String? get checksum;
   String? get archiveId;
@@ -101,8 +99,6 @@ abstract class ArchiveCreationOutputPayload
 
   const ArchiveCreationOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ArchiveCreationOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

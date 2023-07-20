@@ -37,9 +37,6 @@ abstract class GetBucketRequestPaymentOutput
   static const List<_i3.SmithySerializer<GetBucketRequestPaymentOutput>>
       serializers = [GetBucketRequestPaymentOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketRequestPaymentOutputBuilder b) {}
-
   /// Specifies who pays for the download and request fees.
   _i2.Payer? get payer;
   @override

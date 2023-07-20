@@ -43,9 +43,6 @@ abstract class UntagSamlProviderRequest
   static const List<_i1.SmithySerializer<UntagSamlProviderRequest>>
       serializers = [UntagSamlProviderRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UntagSamlProviderRequestBuilder b) {}
-
   /// The ARN of the SAML identity provider in IAM from which you want to remove tags.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

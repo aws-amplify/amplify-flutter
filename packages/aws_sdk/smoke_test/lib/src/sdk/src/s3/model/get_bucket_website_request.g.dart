@@ -63,9 +63,7 @@ class GetBucketWebsiteRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetBucketWebsiteRequestBuilder() {
-    GetBucketWebsiteRequest._init(this);
-  }
+  GetBucketWebsiteRequestBuilder();
 
   GetBucketWebsiteRequestBuilder get _$this {
     final $v = _$v;
@@ -136,9 +134,7 @@ class GetBucketWebsiteRequestPayloadBuilder
             GetBucketWebsiteRequestPayloadBuilder> {
   _$GetBucketWebsiteRequestPayload? _$v;
 
-  GetBucketWebsiteRequestPayloadBuilder() {
-    GetBucketWebsiteRequestPayload._init(this);
-  }
+  GetBucketWebsiteRequestPayloadBuilder();
 
   @override
   void replace(GetBucketWebsiteRequestPayload other) {

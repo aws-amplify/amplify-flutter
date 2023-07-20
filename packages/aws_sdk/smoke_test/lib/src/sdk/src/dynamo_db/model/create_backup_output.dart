@@ -36,9 +36,6 @@ abstract class CreateBackupOutput
     CreateBackupOutputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateBackupOutputBuilder b) {}
-
   /// Contains the details of the backup created for the table.
   _i2.BackupDetails? get backupDetails;
   @override

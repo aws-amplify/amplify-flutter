@@ -45,8 +45,6 @@ abstract class ReportGenerationLimitExceededException
     ReportGenerationLimitExceededExceptionAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReportGenerationLimitExceededExceptionBuilder b) {}
   @override
   String? get message;
   @override

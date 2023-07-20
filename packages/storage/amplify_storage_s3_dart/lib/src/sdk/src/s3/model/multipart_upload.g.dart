@@ -107,9 +107,7 @@ class MultipartUploadBuilder
   set checksumAlgorithm(_i5.ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
-  MultipartUploadBuilder() {
-    MultipartUpload._init(this);
-  }
+  MultipartUploadBuilder();
 
   MultipartUploadBuilder get _$this {
     final $v = _$v;

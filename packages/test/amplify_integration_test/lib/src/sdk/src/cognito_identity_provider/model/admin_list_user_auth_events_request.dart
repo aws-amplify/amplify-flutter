@@ -47,9 +47,6 @@ abstract class AdminListUserAuthEventsRequest
   static const List<_i1.SmithySerializer<AdminListUserAuthEventsRequest>>
       serializers = [AdminListUserAuthEventsRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AdminListUserAuthEventsRequestBuilder b) {}
-
   /// The user pool ID.
   String get userPoolId;
 

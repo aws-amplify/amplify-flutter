@@ -59,9 +59,7 @@ class ComplianceBuilder implements Builder<Compliance, ComplianceBuilder> {
           _i3.ComplianceContributorCountBuilder? complianceContributorCount) =>
       _$this._complianceContributorCount = complianceContributorCount;
 
-  ComplianceBuilder() {
-    Compliance._init(this);
-  }
+  ComplianceBuilder();
 
   ComplianceBuilder get _$this {
     final $v = _$v;

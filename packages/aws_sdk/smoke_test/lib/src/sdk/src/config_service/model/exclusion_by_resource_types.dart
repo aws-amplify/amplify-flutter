@@ -35,9 +35,6 @@ abstract class ExclusionByResourceTypes
   static const List<_i4.SmithySerializer<ExclusionByResourceTypes>>
       serializers = [ExclusionByResourceTypesAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ExclusionByResourceTypesBuilder b) {}
-
   /// A comma-separated list of resource types to exclude from recording by the configuration recorder.
   _i3.BuiltList<_i2.ResourceType>? get resourceTypes;
   @override

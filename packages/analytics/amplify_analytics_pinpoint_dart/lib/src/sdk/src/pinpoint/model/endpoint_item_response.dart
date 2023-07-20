@@ -36,9 +36,6 @@ abstract class EndpointItemResponse
     EndpointItemResponseRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EndpointItemResponseBuilder b) {}
-
   /// The custom message that's returned in the response as a result of processing the endpoint data.
   String? get message;
 

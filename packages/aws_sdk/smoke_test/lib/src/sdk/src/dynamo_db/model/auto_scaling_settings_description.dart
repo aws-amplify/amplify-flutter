@@ -49,9 +49,6 @@ abstract class AutoScalingSettingsDescription
   static const List<_i5.SmithySerializer<AutoScalingSettingsDescription>>
       serializers = [AutoScalingSettingsDescriptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AutoScalingSettingsDescriptionBuilder b) {}
-
   /// The minimum capacity units that a global table or global secondary index should be scaled down to.
   _i2.Int64? get minimumUnits;
 

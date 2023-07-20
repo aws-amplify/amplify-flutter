@@ -47,9 +47,6 @@ abstract class PolicyGroup
     PolicyGroupAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PolicyGroupBuilder b) {}
-
   /// The name (friendly name, not ARN) identifying the group.
   String? get groupName;
 

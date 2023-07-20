@@ -58,9 +58,7 @@ class ListBucketsOutputBuilder
   _i3.OwnerBuilder get owner => _$this._owner ??= new _i3.OwnerBuilder();
   set owner(_i3.OwnerBuilder? owner) => _$this._owner = owner;
 
-  ListBucketsOutputBuilder() {
-    ListBucketsOutput._init(this);
-  }
+  ListBucketsOutputBuilder();
 
   ListBucketsOutputBuilder get _$this {
     final $v = _$v;

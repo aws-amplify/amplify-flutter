@@ -46,9 +46,6 @@ abstract class CreateStackSetInput
     String? clientRequestToken,
     _i9.ManagedExecution? managedExecution,
   }) {
-    clientRequestToken ??= const bool.hasEnvironment('SMITHY_TEST')
-        ? '00000000-0000-4000-8000-000000000000'
-        : _i2.uuid(secure: true);
     return _$CreateStackSetInput._(
       stackSetName: stackSetName,
       description: description,

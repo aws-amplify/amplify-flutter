@@ -100,9 +100,7 @@ class ExternalEvaluationBuilder
   set orderingTimestamp(DateTime? orderingTimestamp) =>
       _$this._orderingTimestamp = orderingTimestamp;
 
-  ExternalEvaluationBuilder() {
-    ExternalEvaluation._init(this);
-  }
+  ExternalEvaluationBuilder();
 
   ExternalEvaluationBuilder get _$this {
     final $v = _$v;

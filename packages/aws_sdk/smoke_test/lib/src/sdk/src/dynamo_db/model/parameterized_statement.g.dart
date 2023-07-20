@@ -82,9 +82,7 @@ class ParameterizedStatementBuilder
       _$this._returnValuesOnConditionCheckFailure =
           returnValuesOnConditionCheckFailure;
 
-  ParameterizedStatementBuilder() {
-    ParameterizedStatement._init(this);
-  }
+  ParameterizedStatementBuilder();
 
   ParameterizedStatementBuilder get _$this {
     final $v = _$v;

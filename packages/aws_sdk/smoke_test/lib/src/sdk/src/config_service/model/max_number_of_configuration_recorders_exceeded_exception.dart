@@ -48,10 +48,6 @@ abstract class MaxNumberOfConfigurationRecordersExceededException
     MaxNumberOfConfigurationRecordersExceededExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      MaxNumberOfConfigurationRecordersExceededExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

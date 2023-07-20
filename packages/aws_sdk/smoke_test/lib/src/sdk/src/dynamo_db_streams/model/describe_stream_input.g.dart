@@ -71,9 +71,7 @@ class DescribeStreamInputBuilder
   set exclusiveStartShardId(String? exclusiveStartShardId) =>
       _$this._exclusiveStartShardId = exclusiveStartShardId;
 
-  DescribeStreamInputBuilder() {
-    DescribeStreamInput._init(this);
-  }
+  DescribeStreamInputBuilder();
 
   DescribeStreamInputBuilder get _$this {
     final $v = _$v;

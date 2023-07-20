@@ -60,9 +60,6 @@ abstract class OrganizationCustomRuleMetadata
   static const List<_i5.SmithySerializer<OrganizationCustomRuleMetadata>>
       serializers = [OrganizationCustomRuleMetadataAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OrganizationCustomRuleMetadataBuilder b) {}
-
   /// The description that you provide for your organization Config rule.
   String? get description;
 

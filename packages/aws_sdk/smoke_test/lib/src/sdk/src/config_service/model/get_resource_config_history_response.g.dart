@@ -66,9 +66,7 @@ class GetResourceConfigHistoryResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  GetResourceConfigHistoryResponseBuilder() {
-    GetResourceConfigHistoryResponse._init(this);
-  }
+  GetResourceConfigHistoryResponseBuilder();
 
   GetResourceConfigHistoryResponseBuilder get _$this {
     final $v = _$v;

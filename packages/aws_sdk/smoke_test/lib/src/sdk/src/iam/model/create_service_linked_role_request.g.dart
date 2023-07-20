@@ -73,9 +73,7 @@ class CreateServiceLinkedRoleRequestBuilder
   String? get customSuffix => _$this._customSuffix;
   set customSuffix(String? customSuffix) => _$this._customSuffix = customSuffix;
 
-  CreateServiceLinkedRoleRequestBuilder() {
-    CreateServiceLinkedRoleRequest._init(this);
-  }
+  CreateServiceLinkedRoleRequestBuilder();
 
   CreateServiceLinkedRoleRequestBuilder get _$this {
     final $v = _$v;

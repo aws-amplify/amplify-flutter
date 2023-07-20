@@ -42,8 +42,6 @@ abstract class ConcurrentModificationException
   static const List<_i2.SmithySerializer<ConcurrentModificationException>>
       serializers = [ConcurrentModificationExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConcurrentModificationExceptionBuilder b) {}
   @override
   String? get message;
   @override

@@ -46,9 +46,6 @@ abstract class ListStacksOutput
     ListStacksOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListStacksOutputBuilder b) {}
-
   /// A list of `StackSummary` structures containing information about the specified stacks.
   _i3.BuiltList<_i2.StackSummary>? get stackSummaries;
 

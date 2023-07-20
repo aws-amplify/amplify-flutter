@@ -57,9 +57,7 @@ class ConditionBuilder implements Builder<Condition, ConditionBuilder> {
   set keyPrefixEquals(String? keyPrefixEquals) =>
       _$this._keyPrefixEquals = keyPrefixEquals;
 
-  ConditionBuilder() {
-    Condition._init(this);
-  }
+  ConditionBuilder();
 
   ConditionBuilder get _$this {
     final $v = _$v;

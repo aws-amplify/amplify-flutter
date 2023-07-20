@@ -42,9 +42,6 @@ abstract class CsvOutput
     CsvOutputRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CsvOutputBuilder b) {}
-
   /// Indicates whether to use quotation marks around output fields.
   ///
   /// *   `ALWAYS`: Always use quotation marks for output fields.

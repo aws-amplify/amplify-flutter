@@ -50,9 +50,7 @@ class IgnoresWrappingXmlNameOutputBuilder
   String? get foo => _$this._foo;
   set foo(String? foo) => _$this._foo = foo;
 
-  IgnoresWrappingXmlNameOutputBuilder() {
-    IgnoresWrappingXmlNameOutput._init(this);
-  }
+  IgnoresWrappingXmlNameOutputBuilder();
 
   IgnoresWrappingXmlNameOutputBuilder get _$this {
     final $v = _$v;

@@ -47,9 +47,6 @@ abstract class DescribeStackResourcesInput
   static const List<_i1.SmithySerializer<DescribeStackResourcesInput>>
       serializers = [DescribeStackResourcesInputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeStackResourcesInputBuilder b) {}
-
   /// The name or the unique stack ID that is associated with the stack, which aren't always interchangeable:
   ///
   /// *   Running stacks: You can specify either the stack's name or its unique stack ID.

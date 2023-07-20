@@ -52,9 +52,7 @@ class DeliverConfigSnapshotResponseBuilder
   set configSnapshotId(String? configSnapshotId) =>
       _$this._configSnapshotId = configSnapshotId;
 
-  DeliverConfigSnapshotResponseBuilder() {
-    DeliverConfigSnapshotResponse._init(this);
-  }
+  DeliverConfigSnapshotResponseBuilder();
 
   DeliverConfigSnapshotResponseBuilder get _$this {
     final $v = _$v;

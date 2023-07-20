@@ -34,9 +34,6 @@ abstract class DeleteStackInstancesInput
     _i5.CallAs? callAs,
   }) {
     retainStacks ??= false;
-    operationId ??= const bool.hasEnvironment('SMITHY_TEST')
-        ? '00000000-0000-4000-8000-000000000000'
-        : _i2.uuid(secure: true);
     return _$DeleteStackInstancesInput._(
       stackSetName: stackSetName,
       accounts: accounts == null ? null : _i6.BuiltList(accounts),

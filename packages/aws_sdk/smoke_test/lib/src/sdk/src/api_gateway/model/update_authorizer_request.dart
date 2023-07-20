@@ -63,9 +63,6 @@ abstract class UpdateAuthorizerRequest
   static const List<_i1.SmithySerializer<UpdateAuthorizerRequestPayload>>
       serializers = [UpdateAuthorizerRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateAuthorizerRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -132,9 +129,6 @@ abstract class UpdateAuthorizerRequestPayload
       _$UpdateAuthorizerRequestPayload;
 
   const UpdateAuthorizerRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateAuthorizerRequestPayloadBuilder b) {}
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;

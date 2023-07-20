@@ -68,9 +68,7 @@ class MetricsAndOperatorBuilder
   set accessPointArn(String? accessPointArn) =>
       _$this._accessPointArn = accessPointArn;
 
-  MetricsAndOperatorBuilder() {
-    MetricsAndOperator._init(this);
-  }
+  MetricsAndOperatorBuilder();
 
   MetricsAndOperatorBuilder get _$this {
     final $v = _$v;

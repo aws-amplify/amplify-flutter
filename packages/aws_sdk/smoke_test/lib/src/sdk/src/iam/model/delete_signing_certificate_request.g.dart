@@ -66,9 +66,7 @@ class DeleteSigningCertificateRequestBuilder
   set certificateId(String? certificateId) =>
       _$this._certificateId = certificateId;
 
-  DeleteSigningCertificateRequestBuilder() {
-    DeleteSigningCertificateRequest._init(this);
-  }
+  DeleteSigningCertificateRequestBuilder();
 
   DeleteSigningCertificateRequestBuilder get _$this {
     final $v = _$v;

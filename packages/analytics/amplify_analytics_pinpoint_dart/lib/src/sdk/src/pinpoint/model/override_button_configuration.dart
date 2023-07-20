@@ -38,9 +38,6 @@ abstract class OverrideButtonConfiguration
   static const List<_i3.SmithySerializer<OverrideButtonConfiguration>>
       serializers = [OverrideButtonConfigurationRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OverrideButtonConfigurationBuilder b) {}
-
   /// Action triggered by the button.
   _i2.ButtonAction get buttonAction;
 

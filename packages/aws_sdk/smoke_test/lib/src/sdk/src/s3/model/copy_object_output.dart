@@ -112,9 +112,6 @@ abstract class CopyObjectOutput
     CopyObjectOutputRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CopyObjectOutputBuilder b) {}
-
   /// Container for all response elements.
   _i3.CopyObjectResult? get copyObjectResult;
 

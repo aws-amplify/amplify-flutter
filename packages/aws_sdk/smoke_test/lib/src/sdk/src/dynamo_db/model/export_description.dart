@@ -76,9 +76,6 @@ abstract class ExportDescription
     ExportDescriptionAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ExportDescriptionBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the table export.
   String? get exportArn;
 
