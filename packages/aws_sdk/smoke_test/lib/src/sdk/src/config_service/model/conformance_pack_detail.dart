@@ -57,9 +57,6 @@ abstract class ConformancePackDetail
     ConformancePackDetailAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConformancePackDetailBuilder b) {}
-
   /// Name of the conformance pack.
   String get conformancePackName;
 

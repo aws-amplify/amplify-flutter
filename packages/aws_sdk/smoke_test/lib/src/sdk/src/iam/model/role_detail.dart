@@ -74,9 +74,6 @@ abstract class RoleDetail
     RoleDetailAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RoleDetailBuilder b) {}
-
   /// The path to the role. For more information about paths, see [IAM identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html) in the _IAM User Guide_.
   String? get path;
 

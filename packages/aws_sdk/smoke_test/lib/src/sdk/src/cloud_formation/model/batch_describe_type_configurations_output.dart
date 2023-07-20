@@ -54,9 +54,6 @@ abstract class BatchDescribeTypeConfigurationsOutput
   static const List<_i6.SmithySerializer<BatchDescribeTypeConfigurationsOutput>>
       serializers = [BatchDescribeTypeConfigurationsOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BatchDescribeTypeConfigurationsOutputBuilder b) {}
-
   /// A list of information concerning any errors generated during the setting of the specified configurations.
   _i5.BuiltList<_i2.BatchDescribeTypeConfigurationsError>? get errors;
 

@@ -58,9 +58,7 @@ class WriteRequestBuilder
   set deleteRequest(_i3.DeleteRequestBuilder? deleteRequest) =>
       _$this._deleteRequest = deleteRequest;
 
-  WriteRequestBuilder() {
-    WriteRequest._init(this);
-  }
+  WriteRequestBuilder();
 
   WriteRequestBuilder get _$this {
     final $v = _$v;

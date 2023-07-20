@@ -66,9 +66,6 @@ abstract class UserDetail
     UserDetailAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UserDetailBuilder b) {}
-
   /// The path to the user. For more information about paths, see [IAM identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html) in the _IAM User Guide_.
   String? get path;
 

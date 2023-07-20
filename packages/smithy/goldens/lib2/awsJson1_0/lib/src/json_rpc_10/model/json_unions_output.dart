@@ -34,9 +34,6 @@ abstract class JsonUnionsOutput
     JsonUnionsOutputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(JsonUnionsOutputBuilder b) {}
-
   /// A union with a representative set of types for members.
   _i2.MyUnion? get contents;
   @override

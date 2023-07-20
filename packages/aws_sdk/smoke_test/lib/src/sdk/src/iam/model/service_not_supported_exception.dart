@@ -42,8 +42,6 @@ abstract class ServiceNotSupportedException
   static const List<_i2.SmithySerializer<ServiceNotSupportedException>>
       serializers = [ServiceNotSupportedExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ServiceNotSupportedExceptionBuilder b) {}
   @override
   String? get message;
   @override

@@ -38,9 +38,6 @@ abstract class AggregateComplianceCount
   static const List<_i3.SmithySerializer<AggregateComplianceCount>>
       serializers = [AggregateComplianceCountAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AggregateComplianceCountBuilder b) {}
-
   /// The 12-digit account ID or region based on the GroupByKey value.
   String? get groupName;
 

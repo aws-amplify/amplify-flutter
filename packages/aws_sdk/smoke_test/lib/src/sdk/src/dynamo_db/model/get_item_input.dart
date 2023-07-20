@@ -60,9 +60,6 @@ abstract class GetItemInput
     GetItemInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetItemInputBuilder b) {}
-
   /// The name of the table containing the requested item.
   String get tableName;
 

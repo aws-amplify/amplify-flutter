@@ -43,9 +43,6 @@ abstract class InsufficientDeliveryPolicyException
   static const List<_i2.SmithySerializer<InsufficientDeliveryPolicyException>>
       serializers = [InsufficientDeliveryPolicyExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InsufficientDeliveryPolicyExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

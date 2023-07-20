@@ -51,9 +51,7 @@ class DeletePolicyRequestBuilder
   String? get policyArn => _$this._policyArn;
   set policyArn(String? policyArn) => _$this._policyArn = policyArn;
 
-  DeletePolicyRequestBuilder() {
-    DeletePolicyRequest._init(this);
-  }
+  DeletePolicyRequestBuilder();
 
   DeletePolicyRequestBuilder get _$this {
     final $v = _$v;

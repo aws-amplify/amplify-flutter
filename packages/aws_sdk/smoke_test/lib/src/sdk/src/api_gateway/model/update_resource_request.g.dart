@@ -74,9 +74,7 @@ class UpdateResourceRequestBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateResourceRequestBuilder() {
-    UpdateResourceRequest._init(this);
-  }
+  UpdateResourceRequestBuilder();
 
   UpdateResourceRequestBuilder get _$this {
     final $v = _$v;
@@ -176,9 +174,7 @@ class UpdateResourceRequestPayloadBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateResourceRequestPayloadBuilder() {
-    UpdateResourceRequestPayload._init(this);
-  }
+  UpdateResourceRequestPayloadBuilder();
 
   UpdateResourceRequestPayloadBuilder get _$this {
     final $v = _$v;

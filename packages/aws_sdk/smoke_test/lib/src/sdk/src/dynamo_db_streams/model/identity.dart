@@ -34,9 +34,6 @@ abstract class Identity
     IdentityAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(IdentityBuilder b) {}
-
   /// A unique identifier for the entity that made the call. For Time To Live, the principalId is "dynamodb.amazonaws.com".
   String? get principalId;
 

@@ -54,9 +54,6 @@ abstract class GetOpenIdConnectProviderResponse
   static const List<_i4.SmithySerializer<GetOpenIdConnectProviderResponse>>
       serializers = [GetOpenIdConnectProviderResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetOpenIdConnectProviderResponseBuilder b) {}
-
   /// The URL that the IAM OIDC provider resource object is associated with. For more information, see CreateOpenIDConnectProvider.
   String? get url;
 

@@ -105,9 +105,7 @@ class PutBucketPolicyRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  PutBucketPolicyRequestBuilder() {
-    PutBucketPolicyRequest._init(this);
-  }
+  PutBucketPolicyRequestBuilder();
 
   PutBucketPolicyRequestBuilder get _$this {
     final $v = _$v;

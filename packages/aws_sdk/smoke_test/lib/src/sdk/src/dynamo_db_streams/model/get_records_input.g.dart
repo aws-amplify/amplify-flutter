@@ -59,9 +59,7 @@ class GetRecordsInputBuilder
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
 
-  GetRecordsInputBuilder() {
-    GetRecordsInput._init(this);
-  }
+  GetRecordsInputBuilder();
 
   GetRecordsInputBuilder get _$this {
     final $v = _$v;

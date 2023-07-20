@@ -239,9 +239,7 @@ class UploadPartCopyRequestBuilder
   set expectedSourceBucketOwner(String? expectedSourceBucketOwner) =>
       _$this._expectedSourceBucketOwner = expectedSourceBucketOwner;
 
-  UploadPartCopyRequestBuilder() {
-    UploadPartCopyRequest._init(this);
-  }
+  UploadPartCopyRequestBuilder();
 
   UploadPartCopyRequestBuilder get _$this {
     final $v = _$v;
@@ -349,9 +347,7 @@ class UploadPartCopyRequestPayloadBuilder
             UploadPartCopyRequestPayloadBuilder> {
   _$UploadPartCopyRequestPayload? _$v;
 
-  UploadPartCopyRequestPayloadBuilder() {
-    UploadPartCopyRequestPayload._init(this);
-  }
+  UploadPartCopyRequestPayloadBuilder();
 
   @override
   void replace(UploadPartCopyRequestPayload other) {

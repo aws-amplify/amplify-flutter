@@ -83,9 +83,7 @@ class GetMfaDeviceResponseBuilder
   set certifications(_i2.MapBuilder<String, String>? certifications) =>
       _$this._certifications = certifications;
 
-  GetMfaDeviceResponseBuilder() {
-    GetMfaDeviceResponse._init(this);
-  }
+  GetMfaDeviceResponseBuilder();
 
   GetMfaDeviceResponseBuilder get _$this {
     final $v = _$v;

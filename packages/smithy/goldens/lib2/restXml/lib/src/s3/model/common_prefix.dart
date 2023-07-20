@@ -26,8 +26,6 @@ abstract class CommonPrefix
     CommonPrefixRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CommonPrefixBuilder b) {}
   String? get prefix;
   @override
   List<Object?> get props => [prefix];

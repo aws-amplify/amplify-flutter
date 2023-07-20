@@ -51,9 +51,6 @@ abstract class OrganizationConformancePackDetailedStatus
     OrganizationConformancePackDetailedStatusAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OrganizationConformancePackDetailedStatusBuilder b) {}
-
   /// The 12-digit account ID of a member account.
   String get accountId;
 

@@ -63,9 +63,7 @@ class GetUserPolicyRequestBuilder
   String? get policyName => _$this._policyName;
   set policyName(String? policyName) => _$this._policyName = policyName;
 
-  GetUserPolicyRequestBuilder() {
-    GetUserPolicyRequest._init(this);
-  }
+  GetUserPolicyRequestBuilder();
 
   GetUserPolicyRequestBuilder get _$this {
     final $v = _$v;

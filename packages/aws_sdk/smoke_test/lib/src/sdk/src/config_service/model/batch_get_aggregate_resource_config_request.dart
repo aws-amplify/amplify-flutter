@@ -49,9 +49,6 @@ abstract class BatchGetAggregateResourceConfigRequest
     BatchGetAggregateResourceConfigRequestAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BatchGetAggregateResourceConfigRequestBuilder b) {}
-
   /// The name of the configuration aggregator.
   String get configurationAggregatorName;
 

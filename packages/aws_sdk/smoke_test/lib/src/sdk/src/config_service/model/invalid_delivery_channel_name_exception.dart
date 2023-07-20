@@ -43,9 +43,6 @@ abstract class InvalidDeliveryChannelNameException
   static const List<_i2.SmithySerializer<InvalidDeliveryChannelNameException>>
       serializers = [InvalidDeliveryChannelNameExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidDeliveryChannelNameExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

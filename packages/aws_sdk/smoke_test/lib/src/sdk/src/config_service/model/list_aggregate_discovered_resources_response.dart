@@ -50,9 +50,6 @@ abstract class ListAggregateDiscoveredResourcesResponse
     ListAggregateDiscoveredResourcesResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListAggregateDiscoveredResourcesResponseBuilder b) {}
-
   /// Returns a list of `ResourceIdentifiers` objects.
   _i3.BuiltList<_i2.AggregateResourceIdentifier>? get resourceIdentifiers;
 

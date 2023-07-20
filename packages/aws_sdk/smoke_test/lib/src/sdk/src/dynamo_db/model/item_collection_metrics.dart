@@ -42,9 +42,6 @@ abstract class ItemCollectionMetrics
     ItemCollectionMetricsAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ItemCollectionMetricsBuilder b) {}
-
   /// The partition key value of the item collection. This value is the same as the partition key value of the item.
   _i3.BuiltMap<String, _i2.AttributeValue>? get itemCollectionKey;
 

@@ -95,9 +95,7 @@ class GetOpenIdConnectProviderResponseBuilder
       _$this._tags ??= new _i3.ListBuilder<_i2.Tag>();
   set tags(_i3.ListBuilder<_i2.Tag>? tags) => _$this._tags = tags;
 
-  GetOpenIdConnectProviderResponseBuilder() {
-    GetOpenIdConnectProviderResponse._init(this);
-  }
+  GetOpenIdConnectProviderResponseBuilder();
 
   GetOpenIdConnectProviderResponseBuilder get _$this {
     final $v = _$v;

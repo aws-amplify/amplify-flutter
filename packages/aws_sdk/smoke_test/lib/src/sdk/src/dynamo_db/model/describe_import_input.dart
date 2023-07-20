@@ -36,9 +36,6 @@ abstract class DescribeImportInput
     DescribeImportInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeImportInputBuilder b) {}
-
   /// The Amazon Resource Name (ARN) associated with the table you're importing to.
   String get importArn;
   @override

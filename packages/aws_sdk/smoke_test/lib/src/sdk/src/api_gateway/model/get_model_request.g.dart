@@ -147,9 +147,7 @@ class GetModelRequestPayloadBuilder
     implements Builder<GetModelRequestPayload, GetModelRequestPayloadBuilder> {
   _$GetModelRequestPayload? _$v;
 
-  GetModelRequestPayloadBuilder() {
-    GetModelRequestPayload._init(this);
-  }
+  GetModelRequestPayloadBuilder();
 
   @override
   void replace(GetModelRequestPayload other) {

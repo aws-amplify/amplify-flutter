@@ -59,9 +59,7 @@ class DescribeKinesisStreamingDestinationInputBuilder
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
 
-  DescribeKinesisStreamingDestinationInputBuilder() {
-    DescribeKinesisStreamingDestinationInput._init(this);
-  }
+  DescribeKinesisStreamingDestinationInputBuilder();
 
   DescribeKinesisStreamingDestinationInputBuilder get _$this {
     final $v = _$v;

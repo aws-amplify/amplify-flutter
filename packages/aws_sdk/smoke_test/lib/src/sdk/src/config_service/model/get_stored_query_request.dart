@@ -36,9 +36,6 @@ abstract class GetStoredQueryRequest
     GetStoredQueryRequestAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetStoredQueryRequestBuilder b) {}
-
   /// The name of the query.
   String get queryName;
   @override

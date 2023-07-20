@@ -124,7 +124,7 @@ abstract class WriteGetObjectResponseRequest
   const WriteGetObjectResponseRequest._();
 
   factory WriteGetObjectResponseRequest.fromRequest(
-    _i2.Stream<List<int>>? payload,
+    _i2.Stream<List<int>> payload,
     _i3.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
@@ -305,8 +305,9 @@ abstract class WriteGetObjectResponseRequest
                 )));
       });
 
-  static const List<_i1.SmithySerializer<_i2.Stream<List<int>>?>> serializers =
-      [WriteGetObjectResponseRequestRestXmlSerializer()];
+  static const List<_i1.SmithySerializer<_i2.Stream<List<int>>>> serializers = [
+    WriteGetObjectResponseRequestRestXmlSerializer()
+  ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(WriteGetObjectResponseRequestBuilder b) {
@@ -320,7 +321,7 @@ abstract class WriteGetObjectResponseRequest
   String get requestToken;
 
   /// The object data.
-  _i2.Stream<List<int>>? get body;
+  _i2.Stream<List<int>> get body;
 
   /// The integer status code for an HTTP response of a corresponding `GetObject` request. The following is a list of status codes.
   ///
@@ -483,7 +484,7 @@ abstract class WriteGetObjectResponseRequest
   }
 
   @override
-  _i2.Stream<List<int>>? getPayload() => body;
+  _i2.Stream<List<int>> getPayload() => body;
   @override
   List<Object?> get props => [
         requestRoute,

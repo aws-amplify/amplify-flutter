@@ -35,9 +35,6 @@ abstract class GetAccessKeyInfoRequest
   static const List<_i1.SmithySerializer<GetAccessKeyInfoRequest>> serializers =
       [GetAccessKeyInfoRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetAccessKeyInfoRequestBuilder b) {}
-
   /// The identifier of an access key.
   ///
   /// This parameter allows (through its regex pattern) a string of characters that can consist of any upper- or lowercase letter or digit.

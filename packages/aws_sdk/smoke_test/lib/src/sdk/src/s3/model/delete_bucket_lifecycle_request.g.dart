@@ -65,9 +65,7 @@ class DeleteBucketLifecycleRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  DeleteBucketLifecycleRequestBuilder() {
-    DeleteBucketLifecycleRequest._init(this);
-  }
+  DeleteBucketLifecycleRequestBuilder();
 
   DeleteBucketLifecycleRequestBuilder get _$this {
     final $v = _$v;
@@ -141,9 +139,7 @@ class DeleteBucketLifecycleRequestPayloadBuilder
             DeleteBucketLifecycleRequestPayloadBuilder> {
   _$DeleteBucketLifecycleRequestPayload? _$v;
 
-  DeleteBucketLifecycleRequestPayloadBuilder() {
-    DeleteBucketLifecycleRequestPayload._init(this);
-  }
+  DeleteBucketLifecycleRequestPayloadBuilder();
 
   @override
   void replace(DeleteBucketLifecycleRequestPayload other) {

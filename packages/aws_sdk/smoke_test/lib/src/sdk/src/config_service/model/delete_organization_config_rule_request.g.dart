@@ -60,9 +60,7 @@ class DeleteOrganizationConfigRuleRequestBuilder
   set organizationConfigRuleName(String? organizationConfigRuleName) =>
       _$this._organizationConfigRuleName = organizationConfigRuleName;
 
-  DeleteOrganizationConfigRuleRequestBuilder() {
-    DeleteOrganizationConfigRuleRequest._init(this);
-  }
+  DeleteOrganizationConfigRuleRequestBuilder();
 
   DeleteOrganizationConfigRuleRequestBuilder get _$this {
     final $v = _$v;

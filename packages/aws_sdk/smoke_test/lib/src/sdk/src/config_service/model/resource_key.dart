@@ -37,9 +37,6 @@ abstract class ResourceKey
     ResourceKeyAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceKeyBuilder b) {}
-
   /// The resource type.
   _i2.ResourceType get resourceType;
 

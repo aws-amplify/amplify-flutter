@@ -51,9 +51,6 @@ abstract class ListBucketMetricsConfigurationsOutput
   static const List<_i4.SmithySerializer<ListBucketMetricsConfigurationsOutput>>
       serializers = [ListBucketMetricsConfigurationsOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListBucketMetricsConfigurationsOutputBuilder b) {}
-
   /// Indicates whether the returned list of metrics configurations is complete. A value of true indicates that the list is not complete and the NextContinuationToken will be provided for a subsequent request.
   bool? get isTruncated;
 

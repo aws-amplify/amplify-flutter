@@ -134,9 +134,7 @@ class StackResourceSummaryBuilder
   set moduleInfo(_i4.ModuleInfoBuilder? moduleInfo) =>
       _$this._moduleInfo = moduleInfo;
 
-  StackResourceSummaryBuilder() {
-    StackResourceSummary._init(this);
-  }
+  StackResourceSummaryBuilder();
 
   StackResourceSummaryBuilder get _$this {
     final $v = _$v;

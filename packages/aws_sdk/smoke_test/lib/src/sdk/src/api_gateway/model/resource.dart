@@ -50,9 +50,6 @@ abstract class Resource
     ResourceRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceBuilder b) {}
-
   /// The resource's identifier.
   String? get id;
 

@@ -70,9 +70,7 @@ class DescribeConfigurationAggregatorsResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeConfigurationAggregatorsResponseBuilder() {
-    DescribeConfigurationAggregatorsResponse._init(this);
-  }
+  DescribeConfigurationAggregatorsResponseBuilder();
 
   DescribeConfigurationAggregatorsResponseBuilder get _$this {
     final $v = _$v;

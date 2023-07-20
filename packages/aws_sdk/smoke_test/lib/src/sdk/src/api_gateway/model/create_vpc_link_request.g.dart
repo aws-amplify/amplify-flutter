@@ -86,9 +86,7 @@ class CreateVpcLinkRequestBuilder
       _$this._tags ??= new _i3.MapBuilder<String, String>();
   set tags(_i3.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
-  CreateVpcLinkRequestBuilder() {
-    CreateVpcLinkRequest._init(this);
-  }
+  CreateVpcLinkRequestBuilder();
 
   CreateVpcLinkRequestBuilder get _$this {
     final $v = _$v;

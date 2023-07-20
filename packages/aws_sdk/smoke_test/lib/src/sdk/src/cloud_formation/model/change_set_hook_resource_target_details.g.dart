@@ -74,9 +74,7 @@ class ChangeSetHookResourceTargetDetailsBuilder
   set resourceAction(_i2.ChangeAction? resourceAction) =>
       _$this._resourceAction = resourceAction;
 
-  ChangeSetHookResourceTargetDetailsBuilder() {
-    ChangeSetHookResourceTargetDetails._init(this);
-  }
+  ChangeSetHookResourceTargetDetailsBuilder();
 
   ChangeSetHookResourceTargetDetailsBuilder get _$this {
     final $v = _$v;

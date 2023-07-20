@@ -96,9 +96,7 @@ class ScopedConfigBuilder
   set operation(_i5.OperationConfigBuilder? operation) =>
       _$this._operation = operation;
 
-  ScopedConfigBuilder() {
-    ScopedConfig._init(this);
-  }
+  ScopedConfigBuilder();
 
   ScopedConfigBuilder get _$this {
     final $v = _$v;

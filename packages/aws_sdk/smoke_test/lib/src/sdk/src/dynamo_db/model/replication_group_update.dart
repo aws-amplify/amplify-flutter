@@ -70,9 +70,6 @@ abstract class ReplicationGroupUpdate
   static const List<_i5.SmithySerializer<ReplicationGroupUpdate>> serializers =
       [ReplicationGroupUpdateAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicationGroupUpdateBuilder b) {}
-
   /// The parameters required for creating a replica for the table.
   _i2.CreateReplicationGroupMemberAction? get create;
 

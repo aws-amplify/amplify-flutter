@@ -36,9 +36,6 @@ abstract class CsvOptions
     CsvOptionsAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CsvOptionsBuilder b) {}
-
   /// The delimiter used for separating items in the CSV file being imported.
   String? get delimiter;
 

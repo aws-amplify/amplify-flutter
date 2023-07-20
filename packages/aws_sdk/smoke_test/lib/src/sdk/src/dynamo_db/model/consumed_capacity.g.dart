@@ -115,9 +115,7 @@ class ConsumedCapacityBuilder
           _i3.MapBuilder<String, _i2.Capacity>? globalSecondaryIndexes) =>
       _$this._globalSecondaryIndexes = globalSecondaryIndexes;
 
-  ConsumedCapacityBuilder() {
-    ConsumedCapacity._init(this);
-  }
+  ConsumedCapacityBuilder();
 
   ConsumedCapacityBuilder get _$this {
     final $v = _$v;

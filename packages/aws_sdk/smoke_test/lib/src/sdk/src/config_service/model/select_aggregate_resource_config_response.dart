@@ -49,9 +49,6 @@ abstract class SelectAggregateResourceConfigResponse
     SelectAggregateResourceConfigResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SelectAggregateResourceConfigResponseBuilder b) {}
-
   /// Returns the results for the SQL query.
   _i3.BuiltList<String>? get results;
 

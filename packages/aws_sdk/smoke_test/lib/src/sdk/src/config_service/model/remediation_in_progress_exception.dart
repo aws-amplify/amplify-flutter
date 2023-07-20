@@ -43,9 +43,6 @@ abstract class RemediationInProgressException
   static const List<_i2.SmithySerializer<RemediationInProgressException>>
       serializers = [RemediationInProgressExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RemediationInProgressExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

@@ -45,8 +45,6 @@ abstract class XmlUnionsInputOutput
     XmlUnionsInputOutputRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(XmlUnionsInputOutputBuilder b) {}
   _i3.XmlUnionShape? get unionValue;
   @override
   XmlUnionsInputOutput getPayload() => this;

@@ -36,9 +36,6 @@ abstract class NoncurrentVersionExpiration
   static const List<_i2.SmithySerializer<NoncurrentVersionExpiration>>
       serializers = [NoncurrentVersionExpirationRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NoncurrentVersionExpirationBuilder b) {}
-
   /// Specifies the number of days an object is noncurrent before Amazon S3 can perform the associated action. The value must be a non-zero positive integer. For information about the noncurrent days calculations, see [How Amazon S3 Calculates When an Object Became Noncurrent](https://docs.aws.amazon.com/AmazonS3/latest/dev/intro-lifecycle-rules.html#non-current-days-calculations) in the _Amazon S3 User Guide_.
   int? get noncurrentDays;
 

@@ -67,9 +67,7 @@ class GetDocumentationVersionRequestBuilder
   set documentationVersion(String? documentationVersion) =>
       _$this._documentationVersion = documentationVersion;
 
-  GetDocumentationVersionRequestBuilder() {
-    GetDocumentationVersionRequest._init(this);
-  }
+  GetDocumentationVersionRequestBuilder();
 
   GetDocumentationVersionRequestBuilder get _$this {
     final $v = _$v;
@@ -147,9 +145,7 @@ class GetDocumentationVersionRequestPayloadBuilder
             GetDocumentationVersionRequestPayloadBuilder> {
   _$GetDocumentationVersionRequestPayload? _$v;
 
-  GetDocumentationVersionRequestPayloadBuilder() {
-    GetDocumentationVersionRequestPayload._init(this);
-  }
+  GetDocumentationVersionRequestPayloadBuilder();
 
   @override
   void replace(GetDocumentationVersionRequestPayload other) {

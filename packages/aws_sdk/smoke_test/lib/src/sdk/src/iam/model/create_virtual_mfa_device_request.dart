@@ -47,9 +47,6 @@ abstract class CreateVirtualMfaDeviceRequest
   static const List<_i1.SmithySerializer<CreateVirtualMfaDeviceRequest>>
       serializers = [CreateVirtualMfaDeviceRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateVirtualMfaDeviceRequestBuilder b) {}
-
   /// The path for the virtual MFA device. For more information about paths, see [IAM identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html) in the _IAM User Guide_.
   ///
   /// This parameter is optional. If it is not included, it defaults to a slash (/).

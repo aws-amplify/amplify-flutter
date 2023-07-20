@@ -40,9 +40,6 @@ abstract class StackResourceDriftInformation
   static const List<_i3.SmithySerializer<StackResourceDriftInformation>>
       serializers = [StackResourceDriftInformationAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackResourceDriftInformationBuilder b) {}
-
   /// Status of the resource's actual configuration compared to its expected configuration
   ///
   /// *   `DELETED`: The resource differs from its expected configuration in that it has been deleted.

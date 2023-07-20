@@ -87,9 +87,7 @@ class UpdateMethodRequestBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateMethodRequestBuilder() {
-    UpdateMethodRequest._init(this);
-  }
+  UpdateMethodRequestBuilder();
 
   UpdateMethodRequestBuilder get _$this {
     final $v = _$v;
@@ -191,9 +189,7 @@ class UpdateMethodRequestPayloadBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateMethodRequestPayloadBuilder() {
-    UpdateMethodRequestPayload._init(this);
-  }
+  UpdateMethodRequestPayloadBuilder();
 
   UpdateMethodRequestPayloadBuilder get _$this {
     final $v = _$v;

@@ -49,9 +49,7 @@ class DescribeStackSetOutputBuilder
       _$this._stackSet ??= new _i2.StackSetBuilder();
   set stackSet(_i2.StackSetBuilder? stackSet) => _$this._stackSet = stackSet;
 
-  DescribeStackSetOutputBuilder() {
-    DescribeStackSetOutput._init(this);
-  }
+  DescribeStackSetOutputBuilder();
 
   DescribeStackSetOutputBuilder get _$this {
     final $v = _$v;

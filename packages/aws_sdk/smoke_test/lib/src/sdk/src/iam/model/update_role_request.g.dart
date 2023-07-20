@@ -70,9 +70,7 @@ class UpdateRoleRequestBuilder
   set maxSessionDuration(int? maxSessionDuration) =>
       _$this._maxSessionDuration = maxSessionDuration;
 
-  UpdateRoleRequestBuilder() {
-    UpdateRoleRequest._init(this);
-  }
+  UpdateRoleRequestBuilder();
 
   UpdateRoleRequestBuilder get _$this {
     final $v = _$v;

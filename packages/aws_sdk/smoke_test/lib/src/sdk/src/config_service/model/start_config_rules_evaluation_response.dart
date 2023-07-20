@@ -40,8 +40,6 @@ abstract class StartConfigRulesEvaluationResponse
   static const List<_i2.SmithySerializer<StartConfigRulesEvaluationResponse>>
       serializers = [StartConfigRulesEvaluationResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StartConfigRulesEvaluationResponseBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -49,9 +49,7 @@ class EstimateTemplateCostOutputBuilder
   String? get url => _$this._url;
   set url(String? url) => _$this._url = url;
 
-  EstimateTemplateCostOutputBuilder() {
-    EstimateTemplateCostOutput._init(this);
-  }
+  EstimateTemplateCostOutputBuilder();
 
   EstimateTemplateCostOutputBuilder get _$this {
     final $v = _$v;

@@ -53,9 +53,7 @@ class IdentityBuilder implements Builder<Identity, IdentityBuilder> {
   String? get type => _$this._type;
   set type(String? type) => _$this._type = type;
 
-  IdentityBuilder() {
-    Identity._init(this);
-  }
+  IdentityBuilder();
 
   IdentityBuilder get _$this {
     final $v = _$v;

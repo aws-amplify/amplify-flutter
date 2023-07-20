@@ -57,9 +57,6 @@ abstract class GetBucketIntelligentTieringConfigurationRequest
     GetBucketIntelligentTieringConfigurationRequestRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketIntelligentTieringConfigurationRequestBuilder b) {}
-
   /// The name of the Amazon S3 bucket whose configuration you want to modify or retrieve.
   String get bucket;
 
@@ -116,9 +113,6 @@ abstract class GetBucketIntelligentTieringConfigurationRequestPayload
 
   const GetBucketIntelligentTieringConfigurationRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      GetBucketIntelligentTieringConfigurationRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

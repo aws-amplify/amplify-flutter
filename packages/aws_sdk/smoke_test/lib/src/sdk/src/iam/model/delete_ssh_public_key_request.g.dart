@@ -66,9 +66,7 @@ class DeleteSshPublicKeyRequestBuilder
   set sshPublicKeyId(String? sshPublicKeyId) =>
       _$this._sshPublicKeyId = sshPublicKeyId;
 
-  DeleteSshPublicKeyRequestBuilder() {
-    DeleteSshPublicKeyRequest._init(this);
-  }
+  DeleteSshPublicKeyRequestBuilder();
 
   DeleteSshPublicKeyRequestBuilder get _$this {
     final $v = _$v;

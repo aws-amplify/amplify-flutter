@@ -118,9 +118,7 @@ class ConditionCheckBuilder
       _$this._returnValuesOnConditionCheckFailure =
           returnValuesOnConditionCheckFailure;
 
-  ConditionCheckBuilder() {
-    ConditionCheck._init(this);
-  }
+  ConditionCheckBuilder();
 
   ConditionCheckBuilder get _$this {
     final $v = _$v;

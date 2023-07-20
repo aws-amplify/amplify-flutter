@@ -36,9 +36,6 @@ abstract class Grant
     GrantRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GrantBuilder b) {}
-
   /// The person being granted permissions.
   _i2.Grantee? get grantee;
 

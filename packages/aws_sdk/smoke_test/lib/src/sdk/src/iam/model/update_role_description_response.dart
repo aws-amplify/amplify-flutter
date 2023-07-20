@@ -37,9 +37,6 @@ abstract class UpdateRoleDescriptionResponse
   static const List<_i3.SmithySerializer<UpdateRoleDescriptionResponse>>
       serializers = [UpdateRoleDescriptionResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateRoleDescriptionResponseBuilder b) {}
-
   /// A structure that contains details about the modified role.
   _i2.Role? get role;
   @override

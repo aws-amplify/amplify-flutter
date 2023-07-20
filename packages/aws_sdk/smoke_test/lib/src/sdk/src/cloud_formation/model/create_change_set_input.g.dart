@@ -230,9 +230,7 @@ class CreateChangeSetInputBuilder
   set onStackFailure(_i9.OnStackFailure? onStackFailure) =>
       _$this._onStackFailure = onStackFailure;
 
-  CreateChangeSetInputBuilder() {
-    CreateChangeSetInput._init(this);
-  }
+  CreateChangeSetInputBuilder();
 
   CreateChangeSetInputBuilder get _$this {
     final $v = _$v;

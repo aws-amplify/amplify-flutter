@@ -39,9 +39,6 @@ abstract class TypeFilters
     TypeFiltersAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TypeFiltersBuilder b) {}
-
   /// The category of extensions to return.
   ///
   /// *   `REGISTERED`: Private extensions that have been registered for this account and Region.

@@ -87,9 +87,7 @@ class AggregateComplianceByConformancePackBuilder
   String? get awsRegion => _$this._awsRegion;
   set awsRegion(String? awsRegion) => _$this._awsRegion = awsRegion;
 
-  AggregateComplianceByConformancePackBuilder() {
-    AggregateComplianceByConformancePack._init(this);
-  }
+  AggregateComplianceByConformancePackBuilder();
 
   AggregateComplianceByConformancePackBuilder get _$this {
     final $v = _$v;

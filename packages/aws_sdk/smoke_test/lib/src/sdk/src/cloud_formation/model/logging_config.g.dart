@@ -60,9 +60,7 @@ class LoggingConfigBuilder
   String? get logGroupName => _$this._logGroupName;
   set logGroupName(String? logGroupName) => _$this._logGroupName = logGroupName;
 
-  LoggingConfigBuilder() {
-    LoggingConfig._init(this);
-  }
+  LoggingConfigBuilder();
 
   LoggingConfigBuilder get _$this {
     final $v = _$v;

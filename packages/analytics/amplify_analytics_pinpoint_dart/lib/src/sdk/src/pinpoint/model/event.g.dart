@@ -139,9 +139,7 @@ class EventBuilder implements Builder<Event, EventBuilder> {
   String? get timestamp => _$this._timestamp;
   set timestamp(String? timestamp) => _$this._timestamp = timestamp;
 
-  EventBuilder() {
-    Event._init(this);
-  }
+  EventBuilder();
 
   EventBuilder get _$this {
     final $v = _$v;

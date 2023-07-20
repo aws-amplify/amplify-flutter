@@ -53,9 +53,6 @@ abstract class KeysAndAttributes
     KeysAndAttributesAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(KeysAndAttributesBuilder b) {}
-
   /// The primary key attribute values that define the items and the attributes associated with the items.
   _i3.BuiltList<_i3.BuiltMap<String, _i2.AttributeValue>> get keys;
 

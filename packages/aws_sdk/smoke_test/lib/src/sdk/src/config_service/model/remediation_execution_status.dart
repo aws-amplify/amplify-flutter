@@ -49,9 +49,6 @@ abstract class RemediationExecutionStatus
   static const List<_i6.SmithySerializer<RemediationExecutionStatus>>
       serializers = [RemediationExecutionStatusAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RemediationExecutionStatusBuilder b) {}
-
   /// The details that identify a resource within Config, including the resource type and resource ID.
   _i2.ResourceKey? get resourceKey;
 

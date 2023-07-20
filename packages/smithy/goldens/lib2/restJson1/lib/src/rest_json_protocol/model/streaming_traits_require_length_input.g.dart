@@ -11,14 +11,18 @@ class _$StreamingTraitsRequireLengthInput
   @override
   final String? foo;
   @override
-  final _i2.Stream<List<int>>? blob;
+  final _i2.Stream<List<int>> blob;
 
   factory _$StreamingTraitsRequireLengthInput(
           [void Function(StreamingTraitsRequireLengthInputBuilder)? updates]) =>
       (new StreamingTraitsRequireLengthInputBuilder()..update(updates))
           ._build();
 
-  _$StreamingTraitsRequireLengthInput._({this.foo, this.blob}) : super._();
+  _$StreamingTraitsRequireLengthInput._({this.foo, required this.blob})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        blob, r'StreamingTraitsRequireLengthInput', 'blob');
+  }
 
   @override
   StreamingTraitsRequireLengthInput rebuild(
@@ -91,8 +95,11 @@ class StreamingTraitsRequireLengthInputBuilder
   StreamingTraitsRequireLengthInput build() => _build();
 
   _$StreamingTraitsRequireLengthInput _build() {
-    final _$result =
-        _$v ?? new _$StreamingTraitsRequireLengthInput._(foo: foo, blob: blob);
+    final _$result = _$v ??
+        new _$StreamingTraitsRequireLengthInput._(
+            foo: foo,
+            blob: BuiltValueNullFieldError.checkNotNull(
+                blob, r'StreamingTraitsRequireLengthInput', 'blob'));
     replace(_$result);
     return _$result;
   }

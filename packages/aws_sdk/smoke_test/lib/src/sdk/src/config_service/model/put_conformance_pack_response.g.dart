@@ -51,9 +51,7 @@ class PutConformancePackResponseBuilder
   set conformancePackArn(String? conformancePackArn) =>
       _$this._conformancePackArn = conformancePackArn;
 
-  PutConformancePackResponseBuilder() {
-    PutConformancePackResponse._init(this);
-  }
+  PutConformancePackResponseBuilder();
 
   PutConformancePackResponseBuilder get _$this {
     final $v = _$v;

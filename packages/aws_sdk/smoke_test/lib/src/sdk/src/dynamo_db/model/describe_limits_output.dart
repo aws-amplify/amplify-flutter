@@ -48,9 +48,6 @@ abstract class DescribeLimitsOutput
     DescribeLimitsOutputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeLimitsOutputBuilder b) {}
-
   /// The maximum total read capacity units that your account allows you to provision across all of your tables in this Region.
   _i2.Int64? get accountMaxReadCapacityUnits;
 

@@ -46,9 +46,6 @@ abstract class DeleteRemediationExceptionsRequest
   static const List<_i1.SmithySerializer<DeleteRemediationExceptionsRequest>>
       serializers = [DeleteRemediationExceptionsRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteRemediationExceptionsRequestBuilder b) {}
-
   /// The name of the Config rule for which you want to delete remediation exception configuration.
   String get configRuleName;
 

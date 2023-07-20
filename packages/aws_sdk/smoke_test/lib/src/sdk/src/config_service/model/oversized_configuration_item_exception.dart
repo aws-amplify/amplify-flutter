@@ -43,9 +43,6 @@ abstract class OversizedConfigurationItemException
   static const List<_i2.SmithySerializer<OversizedConfigurationItemException>>
       serializers = [OversizedConfigurationItemExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OversizedConfigurationItemExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

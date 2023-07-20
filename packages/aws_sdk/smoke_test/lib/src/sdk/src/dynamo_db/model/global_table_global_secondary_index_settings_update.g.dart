@@ -92,9 +92,7 @@ class GlobalTableGlobalSecondaryIndexSettingsUpdateBuilder
       _$this._provisionedWriteCapacityAutoScalingSettingsUpdate =
           provisionedWriteCapacityAutoScalingSettingsUpdate;
 
-  GlobalTableGlobalSecondaryIndexSettingsUpdateBuilder() {
-    GlobalTableGlobalSecondaryIndexSettingsUpdate._init(this);
-  }
+  GlobalTableGlobalSecondaryIndexSettingsUpdateBuilder();
 
   GlobalTableGlobalSecondaryIndexSettingsUpdateBuilder get _$this {
     final $v = _$v;

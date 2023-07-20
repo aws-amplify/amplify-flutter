@@ -69,9 +69,7 @@ class BatchGetResourceConfigResponseBuilder
           _i4.ListBuilder<_i3.ResourceKey>? unprocessedResourceKeys) =>
       _$this._unprocessedResourceKeys = unprocessedResourceKeys;
 
-  BatchGetResourceConfigResponseBuilder() {
-    BatchGetResourceConfigResponse._init(this);
-  }
+  BatchGetResourceConfigResponseBuilder();
 
   BatchGetResourceConfigResponseBuilder get _$this {
     final $v = _$v;

@@ -69,9 +69,6 @@ abstract class OrganizationCustomPolicyRuleMetadataNoPolicy
     OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OrganizationCustomPolicyRuleMetadataNoPolicyBuilder b) {}
-
   /// The description that you provide for your organization Config Custom Policy rule.
   String? get description;
 

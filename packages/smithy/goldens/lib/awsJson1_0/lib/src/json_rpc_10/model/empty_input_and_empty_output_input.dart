@@ -38,8 +38,6 @@ abstract class EmptyInputAndEmptyOutputInput
   static const List<_i1.SmithySerializer<EmptyInputAndEmptyOutputInput>>
       serializers = [EmptyInputAndEmptyOutputInputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EmptyInputAndEmptyOutputInputBuilder b) {}
   @override
   EmptyInputAndEmptyOutputInput getPayload() => this;
   @override

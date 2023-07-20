@@ -33,9 +33,6 @@ abstract class DeleteBackupInput
     DeleteBackupInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBackupInputBuilder b) {}
-
   /// The ARN associated with the backup.
   String get backupArn;
   @override

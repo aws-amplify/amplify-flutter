@@ -59,9 +59,6 @@ abstract class DeleteGatewayResponseRequest
   static const List<_i1.SmithySerializer<DeleteGatewayResponseRequestPayload>>
       serializers = [DeleteGatewayResponseRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteGatewayResponseRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -118,8 +115,6 @@ abstract class DeleteGatewayResponseRequestPayload
 
   const DeleteGatewayResponseRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteGatewayResponseRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

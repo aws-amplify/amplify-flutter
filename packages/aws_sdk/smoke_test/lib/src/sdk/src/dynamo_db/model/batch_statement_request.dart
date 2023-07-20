@@ -46,9 +46,6 @@ abstract class BatchStatementRequest
     BatchStatementRequestAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BatchStatementRequestBuilder b) {}
-
   /// A valid PartiQL statement.
   String get statement;
 

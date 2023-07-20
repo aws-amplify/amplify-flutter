@@ -50,9 +50,7 @@ class GetStackPolicyOutputBuilder
   set stackPolicyBody(String? stackPolicyBody) =>
       _$this._stackPolicyBody = stackPolicyBody;
 
-  GetStackPolicyOutputBuilder() {
-    GetStackPolicyOutput._init(this);
-  }
+  GetStackPolicyOutputBuilder();
 
   GetStackPolicyOutputBuilder get _$this {
     final $v = _$v;

@@ -45,9 +45,6 @@ abstract class ListStreamsOutput
     ListStreamsOutputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListStreamsOutputBuilder b) {}
-
   /// A list of stream descriptors associated with the current account and endpoint.
   _i3.BuiltList<_i2.Stream>? get streams;
 

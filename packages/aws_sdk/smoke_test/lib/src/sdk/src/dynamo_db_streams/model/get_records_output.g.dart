@@ -59,9 +59,7 @@ class GetRecordsOutputBuilder
   set nextShardIterator(String? nextShardIterator) =>
       _$this._nextShardIterator = nextShardIterator;
 
-  GetRecordsOutputBuilder() {
-    GetRecordsOutput._init(this);
-  }
+  GetRecordsOutputBuilder();
 
   GetRecordsOutputBuilder get _$this {
     final $v = _$v;

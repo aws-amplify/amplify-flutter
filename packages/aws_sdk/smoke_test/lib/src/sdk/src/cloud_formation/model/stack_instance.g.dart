@@ -157,9 +157,7 @@ class StackInstanceBuilder
   set lastOperationId(String? lastOperationId) =>
       _$this._lastOperationId = lastOperationId;
 
-  StackInstanceBuilder() {
-    StackInstance._init(this);
-  }
+  StackInstanceBuilder();
 
   StackInstanceBuilder get _$this {
     final $v = _$v;

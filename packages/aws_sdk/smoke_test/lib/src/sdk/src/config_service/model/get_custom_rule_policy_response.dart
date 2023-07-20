@@ -34,9 +34,6 @@ abstract class GetCustomRulePolicyResponse
   static const List<_i2.SmithySerializer<GetCustomRulePolicyResponse>>
       serializers = [GetCustomRulePolicyResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetCustomRulePolicyResponseBuilder b) {}
-
   /// The policy definition containing the logic for your Config Custom Policy rule.
   String? get policyText;
   @override

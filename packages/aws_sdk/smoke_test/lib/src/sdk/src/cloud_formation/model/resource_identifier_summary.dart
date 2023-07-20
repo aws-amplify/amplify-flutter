@@ -42,9 +42,6 @@ abstract class ResourceIdentifierSummary
   static const List<_i3.SmithySerializer<ResourceIdentifierSummary>>
       serializers = [ResourceIdentifierSummaryAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceIdentifierSummaryBuilder b) {}
-
   /// The template resource type of the target resources, such as `AWS::S3::Bucket`.
   String? get resourceType;
 

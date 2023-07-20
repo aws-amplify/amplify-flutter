@@ -49,9 +49,6 @@ abstract class DescribeRemediationExceptionsResponse
     DescribeRemediationExceptionsResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeRemediationExceptionsResponseBuilder b) {}
-
   /// Returns a list of remediation exception objects.
   _i3.BuiltList<_i2.RemediationException>? get remediationExceptions;
 

@@ -94,9 +94,7 @@ class PutBucketMetricsConfigurationRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  PutBucketMetricsConfigurationRequestBuilder() {
-    PutBucketMetricsConfigurationRequest._init(this);
-  }
+  PutBucketMetricsConfigurationRequestBuilder();
 
   PutBucketMetricsConfigurationRequestBuilder get _$this {
     final $v = _$v;

@@ -48,9 +48,6 @@ abstract class DescribeConfigRulesRequest
   static const List<_i1.SmithySerializer<DescribeConfigRulesRequest>>
       serializers = [DescribeConfigRulesRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeConfigRulesRequestBuilder b) {}
-
   /// The names of the Config rules for which you want details. If you do not specify any names, Config returns details for all your rules.
   _i4.BuiltList<String>? get configRuleNames;
 

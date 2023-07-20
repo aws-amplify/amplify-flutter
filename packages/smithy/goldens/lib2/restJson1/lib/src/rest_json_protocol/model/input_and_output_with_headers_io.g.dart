@@ -225,9 +225,7 @@ class InputAndOutputWithHeadersIoBuilder
           _i6.ListBuilder<_i5.IntegerEnum>? headerIntegerEnumList) =>
       _$this._headerIntegerEnumList = headerIntegerEnumList;
 
-  InputAndOutputWithHeadersIoBuilder() {
-    InputAndOutputWithHeadersIo._init(this);
-  }
+  InputAndOutputWithHeadersIoBuilder();
 
   InputAndOutputWithHeadersIoBuilder get _$this {
     final $v = _$v;
@@ -359,9 +357,7 @@ class InputAndOutputWithHeadersIoPayloadBuilder
             InputAndOutputWithHeadersIoPayloadBuilder> {
   _$InputAndOutputWithHeadersIoPayload? _$v;
 
-  InputAndOutputWithHeadersIoPayloadBuilder() {
-    InputAndOutputWithHeadersIoPayload._init(this);
-  }
+  InputAndOutputWithHeadersIoPayloadBuilder();
 
   @override
   void replace(InputAndOutputWithHeadersIoPayload other) {

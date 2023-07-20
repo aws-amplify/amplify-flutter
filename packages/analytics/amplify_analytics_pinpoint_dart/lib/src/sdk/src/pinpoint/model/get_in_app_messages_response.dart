@@ -41,9 +41,6 @@ abstract class GetInAppMessagesResponse
   static const List<_i2.SmithySerializer<_i3.InAppMessagesResponse>>
       serializers = [GetInAppMessagesResponseRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetInAppMessagesResponseBuilder b) {}
-
   /// Get in-app messages response object.
   _i3.InAppMessagesResponse get inAppMessagesResponse;
   @override

@@ -55,9 +55,6 @@ abstract class GetBucketLifecycleConfigurationRequest
           _i1.SmithySerializer<GetBucketLifecycleConfigurationRequestPayload>>
       serializers = [GetBucketLifecycleConfigurationRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketLifecycleConfigurationRequestBuilder b) {}
-
   /// The name of the bucket for which to get the lifecycle information.
   String get bucket;
 
@@ -113,8 +110,6 @@ abstract class GetBucketLifecycleConfigurationRequestPayload
 
   const GetBucketLifecycleConfigurationRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketLifecycleConfigurationRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

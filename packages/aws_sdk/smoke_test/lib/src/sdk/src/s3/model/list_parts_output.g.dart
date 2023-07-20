@@ -183,9 +183,7 @@ class ListPartsOutputBuilder
   set checksumAlgorithm(_i8.ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
-  ListPartsOutputBuilder() {
-    ListPartsOutput._init(this);
-  }
+  ListPartsOutputBuilder();
 
   ListPartsOutputBuilder get _$this {
     final $v = _$v;
@@ -415,9 +413,7 @@ class ListPartsOutputPayloadBuilder
   String? get uploadId => _$this._uploadId;
   set uploadId(String? uploadId) => _$this._uploadId = uploadId;
 
-  ListPartsOutputPayloadBuilder() {
-    ListPartsOutputPayload._init(this);
-  }
+  ListPartsOutputPayloadBuilder();
 
   ListPartsOutputPayloadBuilder get _$this {
     final $v = _$v;

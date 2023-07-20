@@ -66,9 +66,7 @@ class ListAccessKeysRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  ListAccessKeysRequestBuilder() {
-    ListAccessKeysRequest._init(this);
-  }
+  ListAccessKeysRequestBuilder();
 
   ListAccessKeysRequestBuilder get _$this {
     final $v = _$v;

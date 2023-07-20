@@ -52,9 +52,6 @@ abstract class RestoreRequest
     RestoreRequestRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RestoreRequestBuilder b) {}
-
   /// Lifetime of the active copy in days. Do not use with restores that specify `OutputLocation`.
   ///
   /// The Days element is required for regular restores, and must not be provided for select requests.

@@ -50,9 +50,7 @@ class GetVpcLinkRequestBuilder
   String? get vpcLinkId => _$this._vpcLinkId;
   set vpcLinkId(String? vpcLinkId) => _$this._vpcLinkId = vpcLinkId;
 
-  GetVpcLinkRequestBuilder() {
-    GetVpcLinkRequest._init(this);
-  }
+  GetVpcLinkRequestBuilder();
 
   GetVpcLinkRequestBuilder get _$this {
     final $v = _$v;
@@ -120,9 +118,7 @@ class GetVpcLinkRequestPayloadBuilder
         Builder<GetVpcLinkRequestPayload, GetVpcLinkRequestPayloadBuilder> {
   _$GetVpcLinkRequestPayload? _$v;
 
-  GetVpcLinkRequestPayloadBuilder() {
-    GetVpcLinkRequestPayload._init(this);
-  }
+  GetVpcLinkRequestPayloadBuilder();
 
   @override
   void replace(GetVpcLinkRequestPayload other) {

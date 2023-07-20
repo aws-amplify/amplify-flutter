@@ -36,9 +36,6 @@ abstract class Tags
     TagsRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TagsBuilder b) {}
-
   /// The collection of tags. Each tag element is associated with a given resource.
   _i2.BuiltMap<String, String>? get tags;
   @override

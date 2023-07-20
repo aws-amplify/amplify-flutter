@@ -42,8 +42,6 @@ abstract class EntityAlreadyExistsException
   static const List<_i2.SmithySerializer<EntityAlreadyExistsException>>
       serializers = [EntityAlreadyExistsExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EntityAlreadyExistsExceptionBuilder b) {}
   @override
   String? get message;
   @override

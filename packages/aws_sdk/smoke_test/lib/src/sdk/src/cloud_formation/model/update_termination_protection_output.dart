@@ -36,9 +36,6 @@ abstract class UpdateTerminationProtectionOutput
   static const List<_i2.SmithySerializer<UpdateTerminationProtectionOutput>>
       serializers = [UpdateTerminationProtectionOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateTerminationProtectionOutputBuilder b) {}
-
   /// The unique ID of the stack.
   String? get stackId;
   @override

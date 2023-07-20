@@ -21,11 +21,9 @@ abstract class ProvisionedThroughput
   ///
   /// For current minimum and maximum provisioned throughput values, see [Service, Account, and Table Quotas](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html) in the _Amazon DynamoDB Developer Guide_.
   factory ProvisionedThroughput({
-    _i2.Int64? readCapacityUnits,
-    _i2.Int64? writeCapacityUnits,
+    required _i2.Int64 readCapacityUnits,
+    required _i2.Int64 writeCapacityUnits,
   }) {
-    readCapacityUnits ??= _i2.Int64.ZERO;
-    writeCapacityUnits ??= _i2.Int64.ZERO;
     return _$ProvisionedThroughput._(
       readCapacityUnits: readCapacityUnits,
       writeCapacityUnits: writeCapacityUnits,
@@ -44,13 +42,6 @@ abstract class ProvisionedThroughput
   static const List<_i3.SmithySerializer<ProvisionedThroughput>> serializers = [
     ProvisionedThroughputAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ProvisionedThroughputBuilder b) {
-    b
-      ..readCapacityUnits = _i2.Int64.ZERO
-      ..writeCapacityUnits = _i2.Int64.ZERO;
-  }
 
   /// The maximum number of strongly consistent reads consumed per second before DynamoDB returns a `ThrottlingException`. For more information, see [Specifying Read and Write Requirements](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughput.html) in the _Amazon DynamoDB Developer Guide_.
   ///

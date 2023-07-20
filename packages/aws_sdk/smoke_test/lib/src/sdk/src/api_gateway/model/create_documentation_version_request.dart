@@ -60,9 +60,6 @@ abstract class CreateDocumentationVersionRequest
           _i1.SmithySerializer<CreateDocumentationVersionRequestPayload>>
       serializers = [CreateDocumentationVersionRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateDocumentationVersionRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -136,9 +133,6 @@ abstract class CreateDocumentationVersionRequestPayload
           updates]) = _$CreateDocumentationVersionRequestPayload;
 
   const CreateDocumentationVersionRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateDocumentationVersionRequestPayloadBuilder b) {}
 
   /// A description about the new documentation snapshot.
   String? get description;

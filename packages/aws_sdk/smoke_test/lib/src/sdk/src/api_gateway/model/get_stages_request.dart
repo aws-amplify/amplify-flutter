@@ -54,9 +54,6 @@ abstract class GetStagesRequest
   static const List<_i1.SmithySerializer<GetStagesRequestPayload>> serializers =
       [GetStagesRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetStagesRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -108,8 +105,6 @@ abstract class GetStagesRequestPayload
 
   const GetStagesRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetStagesRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

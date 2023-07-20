@@ -45,9 +45,7 @@ class JsonOutputBuilder implements Builder<JsonOutput, JsonOutputBuilder> {
   set recordDelimiter(String? recordDelimiter) =>
       _$this._recordDelimiter = recordDelimiter;
 
-  JsonOutputBuilder() {
-    JsonOutput._init(this);
-  }
+  JsonOutputBuilder();
 
   JsonOutputBuilder get _$this {
     final $v = _$v;

@@ -55,9 +55,7 @@ class DeleteConflictExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  DeleteConflictExceptionBuilder() {
-    DeleteConflictException._init(this);
-  }
+  DeleteConflictExceptionBuilder();
 
   DeleteConflictExceptionBuilder get _$this {
     final $v = _$v;

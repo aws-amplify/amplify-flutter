@@ -35,8 +35,6 @@ abstract class GreetingWithErrorsInput
   static const List<_i1.SmithySerializer<GreetingWithErrorsInput>> serializers =
       [GreetingWithErrorsInputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GreetingWithErrorsInputBuilder b) {}
   String? get greeting;
   @override
   GreetingWithErrorsInput getPayload() => this;

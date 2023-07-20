@@ -48,9 +48,6 @@ abstract class GetBucketEncryptionOutput
           _i2.SmithySerializer<_i3.ServerSideEncryptionConfiguration?>>
       serializers = [GetBucketEncryptionOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketEncryptionOutputBuilder b) {}
-
   /// Specifies the default server-side-encryption configuration.
   _i3.ServerSideEncryptionConfiguration? get serverSideEncryptionConfiguration;
   @override

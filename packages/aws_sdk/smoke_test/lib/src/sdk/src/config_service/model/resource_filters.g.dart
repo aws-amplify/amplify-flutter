@@ -73,9 +73,7 @@ class ResourceFiltersBuilder
   String? get region => _$this._region;
   set region(String? region) => _$this._region = region;
 
-  ResourceFiltersBuilder() {
-    ResourceFilters._init(this);
-  }
+  ResourceFiltersBuilder();
 
   ResourceFiltersBuilder get _$this {
     final $v = _$v;

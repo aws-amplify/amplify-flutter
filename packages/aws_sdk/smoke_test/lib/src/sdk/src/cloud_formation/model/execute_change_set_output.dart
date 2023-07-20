@@ -38,8 +38,6 @@ abstract class ExecuteChangeSetOutput
   static const List<_i2.SmithySerializer<ExecuteChangeSetOutput>> serializers =
       [ExecuteChangeSetOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ExecuteChangeSetOutputBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

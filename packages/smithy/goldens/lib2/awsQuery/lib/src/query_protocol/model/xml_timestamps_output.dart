@@ -50,8 +50,6 @@ abstract class XmlTimestampsOutput
     XmlTimestampsOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(XmlTimestampsOutputBuilder b) {}
   DateTime? get normal;
   DateTime? get dateTime;
   DateTime? get dateTimeOnTarget;

@@ -69,9 +69,6 @@ abstract class PutBucketLoggingRequest
   static const List<_i1.SmithySerializer<_i2.BucketLoggingStatus>> serializers =
       [PutBucketLoggingRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketLoggingRequestBuilder b) {}
-
   /// The name of the bucket for which to set the logging parameters.
   String get bucket;
 

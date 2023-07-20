@@ -74,9 +74,7 @@ class ConformancePackRuleComplianceBuilder
   set controls(_i3.ListBuilder<String>? controls) =>
       _$this._controls = controls;
 
-  ConformancePackRuleComplianceBuilder() {
-    ConformancePackRuleCompliance._init(this);
-  }
+  ConformancePackRuleComplianceBuilder();
 
   ConformancePackRuleComplianceBuilder get _$this {
     final $v = _$v;

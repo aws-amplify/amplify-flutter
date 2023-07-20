@@ -50,9 +50,6 @@ abstract class DescribeRetentionConfigurationsResponse
     DescribeRetentionConfigurationsResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeRetentionConfigurationsResponseBuilder b) {}
-
   /// Returns a retention configuration object.
   _i3.BuiltList<_i2.RetentionConfiguration>? get retentionConfigurations;
 

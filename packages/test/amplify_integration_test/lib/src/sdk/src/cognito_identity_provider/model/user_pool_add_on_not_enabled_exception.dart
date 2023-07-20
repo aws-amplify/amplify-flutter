@@ -42,8 +42,6 @@ abstract class UserPoolAddOnNotEnabledException
   static const List<_i2.SmithySerializer<UserPoolAddOnNotEnabledException>>
       serializers = [UserPoolAddOnNotEnabledExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UserPoolAddOnNotEnabledExceptionBuilder b) {}
   @override
   String? get message;
   @override

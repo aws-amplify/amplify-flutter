@@ -105,9 +105,6 @@ abstract class ListObjectVersionsRequest
   static const List<_i1.SmithySerializer<ListObjectVersionsRequestPayload>>
       serializers = [ListObjectVersionsRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListObjectVersionsRequestBuilder b) {}
-
   /// The bucket name that contains the objects.
   String get bucket;
 
@@ -226,8 +223,6 @@ abstract class ListObjectVersionsRequestPayload
 
   const ListObjectVersionsRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListObjectVersionsRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

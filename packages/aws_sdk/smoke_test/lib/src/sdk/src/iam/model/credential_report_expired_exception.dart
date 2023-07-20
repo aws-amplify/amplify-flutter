@@ -42,8 +42,6 @@ abstract class CredentialReportExpiredException
   static const List<_i2.SmithySerializer<CredentialReportExpiredException>>
       serializers = [CredentialReportExpiredExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CredentialReportExpiredExceptionBuilder b) {}
   @override
   String? get message;
   @override

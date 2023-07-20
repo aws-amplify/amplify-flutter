@@ -83,9 +83,7 @@ class EventContextDataTypeBuilder
   String? get country => _$this._country;
   set country(String? country) => _$this._country = country;
 
-  EventContextDataTypeBuilder() {
-    EventContextDataType._init(this);
-  }
+  EventContextDataTypeBuilder();
 
   EventContextDataTypeBuilder get _$this {
     final $v = _$v;

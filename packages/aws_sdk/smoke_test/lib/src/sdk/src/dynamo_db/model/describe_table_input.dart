@@ -37,9 +37,6 @@ abstract class DescribeTableInput
     DescribeTableInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeTableInputBuilder b) {}
-
   /// The name of the table to describe.
   String get tableName;
   @override

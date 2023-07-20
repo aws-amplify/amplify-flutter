@@ -38,9 +38,6 @@ abstract class GetBucketPolicyOutput
     GetBucketPolicyOutputRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketPolicyOutputBuilder b) {}
-
   /// The bucket policy as a JSON document.
   String? get policy;
   @override

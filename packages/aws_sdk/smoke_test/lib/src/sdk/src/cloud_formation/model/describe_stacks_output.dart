@@ -45,9 +45,6 @@ abstract class DescribeStacksOutput
     DescribeStacksOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeStacksOutputBuilder b) {}
-
   /// A list of stack structures.
   _i3.BuiltList<_i2.Stack>? get stacks;
 

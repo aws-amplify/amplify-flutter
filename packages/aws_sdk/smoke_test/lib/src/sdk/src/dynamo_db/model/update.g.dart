@@ -125,9 +125,7 @@ class UpdateBuilder implements Builder<Update, UpdateBuilder> {
       _$this._returnValuesOnConditionCheckFailure =
           returnValuesOnConditionCheckFailure;
 
-  UpdateBuilder() {
-    Update._init(this);
-  }
+  UpdateBuilder();
 
   UpdateBuilder get _$this {
     final $v = _$v;

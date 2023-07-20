@@ -66,9 +66,7 @@ class ArchiveCreationOutputBuilder
   String? get archiveId => _$this._archiveId;
   set archiveId(String? archiveId) => _$this._archiveId = archiveId;
 
-  ArchiveCreationOutputBuilder() {
-    ArchiveCreationOutput._init(this);
-  }
+  ArchiveCreationOutputBuilder();
 
   ArchiveCreationOutputBuilder get _$this {
     final $v = _$v;
@@ -138,9 +136,7 @@ class ArchiveCreationOutputPayloadBuilder
             ArchiveCreationOutputPayloadBuilder> {
   _$ArchiveCreationOutputPayload? _$v;
 
-  ArchiveCreationOutputPayloadBuilder() {
-    ArchiveCreationOutputPayload._init(this);
-  }
+  ArchiveCreationOutputPayloadBuilder();
 
   @override
   void replace(ArchiveCreationOutputPayload other) {

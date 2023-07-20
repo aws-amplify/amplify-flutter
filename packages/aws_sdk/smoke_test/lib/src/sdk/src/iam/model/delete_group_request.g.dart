@@ -51,9 +51,7 @@ class DeleteGroupRequestBuilder
   String? get groupName => _$this._groupName;
   set groupName(String? groupName) => _$this._groupName = groupName;
 
-  DeleteGroupRequestBuilder() {
-    DeleteGroupRequest._init(this);
-  }
+  DeleteGroupRequestBuilder();
 
   DeleteGroupRequestBuilder get _$this {
     final $v = _$v;

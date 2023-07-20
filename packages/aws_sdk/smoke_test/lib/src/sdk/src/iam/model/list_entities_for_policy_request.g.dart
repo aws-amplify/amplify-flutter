@@ -103,9 +103,7 @@ class ListEntitiesForPolicyRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  ListEntitiesForPolicyRequestBuilder() {
-    ListEntitiesForPolicyRequest._init(this);
-  }
+  ListEntitiesForPolicyRequestBuilder();
 
   ListEntitiesForPolicyRequestBuilder get _$this {
     final $v = _$v;

@@ -67,9 +67,7 @@ class HttpRequestWithFloatLabelsInputBuilder
   double? get double_ => _$this._double_;
   set double_(double? double_) => _$this._double_ = double_;
 
-  HttpRequestWithFloatLabelsInputBuilder() {
-    HttpRequestWithFloatLabelsInput._init(this);
-  }
+  HttpRequestWithFloatLabelsInputBuilder();
 
   HttpRequestWithFloatLabelsInputBuilder get _$this {
     final $v = _$v;
@@ -145,9 +143,7 @@ class HttpRequestWithFloatLabelsInputPayloadBuilder
             HttpRequestWithFloatLabelsInputPayloadBuilder> {
   _$HttpRequestWithFloatLabelsInputPayload? _$v;
 
-  HttpRequestWithFloatLabelsInputPayloadBuilder() {
-    HttpRequestWithFloatLabelsInputPayload._init(this);
-  }
+  HttpRequestWithFloatLabelsInputPayloadBuilder();
 
   @override
   void replace(HttpRequestWithFloatLabelsInputPayload other) {

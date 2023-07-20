@@ -52,9 +52,7 @@ class AbortIncompleteMultipartUploadBuilder
   set daysAfterInitiation(int? daysAfterInitiation) =>
       _$this._daysAfterInitiation = daysAfterInitiation;
 
-  AbortIncompleteMultipartUploadBuilder() {
-    AbortIncompleteMultipartUpload._init(this);
-  }
+  AbortIncompleteMultipartUploadBuilder();
 
   AbortIncompleteMultipartUploadBuilder get _$this {
     final $v = _$v;

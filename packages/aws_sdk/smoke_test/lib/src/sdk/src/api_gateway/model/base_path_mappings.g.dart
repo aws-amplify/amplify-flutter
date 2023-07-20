@@ -58,9 +58,7 @@ class BasePathMappingsBuilder
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  BasePathMappingsBuilder() {
-    BasePathMappings._init(this);
-  }
+  BasePathMappingsBuilder();
 
   BasePathMappingsBuilder get _$this {
     final $v = _$v;

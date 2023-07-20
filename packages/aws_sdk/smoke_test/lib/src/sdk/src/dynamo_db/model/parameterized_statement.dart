@@ -43,9 +43,6 @@ abstract class ParameterizedStatement
   static const List<_i5.SmithySerializer<ParameterizedStatement>> serializers =
       [ParameterizedStatementAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ParameterizedStatementBuilder b) {}
-
   /// A PartiQL statment that uses parameters.
   String get statement;
 

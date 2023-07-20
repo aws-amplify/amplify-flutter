@@ -32,9 +32,6 @@ abstract class ItemResponse
     ItemResponseAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ItemResponseBuilder b) {}
-
   /// Map of attribute data consisting of the data type and attribute value.
   _i3.BuiltMap<String, _i2.AttributeValue>? get item;
   @override

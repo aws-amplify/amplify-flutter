@@ -37,9 +37,6 @@ abstract class S3BucketSource
     S3BucketSourceAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(S3BucketSourceBuilder b) {}
-
   /// The account number of the S3 bucket that is being imported from. If the bucket is owned by the requester this is optional.
   String? get s3BucketOwner;
 

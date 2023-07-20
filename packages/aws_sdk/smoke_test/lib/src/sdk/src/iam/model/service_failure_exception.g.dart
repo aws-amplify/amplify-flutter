@@ -55,9 +55,7 @@ class ServiceFailureExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ServiceFailureExceptionBuilder() {
-    ServiceFailureException._init(this);
-  }
+  ServiceFailureExceptionBuilder();
 
   ServiceFailureExceptionBuilder get _$this {
     final $v = _$v;

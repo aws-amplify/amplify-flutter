@@ -48,8 +48,6 @@ abstract class MalformedTimestampPathEpochInput
           _i1.SmithySerializer<MalformedTimestampPathEpochInputPayload>>
       serializers = [MalformedTimestampPathEpochInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedTimestampPathEpochInputBuilder b) {}
   DateTime get timestamp;
   @override
   String labelFor(String key) {
@@ -96,8 +94,6 @@ abstract class MalformedTimestampPathEpochInputPayload
 
   const MalformedTimestampPathEpochInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedTimestampPathEpochInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

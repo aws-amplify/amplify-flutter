@@ -49,9 +49,6 @@ abstract class BackupDetails
     BackupDetailsAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BackupDetailsBuilder b) {}
-
   /// ARN associated with the backup.
   String get backupArn;
 

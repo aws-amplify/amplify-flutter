@@ -51,8 +51,6 @@ abstract class StreamingTraitsRequireLengthInput
   static const List<_i1.SmithySerializer<_i2.Stream<List<int>>?>> serializers =
       [StreamingTraitsRequireLengthInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StreamingTraitsRequireLengthInputBuilder b) {}
   String? get foo;
   _i2.Stream<List<int>>? get blob;
   @override

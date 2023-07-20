@@ -43,9 +43,6 @@ abstract class BatchStatementError
     BatchStatementErrorAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BatchStatementErrorBuilder b) {}
-
   /// The error code associated with the failed PartiQL batch statement.
   _i2.BatchStatementErrorCodeEnum? get code;
 

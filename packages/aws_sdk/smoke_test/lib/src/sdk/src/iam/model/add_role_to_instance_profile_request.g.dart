@@ -68,9 +68,7 @@ class AddRoleToInstanceProfileRequestBuilder
   String? get roleName => _$this._roleName;
   set roleName(String? roleName) => _$this._roleName = roleName;
 
-  AddRoleToInstanceProfileRequestBuilder() {
-    AddRoleToInstanceProfileRequest._init(this);
-  }
+  AddRoleToInstanceProfileRequestBuilder();
 
   AddRoleToInstanceProfileRequestBuilder get _$this {
     final $v = _$v;

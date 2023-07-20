@@ -50,9 +50,6 @@ abstract class InAppMessageContent
     InAppMessageContentRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InAppMessageContentBuilder b) {}
-
   /// The background color for the message.
   String? get backgroundColor;
 

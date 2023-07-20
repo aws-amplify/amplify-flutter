@@ -74,9 +74,6 @@ abstract class PutBucketNotificationConfigurationRequest
     PutBucketNotificationConfigurationRequestRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketNotificationConfigurationRequestBuilder b) {}
-
   /// The name of the bucket.
   String get bucket;
 

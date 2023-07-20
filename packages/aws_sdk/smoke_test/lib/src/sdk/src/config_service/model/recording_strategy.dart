@@ -31,9 +31,6 @@ abstract class RecordingStrategy
     RecordingStrategyAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RecordingStrategyBuilder b) {}
-
   /// The recording strategy for the configuration recorder.
   ///
   /// *   If you set this option to `ALL\_SUPPORTED\_RESOURCE_TYPES`, Config records configuration changes for all supported regional resource types. You also must set the `allSupported` field of [RecordingGroup](https://docs.aws.amazon.com/config/latest/APIReference/API_RecordingGroup.html) to `true`.

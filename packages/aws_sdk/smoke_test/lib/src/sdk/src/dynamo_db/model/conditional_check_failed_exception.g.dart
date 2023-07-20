@@ -76,9 +76,7 @@ class ConditionalCheckFailedExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ConditionalCheckFailedExceptionBuilder() {
-    ConditionalCheckFailedException._init(this);
-  }
+  ConditionalCheckFailedExceptionBuilder();
 
   ConditionalCheckFailedExceptionBuilder get _$this {
     final $v = _$v;

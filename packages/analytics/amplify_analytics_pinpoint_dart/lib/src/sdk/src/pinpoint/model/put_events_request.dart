@@ -48,9 +48,6 @@ abstract class PutEventsRequest
     PutEventsRequestRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutEventsRequestBuilder b) {}
-
   /// The unique identifier for the application. This identifier is displayed as the **Project ID** on the Amazon Pinpoint console.
   String get applicationId;
 

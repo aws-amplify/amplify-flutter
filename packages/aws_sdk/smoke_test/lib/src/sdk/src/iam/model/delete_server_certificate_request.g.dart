@@ -56,9 +56,7 @@ class DeleteServerCertificateRequestBuilder
   set serverCertificateName(String? serverCertificateName) =>
       _$this._serverCertificateName = serverCertificateName;
 
-  DeleteServerCertificateRequestBuilder() {
-    DeleteServerCertificateRequest._init(this);
-  }
+  DeleteServerCertificateRequestBuilder();
 
   DeleteServerCertificateRequestBuilder get _$this {
     final $v = _$v;

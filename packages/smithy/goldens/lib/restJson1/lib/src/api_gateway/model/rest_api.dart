@@ -59,8 +59,6 @@ abstract class RestApi
     RestApiRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RestApiBuilder b) {}
   String? get id;
   String? get name;
   String? get description;

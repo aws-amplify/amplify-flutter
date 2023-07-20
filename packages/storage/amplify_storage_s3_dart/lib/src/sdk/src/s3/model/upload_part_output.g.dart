@@ -149,9 +149,7 @@ class UploadPartOutputBuilder
   set requestCharged(_i4.RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
-  UploadPartOutputBuilder() {
-    UploadPartOutput._init(this);
-  }
+  UploadPartOutputBuilder();
 
   UploadPartOutputBuilder get _$this {
     final $v = _$v;
@@ -238,9 +236,7 @@ class UploadPartOutputPayloadBuilder
         Builder<UploadPartOutputPayload, UploadPartOutputPayloadBuilder> {
   _$UploadPartOutputPayload? _$v;
 
-  UploadPartOutputPayloadBuilder() {
-    UploadPartOutputPayload._init(this);
-  }
+  UploadPartOutputPayloadBuilder();
 
   @override
   void replace(UploadPartOutputPayload other) {

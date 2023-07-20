@@ -72,9 +72,7 @@ class SetStackPolicyInputBuilder
   set stackPolicyUrl(String? stackPolicyUrl) =>
       _$this._stackPolicyUrl = stackPolicyUrl;
 
-  SetStackPolicyInputBuilder() {
-    SetStackPolicyInput._init(this);
-  }
+  SetStackPolicyInputBuilder();
 
   SetStackPolicyInputBuilder get _$this {
     final $v = _$v;

@@ -51,9 +51,7 @@ class BucketLoggingStatusBuilder
   set loggingEnabled(_i2.LoggingEnabledBuilder? loggingEnabled) =>
       _$this._loggingEnabled = loggingEnabled;
 
-  BucketLoggingStatusBuilder() {
-    BucketLoggingStatus._init(this);
-  }
+  BucketLoggingStatusBuilder();
 
   BucketLoggingStatusBuilder get _$this {
     final $v = _$v;

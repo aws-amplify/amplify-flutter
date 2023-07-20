@@ -38,8 +38,6 @@ abstract class CustomCodeError
     CustomCodeErrorAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CustomCodeErrorBuilder b) {}
   @override
   String? get message;
   @override

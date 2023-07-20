@@ -81,9 +81,7 @@ class GetAggregateConfigRuleComplianceSummaryResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  GetAggregateConfigRuleComplianceSummaryResponseBuilder() {
-    GetAggregateConfigRuleComplianceSummaryResponse._init(this);
-  }
+  GetAggregateConfigRuleComplianceSummaryResponseBuilder();
 
   GetAggregateConfigRuleComplianceSummaryResponseBuilder get _$this {
     final $v = _$v;

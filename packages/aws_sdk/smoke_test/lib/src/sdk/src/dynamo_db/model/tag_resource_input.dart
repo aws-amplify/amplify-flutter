@@ -41,9 +41,6 @@ abstract class TagResourceInput
     TagResourceInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TagResourceInputBuilder b) {}
-
   /// Identifies the Amazon DynamoDB resource to which tags should be added. This value is an Amazon Resource Name (ARN).
   String get resourceArn;
 

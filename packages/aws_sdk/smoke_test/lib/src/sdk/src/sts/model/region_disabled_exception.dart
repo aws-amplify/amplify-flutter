@@ -40,8 +40,6 @@ abstract class RegionDisabledException
   static const List<_i2.SmithySerializer<RegionDisabledException>> serializers =
       [RegionDisabledExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RegionDisabledExceptionBuilder b) {}
   @override
   String? get message;
   @override

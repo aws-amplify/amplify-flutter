@@ -44,9 +44,6 @@ abstract class DeleteStackSetInput
     DeleteStackSetInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteStackSetInputBuilder b) {}
-
   /// The name or unique ID of the stack set that you're deleting. You can obtain this value by running ListStackSets.
   String get stackSetName;
 

@@ -111,9 +111,7 @@ class AggregatedSourceStatusBuilder
   set lastErrorMessage(String? lastErrorMessage) =>
       _$this._lastErrorMessage = lastErrorMessage;
 
-  AggregatedSourceStatusBuilder() {
-    AggregatedSourceStatus._init(this);
-  }
+  AggregatedSourceStatusBuilder();
 
   AggregatedSourceStatusBuilder get _$this {
     final $v = _$v;

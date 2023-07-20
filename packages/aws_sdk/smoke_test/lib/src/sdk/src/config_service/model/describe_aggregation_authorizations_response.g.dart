@@ -70,9 +70,7 @@ class DescribeAggregationAuthorizationsResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeAggregationAuthorizationsResponseBuilder() {
-    DescribeAggregationAuthorizationsResponse._init(this);
-  }
+  DescribeAggregationAuthorizationsResponseBuilder();
 
   DescribeAggregationAuthorizationsResponseBuilder get _$this {
     final $v = _$v;

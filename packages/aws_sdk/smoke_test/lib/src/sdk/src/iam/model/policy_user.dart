@@ -47,9 +47,6 @@ abstract class PolicyUser
     PolicyUserAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PolicyUserBuilder b) {}
-
   /// The name (friendly name, not ARN) identifying the user.
   String? get userName;
 

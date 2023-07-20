@@ -257,9 +257,7 @@ class AllQueryStringTypesInputBuilder
               queryParamsMapOfStringList) =>
       _$this._queryParamsMapOfStringList = queryParamsMapOfStringList;
 
-  AllQueryStringTypesInputBuilder() {
-    AllQueryStringTypesInput._init(this);
-  }
+  AllQueryStringTypesInputBuilder();
 
   AllQueryStringTypesInputBuilder get _$this {
     final $v = _$v;
@@ -405,9 +403,7 @@ class AllQueryStringTypesInputPayloadBuilder
             AllQueryStringTypesInputPayloadBuilder> {
   _$AllQueryStringTypesInputPayload? _$v;
 
-  AllQueryStringTypesInputPayloadBuilder() {
-    AllQueryStringTypesInputPayload._init(this);
-  }
+  AllQueryStringTypesInputPayloadBuilder();
 
   @override
   void replace(AllQueryStringTypesInputPayload other) {

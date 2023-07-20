@@ -69,9 +69,7 @@ class DeleteDocumentationVersionRequestBuilder
   set documentationVersion(String? documentationVersion) =>
       _$this._documentationVersion = documentationVersion;
 
-  DeleteDocumentationVersionRequestBuilder() {
-    DeleteDocumentationVersionRequest._init(this);
-  }
+  DeleteDocumentationVersionRequestBuilder();
 
   DeleteDocumentationVersionRequestBuilder get _$this {
     final $v = _$v;
@@ -150,9 +148,7 @@ class DeleteDocumentationVersionRequestPayloadBuilder
             DeleteDocumentationVersionRequestPayloadBuilder> {
   _$DeleteDocumentationVersionRequestPayload? _$v;
 
-  DeleteDocumentationVersionRequestPayloadBuilder() {
-    DeleteDocumentationVersionRequestPayload._init(this);
-  }
+  DeleteDocumentationVersionRequestPayloadBuilder();
 
   @override
   void replace(DeleteDocumentationVersionRequestPayload other) {

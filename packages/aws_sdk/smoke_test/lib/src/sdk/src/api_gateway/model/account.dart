@@ -48,9 +48,6 @@ abstract class Account
     AccountRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AccountBuilder b) {}
-
   /// The ARN of an Amazon CloudWatch role for the current Account.
   String? get cloudwatchRoleArn;
 

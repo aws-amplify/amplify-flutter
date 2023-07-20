@@ -64,9 +64,7 @@ class ApiKeysBuilder implements Builder<ApiKeys, ApiKeysBuilder> {
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  ApiKeysBuilder() {
-    ApiKeys._init(this);
-  }
+  ApiKeysBuilder();
 
   ApiKeysBuilder get _$this {
     final $v = _$v;

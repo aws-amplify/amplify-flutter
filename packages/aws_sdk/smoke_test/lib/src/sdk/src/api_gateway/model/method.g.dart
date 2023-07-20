@@ -153,9 +153,7 @@ class MethodBuilder implements Builder<Method, MethodBuilder> {
   set authorizationScopes(_i4.ListBuilder<String>? authorizationScopes) =>
       _$this._authorizationScopes = authorizationScopes;
 
-  MethodBuilder() {
-    Method._init(this);
-  }
+  MethodBuilder();
 
   MethodBuilder get _$this {
     final $v = _$v;

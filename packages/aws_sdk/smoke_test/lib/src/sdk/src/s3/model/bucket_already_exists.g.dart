@@ -51,9 +51,7 @@ class BucketAlreadyExistsBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  BucketAlreadyExistsBuilder() {
-    BucketAlreadyExists._init(this);
-  }
+  BucketAlreadyExistsBuilder();
 
   BucketAlreadyExistsBuilder get _$this {
     final $v = _$v;

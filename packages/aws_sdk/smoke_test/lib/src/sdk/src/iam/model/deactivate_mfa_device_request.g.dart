@@ -65,9 +65,7 @@ class DeactivateMfaDeviceRequestBuilder
   String? get serialNumber => _$this._serialNumber;
   set serialNumber(String? serialNumber) => _$this._serialNumber = serialNumber;
 
-  DeactivateMfaDeviceRequestBuilder() {
-    DeactivateMfaDeviceRequest._init(this);
-  }
+  DeactivateMfaDeviceRequestBuilder();
 
   DeactivateMfaDeviceRequestBuilder get _$this {
     final $v = _$v;

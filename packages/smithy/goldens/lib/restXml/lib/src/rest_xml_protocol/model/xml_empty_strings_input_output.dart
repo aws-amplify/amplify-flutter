@@ -43,8 +43,6 @@ abstract class XmlEmptyStringsInputOutput
   static const List<_i1.SmithySerializer<XmlEmptyStringsInputOutput>>
       serializers = [XmlEmptyStringsInputOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(XmlEmptyStringsInputOutputBuilder b) {}
   String? get emptyString;
   @override
   XmlEmptyStringsInputOutput getPayload() => this;

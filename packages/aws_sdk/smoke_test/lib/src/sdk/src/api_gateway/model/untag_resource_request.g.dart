@@ -64,9 +64,7 @@ class UntagResourceRequestBuilder
       _$this._tagKeys ??= new _i3.ListBuilder<String>();
   set tagKeys(_i3.ListBuilder<String>? tagKeys) => _$this._tagKeys = tagKeys;
 
-  UntagResourceRequestBuilder() {
-    UntagResourceRequest._init(this);
-  }
+  UntagResourceRequestBuilder();
 
   UntagResourceRequestBuilder get _$this {
     final $v = _$v;
@@ -150,9 +148,7 @@ class UntagResourceRequestPayloadBuilder
             UntagResourceRequestPayloadBuilder> {
   _$UntagResourceRequestPayload? _$v;
 
-  UntagResourceRequestPayloadBuilder() {
-    UntagResourceRequestPayload._init(this);
-  }
+  UntagResourceRequestPayloadBuilder();
 
   @override
   void replace(UntagResourceRequestPayload other) {

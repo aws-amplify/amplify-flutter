@@ -75,9 +75,6 @@ abstract class UpdateIntegrationResponseRequest
           _i1.SmithySerializer<UpdateIntegrationResponseRequestPayload>>
       serializers = [UpdateIntegrationResponseRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateIntegrationResponseRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -165,9 +162,6 @@ abstract class UpdateIntegrationResponseRequestPayload
           updates]) = _$UpdateIntegrationResponseRequestPayload;
 
   const UpdateIntegrationResponseRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateIntegrationResponseRequestPayloadBuilder b) {}
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;

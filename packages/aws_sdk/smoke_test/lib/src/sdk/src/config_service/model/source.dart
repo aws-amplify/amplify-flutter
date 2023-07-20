@@ -45,9 +45,6 @@ abstract class Source
     SourceAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SourceBuilder b) {}
-
   /// Indicates whether Amazon Web Services or the customer owns and manages the Config rule.
   ///
   /// Config Managed Rules are predefined rules owned by Amazon Web Services. For more information, see [Config Managed Rules](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config_use-managed-rules.html) in the _Config developer guide_.

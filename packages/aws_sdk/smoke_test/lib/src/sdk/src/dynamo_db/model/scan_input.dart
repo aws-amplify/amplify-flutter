@@ -85,9 +85,6 @@ abstract class ScanInput
     ScanInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ScanInputBuilder b) {}
-
   /// The name of the table containing the requested items; or, if you provide `IndexName`, the name of the table to which that index belongs.
   String get tableName;
 

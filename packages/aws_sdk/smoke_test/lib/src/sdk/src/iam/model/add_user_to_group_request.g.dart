@@ -63,9 +63,7 @@ class AddUserToGroupRequestBuilder
   String? get userName => _$this._userName;
   set userName(String? userName) => _$this._userName = userName;
 
-  AddUserToGroupRequestBuilder() {
-    AddUserToGroupRequest._init(this);
-  }
+  AddUserToGroupRequestBuilder();
 
   AddUserToGroupRequestBuilder get _$this {
     final $v = _$v;

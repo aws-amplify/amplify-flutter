@@ -130,9 +130,7 @@ class GetObjectAttributesOutputBuilder
   _i7.Int64? get objectSize => _$this._objectSize;
   set objectSize(_i7.Int64? objectSize) => _$this._objectSize = objectSize;
 
-  GetObjectAttributesOutputBuilder() {
-    GetObjectAttributesOutput._init(this);
-  }
+  GetObjectAttributesOutputBuilder();
 
   GetObjectAttributesOutputBuilder get _$this {
     final $v = _$v;
@@ -285,9 +283,7 @@ class GetObjectAttributesOutputPayloadBuilder
   set storageClass(_i6.StorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
-  GetObjectAttributesOutputPayloadBuilder() {
-    GetObjectAttributesOutputPayload._init(this);
-  }
+  GetObjectAttributesOutputPayloadBuilder();
 
   GetObjectAttributesOutputPayloadBuilder get _$this {
     final $v = _$v;

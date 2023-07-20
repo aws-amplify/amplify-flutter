@@ -63,9 +63,7 @@ class ListServiceSpecificCredentialsResponseBuilder
               serviceSpecificCredentials) =>
       _$this._serviceSpecificCredentials = serviceSpecificCredentials;
 
-  ListServiceSpecificCredentialsResponseBuilder() {
-    ListServiceSpecificCredentialsResponse._init(this);
-  }
+  ListServiceSpecificCredentialsResponseBuilder();
 
   ListServiceSpecificCredentialsResponseBuilder get _$this {
     final $v = _$v;

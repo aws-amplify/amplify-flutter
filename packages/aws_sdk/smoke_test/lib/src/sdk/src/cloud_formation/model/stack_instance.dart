@@ -65,9 +65,6 @@ abstract class StackInstance
     StackInstanceAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackInstanceBuilder b) {}
-
   /// The name or unique ID of the stack set that the stack instance is associated with.
   String? get stackSetId;
 

@@ -62,9 +62,7 @@ class DeleteChangeSetInputBuilder
   String? get stackName => _$this._stackName;
   set stackName(String? stackName) => _$this._stackName = stackName;
 
-  DeleteChangeSetInputBuilder() {
-    DeleteChangeSetInput._init(this);
-  }
+  DeleteChangeSetInputBuilder();
 
   DeleteChangeSetInputBuilder get _$this {
     final $v = _$v;

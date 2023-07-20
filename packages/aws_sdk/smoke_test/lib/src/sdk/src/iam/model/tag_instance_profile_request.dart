@@ -44,9 +44,6 @@ abstract class TagInstanceProfileRequest
   static const List<_i1.SmithySerializer<TagInstanceProfileRequest>>
       serializers = [TagInstanceProfileRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TagInstanceProfileRequestBuilder b) {}
-
   /// The name of the IAM instance profile to which you want to add tags.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

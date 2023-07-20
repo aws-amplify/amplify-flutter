@@ -36,9 +36,6 @@ abstract class ValidationExceptionField
   static const List<_i2.SmithySerializer<ValidationExceptionField>>
       serializers = [ValidationExceptionFieldRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ValidationExceptionFieldBuilder b) {}
-
   /// A JSONPointer expression to the structure member whose value failed to satisfy the modeled constraints.
   String get path;
 

@@ -165,9 +165,7 @@ class SimulateCustomPolicyRequestBuilder
   String? get marker => _$this._marker;
   set marker(String? marker) => _$this._marker = marker;
 
-  SimulateCustomPolicyRequestBuilder() {
-    SimulateCustomPolicyRequest._init(this);
-  }
+  SimulateCustomPolicyRequestBuilder();
 
   SimulateCustomPolicyRequestBuilder get _$this {
     final $v = _$v;

@@ -57,9 +57,7 @@ class InvalidStateTransitionExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InvalidStateTransitionExceptionBuilder() {
-    InvalidStateTransitionException._init(this);
-  }
+  InvalidStateTransitionExceptionBuilder();
 
   InvalidStateTransitionExceptionBuilder get _$this {
     final $v = _$v;

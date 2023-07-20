@@ -89,9 +89,7 @@ class GroupBuilder implements Builder<Group, GroupBuilder> {
   DateTime? get createDate => _$this._createDate;
   set createDate(DateTime? createDate) => _$this._createDate = createDate;
 
-  GroupBuilder() {
-    Group._init(this);
-  }
+  GroupBuilder();
 
   GroupBuilder get _$this {
     final $v = _$v;

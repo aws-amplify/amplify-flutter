@@ -5638,7 +5638,7 @@ class _RestJsonProtocolServer
       final payload =
           (await _streamingTraitsProtocol.wireSerializer.deserialize(
         await awsRequest.bodyBytes,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i4.Stream,
           [
             FullType(
@@ -5647,7 +5647,7 @@ class _RestJsonProtocolServer
             )
           ],
         ),
-      ) as _i4.Stream<List<int>>?);
+      ) as _i4.Stream<List<int>>);
       final input = _i89.StreamingTraitsInputOutput.fromRequest(
         payload,
         awsRequest,
@@ -5666,7 +5666,7 @@ class _RestJsonProtocolServer
         specifiedType: const FullType(
           _i89.StreamingTraitsInputOutput,
           [
-            FullType.nullable(
+            FullType(
               _i4.Stream,
               [
                 FullType(
@@ -5702,7 +5702,7 @@ class _RestJsonProtocolServer
           .wireSerializer
           .deserialize(
         await awsRequest.bodyBytes,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i4.Stream,
           [
             FullType(
@@ -5711,7 +5711,7 @@ class _RestJsonProtocolServer
             )
           ],
         ),
-      ) as _i4.Stream<List<int>>?);
+      ) as _i4.Stream<List<int>>);
       final input = _i90.StreamingTraitsRequireLengthInput.fromRequest(
         payload,
         awsRequest,
@@ -5754,7 +5754,7 @@ class _RestJsonProtocolServer
           .wireSerializer
           .deserialize(
         await awsRequest.bodyBytes,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i4.Stream,
           [
             FullType(
@@ -5763,7 +5763,7 @@ class _RestJsonProtocolServer
             )
           ],
         ),
-      ) as _i4.Stream<List<int>>?);
+      ) as _i4.Stream<List<int>>);
       final input = _i91.StreamingTraitsWithMediaTypeInputOutput.fromRequest(
         payload,
         awsRequest,
@@ -5783,7 +5783,7 @@ class _RestJsonProtocolServer
         specifiedType: const FullType(
           _i91.StreamingTraitsWithMediaTypeInputOutput,
           [
-            FullType.nullable(
+            FullType(
               _i4.Stream,
               [
                 FullType(

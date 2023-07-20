@@ -53,9 +53,6 @@ abstract class GetPublicAccessBlockRequest
   static const List<_i1.SmithySerializer<GetPublicAccessBlockRequestPayload>>
       serializers = [GetPublicAccessBlockRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetPublicAccessBlockRequestBuilder b) {}
-
   /// The name of the Amazon S3 bucket whose `PublicAccessBlock` configuration you want to retrieve.
   String get bucket;
 
@@ -110,8 +107,6 @@ abstract class GetPublicAccessBlockRequestPayload
 
   const GetPublicAccessBlockRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetPublicAccessBlockRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

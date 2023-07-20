@@ -86,9 +86,7 @@ class GlobalSecondaryIndexInfoBuilder
           _i4.ProvisionedThroughputBuilder? provisionedThroughput) =>
       _$this._provisionedThroughput = provisionedThroughput;
 
-  GlobalSecondaryIndexInfoBuilder() {
-    GlobalSecondaryIndexInfo._init(this);
-  }
+  GlobalSecondaryIndexInfoBuilder();
 
   GlobalSecondaryIndexInfoBuilder get _$this {
     final $v = _$v;

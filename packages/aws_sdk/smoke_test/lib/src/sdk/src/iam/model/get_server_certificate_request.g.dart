@@ -56,9 +56,7 @@ class GetServerCertificateRequestBuilder
   set serverCertificateName(String? serverCertificateName) =>
       _$this._serverCertificateName = serverCertificateName;
 
-  GetServerCertificateRequestBuilder() {
-    GetServerCertificateRequest._init(this);
-  }
+  GetServerCertificateRequestBuilder();
 
   GetServerCertificateRequestBuilder get _$this {
     final $v = _$v;

@@ -51,9 +51,7 @@ class FilterRuleBuilder implements Builder<FilterRule, FilterRuleBuilder> {
   String? get value => _$this._value;
   set value(String? value) => _$this._value = value;
 
-  FilterRuleBuilder() {
-    FilterRule._init(this);
-  }
+  FilterRuleBuilder();
 
   FilterRuleBuilder get _$this {
     final $v = _$v;

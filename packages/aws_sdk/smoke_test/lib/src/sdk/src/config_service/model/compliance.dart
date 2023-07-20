@@ -39,9 +39,6 @@ abstract class Compliance
     ComplianceAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ComplianceBuilder b) {}
-
   /// Indicates whether an Amazon Web Services resource or Config rule is compliant.
   ///
   /// A resource is compliant if it complies with all of the Config rules that evaluate it. A resource is noncompliant if it does not comply with one or more of these rules.

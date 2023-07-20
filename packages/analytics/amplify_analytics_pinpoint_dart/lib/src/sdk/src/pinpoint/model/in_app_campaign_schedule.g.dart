@@ -70,9 +70,7 @@ class InAppCampaignScheduleBuilder
   set quietTime(_i3.QuietTimeBuilder? quietTime) =>
       _$this._quietTime = quietTime;
 
-  InAppCampaignScheduleBuilder() {
-    InAppCampaignSchedule._init(this);
-  }
+  InAppCampaignScheduleBuilder();
 
   InAppCampaignScheduleBuilder get _$this {
     final $v = _$v;

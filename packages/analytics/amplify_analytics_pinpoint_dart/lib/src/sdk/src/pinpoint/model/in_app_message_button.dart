@@ -44,9 +44,6 @@ abstract class InAppMessageButton
     InAppMessageButtonRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InAppMessageButtonBuilder b) {}
-
   /// Default button content.
   _i2.OverrideButtonConfiguration? get android;
 

@@ -65,9 +65,6 @@ abstract class PutBucketIntelligentTieringConfigurationRequest
     PutBucketIntelligentTieringConfigurationRequestRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketIntelligentTieringConfigurationRequestBuilder b) {}
-
   /// The name of the Amazon S3 bucket whose configuration you want to modify or retrieve.
   String get bucket;
 

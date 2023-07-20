@@ -68,9 +68,7 @@ class DescribeComplianceByResourceResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeComplianceByResourceResponseBuilder() {
-    DescribeComplianceByResourceResponse._init(this);
-  }
+  DescribeComplianceByResourceResponseBuilder();
 
   DescribeComplianceByResourceResponseBuilder get _$this {
     final $v = _$v;

@@ -66,9 +66,7 @@ class ShardBuilder implements Builder<Shard, ShardBuilder> {
   set parentShardId(String? parentShardId) =>
       _$this._parentShardId = parentShardId;
 
-  ShardBuilder() {
-    Shard._init(this);
-  }
+  ShardBuilder();
 
   ShardBuilder get _$this {
     final $v = _$v;

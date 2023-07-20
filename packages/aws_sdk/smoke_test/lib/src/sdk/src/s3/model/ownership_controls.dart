@@ -32,9 +32,6 @@ abstract class OwnershipControls
     OwnershipControlsRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OwnershipControlsBuilder b) {}
-
   /// The container element for an ownership control rule.
   _i3.BuiltList<_i2.OwnershipControlsRule> get rules;
   @override

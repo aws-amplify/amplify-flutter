@@ -47,9 +47,6 @@ abstract class ListVirtualMfaDevicesRequest
   static const List<_i1.SmithySerializer<ListVirtualMfaDevicesRequest>>
       serializers = [ListVirtualMfaDevicesRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListVirtualMfaDevicesRequestBuilder b) {}
-
   /// The status (`Unassigned` or `Assigned`) of the devices to list. If you do not specify an `AssignmentStatus`, the operation defaults to `Any`, which lists both assigned and unassigned virtual MFA devices.,
   _i3.AssignmentStatusType? get assignmentStatus;
 

@@ -51,9 +51,6 @@ abstract class ValidationException
     ValidationExceptionRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ValidationExceptionBuilder b) {}
-
   /// A summary of the validation failure.
   @override
   String get message;

@@ -43,9 +43,6 @@ abstract class LifecycleRuleAndOperator
   static const List<_i5.SmithySerializer<LifecycleRuleAndOperator>>
       serializers = [LifecycleRuleAndOperatorRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(LifecycleRuleAndOperatorBuilder b) {}
-
   /// Prefix identifying one or more objects to which the rule applies.
   String? get prefix;
 

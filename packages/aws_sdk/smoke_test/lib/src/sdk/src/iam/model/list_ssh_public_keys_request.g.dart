@@ -67,9 +67,7 @@ class ListSshPublicKeysRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  ListSshPublicKeysRequestBuilder() {
-    ListSshPublicKeysRequest._init(this);
-  }
+  ListSshPublicKeysRequestBuilder();
 
   ListSshPublicKeysRequestBuilder get _$this {
     final $v = _$v;

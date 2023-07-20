@@ -69,8 +69,6 @@ abstract class MalformedRangeInput
     MalformedRangeInputRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedRangeInputBuilder b) {}
   int? get byte;
   int? get minByte;
   int? get maxByte;

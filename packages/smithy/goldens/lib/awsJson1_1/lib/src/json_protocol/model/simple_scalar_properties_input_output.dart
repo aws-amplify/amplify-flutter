@@ -50,8 +50,6 @@ abstract class SimpleScalarPropertiesInputOutput
   static const List<_i1.SmithySerializer<SimpleScalarPropertiesInputOutput>>
       serializers = [SimpleScalarPropertiesInputOutputAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SimpleScalarPropertiesInputOutputBuilder b) {}
   double? get floatValue;
   double? get doubleValue;
   @override

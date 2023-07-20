@@ -47,9 +47,7 @@ class NoSuchKeyBuilder implements Builder<NoSuchKey, NoSuchKeyBuilder> {
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  NoSuchKeyBuilder() {
-    NoSuchKey._init(this);
-  }
+  NoSuchKeyBuilder();
 
   NoSuchKeyBuilder get _$this {
     final $v = _$v;

@@ -38,9 +38,6 @@ abstract class WriteRequest
     WriteRequestAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(WriteRequestBuilder b) {}
-
   /// A request to perform a `PutItem` operation.
   _i2.PutRequest? get putRequest;
 

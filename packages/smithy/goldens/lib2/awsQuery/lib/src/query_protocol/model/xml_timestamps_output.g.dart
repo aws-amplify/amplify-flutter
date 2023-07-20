@@ -109,9 +109,7 @@ class XmlTimestampsOutputBuilder
   set httpDateOnTarget(DateTime? httpDateOnTarget) =>
       _$this._httpDateOnTarget = httpDateOnTarget;
 
-  XmlTimestampsOutputBuilder() {
-    XmlTimestampsOutput._init(this);
-  }
+  XmlTimestampsOutputBuilder();
 
   XmlTimestampsOutputBuilder get _$this {
     final $v = _$v;

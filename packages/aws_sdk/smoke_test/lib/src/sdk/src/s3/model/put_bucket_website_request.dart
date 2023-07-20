@@ -74,9 +74,6 @@ abstract class PutBucketWebsiteRequest
   static const List<_i1.SmithySerializer<_i2.WebsiteConfiguration>>
       serializers = [PutBucketWebsiteRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketWebsiteRequestBuilder b) {}
-
   /// The bucket name.
   String get bucket;
 

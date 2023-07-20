@@ -73,9 +73,7 @@ class GetBucketIntelligentTieringConfigurationRequestBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  GetBucketIntelligentTieringConfigurationRequestBuilder() {
-    GetBucketIntelligentTieringConfigurationRequest._init(this);
-  }
+  GetBucketIntelligentTieringConfigurationRequestBuilder();
 
   GetBucketIntelligentTieringConfigurationRequestBuilder get _$this {
     final $v = _$v;
@@ -157,9 +155,7 @@ class GetBucketIntelligentTieringConfigurationRequestPayloadBuilder
             GetBucketIntelligentTieringConfigurationRequestPayloadBuilder> {
   _$GetBucketIntelligentTieringConfigurationRequestPayload? _$v;
 
-  GetBucketIntelligentTieringConfigurationRequestPayloadBuilder() {
-    GetBucketIntelligentTieringConfigurationRequestPayload._init(this);
-  }
+  GetBucketIntelligentTieringConfigurationRequestPayloadBuilder();
 
   @override
   void replace(GetBucketIntelligentTieringConfigurationRequestPayload other) {

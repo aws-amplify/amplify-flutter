@@ -95,9 +95,7 @@ class EndpointLocationBuilder
   String? get region => _$this._region;
   set region(String? region) => _$this._region = region;
 
-  EndpointLocationBuilder() {
-    EndpointLocation._init(this);
-  }
+  EndpointLocationBuilder();
 
   EndpointLocationBuilder get _$this {
     final $v = _$v;

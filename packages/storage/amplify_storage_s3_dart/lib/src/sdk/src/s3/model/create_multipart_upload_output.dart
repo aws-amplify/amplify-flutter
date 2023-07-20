@@ -122,9 +122,6 @@ abstract class CreateMultipartUploadOutput
   static const List<_i2.SmithySerializer<CreateMultipartUploadOutputPayload>>
       serializers = [CreateMultipartUploadOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateMultipartUploadOutputBuilder b) {}
-
   /// If the bucket has a lifecycle rule configured with an action to abort incomplete multipart uploads and the prefix in the lifecycle rule matches the object name in the request, the response includes this header. The header indicates when the initiated multipart upload becomes eligible for an abort operation. For more information, see [Aborting Incomplete Multipart Uploads Using a Bucket Lifecycle Configuration](https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config).
   ///
   /// The response also includes the `x-amz-abort-rule-id` header that provides the ID of the lifecycle configuration rule that defines this action.
@@ -263,9 +260,6 @@ abstract class CreateMultipartUploadOutputPayload
       _$CreateMultipartUploadOutputPayload;
 
   const CreateMultipartUploadOutputPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateMultipartUploadOutputPayloadBuilder b) {}
 
   /// The name of the bucket to which the multipart upload was initiated. Does not return the access point ARN or access point alias if used.
   ///

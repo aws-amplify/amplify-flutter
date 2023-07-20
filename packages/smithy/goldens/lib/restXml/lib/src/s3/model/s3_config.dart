@@ -37,9 +37,6 @@ abstract class S3Config
     S3ConfigRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(S3ConfigBuilder b) {}
-
   /// Controls the S3 addressing bucket style.
   _i2.S3AddressingStyle? get addressingStyle;
   bool? get useAccelerateEndpoint;

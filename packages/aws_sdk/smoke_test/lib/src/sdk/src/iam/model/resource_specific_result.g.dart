@@ -126,9 +126,7 @@ class ResourceSpecificResultBuilder
       _$this._permissionsBoundaryDecisionDetail =
           permissionsBoundaryDecisionDetail;
 
-  ResourceSpecificResultBuilder() {
-    ResourceSpecificResult._init(this);
-  }
+  ResourceSpecificResultBuilder();
 
   ResourceSpecificResultBuilder get _$this {
     final $v = _$v;

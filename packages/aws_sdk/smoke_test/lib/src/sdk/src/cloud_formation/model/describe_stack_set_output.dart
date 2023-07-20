@@ -35,9 +35,6 @@ abstract class DescribeStackSetOutput
   static const List<_i3.SmithySerializer<DescribeStackSetOutput>> serializers =
       [DescribeStackSetOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeStackSetOutputBuilder b) {}
-
   /// The specified stack set.
   _i2.StackSet? get stackSet;
   @override

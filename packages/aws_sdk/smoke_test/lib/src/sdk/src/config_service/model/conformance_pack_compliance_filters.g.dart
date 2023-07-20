@@ -66,9 +66,7 @@ class ConformancePackComplianceFiltersBuilder
   set complianceType(_i2.ConformancePackComplianceType? complianceType) =>
       _$this._complianceType = complianceType;
 
-  ConformancePackComplianceFiltersBuilder() {
-    ConformancePackComplianceFilters._init(this);
-  }
+  ConformancePackComplianceFiltersBuilder();
 
   ConformancePackComplianceFiltersBuilder get _$this {
     final $v = _$v;

@@ -63,9 +63,6 @@ abstract class PutBucketMetricsConfigurationRequest
   static const List<_i1.SmithySerializer<_i2.MetricsConfiguration>>
       serializers = [PutBucketMetricsConfigurationRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketMetricsConfigurationRequestBuilder b) {}
-
   /// The name of the bucket for which the metrics configuration is set.
   String get bucket;
 

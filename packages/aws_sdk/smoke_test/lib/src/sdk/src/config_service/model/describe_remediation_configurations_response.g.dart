@@ -62,9 +62,7 @@ class DescribeRemediationConfigurationsResponseBuilder
               remediationConfigurations) =>
       _$this._remediationConfigurations = remediationConfigurations;
 
-  DescribeRemediationConfigurationsResponseBuilder() {
-    DescribeRemediationConfigurationsResponse._init(this);
-  }
+  DescribeRemediationConfigurationsResponseBuilder();
 
   DescribeRemediationConfigurationsResponseBuilder get _$this {
     final $v = _$v;

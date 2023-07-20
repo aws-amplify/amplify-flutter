@@ -80,9 +80,7 @@ class ListPoliciesGrantingServiceAccessRequestBuilder
   set serviceNamespaces(_i3.ListBuilder<String>? serviceNamespaces) =>
       _$this._serviceNamespaces = serviceNamespaces;
 
-  ListPoliciesGrantingServiceAccessRequestBuilder() {
-    ListPoliciesGrantingServiceAccessRequest._init(this);
-  }
+  ListPoliciesGrantingServiceAccessRequestBuilder();
 
   ListPoliciesGrantingServiceAccessRequestBuilder get _$this {
     final $v = _$v;

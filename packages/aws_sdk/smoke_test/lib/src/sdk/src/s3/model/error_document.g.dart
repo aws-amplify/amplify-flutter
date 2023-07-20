@@ -47,9 +47,7 @@ class ErrorDocumentBuilder
   String? get key => _$this._key;
   set key(String? key) => _$this._key = key;
 
-  ErrorDocumentBuilder() {
-    ErrorDocument._init(this);
-  }
+  ErrorDocumentBuilder();
 
   ErrorDocumentBuilder get _$this {
     final $v = _$v;

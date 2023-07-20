@@ -65,9 +65,7 @@ class ExportResponseBuilder
   _i3.Uint8List? get body => _$this._body;
   set body(_i3.Uint8List? body) => _$this._body = body;
 
-  ExportResponseBuilder() {
-    ExportResponse._init(this);
-  }
+  ExportResponseBuilder();
 
   ExportResponseBuilder get _$this {
     final $v = _$v;

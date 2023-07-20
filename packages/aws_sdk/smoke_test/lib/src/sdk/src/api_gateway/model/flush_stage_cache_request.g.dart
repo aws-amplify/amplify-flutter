@@ -63,9 +63,7 @@ class FlushStageCacheRequestBuilder
   String? get stageName => _$this._stageName;
   set stageName(String? stageName) => _$this._stageName = stageName;
 
-  FlushStageCacheRequestBuilder() {
-    FlushStageCacheRequest._init(this);
-  }
+  FlushStageCacheRequestBuilder();
 
   FlushStageCacheRequestBuilder get _$this {
     final $v = _$v;
@@ -137,9 +135,7 @@ class FlushStageCacheRequestPayloadBuilder
             FlushStageCacheRequestPayloadBuilder> {
   _$FlushStageCacheRequestPayload? _$v;
 
-  FlushStageCacheRequestPayloadBuilder() {
-    FlushStageCacheRequestPayload._init(this);
-  }
+  FlushStageCacheRequestPayloadBuilder();
 
   @override
   void replace(FlushStageCacheRequestPayload other) {

@@ -99,9 +99,7 @@ class ListBackupsInputBuilder
   set backupType(_i3.BackupTypeFilter? backupType) =>
       _$this._backupType = backupType;
 
-  ListBackupsInputBuilder() {
-    ListBackupsInput._init(this);
-  }
+  ListBackupsInputBuilder();
 
   ListBackupsInputBuilder get _$this {
     final $v = _$v;

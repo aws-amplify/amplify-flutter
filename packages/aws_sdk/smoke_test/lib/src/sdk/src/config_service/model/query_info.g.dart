@@ -46,9 +46,7 @@ class QueryInfoBuilder implements Builder<QueryInfo, QueryInfoBuilder> {
   set selectFields(_i3.ListBuilder<_i2.FieldInfo>? selectFields) =>
       _$this._selectFields = selectFields;
 
-  QueryInfoBuilder() {
-    QueryInfo._init(this);
-  }
+  QueryInfoBuilder();
 
   QueryInfoBuilder get _$this {
     final $v = _$v;

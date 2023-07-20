@@ -41,9 +41,6 @@ abstract class UserNotFoundException
     UserNotFoundExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UserNotFoundExceptionBuilder b) {}
-
   /// The message returned when a user isn't found.
   @override
   String? get message;

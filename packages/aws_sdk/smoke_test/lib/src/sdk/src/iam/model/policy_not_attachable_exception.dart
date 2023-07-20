@@ -42,8 +42,6 @@ abstract class PolicyNotAttachableException
   static const List<_i2.SmithySerializer<PolicyNotAttachableException>>
       serializers = [PolicyNotAttachableExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PolicyNotAttachableExceptionBuilder b) {}
   @override
   String? get message;
   @override

@@ -92,9 +92,7 @@ class IntelligentTieringConfigurationBuilder
   set tierings(_i5.ListBuilder<_i4.Tiering>? tierings) =>
       _$this._tierings = tierings;
 
-  IntelligentTieringConfigurationBuilder() {
-    IntelligentTieringConfiguration._init(this);
-  }
+  IntelligentTieringConfigurationBuilder();
 
   IntelligentTieringConfigurationBuilder get _$this {
     final $v = _$v;

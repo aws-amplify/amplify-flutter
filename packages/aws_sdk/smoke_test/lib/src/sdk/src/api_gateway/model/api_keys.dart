@@ -45,9 +45,6 @@ abstract class ApiKeys
     ApiKeysRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ApiKeysBuilder b) {}
-
   /// A list of warning messages logged during the import of API keys when the `failOnWarnings` option is set to true.
   _i3.BuiltList<String>? get warnings;
 

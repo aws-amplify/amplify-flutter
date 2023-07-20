@@ -43,9 +43,6 @@ abstract class ConformancePackRuleCompliance
   static const List<_i4.SmithySerializer<ConformancePackRuleCompliance>>
       serializers = [ConformancePackRuleComplianceAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConformancePackRuleComplianceBuilder b) {}
-
   /// Name of the Config rule.
   String? get configRuleName;
 

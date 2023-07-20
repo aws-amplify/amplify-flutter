@@ -71,9 +71,7 @@ class LocalSecondaryIndexInfoBuilder
   set projection(_i3.ProjectionBuilder? projection) =>
       _$this._projection = projection;
 
-  LocalSecondaryIndexInfoBuilder() {
-    LocalSecondaryIndexInfo._init(this);
-  }
+  LocalSecondaryIndexInfoBuilder();
 
   LocalSecondaryIndexInfoBuilder get _$this {
     final $v = _$v;

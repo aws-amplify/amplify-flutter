@@ -63,9 +63,7 @@ class GetBucketLoggingRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetBucketLoggingRequestBuilder() {
-    GetBucketLoggingRequest._init(this);
-  }
+  GetBucketLoggingRequestBuilder();
 
   GetBucketLoggingRequestBuilder get _$this {
     final $v = _$v;
@@ -136,9 +134,7 @@ class GetBucketLoggingRequestPayloadBuilder
             GetBucketLoggingRequestPayloadBuilder> {
   _$GetBucketLoggingRequestPayload? _$v;
 
-  GetBucketLoggingRequestPayloadBuilder() {
-    GetBucketLoggingRequestPayload._init(this);
-  }
+  GetBucketLoggingRequestPayloadBuilder();
 
   @override
   void replace(GetBucketLoggingRequestPayload other) {

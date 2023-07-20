@@ -55,9 +55,7 @@ class RoleLastUsedBuilder
   String? get region => _$this._region;
   set region(String? region) => _$this._region = region;
 
-  RoleLastUsedBuilder() {
-    RoleLastUsed._init(this);
-  }
+  RoleLastUsedBuilder();
 
   RoleLastUsedBuilder get _$this {
     final $v = _$v;

@@ -76,9 +76,7 @@ class TransactWriteItemBuilder
   _i5.UpdateBuilder get update_ => _$this._update_ ??= new _i5.UpdateBuilder();
   set update_(_i5.UpdateBuilder? update_) => _$this._update_ = update_;
 
-  TransactWriteItemBuilder() {
-    TransactWriteItem._init(this);
-  }
+  TransactWriteItemBuilder();
 
   TransactWriteItemBuilder get _$this {
     final $v = _$v;

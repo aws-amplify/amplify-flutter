@@ -41,8 +41,6 @@ abstract class ImportNotFoundException
   static const List<_i2.SmithySerializer<ImportNotFoundException>> serializers =
       [ImportNotFoundExceptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ImportNotFoundExceptionBuilder b) {}
   @override
   String? get message;
   @override

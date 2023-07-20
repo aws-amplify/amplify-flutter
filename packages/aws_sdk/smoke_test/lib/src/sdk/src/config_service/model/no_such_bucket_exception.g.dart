@@ -61,9 +61,7 @@ class NoSuchBucketExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  NoSuchBucketExceptionBuilder() {
-    NoSuchBucketException._init(this);
-  }
+  NoSuchBucketExceptionBuilder();
 
   NoSuchBucketExceptionBuilder get _$this {
     final $v = _$v;

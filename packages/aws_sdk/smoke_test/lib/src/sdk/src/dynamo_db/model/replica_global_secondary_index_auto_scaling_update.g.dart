@@ -75,9 +75,7 @@ class ReplicaGlobalSecondaryIndexAutoScalingUpdateBuilder
       _$this._provisionedReadCapacityAutoScalingUpdate =
           provisionedReadCapacityAutoScalingUpdate;
 
-  ReplicaGlobalSecondaryIndexAutoScalingUpdateBuilder() {
-    ReplicaGlobalSecondaryIndexAutoScalingUpdate._init(this);
-  }
+  ReplicaGlobalSecondaryIndexAutoScalingUpdateBuilder();
 
   ReplicaGlobalSecondaryIndexAutoScalingUpdateBuilder get _$this {
     final $v = _$v;

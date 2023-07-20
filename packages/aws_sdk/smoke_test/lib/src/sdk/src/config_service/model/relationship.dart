@@ -41,9 +41,6 @@ abstract class Relationship
     RelationshipAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RelationshipBuilder b) {}
-
   /// The resource type of the related resource.
   _i2.ResourceType? get resourceType;
 

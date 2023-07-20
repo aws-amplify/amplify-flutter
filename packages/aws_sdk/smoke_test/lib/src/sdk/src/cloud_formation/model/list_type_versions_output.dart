@@ -44,9 +44,6 @@ abstract class ListTypeVersionsOutput
   static const List<_i4.SmithySerializer<ListTypeVersionsOutput>> serializers =
       [ListTypeVersionsOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListTypeVersionsOutputBuilder b) {}
-
   /// A list of `TypeVersionSummary` structures that contain information about the specified extension's versions.
   _i3.BuiltList<_i2.TypeVersionSummary>? get typeVersionSummaries;
 

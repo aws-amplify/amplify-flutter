@@ -122,9 +122,7 @@ class OmitsSerializingEmptyListsInputBuilder
   set queryIntegerEnumList(_i4.ListBuilder<int>? queryIntegerEnumList) =>
       _$this._queryIntegerEnumList = queryIntegerEnumList;
 
-  OmitsSerializingEmptyListsInputBuilder() {
-    OmitsSerializingEmptyListsInput._init(this);
-  }
+  OmitsSerializingEmptyListsInputBuilder();
 
   OmitsSerializingEmptyListsInputBuilder get _$this {
     final $v = _$v;
@@ -233,9 +231,7 @@ class OmitsSerializingEmptyListsInputPayloadBuilder
             OmitsSerializingEmptyListsInputPayloadBuilder> {
   _$OmitsSerializingEmptyListsInputPayload? _$v;
 
-  OmitsSerializingEmptyListsInputPayloadBuilder() {
-    OmitsSerializingEmptyListsInputPayload._init(this);
-  }
+  OmitsSerializingEmptyListsInputPayloadBuilder();
 
   @override
   void replace(OmitsSerializingEmptyListsInputPayload other) {

@@ -56,9 +56,7 @@ class DuplicateCertificateExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  DuplicateCertificateExceptionBuilder() {
-    DuplicateCertificateException._init(this);
-  }
+  DuplicateCertificateExceptionBuilder();
 
   DuplicateCertificateExceptionBuilder get _$this {
     final $v = _$v;

@@ -110,9 +110,7 @@ class JsonTimestampsInputOutputBuilder
   set httpDateOnTarget(DateTime? httpDateOnTarget) =>
       _$this._httpDateOnTarget = httpDateOnTarget;
 
-  JsonTimestampsInputOutputBuilder() {
-    JsonTimestampsInputOutput._init(this);
-  }
+  JsonTimestampsInputOutputBuilder();
 
   JsonTimestampsInputOutputBuilder get _$this {
     final $v = _$v;

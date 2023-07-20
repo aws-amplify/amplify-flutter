@@ -87,9 +87,7 @@ class GetShardIteratorInputBuilder
   set sequenceNumber(String? sequenceNumber) =>
       _$this._sequenceNumber = sequenceNumber;
 
-  GetShardIteratorInputBuilder() {
-    GetShardIteratorInput._init(this);
-  }
+  GetShardIteratorInputBuilder();
 
   GetShardIteratorInputBuilder get _$this {
     final $v = _$v;

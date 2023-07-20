@@ -46,9 +46,6 @@ abstract class DocumentationParts
     DocumentationPartsRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DocumentationPartsBuilder b) {}
-
   /// The current page of elements from this collection.
   _i3.BuiltList<_i2.DocumentationPart>? get items;
 

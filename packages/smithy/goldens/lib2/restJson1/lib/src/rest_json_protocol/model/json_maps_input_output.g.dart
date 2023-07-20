@@ -156,9 +156,7 @@ class JsonMapsInputOutputBuilder
   set sparseSetMap(_i4.SetMultimapBuilder<String, String>? sparseSetMap) =>
       _$this._sparseSetMap = sparseSetMap;
 
-  JsonMapsInputOutputBuilder() {
-    JsonMapsInputOutput._init(this);
-  }
+  JsonMapsInputOutputBuilder();
 
   JsonMapsInputOutputBuilder get _$this {
     final $v = _$v;

@@ -51,9 +51,7 @@ class DeleteBackupOutputBuilder
   set backupDescription(_i2.BackupDescriptionBuilder? backupDescription) =>
       _$this._backupDescription = backupDescription;
 
-  DeleteBackupOutputBuilder() {
-    DeleteBackupOutput._init(this);
-  }
+  DeleteBackupOutputBuilder();
 
   DeleteBackupOutputBuilder get _$this {
     final $v = _$v;

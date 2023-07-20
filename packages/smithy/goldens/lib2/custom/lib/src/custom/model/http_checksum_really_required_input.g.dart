@@ -62,9 +62,7 @@ class HttpChecksumReallyRequiredInputBuilder
   _i2.Uint8List? get content => _$this._content;
   set content(_i2.Uint8List? content) => _$this._content = content;
 
-  HttpChecksumReallyRequiredInputBuilder() {
-    HttpChecksumReallyRequiredInput._init(this);
-  }
+  HttpChecksumReallyRequiredInputBuilder();
 
   HttpChecksumReallyRequiredInputBuilder get _$this {
     final $v = _$v;

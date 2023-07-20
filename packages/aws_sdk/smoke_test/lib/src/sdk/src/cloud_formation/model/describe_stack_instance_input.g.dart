@@ -88,9 +88,7 @@ class DescribeStackInstanceInputBuilder
   _i3.CallAs? get callAs => _$this._callAs;
   set callAs(_i3.CallAs? callAs) => _$this._callAs = callAs;
 
-  DescribeStackInstanceInputBuilder() {
-    DescribeStackInstanceInput._init(this);
-  }
+  DescribeStackInstanceInputBuilder();
 
   DescribeStackInstanceInputBuilder get _$this {
     final $v = _$v;

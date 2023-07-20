@@ -44,9 +44,6 @@ abstract class RemediationExecutionStep
   static const List<_i3.SmithySerializer<RemediationExecutionStep>>
       serializers = [RemediationExecutionStepAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RemediationExecutionStepBuilder b) {}
-
   /// The details of the step.
   String? get name;
 

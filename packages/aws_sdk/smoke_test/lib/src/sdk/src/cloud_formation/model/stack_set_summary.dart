@@ -59,9 +59,6 @@ abstract class StackSetSummary
     StackSetSummaryAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackSetSummaryBuilder b) {}
-
   /// The name of the stack set.
   String? get stackSetName;
 

@@ -177,9 +177,7 @@ class CompleteMultipartUploadOutputBuilder
   set requestCharged(_i4.RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
-  CompleteMultipartUploadOutputBuilder() {
-    CompleteMultipartUploadOutput._init(this);
-  }
+  CompleteMultipartUploadOutputBuilder();
 
   CompleteMultipartUploadOutputBuilder get _$this {
     final $v = _$v;
@@ -355,9 +353,7 @@ class CompleteMultipartUploadOutputPayloadBuilder
   String? get location => _$this._location;
   set location(String? location) => _$this._location = location;
 
-  CompleteMultipartUploadOutputPayloadBuilder() {
-    CompleteMultipartUploadOutputPayload._init(this);
-  }
+  CompleteMultipartUploadOutputPayloadBuilder();
 
   CompleteMultipartUploadOutputPayloadBuilder get _$this {
     final $v = _$v;

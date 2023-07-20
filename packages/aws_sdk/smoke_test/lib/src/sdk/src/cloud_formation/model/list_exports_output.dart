@@ -42,9 +42,6 @@ abstract class ListExportsOutput
     ListExportsOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListExportsOutputBuilder b) {}
-
   /// The output for the ListExports action.
   _i3.BuiltList<_i2.Export>? get exports;
 

@@ -65,9 +65,7 @@ class DescribeContributorInsightsInputBuilder
   String? get indexName => _$this._indexName;
   set indexName(String? indexName) => _$this._indexName = indexName;
 
-  DescribeContributorInsightsInputBuilder() {
-    DescribeContributorInsightsInput._init(this);
-  }
+  DescribeContributorInsightsInputBuilder();
 
   DescribeContributorInsightsInputBuilder get _$this {
     final $v = _$v;

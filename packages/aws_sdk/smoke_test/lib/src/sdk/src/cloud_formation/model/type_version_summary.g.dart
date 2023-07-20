@@ -116,9 +116,7 @@ class TypeVersionSummaryBuilder
   set publicVersionNumber(String? publicVersionNumber) =>
       _$this._publicVersionNumber = publicVersionNumber;
 
-  TypeVersionSummaryBuilder() {
-    TypeVersionSummary._init(this);
-  }
+  TypeVersionSummaryBuilder();
 
   TypeVersionSummaryBuilder get _$this {
     final $v = _$v;

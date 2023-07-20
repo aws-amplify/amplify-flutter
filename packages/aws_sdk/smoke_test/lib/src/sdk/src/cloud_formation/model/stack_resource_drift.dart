@@ -79,9 +79,6 @@ abstract class StackResourceDrift
     StackResourceDriftAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackResourceDriftBuilder b) {}
-
   /// The ID of the stack.
   String get stackId;
 

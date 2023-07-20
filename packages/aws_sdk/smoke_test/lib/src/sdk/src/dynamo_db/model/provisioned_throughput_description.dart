@@ -45,9 +45,6 @@ abstract class ProvisionedThroughputDescription
   static const List<_i3.SmithySerializer<ProvisionedThroughputDescription>>
       serializers = [ProvisionedThroughputDescriptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ProvisionedThroughputDescriptionBuilder b) {}
-
   /// The date and time of the last provisioned throughput increase for this table.
   DateTime? get lastIncreaseDateTime;
 

@@ -160,9 +160,7 @@ class RestoreTableToPointInTimeInputBuilder
           _i7.SseSpecificationBuilder? sseSpecificationOverride) =>
       _$this._sseSpecificationOverride = sseSpecificationOverride;
 
-  RestoreTableToPointInTimeInputBuilder() {
-    RestoreTableToPointInTimeInput._init(this);
-  }
+  RestoreTableToPointInTimeInputBuilder();
 
   RestoreTableToPointInTimeInputBuilder get _$this {
     final $v = _$v;

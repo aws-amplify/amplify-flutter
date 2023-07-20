@@ -68,9 +68,6 @@ abstract class PutPublicAccessBlockRequest
   static const List<_i1.SmithySerializer<_i2.PublicAccessBlockConfiguration>>
       serializers = [PutPublicAccessBlockRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutPublicAccessBlockRequestBuilder b) {}
-
   /// The name of the Amazon S3 bucket whose `PublicAccessBlock` configuration you want to set.
   String get bucket;
 

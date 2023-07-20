@@ -44,9 +44,6 @@ abstract class ListUserTagsRequest
     ListUserTagsRequestAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListUserTagsRequestBuilder b) {}
-
   /// The name of the IAM user whose tags you want to see.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

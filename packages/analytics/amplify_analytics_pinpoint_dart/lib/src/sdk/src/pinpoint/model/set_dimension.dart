@@ -38,9 +38,6 @@ abstract class SetDimension
     SetDimensionRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SetDimensionBuilder b) {}
-
   /// The type of segment dimension to use. Valid values are: INCLUSIVE, endpoints that match the criteria are included in the segment; and, EXCLUSIVE, endpoints that match the criteria are excluded from the segment.
   _i2.DimensionType? get dimensionType;
 

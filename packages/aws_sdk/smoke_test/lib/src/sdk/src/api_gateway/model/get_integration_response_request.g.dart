@@ -89,9 +89,7 @@ class GetIntegrationResponseRequestBuilder
   String? get statusCode => _$this._statusCode;
   set statusCode(String? statusCode) => _$this._statusCode = statusCode;
 
-  GetIntegrationResponseRequestBuilder() {
-    GetIntegrationResponseRequest._init(this);
-  }
+  GetIntegrationResponseRequestBuilder();
 
   GetIntegrationResponseRequestBuilder get _$this {
     final $v = _$v;
@@ -172,9 +170,7 @@ class GetIntegrationResponseRequestPayloadBuilder
             GetIntegrationResponseRequestPayloadBuilder> {
   _$GetIntegrationResponseRequestPayload? _$v;
 
-  GetIntegrationResponseRequestPayloadBuilder() {
-    GetIntegrationResponseRequestPayload._init(this);
-  }
+  GetIntegrationResponseRequestPayloadBuilder();
 
   @override
   void replace(GetIntegrationResponseRequestPayload other) {

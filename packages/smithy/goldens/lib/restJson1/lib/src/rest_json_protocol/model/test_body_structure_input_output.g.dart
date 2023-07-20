@@ -61,9 +61,7 @@ class TestBodyStructureInputOutputBuilder
   set testConfig(_i3.TestConfigBuilder? testConfig) =>
       _$this._testConfig = testConfig;
 
-  TestBodyStructureInputOutputBuilder() {
-    TestBodyStructureInputOutput._init(this);
-  }
+  TestBodyStructureInputOutputBuilder();
 
   TestBodyStructureInputOutputBuilder get _$this {
     final $v = _$v;
@@ -161,9 +159,7 @@ class TestBodyStructureInputOutputPayloadBuilder
   set testConfig(_i3.TestConfigBuilder? testConfig) =>
       _$this._testConfig = testConfig;
 
-  TestBodyStructureInputOutputPayloadBuilder() {
-    TestBodyStructureInputOutputPayload._init(this);
-  }
+  TestBodyStructureInputOutputPayloadBuilder();
 
   TestBodyStructureInputOutputPayloadBuilder get _$this {
     final $v = _$v;

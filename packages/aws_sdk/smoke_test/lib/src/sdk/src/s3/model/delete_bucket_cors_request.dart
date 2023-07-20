@@ -53,9 +53,6 @@ abstract class DeleteBucketCorsRequest
   static const List<_i1.SmithySerializer<DeleteBucketCorsRequestPayload>>
       serializers = [DeleteBucketCorsRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBucketCorsRequestBuilder b) {}
-
   /// Specifies the bucket whose `cors` configuration is being deleted.
   String get bucket;
 
@@ -110,8 +107,6 @@ abstract class DeleteBucketCorsRequestPayload
 
   const DeleteBucketCorsRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBucketCorsRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

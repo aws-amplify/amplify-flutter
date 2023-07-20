@@ -55,9 +55,7 @@ class CsvOptionsBuilder implements Builder<CsvOptions, CsvOptionsBuilder> {
   set headerList(_i2.ListBuilder<String>? headerList) =>
       _$this._headerList = headerList;
 
-  CsvOptionsBuilder() {
-    CsvOptions._init(this);
-  }
+  CsvOptionsBuilder();
 
   CsvOptionsBuilder get _$this {
     final $v = _$v;

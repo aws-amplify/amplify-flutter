@@ -54,9 +54,6 @@ abstract class OrganizationManagedRuleMetadata
   static const List<_i4.SmithySerializer<OrganizationManagedRuleMetadata>>
       serializers = [OrganizationManagedRuleMetadataAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OrganizationManagedRuleMetadataBuilder b) {}
-
   /// The description that you provide for your organization Config rule.
   String? get description;
 

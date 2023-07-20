@@ -41,8 +41,6 @@ abstract class InvalidGreeting
     InvalidGreetingAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidGreetingBuilder b) {}
   @override
   String? get message;
   @override

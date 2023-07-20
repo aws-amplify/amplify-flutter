@@ -65,9 +65,7 @@ class StartRemediationExecutionResponseBuilder
   set failedItems(_i3.ListBuilder<_i2.ResourceKey>? failedItems) =>
       _$this._failedItems = failedItems;
 
-  StartRemediationExecutionResponseBuilder() {
-    StartRemediationExecutionResponse._init(this);
-  }
+  StartRemediationExecutionResponseBuilder();
 
   StartRemediationExecutionResponseBuilder get _$this {
     final $v = _$v;

@@ -51,9 +51,7 @@ class ReplicaModificationsBuilder
   _i2.ReplicaModificationsStatus? get status => _$this._status;
   set status(_i2.ReplicaModificationsStatus? status) => _$this._status = status;
 
-  ReplicaModificationsBuilder() {
-    ReplicaModifications._init(this);
-  }
+  ReplicaModificationsBuilder();
 
   ReplicaModificationsBuilder get _$this {
     final $v = _$v;

@@ -73,9 +73,7 @@ class UpdateItemOutputBuilder
           _i4.ItemCollectionMetricsBuilder? itemCollectionMetrics) =>
       _$this._itemCollectionMetrics = itemCollectionMetrics;
 
-  UpdateItemOutputBuilder() {
-    UpdateItemOutput._init(this);
-  }
+  UpdateItemOutputBuilder();
 
   UpdateItemOutputBuilder get _$this {
     final $v = _$v;

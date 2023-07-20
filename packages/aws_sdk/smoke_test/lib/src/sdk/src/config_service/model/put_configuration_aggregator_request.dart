@@ -55,9 +55,6 @@ abstract class PutConfigurationAggregatorRequest
   static const List<_i1.SmithySerializer<PutConfigurationAggregatorRequest>>
       serializers = [PutConfigurationAggregatorRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutConfigurationAggregatorRequestBuilder b) {}
-
   /// The name of the configuration aggregator.
   String get configurationAggregatorName;
 

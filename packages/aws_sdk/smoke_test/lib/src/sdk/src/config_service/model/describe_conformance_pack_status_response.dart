@@ -49,9 +49,6 @@ abstract class DescribeConformancePackStatusResponse
     DescribeConformancePackStatusResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeConformancePackStatusResponseBuilder b) {}
-
   /// A list of `ConformancePackStatusDetail` objects.
   _i3.BuiltList<_i2.ConformancePackStatusDetail>?
       get conformancePackStatusDetails;

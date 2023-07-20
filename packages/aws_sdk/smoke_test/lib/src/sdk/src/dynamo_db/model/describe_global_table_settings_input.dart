@@ -38,9 +38,6 @@ abstract class DescribeGlobalTableSettingsInput
   static const List<_i1.SmithySerializer<DescribeGlobalTableSettingsInput>>
       serializers = [DescribeGlobalTableSettingsInputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeGlobalTableSettingsInputBuilder b) {}
-
   /// The name of the global table to describe.
   String get globalTableName;
   @override

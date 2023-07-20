@@ -68,8 +68,6 @@ abstract class TestBodyStructureInputOutput
   static const List<_i1.SmithySerializer<TestBodyStructureInputOutputPayload>>
       serializers = [TestBodyStructureInputOutputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TestBodyStructureInputOutputBuilder b) {}
   String? get testId;
   _i3.TestConfig? get testConfig;
   @override
@@ -112,8 +110,6 @@ abstract class TestBodyStructureInputOutputPayload
 
   const TestBodyStructureInputOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TestBodyStructureInputOutputPayloadBuilder b) {}
   _i3.TestConfig? get testConfig;
   @override
   List<Object?> get props => [testConfig];

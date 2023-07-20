@@ -41,8 +41,6 @@ abstract class ReplicaNotFoundException
   static const List<_i2.SmithySerializer<ReplicaNotFoundException>>
       serializers = [ReplicaNotFoundExceptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicaNotFoundExceptionBuilder b) {}
   @override
   String? get message;
   @override

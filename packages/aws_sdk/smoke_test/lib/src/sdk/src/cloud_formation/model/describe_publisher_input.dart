@@ -35,9 +35,6 @@ abstract class DescribePublisherInput
   static const List<_i1.SmithySerializer<DescribePublisherInput>> serializers =
       [DescribePublisherInputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribePublisherInputBuilder b) {}
-
   /// The ID of the extension publisher.
   ///
   /// If you don't supply a `PublisherId`, and you have registered as an extension publisher, `DescribePublisher` returns information about your own publisher account.

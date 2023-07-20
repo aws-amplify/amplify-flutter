@@ -39,9 +39,7 @@ class DescribeEndpointsRequestBuilder
         Builder<DescribeEndpointsRequest, DescribeEndpointsRequestBuilder> {
   _$DescribeEndpointsRequest? _$v;
 
-  DescribeEndpointsRequestBuilder() {
-    DescribeEndpointsRequest._init(this);
-  }
+  DescribeEndpointsRequestBuilder();
 
   @override
   void replace(DescribeEndpointsRequest other) {

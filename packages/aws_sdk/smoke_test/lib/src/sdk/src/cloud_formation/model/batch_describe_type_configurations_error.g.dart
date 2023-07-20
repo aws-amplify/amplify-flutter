@@ -77,9 +77,7 @@ class BatchDescribeTypeConfigurationsErrorBuilder
               typeConfigurationIdentifier) =>
       _$this._typeConfigurationIdentifier = typeConfigurationIdentifier;
 
-  BatchDescribeTypeConfigurationsErrorBuilder() {
-    BatchDescribeTypeConfigurationsError._init(this);
-  }
+  BatchDescribeTypeConfigurationsErrorBuilder();
 
   BatchDescribeTypeConfigurationsErrorBuilder get _$this {
     final $v = _$v;

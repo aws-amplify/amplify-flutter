@@ -39,9 +39,6 @@ abstract class AttributeDimension
     AttributeDimensionRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AttributeDimensionBuilder b) {}
-
   /// The type of segment dimension to use. Valid values are:
   ///
   /// *   INCLUSIVE - endpoints that have attributes matching the values are included in the segment.

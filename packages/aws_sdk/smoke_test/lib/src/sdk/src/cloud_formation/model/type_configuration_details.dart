@@ -52,9 +52,6 @@ abstract class TypeConfigurationDetails
   static const List<_i2.SmithySerializer<TypeConfigurationDetails>>
       serializers = [TypeConfigurationDetailsAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TypeConfigurationDetailsBuilder b) {}
-
   /// The Amazon Resource Name (ARN) for the configuration data, in this account and Region.
   String? get arn;
 

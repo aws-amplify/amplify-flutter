@@ -64,9 +64,7 @@ class ComplianceSummaryByResourceTypeBuilder
   set complianceSummary(_i2.ComplianceSummaryBuilder? complianceSummary) =>
       _$this._complianceSummary = complianceSummary;
 
-  ComplianceSummaryByResourceTypeBuilder() {
-    ComplianceSummaryByResourceType._init(this);
-  }
+  ComplianceSummaryByResourceTypeBuilder();
 
   ComplianceSummaryByResourceTypeBuilder get _$this {
     final $v = _$v;

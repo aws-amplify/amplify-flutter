@@ -50,10 +50,6 @@ abstract class OrganizationConformancePackTemplateValidationException
     OrganizationConformancePackTemplateValidationExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      OrganizationConformancePackTemplateValidationExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

@@ -158,9 +158,7 @@ class GetObjectAttributesRequestBuilder
           _i5.ListBuilder<_i4.ObjectAttributes>? objectAttributes) =>
       _$this._objectAttributes = objectAttributes;
 
-  GetObjectAttributesRequestBuilder() {
-    GetObjectAttributesRequest._init(this);
-  }
+  GetObjectAttributesRequestBuilder();
 
   GetObjectAttributesRequestBuilder get _$this {
     final $v = _$v;
@@ -265,9 +263,7 @@ class GetObjectAttributesRequestPayloadBuilder
             GetObjectAttributesRequestPayloadBuilder> {
   _$GetObjectAttributesRequestPayload? _$v;
 
-  GetObjectAttributesRequestPayloadBuilder() {
-    GetObjectAttributesRequestPayload._init(this);
-  }
+  GetObjectAttributesRequestPayloadBuilder();
 
   @override
   void replace(GetObjectAttributesRequestPayload other) {

@@ -47,9 +47,6 @@ abstract class ServiceSpecificCredential
   static const List<_i3.SmithySerializer<ServiceSpecificCredential>>
       serializers = [ServiceSpecificCredentialAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ServiceSpecificCredentialBuilder b) {}
-
   /// The date and time, in [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the service-specific credential were created.
   DateTime get createDate;
 

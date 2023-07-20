@@ -130,9 +130,7 @@ class ResourceChangeBuilder
   set moduleInfo(_i6.ModuleInfoBuilder? moduleInfo) =>
       _$this._moduleInfo = moduleInfo;
 
-  ResourceChangeBuilder() {
-    ResourceChange._init(this);
-  }
+  ResourceChangeBuilder();
 
   ResourceChangeBuilder get _$this {
     final $v = _$v;

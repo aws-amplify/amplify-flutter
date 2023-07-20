@@ -38,9 +38,6 @@ abstract class ReplicaGlobalSecondaryIndex
   static const List<_i3.SmithySerializer<ReplicaGlobalSecondaryIndex>>
       serializers = [ReplicaGlobalSecondaryIndexAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicaGlobalSecondaryIndexBuilder b) {}
-
   /// The name of the global secondary index.
   String get indexName;
 

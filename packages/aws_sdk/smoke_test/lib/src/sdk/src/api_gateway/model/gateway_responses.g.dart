@@ -58,9 +58,7 @@ class GatewayResponsesBuilder
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  GatewayResponsesBuilder() {
-    GatewayResponses._init(this);
-  }
+  GatewayResponsesBuilder();
 
   GatewayResponsesBuilder get _$this {
     final $v = _$v;

@@ -40,9 +40,6 @@ abstract class DeliverConfigSnapshotResponse
   static const List<_i2.SmithySerializer<DeliverConfigSnapshotResponse>>
       serializers = [DeliverConfigSnapshotResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeliverConfigSnapshotResponseBuilder b) {}
-
   /// The ID of the snapshot that is being created.
   String? get configSnapshotId;
   @override

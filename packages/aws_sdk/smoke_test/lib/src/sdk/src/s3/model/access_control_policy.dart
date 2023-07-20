@@ -39,9 +39,6 @@ abstract class AccessControlPolicy
     AccessControlPolicyRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AccessControlPolicyBuilder b) {}
-
   /// A list of grants.
   _i4.BuiltList<_i2.Grant>? get grants;
 

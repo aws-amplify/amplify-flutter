@@ -42,9 +42,6 @@ abstract class GetRecordsInput
     GetRecordsInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetRecordsInputBuilder b) {}
-
   /// A shard iterator that was retrieved from a previous GetShardIterator operation. This iterator can be used to access the stream records in this shard.
   String get shardIterator;
 

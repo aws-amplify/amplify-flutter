@@ -37,9 +37,6 @@ abstract class ArchivalSummary
     ArchivalSummaryAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ArchivalSummaryBuilder b) {}
-
   /// The date and time when table archival was initiated by DynamoDB, in UNIX epoch time format.
   DateTime? get archivalDateTime;
 

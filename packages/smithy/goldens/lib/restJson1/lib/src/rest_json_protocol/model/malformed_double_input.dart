@@ -20,11 +20,10 @@ abstract class MalformedDoubleInput
         _i1.HasPayload<MalformedDoubleInputPayload> {
   factory MalformedDoubleInput({
     double? doubleInBody,
-    double? doubleInPath,
+    required double doubleInPath,
     double? doubleInQuery,
     double? doubleInHeader,
   }) {
-    doubleInPath ??= 0;
     return _$MalformedDoubleInput._(
       doubleInBody: doubleInBody,
       doubleInPath: doubleInPath,
@@ -60,11 +59,6 @@ abstract class MalformedDoubleInput
 
   static const List<_i1.SmithySerializer<MalformedDoubleInputPayload>>
       serializers = [MalformedDoubleInputRestJson1Serializer()];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedDoubleInputBuilder b) {
-    b.doubleInPath = 0;
-  }
 
   double? get doubleInBody;
   double get doubleInPath;
@@ -127,8 +121,6 @@ abstract class MalformedDoubleInputPayload
 
   const MalformedDoubleInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedDoubleInputPayloadBuilder b) {}
   double? get doubleInBody;
   @override
   List<Object?> get props => [doubleInBody];

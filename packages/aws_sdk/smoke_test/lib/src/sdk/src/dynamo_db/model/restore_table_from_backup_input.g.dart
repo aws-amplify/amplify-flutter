@@ -131,9 +131,7 @@ class RestoreTableFromBackupInputBuilder
           _i7.SseSpecificationBuilder? sseSpecificationOverride) =>
       _$this._sseSpecificationOverride = sseSpecificationOverride;
 
-  RestoreTableFromBackupInputBuilder() {
-    RestoreTableFromBackupInput._init(this);
-  }
+  RestoreTableFromBackupInputBuilder();
 
   RestoreTableFromBackupInputBuilder get _$this {
     final $v = _$v;

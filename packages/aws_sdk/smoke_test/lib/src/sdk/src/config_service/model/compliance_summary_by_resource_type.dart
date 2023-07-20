@@ -40,9 +40,6 @@ abstract class ComplianceSummaryByResourceType
   static const List<_i3.SmithySerializer<ComplianceSummaryByResourceType>>
       serializers = [ComplianceSummaryByResourceTypeAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ComplianceSummaryByResourceTypeBuilder b) {}
-
   /// The type of Amazon Web Services resource.
   String? get resourceType;
 

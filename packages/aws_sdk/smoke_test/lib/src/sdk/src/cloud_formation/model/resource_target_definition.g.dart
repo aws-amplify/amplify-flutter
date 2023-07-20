@@ -70,9 +70,7 @@ class ResourceTargetDefinitionBuilder
   set requiresRecreation(_i3.RequiresRecreation? requiresRecreation) =>
       _$this._requiresRecreation = requiresRecreation;
 
-  ResourceTargetDefinitionBuilder() {
-    ResourceTargetDefinition._init(this);
-  }
+  ResourceTargetDefinitionBuilder();
 
   ResourceTargetDefinitionBuilder get _$this {
     final $v = _$v;

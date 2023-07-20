@@ -129,9 +129,7 @@ class StreamDescriptionBuilder
   set lastEvaluatedShardId(String? lastEvaluatedShardId) =>
       _$this._lastEvaluatedShardId = lastEvaluatedShardId;
 
-  StreamDescriptionBuilder() {
-    StreamDescription._init(this);
-  }
+  StreamDescriptionBuilder();
 
   StreamDescriptionBuilder get _$this {
     final $v = _$v;

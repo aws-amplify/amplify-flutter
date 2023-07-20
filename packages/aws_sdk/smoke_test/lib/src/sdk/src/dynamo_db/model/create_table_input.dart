@@ -86,9 +86,6 @@ abstract class CreateTableInput
     CreateTableInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateTableInputBuilder b) {}
-
   /// An array of attributes that describe the key schema for the table and indexes.
   _i13.BuiltList<_i3.AttributeDefinition> get attributeDefinitions;
 

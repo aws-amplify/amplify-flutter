@@ -58,9 +58,6 @@ abstract class Usage
     UsageRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UsageBuilder b) {}
-
   /// The plan Id associated with this usage data.
   String? get usagePlanId;
 

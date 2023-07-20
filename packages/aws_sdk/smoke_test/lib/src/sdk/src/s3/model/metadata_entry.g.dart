@@ -52,9 +52,7 @@ class MetadataEntryBuilder
   String? get value => _$this._value;
   set value(String? value) => _$this._value = value;
 
-  MetadataEntryBuilder() {
-    MetadataEntry._init(this);
-  }
+  MetadataEntryBuilder();
 
   MetadataEntryBuilder get _$this {
     final $v = _$v;

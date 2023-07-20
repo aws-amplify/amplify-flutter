@@ -42,9 +42,6 @@ abstract class BatchDescribeTypeConfigurationsError
   static const List<_i3.SmithySerializer<BatchDescribeTypeConfigurationsError>>
       serializers = [BatchDescribeTypeConfigurationsErrorAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BatchDescribeTypeConfigurationsErrorBuilder b) {}
-
   /// The error code.
   String? get errorCode;
 

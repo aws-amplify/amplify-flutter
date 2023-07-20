@@ -53,9 +53,6 @@ abstract class GetBucketReplicationRequest
   static const List<_i1.SmithySerializer<GetBucketReplicationRequestPayload>>
       serializers = [GetBucketReplicationRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketReplicationRequestBuilder b) {}
-
   /// The bucket name for which to get the replication information.
   String get bucket;
 
@@ -110,8 +107,6 @@ abstract class GetBucketReplicationRequestPayload
 
   const GetBucketReplicationRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketReplicationRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

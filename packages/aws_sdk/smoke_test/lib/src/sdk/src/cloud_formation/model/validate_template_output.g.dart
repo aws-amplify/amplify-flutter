@@ -94,9 +94,7 @@ class ValidateTemplateOutputBuilder
   set declaredTransforms(_i4.ListBuilder<String>? declaredTransforms) =>
       _$this._declaredTransforms = declaredTransforms;
 
-  ValidateTemplateOutputBuilder() {
-    ValidateTemplateOutput._init(this);
-  }
+  ValidateTemplateOutputBuilder();
 
   ValidateTemplateOutputBuilder get _$this {
     final $v = _$v;

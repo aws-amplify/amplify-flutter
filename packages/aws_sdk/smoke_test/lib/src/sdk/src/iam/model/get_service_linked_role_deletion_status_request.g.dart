@@ -60,9 +60,7 @@ class GetServiceLinkedRoleDeletionStatusRequestBuilder
   set deletionTaskId(String? deletionTaskId) =>
       _$this._deletionTaskId = deletionTaskId;
 
-  GetServiceLinkedRoleDeletionStatusRequestBuilder() {
-    GetServiceLinkedRoleDeletionStatusRequest._init(this);
-  }
+  GetServiceLinkedRoleDeletionStatusRequestBuilder();
 
   GetServiceLinkedRoleDeletionStatusRequestBuilder get _$this {
     final $v = _$v;

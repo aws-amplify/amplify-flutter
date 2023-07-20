@@ -56,10 +56,6 @@ abstract class ListBucketIntelligentTieringConfigurationsOutput
     ListBucketIntelligentTieringConfigurationsOutputRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      ListBucketIntelligentTieringConfigurationsOutputBuilder b) {}
-
   /// Indicates whether the returned list of analytics configurations is complete. A value of `true` indicates that the list is not complete and the `NextContinuationToken` will be provided for a subsequent request.
   bool? get isTruncated;
 

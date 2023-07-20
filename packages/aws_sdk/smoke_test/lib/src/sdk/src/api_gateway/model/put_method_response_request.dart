@@ -77,9 +77,6 @@ abstract class PutMethodResponseRequest
   static const List<_i1.SmithySerializer<PutMethodResponseRequestPayload>>
       serializers = [PutMethodResponseRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutMethodResponseRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -177,9 +174,6 @@ abstract class PutMethodResponseRequestPayload
       _$PutMethodResponseRequestPayload;
 
   const PutMethodResponseRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutMethodResponseRequestPayloadBuilder b) {}
 
   /// Specifies the Model resources used for the response's content type. Response models are represented as a key/value map, with a content type as the key and a Model name as the value.
   _i3.BuiltMap<String, String>? get responseModels;

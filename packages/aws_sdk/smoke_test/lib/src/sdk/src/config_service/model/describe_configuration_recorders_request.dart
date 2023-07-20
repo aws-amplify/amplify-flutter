@@ -47,9 +47,6 @@ abstract class DescribeConfigurationRecordersRequest
     DescribeConfigurationRecordersRequestAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeConfigurationRecordersRequestBuilder b) {}
-
   /// A list of configuration recorder names.
   _i3.BuiltList<String>? get configurationRecorderNames;
   @override

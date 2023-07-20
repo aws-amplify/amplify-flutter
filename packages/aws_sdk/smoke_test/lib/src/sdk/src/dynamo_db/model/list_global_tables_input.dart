@@ -44,9 +44,6 @@ abstract class ListGlobalTablesInput
     ListGlobalTablesInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListGlobalTablesInputBuilder b) {}
-
   /// The first global table name that this operation will evaluate.
   String? get exclusiveStartGlobalTableName;
 

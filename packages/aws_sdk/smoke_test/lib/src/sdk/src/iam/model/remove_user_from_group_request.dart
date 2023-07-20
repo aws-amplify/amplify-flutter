@@ -42,9 +42,6 @@ abstract class RemoveUserFromGroupRequest
   static const List<_i1.SmithySerializer<RemoveUserFromGroupRequest>>
       serializers = [RemoveUserFromGroupRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RemoveUserFromGroupRequestBuilder b) {}
-
   /// The name of the group to update.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

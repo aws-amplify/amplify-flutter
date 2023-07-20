@@ -44,9 +44,6 @@ abstract class TypeConfigurationIdentifier
   static const List<_i3.SmithySerializer<TypeConfigurationIdentifier>>
       serializers = [TypeConfigurationIdentifierAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TypeConfigurationIdentifierBuilder b) {}
-
   /// The Amazon Resource Name (ARN) for the extension, in this account and Region.
   ///
   /// For public extensions, this will be the ARN assigned when you [activate the type](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ActivateType.html) in this account and Region. For private extensions, this will be the ARN assigned when you [register the type](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html) in this account and Region.

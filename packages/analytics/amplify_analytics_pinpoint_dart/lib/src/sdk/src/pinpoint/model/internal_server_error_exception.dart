@@ -48,9 +48,6 @@ abstract class InternalServerErrorException
   static const List<_i2.SmithySerializer<InternalServerErrorException>>
       serializers = [InternalServerErrorExceptionRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InternalServerErrorExceptionBuilder b) {}
-
   /// The message that's returned from the API.
   @override
   String? get message;

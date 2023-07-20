@@ -67,9 +67,7 @@ class BatchStatementErrorBuilder
   set item(_i4.MapBuilder<String, _i3.AttributeValue>? item) =>
       _$this._item = item;
 
-  BatchStatementErrorBuilder() {
-    BatchStatementError._init(this);
-  }
+  BatchStatementErrorBuilder();
 
   BatchStatementErrorBuilder get _$this {
     final $v = _$v;

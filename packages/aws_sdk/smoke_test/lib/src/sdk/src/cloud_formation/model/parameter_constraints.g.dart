@@ -51,9 +51,7 @@ class ParameterConstraintsBuilder
   set allowedValues(_i2.ListBuilder<String>? allowedValues) =>
       _$this._allowedValues = allowedValues;
 
-  ParameterConstraintsBuilder() {
-    ParameterConstraints._init(this);
-  }
+  ParameterConstraintsBuilder();
 
   ParameterConstraintsBuilder get _$this {
     final $v = _$v;

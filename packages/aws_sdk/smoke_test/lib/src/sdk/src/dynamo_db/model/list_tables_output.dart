@@ -43,9 +43,6 @@ abstract class ListTablesOutput
     ListTablesOutputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListTablesOutputBuilder b) {}
-
   /// The names of the tables associated with the current account at the current endpoint. The maximum size of this array is 100.
   ///
   /// If `LastEvaluatedTableName` also appears in the output, you can use this value as the `ExclusiveStartTableName` parameter in a subsequent `ListTables` request and obtain the next page of results.

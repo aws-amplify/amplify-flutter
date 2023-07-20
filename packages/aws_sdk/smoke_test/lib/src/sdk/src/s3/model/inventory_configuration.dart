@@ -55,9 +55,6 @@ abstract class InventoryConfiguration
   static const List<_i8.SmithySerializer<InventoryConfiguration>> serializers =
       [InventoryConfigurationRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InventoryConfigurationBuilder b) {}
-
   /// Contains information about where to publish the inventory results.
   _i2.InventoryDestination get destination;
 

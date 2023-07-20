@@ -37,9 +37,6 @@ abstract class Metrics
     MetricsRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MetricsBuilder b) {}
-
   /// Specifies whether the replication metrics are enabled.
   _i2.MetricsStatus get status;
 

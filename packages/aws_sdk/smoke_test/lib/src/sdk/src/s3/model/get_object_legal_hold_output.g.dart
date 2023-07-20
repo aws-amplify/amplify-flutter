@@ -51,9 +51,7 @@ class GetObjectLegalHoldOutputBuilder
   set legalHold(_i3.ObjectLockLegalHoldBuilder? legalHold) =>
       _$this._legalHold = legalHold;
 
-  GetObjectLegalHoldOutputBuilder() {
-    GetObjectLegalHoldOutput._init(this);
-  }
+  GetObjectLegalHoldOutputBuilder();
 
   GetObjectLegalHoldOutputBuilder get _$this {
     final $v = _$v;

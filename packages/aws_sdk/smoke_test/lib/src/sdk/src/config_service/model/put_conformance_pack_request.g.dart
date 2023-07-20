@@ -126,9 +126,7 @@ class PutConformancePackRequestBuilder
           _i4.TemplateSsmDocumentDetailsBuilder? templateSsmDocumentDetails) =>
       _$this._templateSsmDocumentDetails = templateSsmDocumentDetails;
 
-  PutConformancePackRequestBuilder() {
-    PutConformancePackRequest._init(this);
-  }
+  PutConformancePackRequestBuilder();
 
   PutConformancePackRequestBuilder get _$this {
     final $v = _$v;

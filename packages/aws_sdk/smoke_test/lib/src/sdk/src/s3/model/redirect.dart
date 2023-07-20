@@ -41,9 +41,6 @@ abstract class Redirect
     RedirectRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RedirectBuilder b) {}
-
   /// The host name to use in the redirect request.
   String? get hostName;
 

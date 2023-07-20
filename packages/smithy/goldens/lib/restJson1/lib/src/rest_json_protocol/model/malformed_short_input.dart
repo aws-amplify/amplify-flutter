@@ -20,11 +20,10 @@ abstract class MalformedShortInput
         _i1.HasPayload<MalformedShortInputPayload> {
   factory MalformedShortInput({
     int? shortInBody,
-    int? shortInPath,
+    required int shortInPath,
     int? shortInQuery,
     int? shortInHeader,
   }) {
-    shortInPath ??= 0;
     return _$MalformedShortInput._(
       shortInBody: shortInBody,
       shortInPath: shortInPath,
@@ -59,11 +58,6 @@ abstract class MalformedShortInput
 
   static const List<_i1.SmithySerializer<MalformedShortInputPayload>>
       serializers = [MalformedShortInputRestJson1Serializer()];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedShortInputBuilder b) {
-    b.shortInPath = 0;
-  }
 
   int? get shortInBody;
   int get shortInPath;
@@ -126,8 +120,6 @@ abstract class MalformedShortInputPayload
 
   const MalformedShortInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedShortInputPayloadBuilder b) {}
   int? get shortInBody;
   @override
   List<Object?> get props => [shortInBody];

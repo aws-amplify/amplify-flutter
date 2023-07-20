@@ -67,9 +67,7 @@ class CreateGlobalTableInputBuilder
   set replicationGroup(_i4.ListBuilder<_i3.Replica>? replicationGroup) =>
       _$this._replicationGroup = replicationGroup;
 
-  CreateGlobalTableInputBuilder() {
-    CreateGlobalTableInput._init(this);
-  }
+  CreateGlobalTableInputBuilder();
 
   CreateGlobalTableInputBuilder get _$this {
     final $v = _$v;

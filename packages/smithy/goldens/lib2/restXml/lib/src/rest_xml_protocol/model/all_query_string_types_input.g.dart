@@ -256,9 +256,7 @@ class AllQueryStringTypesInputBuilder
           _i6.MapBuilder<String, String>? queryParamsMapOfStrings) =>
       _$this._queryParamsMapOfStrings = queryParamsMapOfStrings;
 
-  AllQueryStringTypesInputBuilder() {
-    AllQueryStringTypesInput._init(this);
-  }
+  AllQueryStringTypesInputBuilder();
 
   AllQueryStringTypesInputBuilder get _$this {
     final $v = _$v;
@@ -404,9 +402,7 @@ class AllQueryStringTypesInputPayloadBuilder
             AllQueryStringTypesInputPayloadBuilder> {
   _$AllQueryStringTypesInputPayload? _$v;
 
-  AllQueryStringTypesInputPayloadBuilder() {
-    AllQueryStringTypesInputPayload._init(this);
-  }
+  AllQueryStringTypesInputPayloadBuilder();
 
   @override
   void replace(AllQueryStringTypesInputPayload other) {

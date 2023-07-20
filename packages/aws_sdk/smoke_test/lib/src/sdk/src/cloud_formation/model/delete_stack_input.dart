@@ -48,9 +48,6 @@ abstract class DeleteStackInput
     DeleteStackInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteStackInputBuilder b) {}
-
   /// The name or the unique stack ID that's associated with the stack.
   String get stackName;
 

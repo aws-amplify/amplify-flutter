@@ -44,9 +44,6 @@ abstract class ObjectPart
     ObjectPartRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ObjectPartBuilder b) {}
-
   /// The part number identifying the part. This value is a positive integer between 1 and 10,000.
   int? get partNumber;
 

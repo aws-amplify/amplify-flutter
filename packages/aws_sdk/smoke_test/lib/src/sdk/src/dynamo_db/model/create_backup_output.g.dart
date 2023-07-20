@@ -50,9 +50,7 @@ class CreateBackupOutputBuilder
   set backupDetails(_i2.BackupDetailsBuilder? backupDetails) =>
       _$this._backupDetails = backupDetails;
 
-  CreateBackupOutputBuilder() {
-    CreateBackupOutput._init(this);
-  }
+  CreateBackupOutputBuilder();
 
   CreateBackupOutputBuilder get _$this {
     final $v = _$v;

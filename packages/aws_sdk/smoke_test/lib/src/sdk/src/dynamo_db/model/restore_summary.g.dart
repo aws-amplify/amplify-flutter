@@ -85,9 +85,7 @@ class RestoreSummaryBuilder
   set restoreInProgress(bool? restoreInProgress) =>
       _$this._restoreInProgress = restoreInProgress;
 
-  RestoreSummaryBuilder() {
-    RestoreSummary._init(this);
-  }
+  RestoreSummaryBuilder();
 
   RestoreSummaryBuilder get _$this {
     final $v = _$v;

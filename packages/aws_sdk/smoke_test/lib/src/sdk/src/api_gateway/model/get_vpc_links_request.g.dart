@@ -57,9 +57,7 @@ class GetVpcLinksRequestBuilder
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
 
-  GetVpcLinksRequestBuilder() {
-    GetVpcLinksRequest._init(this);
-  }
+  GetVpcLinksRequestBuilder();
 
   GetVpcLinksRequestBuilder get _$this {
     final $v = _$v;
@@ -126,9 +124,7 @@ class GetVpcLinksRequestPayloadBuilder
         Builder<GetVpcLinksRequestPayload, GetVpcLinksRequestPayloadBuilder> {
   _$GetVpcLinksRequestPayload? _$v;
 
-  GetVpcLinksRequestPayloadBuilder() {
-    GetVpcLinksRequestPayload._init(this);
-  }
+  GetVpcLinksRequestPayloadBuilder();
 
   @override
   void replace(GetVpcLinksRequestPayload other) {

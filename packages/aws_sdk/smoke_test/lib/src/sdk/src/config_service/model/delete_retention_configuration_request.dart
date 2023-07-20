@@ -39,9 +39,6 @@ abstract class DeleteRetentionConfigurationRequest
   static const List<_i1.SmithySerializer<DeleteRetentionConfigurationRequest>>
       serializers = [DeleteRetentionConfigurationRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteRetentionConfigurationRequestBuilder b) {}
-
   /// The name of the retention configuration to delete.
   String get retentionConfigurationName;
   @override

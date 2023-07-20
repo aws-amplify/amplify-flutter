@@ -20,11 +20,10 @@ abstract class MalformedBooleanInput
         _i1.HasPayload<MalformedBooleanInputPayload> {
   factory MalformedBooleanInput({
     bool? booleanInBody,
-    bool? booleanInPath,
+    required bool booleanInPath,
     bool? booleanInQuery,
     bool? booleanInHeader,
   }) {
-    booleanInPath ??= false;
     return _$MalformedBooleanInput._(
       booleanInBody: booleanInBody,
       booleanInPath: booleanInPath,
@@ -60,11 +59,6 @@ abstract class MalformedBooleanInput
 
   static const List<_i1.SmithySerializer<MalformedBooleanInputPayload>>
       serializers = [MalformedBooleanInputRestJson1Serializer()];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedBooleanInputBuilder b) {
-    b.booleanInPath = false;
-  }
 
   bool? get booleanInBody;
   bool get booleanInPath;
@@ -130,8 +124,6 @@ abstract class MalformedBooleanInputPayload
 
   const MalformedBooleanInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedBooleanInputPayloadBuilder b) {}
   bool? get booleanInBody;
   @override
   List<Object?> get props => [booleanInBody];

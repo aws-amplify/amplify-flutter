@@ -45,9 +45,7 @@ class SdkTypesBuilder implements Builder<SdkTypes, SdkTypesBuilder> {
       _$this._items ??= new _i3.ListBuilder<_i2.SdkType>();
   set items(_i3.ListBuilder<_i2.SdkType>? items) => _$this._items = items;
 
-  SdkTypesBuilder() {
-    SdkTypes._init(this);
-  }
+  SdkTypesBuilder();
 
   SdkTypesBuilder get _$this {
     final $v = _$v;

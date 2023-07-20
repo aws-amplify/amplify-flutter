@@ -42,9 +42,7 @@ class ListOpenIdConnectProvidersRequestBuilder
             ListOpenIdConnectProvidersRequestBuilder> {
   _$ListOpenIdConnectProvidersRequest? _$v;
 
-  ListOpenIdConnectProvidersRequestBuilder() {
-    ListOpenIdConnectProvidersRequest._init(this);
-  }
+  ListOpenIdConnectProvidersRequestBuilder();
 
   @override
   void replace(ListOpenIdConnectProvidersRequest other) {

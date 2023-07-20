@@ -126,9 +126,6 @@ abstract class PutObjectOutput
   static const List<_i2.SmithySerializer<PutObjectOutputPayload>> serializers =
       [PutObjectOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectOutputBuilder b) {}
-
   /// If the expiration is configured for the object (see [PutBucketLifecycleConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycleConfiguration.html)), the response includes this header. It includes the `expiry-date` and `rule-id` key-value pairs that provide information about object expiration. The value of the `rule-id` is URL-encoded.
   String? get expiration;
 
@@ -264,8 +261,6 @@ abstract class PutObjectOutputPayload
 
   const PutObjectOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

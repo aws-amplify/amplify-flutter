@@ -98,9 +98,7 @@ class PutGatewayResponseRequestBuilder
   set responseTemplates(_i4.MapBuilder<String, String>? responseTemplates) =>
       _$this._responseTemplates = responseTemplates;
 
-  PutGatewayResponseRequestBuilder() {
-    PutGatewayResponseRequest._init(this);
-  }
+  PutGatewayResponseRequestBuilder();
 
   PutGatewayResponseRequestBuilder get _$this {
     final $v = _$v;
@@ -227,9 +225,7 @@ class PutGatewayResponseRequestPayloadBuilder
   String? get statusCode => _$this._statusCode;
   set statusCode(String? statusCode) => _$this._statusCode = statusCode;
 
-  PutGatewayResponseRequestPayloadBuilder() {
-    PutGatewayResponseRequestPayload._init(this);
-  }
+  PutGatewayResponseRequestPayloadBuilder();
 
   PutGatewayResponseRequestPayloadBuilder get _$this {
     final $v = _$v;

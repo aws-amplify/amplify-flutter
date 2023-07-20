@@ -58,9 +58,7 @@ class DeleteReplicationGroupMemberActionBuilder
   String? get regionName => _$this._regionName;
   set regionName(String? regionName) => _$this._regionName = regionName;
 
-  DeleteReplicationGroupMemberActionBuilder() {
-    DeleteReplicationGroupMemberAction._init(this);
-  }
+  DeleteReplicationGroupMemberActionBuilder();
 
   DeleteReplicationGroupMemberActionBuilder get _$this {
     final $v = _$v;

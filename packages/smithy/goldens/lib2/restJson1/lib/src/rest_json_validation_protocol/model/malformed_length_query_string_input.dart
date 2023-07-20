@@ -45,8 +45,6 @@ abstract class MalformedLengthQueryStringInput
           _i1.SmithySerializer<MalformedLengthQueryStringInputPayload>>
       serializers = [MalformedLengthQueryStringInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedLengthQueryStringInputBuilder b) {}
   String? get string;
   @override
   MalformedLengthQueryStringInputPayload getPayload() =>
@@ -79,8 +77,6 @@ abstract class MalformedLengthQueryStringInputPayload
 
   const MalformedLengthQueryStringInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedLengthQueryStringInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

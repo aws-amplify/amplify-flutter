@@ -87,9 +87,7 @@ class DocumentationPartLocationBuilder
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
-  DocumentationPartLocationBuilder() {
-    DocumentationPartLocation._init(this);
-  }
+  DocumentationPartLocationBuilder();
 
   DocumentationPartLocationBuilder get _$this {
     final $v = _$v;

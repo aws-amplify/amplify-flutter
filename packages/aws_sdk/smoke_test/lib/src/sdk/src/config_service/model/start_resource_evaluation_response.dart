@@ -37,9 +37,6 @@ abstract class StartResourceEvaluationResponse
   static const List<_i2.SmithySerializer<StartResourceEvaluationResponse>>
       serializers = [StartResourceEvaluationResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StartResourceEvaluationResponseBuilder b) {}
-
   /// A unique ResourceEvaluationId that is associated with a single execution.
   String? get resourceEvaluationId;
   @override

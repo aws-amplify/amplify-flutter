@@ -50,9 +50,6 @@ abstract class SdkType
     SdkTypeRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SdkTypeBuilder b) {}
-
   /// The identifier of an SdkType instance.
   String? get id;
 

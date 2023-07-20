@@ -54,9 +54,7 @@ class TagBuilder implements Builder<Tag, TagBuilder> {
   String? get value => _$this._value;
   set value(String? value) => _$this._value = value;
 
-  TagBuilder() {
-    Tag._init(this);
-  }
+  TagBuilder();
 
   TagBuilder get _$this {
     final $v = _$v;

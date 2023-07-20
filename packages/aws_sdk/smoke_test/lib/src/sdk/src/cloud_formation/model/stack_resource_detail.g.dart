@@ -170,9 +170,7 @@ class StackResourceDetailBuilder
   set moduleInfo(_i4.ModuleInfoBuilder? moduleInfo) =>
       _$this._moduleInfo = moduleInfo;
 
-  StackResourceDetailBuilder() {
-    StackResourceDetail._init(this);
-  }
+  StackResourceDetailBuilder();
 
   StackResourceDetailBuilder get _$this {
     final $v = _$v;

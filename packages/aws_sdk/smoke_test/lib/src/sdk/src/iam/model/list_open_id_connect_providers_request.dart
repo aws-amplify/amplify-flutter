@@ -38,8 +38,6 @@ abstract class ListOpenIdConnectProvidersRequest
   static const List<_i1.SmithySerializer<ListOpenIdConnectProvidersRequest>>
       serializers = [ListOpenIdConnectProvidersRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListOpenIdConnectProvidersRequestBuilder b) {}
   @override
   ListOpenIdConnectProvidersRequest getPayload() => this;
   @override

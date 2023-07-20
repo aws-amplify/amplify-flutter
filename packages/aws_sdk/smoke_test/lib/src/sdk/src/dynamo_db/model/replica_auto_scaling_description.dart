@@ -58,9 +58,6 @@ abstract class ReplicaAutoScalingDescription
   static const List<_i6.SmithySerializer<ReplicaAutoScalingDescription>>
       serializers = [ReplicaAutoScalingDescriptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicaAutoScalingDescriptionBuilder b) {}
-
   /// The Region where the replica exists.
   String? get regionName;
 

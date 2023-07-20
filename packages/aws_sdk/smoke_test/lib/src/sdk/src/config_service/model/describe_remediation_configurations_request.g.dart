@@ -61,9 +61,7 @@ class DescribeRemediationConfigurationsRequestBuilder
   set configRuleNames(_i3.ListBuilder<String>? configRuleNames) =>
       _$this._configRuleNames = configRuleNames;
 
-  DescribeRemediationConfigurationsRequestBuilder() {
-    DescribeRemediationConfigurationsRequest._init(this);
-  }
+  DescribeRemediationConfigurationsRequestBuilder();
 
   DescribeRemediationConfigurationsRequestBuilder get _$this {
     final $v = _$v;

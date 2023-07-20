@@ -67,9 +67,6 @@ abstract class BaseConfigurationItem
     BaseConfigurationItemAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BaseConfigurationItemBuilder b) {}
-
   /// The version number of the resource configuration.
   String? get version;
 

@@ -55,9 +55,7 @@ class StartConfigRulesEvaluationRequestBuilder
   set configRuleNames(_i3.ListBuilder<String>? configRuleNames) =>
       _$this._configRuleNames = configRuleNames;
 
-  StartConfigRulesEvaluationRequestBuilder() {
-    StartConfigRulesEvaluationRequest._init(this);
-  }
+  StartConfigRulesEvaluationRequestBuilder();
 
   StartConfigRulesEvaluationRequestBuilder get _$this {
     final $v = _$v;

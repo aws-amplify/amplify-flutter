@@ -106,8 +106,6 @@ abstract class SimpleScalarPropertiesInputOutput
           _i1.SmithySerializer<SimpleScalarPropertiesInputOutputPayload>>
       serializers = [SimpleScalarPropertiesInputOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SimpleScalarPropertiesInputOutputBuilder b) {}
   String? get foo;
   String? get stringValue;
   bool? get trueBooleanValue;
@@ -214,8 +212,6 @@ abstract class SimpleScalarPropertiesInputOutputPayload
 
   const SimpleScalarPropertiesInputOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SimpleScalarPropertiesInputOutputPayloadBuilder b) {}
   int? get byteValue;
   double? get doubleValue;
   bool? get falseBooleanValue;

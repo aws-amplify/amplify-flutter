@@ -46,9 +46,6 @@ abstract class GenerateCredentialReportResponse
   static const List<_i3.SmithySerializer<GenerateCredentialReportResponse>>
       serializers = [GenerateCredentialReportResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GenerateCredentialReportResponseBuilder b) {}
-
   /// Information about the state of the credential report.
   _i2.ReportStateType? get state;
 

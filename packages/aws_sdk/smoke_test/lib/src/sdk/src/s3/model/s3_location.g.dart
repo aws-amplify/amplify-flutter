@@ -123,9 +123,7 @@ class S3LocationBuilder implements Builder<S3Location, S3LocationBuilder> {
   set storageClass(_i7.StorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
-  S3LocationBuilder() {
-    S3Location._init(this);
-  }
+  S3LocationBuilder();
 
   S3LocationBuilder get _$this {
     final $v = _$v;

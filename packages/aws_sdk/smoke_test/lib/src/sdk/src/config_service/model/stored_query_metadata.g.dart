@@ -85,9 +85,7 @@ class StoredQueryMetadataBuilder
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  StoredQueryMetadataBuilder() {
-    StoredQueryMetadata._init(this);
-  }
+  StoredQueryMetadataBuilder();
 
   StoredQueryMetadataBuilder get _$this {
     final $v = _$v;

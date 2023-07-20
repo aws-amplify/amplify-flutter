@@ -68,9 +68,7 @@ class BatchExecuteStatementInputBuilder
           _i4.ReturnConsumedCapacity? returnConsumedCapacity) =>
       _$this._returnConsumedCapacity = returnConsumedCapacity;
 
-  BatchExecuteStatementInputBuilder() {
-    BatchExecuteStatementInput._init(this);
-  }
+  BatchExecuteStatementInputBuilder();
 
   BatchExecuteStatementInputBuilder get _$this {
     final $v = _$v;

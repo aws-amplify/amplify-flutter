@@ -60,9 +60,7 @@ class DeleteOpenIdConnectProviderRequestBuilder
   set openIdConnectProviderArn(String? openIdConnectProviderArn) =>
       _$this._openIdConnectProviderArn = openIdConnectProviderArn;
 
-  DeleteOpenIdConnectProviderRequestBuilder() {
-    DeleteOpenIdConnectProviderRequest._init(this);
-  }
+  DeleteOpenIdConnectProviderRequestBuilder();
 
   DeleteOpenIdConnectProviderRequestBuilder get _$this {
     final $v = _$v;

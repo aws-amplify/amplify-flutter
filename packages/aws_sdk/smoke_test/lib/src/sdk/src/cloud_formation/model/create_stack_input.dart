@@ -84,9 +84,6 @@ abstract class CreateStackInput
     CreateStackInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateStackInputBuilder b) {}
-
   /// The name that's associated with the stack. The name must be unique in the Region in which you are creating the stack.
   ///
   /// A stack name can contain only alphanumeric characters (case sensitive) and hyphens. It must start with an alphabetical character and can't be longer than 128 characters.

@@ -67,9 +67,6 @@ abstract class GetExportRequest
   static const List<_i1.SmithySerializer<GetExportRequestPayload>> serializers =
       [GetExportRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetExportRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -149,8 +146,6 @@ abstract class GetExportRequestPayload
 
   const GetExportRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetExportRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

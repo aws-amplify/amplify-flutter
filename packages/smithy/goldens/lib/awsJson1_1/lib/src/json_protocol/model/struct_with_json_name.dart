@@ -27,8 +27,6 @@ abstract class StructWithJsonName
     StructWithJsonNameAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StructWithJsonNameBuilder b) {}
   String? get value;
   @override
   List<Object?> get props => [value];

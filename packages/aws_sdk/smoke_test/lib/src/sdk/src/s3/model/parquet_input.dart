@@ -29,8 +29,6 @@ abstract class ParquetInput
     ParquetInputRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ParquetInputBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

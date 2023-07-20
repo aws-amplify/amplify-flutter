@@ -42,9 +42,6 @@ abstract class BatchGetResourceConfigRequest
   static const List<_i1.SmithySerializer<BatchGetResourceConfigRequest>>
       serializers = [BatchGetResourceConfigRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BatchGetResourceConfigRequestBuilder b) {}
-
   /// A list of resource keys to be processed with the current request. Each element in the list consists of the resource type and resource ID.
   _i4.BuiltList<_i3.ResourceKey> get resourceKeys;
   @override

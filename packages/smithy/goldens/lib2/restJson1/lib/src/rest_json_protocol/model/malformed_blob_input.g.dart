@@ -48,9 +48,7 @@ class MalformedBlobInputBuilder
   _i3.Uint8List? get blob => _$this._blob;
   set blob(_i3.Uint8List? blob) => _$this._blob = blob;
 
-  MalformedBlobInputBuilder() {
-    MalformedBlobInput._init(this);
-  }
+  MalformedBlobInputBuilder();
 
   MalformedBlobInputBuilder get _$this {
     final $v = _$v;

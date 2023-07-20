@@ -64,9 +64,7 @@ class DeleteBucketTaggingRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  DeleteBucketTaggingRequestBuilder() {
-    DeleteBucketTaggingRequest._init(this);
-  }
+  DeleteBucketTaggingRequestBuilder();
 
   DeleteBucketTaggingRequestBuilder get _$this {
     final $v = _$v;
@@ -139,9 +137,7 @@ class DeleteBucketTaggingRequestPayloadBuilder
             DeleteBucketTaggingRequestPayloadBuilder> {
   _$DeleteBucketTaggingRequestPayload? _$v;
 
-  DeleteBucketTaggingRequestPayloadBuilder() {
-    DeleteBucketTaggingRequestPayload._init(this);
-  }
+  DeleteBucketTaggingRequestPayloadBuilder();
 
   @override
   void replace(DeleteBucketTaggingRequestPayload other) {

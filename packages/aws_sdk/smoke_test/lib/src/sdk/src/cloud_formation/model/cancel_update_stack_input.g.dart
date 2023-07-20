@@ -62,9 +62,7 @@ class CancelUpdateStackInputBuilder
   set clientRequestToken(String? clientRequestToken) =>
       _$this._clientRequestToken = clientRequestToken;
 
-  CancelUpdateStackInputBuilder() {
-    CancelUpdateStackInput._init(this);
-  }
+  CancelUpdateStackInputBuilder();
 
   CancelUpdateStackInputBuilder get _$this {
     final $v = _$v;

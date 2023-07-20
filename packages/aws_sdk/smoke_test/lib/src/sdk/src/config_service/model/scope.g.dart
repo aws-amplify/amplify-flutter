@@ -78,9 +78,7 @@ class ScopeBuilder implements Builder<Scope, ScopeBuilder> {
   set complianceResourceId(String? complianceResourceId) =>
       _$this._complianceResourceId = complianceResourceId;
 
-  ScopeBuilder() {
-    Scope._init(this);
-  }
+  ScopeBuilder();
 
   ScopeBuilder get _$this {
     final $v = _$v;

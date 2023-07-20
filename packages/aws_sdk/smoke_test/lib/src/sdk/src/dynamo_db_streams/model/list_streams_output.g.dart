@@ -60,9 +60,7 @@ class ListStreamsOutputBuilder
   set lastEvaluatedStreamArn(String? lastEvaluatedStreamArn) =>
       _$this._lastEvaluatedStreamArn = lastEvaluatedStreamArn;
 
-  ListStreamsOutputBuilder() {
-    ListStreamsOutput._init(this);
-  }
+  ListStreamsOutputBuilder();
 
   ListStreamsOutputBuilder get _$this {
     final $v = _$v;

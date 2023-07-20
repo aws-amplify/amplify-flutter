@@ -33,9 +33,6 @@ abstract class PublishTypeOutput
     PublishTypeOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PublishTypeOutputBuilder b) {}
-
   /// The Amazon Resource Name (ARN) assigned to the public extension upon publication.
   String? get publicTypeArn;
   @override

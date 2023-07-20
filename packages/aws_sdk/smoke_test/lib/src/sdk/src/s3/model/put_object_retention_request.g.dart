@@ -135,9 +135,7 @@ class PutObjectRetentionRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  PutObjectRetentionRequestBuilder() {
-    PutObjectRetentionRequest._init(this);
-  }
+  PutObjectRetentionRequestBuilder();
 
   PutObjectRetentionRequestBuilder get _$this {
     final $v = _$v;

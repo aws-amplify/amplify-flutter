@@ -41,8 +41,6 @@ abstract class InvalidExportTimeException
   static const List<_i2.SmithySerializer<InvalidExportTimeException>>
       serializers = [InvalidExportTimeExceptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidExportTimeExceptionBuilder b) {}
   @override
   String? get message;
   @override

@@ -44,9 +44,6 @@ abstract class ExternalEvaluation
     ExternalEvaluationAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ExternalEvaluationBuilder b) {}
-
   /// The evaluated compliance resource type. Config accepts `AWS::::Account` resource type.
   String get complianceResourceType;
 

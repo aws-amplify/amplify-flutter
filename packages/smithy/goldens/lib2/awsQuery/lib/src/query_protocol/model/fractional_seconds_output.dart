@@ -39,8 +39,6 @@ abstract class FractionalSecondsOutput
   static const List<_i2.SmithySerializer<FractionalSecondsOutput>> serializers =
       [FractionalSecondsOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(FractionalSecondsOutputBuilder b) {}
   DateTime? get datetime;
   DateTime? get httpdate;
   @override

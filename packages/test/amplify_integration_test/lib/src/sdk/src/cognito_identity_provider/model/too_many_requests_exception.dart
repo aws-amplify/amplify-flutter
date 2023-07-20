@@ -40,9 +40,6 @@ abstract class TooManyRequestsException
   static const List<_i2.SmithySerializer<TooManyRequestsException>>
       serializers = [TooManyRequestsExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TooManyRequestsExceptionBuilder b) {}
-
   /// The message returned when the Amazon Cognito service returns a too many requests exception.
   @override
   String? get message;

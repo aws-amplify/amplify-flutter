@@ -57,9 +57,6 @@ abstract class CreateResourceRequest
   static const List<_i1.SmithySerializer<CreateResourceRequestPayload>>
       serializers = [CreateResourceRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateResourceRequestBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String get restApiId;
 
@@ -124,9 +121,6 @@ abstract class CreateResourceRequestPayload
       _$CreateResourceRequestPayload;
 
   const CreateResourceRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateResourceRequestPayloadBuilder b) {}
 
   /// The last path segment for this resource.
   String get pathPart;

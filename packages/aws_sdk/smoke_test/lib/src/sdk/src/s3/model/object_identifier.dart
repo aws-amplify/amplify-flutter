@@ -35,9 +35,6 @@ abstract class ObjectIdentifier
     ObjectIdentifierRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ObjectIdentifierBuilder b) {}
-
   /// Key name of the object.
   ///
   /// Replacement must be made for object keys containing special characters (such as carriage returns) when using XML requests. For more information, see [XML related object key constraints](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints).

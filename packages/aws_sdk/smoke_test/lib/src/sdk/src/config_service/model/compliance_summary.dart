@@ -39,9 +39,6 @@ abstract class ComplianceSummary
     ComplianceSummaryAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ComplianceSummaryBuilder b) {}
-
   /// The number of Config rules or Amazon Web Services resources that are compliant, up to a maximum of 25 for rules and 100 for resources.
   _i2.ComplianceContributorCount? get compliantResourceCount;
 

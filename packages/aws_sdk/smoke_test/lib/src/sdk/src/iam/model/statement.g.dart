@@ -80,9 +80,7 @@ class StatementBuilder implements Builder<Statement, StatementBuilder> {
   set endPosition(_i3.PositionBuilder? endPosition) =>
       _$this._endPosition = endPosition;
 
-  StatementBuilder() {
-    Statement._init(this);
-  }
+  StatementBuilder();
 
   StatementBuilder get _$this {
     final $v = _$v;

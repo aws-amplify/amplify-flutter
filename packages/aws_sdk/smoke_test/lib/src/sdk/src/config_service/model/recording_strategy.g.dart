@@ -47,9 +47,7 @@ class RecordingStrategyBuilder
   _i2.RecordingStrategyType? get useOnly => _$this._useOnly;
   set useOnly(_i2.RecordingStrategyType? useOnly) => _$this._useOnly = useOnly;
 
-  RecordingStrategyBuilder() {
-    RecordingStrategy._init(this);
-  }
+  RecordingStrategyBuilder();
 
   RecordingStrategyBuilder get _$this {
     final $v = _$v;

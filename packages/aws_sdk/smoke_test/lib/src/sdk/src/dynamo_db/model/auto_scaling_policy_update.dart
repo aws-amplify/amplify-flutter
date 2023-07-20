@@ -39,9 +39,6 @@ abstract class AutoScalingPolicyUpdate
   static const List<_i3.SmithySerializer<AutoScalingPolicyUpdate>> serializers =
       [AutoScalingPolicyUpdateAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AutoScalingPolicyUpdateBuilder b) {}
-
   /// The name of the scaling policy.
   String? get policyName;
 

@@ -74,9 +74,7 @@ class DeleteBucketIntelligentTieringConfigurationRequestBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  DeleteBucketIntelligentTieringConfigurationRequestBuilder() {
-    DeleteBucketIntelligentTieringConfigurationRequest._init(this);
-  }
+  DeleteBucketIntelligentTieringConfigurationRequestBuilder();
 
   DeleteBucketIntelligentTieringConfigurationRequestBuilder get _$this {
     final $v = _$v;
@@ -161,9 +159,7 @@ class DeleteBucketIntelligentTieringConfigurationRequestPayloadBuilder
             DeleteBucketIntelligentTieringConfigurationRequestPayloadBuilder> {
   _$DeleteBucketIntelligentTieringConfigurationRequestPayload? _$v;
 
-  DeleteBucketIntelligentTieringConfigurationRequestPayloadBuilder() {
-    DeleteBucketIntelligentTieringConfigurationRequestPayload._init(this);
-  }
+  DeleteBucketIntelligentTieringConfigurationRequestPayloadBuilder();
 
   @override
   void replace(

@@ -47,9 +47,6 @@ abstract class SetStackPolicyInput
     SetStackPolicyInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SetStackPolicyInputBuilder b) {}
-
   /// The name or unique stack ID that you want to associate a policy with.
   String get stackName;
 

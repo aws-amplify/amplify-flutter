@@ -45,9 +45,6 @@ abstract class ListStoredQueriesResponse
   static const List<_i4.SmithySerializer<ListStoredQueriesResponse>>
       serializers = [ListStoredQueriesResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListStoredQueriesResponseBuilder b) {}
-
   /// A list of `StoredQueryMetadata` objects.
   _i3.BuiltList<_i2.StoredQueryMetadata>? get storedQueryMetadata;
 

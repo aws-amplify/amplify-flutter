@@ -62,9 +62,7 @@ class ExportNotFoundExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ExportNotFoundExceptionBuilder() {
-    ExportNotFoundException._init(this);
-  }
+  ExportNotFoundExceptionBuilder();
 
   ExportNotFoundExceptionBuilder get _$this {
     final $v = _$v;

@@ -64,9 +64,7 @@ class UntagMfaDeviceRequestBuilder
       _$this._tagKeys ??= new _i3.ListBuilder<String>();
   set tagKeys(_i3.ListBuilder<String>? tagKeys) => _$this._tagKeys = tagKeys;
 
-  UntagMfaDeviceRequestBuilder() {
-    UntagMfaDeviceRequest._init(this);
-  }
+  UntagMfaDeviceRequestBuilder();
 
   UntagMfaDeviceRequestBuilder get _$this {
     final $v = _$v;

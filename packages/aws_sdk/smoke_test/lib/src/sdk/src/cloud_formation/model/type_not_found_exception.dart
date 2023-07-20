@@ -41,8 +41,6 @@ abstract class TypeNotFoundException
     TypeNotFoundExceptionAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TypeNotFoundExceptionBuilder b) {}
   @override
   String? get message;
   @override

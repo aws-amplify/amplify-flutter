@@ -108,9 +108,7 @@ class PutBucketVersioningRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  PutBucketVersioningRequestBuilder() {
-    PutBucketVersioningRequest._init(this);
-  }
+  PutBucketVersioningRequestBuilder();
 
   PutBucketVersioningRequestBuilder get _$this {
     final $v = _$v;

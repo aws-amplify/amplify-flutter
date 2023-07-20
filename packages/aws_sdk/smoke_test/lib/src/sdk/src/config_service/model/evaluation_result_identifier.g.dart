@@ -76,9 +76,7 @@ class EvaluationResultIdentifierBuilder
   set resourceEvaluationId(String? resourceEvaluationId) =>
       _$this._resourceEvaluationId = resourceEvaluationId;
 
-  EvaluationResultIdentifierBuilder() {
-    EvaluationResultIdentifier._init(this);
-  }
+  EvaluationResultIdentifierBuilder();
 
   EvaluationResultIdentifierBuilder get _$this {
     final $v = _$v;

@@ -60,9 +60,6 @@ abstract class ResourceChange
     ResourceChangeAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceChangeBuilder b) {}
-
   /// The action that CloudFormation takes on the resource, such as `Add` (adds a new resource), `Modify` (changes a resource), `Remove` (deletes a resource), `Import` (imports a resource), or `Dynamic` (exact action for the resource can't be determined).
   _i2.ChangeAction? get action;
 

@@ -37,8 +37,6 @@ abstract class EmptyInputAndEmptyOutputOutput
   static const List<_i2.SmithySerializer<EmptyInputAndEmptyOutputOutput>>
       serializers = [EmptyInputAndEmptyOutputOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EmptyInputAndEmptyOutputOutputBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

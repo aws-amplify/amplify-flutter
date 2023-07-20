@@ -89,9 +89,6 @@ abstract class Stack
     StackAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackBuilder b) {}
-
   /// Unique identifier of the stack.
   String? get stackId;
 

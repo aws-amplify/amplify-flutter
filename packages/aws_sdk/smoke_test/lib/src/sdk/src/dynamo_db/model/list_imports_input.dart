@@ -41,9 +41,6 @@ abstract class ListImportsInput
     ListImportsInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListImportsInputBuilder b) {}
-
   /// The Amazon Resource Name (ARN) associated with the table that was imported to.
   String? get tableArn;
 

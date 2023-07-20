@@ -46,9 +46,6 @@ abstract class DeactivateTypeInput
     DeactivateTypeInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeactivateTypeInputBuilder b) {}
-
   /// The type name of the extension, in this account and Region. If you specified a type name alias when enabling the extension, use the type name alias.
   ///
   /// Conditional: You must specify either `Arn`, or `TypeName` and `Type`.

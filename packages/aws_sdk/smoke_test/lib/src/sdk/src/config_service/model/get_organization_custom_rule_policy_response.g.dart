@@ -55,9 +55,7 @@ class GetOrganizationCustomRulePolicyResponseBuilder
   String? get policyText => _$this._policyText;
   set policyText(String? policyText) => _$this._policyText = policyText;
 
-  GetOrganizationCustomRulePolicyResponseBuilder() {
-    GetOrganizationCustomRulePolicyResponse._init(this);
-  }
+  GetOrganizationCustomRulePolicyResponseBuilder();
 
   GetOrganizationCustomRulePolicyResponseBuilder get _$this {
     final $v = _$v;

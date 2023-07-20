@@ -46,9 +46,7 @@ class XmlBlobsOutputBuilder
   _i2.Uint8List? get data => _$this._data;
   set data(_i2.Uint8List? data) => _$this._data = data;
 
-  XmlBlobsOutputBuilder() {
-    XmlBlobsOutput._init(this);
-  }
+  XmlBlobsOutputBuilder();
 
   XmlBlobsOutputBuilder get _$this {
     final $v = _$v;

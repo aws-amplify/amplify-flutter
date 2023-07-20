@@ -76,9 +76,7 @@ class UpdateServerCertificateRequestBuilder
   set newServerCertificateName(String? newServerCertificateName) =>
       _$this._newServerCertificateName = newServerCertificateName;
 
-  UpdateServerCertificateRequestBuilder() {
-    UpdateServerCertificateRequest._init(this);
-  }
+  UpdateServerCertificateRequestBuilder();
 
   UpdateServerCertificateRequestBuilder get _$this {
     final $v = _$v;

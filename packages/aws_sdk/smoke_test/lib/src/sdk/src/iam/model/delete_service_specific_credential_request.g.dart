@@ -72,9 +72,7 @@ class DeleteServiceSpecificCredentialRequestBuilder
   set serviceSpecificCredentialId(String? serviceSpecificCredentialId) =>
       _$this._serviceSpecificCredentialId = serviceSpecificCredentialId;
 
-  DeleteServiceSpecificCredentialRequestBuilder() {
-    DeleteServiceSpecificCredentialRequest._init(this);
-  }
+  DeleteServiceSpecificCredentialRequestBuilder();
 
   DeleteServiceSpecificCredentialRequestBuilder get _$this {
     final $v = _$v;

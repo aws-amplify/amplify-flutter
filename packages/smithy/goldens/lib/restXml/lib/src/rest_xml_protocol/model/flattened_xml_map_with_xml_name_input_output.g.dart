@@ -56,9 +56,7 @@ class FlattenedXmlMapWithXmlNameInputOutputBuilder
       _$this._myMap ??= new _i3.MapBuilder<String, String>();
   set myMap(_i3.MapBuilder<String, String>? myMap) => _$this._myMap = myMap;
 
-  FlattenedXmlMapWithXmlNameInputOutputBuilder() {
-    FlattenedXmlMapWithXmlNameInputOutput._init(this);
-  }
+  FlattenedXmlMapWithXmlNameInputOutputBuilder();
 
   FlattenedXmlMapWithXmlNameInputOutputBuilder get _$this {
     final $v = _$v;

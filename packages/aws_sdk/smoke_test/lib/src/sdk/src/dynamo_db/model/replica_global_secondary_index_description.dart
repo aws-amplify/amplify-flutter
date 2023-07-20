@@ -43,9 +43,6 @@ abstract class ReplicaGlobalSecondaryIndexDescription
     ReplicaGlobalSecondaryIndexDescriptionAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicaGlobalSecondaryIndexDescriptionBuilder b) {}
-
   /// The name of the global secondary index.
   String? get indexName;
 

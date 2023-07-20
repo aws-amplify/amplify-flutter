@@ -59,9 +59,6 @@ abstract class DeleteObjectsOutput
   static const List<_i2.SmithySerializer<DeleteObjectsOutputPayload>>
       serializers = [DeleteObjectsOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteObjectsOutputBuilder b) {}
-
   /// Container element for a successful delete. It identifies the object that was successfully deleted.
   _i6.BuiltList<_i3.DeletedObject>? get deleted;
 
@@ -114,9 +111,6 @@ abstract class DeleteObjectsOutputPayload
       _$DeleteObjectsOutputPayload;
 
   const DeleteObjectsOutputPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteObjectsOutputPayloadBuilder b) {}
 
   /// Container element for a successful delete. It identifies the object that was successfully deleted.
   _i6.BuiltList<_i3.DeletedObject>? get deleted;

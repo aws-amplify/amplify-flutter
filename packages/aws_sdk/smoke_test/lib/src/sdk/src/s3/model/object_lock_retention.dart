@@ -38,9 +38,6 @@ abstract class ObjectLockRetention
     ObjectLockRetentionRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ObjectLockRetentionBuilder b) {}
-
   /// Indicates the Retention mode for the specified object.
   _i2.ObjectLockRetentionMode? get mode;
 

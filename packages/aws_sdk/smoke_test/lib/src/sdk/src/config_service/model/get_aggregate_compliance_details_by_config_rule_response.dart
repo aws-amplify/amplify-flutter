@@ -50,10 +50,6 @@ abstract class GetAggregateComplianceDetailsByConfigRuleResponse
     GetAggregateComplianceDetailsByConfigRuleResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      GetAggregateComplianceDetailsByConfigRuleResponseBuilder b) {}
-
   /// Returns an AggregateEvaluationResults object.
   _i3.BuiltList<_i2.AggregateEvaluationResult>? get aggregateEvaluationResults;
 

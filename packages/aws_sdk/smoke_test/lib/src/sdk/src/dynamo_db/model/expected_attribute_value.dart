@@ -66,9 +66,6 @@ abstract class ExpectedAttributeValue
   static const List<_i5.SmithySerializer<ExpectedAttributeValue>> serializers =
       [ExpectedAttributeValueAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ExpectedAttributeValueBuilder b) {}
-
   /// Represents the data for the expected attribute.
   ///
   /// Each attribute value is described as a name-value pair. The name is the data type, and the value is the data itself.

@@ -61,9 +61,6 @@ abstract class GlobalSecondaryIndexDescription
   static const List<_i8.SmithySerializer<GlobalSecondaryIndexDescription>>
       serializers = [GlobalSecondaryIndexDescriptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GlobalSecondaryIndexDescriptionBuilder b) {}
-
   /// The name of the global secondary index.
   String? get indexName;
 

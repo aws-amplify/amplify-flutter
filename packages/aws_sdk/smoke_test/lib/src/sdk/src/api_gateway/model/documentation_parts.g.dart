@@ -59,9 +59,7 @@ class DocumentationPartsBuilder
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  DocumentationPartsBuilder() {
-    DocumentationParts._init(this);
-  }
+  DocumentationPartsBuilder();
 
   DocumentationPartsBuilder get _$this {
     final $v = _$v;

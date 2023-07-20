@@ -49,9 +49,6 @@ abstract class CreateOpenIdConnectProviderRequest
   static const List<_i1.SmithySerializer<CreateOpenIdConnectProviderRequest>>
       serializers = [CreateOpenIdConnectProviderRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateOpenIdConnectProviderRequestBuilder b) {}
-
   /// The URL of the identity provider. The URL must begin with `https://` and should correspond to the `iss` claim in the provider's OpenID Connect ID tokens. Per the OIDC standard, path components are allowed but query parameters are not. Typically the URL consists of only a hostname, like `https://server.example.org` or `https://example.com`. The URL should not contain a port number.
   ///
   /// You cannot register the same provider multiple times in a single Amazon Web Services account. If you try to submit a URL that has already been used for an OpenID Connect provider in the Amazon Web Services account, you will get an error.

@@ -46,9 +46,6 @@ abstract class KinesisStreamingDestinationOutput
   static const List<_i3.SmithySerializer<KinesisStreamingDestinationOutput>>
       serializers = [KinesisStreamingDestinationOutputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(KinesisStreamingDestinationOutputBuilder b) {}
-
   /// The name of the table being modified.
   String? get tableName;
 

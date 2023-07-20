@@ -94,8 +94,6 @@ abstract class XmlListsInputOutput
     XmlListsInputOutputRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(XmlListsInputOutputBuilder b) {}
   _i6.BuiltList<String>? get stringList;
   _i6.BuiltSet<String>? get stringSet;
   _i6.BuiltList<int>? get integerList;

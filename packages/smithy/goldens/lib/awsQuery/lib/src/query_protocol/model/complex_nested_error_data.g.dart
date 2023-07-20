@@ -48,9 +48,7 @@ class ComplexNestedErrorDataBuilder
   String? get foo => _$this._foo;
   set foo(String? foo) => _$this._foo = foo;
 
-  ComplexNestedErrorDataBuilder() {
-    ComplexNestedErrorData._init(this);
-  }
+  ComplexNestedErrorDataBuilder();
 
   ComplexNestedErrorDataBuilder get _$this {
     final $v = _$v;

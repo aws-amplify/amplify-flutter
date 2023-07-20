@@ -62,9 +62,7 @@ class TrimmedDataAccessExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  TrimmedDataAccessExceptionBuilder() {
-    TrimmedDataAccessException._init(this);
-  }
+  TrimmedDataAccessExceptionBuilder();
 
   TrimmedDataAccessExceptionBuilder get _$this {
     final $v = _$v;

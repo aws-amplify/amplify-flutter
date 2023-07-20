@@ -31,9 +31,6 @@ abstract class InputFormatOptions
     InputFormatOptionsAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InputFormatOptionsBuilder b) {}
-
   /// The options for imported source files in CSV format. The values are Delimiter and HeaderList.
   _i2.CsvOptions? get csv;
   @override

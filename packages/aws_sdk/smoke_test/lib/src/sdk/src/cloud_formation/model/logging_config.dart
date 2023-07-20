@@ -35,9 +35,6 @@ abstract class LoggingConfig
     LoggingConfigAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(LoggingConfigBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the role that CloudFormation should assume when sending log entries to CloudWatch Logs.
   String get logRoleArn;
 

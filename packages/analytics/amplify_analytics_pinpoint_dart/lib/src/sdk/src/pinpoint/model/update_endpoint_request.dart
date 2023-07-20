@@ -56,9 +56,6 @@ abstract class UpdateEndpointRequest
     UpdateEndpointRequestRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateEndpointRequestBuilder b) {}
-
   /// The unique identifier for the application. This identifier is displayed as the **Project ID** on the Amazon Pinpoint console.
   String get applicationId;
 

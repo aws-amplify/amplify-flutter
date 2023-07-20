@@ -101,9 +101,7 @@ class AccessDetailBuilder
   set totalAuthenticatedEntities(int? totalAuthenticatedEntities) =>
       _$this._totalAuthenticatedEntities = totalAuthenticatedEntities;
 
-  AccessDetailBuilder() {
-    AccessDetail._init(this);
-  }
+  AccessDetailBuilder();
 
   AccessDetailBuilder get _$this {
     final $v = _$v;

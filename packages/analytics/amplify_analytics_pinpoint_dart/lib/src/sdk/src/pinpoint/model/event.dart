@@ -53,9 +53,6 @@ abstract class Event
     EventRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EventBuilder b) {}
-
   /// The package name of the app that's recording the event.
   String? get appPackageName;
 

@@ -46,9 +46,6 @@ abstract class UpdateContributorInsightsOutput
   static const List<_i3.SmithySerializer<UpdateContributorInsightsOutput>>
       serializers = [UpdateContributorInsightsOutputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateContributorInsightsOutputBuilder b) {}
-
   /// The name of the table.
   String? get tableName;
 

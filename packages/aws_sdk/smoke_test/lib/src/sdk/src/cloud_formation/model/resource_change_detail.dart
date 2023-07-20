@@ -46,9 +46,6 @@ abstract class ResourceChangeDetail
     ResourceChangeDetailAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceChangeDetailBuilder b) {}
-
   /// A `ResourceTargetDefinition` structure that describes the field that CloudFormation will change and whether the resource will be recreated.
   _i2.ResourceTargetDefinition? get target;
 

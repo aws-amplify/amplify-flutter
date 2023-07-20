@@ -54,9 +54,7 @@ class DetectStackDriftOutputBuilder
   set stackDriftDetectionId(String? stackDriftDetectionId) =>
       _$this._stackDriftDetectionId = stackDriftDetectionId;
 
-  DetectStackDriftOutputBuilder() {
-    DetectStackDriftOutput._init(this);
-  }
+  DetectStackDriftOutputBuilder();
 
   DetectStackDriftOutputBuilder get _$this {
     final $v = _$v;

@@ -30,9 +30,6 @@ abstract class OutputLocation
     OutputLocationRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OutputLocationBuilder b) {}
-
   /// Describes an S3 location that will receive the results of the restore request.
   _i2.S3Location? get s3;
   @override

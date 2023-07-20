@@ -57,9 +57,7 @@ class MalformedContentTypeWithoutBodyEmptyInputInputBuilder
   String? get header => _$this._header;
   set header(String? header) => _$this._header = header;
 
-  MalformedContentTypeWithoutBodyEmptyInputInputBuilder() {
-    MalformedContentTypeWithoutBodyEmptyInputInput._init(this);
-  }
+  MalformedContentTypeWithoutBodyEmptyInputInputBuilder();
 
   MalformedContentTypeWithoutBodyEmptyInputInputBuilder get _$this {
     final $v = _$v;
@@ -136,9 +134,7 @@ class MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder
             MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder> {
   _$MalformedContentTypeWithoutBodyEmptyInputInputPayload? _$v;
 
-  MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder() {
-    MalformedContentTypeWithoutBodyEmptyInputInputPayload._init(this);
-  }
+  MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder();
 
   @override
   void replace(MalformedContentTypeWithoutBodyEmptyInputInputPayload other) {

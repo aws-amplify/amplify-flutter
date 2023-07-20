@@ -121,9 +121,7 @@ class ConfigurationAggregatorBuilder
   String? get createdBy => _$this._createdBy;
   set createdBy(String? createdBy) => _$this._createdBy = createdBy;
 
-  ConfigurationAggregatorBuilder() {
-    ConfigurationAggregator._init(this);
-  }
+  ConfigurationAggregatorBuilder();
 
   ConfigurationAggregatorBuilder get _$this {
     final $v = _$v;

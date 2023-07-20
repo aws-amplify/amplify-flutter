@@ -52,9 +52,7 @@ class DescribeOrganizationsAccessOutputBuilder
   _i2.OrganizationStatus? get status => _$this._status;
   set status(_i2.OrganizationStatus? status) => _$this._status = status;
 
-  DescribeOrganizationsAccessOutputBuilder() {
-    DescribeOrganizationsAccessOutput._init(this);
-  }
+  DescribeOrganizationsAccessOutputBuilder();
 
   DescribeOrganizationsAccessOutputBuilder get _$this {
     final $v = _$v;

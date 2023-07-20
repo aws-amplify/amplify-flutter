@@ -43,9 +43,6 @@ abstract class CopyPartResult
     CopyPartResultRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CopyPartResultBuilder b) {}
-
   /// Entity tag of the object.
   String? get eTag;
 

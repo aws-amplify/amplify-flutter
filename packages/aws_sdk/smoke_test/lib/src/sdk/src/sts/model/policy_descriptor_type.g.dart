@@ -48,9 +48,7 @@ class PolicyDescriptorTypeBuilder
   String? get arn => _$this._arn;
   set arn(String? arn) => _$this._arn = arn;
 
-  PolicyDescriptorTypeBuilder() {
-    PolicyDescriptorType._init(this);
-  }
+  PolicyDescriptorTypeBuilder();
 
   PolicyDescriptorTypeBuilder get _$this {
     final $v = _$v;

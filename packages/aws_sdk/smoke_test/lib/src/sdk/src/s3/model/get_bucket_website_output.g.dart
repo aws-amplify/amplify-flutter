@@ -87,9 +87,7 @@ class GetBucketWebsiteOutputBuilder
   set routingRules(_i6.ListBuilder<_i5.RoutingRule>? routingRules) =>
       _$this._routingRules = routingRules;
 
-  GetBucketWebsiteOutputBuilder() {
-    GetBucketWebsiteOutput._init(this);
-  }
+  GetBucketWebsiteOutputBuilder();
 
   GetBucketWebsiteOutputBuilder get _$this {
     final $v = _$v;

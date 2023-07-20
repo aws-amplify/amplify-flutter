@@ -31,9 +31,6 @@ abstract class RecordsEvent
     RecordsEventRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RecordsEventBuilder b) {}
-
   /// The byte array of partial, one or more result records.
   _i2.Uint8List? get payload;
   @override

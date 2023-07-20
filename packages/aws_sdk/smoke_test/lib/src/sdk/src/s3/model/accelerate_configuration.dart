@@ -31,9 +31,6 @@ abstract class AccelerateConfiguration
   static const List<_i3.SmithySerializer<AccelerateConfiguration>> serializers =
       [AccelerateConfigurationRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AccelerateConfigurationBuilder b) {}
-
   /// Specifies the transfer acceleration status of the bucket.
   _i2.BucketAccelerateStatus? get status;
   @override

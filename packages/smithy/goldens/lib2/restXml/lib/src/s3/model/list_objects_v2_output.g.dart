@@ -157,9 +157,7 @@ class ListObjectsV2OutputBuilder
   String? get startAfter => _$this._startAfter;
   set startAfter(String? startAfter) => _$this._startAfter = startAfter;
 
-  ListObjectsV2OutputBuilder() {
-    ListObjectsV2Output._init(this);
-  }
+  ListObjectsV2OutputBuilder();
 
   ListObjectsV2OutputBuilder get _$this {
     final $v = _$v;

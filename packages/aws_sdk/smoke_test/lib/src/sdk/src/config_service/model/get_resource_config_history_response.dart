@@ -49,9 +49,6 @@ abstract class GetResourceConfigHistoryResponse
   static const List<_i4.SmithySerializer<GetResourceConfigHistoryResponse>>
       serializers = [GetResourceConfigHistoryResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetResourceConfigHistoryResponseBuilder b) {}
-
   /// A list that contains the configuration history of one or more resources.
   _i3.BuiltList<_i2.ConfigurationItem>? get configurationItems;
 

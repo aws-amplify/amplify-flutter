@@ -89,9 +89,7 @@ class EnableMfaDeviceRequestBuilder
   set authenticationCode2(String? authenticationCode2) =>
       _$this._authenticationCode2 = authenticationCode2;
 
-  EnableMfaDeviceRequestBuilder() {
-    EnableMfaDeviceRequest._init(this);
-  }
+  EnableMfaDeviceRequestBuilder();
 
   EnableMfaDeviceRequestBuilder get _$this {
     final $v = _$v;

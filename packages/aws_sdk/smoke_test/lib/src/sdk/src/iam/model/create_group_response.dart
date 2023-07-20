@@ -38,9 +38,6 @@ abstract class CreateGroupResponse
     CreateGroupResponseAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateGroupResponseBuilder b) {}
-
   /// A structure containing details about the new group.
   _i2.Group get group;
   @override

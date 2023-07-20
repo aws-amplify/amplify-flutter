@@ -184,9 +184,7 @@ class StackSetOperationBuilder
   set statusDetails(_i7.StackSetOperationStatusDetailsBuilder? statusDetails) =>
       _$this._statusDetails = statusDetails;
 
-  StackSetOperationBuilder() {
-    StackSetOperation._init(this);
-  }
+  StackSetOperationBuilder();
 
   StackSetOperationBuilder get _$this {
     final $v = _$v;

@@ -52,9 +52,7 @@ class CorsConfigurationBuilder
   set corsRules(_i3.ListBuilder<_i2.CorsRule>? corsRules) =>
       _$this._corsRules = corsRules;
 
-  CorsConfigurationBuilder() {
-    CorsConfiguration._init(this);
-  }
+  CorsConfigurationBuilder();
 
   CorsConfigurationBuilder get _$this {
     final $v = _$v;

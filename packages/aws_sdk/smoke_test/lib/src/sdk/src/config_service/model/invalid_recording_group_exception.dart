@@ -79,9 +79,6 @@ abstract class InvalidRecordingGroupException
   static const List<_i2.SmithySerializer<InvalidRecordingGroupException>>
       serializers = [InvalidRecordingGroupExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidRecordingGroupExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

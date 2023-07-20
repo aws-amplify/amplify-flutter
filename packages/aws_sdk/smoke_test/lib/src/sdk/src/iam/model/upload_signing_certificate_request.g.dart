@@ -66,9 +66,7 @@ class UploadSigningCertificateRequestBuilder
   set certificateBody(String? certificateBody) =>
       _$this._certificateBody = certificateBody;
 
-  UploadSigningCertificateRequestBuilder() {
-    UploadSigningCertificateRequest._init(this);
-  }
+  UploadSigningCertificateRequestBuilder();
 
   UploadSigningCertificateRequestBuilder get _$this {
     final $v = _$v;

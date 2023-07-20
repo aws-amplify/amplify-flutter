@@ -45,9 +45,6 @@ abstract class AdminListUserAuthEventsResponse
   static const List<_i4.SmithySerializer<AdminListUserAuthEventsResponse>>
       serializers = [AdminListUserAuthEventsResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AdminListUserAuthEventsResponseBuilder b) {}
-
   /// The response object. It includes the `EventID`, `EventType`, `CreationDate`, `EventRisk`, and `EventResponse`.
   _i3.BuiltList<_i2.AuthEventType>? get authEvents;
 

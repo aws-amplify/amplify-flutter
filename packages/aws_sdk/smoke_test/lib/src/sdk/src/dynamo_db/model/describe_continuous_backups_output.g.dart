@@ -58,9 +58,7 @@ class DescribeContinuousBackupsOutputBuilder
               continuousBackupsDescription) =>
       _$this._continuousBackupsDescription = continuousBackupsDescription;
 
-  DescribeContinuousBackupsOutputBuilder() {
-    DescribeContinuousBackupsOutput._init(this);
-  }
+  DescribeContinuousBackupsOutputBuilder();
 
   DescribeContinuousBackupsOutputBuilder get _$this {
     final $v = _$v;

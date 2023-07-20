@@ -54,9 +54,7 @@ class GetBucketReplicationOutputBuilder
           _i3.ReplicationConfigurationBuilder? replicationConfiguration) =>
       _$this._replicationConfiguration = replicationConfiguration;
 
-  GetBucketReplicationOutputBuilder() {
-    GetBucketReplicationOutput._init(this);
-  }
+  GetBucketReplicationOutputBuilder();
 
   GetBucketReplicationOutputBuilder get _$this {
     final $v = _$v;

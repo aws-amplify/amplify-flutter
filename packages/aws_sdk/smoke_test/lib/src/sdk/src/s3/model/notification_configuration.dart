@@ -62,9 +62,6 @@ abstract class NotificationConfiguration
   static const List<_i7.SmithySerializer<NotificationConfiguration>>
       serializers = [NotificationConfigurationRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NotificationConfigurationBuilder b) {}
-
   /// The topic to which notifications are sent and the events for which notifications are generated.
   _i6.BuiltList<_i2.TopicConfiguration>? get topicConfigurations;
 

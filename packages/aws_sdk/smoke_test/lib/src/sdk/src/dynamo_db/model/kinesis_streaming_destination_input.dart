@@ -43,9 +43,6 @@ abstract class KinesisStreamingDestinationInput
   static const List<_i1.SmithySerializer<KinesisStreamingDestinationInput>>
       serializers = [KinesisStreamingDestinationInputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(KinesisStreamingDestinationInputBuilder b) {}
-
   /// The name of the DynamoDB table.
   String get tableName;
 

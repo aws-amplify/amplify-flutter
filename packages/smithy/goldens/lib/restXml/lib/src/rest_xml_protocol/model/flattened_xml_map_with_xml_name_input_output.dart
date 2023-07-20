@@ -46,8 +46,6 @@ abstract class FlattenedXmlMapWithXmlNameInputOutput
   static const List<_i1.SmithySerializer<FlattenedXmlMapWithXmlNameInputOutput>>
       serializers = [FlattenedXmlMapWithXmlNameInputOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(FlattenedXmlMapWithXmlNameInputOutputBuilder b) {}
   _i3.BuiltMap<String, String>? get myMap;
   @override
   FlattenedXmlMapWithXmlNameInputOutput getPayload() => this;

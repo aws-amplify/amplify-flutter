@@ -99,9 +99,6 @@ abstract class ListObjectVersionsOutput
   static const List<_i2.SmithySerializer<ListObjectVersionsOutputPayload>>
       serializers = [ListObjectVersionsOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListObjectVersionsOutputBuilder b) {}
-
   /// A flag that indicates whether Amazon S3 returned all of the results that satisfied the search criteria. If your results were truncated, you can make a follow-up paginated request by using the `NextKeyMarker` and `NextVersionIdMarker` response parameters as a starting place in another request to return the rest of the results.
   bool? get isTruncated;
 
@@ -262,9 +259,6 @@ abstract class ListObjectVersionsOutputPayload
       _$ListObjectVersionsOutputPayload;
 
   const ListObjectVersionsOutputPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListObjectVersionsOutputPayloadBuilder b) {}
 
   /// All of the keys rolled up into a common prefix count as a single return when calculating the number of returns.
   _i8.BuiltList<_i5.CommonPrefix>? get commonPrefixes;

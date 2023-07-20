@@ -50,9 +50,7 @@ class GetBucketCorsOutputBuilder
   set corsRules(_i3.ListBuilder<_i2.CorsRule>? corsRules) =>
       _$this._corsRules = corsRules;
 
-  GetBucketCorsOutputBuilder() {
-    GetBucketCorsOutput._init(this);
-  }
+  GetBucketCorsOutputBuilder();
 
   GetBucketCorsOutputBuilder get _$this {
     final $v = _$v;

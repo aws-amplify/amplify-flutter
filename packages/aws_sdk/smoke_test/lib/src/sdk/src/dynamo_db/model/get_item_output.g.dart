@@ -58,9 +58,7 @@ class GetItemOutputBuilder
   set consumedCapacity(_i3.ConsumedCapacityBuilder? consumedCapacity) =>
       _$this._consumedCapacity = consumedCapacity;
 
-  GetItemOutputBuilder() {
-    GetItemOutput._init(this);
-  }
+  GetItemOutputBuilder();
 
   GetItemOutputBuilder get _$this {
     final $v = _$v;

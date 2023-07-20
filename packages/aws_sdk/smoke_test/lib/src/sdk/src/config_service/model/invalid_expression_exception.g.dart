@@ -62,9 +62,7 @@ class InvalidExpressionExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InvalidExpressionExceptionBuilder() {
-    InvalidExpressionException._init(this);
-  }
+  InvalidExpressionExceptionBuilder();
 
   InvalidExpressionExceptionBuilder get _$this {
     final $v = _$v;

@@ -87,9 +87,7 @@ class GetApiKeysRequestBuilder
   set includeValues(bool? includeValues) =>
       _$this._includeValues = includeValues;
 
-  GetApiKeysRequestBuilder() {
-    GetApiKeysRequest._init(this);
-  }
+  GetApiKeysRequestBuilder();
 
   GetApiKeysRequestBuilder get _$this {
     final $v = _$v;
@@ -164,9 +162,7 @@ class GetApiKeysRequestPayloadBuilder
         Builder<GetApiKeysRequestPayload, GetApiKeysRequestPayloadBuilder> {
   _$GetApiKeysRequestPayload? _$v;
 
-  GetApiKeysRequestPayloadBuilder() {
-    GetApiKeysRequestPayload._init(this);
-  }
+  GetApiKeysRequestPayloadBuilder();
 
   @override
   void replace(GetApiKeysRequestPayload other) {

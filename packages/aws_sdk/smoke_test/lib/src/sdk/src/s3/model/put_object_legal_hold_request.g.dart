@@ -125,9 +125,7 @@ class PutObjectLegalHoldRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  PutObjectLegalHoldRequestBuilder() {
-    PutObjectLegalHoldRequest._init(this);
-  }
+  PutObjectLegalHoldRequestBuilder();
 
   PutObjectLegalHoldRequestBuilder get _$this {
     final $v = _$v;

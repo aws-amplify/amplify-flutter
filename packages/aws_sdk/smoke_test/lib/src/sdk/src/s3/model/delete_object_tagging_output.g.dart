@@ -49,9 +49,7 @@ class DeleteObjectTaggingOutputBuilder
   String? get versionId => _$this._versionId;
   set versionId(String? versionId) => _$this._versionId = versionId;
 
-  DeleteObjectTaggingOutputBuilder() {
-    DeleteObjectTaggingOutput._init(this);
-  }
+  DeleteObjectTaggingOutputBuilder();
 
   DeleteObjectTaggingOutputBuilder get _$this {
     final $v = _$v;
@@ -119,9 +117,7 @@ class DeleteObjectTaggingOutputPayloadBuilder
             DeleteObjectTaggingOutputPayloadBuilder> {
   _$DeleteObjectTaggingOutputPayload? _$v;
 
-  DeleteObjectTaggingOutputPayloadBuilder() {
-    DeleteObjectTaggingOutputPayload._init(this);
-  }
+  DeleteObjectTaggingOutputPayloadBuilder();
 
   @override
   void replace(DeleteObjectTaggingOutputPayload other) {

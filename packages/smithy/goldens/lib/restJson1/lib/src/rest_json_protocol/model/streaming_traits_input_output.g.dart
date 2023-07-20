@@ -58,9 +58,7 @@ class StreamingTraitsInputOutputBuilder
   _i2.Stream<List<int>>? get blob => _$this._blob;
   set blob(_i2.Stream<List<int>>? blob) => _$this._blob = blob;
 
-  StreamingTraitsInputOutputBuilder() {
-    StreamingTraitsInputOutput._init(this);
-  }
+  StreamingTraitsInputOutputBuilder();
 
   StreamingTraitsInputOutputBuilder get _$this {
     final $v = _$v;

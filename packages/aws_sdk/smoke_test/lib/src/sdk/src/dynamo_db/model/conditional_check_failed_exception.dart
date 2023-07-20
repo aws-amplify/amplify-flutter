@@ -52,9 +52,6 @@ abstract class ConditionalCheckFailedException
   static const List<_i2.SmithySerializer<ConditionalCheckFailedException>>
       serializers = [ConditionalCheckFailedExceptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConditionalCheckFailedExceptionBuilder b) {}
-
   /// The conditional request failed.
   @override
   String? get message;

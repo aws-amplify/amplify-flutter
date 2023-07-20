@@ -52,9 +52,7 @@ class GetAccessKeyInfoRequestBuilder
   String? get accessKeyId => _$this._accessKeyId;
   set accessKeyId(String? accessKeyId) => _$this._accessKeyId = accessKeyId;
 
-  GetAccessKeyInfoRequestBuilder() {
-    GetAccessKeyInfoRequest._init(this);
-  }
+  GetAccessKeyInfoRequestBuilder();
 
   GetAccessKeyInfoRequestBuilder get _$this {
     final $v = _$v;

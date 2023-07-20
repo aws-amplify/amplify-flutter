@@ -45,8 +45,6 @@ abstract class HttpRequestWithRegexLiteralInput
           _i1.SmithySerializer<HttpRequestWithRegexLiteralInputPayload>>
       serializers = [HttpRequestWithRegexLiteralInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpRequestWithRegexLiteralInputBuilder b) {}
   String get str;
   @override
   String labelFor(String key) {
@@ -91,8 +89,6 @@ abstract class HttpRequestWithRegexLiteralInputPayload
 
   const HttpRequestWithRegexLiteralInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpRequestWithRegexLiteralInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -39,9 +39,6 @@ abstract class PutEventsResponse
     PutEventsResponseRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutEventsResponseBuilder b) {}
-
   /// Provides information about endpoints and the events that they're associated with.
   _i3.EventsResponse get eventsResponse;
   @override

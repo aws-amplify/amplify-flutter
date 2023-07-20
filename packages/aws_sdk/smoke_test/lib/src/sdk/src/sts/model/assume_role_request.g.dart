@@ -153,9 +153,7 @@ class AssumeRoleRequestBuilder
   set sourceIdentity(String? sourceIdentity) =>
       _$this._sourceIdentity = sourceIdentity;
 
-  AssumeRoleRequestBuilder() {
-    AssumeRoleRequest._init(this);
-  }
+  AssumeRoleRequestBuilder();
 
   AssumeRoleRequestBuilder get _$this {
     final $v = _$v;

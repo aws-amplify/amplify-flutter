@@ -43,9 +43,6 @@ abstract class CreateChangeSetOutput
     CreateChangeSetOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateChangeSetOutputBuilder b) {}
-
   /// The Amazon Resource Name (ARN) of the change set.
   String? get id;
 

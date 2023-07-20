@@ -28,8 +28,6 @@ abstract class EndEvent
     EndEventRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EndEventBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -41,9 +41,6 @@ abstract class AttachRolePolicyRequest
   static const List<_i1.SmithySerializer<AttachRolePolicyRequest>> serializers =
       [AttachRolePolicyRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AttachRolePolicyRequestBuilder b) {}
-
   /// The name (friendly name, not ARN) of the role to attach the policy to.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

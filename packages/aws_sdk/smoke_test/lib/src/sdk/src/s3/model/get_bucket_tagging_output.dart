@@ -35,9 +35,6 @@ abstract class GetBucketTaggingOutput
   static const List<_i4.SmithySerializer<GetBucketTaggingOutput>> serializers =
       [GetBucketTaggingOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketTaggingOutputBuilder b) {}
-
   /// Contains the tag set.
   _i3.BuiltList<_i2.Tag> get tagSet;
   @override

@@ -38,9 +38,6 @@ abstract class PhysicalResourceIdContextKeyValuePair
   static const List<_i2.SmithySerializer<PhysicalResourceIdContextKeyValuePair>>
       serializers = [PhysicalResourceIdContextKeyValuePairAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PhysicalResourceIdContextKeyValuePairBuilder b) {}
-
   /// The resource context key.
   String get key;
 

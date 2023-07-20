@@ -51,9 +51,7 @@ class GetUsagePlanRequestBuilder
   String? get usagePlanId => _$this._usagePlanId;
   set usagePlanId(String? usagePlanId) => _$this._usagePlanId = usagePlanId;
 
-  GetUsagePlanRequestBuilder() {
-    GetUsagePlanRequest._init(this);
-  }
+  GetUsagePlanRequestBuilder();
 
   GetUsagePlanRequestBuilder get _$this {
     final $v = _$v;
@@ -121,9 +119,7 @@ class GetUsagePlanRequestPayloadBuilder
         Builder<GetUsagePlanRequestPayload, GetUsagePlanRequestPayloadBuilder> {
   _$GetUsagePlanRequestPayload? _$v;
 
-  GetUsagePlanRequestPayloadBuilder() {
-    GetUsagePlanRequestPayload._init(this);
-  }
+  GetUsagePlanRequestPayloadBuilder();
 
   @override
   void replace(GetUsagePlanRequestPayload other) {

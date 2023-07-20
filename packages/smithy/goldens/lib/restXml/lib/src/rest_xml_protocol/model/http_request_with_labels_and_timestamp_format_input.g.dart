@@ -134,9 +134,7 @@ class HttpRequestWithLabelsAndTimestampFormatInputBuilder
   set targetDateTime(DateTime? targetDateTime) =>
       _$this._targetDateTime = targetDateTime;
 
-  HttpRequestWithLabelsAndTimestampFormatInputBuilder() {
-    HttpRequestWithLabelsAndTimestampFormatInput._init(this);
-  }
+  HttpRequestWithLabelsAndTimestampFormatInputBuilder();
 
   HttpRequestWithLabelsAndTimestampFormatInputBuilder get _$this {
     final $v = _$v;
@@ -236,9 +234,7 @@ class HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder
             HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder> {
   _$HttpRequestWithLabelsAndTimestampFormatInputPayload? _$v;
 
-  HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder() {
-    HttpRequestWithLabelsAndTimestampFormatInputPayload._init(this);
-  }
+  HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder();
 
   @override
   void replace(HttpRequestWithLabelsAndTimestampFormatInputPayload other) {

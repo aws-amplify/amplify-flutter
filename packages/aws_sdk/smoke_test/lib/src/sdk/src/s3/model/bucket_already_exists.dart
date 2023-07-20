@@ -43,8 +43,6 @@ abstract class BucketAlreadyExists
     BucketAlreadyExistsRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BucketAlreadyExistsBuilder b) {}
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
         namespace: 'com.amazonaws.s3',

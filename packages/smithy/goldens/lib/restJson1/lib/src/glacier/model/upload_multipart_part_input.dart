@@ -70,8 +70,6 @@ abstract class UploadMultipartPartInput
   static const List<_i1.SmithySerializer<_i2.Stream<List<int>>?>> serializers =
       [UploadMultipartPartInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UploadMultipartPartInputBuilder b) {}
   String get accountId;
   String get vaultName;
   String get uploadId;

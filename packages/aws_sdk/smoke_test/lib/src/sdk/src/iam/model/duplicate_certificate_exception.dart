@@ -42,8 +42,6 @@ abstract class DuplicateCertificateException
   static const List<_i2.SmithySerializer<DuplicateCertificateException>>
       serializers = [DuplicateCertificateExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DuplicateCertificateExceptionBuilder b) {}
   @override
   String? get message;
   @override

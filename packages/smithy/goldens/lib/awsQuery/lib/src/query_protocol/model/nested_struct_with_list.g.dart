@@ -49,9 +49,7 @@ class NestedStructWithListBuilder
       _$this._listArg ??= new _i2.ListBuilder<String>();
   set listArg(_i2.ListBuilder<String>? listArg) => _$this._listArg = listArg;
 
-  NestedStructWithListBuilder() {
-    NestedStructWithList._init(this);
-  }
+  NestedStructWithListBuilder();
 
   NestedStructWithListBuilder get _$this {
     final $v = _$v;

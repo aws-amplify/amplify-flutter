@@ -58,9 +58,7 @@ class GetBucketMetricsConfigurationOutputBuilder
           _i3.MetricsConfigurationBuilder? metricsConfiguration) =>
       _$this._metricsConfiguration = metricsConfiguration;
 
-  GetBucketMetricsConfigurationOutputBuilder() {
-    GetBucketMetricsConfigurationOutput._init(this);
-  }
+  GetBucketMetricsConfigurationOutputBuilder();
 
   GetBucketMetricsConfigurationOutputBuilder get _$this {
     final $v = _$v;

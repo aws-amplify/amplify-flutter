@@ -57,9 +57,7 @@ class AccessLogSettingsBuilder
   set destinationArn(String? destinationArn) =>
       _$this._destinationArn = destinationArn;
 
-  AccessLogSettingsBuilder() {
-    AccessLogSettings._init(this);
-  }
+  AccessLogSettingsBuilder();
 
   AccessLogSettingsBuilder get _$this {
     final $v = _$v;

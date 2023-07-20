@@ -62,9 +62,6 @@ abstract class DeleteBucketInventoryConfigurationRequest
     DeleteBucketInventoryConfigurationRequestRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBucketInventoryConfigurationRequestBuilder b) {}
-
   /// The name of the bucket containing the inventory configuration to delete.
   String get bucket;
 
@@ -128,9 +125,6 @@ abstract class DeleteBucketInventoryConfigurationRequestPayload
 
   const DeleteBucketInventoryConfigurationRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      DeleteBucketInventoryConfigurationRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

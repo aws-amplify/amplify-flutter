@@ -44,9 +44,6 @@ abstract class DocumentationPartIds
     DocumentationPartIdsRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DocumentationPartIdsBuilder b) {}
-
   /// A list of the returned documentation part identifiers.
   _i2.BuiltList<String>? get ids;
 

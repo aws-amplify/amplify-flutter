@@ -44,9 +44,6 @@ abstract class PutUserPolicyRequest
     PutUserPolicyRequestAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutUserPolicyRequestBuilder b) {}
-
   /// The name of the user to associate the policy with.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

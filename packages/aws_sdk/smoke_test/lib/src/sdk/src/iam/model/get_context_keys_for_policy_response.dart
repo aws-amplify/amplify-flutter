@@ -42,9 +42,6 @@ abstract class GetContextKeysForPolicyResponse
   static const List<_i3.SmithySerializer<GetContextKeysForPolicyResponse>>
       serializers = [GetContextKeysForPolicyResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetContextKeysForPolicyResponseBuilder b) {}
-
   /// The list of context keys that are referenced in the input policies.
   _i2.BuiltList<String>? get contextKeyNames;
   @override

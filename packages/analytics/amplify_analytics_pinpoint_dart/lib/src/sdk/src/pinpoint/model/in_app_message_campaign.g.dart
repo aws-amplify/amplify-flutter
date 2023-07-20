@@ -118,9 +118,7 @@ class InAppMessageCampaignBuilder
   String? get treatmentId => _$this._treatmentId;
   set treatmentId(String? treatmentId) => _$this._treatmentId = treatmentId;
 
-  InAppMessageCampaignBuilder() {
-    InAppMessageCampaign._init(this);
-  }
+  InAppMessageCampaignBuilder();
 
   InAppMessageCampaignBuilder get _$this {
     final $v = _$v;

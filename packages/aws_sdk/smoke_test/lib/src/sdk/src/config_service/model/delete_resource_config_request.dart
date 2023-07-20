@@ -42,9 +42,6 @@ abstract class DeleteResourceConfigRequest
   static const List<_i1.SmithySerializer<DeleteResourceConfigRequest>>
       serializers = [DeleteResourceConfigRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteResourceConfigRequestBuilder b) {}
-
   /// The type of the resource.
   String get resourceType;
 

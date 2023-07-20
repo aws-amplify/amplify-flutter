@@ -50,9 +50,7 @@ class DeleteBackupInputBuilder
   String? get backupArn => _$this._backupArn;
   set backupArn(String? backupArn) => _$this._backupArn = backupArn;
 
-  DeleteBackupInputBuilder() {
-    DeleteBackupInput._init(this);
-  }
+  DeleteBackupInputBuilder();
 
   DeleteBackupInputBuilder get _$this {
     final $v = _$v;

@@ -57,8 +57,6 @@ abstract class XmlIntEnumsInputOutput
   static const List<_i1.SmithySerializer<XmlIntEnumsInputOutput>> serializers =
       [XmlIntEnumsInputOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(XmlIntEnumsInputOutputBuilder b) {}
   int? get intEnum1;
   int? get intEnum2;
   int? get intEnum3;

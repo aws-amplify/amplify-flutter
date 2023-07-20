@@ -43,9 +43,6 @@ abstract class GetObjectLegalHoldOutput
   static const List<_i2.SmithySerializer<_i3.ObjectLockLegalHold?>>
       serializers = [GetObjectLegalHoldOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectLegalHoldOutputBuilder b) {}
-
   /// The current legal hold status for the specified object.
   _i3.ObjectLockLegalHold? get legalHold;
   @override

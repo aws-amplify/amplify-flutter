@@ -40,8 +40,6 @@ abstract class MalformedAcceptWithGenericStringOutput
     MalformedAcceptWithGenericStringOutputRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedAcceptWithGenericStringOutputBuilder b) {}
   String? get payload;
   @override
   String? getPayload() => payload;

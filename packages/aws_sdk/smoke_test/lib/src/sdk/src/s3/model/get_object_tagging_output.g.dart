@@ -62,9 +62,7 @@ class GetObjectTaggingOutputBuilder
       _$this._tagSet ??= new _i4.ListBuilder<_i3.Tag>();
   set tagSet(_i4.ListBuilder<_i3.Tag>? tagSet) => _$this._tagSet = tagSet;
 
-  GetObjectTaggingOutputBuilder() {
-    GetObjectTaggingOutput._init(this);
-  }
+  GetObjectTaggingOutputBuilder();
 
   GetObjectTaggingOutputBuilder get _$this {
     final $v = _$v;
@@ -160,9 +158,7 @@ class GetObjectTaggingOutputPayloadBuilder
       _$this._tagSet ??= new _i4.ListBuilder<_i3.Tag>();
   set tagSet(_i4.ListBuilder<_i3.Tag>? tagSet) => _$this._tagSet = tagSet;
 
-  GetObjectTaggingOutputPayloadBuilder() {
-    GetObjectTaggingOutputPayload._init(this);
-  }
+  GetObjectTaggingOutputPayloadBuilder();
 
   GetObjectTaggingOutputPayloadBuilder get _$this {
     final $v = _$v;

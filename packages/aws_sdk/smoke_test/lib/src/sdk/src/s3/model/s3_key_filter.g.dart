@@ -46,9 +46,7 @@ class S3KeyFilterBuilder implements Builder<S3KeyFilter, S3KeyFilterBuilder> {
   set filterRules(_i3.ListBuilder<_i2.FilterRule>? filterRules) =>
       _$this._filterRules = filterRules;
 
-  S3KeyFilterBuilder() {
-    S3KeyFilter._init(this);
-  }
+  S3KeyFilterBuilder();
 
   S3KeyFilterBuilder get _$this {
     final $v = _$v;

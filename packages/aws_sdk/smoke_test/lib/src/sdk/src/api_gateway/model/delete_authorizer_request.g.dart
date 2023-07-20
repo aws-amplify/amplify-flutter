@@ -65,9 +65,7 @@ class DeleteAuthorizerRequestBuilder
   String? get authorizerId => _$this._authorizerId;
   set authorizerId(String? authorizerId) => _$this._authorizerId = authorizerId;
 
-  DeleteAuthorizerRequestBuilder() {
-    DeleteAuthorizerRequest._init(this);
-  }
+  DeleteAuthorizerRequestBuilder();
 
   DeleteAuthorizerRequestBuilder get _$this {
     final $v = _$v;
@@ -139,9 +137,7 @@ class DeleteAuthorizerRequestPayloadBuilder
             DeleteAuthorizerRequestPayloadBuilder> {
   _$DeleteAuthorizerRequestPayload? _$v;
 
-  DeleteAuthorizerRequestPayloadBuilder() {
-    DeleteAuthorizerRequestPayload._init(this);
-  }
+  DeleteAuthorizerRequestPayloadBuilder();
 
   @override
   void replace(DeleteAuthorizerRequestPayload other) {

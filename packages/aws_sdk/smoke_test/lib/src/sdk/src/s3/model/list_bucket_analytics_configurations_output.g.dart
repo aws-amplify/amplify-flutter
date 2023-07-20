@@ -91,9 +91,7 @@ class ListBucketAnalyticsConfigurationsOutputBuilder
               analyticsConfigurationList) =>
       _$this._analyticsConfigurationList = analyticsConfigurationList;
 
-  ListBucketAnalyticsConfigurationsOutputBuilder() {
-    ListBucketAnalyticsConfigurationsOutput._init(this);
-  }
+  ListBucketAnalyticsConfigurationsOutputBuilder();
 
   ListBucketAnalyticsConfigurationsOutputBuilder get _$this {
     final $v = _$v;

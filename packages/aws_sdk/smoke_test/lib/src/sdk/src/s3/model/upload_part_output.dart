@@ -110,9 +110,6 @@ abstract class UploadPartOutput
   static const List<_i2.SmithySerializer<UploadPartOutputPayload>> serializers =
       [UploadPartOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UploadPartOutputBuilder b) {}
-
   /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`).
   _i3.ServerSideEncryption? get serverSideEncryption;
 
@@ -224,8 +221,6 @@ abstract class UploadPartOutputPayload
 
   const UploadPartOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UploadPartOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

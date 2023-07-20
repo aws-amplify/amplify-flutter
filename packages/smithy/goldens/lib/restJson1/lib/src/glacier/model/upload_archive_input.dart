@@ -65,8 +65,6 @@ abstract class UploadArchiveInput
   static const List<_i1.SmithySerializer<_i2.Stream<List<int>>?>> serializers =
       [UploadArchiveInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UploadArchiveInputBuilder b) {}
   String get vaultName;
   String get accountId;
   String? get archiveDescription;

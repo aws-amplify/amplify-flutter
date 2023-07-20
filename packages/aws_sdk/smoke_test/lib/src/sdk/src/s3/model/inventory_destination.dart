@@ -33,9 +33,6 @@ abstract class InventoryDestination
     InventoryDestinationRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InventoryDestinationBuilder b) {}
-
   /// Contains the bucket name, file format, bucket owner (optional), and prefix (optional) where inventory results are published.
   _i2.InventoryS3BucketDestination get s3BucketDestination;
   @override

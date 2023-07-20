@@ -70,9 +70,7 @@ class DescribeOrganizationConfigRulesResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeOrganizationConfigRulesResponseBuilder() {
-    DescribeOrganizationConfigRulesResponse._init(this);
-  }
+  DescribeOrganizationConfigRulesResponseBuilder();
 
   DescribeOrganizationConfigRulesResponseBuilder get _$this {
     final $v = _$v;

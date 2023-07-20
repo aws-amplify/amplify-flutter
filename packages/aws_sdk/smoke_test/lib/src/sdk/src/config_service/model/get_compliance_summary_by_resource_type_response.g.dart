@@ -67,9 +67,7 @@ class GetComplianceSummaryByResourceTypeResponseBuilder
       _$this._complianceSummariesByResourceType =
           complianceSummariesByResourceType;
 
-  GetComplianceSummaryByResourceTypeResponseBuilder() {
-    GetComplianceSummaryByResourceTypeResponse._init(this);
-  }
+  GetComplianceSummaryByResourceTypeResponseBuilder();
 
   GetComplianceSummaryByResourceTypeResponseBuilder get _$this {
     final $v = _$v;

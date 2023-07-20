@@ -67,9 +67,7 @@ class GetTemplateInputBuilder
   set templateStage(_i3.TemplateStage? templateStage) =>
       _$this._templateStage = templateStage;
 
-  GetTemplateInputBuilder() {
-    GetTemplateInput._init(this);
-  }
+  GetTemplateInputBuilder();
 
   GetTemplateInputBuilder get _$this {
     final $v = _$v;

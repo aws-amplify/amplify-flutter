@@ -44,9 +44,6 @@ abstract class ListGroupPoliciesRequest
   static const List<_i1.SmithySerializer<ListGroupPoliciesRequest>>
       serializers = [ListGroupPoliciesRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListGroupPoliciesRequestBuilder b) {}
-
   /// The name of the group to list policies for.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

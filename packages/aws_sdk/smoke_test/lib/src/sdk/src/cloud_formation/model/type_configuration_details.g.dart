@@ -108,9 +108,7 @@ class TypeConfigurationDetailsBuilder
   set isDefaultConfiguration(bool? isDefaultConfiguration) =>
       _$this._isDefaultConfiguration = isDefaultConfiguration;
 
-  TypeConfigurationDetailsBuilder() {
-    TypeConfigurationDetails._init(this);
-  }
+  TypeConfigurationDetailsBuilder();
 
   TypeConfigurationDetailsBuilder get _$this {
     final $v = _$v;

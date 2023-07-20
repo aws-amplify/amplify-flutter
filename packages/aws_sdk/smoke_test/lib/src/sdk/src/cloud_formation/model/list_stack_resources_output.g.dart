@@ -63,9 +63,7 @@ class ListStackResourcesOutputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListStackResourcesOutputBuilder() {
-    ListStackResourcesOutput._init(this);
-  }
+  ListStackResourcesOutputBuilder();
 
   ListStackResourcesOutputBuilder get _$this {
     final $v = _$v;

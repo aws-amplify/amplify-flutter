@@ -51,9 +51,7 @@ class DescribeConfigRulesFiltersBuilder
   set evaluationMode(_i2.EvaluationMode? evaluationMode) =>
       _$this._evaluationMode = evaluationMode;
 
-  DescribeConfigRulesFiltersBuilder() {
-    DescribeConfigRulesFilters._init(this);
-  }
+  DescribeConfigRulesFiltersBuilder();
 
   DescribeConfigRulesFiltersBuilder get _$this {
     final $v = _$v;

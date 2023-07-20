@@ -95,9 +95,7 @@ class AutoScalingSettingsUpdateBuilder
           _i3.AutoScalingPolicyUpdateBuilder? scalingPolicyUpdate) =>
       _$this._scalingPolicyUpdate = scalingPolicyUpdate;
 
-  AutoScalingSettingsUpdateBuilder() {
-    AutoScalingSettingsUpdate._init(this);
-  }
+  AutoScalingSettingsUpdateBuilder();
 
   AutoScalingSettingsUpdateBuilder get _$this {
     final $v = _$v;

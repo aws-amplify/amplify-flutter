@@ -68,9 +68,7 @@ class UpdateTerminationProtectionInputBuilder
   String? get stackName => _$this._stackName;
   set stackName(String? stackName) => _$this._stackName = stackName;
 
-  UpdateTerminationProtectionInputBuilder() {
-    UpdateTerminationProtectionInput._init(this);
-  }
+  UpdateTerminationProtectionInputBuilder();
 
   UpdateTerminationProtectionInputBuilder get _$this {
     final $v = _$v;

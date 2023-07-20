@@ -78,9 +78,7 @@ class UpdateSshPublicKeyRequestBuilder
   _i3.StatusType? get status => _$this._status;
   set status(_i3.StatusType? status) => _$this._status = status;
 
-  UpdateSshPublicKeyRequestBuilder() {
-    UpdateSshPublicKeyRequest._init(this);
-  }
+  UpdateSshPublicKeyRequestBuilder();
 
   UpdateSshPublicKeyRequestBuilder get _$this {
     final $v = _$v;

@@ -40,9 +40,6 @@ abstract class IntelligentTieringAndOperator
   static const List<_i4.SmithySerializer<IntelligentTieringAndOperator>>
       serializers = [IntelligentTieringAndOperatorRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(IntelligentTieringAndOperatorBuilder b) {}
-
   /// An object key name prefix that identifies the subset of objects to which the configuration applies.
   String? get prefix;
 

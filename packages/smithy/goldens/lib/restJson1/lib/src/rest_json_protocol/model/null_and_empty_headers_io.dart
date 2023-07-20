@@ -77,8 +77,6 @@ abstract class NullAndEmptyHeadersIo
   static const List<_i1.SmithySerializer<NullAndEmptyHeadersIoPayload>>
       serializers = [NullAndEmptyHeadersIoRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NullAndEmptyHeadersIoBuilder b) {}
   String? get a;
   String? get b;
   _i3.BuiltList<String>? get c;
@@ -123,8 +121,6 @@ abstract class NullAndEmptyHeadersIoPayload
 
   const NullAndEmptyHeadersIoPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NullAndEmptyHeadersIoPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

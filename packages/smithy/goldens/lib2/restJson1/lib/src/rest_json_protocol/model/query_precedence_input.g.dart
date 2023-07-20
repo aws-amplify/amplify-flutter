@@ -58,9 +58,7 @@ class QueryPrecedenceInputBuilder
       _$this._baz ??= new _i3.MapBuilder<String, String>();
   set baz(_i3.MapBuilder<String, String>? baz) => _$this._baz = baz;
 
-  QueryPrecedenceInputBuilder() {
-    QueryPrecedenceInput._init(this);
-  }
+  QueryPrecedenceInputBuilder();
 
   QueryPrecedenceInputBuilder get _$this {
     final $v = _$v;
@@ -141,9 +139,7 @@ class QueryPrecedenceInputPayloadBuilder
             QueryPrecedenceInputPayloadBuilder> {
   _$QueryPrecedenceInputPayload? _$v;
 
-  QueryPrecedenceInputPayloadBuilder() {
-    QueryPrecedenceInputPayload._init(this);
-  }
+  QueryPrecedenceInputPayloadBuilder();
 
   @override
   void replace(QueryPrecedenceInputPayload other) {

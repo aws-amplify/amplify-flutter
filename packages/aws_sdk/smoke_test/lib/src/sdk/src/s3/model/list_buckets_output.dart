@@ -42,9 +42,6 @@ abstract class ListBucketsOutput
     ListBucketsOutputRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListBucketsOutputBuilder b) {}
-
   /// The list of buckets owned by the requester.
   _i4.BuiltList<_i2.Bucket>? get buckets;
 

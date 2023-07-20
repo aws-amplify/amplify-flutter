@@ -40,9 +40,6 @@ abstract class ConfigurationRecorder
     ConfigurationRecorderAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConfigurationRecorderBuilder b) {}
-
   /// The name of the configuration recorder. Config automatically assigns the name of "default" when creating the configuration recorder.
   ///
   /// You cannot change the name of the configuration recorder after it has been created. To change the configuration recorder name, you must delete it and create a new configuration recorder with a new name.

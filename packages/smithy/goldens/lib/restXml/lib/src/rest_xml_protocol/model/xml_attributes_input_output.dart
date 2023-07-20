@@ -50,8 +50,6 @@ abstract class XmlAttributesInputOutput
   static const List<_i1.SmithySerializer<XmlAttributesInputOutput>>
       serializers = [XmlAttributesInputOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(XmlAttributesInputOutputBuilder b) {}
   String? get foo;
   String? get attr;
   @override

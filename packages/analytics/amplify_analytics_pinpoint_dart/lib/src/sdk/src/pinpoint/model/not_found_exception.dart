@@ -46,9 +46,6 @@ abstract class NotFoundException
     NotFoundExceptionRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NotFoundExceptionBuilder b) {}
-
   /// The message that's returned from the API.
   @override
   String? get message;

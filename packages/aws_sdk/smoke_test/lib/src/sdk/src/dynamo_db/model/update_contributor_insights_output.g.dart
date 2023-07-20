@@ -73,9 +73,7 @@ class UpdateContributorInsightsOutputBuilder
           _i2.ContributorInsightsStatus? contributorInsightsStatus) =>
       _$this._contributorInsightsStatus = contributorInsightsStatus;
 
-  UpdateContributorInsightsOutputBuilder() {
-    UpdateContributorInsightsOutput._init(this);
-  }
+  UpdateContributorInsightsOutputBuilder();
 
   UpdateContributorInsightsOutputBuilder get _$this {
     final $v = _$v;

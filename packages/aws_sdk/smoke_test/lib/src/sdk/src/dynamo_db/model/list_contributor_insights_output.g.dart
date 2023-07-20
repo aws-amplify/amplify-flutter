@@ -69,9 +69,7 @@ class ListContributorInsightsOutputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListContributorInsightsOutputBuilder() {
-    ListContributorInsightsOutput._init(this);
-  }
+  ListContributorInsightsOutputBuilder();
 
   ListContributorInsightsOutputBuilder get _$this {
     final $v = _$v;

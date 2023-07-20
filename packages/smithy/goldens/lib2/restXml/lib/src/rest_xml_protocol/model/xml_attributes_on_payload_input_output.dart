@@ -57,8 +57,6 @@ abstract class XmlAttributesOnPayloadInputOutput
   static const List<_i1.SmithySerializer<_i2.XmlAttributesInputOutput?>>
       serializers = [XmlAttributesOnPayloadInputOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(XmlAttributesOnPayloadInputOutputBuilder b) {}
   _i2.XmlAttributesInputOutput? get payload;
   @override
   _i2.XmlAttributesInputOutput? getPayload() =>

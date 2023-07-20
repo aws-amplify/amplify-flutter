@@ -74,9 +74,7 @@ class DeregisterTypeInputBuilder
   String? get versionId => _$this._versionId;
   set versionId(String? versionId) => _$this._versionId = versionId;
 
-  DeregisterTypeInputBuilder() {
-    DeregisterTypeInput._init(this);
-  }
+  DeregisterTypeInputBuilder();
 
   DeregisterTypeInputBuilder get _$this {
     final $v = _$v;

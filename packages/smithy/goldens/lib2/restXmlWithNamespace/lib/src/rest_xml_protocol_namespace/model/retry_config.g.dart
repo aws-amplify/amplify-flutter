@@ -53,9 +53,7 @@ class RetryConfigBuilder implements Builder<RetryConfig, RetryConfigBuilder> {
   int? get maxAttempts => _$this._maxAttempts;
   set maxAttempts(int? maxAttempts) => _$this._maxAttempts = maxAttempts;
 
-  RetryConfigBuilder() {
-    RetryConfig._init(this);
-  }
+  RetryConfigBuilder();
 
   RetryConfigBuilder get _$this {
     final $v = _$v;

@@ -43,8 +43,6 @@ abstract class ConstantQueryStringInput
   static const List<_i1.SmithySerializer<ConstantQueryStringInputPayload>>
       serializers = [ConstantQueryStringInputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConstantQueryStringInputBuilder b) {}
   String get hello;
   @override
   String labelFor(String key) {
@@ -88,8 +86,6 @@ abstract class ConstantQueryStringInputPayload
 
   const ConstantQueryStringInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConstantQueryStringInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

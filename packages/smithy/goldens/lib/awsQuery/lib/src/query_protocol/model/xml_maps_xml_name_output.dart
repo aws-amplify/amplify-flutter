@@ -38,8 +38,6 @@ abstract class XmlMapsXmlNameOutput
     XmlMapsXmlNameOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(XmlMapsXmlNameOutputBuilder b) {}
   _i3.BuiltMap<String, _i2.GreetingStruct>? get myMap;
   @override
   List<Object?> get props => [myMap];

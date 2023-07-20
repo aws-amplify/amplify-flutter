@@ -32,8 +32,6 @@ abstract class NestedPayload
     NestedPayloadRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NestedPayloadBuilder b) {}
   String? get greeting;
   String? get name;
   @override

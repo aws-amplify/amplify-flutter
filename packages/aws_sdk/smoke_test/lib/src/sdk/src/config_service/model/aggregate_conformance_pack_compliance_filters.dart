@@ -47,9 +47,6 @@ abstract class AggregateConformancePackComplianceFilters
     AggregateConformancePackComplianceFiltersAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AggregateConformancePackComplianceFiltersBuilder b) {}
-
   /// The name of the conformance pack.
   String? get conformancePackName;
 

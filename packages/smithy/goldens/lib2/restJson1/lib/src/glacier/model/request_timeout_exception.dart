@@ -45,8 +45,6 @@ abstract class RequestTimeoutException
   static const List<_i2.SmithySerializer<RequestTimeoutException>> serializers =
       [RequestTimeoutExceptionRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RequestTimeoutExceptionBuilder b) {}
   String? get type;
   String? get code;
   @override

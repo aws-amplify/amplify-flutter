@@ -63,9 +63,7 @@ class TestPayloadStructureInputOutputBuilder
   set payloadConfig(_i2.PayloadConfigBuilder? payloadConfig) =>
       _$this._payloadConfig = payloadConfig;
 
-  TestPayloadStructureInputOutputBuilder() {
-    TestPayloadStructureInputOutput._init(this);
-  }
+  TestPayloadStructureInputOutputBuilder();
 
   TestPayloadStructureInputOutputBuilder get _$this {
     final $v = _$v;

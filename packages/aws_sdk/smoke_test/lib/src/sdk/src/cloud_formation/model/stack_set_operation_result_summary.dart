@@ -50,9 +50,6 @@ abstract class StackSetOperationResultSummary
   static const List<_i4.SmithySerializer<StackSetOperationResultSummary>>
       serializers = [StackSetOperationResultSummaryAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackSetOperationResultSummaryBuilder b) {}
-
   /// \[Self-managed permissions\] The name of the Amazon Web Services account for this operation result.
   String? get account;
 

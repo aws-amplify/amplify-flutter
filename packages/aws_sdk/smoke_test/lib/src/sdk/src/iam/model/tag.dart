@@ -34,9 +34,6 @@ abstract class Tag
     TagAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TagBuilder b) {}
-
   /// The key name that can be used to look up or retrieve the associated value. For example, `Department` or `Cost Center` are common choices.
   String get key;
 

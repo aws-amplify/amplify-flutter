@@ -56,9 +56,6 @@ abstract class ListTypeVersionsInput
     ListTypeVersionsInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListTypeVersionsInputBuilder b) {}
-
   /// The kind of the extension.
   ///
   /// Conditional: You must specify either `TypeName` and `Type`, or `Arn`.

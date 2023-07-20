@@ -56,9 +56,7 @@ class DeliverConfigSnapshotRequestBuilder
   set deliveryChannelName(String? deliveryChannelName) =>
       _$this._deliveryChannelName = deliveryChannelName;
 
-  DeliverConfigSnapshotRequestBuilder() {
-    DeliverConfigSnapshotRequest._init(this);
-  }
+  DeliverConfigSnapshotRequestBuilder();
 
   DeliverConfigSnapshotRequestBuilder get _$this {
     final $v = _$v;

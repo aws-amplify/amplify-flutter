@@ -60,9 +60,7 @@ class EventsBatchBuilder implements Builder<EventsBatch, EventsBatchBuilder> {
   set events(_i4.MapBuilder<String, _i3.Event>? events) =>
       _$this._events = events;
 
-  EventsBatchBuilder() {
-    EventsBatch._init(this);
-  }
+  EventsBatchBuilder();
 
   EventsBatchBuilder get _$this {
     final $v = _$v;

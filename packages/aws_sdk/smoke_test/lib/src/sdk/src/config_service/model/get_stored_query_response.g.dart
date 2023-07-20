@@ -50,9 +50,7 @@ class GetStoredQueryResponseBuilder
   set storedQuery(_i2.StoredQueryBuilder? storedQuery) =>
       _$this._storedQuery = storedQuery;
 
-  GetStoredQueryResponseBuilder() {
-    GetStoredQueryResponse._init(this);
-  }
+  GetStoredQueryResponseBuilder();
 
   GetStoredQueryResponseBuilder get _$this {
     final $v = _$v;

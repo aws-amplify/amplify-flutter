@@ -46,9 +46,6 @@ abstract class NoSuchRemediationConfigurationException
     NoSuchRemediationConfigurationExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NoSuchRemediationConfigurationExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

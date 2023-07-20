@@ -58,9 +58,7 @@ class DescribeTableReplicaAutoScalingInputBuilder
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
 
-  DescribeTableReplicaAutoScalingInputBuilder() {
-    DescribeTableReplicaAutoScalingInput._init(this);
-  }
+  DescribeTableReplicaAutoScalingInputBuilder();
 
   DescribeTableReplicaAutoScalingInputBuilder get _$this {
     final $v = _$v;

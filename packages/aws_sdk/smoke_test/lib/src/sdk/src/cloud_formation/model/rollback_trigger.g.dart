@@ -56,9 +56,7 @@ class RollbackTriggerBuilder
   String? get type => _$this._type;
   set type(String? type) => _$this._type = type;
 
-  RollbackTriggerBuilder() {
-    RollbackTrigger._init(this);
-  }
+  RollbackTriggerBuilder();
 
   RollbackTriggerBuilder get _$this {
     final $v = _$v;

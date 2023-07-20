@@ -148,9 +148,7 @@ class CreateAuthorizerRequestBuilder
   set authorizerResultTtlInSeconds(int? authorizerResultTtlInSeconds) =>
       _$this._authorizerResultTtlInSeconds = authorizerResultTtlInSeconds;
 
-  CreateAuthorizerRequestBuilder() {
-    CreateAuthorizerRequest._init(this);
-  }
+  CreateAuthorizerRequestBuilder();
 
   CreateAuthorizerRequestBuilder get _$this {
     final $v = _$v;
@@ -350,9 +348,7 @@ class CreateAuthorizerRequestPayloadBuilder
   _i3.AuthorizerType? get type => _$this._type;
   set type(_i3.AuthorizerType? type) => _$this._type = type;
 
-  CreateAuthorizerRequestPayloadBuilder() {
-    CreateAuthorizerRequestPayload._init(this);
-  }
+  CreateAuthorizerRequestPayloadBuilder();
 
   CreateAuthorizerRequestPayloadBuilder get _$this {
     final $v = _$v;

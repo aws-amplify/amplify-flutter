@@ -52,9 +52,6 @@ abstract class GetAggregateConfigRuleComplianceSummaryResponse
     GetAggregateConfigRuleComplianceSummaryResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetAggregateConfigRuleComplianceSummaryResponseBuilder b) {}
-
   /// Groups the result based on ACCOUNT\_ID or AWS\_REGION.
   String? get groupByKey;
 

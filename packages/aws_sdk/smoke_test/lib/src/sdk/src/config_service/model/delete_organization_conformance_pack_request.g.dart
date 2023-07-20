@@ -66,9 +66,7 @@ class DeleteOrganizationConformancePackRequestBuilder
           String? organizationConformancePackName) =>
       _$this._organizationConformancePackName = organizationConformancePackName;
 
-  DeleteOrganizationConformancePackRequestBuilder() {
-    DeleteOrganizationConformancePackRequest._init(this);
-  }
+  DeleteOrganizationConformancePackRequestBuilder();
 
   DeleteOrganizationConformancePackRequestBuilder get _$this {
     final $v = _$v;

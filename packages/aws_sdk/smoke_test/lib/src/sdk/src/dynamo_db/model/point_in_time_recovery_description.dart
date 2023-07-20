@@ -42,9 +42,6 @@ abstract class PointInTimeRecoveryDescription
   static const List<_i3.SmithySerializer<PointInTimeRecoveryDescription>>
       serializers = [PointInTimeRecoveryDescriptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PointInTimeRecoveryDescriptionBuilder b) {}
-
   /// The current state of point in time recovery:
   ///
   /// *   `ENABLED` \- Point in time recovery is enabled.

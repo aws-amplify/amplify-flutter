@@ -46,9 +46,6 @@ abstract class PutConfigRuleRequest
     PutConfigRuleRequestAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutConfigRuleRequestBuilder b) {}
-
   /// The rule that you want to add to your account.
   _i3.ConfigRule get configRule;
 

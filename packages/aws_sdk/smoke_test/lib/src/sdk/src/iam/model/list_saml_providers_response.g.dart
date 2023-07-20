@@ -54,9 +54,7 @@ class ListSamlProvidersResponseBuilder
           _i3.ListBuilder<_i2.SamlProviderListEntry>? samlProviderList) =>
       _$this._samlProviderList = samlProviderList;
 
-  ListSamlProvidersResponseBuilder() {
-    ListSamlProvidersResponse._init(this);
-  }
+  ListSamlProvidersResponseBuilder();
 
   ListSamlProvidersResponseBuilder get _$this {
     final $v = _$v;

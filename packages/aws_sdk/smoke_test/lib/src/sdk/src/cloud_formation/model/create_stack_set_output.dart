@@ -34,9 +34,6 @@ abstract class CreateStackSetOutput
     CreateStackSetOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateStackSetOutputBuilder b) {}
-
   /// The ID of the stack set that you're creating.
   String? get stackSetId;
   @override

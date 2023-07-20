@@ -57,9 +57,6 @@ abstract class DeleteObjectOutput
   static const List<_i2.SmithySerializer<DeleteObjectOutputPayload>>
       serializers = [DeleteObjectOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteObjectOutputBuilder b) {}
-
   /// Specifies whether the versioned object that was permanently deleted was (true) or was not (false) a delete marker.
   bool? get deleteMarker;
 
@@ -107,8 +104,6 @@ abstract class DeleteObjectOutputPayload
 
   const DeleteObjectOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteObjectOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

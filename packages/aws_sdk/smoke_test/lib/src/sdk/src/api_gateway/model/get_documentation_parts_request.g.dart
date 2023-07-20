@@ -111,9 +111,7 @@ class GetDocumentationPartsRequestBuilder
   set locationStatus(_i4.LocationStatusType? locationStatus) =>
       _$this._locationStatus = locationStatus;
 
-  GetDocumentationPartsRequestBuilder() {
-    GetDocumentationPartsRequest._init(this);
-  }
+  GetDocumentationPartsRequestBuilder();
 
   GetDocumentationPartsRequestBuilder get _$this {
     final $v = _$v;
@@ -197,9 +195,7 @@ class GetDocumentationPartsRequestPayloadBuilder
             GetDocumentationPartsRequestPayloadBuilder> {
   _$GetDocumentationPartsRequestPayload? _$v;
 
-  GetDocumentationPartsRequestPayloadBuilder() {
-    GetDocumentationPartsRequestPayload._init(this);
-  }
+  GetDocumentationPartsRequestPayloadBuilder();
 
   @override
   void replace(GetDocumentationPartsRequestPayload other) {

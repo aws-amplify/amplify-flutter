@@ -200,9 +200,7 @@ class XmlListsOutputBuilder
   set structureList(_i4.ListBuilder<_i3.StructureListMember>? structureList) =>
       _$this._structureList = structureList;
 
-  XmlListsOutputBuilder() {
-    XmlListsOutput._init(this);
-  }
+  XmlListsOutputBuilder();
 
   XmlListsOutputBuilder get _$this {
     final $v = _$v;

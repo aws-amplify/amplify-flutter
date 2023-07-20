@@ -47,9 +47,6 @@ abstract class ListDiscoveredResourcesResponse
   static const List<_i4.SmithySerializer<ListDiscoveredResourcesResponse>>
       serializers = [ListDiscoveredResourcesResponseAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListDiscoveredResourcesResponseBuilder b) {}
-
   /// The details that identify a resource that is discovered by Config, including the resource type, ID, and (if available) the custom resource name.
   _i3.BuiltList<_i2.ResourceIdentifier>? get resourceIdentifiers;
 

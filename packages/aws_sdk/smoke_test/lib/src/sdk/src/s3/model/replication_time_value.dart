@@ -30,9 +30,6 @@ abstract class ReplicationTimeValue
     ReplicationTimeValueRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicationTimeValueBuilder b) {}
-
   /// Contains an integer specifying time in minutes.
   ///
   /// Valid value: 15

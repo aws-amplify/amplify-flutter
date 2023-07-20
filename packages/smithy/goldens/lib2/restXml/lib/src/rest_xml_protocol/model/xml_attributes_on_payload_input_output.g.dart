@@ -55,9 +55,7 @@ class XmlAttributesOnPayloadInputOutputBuilder
   set payload(_i2.XmlAttributesInputOutputBuilder? payload) =>
       _$this._payload = payload;
 
-  XmlAttributesOnPayloadInputOutputBuilder() {
-    XmlAttributesOnPayloadInputOutput._init(this);
-  }
+  XmlAttributesOnPayloadInputOutputBuilder();
 
   XmlAttributesOnPayloadInputOutputBuilder get _$this {
     final $v = _$v;

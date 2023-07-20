@@ -151,9 +151,7 @@ class EndpointRequestBuilder
       _$this._user ??= new _i5.EndpointUserBuilder();
   set user(_i5.EndpointUserBuilder? user) => _$this._user = user;
 
-  EndpointRequestBuilder() {
-    EndpointRequest._init(this);
-  }
+  EndpointRequestBuilder();
 
   EndpointRequestBuilder get _$this {
     final $v = _$v;

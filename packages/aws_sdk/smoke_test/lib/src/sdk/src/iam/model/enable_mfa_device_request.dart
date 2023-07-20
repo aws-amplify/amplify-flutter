@@ -45,9 +45,6 @@ abstract class EnableMfaDeviceRequest
   static const List<_i1.SmithySerializer<EnableMfaDeviceRequest>> serializers =
       [EnableMfaDeviceRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EnableMfaDeviceRequestBuilder b) {}
-
   /// The name of the IAM user for whom you want to enable the MFA device.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

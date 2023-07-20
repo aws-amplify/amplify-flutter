@@ -10,17 +10,13 @@ class _$ListStoredQueriesRequest extends ListStoredQueriesRequest {
   @override
   final String? nextToken;
   @override
-  final int maxResults;
+  final int? maxResults;
 
   factory _$ListStoredQueriesRequest(
           [void Function(ListStoredQueriesRequestBuilder)? updates]) =>
       (new ListStoredQueriesRequestBuilder()..update(updates))._build();
 
-  _$ListStoredQueriesRequest._({this.nextToken, required this.maxResults})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        maxResults, r'ListStoredQueriesRequest', 'maxResults');
-  }
+  _$ListStoredQueriesRequest._({this.nextToken, this.maxResults}) : super._();
 
   @override
   ListStoredQueriesRequest rebuild(
@@ -62,9 +58,7 @@ class ListStoredQueriesRequestBuilder
   int? get maxResults => _$this._maxResults;
   set maxResults(int? maxResults) => _$this._maxResults = maxResults;
 
-  ListStoredQueriesRequestBuilder() {
-    ListStoredQueriesRequest._init(this);
-  }
+  ListStoredQueriesRequestBuilder();
 
   ListStoredQueriesRequestBuilder get _$this {
     final $v = _$v;
@@ -93,9 +87,7 @@ class ListStoredQueriesRequestBuilder
   _$ListStoredQueriesRequest _build() {
     final _$result = _$v ??
         new _$ListStoredQueriesRequest._(
-            nextToken: nextToken,
-            maxResults: BuiltValueNullFieldError.checkNotNull(
-                maxResults, r'ListStoredQueriesRequest', 'maxResults'));
+            nextToken: nextToken, maxResults: maxResults);
     replace(_$result);
     return _$result;
   }

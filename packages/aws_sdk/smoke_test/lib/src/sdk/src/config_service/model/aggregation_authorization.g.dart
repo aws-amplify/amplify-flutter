@@ -84,9 +84,7 @@ class AggregationAuthorizationBuilder
   set creationTime(DateTime? creationTime) =>
       _$this._creationTime = creationTime;
 
-  AggregationAuthorizationBuilder() {
-    AggregationAuthorization._init(this);
-  }
+  AggregationAuthorizationBuilder();
 
   AggregationAuthorizationBuilder get _$this {
     final $v = _$v;

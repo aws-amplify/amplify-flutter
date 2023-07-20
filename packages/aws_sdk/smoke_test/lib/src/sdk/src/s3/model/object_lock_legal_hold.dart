@@ -32,9 +32,6 @@ abstract class ObjectLockLegalHold
     ObjectLockLegalHoldRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ObjectLockLegalHoldBuilder b) {}
-
   /// Indicates whether the specified object has a legal hold in place.
   _i2.ObjectLockLegalHoldStatus? get status;
   @override

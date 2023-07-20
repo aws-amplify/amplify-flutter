@@ -52,9 +52,7 @@ class DeleteDomainNameRequestBuilder
   String? get domainName => _$this._domainName;
   set domainName(String? domainName) => _$this._domainName = domainName;
 
-  DeleteDomainNameRequestBuilder() {
-    DeleteDomainNameRequest._init(this);
-  }
+  DeleteDomainNameRequestBuilder();
 
   DeleteDomainNameRequestBuilder get _$this {
     final $v = _$v;
@@ -123,9 +121,7 @@ class DeleteDomainNameRequestPayloadBuilder
             DeleteDomainNameRequestPayloadBuilder> {
   _$DeleteDomainNameRequestPayload? _$v;
 
-  DeleteDomainNameRequestPayloadBuilder() {
-    DeleteDomainNameRequestPayload._init(this);
-  }
+  DeleteDomainNameRequestPayloadBuilder();
 
   @override
   void replace(DeleteDomainNameRequestPayload other) {

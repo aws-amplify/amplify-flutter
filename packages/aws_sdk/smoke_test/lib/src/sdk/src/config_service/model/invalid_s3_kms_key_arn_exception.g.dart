@@ -63,9 +63,7 @@ class InvalidS3KmsKeyArnExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InvalidS3KmsKeyArnExceptionBuilder() {
-    InvalidS3KmsKeyArnException._init(this);
-  }
+  InvalidS3KmsKeyArnExceptionBuilder();
 
   InvalidS3KmsKeyArnExceptionBuilder get _$this {
     final $v = _$v;

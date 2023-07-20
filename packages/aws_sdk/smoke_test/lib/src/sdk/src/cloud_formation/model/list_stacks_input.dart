@@ -46,9 +46,6 @@ abstract class ListStacksInput
     ListStacksInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListStacksInputBuilder b) {}
-
   /// A string that identifies the next page of stacks that you want to retrieve.
   String? get nextToken;
 

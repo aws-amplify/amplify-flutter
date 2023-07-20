@@ -35,9 +35,6 @@ abstract class Initiator
     InitiatorRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InitiatorBuilder b) {}
-
   /// If the principal is an Amazon Web Services account, it provides the Canonical User ID. If the principal is an IAM User, it provides a user ARN value.
   String? get id;
 

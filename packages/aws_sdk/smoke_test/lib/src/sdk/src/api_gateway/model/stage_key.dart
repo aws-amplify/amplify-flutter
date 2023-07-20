@@ -34,9 +34,6 @@ abstract class StageKey
     StageKeyRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StageKeyBuilder b) {}
-
   /// The string identifier of the associated RestApi.
   String? get restApiId;
 

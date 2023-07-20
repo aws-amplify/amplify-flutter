@@ -53,9 +53,7 @@ class UpdateTimeToLiveOutputBuilder
           _i2.TimeToLiveSpecificationBuilder? timeToLiveSpecification) =>
       _$this._timeToLiveSpecification = timeToLiveSpecification;
 
-  UpdateTimeToLiveOutputBuilder() {
-    UpdateTimeToLiveOutput._init(this);
-  }
+  UpdateTimeToLiveOutputBuilder();
 
   UpdateTimeToLiveOutputBuilder get _$this {
     final $v = _$v;

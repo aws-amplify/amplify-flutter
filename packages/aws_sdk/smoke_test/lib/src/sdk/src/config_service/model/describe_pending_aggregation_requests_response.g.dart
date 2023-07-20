@@ -71,9 +71,7 @@ class DescribePendingAggregationRequestsResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribePendingAggregationRequestsResponseBuilder() {
-    DescribePendingAggregationRequestsResponse._init(this);
-  }
+  DescribePendingAggregationRequestsResponseBuilder();
 
   DescribePendingAggregationRequestsResponseBuilder get _$this {
     final $v = _$v;

@@ -40,8 +40,6 @@ abstract class TokenAlreadyExistsException
   static const List<_i2.SmithySerializer<TokenAlreadyExistsException>>
       serializers = [TokenAlreadyExistsExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TokenAlreadyExistsExceptionBuilder b) {}
   @override
   String? get message;
   @override

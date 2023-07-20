@@ -49,9 +49,6 @@ abstract class ListBackupsInput
     ListBackupsInputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListBackupsInputBuilder b) {}
-
   /// The backups from the table specified by `TableName` are listed.
   String? get tableName;
 

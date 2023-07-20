@@ -73,9 +73,7 @@ class TableAutoScalingDescriptionBuilder
   set replicas(_i4.ListBuilder<_i3.ReplicaAutoScalingDescription>? replicas) =>
       _$this._replicas = replicas;
 
-  TableAutoScalingDescriptionBuilder() {
-    TableAutoScalingDescription._init(this);
-  }
+  TableAutoScalingDescriptionBuilder();
 
   TableAutoScalingDescriptionBuilder get _$this {
     final $v = _$v;

@@ -57,9 +57,7 @@ class CreateVirtualMfaDeviceResponseBuilder
   set virtualMfaDevice(_i2.VirtualMfaDeviceBuilder? virtualMfaDevice) =>
       _$this._virtualMfaDevice = virtualMfaDevice;
 
-  CreateVirtualMfaDeviceResponseBuilder() {
-    CreateVirtualMfaDeviceResponse._init(this);
-  }
+  CreateVirtualMfaDeviceResponseBuilder();
 
   CreateVirtualMfaDeviceResponseBuilder get _$this {
     final $v = _$v;

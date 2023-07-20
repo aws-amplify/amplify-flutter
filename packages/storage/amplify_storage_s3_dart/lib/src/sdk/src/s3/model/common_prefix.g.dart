@@ -45,9 +45,7 @@ class CommonPrefixBuilder
   String? get prefix => _$this._prefix;
   set prefix(String? prefix) => _$this._prefix = prefix;
 
-  CommonPrefixBuilder() {
-    CommonPrefix._init(this);
-  }
+  CommonPrefixBuilder();
 
   CommonPrefixBuilder get _$this {
     final $v = _$v;

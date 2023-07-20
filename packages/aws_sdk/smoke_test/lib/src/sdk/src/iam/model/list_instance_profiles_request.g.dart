@@ -68,9 +68,7 @@ class ListInstanceProfilesRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  ListInstanceProfilesRequestBuilder() {
-    ListInstanceProfilesRequest._init(this);
-  }
+  ListInstanceProfilesRequestBuilder();
 
   ListInstanceProfilesRequestBuilder get _$this {
     final $v = _$v;

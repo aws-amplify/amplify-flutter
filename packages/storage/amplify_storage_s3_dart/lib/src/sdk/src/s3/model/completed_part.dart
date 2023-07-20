@@ -43,9 +43,6 @@ abstract class CompletedPart
     CompletedPartRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CompletedPartBuilder b) {}
-
   /// Entity tag returned when the part was uploaded.
   String? get eTag;
 

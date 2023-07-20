@@ -56,9 +56,7 @@ class DeleteClientCertificateRequestBuilder
   set clientCertificateId(String? clientCertificateId) =>
       _$this._clientCertificateId = clientCertificateId;
 
-  DeleteClientCertificateRequestBuilder() {
-    DeleteClientCertificateRequest._init(this);
-  }
+  DeleteClientCertificateRequestBuilder();
 
   DeleteClientCertificateRequestBuilder get _$this {
     final $v = _$v;
@@ -133,9 +131,7 @@ class DeleteClientCertificateRequestPayloadBuilder
             DeleteClientCertificateRequestPayloadBuilder> {
   _$DeleteClientCertificateRequestPayload? _$v;
 
-  DeleteClientCertificateRequestPayloadBuilder() {
-    DeleteClientCertificateRequestPayload._init(this);
-  }
+  DeleteClientCertificateRequestPayloadBuilder();
 
   @override
   void replace(DeleteClientCertificateRequestPayload other) {

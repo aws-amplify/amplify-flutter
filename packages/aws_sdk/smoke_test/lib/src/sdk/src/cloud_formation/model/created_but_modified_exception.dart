@@ -40,8 +40,6 @@ abstract class CreatedButModifiedException
   static const List<_i2.SmithySerializer<CreatedButModifiedException>>
       serializers = [CreatedButModifiedExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreatedButModifiedExceptionBuilder b) {}
   @override
   String? get message;
   @override

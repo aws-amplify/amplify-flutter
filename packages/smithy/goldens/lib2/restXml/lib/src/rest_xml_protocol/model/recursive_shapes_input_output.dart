@@ -46,8 +46,6 @@ abstract class RecursiveShapesInputOutput
   static const List<_i1.SmithySerializer<RecursiveShapesInputOutput>>
       serializers = [RecursiveShapesInputOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RecursiveShapesInputOutputBuilder b) {}
   _i3.RecursiveShapesInputOutputNested1? get nested;
   @override
   RecursiveShapesInputOutput getPayload() => this;

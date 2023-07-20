@@ -48,9 +48,6 @@ abstract class EndpointDemographic
     EndpointDemographicRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EndpointDemographicBuilder b) {}
-
   /// The version of the app that's associated with the endpoint.
   String? get appVersion;
 

@@ -39,8 +39,6 @@ abstract class DeleteChangeSetOutput
     DeleteChangeSetOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteChangeSetOutputBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

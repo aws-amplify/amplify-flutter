@@ -49,9 +49,6 @@ abstract class ExecuteChangeSetInput
     ExecuteChangeSetInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ExecuteChangeSetInputBuilder b) {}
-
   /// The name or Amazon Resource Name (ARN) of the change set that you want use to update the specified stack.
   String get changeSetName;
 

@@ -88,9 +88,6 @@ abstract class GetObjectAttributesOutput
   static const List<_i2.SmithySerializer<GetObjectAttributesOutputPayload>>
       serializers = [GetObjectAttributesOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectAttributesOutputBuilder b) {}
-
   /// Specifies whether the object retrieved was (`true`) or was not (`false`) a delete marker. If `false`, this response header does not appear in the response.
   bool? get deleteMarker;
 
@@ -199,9 +196,6 @@ abstract class GetObjectAttributesOutputPayload
       _$GetObjectAttributesOutputPayload;
 
   const GetObjectAttributesOutputPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectAttributesOutputPayloadBuilder b) {}
 
   /// The checksum or digest of the object.
   _i4.Checksum? get checksum;

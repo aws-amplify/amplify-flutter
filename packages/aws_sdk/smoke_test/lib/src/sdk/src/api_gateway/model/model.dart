@@ -47,9 +47,6 @@ abstract class Model
     ModelRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ModelBuilder b) {}
-
   /// The identifier for the model resource.
   String? get id;
 

@@ -44,9 +44,6 @@ abstract class UpdateAccessKeyRequest
   static const List<_i1.SmithySerializer<UpdateAccessKeyRequest>> serializers =
       [UpdateAccessKeyRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateAccessKeyRequestBuilder b) {}
-
   /// The name of the user whose key you want to update.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

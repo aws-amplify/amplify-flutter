@@ -91,9 +91,6 @@ abstract class ListObjectsV2Output
   static const List<_i2.SmithySerializer<ListObjectsV2OutputPayload>>
       serializers = [ListObjectsV2OutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListObjectsV2OutputBuilder b) {}
-
   /// Set to `false` if all of the results were returned. Set to `true` if more keys are available to return. If the number of results exceeds that specified by `MaxKeys`, all of the results might not be returned.
   bool? get isTruncated;
 
@@ -252,9 +249,6 @@ abstract class ListObjectsV2OutputPayload
       _$ListObjectsV2OutputPayload;
 
   const ListObjectsV2OutputPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListObjectsV2OutputPayloadBuilder b) {}
 
   /// All of the keys (up to 1,000) rolled up into a common prefix count as a single return when calculating the number of returns.
   ///

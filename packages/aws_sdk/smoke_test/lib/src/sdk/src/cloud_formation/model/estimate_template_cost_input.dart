@@ -50,9 +50,6 @@ abstract class EstimateTemplateCostInput
   static const List<_i1.SmithySerializer<EstimateTemplateCostInput>>
       serializers = [EstimateTemplateCostInputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EstimateTemplateCostInputBuilder b) {}
-
   /// Structure containing the template body with a minimum length of 1 byte and a maximum length of 51,200 bytes. (For more information, go to [Template Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html) in the CloudFormation User Guide.)
   ///
   /// Conditional: You must pass `TemplateBody` or `TemplateURL`. If both are passed, only `TemplateBody` is used.

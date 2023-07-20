@@ -37,9 +37,6 @@ abstract class RedirectAllRequestsTo
     RedirectAllRequestsToRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RedirectAllRequestsToBuilder b) {}
-
   /// Name of the host where requests are redirected.
   String get hostName;
 

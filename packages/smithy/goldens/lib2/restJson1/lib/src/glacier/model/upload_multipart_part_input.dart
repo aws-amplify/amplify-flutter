@@ -45,7 +45,7 @@ abstract class UploadMultipartPartInput
   const UploadMultipartPartInput._();
 
   factory UploadMultipartPartInput.fromRequest(
-    _i2.Stream<List<int>>? payload,
+    _i2.Stream<List<int>> payload,
     _i3.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
@@ -68,8 +68,9 @@ abstract class UploadMultipartPartInput
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.Stream<List<int>>?>> serializers =
-      [UploadMultipartPartInputRestJson1Serializer()];
+  static const List<_i1.SmithySerializer<_i2.Stream<List<int>>>> serializers = [
+    UploadMultipartPartInputRestJson1Serializer()
+  ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UploadMultipartPartInputBuilder b) {
@@ -81,7 +82,7 @@ abstract class UploadMultipartPartInput
   String get uploadId;
   String? get checksum;
   String? get range;
-  _i2.Stream<List<int>>? get body;
+  _i2.Stream<List<int>> get body;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -99,7 +100,7 @@ abstract class UploadMultipartPartInput
   }
 
   @override
-  _i2.Stream<List<int>>? getPayload() => body;
+  _i2.Stream<List<int>> getPayload() => body;
   @override
   List<Object?> get props => [
         accountId,

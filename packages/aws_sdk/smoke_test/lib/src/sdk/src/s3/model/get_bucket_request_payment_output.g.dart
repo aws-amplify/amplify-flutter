@@ -50,9 +50,7 @@ class GetBucketRequestPaymentOutputBuilder
   _i2.Payer? get payer => _$this._payer;
   set payer(_i2.Payer? payer) => _$this._payer = payer;
 
-  GetBucketRequestPaymentOutputBuilder() {
-    GetBucketRequestPaymentOutput._init(this);
-  }
+  GetBucketRequestPaymentOutputBuilder();
 
   GetBucketRequestPaymentOutputBuilder get _$this {
     final $v = _$v;

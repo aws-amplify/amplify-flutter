@@ -53,9 +53,6 @@ abstract class ImportSummary
     ImportSummaryAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ImportSummaryBuilder b) {}
-
   /// The Amazon Resource Number (ARN) corresponding to the import request.
   String? get importArn;
 

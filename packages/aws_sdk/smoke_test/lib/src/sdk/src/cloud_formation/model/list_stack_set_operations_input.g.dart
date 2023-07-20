@@ -83,9 +83,7 @@ class ListStackSetOperationsInputBuilder
   _i3.CallAs? get callAs => _$this._callAs;
   set callAs(_i3.CallAs? callAs) => _$this._callAs = callAs;
 
-  ListStackSetOperationsInputBuilder() {
-    ListStackSetOperationsInput._init(this);
-  }
+  ListStackSetOperationsInputBuilder();
 
   ListStackSetOperationsInputBuilder get _$this {
     final $v = _$v;

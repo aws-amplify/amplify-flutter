@@ -49,9 +49,6 @@ abstract class GetCredentialReportResponse
   static const List<_i4.SmithySerializer<GetCredentialReportResponse>>
       serializers = [GetCredentialReportResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetCredentialReportResponseBuilder b) {}
-
   /// Contains the credential report. The report is Base64-encoded.
   _i2.Uint8List? get content;
 

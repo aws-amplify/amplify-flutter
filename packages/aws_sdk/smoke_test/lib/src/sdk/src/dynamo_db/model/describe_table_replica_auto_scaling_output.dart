@@ -42,9 +42,6 @@ abstract class DescribeTableReplicaAutoScalingOutput
     DescribeTableReplicaAutoScalingOutputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeTableReplicaAutoScalingOutputBuilder b) {}
-
   /// Represents the auto scaling properties of the table.
   _i2.TableAutoScalingDescription? get tableAutoScalingDescription;
   @override

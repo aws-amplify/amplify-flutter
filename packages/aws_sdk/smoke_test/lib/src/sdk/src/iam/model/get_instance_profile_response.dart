@@ -39,9 +39,6 @@ abstract class GetInstanceProfileResponse
   static const List<_i3.SmithySerializer<GetInstanceProfileResponse>>
       serializers = [GetInstanceProfileResponseAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetInstanceProfileResponseBuilder b) {}
-
   /// A structure containing details about the instance profile.
   _i2.InstanceProfile get instanceProfile;
   @override

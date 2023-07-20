@@ -43,9 +43,6 @@ abstract class MaxActiveResourcesExceededException
   static const List<_i2.SmithySerializer<MaxActiveResourcesExceededException>>
       serializers = [MaxActiveResourcesExceededExceptionAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MaxActiveResourcesExceededExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

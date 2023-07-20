@@ -48,9 +48,7 @@ class StructWithJsonNameBuilder
   String? get value => _$this._value;
   set value(String? value) => _$this._value = value;
 
-  StructWithJsonNameBuilder() {
-    StructWithJsonName._init(this);
-  }
+  StructWithJsonNameBuilder();
 
   StructWithJsonNameBuilder get _$this {
     final $v = _$v;

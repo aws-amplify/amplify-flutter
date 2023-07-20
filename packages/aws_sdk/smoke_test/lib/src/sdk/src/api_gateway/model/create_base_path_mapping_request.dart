@@ -59,9 +59,6 @@ abstract class CreateBasePathMappingRequest
   static const List<_i1.SmithySerializer<CreateBasePathMappingRequestPayload>>
       serializers = [CreateBasePathMappingRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateBasePathMappingRequestBuilder b) {}
-
   /// The domain name of the BasePathMapping resource to create.
   String get domainName;
 
@@ -134,9 +131,6 @@ abstract class CreateBasePathMappingRequestPayload
       _$CreateBasePathMappingRequestPayload;
 
   const CreateBasePathMappingRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateBasePathMappingRequestPayloadBuilder b) {}
 
   /// The base path name that callers of the API must provide as part of the URL after the domain name. This value must be unique for all of the mappings across a single API. Specify '(none)' if you do not want callers to specify a base path name after the domain name.
   String? get basePath;

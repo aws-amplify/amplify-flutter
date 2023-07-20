@@ -61,9 +61,6 @@ abstract class Authorizer
     AuthorizerRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AuthorizerBuilder b) {}
-
   /// The identifier for the authorizer resource.
   String? get id;
 

@@ -53,9 +53,6 @@ abstract class GetBucketAclRequest
   static const List<_i1.SmithySerializer<GetBucketAclRequestPayload>>
       serializers = [GetBucketAclRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketAclRequestBuilder b) {}
-
   /// Specifies the S3 bucket whose ACL is being requested.
   ///
   /// To use this API operation against an access point, provide the alias of the access point in place of the bucket name.
@@ -111,8 +108,6 @@ abstract class GetBucketAclRequestPayload
 
   const GetBucketAclRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketAclRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

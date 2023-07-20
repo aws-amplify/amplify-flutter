@@ -44,9 +44,6 @@ abstract class PutGroupPolicyRequest
     PutGroupPolicyRequestAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutGroupPolicyRequestBuilder b) {}
-
   /// The name of the group to associate the policy with.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-.

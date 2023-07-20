@@ -53,8 +53,6 @@ abstract class MalformedLengthInput
     MalformedLengthInputRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedLengthInputBuilder b) {}
   _i3.Uint8List? get blob;
   String? get string;
   String? get minString;

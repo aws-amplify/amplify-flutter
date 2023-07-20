@@ -93,9 +93,7 @@ class GetObjectAclRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetObjectAclRequestBuilder() {
-    GetObjectAclRequest._init(this);
-  }
+  GetObjectAclRequestBuilder();
 
   GetObjectAclRequestBuilder get _$this {
     final $v = _$v;
@@ -172,9 +170,7 @@ class GetObjectAclRequestPayloadBuilder
         Builder<GetObjectAclRequestPayload, GetObjectAclRequestPayloadBuilder> {
   _$GetObjectAclRequestPayload? _$v;
 
-  GetObjectAclRequestPayloadBuilder() {
-    GetObjectAclRequestPayload._init(this);
-  }
+  GetObjectAclRequestPayloadBuilder();
 
   @override
   void replace(GetObjectAclRequestPayload other) {

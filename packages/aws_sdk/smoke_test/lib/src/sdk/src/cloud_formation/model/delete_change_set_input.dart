@@ -45,9 +45,6 @@ abstract class DeleteChangeSetInput
     DeleteChangeSetInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteChangeSetInputBuilder b) {}
-
   /// The name or Amazon Resource Name (ARN) of the change set that you want to delete.
   String get changeSetName;
 

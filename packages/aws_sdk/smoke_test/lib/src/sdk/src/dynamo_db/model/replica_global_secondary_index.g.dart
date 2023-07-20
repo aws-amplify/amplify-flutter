@@ -69,9 +69,7 @@ class ReplicaGlobalSecondaryIndexBuilder
               provisionedThroughputOverride) =>
       _$this._provisionedThroughputOverride = provisionedThroughputOverride;
 
-  ReplicaGlobalSecondaryIndexBuilder() {
-    ReplicaGlobalSecondaryIndex._init(this);
-  }
+  ReplicaGlobalSecondaryIndexBuilder();
 
   ReplicaGlobalSecondaryIndexBuilder get _$this {
     final $v = _$v;

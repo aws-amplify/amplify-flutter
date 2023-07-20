@@ -42,9 +42,6 @@ abstract class ConformancePackComplianceFilters
   static const List<_i4.SmithySerializer<ConformancePackComplianceFilters>>
       serializers = [ConformancePackComplianceFiltersAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConformancePackComplianceFiltersBuilder b) {}
-
   /// Filters the results by Config rule names.
   _i3.BuiltList<String>? get configRuleNames;
 

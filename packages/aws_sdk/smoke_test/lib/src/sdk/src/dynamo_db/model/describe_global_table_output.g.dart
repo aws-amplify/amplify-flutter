@@ -54,9 +54,7 @@ class DescribeGlobalTableOutputBuilder
           _i2.GlobalTableDescriptionBuilder? globalTableDescription) =>
       _$this._globalTableDescription = globalTableDescription;
 
-  DescribeGlobalTableOutputBuilder() {
-    DescribeGlobalTableOutput._init(this);
-  }
+  DescribeGlobalTableOutputBuilder();
 
   DescribeGlobalTableOutputBuilder get _$this {
     final $v = _$v;

@@ -44,9 +44,6 @@ abstract class BasePathMapping
     BasePathMappingRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BasePathMappingBuilder b) {}
-
   /// The base path name that callers of the API must provide as part of the URL after the domain name.
   String? get basePath;
 

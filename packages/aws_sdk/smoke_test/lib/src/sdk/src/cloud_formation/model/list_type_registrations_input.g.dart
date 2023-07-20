@@ -100,9 +100,7 @@ class ListTypeRegistrationsInputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListTypeRegistrationsInputBuilder() {
-    ListTypeRegistrationsInput._init(this);
-  }
+  ListTypeRegistrationsInputBuilder();
 
   ListTypeRegistrationsInputBuilder get _$this {
     final $v = _$v;

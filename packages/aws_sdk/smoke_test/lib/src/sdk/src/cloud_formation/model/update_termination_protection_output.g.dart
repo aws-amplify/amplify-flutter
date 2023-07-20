@@ -53,9 +53,7 @@ class UpdateTerminationProtectionOutputBuilder
   String? get stackId => _$this._stackId;
   set stackId(String? stackId) => _$this._stackId = stackId;
 
-  UpdateTerminationProtectionOutputBuilder() {
-    UpdateTerminationProtectionOutput._init(this);
-  }
+  UpdateTerminationProtectionOutputBuilder();
 
   UpdateTerminationProtectionOutputBuilder get _$this {
     final $v = _$v;

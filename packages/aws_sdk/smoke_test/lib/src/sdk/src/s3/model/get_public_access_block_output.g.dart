@@ -57,9 +57,7 @@ class GetPublicAccessBlockOutputBuilder
               publicAccessBlockConfiguration) =>
       _$this._publicAccessBlockConfiguration = publicAccessBlockConfiguration;
 
-  GetPublicAccessBlockOutputBuilder() {
-    GetPublicAccessBlockOutput._init(this);
-  }
+  GetPublicAccessBlockOutputBuilder();
 
   GetPublicAccessBlockOutputBuilder get _$this {
     final $v = _$v;

@@ -29,7 +29,7 @@ class CodegenContext {
     this.pubspec,
     Iterable<ShapeId> additionalShapes = const {},
     this.generateServer = false,
-    Map<ShapeId, Reference>? symbolOverrides,
+    Map<ShapeId, ShapeOverrides>? shapeOverrides,
   })  : _shapes = shapes,
         _serviceName = serviceName,
         serviceShapeId = serviceShapeId ??
@@ -37,9 +37,9 @@ class CodegenContext {
               return entry.value is ServiceShape;
             })?.key,
         _additionalShapes = additionalShapes.toSet(),
-        symbolOverrides = {
-          Shape.unit: DartTypes.smithy.unit,
-          ...?symbolOverrides,
+        shapeOverrides = {
+          Shape.unit: ShapeOverrides(DartTypes.smithy.unit),
+          ...?shapeOverrides,
         } {
     if (serviceShapeId == null && serviceName == null) {
       throw ArgumentError(
@@ -108,7 +108,8 @@ class CodegenContext {
   /// be added as needed during code generation.
   final Pubspec? pubspec;
 
-  final Map<ShapeId, Reference> symbolOverrides;
+  final Map<ShapeId, ShapeOverrides> shapeOverrides;
+  final Map<(ShapeId, Shape? parent), Reference> _symbolCache = {};
 
   /// The service shape being generated.
   late final ServiceShape? service =
@@ -136,7 +137,8 @@ class CodegenContext {
   /// Returns the symbol or [Reference] for [shapeId].
   Reference symbolFor(ShapeId shapeId, [Shape? parent]) {
     final shape = shapeFor(shapeId);
-    return shape.accept(SymbolVisitor(this), parent);
+    return _symbolCache[(shapeId, parent)] ??=
+        shape.accept(SymbolVisitor(this), parent);
   }
 
   /// The service's serializers library.
@@ -206,6 +208,16 @@ class CodegenContext {
     filename: serviceName,
     basePath: basePath,
   );
+
+  /// Whether there is a user-defined override for [shape].
+  bool hasSymbolOverrideFor(Shape shape) => symbolOverrideFor(shape) != null;
+
+  /// The user-defined overrides for [shape].
+  ShapeOverrides? overridesFor(Shape shape) => shapeOverrides[shape.shapeId];
+
+  /// The user-defined symbol for [shape].
+  Reference? symbolOverrideFor(Shape shape) =>
+      shapeOverrides[shape.shapeId]?.symbol;
 
   /// Runs [action] with the `this` as the global [CodegenContext].
   R run<R>(R Function() action) =>

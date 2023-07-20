@@ -34,9 +34,7 @@ class _$EndEvent extends EndEvent {
 class EndEventBuilder implements Builder<EndEvent, EndEventBuilder> {
   _$EndEvent? _$v;
 
-  EndEventBuilder() {
-    EndEvent._init(this);
-  }
+  EndEventBuilder();
 
   @override
   void replace(EndEvent other) {

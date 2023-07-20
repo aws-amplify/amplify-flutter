@@ -33,9 +33,6 @@ abstract class EndpointBatchRequest
     EndpointBatchRequestRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EndpointBatchRequestBuilder b) {}
-
   /// An array that defines the endpoints to create or update and, for each endpoint, the property values to set or change. An array can contain a maximum of 100 items.
   _i3.BuiltList<_i2.EndpointBatchItem> get item;
   @override

@@ -40,9 +40,6 @@ abstract class EvaluationResultIdentifier
   static const List<_i3.SmithySerializer<EvaluationResultIdentifier>>
       serializers = [EvaluationResultIdentifierAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EvaluationResultIdentifierBuilder b) {}
-
   /// Identifies an Config rule used to evaluate an Amazon Web Services resource, and provides the type and ID of the evaluated resource.
   _i2.EvaluationResultQualifier? get evaluationResultQualifier;
 

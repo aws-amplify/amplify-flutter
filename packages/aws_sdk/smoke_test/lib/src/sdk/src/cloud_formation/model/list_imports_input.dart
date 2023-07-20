@@ -39,9 +39,6 @@ abstract class ListImportsInput
     ListImportsInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListImportsInputBuilder b) {}
-
   /// The name of the exported output value. CloudFormation returns the stack names that are importing this value.
   String get exportName;
 

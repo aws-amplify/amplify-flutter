@@ -63,9 +63,7 @@ class BasePathMappingBuilder
   String? get stage => _$this._stage;
   set stage(String? stage) => _$this._stage = stage;
 
-  BasePathMappingBuilder() {
-    BasePathMapping._init(this);
-  }
+  BasePathMappingBuilder();
 
   BasePathMappingBuilder get _$this {
     final $v = _$v;

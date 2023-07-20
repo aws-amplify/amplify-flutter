@@ -59,9 +59,7 @@ class HttpPayloadTraitsInputOutputBuilder
   _i2.Uint8List? get blob => _$this._blob;
   set blob(_i2.Uint8List? blob) => _$this._blob = blob;
 
-  HttpPayloadTraitsInputOutputBuilder() {
-    HttpPayloadTraitsInputOutput._init(this);
-  }
+  HttpPayloadTraitsInputOutputBuilder();
 
   HttpPayloadTraitsInputOutputBuilder get _$this {
     final $v = _$v;

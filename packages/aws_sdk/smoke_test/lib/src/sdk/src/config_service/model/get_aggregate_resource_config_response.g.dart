@@ -56,9 +56,7 @@ class GetAggregateResourceConfigResponseBuilder
   set configurationItem(_i2.ConfigurationItemBuilder? configurationItem) =>
       _$this._configurationItem = configurationItem;
 
-  GetAggregateResourceConfigResponseBuilder() {
-    GetAggregateResourceConfigResponse._init(this);
-  }
+  GetAggregateResourceConfigResponseBuilder();
 
   GetAggregateResourceConfigResponseBuilder get _$this {
     final $v = _$v;

@@ -57,9 +57,7 @@ class StackInstanceFilterBuilder
   String? get values => _$this._values;
   set values(String? values) => _$this._values = values;
 
-  StackInstanceFilterBuilder() {
-    StackInstanceFilter._init(this);
-  }
+  StackInstanceFilterBuilder();
 
   StackInstanceFilterBuilder get _$this {
     final $v = _$v;

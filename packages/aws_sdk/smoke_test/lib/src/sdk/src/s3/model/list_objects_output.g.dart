@@ -146,9 +146,7 @@ class ListObjectsOutputBuilder
   set requestCharged(_i6.RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
-  ListObjectsOutputBuilder() {
-    ListObjectsOutput._init(this);
-  }
+  ListObjectsOutputBuilder();
 
   ListObjectsOutputBuilder get _$this {
     final $v = _$v;
@@ -350,9 +348,7 @@ class ListObjectsOutputPayloadBuilder
   String? get prefix => _$this._prefix;
   set prefix(String? prefix) => _$this._prefix = prefix;
 
-  ListObjectsOutputPayloadBuilder() {
-    ListObjectsOutputPayload._init(this);
-  }
+  ListObjectsOutputPayloadBuilder();
 
   ListObjectsOutputPayloadBuilder get _$this {
     final $v = _$v;

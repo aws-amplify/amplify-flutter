@@ -35,8 +35,6 @@ abstract class RecordHandlerProgressOutput
   static const List<_i2.SmithySerializer<RecordHandlerProgressOutput>>
       serializers = [RecordHandlerProgressOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RecordHandlerProgressOutputBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

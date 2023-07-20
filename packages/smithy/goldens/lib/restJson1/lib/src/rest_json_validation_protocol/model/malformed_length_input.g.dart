@@ -98,9 +98,7 @@ class MalformedLengthInputBuilder
       _$this._map ??= new _i4.ListMultimapBuilder<String, String>();
   set map(_i4.ListMultimapBuilder<String, String>? map) => _$this._map = map;
 
-  MalformedLengthInputBuilder() {
-    MalformedLengthInput._init(this);
-  }
+  MalformedLengthInputBuilder();
 
   MalformedLengthInputBuilder get _$this {
     final $v = _$v;

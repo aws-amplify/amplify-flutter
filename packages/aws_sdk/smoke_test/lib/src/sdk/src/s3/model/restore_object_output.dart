@@ -52,9 +52,6 @@ abstract class RestoreObjectOutput
   static const List<_i2.SmithySerializer<RestoreObjectOutputPayload>>
       serializers = [RestoreObjectOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RestoreObjectOutputBuilder b) {}
-
   /// If present, indicates that the requester was successfully charged for the request.
   _i3.RequestCharged? get requestCharged;
 
@@ -94,8 +91,6 @@ abstract class RestoreObjectOutputPayload
 
   const RestoreObjectOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RestoreObjectOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

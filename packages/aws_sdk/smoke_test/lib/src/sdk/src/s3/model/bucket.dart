@@ -34,9 +34,6 @@ abstract class Bucket
     BucketRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BucketBuilder b) {}
-
   /// The name of the bucket.
   String? get name;
 

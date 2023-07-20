@@ -50,9 +50,6 @@ abstract class DescribeAggregationAuthorizationsResponse
     DescribeAggregationAuthorizationsResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeAggregationAuthorizationsResponseBuilder b) {}
-
   /// Returns a list of authorizations granted to various aggregator accounts and regions.
   _i3.BuiltList<_i2.AggregationAuthorization>? get aggregationAuthorizations;
 

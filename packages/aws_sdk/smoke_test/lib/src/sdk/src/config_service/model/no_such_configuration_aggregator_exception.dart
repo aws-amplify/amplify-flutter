@@ -46,9 +46,6 @@ abstract class NoSuchConfigurationAggregatorException
     NoSuchConfigurationAggregatorExceptionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NoSuchConfigurationAggregatorExceptionBuilder b) {}
-
   /// Error executing the command
   @override
   String? get message;

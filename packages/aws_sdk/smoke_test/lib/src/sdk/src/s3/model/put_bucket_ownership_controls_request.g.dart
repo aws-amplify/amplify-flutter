@@ -90,9 +90,7 @@ class PutBucketOwnershipControlsRequestBuilder
   set ownershipControls(_i2.OwnershipControlsBuilder? ownershipControls) =>
       _$this._ownershipControls = ownershipControls;
 
-  PutBucketOwnershipControlsRequestBuilder() {
-    PutBucketOwnershipControlsRequest._init(this);
-  }
+  PutBucketOwnershipControlsRequestBuilder();
 
   PutBucketOwnershipControlsRequestBuilder get _$this {
     final $v = _$v;

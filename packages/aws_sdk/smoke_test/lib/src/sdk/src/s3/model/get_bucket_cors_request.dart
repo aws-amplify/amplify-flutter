@@ -53,9 +53,6 @@ abstract class GetBucketCorsRequest
   static const List<_i1.SmithySerializer<GetBucketCorsRequestPayload>>
       serializers = [GetBucketCorsRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketCorsRequestBuilder b) {}
-
   /// The bucket name for which to get the cors configuration.
   ///
   /// To use this API operation against an access point, provide the alias of the access point in place of the bucket name.
@@ -111,8 +108,6 @@ abstract class GetBucketCorsRequestPayload
 
   const GetBucketCorsRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketCorsRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

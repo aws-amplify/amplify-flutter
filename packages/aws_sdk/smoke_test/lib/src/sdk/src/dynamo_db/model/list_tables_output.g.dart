@@ -60,9 +60,7 @@ class ListTablesOutputBuilder
   set lastEvaluatedTableName(String? lastEvaluatedTableName) =>
       _$this._lastEvaluatedTableName = lastEvaluatedTableName;
 
-  ListTablesOutputBuilder() {
-    ListTablesOutput._init(this);
-  }
+  ListTablesOutputBuilder();
 
   ListTablesOutputBuilder get _$this {
     final $v = _$v;

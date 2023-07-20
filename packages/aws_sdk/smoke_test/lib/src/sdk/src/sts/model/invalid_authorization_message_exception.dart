@@ -42,8 +42,6 @@ abstract class InvalidAuthorizationMessageException
   static const List<_i2.SmithySerializer<InvalidAuthorizationMessageException>>
       serializers = [InvalidAuthorizationMessageExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidAuthorizationMessageExceptionBuilder b) {}
   @override
   String? get message;
   @override

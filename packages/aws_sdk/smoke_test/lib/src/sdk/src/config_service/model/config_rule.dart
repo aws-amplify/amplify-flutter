@@ -87,9 +87,6 @@ abstract class ConfigRule
     ConfigRuleAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConfigRuleBuilder b) {}
-
   /// The name that you assign to the Config rule. The name is required if you are adding a new rule.
   String? get configRuleName;
 

@@ -49,9 +49,6 @@ abstract class GetServiceLinkedRoleDeletionStatusResponse
     GetServiceLinkedRoleDeletionStatusResponseAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetServiceLinkedRoleDeletionStatusResponseBuilder b) {}
-
   /// The status of the deletion.
   _i2.DeletionTaskStatusType get status;
 

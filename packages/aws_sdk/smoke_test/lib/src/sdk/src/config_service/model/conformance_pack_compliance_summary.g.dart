@@ -73,9 +73,7 @@ class ConformancePackComplianceSummaryBuilder
           _i2.ConformancePackComplianceType? conformancePackComplianceStatus) =>
       _$this._conformancePackComplianceStatus = conformancePackComplianceStatus;
 
-  ConformancePackComplianceSummaryBuilder() {
-    ConformancePackComplianceSummary._init(this);
-  }
+  ConformancePackComplianceSummaryBuilder();
 
   ConformancePackComplianceSummaryBuilder get _$this {
     final $v = _$v;

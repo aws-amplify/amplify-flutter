@@ -113,9 +113,7 @@ class DeleteBuilder implements Builder<Delete, DeleteBuilder> {
       _$this._returnValuesOnConditionCheckFailure =
           returnValuesOnConditionCheckFailure;
 
-  DeleteBuilder() {
-    Delete._init(this);
-  }
+  DeleteBuilder();
 
   DeleteBuilder get _$this {
     final $v = _$v;

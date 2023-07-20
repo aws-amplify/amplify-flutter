@@ -36,8 +36,6 @@ abstract class PostUnionWithJsonNameOutput
   static const List<_i3.SmithySerializer<PostUnionWithJsonNameOutput>>
       serializers = [PostUnionWithJsonNameOutputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PostUnionWithJsonNameOutputBuilder b) {}
   _i2.UnionWithJsonName get value;
   @override
   List<Object?> get props => [value];

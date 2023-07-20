@@ -37,8 +37,6 @@ abstract class DescribeEndpointsRequest
   static const List<_i1.SmithySerializer<DescribeEndpointsRequest>>
       serializers = [DescribeEndpointsRequestAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeEndpointsRequestBuilder b) {}
   @override
   DescribeEndpointsRequest getPayload() => this;
   @override

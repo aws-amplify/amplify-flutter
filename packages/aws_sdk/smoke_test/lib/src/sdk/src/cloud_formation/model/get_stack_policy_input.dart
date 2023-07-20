@@ -39,9 +39,6 @@ abstract class GetStackPolicyInput
     GetStackPolicyInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetStackPolicyInputBuilder b) {}
-
   /// The name or unique stack ID that's associated with the stack whose policy you want to get.
   String get stackName;
   @override

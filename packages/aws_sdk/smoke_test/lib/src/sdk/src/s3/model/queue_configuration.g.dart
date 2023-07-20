@@ -83,9 +83,7 @@ class QueueConfigurationBuilder
   set filter(_i3.NotificationConfigurationFilterBuilder? filter) =>
       _$this._filter = filter;
 
-  QueueConfigurationBuilder() {
-    QueueConfiguration._init(this);
-  }
+  QueueConfigurationBuilder();
 
   QueueConfigurationBuilder get _$this {
     final $v = _$v;

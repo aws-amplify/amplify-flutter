@@ -66,9 +66,7 @@ class UpdateRoleDescriptionRequestBuilder
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  UpdateRoleDescriptionRequestBuilder() {
-    UpdateRoleDescriptionRequest._init(this);
-  }
+  UpdateRoleDescriptionRequestBuilder();
 
   UpdateRoleDescriptionRequestBuilder get _$this {
     final $v = _$v;

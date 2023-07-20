@@ -48,9 +48,6 @@ abstract class GetBucketAnalyticsConfigurationOutput
   static const List<_i2.SmithySerializer<_i3.AnalyticsConfiguration?>>
       serializers = [GetBucketAnalyticsConfigurationOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketAnalyticsConfigurationOutputBuilder b) {}
-
   /// The configuration and any analyses for the analytics filter.
   _i3.AnalyticsConfiguration? get analyticsConfiguration;
   @override

@@ -52,9 +52,6 @@ abstract class GetConformancePackComplianceSummaryResponse
     GetConformancePackComplianceSummaryResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetConformancePackComplianceSummaryResponseBuilder b) {}
-
   /// A list of `ConformancePackComplianceSummary` objects.
   _i3.BuiltList<_i2.ConformancePackComplianceSummary>?
       get conformancePackComplianceSummaryList;

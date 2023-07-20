@@ -63,9 +63,7 @@ class ApiStageBuilder implements Builder<ApiStage, ApiStageBuilder> {
   set throttle(_i3.MapBuilder<String, _i2.ThrottleSettings>? throttle) =>
       _$this._throttle = throttle;
 
-  ApiStageBuilder() {
-    ApiStage._init(this);
-  }
+  ApiStageBuilder();
 
   ApiStageBuilder get _$this {
     final $v = _$v;

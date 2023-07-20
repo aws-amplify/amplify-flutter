@@ -51,9 +51,6 @@ abstract class RegisterTypeInput
     RegisterTypeInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RegisterTypeInputBuilder b) {}
-
   /// The kind of extension.
   _i3.RegistryType? get type;
 

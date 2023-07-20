@@ -48,9 +48,7 @@ class TransactGetItemBuilder
   _i2.GetBuilder get get => _$this._get ??= new _i2.GetBuilder();
   set get(_i2.GetBuilder? get) => _$this._get = get;
 
-  TransactGetItemBuilder() {
-    TransactGetItem._init(this);
-  }
+  TransactGetItemBuilder();
 
   TransactGetItemBuilder get _$this {
     final $v = _$v;

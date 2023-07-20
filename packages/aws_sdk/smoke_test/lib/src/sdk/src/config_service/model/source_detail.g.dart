@@ -69,9 +69,7 @@ class SourceDetailBuilder
           _i4.MaximumExecutionFrequency? maximumExecutionFrequency) =>
       _$this._maximumExecutionFrequency = maximumExecutionFrequency;
 
-  SourceDetailBuilder() {
-    SourceDetail._init(this);
-  }
+  SourceDetailBuilder();
 
   SourceDetailBuilder get _$this {
     final $v = _$v;

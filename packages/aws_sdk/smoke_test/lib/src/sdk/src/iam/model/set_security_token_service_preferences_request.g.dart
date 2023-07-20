@@ -65,9 +65,7 @@ class SetSecurityTokenServicePreferencesRequestBuilder
           _i3.GlobalEndpointTokenVersion? globalEndpointTokenVersion) =>
       _$this._globalEndpointTokenVersion = globalEndpointTokenVersion;
 
-  SetSecurityTokenServicePreferencesRequestBuilder() {
-    SetSecurityTokenServicePreferencesRequest._init(this);
-  }
+  SetSecurityTokenServicePreferencesRequestBuilder();
 
   SetSecurityTokenServicePreferencesRequestBuilder get _$this {
     final $v = _$v;

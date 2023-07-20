@@ -33,9 +33,6 @@ abstract class AbortIncompleteMultipartUpload
   static const List<_i2.SmithySerializer<AbortIncompleteMultipartUpload>>
       serializers = [AbortIncompleteMultipartUploadRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AbortIncompleteMultipartUploadBuilder b) {}
-
   /// Specifies the number of days after which Amazon S3 aborts an incomplete multipart upload.
   int? get daysAfterInitiation;
   @override

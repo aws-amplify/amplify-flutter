@@ -51,9 +51,7 @@ class GetCustomRulePolicyRequestBuilder
   set configRuleName(String? configRuleName) =>
       _$this._configRuleName = configRuleName;
 
-  GetCustomRulePolicyRequestBuilder() {
-    GetCustomRulePolicyRequest._init(this);
-  }
+  GetCustomRulePolicyRequestBuilder();
 
   GetCustomRulePolicyRequestBuilder get _$this {
     final $v = _$v;

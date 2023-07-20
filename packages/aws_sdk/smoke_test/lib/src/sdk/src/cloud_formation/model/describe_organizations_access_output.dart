@@ -38,9 +38,6 @@ abstract class DescribeOrganizationsAccessOutput
   static const List<_i3.SmithySerializer<DescribeOrganizationsAccessOutput>>
       serializers = [DescribeOrganizationsAccessOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeOrganizationsAccessOutputBuilder b) {}
-
   /// Presents the status of the `OrganizationAccess`.
   _i2.OrganizationStatus? get status;
   @override

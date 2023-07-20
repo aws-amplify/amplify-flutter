@@ -36,8 +36,6 @@ abstract class IgnoreQueryParamsInResponseOutput
   static const List<_i2.SmithySerializer<IgnoreQueryParamsInResponseOutput>>
       serializers = [IgnoreQueryParamsInResponseOutputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(IgnoreQueryParamsInResponseOutputBuilder b) {}
   String? get baz;
   @override
   List<Object?> get props => [baz];

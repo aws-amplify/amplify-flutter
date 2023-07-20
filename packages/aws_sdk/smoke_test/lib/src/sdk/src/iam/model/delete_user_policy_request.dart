@@ -41,9 +41,6 @@ abstract class DeleteUserPolicyRequest
   static const List<_i1.SmithySerializer<DeleteUserPolicyRequest>> serializers =
       [DeleteUserPolicyRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteUserPolicyRequestBuilder b) {}
-
   /// The name (friendly name, not ARN) identifying the user that the policy is embedded in.
   ///
   /// This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-

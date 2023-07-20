@@ -220,9 +220,7 @@ class ExportDescriptionBuilder
   _i5.Int64? get itemCount => _$this._itemCount;
   set itemCount(_i5.Int64? itemCount) => _$this._itemCount = itemCount;
 
-  ExportDescriptionBuilder() {
-    ExportDescription._init(this);
-  }
+  ExportDescriptionBuilder();
 
   ExportDescriptionBuilder get _$this {
     final $v = _$v;

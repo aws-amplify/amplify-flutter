@@ -63,9 +63,7 @@ class RemediationParameterValueBuilder
   set staticValue(_i3.StaticValueBuilder? staticValue) =>
       _$this._staticValue = staticValue;
 
-  RemediationParameterValueBuilder() {
-    RemediationParameterValue._init(this);
-  }
+  RemediationParameterValueBuilder();
 
   RemediationParameterValueBuilder get _$this {
     final $v = _$v;

@@ -49,9 +49,6 @@ abstract class AccessDetail
     AccessDetailAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AccessDetailBuilder b) {}
-
   /// The name of the service in which access was attempted.
   String get serviceName;
 

@@ -136,9 +136,7 @@ class AuthorizerBuilder implements Builder<Authorizer, AuthorizerBuilder> {
   set authorizerResultTtlInSeconds(int? authorizerResultTtlInSeconds) =>
       _$this._authorizerResultTtlInSeconds = authorizerResultTtlInSeconds;
 
-  AuthorizerBuilder() {
-    Authorizer._init(this);
-  }
+  AuthorizerBuilder();
 
   AuthorizerBuilder get _$this {
     final $v = _$v;

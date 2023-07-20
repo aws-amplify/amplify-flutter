@@ -75,9 +75,7 @@ class CreateUsagePlanKeyRequestBuilder
   String? get keyType => _$this._keyType;
   set keyType(String? keyType) => _$this._keyType = keyType;
 
-  CreateUsagePlanKeyRequestBuilder() {
-    CreateUsagePlanKeyRequest._init(this);
-  }
+  CreateUsagePlanKeyRequestBuilder();
 
   CreateUsagePlanKeyRequestBuilder get _$this {
     final $v = _$v;
@@ -179,9 +177,7 @@ class CreateUsagePlanKeyRequestPayloadBuilder
   String? get keyType => _$this._keyType;
   set keyType(String? keyType) => _$this._keyType = keyType;
 
-  CreateUsagePlanKeyRequestPayloadBuilder() {
-    CreateUsagePlanKeyRequestPayload._init(this);
-  }
+  CreateUsagePlanKeyRequestPayloadBuilder();
 
   CreateUsagePlanKeyRequestPayloadBuilder get _$this {
     final $v = _$v;

@@ -54,9 +54,7 @@ class ModelsBuilder implements Builder<Models, ModelsBuilder> {
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  ModelsBuilder() {
-    Models._init(this);
-  }
+  ModelsBuilder();
 
   ModelsBuilder get _$this {
     final $v = _$v;

@@ -100,9 +100,7 @@ class ParameterDeclarationBuilder
           _i2.ParameterConstraintsBuilder? parameterConstraints) =>
       _$this._parameterConstraints = parameterConstraints;
 
-  ParameterDeclarationBuilder() {
-    ParameterDeclaration._init(this);
-  }
+  ParameterDeclarationBuilder();
 
   ParameterDeclarationBuilder get _$this {
     final $v = _$v;

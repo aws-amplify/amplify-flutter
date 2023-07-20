@@ -175,9 +175,7 @@ class DeleteItemInputBuilder
       _$this._returnValuesOnConditionCheckFailure =
           returnValuesOnConditionCheckFailure;
 
-  DeleteItemInputBuilder() {
-    DeleteItemInput._init(this);
-  }
+  DeleteItemInputBuilder();
 
   DeleteItemInputBuilder get _$this {
     final $v = _$v;

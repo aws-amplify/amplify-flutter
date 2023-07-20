@@ -17,9 +17,8 @@ abstract class MetricDimension
   /// Specifies metric-based criteria for including or excluding endpoints from a segment. These criteria derive from custom metrics that you define for endpoints.
   factory MetricDimension({
     required String comparisonOperator,
-    double? value,
+    required double value,
   }) {
-    value ??= 0;
     return _$MetricDimension._(
       comparisonOperator: comparisonOperator,
       value: value,
@@ -35,11 +34,6 @@ abstract class MetricDimension
   static const List<_i2.SmithySerializer<MetricDimension>> serializers = [
     MetricDimensionRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MetricDimensionBuilder b) {
-    b.value = 0;
-  }
 
   /// The operator to use when comparing metric values. Valid values are: GREATER\_THAN, LESS\_THAN, GREATER\_THAN\_OR\_EQUAL, LESS\_THAN\_OR\_EQUAL, and EQUAL.
   String get comparisonOperator;

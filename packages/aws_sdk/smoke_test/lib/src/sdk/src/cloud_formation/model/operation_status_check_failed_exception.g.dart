@@ -61,9 +61,7 @@ class OperationStatusCheckFailedExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  OperationStatusCheckFailedExceptionBuilder() {
-    OperationStatusCheckFailedException._init(this);
-  }
+  OperationStatusCheckFailedExceptionBuilder();
 
   OperationStatusCheckFailedExceptionBuilder get _$this {
     final $v = _$v;

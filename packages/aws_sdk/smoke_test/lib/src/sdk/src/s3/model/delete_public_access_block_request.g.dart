@@ -65,9 +65,7 @@ class DeletePublicAccessBlockRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  DeletePublicAccessBlockRequestBuilder() {
-    DeletePublicAccessBlockRequest._init(this);
-  }
+  DeletePublicAccessBlockRequestBuilder();
 
   DeletePublicAccessBlockRequestBuilder get _$this {
     final $v = _$v;
@@ -142,9 +140,7 @@ class DeletePublicAccessBlockRequestPayloadBuilder
             DeletePublicAccessBlockRequestPayloadBuilder> {
   _$DeletePublicAccessBlockRequestPayload? _$v;
 
-  DeletePublicAccessBlockRequestPayloadBuilder() {
-    DeletePublicAccessBlockRequestPayload._init(this);
-  }
+  DeletePublicAccessBlockRequestPayloadBuilder();
 
   @override
   void replace(DeletePublicAccessBlockRequestPayload other) {

@@ -64,9 +64,7 @@ class ReplicaAlreadyExistsExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ReplicaAlreadyExistsExceptionBuilder() {
-    ReplicaAlreadyExistsException._init(this);
-  }
+  ReplicaAlreadyExistsExceptionBuilder();
 
   ReplicaAlreadyExistsExceptionBuilder get _$this {
     final $v = _$v;

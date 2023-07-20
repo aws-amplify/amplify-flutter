@@ -63,9 +63,7 @@ class StreamSpecificationBuilder
   set streamViewType(_i2.StreamViewType? streamViewType) =>
       _$this._streamViewType = streamViewType;
 
-  StreamSpecificationBuilder() {
-    StreamSpecification._init(this);
-  }
+  StreamSpecificationBuilder();
 
   StreamSpecificationBuilder get _$this {
     final $v = _$v;

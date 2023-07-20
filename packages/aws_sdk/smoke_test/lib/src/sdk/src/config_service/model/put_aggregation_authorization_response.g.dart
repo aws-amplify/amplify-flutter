@@ -59,9 +59,7 @@ class PutAggregationAuthorizationResponseBuilder
           _i2.AggregationAuthorizationBuilder? aggregationAuthorization) =>
       _$this._aggregationAuthorization = aggregationAuthorization;
 
-  PutAggregationAuthorizationResponseBuilder() {
-    PutAggregationAuthorizationResponse._init(this);
-  }
+  PutAggregationAuthorizationResponseBuilder();
 
   PutAggregationAuthorizationResponseBuilder get _$this {
     final $v = _$v;

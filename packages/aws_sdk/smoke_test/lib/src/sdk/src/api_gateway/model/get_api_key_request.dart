@@ -54,9 +54,6 @@ abstract class GetApiKeyRequest
   static const List<_i1.SmithySerializer<GetApiKeyRequestPayload>> serializers =
       [GetApiKeyRequestRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetApiKeyRequestBuilder b) {}
-
   /// The identifier of the ApiKey resource.
   String get apiKey;
 
@@ -108,8 +105,6 @@ abstract class GetApiKeyRequestPayload
 
   const GetApiKeyRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetApiKeyRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

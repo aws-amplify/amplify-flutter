@@ -50,9 +50,6 @@ abstract class DeliveryChannelStatus
     DeliveryChannelStatusAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeliveryChannelStatusBuilder b) {}
-
   /// The name of the delivery channel.
   String? get name;
 

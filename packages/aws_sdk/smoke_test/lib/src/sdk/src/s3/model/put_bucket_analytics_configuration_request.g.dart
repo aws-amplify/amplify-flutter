@@ -96,9 +96,7 @@ class PutBucketAnalyticsConfigurationRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  PutBucketAnalyticsConfigurationRequestBuilder() {
-    PutBucketAnalyticsConfigurationRequest._init(this);
-  }
+  PutBucketAnalyticsConfigurationRequestBuilder();
 
   PutBucketAnalyticsConfigurationRequestBuilder get _$this {
     final $v = _$v;

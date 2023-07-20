@@ -54,9 +54,6 @@ abstract class GetBucketRequestPaymentRequest
   static const List<_i1.SmithySerializer<GetBucketRequestPaymentRequestPayload>>
       serializers = [GetBucketRequestPaymentRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketRequestPaymentRequestBuilder b) {}
-
   /// The name of the bucket for which to get the payment request configuration
   String get bucket;
 
@@ -111,8 +108,6 @@ abstract class GetBucketRequestPaymentRequestPayload
 
   const GetBucketRequestPaymentRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketRequestPaymentRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

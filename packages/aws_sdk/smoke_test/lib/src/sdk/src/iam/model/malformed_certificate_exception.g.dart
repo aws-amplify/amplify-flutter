@@ -56,9 +56,7 @@ class MalformedCertificateExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  MalformedCertificateExceptionBuilder() {
-    MalformedCertificateException._init(this);
-  }
+  MalformedCertificateExceptionBuilder();
 
   MalformedCertificateExceptionBuilder get _$this {
     final $v = _$v;

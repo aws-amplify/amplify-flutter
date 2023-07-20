@@ -72,9 +72,7 @@ class ResourceIdentifierSummaryBuilder
   set resourceIdentifiers(_i2.ListBuilder<String>? resourceIdentifiers) =>
       _$this._resourceIdentifiers = resourceIdentifiers;
 
-  ResourceIdentifierSummaryBuilder() {
-    ResourceIdentifierSummary._init(this);
-  }
+  ResourceIdentifierSummaryBuilder();
 
   ResourceIdentifierSummaryBuilder get _$this {
     final $v = _$v;
