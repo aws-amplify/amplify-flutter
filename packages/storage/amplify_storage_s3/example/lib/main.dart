@@ -195,7 +195,6 @@ class _HomeScreenState extends State<HomeScreen> {
         key: key,
         localFile: AWSFile.fromPath(filepath),
         onProgress: (p0) => _logger
-            // .debug('Progress: ${p0.transferredBytes} / ${p0.totalBytes}%'),
             .debug('Progress: ${(p0.transferredBytes / p0.totalBytes) * 100}%'),
       ).result;
       await _listAllPublicFiles();
@@ -210,6 +209,8 @@ class _HomeScreenState extends State<HomeScreen> {
       await Amplify.Storage.downloadFile(
         key: key,
         localFile: AWSFile.fromPath(key),
+        onProgress: (p0) => _logger
+            .debug('Progress: ${(p0.transferredBytes / p0.totalBytes) * 100}%'),
       ).result;
       await _listAllPublicFiles();
     } on StorageException catch (e) {
