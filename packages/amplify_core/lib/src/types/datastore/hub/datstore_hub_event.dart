@@ -3,7 +3,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
-/// {@template datastore_hub_event}
+/// {@template amplify_core.datastore_hub_event}
 /// DataStore periodically publishes state notifications onto Amplify's Hub.
 /// You can subscribe to the Hub to gain insight into the internal state of the DataStore.
 ///
@@ -18,14 +18,14 @@ import 'package:amplify_core/amplify_core.dart';
 /// ```
 /// {@endtemplate}
 class DataStoreHubEvent extends HubEvent<DataStoreHubEventPayload> {
-  /// {@macro datastore_hub_event}
+  /// {@macro amplify_core.datastore_hub_event}
   DataStoreHubEvent(
     super.eventName, {
     required this.type,
     super.payload,
   });
 
-  /// {@macro datastore_hub_event.type}
+  /// {@macro amplify_core.datastore_hub_event.type}
   final DataStoreHubEventType type;
 }
 
@@ -33,7 +33,7 @@ abstract class DataStoreHubEventPayload {
   const DataStoreHubEventPayload();
 }
 
-/// {@template datastore_hub_event.type}
+/// {@template amplify_core.datastore_hub_event.type}
 /// The type of the DataStore Hub event.
 /// {@endtemplate}
 enum DataStoreHubEventType {
