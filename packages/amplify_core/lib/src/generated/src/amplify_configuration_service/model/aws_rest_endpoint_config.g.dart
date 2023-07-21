@@ -51,9 +51,7 @@ class AWSRestEndpointConfigBuilder
   Uri? get endpoint => _$this._endpoint;
   set endpoint(Uri? endpoint) => _$this._endpoint = endpoint;
 
-  AWSRestEndpointConfigBuilder() {
-    AWSRestEndpointConfig._init(this);
-  }
+  AWSRestEndpointConfigBuilder();
 
   AWSRestEndpointConfigBuilder get _$this {
     final $v = _$v;

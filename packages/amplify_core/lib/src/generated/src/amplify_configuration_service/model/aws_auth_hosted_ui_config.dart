@@ -48,8 +48,6 @@ abstract class AWSAuthHostedUiConfig
     AWSAuthHostedUiConfigSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AWSAuthHostedUiConfigBuilder b) {}
   String? get clientId;
   String? get clientSecret;
 

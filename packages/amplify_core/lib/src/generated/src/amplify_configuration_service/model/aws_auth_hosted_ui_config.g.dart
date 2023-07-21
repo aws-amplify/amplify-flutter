@@ -137,9 +137,7 @@ class AWSAuthHostedUiConfigBuilder
   Uri? get tokenUri => _$this._tokenUri;
   set tokenUri(Uri? tokenUri) => _$this._tokenUri = tokenUri;
 
-  AWSAuthHostedUiConfigBuilder() {
-    AWSAuthHostedUiConfig._init(this);
-  }
+  AWSAuthHostedUiConfigBuilder();
 
   AWSAuthHostedUiConfigBuilder get _$this {
     final $v = _$v;

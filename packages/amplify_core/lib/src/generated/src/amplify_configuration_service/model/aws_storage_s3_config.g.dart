@@ -53,9 +53,7 @@ class AWSStorageS3ConfigBuilder
   set buckets(_i3.MapBuilder<String, _i2.AWSStorageS3Bucket>? buckets) =>
       _$this._buckets = buckets;
 
-  AWSStorageS3ConfigBuilder() {
-    AWSStorageS3Config._init(this);
-  }
+  AWSStorageS3ConfigBuilder();
 
   AWSStorageS3ConfigBuilder get _$this {
     final $v = _$v;

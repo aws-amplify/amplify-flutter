@@ -53,7 +53,7 @@ extension AWSApiPluginConfigHelpers on AWSApiConfig {
     String? apiName,
   }) {
     if (apiName != null) {
-      final config = apis[apiName];
+      final config = endpoints[apiName];
       if (config == null || config.endpointType != type) {
         throw ConfigurationError(
           'No API endpoint found matching apiName $apiName.',
@@ -63,7 +63,7 @@ extension AWSApiPluginConfigHelpers on AWSApiConfig {
     }
 
     final typeConfigs =
-        apis.entries.where((entry) => entry.value.endpointType == type);
+        endpoints.entries.where((entry) => entry.value.endpointType == type);
     final onlyConfig = typeConfigs.singleOrNull;
     if (onlyConfig == null) {
       throw ConfigurationError(

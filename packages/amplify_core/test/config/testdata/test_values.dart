@@ -32,6 +32,15 @@ const COGNITO_AUTH_TYPE = 'AMAZON_COGNITO_USER_POOLS';
 const IAM_AUTH_TYPE = 'AWS_IAM';
 const DATABASE_PREFIX = 'testconfig_AMAZON_COGNITO_USER_POOLS';
 
+// Logging values
+const LOG_GROUP_NAME = 'LOG_GROUP';
+const LOG_REMOTE_ENDPOINT = 'https://example.com';
+const LOG_FLUSH_INTERVAL = 2000;
+const LOG_STORE_MB = 35;
+const LOG_DEFAULT_LEVEL = 'VERBOSE';
+const LOG_CATEGORY = 'AUTH';
+const LOG_USER_ID = 'USER_ID';
+
 /// Storage values
 const BUCKET = 'mybucket';
 const ACCESS = 'guest';

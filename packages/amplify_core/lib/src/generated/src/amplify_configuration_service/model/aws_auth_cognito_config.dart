@@ -37,8 +37,6 @@ abstract class AWSAuthCognitoConfig
     AWSAuthCognitoConfigSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AWSAuthCognitoConfigBuilder b) {}
   _i2.AWSAuthUserPoolConfig? get userPool;
   _i3.AWSAuthIdentityPoolConfig? get identityPool;
   @override

@@ -210,14 +210,14 @@ class CodegenContext {
   );
 
   /// Whether there is a user-defined override for [shape].
-  bool hasSymbolOverrideFor(Shape shape) => symbolOverrideFor(shape) != null;
+  bool hasSymbolOverrideFor(Shape shape) =>
+      symbolOverrideFor(shape.shapeId) != null;
 
   /// The user-defined overrides for [shape].
-  ShapeOverrides? overridesFor(Shape shape) => shapeOverrides[shape.shapeId];
+  ShapeOverrides? overridesFor(ShapeId shape) => shapeOverrides[shape];
 
   /// The user-defined symbol for [shape].
-  Reference? symbolOverrideFor(Shape shape) =>
-      shapeOverrides[shape.shapeId]?.symbol;
+  Reference? symbolOverrideFor(ShapeId shape) => shapeOverrides[shape]?.symbol;
 
   /// Runs [action] with the `this` as the global [CodegenContext].
   R run<R>(R Function() action) =>

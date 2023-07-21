@@ -9,6 +9,7 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
+/// The Amplify Push Notifications subcategory configuration.
 sealed class AWSPushNotificationsConfig
     extends _i1.SmithyUnion<AWSPushNotificationsConfig> {
   const AWSPushNotificationsConfig._();
@@ -31,6 +32,7 @@ sealed class AWSPushNotificationsConfig
   static const List<_i1.SmithySerializer<AWSPushNotificationsConfig>>
       serializers = [AWSPushNotificationsConfigSerializer()];
 
+  /// The Amplify Push Notifications Pinpoint plugin configuration.
   _i2.AWSPushNotificationsPinpointConfig? get pinpoint => null;
   @override
   Object get value => (pinpoint)!;

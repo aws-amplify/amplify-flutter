@@ -139,10 +139,12 @@ list AWSAuthMfaTypes {
 
 structure AWSAuthHostedUiConfig {
     // Defaults to the value in AWSAuthUserPoolConfig
+    @required
     @clientOptional
     clientId: String
 
     // Defaults to the value in AWSAuthUserPoolConfig
+    @required
     @clientOptional
     clientSecret: String
 
@@ -186,6 +188,9 @@ structure AWSAuthIdentityPoolConfig {
     @required
     region: AWSRegion
 
-    // TODO(dnys1): Is there value in allowing this?
+    // TODO: Is there value in allowing this?
+    // The use case would be better control over authenticated calls.
+    // Knowing whether an identity pool supports unauthenticated identities
+    // or not allows saving needless API calls in the case they're not allowed.
     allowUnauthenticatedIdentities: Boolean
 }

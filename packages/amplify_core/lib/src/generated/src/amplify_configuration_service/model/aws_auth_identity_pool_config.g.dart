@@ -77,9 +77,7 @@ class AWSAuthIdentityPoolConfigBuilder
   set allowUnauthenticatedIdentities(bool? allowUnauthenticatedIdentities) =>
       _$this._allowUnauthenticatedIdentities = allowUnauthenticatedIdentities;
 
-  AWSAuthIdentityPoolConfigBuilder() {
-    AWSAuthIdentityPoolConfig._init(this);
-  }
+  AWSAuthIdentityPoolConfigBuilder();
 
   AWSAuthIdentityPoolConfigBuilder get _$this {
     final $v = _$v;

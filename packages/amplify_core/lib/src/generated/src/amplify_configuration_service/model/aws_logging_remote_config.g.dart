@@ -1,43 +1,43 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'logging_remote_configuration.dart';
+part of 'aws_logging_remote_config.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-class _$LoggingRemoteConfiguration extends LoggingRemoteConfiguration {
+class _$AWSLoggingRemoteConfig extends AWSLoggingRemoteConfig {
   @override
   final Uri endpoint;
   @override
   final int refreshInterval;
 
-  factory _$LoggingRemoteConfiguration(
-          [void Function(LoggingRemoteConfigurationBuilder)? updates]) =>
-      (new LoggingRemoteConfigurationBuilder()..update(updates))._build();
+  factory _$AWSLoggingRemoteConfig(
+          [void Function(AWSLoggingRemoteConfigBuilder)? updates]) =>
+      (new AWSLoggingRemoteConfigBuilder()..update(updates))._build();
 
-  _$LoggingRemoteConfiguration._(
+  _$AWSLoggingRemoteConfig._(
       {required this.endpoint, required this.refreshInterval})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        endpoint, r'LoggingRemoteConfiguration', 'endpoint');
+        endpoint, r'AWSLoggingRemoteConfig', 'endpoint');
     BuiltValueNullFieldError.checkNotNull(
-        refreshInterval, r'LoggingRemoteConfiguration', 'refreshInterval');
+        refreshInterval, r'AWSLoggingRemoteConfig', 'refreshInterval');
   }
 
   @override
-  LoggingRemoteConfiguration rebuild(
-          void Function(LoggingRemoteConfigurationBuilder) updates) =>
+  AWSLoggingRemoteConfig rebuild(
+          void Function(AWSLoggingRemoteConfigBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  LoggingRemoteConfigurationBuilder toBuilder() =>
-      new LoggingRemoteConfigurationBuilder()..replace(this);
+  AWSLoggingRemoteConfigBuilder toBuilder() =>
+      new AWSLoggingRemoteConfigBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is LoggingRemoteConfiguration &&
+    return other is AWSLoggingRemoteConfig &&
         endpoint == other.endpoint &&
         refreshInterval == other.refreshInterval;
   }
@@ -52,10 +52,9 @@ class _$LoggingRemoteConfiguration extends LoggingRemoteConfiguration {
   }
 }
 
-class LoggingRemoteConfigurationBuilder
-    implements
-        Builder<LoggingRemoteConfiguration, LoggingRemoteConfigurationBuilder> {
-  _$LoggingRemoteConfiguration? _$v;
+class AWSLoggingRemoteConfigBuilder
+    implements Builder<AWSLoggingRemoteConfig, AWSLoggingRemoteConfigBuilder> {
+  _$AWSLoggingRemoteConfig? _$v;
 
   Uri? _endpoint;
   Uri? get endpoint => _$this._endpoint;
@@ -66,11 +65,11 @@ class LoggingRemoteConfigurationBuilder
   set refreshInterval(int? refreshInterval) =>
       _$this._refreshInterval = refreshInterval;
 
-  LoggingRemoteConfigurationBuilder() {
-    LoggingRemoteConfiguration._init(this);
+  AWSLoggingRemoteConfigBuilder() {
+    AWSLoggingRemoteConfig._init(this);
   }
 
-  LoggingRemoteConfigurationBuilder get _$this {
+  AWSLoggingRemoteConfigBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _endpoint = $v.endpoint;
@@ -81,28 +80,26 @@ class LoggingRemoteConfigurationBuilder
   }
 
   @override
-  void replace(LoggingRemoteConfiguration other) {
+  void replace(AWSLoggingRemoteConfig other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$LoggingRemoteConfiguration;
+    _$v = other as _$AWSLoggingRemoteConfig;
   }
 
   @override
-  void update(void Function(LoggingRemoteConfigurationBuilder)? updates) {
+  void update(void Function(AWSLoggingRemoteConfigBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  LoggingRemoteConfiguration build() => _build();
+  AWSLoggingRemoteConfig build() => _build();
 
-  _$LoggingRemoteConfiguration _build() {
+  _$AWSLoggingRemoteConfig _build() {
     final _$result = _$v ??
-        new _$LoggingRemoteConfiguration._(
+        new _$AWSLoggingRemoteConfig._(
             endpoint: BuiltValueNullFieldError.checkNotNull(
-                endpoint, r'LoggingRemoteConfiguration', 'endpoint'),
+                endpoint, r'AWSLoggingRemoteConfig', 'endpoint'),
             refreshInterval: BuiltValueNullFieldError.checkNotNull(
-                refreshInterval,
-                r'LoggingRemoteConfiguration',
-                'refreshInterval'));
+                refreshInterval, r'AWSLoggingRemoteConfig', 'refreshInterval'));
     replace(_$result);
     return _$result;
   }

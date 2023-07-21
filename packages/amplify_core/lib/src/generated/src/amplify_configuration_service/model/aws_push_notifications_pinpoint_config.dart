@@ -10,12 +10,14 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'aws_push_notifications_pinpoint_config.g.dart';
 
+/// The Amplify Push Notifications Pinpoint plugin configuration.
 abstract class AWSPushNotificationsPinpointConfig
     with
         _i1.AWSEquatable<AWSPushNotificationsPinpointConfig>
     implements
         Built<AWSPushNotificationsPinpointConfig,
             AWSPushNotificationsPinpointConfigBuilder> {
+  /// The Amplify Push Notifications Pinpoint plugin configuration.
   factory AWSPushNotificationsPinpointConfig({
     required String appId,
     required String region,
@@ -26,6 +28,7 @@ abstract class AWSPushNotificationsPinpointConfig
     );
   }
 
+  /// The Amplify Push Notifications Pinpoint plugin configuration.
   factory AWSPushNotificationsPinpointConfig.build(
           [void Function(AWSPushNotificationsPinpointConfigBuilder) updates]) =
       _$AWSPushNotificationsPinpointConfig;
@@ -35,8 +38,6 @@ abstract class AWSPushNotificationsPinpointConfig
   static const List<_i2.SmithySerializer<AWSPushNotificationsPinpointConfig>>
       serializers = [AWSPushNotificationsPinpointConfigSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AWSPushNotificationsPinpointConfigBuilder b) {}
   String get appId;
   String get region;
   @override

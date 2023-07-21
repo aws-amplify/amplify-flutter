@@ -25,13 +25,12 @@ abstract class AWSAppSyncEndpointConfig
     required _i2.AWSApiAuthorizationMode authMode,
     List<_i2.AWSApiAuthorizationMode>? additionalAuthModes,
   }) {
+    additionalAuthModes ??= const [];
     return _$AWSAppSyncEndpointConfig._(
       endpoint: endpoint,
       region: region,
       authMode: authMode,
-      additionalAuthModes: additionalAuthModes == null
-          ? null
-          : _i3.BuiltList(additionalAuthModes),
+      additionalAuthModes: _i3.BuiltList(additionalAuthModes),
     );
   }
 
@@ -46,7 +45,9 @@ abstract class AWSAppSyncEndpointConfig
       serializers = [AWSAppSyncEndpointConfigSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(AWSAppSyncEndpointConfigBuilder b) {}
+  static void _init(AWSAppSyncEndpointConfigBuilder b) {
+    b.additionalAuthModes.addAll(const []);
+  }
 
   /// A valid RFC 3986 URI
   Uri get endpoint;
@@ -58,7 +59,7 @@ abstract class AWSAppSyncEndpointConfig
   _i2.AWSApiAuthorizationMode get authMode;
 
   /// Additional authorization modes supported by the API. Used by the API/DataStore categories for multi-auth decisions.
-  _i3.BuiltList<_i2.AWSApiAuthorizationMode>? get additionalAuthModes;
+  _i3.BuiltList<_i2.AWSApiAuthorizationMode> get additionalAuthModes;
   @override
   List<Object?> get props => [
         endpoint,
@@ -165,6 +166,14 @@ class AWSAppSyncEndpointConfigSerializer
       :region
     ) = object;
     result$.addAll([
+      'additionalAuthModes',
+      serializers.serialize(
+        additionalAuthModes,
+        specifiedType: const FullType(
+          _i3.BuiltList,
+          [FullType(_i2.AWSApiAuthorizationMode)],
+        ),
+      ),
       'authMode',
       serializers.serialize(
         authMode,
@@ -181,17 +190,6 @@ class AWSAppSyncEndpointConfigSerializer
         specifiedType: const FullType(String),
       ),
     ]);
-    if (additionalAuthModes != null) {
-      result$
-        ..add('additionalAuthModes')
-        ..add(serializers.serialize(
-          additionalAuthModes,
-          specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.AWSApiAuthorizationMode)],
-          ),
-        ));
-    }
     return result$;
   }
 }

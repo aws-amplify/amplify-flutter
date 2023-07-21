@@ -97,9 +97,9 @@ class _$AWSAmplifyConfigSerializer
               as AWSLoggingConfig?;
           break;
         case 'notifications':
-          result.notifications = serializers.deserialize(value,
-                  specifiedType: const FullType(AWSNotificationsConfig))
-              as AWSNotificationsConfig?;
+          result.notifications.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(AWSNotificationsConfig))!
+              as AWSNotificationsConfig);
           break;
         case 'storage':
           result.storage = serializers.deserialize(value,
@@ -194,9 +194,10 @@ class AWSAmplifyConfigBuilder
   AWSLoggingConfig? get logging => _$this._logging;
   set logging(AWSLoggingConfig? logging) => _$this._logging = logging;
 
-  AWSNotificationsConfig? _notifications;
-  AWSNotificationsConfig? get notifications => _$this._notifications;
-  set notifications(AWSNotificationsConfig? notifications) =>
+  AWSNotificationsConfigBuilder? _notifications;
+  AWSNotificationsConfigBuilder get notifications =>
+      _$this._notifications ??= new AWSNotificationsConfigBuilder();
+  set notifications(AWSNotificationsConfigBuilder? notifications) =>
       _$this._notifications = notifications;
 
   AWSStorageConfig? _storage;
@@ -212,7 +213,7 @@ class AWSAmplifyConfigBuilder
       _api = $v.api?.toBuilder();
       _auth = $v.auth;
       _logging = $v.logging;
-      _notifications = $v.notifications;
+      _notifications = $v.notifications?.toBuilder();
       _storage = $v.storage;
       _$v = null;
     }
@@ -242,13 +243,16 @@ class AWSAmplifyConfigBuilder
               api: _api?.build(),
               auth: auth,
               logging: logging,
-              notifications: notifications,
+              notifications: _notifications?.build(),
               storage: storage);
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'api';
         _api?.build();
+
+        _$failedField = 'notifications';
+        _notifications?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'AWSAmplifyConfig', _$failedField, e.toString());

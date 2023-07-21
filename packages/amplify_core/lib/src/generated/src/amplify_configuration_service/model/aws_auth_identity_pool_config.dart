@@ -35,8 +35,6 @@ abstract class AWSAuthIdentityPoolConfig
   static const List<_i2.SmithySerializer<AWSAuthIdentityPoolConfig>>
       serializers = [AWSAuthIdentityPoolConfigSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AWSAuthIdentityPoolConfigBuilder b) {}
   String get poolId;
   String get region;
   bool? get allowUnauthenticatedIdentities;

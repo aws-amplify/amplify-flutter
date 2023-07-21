@@ -30,9 +30,6 @@ abstract class AWSRestEndpointConfig
     AWSRestEndpointConfigSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AWSRestEndpointConfigBuilder b) {}
-
   /// A valid RFC 3986 URI
   Uri get endpoint;
   @override

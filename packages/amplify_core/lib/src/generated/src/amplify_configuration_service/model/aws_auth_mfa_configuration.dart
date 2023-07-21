@@ -3,12 +3,13 @@
 
 library amplify_core.amplify_configuration_service.model.aws_auth_mfa_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_core/amplify_core.dart' as _i2;
+import 'package:amplify_core/amplify_config.dart' as _i2;
+import 'package:amplify_core/amplify_core.dart' as _i3;
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i5;
 
 part 'aws_auth_mfa_configuration.g.dart';
 
@@ -16,12 +17,12 @@ abstract class AWSAuthMfaConfiguration
     with _i1.AWSEquatable<AWSAuthMfaConfiguration>
     implements Built<AWSAuthMfaConfiguration, AWSAuthMfaConfigurationBuilder> {
   factory AWSAuthMfaConfiguration({
-    required _i2.MfaConfiguration status,
-    required List<_i2.MfaType> enabledTypes,
+    required _i2.MfaStatus status,
+    required List<_i3.MfaType> enabledTypes,
   }) {
     return _$AWSAuthMfaConfiguration._(
       status: status,
-      enabledTypes: _i3.BuiltList(enabledTypes),
+      enabledTypes: _i4.BuiltList(enabledTypes),
     );
   }
 
@@ -31,13 +32,11 @@ abstract class AWSAuthMfaConfiguration
 
   const AWSAuthMfaConfiguration._();
 
-  static const List<_i4.SmithySerializer<AWSAuthMfaConfiguration>> serializers =
+  static const List<_i5.SmithySerializer<AWSAuthMfaConfiguration>> serializers =
       [AWSAuthMfaConfigurationSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AWSAuthMfaConfigurationBuilder b) {}
-  _i2.MfaConfiguration get status;
-  _i3.BuiltList<_i2.MfaType> get enabledTypes;
+  _i2.MfaStatus get status;
+  _i4.BuiltList<_i3.MfaType> get enabledTypes;
   @override
   List<Object?> get props => [
         status,
@@ -59,7 +58,7 @@ abstract class AWSAuthMfaConfiguration
 }
 
 class AWSAuthMfaConfigurationSerializer
-    extends _i4.StructuredSmithySerializer<AWSAuthMfaConfiguration> {
+    extends _i5.StructuredSmithySerializer<AWSAuthMfaConfiguration> {
   const AWSAuthMfaConfigurationSerializer() : super('AWSAuthMfaConfiguration');
 
   @override
@@ -68,8 +67,8 @@ class AWSAuthMfaConfigurationSerializer
         _$AWSAuthMfaConfiguration,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i5.ShapeId> get supportedProtocols => const [
+        _i5.ShapeId(
           namespace: 'smithy.dart',
           shape: 'genericProtocol',
         )
@@ -94,15 +93,15 @@ class AWSAuthMfaConfigurationSerializer
           result.enabledTypes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.MfaType)],
+              _i4.BuiltList,
+              [FullType(_i3.MfaType)],
             ),
-          ) as _i3.BuiltList<_i2.MfaType>));
+          ) as _i4.BuiltList<_i3.MfaType>));
         case 'status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.MfaConfiguration),
-          ) as _i2.MfaConfiguration);
+            specifiedType: const FullType(_i2.MfaStatus),
+          ) as _i2.MfaStatus);
       }
     }
 
@@ -122,14 +121,14 @@ class AWSAuthMfaConfigurationSerializer
       serializers.serialize(
         enabledTypes,
         specifiedType: const FullType(
-          _i3.BuiltList,
-          [FullType(_i2.MfaType)],
+          _i4.BuiltList,
+          [FullType(_i3.MfaType)],
         ),
       ),
       'status',
       serializers.serialize(
         status,
-        specifiedType: const FullType(_i2.MfaConfiguration),
+        specifiedType: const FullType(_i2.MfaStatus),
       ),
     ]);
     return result$;

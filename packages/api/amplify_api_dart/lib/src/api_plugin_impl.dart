@@ -81,7 +81,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
       );
     }
     for (final MapEntry(key: apiName, value: endpointConfig)
-        in apiConfig.apis.entries) {
+        in apiConfig.endpoints.entries) {
       if (endpointConfig.endpoint.scheme != 'https') {
         throw ConfigurationError(
           'Non-HTTPS endpoint found for "$apiName" which is not supported.',
@@ -103,7 +103,7 @@ class AmplifyAPIDart extends APIPluginInterface with AWSDebuggable {
   ///
   /// Register OIDC/Lambda set to _authProviders in constructor.
   void _registerApiPluginAuthProviders() {
-    _apiConfig.apis.forEach((apiName, endpointConfig) {
+    _apiConfig.endpoints.forEach((apiName, endpointConfig) {
       if (endpointConfig.apiKey != null) {
         _authProviderRepo.registerAuthProvider(
           APIAuthorizationType.apiKey.authProviderToken,

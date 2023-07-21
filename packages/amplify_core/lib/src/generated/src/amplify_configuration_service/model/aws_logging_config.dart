@@ -3,12 +3,13 @@
 
 library amplify_core.amplify_configuration_service.model.aws_logging_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/amplify_logging_constraints.dart'
-    as _i3;
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_logging_cloud_watch_config.dart'
+import 'package:amplify_core/amplify_config.dart' as _i2;
+import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_amplify_logging_constraints.dart'
     as _i4;
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/logging_remote_configuration.dart'
-    as _i2;
+import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_logging_cloud_watch_config.dart'
+    as _i5;
+import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_logging_remote_config.dart'
+    as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
@@ -20,12 +21,12 @@ sealed class AWSLoggingConfig extends _i1.SmithyUnion<AWSLoggingConfig> {
     required String logGroupName,
     required String region,
     bool? enable,
-    int? localStoreMaxSize,
-    int? flushInterval,
-    _i2.LoggingRemoteConfiguration? defaultRemoteConfiguration,
-    _i3.AmplifyLoggingConstraints? loggingConstraints,
+    _i2.LocalStorageSize? localStoreMaxSize,
+    Duration? flushInterval,
+    _i3.AWSLoggingRemoteConfig? defaultRemoteConfiguration,
+    _i4.AWSAmplifyLoggingConstraints? loggingConstraints,
   }) =>
-      AWSLoggingConfigCloudWatch$(_i4.AWSLoggingCloudWatchConfig(
+      AWSLoggingConfigCloudWatch$(_i5.AWSLoggingCloudWatchConfig(
         logGroupName: logGroupName,
         region: region,
         enable: enable,
@@ -44,7 +45,7 @@ sealed class AWSLoggingConfig extends _i1.SmithyUnion<AWSLoggingConfig> {
     AWSLoggingConfigSerializer()
   ];
 
-  _i4.AWSLoggingCloudWatchConfig? get cloudWatch => null;
+  _i5.AWSLoggingCloudWatchConfig? get cloudWatch => null;
   @override
   Object get value => (cloudWatch)!;
   @override
@@ -64,7 +65,7 @@ final class AWSLoggingConfigCloudWatch$ extends AWSLoggingConfig {
   const AWSLoggingConfigCloudWatch$(this.cloudWatch) : super._();
 
   @override
-  final _i4.AWSLoggingCloudWatchConfig cloudWatch;
+  final _i5.AWSLoggingCloudWatchConfig cloudWatch;
 
   @override
   String get name => 'cloudWatch';
@@ -110,8 +111,8 @@ class AWSLoggingConfigSerializer
       case 'cloudWatch':
         return AWSLoggingConfigCloudWatch$((serializers.deserialize(
           value,
-          specifiedType: const FullType(_i4.AWSLoggingCloudWatchConfig),
-        ) as _i4.AWSLoggingCloudWatchConfig));
+          specifiedType: const FullType(_i5.AWSLoggingCloudWatchConfig),
+        ) as _i5.AWSLoggingCloudWatchConfig));
     }
     return AWSLoggingConfig.sdkUnknown(
       key,
@@ -130,7 +131,7 @@ class AWSLoggingConfigSerializer
       switch (object) {
         AWSLoggingConfigCloudWatch$(:final value) => serializers.serialize(
             value,
-            specifiedType: const FullType(_i4.AWSLoggingCloudWatchConfig),
+            specifiedType: const FullType(_i5.AWSLoggingCloudWatchConfig),
           ),
         AWSLoggingConfigSdkUnknown$(:final value) => value,
       },

@@ -8,9 +8,9 @@ part of 'aws_auth_mfa_configuration.dart';
 
 class _$AWSAuthMfaConfiguration extends AWSAuthMfaConfiguration {
   @override
-  final _i2.MfaConfiguration status;
+  final _i2.MfaStatus status;
   @override
-  final _i3.BuiltList<_i2.MfaType> enabledTypes;
+  final _i4.BuiltList<_i3.MfaType> enabledTypes;
 
   factory _$AWSAuthMfaConfiguration(
           [void Function(AWSAuthMfaConfigurationBuilder)? updates]) =>
@@ -57,19 +57,17 @@ class AWSAuthMfaConfigurationBuilder
         Builder<AWSAuthMfaConfiguration, AWSAuthMfaConfigurationBuilder> {
   _$AWSAuthMfaConfiguration? _$v;
 
-  _i2.MfaConfiguration? _status;
-  _i2.MfaConfiguration? get status => _$this._status;
-  set status(_i2.MfaConfiguration? status) => _$this._status = status;
+  _i2.MfaStatus? _status;
+  _i2.MfaStatus? get status => _$this._status;
+  set status(_i2.MfaStatus? status) => _$this._status = status;
 
-  _i3.ListBuilder<_i2.MfaType>? _enabledTypes;
-  _i3.ListBuilder<_i2.MfaType> get enabledTypes =>
-      _$this._enabledTypes ??= new _i3.ListBuilder<_i2.MfaType>();
-  set enabledTypes(_i3.ListBuilder<_i2.MfaType>? enabledTypes) =>
+  _i4.ListBuilder<_i3.MfaType>? _enabledTypes;
+  _i4.ListBuilder<_i3.MfaType> get enabledTypes =>
+      _$this._enabledTypes ??= new _i4.ListBuilder<_i3.MfaType>();
+  set enabledTypes(_i4.ListBuilder<_i3.MfaType>? enabledTypes) =>
       _$this._enabledTypes = enabledTypes;
 
-  AWSAuthMfaConfigurationBuilder() {
-    AWSAuthMfaConfiguration._init(this);
-  }
+  AWSAuthMfaConfigurationBuilder();
 
   AWSAuthMfaConfigurationBuilder get _$this {
     final $v = _$v;

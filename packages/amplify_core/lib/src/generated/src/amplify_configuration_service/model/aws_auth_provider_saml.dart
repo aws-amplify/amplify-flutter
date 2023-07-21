@@ -33,8 +33,6 @@ abstract class AWSAuthProviderSaml
     AWSAuthProviderSamlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AWSAuthProviderSamlBuilder b) {}
   String get name;
   String? get providerArn;
   @override

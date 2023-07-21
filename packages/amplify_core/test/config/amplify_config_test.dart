@@ -6,7 +6,7 @@
 import 'dart:convert';
 
 import 'package:amplify_core/amplify_config.dart';
-import 'package:amplify_core/amplify_core.dart' hide AWSApiConfig;
+import 'package:amplify_core/amplify_core.dart' hide AWSApiConfig, UserLogLevel;
 import 'package:amplify_core/amplify_core.dart' as core;
 import 'package:test/test.dart';
 
@@ -193,6 +193,48 @@ const expectedCliConfigs = {
       },
     ),
   ),
+  'Logging': AmplifyConfig(
+    logging: LoggingConfig(
+      plugins: {
+        CloudWatchPluginConfig.pluginKey: CloudWatchPluginConfig(
+          enable: false,
+          logGroupName: LOG_GROUP_NAME,
+          region: REGION,
+          flushIntervalInSeconds: LOG_FLUSH_INTERVAL,
+          localStoreMaxSizeInMB: LOG_STORE_MB,
+          defaultRemoteConfiguration: DefaultRemoteConfiguration(
+            endpoint: LOG_REMOTE_ENDPOINT,
+            refreshIntervalInSeconds: LOG_FLUSH_INTERVAL,
+          ),
+          loggingConstraints: LoggingConstraints(
+            defaultLogLevel: LOG_DEFAULT_LEVEL,
+            categoryLogLevel: {
+              LOG_CATEGORY: LOG_DEFAULT_LEVEL,
+            },
+            userLogLevel: {
+              LOG_USER_ID: core.UserLogLevel(
+                defaultLogLevel: LOG_DEFAULT_LEVEL,
+                categoryLogLevel: {
+                  LOG_CATEGORY: LOG_DEFAULT_LEVEL,
+                },
+              ),
+            },
+          ),
+        ),
+      },
+    ),
+  ),
+  'Push': AmplifyConfig(
+    notifications: NotificationsConfig(
+      plugins: {
+        NotificationsPinpointPluginConfig.pluginKey:
+            NotificationsPinpointPluginConfig(
+          appId: ANALYTICS_APP_ID,
+          region: REGION,
+        ),
+      },
+    ),
+  ),
   'Storage': AmplifyConfig(
     storage: StorageConfig(
       plugins: {
@@ -211,19 +253,22 @@ final expectedAwsConfigs = {
     analytics: AWSAnalyticsConfig.pinpoint(
       appId: ANALYTICS_APP_ID,
       region: REGION,
-      autoFlushEventsInterval: ANALYTICS_FLUSH_INTERVAL,
+      autoFlushEventsInterval:
+          const Duration(seconds: ANALYTICS_FLUSH_INTERVAL),
     ),
   ),
   'API': AWSAmplifyConfig(
     api: AWSApiConfig(
-      apis: {
-        'myApi': AWSApiEndpointConfig.appSync(
+      endpoints: {
+        'myApi_API_KEY': AWSApiEndpointConfig.appSync(
           endpoint: Uri.parse(GRAPHQL_ENDPOINT),
           region: REGION,
           authMode: const AWSApiAuthorizationMode.apiKey(API_KEY),
-          additionalAuthModes: [
-            const AWSApiAuthorizationMode.iam(),
-          ],
+        ),
+        'myApi_AWS_IAM': AWSApiEndpointConfig.appSync(
+          endpoint: Uri.parse(GRAPHQL_ENDPOINT),
+          region: REGION,
+          authMode: const AWSApiAuthorizationMode.iam(),
         ),
         'REST': AWSApiEndpointConfig.apiGateway(
           endpoint: Uri.parse(REST_ENDPOINT),
@@ -250,7 +295,7 @@ final expectedAwsConfigs = {
             PasswordPolicyCharacters.requiresLowercase,
           ],
         ),
-        socialProviders: const [AWSAuthProvider.google()],
+        socialProviders: [AuthProvider.google],
         usernameAttributes: [AWSAuthUsernameAttribute.email],
         signUpAttributes: [
           CognitoUserAttributeKey.email,
@@ -281,6 +326,41 @@ final expectedAwsConfigs = {
       ),
       identityPool: AWSAuthIdentityPoolConfig(
         poolId: IDPOOL_ID,
+        region: REGION,
+      ),
+    ),
+  ),
+  'Logging': AWSAmplifyConfig(
+    logging: AWSLoggingConfig.cloudWatch(
+      enable: false,
+      logGroupName: LOG_GROUP_NAME,
+      region: REGION,
+      defaultRemoteConfiguration: AWSLoggingRemoteConfig(
+        endpoint: Uri.parse(LOG_REMOTE_ENDPOINT),
+        refreshInterval: const Duration(seconds: LOG_FLUSH_INTERVAL),
+      ),
+      flushInterval: const Duration(seconds: LOG_FLUSH_INTERVAL),
+      localStoreMaxSize: const LocalStorageSize.MB(LOG_STORE_MB),
+      loggingConstraints: AWSAmplifyLoggingConstraints(
+        defaultLogLevel: LogLevel.parse(LOG_DEFAULT_LEVEL),
+        categoryLogLevel: {
+          Category.parse(LOG_CATEGORY): LogLevel.parse(LOG_DEFAULT_LEVEL),
+        },
+        userLogLevel: {
+          LOG_USER_ID: AWSUserLogLevel(
+            categoryLogLevel: {
+              Category.parse(LOG_CATEGORY): LogLevel.parse(LOG_DEFAULT_LEVEL),
+            },
+            defaultLogLevel: LogLevel.parse(LOG_DEFAULT_LEVEL),
+          ),
+        },
+      ),
+    ),
+  ),
+  'Push': AWSAmplifyConfig(
+    notifications: AWSNotificationsConfig(
+      push: AWSPushNotificationsConfig.pinpoint(
+        appId: ANALYTICS_APP_ID,
         region: REGION,
       ),
     ),

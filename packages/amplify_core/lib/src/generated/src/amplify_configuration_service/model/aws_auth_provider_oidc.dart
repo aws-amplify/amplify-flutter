@@ -33,8 +33,6 @@ abstract class AWSAuthProviderOidc
     AWSAuthProviderOidcSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AWSAuthProviderOidcBuilder b) {}
   String get name;
   String get issuer;
   @override

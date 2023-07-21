@@ -28,8 +28,6 @@ abstract class AWSAuthProviderCustom
     AWSAuthProviderCustomSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AWSAuthProviderCustomBuilder b) {}
   String get developerProvidedName;
   @override
   List<Object?> get props => [developerProvidedName];

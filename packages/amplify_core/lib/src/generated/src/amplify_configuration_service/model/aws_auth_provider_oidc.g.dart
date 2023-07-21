@@ -62,9 +62,7 @@ class AWSAuthProviderOidcBuilder
   String? get issuer => _$this._issuer;
   set issuer(String? issuer) => _$this._issuer = issuer;
 
-  AWSAuthProviderOidcBuilder() {
-    AWSAuthProviderOidc._init(this);
-  }
+  AWSAuthProviderOidcBuilder();
 
   AWSAuthProviderOidcBuilder get _$this {
     final $v = _$v;

@@ -6,9 +6,9 @@ union AWSLoggingConfig {
     cloudWatch: AWSLoggingCloudWatchConfig
 }
 
-enum LogLevel { VERBOSE DEBUG INFO WARN ERROR NONE }
+enum AWSLogLevel { VERBOSE DEBUG INFO WARN ERROR NONE }
 
-enum AmplifyCategory {
+enum AWSAmplifyCategory {
     ANALYTICS
     API
     AUTH
@@ -21,7 +21,7 @@ enum AmplifyCategory {
     GEO
 }
 
-enum AmplifySubCategory {
+enum AWSAmplifySubCategory {
     PUSH_NOTIFICATIONS
     INAPP_MESSAGING
 }
@@ -41,11 +41,11 @@ structure AWSLoggingCloudWatchConfig {
 
     @required
     flushInterval: Seconds = 60
-    defaultRemoteConfiguration: LoggingRemoteConfiguration
-    loggingConstraints: AmplifyLoggingConstraints
+    defaultRemoteConfiguration: AWSLoggingRemoteConfig
+    loggingConstraints: AWSAmplifyLoggingConstraints
 }
 
-structure LoggingRemoteConfiguration {
+structure AWSLoggingRemoteConfig {
     @required
     endpoint: Uri
 
@@ -53,25 +53,25 @@ structure LoggingRemoteConfiguration {
     refreshInterval: Seconds = 1200
 }
 
-structure AmplifyLoggingConstraints {
+structure AWSAmplifyLoggingConstraints {
     @required
-    defaultLogLevel: LogLevel = "ERROR"
-    categoryLogLevel: AmplifyCategoryLogLevels
-    userLogLevel: UserLogLevels
+    defaultLogLevel: AWSLogLevel = "ERROR"
+    categoryLogLevel: AWSAmplifyCategoryLogLevels = {}
+    userLogLevel: AWSUserLogLevels = {}
 }
 
-map AmplifyCategoryLogLevels {
-    key: AmplifyCategory
-    value: LogLevel
+map AWSAmplifyCategoryLogLevels {
+    key: AWSAmplifyCategory
+    value: AWSLogLevel
 }
 
-map UserLogLevels {
+map AWSUserLogLevels {
     key: String
-    value: UserLogLevel
+    value: AWSUserLogLevel
 }
 
-structure UserLogLevel {
+structure AWSUserLogLevel {
     @required
-    defaultLogLevel: LogLevel = "ERROR"
-    categoryLogLevel: AmplifyCategoryLogLevels
+    defaultLogLevel: AWSLogLevel = "ERROR"
+    categoryLogLevel: AWSAmplifyCategoryLogLevels = {}
 }

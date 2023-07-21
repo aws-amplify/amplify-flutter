@@ -47,7 +47,7 @@ AWSAmplifyConfig addUserPool() {
 AWSAmplifyConfig buildConfig() {
   return AWSAmplifyConfig(
     api: AWSApiConfig(
-      apis: {
+      endpoints: {
         '<API_NAME>': AWSApiEndpointConfig.appSync(
           endpoint: Uri.parse(
             'https://xxxxxx.appsync-api.us-east-1.amazonaws.com/graphql',

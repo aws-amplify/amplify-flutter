@@ -18,9 +18,9 @@ class _$AWSLoggingCloudWatchConfig extends AWSLoggingCloudWatchConfig {
   @override
   final int flushInterval;
   @override
-  final _i2.LoggingRemoteConfiguration? defaultRemoteConfiguration;
+  final _i3.AWSLoggingRemoteConfig? defaultRemoteConfiguration;
   @override
-  final _i3.AmplifyLoggingConstraints? loggingConstraints;
+  final _i4.AWSAmplifyLoggingConstraints? loggingConstraints;
 
   factory _$AWSLoggingCloudWatchConfig(
           [void Function(AWSLoggingCloudWatchConfigBuilder)? updates]) =>
@@ -111,19 +111,20 @@ class AWSLoggingCloudWatchConfigBuilder
   set flushInterval(int? flushInterval) =>
       _$this._flushInterval = flushInterval;
 
-  _i2.LoggingRemoteConfigurationBuilder? _defaultRemoteConfiguration;
-  _i2.LoggingRemoteConfigurationBuilder get defaultRemoteConfiguration =>
+  _i3.AWSLoggingRemoteConfigBuilder? _defaultRemoteConfiguration;
+  _i3.AWSLoggingRemoteConfigBuilder get defaultRemoteConfiguration =>
       _$this._defaultRemoteConfiguration ??=
-          new _i2.LoggingRemoteConfigurationBuilder();
+          new _i3.AWSLoggingRemoteConfigBuilder();
   set defaultRemoteConfiguration(
-          _i2.LoggingRemoteConfigurationBuilder? defaultRemoteConfiguration) =>
+          _i3.AWSLoggingRemoteConfigBuilder? defaultRemoteConfiguration) =>
       _$this._defaultRemoteConfiguration = defaultRemoteConfiguration;
 
-  _i3.AmplifyLoggingConstraintsBuilder? _loggingConstraints;
-  _i3.AmplifyLoggingConstraintsBuilder get loggingConstraints =>
-      _$this._loggingConstraints ??= new _i3.AmplifyLoggingConstraintsBuilder();
+  _i4.AWSAmplifyLoggingConstraintsBuilder? _loggingConstraints;
+  _i4.AWSAmplifyLoggingConstraintsBuilder get loggingConstraints =>
+      _$this._loggingConstraints ??=
+          new _i4.AWSAmplifyLoggingConstraintsBuilder();
   set loggingConstraints(
-          _i3.AmplifyLoggingConstraintsBuilder? loggingConstraints) =>
+          _i4.AWSAmplifyLoggingConstraintsBuilder? loggingConstraints) =>
       _$this._loggingConstraints = loggingConstraints;
 
   AWSLoggingCloudWatchConfigBuilder() {

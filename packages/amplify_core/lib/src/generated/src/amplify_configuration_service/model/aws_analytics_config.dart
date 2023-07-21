@@ -9,13 +9,14 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
+/// The Amplify Analytics category configuration.
 sealed class AWSAnalyticsConfig extends _i1.SmithyUnion<AWSAnalyticsConfig> {
   const AWSAnalyticsConfig._();
 
   factory AWSAnalyticsConfig.pinpoint({
     required String appId,
     required String region,
-    int? autoFlushEventsInterval,
+    Duration? autoFlushEventsInterval,
   }) =>
       AWSAnalyticsConfigPinpoint$(_i2.AWSAnalyticsPinpointConfig(
         appId: appId,
@@ -32,6 +33,7 @@ sealed class AWSAnalyticsConfig extends _i1.SmithyUnion<AWSAnalyticsConfig> {
     AWSAnalyticsConfigSerializer()
   ];
 
+  /// The Amplify Analytics Pinpoint plugin configuration.
   _i2.AWSAnalyticsPinpointConfig? get pinpoint => null;
   @override
   Object get value => (pinpoint)!;

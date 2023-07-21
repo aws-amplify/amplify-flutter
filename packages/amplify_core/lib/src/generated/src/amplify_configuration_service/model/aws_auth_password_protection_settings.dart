@@ -39,8 +39,6 @@ abstract class AWSAuthPasswordProtectionSettings
   static const List<_i4.SmithySerializer<AWSAuthPasswordProtectionSettings>>
       serializers = [AWSAuthPasswordProtectionSettingsSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AWSAuthPasswordProtectionSettingsBuilder b) {}
   int? get passwordPolicyMinLength;
   _i3.BuiltList<_i2.PasswordPolicyCharacters>? get passwordPolicyCharacters;
   @override

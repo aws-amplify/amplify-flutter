@@ -3,14 +3,15 @@
 
 library amplify_core.amplify_configuration_service.model.aws_logging_cloud_watch_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/amplify_logging_constraints.dart'
+import 'package:amplify_core/amplify_config.dart' as _i2;
+import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_amplify_logging_constraints.dart'
+    as _i4;
+import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_logging_remote_config.dart'
     as _i3;
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/logging_remote_configuration.dart'
-    as _i2;
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i5;
 
 part 'aws_logging_cloud_watch_config.g.dart';
 
@@ -22,20 +23,20 @@ abstract class AWSLoggingCloudWatchConfig
     required String logGroupName,
     required String region,
     bool? enable,
-    int? localStoreMaxSize,
-    int? flushInterval,
-    _i2.LoggingRemoteConfiguration? defaultRemoteConfiguration,
-    _i3.AmplifyLoggingConstraints? loggingConstraints,
+    _i2.LocalStorageSize? localStoreMaxSize,
+    Duration? flushInterval,
+    _i3.AWSLoggingRemoteConfig? defaultRemoteConfiguration,
+    _i4.AWSAmplifyLoggingConstraints? loggingConstraints,
   }) {
     enable ??= true;
-    localStoreMaxSize ??= 5;
-    flushInterval ??= 60;
+    localStoreMaxSize ??= const _i2.LocalStorageSize.MB(5);
+    flushInterval ??= const Duration(seconds: 60);
     return _$AWSLoggingCloudWatchConfig._(
       logGroupName: logGroupName,
       region: region,
       enable: enable,
-      localStoreMaxSize: localStoreMaxSize,
-      flushInterval: flushInterval,
+      localStoreMaxSize: localStoreMaxSize.inMegabytes,
+      flushInterval: flushInterval.inSeconds,
       defaultRemoteConfiguration: defaultRemoteConfiguration,
       loggingConstraints: loggingConstraints,
     );
@@ -47,7 +48,7 @@ abstract class AWSLoggingCloudWatchConfig
 
   const AWSLoggingCloudWatchConfig._();
 
-  static const List<_i4.SmithySerializer<AWSLoggingCloudWatchConfig>>
+  static const List<_i5.SmithySerializer<AWSLoggingCloudWatchConfig>>
       serializers = [AWSLoggingCloudWatchConfigSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -63,8 +64,8 @@ abstract class AWSLoggingCloudWatchConfig
   bool get enable;
   int get localStoreMaxSize;
   int get flushInterval;
-  _i2.LoggingRemoteConfiguration? get defaultRemoteConfiguration;
-  _i3.AmplifyLoggingConstraints? get loggingConstraints;
+  _i3.AWSLoggingRemoteConfig? get defaultRemoteConfiguration;
+  _i4.AWSAmplifyLoggingConstraints? get loggingConstraints;
   @override
   List<Object?> get props => [
         logGroupName,
@@ -111,7 +112,7 @@ abstract class AWSLoggingCloudWatchConfig
 }
 
 class AWSLoggingCloudWatchConfigSerializer
-    extends _i4.StructuredSmithySerializer<AWSLoggingCloudWatchConfig> {
+    extends _i5.StructuredSmithySerializer<AWSLoggingCloudWatchConfig> {
   const AWSLoggingCloudWatchConfigSerializer()
       : super('AWSLoggingCloudWatchConfig');
 
@@ -121,8 +122,8 @@ class AWSLoggingCloudWatchConfigSerializer
         _$AWSLoggingCloudWatchConfig,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i5.ShapeId> get supportedProtocols => const [
+        _i5.ShapeId(
           namespace: 'smithy.dart',
           shape: 'genericProtocol',
         )
@@ -146,8 +147,8 @@ class AWSLoggingCloudWatchConfigSerializer
         case 'defaultRemoteConfiguration':
           result.defaultRemoteConfiguration.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.LoggingRemoteConfiguration),
-          ) as _i2.LoggingRemoteConfiguration));
+            specifiedType: const FullType(_i3.AWSLoggingRemoteConfig),
+          ) as _i3.AWSLoggingRemoteConfig));
         case 'enable':
           result.enable = (serializers.deserialize(
             value,
@@ -171,8 +172,8 @@ class AWSLoggingCloudWatchConfigSerializer
         case 'loggingConstraints':
           result.loggingConstraints.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.AmplifyLoggingConstraints),
-          ) as _i3.AmplifyLoggingConstraints));
+            specifiedType: const FullType(_i4.AWSAmplifyLoggingConstraints),
+          ) as _i4.AWSAmplifyLoggingConstraints));
         case 'region':
           result.region = (serializers.deserialize(
             value,
@@ -232,7 +233,7 @@ class AWSLoggingCloudWatchConfigSerializer
         ..add('defaultRemoteConfiguration')
         ..add(serializers.serialize(
           defaultRemoteConfiguration,
-          specifiedType: const FullType(_i2.LoggingRemoteConfiguration),
+          specifiedType: const FullType(_i3.AWSLoggingRemoteConfig),
         ));
     }
     if (loggingConstraints != null) {
@@ -240,7 +241,7 @@ class AWSLoggingCloudWatchConfigSerializer
         ..add('loggingConstraints')
         ..add(serializers.serialize(
           loggingConstraints,
-          specifiedType: const FullType(_i3.AmplifyLoggingConstraints),
+          specifiedType: const FullType(_i4.AWSAmplifyLoggingConstraints),
         ));
     }
     return result$;

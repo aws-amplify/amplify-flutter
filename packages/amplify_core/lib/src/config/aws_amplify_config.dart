@@ -174,8 +174,7 @@ abstract class AWSAmplifyConfig
         b.analytics = AWSAnalyticsConfig.pinpoint(
           appId: analyticsConfig.pinpointAnalytics.appId,
           region: analyticsConfig.pinpointAnalytics.region,
-          autoFlushEventsInterval:
-              analyticsConfig.autoFlushEventsInterval.inSeconds,
+          autoFlushEventsInterval: analyticsConfig.autoFlushEventsInterval,
         );
       }
       if (config.api?.awsPlugin case final apiConfig?) {
@@ -205,7 +204,7 @@ abstract class AWSAmplifyConfig
                 'Invalid endpoint configuration: $cliEndpoint',
               ),
           };
-          b.api.apis[apiName] = config;
+          b.api.endpoints[apiName] = config;
         }
       }
       if (config.auth?.awsPlugin case final authConfig?) {
@@ -218,10 +217,7 @@ abstract class AWSAmplifyConfig
                 ..region = userPoolConfig.region
                 ..clientId = userPoolConfig.appClientId
                 ..clientSecret = userPoolConfig.appClientSecret
-                ..endpoint = switch (userPoolConfig.endpoint) {
-                  final endpoint? => Uri.parse(endpoint),
-                  _ => null,
-                };
+                ..endpoint = userPoolConfig.endpoint?.let(Uri.parse);
 
               if (authConfig.auth?.default$ case final cliAuthConfig?) {
                 b.userPool
@@ -251,11 +247,10 @@ abstract class AWSAmplifyConfig
                   b.userPool.socialProviders.addAll([
                     for (final socialProvider in socialProviders)
                       switch (socialProvider) {
-                        SocialProvider.amazon => const AWSAuthProvider.amazon(),
-                        SocialProvider.apple => const AWSAuthProvider.apple(),
-                        SocialProvider.facebook =>
-                          const AWSAuthProvider.facebook(),
-                        SocialProvider.google => const AWSAuthProvider.google(),
+                        SocialProvider.amazon => AuthProvider.amazon,
+                        SocialProvider.apple => AuthProvider.apple,
+                        SocialProvider.facebook => AuthProvider.facebook,
+                        SocialProvider.google => AuthProvider.google,
                       }
                   ]);
                 });
@@ -281,7 +276,9 @@ abstract class AWSAmplifyConfig
                     ?.let(b.userPool.signUpAttributes.addAll);
               }
 
-              if (userPoolConfig.hostedUI case final hostedUiConfig?) {
+              final hostedUiConfig =
+                  authConfig.auth?.default$?.oAuth ?? userPoolConfig.hostedUI;
+              if (hostedUiConfig != null) {
                 b.userPool.hostedUi
                   ..clientId = hostedUiConfig.appClientId
                   ..clientSecret = hostedUiConfig.appClientSecret
@@ -327,17 +324,23 @@ abstract class AWSAmplifyConfig
           enable: loggingConfig.enable,
           logGroupName: loggingConfig.logGroupName,
           region: loggingConfig.region,
-          localStoreMaxSize: loggingConfig.localStoreMaxSizeInMB,
-          flushInterval: loggingConfig.flushIntervalInSeconds,
+          localStoreMaxSize: LocalStorageSize.MB(
+            loggingConfig.localStoreMaxSizeInMB,
+          ),
+          flushInterval: Duration(
+            seconds: loggingConfig.flushIntervalInSeconds,
+          ),
           defaultRemoteConfiguration:
               loggingConfig.defaultRemoteConfiguration?.let(
-            (remoteConfig) => LoggingRemoteConfiguration(
+            (remoteConfig) => AWSLoggingRemoteConfig(
               endpoint: Uri.parse(remoteConfig.endpoint),
-              refreshInterval: remoteConfig.refreshIntervalInSeconds,
+              refreshInterval: Duration(
+                seconds: remoteConfig.refreshIntervalInSeconds,
+              ),
             ),
           ),
           loggingConstraints: loggingConfig.loggingConstraints?.let(
-            (constraints) => AmplifyLoggingConstraints(
+            (constraints) => AWSAmplifyLoggingConstraints(
               defaultLogLevel: LogLevel.parse(constraints.defaultLogLevel),
               categoryLogLevel: constraints.categoryLogLevel.map(
                 (category, logLevel) => MapEntry(
@@ -348,7 +351,7 @@ abstract class AWSAmplifyConfig
               userLogLevel: constraints.userLogLevel.map(
                 (userId, userLogLevel) => MapEntry(
                   userId,
-                  UserLogLevel(
+                  AWSUserLogLevel(
                     defaultLogLevel:
                         LogLevel.parse(userLogLevel.defaultLogLevel),
                     categoryLogLevel: userLogLevel.categoryLogLevel.map(
@@ -365,11 +368,9 @@ abstract class AWSAmplifyConfig
         );
       }
       if (config.notifications?.awsPlugin case final notificationsConfig?) {
-        b.notifications = AWSNotificationsConfig.push(
-          AWSPushNotificationsConfig.pinpoint(
-            appId: notificationsConfig.appId,
-            region: notificationsConfig.region,
-          ),
+        b.notifications.push = AWSPushNotificationsConfig.pinpoint(
+          appId: notificationsConfig.appId,
+          region: notificationsConfig.region,
         );
       }
       if (config.storage?.awsPlugin case final storageConfig?) {
@@ -417,11 +418,13 @@ abstract class AWSAmplifyConfig
     String? clientSecret,
     Uri? endpoint,
     AuthenticationFlowType? authFlowType,
-    List<AWSAuthProvider>? socialProviders,
+    List<AuthProvider>? socialProviders,
     List<AWSAuthUsernameAttribute>? usernameAttributes,
     List<CognitoUserAttributeKey>? signUpAttributes,
-    List<CognitoUserAttributeKey>? verificationMechanisms,
     AWSAnalyticsPinpointConfig? pinpointConfig,
+    AWSAuthPasswordProtectionSettings? passwordProtectionSettings,
+    AWSAuthMfaConfiguration? mfaConfiguration,
+    List<CognitoUserAttributeKey>? verificationMechanisms,
     AWSAuthHostedUiConfig? hostedUi,
   }) =>
       rebuild((b) {
@@ -435,8 +438,10 @@ abstract class AWSAmplifyConfig
           socialProviders: socialProviders,
           usernameAttributes: usernameAttributes,
           signUpAttributes: signUpAttributes,
-          verificationMechanisms: verificationMechanisms,
           pinpointConfig: pinpointConfig,
+          passwordProtectionSettings: passwordProtectionSettings,
+          mfaConfiguration: mfaConfiguration,
+          verificationMechanisms: verificationMechanisms,
           hostedUi: hostedUi,
         );
         switch (b.auth?.value) {
@@ -548,7 +553,7 @@ abstract class AWSAmplifyConfig
           authMode: authMode,
           additionalAuthModes: additionalAuthModes,
         );
-        b.api.apis[apiName] = endpointConfig;
+        b.api.endpoints[apiName] = endpointConfig;
       });
 
   /// Adds a GraphQL API to the configuration or updates the existing one.
@@ -558,11 +563,11 @@ abstract class AWSAmplifyConfig
     void Function(AWSAppSyncEndpointConfigBuilder api) builder,
   ) =>
       rebuild((b) {
-        b.api.apis.updateValue(
+        b.api.endpoints.updateValue(
           apiName,
           (endpoint) {
             switch (endpoint.value) {
-              case AWSApiEndpointConfigAppSync$(:final appSync):
+              case final AWSAppSyncEndpointConfig appSync:
                 return AWSApiEndpointConfigAppSync$(
                   appSync.rebuild(builder),
                 );
@@ -592,7 +597,7 @@ abstract class AWSAmplifyConfig
           region: region,
           authMode: authMode,
         );
-        b.api.apis[apiName] = endpointConfig;
+        b.api.endpoints[apiName] = endpointConfig;
       });
 
   /// Adds a REST API to the configuration or updates the existing one.
@@ -602,11 +607,11 @@ abstract class AWSAmplifyConfig
     void Function(AWSApiGatewayEndpointConfigBuilder api) builder,
   ) =>
       rebuild((b) {
-        b.api.apis.updateValue(
+        b.api.endpoints.updateValue(
           apiName,
           (endpoint) {
             switch (endpoint.value) {
-              case AWSApiEndpointConfigApiGateway$(:final apiGateway):
+              case final AWSApiGatewayEndpointConfig apiGateway:
                 return AWSApiEndpointConfigApiGateway$(
                   apiGateway.rebuild(builder),
                 );
@@ -633,7 +638,7 @@ abstract class AWSAmplifyConfig
         b.analytics = AWSAnalyticsConfig.pinpoint(
           appId: appId,
           region: region,
-          autoFlushEventsInterval: autoFlushEventsInterval.inSeconds,
+          autoFlushEventsInterval: autoFlushEventsInterval,
         );
       });
 
@@ -665,18 +670,18 @@ abstract class AWSAmplifyConfig
     required String logGroupName,
     required String region,
     bool enable = true,
-    StorageSize localStorageMaxSize = const StorageSize.MB(5),
+    LocalStorageSize localStoreMaxSize = const LocalStorageSize.MB(5),
     Duration flushInterval = const Duration(seconds: 60),
-    LoggingRemoteConfiguration? defaultRemoteConfiguration,
-    AmplifyLoggingConstraints? loggingConstraints,
+    AWSLoggingRemoteConfig? defaultRemoteConfiguration,
+    AWSAmplifyLoggingConstraints? loggingConstraints,
   }) =>
       rebuild((b) {
         b.logging = AWSLoggingConfig.cloudWatch(
           logGroupName: logGroupName,
           region: region,
           enable: enable,
-          localStoreMaxSize: localStorageMaxSize.inMegabytes,
-          flushInterval: flushInterval.inSeconds,
+          localStoreMaxSize: localStoreMaxSize,
+          flushInterval: flushInterval,
           defaultRemoteConfiguration: defaultRemoteConfiguration,
           loggingConstraints: loggingConstraints,
         );
@@ -711,8 +716,9 @@ abstract class AWSAmplifyConfig
     required String region,
   }) =>
       rebuild((b) {
-        b.notifications = AWSNotificationsConfig.push(
-          AWSPushNotificationsConfig.pinpoint(appId: appId, region: region),
+        b.notifications.push = AWSPushNotificationsConfig.pinpoint(
+          appId: appId,
+          region: region,
         );
       });
 
@@ -722,16 +728,14 @@ abstract class AWSAmplifyConfig
     void Function(AWSPushNotificationsPinpointConfigBuilder push) builder,
   ) =>
       rebuild((b) {
-        switch (b.notifications?.push) {
+        switch (b.notifications.push) {
           case AWSPushNotificationsConfigPinpoint$(:final pinpoint):
-            b.notifications = AWSNotificationsConfig.push(
-              AWSPushNotificationsConfigPinpoint$(pinpoint.rebuild(builder)),
+            b.notifications.push = AWSPushNotificationsConfigPinpoint$(
+              pinpoint.rebuild(builder),
             );
           case null:
-            b.notifications = AWSNotificationsConfig.push(
-              AWSPushNotificationsConfigPinpoint$(
-                AWSPushNotificationsPinpointConfig.build(builder),
-              ),
+            b.notifications.push = AWSPushNotificationsConfigPinpoint$(
+              AWSPushNotificationsPinpointConfig.build(builder),
             );
           case final nonPinpointResource:
             throw ArgumentError(
@@ -822,7 +826,7 @@ abstract class AWSAmplifyConfig
     }
 
     ApiConfig? api;
-    if (this.api?.apis case final apis?) {
+    if (this.api?.endpoints case final apis?) {
       final endpoints = <String, core.AWSApiConfig>{};
       void addEndpoint(String name, AWSApiEndpointConfig endpointConfig) {
         final endpoint = switch (endpointConfig) {
@@ -903,10 +907,10 @@ abstract class AWSAmplifyConfig
                 socialProviders: userPool?.socialProviders
                     ?.map(
                       (p) => switch (p) {
-                        AWSAuthProviderAmazon$ _ => SocialProvider.amazon,
-                        AWSAuthProviderApple$ _ => SocialProvider.apple,
-                        AWSAuthProviderFacebook$ _ => SocialProvider.facebook,
-                        AWSAuthProviderGoogle$ _ => SocialProvider.google,
+                        AuthProvider.amazon => SocialProvider.amazon,
+                        AuthProvider.apple => SocialProvider.apple,
+                        AuthProvider.facebook => SocialProvider.facebook,
+                        AuthProvider.google => SocialProvider.google,
                         _ => throw ArgumentError.value(
                             p,
                             'socialProvider',
@@ -1005,33 +1009,23 @@ abstract class AWSAmplifyConfig
                 defaultLogLevel: constraints.defaultLogLevel.name.screamingCase,
                 categoryLogLevel: {
                   for (final MapEntry(key: category, value: logLevel)
-                      in (constraints.categoryLogLevel?.toMap() ??
-                              const <Category, LogLevel>{})
-                          .entries)
+                      in (constraints.categoryLogLevel.toMap()).entries)
                     category.name.screamingCase: logLevel.name.screamingCase,
                 },
-                userLogLevel: constraints.userLogLevel?.let(
-                      (userLogLevels) => {
-                        for (final MapEntry(key: userId, value: constraints)
-                            in userLogLevels.entries)
-                          userId: core.UserLogLevel(
-                            defaultLogLevel:
-                                constraints.defaultLogLevel.name.screamingCase,
-                            categoryLogLevel: constraints.categoryLogLevel?.let(
-                                  (categoryLevels) => {
-                                    for (final MapEntry(
-                                          key: category,
-                                          value: logLevel
-                                        ) in categoryLevels.entries)
-                                      category.name.screamingCase:
-                                          logLevel.name.screamingCase,
-                                  },
-                                ) ??
-                                const {},
-                          )
+                userLogLevel: {
+                  for (final MapEntry(key: userId, value: constraints)
+                      in constraints.userLogLevel.entries)
+                    userId: core.UserLogLevel(
+                      defaultLogLevel:
+                          constraints.defaultLogLevel.name.screamingCase,
+                      categoryLogLevel: {
+                        for (final MapEntry(key: category, value: logLevel)
+                            in constraints.categoryLogLevel.entries)
+                          category.name.screamingCase:
+                              logLevel.name.screamingCase,
                       },
-                    ) ??
-                    const {},
+                    )
+                },
               ),
             ),
           ),
@@ -1113,6 +1107,7 @@ abstract class AWSAmplifyConfig
           StorageAccessLevel.values,
         ),
         _CognitoUserAttributeKeySerializer(),
+        _AuthProviderSerializer(),
       ])
       ..addPlugin(StandardJsonPlugin());
 
@@ -1175,7 +1170,7 @@ extension AWSApiEndpointConfigHelpers on AWSApiEndpointConfig {
   /// All the auth modes for the API.
   Iterable<AWSApiAuthorizationMode> get allAuthModes sync* {
     yield defaultAuthorizationMode;
-    if (appSync case AWSAppSyncEndpointConfig(:final additionalAuthModes?)) {
+    if (appSync case AWSAppSyncEndpointConfig(:final additionalAuthModes)) {
       yield* additionalAuthModes;
     }
   }
@@ -1249,16 +1244,16 @@ extension AWSApiAuthorizationModeHelpers on AWSApiAuthorizationMode {
 }
 
 // ignore_for_file: non_constant_identifier_names, constant_identifier_names
-final class StorageSize {
-  const StorageSize._(this._bytes);
+final class LocalStorageSize {
+  const LocalStorageSize._(this._bytes);
 
-  const StorageSize.kB(int kilobytes) : this._(kilobytes * _kB);
-  const StorageSize.MB(int megabytes) : this._(megabytes * _MB);
-  const StorageSize.GB(int gigabytes) : this._(gigabytes * _GB);
+  const LocalStorageSize.kB(int kilobytes) : this._(kilobytes * _kB);
+  const LocalStorageSize.MB(int megabytes) : this._(megabytes * _MB);
+  const LocalStorageSize.GB(int gigabytes) : this._(gigabytes * _GB);
 
-  const StorageSize.KiB(int kilobytes) : this._(kilobytes * _KiB);
-  const StorageSize.MiB(int megabytes) : this._(megabytes * _MiB);
-  const StorageSize.GiB(int gigabytes) : this._(gigabytes * _GiB);
+  const LocalStorageSize.KiB(int kilobytes) : this._(kilobytes * _KiB);
+  const LocalStorageSize.MiB(int megabytes) : this._(megabytes * _MiB);
+  const LocalStorageSize.GiB(int gigabytes) : this._(gigabytes * _GiB);
 
   static const int _kB = 1000;
   static const int _MB = 1000 * _kB;
@@ -1347,3 +1342,38 @@ final class _CognitoUserAttributeKeySerializer
   @override
   String get wireName => 'CognitoUserAttributeKey';
 }
+
+final class _AuthProviderSerializer
+    implements StructuredSerializer<AuthProvider> {
+  const _AuthProviderSerializer();
+
+  @override
+  AuthProvider deserialize(
+    Serializers serializers,
+    Iterable<Object?> serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final values = serialized.toList();
+    return AuthProvider.fromJson({
+      'name': values.first as String,
+      'identityPoolProvider': values.length > 1 ? values[1] as String? : null,
+    });
+  }
+
+  @override
+  Iterable<Object?> serialize(
+    Serializers serializers,
+    AuthProvider object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return object.toJson().values;
+  }
+
+  @override
+  Iterable<Type> get types => const [AuthProvider];
+
+  @override
+  String get wireName => 'AuthProvider';
+}
+
+typedef MfaStatus = core.MfaConfiguration;

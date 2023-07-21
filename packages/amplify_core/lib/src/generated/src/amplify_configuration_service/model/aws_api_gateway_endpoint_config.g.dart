@@ -77,9 +77,7 @@ class AWSApiGatewayEndpointConfigBuilder
   set authMode(_i2.AWSApiAuthorizationMode? authMode) =>
       _$this._authMode = authMode;
 
-  AWSApiGatewayEndpointConfigBuilder() {
-    AWSApiGatewayEndpointConfig._init(this);
-  }
+  AWSApiGatewayEndpointConfigBuilder();
 
   AWSApiGatewayEndpointConfigBuilder get _$this {
     final $v = _$v;

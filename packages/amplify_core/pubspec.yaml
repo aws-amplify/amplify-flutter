@@ -32,6 +32,7 @@ dev_dependencies:
   build_version: ^2.1.1
   build_web_compilers: ^4.0.0
   built_value_generator: 8.6.0
+  checks: ^0.2.2
   code_builder: 4.5.0
   code_excerpt_updater:
     git:

@@ -40,9 +40,6 @@ abstract class AWSApiGatewayEndpointConfig
   static const List<_i3.SmithySerializer<AWSApiGatewayEndpointConfig>>
       serializers = [AWSApiGatewayEndpointConfigSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AWSApiGatewayEndpointConfigBuilder b) {}
-
   /// A valid RFC 3986 URI
   Uri get endpoint;
 

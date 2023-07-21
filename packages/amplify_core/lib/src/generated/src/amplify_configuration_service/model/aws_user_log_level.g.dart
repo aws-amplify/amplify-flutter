@@ -1,37 +1,41 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_log_level.dart';
+part of 'aws_user_log_level.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-class _$UserLogLevel extends UserLogLevel {
+class _$AWSUserLogLevel extends AWSUserLogLevel {
   @override
   final _i2.LogLevel defaultLogLevel;
   @override
-  final _i3.BuiltMap<_i2.Category, _i2.LogLevel>? categoryLogLevel;
+  final _i3.BuiltMap<_i2.Category, _i2.LogLevel> categoryLogLevel;
 
-  factory _$UserLogLevel([void Function(UserLogLevelBuilder)? updates]) =>
-      (new UserLogLevelBuilder()..update(updates))._build();
+  factory _$AWSUserLogLevel([void Function(AWSUserLogLevelBuilder)? updates]) =>
+      (new AWSUserLogLevelBuilder()..update(updates))._build();
 
-  _$UserLogLevel._({required this.defaultLogLevel, this.categoryLogLevel})
+  _$AWSUserLogLevel._(
+      {required this.defaultLogLevel, required this.categoryLogLevel})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        defaultLogLevel, r'UserLogLevel', 'defaultLogLevel');
+        defaultLogLevel, r'AWSUserLogLevel', 'defaultLogLevel');
+    BuiltValueNullFieldError.checkNotNull(
+        categoryLogLevel, r'AWSUserLogLevel', 'categoryLogLevel');
   }
 
   @override
-  UserLogLevel rebuild(void Function(UserLogLevelBuilder) updates) =>
+  AWSUserLogLevel rebuild(void Function(AWSUserLogLevelBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  UserLogLevelBuilder toBuilder() => new UserLogLevelBuilder()..replace(this);
+  AWSUserLogLevelBuilder toBuilder() =>
+      new AWSUserLogLevelBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is UserLogLevel &&
+    return other is AWSUserLogLevel &&
         defaultLogLevel == other.defaultLogLevel &&
         categoryLogLevel == other.categoryLogLevel;
   }
@@ -46,9 +50,9 @@ class _$UserLogLevel extends UserLogLevel {
   }
 }
 
-class UserLogLevelBuilder
-    implements Builder<UserLogLevel, UserLogLevelBuilder> {
-  _$UserLogLevel? _$v;
+class AWSUserLogLevelBuilder
+    implements Builder<AWSUserLogLevel, AWSUserLogLevelBuilder> {
+  _$AWSUserLogLevel? _$v;
 
   _i2.LogLevel? _defaultLogLevel;
   _i2.LogLevel? get defaultLogLevel => _$this._defaultLogLevel;
@@ -63,50 +67,50 @@ class UserLogLevelBuilder
           _i3.MapBuilder<_i2.Category, _i2.LogLevel>? categoryLogLevel) =>
       _$this._categoryLogLevel = categoryLogLevel;
 
-  UserLogLevelBuilder() {
-    UserLogLevel._init(this);
+  AWSUserLogLevelBuilder() {
+    AWSUserLogLevel._init(this);
   }
 
-  UserLogLevelBuilder get _$this {
+  AWSUserLogLevelBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _defaultLogLevel = $v.defaultLogLevel;
-      _categoryLogLevel = $v.categoryLogLevel?.toBuilder();
+      _categoryLogLevel = $v.categoryLogLevel.toBuilder();
       _$v = null;
     }
     return this;
   }
 
   @override
-  void replace(UserLogLevel other) {
+  void replace(AWSUserLogLevel other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$UserLogLevel;
+    _$v = other as _$AWSUserLogLevel;
   }
 
   @override
-  void update(void Function(UserLogLevelBuilder)? updates) {
+  void update(void Function(AWSUserLogLevelBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  UserLogLevel build() => _build();
+  AWSUserLogLevel build() => _build();
 
-  _$UserLogLevel _build() {
-    _$UserLogLevel _$result;
+  _$AWSUserLogLevel _build() {
+    _$AWSUserLogLevel _$result;
     try {
       _$result = _$v ??
-          new _$UserLogLevel._(
+          new _$AWSUserLogLevel._(
               defaultLogLevel: BuiltValueNullFieldError.checkNotNull(
-                  defaultLogLevel, r'UserLogLevel', 'defaultLogLevel'),
-              categoryLogLevel: _categoryLogLevel?.build());
+                  defaultLogLevel, r'AWSUserLogLevel', 'defaultLogLevel'),
+              categoryLogLevel: categoryLogLevel.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'categoryLogLevel';
-        _categoryLogLevel?.build();
+        categoryLogLevel.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'UserLogLevel', _$failedField, e.toString());
+            r'AWSUserLogLevel', _$failedField, e.toString());
       }
       rethrow;
     }

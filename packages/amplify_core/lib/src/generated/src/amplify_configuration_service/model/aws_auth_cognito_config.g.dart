@@ -61,9 +61,7 @@ class AWSAuthCognitoConfigBuilder
   set identityPool(_i3.AWSAuthIdentityPoolConfigBuilder? identityPool) =>
       _$this._identityPool = identityPool;
 
-  AWSAuthCognitoConfigBuilder() {
-    AWSAuthCognitoConfig._init(this);
-  }
+  AWSAuthCognitoConfigBuilder();
 
   AWSAuthCognitoConfigBuilder get _$this {
     final $v = _$v;

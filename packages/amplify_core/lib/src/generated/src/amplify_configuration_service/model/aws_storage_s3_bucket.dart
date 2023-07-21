@@ -11,9 +11,11 @@ import 'package:smithy/smithy.dart' as _i3;
 
 part 'aws_storage_s3_bucket.g.dart';
 
+/// The configuration for an AWS S3 bucket.
 abstract class AWSStorageS3Bucket
     with _i1.AWSEquatable<AWSStorageS3Bucket>
     implements Built<AWSStorageS3Bucket, AWSStorageS3BucketBuilder> {
+  /// The configuration for an AWS S3 bucket.
   factory AWSStorageS3Bucket({
     required String bucketName,
     required String region,
@@ -27,6 +29,7 @@ abstract class AWSStorageS3Bucket
     );
   }
 
+  /// The configuration for an AWS S3 bucket.
   factory AWSStorageS3Bucket.build(
           [void Function(AWSStorageS3BucketBuilder) updates]) =
       _$AWSStorageS3Bucket;

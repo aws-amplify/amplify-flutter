@@ -69,9 +69,7 @@ class AWSPushNotificationsPinpointConfigBuilder
   String? get region => _$this._region;
   set region(String? region) => _$this._region = region;
 
-  AWSPushNotificationsPinpointConfigBuilder() {
-    AWSPushNotificationsPinpointConfig._init(this);
-  }
+  AWSPushNotificationsPinpointConfigBuilder();
 
   AWSPushNotificationsPinpointConfigBuilder get _$this {
     final $v = _$v;

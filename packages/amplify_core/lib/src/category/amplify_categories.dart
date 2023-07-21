@@ -54,7 +54,7 @@ enum Category {
 
   /// Parses a category from a string value.
   static Category parse(String category) =>
-      values.firstWhere((el) => el.name == category.camelCase);
+      values.firstWhere((el) => el.name.screamingCase == category);
 
   String get name => switch (this) {
         Category.analytics => 'Analytics',

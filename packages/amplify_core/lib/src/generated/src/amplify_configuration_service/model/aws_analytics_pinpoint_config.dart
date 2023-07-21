@@ -10,23 +10,26 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'aws_analytics_pinpoint_config.g.dart';
 
+/// The Amplify Analytics Pinpoint plugin configuration.
 abstract class AWSAnalyticsPinpointConfig
     with _i1.AWSEquatable<AWSAnalyticsPinpointConfig>
     implements
         Built<AWSAnalyticsPinpointConfig, AWSAnalyticsPinpointConfigBuilder> {
+  /// The Amplify Analytics Pinpoint plugin configuration.
   factory AWSAnalyticsPinpointConfig({
     required String appId,
     required String region,
-    int? autoFlushEventsInterval,
+    Duration? autoFlushEventsInterval,
   }) {
-    autoFlushEventsInterval ??= 30;
+    autoFlushEventsInterval ??= const Duration(seconds: 30);
     return _$AWSAnalyticsPinpointConfig._(
       appId: appId,
       region: region,
-      autoFlushEventsInterval: autoFlushEventsInterval,
+      autoFlushEventsInterval: autoFlushEventsInterval.inSeconds,
     );
   }
 
+  /// The Amplify Analytics Pinpoint plugin configuration.
   factory AWSAnalyticsPinpointConfig.build(
           [void Function(AWSAnalyticsPinpointConfigBuilder) updates]) =
       _$AWSAnalyticsPinpointConfig;
@@ -41,8 +44,13 @@ abstract class AWSAnalyticsPinpointConfig
     b.autoFlushEventsInterval = 30;
   }
 
+  /// The Pinpoint application ID.
   String get appId;
+
+  /// The Pinpoint application region.
   String get region;
+
+  /// The rate at which recorded events should be flushed to Pinpoint.
   int get autoFlushEventsInterval;
   @override
   List<Object?> get props => [

@@ -69,9 +69,7 @@ class AWSAuthPasswordProtectionSettingsBuilder
               passwordPolicyCharacters) =>
       _$this._passwordPolicyCharacters = passwordPolicyCharacters;
 
-  AWSAuthPasswordProtectionSettingsBuilder() {
-    AWSAuthPasswordProtectionSettings._init(this);
-  }
+  AWSAuthPasswordProtectionSettingsBuilder();
 
   AWSAuthPasswordProtectionSettingsBuilder get _$this {
     final $v = _$v;

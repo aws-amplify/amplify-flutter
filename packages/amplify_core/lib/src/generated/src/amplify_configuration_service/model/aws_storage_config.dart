@@ -11,6 +11,7 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
+/// The Amplify Storage category configuration.
 sealed class AWSStorageConfig extends _i1.SmithyUnion<AWSStorageConfig> {
   const AWSStorageConfig._();
 
@@ -27,6 +28,7 @@ sealed class AWSStorageConfig extends _i1.SmithyUnion<AWSStorageConfig> {
     AWSStorageConfigSerializer()
   ];
 
+  /// The Amplify Storage S3 plugin configuration.
   _i3.AWSStorageS3Config? get s3 => null;
   @override
   Object get value => (s3)!;

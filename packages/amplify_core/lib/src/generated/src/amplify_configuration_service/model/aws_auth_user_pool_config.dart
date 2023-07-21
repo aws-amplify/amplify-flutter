@@ -5,22 +5,20 @@ library amplify_core.amplify_configuration_service.model.aws_auth_user_pool_conf
 
 import 'package:amplify_core/amplify_core.dart' as _i2;
 import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_analytics_pinpoint_config.dart'
-    as _i5;
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_hosted_ui_config.dart'
-    as _i8;
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_mfa_configuration.dart'
-    as _i7;
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_password_protection_settings.dart'
-    as _i6;
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_provider.dart'
-    as _i3;
-import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_username_attribute.dart'
     as _i4;
+import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_hosted_ui_config.dart'
+    as _i7;
+import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_mfa_configuration.dart'
+    as _i6;
+import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_password_protection_settings.dart'
+    as _i5;
+import 'package:amplify_core/src/generated/src/amplify_configuration_service/model/aws_auth_username_attribute.dart'
+    as _i3;
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i9;
+import 'package:built_collection/built_collection.dart' as _i8;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i10;
+import 'package:smithy/smithy.dart' as _i9;
 
 part 'aws_auth_user_pool_config.g.dart';
 
@@ -34,14 +32,14 @@ abstract class AWSAuthUserPoolConfig
     String? clientSecret,
     Uri? endpoint,
     _i2.AuthenticationFlowType? authFlowType,
-    List<_i3.AWSAuthProvider>? socialProviders,
-    List<_i4.AWSAuthUsernameAttribute>? usernameAttributes,
+    List<_i2.AuthProvider>? socialProviders,
+    List<_i3.AWSAuthUsernameAttribute>? usernameAttributes,
     List<_i2.CognitoUserAttributeKey>? signUpAttributes,
     List<_i2.CognitoUserAttributeKey>? verificationMechanisms,
-    _i5.AWSAnalyticsPinpointConfig? pinpointConfig,
-    _i6.AWSAuthPasswordProtectionSettings? passwordProtectionSettings,
-    _i7.AWSAuthMfaConfiguration? mfaConfiguration,
-    _i8.AWSAuthHostedUiConfig? hostedUi,
+    _i4.AWSAnalyticsPinpointConfig? pinpointConfig,
+    _i5.AWSAuthPasswordProtectionSettings? passwordProtectionSettings,
+    _i6.AWSAuthMfaConfiguration? mfaConfiguration,
+    _i7.AWSAuthHostedUiConfig? hostedUi,
   }) {
     return _$AWSAuthUserPoolConfig._(
       poolId: poolId,
@@ -51,14 +49,14 @@ abstract class AWSAuthUserPoolConfig
       endpoint: endpoint,
       authFlowType: authFlowType,
       socialProviders:
-          socialProviders == null ? null : _i9.BuiltList(socialProviders),
+          socialProviders == null ? null : _i8.BuiltList(socialProviders),
       usernameAttributes:
-          usernameAttributes == null ? null : _i9.BuiltList(usernameAttributes),
+          usernameAttributes == null ? null : _i8.BuiltList(usernameAttributes),
       signUpAttributes:
-          signUpAttributes == null ? null : _i9.BuiltList(signUpAttributes),
+          signUpAttributes == null ? null : _i8.BuiltList(signUpAttributes),
       verificationMechanisms: verificationMechanisms == null
           ? null
-          : _i9.BuiltList(verificationMechanisms),
+          : _i8.BuiltList(verificationMechanisms),
       pinpointConfig: pinpointConfig,
       passwordProtectionSettings: passwordProtectionSettings,
       mfaConfiguration: mfaConfiguration,
@@ -72,11 +70,10 @@ abstract class AWSAuthUserPoolConfig
 
   const AWSAuthUserPoolConfig._();
 
-  static const List<_i10.SmithySerializer<AWSAuthUserPoolConfig>> serializers =
-      [AWSAuthUserPoolConfigSerializer()];
+  static const List<_i9.SmithySerializer<AWSAuthUserPoolConfig>> serializers = [
+    AWSAuthUserPoolConfigSerializer()
+  ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AWSAuthUserPoolConfigBuilder b) {}
   String get poolId;
   String get region;
   String get clientId;
@@ -85,14 +82,16 @@ abstract class AWSAuthUserPoolConfig
   /// A valid RFC 3986 URI
   Uri? get endpoint;
   _i2.AuthenticationFlowType? get authFlowType;
-  _i9.BuiltList<_i3.AWSAuthProvider>? get socialProviders;
-  _i9.BuiltList<_i4.AWSAuthUsernameAttribute>? get usernameAttributes;
-  _i9.BuiltList<_i2.CognitoUserAttributeKey>? get signUpAttributes;
-  _i9.BuiltList<_i2.CognitoUserAttributeKey>? get verificationMechanisms;
-  _i5.AWSAnalyticsPinpointConfig? get pinpointConfig;
-  _i6.AWSAuthPasswordProtectionSettings? get passwordProtectionSettings;
-  _i7.AWSAuthMfaConfiguration? get mfaConfiguration;
-  _i8.AWSAuthHostedUiConfig? get hostedUi;
+  _i8.BuiltList<_i2.AuthProvider>? get socialProviders;
+  _i8.BuiltList<_i3.AWSAuthUsernameAttribute>? get usernameAttributes;
+  _i8.BuiltList<_i2.CognitoUserAttributeKey>? get signUpAttributes;
+  _i8.BuiltList<_i2.CognitoUserAttributeKey>? get verificationMechanisms;
+
+  /// The Amplify Analytics Pinpoint plugin configuration.
+  _i4.AWSAnalyticsPinpointConfig? get pinpointConfig;
+  _i5.AWSAuthPasswordProtectionSettings? get passwordProtectionSettings;
+  _i6.AWSAuthMfaConfiguration? get mfaConfiguration;
+  _i7.AWSAuthHostedUiConfig? get hostedUi;
   @override
   List<Object?> get props => [
         poolId,
@@ -174,7 +173,7 @@ abstract class AWSAuthUserPoolConfig
 }
 
 class AWSAuthUserPoolConfigSerializer
-    extends _i10.StructuredSmithySerializer<AWSAuthUserPoolConfig> {
+    extends _i9.StructuredSmithySerializer<AWSAuthUserPoolConfig> {
   const AWSAuthUserPoolConfigSerializer() : super('AWSAuthUserPoolConfig');
 
   @override
@@ -183,8 +182,8 @@ class AWSAuthUserPoolConfigSerializer
         _$AWSAuthUserPoolConfig,
       ];
   @override
-  Iterable<_i10.ShapeId> get supportedProtocols => const [
-        _i10.ShapeId(
+  Iterable<_i9.ShapeId> get supportedProtocols => const [
+        _i9.ShapeId(
           namespace: 'smithy.dart',
           shape: 'genericProtocol',
         )
@@ -228,24 +227,24 @@ class AWSAuthUserPoolConfigSerializer
         case 'hostedUi':
           result.hostedUi.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i8.AWSAuthHostedUiConfig),
-          ) as _i8.AWSAuthHostedUiConfig));
+            specifiedType: const FullType(_i7.AWSAuthHostedUiConfig),
+          ) as _i7.AWSAuthHostedUiConfig));
         case 'mfaConfiguration':
           result.mfaConfiguration.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i7.AWSAuthMfaConfiguration),
-          ) as _i7.AWSAuthMfaConfiguration));
+            specifiedType: const FullType(_i6.AWSAuthMfaConfiguration),
+          ) as _i6.AWSAuthMfaConfiguration));
         case 'passwordProtectionSettings':
           result.passwordProtectionSettings.replace((serializers.deserialize(
             value,
             specifiedType:
-                const FullType(_i6.AWSAuthPasswordProtectionSettings),
-          ) as _i6.AWSAuthPasswordProtectionSettings));
+                const FullType(_i5.AWSAuthPasswordProtectionSettings),
+          ) as _i5.AWSAuthPasswordProtectionSettings));
         case 'pinpointConfig':
           result.pinpointConfig.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.AWSAnalyticsPinpointConfig),
-          ) as _i5.AWSAnalyticsPinpointConfig));
+            specifiedType: const FullType(_i4.AWSAnalyticsPinpointConfig),
+          ) as _i4.AWSAnalyticsPinpointConfig));
         case 'poolId':
           result.poolId = (serializers.deserialize(
             value,
@@ -260,34 +259,34 @@ class AWSAuthUserPoolConfigSerializer
           result.signUpAttributes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i9.BuiltList,
+              _i8.BuiltList,
               [FullType(_i2.CognitoUserAttributeKey)],
             ),
-          ) as _i9.BuiltList<_i2.CognitoUserAttributeKey>));
+          ) as _i8.BuiltList<_i2.CognitoUserAttributeKey>));
         case 'socialProviders':
           result.socialProviders.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i9.BuiltList,
-              [FullType(_i3.AWSAuthProvider)],
+              _i8.BuiltList,
+              [FullType(_i2.AuthProvider)],
             ),
-          ) as _i9.BuiltList<_i3.AWSAuthProvider>));
+          ) as _i8.BuiltList<_i2.AuthProvider>));
         case 'usernameAttributes':
           result.usernameAttributes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i9.BuiltList,
-              [FullType(_i4.AWSAuthUsernameAttribute)],
+              _i8.BuiltList,
+              [FullType(_i3.AWSAuthUsernameAttribute)],
             ),
-          ) as _i9.BuiltList<_i4.AWSAuthUsernameAttribute>));
+          ) as _i8.BuiltList<_i3.AWSAuthUsernameAttribute>));
         case 'verificationMechanisms':
           result.verificationMechanisms.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i9.BuiltList,
+              _i8.BuiltList,
               [FullType(_i2.CognitoUserAttributeKey)],
             ),
-          ) as _i9.BuiltList<_i2.CognitoUserAttributeKey>));
+          ) as _i8.BuiltList<_i2.CognitoUserAttributeKey>));
       }
     }
 
@@ -363,7 +362,7 @@ class AWSAuthUserPoolConfigSerializer
         ..add('hostedUi')
         ..add(serializers.serialize(
           hostedUi,
-          specifiedType: const FullType(_i8.AWSAuthHostedUiConfig),
+          specifiedType: const FullType(_i7.AWSAuthHostedUiConfig),
         ));
     }
     if (mfaConfiguration != null) {
@@ -371,7 +370,7 @@ class AWSAuthUserPoolConfigSerializer
         ..add('mfaConfiguration')
         ..add(serializers.serialize(
           mfaConfiguration,
-          specifiedType: const FullType(_i7.AWSAuthMfaConfiguration),
+          specifiedType: const FullType(_i6.AWSAuthMfaConfiguration),
         ));
     }
     if (passwordProtectionSettings != null) {
@@ -379,7 +378,7 @@ class AWSAuthUserPoolConfigSerializer
         ..add('passwordProtectionSettings')
         ..add(serializers.serialize(
           passwordProtectionSettings,
-          specifiedType: const FullType(_i6.AWSAuthPasswordProtectionSettings),
+          specifiedType: const FullType(_i5.AWSAuthPasswordProtectionSettings),
         ));
     }
     if (pinpointConfig != null) {
@@ -387,7 +386,7 @@ class AWSAuthUserPoolConfigSerializer
         ..add('pinpointConfig')
         ..add(serializers.serialize(
           pinpointConfig,
-          specifiedType: const FullType(_i5.AWSAnalyticsPinpointConfig),
+          specifiedType: const FullType(_i4.AWSAnalyticsPinpointConfig),
         ));
     }
     if (signUpAttributes != null) {
@@ -396,7 +395,7 @@ class AWSAuthUserPoolConfigSerializer
         ..add(serializers.serialize(
           signUpAttributes,
           specifiedType: const FullType(
-            _i9.BuiltList,
+            _i8.BuiltList,
             [FullType(_i2.CognitoUserAttributeKey)],
           ),
         ));
@@ -407,8 +406,8 @@ class AWSAuthUserPoolConfigSerializer
         ..add(serializers.serialize(
           socialProviders,
           specifiedType: const FullType(
-            _i9.BuiltList,
-            [FullType(_i3.AWSAuthProvider)],
+            _i8.BuiltList,
+            [FullType(_i2.AuthProvider)],
           ),
         ));
     }
@@ -418,8 +417,8 @@ class AWSAuthUserPoolConfigSerializer
         ..add(serializers.serialize(
           usernameAttributes,
           specifiedType: const FullType(
-            _i9.BuiltList,
-            [FullType(_i4.AWSAuthUsernameAttribute)],
+            _i8.BuiltList,
+            [FullType(_i3.AWSAuthUsernameAttribute)],
           ),
         ));
     }
@@ -429,7 +428,7 @@ class AWSAuthUserPoolConfigSerializer
         ..add(serializers.serialize(
           verificationMechanisms,
           specifiedType: const FullType(
-            _i9.BuiltList,
+            _i8.BuiltList,
             [FullType(_i2.CognitoUserAttributeKey)],
           ),
         ));

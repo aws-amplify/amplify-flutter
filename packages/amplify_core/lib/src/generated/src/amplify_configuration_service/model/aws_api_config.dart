@@ -16,8 +16,9 @@ part 'aws_api_config.g.dart';
 abstract class AWSApiConfig
     with _i1.AWSEquatable<AWSApiConfig>
     implements Built<AWSApiConfig, AWSApiConfigBuilder> {
-  factory AWSApiConfig({required Map<String, _i2.AWSApiEndpointConfig> apis}) {
-    return _$AWSApiConfig._(apis: _i3.BuiltMap(apis));
+  factory AWSApiConfig(
+      {required Map<String, _i2.AWSApiEndpointConfig> endpoints}) {
+    return _$AWSApiConfig._(endpoints: _i3.BuiltMap(endpoints));
   }
 
   factory AWSApiConfig.build([void Function(AWSApiConfigBuilder) updates]) =
@@ -29,17 +30,15 @@ abstract class AWSApiConfig
     AWSApiConfigSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AWSApiConfigBuilder b) {}
-  _i3.BuiltMap<String, _i2.AWSApiEndpointConfig> get apis;
+  _i3.BuiltMap<String, _i2.AWSApiEndpointConfig> get endpoints;
   @override
-  List<Object?> get props => [apis];
+  List<Object?> get props => [endpoints];
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper('AWSApiConfig')
       ..add(
-        'apis',
-        apis,
+        'endpoints',
+        endpoints,
       );
     return helper.toString();
   }
@@ -77,8 +76,8 @@ class AWSApiConfigSerializer
         continue;
       }
       switch (key) {
-        case 'apis':
-          result.apis.replace((serializers.deserialize(
+        case 'endpoints':
+          result.endpoints.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
               _i3.BuiltMap,
@@ -101,11 +100,11 @@ class AWSApiConfigSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[];
-    final AWSApiConfig(:apis) = object;
+    final AWSApiConfig(:endpoints) = object;
     result$.addAll([
-      'apis',
+      'endpoints',
       serializers.serialize(
-        apis,
+        endpoints,
         specifiedType: const FullType(
           _i3.BuiltMap,
           [

@@ -53,9 +53,7 @@ class AWSAuthProviderCustomBuilder
   set developerProvidedName(String? developerProvidedName) =>
       _$this._developerProvidedName = developerProvidedName;
 
-  AWSAuthProviderCustomBuilder() {
-    AWSAuthProviderCustom._init(this);
-  }
+  AWSAuthProviderCustomBuilder();
 
   AWSAuthProviderCustomBuilder get _$this {
     final $v = _$v;

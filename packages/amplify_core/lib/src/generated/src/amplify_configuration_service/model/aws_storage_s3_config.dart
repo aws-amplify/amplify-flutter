@@ -13,14 +13,17 @@ import 'package:smithy/smithy.dart' as _i4;
 
 part 'aws_storage_s3_config.g.dart';
 
+/// The Amplify Storage S3 plugin configuration.
 abstract class AWSStorageS3Config
     with _i1.AWSEquatable<AWSStorageS3Config>
     implements Built<AWSStorageS3Config, AWSStorageS3ConfigBuilder> {
+  /// The Amplify Storage S3 plugin configuration.
   factory AWSStorageS3Config(
       {required Map<String, _i2.AWSStorageS3Bucket> buckets}) {
     return _$AWSStorageS3Config._(buckets: _i3.BuiltMap(buckets));
   }
 
+  /// The Amplify Storage S3 plugin configuration.
   factory AWSStorageS3Config.build(
           [void Function(AWSStorageS3ConfigBuilder) updates]) =
       _$AWSStorageS3Config;
@@ -31,8 +34,6 @@ abstract class AWSStorageS3Config
     AWSStorageS3ConfigSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AWSStorageS3ConfigBuilder b) {}
   _i3.BuiltMap<String, _i2.AWSStorageS3Bucket> get buckets;
   @override
   List<Object?> get props => [buckets];

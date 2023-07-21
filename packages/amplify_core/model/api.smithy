@@ -4,7 +4,7 @@ namespace com.amazonaws.amplify.core
 
 structure AWSApiConfig {
     @required
-    apis: AWSApiEndpointMap
+    endpoints: AWSApiEndpointMap
 }
 
 map AWSApiEndpointMap {

@@ -145,9 +145,8 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
       final memberExpressions = <String, Expression>{};
       for (final member in members) {
         final propertyName = member.dartName(ShapeType.structure);
-        final targetShape = context.shapeFor(member.target);
-        final symbolOverrides =
-            context.overridesFor(member) ?? context.overridesFor(targetShape);
+        final symbolOverrides = context.overridesFor(member.shapeId) ??
+            context.overridesFor(member.target);
         var defaultValue = member.defaultValue(context);
         if (defaultValue != null && symbolOverrides != null) {
           final (value, isConst) = defaultValue;
@@ -166,9 +165,9 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
           name: propertyName,
           isNullable: isNullable,
         );
-        if (defaultValue != null) {
+        if (defaultValue case (final value, _)) {
           b.addExpression(
-            refer(propertyName).assignNullAware(defaultValue.$1),
+            refer(propertyName).assignNullAware(value),
           );
         }
       }

@@ -1,41 +1,40 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
 // ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
-library amplify_core.amplify_configuration_service.model.logging_remote_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
+library amplify_core.amplify_configuration_service.model.aws_logging_remote_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i2;
 
-part 'logging_remote_configuration.g.dart';
+part 'aws_logging_remote_config.g.dart';
 
-abstract class LoggingRemoteConfiguration
-    with _i1.AWSEquatable<LoggingRemoteConfiguration>
-    implements
-        Built<LoggingRemoteConfiguration, LoggingRemoteConfigurationBuilder> {
-  factory LoggingRemoteConfiguration({
+abstract class AWSLoggingRemoteConfig
+    with _i1.AWSEquatable<AWSLoggingRemoteConfig>
+    implements Built<AWSLoggingRemoteConfig, AWSLoggingRemoteConfigBuilder> {
+  factory AWSLoggingRemoteConfig({
     required Uri endpoint,
-    int? refreshInterval,
+    Duration? refreshInterval,
   }) {
-    refreshInterval ??= 1200;
-    return _$LoggingRemoteConfiguration._(
+    refreshInterval ??= const Duration(seconds: 1200);
+    return _$AWSLoggingRemoteConfig._(
       endpoint: endpoint,
-      refreshInterval: refreshInterval,
+      refreshInterval: refreshInterval.inSeconds,
     );
   }
 
-  factory LoggingRemoteConfiguration.build(
-          [void Function(LoggingRemoteConfigurationBuilder) updates]) =
-      _$LoggingRemoteConfiguration;
+  factory AWSLoggingRemoteConfig.build(
+          [void Function(AWSLoggingRemoteConfigBuilder) updates]) =
+      _$AWSLoggingRemoteConfig;
 
-  const LoggingRemoteConfiguration._();
+  const AWSLoggingRemoteConfig._();
 
-  static const List<_i2.SmithySerializer<LoggingRemoteConfiguration>>
-      serializers = [LoggingRemoteConfigurationSerializer()];
+  static const List<_i2.SmithySerializer<AWSLoggingRemoteConfig>> serializers =
+      [AWSLoggingRemoteConfigSerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(LoggingRemoteConfigurationBuilder b) {
+  static void _init(AWSLoggingRemoteConfigBuilder b) {
     b.refreshInterval = 1200;
   }
 
@@ -49,7 +48,7 @@ abstract class LoggingRemoteConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('LoggingRemoteConfiguration')
+    final helper = newBuiltValueToStringHelper('AWSLoggingRemoteConfig')
       ..add(
         'endpoint',
         endpoint,
@@ -62,15 +61,14 @@ abstract class LoggingRemoteConfiguration
   }
 }
 
-class LoggingRemoteConfigurationSerializer
-    extends _i2.StructuredSmithySerializer<LoggingRemoteConfiguration> {
-  const LoggingRemoteConfigurationSerializer()
-      : super('LoggingRemoteConfiguration');
+class AWSLoggingRemoteConfigSerializer
+    extends _i2.StructuredSmithySerializer<AWSLoggingRemoteConfig> {
+  const AWSLoggingRemoteConfigSerializer() : super('AWSLoggingRemoteConfig');
 
   @override
   Iterable<Type> get types => const [
-        LoggingRemoteConfiguration,
-        _$LoggingRemoteConfiguration,
+        AWSLoggingRemoteConfig,
+        _$AWSLoggingRemoteConfig,
       ];
   @override
   Iterable<_i2.ShapeId> get supportedProtocols => const [
@@ -80,12 +78,12 @@ class LoggingRemoteConfigurationSerializer
         )
       ];
   @override
-  LoggingRemoteConfiguration deserialize(
+  AWSLoggingRemoteConfig deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = LoggingRemoteConfigurationBuilder();
+    final result = AWSLoggingRemoteConfigBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -114,11 +112,11 @@ class LoggingRemoteConfigurationSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    LoggingRemoteConfiguration object, {
+    AWSLoggingRemoteConfig object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[];
-    final LoggingRemoteConfiguration(:endpoint, :refreshInterval) = object;
+    final AWSLoggingRemoteConfig(:endpoint, :refreshInterval) = object;
     result$.addAll([
       'endpoint',
       serializers.serialize(

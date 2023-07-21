@@ -14,7 +14,7 @@ class _$AWSAppSyncEndpointConfig extends AWSAppSyncEndpointConfig {
   @override
   final _i2.AWSApiAuthorizationMode authMode;
   @override
-  final _i3.BuiltList<_i2.AWSApiAuthorizationMode>? additionalAuthModes;
+  final _i3.BuiltList<_i2.AWSApiAuthorizationMode> additionalAuthModes;
 
   factory _$AWSAppSyncEndpointConfig(
           [void Function(AWSAppSyncEndpointConfigBuilder)? updates]) =>
@@ -24,7 +24,7 @@ class _$AWSAppSyncEndpointConfig extends AWSAppSyncEndpointConfig {
       {required this.endpoint,
       required this.region,
       required this.authMode,
-      this.additionalAuthModes})
+      required this.additionalAuthModes})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         endpoint, r'AWSAppSyncEndpointConfig', 'endpoint');
@@ -32,6 +32,8 @@ class _$AWSAppSyncEndpointConfig extends AWSAppSyncEndpointConfig {
         region, r'AWSAppSyncEndpointConfig', 'region');
     BuiltValueNullFieldError.checkNotNull(
         authMode, r'AWSAppSyncEndpointConfig', 'authMode');
+    BuiltValueNullFieldError.checkNotNull(additionalAuthModes,
+        r'AWSAppSyncEndpointConfig', 'additionalAuthModes');
   }
 
   @override
@@ -101,7 +103,7 @@ class AWSAppSyncEndpointConfigBuilder
       _endpoint = $v.endpoint;
       _region = $v.region;
       _authMode = $v.authMode;
-      _additionalAuthModes = $v.additionalAuthModes?.toBuilder();
+      _additionalAuthModes = $v.additionalAuthModes.toBuilder();
       _$v = null;
     }
     return this;
@@ -132,12 +134,12 @@ class AWSAppSyncEndpointConfigBuilder
                   region, r'AWSAppSyncEndpointConfig', 'region'),
               authMode: BuiltValueNullFieldError.checkNotNull(
                   authMode, r'AWSAppSyncEndpointConfig', 'authMode'),
-              additionalAuthModes: _additionalAuthModes?.build());
+              additionalAuthModes: additionalAuthModes.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'additionalAuthModes';
-        _additionalAuthModes?.build();
+        additionalAuthModes.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'AWSAppSyncEndpointConfig', _$failedField, e.toString());

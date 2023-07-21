@@ -59,9 +59,7 @@ class AWSAuthProviderSamlBuilder
   String? get providerArn => _$this._providerArn;
   set providerArn(String? providerArn) => _$this._providerArn = providerArn;
 
-  AWSAuthProviderSamlBuilder() {
-    AWSAuthProviderSaml._init(this);
-  }
+  AWSAuthProviderSamlBuilder();
 
   AWSAuthProviderSamlBuilder get _$this {
     final $v = _$v;

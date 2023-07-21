@@ -104,6 +104,10 @@ Future<void> _generateFor({
     namespace: 'com.amazonaws.amplify.core',
     shape: 'AWSAmplifyConfig',
   );
+  const localStorageSizeSymbol = Reference(
+    'LocalStorageSize',
+    'package:amplify_core/amplify_config.dart',
+  );
   final outputs = generateForAst(
     ast,
     packageName: packageName,
@@ -115,40 +119,96 @@ Future<void> _generateFor({
     additionalShapes: ast.shapes.keys.where((id) => id != topLevelConfig),
     generateServer: true,
     basePath: 'src/generated',
-    symbolOverrides: {
-      ShapeId.parse('com.amazonaws.amplify.core#Uri'): DartTypes.core.uri,
-      // TODO(dnys1): Allow overriding serializer/transformer
-      ShapeId.parse('com.amazonaws.amplify.core#LogLevel'):
-          const Reference('LogLevel', 'package:amplify_core/amplify_core.dart'),
-      ShapeId.parse('com.amazonaws.amplify.core#AmplifyCategory'):
-          const Reference('Category', 'package:amplify_core/amplify_core.dart'),
+    shapeOverrides: {
+      ShapeId.parse('com.amazonaws.amplify.core#Uri'):
+          ShapeOverrides(DartTypes.core.uri),
+      ShapeId.parse('com.amazonaws.amplify.core#AWSLogLevel'):
+          const ShapeOverrides(
+        Reference('LogLevel', 'package:amplify_core/amplify_core.dart'),
+      ),
+      ShapeId.parse('com.amazonaws.amplify.core#AWSAmplifyCategory'):
+          const ShapeOverrides(
+        Reference('Category', 'package:amplify_core/amplify_core.dart'),
+      ),
       ShapeId.parse('com.amazonaws.amplify.core#AWSAuthFlowType'):
-          const Reference(
-        'AuthenticationFlowType',
-        'package:amplify_core/amplify_core.dart',
+          const ShapeOverrides(
+        Reference(
+          'AuthenticationFlowType',
+          'package:amplify_core/amplify_core.dart',
+        ),
       ),
       ShapeId.parse('com.amazonaws.amplify.core#AWSAuthMfaType'):
-          const Reference('MfaType', 'package:amplify_core/amplify_core.dart'),
+          const ShapeOverrides(
+        Reference('MfaType', 'package:amplify_core/amplify_core.dart'),
+      ),
       ShapeId.parse('com.amazonaws.amplify.core#AWSAuthMfaStatus'):
-          const Reference(
-        'MfaConfiguration',
-        'package:amplify_core/amplify_core.dart',
+          const ShapeOverrides(
+        Reference('MfaStatus', 'package:amplify_core/amplify_config.dart'),
+      ),
+      ShapeId.parse('com.amazonaws.amplify.core#AWSAuthProvider'):
+          const ShapeOverrides(
+        Reference('AuthProvider', 'package:amplify_core/amplify_core.dart'),
       ),
       ShapeId.parse(
         'com.amazonaws.amplify.core#AWSAuthPasswordPolicyCharacters',
-      ): const Reference(
-        'PasswordPolicyCharacters',
-        'package:amplify_core/amplify_core.dart',
+      ): const ShapeOverrides(
+        Reference(
+          'PasswordPolicyCharacters',
+          'package:amplify_core/amplify_core.dart',
+        ),
       ),
       ShapeId.parse('com.amazonaws.amplify.core#AWSAuthUserAttributeKey'):
-          const Reference(
-        'CognitoUserAttributeKey',
-        'package:amplify_core/amplify_core.dart',
+          const ShapeOverrides(
+        Reference(
+          'CognitoUserAttributeKey',
+          'package:amplify_core/amplify_core.dart',
+        ),
       ),
       ShapeId.parse('com.amazonaws.amplify.core#AWSStorageAccessLevel'):
-          const Reference(
-        'StorageAccessLevel',
-        'package:amplify_core/amplify_core.dart',
+          const ShapeOverrides(
+        Reference(
+          'StorageAccessLevel',
+          'package:amplify_core/amplify_core.dart',
+        ),
+      ),
+      ShapeId.parse('com.amazonaws.amplify.core#Seconds'):
+          ShapeOverrides.friendly(
+        friendlySymbol: const Reference('Duration'),
+        transformFromFriendly: (
+          Expression ref, {
+          required bool isNullable,
+        }) {
+          final getter = isNullable ? ref.nullSafeProperty : ref.property;
+          return getter('inSeconds');
+        },
+        transformToFriendly: (
+          Expression value, {
+          required bool isNullable,
+          required bool isConst,
+        }) {
+          final constructor = isConst
+              ? refer('Duration').constInstance
+              : refer('Duration').newInstance;
+          return constructor([], {'seconds': value});
+        },
+      ),
+      ShapeId.parse('com.amazonaws.amplify.core#Megabytes'):
+          ShapeOverrides.friendly(
+        friendlySymbol: localStorageSizeSymbol,
+        transformFromFriendly: (Expression ref, {required bool isNullable}) {
+          final getter = isNullable ? ref.nullSafeProperty : ref.property;
+          return getter('inMegabytes');
+        },
+        transformToFriendly: (
+          Expression value, {
+          required bool isNullable,
+          required bool isConst,
+        }) {
+          final constructor = isConst
+              ? localStorageSizeSymbol.constInstanceNamed
+              : localStorageSizeSymbol.newInstanceNamed;
+          return constructor('MB', [value]);
+        },
       ),
     },
   );

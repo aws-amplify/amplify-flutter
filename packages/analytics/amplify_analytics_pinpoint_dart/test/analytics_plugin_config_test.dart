@@ -81,7 +81,7 @@ void main() {
     });
 
     test('throws ConfigurationError when negative', () async {
-      const autoFlushInterval = -1;
+      const autoFlushInterval = Duration(seconds: -1);
 
       final plugin = AmplifyAnalyticsPinpointDart(
         pathProvider: mockPathProvider,
@@ -108,7 +108,7 @@ void main() {
     });
 
     test('disables autoFlush when 0', () async {
-      const autoFlushInterval = 0;
+      const autoFlushInterval = Duration.zero;
 
       final plugin = AmplifyAnalyticsPinpointDart(
         pathProvider: mockPathProvider,
@@ -134,7 +134,7 @@ void main() {
     });
 
     test('sets proper autoFlush value', () async {
-      const autoFlushInterval = 120;
+      const autoFlushInterval = Duration(seconds: 120);
 
       final plugin = AmplifyAnalyticsPinpointDart(
         pathProvider: mockPathProvider,
@@ -158,7 +158,7 @@ void main() {
 
       expect(
         plugin.autoEventSubmitter?.duration,
-        const Duration(seconds: autoFlushInterval),
+        autoFlushInterval,
       );
     });
   });
