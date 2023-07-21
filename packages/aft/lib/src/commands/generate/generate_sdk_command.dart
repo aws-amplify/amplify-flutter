@@ -136,7 +136,14 @@ class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
       if (!await modelsDir.exists()) {
         exitError('Model directory ($modelsDir) does not exist');
       }
-      modelsDir = await _checkoutModelsRef(modelsDir, ref);
+      // Checkout models if modelsPath is a git repository.
+      if (File(p.join(modelsPath, '.git')).existsSync()) {
+        modelsDir = await _checkoutModelsRef(modelsDir, ref);
+      } else {
+        logger.warn(
+          'Unable to check out $ref since $modelsDir is not a git repo',
+        );
+      }
       modelsDir = await _organizeModels(modelsDir);
     } else {
       modelsDir = await _downloadModels();
