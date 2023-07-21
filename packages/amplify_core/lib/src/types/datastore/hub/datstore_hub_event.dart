@@ -10,7 +10,7 @@ import 'package:amplify_core/amplify_core.dart';
 /// The following example shows how to listen to DataStore Hub events:
 /// ```dart
 /// Amplify.Hub.listen(HubChannel.DataStore, (msg) {
-///  if (msg.type case DataStoreHubType.ready) {
+///  if (msg.type == DataStoreHubType.ready) {
 ///    print('DataStore is ready!');
 ///  }
 ///  print(msg);
