@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 // ignore_for_file: always_use_package_imports
 
 import 'package:amplify_core/amplify_config.dart';
