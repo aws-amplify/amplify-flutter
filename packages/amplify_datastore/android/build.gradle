@@ -74,7 +74,7 @@ dependencies {
 
     implementation 'com.amplifyframework:aws-auth-cognito:2.10.0'
     implementation "com.amplifyframework:aws-api:2.10.0"
-    implementation "com.amplifyframework:aws-datastore:2.10.0"
+    implementation "com.amplifyframework:aws-datastore:2.11.0"
     implementation "com.amplifyframework:aws-api-appsync:2.10.0"
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
