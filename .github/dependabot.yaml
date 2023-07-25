@@ -1034,20 +1034,6 @@ updates:
       - dependency-name: "smithy_aws"
       - dependency-name: "aws_signature_v4"
   - package-ecosystem: "pub"
-    directory: "packages/smithy/goldens/lib/custom"
-    schedule:
-      interval: "daily"
-    ignore:
-      # Ignore patch version bumps
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
-      - dependency-name: "smithy"
-      - dependency-name: "aws_common"
-      - dependency-name: "amplify_lints"
-      - dependency-name: "smithy_aws"
-      - dependency-name: "aws_signature_v4"
-  - package-ecosystem: "pub"
     directory: "packages/smithy/goldens/lib/restJson1"
     schedule:
       interval: "daily"
