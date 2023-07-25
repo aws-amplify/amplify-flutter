@@ -103,6 +103,10 @@ extension CognitoIdToken on JsonWebToken {
   /// standards.
   ///
   /// [Reference](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-the-id-token.html)
+  @Deprecated('''
+  Usage of the nonce claim is no longer supported in the Amplify Flutter libraries.
+  To avoid confusion, this getter will be removed in a future version of the library.
+  ''')
   String? get nonce => claims.customClaims['nonce'] as String?;
 
   /// The Cognito username.

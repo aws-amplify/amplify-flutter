@@ -43,7 +43,6 @@ void main() {
     group('exchange', () {
       const state = 'state';
       const codeVerifier = 'codeVerifier';
-      const nonce = 'nonce';
 
       setUp(() {
         secureStorage
@@ -51,8 +50,7 @@ void main() {
           ..write(
             key: keys[HostedUiKey.codeVerifier],
             value: codeVerifier,
-          )
-          ..write(key: keys[HostedUiKey.nonce], value: nonce);
+          );
       });
 
       tearDown(() {
@@ -97,27 +95,7 @@ void main() {
         );
       });
 
-      test('missing nonce throws', () async {
-        server = MockOAuthServer(
-          tokenHandler: MockOAuthServer.createTokenHandler(
-            includeNonce: false,
-          ),
-        );
-        dependencyManager.addInstance<http.Client>(server.httpClient);
-        platform = HostedUiPlatform(dependencyManager);
-        final parameters = await server.authorize(
-          await platform.getSignInUri(
-            redirectUri: Uri.parse(redirectUri),
-          ),
-        );
-
-        expect(
-          platform.exchange(parameters),
-          throwsInvalidStateException,
-        );
-      });
-
-      test('succeeds with nonce', () async {
+      test('succeeds', () async {
         final parameters = await server.authorize(
           await platform.getSignInUri(
             redirectUri: Uri.parse(redirectUri),
