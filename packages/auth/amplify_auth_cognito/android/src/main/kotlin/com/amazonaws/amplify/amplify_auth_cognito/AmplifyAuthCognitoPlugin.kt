@@ -13,8 +13,6 @@ import android.content.pm.PackageManager.PackageInfoFlags
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
-import android.view.WindowManager
-import androidx.annotation.RequiresApi
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsService.ACTION_CUSTOM_TABS_CONNECTION
 import io.flutter.Log
@@ -112,6 +110,7 @@ open class AmplifyAuthCognitoPlugin :
   }
 
   override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
+    Log.d(TAG, "onAttachedToEngine")
     applicationContext = binding.applicationContext
     nativePlugin = NativeAuthPlugin(binding.binaryMessenger)
     NativeAuthBridge.setUp(
@@ -121,6 +120,7 @@ open class AmplifyAuthCognitoPlugin :
   }
 
   override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
+    Log.d(TAG, "onDetachedFromEngine")
     applicationContext = null
     cancelCurrentOperation()
     nativePlugin = null
@@ -131,6 +131,7 @@ open class AmplifyAuthCognitoPlugin :
   }
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
+    Log.d(TAG, "onAttachedToActivity")
     mainActivity = binding.activity
     activityBinding = binding
     // Treat the launching intent the same as an intent created while the application was
@@ -141,6 +142,7 @@ open class AmplifyAuthCognitoPlugin :
   }
 
   override fun onDetachedFromActivityForConfigChanges() {
+    Log.d(TAG, "onDetachedFromActivityForConfigChanges")
     activityBinding?.removeActivityResultListener(this)
     activityBinding?.removeOnNewIntentListener(this)
     activityBinding = null
@@ -148,6 +150,7 @@ open class AmplifyAuthCognitoPlugin :
   }
 
   override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
+    Log.d(TAG, "onReattachedToActivityForConfigChanges")
     mainActivity = binding.activity
     activityBinding = binding
     binding.addOnNewIntentListener(this)
@@ -155,6 +158,7 @@ open class AmplifyAuthCognitoPlugin :
   }
 
   override fun onDetachedFromActivity() {
+    Log.d(TAG, "onDetachedFromActivity")
     activityBinding?.removeActivityResultListener(this)
     activityBinding?.removeOnNewIntentListener(this)
     activityBinding = null
@@ -287,6 +291,7 @@ open class AmplifyAuthCognitoPlugin :
    * Handles the result of a sign in redirect.
    */
   private fun handleSignInResult(queryParameters: MutableMap<String, String>): Boolean {
+    Log.d(TAG, "handleSignInResult: $queryParameters (signInResult=$signInResult)")
     signInResult?.invoke(Result.success(queryParameters))
     signInResult = null
     return true
@@ -296,6 +301,7 @@ open class AmplifyAuthCognitoPlugin :
    * Handles the result of a sign out redirect.
    */
   private fun handleSignOutResult(): Boolean {
+    Log.d(TAG, "handleSignOutResult (signOutResult=$signOutResult)")
     signOutResult?.invoke(Result.success(Unit))
     signOutResult = null
     return true
@@ -317,10 +323,12 @@ open class AmplifyAuthCognitoPlugin :
       activityIntent,
       MATCH_DEFAULT_ONLY
     )
+    Log.d(TAG, "[browserPackageName] Resolved activity info: $defaultViewHandlerInfo")
     var defaultViewHandlerPackageName: String? = null
     if (defaultViewHandlerInfo != null) {
       defaultViewHandlerPackageName = defaultViewHandlerInfo.activityInfo.packageName
     }
+    Log.d(TAG, "[browserPackageName] Resolved default package: $defaultViewHandlerPackageName")
 
     // Get all apps that can handle VIEW intents.
     val resolvedActivityList = packageManager.queryIntentActivities(activityIntent, MATCH_ALL)
@@ -334,6 +342,7 @@ open class AmplifyAuthCognitoPlugin :
         packagesSupportingCustomTabs.add(info.activityInfo.packageName)
       }
     }
+    Log.d(TAG, "[browserPackageName] Resolved custom tabs handlers: $packagesSupportingCustomTabs")
 
     if (packagesSupportingCustomTabs.isEmpty()) {
       null
@@ -360,6 +369,7 @@ open class AmplifyAuthCognitoPlugin :
     val useBrowserPackage = browserPackageName
       ?: this.browserPackageName
       ?: throw HostedUiException.NOBROWSER()
+    Log.d(TAG, "[launchUrl] Using browser package: $useBrowserPackage")
     intent.intent.`package` = useBrowserPackage
     intent.intent.putExtra(
       Intent.EXTRA_REFERRER,
@@ -429,7 +439,7 @@ open class AmplifyAuthCognitoPlugin :
    * on the final redirect to the user's custom URI.
    */
   override fun onNewIntent(intent: Intent): Boolean {
-    Log.d(TAG, "onNewIntent: $intent")
+    Log.d(TAG, "[onNewIntent] Got intent: $intent")
     if (intent.action == Intent.ACTION_VIEW && intent.hasCategory(Intent.CATEGORY_BROWSABLE)) {
       val uri = intent.data
       if (uri == null) {
@@ -437,6 +447,7 @@ open class AmplifyAuthCognitoPlugin :
         return false
       }
       val queryParameters = uri.queryParameters
+      Log.d(TAG, "[onNewIntent] Handling intent with query parameters: $queryParameters (signInResult=$signInResult, signOutResult=$signOutResult)")
       return if (signInResult != null && signOutResult != null) {
         Log.e(TAG, "Inconsistent state. Pending sign in and sign out.")
         false
@@ -451,6 +462,7 @@ open class AmplifyAuthCognitoPlugin :
         true
       }
     }
+    Log.d(TAG, "[onNewIntent] Not handling intent")
     return false
   }
 
@@ -463,7 +475,7 @@ open class AmplifyAuthCognitoPlugin :
    * is a cancellation since otherwise, [handleSignInResult] would have set it to `null`.
    */
   override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?): Boolean {
-    Log.d(TAG, "onActivityResult: $requestCode, $resultCode")
+    Log.d(TAG, "[onActivityResult] Got result: requestCode=$requestCode, resultCode=$resultCode, intent=$intent")
     if (requestCode == CUSTOM_TAB_REQUEST_CODE) {
       scope.launch {
         delay(1000L)
@@ -480,7 +492,7 @@ open class AmplifyAuthCognitoPlugin :
    * Cancels the pending operation, if any.
    */
   private fun cancelCurrentOperation() {
-    Log.d(TAG, "cancelCurrentOperation")
+    Log.d(TAG, "[cancelCurrentOperation] Canceling with state: signInResult=$signInResult, signOutResult=$signOutResult")
     if (signInResult != null) {
       signInResult?.invoke(Result.failure(HostedUiException.CANCELLED()))
     } else if (signOutResult != null) {
