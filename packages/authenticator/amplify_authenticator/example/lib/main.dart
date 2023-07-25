@@ -4,7 +4,7 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_button_resolver.dart';
-import 'package:amplify_authenticator_example/resolvers/localized_country_resolver.dart';
+import 'package:amplify_authenticator_example/resolvers/localized_dial_code_resolver.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_input_resolver.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_title_resolver.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -83,7 +83,7 @@ class _MyAppState extends State<MyApp> {
     // automatically configures the default for the others.
     const stringResolver = AuthStringResolver(
       buttons: LocalizedButtonResolver(),
-      countries: LocalizedCountryResolver(),
+      dialCodes: LocalizedDialResolver(),
       titles: LocalizedTitleResolver(),
       inputs: LocalizedInputResolver(),
     );
