@@ -5,7 +5,7 @@ import 'package:amplify_authenticator/src/l10n/authenticator_localizations.dart'
 import 'package:amplify_authenticator/src/l10n/resolver.dart';
 import 'package:flutter/material.dart';
 
-enum CountryResolverKey {
+enum DialCodeResolverKey {
   selectDialCode,
   noDialCodeSearchResults,
 
@@ -252,11 +252,17 @@ enum CountryResolverKey {
   wf$,
   ye$,
   zm$,
-  zw$
+  zw$,
 }
 
-class CountryResolver extends Resolver<CountryResolverKey> {
-  const CountryResolver();
+@Deprecated('Use DialCodeResolverKey instead')
+typedef CountryResolverKey = DialCodeResolverKey;
+
+@Deprecated('Use DialCodeResolver instead')
+typedef CountryResolver = DialCodeResolver;
+
+class DialCodeResolver extends Resolver<DialCodeResolverKey> {
+  const DialCodeResolver();
 
   String selectDialCode(BuildContext context) {
     return AuthenticatorLocalizations.countriesOf(context).selectDialCode;
@@ -1488,499 +1494,499 @@ class CountryResolver extends Resolver<CountryResolverKey> {
   }
 
   @override
-  String resolve(BuildContext context, CountryResolverKey key) {
+  String resolve(BuildContext context, DialCodeResolverKey key) {
     switch (key) {
-      case CountryResolverKey.selectDialCode:
+      case DialCodeResolverKey.selectDialCode:
         return selectDialCode(context);
-      case CountryResolverKey.noDialCodeSearchResults:
+      case DialCodeResolverKey.noDialCodeSearchResults:
         return noDialCodeSearchResults(context);
-      case CountryResolverKey.af$:
+      case DialCodeResolverKey.af$:
         return af(context);
-      case CountryResolverKey.ax$:
+      case DialCodeResolverKey.ax$:
         return ax(context);
-      case CountryResolverKey.al$:
+      case DialCodeResolverKey.al$:
         return al(context);
-      case CountryResolverKey.dz$:
+      case DialCodeResolverKey.dz$:
         return dz(context);
-      case CountryResolverKey.as1$:
+      case DialCodeResolverKey.as1$:
         return as1(context);
-      case CountryResolverKey.ad$:
+      case DialCodeResolverKey.ad$:
         return ad(context);
-      case CountryResolverKey.ao$:
+      case DialCodeResolverKey.ao$:
         return ao(context);
-      case CountryResolverKey.ai$:
+      case DialCodeResolverKey.ai$:
         return ai(context);
-      case CountryResolverKey.aq$:
+      case DialCodeResolverKey.aq$:
         return aq(context);
-      case CountryResolverKey.ag$:
+      case DialCodeResolverKey.ag$:
         return ag(context);
-      case CountryResolverKey.ar$:
+      case DialCodeResolverKey.ar$:
         return ar(context);
-      case CountryResolverKey.am$:
+      case DialCodeResolverKey.am$:
         return am(context);
-      case CountryResolverKey.aw$:
+      case DialCodeResolverKey.aw$:
         return aw(context);
-      case CountryResolverKey.au$:
+      case DialCodeResolverKey.au$:
         return au(context);
-      case CountryResolverKey.at$:
+      case DialCodeResolverKey.at$:
         return at(context);
-      case CountryResolverKey.az$:
+      case DialCodeResolverKey.az$:
         return az(context);
-      case CountryResolverKey.bs$:
+      case DialCodeResolverKey.bs$:
         return bs(context);
-      case CountryResolverKey.bh$:
+      case DialCodeResolverKey.bh$:
         return bh(context);
-      case CountryResolverKey.bd$:
+      case DialCodeResolverKey.bd$:
         return bd(context);
-      case CountryResolverKey.bb$:
+      case DialCodeResolverKey.bb$:
         return bb(context);
-      case CountryResolverKey.by$:
+      case DialCodeResolverKey.by$:
         return by(context);
-      case CountryResolverKey.be$:
+      case DialCodeResolverKey.be$:
         return be(context);
-      case CountryResolverKey.bz$:
+      case DialCodeResolverKey.bz$:
         return bz(context);
-      case CountryResolverKey.bj$:
+      case DialCodeResolverKey.bj$:
         return bj(context);
-      case CountryResolverKey.bm$:
+      case DialCodeResolverKey.bm$:
         return bm(context);
-      case CountryResolverKey.bt$:
+      case DialCodeResolverKey.bt$:
         return bt(context);
-      case CountryResolverKey.bo$:
+      case DialCodeResolverKey.bo$:
         return bo(context);
-      case CountryResolverKey.bq$:
+      case DialCodeResolverKey.bq$:
         return bq(context);
-      case CountryResolverKey.ba$:
+      case DialCodeResolverKey.ba$:
         return ba(context);
-      case CountryResolverKey.bw$:
+      case DialCodeResolverKey.bw$:
         return bw(context);
-      case CountryResolverKey.br$:
+      case DialCodeResolverKey.br$:
         return br(context);
-      case CountryResolverKey.io$:
+      case DialCodeResolverKey.io$:
         return io(context);
-      case CountryResolverKey.bn$:
+      case DialCodeResolverKey.bn$:
         return bn(context);
-      case CountryResolverKey.bg$:
+      case DialCodeResolverKey.bg$:
         return bg(context);
-      case CountryResolverKey.bf$:
+      case DialCodeResolverKey.bf$:
         return bf(context);
-      case CountryResolverKey.bi$:
+      case DialCodeResolverKey.bi$:
         return bi(context);
-      case CountryResolverKey.kh$:
+      case DialCodeResolverKey.kh$:
         return kh(context);
-      case CountryResolverKey.cm$:
+      case DialCodeResolverKey.cm$:
         return cm(context);
-      case CountryResolverKey.ca$:
+      case DialCodeResolverKey.ca$:
         return ca(context);
-      case CountryResolverKey.cv$:
+      case DialCodeResolverKey.cv$:
         return cv(context);
-      case CountryResolverKey.ky$:
+      case DialCodeResolverKey.ky$:
         return ky(context);
-      case CountryResolverKey.cf$:
+      case DialCodeResolverKey.cf$:
         return cf(context);
-      case CountryResolverKey.td$:
+      case DialCodeResolverKey.td$:
         return td(context);
-      case CountryResolverKey.cl$:
+      case DialCodeResolverKey.cl$:
         return cl(context);
-      case CountryResolverKey.cn$:
+      case DialCodeResolverKey.cn$:
         return cn(context);
-      case CountryResolverKey.cx$:
+      case DialCodeResolverKey.cx$:
         return cx(context);
-      case CountryResolverKey.cc$:
+      case DialCodeResolverKey.cc$:
         return cc(context);
-      case CountryResolverKey.co$:
+      case DialCodeResolverKey.co$:
         return co(context);
-      case CountryResolverKey.km$:
+      case DialCodeResolverKey.km$:
         return km(context);
-      case CountryResolverKey.cg$:
+      case DialCodeResolverKey.cg$:
         return cg(context);
-      case CountryResolverKey.cd$:
+      case DialCodeResolverKey.cd$:
         return cd(context);
-      case CountryResolverKey.ck$:
+      case DialCodeResolverKey.ck$:
         return ck(context);
-      case CountryResolverKey.cr$:
+      case DialCodeResolverKey.cr$:
         return cr(context);
-      case CountryResolverKey.ci$:
+      case DialCodeResolverKey.ci$:
         return ci(context);
-      case CountryResolverKey.hr$:
+      case DialCodeResolverKey.hr$:
         return hr(context);
-      case CountryResolverKey.cu$:
+      case DialCodeResolverKey.cu$:
         return cu(context);
-      case CountryResolverKey.cy$:
+      case DialCodeResolverKey.cy$:
         return cy(context);
-      case CountryResolverKey.cz$:
+      case DialCodeResolverKey.cz$:
         return cz(context);
-      case CountryResolverKey.dk$:
+      case DialCodeResolverKey.dk$:
         return dk(context);
-      case CountryResolverKey.dj$:
+      case DialCodeResolverKey.dj$:
         return dj(context);
-      case CountryResolverKey.dm$:
+      case DialCodeResolverKey.dm$:
         return dm(context);
-      case CountryResolverKey.do1$:
+      case DialCodeResolverKey.do1$:
         return do1(context);
-      case CountryResolverKey.ec$:
+      case DialCodeResolverKey.ec$:
         return ec(context);
-      case CountryResolverKey.eg$:
+      case DialCodeResolverKey.eg$:
         return eg(context);
-      case CountryResolverKey.sv$:
+      case DialCodeResolverKey.sv$:
         return sv(context);
-      case CountryResolverKey.gq$:
+      case DialCodeResolverKey.gq$:
         return gq(context);
-      case CountryResolverKey.er$:
+      case DialCodeResolverKey.er$:
         return er(context);
-      case CountryResolverKey.ee$:
+      case DialCodeResolverKey.ee$:
         return ee(context);
-      case CountryResolverKey.sz$:
+      case DialCodeResolverKey.sz$:
         return sz(context);
-      case CountryResolverKey.et$:
+      case DialCodeResolverKey.et$:
         return et(context);
-      case CountryResolverKey.fk$:
+      case DialCodeResolverKey.fk$:
         return fk(context);
-      case CountryResolverKey.fo$:
+      case DialCodeResolverKey.fo$:
         return fo(context);
-      case CountryResolverKey.fj$:
+      case DialCodeResolverKey.fj$:
         return fj(context);
-      case CountryResolverKey.fi$:
+      case DialCodeResolverKey.fi$:
         return fi(context);
-      case CountryResolverKey.fr$:
+      case DialCodeResolverKey.fr$:
         return fr(context);
-      case CountryResolverKey.gf$:
+      case DialCodeResolverKey.gf$:
         return gf(context);
-      case CountryResolverKey.pf$:
+      case DialCodeResolverKey.pf$:
         return pf(context);
-      case CountryResolverKey.ga$:
+      case DialCodeResolverKey.ga$:
         return ga(context);
-      case CountryResolverKey.gm$:
+      case DialCodeResolverKey.gm$:
         return gm(context);
-      case CountryResolverKey.ge$:
+      case DialCodeResolverKey.ge$:
         return ge(context);
-      case CountryResolverKey.de$:
+      case DialCodeResolverKey.de$:
         return de(context);
-      case CountryResolverKey.gh$:
+      case DialCodeResolverKey.gh$:
         return gh(context);
-      case CountryResolverKey.gi$:
+      case DialCodeResolverKey.gi$:
         return gi(context);
-      case CountryResolverKey.gr$:
+      case DialCodeResolverKey.gr$:
         return gr(context);
-      case CountryResolverKey.gl$:
+      case DialCodeResolverKey.gl$:
         return gl(context);
-      case CountryResolverKey.gd$:
+      case DialCodeResolverKey.gd$:
         return gd(context);
-      case CountryResolverKey.gp$:
+      case DialCodeResolverKey.gp$:
         return gp(context);
-      case CountryResolverKey.gu$:
+      case DialCodeResolverKey.gu$:
         return gu(context);
-      case CountryResolverKey.gt$:
+      case DialCodeResolverKey.gt$:
         return gt(context);
-      case CountryResolverKey.gg$:
+      case DialCodeResolverKey.gg$:
         return gg(context);
-      case CountryResolverKey.gn$:
+      case DialCodeResolverKey.gn$:
         return gn(context);
-      case CountryResolverKey.gw$:
+      case DialCodeResolverKey.gw$:
         return gw(context);
-      case CountryResolverKey.gy$:
+      case DialCodeResolverKey.gy$:
         return gy(context);
-      case CountryResolverKey.ht$:
+      case DialCodeResolverKey.ht$:
         return ht(context);
-      case CountryResolverKey.va$:
+      case DialCodeResolverKey.va$:
         return va(context);
-      case CountryResolverKey.hn$:
+      case DialCodeResolverKey.hn$:
         return hn(context);
-      case CountryResolverKey.hk$:
+      case DialCodeResolverKey.hk$:
         return hk(context);
-      case CountryResolverKey.hu$:
+      case DialCodeResolverKey.hu$:
         return hu(context);
-      case CountryResolverKey.is1$:
+      case DialCodeResolverKey.is1$:
         return is1(context);
-      case CountryResolverKey.in1$:
+      case DialCodeResolverKey.in1$:
         return in1(context);
-      case CountryResolverKey.id$:
+      case DialCodeResolverKey.id$:
         return id(context);
-      case CountryResolverKey.ir$:
+      case DialCodeResolverKey.ir$:
         return ir(context);
-      case CountryResolverKey.iq$:
+      case DialCodeResolverKey.iq$:
         return iq(context);
-      case CountryResolverKey.ie$:
+      case DialCodeResolverKey.ie$:
         return ie(context);
-      case CountryResolverKey.im$:
+      case DialCodeResolverKey.im$:
         return im(context);
-      case CountryResolverKey.il$:
+      case DialCodeResolverKey.il$:
         return il(context);
-      case CountryResolverKey.it$:
+      case DialCodeResolverKey.it$:
         return it(context);
-      case CountryResolverKey.jm$:
+      case DialCodeResolverKey.jm$:
         return jm(context);
-      case CountryResolverKey.jp$:
+      case DialCodeResolverKey.jp$:
         return jp(context);
-      case CountryResolverKey.je$:
+      case DialCodeResolverKey.je$:
         return je(context);
-      case CountryResolverKey.jo$:
+      case DialCodeResolverKey.jo$:
         return jo(context);
-      case CountryResolverKey.kz$:
+      case DialCodeResolverKey.kz$:
         return kz(context);
-      case CountryResolverKey.ke$:
+      case DialCodeResolverKey.ke$:
         return ke(context);
-      case CountryResolverKey.ki$:
+      case DialCodeResolverKey.ki$:
         return ki(context);
-      case CountryResolverKey.kp$:
+      case DialCodeResolverKey.kp$:
         return kp(context);
-      case CountryResolverKey.kr$:
+      case DialCodeResolverKey.kr$:
         return kr(context);
-      case CountryResolverKey.xk$:
+      case DialCodeResolverKey.xk$:
         return xk(context);
-      case CountryResolverKey.kw$:
+      case DialCodeResolverKey.kw$:
         return kw(context);
-      case CountryResolverKey.kg$:
+      case DialCodeResolverKey.kg$:
         return kg(context);
-      case CountryResolverKey.la$:
+      case DialCodeResolverKey.la$:
         return la(context);
-      case CountryResolverKey.lv$:
+      case DialCodeResolverKey.lv$:
         return lv(context);
-      case CountryResolverKey.lb$:
+      case DialCodeResolverKey.lb$:
         return lb(context);
-      case CountryResolverKey.ls$:
+      case DialCodeResolverKey.ls$:
         return ls(context);
-      case CountryResolverKey.lr$:
+      case DialCodeResolverKey.lr$:
         return lr(context);
-      case CountryResolverKey.ly$:
+      case DialCodeResolverKey.ly$:
         return ly(context);
-      case CountryResolverKey.li$:
+      case DialCodeResolverKey.li$:
         return li(context);
-      case CountryResolverKey.lt$:
+      case DialCodeResolverKey.lt$:
         return lt(context);
-      case CountryResolverKey.lu$:
+      case DialCodeResolverKey.lu$:
         return lu(context);
-      case CountryResolverKey.mo$:
+      case DialCodeResolverKey.mo$:
         return mo(context);
-      case CountryResolverKey.mk$:
+      case DialCodeResolverKey.mk$:
         return mk(context);
-      case CountryResolverKey.mg$:
+      case DialCodeResolverKey.mg$:
         return mg(context);
-      case CountryResolverKey.mw$:
+      case DialCodeResolverKey.mw$:
         return mw(context);
-      case CountryResolverKey.my$:
+      case DialCodeResolverKey.my$:
         return my(context);
-      case CountryResolverKey.mv$:
+      case DialCodeResolverKey.mv$:
         return mv(context);
-      case CountryResolverKey.ml$:
+      case DialCodeResolverKey.ml$:
         return ml(context);
-      case CountryResolverKey.mt$:
+      case DialCodeResolverKey.mt$:
         return mt(context);
-      case CountryResolverKey.mh$:
+      case DialCodeResolverKey.mh$:
         return mh(context);
-      case CountryResolverKey.mq$:
+      case DialCodeResolverKey.mq$:
         return mq(context);
-      case CountryResolverKey.mr$:
+      case DialCodeResolverKey.mr$:
         return mr(context);
-      case CountryResolverKey.mu$:
+      case DialCodeResolverKey.mu$:
         return mu(context);
-      case CountryResolverKey.yt$:
+      case DialCodeResolverKey.yt$:
         return yt(context);
-      case CountryResolverKey.mx$:
+      case DialCodeResolverKey.mx$:
         return mx(context);
-      case CountryResolverKey.fm$:
+      case DialCodeResolverKey.fm$:
         return fm(context);
-      case CountryResolverKey.md$:
+      case DialCodeResolverKey.md$:
         return md(context);
-      case CountryResolverKey.mc$:
+      case DialCodeResolverKey.mc$:
         return mc(context);
-      case CountryResolverKey.mn$:
+      case DialCodeResolverKey.mn$:
         return mn(context);
-      case CountryResolverKey.me$:
+      case DialCodeResolverKey.me$:
         return me(context);
-      case CountryResolverKey.ms$:
+      case DialCodeResolverKey.ms$:
         return ms(context);
-      case CountryResolverKey.ma$:
+      case DialCodeResolverKey.ma$:
         return ma(context);
-      case CountryResolverKey.mz$:
+      case DialCodeResolverKey.mz$:
         return mz(context);
-      case CountryResolverKey.mm$:
+      case DialCodeResolverKey.mm$:
         return mm(context);
-      case CountryResolverKey.na$:
+      case DialCodeResolverKey.na$:
         return na(context);
-      case CountryResolverKey.nr$:
+      case DialCodeResolverKey.nr$:
         return nr(context);
-      case CountryResolverKey.np$:
+      case DialCodeResolverKey.np$:
         return np(context);
-      case CountryResolverKey.nl$:
+      case DialCodeResolverKey.nl$:
         return nl(context);
-      case CountryResolverKey.nc$:
+      case DialCodeResolverKey.nc$:
         return nc(context);
-      case CountryResolverKey.nz$:
+      case DialCodeResolverKey.nz$:
         return nz(context);
-      case CountryResolverKey.ni$:
+      case DialCodeResolverKey.ni$:
         return ni(context);
-      case CountryResolverKey.ne$:
+      case DialCodeResolverKey.ne$:
         return ne(context);
-      case CountryResolverKey.ng$:
+      case DialCodeResolverKey.ng$:
         return ng(context);
-      case CountryResolverKey.nu$:
+      case DialCodeResolverKey.nu$:
         return nu(context);
-      case CountryResolverKey.nf$:
+      case DialCodeResolverKey.nf$:
         return nf(context);
-      case CountryResolverKey.mp$:
+      case DialCodeResolverKey.mp$:
         return mp(context);
-      case CountryResolverKey.no$:
+      case DialCodeResolverKey.no$:
         return no(context);
-      case CountryResolverKey.om$:
+      case DialCodeResolverKey.om$:
         return om(context);
-      case CountryResolverKey.pk$:
+      case DialCodeResolverKey.pk$:
         return pk(context);
-      case CountryResolverKey.pw$:
+      case DialCodeResolverKey.pw$:
         return pw(context);
-      case CountryResolverKey.ps$:
+      case DialCodeResolverKey.ps$:
         return ps(context);
-      case CountryResolverKey.pa$:
+      case DialCodeResolverKey.pa$:
         return pa(context);
-      case CountryResolverKey.pg$:
+      case DialCodeResolverKey.pg$:
         return pg(context);
-      case CountryResolverKey.py$:
+      case DialCodeResolverKey.py$:
         return py(context);
-      case CountryResolverKey.pe$:
+      case DialCodeResolverKey.pe$:
         return pe(context);
-      case CountryResolverKey.ph$:
+      case DialCodeResolverKey.ph$:
         return ph(context);
-      case CountryResolverKey.pn$:
+      case DialCodeResolverKey.pn$:
         return pn(context);
-      case CountryResolverKey.pl$:
+      case DialCodeResolverKey.pl$:
         return pl(context);
-      case CountryResolverKey.pt$:
+      case DialCodeResolverKey.pt$:
         return pt(context);
-      case CountryResolverKey.pr$:
+      case DialCodeResolverKey.pr$:
         return pr(context);
-      case CountryResolverKey.qa$:
+      case DialCodeResolverKey.qa$:
         return qa(context);
-      case CountryResolverKey.re$:
+      case DialCodeResolverKey.re$:
         return re(context);
-      case CountryResolverKey.ro$:
+      case DialCodeResolverKey.ro$:
         return ro(context);
-      case CountryResolverKey.ru$:
+      case DialCodeResolverKey.ru$:
         return ru(context);
-      case CountryResolverKey.rw$:
+      case DialCodeResolverKey.rw$:
         return rw(context);
-      case CountryResolverKey.bl$:
+      case DialCodeResolverKey.bl$:
         return bl(context);
-      case CountryResolverKey.sh$:
+      case DialCodeResolverKey.sh$:
         return sh(context);
-      case CountryResolverKey.kn$:
+      case DialCodeResolverKey.kn$:
         return kn(context);
-      case CountryResolverKey.lc$:
+      case DialCodeResolverKey.lc$:
         return lc(context);
-      case CountryResolverKey.mf$:
+      case DialCodeResolverKey.mf$:
         return mf(context);
-      case CountryResolverKey.pm$:
+      case DialCodeResolverKey.pm$:
         return pm(context);
-      case CountryResolverKey.vc$:
+      case DialCodeResolverKey.vc$:
         return vc(context);
-      case CountryResolverKey.ws$:
+      case DialCodeResolverKey.ws$:
         return ws(context);
-      case CountryResolverKey.sm$:
+      case DialCodeResolverKey.sm$:
         return sm(context);
-      case CountryResolverKey.st$:
+      case DialCodeResolverKey.st$:
         return st(context);
-      case CountryResolverKey.sa$:
+      case DialCodeResolverKey.sa$:
         return sa(context);
-      case CountryResolverKey.sn$:
+      case DialCodeResolverKey.sn$:
         return sn(context);
-      case CountryResolverKey.rs$:
+      case DialCodeResolverKey.rs$:
         return rs(context);
-      case CountryResolverKey.sc$:
+      case DialCodeResolverKey.sc$:
         return sc(context);
-      case CountryResolverKey.sl$:
+      case DialCodeResolverKey.sl$:
         return sl(context);
-      case CountryResolverKey.sg$:
+      case DialCodeResolverKey.sg$:
         return sg(context);
-      case CountryResolverKey.sk$:
+      case DialCodeResolverKey.sk$:
         return sk(context);
-      case CountryResolverKey.si$:
+      case DialCodeResolverKey.si$:
         return si(context);
-      case CountryResolverKey.sb$:
+      case DialCodeResolverKey.sb$:
         return sb(context);
-      case CountryResolverKey.so$:
+      case DialCodeResolverKey.so$:
         return so(context);
-      case CountryResolverKey.za$:
+      case DialCodeResolverKey.za$:
         return za(context);
-      case CountryResolverKey.gs$:
+      case DialCodeResolverKey.gs$:
         return gs(context);
-      case CountryResolverKey.ss$:
+      case DialCodeResolverKey.ss$:
         return ss(context);
-      case CountryResolverKey.es$:
+      case DialCodeResolverKey.es$:
         return es(context);
-      case CountryResolverKey.lk$:
+      case DialCodeResolverKey.lk$:
         return lk(context);
-      case CountryResolverKey.sd$:
+      case DialCodeResolverKey.sd$:
         return sd(context);
-      case CountryResolverKey.sr$:
+      case DialCodeResolverKey.sr$:
         return sr(context);
-      case CountryResolverKey.sj$:
+      case DialCodeResolverKey.sj$:
         return sj(context);
-      case CountryResolverKey.se$:
+      case DialCodeResolverKey.se$:
         return se(context);
-      case CountryResolverKey.ch$:
+      case DialCodeResolverKey.ch$:
         return ch(context);
-      case CountryResolverKey.sy$:
+      case DialCodeResolverKey.sy$:
         return sy(context);
-      case CountryResolverKey.tw$:
+      case DialCodeResolverKey.tw$:
         return tw(context);
-      case CountryResolverKey.tj$:
+      case DialCodeResolverKey.tj$:
         return tj(context);
-      case CountryResolverKey.tz$:
+      case DialCodeResolverKey.tz$:
         return tz(context);
-      case CountryResolverKey.th$:
+      case DialCodeResolverKey.th$:
         return th(context);
-      case CountryResolverKey.tl$:
+      case DialCodeResolverKey.tl$:
         return tl(context);
-      case CountryResolverKey.tg$:
+      case DialCodeResolverKey.tg$:
         return tg(context);
-      case CountryResolverKey.tk$:
+      case DialCodeResolverKey.tk$:
         return tk(context);
-      case CountryResolverKey.to$:
+      case DialCodeResolverKey.to$:
         return to(context);
-      case CountryResolverKey.tt$:
+      case DialCodeResolverKey.tt$:
         return tt(context);
-      case CountryResolverKey.tn$:
+      case DialCodeResolverKey.tn$:
         return tn(context);
-      case CountryResolverKey.tr$:
+      case DialCodeResolverKey.tr$:
         return tr(context);
-      case CountryResolverKey.tm$:
+      case DialCodeResolverKey.tm$:
         return tm(context);
-      case CountryResolverKey.tc$:
+      case DialCodeResolverKey.tc$:
         return tc(context);
-      case CountryResolverKey.tv$:
+      case DialCodeResolverKey.tv$:
         return tv(context);
-      case CountryResolverKey.ug$:
+      case DialCodeResolverKey.ug$:
         return ug(context);
-      case CountryResolverKey.ua$:
+      case DialCodeResolverKey.ua$:
         return ua(context);
-      case CountryResolverKey.ae$:
+      case DialCodeResolverKey.ae$:
         return ae(context);
-      case CountryResolverKey.gb$:
+      case DialCodeResolverKey.gb$:
         return gb(context);
-      case CountryResolverKey.um$:
+      case DialCodeResolverKey.um$:
         return um(context);
-      case CountryResolverKey.us$:
+      case DialCodeResolverKey.us$:
         return us(context);
-      case CountryResolverKey.uy$:
+      case DialCodeResolverKey.uy$:
         return uy(context);
-      case CountryResolverKey.uz$:
+      case DialCodeResolverKey.uz$:
         return uz(context);
-      case CountryResolverKey.vu$:
+      case DialCodeResolverKey.vu$:
         return vu(context);
-      case CountryResolverKey.ve$:
+      case DialCodeResolverKey.ve$:
         return ve(context);
-      case CountryResolverKey.vn$:
+      case DialCodeResolverKey.vn$:
         return vn(context);
-      case CountryResolverKey.vg$:
+      case DialCodeResolverKey.vg$:
         return vg(context);
-      case CountryResolverKey.vi$:
+      case DialCodeResolverKey.vi$:
         return vi(context);
-      case CountryResolverKey.wf$:
+      case DialCodeResolverKey.wf$:
         return wf(context);
-      case CountryResolverKey.ye$:
+      case DialCodeResolverKey.ye$:
         return ye(context);
-      case CountryResolverKey.zm$:
+      case DialCodeResolverKey.zm$:
         return zm(context);
-      case CountryResolverKey.zw$:
+      case DialCodeResolverKey.zw$:
         return zw(context);
     }
   }
