@@ -24,7 +24,7 @@ class SymbolVisitor extends CategoryShapeVisitor<Reference> {
         .withBoxed(shape.isNullable(context, parent));
     final builder = DartTypes.builtValue.listBuilder(valueType);
     context.builderFactories[type.unboxed] = builder.property('new');
-    if (context.symbolOverrideFor(shape) case final override?) {
+    if (context.symbolOverrides[shape.shapeId] case final override?) {
       return override;
     }
     return type;
@@ -79,7 +79,7 @@ class SymbolVisitor extends CategoryShapeVisitor<Reference> {
         .withBoxed(shape.isNullable(context, parent));
     final builder = DartTypes.builtValue.mapBuilder(keySymbol, valueSymbol);
     context.builderFactories[type.unboxed] = builder.property('new');
-    if (context.symbolOverrideFor(shape) case final override?) {
+    if (context.symbolOverrides[shape.shapeId] case final override?) {
       return override;
     }
     return type;
@@ -120,7 +120,7 @@ class SymbolVisitor extends CategoryShapeVisitor<Reference> {
         .withBoxed(shape.isNullable(context, parent));
     final builder = DartTypes.builtValue.setBuilder(valueType);
     context.builderFactories[type.unboxed] = builder.property('new');
-    if (context.symbolOverrideFor(shape) case final override?) {
+    if (context.symbolOverrides[shape.shapeId] case final override?) {
       return override;
     }
     return type;
@@ -128,7 +128,7 @@ class SymbolVisitor extends CategoryShapeVisitor<Reference> {
 
   @override
   Reference stringShape(StringShape shape, [Shape? parent]) {
-    if (context.symbolOverrideFor(shape) case final override?) {
+    if (context.symbolOverrides[shape.shapeId] case final override?) {
       return override;
     }
     final mediaType = shape.getTrait<MediaTypeTrait>()?.value;
@@ -144,7 +144,7 @@ class SymbolVisitor extends CategoryShapeVisitor<Reference> {
 
   @override
   Reference structureShape(StructureShape shape, [Shape? parent]) {
-    if (context.symbolOverrideFor(shape) case final override?) {
+    if (context.symbolOverrides[shape.shapeId] case final override?) {
       return override;
     }
     return createSymbol(shape);
@@ -152,7 +152,7 @@ class SymbolVisitor extends CategoryShapeVisitor<Reference> {
 
   @override
   Reference unionShape(UnionShape shape, [Shape? parent]) {
-    if (context.symbolOverrideFor(shape) case final override?) {
+    if (context.symbolOverrides[shape.shapeId] case final override?) {
       return override;
     }
     return createSymbol(shape);
@@ -169,7 +169,7 @@ class SymbolVisitor extends CategoryShapeVisitor<Reference> {
 
   @override
   Reference simpleShape(SimpleShape shape, [Shape? parent]) {
-    if (context.symbolOverrideFor(shape) case final override?) {
+    if (context.symbolOverrides[shape.shapeId] case final override?) {
       return override;
     }
     return shape.typeReference.withBoxed(shape.isNullable(context, parent));
@@ -177,7 +177,7 @@ class SymbolVisitor extends CategoryShapeVisitor<Reference> {
 
   @override
   Reference enumShape(EnumShape shape, [Shape? parent]) {
-    if (context.symbolOverrideFor(shape) case final override?) {
+    if (context.symbolOverrides[shape.shapeId] case final override?) {
       return override;
     }
     return createSymbol(shape).withBoxed(shape.isNullable(context, parent));
