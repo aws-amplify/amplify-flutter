@@ -34,7 +34,7 @@ jobs:
           git config --global user.name "Amplify Flutter"
 
       - name: Setup Dart
-        uses: dart-lang/setup-dart@e2fce1213c49504e0029ade4bac39403dfc11fb3 # main
+        uses: dart-lang/setup-dart@cdb51fff2b088939ef86fe041b18e82cb4733522 # main
         with:
           sdk: stable
 
