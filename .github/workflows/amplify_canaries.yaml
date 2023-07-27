@@ -191,18 +191,7 @@ jobs:
           scope: amplified_todo
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
-      # Launching the iOS simulator is flaky. Try twice and fail if both
-      # attempts timeout.
-      - name: Launch iOS simulator (attempt 1)
-        id: launch
-        uses: ./.github/composite_actions/launch_ios_simulator
-        timeout-minutes: 15
-        continue-on-error: true
-        with:
-          ios-version: ${{ matrix.ios-version }}
-
-      - name: Launch iOS simulator (attempt 2)
-        if: steps.launch.outcome == 'failure'
+      - name: Launch iOS simulator
         uses: ./.github/composite_actions/launch_ios_simulator
         timeout-minutes: 15
         with:
