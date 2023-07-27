@@ -131,7 +131,7 @@ mixin TotpSetupFields<FieldType extends Enum,
                 icon: const Icon(Icons.key_outlined),
                 label: Center(
                   child: Text(
-                    getButtonText(ButtonResolverKey.totpStepperConfirm),
+                    getButtonText(ButtonResolverKey.totpManualKey),
                   ),
                 ),
               ),
