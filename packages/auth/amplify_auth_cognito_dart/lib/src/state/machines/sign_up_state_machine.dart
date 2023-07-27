@@ -42,6 +42,8 @@ final class SignUpStateMachine
     return userPoolConfig;
   }
 
+  ASFContextDataProvider get _contextDataProvider => getOrCreate();
+
   @override
   Future<void> resolve(SignUpEvent event) async {
     switch (event) {
@@ -67,6 +69,11 @@ final class SignUpStateMachine
 
   /// State machine callback for the [SignUpInitiate] event.
   Future<void> onInitiate(SignUpInitiate event) async {
+    UserContextDataType? contextData;
+    final contextDataProvider = _contextDataProvider;
+    contextData = await contextDataProvider.buildRequestData(
+      event.parameters.username,
+    );
     final resp = await _cognito.signUp(
       SignUpRequest.build(
         (b) {
@@ -101,6 +108,10 @@ final class SignUpStateMachine
               clientSecret,
             );
           }
+
+          if (contextData != null) {
+            b.userContextData.replace(contextData);
+          }
         },
       ),
     ).result;
@@ -119,6 +130,11 @@ final class SignUpStateMachine
 
   /// State machine callback for the [SignUpConfirm] event.
   Future<void> onConfirm(SignUpConfirm event) async {
+    UserContextDataType? contextData;
+    final contextDataProvider = _contextDataProvider;
+    contextData = await contextDataProvider.buildRequestData(
+      event.username,
+    );
     await _cognito.confirmSignUp(
       ConfirmSignUpRequest.build((b) {
         b
@@ -135,6 +151,10 @@ final class SignUpStateMachine
             _userPoolConfig.appClientId,
             clientSecret,
           );
+        }
+
+        if (contextData != null) {
+          b.userContextData.replace(contextData);
         }
       }),
     ).result;
