@@ -1,3 +1,8 @@
+## 1.3.0
+
+### Features
+- feat(auth): Enable ASF
+
 ## 1.2.1
 
 - Minor bug fixes and improvements

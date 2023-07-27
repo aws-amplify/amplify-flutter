@@ -1,3 +1,11 @@
+## 0.10.2
+
+### Features
+- feat(auth): Enable ASF
+
+### Fixes
+- fix(codegen): Mark Cognito map as sparse ([#3386](https://github.com/aws-amplify/amplify-flutter/pull/3386))
+
 ## 0.10.1+1
 
 - Minor bug fixes and improvements
