@@ -19,6 +19,9 @@ class AuthenticatorButtonLocalizationsEn
   String get confirm => 'Confirm';
 
   @override
+  String get continueLabel => 'Continue';
+
+  @override
   String get submit => 'Submit';
 
   @override
@@ -49,7 +52,19 @@ class AuthenticatorButtonLocalizationsEn
   String get skip => 'Skip';
 
   @override
-  String get totpApp => 'Open Authentication App';
+  String get openTotpApp => 'Open Authenticator App';
+
+  @override
+  String get totpManualKey => 'Manual Key Entry';
+
+  @override
+  String get totpQrCode => 'Scan QR Code';
+
+  @override
+  String get totpStepperAppSetup => 'Step up Authenticator App';
+
+  @override
+  String get totpStepperConfirm => 'Submit Verification Code';
 
   @override
   String get signOut => 'Sign Out';

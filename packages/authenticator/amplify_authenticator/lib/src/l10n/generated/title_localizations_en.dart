@@ -25,10 +25,10 @@ class AuthenticatorTitleLocalizationsEn
       'Select your preferred MFA Method';
 
   @override
-  String get continueSignInWithTotpSetup => 'Setup an Authentication App';
+  String get continueSignInWithTotpSetup => 'Enable Two-Factor Auth';
 
   @override
-  String get confirmSignInWithTotpMfaCode => 'Enter your Authentication code';
+  String get confirmSignInWithTotpMfaCode => 'Enter your one-time passcode';
 
   @override
   String get resetPassword => 'Send Code';

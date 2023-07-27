@@ -371,13 +371,13 @@ class AuthenticatorState extends ChangeNotifier {
       confirmationValue: _selectedMfaMethod!.name,
     );
 
-    _authBloc.add(AuthConfirmSignIn(confirm, rememberDevice: rememberDevice));
+    _authBloc.add(AuthConfirmSignIn(confirm));
     await nextBlocEvent();
     _setIsBusy(false);
   }
 
   /// Complete TOTP setup using the values for [confirmationCode]
-  /// [rememberDevice], and any user attributes.
+  /// and any user attributes.
   Future<void> confirmTotp() async {
     if (!_formKey.currentState!.validate()) {
       return;
@@ -392,7 +392,7 @@ class AuthenticatorState extends ChangeNotifier {
       attributes: authAttributes,
     );
 
-    _authBloc.add(AuthConfirmSignIn(confirm, rememberDevice: rememberDevice));
+    _authBloc.add(AuthConfirmSignIn(confirm));
     await nextBlocEvent();
     _setIsBusy(false);
   }
@@ -412,7 +412,7 @@ class AuthenticatorState extends ChangeNotifier {
       attributes: authAttributes,
     );
 
-    _authBloc.add(AuthConfirmSignIn(confirm, rememberDevice: rememberDevice));
+    _authBloc.add(AuthConfirmSignIn(confirm));
     await nextBlocEvent();
     _setIsBusy(false);
   }

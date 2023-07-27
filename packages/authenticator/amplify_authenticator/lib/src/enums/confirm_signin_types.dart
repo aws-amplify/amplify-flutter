@@ -27,8 +27,8 @@ enum ConfirmSignInField {
   // website,
   custom,
   customChallenge,
-  mfaSelection,
-  totpSetup,
+  selectMfaMethod,
+  setupTotp,
 }
 
 extension ConfirmSignInFieldX on ConfirmSignInField {

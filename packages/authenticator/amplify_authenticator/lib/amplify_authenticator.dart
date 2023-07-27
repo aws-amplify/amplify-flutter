@@ -511,6 +511,7 @@ class _AuthenticatorState extends State<Authenticator> {
       authService: _authService,
       preferPrivateSession: widget.preferPrivateSession,
       initialStep: widget.initialStep,
+      totpOptions: widget.totpOptions,
     )..add(const AuthLoad());
     _authenticatorState = AuthenticatorState(
       _stateMachineBloc,
@@ -677,7 +678,6 @@ class _AuthenticatorState extends State<Authenticator> {
       child: InheritedConfig(
         amplifyConfig: _config,
         padding: widget.padding,
-        totpOptions: widget.totpOptions,
         child: InheritedAuthenticatorState(
           key: keyInheritedAuthenticatorState,
           state: _authenticatorState,
@@ -699,7 +699,7 @@ class _AuthenticatorState extends State<Authenticator> {
                 continueSignInWithMfaSelectionForm:
                     ContinueSignInWithMfaSelectionForm(),
                 continueSignInWithTotpSetupForm:
-                    ContinueSignInWithTotpSetupForm(),
+                    const ContinueSignInWithTotpSetupForm(),
                 confirmSignInWithTotpMfaCodeForm:
                     ConfirmSignInWithTotpMfaCodeForm(),
                 verifyUserForm: VerifyUserForm(),

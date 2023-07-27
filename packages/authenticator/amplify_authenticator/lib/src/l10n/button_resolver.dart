@@ -11,6 +11,7 @@ enum ButtonResolverKeyType {
   signIn,
   signUp,
   confirm,
+  continueLabel,
   submit,
   changePassword,
   sendCode,
@@ -25,6 +26,10 @@ enum ButtonResolverKeyType {
   backTo,
   skip,
   openTotpApp,
+  totpManualKey,
+  totpQrCode,
+  totpStepperAppSetup,
+  totpStepperConfirm,
 }
 
 class ButtonResolverKey {
@@ -45,6 +50,8 @@ class ButtonResolverKey {
   static const signIn = ButtonResolverKey._(ButtonResolverKeyType.signIn);
   static const signUp = ButtonResolverKey._(ButtonResolverKeyType.signUp);
   static const confirm = ButtonResolverKey._(ButtonResolverKeyType.confirm);
+  static const continueLabel =
+      ButtonResolverKey._(ButtonResolverKeyType.continueLabel);
   static const submit = ButtonResolverKey._(ButtonResolverKeyType.submit);
   static const changePassword =
       ButtonResolverKey._(ButtonResolverKeyType.changePassword);
@@ -63,6 +70,14 @@ class ButtonResolverKey {
   static const skip = ButtonResolverKey._(ButtonResolverKeyType.skip);
   static const openTotpApp =
       ButtonResolverKey._(ButtonResolverKeyType.openTotpApp);
+  static const totpManualKey =
+      ButtonResolverKey._(ButtonResolverKeyType.totpManualKey);
+  static const totpQrCode =
+      ButtonResolverKey._(ButtonResolverKeyType.totpQrCode);
+  static const totpStepperAppSetup =
+      ButtonResolverKey._(ButtonResolverKeyType.totpStepperAppSetup);
+  static const totpStepperConfirm =
+      ButtonResolverKey._(ButtonResolverKeyType.totpStepperConfirm);
 
   @override
   String toString() => describeEnum(type);
@@ -85,6 +100,11 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
   /// Label of confirm forms' button
   String confirm(BuildContext context) {
     return AuthenticatorLocalizations.buttonsOf(context).confirm;
+  }
+
+  /// Label of confirm forms' button
+  String continueLabel(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).continueLabel;
   }
 
   /// Label of submit button
@@ -155,8 +175,28 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
   }
 
   /// Label of button to open the users default authentication app.
-  String totpApp(BuildContext context) {
-    return AuthenticatorLocalizations.buttonsOf(context).totpApp;
+  String openTotpApp(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).openTotpApp;
+  }
+
+  /// Label of button to toggle the QR code during TOTP setup.
+  String totpQrCode(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).totpQrCode;
+  }
+
+  /// Label of button to toggle the TOTP key during TOTP setup.
+  String totpManualKey(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).totpManualKey;
+  }
+
+  /// Label of the app setup step button for the TOTP setup stepper.
+  String totpStepperAppSetup(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).totpStepperAppSetup;
+  }
+
+  /// Label of the confirm step button for the TOTP setup stepper.
+  String totpStepperConfirm(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).totpStepperConfirm;
   }
 
   @override
@@ -168,6 +208,8 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
         return signUp(context);
       case ButtonResolverKeyType.confirm:
         return confirm(context);
+      case ButtonResolverKeyType.continueLabel:
+        return continueLabel(context);
       case ButtonResolverKeyType.submit:
         return submit(context);
       case ButtonResolverKeyType.changePassword:
@@ -195,7 +237,15 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
       case ButtonResolverKeyType.skip:
         return skip(context);
       case ButtonResolverKeyType.openTotpApp:
-        return totpApp(context);
+        return openTotpApp(context);
+      case ButtonResolverKeyType.totpQrCode:
+        return totpQrCode(context);
+      case ButtonResolverKeyType.totpManualKey:
+        return totpManualKey(context);
+      case ButtonResolverKeyType.totpStepperAppSetup:
+        return totpStepperAppSetup(context);
+      case ButtonResolverKeyType.totpStepperConfirm:
+        return totpStepperConfirm(context);
     }
   }
 }

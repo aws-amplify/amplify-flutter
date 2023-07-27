@@ -259,13 +259,13 @@ abstract class AuthenticatorInputLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Text Message (SMS)'**
-  String get smsSelection;
+  String get mfaSmsMethod;
 
   /// Label for the radio button to select the user's mfa method.
   ///
   /// In en, this message translates to:
   /// **'Authenticator App (TOTP)'**
-  String get totpSelection;
+  String get mfaTotpMethod;
 
   /// Message for conflicting password and confirm password fields.
   ///

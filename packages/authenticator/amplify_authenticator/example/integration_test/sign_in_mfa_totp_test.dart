@@ -68,11 +68,14 @@ void main() {
 
         final code_1 = await generateTotpCode(sharedSecret);
 
+        // And I click the TOTP Stepper "Continue" button
+        await confirmSignInPage.totpStepperContinue();
+
         // When I type an valid TOTP code
         await confirmSignInPage.enterVerificationCode(code_1);
 
         // And I click the "Confirm" button
-        await confirmSignInPage.submitConfirmSignIn();
+        await confirmSignInPage.totpStepperConfirm();
 
         // Then I see the authenticated app
         await signInPage.expectAuthenticated();

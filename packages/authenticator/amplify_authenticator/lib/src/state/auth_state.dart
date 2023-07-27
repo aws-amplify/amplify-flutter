@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_authenticator/src/enums/authenticator_step.dart';
+import 'package:amplify_authenticator/src/models/totp_options.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -114,16 +115,23 @@ class ContinueSignInTotpSetup extends UnauthenticatedState {
 
   static Future<ContinueSignInTotpSetup> setupURI(
     TotpSetupDetails totpSetupDetails,
+    TotpOptions? totpOptions,
   ) async {
-    // TODO(equartey): Remove this once we have our own method of getting the app name
-    final packageInfo = await PackageInfo.fromPlatform();
-    final totpSetupUri = totpSetupDetails.getSetupUri(
-      appName: packageInfo.appName,
-    );
+    Uri setupUri;
+
+    if (totpOptions?.issuer != null) {
+      setupUri = totpSetupDetails.getSetupUri(appName: totpOptions!.issuer!);
+    } else {
+      // TODO(equartey): Remove this once we have our own method of getting the app name
+      final packageInfo = await PackageInfo.fromPlatform();
+      setupUri = totpSetupDetails.getSetupUri(
+        appName: packageInfo.appName,
+      );
+    }
 
     return ContinueSignInTotpSetup(
       totpSetupDetails,
-      totpSetupUri,
+      setupUri,
     );
   }
 
