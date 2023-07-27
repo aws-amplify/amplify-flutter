@@ -34,6 +34,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/cognito_identity_provider.dart
         GetUserRequest,
         ListDevicesRequest,
         ResendConfirmationCodeRequest,
+        UserContextDataType,
         UpdateDeviceStatusRequest,
         UpdateUserAttributesRequest,
         VerifyUserAttributeRequest;
@@ -138,6 +139,12 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
 
   /// Analytics Metadata Provider
   AnalyticsMetadataType? get _analyticsMetadata => _stateMachine.get();
+
+  ASFContextDataProvider get _contextDataProvider => stateMachine.getOrCreate();
+
+  Future<cognito.UserContextDataType?> _getContextData(String username) async {
+    return _contextDataProvider.buildRequestData(username);
+  }
 
   final StreamController<AuthHubEvent> _hubEventController =
       StreamController.broadcast();
@@ -460,6 +467,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
       pluginOptions: options?.pluginOptions,
       defaultPluginOptions: const CognitoResendSignUpCodePluginOptions(),
     );
+    final userContextData = await _getContextData(username);
     final result = await _cognitoIdp.resendConfirmationCode(
       cognito.ResendConfirmationCodeRequest.build((b) {
         b
@@ -478,6 +486,10 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
 
         final clientMetadata = pluginOptions.clientMetadata;
         b.clientMetadata.addAll(clientMetadata);
+
+        if (userContextData != null) {
+          b.userContextData.replace(userContextData);
+        }
       }),
     ).result;
 
@@ -763,6 +775,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
       pluginOptions: options?.pluginOptions,
       defaultPluginOptions: const CognitoResetPasswordPluginOptions(),
     );
+    final userContextData = await _getContextData(username);
     final result = await _cognitoIdp.forgotPassword(
       cognito.ForgotPasswordRequest.build((b) {
         b
@@ -778,6 +791,10 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
             _userPoolConfig.appClientId,
             clientSecret,
           );
+        }
+
+        if (userContextData != null) {
+          b.userContextData.replace(userContextData);
         }
       }),
     ).result;
@@ -809,6 +826,7 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
       pluginOptions: options?.pluginOptions,
       defaultPluginOptions: const CognitoConfirmResetPasswordPluginOptions(),
     );
+    final userContextData = await _getContextData(username);
     await _cognitoIdp.confirmForgotPassword(
       cognito.ConfirmForgotPasswordRequest.build((b) {
         b
@@ -826,6 +844,10 @@ class AmplifyAuthCognitoDart extends AuthPluginInterface
             _userPoolConfig.appClientId,
             clientSecret,
           );
+        }
+
+        if (userContextData != null) {
+          b.userContextData.replace(userContextData);
         }
       }),
     ).result;
