@@ -87,7 +87,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
   }) =>
       _MfaSelectionRadioField(
         key: key ?? keyMfaSelectionTotpSignInFormField,
-        field: ConfirmSignInField.mfaSelection,
+        field: ConfirmSignInField.selectMfaMethod,
       );
 
   /// Creates a verification code component.
@@ -98,7 +98,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
   }) =>
       _ConfirmSignInTotpSetupField(
         key: key ?? keyTotpSetupSignInFormField,
-        field: ConfirmSignInField.totpSetup,
+        field: ConfirmSignInField.setupTotp,
       );
 
   /// Creates a button that opens the user's authenticator app.
@@ -109,7 +109,18 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
   }) =>
       _ConfirmSignInTotpAppButtonField(
         key: key ?? keyTotpAppSignInButton,
-        field: ConfirmSignInField.totpSetup,
+        field: ConfirmSignInField.setupTotp,
+      );
+
+  /// Creates a button that opens the user's authenticator app with an empty uri.
+  static ConfirmSignInFormField<String> openTotpAppEmptyUriButton({
+    Key? key,
+    FormFieldValidator<String>? validator,
+    Iterable<String>? autofillHints,
+  }) =>
+      _ConfirmSignInTotpAppButtonField(
+        key: key ?? keyTotpAppSignInButton,
+        field: ConfirmSignInField.setupTotp,
       );
 
   /// Creates a verification code component.
@@ -347,8 +358,8 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
         return 99;
       case ConfirmSignInField.code:
       case ConfirmSignInField.customChallenge:
-      case ConfirmSignInField.mfaSelection:
-      case ConfirmSignInField.totpSetup:
+      case ConfirmSignInField.selectMfaMethod:
+      case ConfirmSignInField.setupTotp:
         return 10;
       case ConfirmSignInField.address:
       case ConfirmSignInField.birthdate:
@@ -373,8 +384,8 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
       case ConfirmSignInField.customChallenge:
       case ConfirmSignInField.newPassword:
       case ConfirmSignInField.confirmNewPassword:
-      case ConfirmSignInField.mfaSelection:
-      case ConfirmSignInField.totpSetup:
+      case ConfirmSignInField.selectMfaMethod:
+      case ConfirmSignInField.setupTotp:
         return true;
       case ConfirmSignInField.address:
       case ConfirmSignInField.birthdate:
@@ -508,8 +519,8 @@ abstract class _ConfirmSignInFormFieldState<FieldValue extends Object>
         ];
       case ConfirmSignInField.custom:
       case ConfirmSignInField.customChallenge:
-      case ConfirmSignInField.mfaSelection:
-      case ConfirmSignInField.totpSetup:
+      case ConfirmSignInField.selectMfaMethod:
+      case ConfirmSignInField.setupTotp:
         return null;
     }
   }
@@ -825,19 +836,16 @@ class _ConfirmSignInTotpSetupField extends ConfirmSignInFormField<String> {
 }
 
 class _ConfirmSignInTotpSetupFieldState
-    extends _ConfirmSignInFormFieldState<String> with TotpSetupForm {
+    extends _ConfirmSignInFormFieldState<String> with TotpSetupFields {
   @override
   Uri get totpUri {
-    final totpOptions = InheritedConfig.of(context).totpOptions;
-    Uri? customSetupUri;
+    final totpUri = state.totpSetupUri;
 
-    // Setup uri with custom TOTP appName if present in [InheritedConfig]
-    if (totpOptions?.issuer != null) {
-      customSetupUri =
-          state.totpSetupDetails?.getSetupUri(appName: totpOptions!.issuer);
-    }
-
-    return customSetupUri ?? state.totpSetupUri!;
+    assert(
+      totpUri != null,
+      'Expected TOTP setup uri in state for current screen, instead got $totpUri',
+    );
+    return totpUri!;
   }
 }
 
@@ -857,7 +865,11 @@ class _ConfirmSignInTotpAppButtonFieldState
     with OpenAuthenticationAppButton {
   @override
   Uri get totpUri {
-    // Setup uri with TOTP schema to access a user's authenticator app
-    return Uri.parse('otpauth://');
+    final totpUri = state.totpSetupUri;
+    if (totpUri == null) {
+      // No setup URI, so we'll just open the app with an empty URI.
+      return Uri.parse('otpauth://');
+    }
+    return totpUri;
   }
 }

@@ -13,6 +13,10 @@
     "@confirm": {
         "description": "Label of button to confirm an action"
     },
+    "continueLabel": "Continue",
+    "@continueLabel": {
+        "description": "Label of button to continue an action"
+    },
     "submit": "Submit",
     "@submit": {
         "description": "Label of button to submit a form"
@@ -53,9 +57,25 @@
     "@skip": {
         "description": "Label of button to skip the current step or action."
     },
-    "totpApp": "Open Authenticator App",
-    "@totpApp": {
+    "openTotpApp": "Open Authenticator App",
+    "@openTotpApp": {
         "description": "Label of button to open the users default authentication app."
+    },
+    "totpManualKey": "Manual Key Entry",
+    "@totpManualKey": {
+        "description": "Label of button to toggle the TOTP key during TOTP setup."
+    },
+    "totpQrCode": "Scan QR Code",
+    "@totpQrCode": {
+        "description": "Label of button to toggle the QR code during TOTP setup."
+    },
+    "totpStepperAppSetup": "Step up Authenticator App",
+    "@totpStepperAppSetup": {
+        "description": "Label of the app setup step button for the TOTP setup stepper."
+    },
+    "totpStepperConfirm": "Submit Verification Code",
+    "@totpStepperConfirm": {
+        "description": "Label of the confirm step button for the TOTP setup stepper."
     },
     "signOut": "Sign Out",
     "@signOut": {

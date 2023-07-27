@@ -138,3 +138,7 @@ const keyInheritedAuthBloc = Key('inheritedAuthBloc');
 // Banner Keys
 
 const keyAuthenticatorBanner = Key('authenticatorBanner');
+
+// Stepper Keys
+const keyContinueTotpStepperButton = Key('continueTotpStepperButton');
+const keyConfirmTotpStepperButton = Key('confirmTotpStepperButton');

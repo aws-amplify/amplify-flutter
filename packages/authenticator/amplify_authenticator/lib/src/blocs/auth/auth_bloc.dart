@@ -24,6 +24,7 @@ class StateMachineBloc
     required AuthService authService,
     required this.preferPrivateSession,
     this.initialStep = AuthenticatorStep.signIn,
+    this.totpOptions,
   }) : _authService = authService {
     _hubSubscription = _authService.hubEvents.listen(_mapHubEvent);
     final blocStream = _authEventStream.asyncExpand((event) async* {
@@ -39,6 +40,7 @@ class StateMachineBloc
   final AuthService _authService;
   final bool preferPrivateSession;
   final AuthenticatorStep initialStep;
+  final TotpOptions? totpOptions;
 
   @override
   String get runtimeTypeName => 'StateMachineBloc';
@@ -225,6 +227,7 @@ class StateMachineBloc
           );
           yield await ContinueSignInTotpSetup.setupURI(
             result.nextStep.totpSetupDetails!,
+            totpOptions,
           );
         case AuthSignInStep.resetPassword:
           yield UnauthenticatedState.resetPassword;
@@ -324,6 +327,7 @@ class StateMachineBloc
         _emit(
           await ContinueSignInTotpSetup.setupURI(
             result.nextStep.totpSetupDetails!,
+            totpOptions,
           ),
         );
       case AuthSignInStep.confirmSignInWithTotpMfaCode:

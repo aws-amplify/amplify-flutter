@@ -21,7 +21,7 @@
     "@continueSignInWithMfaSelection": {
         "description": "Title of the SignIn with MFA selection step and form"
     },
-    "continueSignInWithTotpSetup": "Set up an Authenticator App",
+    "continueSignInWithTotpSetup": "Enable Two-Factor Auth",
     "@continueSignInWithTotpSetup": {
         "description": "Title of the SignIn with TOTP setup step and form"
     },

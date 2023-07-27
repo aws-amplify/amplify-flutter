@@ -58,7 +58,7 @@ class AuthUpdatePassword extends AuthEvent {
 }
 
 class AuthConfirmSignIn extends AuthEvent {
-  const AuthConfirmSignIn(this.data, {required this.rememberDevice});
+  const AuthConfirmSignIn(this.data, {this.rememberDevice = false});
   final AuthConfirmSignInData data;
   final bool rememberDevice;
 }

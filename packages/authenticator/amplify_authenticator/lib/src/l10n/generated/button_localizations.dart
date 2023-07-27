@@ -117,6 +117,12 @@ abstract class AuthenticatorButtonLocalizations {
   /// **'Confirm'**
   String get confirm;
 
+  /// Label of button to continue an action
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueLabel;
+
   /// Label of button to submit a form
   ///
   /// In en, this message translates to:
@@ -180,8 +186,32 @@ abstract class AuthenticatorButtonLocalizations {
   /// Label of button to open the users default authentication app.
   ///
   /// In en, this message translates to:
-  /// **'Open Authentication App'**
-  String get totpApp;
+  /// **'Open Authenticator App'**
+  String get openTotpApp;
+
+  /// Label of button to toggle the TOTP key during TOTP setup.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual Key Entry'**
+  String get totpManualKey;
+
+  /// Label of button to toggle the QR code during TOTP setup.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan QR Code'**
+  String get totpQrCode;
+
+  /// Label of the app setup step button for the TOTP setup stepper.
+  ///
+  /// In en, this message translates to:
+  /// **'Step up Authenticator App'**
+  String get totpStepperAppSetup;
+
+  /// Label of the confirm step button for the TOTP setup stepper.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit Verification Code'**
+  String get totpStepperConfirm;
 
   /// Label of button to sign out the user
   ///

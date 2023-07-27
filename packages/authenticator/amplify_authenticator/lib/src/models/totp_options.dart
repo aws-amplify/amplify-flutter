@@ -6,7 +6,7 @@
 /// {@endtemplate}
 class TotpOptions {
   /// {@macro amplify_authenticator.totp_options}
-  TotpOptions({required this.issuer});
+  TotpOptions({this.issuer});
 
   /// The title displayed in a user's TOTP App preceding the
   /// account name.
@@ -15,5 +15,5 @@ class TotpOptions {
   /// For example, if your app is called "My App", your user will see
   /// "My App" - "username" in their TOTP app.
   /// Defaults to the application name retrieved from the project configuration.
-  final String issuer;
+  final String? issuer;
 }

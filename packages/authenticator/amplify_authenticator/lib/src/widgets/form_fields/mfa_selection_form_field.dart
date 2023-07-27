@@ -33,12 +33,12 @@ class _MfaSelectionFieldState extends _ConfirmSignInFormFieldState<MfaType>
   List<InputSelection<InputResolverKey, MfaType>> get selections => [
         if (_allowedMfaTypes.contains(MfaType.totp))
           const InputSelection<InputResolverKey, MfaType>(
-            label: InputResolverKey.mfaTotpSelectionTitle,
+            label: InputResolverKey.mfaTotpMethodTitle,
             value: MfaType.totp,
           ),
         if (_allowedMfaTypes.contains(MfaType.sms))
           const InputSelection<InputResolverKey, MfaType>(
-            label: InputResolverKey.mfaSmsSelectionTitle,
+            label: InputResolverKey.mfaSmsMethodTitle,
             value: MfaType.sms,
           ),
       ];

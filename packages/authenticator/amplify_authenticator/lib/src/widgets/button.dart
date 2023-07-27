@@ -244,7 +244,7 @@ class ContinueSignInMFASelectionButton extends AuthenticatorElevatedButton {
         );
 
   @override
-  ButtonResolverKey get labelKey => ButtonResolverKey.confirm;
+  ButtonResolverKey get labelKey => ButtonResolverKey.continueLabel;
 
   @override
   void onPressed(BuildContext context, AuthenticatorState state) =>
