@@ -2,13 +2,11 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/keys.dart';
-import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/models/username_input.dart';
-import 'package:amplify_authenticator/src/utils/country_code.dart';
 import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
-import 'package:amplify_authenticator/src/widgets/form.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
 
@@ -144,7 +142,7 @@ mixin AuthenticatorUsernameField<FieldType extends Enum,
                     state.authAttributes.clear();
                     // Reset country code if phone is not being used as a username
                     if (newUsernameSelection != UsernameSelection.phoneNumber) {
-                      state.country = initialCountryCode;
+                      state.dialCode = state.defaultDialCode;
                     }
                     // Update the username & username selection
                     state

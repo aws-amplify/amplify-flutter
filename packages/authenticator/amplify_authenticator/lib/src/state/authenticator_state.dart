@@ -6,7 +6,6 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_bloc.dart';
 import 'package:amplify_authenticator/src/blocs/auth/auth_data.dart';
 import 'package:amplify_authenticator/src/state/auth_state.dart';
-import 'package:amplify_authenticator/src/utils/country_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -20,7 +19,7 @@ typedef BlocEventPredicate = bool Function(AuthState state);
 ///
 /// Intended to be used within custom UIs for the Amplify Authenticator.
 class AuthenticatorState extends ChangeNotifier {
-  AuthenticatorState(this._authBloc) {
+  AuthenticatorState(this._authBloc, {required this.defaultDialCode}) {
     // Listen to step changes to know when to clear the form. Calling `clean`
     // from the forms' dispose method is unreliable since it may be called after
     // the transitioning form's first build is called.
@@ -168,24 +167,25 @@ class AuthenticatorState extends ChangeNotifier {
   String _newPassword = '';
 
   /// The value for the country code portion of the phone number field
-  Country get country => _country;
+  DialCode get dialCode => _dialCode;
 
-  set country(Country newCountry) {
-    final oldCountry = _country;
+  set dialCode(DialCode newDialCode) {
+    final oldDialCode = _dialCode;
     final currentPhoneNumber =
         authAttributes[CognitoUserAttributeKey.phoneNumber];
     if (currentPhoneNumber != null) {
       authAttributes[CognitoUserAttributeKey.phoneNumber] =
           currentPhoneNumber.replaceFirst(
-        oldCountry.value,
-        newCountry.value,
+        oldDialCode.value,
+        newDialCode.value,
       );
     }
-    _country = newCountry;
+    _dialCode = newDialCode;
     notifyListeners();
   }
 
-  Country _country = initialCountryCode;
+  late DialCode _dialCode = defaultDialCode;
+  final DialCode defaultDialCode;
 
   final Map<CognitoUserAttributeKey, String> authAttributes = {};
 

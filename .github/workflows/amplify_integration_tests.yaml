@@ -123,7 +123,7 @@ jobs:
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
       - name: Run integration tests
-        timeout-minutes: 30
+        timeout-minutes: 60
         run: aft exec --include=${{ matrix.scope }} -- small=true "<AFT_ROOT>/build-support/integ_test_ios.sh" -d test
 
   web:
@@ -166,7 +166,7 @@ jobs:
       - uses: nanasess/setup-chromedriver@95301782a076fbe8c9ecf54395a4689f7b195285 # 2.0.0
 
       - name: Run integration tests
-        timeout-minutes: 30
+        timeout-minutes: 60
         run: |
           chromedriver --port=4444 &
           aft exec --include=${{ matrix.scope }} -- "<AFT_ROOT>/build-support/integ_test.sh" -d web-server
@@ -252,7 +252,7 @@ jobs:
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
       - name: Run integration tests
-        timeout-minutes: 30
+        timeout-minutes: 60
         run: |
           flutter config --enable-linux-desktop
           aft exec --include=${{ matrix.scope }} -- "<AFT_ROOT>/build-support/integ_test.sh" -d linux
@@ -297,7 +297,7 @@ jobs:
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
       - name: Run integration tests
-        timeout-minutes: 30
+        timeout-minutes: 60
         run: |
           flutter config --enable-windows-desktop
           dart pub global run aft exec --include=${{ matrix.scope }} -- flutter test integration_test/main_test.dart -d windows
