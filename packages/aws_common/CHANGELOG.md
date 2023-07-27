@@ -1,3 +1,9 @@
+## 0.5.1
+
+### Features
+- feat(aft): Generate AWS config ([#3424](https://github.com/aws-amplify/amplify-flutter/pull/3424))
+- feat(logging): logger can register one plugin per type in a logger hierarchy ([#3173](https://github.com/aws-amplify/amplify-flutter/pull/3173))
+
 ## 0.5.0+3
 
 - Minor bug fixes and improvements

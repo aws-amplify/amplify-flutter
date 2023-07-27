@@ -1,3 +1,13 @@
+## 1.3.0
+
+### Features
+- feat(auth): Enable ASF
+- feat(datastore): Adds DataStoreHubEventType to DataStoreHubEvents ([#3454](https://github.com/aws-amplify/amplify-flutter/pull/3454))
+
+### Fixes
+- fix(codegen): Mark Cognito map as sparse ([#3386](https://github.com/aws-amplify/amplify-flutter/pull/3386))
+- fix(smithy): Union variant naming ([#3415](https://github.com/aws-amplify/amplify-flutter/pull/3415))
+
 ## 1.2.1
 
 ### Fixes

@@ -1,3 +1,11 @@
+## 1.3.0
+
+### Features
+- feat(auth): Enable ASF
+- feat(datastore): Adds DataStoreHubEventType to DataStoreHubEvents ([#3454](https://github.com/aws-amplify/amplify-flutter/pull/3454))
+- feat(logging): logger can register one plugin per type in a logger hierarchy ([#3173](https://github.com/aws-amplify/amplify-flutter/pull/3173))
+- feat(storage): example app ([#3359](https://github.com/aws-amplify/amplify-flutter/pull/3359))
+
 ## 1.2.1
 
 ### Fixes
