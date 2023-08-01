@@ -194,6 +194,7 @@ open class AmplifyAuthCognitoPlugin :
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         packageManager.getPackageInfo(packageName, PackageInfoFlags.of(0)).versionName
       } else {
+        @Suppress("DEPRECATION")
         packageManager.getPackageInfo(packageName, 0).versionName
       }
     } catch (e: PackageManager.NameNotFoundException) {
@@ -310,6 +311,8 @@ open class AmplifyAuthCognitoPlugin :
   /**
    * The application ID of the installed package which can handle custom tabs,
    * typically a browser like Chrome.
+   *
+   * Adapted from: https://github.com/GoogleChrome/custom-tabs-client/blob/f55501961a211a92eacbe3c2f15d7c58c19c8ef9/shared/src/main/java/org/chromium/customtabsclient/shared/CustomTabsHelper.java#L64
    */
   private val browserPackageName: String? by lazy {
     val packageManager = mainActivity!!.packageManager
@@ -319,10 +322,18 @@ open class AmplifyAuthCognitoPlugin :
       addCategory(Intent.CATEGORY_BROWSABLE)
       data = Uri.fromParts("https", "", null)
     }
-    val defaultViewHandlerInfo = packageManager.resolveActivity(
+    val defaultViewHandlerInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+      packageManager.resolveActivity(
+        activityIntent,
+        PackageManager.ResolveInfoFlags.of(MATCH_DEFAULT_ONLY.toLong())
+      )
+    } else {
+      @Suppress("DEPRECATION")
+      packageManager.resolveActivity(
       activityIntent,
       MATCH_DEFAULT_ONLY
     )
+    }
     Log.d(TAG, "[browserPackageName] Resolved activity info: $defaultViewHandlerInfo")
     var defaultViewHandlerPackageName: String? = null
     if (defaultViewHandlerInfo != null) {
@@ -331,14 +342,28 @@ open class AmplifyAuthCognitoPlugin :
     Log.d(TAG, "[browserPackageName] Resolved default package: $defaultViewHandlerPackageName")
 
     // Get all apps that can handle VIEW intents.
-    val resolvedActivityList = packageManager.queryIntentActivities(activityIntent, MATCH_ALL)
+    val resolvedActivityList = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+      packageManager.queryIntentActivities(
+        activityIntent,
+        PackageManager.ResolveInfoFlags.of(MATCH_ALL.toLong())
+      )
+    } else {
+      @Suppress("DEPRECATION")
+      packageManager.queryIntentActivities(activityIntent, MATCH_ALL)
+    }
     val packagesSupportingCustomTabs = mutableListOf<String>()
     for (info in resolvedActivityList) {
       val serviceIntent = Intent()
       serviceIntent.action = ACTION_CUSTOM_TABS_CONNECTION
       serviceIntent.`package` = info.activityInfo.packageName
       // Check if the package also resolves the Custom Tabs service.
-      if (packageManager.resolveService(serviceIntent, 0) != null) {
+      val resolvedService = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        packageManager.resolveService(serviceIntent, PackageManager.ResolveInfoFlags.of(0))
+      } else {
+        @Suppress("DEPRECATION")
+        packageManager.resolveService(serviceIntent, 0)
+      }
+      if (resolvedService != null) {
         packagesSupportingCustomTabs.add(info.activityInfo.packageName)
       }
     }
