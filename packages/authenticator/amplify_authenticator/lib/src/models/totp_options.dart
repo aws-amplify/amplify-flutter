@@ -6,7 +6,7 @@
 /// {@endtemplate}
 class TotpOptions {
   /// {@macro amplify_authenticator.totp_options}
-  TotpOptions({this.issuer});
+  const TotpOptions({this.issuer});
 
   /// The title displayed in a user's TOTP App preceding the
   /// account name.
