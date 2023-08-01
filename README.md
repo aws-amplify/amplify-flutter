@@ -27,17 +27,28 @@ Please use the latest version (v1) of Amplify Flutter. If you are currently usin
 | [**Notifications**](https://docs.amplify.aws/lib/push-notifications/getting-started/q/platform/flutter) | <a href="https://pub.dev/packages/amplify_push_notifications_pinpoint" target="_blank"> <img src="https://img.shields.io/pub/v/amplify_push_notifications_pinpoint.svg"> </a>                 | Trigger push notifications to your app and record metrics in Pinpoint when users receive or open notifications.                                                                                                                                                                                            |
 | [**Authenticator**](https://ui.docs.amplify.aws/flutter/connected-components/authenticator)             | <a href="https://pub.dev/packages/amplify_authenticator" target="_blank"> <img src="https://img.shields.io/pub/v/amplify_authenticator.svg"> </a>                                             | The Amplify Flutter Authenticator simplifies the process of authenticating users by providing a fully-customizable flow which just works. Simply wrap your app's authenticated route in an Authenticator component and the process of authenticating users and managing login sessions is handled for you. |
 
+### Semantic versioning
+
+We follow [semantic versioning](https://dart.dev/tools/pub/versioning#semantic-versions) for our releases.
+
+#### Semantic versioning and enumeration cases
+
+When Amplify adds a new enumeration entry or sealed class subtype, we will publish a new **minor** version of the library.
+
+Applications that use a `switch` statement to evaluate all members of an enumerated type can add a `default` clause to prevent 
+new cases from causing compile warnings or errors.
+
 ## Category / Platform Support
 
-| Category       | Android | iOS | Web | Windows | MacOS | Linux |
-| -------------- | :-----: | :-: | :-: | :-----: | :---: | :---: |
-| Analytics      |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
-| API (REST)     |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
-| API (GraphQL)  |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
-| Authentication |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
-| DataStore      |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
-| Storage        |   ✅    | ✅  | ✅  |   ✅    |  ✅   |  ✅   |
-| Notifications  |   ✅    | ✅  | 🔴  |   🔴    |  🔴   |  🔴   |
+| Category       | Android |  iOS  |  Web  | Windows | MacOS | Linux |
+| -------------- | :-----: | :---: | :---: | :-----: | :---: | :---: |
+| Analytics      |    ✅    |   ✅   |   ✅   |    ✅    |   ✅   |   ✅   |
+| API (REST)     |    ✅    |   ✅   |   ✅   |    ✅    |   ✅   |   ✅   |
+| API (GraphQL)  |    ✅    |   ✅   |   ✅   |    ✅    |   ✅   |   ✅   |
+| Authentication |    ✅    |   ✅   |   ✅   |    ✅    |   ✅   |   ✅   |
+| DataStore      |    ✅    |   ✅   |   🔴   |    🔴    |   🔴   |   🔴   |
+| Storage        |    ✅    |   ✅   |   ✅   |    ✅    |   ✅   |   ✅   |
+| Notifications  |    ✅    |   ✅   |   🔴   |    🔴    |   🔴   |   🔴   |
 
 ## Documentation
 
