@@ -20,12 +20,6 @@ import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.PluginRegistry
-import kotlinx.coroutines.CoroutineName
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.plus
 import java.util.Locale
 
 open class AmplifyAuthCognitoPlugin :
@@ -43,9 +37,9 @@ open class AmplifyAuthCognitoPlugin :
     const val CUSTOM_TAB_REQUEST_CODE = 8888
 
     /**
-     * The scope in which to spawn tasks which should not be awaited from the main thread.
+     * An intent extra used to signal the cancellation of a Hosted UI sign-in/sign-out.
      */
-    val scope = CoroutineScope(Dispatchers.IO) + CoroutineName("amplify_flutter.AuthCognito")
+    const val CUSTOM_TAB_CANCEL_EXTRA = "com.amazonaws.amplify.auth.hosted_ui.cancel"
   }
 
   /**
@@ -330,9 +324,9 @@ open class AmplifyAuthCognitoPlugin :
     } else {
       @Suppress("DEPRECATION")
       packageManager.resolveActivity(
-      activityIntent,
-      MATCH_DEFAULT_ONLY
-    )
+        activityIntent,
+        MATCH_DEFAULT_ONLY
+      )
     }
     Log.d(TAG, "[browserPackageName] Resolved activity info: $defaultViewHandlerInfo")
     var defaultViewHandlerPackageName: String? = null
@@ -486,6 +480,12 @@ open class AmplifyAuthCognitoPlugin :
         }
         true
       }
+    } else if (intent.hasExtra(CUSTOM_TAB_CANCEL_EXTRA)) {
+      // Intents originating with this extra are meant to close the loop on sign-in/out events.
+      // See the notes on [onActivityResult] for more information.
+      Log.d(TAG, "[onNewIntent] Cancelling current operation")
+      cancelCurrentOperation()
+      return true
     }
     Log.d(TAG, "[onNewIntent] Not handling intent")
     return false
@@ -494,20 +494,28 @@ open class AmplifyAuthCognitoPlugin :
   /**
    * Called when the custom tab activity completes, either by cancellation or success.
    *
-   * There is no way to distinguish whether it is a success or cancellation, but since this is
-   * called just before or after [onNewIntent], we wait a second for both to be called.
-   * Afterwards, we are guaranteed that if [signInResult]/[signOutResult] is not `null`, then it
-   * is a cancellation since otherwise, [handleSignInResult] would have set it to `null`.
+   * There is no way to distinguish whether it is a success or cancellation, and our logic for
+   * handling the success case is centered in [onNewIntent] which is called just before or after
+   * this method in the success case and not at all in the error case.
+   *
+   * In the cancellation case, [onNewIntent] is not called, only this method, which means that
+   * we either need to wait for a couple seconds to see if [onNewIntent] is called or trigger an
+   * intent of our own which will be intercepted by [onNewIntent]. The former is flaky and found to
+   * be unreliable, but the latter is robust.
+   *
+   * By the time we reach this method, a new intent will have been initiated in the success case.
+   * By creating a new one, we are guaranteed it will be handled after the success intent, in which
+   * case it's a no-op. In the error case, the intent we create will trigger the cancellation of
+   * the pending sign-in or sign-out request. Either way, the request is completed.
    */
   override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?): Boolean {
     Log.d(TAG, "[onActivityResult] Got result: requestCode=$requestCode, resultCode=$resultCode, intent=$intent")
     if (requestCode == CUSTOM_TAB_REQUEST_CODE) {
-      scope.launch {
-        delay(1000L)
-        launch(Dispatchers.Main) {
-          cancelCurrentOperation()
-        }
+      val cancelIntent = Intent(applicationContext!!, mainActivity!!.javaClass).apply {
+        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        putExtra(CUSTOM_TAB_CANCEL_EXTRA, true)
       }
+      applicationContext!!.startActivity(cancelIntent)
       return true
     }
     return false
