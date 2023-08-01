@@ -26,7 +26,7 @@ class _MfaSelectionFieldState extends _ConfirmSignInFormFieldState<MfaType>
       state is ContinueSignInWithMfaSelection,
       'Expected ContinueSignInWithMfaSelection for current screen',
     );
-    return (state as ContinueSignInWithMfaSelection).allowedMfaTypes!;
+    return (state as ContinueSignInWithMfaSelection).allowedMfaTypes;
   }
 
   @override
