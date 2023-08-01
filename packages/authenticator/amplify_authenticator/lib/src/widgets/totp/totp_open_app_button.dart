@@ -69,20 +69,20 @@ mixin OpenAuthenticationAppButton<FieldType extends Enum,
     return FutureBuilder<bool>(
       future: canLaunchUrl(totpUri), // check if the url can be launched
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        if (snapshot.data != null && snapshot.data!) {
-          return SizedBox(
-            child: OutlinedButton.icon(
-              onPressed: _launchUrl,
-              icon: const Icon(Icons.app_shortcut),
-              label: Center(
-                child: Text(
-                  buttonText,
-                ),
+        if (snapshot.data == null || !snapshot.data!) {
+          return const SizedBox.shrink(); // Return empty widget
+        }
+        return SizedBox(
+          child: OutlinedButton.icon(
+            onPressed: _launchUrl,
+            icon: const Icon(Icons.app_shortcut),
+            label: Center(
+              child: Text(
+                buttonText,
               ),
             ),
-          );
-        }
-        return const SizedBox.shrink(); // Return empty widget
+          ),
+        );
       },
     );
   }
