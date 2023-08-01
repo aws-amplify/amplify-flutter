@@ -836,18 +836,7 @@ class _ConfirmSignInTotpSetupField extends ConfirmSignInFormField<String> {
 }
 
 class _ConfirmSignInTotpSetupFieldState
-    extends _ConfirmSignInFormFieldState<String> with TotpSetupFields {
-  @override
-  Uri get totpUri {
-    final totpUri = state.totpSetupUri;
-
-    assert(
-      totpUri != null,
-      'Expected TOTP setup uri in state for current screen, instead got $totpUri',
-    );
-    return totpUri!;
-  }
-}
+    extends _ConfirmSignInFormFieldState<String> with TotpSetupFields {}
 
 class _ConfirmSignInTotpAppButtonField extends ConfirmSignInFormField<String> {
   const _ConfirmSignInTotpAppButtonField({
@@ -862,14 +851,4 @@ class _ConfirmSignInTotpAppButtonField extends ConfirmSignInFormField<String> {
 
 class _ConfirmSignInTotpAppButtonFieldState
     extends _ConfirmSignInFormFieldState<String>
-    with OpenAuthenticationAppButton {
-  @override
-  Uri get totpUri {
-    final totpUri = state.totpSetupUri;
-    if (totpUri == null) {
-      // No setup URI, so we'll just open the app with an empty URI.
-      return Uri.parse('otpauth://');
-    }
-    return totpUri;
-  }
-}
+    with OpenAuthenticationAppButton {}

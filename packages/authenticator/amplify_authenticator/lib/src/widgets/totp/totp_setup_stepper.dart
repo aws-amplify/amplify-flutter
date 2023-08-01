@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/keys.dart';
 import 'package:amplify_authenticator/src/state/inherited_authenticator_state.dart';
@@ -47,8 +50,7 @@ class AuthenticatorTotpSetupStepper<T extends AuthenticatorForm>
             onStepTapped: setStep,
             steps: <Step>[
               Step(
-                title:
-                    Text(getButtonText(ButtonResolverKey.totpStepperAppSetup)),
+                title: Text(getButtonText(ButtonResolverKey.totpStepperSetup)),
                 content: Column(
                   children: [
                     ConfirmSignInFormField.openTotpAppButton(),

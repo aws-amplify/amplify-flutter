@@ -61,7 +61,7 @@ class AuthenticatorButtonLocalizationsEn
   String get totpQrCode => 'Scan QR Code';
 
   @override
-  String get totpStepperAppSetup => 'Step up Authenticator App';
+  String get totpStepperSetup => 'Step up Authenticator App';
 
   @override
   String get totpStepperConfirm => 'Submit Verification Code';

@@ -179,11 +179,11 @@
     },
     "smsSelection": "Text Message (SMS)",
     "@smsSelection": {
-        "description": "Label for the radio button to select the user's mfa method."
+        "description": "Label for the radio button to select SMS as the user's chosen MFA method.."
     },
     "totpSelection": "Authenticator App (TOTP)",
     "@totpSelection": {
-        "description": "Label for the radio button to select the user's mfa method."
+        "description": "Label for the radio button to select TOTP as the user's chosen MFA method."
     },
     "passwordsDoNotMatch": "Passwords do not match.",
     "@passwordsDoNotMatch": {

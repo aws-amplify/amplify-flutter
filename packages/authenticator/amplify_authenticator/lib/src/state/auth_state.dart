@@ -98,9 +98,11 @@ class ConfirmSignInCustom extends UnauthenticatedState {
 
 class ContinueSignInWithMfaSelection extends UnauthenticatedState {
   const ContinueSignInWithMfaSelection({
-    this.allowedMfaTypes,
-  }) : super(step: AuthenticatorStep.continueSignInWithMfaSelection);
-  final Set<MfaType>? allowedMfaTypes;
+    Set<MfaType>? allowedMfaTypes,
+  })  : allowedMfaTypes = allowedMfaTypes ?? const {},
+        super(step: AuthenticatorStep.continueSignInWithMfaSelection);
+
+  final Set<MfaType> allowedMfaTypes;
 
   @override
   List<Object?> get props => [step, allowedMfaTypes];

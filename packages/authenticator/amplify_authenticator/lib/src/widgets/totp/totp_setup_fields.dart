@@ -13,7 +13,15 @@ mixin TotpSetupFields<FieldType extends Enum,
   bool showKey = false;
   bool showQRCode = false;
 
-  Uri get totpUri;
+  Uri get totpUri {
+    final totpUri = state.totpSetupUri;
+
+    assert(
+      totpUri != null,
+      'Expected TOTP setup uri in state for current screen, instead got $totpUri',
+    );
+    return totpUri!;
+  }
 
   String getButtonText(ButtonResolverKey key) {
     return stringResolver.buttons.resolve(
@@ -22,23 +30,65 @@ mixin TotpSetupFields<FieldType extends Enum,
     );
   }
 
-  void _copyKey() {
+  Future<void> _copyKey() async {
     setState(() {
       showKey = true;
     });
-    Clipboard.setData(
-      ClipboardData(text: state.totpSetupDetails!.sharedSecret),
-    ).then((value) {
+    try {
+      await Clipboard.setData(
+        ClipboardData(text: state.totpSetupDetails!.sharedSecret),
+      ).then((value) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            content: const Text(
+              'Copied to clipboard!',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      });
+    } on PlatformException {
+      if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          backgroundColor: Theme.of(context).colorScheme.primary,
+          backgroundColor: Theme.of(context).colorScheme.onError,
           content: const Text(
-            'Copied to clipboard!',
+            'Copy to clipboard failed.',
             textAlign: TextAlign.center,
           ),
         ),
       );
-    });
+    }
+  }
+
+  // Returns a filled button if the conditional is enabled,
+  // otherwise returns outline button
+  Widget iconToggleButton({
+    required bool conditional,
+    required IconData icon,
+    required String label,
+    required void Function() onPressed,
+  }) {
+    return conditional
+        ? FilledButton.tonalIcon(
+            onPressed: onPressed,
+            icon: Icon(icon),
+            label: Center(
+              child: Text(
+                label,
+              ),
+            ),
+          )
+        : OutlinedButton.icon(
+            onPressed: onPressed,
+            icon: Icon(icon),
+            label: Center(
+              child: Text(
+                label,
+              ),
+            ),
+          );
   }
 
   Widget optionDivider() {
@@ -50,7 +100,7 @@ mixin TotpSetupFields<FieldType extends Enum,
           ),
         ),
         Padding(
-          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+          padding: EdgeInsets.symmetric(horizontal: 10),
           child: Text(
             'or',
             textAlign: TextAlign.center,
@@ -77,66 +127,56 @@ mixin TotpSetupFields<FieldType extends Enum,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         /// QR Code Toggle Button
-        if (isMobile)
-          Column(
-            children: [
-              optionDivider(),
-              const Padding(padding: widgetTopPadding),
-              OutlinedButton.icon(
-                onPressed: () => setState(() {
-                  showQRCode = !showQRCode;
-                }),
-                icon: const Icon(Icons.qr_code),
-                label: Center(
-                  child: Text(
-                    getButtonText(ButtonResolverKey.totpQrCode),
-                  ),
-                ),
-              ),
-            ],
+        if (isMobile) ...[
+          optionDivider(),
+          const Padding(padding: widgetTopPadding),
+          iconToggleButton(
+            conditional: showQRCode,
+            icon: Icons.qr_code,
+            label: getButtonText(ButtonResolverKey.totpQrCode),
+            onPressed: () => setState(() {
+              showQRCode = !showQRCode;
+              showKey = false;
+            }),
           ),
+        ],
 
         /// QR Code
         /// Shown on desktop or when toggled on mobile
-        if (!isMobile || showQRCode)
-          Column(
-            children: [
-              const Padding(padding: widgetTopPadding),
-              QrImageView(
-                size: 150,
-                padding: EdgeInsets.zero,
-                eyeStyle:
-                    QrEyeStyle(color: isDarkMode ? Colors.white : Colors.black),
-                dataModuleStyle: QrDataModuleStyle(
-                  color: isDarkMode ? Colors.white : Colors.black,
-                ),
-                data: totpUri.toString(),
-                version: QrVersions.auto,
+        if (!isMobile || showQRCode) ...[
+          const Padding(padding: widgetTopPadding),
+          Center(
+            child: QrImageView(
+              size: 150,
+              padding: EdgeInsets.zero,
+              eyeStyle:
+                  QrEyeStyle(color: isDarkMode ? Colors.white : Colors.black),
+              dataModuleStyle: QrDataModuleStyle(
+                color: isDarkMode ? Colors.white : Colors.black,
               ),
-            ],
+              data: totpUri.toString(),
+              version: QrVersions.auto,
+            ),
           ),
+        ],
 
         const Padding(padding: widgetTopPadding),
         optionDivider(),
         const Padding(padding: widgetTopPadding),
 
         /// Manual Key Toggle Button
-        if (isMobile)
-          Column(
-            children: [
-              OutlinedButton.icon(
-                onPressed: () => setState(() {
-                  showKey = !showKey;
-                }),
-                icon: const Icon(Icons.key_outlined),
-                label: Center(
-                  child: Text(
-                    getButtonText(ButtonResolverKey.totpManualKey),
-                  ),
-                ),
-              ),
-            ],
+        if (isMobile) ...[
+          iconToggleButton(
+            conditional: showKey,
+            icon: Icons.key_outlined,
+            label: getButtonText(ButtonResolverKey.totpManualKey),
+            onPressed: () => setState(() {
+              showKey = !showKey;
+              showQRCode = false;
+            }),
           ),
+        ],
+
         const Padding(padding: widgetTopPadding),
 
         /// Manual Key

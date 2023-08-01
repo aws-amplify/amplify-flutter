@@ -205,7 +205,7 @@ abstract class AuthenticatorButtonLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Step up Authenticator App'**
-  String get totpStepperAppSetup;
+  String get totpStepperSetup;
 
   /// Label of the confirm step button for the TOTP setup stepper.
   ///

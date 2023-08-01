@@ -28,7 +28,7 @@ enum ButtonResolverKeyType {
   openTotpApp,
   totpManualKey,
   totpQrCode,
-  totpStepperAppSetup,
+  totpStepperSetup,
   totpStepperConfirm,
 }
 
@@ -74,8 +74,8 @@ class ButtonResolverKey {
       ButtonResolverKey._(ButtonResolverKeyType.totpManualKey);
   static const totpQrCode =
       ButtonResolverKey._(ButtonResolverKeyType.totpQrCode);
-  static const totpStepperAppSetup =
-      ButtonResolverKey._(ButtonResolverKeyType.totpStepperAppSetup);
+  static const totpStepperSetup =
+      ButtonResolverKey._(ButtonResolverKeyType.totpStepperSetup);
   static const totpStepperConfirm =
       ButtonResolverKey._(ButtonResolverKeyType.totpStepperConfirm);
 
@@ -190,8 +190,8 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
   }
 
   /// Label of the app setup step button for the TOTP setup stepper.
-  String totpStepperAppSetup(BuildContext context) {
-    return AuthenticatorLocalizations.buttonsOf(context).totpStepperAppSetup;
+  String totpStepperSetup(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).totpStepperSetup;
   }
 
   /// Label of the confirm step button for the TOTP setup stepper.
@@ -242,8 +242,8 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
         return totpQrCode(context);
       case ButtonResolverKeyType.totpManualKey:
         return totpManualKey(context);
-      case ButtonResolverKeyType.totpStepperAppSetup:
-        return totpStepperAppSetup(context);
+      case ButtonResolverKeyType.totpStepperSetup:
+        return totpStepperSetup(context);
       case ButtonResolverKeyType.totpStepperConfirm:
         return totpStepperConfirm(context);
     }
