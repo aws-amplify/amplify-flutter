@@ -9,13 +9,14 @@ import { Construct } from "constructs";
 import { AnalyticsIntegrationTestStack } from "./analytics/stack";
 import {
   AuthIntegrationTestStack,
-  AuthIntegrationTestStackEnvironmentProps
+  AuthIntegrationTestStackEnvironmentProps,
 } from "./auth/stack";
 import { IntegrationTestStack } from "./common";
 import {
   StorageAccessLevel,
-  StorageIntegrationTestStack
+  StorageIntegrationTestStack,
 } from "./storage/stack";
+import { LoggingIntegrationTestStackEnvironment } from "./logging/stack";
 
 export class AmplifyFlutterIntegStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -76,7 +77,7 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
     const analytics = new AnalyticsIntegrationTestStack(this, [
       { environmentName: "main" },
       { environmentName: "no-unauth-access", allowUnauthAccess: false },
-      { environmentName: "no-unauth-identities", allowUnauthIdentites: false }
+      { environmentName: "no-unauth-identities", allowUnauthIdentites: false },
     ]);
 
     // The Auth stack
@@ -254,6 +255,9 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
       },
       ...customDomainEnv,
     ]);
+
+    // The Logging stack
+    const logging = new LoggingIntegrationTestStackEnvironment(this, 'Logging', {environmentName: "main"});
 
     // The Storage stack
     const storage = new StorageIntegrationTestStack(this, [
