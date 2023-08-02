@@ -38,7 +38,7 @@ class DataStoreHubEventStreamHandler : EventChannel.StreamHandler {
     private var forwardHubResponse: (event: Map<String, Any>) -> Unit
 
     // DataStore hub event history. Used to track events which may be lost on hot restart, such as sync and ready events.
-    private var eventHistory: MutableList<HubEvent<*>> = mutableListOf()
+    private var eventHistory: MutableList<HubEvent<*>> = java.util.Collections.synchronizedList(mutableListOf())
 
     // Event types which should be replayed on hot restart.
     private val replayEvents: Set<String> = setOf(
