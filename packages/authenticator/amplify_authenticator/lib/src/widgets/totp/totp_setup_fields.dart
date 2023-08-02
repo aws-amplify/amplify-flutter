@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:amplify_authenticator/src/l10n/button_resolver.dart';
 import 'package:amplify_authenticator/src/utils/responsive.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
@@ -40,9 +42,9 @@ mixin TotpSetupFields<FieldType extends Enum,
         ClipboardData(text: state.totpSetupDetails!.sharedSecret),
       );
       // There is a bug in the analysis that causes this line to fail linting
-      // This check resolves lint error in beta, thus lint error can be ignored
+      // This check resolves lint error in beta, thus the lint error can be
+      // ignored using use_build_context_synchronously
       if (!context.mounted) return;
-      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Theme.of(context).colorScheme.primary,
