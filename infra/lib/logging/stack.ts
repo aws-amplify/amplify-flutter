@@ -1,16 +1,50 @@
 import { Construct } from "constructs";
-import { IntegrationTestStackEnvironment, IntegrationTestStackEnvironmentProps } from "../common";
+import { IntegrationTestStackEnvironment, IntegrationTestStackEnvironmentProps, AmplifyCategory, IntegrationTestStack, randomBucketName } from "../common";
 import * as cdk from "aws-cdk-lib"
 import * as logs from "aws-cdk-lib/aws-logs"
 import * as path from "path"
 import * as iam from "aws-cdk-lib/aws-iam"
 import * as cognito_identity from "@aws-cdk/aws-cognito-identitypool-alpha";
+import { BucketDeployment, Source } from "aws-cdk-lib/aws-s3-deployment";
 
-export class LoggingIntegrationTestStackEnvironment extends IntegrationTestStackEnvironment<IntegrationTestStackEnvironmentProps> {
+import * as S3 from "aws-cdk-lib/aws-s3"
+import * as lambda from "aws-cdk-lib/aws-lambda"
+import * as ApiGateway from "aws-cdk-lib/aws-apigateway"
+
+export class LoggingIntegrationTestStack extends IntegrationTestStack<LoggingIntegrationTestStackEnvironmentProps, LoggingIntegrationTestStackEnvironment> {
+    // protected buildEnvironments(props: LoggingIntegrationTestStackEnvironmentProps[]): LoggingIntegrationTestStackEnvironment[] {
+    //     throw new Error("Method not implemented.");
+    // }
+    constructor(
+        scope: Construct,
+        environments: LoggingIntegrationTestStackEnvironmentProps[],
+        props?: cdk.NestedStackProps,
+    ) {
+        super({
+            scope,
+            category: AmplifyCategory.Logging,
+            environments,
+            props,
+        })
+    }
+
+    protected buildEnvironments(
+        environments: LoggingIntegrationTestStackEnvironmentProps[],
+    ): LoggingIntegrationTestStackEnvironment[] {
+        return environments.map((envProps) => {
+            return new LoggingIntegrationTestStackEnvironment(
+                this,
+                this.baseName,
+                envProps,
+            )
+        })
+    }
+}
+export class LoggingIntegrationTestStackEnvironment extends IntegrationTestStackEnvironment<LoggingIntegrationTestStackEnvironmentProps> {
     constructor(
         scope: Construct,
         baseName: string,
-        props: IntegrationTestStackEnvironmentProps,
+        props: LoggingIntegrationTestStackEnvironmentProps,
     ) {
         super(scope, baseName, props);
 
@@ -38,8 +72,91 @@ export class LoggingIntegrationTestStackEnvironment extends IntegrationTestStack
         authRole.addToPrincipalPolicy(logIAMPolicy)
         unAuthRole.addToPrincipalPolicy(logIAMPolicy)
 
-        new cdk.CfnOutput(this, 'CloudWatchLogGroupName', { value: logGroup.logGroupName });
-        new cdk.CfnOutput(this, 'CloudWatchRegion', { value: region });
+        // remote config
+        if (props.remoteConfig) {
+
+            const loggingConfigLocation = 'lib/logging/resources/config/remoteloggingconstraints.json';
+            const lambdaConfig = 'lib/logging/resources/lambda/remoteconfig.js';
+            const configFileName = 'lib/loggingremoteconfig.json';
+
+            // Create a bucket for the remote config
+            const remoteConfigBucket = new S3.Bucket(this, 'AmplifyRemoteLogging-Bucket', {
+                publicReadAccess: false,
+                versioned: true,
+                removalPolicy: cdk.RemovalPolicy.DESTROY,
+                enforceSSL: true,
+                blockPublicAccess: S3.BlockPublicAccess.BLOCK_ALL,
+            });
+
+            // Deploy the remote config to the bucket
+            new BucketDeployment(this, 'AmplifyRemoteLogging-BucketDeployment', {
+                sources: [
+                    Source.asset(path.dirname(path.join(loggingConfigLocation))),
+                ],
+                destinationBucket: remoteConfigBucket,
+                destinationKeyPrefix: 'config',
+            });
+
+            // Create a lambda function to handle the remote config
+            const handler = new lambda.Function(this,'AmplifyRemoteLogging-Handler', {
+                runtime: lambda.Runtime.NODEJS_18_X,
+                code: lambda.Code.fromAsset(path.dirname(path.join(lambdaConfig))),
+                handler: 'remotelogging.main',
+                environment: {
+                    // BUCKET: bucketName, 
+                    KEY: configFileName,
+                }
+            });
+
+            // Grant the lambda function read access to the remote config bucket
+            remoteConfigBucket.grantRead(handler);
+
+            // Create an API Gateway endpoint for the remote config
+            const api = new ApiGateway.RestApi(this, 'AmplifyRemoteLogging-Api', {
+                restApiName: 'AmplifyRemoteLogging-Api',
+                description: 'This is an API Gateway endpoint for remote logging',
+            });
+
+            // Create a GET method for the API Gateway endpoint
+            const getRemoteLoggingIntegration = new ApiGateway.LambdaIntegration(handler);
+
+            // Create a resource for the GET method
+            const loggingConstraints = api.root.addResource('loggingconstraints');
+
+            // Add the GET method to the resource
+            const getLoggingConstraints = loggingConstraints.addMethod('GET', getRemoteLoggingIntegration, {
+                authorizationType: ApiGateway.AuthorizationType.IAM,
+            });
+
+            // Add a policy to allow the API Gateway endpoint to be invoked
+            const apiInvokePolicy = new iam.PolicyStatement({
+                effect: iam.Effect.ALLOW,
+                resources: [getLoggingConstraints.methodArn],
+                actions: ["execute-api:Invoke"]
+            });
+
+            authRole.addToPrincipalPolicy(apiInvokePolicy);
+            unAuthRole.addToPrincipalPolicy(apiInvokePolicy);
+
+            this.config = {
+
+            }
+
+            new cdk.CfnOutput(this, 'APIEndpoint', {
+                value: `https://${api.restApiId}.execute-api.${region}.amazonaws.com/prod/loggingconstraints`
+            });
+            
+            new cdk.CfnOutput(this, 'CloudWatchLogGroupName', { value: logGroup.logGroupName });
+            new cdk.CfnOutput(this, 'CloudWatchRegion', { value: region });
+        }
+        
     }
 
+}
+
+interface LoggingIntegrationTestStackEnvironmentProps extends IntegrationTestStackEnvironmentProps {
+    /**
+     * Allow remote config
+     */
+    remoteConfig?: boolean
 }

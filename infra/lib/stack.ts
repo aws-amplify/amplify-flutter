@@ -16,7 +16,7 @@ import {
   StorageAccessLevel,
   StorageIntegrationTestStack,
 } from "./storage/stack";
-import { LoggingIntegrationTestStackEnvironment } from "./logging/stack";
+import { LoggingIntegrationTestStack, LoggingIntegrationTestStackEnvironment } from "./logging/stack";
 
 export class AmplifyFlutterIntegStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -257,7 +257,11 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
     ]);
 
     // The Logging stack
-    const logging = new LoggingIntegrationTestStackEnvironment(this, 'Logging', {environmentName: "main"});
+    // const logging = new LoggingIntegrationTestStackEnvironment(this, 'Logging', {environmentName: "main"});
+    const logging = new LoggingIntegrationTestStack(this, [
+      { environmentName: "main" },
+      { environmentName: "remote-config", remoteConfig: true },
+    ]);
 
     // The Storage stack
     const storage = new StorageIntegrationTestStack(this, [
