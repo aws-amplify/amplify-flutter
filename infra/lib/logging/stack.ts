@@ -15,9 +15,6 @@ import * as lambda from "aws-cdk-lib/aws-lambda"
 import * as api_gateway from "aws-cdk-lib/aws-apigateway"
 
 export class LoggingIntegrationTestStack extends IntegrationTestStack<LoggingIntegrationTestStackEnvironmentProps, LoggingIntegrationTestStackEnvironment> {
-    // protected buildEnvironments(props: LoggingIntegrationTestStackEnvironmentProps[]): LoggingIntegrationTestStackEnvironment[] {
-    //     throw new Error("Method not implemented.");
-    // }
     constructor(
         scope: Construct,
         environments: LoggingIntegrationTestStackEnvironmentProps[],
