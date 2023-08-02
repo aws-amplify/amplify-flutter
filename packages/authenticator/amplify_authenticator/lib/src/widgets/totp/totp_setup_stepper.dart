@@ -50,7 +50,9 @@ class AuthenticatorTotpSetupStepper<T extends AuthenticatorForm>
             onStepTapped: setStep,
             steps: <Step>[
               Step(
-                title: Text(getButtonText(ButtonResolverKey.totpStepperSetup)),
+                title: Text(
+                  getButtonText(ButtonResolverKey.totpStepperSetup),
+                ),
                 content: Column(
                   children: [
                     ConfirmSignInFormField.openTotpAppButton(),
@@ -59,8 +61,9 @@ class AuthenticatorTotpSetupStepper<T extends AuthenticatorForm>
                 ),
               ),
               Step(
-                title:
-                    Text(getButtonText(ButtonResolverKey.totpStepperConfirm)),
+                title: Text(
+                  getButtonText(ButtonResolverKey.totpStepperConfirm),
+                ),
                 content: Column(
                   children: [
                     ConfirmSignInFormField.verificationCode(),
@@ -80,18 +83,18 @@ class AuthenticatorTotpSetupStepper<T extends AuthenticatorForm>
                       onPressed: controlsDetails.onStepContinue,
                       child: const Text('Continue'),
                     ),
-                  if (_index == 1)
+                  if (_index == 1) ...[
                     TextButton(
                       onPressed: controlsDetails.onStepCancel,
                       child: const Text('Back'),
                     ),
-                  if (_index == 1)
                     const SizedBox(
                       width: 100,
                       child: ConfirmSignInMFAButton(
                         key: keyConfirmTotpStepperButton,
                       ),
                     ),
+                  ],
                 ],
               );
             },

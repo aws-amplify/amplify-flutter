@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_authenticator/src/l10n/button_resolver.dart';
+import 'package:amplify_authenticator/src/utils/responsive.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -37,17 +38,18 @@ mixin TotpSetupFields<FieldType extends Enum,
     try {
       await Clipboard.setData(
         ClipboardData(text: state.totpSetupDetails!.sharedSecret),
-      ).then((value) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            content: const Text(
-              'Copied to clipboard!',
-              textAlign: TextAlign.center,
-            ),
+      );
+      if (!context.mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          content: const Text(
+            'Copied to clipboard!',
+            textAlign: TextAlign.center,
           ),
-        );
-      });
+        ),
+      );
     } on PlatformException {
       if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -95,9 +97,7 @@ mixin TotpSetupFields<FieldType extends Enum,
     return const Row(
       children: [
         Expanded(
-          child: Divider(
-            height: 0,
-          ),
+          child: Divider(height: 0),
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 10),
@@ -107,9 +107,7 @@ mixin TotpSetupFields<FieldType extends Enum,
           ),
         ),
         Expanded(
-          child: Divider(
-            height: 0,
-          ),
+          child: Divider(height: 0),
         ),
       ],
     );
@@ -119,9 +117,8 @@ mixin TotpSetupFields<FieldType extends Enum,
   Widget buildFormField(BuildContext context) {
     final brightness = MediaQuery.of(context).platformBrightness;
     final isDarkMode = brightness == Brightness.dark;
-    final isMobile = Theme.of(context).platform == TargetPlatform.iOS ||
-        Theme.of(context).platform == TargetPlatform.android;
-    const widgetTopPadding = EdgeInsets.only(top: 20);
+    final isMobile = isMobileOrWebMobile(context);
+    const spacingBox = SizedBox(height: 20);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -129,7 +126,7 @@ mixin TotpSetupFields<FieldType extends Enum,
         /// QR Code Toggle Button
         if (isMobile) ...[
           optionDivider(),
-          const Padding(padding: widgetTopPadding),
+          spacingBox,
           iconToggleButton(
             conditional: showQRCode,
             icon: Icons.qr_code,
@@ -144,7 +141,7 @@ mixin TotpSetupFields<FieldType extends Enum,
         /// QR Code
         /// Shown on desktop or when toggled on mobile
         if (!isMobile || showQRCode) ...[
-          const Padding(padding: widgetTopPadding),
+          spacingBox,
           Center(
             child: QrImageView(
               size: 150,
@@ -160,9 +157,9 @@ mixin TotpSetupFields<FieldType extends Enum,
           ),
         ],
 
-        const Padding(padding: widgetTopPadding),
+        spacingBox,
         optionDivider(),
-        const Padding(padding: widgetTopPadding),
+        spacingBox,
 
         /// Manual Key Toggle Button
         if (isMobile) ...[
@@ -177,7 +174,7 @@ mixin TotpSetupFields<FieldType extends Enum,
           ),
         ],
 
-        const Padding(padding: widgetTopPadding),
+        spacingBox,
 
         /// Manual Key
         /// Shown on desktop or when toggled on mobile
@@ -188,7 +185,7 @@ mixin TotpSetupFields<FieldType extends Enum,
                 onPressed: _copyKey,
                 icon: const Icon(Icons.copy),
               ),
-              const Padding(padding: EdgeInsets.only(left: 10)),
+              const SizedBox(width: 10),
               Expanded(
                 child: SelectableText(
                   state.totpSetupDetails!.sharedSecret,
