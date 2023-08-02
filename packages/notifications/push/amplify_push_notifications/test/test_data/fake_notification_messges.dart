@@ -60,6 +60,12 @@ const standardiOSMessage = {
   },
 };
 
+const simpleAlertiOSMessage = {
+  'aps': {
+    'alert': 'Hello, world',
+  },
+};
+
 const imageUrliOSMessage = {
   'data': {
     'media-url': 'TEST_URL',
