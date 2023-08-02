@@ -18,7 +18,7 @@ import {
   StorageIntegrationTestStack,
   StorageIntegrationTestStack,
 } from "./storage/stack";
-import { LoggingIntegrationTestStackEnvironment } from "./logging/stack";
+import { LoggingIntegrationTestStack, LoggingIntegrationTestStackEnvironment } from "./logging/stack";
 
 export class AmplifyFlutterIntegStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
