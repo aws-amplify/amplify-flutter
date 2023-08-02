@@ -28,7 +28,7 @@
     "@aws-cdk/aws-cognito-identitypool-alpha": "2.77.0-alpha.0",
     "@aws-crypto/client-node": "^3.2.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.382.0",
-    "aws-cdk-lib": "2.77.0",
+    "aws-cdk-lib": "2.80.0",
     "constructs": "^10.2.9",
     "node-fetch": "^3.3.1",
     "source-map-support": "^0.5.21"

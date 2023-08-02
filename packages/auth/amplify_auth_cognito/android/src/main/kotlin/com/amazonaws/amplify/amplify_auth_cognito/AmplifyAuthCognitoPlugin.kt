@@ -20,12 +20,6 @@ import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.PluginRegistry
-import kotlinx.coroutines.CoroutineName
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.plus
 import java.util.Locale
 
 open class AmplifyAuthCognitoPlugin :
@@ -43,9 +37,9 @@ open class AmplifyAuthCognitoPlugin :
     const val CUSTOM_TAB_REQUEST_CODE = 8888
 
     /**
-     * The scope in which to spawn tasks which should not be awaited from the main thread.
+     * An intent extra used to signal the cancellation of a Hosted UI sign-in/sign-out.
      */
-    val scope = CoroutineScope(Dispatchers.IO) + CoroutineName("amplify_flutter.AuthCognito")
+    const val CUSTOM_TAB_CANCEL_EXTRA = "com.amazonaws.amplify.auth.hosted_ui.cancel"
   }
 
   /**
@@ -194,6 +188,7 @@ open class AmplifyAuthCognitoPlugin :
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         packageManager.getPackageInfo(packageName, PackageInfoFlags.of(0)).versionName
       } else {
+        @Suppress("DEPRECATION")
         packageManager.getPackageInfo(packageName, 0).versionName
       }
     } catch (e: PackageManager.NameNotFoundException) {
@@ -310,6 +305,8 @@ open class AmplifyAuthCognitoPlugin :
   /**
    * The application ID of the installed package which can handle custom tabs,
    * typically a browser like Chrome.
+   *
+   * Adapted from: https://github.com/GoogleChrome/custom-tabs-client/blob/f55501961a211a92eacbe3c2f15d7c58c19c8ef9/shared/src/main/java/org/chromium/customtabsclient/shared/CustomTabsHelper.java#L64
    */
   private val browserPackageName: String? by lazy {
     val packageManager = mainActivity!!.packageManager
@@ -319,10 +316,18 @@ open class AmplifyAuthCognitoPlugin :
       addCategory(Intent.CATEGORY_BROWSABLE)
       data = Uri.fromParts("https", "", null)
     }
-    val defaultViewHandlerInfo = packageManager.resolveActivity(
-      activityIntent,
-      MATCH_DEFAULT_ONLY
-    )
+    val defaultViewHandlerInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+      packageManager.resolveActivity(
+        activityIntent,
+        PackageManager.ResolveInfoFlags.of(MATCH_DEFAULT_ONLY.toLong())
+      )
+    } else {
+      @Suppress("DEPRECATION")
+      packageManager.resolveActivity(
+        activityIntent,
+        MATCH_DEFAULT_ONLY
+      )
+    }
     Log.d(TAG, "[browserPackageName] Resolved activity info: $defaultViewHandlerInfo")
     var defaultViewHandlerPackageName: String? = null
     if (defaultViewHandlerInfo != null) {
@@ -331,14 +336,28 @@ open class AmplifyAuthCognitoPlugin :
     Log.d(TAG, "[browserPackageName] Resolved default package: $defaultViewHandlerPackageName")
 
     // Get all apps that can handle VIEW intents.
-    val resolvedActivityList = packageManager.queryIntentActivities(activityIntent, MATCH_ALL)
+    val resolvedActivityList = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+      packageManager.queryIntentActivities(
+        activityIntent,
+        PackageManager.ResolveInfoFlags.of(MATCH_ALL.toLong())
+      )
+    } else {
+      @Suppress("DEPRECATION")
+      packageManager.queryIntentActivities(activityIntent, MATCH_ALL)
+    }
     val packagesSupportingCustomTabs = mutableListOf<String>()
     for (info in resolvedActivityList) {
       val serviceIntent = Intent()
       serviceIntent.action = ACTION_CUSTOM_TABS_CONNECTION
       serviceIntent.`package` = info.activityInfo.packageName
       // Check if the package also resolves the Custom Tabs service.
-      if (packageManager.resolveService(serviceIntent, 0) != null) {
+      val resolvedService = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        packageManager.resolveService(serviceIntent, PackageManager.ResolveInfoFlags.of(0))
+      } else {
+        @Suppress("DEPRECATION")
+        packageManager.resolveService(serviceIntent, 0)
+      }
+      if (resolvedService != null) {
         packagesSupportingCustomTabs.add(info.activityInfo.packageName)
       }
     }
@@ -461,6 +480,12 @@ open class AmplifyAuthCognitoPlugin :
         }
         true
       }
+    } else if (intent.hasExtra(CUSTOM_TAB_CANCEL_EXTRA)) {
+      // Intents originating with this extra are meant to close the loop on sign-in/out events.
+      // See the notes on [onActivityResult] for more information.
+      Log.d(TAG, "[onNewIntent] Cancelling current operation")
+      cancelCurrentOperation()
+      return true
     }
     Log.d(TAG, "[onNewIntent] Not handling intent")
     return false
@@ -469,20 +494,28 @@ open class AmplifyAuthCognitoPlugin :
   /**
    * Called when the custom tab activity completes, either by cancellation or success.
    *
-   * There is no way to distinguish whether it is a success or cancellation, but since this is
-   * called just before or after [onNewIntent], we wait a second for both to be called.
-   * Afterwards, we are guaranteed that if [signInResult]/[signOutResult] is not `null`, then it
-   * is a cancellation since otherwise, [handleSignInResult] would have set it to `null`.
+   * There is no way to distinguish whether it is a success or cancellation, and our logic for
+   * handling the success case is centered in [onNewIntent] which is called just before or after
+   * this method in the success case and not at all in the error case.
+   *
+   * In the cancellation case, [onNewIntent] is not called, only this method, which means that
+   * we either need to wait for a couple seconds to see if [onNewIntent] is called or trigger an
+   * intent of our own which will be intercepted by [onNewIntent]. The former is flaky and found to
+   * be unreliable, but the latter is robust.
+   *
+   * By the time we reach this method, a new intent will have been initiated in the success case.
+   * By creating a new one, we are guaranteed it will be handled after the success intent, in which
+   * case it's a no-op. In the error case, the intent we create will trigger the cancellation of
+   * the pending sign-in or sign-out request. Either way, the request is completed.
    */
   override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?): Boolean {
     Log.d(TAG, "[onActivityResult] Got result: requestCode=$requestCode, resultCode=$resultCode, intent=$intent")
     if (requestCode == CUSTOM_TAB_REQUEST_CODE) {
-      scope.launch {
-        delay(1000L)
-        launch(Dispatchers.Main) {
-          cancelCurrentOperation()
-        }
+      val cancelIntent = Intent(applicationContext!!, mainActivity!!.javaClass).apply {
+        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        putExtra(CUSTOM_TAB_CANCEL_EXTRA, true)
       }
+      applicationContext!!.startActivity(cancelIntent)
       return true
     }
     return false
