@@ -5,7 +5,7 @@ part of authenticator.form_field;
 
 /// {@category Prebuilt Widgets}
 /// {@template amplify_authenticator.mfa_selection_form_field}
-/// A prebuilt [Radio] widget for use on the MFA selection step.
+/// A prebuilt form widget for use on the MFA selection step.
 /// {@endtemplate}
 
 class _MfaSelectionRadioField extends ConfirmSignInFormField<MfaType> {
