@@ -7,15 +7,17 @@ on:
       - stable
   pull_request:
     paths:
-      - '.github/workflows/dart_vm.yaml'
       - '.github/workflows/dart_native.yaml'
+      - '.github/workflows/dart_vm.yaml'
       - '.github/workflows/pub_server.yaml'
+      - 'packages/amplify_lints/lib/**/*.yaml'
+      - 'packages/amplify_lints/pubspec.yaml'
+      - 'packages/aws_common/lib/**/*.dart'
+      - 'packages/aws_common/pubspec.yaml'
       - 'packages/test/pub_server/**/*.dart'
       - 'packages/test/pub_server/**/*.yaml'
       - 'packages/test/pub_server/lib/**/*'
       - 'packages/test/pub_server/test/**/*'
-      - 'packages/aws_common/pubspec.yaml'
-      - 'packages/aws_common/lib/**/*.dart'
   schedule:
     - cron: "0 0 * * 0" # Every Sunday at 00:00
 defaults:
@@ -27,9 +29,11 @@ jobs:
   test:
     uses: ./.github/workflows/dart_vm.yaml
     with:
+      package-name: pub_server
       working-directory: packages/test/pub_server
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml
     with:
+      package-name: pub_server
       working-directory: packages/test/pub_server
