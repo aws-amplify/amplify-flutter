@@ -48,16 +48,16 @@ export class LoggingIntegrationTestStackEnvironment extends IntegrationTestStack
     ) {
         super(scope, baseName, props);
 
-        const region = cdk.Stack.of(this).region
-        const account = cdk.Stack.of(this).account
+        const region = cdk.Stack.of(this).region;
+        const account = cdk.Stack.of(this).account;
 
         const logGroup = new logs.LogGroup(this, 'Log Group', {
                 retention: logs.RetentionDays.INFINITE
-            })
+        });
 
         const identityPool = new cognito_identity.IdentityPool(this, "IdentityPool", {
                 allowUnauthenticatedIdentities: true,
-            });
+        });
         
         const authRole = identityPool.authenticatedRole;
         const unAuthRole = identityPool.unauthenticatedRole;
@@ -67,10 +67,10 @@ export class LoggingIntegrationTestStackEnvironment extends IntegrationTestStack
             effect: iam.Effect.ALLOW,
             resources: [logResource],
             actions: ["logs:PutLogEvents", "logs:DescribeLogStreams", "logs:CreateLogStream"]
-        })
+        });
 
-        authRole.addToPrincipalPolicy(logIAMPolicy)
-        unAuthRole.addToPrincipalPolicy(logIAMPolicy)
+        authRole.addToPrincipalPolicy(logIAMPolicy);
+        unAuthRole.addToPrincipalPolicy(logIAMPolicy);
 
         // remote config
         if (props.remoteConfig) {
@@ -91,7 +91,7 @@ export class LoggingIntegrationTestStackEnvironment extends IntegrationTestStack
             // Deploy the remote config to the bucket
             new BucketDeployment(this, 'AmplifyRemoteLogging-BucketDeployment', {
                 sources: [
-                    Source.asset(path.dirname(path.join(loggingConfigLocation))),
+                    Source.asset(path.dirname(loggingConfigLocation)),
                 ],
                 destinationBucket: remoteConfigBucket,
                 destinationKeyPrefix: 'config',
