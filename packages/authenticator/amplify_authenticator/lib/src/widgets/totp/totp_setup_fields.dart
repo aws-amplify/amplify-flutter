@@ -39,8 +39,10 @@ mixin TotpSetupFields<FieldType extends Enum,
       await Clipboard.setData(
         ClipboardData(text: state.totpSetupDetails!.sharedSecret),
       );
+      // There is a bug in the analysis that causes this line to fail linting
+      // This check resolves lint error in beta, thus lint error can be ignored
       if (!context.mounted) return;
-
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Theme.of(context).colorScheme.primary,
