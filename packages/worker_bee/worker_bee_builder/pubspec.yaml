@@ -9,7 +9,7 @@ environment:
   sdk: ^3.0.0
 
 dependencies:
-  analyzer: ^5.1.0
+  analyzer: ">=5.1.0 <7.0.0"
   async: ^2.10.0
   build: ^2.2.1
   code_builder: 4.5.0
