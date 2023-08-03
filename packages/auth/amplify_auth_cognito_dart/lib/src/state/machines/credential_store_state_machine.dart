@@ -49,8 +49,12 @@ final class CredentialStoreStateMachine
   Future<void> resolve(CredentialStoreEvent event) async {
     switch (event) {
       case CredentialStoreLoadCredentialStore _:
-        emit(const CredentialStoreState.loadingStoredCredentials());
-        await onLoadCredentialStore(event);
+        if (currentState case final CredentialStoreSuccess success) {
+          emit(success);
+        } else {
+          emit(const CredentialStoreState.loadingStoredCredentials());
+          await onLoadCredentialStore(event);
+        }
       case CredentialStoreStoreCredentials _:
         emit(const CredentialStoreState.storingCredentials());
         await onStoreCredentials(event);
