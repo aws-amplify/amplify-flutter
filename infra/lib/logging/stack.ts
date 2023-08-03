@@ -100,7 +100,7 @@ export class LoggingIntegrationTestStackEnvironment extends IntegrationTestStack
             // Create a lambda function to handle the remote config
             const handler = new lambda.Function(this,'AmplifyRemoteLogging-Handler', {
                 runtime: lambda.Runtime.NODEJS_18_X,
-                code: lambda.Code.fromAsset(path.dirname(path.join(lambdaConfig))),
+                code: lambda.Code.fromAsset(path.dirname(lambdaConfig)),
                 handler: 'remotelogging.main',
                 environment: {
                     KEY: configFileName,
