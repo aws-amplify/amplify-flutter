@@ -77,7 +77,7 @@ export class LoggingIntegrationTestStackEnvironment extends IntegrationTestStack
 
             const loggingConfigLocation = 'lib/logging/resources/config/remoteloggingconstraints.json';
             const lambdaConfig = 'lib/logging/resources/lambda/remoteconfig.js';
-            const configFileName = 'lib/logging/remoteconfig.json';
+            const configFileName = 'remoteloggingconstraints.json';
 
             // Create a bucket for the remote config
             const remoteConfigBucket = new s3.Bucket(this, 'AmplifyRemoteLogging-Bucket', {
