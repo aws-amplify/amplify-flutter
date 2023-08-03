@@ -28,6 +28,7 @@ inline class Core {
     }
   }
 
+  external void debug(String name);
   external void info(String name);
   external void warning(String name);
   external void error(String name);
