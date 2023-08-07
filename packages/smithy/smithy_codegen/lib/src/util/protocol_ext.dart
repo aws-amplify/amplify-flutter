@@ -92,7 +92,7 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
 
     var needsContentLength = true;
     final inputShape = shape.inputShape(context);
-    final inputPayload = inputShape.httpPayload(context);
+    final inputPayload = inputShape.httpPayload;
     final payloadMember = inputPayload.member;
     if (payloadMember != null) {
       final targetShape = context.shapeFor(payloadMember.target);
@@ -102,7 +102,7 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
     }
     // Empty payloads should not contain `Content-Length` and `Content-Type`
     // headers.
-    if (inputShape.payloadMembers(context).isEmpty) {
+    if (inputShape.payloadMembers.isEmpty) {
       needsContentLength = false;
     }
     if (needsContentLength) {
@@ -130,7 +130,7 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
       case RestJson1Trait _:
         // Empty payloads should not contain `Content-Length` and `Content-Type`
         // headers.
-        if (inputShape.payloadMembers(context).isEmpty) {
+        if (inputShape.payloadMembers.isEmpty) {
           yield* [
             DartTypes.smithy.withNoHeader.constInstance([
               literalString('Content-Length'),
@@ -239,7 +239,7 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
     CodegenContext context,
   ) {
     final inputShape = shape.inputShape(context);
-    final inputPayload = inputShape.httpPayload(context);
+    final inputPayload = inputShape.httpPayload;
     final parameters = <String, Expression>{};
     switch (this) {
       case RestJson1Trait _ || RestXmlTrait _:
