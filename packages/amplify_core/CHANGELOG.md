@@ -1,3 +1,10 @@
+## 1.3.1
+
+### Fixes
+- fix(auth): Remove `nonce` usage ([#3321](https://github.com/aws-amplify/amplify-flutter/pull/3321))
+- fix(push): Incorrect handling of simple alert ([#3502](https://github.com/aws-amplify/amplify-flutter/pull/3502))
+- perf(auth): Fetch auth session ([#3510](https://github.com/aws-amplify/amplify-flutter/pull/3510))
+
 ## 1.3.0
 
 ### Features

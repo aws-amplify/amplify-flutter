@@ -1,3 +1,8 @@
+## 1.3.1
+
+### Fixes
+- fix(auth): Android Hosted UI flakiness
+
 ## 1.3.0
 
 ### Features

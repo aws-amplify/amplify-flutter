@@ -1,3 +1,11 @@
+## 1.3.1
+
+### Fixes
+- fix(auth): Android Hosted UI flakiness
+- fix(datastore): hot restart ([#3497](https://github.com/aws-amplify/amplify-flutter/pull/3497))
+- fix(datastore): make event history list thread safe ([#3509](https://github.com/aws-amplify/amplify-flutter/pull/3509))
+- fix(push): Incorrect handling of simple alert ([#3502](https://github.com/aws-amplify/amplify-flutter/pull/3502))
+
 ## 1.3.0
 
 ### Features
