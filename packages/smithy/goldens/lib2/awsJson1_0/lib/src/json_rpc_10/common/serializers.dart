@@ -3,9 +3,9 @@
 
 library aws_json1_0_v2.json_rpc_10.common.serializers; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_json1_0_v2/src/json_rpc_10/model/aws_config.dart' as _i29;
+import 'package:aws_json1_0_v2/src/json_rpc_10/model/aws_config.dart' as _i30;
 import 'package:aws_json1_0_v2/src/json_rpc_10/model/client_config.dart'
-    as _i26;
+    as _i27;
 import 'package:aws_json1_0_v2/src/json_rpc_10/model/complex_error.dart' as _i5;
 import 'package:aws_json1_0_v2/src/json_rpc_10/model/complex_nested_error_data.dart'
     as _i6;
@@ -16,9 +16,9 @@ import 'package:aws_json1_0_v2/src/json_rpc_10/model/empty_input_and_empty_outpu
 import 'package:aws_json1_0_v2/src/json_rpc_10/model/endpoint_with_host_label_operation_input.dart'
     as _i4;
 import 'package:aws_json1_0_v2/src/json_rpc_10/model/environment_config.dart'
-    as _i21;
+    as _i22;
 import 'package:aws_json1_0_v2/src/json_rpc_10/model/file_config_settings.dart'
-    as _i24;
+    as _i25;
 import 'package:aws_json1_0_v2/src/json_rpc_10/model/foo_enum.dart' as _i13;
 import 'package:aws_json1_0_v2/src/json_rpc_10/model/foo_error.dart' as _i7;
 import 'package:aws_json1_0_v2/src/json_rpc_10/model/greeting_struct.dart'
@@ -38,19 +38,21 @@ import 'package:aws_json1_0_v2/src/json_rpc_10/model/my_union.dart' as _i16;
 import 'package:aws_json1_0_v2/src/json_rpc_10/model/no_input_and_output_output.dart'
     as _i17;
 import 'package:aws_json1_0_v2/src/json_rpc_10/model/operation_config.dart'
-    as _i27;
-import 'package:aws_json1_0_v2/src/json_rpc_10/model/retry_config.dart' as _i25;
-import 'package:aws_json1_0_v2/src/json_rpc_10/model/retry_mode.dart' as _i20;
-import 'package:aws_json1_0_v2/src/json_rpc_10/model/s3_addressing_style.dart'
-    as _i22;
-import 'package:aws_json1_0_v2/src/json_rpc_10/model/s3_config.dart' as _i23;
-import 'package:aws_json1_0_v2/src/json_rpc_10/model/scoped_config.dart'
     as _i28;
-import 'package:aws_json1_0_v2/src/json_rpc_10/model/simple_scalar_properties_input.dart'
+import 'package:aws_json1_0_v2/src/json_rpc_10/model/put_with_content_encoding_input.dart'
     as _i18;
-import 'package:aws_json1_0_v2/src/json_rpc_10/model/simple_scalar_properties_output.dart'
+import 'package:aws_json1_0_v2/src/json_rpc_10/model/retry_config.dart' as _i26;
+import 'package:aws_json1_0_v2/src/json_rpc_10/model/retry_mode.dart' as _i21;
+import 'package:aws_json1_0_v2/src/json_rpc_10/model/s3_addressing_style.dart'
+    as _i23;
+import 'package:aws_json1_0_v2/src/json_rpc_10/model/s3_config.dart' as _i24;
+import 'package:aws_json1_0_v2/src/json_rpc_10/model/scoped_config.dart'
+    as _i29;
+import 'package:aws_json1_0_v2/src/json_rpc_10/model/simple_scalar_properties_input.dart'
     as _i19;
-import 'package:built_collection/built_collection.dart' as _i30;
+import 'package:aws_json1_0_v2/src/json_rpc_10/model/simple_scalar_properties_output.dart'
+    as _i20;
+import 'package:built_collection/built_collection.dart' as _i31;
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
@@ -71,36 +73,37 @@ const List<_i1.SmithySerializer> serializers = [
   ..._i15.GreetingStruct.serializers,
   ..._i16.MyUnion.serializers,
   ..._i17.NoInputAndOutputOutput.serializers,
-  ..._i18.SimpleScalarPropertiesInput.serializers,
-  ..._i19.SimpleScalarPropertiesOutput.serializers,
-  ..._i20.RetryMode.serializers,
-  ..._i21.EnvironmentConfig.serializers,
-  ..._i22.S3AddressingStyle.serializers,
-  ..._i23.S3Config.serializers,
-  ..._i24.FileConfigSettings.serializers,
-  ..._i25.RetryConfig.serializers,
-  ..._i26.ClientConfig.serializers,
-  ..._i27.OperationConfig.serializers,
-  ..._i28.ScopedConfig.serializers,
-  ..._i29.AwsConfig.serializers,
+  ..._i18.PutWithContentEncodingInput.serializers,
+  ..._i19.SimpleScalarPropertiesInput.serializers,
+  ..._i20.SimpleScalarPropertiesOutput.serializers,
+  ..._i21.RetryMode.serializers,
+  ..._i22.EnvironmentConfig.serializers,
+  ..._i23.S3AddressingStyle.serializers,
+  ..._i24.S3Config.serializers,
+  ..._i25.FileConfigSettings.serializers,
+  ..._i26.RetryConfig.serializers,
+  ..._i27.ClientConfig.serializers,
+  ..._i28.OperationConfig.serializers,
+  ..._i29.ScopedConfig.serializers,
+  ..._i30.AwsConfig.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
   const FullType(
-    _i30.BuiltList,
+    _i31.BuiltList,
     [FullType(String)],
-  ): _i30.ListBuilder<String>.new,
+  ): _i31.ListBuilder<String>.new,
   const FullType(
-    _i30.BuiltMap,
+    _i31.BuiltMap,
     [
       FullType(String),
       FullType(String),
     ],
-  ): _i30.MapBuilder<String, String>.new,
+  ): _i31.MapBuilder<String, String>.new,
   const FullType(
-    _i30.BuiltMap,
+    _i31.BuiltMap,
     [
       FullType(String),
-      FullType(_i24.FileConfigSettings),
+      FullType(_i25.FileConfigSettings),
     ],
-  ): _i30.MapBuilder<String, _i24.FileConfigSettings>.new,
+  ): _i31.MapBuilder<String, _i25.FileConfigSettings>.new,
 };

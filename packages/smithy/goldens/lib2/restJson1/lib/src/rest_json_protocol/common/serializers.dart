@@ -3,14 +3,14 @@
 
 library rest_json1_v2.rest_json_protocol.common.serializers; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:built_collection/built_collection.dart' as _i122;
+import 'package:built_collection/built_collection.dart' as _i123;
 import 'package:built_value/serializer.dart';
 import 'package:rest_json1_v2/src/rest_json_protocol/model/all_query_string_types_input.dart'
     as _i2;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/aws_config.dart'
-    as _i121;
+    as _i122;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/client_config.dart'
-    as _i118;
+    as _i119;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/complex_error.dart'
     as _i15;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/complex_nested_error_data.dart'
@@ -32,9 +32,9 @@ import 'package:rest_json1_v2/src/rest_json_protocol/model/empty_input_and_empty
 import 'package:rest_json1_v2/src/rest_json_protocol/model/enum_payload_input.dart'
     as _i20;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/environment_config.dart'
-    as _i113;
+    as _i114;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/file_config_settings.dart'
-    as _i116;
+    as _i117;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/foo_enum.dart'
     as _i3;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/foo_error.dart'
@@ -172,9 +172,9 @@ import 'package:rest_json1_v2/src/rest_json_protocol/model/omits_null_serializes
 import 'package:rest_json1_v2/src/rest_json_protocol/model/omits_serializing_empty_lists_input.dart'
     as _i86;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/operation_config.dart'
-    as _i119;
+    as _i120;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/payload_config.dart'
-    as _i110;
+    as _i111;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/player_action.dart'
     as _i89;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/post_player_action_input.dart'
@@ -185,44 +185,46 @@ import 'package:rest_json1_v2/src/rest_json_protocol/model/post_union_with_json_
     as _i90;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/post_union_with_json_name_output.dart'
     as _i91;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/query_idempotency_token_auto_fill_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/put_with_content_encoding_input.dart'
     as _i93;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/query_params_as_string_list_map_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/query_idempotency_token_auto_fill_input.dart'
     as _i94;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/query_precedence_input.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/query_params_as_string_list_map_input.dart'
     as _i95;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/recursive_shapes_input_output.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/query_precedence_input.dart'
     as _i96;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/recursive_shapes_input_output_nested1.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/recursive_shapes_input_output.dart'
     as _i97;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/recursive_shapes_input_output_nested2.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/recursive_shapes_input_output_nested1.dart'
     as _i98;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/recursive_shapes_input_output_nested2.dart'
+    as _i99;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/renamed_greeting.dart'
     as _i48;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/response_code_http_fallback_input_output.dart'
-    as _i99;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/response_code_required_output.dart'
     as _i100;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/retry_config.dart'
-    as _i117;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/retry_mode.dart'
-    as _i112;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/s3_addressing_style.dart'
-    as _i114;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/s3_config.dart'
-    as _i115;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/scoped_config.dart'
-    as _i120;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/simple_scalar_properties_input_output.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/response_code_required_output.dart'
     as _i101;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/retry_config.dart'
+    as _i118;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/retry_mode.dart'
+    as _i113;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/s3_addressing_style.dart'
+    as _i115;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/s3_config.dart'
+    as _i116;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/scoped_config.dart'
+    as _i121;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/simple_scalar_properties_input_output.dart'
+    as _i102;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/simple_union.dart'
     as _i79;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/streaming_traits_input_output.dart'
-    as _i102;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/streaming_traits_require_length_input.dart'
     as _i103;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/streaming_traits_with_media_type_input_output.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/streaming_traits_require_length_input.dart'
     as _i104;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/streaming_traits_with_media_type_input_output.dart'
+    as _i105;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/string_enum.dart'
     as _i21;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/string_payload_input.dart'
@@ -230,17 +232,17 @@ import 'package:rest_json1_v2/src/rest_json_protocol/model/string_payload_input.
 import 'package:rest_json1_v2/src/rest_json_protocol/model/structure_list_member.dart'
     as _i43;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/test_body_structure_input_output.dart'
-    as _i105;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/test_config.dart'
     as _i106;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/test_no_payload_input_output.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/test_config.dart'
     as _i107;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/test_payload_blob_input_output.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/test_no_payload_input_output.dart'
     as _i108;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/test_payload_structure_input_output.dart'
+import 'package:rest_json1_v2/src/rest_json_protocol/model/test_payload_blob_input_output.dart'
     as _i109;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/test_payload_structure_input_output.dart'
+    as _i110;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/timestamp_format_headers_io.dart'
-    as _i111;
+    as _i112;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/union_input_output.dart'
     as _i47;
 import 'package:rest_json1_v2/src/rest_json_protocol/model/union_with_json_name.dart'
@@ -339,187 +341,188 @@ const List<_i1.SmithySerializer> serializers = [
   ..._i90.PostUnionWithJsonNameInput.serializers,
   ..._i91.PostUnionWithJsonNameOutput.serializers,
   ..._i92.UnionWithJsonName.serializers,
-  ..._i93.QueryIdempotencyTokenAutoFillInput.serializers,
-  ..._i94.QueryParamsAsStringListMapInput.serializers,
-  ..._i95.QueryPrecedenceInput.serializers,
-  ..._i96.RecursiveShapesInputOutput.serializers,
-  ..._i97.RecursiveShapesInputOutputNested1.serializers,
-  ..._i98.RecursiveShapesInputOutputNested2.serializers,
-  ..._i99.ResponseCodeHttpFallbackInputOutput.serializers,
-  ..._i100.ResponseCodeRequiredOutput.serializers,
-  ..._i101.SimpleScalarPropertiesInputOutput.serializers,
-  ..._i102.StreamingTraitsInputOutput.serializers,
-  ..._i103.StreamingTraitsRequireLengthInput.serializers,
-  ..._i104.StreamingTraitsWithMediaTypeInputOutput.serializers,
-  ..._i105.TestBodyStructureInputOutput.serializers,
-  ..._i106.TestConfig.serializers,
-  ..._i107.TestNoPayloadInputOutput.serializers,
-  ..._i108.TestPayloadBlobInputOutput.serializers,
-  ..._i109.TestPayloadStructureInputOutput.serializers,
-  ..._i110.PayloadConfig.serializers,
-  ..._i111.TimestampFormatHeadersIo.serializers,
-  ..._i112.RetryMode.serializers,
-  ..._i113.EnvironmentConfig.serializers,
-  ..._i114.S3AddressingStyle.serializers,
-  ..._i115.S3Config.serializers,
-  ..._i116.FileConfigSettings.serializers,
-  ..._i117.RetryConfig.serializers,
-  ..._i118.ClientConfig.serializers,
-  ..._i119.OperationConfig.serializers,
-  ..._i120.ScopedConfig.serializers,
-  ..._i121.AwsConfig.serializers,
+  ..._i93.PutWithContentEncodingInput.serializers,
+  ..._i94.QueryIdempotencyTokenAutoFillInput.serializers,
+  ..._i95.QueryParamsAsStringListMapInput.serializers,
+  ..._i96.QueryPrecedenceInput.serializers,
+  ..._i97.RecursiveShapesInputOutput.serializers,
+  ..._i98.RecursiveShapesInputOutputNested1.serializers,
+  ..._i99.RecursiveShapesInputOutputNested2.serializers,
+  ..._i100.ResponseCodeHttpFallbackInputOutput.serializers,
+  ..._i101.ResponseCodeRequiredOutput.serializers,
+  ..._i102.SimpleScalarPropertiesInputOutput.serializers,
+  ..._i103.StreamingTraitsInputOutput.serializers,
+  ..._i104.StreamingTraitsRequireLengthInput.serializers,
+  ..._i105.StreamingTraitsWithMediaTypeInputOutput.serializers,
+  ..._i106.TestBodyStructureInputOutput.serializers,
+  ..._i107.TestConfig.serializers,
+  ..._i108.TestNoPayloadInputOutput.serializers,
+  ..._i109.TestPayloadBlobInputOutput.serializers,
+  ..._i110.TestPayloadStructureInputOutput.serializers,
+  ..._i111.PayloadConfig.serializers,
+  ..._i112.TimestampFormatHeadersIo.serializers,
+  ..._i113.RetryMode.serializers,
+  ..._i114.EnvironmentConfig.serializers,
+  ..._i115.S3AddressingStyle.serializers,
+  ..._i116.S3Config.serializers,
+  ..._i117.FileConfigSettings.serializers,
+  ..._i118.RetryConfig.serializers,
+  ..._i119.ClientConfig.serializers,
+  ..._i120.OperationConfig.serializers,
+  ..._i121.ScopedConfig.serializers,
+  ..._i122.AwsConfig.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
   const FullType(
-    _i122.BuiltList,
+    _i123.BuiltList,
     [FullType(String)],
-  ): _i122.ListBuilder<String>.new,
+  ): _i123.ListBuilder<String>.new,
   const FullType(
-    _i122.BuiltSet,
+    _i123.BuiltSet,
     [FullType(String)],
-  ): _i122.SetBuilder<String>.new,
+  ): _i123.SetBuilder<String>.new,
   const FullType(
-    _i122.BuiltList,
+    _i123.BuiltList,
     [FullType(int)],
-  ): _i122.ListBuilder<int>.new,
+  ): _i123.ListBuilder<int>.new,
   const FullType(
-    _i122.BuiltSet,
+    _i123.BuiltSet,
     [FullType(int)],
-  ): _i122.SetBuilder<int>.new,
+  ): _i123.SetBuilder<int>.new,
   const FullType(
-    _i122.BuiltList,
+    _i123.BuiltList,
     [FullType(double)],
-  ): _i122.ListBuilder<double>.new,
+  ): _i123.ListBuilder<double>.new,
   const FullType(
-    _i122.BuiltList,
+    _i123.BuiltList,
     [FullType(bool)],
-  ): _i122.ListBuilder<bool>.new,
+  ): _i123.ListBuilder<bool>.new,
   const FullType(
-    _i122.BuiltList,
+    _i123.BuiltList,
     [FullType(DateTime)],
-  ): _i122.ListBuilder<DateTime>.new,
+  ): _i123.ListBuilder<DateTime>.new,
   const FullType(
-    _i122.BuiltList,
+    _i123.BuiltList,
     [FullType(_i3.FooEnum)],
-  ): _i122.ListBuilder<_i3.FooEnum>.new,
+  ): _i123.ListBuilder<_i3.FooEnum>.new,
   const FullType(
-    _i122.BuiltList,
+    _i123.BuiltList,
     [FullType(_i4.IntegerEnum)],
-  ): _i122.ListBuilder<_i4.IntegerEnum>.new,
+  ): _i123.ListBuilder<_i4.IntegerEnum>.new,
   const FullType(
-    _i122.BuiltListMultimap,
+    _i123.BuiltListMultimap,
     [
       FullType(String),
       FullType(String),
     ],
-  ): _i122.ListMultimapBuilder<String, String>.new,
+  ): _i123.ListMultimapBuilder<String, String>.new,
   const FullType(
-    _i122.BuiltMap,
+    _i123.BuiltMap,
     [
       FullType(String),
       FullType(String),
     ],
-  ): _i122.MapBuilder<String, String>.new,
+  ): _i123.MapBuilder<String, String>.new,
   const FullType(
-    _i122.BuiltSet,
+    _i123.BuiltSet,
     [FullType(_i3.FooEnum)],
-  ): _i122.SetBuilder<_i3.FooEnum>.new,
+  ): _i123.SetBuilder<_i3.FooEnum>.new,
   const FullType(
-    _i122.BuiltMap,
+    _i123.BuiltMap,
     [
       FullType(String),
       FullType(_i3.FooEnum),
     ],
-  ): _i122.MapBuilder<String, _i3.FooEnum>.new,
+  ): _i123.MapBuilder<String, _i3.FooEnum>.new,
   const FullType(
-    _i122.BuiltSet,
+    _i123.BuiltSet,
     [FullType(_i4.IntegerEnum)],
-  ): _i122.SetBuilder<_i4.IntegerEnum>.new,
+  ): _i123.SetBuilder<_i4.IntegerEnum>.new,
   const FullType(
-    _i122.BuiltMap,
+    _i123.BuiltMap,
     [
       FullType(String),
       FullType(_i4.IntegerEnum),
     ],
-  ): _i122.MapBuilder<String, _i4.IntegerEnum>.new,
+  ): _i123.MapBuilder<String, _i4.IntegerEnum>.new,
   const FullType(
-    _i122.BuiltList,
+    _i123.BuiltList,
     [FullType.nullable(String)],
-  ): _i122.ListBuilder<String?>.new,
+  ): _i123.ListBuilder<String?>.new,
   const FullType(
-    _i122.BuiltList,
+    _i123.BuiltList,
     [
       FullType(
-        _i122.BuiltList,
+        _i123.BuiltList,
         [FullType(String)],
       )
     ],
-  ): _i122.ListBuilder<_i122.BuiltList<String>>.new,
+  ): _i123.ListBuilder<_i123.BuiltList<String>>.new,
   const FullType(
-    _i122.BuiltList,
+    _i123.BuiltList,
     [FullType(_i43.StructureListMember)],
-  ): _i122.ListBuilder<_i43.StructureListMember>.new,
+  ): _i123.ListBuilder<_i43.StructureListMember>.new,
   const FullType(
-    _i122.BuiltMap,
+    _i123.BuiltMap,
     [
       FullType(String),
       FullType(_i45.GreetingStruct),
     ],
-  ): _i122.MapBuilder<String, _i45.GreetingStruct>.new,
+  ): _i123.MapBuilder<String, _i45.GreetingStruct>.new,
   const FullType(
-    _i122.BuiltMap,
+    _i123.BuiltMap,
     [
       FullType(String),
       FullType.nullable(_i45.GreetingStruct),
     ],
-  ): _i122.MapBuilder<String, _i45.GreetingStruct?>.new,
+  ): _i123.MapBuilder<String, _i45.GreetingStruct?>.new,
   const FullType(
-    _i122.BuiltMap,
+    _i123.BuiltMap,
     [
       FullType(String),
       FullType(int),
     ],
-  ): _i122.MapBuilder<String, int>.new,
+  ): _i123.MapBuilder<String, int>.new,
   const FullType(
-    _i122.BuiltMap,
+    _i123.BuiltMap,
     [
       FullType(String),
       FullType(bool),
     ],
-  ): _i122.MapBuilder<String, bool>.new,
+  ): _i123.MapBuilder<String, bool>.new,
   const FullType(
-    _i122.BuiltMap,
+    _i123.BuiltMap,
     [
       FullType(String),
       FullType.nullable(int),
     ],
-  ): _i122.MapBuilder<String, int?>.new,
+  ): _i123.MapBuilder<String, int?>.new,
   const FullType(
-    _i122.BuiltMap,
+    _i123.BuiltMap,
     [
       FullType(String),
       FullType.nullable(bool),
     ],
-  ): _i122.MapBuilder<String, bool?>.new,
+  ): _i123.MapBuilder<String, bool?>.new,
   const FullType(
-    _i122.BuiltMap,
+    _i123.BuiltMap,
     [
       FullType(String),
       FullType.nullable(String),
     ],
-  ): _i122.MapBuilder<String, String?>.new,
+  ): _i123.MapBuilder<String, String?>.new,
   const FullType(
-    _i122.BuiltSetMultimap,
+    _i123.BuiltSetMultimap,
     [
       FullType(String),
       FullType(String),
     ],
-  ): _i122.SetMultimapBuilder<String, String>.new,
+  ): _i123.SetMultimapBuilder<String, String>.new,
   const FullType(
-    _i122.BuiltMap,
+    _i123.BuiltMap,
     [
       FullType(String),
-      FullType(_i116.FileConfigSettings),
+      FullType(_i117.FileConfigSettings),
     ],
-  ): _i122.MapBuilder<String, _i116.FileConfigSettings>.new,
+  ): _i123.MapBuilder<String, _i117.FileConfigSettings>.new,
 };

@@ -48,40 +48,6 @@ void main() {
       );
     },
   );
-  _i1.test(
-    'AwsQueryHttpDateWithFractionalSeconds (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: _i3.FractionalSecondsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsQueryHttpDateWithFractionalSeconds',
-          documentation:
-              'Ensures that clients can correctly parse http-date timestamps with fractional seconds',
-          protocol: _i4.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsQuery',
-          ),
-          authScheme: null,
-          body:
-              '<FractionalSecondsResponse xmlns="https://example.com/">\n    <FractionalSecondsResult>\n        <httpdate>Sun, 02 Jan 2000 20:34:56.456 GMT</httpdate>\n    </FractionalSecondsResult>\n</FractionalSecondsResponse>\n',
-          bodyMediaType: 'application/xml',
-          params: {'httpdate': 946845296.456},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'text/xml'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: _i2.AppliesTo.client,
-          code: 200,
-        ),
-        outputSerializers: const [FractionalSecondsOutputAwsQuerySerializer()],
-      );
-    },
-  );
 }
 
 class FractionalSecondsOutputAwsQuerySerializer
@@ -116,11 +82,6 @@ class FractionalSecondsOutputAwsQuerySerializer
       switch (key) {
         case 'datetime':
           result.datetime = _i4.TimestampSerializer.epochSeconds.deserialize(
-            serializers,
-            value,
-          );
-        case 'httpdate':
-          result.httpdate = _i4.TimestampSerializer.epochSeconds.deserialize(
             serializers,
             value,
           );

@@ -20,10 +20,12 @@ import 'package:aws_json1_0_v1/src/json_rpc_10/model/json_unions_output.dart'
     as _i13;
 import 'package:aws_json1_0_v1/src/json_rpc_10/model/no_input_and_output_output.dart'
     as _i17;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/simple_scalar_properties_input.dart'
-    as _i20;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/simple_scalar_properties_output.dart'
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/put_with_content_encoding_input.dart'
     as _i19;
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/simple_scalar_properties_input.dart'
+    as _i22;
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/simple_scalar_properties_output.dart'
+    as _i21;
 import 'package:aws_json1_0_v1/src/json_rpc_10/operation/empty_input_and_empty_output_operation.dart'
     as _i5;
 import 'package:aws_json1_0_v1/src/json_rpc_10/operation/endpoint_operation.dart'
@@ -40,8 +42,10 @@ import 'package:aws_json1_0_v1/src/json_rpc_10/operation/no_input_and_no_output_
     as _i16;
 import 'package:aws_json1_0_v1/src/json_rpc_10/operation/no_input_and_output_operation.dart'
     as _i18;
+import 'package:aws_json1_0_v1/src/json_rpc_10/operation/put_with_content_encoding_operation.dart'
+    as _i20;
 import 'package:aws_json1_0_v1/src/json_rpc_10/operation/simple_scalar_properties_operation.dart'
-    as _i21;
+    as _i23;
 import 'package:smithy/smithy.dart' as _i2;
 
 class JsonRpc10Client {
@@ -182,11 +186,26 @@ class JsonRpc10Client {
     );
   }
 
-  _i2.SmithyOperation<_i19.SimpleScalarPropertiesOutput> simpleScalarProperties(
-    _i20.SimpleScalarPropertiesInput input, {
+  _i2.SmithyOperation<void> putWithContentEncoding(
+    _i19.PutWithContentEncodingInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i21.SimpleScalarPropertiesOperation(
+    return _i20.PutWithContentEncodingOperation(
+      region: _region,
+      baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
+  }
+
+  _i2.SmithyOperation<_i21.SimpleScalarPropertiesOutput> simpleScalarProperties(
+    _i22.SimpleScalarPropertiesInput input, {
+    _i1.AWSHttpClient? client,
+  }) {
+    return _i23.SimpleScalarPropertiesOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
