@@ -6,9 +6,8 @@ library smoke_test.config_service.model.conformance_pack_status_detail; // ignor
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_state.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_state.dart';
 
 part 'conformance_pack_status_detail.g.dart';
 
@@ -22,7 +21,7 @@ abstract class ConformancePackStatusDetail
     required String conformancePackName,
     required String conformancePackId,
     required String conformancePackArn,
-    required _i2.ConformancePackState conformancePackState,
+    required ConformancePackState conformancePackState,
     required String stackArn,
     String? conformancePackStatusReason,
     required DateTime lastUpdateRequestedTime,
@@ -47,7 +46,7 @@ abstract class ConformancePackStatusDetail
 
   const ConformancePackStatusDetail._();
 
-  static const List<_i3.SmithySerializer<ConformancePackStatusDetail>>
+  static const List<_i2.SmithySerializer<ConformancePackStatusDetail>>
       serializers = [ConformancePackStatusDetailAwsJson11Serializer()];
 
   /// Name of the conformance pack.
@@ -72,7 +71,7 @@ abstract class ConformancePackStatusDetail
   /// *   DELETE\_IN\_PROGRESS when a conformance pack deletion is in progress.
   ///
   /// *   DELETE_FAILED when a conformance pack deletion failed in your account.
-  _i2.ConformancePackState get conformancePackState;
+  ConformancePackState get conformancePackState;
 
   /// Amazon Resource Name (ARN) of CloudFormation stack.
   String get stackArn;
@@ -136,7 +135,7 @@ abstract class ConformancePackStatusDetail
 }
 
 class ConformancePackStatusDetailAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<ConformancePackStatusDetail> {
+    extends _i2.StructuredSmithySerializer<ConformancePackStatusDetail> {
   const ConformancePackStatusDetailAwsJson11Serializer()
       : super('ConformancePackStatusDetail');
 
@@ -146,8 +145,8 @@ class ConformancePackStatusDetailAwsJson11Serializer
         _$ConformancePackStatusDetail,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -186,8 +185,8 @@ class ConformancePackStatusDetailAwsJson11Serializer
         case 'ConformancePackState':
           result.conformancePackState = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ConformancePackState),
-          ) as _i2.ConformancePackState);
+            specifiedType: const FullType(ConformancePackState),
+          ) as ConformancePackState);
         case 'StackArn':
           result.stackArn = (serializers.deserialize(
             value,
@@ -250,7 +249,7 @@ class ConformancePackStatusDetailAwsJson11Serializer
       'ConformancePackState',
       serializers.serialize(
         conformancePackState,
-        specifiedType: const FullType(_i2.ConformancePackState),
+        specifiedType: const FullType(ConformancePackState),
       ),
       'StackArn',
       serializers.serialize(

@@ -6,11 +6,10 @@ library smoke_test.s3.model.get_bucket_accelerate_configuration_output; // ignor
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i5;
+import 'package:meta/meta.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/bucket_accelerate_status.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/bucket_accelerate_status.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart';
 
 part 'get_bucket_accelerate_configuration_output.g.dart';
 
@@ -22,8 +21,8 @@ abstract class GetBucketAccelerateConfigurationOutput
             GetBucketAccelerateConfigurationOutputBuilder>,
         _i2.HasPayload<GetBucketAccelerateConfigurationOutputPayload> {
   factory GetBucketAccelerateConfigurationOutput({
-    _i3.BucketAccelerateStatus? status,
-    _i4.RequestCharged? requestCharged,
+    BucketAccelerateStatus? status,
+    RequestCharged? requestCharged,
   }) {
     return _$GetBucketAccelerateConfigurationOutput._(
       status: status,
@@ -45,7 +44,7 @@ abstract class GetBucketAccelerateConfigurationOutput
       GetBucketAccelerateConfigurationOutput.build((b) {
         b.status = payload.status;
         if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = _i4.RequestCharged.values
+          b.requestCharged = RequestCharged.values
               .byValue(response.headers['x-amz-request-charged']!);
         }
       });
@@ -55,10 +54,10 @@ abstract class GetBucketAccelerateConfigurationOutput
       serializers = [GetBucketAccelerateConfigurationOutputRestXmlSerializer()];
 
   /// The accelerate configuration of the bucket.
-  _i3.BucketAccelerateStatus? get status;
+  BucketAccelerateStatus? get status;
 
   /// If present, indicates that the requester was successfully charged for the request.
-  _i4.RequestCharged? get requestCharged;
+  RequestCharged? get requestCharged;
   @override
   GetBucketAccelerateConfigurationOutputPayload getPayload() =>
       GetBucketAccelerateConfigurationOutputPayload((b) {
@@ -85,7 +84,7 @@ abstract class GetBucketAccelerateConfigurationOutput
   }
 }
 
-@_i5.internal
+@_i3.internal
 abstract class GetBucketAccelerateConfigurationOutputPayload
     with
         _i1.AWSEquatable<GetBucketAccelerateConfigurationOutputPayload>
@@ -99,7 +98,7 @@ abstract class GetBucketAccelerateConfigurationOutputPayload
   const GetBucketAccelerateConfigurationOutputPayload._();
 
   /// The accelerate configuration of the bucket.
-  _i3.BucketAccelerateStatus? get status;
+  BucketAccelerateStatus? get status;
   @override
   List<Object?> get props => [status];
   @override
@@ -152,8 +151,8 @@ class GetBucketAccelerateConfigurationOutputRestXmlSerializer extends _i2
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.BucketAccelerateStatus),
-          ) as _i3.BucketAccelerateStatus);
+            specifiedType: const FullType(BucketAccelerateStatus),
+          ) as BucketAccelerateStatus);
       }
     }
 
@@ -178,7 +177,7 @@ class GetBucketAccelerateConfigurationOutputRestXmlSerializer extends _i2
         ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(_i3.BucketAccelerateStatus),
+          specifiedType: const FullType.nullable(BucketAccelerateStatus),
         ));
     }
     return result$;

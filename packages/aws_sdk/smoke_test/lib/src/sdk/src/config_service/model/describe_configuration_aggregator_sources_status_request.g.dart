@@ -11,7 +11,7 @@ class _$DescribeConfigurationAggregatorSourcesStatusRequest
   @override
   final String configurationAggregatorName;
   @override
-  final _i4.BuiltList<_i3.AggregatedSourceStatusType>? updateStatus;
+  final _i3.BuiltList<AggregatedSourceStatusType>? updateStatus;
   @override
   final String? nextToken;
   @override
@@ -85,12 +85,11 @@ class DescribeConfigurationAggregatorSourcesStatusRequestBuilder
   set configurationAggregatorName(String? configurationAggregatorName) =>
       _$this._configurationAggregatorName = configurationAggregatorName;
 
-  _i4.ListBuilder<_i3.AggregatedSourceStatusType>? _updateStatus;
-  _i4.ListBuilder<_i3.AggregatedSourceStatusType> get updateStatus =>
+  _i3.ListBuilder<AggregatedSourceStatusType>? _updateStatus;
+  _i3.ListBuilder<AggregatedSourceStatusType> get updateStatus =>
       _$this._updateStatus ??=
-          new _i4.ListBuilder<_i3.AggregatedSourceStatusType>();
-  set updateStatus(
-          _i4.ListBuilder<_i3.AggregatedSourceStatusType>? updateStatus) =>
+          new _i3.ListBuilder<AggregatedSourceStatusType>();
+  set updateStatus(_i3.ListBuilder<AggregatedSourceStatusType>? updateStatus) =>
       _$this._updateStatus = updateStatus;
 
   String? _nextToken;

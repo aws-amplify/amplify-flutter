@@ -6,9 +6,8 @@ library smoke_test.config_service.model.resource_details; // ignore_for_file: no
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_configuration_schema_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_configuration_schema_type.dart';
 
 part 'resource_details.g.dart';
 
@@ -21,7 +20,7 @@ abstract class ResourceDetails
     required String resourceId,
     required String resourceType,
     required String resourceConfiguration,
-    _i2.ResourceConfigurationSchemaType? resourceConfigurationSchemaType,
+    ResourceConfigurationSchemaType? resourceConfigurationSchemaType,
   }) {
     return _$ResourceDetails._(
       resourceId: resourceId,
@@ -37,7 +36,7 @@ abstract class ResourceDetails
 
   const ResourceDetails._();
 
-  static const List<_i3.SmithySerializer<ResourceDetails>> serializers = [
+  static const List<_i2.SmithySerializer<ResourceDetails>> serializers = [
     ResourceDetailsAwsJson11Serializer()
   ];
 
@@ -55,7 +54,7 @@ abstract class ResourceDetails
   /// You can find the [Resource type schema](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-schema.html), or `CFN\_RESOURCE\_SCHEMA`, in "_Amazon Web Services public extensions_" within the CloudFormation registry or with the following CLI commmand: `aws cloudformation describe-type --type-name "AWS::S3::Bucket" --type RESOURCE`.
   ///
   /// For more information, see [Managing extensions through the CloudFormation registry](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry.html#registry-view) and [Amazon Web Services resource and property types reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html) in the CloudFormation User Guide.
-  _i2.ResourceConfigurationSchemaType? get resourceConfigurationSchemaType;
+  ResourceConfigurationSchemaType? get resourceConfigurationSchemaType;
   @override
   List<Object?> get props => [
         resourceId,
@@ -87,7 +86,7 @@ abstract class ResourceDetails
 }
 
 class ResourceDetailsAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<ResourceDetails> {
+    extends _i2.StructuredSmithySerializer<ResourceDetails> {
   const ResourceDetailsAwsJson11Serializer() : super('ResourceDetails');
 
   @override
@@ -96,8 +95,8 @@ class ResourceDetailsAwsJson11Serializer
         _$ResourceDetails,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -136,8 +135,8 @@ class ResourceDetailsAwsJson11Serializer
         case 'ResourceConfigurationSchemaType':
           result.resourceConfigurationSchemaType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ResourceConfigurationSchemaType),
-          ) as _i2.ResourceConfigurationSchemaType);
+            specifiedType: const FullType(ResourceConfigurationSchemaType),
+          ) as ResourceConfigurationSchemaType);
       }
     }
 
@@ -179,7 +178,7 @@ class ResourceDetailsAwsJson11Serializer
         ..add('ResourceConfigurationSchemaType')
         ..add(serializers.serialize(
           resourceConfigurationSchemaType,
-          specifiedType: const FullType(_i2.ResourceConfigurationSchemaType),
+          specifiedType: const FullType(ResourceConfigurationSchemaType),
         ));
     }
     return result$;

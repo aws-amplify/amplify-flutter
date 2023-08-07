@@ -8,7 +8,7 @@ part of 'put_request.dart';
 
 class _$PutRequest extends PutRequest {
   @override
-  final _i3.BuiltMap<String, _i2.AttributeValue> item;
+  final _i2.BuiltMap<String, AttributeValue> item;
 
   factory _$PutRequest([void Function(PutRequestBuilder)? updates]) =>
       (new PutRequestBuilder()..update(updates))._build();
@@ -42,11 +42,10 @@ class _$PutRequest extends PutRequest {
 class PutRequestBuilder implements Builder<PutRequest, PutRequestBuilder> {
   _$PutRequest? _$v;
 
-  _i3.MapBuilder<String, _i2.AttributeValue>? _item;
-  _i3.MapBuilder<String, _i2.AttributeValue> get item =>
-      _$this._item ??= new _i3.MapBuilder<String, _i2.AttributeValue>();
-  set item(_i3.MapBuilder<String, _i2.AttributeValue>? item) =>
-      _$this._item = item;
+  _i2.MapBuilder<String, AttributeValue>? _item;
+  _i2.MapBuilder<String, AttributeValue> get item =>
+      _$this._item ??= new _i2.MapBuilder<String, AttributeValue>();
+  set item(_i2.MapBuilder<String, AttributeValue>? item) => _$this._item = item;
 
   PutRequestBuilder();
 

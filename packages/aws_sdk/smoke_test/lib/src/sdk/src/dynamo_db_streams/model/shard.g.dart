@@ -10,7 +10,7 @@ class _$Shard extends Shard {
   @override
   final String? shardId;
   @override
-  final _i2.SequenceNumberRange? sequenceNumberRange;
+  final SequenceNumberRange? sequenceNumberRange;
   @override
   final String? parentShardId;
 
@@ -54,11 +54,10 @@ class ShardBuilder implements Builder<Shard, ShardBuilder> {
   String? get shardId => _$this._shardId;
   set shardId(String? shardId) => _$this._shardId = shardId;
 
-  _i2.SequenceNumberRangeBuilder? _sequenceNumberRange;
-  _i2.SequenceNumberRangeBuilder get sequenceNumberRange =>
-      _$this._sequenceNumberRange ??= new _i2.SequenceNumberRangeBuilder();
-  set sequenceNumberRange(
-          _i2.SequenceNumberRangeBuilder? sequenceNumberRange) =>
+  SequenceNumberRangeBuilder? _sequenceNumberRange;
+  SequenceNumberRangeBuilder get sequenceNumberRange =>
+      _$this._sequenceNumberRange ??= new SequenceNumberRangeBuilder();
+  set sequenceNumberRange(SequenceNumberRangeBuilder? sequenceNumberRange) =>
       _$this._sequenceNumberRange = sequenceNumberRange;
 
   String? _parentShardId;

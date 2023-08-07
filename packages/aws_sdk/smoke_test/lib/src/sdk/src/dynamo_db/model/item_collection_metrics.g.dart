@@ -8,9 +8,9 @@ part of 'item_collection_metrics.dart';
 
 class _$ItemCollectionMetrics extends ItemCollectionMetrics {
   @override
-  final _i3.BuiltMap<String, _i2.AttributeValue>? itemCollectionKey;
+  final _i2.BuiltMap<String, AttributeValue>? itemCollectionKey;
   @override
-  final _i3.BuiltList<double>? sizeEstimateRangeGb;
+  final _i2.BuiltList<double>? sizeEstimateRangeGb;
 
   factory _$ItemCollectionMetrics(
           [void Function(ItemCollectionMetricsBuilder)? updates]) =>
@@ -50,18 +50,18 @@ class ItemCollectionMetricsBuilder
     implements Builder<ItemCollectionMetrics, ItemCollectionMetricsBuilder> {
   _$ItemCollectionMetrics? _$v;
 
-  _i3.MapBuilder<String, _i2.AttributeValue>? _itemCollectionKey;
-  _i3.MapBuilder<String, _i2.AttributeValue> get itemCollectionKey =>
+  _i2.MapBuilder<String, AttributeValue>? _itemCollectionKey;
+  _i2.MapBuilder<String, AttributeValue> get itemCollectionKey =>
       _$this._itemCollectionKey ??=
-          new _i3.MapBuilder<String, _i2.AttributeValue>();
+          new _i2.MapBuilder<String, AttributeValue>();
   set itemCollectionKey(
-          _i3.MapBuilder<String, _i2.AttributeValue>? itemCollectionKey) =>
+          _i2.MapBuilder<String, AttributeValue>? itemCollectionKey) =>
       _$this._itemCollectionKey = itemCollectionKey;
 
-  _i3.ListBuilder<double>? _sizeEstimateRangeGb;
-  _i3.ListBuilder<double> get sizeEstimateRangeGb =>
-      _$this._sizeEstimateRangeGb ??= new _i3.ListBuilder<double>();
-  set sizeEstimateRangeGb(_i3.ListBuilder<double>? sizeEstimateRangeGb) =>
+  _i2.ListBuilder<double>? _sizeEstimateRangeGb;
+  _i2.ListBuilder<double> get sizeEstimateRangeGb =>
+      _$this._sizeEstimateRangeGb ??= new _i2.ListBuilder<double>();
+  set sizeEstimateRangeGb(_i2.ListBuilder<double>? sizeEstimateRangeGb) =>
       _$this._sizeEstimateRangeGb = sizeEstimateRangeGb;
 
   ItemCollectionMetricsBuilder();

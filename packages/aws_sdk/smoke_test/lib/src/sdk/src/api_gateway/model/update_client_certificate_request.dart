@@ -4,13 +4,12 @@
 library smoke_test.api_gateway.model.update_client_certificate_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i5;
+import 'package:meta/meta.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/patch_operation.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/patch_operation.dart';
 
 part 'update_client_certificate_request.g.dart';
 
@@ -26,12 +25,12 @@ abstract class UpdateClientCertificateRequest
   /// A request to change information about an ClientCertificate resource.
   factory UpdateClientCertificateRequest({
     required String clientCertificateId,
-    List<_i3.PatchOperation>? patchOperations,
+    List<PatchOperation>? patchOperations,
   }) {
     return _$UpdateClientCertificateRequest._(
       clientCertificateId: clientCertificateId,
       patchOperations:
-          patchOperations == null ? null : _i4.BuiltList(patchOperations),
+          patchOperations == null ? null : _i3.BuiltList(patchOperations),
     );
   }
 
@@ -63,7 +62,7 @@ abstract class UpdateClientCertificateRequest
   String get clientCertificateId;
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
-  _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
+  _i3.BuiltList<PatchOperation>? get patchOperations;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -103,7 +102,7 @@ abstract class UpdateClientCertificateRequest
   }
 }
 
-@_i5.internal
+@_i4.internal
 abstract class UpdateClientCertificateRequestPayload
     with
         _i2.AWSEquatable<UpdateClientCertificateRequestPayload>
@@ -117,7 +116,7 @@ abstract class UpdateClientCertificateRequestPayload
   const UpdateClientCertificateRequestPayload._();
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
-  _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
+  _i3.BuiltList<PatchOperation>? get patchOperations;
   @override
   List<Object?> get props => [patchOperations];
   @override
@@ -171,10 +170,10 @@ class UpdateClientCertificateRequestRestJson1Serializer extends _i1
           result.patchOperations.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.PatchOperation)],
+              _i3.BuiltList,
+              [FullType(PatchOperation)],
             ),
-          ) as _i4.BuiltList<_i3.PatchOperation>));
+          ) as _i3.BuiltList<PatchOperation>));
       }
     }
 
@@ -195,8 +194,8 @@ class UpdateClientCertificateRequestRestJson1Serializer extends _i1
         ..add(serializers.serialize(
           patchOperations,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i3.PatchOperation)],
+            _i3.BuiltList,
+            [FullType(PatchOperation)],
           ),
         ));
     }

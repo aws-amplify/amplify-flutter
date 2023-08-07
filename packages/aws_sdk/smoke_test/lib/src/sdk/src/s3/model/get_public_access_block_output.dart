@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/public_access_block_configuration.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/public_access_block_configuration.dart';
 
 part 'get_public_access_block_output.g.dart';
 
@@ -16,9 +15,9 @@ abstract class GetPublicAccessBlockOutput
     with _i1.AWSEquatable<GetPublicAccessBlockOutput>
     implements
         Built<GetPublicAccessBlockOutput, GetPublicAccessBlockOutputBuilder>,
-        _i2.HasPayload<_i3.PublicAccessBlockConfiguration> {
+        _i2.HasPayload<PublicAccessBlockConfiguration> {
   factory GetPublicAccessBlockOutput(
-      {_i3.PublicAccessBlockConfiguration? publicAccessBlockConfiguration}) {
+      {PublicAccessBlockConfiguration? publicAccessBlockConfiguration}) {
     return _$GetPublicAccessBlockOutput._(
         publicAccessBlockConfiguration: publicAccessBlockConfiguration);
   }
@@ -31,7 +30,7 @@ abstract class GetPublicAccessBlockOutput
 
   /// Constructs a [GetPublicAccessBlockOutput] from a [payload] and [response].
   factory GetPublicAccessBlockOutput.fromResponse(
-    _i3.PublicAccessBlockConfiguration? payload,
+    PublicAccessBlockConfiguration? payload,
     _i1.AWSBaseHttpResponse response,
   ) =>
       GetPublicAccessBlockOutput.build((b) {
@@ -40,14 +39,14 @@ abstract class GetPublicAccessBlockOutput
         }
       });
 
-  static const List<_i2.SmithySerializer<_i3.PublicAccessBlockConfiguration?>>
+  static const List<_i2.SmithySerializer<PublicAccessBlockConfiguration?>>
       serializers = [GetPublicAccessBlockOutputRestXmlSerializer()];
 
   /// The `PublicAccessBlock` configuration currently in effect for this Amazon S3 bucket.
-  _i3.PublicAccessBlockConfiguration? get publicAccessBlockConfiguration;
+  PublicAccessBlockConfiguration? get publicAccessBlockConfiguration;
   @override
-  _i3.PublicAccessBlockConfiguration? getPayload() =>
-      publicAccessBlockConfiguration ?? _i3.PublicAccessBlockConfiguration();
+  PublicAccessBlockConfiguration? getPayload() =>
+      publicAccessBlockConfiguration ?? PublicAccessBlockConfiguration();
   @override
   List<Object?> get props => [publicAccessBlockConfiguration];
   @override
@@ -62,7 +61,7 @@ abstract class GetPublicAccessBlockOutput
 }
 
 class GetPublicAccessBlockOutputRestXmlSerializer
-    extends _i2.StructuredSmithySerializer<_i3.PublicAccessBlockConfiguration> {
+    extends _i2.StructuredSmithySerializer<PublicAccessBlockConfiguration> {
   const GetPublicAccessBlockOutputRestXmlSerializer()
       : super('GetPublicAccessBlockOutput');
 
@@ -79,12 +78,12 @@ class GetPublicAccessBlockOutputRestXmlSerializer
         )
       ];
   @override
-  _i3.PublicAccessBlockConfiguration deserialize(
+  PublicAccessBlockConfiguration deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i3.PublicAccessBlockConfigurationBuilder();
+    final result = PublicAccessBlockConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -123,7 +122,7 @@ class GetPublicAccessBlockOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i3.PublicAccessBlockConfiguration object, {
+    PublicAccessBlockConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -132,7 +131,7 @@ class GetPublicAccessBlockOutputRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i3.PublicAccessBlockConfiguration(
+    final PublicAccessBlockConfiguration(
       :blockPublicAcls,
       :ignorePublicAcls,
       :blockPublicPolicy,

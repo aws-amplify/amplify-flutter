@@ -8,7 +8,7 @@ part of 'sse_kms_encrypted_objects.dart';
 
 class _$SseKmsEncryptedObjects extends SseKmsEncryptedObjects {
   @override
-  final _i2.SseKmsEncryptedObjectsStatus status;
+  final SseKmsEncryptedObjectsStatus status;
 
   factory _$SseKmsEncryptedObjects(
           [void Function(SseKmsEncryptedObjectsBuilder)? updates]) =>
@@ -47,10 +47,9 @@ class SseKmsEncryptedObjectsBuilder
     implements Builder<SseKmsEncryptedObjects, SseKmsEncryptedObjectsBuilder> {
   _$SseKmsEncryptedObjects? _$v;
 
-  _i2.SseKmsEncryptedObjectsStatus? _status;
-  _i2.SseKmsEncryptedObjectsStatus? get status => _$this._status;
-  set status(_i2.SseKmsEncryptedObjectsStatus? status) =>
-      _$this._status = status;
+  SseKmsEncryptedObjectsStatus? _status;
+  SseKmsEncryptedObjectsStatus? get status => _$this._status;
+  set status(SseKmsEncryptedObjectsStatus? status) => _$this._status = status;
 
   SseKmsEncryptedObjectsBuilder();
 

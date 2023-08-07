@@ -6,9 +6,9 @@ library smoke_test.s3.model.delete_object_output; // ignore_for_file: no_leading
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i4;
+import 'package:meta/meta.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart';
 
 part 'delete_object_output.g.dart';
 
@@ -21,7 +21,7 @@ abstract class DeleteObjectOutput
   factory DeleteObjectOutput({
     bool? deleteMarker,
     String? versionId,
-    _i3.RequestCharged? requestCharged,
+    RequestCharged? requestCharged,
   }) {
     return _$DeleteObjectOutput._(
       deleteMarker: deleteMarker,
@@ -49,7 +49,7 @@ abstract class DeleteObjectOutput
           b.versionId = response.headers['x-amz-version-id']!;
         }
         if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = _i3.RequestCharged.values
+          b.requestCharged = RequestCharged.values
               .byValue(response.headers['x-amz-request-charged']!);
         }
       });
@@ -64,7 +64,7 @@ abstract class DeleteObjectOutput
   String? get versionId;
 
   /// If present, indicates that the requester was successfully charged for the request.
-  _i3.RequestCharged? get requestCharged;
+  RequestCharged? get requestCharged;
   @override
   DeleteObjectOutputPayload getPayload() => DeleteObjectOutputPayload();
   @override
@@ -92,7 +92,7 @@ abstract class DeleteObjectOutput
   }
 }
 
-@_i4.internal
+@_i3.internal
 abstract class DeleteObjectOutputPayload
     with _i1.AWSEquatable<DeleteObjectOutputPayload>
     implements

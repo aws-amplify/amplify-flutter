@@ -6,9 +6,8 @@ library smoke_test.config_service.model.config_stream_delivery_info; // ignore_f
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/delivery_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/delivery_status.dart';
 
 part 'config_stream_delivery_info.g.dart';
 
@@ -19,7 +18,7 @@ abstract class ConfigStreamDeliveryInfo
         Built<ConfigStreamDeliveryInfo, ConfigStreamDeliveryInfoBuilder> {
   /// A list that contains the status of the delivery of the configuration stream notification to the Amazon SNS topic.
   factory ConfigStreamDeliveryInfo({
-    _i2.DeliveryStatus? lastStatus,
+    DeliveryStatus? lastStatus,
     String? lastErrorCode,
     String? lastErrorMessage,
     DateTime? lastStatusChangeTime,
@@ -39,13 +38,13 @@ abstract class ConfigStreamDeliveryInfo
 
   const ConfigStreamDeliveryInfo._();
 
-  static const List<_i3.SmithySerializer<ConfigStreamDeliveryInfo>>
+  static const List<_i2.SmithySerializer<ConfigStreamDeliveryInfo>>
       serializers = [ConfigStreamDeliveryInfoAwsJson11Serializer()];
 
   /// Status of the last attempted delivery.
   ///
   /// **Note** Providing an SNS topic on a [DeliveryChannel](https://docs.aws.amazon.com/config/latest/APIReference/API_DeliveryChannel.html) for Config is optional. If the SNS delivery is turned off, the last status will be **Not_Applicable**.
-  _i2.DeliveryStatus? get lastStatus;
+  DeliveryStatus? get lastStatus;
 
   /// The error code from the last attempted delivery.
   String? get lastErrorCode;
@@ -86,7 +85,7 @@ abstract class ConfigStreamDeliveryInfo
 }
 
 class ConfigStreamDeliveryInfoAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<ConfigStreamDeliveryInfo> {
+    extends _i2.StructuredSmithySerializer<ConfigStreamDeliveryInfo> {
   const ConfigStreamDeliveryInfoAwsJson11Serializer()
       : super('ConfigStreamDeliveryInfo');
 
@@ -96,8 +95,8 @@ class ConfigStreamDeliveryInfoAwsJson11Serializer
         _$ConfigStreamDeliveryInfo,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -121,8 +120,8 @@ class ConfigStreamDeliveryInfoAwsJson11Serializer
         case 'lastStatus':
           result.lastStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.DeliveryStatus),
-          ) as _i2.DeliveryStatus);
+            specifiedType: const FullType(DeliveryStatus),
+          ) as DeliveryStatus);
         case 'lastErrorCode':
           result.lastErrorCode = (serializers.deserialize(
             value,
@@ -162,7 +161,7 @@ class ConfigStreamDeliveryInfoAwsJson11Serializer
         ..add('lastStatus')
         ..add(serializers.serialize(
           lastStatus,
-          specifiedType: const FullType(_i2.DeliveryStatus),
+          specifiedType: const FullType(DeliveryStatus),
         ));
     }
     if (lastErrorCode != null) {

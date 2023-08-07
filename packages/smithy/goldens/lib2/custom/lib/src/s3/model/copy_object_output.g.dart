@@ -8,7 +8,7 @@ part of 'copy_object_output.dart';
 
 class _$CopyObjectOutput extends CopyObjectOutput {
   @override
-  final _i3.CopyObjectResult? copyObjectResult;
+  final CopyObjectResult? copyObjectResult;
 
   factory _$CopyObjectOutput(
           [void Function(CopyObjectOutputBuilder)? updates]) =>
@@ -44,10 +44,10 @@ class CopyObjectOutputBuilder
     implements Builder<CopyObjectOutput, CopyObjectOutputBuilder> {
   _$CopyObjectOutput? _$v;
 
-  _i3.CopyObjectResultBuilder? _copyObjectResult;
-  _i3.CopyObjectResultBuilder get copyObjectResult =>
-      _$this._copyObjectResult ??= new _i3.CopyObjectResultBuilder();
-  set copyObjectResult(_i3.CopyObjectResultBuilder? copyObjectResult) =>
+  CopyObjectResultBuilder? _copyObjectResult;
+  CopyObjectResultBuilder get copyObjectResult =>
+      _$this._copyObjectResult ??= new CopyObjectResultBuilder();
+  set copyObjectResult(CopyObjectResultBuilder? copyObjectResult) =>
       _$this._copyObjectResult = copyObjectResult;
 
   CopyObjectOutputBuilder();

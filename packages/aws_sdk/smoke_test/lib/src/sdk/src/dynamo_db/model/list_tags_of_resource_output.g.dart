@@ -8,7 +8,7 @@ part of 'list_tags_of_resource_output.dart';
 
 class _$ListTagsOfResourceOutput extends ListTagsOfResourceOutput {
   @override
-  final _i3.BuiltList<_i2.Tag>? tags;
+  final _i2.BuiltList<Tag>? tags;
   @override
   final String? nextToken;
 
@@ -50,10 +50,9 @@ class ListTagsOfResourceOutputBuilder
         Builder<ListTagsOfResourceOutput, ListTagsOfResourceOutputBuilder> {
   _$ListTagsOfResourceOutput? _$v;
 
-  _i3.ListBuilder<_i2.Tag>? _tags;
-  _i3.ListBuilder<_i2.Tag> get tags =>
-      _$this._tags ??= new _i3.ListBuilder<_i2.Tag>();
-  set tags(_i3.ListBuilder<_i2.Tag>? tags) => _$this._tags = tags;
+  _i2.ListBuilder<Tag>? _tags;
+  _i2.ListBuilder<Tag> get tags => _$this._tags ??= new _i2.ListBuilder<Tag>();
+  set tags(_i2.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   String? _nextToken;
   String? get nextToken => _$this._nextToken;

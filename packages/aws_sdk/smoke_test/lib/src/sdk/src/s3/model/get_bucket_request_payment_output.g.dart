@@ -8,7 +8,7 @@ part of 'get_bucket_request_payment_output.dart';
 
 class _$GetBucketRequestPaymentOutput extends GetBucketRequestPaymentOutput {
   @override
-  final _i2.Payer? payer;
+  final Payer? payer;
 
   factory _$GetBucketRequestPaymentOutput(
           [void Function(GetBucketRequestPaymentOutputBuilder)? updates]) =>
@@ -46,9 +46,9 @@ class GetBucketRequestPaymentOutputBuilder
             GetBucketRequestPaymentOutputBuilder> {
   _$GetBucketRequestPaymentOutput? _$v;
 
-  _i2.Payer? _payer;
-  _i2.Payer? get payer => _$this._payer;
-  set payer(_i2.Payer? payer) => _$this._payer = payer;
+  Payer? _payer;
+  Payer? get payer => _$this._payer;
+  set payer(Payer? payer) => _$this._payer = payer;
 
   GetBucketRequestPaymentOutputBuilder();
 

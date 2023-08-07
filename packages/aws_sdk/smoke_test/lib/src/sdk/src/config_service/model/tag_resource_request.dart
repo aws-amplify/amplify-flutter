@@ -4,11 +4,11 @@
 library smoke_test.config_service.model.tag_resource_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/tag.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/tag.dart';
 
 part 'tag_resource_request.g.dart';
 
@@ -17,11 +17,11 @@ abstract class TagResourceRequest
     implements Built<TagResourceRequest, TagResourceRequestBuilder> {
   factory TagResourceRequest({
     required String resourceArn,
-    required List<_i3.Tag> tags,
+    required List<Tag> tags,
   }) {
     return _$TagResourceRequest._(
       resourceArn: resourceArn,
-      tags: _i4.BuiltList(tags),
+      tags: _i3.BuiltList(tags),
     );
   }
 
@@ -46,7 +46,7 @@ abstract class TagResourceRequest
   String get resourceArn;
 
   /// An array of tag object.
-  _i4.BuiltList<_i3.Tag> get tags;
+  _i3.BuiltList<Tag> get tags;
   @override
   TagResourceRequest getPayload() => this;
   @override
@@ -110,10 +110,10 @@ class TagResourceRequestAwsJson11Serializer
           result.tags.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.Tag)],
+              _i3.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i4.BuiltList<_i3.Tag>));
+          ) as _i3.BuiltList<Tag>));
       }
     }
 
@@ -138,8 +138,8 @@ class TagResourceRequestAwsJson11Serializer
       serializers.serialize(
         tags,
         specifiedType: const FullType(
-          _i4.BuiltList,
-          [FullType(_i3.Tag)],
+          _i3.BuiltList,
+          [FullType(Tag)],
         ),
       ),
     ]);

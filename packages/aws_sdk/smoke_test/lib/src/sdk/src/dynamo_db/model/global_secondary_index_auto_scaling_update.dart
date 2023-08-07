@@ -6,9 +6,8 @@ library smoke_test.dynamo_db.model.global_secondary_index_auto_scaling_update; /
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/auto_scaling_settings_update.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/auto_scaling_settings_update.dart';
 
 part 'global_secondary_index_auto_scaling_update.g.dart';
 
@@ -22,7 +21,7 @@ abstract class GlobalSecondaryIndexAutoScalingUpdate
   /// Represents the auto scaling settings of a global secondary index for a global table that will be modified.
   factory GlobalSecondaryIndexAutoScalingUpdate({
     String? indexName,
-    _i2.AutoScalingSettingsUpdate? provisionedWriteCapacityAutoScalingUpdate,
+    AutoScalingSettingsUpdate? provisionedWriteCapacityAutoScalingUpdate,
   }) {
     return _$GlobalSecondaryIndexAutoScalingUpdate._(
       indexName: indexName,
@@ -38,7 +37,7 @@ abstract class GlobalSecondaryIndexAutoScalingUpdate
 
   const GlobalSecondaryIndexAutoScalingUpdate._();
 
-  static const List<_i3.SmithySerializer<GlobalSecondaryIndexAutoScalingUpdate>>
+  static const List<_i2.SmithySerializer<GlobalSecondaryIndexAutoScalingUpdate>>
       serializers = [
     GlobalSecondaryIndexAutoScalingUpdateAwsJson10Serializer()
   ];
@@ -47,7 +46,7 @@ abstract class GlobalSecondaryIndexAutoScalingUpdate
   String? get indexName;
 
   /// Represents the auto scaling settings to be modified for a global table or global secondary index.
-  _i2.AutoScalingSettingsUpdate? get provisionedWriteCapacityAutoScalingUpdate;
+  AutoScalingSettingsUpdate? get provisionedWriteCapacityAutoScalingUpdate;
   @override
   List<Object?> get props => [
         indexName,
@@ -69,7 +68,7 @@ abstract class GlobalSecondaryIndexAutoScalingUpdate
   }
 }
 
-class GlobalSecondaryIndexAutoScalingUpdateAwsJson10Serializer extends _i3
+class GlobalSecondaryIndexAutoScalingUpdateAwsJson10Serializer extends _i2
     .StructuredSmithySerializer<GlobalSecondaryIndexAutoScalingUpdate> {
   const GlobalSecondaryIndexAutoScalingUpdateAwsJson10Serializer()
       : super('GlobalSecondaryIndexAutoScalingUpdate');
@@ -80,8 +79,8 @@ class GlobalSecondaryIndexAutoScalingUpdateAwsJson10Serializer extends _i3
         _$GlobalSecondaryIndexAutoScalingUpdate,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -111,8 +110,8 @@ class GlobalSecondaryIndexAutoScalingUpdateAwsJson10Serializer extends _i3
           result.provisionedWriteCapacityAutoScalingUpdate
               .replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.AutoScalingSettingsUpdate),
-          ) as _i2.AutoScalingSettingsUpdate));
+            specifiedType: const FullType(AutoScalingSettingsUpdate),
+          ) as AutoScalingSettingsUpdate));
       }
     }
 
@@ -143,7 +142,7 @@ class GlobalSecondaryIndexAutoScalingUpdateAwsJson10Serializer extends _i3
         ..add('ProvisionedWriteCapacityAutoScalingUpdate')
         ..add(serializers.serialize(
           provisionedWriteCapacityAutoScalingUpdate,
-          specifiedType: const FullType(_i2.AutoScalingSettingsUpdate),
+          specifiedType: const FullType(AutoScalingSettingsUpdate),
         ));
     }
     return result$;

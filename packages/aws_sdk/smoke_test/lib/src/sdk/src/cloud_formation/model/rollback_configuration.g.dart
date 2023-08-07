@@ -8,7 +8,7 @@ part of 'rollback_configuration.dart';
 
 class _$RollbackConfiguration extends RollbackConfiguration {
   @override
-  final _i3.BuiltList<_i2.RollbackTrigger>? rollbackTriggers;
+  final _i2.BuiltList<RollbackTrigger>? rollbackTriggers;
   @override
   final int? monitoringTimeInMinutes;
 
@@ -51,11 +51,10 @@ class RollbackConfigurationBuilder
     implements Builder<RollbackConfiguration, RollbackConfigurationBuilder> {
   _$RollbackConfiguration? _$v;
 
-  _i3.ListBuilder<_i2.RollbackTrigger>? _rollbackTriggers;
-  _i3.ListBuilder<_i2.RollbackTrigger> get rollbackTriggers =>
-      _$this._rollbackTriggers ??= new _i3.ListBuilder<_i2.RollbackTrigger>();
-  set rollbackTriggers(
-          _i3.ListBuilder<_i2.RollbackTrigger>? rollbackTriggers) =>
+  _i2.ListBuilder<RollbackTrigger>? _rollbackTriggers;
+  _i2.ListBuilder<RollbackTrigger> get rollbackTriggers =>
+      _$this._rollbackTriggers ??= new _i2.ListBuilder<RollbackTrigger>();
+  set rollbackTriggers(_i2.ListBuilder<RollbackTrigger>? rollbackTriggers) =>
       _$this._rollbackTriggers = rollbackTriggers;
 
   int? _monitoringTimeInMinutes;

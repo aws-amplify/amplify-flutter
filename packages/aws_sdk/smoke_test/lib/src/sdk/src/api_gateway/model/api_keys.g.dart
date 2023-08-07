@@ -8,9 +8,9 @@ part of 'api_keys.dart';
 
 class _$ApiKeys extends ApiKeys {
   @override
-  final _i3.BuiltList<String>? warnings;
+  final _i2.BuiltList<String>? warnings;
   @override
-  final _i3.BuiltList<_i2.ApiKey>? items;
+  final _i2.BuiltList<ApiKey>? items;
   @override
   final String? position;
 
@@ -49,16 +49,16 @@ class _$ApiKeys extends ApiKeys {
 class ApiKeysBuilder implements Builder<ApiKeys, ApiKeysBuilder> {
   _$ApiKeys? _$v;
 
-  _i3.ListBuilder<String>? _warnings;
-  _i3.ListBuilder<String> get warnings =>
-      _$this._warnings ??= new _i3.ListBuilder<String>();
-  set warnings(_i3.ListBuilder<String>? warnings) =>
+  _i2.ListBuilder<String>? _warnings;
+  _i2.ListBuilder<String> get warnings =>
+      _$this._warnings ??= new _i2.ListBuilder<String>();
+  set warnings(_i2.ListBuilder<String>? warnings) =>
       _$this._warnings = warnings;
 
-  _i3.ListBuilder<_i2.ApiKey>? _items;
-  _i3.ListBuilder<_i2.ApiKey> get items =>
-      _$this._items ??= new _i3.ListBuilder<_i2.ApiKey>();
-  set items(_i3.ListBuilder<_i2.ApiKey>? items) => _$this._items = items;
+  _i2.ListBuilder<ApiKey>? _items;
+  _i2.ListBuilder<ApiKey> get items =>
+      _$this._items ??= new _i2.ListBuilder<ApiKey>();
+  set items(_i2.ListBuilder<ApiKey>? items) => _$this._items = items;
 
   String? _position;
   String? get position => _$this._position;

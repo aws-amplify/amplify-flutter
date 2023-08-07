@@ -8,9 +8,9 @@ part of 'storage_class_analysis_data_export.dart';
 
 class _$StorageClassAnalysisDataExport extends StorageClassAnalysisDataExport {
   @override
-  final _i2.StorageClassAnalysisSchemaVersion outputSchemaVersion;
+  final StorageClassAnalysisSchemaVersion outputSchemaVersion;
   @override
-  final _i3.AnalyticsExportDestination destination;
+  final AnalyticsExportDestination destination;
 
   factory _$StorageClassAnalysisDataExport(
           [void Function(StorageClassAnalysisDataExportBuilder)? updates]) =>
@@ -58,17 +58,17 @@ class StorageClassAnalysisDataExportBuilder
             StorageClassAnalysisDataExportBuilder> {
   _$StorageClassAnalysisDataExport? _$v;
 
-  _i2.StorageClassAnalysisSchemaVersion? _outputSchemaVersion;
-  _i2.StorageClassAnalysisSchemaVersion? get outputSchemaVersion =>
+  StorageClassAnalysisSchemaVersion? _outputSchemaVersion;
+  StorageClassAnalysisSchemaVersion? get outputSchemaVersion =>
       _$this._outputSchemaVersion;
   set outputSchemaVersion(
-          _i2.StorageClassAnalysisSchemaVersion? outputSchemaVersion) =>
+          StorageClassAnalysisSchemaVersion? outputSchemaVersion) =>
       _$this._outputSchemaVersion = outputSchemaVersion;
 
-  _i3.AnalyticsExportDestinationBuilder? _destination;
-  _i3.AnalyticsExportDestinationBuilder get destination =>
-      _$this._destination ??= new _i3.AnalyticsExportDestinationBuilder();
-  set destination(_i3.AnalyticsExportDestinationBuilder? destination) =>
+  AnalyticsExportDestinationBuilder? _destination;
+  AnalyticsExportDestinationBuilder get destination =>
+      _$this._destination ??= new AnalyticsExportDestinationBuilder();
+  set destination(AnalyticsExportDestinationBuilder? destination) =>
       _$this._destination = destination;
 
   StorageClassAnalysisDataExportBuilder();

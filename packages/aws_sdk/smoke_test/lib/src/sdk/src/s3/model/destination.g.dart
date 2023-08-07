@@ -12,15 +12,15 @@ class _$Destination extends Destination {
   @override
   final String? account;
   @override
-  final _i2.StorageClass? storageClass;
+  final StorageClass? storageClass;
   @override
-  final _i3.AccessControlTranslation? accessControlTranslation;
+  final AccessControlTranslation? accessControlTranslation;
   @override
-  final _i4.EncryptionConfiguration? encryptionConfiguration;
+  final EncryptionConfiguration? encryptionConfiguration;
   @override
-  final _i5.ReplicationTime? replicationTime;
+  final ReplicationTime? replicationTime;
   @override
-  final _i6.Metrics? metrics;
+  final Metrics? metrics;
 
   factory _$Destination([void Function(DestinationBuilder)? updates]) =>
       (new DestinationBuilder()..update(updates))._build();
@@ -83,37 +83,35 @@ class DestinationBuilder implements Builder<Destination, DestinationBuilder> {
   String? get account => _$this._account;
   set account(String? account) => _$this._account = account;
 
-  _i2.StorageClass? _storageClass;
-  _i2.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i2.StorageClass? storageClass) =>
+  StorageClass? _storageClass;
+  StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(StorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
-  _i3.AccessControlTranslationBuilder? _accessControlTranslation;
-  _i3.AccessControlTranslationBuilder get accessControlTranslation =>
+  AccessControlTranslationBuilder? _accessControlTranslation;
+  AccessControlTranslationBuilder get accessControlTranslation =>
       _$this._accessControlTranslation ??=
-          new _i3.AccessControlTranslationBuilder();
+          new AccessControlTranslationBuilder();
   set accessControlTranslation(
-          _i3.AccessControlTranslationBuilder? accessControlTranslation) =>
+          AccessControlTranslationBuilder? accessControlTranslation) =>
       _$this._accessControlTranslation = accessControlTranslation;
 
-  _i4.EncryptionConfigurationBuilder? _encryptionConfiguration;
-  _i4.EncryptionConfigurationBuilder get encryptionConfiguration =>
-      _$this._encryptionConfiguration ??=
-          new _i4.EncryptionConfigurationBuilder();
+  EncryptionConfigurationBuilder? _encryptionConfiguration;
+  EncryptionConfigurationBuilder get encryptionConfiguration =>
+      _$this._encryptionConfiguration ??= new EncryptionConfigurationBuilder();
   set encryptionConfiguration(
-          _i4.EncryptionConfigurationBuilder? encryptionConfiguration) =>
+          EncryptionConfigurationBuilder? encryptionConfiguration) =>
       _$this._encryptionConfiguration = encryptionConfiguration;
 
-  _i5.ReplicationTimeBuilder? _replicationTime;
-  _i5.ReplicationTimeBuilder get replicationTime =>
-      _$this._replicationTime ??= new _i5.ReplicationTimeBuilder();
-  set replicationTime(_i5.ReplicationTimeBuilder? replicationTime) =>
+  ReplicationTimeBuilder? _replicationTime;
+  ReplicationTimeBuilder get replicationTime =>
+      _$this._replicationTime ??= new ReplicationTimeBuilder();
+  set replicationTime(ReplicationTimeBuilder? replicationTime) =>
       _$this._replicationTime = replicationTime;
 
-  _i6.MetricsBuilder? _metrics;
-  _i6.MetricsBuilder get metrics =>
-      _$this._metrics ??= new _i6.MetricsBuilder();
-  set metrics(_i6.MetricsBuilder? metrics) => _$this._metrics = metrics;
+  MetricsBuilder? _metrics;
+  MetricsBuilder get metrics => _$this._metrics ??= new MetricsBuilder();
+  set metrics(MetricsBuilder? metrics) => _$this._metrics = metrics;
 
   DestinationBuilder();
 

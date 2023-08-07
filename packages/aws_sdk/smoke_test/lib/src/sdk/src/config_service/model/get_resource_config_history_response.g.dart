@@ -9,7 +9,7 @@ part of 'get_resource_config_history_response.dart';
 class _$GetResourceConfigHistoryResponse
     extends GetResourceConfigHistoryResponse {
   @override
-  final _i3.BuiltList<_i2.ConfigurationItem>? configurationItems;
+  final _i2.BuiltList<ConfigurationItem>? configurationItems;
   @override
   final String? nextToken;
 
@@ -54,12 +54,11 @@ class GetResourceConfigHistoryResponseBuilder
             GetResourceConfigHistoryResponseBuilder> {
   _$GetResourceConfigHistoryResponse? _$v;
 
-  _i3.ListBuilder<_i2.ConfigurationItem>? _configurationItems;
-  _i3.ListBuilder<_i2.ConfigurationItem> get configurationItems =>
-      _$this._configurationItems ??=
-          new _i3.ListBuilder<_i2.ConfigurationItem>();
+  _i2.ListBuilder<ConfigurationItem>? _configurationItems;
+  _i2.ListBuilder<ConfigurationItem> get configurationItems =>
+      _$this._configurationItems ??= new _i2.ListBuilder<ConfigurationItem>();
   set configurationItems(
-          _i3.ListBuilder<_i2.ConfigurationItem>? configurationItems) =>
+          _i2.ListBuilder<ConfigurationItem>? configurationItems) =>
       _$this._configurationItems = configurationItems;
 
   String? _nextToken;

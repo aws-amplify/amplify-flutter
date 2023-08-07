@@ -4,16 +4,13 @@
 library smoke_test.dynamo_db.model.batch_write_item_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/consumed_capacity.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/item_collection_metrics.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/write_request.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/consumed_capacity.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/item_collection_metrics.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/write_request.dart';
 
 part 'batch_write_item_output.g.dart';
 
@@ -23,19 +20,19 @@ abstract class BatchWriteItemOutput
     implements Built<BatchWriteItemOutput, BatchWriteItemOutputBuilder> {
   /// Represents the output of a `BatchWriteItem` operation.
   factory BatchWriteItemOutput({
-    Map<String, List<_i2.WriteRequest>>? unprocessedItems,
-    Map<String, List<_i3.ItemCollectionMetrics>>? itemCollectionMetrics,
-    List<_i4.ConsumedCapacity>? consumedCapacity,
+    Map<String, List<WriteRequest>>? unprocessedItems,
+    Map<String, List<ItemCollectionMetrics>>? itemCollectionMetrics,
+    List<ConsumedCapacity>? consumedCapacity,
   }) {
     return _$BatchWriteItemOutput._(
       unprocessedItems: unprocessedItems == null
           ? null
-          : _i5.BuiltListMultimap(unprocessedItems),
+          : _i2.BuiltListMultimap(unprocessedItems),
       itemCollectionMetrics: itemCollectionMetrics == null
           ? null
-          : _i5.BuiltListMultimap(itemCollectionMetrics),
+          : _i2.BuiltListMultimap(itemCollectionMetrics),
       consumedCapacity:
-          consumedCapacity == null ? null : _i5.BuiltList(consumedCapacity),
+          consumedCapacity == null ? null : _i2.BuiltList(consumedCapacity),
     );
   }
 
@@ -53,7 +50,7 @@ abstract class BatchWriteItemOutput
   ) =>
       payload;
 
-  static const List<_i6.SmithySerializer<BatchWriteItemOutput>> serializers = [
+  static const List<_i3.SmithySerializer<BatchWriteItemOutput>> serializers = [
     BatchWriteItemOutputAwsJson10Serializer()
   ];
 
@@ -73,7 +70,7 @@ abstract class BatchWriteItemOutput
   ///
   ///
   /// If there are no unprocessed items remaining, the response contains an empty `UnprocessedItems` map.
-  _i5.BuiltListMultimap<String, _i2.WriteRequest>? get unprocessedItems;
+  _i2.BuiltListMultimap<String, WriteRequest>? get unprocessedItems;
 
   /// A list of tables that were processed by `BatchWriteItem` and, for each table, information about any item collections that were affected by individual `DeleteItem` or `PutItem` operations.
   ///
@@ -84,7 +81,7 @@ abstract class BatchWriteItemOutput
   /// *   `SizeEstimateRangeGB` \- An estimate of item collection size, expressed in GB. This is a two-element array containing a lower bound and an upper bound for the estimate. The estimate includes the size of all the items in the table, plus the size of all attributes projected into all of the local secondary indexes on the table. Use this estimate to measure whether a local secondary index is approaching its size limit.
   ///
   ///     The estimate is subject to change over time; therefore, do not rely on the precision or accuracy of the estimate.
-  _i5.BuiltListMultimap<String, _i3.ItemCollectionMetrics>?
+  _i2.BuiltListMultimap<String, ItemCollectionMetrics>?
       get itemCollectionMetrics;
 
   /// The capacity units consumed by the entire `BatchWriteItem` operation.
@@ -94,7 +91,7 @@ abstract class BatchWriteItemOutput
   /// *   `TableName` \- The table that consumed the provisioned throughput.
   ///
   /// *   `CapacityUnits` \- The total number of capacity units consumed.
-  _i5.BuiltList<_i4.ConsumedCapacity>? get consumedCapacity;
+  _i2.BuiltList<ConsumedCapacity>? get consumedCapacity;
   @override
   List<Object?> get props => [
         unprocessedItems,
@@ -121,7 +118,7 @@ abstract class BatchWriteItemOutput
 }
 
 class BatchWriteItemOutputAwsJson10Serializer
-    extends _i6.StructuredSmithySerializer<BatchWriteItemOutput> {
+    extends _i3.StructuredSmithySerializer<BatchWriteItemOutput> {
   const BatchWriteItemOutputAwsJson10Serializer()
       : super('BatchWriteItemOutput');
 
@@ -131,8 +128,8 @@ class BatchWriteItemOutputAwsJson10Serializer
         _$BatchWriteItemOutput,
       ];
   @override
-  Iterable<_i6.ShapeId> get supportedProtocols => const [
-        _i6.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -157,32 +154,32 @@ class BatchWriteItemOutputAwsJson10Serializer
           result.unprocessedItems.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltListMultimap,
+              _i2.BuiltListMultimap,
               [
                 FullType(String),
-                FullType(_i2.WriteRequest),
+                FullType(WriteRequest),
               ],
             ),
-          ) as _i5.BuiltListMultimap<String, _i2.WriteRequest>));
+          ) as _i2.BuiltListMultimap<String, WriteRequest>));
         case 'ItemCollectionMetrics':
           result.itemCollectionMetrics.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltListMultimap,
+              _i2.BuiltListMultimap,
               [
                 FullType(String),
-                FullType(_i3.ItemCollectionMetrics),
+                FullType(ItemCollectionMetrics),
               ],
             ),
-          ) as _i5.BuiltListMultimap<String, _i3.ItemCollectionMetrics>));
+          ) as _i2.BuiltListMultimap<String, ItemCollectionMetrics>));
         case 'ConsumedCapacity':
           result.consumedCapacity.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(_i4.ConsumedCapacity)],
+              _i2.BuiltList,
+              [FullType(ConsumedCapacity)],
             ),
-          ) as _i5.BuiltList<_i4.ConsumedCapacity>));
+          ) as _i2.BuiltList<ConsumedCapacity>));
       }
     }
 
@@ -207,10 +204,10 @@ class BatchWriteItemOutputAwsJson10Serializer
         ..add(serializers.serialize(
           unprocessedItems,
           specifiedType: const FullType(
-            _i5.BuiltListMultimap,
+            _i2.BuiltListMultimap,
             [
               FullType(String),
-              FullType(_i2.WriteRequest),
+              FullType(WriteRequest),
             ],
           ),
         ));
@@ -221,10 +218,10 @@ class BatchWriteItemOutputAwsJson10Serializer
         ..add(serializers.serialize(
           itemCollectionMetrics,
           specifiedType: const FullType(
-            _i5.BuiltListMultimap,
+            _i2.BuiltListMultimap,
             [
               FullType(String),
-              FullType(_i3.ItemCollectionMetrics),
+              FullType(ItemCollectionMetrics),
             ],
           ),
         ));
@@ -235,8 +232,8 @@ class BatchWriteItemOutputAwsJson10Serializer
         ..add(serializers.serialize(
           consumedCapacity,
           specifiedType: const FullType(
-            _i5.BuiltList,
-            [FullType(_i4.ConsumedCapacity)],
+            _i2.BuiltList,
+            [FullType(ConsumedCapacity)],
           ),
         ));
     }

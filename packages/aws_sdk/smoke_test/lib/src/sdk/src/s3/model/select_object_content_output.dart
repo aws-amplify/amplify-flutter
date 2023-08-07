@@ -6,8 +6,7 @@ library smoke_test.s3.model.select_object_content_output; // ignore_for_file: no
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/select_object_content_event_stream.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/select_object_content_event_stream.dart';
 
 part 'select_object_content_output.g.dart';
 
@@ -15,9 +14,8 @@ abstract class SelectObjectContentOutput
     with _i1.AWSEquatable<SelectObjectContentOutput>
     implements
         Built<SelectObjectContentOutput, SelectObjectContentOutputBuilder>,
-        _i2.HasPayload<_i3.SelectObjectContentEventStream> {
-  factory SelectObjectContentOutput(
-      {_i3.SelectObjectContentEventStream? payload}) {
+        _i2.HasPayload<SelectObjectContentEventStream> {
+  factory SelectObjectContentOutput({SelectObjectContentEventStream? payload}) {
     return _$SelectObjectContentOutput._(payload: payload);
   }
 
@@ -29,20 +27,20 @@ abstract class SelectObjectContentOutput
 
   /// Constructs a [SelectObjectContentOutput] from a [payload] and [response].
   factory SelectObjectContentOutput.fromResponse(
-    _i3.SelectObjectContentEventStream? payload,
+    SelectObjectContentEventStream? payload,
     _i1.AWSBaseHttpResponse response,
   ) =>
       SelectObjectContentOutput.build((b) {
         b.payload = payload;
       });
 
-  static const List<_i2.SmithySerializer<_i3.SelectObjectContentEventStream?>>
+  static const List<_i2.SmithySerializer<SelectObjectContentEventStream?>>
       serializers = [];
 
   /// The array of results.
-  _i3.SelectObjectContentEventStream? get payload;
+  SelectObjectContentEventStream? get payload;
   @override
-  _i3.SelectObjectContentEventStream? getPayload() => payload;
+  SelectObjectContentEventStream? getPayload() => payload;
   @override
   List<Object?> get props => [payload];
   @override

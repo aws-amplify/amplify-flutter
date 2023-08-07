@@ -4,13 +4,11 @@
 // ignore_for_file: unused_element
 library rest_json1_v1.rest_json_protocol.test.null_and_empty_headers_client_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1_v1/src/rest_json_protocol/model/null_and_empty_headers_io.dart'
-    as _i5;
-import 'package:rest_json1_v1/src/rest_json_protocol/operation/null_and_empty_headers_client_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/null_and_empty_headers_io.dart';
+import 'package:rest_json1_v1/src/rest_json_protocol/operation/null_and_empty_headers_client_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -19,7 +17,7 @@ void main() {
     'RestJsonNullAndEmptyHeaders (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.NullAndEmptyHeadersClientOperation(
+        operation: NullAndEmptyHeadersClientOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -27,7 +25,7 @@ void main() {
           id: 'RestJsonNullAndEmptyHeaders',
           documentation:
               'Do not send null values, empty strings, or empty lists over the wire in headers',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -65,26 +63,26 @@ void main() {
 }
 
 class NullAndEmptyHeadersIoRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<_i5.NullAndEmptyHeadersIo> {
+    extends _i3.StructuredSmithySerializer<NullAndEmptyHeadersIo> {
   const NullAndEmptyHeadersIoRestJson1Serializer()
       : super('NullAndEmptyHeadersIo');
 
   @override
-  Iterable<Type> get types => const [_i5.NullAndEmptyHeadersIo];
+  Iterable<Type> get types => const [NullAndEmptyHeadersIo];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
       ];
   @override
-  _i5.NullAndEmptyHeadersIo deserialize(
+  NullAndEmptyHeadersIo deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.NullAndEmptyHeadersIoBuilder();
+    final result = NullAndEmptyHeadersIoBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -108,10 +106,10 @@ class NullAndEmptyHeadersIoRestJson1Serializer
           result.c.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltList,
+              _i4.BuiltList,
               [FullType(String)],
             ),
-          ) as _i6.BuiltList<String>));
+          ) as _i4.BuiltList<String>));
       }
     }
 
@@ -121,7 +119,7 @@ class NullAndEmptyHeadersIoRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.NullAndEmptyHeadersIo object, {
+    NullAndEmptyHeadersIo object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

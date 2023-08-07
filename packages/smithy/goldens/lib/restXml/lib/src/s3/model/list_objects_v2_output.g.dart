@@ -10,7 +10,7 @@ class _$ListObjectsV2Output extends ListObjectsV2Output {
   @override
   final bool? isTruncated;
   @override
-  final _i5.BuiltList<_i2.S3Object>? contents;
+  final _i2.BuiltList<S3Object>? contents;
   @override
   final String? name;
   @override
@@ -20,9 +20,9 @@ class _$ListObjectsV2Output extends ListObjectsV2Output {
   @override
   final int? maxKeys;
   @override
-  final _i5.BuiltList<_i3.CommonPrefix>? commonPrefixes;
+  final _i2.BuiltList<CommonPrefix>? commonPrefixes;
   @override
-  final _i4.EncodingType? encodingType;
+  final EncodingType? encodingType;
   @override
   final int? keyCount;
   @override
@@ -106,10 +106,10 @@ class ListObjectsV2OutputBuilder
   bool? get isTruncated => _$this._isTruncated;
   set isTruncated(bool? isTruncated) => _$this._isTruncated = isTruncated;
 
-  _i5.ListBuilder<_i2.S3Object>? _contents;
-  _i5.ListBuilder<_i2.S3Object> get contents =>
-      _$this._contents ??= new _i5.ListBuilder<_i2.S3Object>();
-  set contents(_i5.ListBuilder<_i2.S3Object>? contents) =>
+  _i2.ListBuilder<S3Object>? _contents;
+  _i2.ListBuilder<S3Object> get contents =>
+      _$this._contents ??= new _i2.ListBuilder<S3Object>();
+  set contents(_i2.ListBuilder<S3Object>? contents) =>
       _$this._contents = contents;
 
   String? _name;
@@ -128,15 +128,15 @@ class ListObjectsV2OutputBuilder
   int? get maxKeys => _$this._maxKeys;
   set maxKeys(int? maxKeys) => _$this._maxKeys = maxKeys;
 
-  _i5.ListBuilder<_i3.CommonPrefix>? _commonPrefixes;
-  _i5.ListBuilder<_i3.CommonPrefix> get commonPrefixes =>
-      _$this._commonPrefixes ??= new _i5.ListBuilder<_i3.CommonPrefix>();
-  set commonPrefixes(_i5.ListBuilder<_i3.CommonPrefix>? commonPrefixes) =>
+  _i2.ListBuilder<CommonPrefix>? _commonPrefixes;
+  _i2.ListBuilder<CommonPrefix> get commonPrefixes =>
+      _$this._commonPrefixes ??= new _i2.ListBuilder<CommonPrefix>();
+  set commonPrefixes(_i2.ListBuilder<CommonPrefix>? commonPrefixes) =>
       _$this._commonPrefixes = commonPrefixes;
 
-  _i4.EncodingType? _encodingType;
-  _i4.EncodingType? get encodingType => _$this._encodingType;
-  set encodingType(_i4.EncodingType? encodingType) =>
+  EncodingType? _encodingType;
+  EncodingType? get encodingType => _$this._encodingType;
+  set encodingType(EncodingType? encodingType) =>
       _$this._encodingType = encodingType;
 
   int? _keyCount;

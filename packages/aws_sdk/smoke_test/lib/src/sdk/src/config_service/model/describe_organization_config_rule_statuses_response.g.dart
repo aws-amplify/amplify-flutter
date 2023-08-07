@@ -9,7 +9,7 @@ part of 'describe_organization_config_rule_statuses_response.dart';
 class _$DescribeOrganizationConfigRuleStatusesResponse
     extends DescribeOrganizationConfigRuleStatusesResponse {
   @override
-  final _i3.BuiltList<_i2.OrganizationConfigRuleStatus>?
+  final _i2.BuiltList<OrganizationConfigRuleStatus>?
       organizationConfigRuleStatuses;
   @override
   final String? nextToken;
@@ -61,14 +61,14 @@ class DescribeOrganizationConfigRuleStatusesResponseBuilder
             DescribeOrganizationConfigRuleStatusesResponseBuilder> {
   _$DescribeOrganizationConfigRuleStatusesResponse? _$v;
 
-  _i3.ListBuilder<_i2.OrganizationConfigRuleStatus>?
+  _i2.ListBuilder<OrganizationConfigRuleStatus>?
       _organizationConfigRuleStatuses;
-  _i3.ListBuilder<_i2.OrganizationConfigRuleStatus>
+  _i2.ListBuilder<OrganizationConfigRuleStatus>
       get organizationConfigRuleStatuses =>
           _$this._organizationConfigRuleStatuses ??=
-              new _i3.ListBuilder<_i2.OrganizationConfigRuleStatus>();
+              new _i2.ListBuilder<OrganizationConfigRuleStatus>();
   set organizationConfigRuleStatuses(
-          _i3.ListBuilder<_i2.OrganizationConfigRuleStatus>?
+          _i2.ListBuilder<OrganizationConfigRuleStatus>?
               organizationConfigRuleStatuses) =>
       _$this._organizationConfigRuleStatuses = organizationConfigRuleStatuses;
 

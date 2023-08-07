@@ -4,14 +4,12 @@
 library rest_json1_v2.rest_json_protocol.model.omits_serializing_empty_lists_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i6;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/foo_enum.dart'
-    as _i3;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/integer_enum.dart'
-    as _i4;
+import 'package:meta/meta.dart' as _i4;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/foo_enum.dart';
+import 'package:rest_json1_v2/src/rest_json_protocol/model/integer_enum.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'omits_serializing_empty_lists_input.g.dart';
@@ -31,25 +29,25 @@ abstract class OmitsSerializingEmptyListsInput
     List<double>? queryDoubleList,
     List<bool>? queryBooleanList,
     List<DateTime>? queryTimestampList,
-    List<_i3.FooEnum>? queryEnumList,
-    List<_i4.IntegerEnum>? queryIntegerEnumList,
+    List<FooEnum>? queryEnumList,
+    List<IntegerEnum>? queryIntegerEnumList,
   }) {
     return _$OmitsSerializingEmptyListsInput._(
       queryStringList:
-          queryStringList == null ? null : _i5.BuiltList(queryStringList),
+          queryStringList == null ? null : _i3.BuiltList(queryStringList),
       queryIntegerList:
-          queryIntegerList == null ? null : _i5.BuiltList(queryIntegerList),
+          queryIntegerList == null ? null : _i3.BuiltList(queryIntegerList),
       queryDoubleList:
-          queryDoubleList == null ? null : _i5.BuiltList(queryDoubleList),
+          queryDoubleList == null ? null : _i3.BuiltList(queryDoubleList),
       queryBooleanList:
-          queryBooleanList == null ? null : _i5.BuiltList(queryBooleanList),
+          queryBooleanList == null ? null : _i3.BuiltList(queryBooleanList),
       queryTimestampList:
-          queryTimestampList == null ? null : _i5.BuiltList(queryTimestampList),
+          queryTimestampList == null ? null : _i3.BuiltList(queryTimestampList),
       queryEnumList:
-          queryEnumList == null ? null : _i5.BuiltList(queryEnumList),
+          queryEnumList == null ? null : _i3.BuiltList(queryEnumList),
       queryIntegerEnumList: queryIntegerEnumList == null
           ? null
-          : _i5.BuiltList(queryIntegerEnumList),
+          : _i3.BuiltList(queryIntegerEnumList),
     );
   }
 
@@ -99,13 +97,12 @@ abstract class OmitsSerializingEmptyListsInput
         if (request.queryParameters['EnumList'] != null) {
           b.queryEnumList.addAll(_i1
               .parseHeader(request.queryParameters['EnumList']!)
-              .map((el) => _i3.FooEnum.values.byValue(el.trim())));
+              .map((el) => FooEnum.values.byValue(el.trim())));
         }
         if (request.queryParameters['IntegerEnumList'] != null) {
           b.queryIntegerEnumList.addAll(_i1
               .parseHeader(request.queryParameters['IntegerEnumList']!)
-              .map((el) =>
-                  _i4.IntegerEnum.values.byValue(int.parse(el.trim()))));
+              .map((el) => IntegerEnum.values.byValue(int.parse(el.trim()))));
         }
       });
 
@@ -113,13 +110,13 @@ abstract class OmitsSerializingEmptyListsInput
           _i1.SmithySerializer<OmitsSerializingEmptyListsInputPayload>>
       serializers = [OmitsSerializingEmptyListsInputRestJson1Serializer()];
 
-  _i5.BuiltList<String>? get queryStringList;
-  _i5.BuiltList<int>? get queryIntegerList;
-  _i5.BuiltList<double>? get queryDoubleList;
-  _i5.BuiltList<bool>? get queryBooleanList;
-  _i5.BuiltList<DateTime>? get queryTimestampList;
-  _i5.BuiltList<_i3.FooEnum>? get queryEnumList;
-  _i5.BuiltList<_i4.IntegerEnum>? get queryIntegerEnumList;
+  _i3.BuiltList<String>? get queryStringList;
+  _i3.BuiltList<int>? get queryIntegerList;
+  _i3.BuiltList<double>? get queryDoubleList;
+  _i3.BuiltList<bool>? get queryBooleanList;
+  _i3.BuiltList<DateTime>? get queryTimestampList;
+  _i3.BuiltList<FooEnum>? get queryEnumList;
+  _i3.BuiltList<IntegerEnum>? get queryIntegerEnumList;
   @override
   OmitsSerializingEmptyListsInputPayload getPayload() =>
       OmitsSerializingEmptyListsInputPayload();
@@ -169,7 +166,7 @@ abstract class OmitsSerializingEmptyListsInput
   }
 }
 
-@_i6.internal
+@_i4.internal
 abstract class OmitsSerializingEmptyListsInputPayload
     with
         _i2.AWSEquatable<OmitsSerializingEmptyListsInputPayload>

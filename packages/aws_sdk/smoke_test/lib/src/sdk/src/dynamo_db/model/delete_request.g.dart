@@ -8,7 +8,7 @@ part of 'delete_request.dart';
 
 class _$DeleteRequest extends DeleteRequest {
   @override
-  final _i3.BuiltMap<String, _i2.AttributeValue> key;
+  final _i2.BuiltMap<String, AttributeValue> key;
 
   factory _$DeleteRequest([void Function(DeleteRequestBuilder)? updates]) =>
       (new DeleteRequestBuilder()..update(updates))._build();
@@ -43,10 +43,10 @@ class DeleteRequestBuilder
     implements Builder<DeleteRequest, DeleteRequestBuilder> {
   _$DeleteRequest? _$v;
 
-  _i3.MapBuilder<String, _i2.AttributeValue>? _key;
-  _i3.MapBuilder<String, _i2.AttributeValue> get key =>
-      _$this._key ??= new _i3.MapBuilder<String, _i2.AttributeValue>();
-  set key(_i3.MapBuilder<String, _i2.AttributeValue>? key) => _$this._key = key;
+  _i2.MapBuilder<String, AttributeValue>? _key;
+  _i2.MapBuilder<String, AttributeValue> get key =>
+      _$this._key ??= new _i2.MapBuilder<String, AttributeValue>();
+  set key(_i2.MapBuilder<String, AttributeValue>? key) => _$this._key = key;
 
   DeleteRequestBuilder();
 

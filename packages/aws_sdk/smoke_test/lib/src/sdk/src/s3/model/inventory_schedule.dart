@@ -6,9 +6,8 @@ library smoke_test.s3.model.inventory_schedule; // ignore_for_file: no_leading_u
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/inventory_frequency.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/inventory_frequency.dart';
 
 part 'inventory_schedule.g.dart';
 
@@ -17,7 +16,7 @@ abstract class InventorySchedule
     with _i1.AWSEquatable<InventorySchedule>
     implements Built<InventorySchedule, InventoryScheduleBuilder> {
   /// Specifies the schedule for generating inventory results.
-  factory InventorySchedule({required _i2.InventoryFrequency frequency}) {
+  factory InventorySchedule({required InventoryFrequency frequency}) {
     return _$InventorySchedule._(frequency: frequency);
   }
 
@@ -27,12 +26,12 @@ abstract class InventorySchedule
 
   const InventorySchedule._();
 
-  static const List<_i3.SmithySerializer<InventorySchedule>> serializers = [
+  static const List<_i2.SmithySerializer<InventorySchedule>> serializers = [
     InventoryScheduleRestXmlSerializer()
   ];
 
   /// Specifies how frequently inventory results are produced.
-  _i2.InventoryFrequency get frequency;
+  InventoryFrequency get frequency;
   @override
   List<Object?> get props => [frequency];
   @override
@@ -47,7 +46,7 @@ abstract class InventorySchedule
 }
 
 class InventoryScheduleRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<InventorySchedule> {
+    extends _i2.StructuredSmithySerializer<InventorySchedule> {
   const InventoryScheduleRestXmlSerializer() : super('InventorySchedule');
 
   @override
@@ -56,8 +55,8 @@ class InventoryScheduleRestXmlSerializer
         _$InventorySchedule,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -81,8 +80,8 @@ class InventoryScheduleRestXmlSerializer
         case 'Frequency':
           result.frequency = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.InventoryFrequency),
-          ) as _i2.InventoryFrequency);
+            specifiedType: const FullType(InventoryFrequency),
+          ) as InventoryFrequency);
       }
     }
 
@@ -96,17 +95,17 @@ class InventoryScheduleRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'InventorySchedule',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final InventorySchedule(:frequency) = object;
     result$
-      ..add(const _i3.XmlElementName('Frequency'))
+      ..add(const _i2.XmlElementName('Frequency'))
       ..add(serializers.serialize(
         frequency,
-        specifiedType: const FullType.nullable(_i2.InventoryFrequency),
+        specifiedType: const FullType.nullable(InventoryFrequency),
       ));
     return result$;
   }

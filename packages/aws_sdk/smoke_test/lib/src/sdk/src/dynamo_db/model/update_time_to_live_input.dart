@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/time_to_live_specification.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/time_to_live_specification.dart';
 
 part 'update_time_to_live_input.g.dart';
 
@@ -21,7 +20,7 @@ abstract class UpdateTimeToLiveInput
   /// Represents the input of an `UpdateTimeToLive` operation.
   factory UpdateTimeToLiveInput({
     required String tableName,
-    required _i3.TimeToLiveSpecification timeToLiveSpecification,
+    required TimeToLiveSpecification timeToLiveSpecification,
   }) {
     return _$UpdateTimeToLiveInput._(
       tableName: tableName,
@@ -51,7 +50,7 @@ abstract class UpdateTimeToLiveInput
   String get tableName;
 
   /// Represents the settings used to enable or disable Time to Live for the specified table.
-  _i3.TimeToLiveSpecification get timeToLiveSpecification;
+  TimeToLiveSpecification get timeToLiveSpecification;
   @override
   UpdateTimeToLiveInput getPayload() => this;
   @override
@@ -115,8 +114,8 @@ class UpdateTimeToLiveInputAwsJson10Serializer
         case 'TimeToLiveSpecification':
           result.timeToLiveSpecification.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.TimeToLiveSpecification),
-          ) as _i3.TimeToLiveSpecification));
+            specifiedType: const FullType(TimeToLiveSpecification),
+          ) as TimeToLiveSpecification));
       }
     }
 
@@ -140,7 +139,7 @@ class UpdateTimeToLiveInputAwsJson10Serializer
       'TimeToLiveSpecification',
       serializers.serialize(
         timeToLiveSpecification,
-        specifiedType: const FullType(_i3.TimeToLiveSpecification),
+        specifiedType: const FullType(TimeToLiveSpecification),
       ),
     ]);
     return result$;

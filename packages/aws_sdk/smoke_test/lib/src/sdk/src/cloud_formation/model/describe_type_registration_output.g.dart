@@ -8,7 +8,7 @@ part of 'describe_type_registration_output.dart';
 
 class _$DescribeTypeRegistrationOutput extends DescribeTypeRegistrationOutput {
   @override
-  final _i2.RegistrationStatus? progressStatus;
+  final RegistrationStatus? progressStatus;
   @override
   final String? description;
   @override
@@ -64,9 +64,9 @@ class DescribeTypeRegistrationOutputBuilder
             DescribeTypeRegistrationOutputBuilder> {
   _$DescribeTypeRegistrationOutput? _$v;
 
-  _i2.RegistrationStatus? _progressStatus;
-  _i2.RegistrationStatus? get progressStatus => _$this._progressStatus;
-  set progressStatus(_i2.RegistrationStatus? progressStatus) =>
+  RegistrationStatus? _progressStatus;
+  RegistrationStatus? get progressStatus => _$this._progressStatus;
+  set progressStatus(RegistrationStatus? progressStatus) =>
       _$this._progressStatus = progressStatus;
 
   String? _description;

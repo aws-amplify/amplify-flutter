@@ -5,22 +5,15 @@ library rest_xml_v1.s3.s3_client; // ignore_for_file: no_leading_underscores_for
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
-import 'package:rest_xml_v1/src/s3/model/delete_object_tagging_output.dart'
-    as _i5;
-import 'package:rest_xml_v1/src/s3/model/delete_object_tagging_request.dart'
-    as _i6;
-import 'package:rest_xml_v1/src/s3/model/get_bucket_location_output.dart'
-    as _i8;
-import 'package:rest_xml_v1/src/s3/model/get_bucket_location_request.dart'
-    as _i9;
-import 'package:rest_xml_v1/src/s3/model/list_objects_v2_output.dart' as _i11;
-import 'package:rest_xml_v1/src/s3/model/list_objects_v2_request.dart' as _i12;
-import 'package:rest_xml_v1/src/s3/operation/delete_object_tagging_operation.dart'
-    as _i7;
-import 'package:rest_xml_v1/src/s3/operation/get_bucket_location_operation.dart'
-    as _i10;
-import 'package:rest_xml_v1/src/s3/operation/list_objects_v2_operation.dart'
-    as _i13;
+import 'package:rest_xml_v1/src/s3/model/delete_object_tagging_output.dart';
+import 'package:rest_xml_v1/src/s3/model/delete_object_tagging_request.dart';
+import 'package:rest_xml_v1/src/s3/model/get_bucket_location_output.dart';
+import 'package:rest_xml_v1/src/s3/model/get_bucket_location_request.dart';
+import 'package:rest_xml_v1/src/s3/model/list_objects_v2_output.dart';
+import 'package:rest_xml_v1/src/s3/model/list_objects_v2_request.dart';
+import 'package:rest_xml_v1/src/s3/operation/delete_object_tagging_operation.dart';
+import 'package:rest_xml_v1/src/s3/operation/get_bucket_location_operation.dart';
+import 'package:rest_xml_v1/src/s3/operation/list_objects_v2_operation.dart';
 import 'package:smithy/smithy.dart' as _i4;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
@@ -56,13 +49,13 @@ class S3Client {
 
   final List<_i4.HttpResponseInterceptor> _responseInterceptors;
 
-  _i4.SmithyOperation<_i5.DeleteObjectTaggingOutput> deleteObjectTagging(
-    _i6.DeleteObjectTaggingRequest input, {
+  _i4.SmithyOperation<DeleteObjectTaggingOutput> deleteObjectTagging(
+    DeleteObjectTaggingRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i7.DeleteObjectTaggingOperation(
+    return DeleteObjectTaggingOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -75,13 +68,13 @@ class S3Client {
     );
   }
 
-  _i4.SmithyOperation<_i8.GetBucketLocationOutput> getBucketLocation(
-    _i9.GetBucketLocationRequest input, {
+  _i4.SmithyOperation<GetBucketLocationOutput> getBucketLocation(
+    GetBucketLocationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i10.GetBucketLocationOperation(
+    return GetBucketLocationOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -94,14 +87,14 @@ class S3Client {
     );
   }
 
-  _i4.SmithyOperation<
-      _i4.PaginatedResult<_i11.ListObjectsV2Output, int, String>> listObjectsV2(
-    _i12.ListObjectsV2Request input, {
+  _i4.SmithyOperation<_i4.PaginatedResult<ListObjectsV2Output, int, String>>
+      listObjectsV2(
+    ListObjectsV2Request input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i13.ListObjectsV2Operation(
+    return ListObjectsV2Operation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,

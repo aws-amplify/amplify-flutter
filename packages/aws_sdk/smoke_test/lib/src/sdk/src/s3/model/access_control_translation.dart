@@ -6,8 +6,8 @@ library smoke_test.s3.model.access_control_translation; // ignore_for_file: no_l
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/owner_override.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/owner_override.dart';
 
 part 'access_control_translation.g.dart';
 
@@ -17,7 +17,7 @@ abstract class AccessControlTranslation
     implements
         Built<AccessControlTranslation, AccessControlTranslationBuilder> {
   /// A container for information about access control for replicas.
-  factory AccessControlTranslation({required _i2.OwnerOverride owner}) {
+  factory AccessControlTranslation({required OwnerOverride owner}) {
     return _$AccessControlTranslation._(owner: owner);
   }
 
@@ -28,11 +28,11 @@ abstract class AccessControlTranslation
 
   const AccessControlTranslation._();
 
-  static const List<_i3.SmithySerializer<AccessControlTranslation>>
+  static const List<_i2.SmithySerializer<AccessControlTranslation>>
       serializers = [AccessControlTranslationRestXmlSerializer()];
 
   /// Specifies the replica ownership. For default and valid values, see [PUT bucket replication](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTreplication.html) in the _Amazon S3 API Reference_.
-  _i2.OwnerOverride get owner;
+  OwnerOverride get owner;
   @override
   List<Object?> get props => [owner];
   @override
@@ -47,7 +47,7 @@ abstract class AccessControlTranslation
 }
 
 class AccessControlTranslationRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<AccessControlTranslation> {
+    extends _i2.StructuredSmithySerializer<AccessControlTranslation> {
   const AccessControlTranslationRestXmlSerializer()
       : super('AccessControlTranslation');
 
@@ -57,8 +57,8 @@ class AccessControlTranslationRestXmlSerializer
         _$AccessControlTranslation,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -82,8 +82,8 @@ class AccessControlTranslationRestXmlSerializer
         case 'Owner':
           result.owner = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.OwnerOverride),
-          ) as _i2.OwnerOverride);
+            specifiedType: const FullType(OwnerOverride),
+          ) as OwnerOverride);
       }
     }
 
@@ -97,17 +97,17 @@ class AccessControlTranslationRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'AccessControlTranslation',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final AccessControlTranslation(:owner) = object;
     result$
-      ..add(const _i3.XmlElementName('Owner'))
+      ..add(const _i2.XmlElementName('Owner'))
       ..add(serializers.serialize(
         owner,
-        specifiedType: const FullType.nullable(_i2.OwnerOverride),
+        specifiedType: const FullType.nullable(OwnerOverride),
       ));
     return result$;
   }

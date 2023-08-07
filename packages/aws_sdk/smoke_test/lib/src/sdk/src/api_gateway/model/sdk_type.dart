@@ -4,12 +4,11 @@
 library smoke_test.api_gateway.model.sdk_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/sdk_configuration_property.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/sdk_configuration_property.dart';
 
 part 'sdk_type.g.dart';
 
@@ -22,7 +21,7 @@ abstract class SdkType
     String? id,
     String? friendlyName,
     String? description,
-    List<_i2.SdkConfigurationProperty>? configurationProperties,
+    List<SdkConfigurationProperty>? configurationProperties,
   }) {
     return _$SdkType._(
       id: id,
@@ -30,7 +29,7 @@ abstract class SdkType
       description: description,
       configurationProperties: configurationProperties == null
           ? null
-          : _i3.BuiltList(configurationProperties),
+          : _i2.BuiltList(configurationProperties),
     );
   }
 
@@ -46,7 +45,7 @@ abstract class SdkType
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<SdkType>> serializers = [
+  static const List<_i3.SmithySerializer<SdkType>> serializers = [
     SdkTypeRestJson1Serializer()
   ];
 
@@ -60,7 +59,7 @@ abstract class SdkType
   String? get description;
 
   /// A list of configuration properties of an SdkType.
-  _i3.BuiltList<_i2.SdkConfigurationProperty>? get configurationProperties;
+  _i2.BuiltList<SdkConfigurationProperty>? get configurationProperties;
   @override
   List<Object?> get props => [
         id,
@@ -92,7 +91,7 @@ abstract class SdkType
 }
 
 class SdkTypeRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<SdkType> {
+    extends _i3.StructuredSmithySerializer<SdkType> {
   const SdkTypeRestJson1Serializer() : super('SdkType');
 
   @override
@@ -101,8 +100,8 @@ class SdkTypeRestJson1Serializer
         _$SdkType,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -127,10 +126,10 @@ class SdkTypeRestJson1Serializer
           result.configurationProperties.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.SdkConfigurationProperty)],
+              _i2.BuiltList,
+              [FullType(SdkConfigurationProperty)],
             ),
-          ) as _i3.BuiltList<_i2.SdkConfigurationProperty>));
+          ) as _i2.BuiltList<SdkConfigurationProperty>));
         case 'description':
           result.description = (serializers.deserialize(
             value,
@@ -167,8 +166,8 @@ class SdkTypeRestJson1Serializer
         ..add(serializers.serialize(
           configurationProperties,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.SdkConfigurationProperty)],
+            _i2.BuiltList,
+            [FullType(SdkConfigurationProperty)],
           ),
         ));
     }

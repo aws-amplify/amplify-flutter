@@ -4,14 +4,12 @@
 library smoke_test.dynamo_db.model.execute_transaction_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/parameterized_statement.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_consumed_capacity.dart'
-    as _i4;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/parameterized_statement.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_consumed_capacity.dart';
 
 part 'execute_transaction_input.g.dart';
 
@@ -21,12 +19,12 @@ abstract class ExecuteTransactionInput
         _i2.AWSEquatable<ExecuteTransactionInput>
     implements Built<ExecuteTransactionInput, ExecuteTransactionInputBuilder> {
   factory ExecuteTransactionInput({
-    required List<_i3.ParameterizedStatement> transactStatements,
+    required List<ParameterizedStatement> transactStatements,
     String? clientRequestToken,
-    _i4.ReturnConsumedCapacity? returnConsumedCapacity,
+    ReturnConsumedCapacity? returnConsumedCapacity,
   }) {
     return _$ExecuteTransactionInput._(
-      transactStatements: _i5.BuiltList(transactStatements),
+      transactStatements: _i3.BuiltList(transactStatements),
       clientRequestToken: clientRequestToken,
       returnConsumedCapacity: returnConsumedCapacity,
     );
@@ -56,13 +54,13 @@ abstract class ExecuteTransactionInput
   }
 
   /// The list of PartiQL statements representing the transaction to run.
-  _i5.BuiltList<_i3.ParameterizedStatement> get transactStatements;
+  _i3.BuiltList<ParameterizedStatement> get transactStatements;
 
   /// Set this value to get remaining results, if `NextToken` was returned in the statement response.
   String? get clientRequestToken;
 
   /// Determines the level of detail about either provisioned or on-demand throughput consumption that is returned in the response. For more information, see [TransactGetItems](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TransactGetItems.html) and [TransactWriteItems](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TransactWriteItems.html).
-  _i4.ReturnConsumedCapacity? get returnConsumedCapacity;
+  ReturnConsumedCapacity? get returnConsumedCapacity;
   @override
   ExecuteTransactionInput getPayload() => this;
   @override
@@ -127,10 +125,10 @@ class ExecuteTransactionInputAwsJson10Serializer
           result.transactStatements.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(_i3.ParameterizedStatement)],
+              _i3.BuiltList,
+              [FullType(ParameterizedStatement)],
             ),
-          ) as _i5.BuiltList<_i3.ParameterizedStatement>));
+          ) as _i3.BuiltList<ParameterizedStatement>));
         case 'ClientRequestToken':
           result.clientRequestToken = (serializers.deserialize(
             value,
@@ -139,8 +137,8 @@ class ExecuteTransactionInputAwsJson10Serializer
         case 'ReturnConsumedCapacity':
           result.returnConsumedCapacity = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ReturnConsumedCapacity),
-          ) as _i4.ReturnConsumedCapacity);
+            specifiedType: const FullType(ReturnConsumedCapacity),
+          ) as ReturnConsumedCapacity);
       }
     }
 
@@ -164,8 +162,8 @@ class ExecuteTransactionInputAwsJson10Serializer
       serializers.serialize(
         transactStatements,
         specifiedType: const FullType(
-          _i5.BuiltList,
-          [FullType(_i3.ParameterizedStatement)],
+          _i3.BuiltList,
+          [FullType(ParameterizedStatement)],
         ),
       ),
     ]);
@@ -182,7 +180,7 @@ class ExecuteTransactionInputAwsJson10Serializer
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
           returnConsumedCapacity,
-          specifiedType: const FullType(_i4.ReturnConsumedCapacity),
+          specifiedType: const FullType(ReturnConsumedCapacity),
         ));
     }
     return result$;

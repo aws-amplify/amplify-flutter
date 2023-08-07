@@ -8,7 +8,7 @@ part of 'point_in_time_recovery_description.dart';
 
 class _$PointInTimeRecoveryDescription extends PointInTimeRecoveryDescription {
   @override
-  final _i2.PointInTimeRecoveryStatus? pointInTimeRecoveryStatus;
+  final PointInTimeRecoveryStatus? pointInTimeRecoveryStatus;
   @override
   final DateTime? earliestRestorableDateTime;
   @override
@@ -59,11 +59,11 @@ class PointInTimeRecoveryDescriptionBuilder
             PointInTimeRecoveryDescriptionBuilder> {
   _$PointInTimeRecoveryDescription? _$v;
 
-  _i2.PointInTimeRecoveryStatus? _pointInTimeRecoveryStatus;
-  _i2.PointInTimeRecoveryStatus? get pointInTimeRecoveryStatus =>
+  PointInTimeRecoveryStatus? _pointInTimeRecoveryStatus;
+  PointInTimeRecoveryStatus? get pointInTimeRecoveryStatus =>
       _$this._pointInTimeRecoveryStatus;
   set pointInTimeRecoveryStatus(
-          _i2.PointInTimeRecoveryStatus? pointInTimeRecoveryStatus) =>
+          PointInTimeRecoveryStatus? pointInTimeRecoveryStatus) =>
       _$this._pointInTimeRecoveryStatus = pointInTimeRecoveryStatus;
 
   DateTime? _earliestRestorableDateTime;

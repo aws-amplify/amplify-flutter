@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/point_in_time_recovery_specification.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/point_in_time_recovery_specification.dart';
 
 part 'update_continuous_backups_input.g.dart';
 
@@ -21,8 +20,7 @@ abstract class UpdateContinuousBackupsInput
             UpdateContinuousBackupsInputBuilder> {
   factory UpdateContinuousBackupsInput({
     required String tableName,
-    required _i3.PointInTimeRecoverySpecification
-        pointInTimeRecoverySpecification,
+    required PointInTimeRecoverySpecification pointInTimeRecoverySpecification,
   }) {
     return _$UpdateContinuousBackupsInput._(
       tableName: tableName,
@@ -50,7 +48,7 @@ abstract class UpdateContinuousBackupsInput
   String get tableName;
 
   /// Represents the settings used to enable point in time recovery.
-  _i3.PointInTimeRecoverySpecification get pointInTimeRecoverySpecification;
+  PointInTimeRecoverySpecification get pointInTimeRecoverySpecification;
   @override
   UpdateContinuousBackupsInput getPayload() => this;
   @override
@@ -115,8 +113,8 @@ class UpdateContinuousBackupsInputAwsJson10Serializer
           result.pointInTimeRecoverySpecification
               .replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.PointInTimeRecoverySpecification),
-          ) as _i3.PointInTimeRecoverySpecification));
+            specifiedType: const FullType(PointInTimeRecoverySpecification),
+          ) as PointInTimeRecoverySpecification));
       }
     }
 
@@ -143,7 +141,7 @@ class UpdateContinuousBackupsInputAwsJson10Serializer
       'PointInTimeRecoverySpecification',
       serializers.serialize(
         pointInTimeRecoverySpecification,
-        specifiedType: const FullType(_i3.PointInTimeRecoverySpecification),
+        specifiedType: const FullType(PointInTimeRecoverySpecification),
       ),
     ]);
     return result$;

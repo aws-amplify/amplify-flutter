@@ -13,7 +13,7 @@ class _$PutBucketAnalyticsConfigurationRequest
   @override
   final String id;
   @override
-  final _i2.AnalyticsConfiguration analyticsConfiguration;
+  final AnalyticsConfiguration analyticsConfiguration;
   @override
   final String? expectedBucketOwner;
 
@@ -83,12 +83,11 @@ class PutBucketAnalyticsConfigurationRequestBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  _i2.AnalyticsConfigurationBuilder? _analyticsConfiguration;
-  _i2.AnalyticsConfigurationBuilder get analyticsConfiguration =>
-      _$this._analyticsConfiguration ??=
-          new _i2.AnalyticsConfigurationBuilder();
+  AnalyticsConfigurationBuilder? _analyticsConfiguration;
+  AnalyticsConfigurationBuilder get analyticsConfiguration =>
+      _$this._analyticsConfiguration ??= new AnalyticsConfigurationBuilder();
   set analyticsConfiguration(
-          _i2.AnalyticsConfigurationBuilder? analyticsConfiguration) =>
+          AnalyticsConfigurationBuilder? analyticsConfiguration) =>
       _$this._analyticsConfiguration = analyticsConfiguration;
 
   String? _expectedBucketOwner;

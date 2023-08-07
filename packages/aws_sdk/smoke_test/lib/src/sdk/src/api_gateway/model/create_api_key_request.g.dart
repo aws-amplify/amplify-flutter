@@ -18,11 +18,11 @@ class _$CreateApiKeyRequest extends CreateApiKeyRequest {
   @override
   final String? value;
   @override
-  final _i4.BuiltList<_i3.StageKey>? stageKeys;
+  final _i3.BuiltList<StageKey>? stageKeys;
   @override
   final String? customerId;
   @override
-  final _i4.BuiltMap<String, String>? tags;
+  final _i3.BuiltMap<String, String>? tags;
 
   factory _$CreateApiKeyRequest(
           [void Function(CreateApiKeyRequestBuilder)? updates]) =>
@@ -108,20 +108,20 @@ class CreateApiKeyRequestBuilder
   String? get value => _$this._value;
   set value(String? value) => _$this._value = value;
 
-  _i4.ListBuilder<_i3.StageKey>? _stageKeys;
-  _i4.ListBuilder<_i3.StageKey> get stageKeys =>
-      _$this._stageKeys ??= new _i4.ListBuilder<_i3.StageKey>();
-  set stageKeys(_i4.ListBuilder<_i3.StageKey>? stageKeys) =>
+  _i3.ListBuilder<StageKey>? _stageKeys;
+  _i3.ListBuilder<StageKey> get stageKeys =>
+      _$this._stageKeys ??= new _i3.ListBuilder<StageKey>();
+  set stageKeys(_i3.ListBuilder<StageKey>? stageKeys) =>
       _$this._stageKeys = stageKeys;
 
   String? _customerId;
   String? get customerId => _$this._customerId;
   set customerId(String? customerId) => _$this._customerId = customerId;
 
-  _i4.MapBuilder<String, String>? _tags;
-  _i4.MapBuilder<String, String> get tags =>
-      _$this._tags ??= new _i4.MapBuilder<String, String>();
-  set tags(_i4.MapBuilder<String, String>? tags) => _$this._tags = tags;
+  _i3.MapBuilder<String, String>? _tags;
+  _i3.MapBuilder<String, String> get tags =>
+      _$this._tags ??= new _i3.MapBuilder<String, String>();
+  set tags(_i3.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
   CreateApiKeyRequestBuilder() {
     CreateApiKeyRequest._init(this);

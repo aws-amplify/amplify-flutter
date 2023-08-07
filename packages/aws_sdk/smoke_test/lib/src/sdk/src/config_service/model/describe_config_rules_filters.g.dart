@@ -8,7 +8,7 @@ part of 'describe_config_rules_filters.dart';
 
 class _$DescribeConfigRulesFilters extends DescribeConfigRulesFilters {
   @override
-  final _i2.EvaluationMode? evaluationMode;
+  final EvaluationMode? evaluationMode;
 
   factory _$DescribeConfigRulesFilters(
           [void Function(DescribeConfigRulesFiltersBuilder)? updates]) =>
@@ -46,9 +46,9 @@ class DescribeConfigRulesFiltersBuilder
         Builder<DescribeConfigRulesFilters, DescribeConfigRulesFiltersBuilder> {
   _$DescribeConfigRulesFilters? _$v;
 
-  _i2.EvaluationMode? _evaluationMode;
-  _i2.EvaluationMode? get evaluationMode => _$this._evaluationMode;
-  set evaluationMode(_i2.EvaluationMode? evaluationMode) =>
+  EvaluationMode? _evaluationMode;
+  EvaluationMode? get evaluationMode => _$this._evaluationMode;
+  set evaluationMode(EvaluationMode? evaluationMode) =>
       _$this._evaluationMode = evaluationMode;
 
   DescribeConfigRulesFiltersBuilder();

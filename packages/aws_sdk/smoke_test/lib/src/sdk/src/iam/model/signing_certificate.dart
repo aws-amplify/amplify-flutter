@@ -6,8 +6,8 @@ library smoke_test.iam.model.signing_certificate; // ignore_for_file: no_leading
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/status_type.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/status_type.dart';
 
 part 'signing_certificate.g.dart';
 
@@ -24,7 +24,7 @@ abstract class SigningCertificate
     required String userName,
     required String certificateId,
     required String certificateBody,
-    required _i2.StatusType status,
+    required StatusType status,
     DateTime? uploadDate,
   }) {
     return _$SigningCertificate._(
@@ -45,7 +45,7 @@ abstract class SigningCertificate
 
   const SigningCertificate._();
 
-  static const List<_i3.SmithySerializer<SigningCertificate>> serializers = [
+  static const List<_i2.SmithySerializer<SigningCertificate>> serializers = [
     SigningCertificateAwsQuerySerializer()
   ];
 
@@ -59,7 +59,7 @@ abstract class SigningCertificate
   String get certificateBody;
 
   /// The status of the signing certificate. `Active` means that the key is valid for API calls, while `Inactive` means it is not.
-  _i2.StatusType get status;
+  StatusType get status;
 
   /// The date when the signing certificate was uploaded.
   DateTime? get uploadDate;
@@ -99,7 +99,7 @@ abstract class SigningCertificate
 }
 
 class SigningCertificateAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<SigningCertificate> {
+    extends _i2.StructuredSmithySerializer<SigningCertificate> {
   const SigningCertificateAwsQuerySerializer() : super('SigningCertificate');
 
   @override
@@ -108,8 +108,8 @@ class SigningCertificateAwsQuerySerializer
         _$SigningCertificate,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -148,8 +148,8 @@ class SigningCertificateAwsQuerySerializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.StatusType),
-          ) as _i2.StatusType);
+            specifiedType: const FullType(StatusType),
+          ) as StatusType);
         case 'UploadDate':
           result.uploadDate = (serializers.deserialize(
             value,
@@ -168,9 +168,9 @@ class SigningCertificateAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'SigningCertificateResponse',
-        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final SigningCertificate(
@@ -181,32 +181,32 @@ class SigningCertificateAwsQuerySerializer
       :uploadDate
     ) = object;
     result$
-      ..add(const _i3.XmlElementName('UserName'))
+      ..add(const _i2.XmlElementName('UserName'))
       ..add(serializers.serialize(
         userName,
         specifiedType: const FullType(String),
       ));
     result$
-      ..add(const _i3.XmlElementName('CertificateId'))
+      ..add(const _i2.XmlElementName('CertificateId'))
       ..add(serializers.serialize(
         certificateId,
         specifiedType: const FullType(String),
       ));
     result$
-      ..add(const _i3.XmlElementName('CertificateBody'))
+      ..add(const _i2.XmlElementName('CertificateBody'))
       ..add(serializers.serialize(
         certificateBody,
         specifiedType: const FullType(String),
       ));
     result$
-      ..add(const _i3.XmlElementName('Status'))
+      ..add(const _i2.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(_i2.StatusType),
+        specifiedType: const FullType.nullable(StatusType),
       ));
     if (uploadDate != null) {
       result$
-        ..add(const _i3.XmlElementName('UploadDate'))
+        ..add(const _i2.XmlElementName('UploadDate'))
         ..add(serializers.serialize(
           uploadDate,
           specifiedType: const FullType.nullable(DateTime),

@@ -10,7 +10,7 @@ class _$RemediationExecutionStep extends RemediationExecutionStep {
   @override
   final String? name;
   @override
-  final _i2.RemediationExecutionStepState? state;
+  final RemediationExecutionStepState? state;
   @override
   final String? errorMessage;
   @override
@@ -68,9 +68,9 @@ class RemediationExecutionStepBuilder
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
-  _i2.RemediationExecutionStepState? _state;
-  _i2.RemediationExecutionStepState? get state => _$this._state;
-  set state(_i2.RemediationExecutionStepState? state) => _$this._state = state;
+  RemediationExecutionStepState? _state;
+  RemediationExecutionStepState? get state => _$this._state;
+  set state(RemediationExecutionStepState? state) => _$this._state = state;
 
   String? _errorMessage;
   String? get errorMessage => _$this._errorMessage;

@@ -8,9 +8,9 @@ part of 'batch_execute_statement_output.dart';
 
 class _$BatchExecuteStatementOutput extends BatchExecuteStatementOutput {
   @override
-  final _i4.BuiltList<_i2.BatchStatementResponse>? responses;
+  final _i2.BuiltList<BatchStatementResponse>? responses;
   @override
-  final _i4.BuiltList<_i3.ConsumedCapacity>? consumedCapacity;
+  final _i2.BuiltList<ConsumedCapacity>? consumedCapacity;
 
   factory _$BatchExecuteStatementOutput(
           [void Function(BatchExecuteStatementOutputBuilder)? updates]) =>
@@ -52,17 +52,16 @@ class BatchExecuteStatementOutputBuilder
             BatchExecuteStatementOutputBuilder> {
   _$BatchExecuteStatementOutput? _$v;
 
-  _i4.ListBuilder<_i2.BatchStatementResponse>? _responses;
-  _i4.ListBuilder<_i2.BatchStatementResponse> get responses =>
-      _$this._responses ??= new _i4.ListBuilder<_i2.BatchStatementResponse>();
-  set responses(_i4.ListBuilder<_i2.BatchStatementResponse>? responses) =>
+  _i2.ListBuilder<BatchStatementResponse>? _responses;
+  _i2.ListBuilder<BatchStatementResponse> get responses =>
+      _$this._responses ??= new _i2.ListBuilder<BatchStatementResponse>();
+  set responses(_i2.ListBuilder<BatchStatementResponse>? responses) =>
       _$this._responses = responses;
 
-  _i4.ListBuilder<_i3.ConsumedCapacity>? _consumedCapacity;
-  _i4.ListBuilder<_i3.ConsumedCapacity> get consumedCapacity =>
-      _$this._consumedCapacity ??= new _i4.ListBuilder<_i3.ConsumedCapacity>();
-  set consumedCapacity(
-          _i4.ListBuilder<_i3.ConsumedCapacity>? consumedCapacity) =>
+  _i2.ListBuilder<ConsumedCapacity>? _consumedCapacity;
+  _i2.ListBuilder<ConsumedCapacity> get consumedCapacity =>
+      _$this._consumedCapacity ??= new _i2.ListBuilder<ConsumedCapacity>();
+  set consumedCapacity(_i2.ListBuilder<ConsumedCapacity>? consumedCapacity) =>
       _$this._consumedCapacity = consumedCapacity;
 
   BatchExecuteStatementOutputBuilder();

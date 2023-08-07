@@ -12,7 +12,7 @@ class _$UpdateUsageRequest extends UpdateUsageRequest {
   @override
   final String keyId;
   @override
-  final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
+  final _i3.BuiltList<PatchOperation>? patchOperations;
 
   factory _$UpdateUsageRequest(
           [void Function(UpdateUsageRequestBuilder)? updates]) =>
@@ -68,10 +68,10 @@ class UpdateUsageRequestBuilder
   String? get keyId => _$this._keyId;
   set keyId(String? keyId) => _$this._keyId = keyId;
 
-  _i4.ListBuilder<_i3.PatchOperation>? _patchOperations;
-  _i4.ListBuilder<_i3.PatchOperation> get patchOperations =>
-      _$this._patchOperations ??= new _i4.ListBuilder<_i3.PatchOperation>();
-  set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
+  _i3.ListBuilder<PatchOperation>? _patchOperations;
+  _i3.ListBuilder<PatchOperation> get patchOperations =>
+      _$this._patchOperations ??= new _i3.ListBuilder<PatchOperation>();
+  set patchOperations(_i3.ListBuilder<PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
   UpdateUsageRequestBuilder();
@@ -129,7 +129,7 @@ class UpdateUsageRequestBuilder
 
 class _$UpdateUsageRequestPayload extends UpdateUsageRequestPayload {
   @override
-  final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
+  final _i3.BuiltList<PatchOperation>? patchOperations;
 
   factory _$UpdateUsageRequestPayload(
           [void Function(UpdateUsageRequestPayloadBuilder)? updates]) =>
@@ -167,10 +167,10 @@ class UpdateUsageRequestPayloadBuilder
         Builder<UpdateUsageRequestPayload, UpdateUsageRequestPayloadBuilder> {
   _$UpdateUsageRequestPayload? _$v;
 
-  _i4.ListBuilder<_i3.PatchOperation>? _patchOperations;
-  _i4.ListBuilder<_i3.PatchOperation> get patchOperations =>
-      _$this._patchOperations ??= new _i4.ListBuilder<_i3.PatchOperation>();
-  set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
+  _i3.ListBuilder<PatchOperation>? _patchOperations;
+  _i3.ListBuilder<PatchOperation> get patchOperations =>
+      _$this._patchOperations ??= new _i3.ListBuilder<PatchOperation>();
+  set patchOperations(_i3.ListBuilder<PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
   UpdateUsageRequestPayloadBuilder();

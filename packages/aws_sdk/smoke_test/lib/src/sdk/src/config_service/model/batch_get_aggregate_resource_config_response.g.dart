@@ -9,9 +9,9 @@ part of 'batch_get_aggregate_resource_config_response.dart';
 class _$BatchGetAggregateResourceConfigResponse
     extends BatchGetAggregateResourceConfigResponse {
   @override
-  final _i4.BuiltList<_i2.BaseConfigurationItem>? baseConfigurationItems;
+  final _i2.BuiltList<BaseConfigurationItem>? baseConfigurationItems;
   @override
-  final _i4.BuiltList<_i3.AggregateResourceIdentifier>?
+  final _i2.BuiltList<AggregateResourceIdentifier>?
       unprocessedResourceIdentifiers;
 
   factory _$BatchGetAggregateResourceConfigResponse(
@@ -58,22 +58,21 @@ class BatchGetAggregateResourceConfigResponseBuilder
             BatchGetAggregateResourceConfigResponseBuilder> {
   _$BatchGetAggregateResourceConfigResponse? _$v;
 
-  _i4.ListBuilder<_i2.BaseConfigurationItem>? _baseConfigurationItems;
-  _i4.ListBuilder<_i2.BaseConfigurationItem> get baseConfigurationItems =>
+  _i2.ListBuilder<BaseConfigurationItem>? _baseConfigurationItems;
+  _i2.ListBuilder<BaseConfigurationItem> get baseConfigurationItems =>
       _$this._baseConfigurationItems ??=
-          new _i4.ListBuilder<_i2.BaseConfigurationItem>();
+          new _i2.ListBuilder<BaseConfigurationItem>();
   set baseConfigurationItems(
-          _i4.ListBuilder<_i2.BaseConfigurationItem>? baseConfigurationItems) =>
+          _i2.ListBuilder<BaseConfigurationItem>? baseConfigurationItems) =>
       _$this._baseConfigurationItems = baseConfigurationItems;
 
-  _i4.ListBuilder<_i3.AggregateResourceIdentifier>?
-      _unprocessedResourceIdentifiers;
-  _i4.ListBuilder<_i3.AggregateResourceIdentifier>
+  _i2.ListBuilder<AggregateResourceIdentifier>? _unprocessedResourceIdentifiers;
+  _i2.ListBuilder<AggregateResourceIdentifier>
       get unprocessedResourceIdentifiers =>
           _$this._unprocessedResourceIdentifiers ??=
-              new _i4.ListBuilder<_i3.AggregateResourceIdentifier>();
+              new _i2.ListBuilder<AggregateResourceIdentifier>();
   set unprocessedResourceIdentifiers(
-          _i4.ListBuilder<_i3.AggregateResourceIdentifier>?
+          _i2.ListBuilder<AggregateResourceIdentifier>?
               unprocessedResourceIdentifiers) =>
       _$this._unprocessedResourceIdentifiers = unprocessedResourceIdentifiers;
 

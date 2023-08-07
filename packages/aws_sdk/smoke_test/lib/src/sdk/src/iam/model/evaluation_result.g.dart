@@ -12,21 +12,19 @@ class _$EvaluationResult extends EvaluationResult {
   @override
   final String? evalResourceName;
   @override
-  final _i2.PolicyEvaluationDecisionType evalDecision;
+  final PolicyEvaluationDecisionType evalDecision;
   @override
-  final _i7.BuiltList<_i3.Statement>? matchedStatements;
+  final _i2.BuiltList<Statement>? matchedStatements;
   @override
-  final _i7.BuiltList<String>? missingContextValues;
+  final _i2.BuiltList<String>? missingContextValues;
   @override
-  final _i4.OrganizationsDecisionDetail? organizationsDecisionDetail;
+  final OrganizationsDecisionDetail? organizationsDecisionDetail;
   @override
-  final _i5.PermissionsBoundaryDecisionDetail?
-      permissionsBoundaryDecisionDetail;
+  final PermissionsBoundaryDecisionDetail? permissionsBoundaryDecisionDetail;
   @override
-  final _i7.BuiltMap<String, _i2.PolicyEvaluationDecisionType>?
-      evalDecisionDetails;
+  final _i2.BuiltMap<String, PolicyEvaluationDecisionType>? evalDecisionDetails;
   @override
-  final _i7.BuiltList<_i6.ResourceSpecificResult>? resourceSpecificResults;
+  final _i2.BuiltList<ResourceSpecificResult>? resourceSpecificResults;
 
   factory _$EvaluationResult(
           [void Function(EvaluationResultBuilder)? updates]) =>
@@ -104,61 +102,57 @@ class EvaluationResultBuilder
   set evalResourceName(String? evalResourceName) =>
       _$this._evalResourceName = evalResourceName;
 
-  _i2.PolicyEvaluationDecisionType? _evalDecision;
-  _i2.PolicyEvaluationDecisionType? get evalDecision => _$this._evalDecision;
-  set evalDecision(_i2.PolicyEvaluationDecisionType? evalDecision) =>
+  PolicyEvaluationDecisionType? _evalDecision;
+  PolicyEvaluationDecisionType? get evalDecision => _$this._evalDecision;
+  set evalDecision(PolicyEvaluationDecisionType? evalDecision) =>
       _$this._evalDecision = evalDecision;
 
-  _i7.ListBuilder<_i3.Statement>? _matchedStatements;
-  _i7.ListBuilder<_i3.Statement> get matchedStatements =>
-      _$this._matchedStatements ??= new _i7.ListBuilder<_i3.Statement>();
-  set matchedStatements(_i7.ListBuilder<_i3.Statement>? matchedStatements) =>
+  _i2.ListBuilder<Statement>? _matchedStatements;
+  _i2.ListBuilder<Statement> get matchedStatements =>
+      _$this._matchedStatements ??= new _i2.ListBuilder<Statement>();
+  set matchedStatements(_i2.ListBuilder<Statement>? matchedStatements) =>
       _$this._matchedStatements = matchedStatements;
 
-  _i7.ListBuilder<String>? _missingContextValues;
-  _i7.ListBuilder<String> get missingContextValues =>
-      _$this._missingContextValues ??= new _i7.ListBuilder<String>();
-  set missingContextValues(_i7.ListBuilder<String>? missingContextValues) =>
+  _i2.ListBuilder<String>? _missingContextValues;
+  _i2.ListBuilder<String> get missingContextValues =>
+      _$this._missingContextValues ??= new _i2.ListBuilder<String>();
+  set missingContextValues(_i2.ListBuilder<String>? missingContextValues) =>
       _$this._missingContextValues = missingContextValues;
 
-  _i4.OrganizationsDecisionDetailBuilder? _organizationsDecisionDetail;
-  _i4.OrganizationsDecisionDetailBuilder get organizationsDecisionDetail =>
+  OrganizationsDecisionDetailBuilder? _organizationsDecisionDetail;
+  OrganizationsDecisionDetailBuilder get organizationsDecisionDetail =>
       _$this._organizationsDecisionDetail ??=
-          new _i4.OrganizationsDecisionDetailBuilder();
+          new OrganizationsDecisionDetailBuilder();
   set organizationsDecisionDetail(
-          _i4.OrganizationsDecisionDetailBuilder?
-              organizationsDecisionDetail) =>
+          OrganizationsDecisionDetailBuilder? organizationsDecisionDetail) =>
       _$this._organizationsDecisionDetail = organizationsDecisionDetail;
 
-  _i5.PermissionsBoundaryDecisionDetailBuilder?
-      _permissionsBoundaryDecisionDetail;
-  _i5.PermissionsBoundaryDecisionDetailBuilder
+  PermissionsBoundaryDecisionDetailBuilder? _permissionsBoundaryDecisionDetail;
+  PermissionsBoundaryDecisionDetailBuilder
       get permissionsBoundaryDecisionDetail =>
           _$this._permissionsBoundaryDecisionDetail ??=
-              new _i5.PermissionsBoundaryDecisionDetailBuilder();
+              new PermissionsBoundaryDecisionDetailBuilder();
   set permissionsBoundaryDecisionDetail(
-          _i5.PermissionsBoundaryDecisionDetailBuilder?
+          PermissionsBoundaryDecisionDetailBuilder?
               permissionsBoundaryDecisionDetail) =>
       _$this._permissionsBoundaryDecisionDetail =
           permissionsBoundaryDecisionDetail;
 
-  _i7.MapBuilder<String, _i2.PolicyEvaluationDecisionType>?
-      _evalDecisionDetails;
-  _i7.MapBuilder<String, _i2.PolicyEvaluationDecisionType>
+  _i2.MapBuilder<String, PolicyEvaluationDecisionType>? _evalDecisionDetails;
+  _i2.MapBuilder<String, PolicyEvaluationDecisionType>
       get evalDecisionDetails => _$this._evalDecisionDetails ??=
-          new _i7.MapBuilder<String, _i2.PolicyEvaluationDecisionType>();
+          new _i2.MapBuilder<String, PolicyEvaluationDecisionType>();
   set evalDecisionDetails(
-          _i7.MapBuilder<String, _i2.PolicyEvaluationDecisionType>?
+          _i2.MapBuilder<String, PolicyEvaluationDecisionType>?
               evalDecisionDetails) =>
       _$this._evalDecisionDetails = evalDecisionDetails;
 
-  _i7.ListBuilder<_i6.ResourceSpecificResult>? _resourceSpecificResults;
-  _i7.ListBuilder<_i6.ResourceSpecificResult> get resourceSpecificResults =>
+  _i2.ListBuilder<ResourceSpecificResult>? _resourceSpecificResults;
+  _i2.ListBuilder<ResourceSpecificResult> get resourceSpecificResults =>
       _$this._resourceSpecificResults ??=
-          new _i7.ListBuilder<_i6.ResourceSpecificResult>();
+          new _i2.ListBuilder<ResourceSpecificResult>();
   set resourceSpecificResults(
-          _i7.ListBuilder<_i6.ResourceSpecificResult>?
-              resourceSpecificResults) =>
+          _i2.ListBuilder<ResourceSpecificResult>? resourceSpecificResults) =>
       _$this._resourceSpecificResults = resourceSpecificResults;
 
   EvaluationResultBuilder();

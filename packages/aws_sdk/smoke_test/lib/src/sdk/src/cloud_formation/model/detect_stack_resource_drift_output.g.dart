@@ -8,7 +8,7 @@ part of 'detect_stack_resource_drift_output.dart';
 
 class _$DetectStackResourceDriftOutput extends DetectStackResourceDriftOutput {
   @override
-  final _i2.StackResourceDrift stackResourceDrift;
+  final StackResourceDrift stackResourceDrift;
 
   factory _$DetectStackResourceDriftOutput(
           [void Function(DetectStackResourceDriftOutputBuilder)? updates]) =>
@@ -51,10 +51,10 @@ class DetectStackResourceDriftOutputBuilder
             DetectStackResourceDriftOutputBuilder> {
   _$DetectStackResourceDriftOutput? _$v;
 
-  _i2.StackResourceDriftBuilder? _stackResourceDrift;
-  _i2.StackResourceDriftBuilder get stackResourceDrift =>
-      _$this._stackResourceDrift ??= new _i2.StackResourceDriftBuilder();
-  set stackResourceDrift(_i2.StackResourceDriftBuilder? stackResourceDrift) =>
+  StackResourceDriftBuilder? _stackResourceDrift;
+  StackResourceDriftBuilder get stackResourceDrift =>
+      _$this._stackResourceDrift ??= new StackResourceDriftBuilder();
+  set stackResourceDrift(StackResourceDriftBuilder? stackResourceDrift) =>
       _$this._stackResourceDrift = stackResourceDrift;
 
   DetectStackResourceDriftOutputBuilder();

@@ -8,7 +8,7 @@ part of 'create_backup_output.dart';
 
 class _$CreateBackupOutput extends CreateBackupOutput {
   @override
-  final _i2.BackupDetails? backupDetails;
+  final BackupDetails? backupDetails;
 
   factory _$CreateBackupOutput(
           [void Function(CreateBackupOutputBuilder)? updates]) =>
@@ -44,10 +44,10 @@ class CreateBackupOutputBuilder
     implements Builder<CreateBackupOutput, CreateBackupOutputBuilder> {
   _$CreateBackupOutput? _$v;
 
-  _i2.BackupDetailsBuilder? _backupDetails;
-  _i2.BackupDetailsBuilder get backupDetails =>
-      _$this._backupDetails ??= new _i2.BackupDetailsBuilder();
-  set backupDetails(_i2.BackupDetailsBuilder? backupDetails) =>
+  BackupDetailsBuilder? _backupDetails;
+  BackupDetailsBuilder get backupDetails =>
+      _$this._backupDetails ??= new BackupDetailsBuilder();
+  set backupDetails(BackupDetailsBuilder? backupDetails) =>
       _$this._backupDetails = backupDetails;
 
   CreateBackupOutputBuilder();

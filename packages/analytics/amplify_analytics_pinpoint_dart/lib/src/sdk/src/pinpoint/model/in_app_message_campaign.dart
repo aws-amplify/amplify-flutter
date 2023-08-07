@@ -3,14 +3,12 @@
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.in_app_message_campaign; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/in_app_campaign_schedule.dart'
-    as _i3;
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/in_app_message.dart'
-    as _i2;
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/in_app_campaign_schedule.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/in_app_message.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'in_app_message_campaign.g.dart';
 
@@ -22,9 +20,9 @@ abstract class InAppMessageCampaign
   factory InAppMessageCampaign({
     String? campaignId,
     int? dailyCap,
-    _i2.InAppMessage? inAppMessage,
+    InAppMessage? inAppMessage,
     int? priority,
-    _i3.InAppCampaignSchedule? schedule,
+    InAppCampaignSchedule? schedule,
     int? sessionCap,
     int? totalCap,
     String? treatmentId,
@@ -48,7 +46,7 @@ abstract class InAppMessageCampaign
 
   const InAppMessageCampaign._();
 
-  static const List<_i4.SmithySerializer<InAppMessageCampaign>> serializers = [
+  static const List<_i2.SmithySerializer<InAppMessageCampaign>> serializers = [
     InAppMessageCampaignRestJson1Serializer()
   ];
 
@@ -59,13 +57,13 @@ abstract class InAppMessageCampaign
   int? get dailyCap;
 
   /// In-app message content with all fields required for rendering an in-app message.
-  _i2.InAppMessage? get inAppMessage;
+  InAppMessage? get inAppMessage;
 
   /// Priority of the in-app message.
   int? get priority;
 
   /// Schedule of the campaign.
-  _i3.InAppCampaignSchedule? get schedule;
+  InAppCampaignSchedule? get schedule;
 
   /// Session cap which controls the number of times an in-app message can be shown to the endpoint during an application session.
   int? get sessionCap;
@@ -126,7 +124,7 @@ abstract class InAppMessageCampaign
 }
 
 class InAppMessageCampaignRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<InAppMessageCampaign> {
+    extends _i2.StructuredSmithySerializer<InAppMessageCampaign> {
   const InAppMessageCampaignRestJson1Serializer()
       : super('InAppMessageCampaign');
 
@@ -136,8 +134,8 @@ class InAppMessageCampaignRestJson1Serializer
         _$InAppMessageCampaign,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -171,8 +169,8 @@ class InAppMessageCampaignRestJson1Serializer
         case 'InAppMessage':
           result.inAppMessage.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.InAppMessage),
-          ) as _i2.InAppMessage));
+            specifiedType: const FullType(InAppMessage),
+          ) as InAppMessage));
         case 'Priority':
           result.priority = (serializers.deserialize(
             value,
@@ -181,8 +179,8 @@ class InAppMessageCampaignRestJson1Serializer
         case 'Schedule':
           result.schedule.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.InAppCampaignSchedule),
-          ) as _i3.InAppCampaignSchedule));
+            specifiedType: const FullType(InAppCampaignSchedule),
+          ) as InAppCampaignSchedule));
         case 'SessionCap':
           result.sessionCap = (serializers.deserialize(
             value,
@@ -242,7 +240,7 @@ class InAppMessageCampaignRestJson1Serializer
         ..add('InAppMessage')
         ..add(serializers.serialize(
           inAppMessage,
-          specifiedType: const FullType(_i2.InAppMessage),
+          specifiedType: const FullType(InAppMessage),
         ));
     }
     if (priority != null) {
@@ -258,7 +256,7 @@ class InAppMessageCampaignRestJson1Serializer
         ..add('Schedule')
         ..add(serializers.serialize(
           schedule,
-          specifiedType: const FullType(_i3.InAppCampaignSchedule),
+          specifiedType: const FullType(InAppCampaignSchedule),
         ));
     }
     if (sessionCap != null) {

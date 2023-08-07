@@ -6,9 +6,8 @@ library smoke_test.config_service.model.put_retention_configuration_response; //
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/retention_configuration.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/retention_configuration.dart';
 
 part 'put_retention_configuration_response.g.dart';
 
@@ -19,7 +18,7 @@ abstract class PutRetentionConfigurationResponse
         Built<PutRetentionConfigurationResponse,
             PutRetentionConfigurationResponseBuilder> {
   factory PutRetentionConfigurationResponse(
-      {_i2.RetentionConfiguration? retentionConfiguration}) {
+      {RetentionConfiguration? retentionConfiguration}) {
     return _$PutRetentionConfigurationResponse._(
         retentionConfiguration: retentionConfiguration);
   }
@@ -37,11 +36,11 @@ abstract class PutRetentionConfigurationResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<PutRetentionConfigurationResponse>>
+  static const List<_i2.SmithySerializer<PutRetentionConfigurationResponse>>
       serializers = [PutRetentionConfigurationResponseAwsJson11Serializer()];
 
   /// Returns a retention configuration object.
-  _i2.RetentionConfiguration? get retentionConfiguration;
+  RetentionConfiguration? get retentionConfiguration;
   @override
   List<Object?> get props => [retentionConfiguration];
   @override
@@ -57,7 +56,7 @@ abstract class PutRetentionConfigurationResponse
 }
 
 class PutRetentionConfigurationResponseAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<PutRetentionConfigurationResponse> {
+    extends _i2.StructuredSmithySerializer<PutRetentionConfigurationResponse> {
   const PutRetentionConfigurationResponseAwsJson11Serializer()
       : super('PutRetentionConfigurationResponse');
 
@@ -67,8 +66,8 @@ class PutRetentionConfigurationResponseAwsJson11Serializer
         _$PutRetentionConfigurationResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -92,8 +91,8 @@ class PutRetentionConfigurationResponseAwsJson11Serializer
         case 'RetentionConfiguration':
           result.retentionConfiguration.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.RetentionConfiguration),
-          ) as _i2.RetentionConfiguration));
+            specifiedType: const FullType(RetentionConfiguration),
+          ) as RetentionConfiguration));
       }
     }
 
@@ -113,7 +112,7 @@ class PutRetentionConfigurationResponseAwsJson11Serializer
         ..add('RetentionConfiguration')
         ..add(serializers.serialize(
           retentionConfiguration,
-          specifiedType: const FullType(_i2.RetentionConfiguration),
+          specifiedType: const FullType(RetentionConfiguration),
         ));
     }
     return result$;

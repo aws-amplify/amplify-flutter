@@ -12,7 +12,7 @@ class _$ComplianceByResource extends ComplianceByResource {
   @override
   final String? resourceId;
   @override
-  final _i2.Compliance? compliance;
+  final Compliance? compliance;
 
   factory _$ComplianceByResource(
           [void Function(ComplianceByResourceBuilder)? updates]) =>
@@ -63,10 +63,10 @@ class ComplianceByResourceBuilder
   String? get resourceId => _$this._resourceId;
   set resourceId(String? resourceId) => _$this._resourceId = resourceId;
 
-  _i2.ComplianceBuilder? _compliance;
-  _i2.ComplianceBuilder get compliance =>
-      _$this._compliance ??= new _i2.ComplianceBuilder();
-  set compliance(_i2.ComplianceBuilder? compliance) =>
+  ComplianceBuilder? _compliance;
+  ComplianceBuilder get compliance =>
+      _$this._compliance ??= new ComplianceBuilder();
+  set compliance(ComplianceBuilder? compliance) =>
       _$this._compliance = compliance;
 
   ComplianceByResourceBuilder();

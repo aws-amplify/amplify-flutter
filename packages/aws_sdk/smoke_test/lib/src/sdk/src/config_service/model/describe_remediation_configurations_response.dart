@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.describe_remediation_configurations_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/remediation_configuration.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/remediation_configuration.dart';
 
 part 'describe_remediation_configurations_response.g.dart';
 
@@ -20,11 +19,11 @@ abstract class DescribeRemediationConfigurationsResponse
         Built<DescribeRemediationConfigurationsResponse,
             DescribeRemediationConfigurationsResponseBuilder> {
   factory DescribeRemediationConfigurationsResponse(
-      {List<_i2.RemediationConfiguration>? remediationConfigurations}) {
+      {List<RemediationConfiguration>? remediationConfigurations}) {
     return _$DescribeRemediationConfigurationsResponse._(
         remediationConfigurations: remediationConfigurations == null
             ? null
-            : _i3.BuiltList(remediationConfigurations));
+            : _i2.BuiltList(remediationConfigurations));
   }
 
   factory DescribeRemediationConfigurationsResponse.build(
@@ -41,13 +40,13 @@ abstract class DescribeRemediationConfigurationsResponse
       payload;
 
   static const List<
-          _i4.SmithySerializer<DescribeRemediationConfigurationsResponse>>
+          _i3.SmithySerializer<DescribeRemediationConfigurationsResponse>>
       serializers = [
     DescribeRemediationConfigurationsResponseAwsJson11Serializer()
   ];
 
   /// Returns a remediation configuration object.
-  _i3.BuiltList<_i2.RemediationConfiguration>? get remediationConfigurations;
+  _i2.BuiltList<RemediationConfiguration>? get remediationConfigurations;
   @override
   List<Object?> get props => [remediationConfigurations];
   @override
@@ -62,7 +61,7 @@ abstract class DescribeRemediationConfigurationsResponse
   }
 }
 
-class DescribeRemediationConfigurationsResponseAwsJson11Serializer extends _i4
+class DescribeRemediationConfigurationsResponseAwsJson11Serializer extends _i3
     .StructuredSmithySerializer<DescribeRemediationConfigurationsResponse> {
   const DescribeRemediationConfigurationsResponseAwsJson11Serializer()
       : super('DescribeRemediationConfigurationsResponse');
@@ -73,8 +72,8 @@ class DescribeRemediationConfigurationsResponseAwsJson11Serializer extends _i4
         _$DescribeRemediationConfigurationsResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -99,10 +98,10 @@ class DescribeRemediationConfigurationsResponseAwsJson11Serializer extends _i4
           result.remediationConfigurations.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.RemediationConfiguration)],
+              _i2.BuiltList,
+              [FullType(RemediationConfiguration)],
             ),
-          ) as _i3.BuiltList<_i2.RemediationConfiguration>));
+          ) as _i2.BuiltList<RemediationConfiguration>));
       }
     }
 
@@ -125,8 +124,8 @@ class DescribeRemediationConfigurationsResponseAwsJson11Serializer extends _i4
         ..add(serializers.serialize(
           remediationConfigurations,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.RemediationConfiguration)],
+            _i2.BuiltList,
+            [FullType(RemediationConfiguration)],
           ),
         ));
     }

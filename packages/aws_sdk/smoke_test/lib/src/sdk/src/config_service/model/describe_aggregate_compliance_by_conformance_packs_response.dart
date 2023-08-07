@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.describe_aggregate_compliance_by_conformance_packs_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_compliance_by_conformance_pack.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_compliance_by_conformance_pack.dart';
 
 part 'describe_aggregate_compliance_by_conformance_packs_response.g.dart';
 
@@ -20,7 +19,7 @@ abstract class DescribeAggregateComplianceByConformancePacksResponse
         Built<DescribeAggregateComplianceByConformancePacksResponse,
             DescribeAggregateComplianceByConformancePacksResponseBuilder> {
   factory DescribeAggregateComplianceByConformancePacksResponse({
-    List<_i2.AggregateComplianceByConformancePack>?
+    List<AggregateComplianceByConformancePack>?
         aggregateComplianceByConformancePacks,
     String? nextToken,
   }) {
@@ -28,7 +27,7 @@ abstract class DescribeAggregateComplianceByConformancePacksResponse
       aggregateComplianceByConformancePacks:
           aggregateComplianceByConformancePacks == null
               ? null
-              : _i3.BuiltList(aggregateComplianceByConformancePacks),
+              : _i2.BuiltList(aggregateComplianceByConformancePacks),
       nextToken: nextToken,
     );
   }
@@ -48,14 +47,14 @@ abstract class DescribeAggregateComplianceByConformancePacksResponse
       payload;
 
   static const List<
-          _i4.SmithySerializer<
+          _i3.SmithySerializer<
               DescribeAggregateComplianceByConformancePacksResponse>>
       serializers = [
     DescribeAggregateComplianceByConformancePacksResponseAwsJson11Serializer()
   ];
 
   /// Returns the `AggregateComplianceByConformancePack` object.
-  _i3.BuiltList<_i2.AggregateComplianceByConformancePack>?
+  _i2.BuiltList<AggregateComplianceByConformancePack>?
       get aggregateComplianceByConformancePacks;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
@@ -82,7 +81,7 @@ abstract class DescribeAggregateComplianceByConformancePacksResponse
 }
 
 class DescribeAggregateComplianceByConformancePacksResponseAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<
+    extends _i3.StructuredSmithySerializer<
         DescribeAggregateComplianceByConformancePacksResponse> {
   const DescribeAggregateComplianceByConformancePacksResponseAwsJson11Serializer()
       : super('DescribeAggregateComplianceByConformancePacksResponse');
@@ -93,8 +92,8 @@ class DescribeAggregateComplianceByConformancePacksResponseAwsJson11Serializer
         _$DescribeAggregateComplianceByConformancePacksResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -121,10 +120,10 @@ class DescribeAggregateComplianceByConformancePacksResponseAwsJson11Serializer
               .replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.AggregateComplianceByConformancePack)],
+              _i2.BuiltList,
+              [FullType(AggregateComplianceByConformancePack)],
             ),
-          ) as _i3.BuiltList<_i2.AggregateComplianceByConformancePack>));
+          ) as _i2.BuiltList<AggregateComplianceByConformancePack>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -153,8 +152,8 @@ class DescribeAggregateComplianceByConformancePacksResponseAwsJson11Serializer
         ..add(serializers.serialize(
           aggregateComplianceByConformancePacks,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.AggregateComplianceByConformancePack)],
+            _i2.BuiltList,
+            [FullType(AggregateComplianceByConformancePack)],
           ),
         ));
     }

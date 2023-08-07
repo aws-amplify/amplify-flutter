@@ -6,9 +6,8 @@ library smoke_test.dynamo_db.model.restore_table_from_backup_output; // ignore_f
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_description.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_description.dart';
 
 part 'restore_table_from_backup_output.g.dart';
 
@@ -18,8 +17,7 @@ abstract class RestoreTableFromBackupOutput
     implements
         Built<RestoreTableFromBackupOutput,
             RestoreTableFromBackupOutputBuilder> {
-  factory RestoreTableFromBackupOutput(
-      {_i2.TableDescription? tableDescription}) {
+  factory RestoreTableFromBackupOutput({TableDescription? tableDescription}) {
     return _$RestoreTableFromBackupOutput._(tableDescription: tableDescription);
   }
 
@@ -36,11 +34,11 @@ abstract class RestoreTableFromBackupOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<RestoreTableFromBackupOutput>>
+  static const List<_i2.SmithySerializer<RestoreTableFromBackupOutput>>
       serializers = [RestoreTableFromBackupOutputAwsJson10Serializer()];
 
   /// The description of the table created from an existing backup.
-  _i2.TableDescription? get tableDescription;
+  TableDescription? get tableDescription;
   @override
   List<Object?> get props => [tableDescription];
   @override
@@ -55,7 +53,7 @@ abstract class RestoreTableFromBackupOutput
 }
 
 class RestoreTableFromBackupOutputAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<RestoreTableFromBackupOutput> {
+    extends _i2.StructuredSmithySerializer<RestoreTableFromBackupOutput> {
   const RestoreTableFromBackupOutputAwsJson10Serializer()
       : super('RestoreTableFromBackupOutput');
 
@@ -65,8 +63,8 @@ class RestoreTableFromBackupOutputAwsJson10Serializer
         _$RestoreTableFromBackupOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -90,8 +88,8 @@ class RestoreTableFromBackupOutputAwsJson10Serializer
         case 'TableDescription':
           result.tableDescription.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.TableDescription),
-          ) as _i2.TableDescription));
+            specifiedType: const FullType(TableDescription),
+          ) as TableDescription));
       }
     }
 
@@ -111,7 +109,7 @@ class RestoreTableFromBackupOutputAwsJson10Serializer
         ..add('TableDescription')
         ..add(serializers.serialize(
           tableDescription,
-          specifiedType: const FullType(_i2.TableDescription),
+          specifiedType: const FullType(TableDescription),
         ));
     }
     return result$;

@@ -9,7 +9,7 @@ part of 'describe_configuration_aggregators_response.dart';
 class _$DescribeConfigurationAggregatorsResponse
     extends DescribeConfigurationAggregatorsResponse {
   @override
-  final _i3.BuiltList<_i2.ConfigurationAggregator>? configurationAggregators;
+  final _i2.BuiltList<ConfigurationAggregator>? configurationAggregators;
   @override
   final String? nextToken;
 
@@ -57,13 +57,12 @@ class DescribeConfigurationAggregatorsResponseBuilder
             DescribeConfigurationAggregatorsResponseBuilder> {
   _$DescribeConfigurationAggregatorsResponse? _$v;
 
-  _i3.ListBuilder<_i2.ConfigurationAggregator>? _configurationAggregators;
-  _i3.ListBuilder<_i2.ConfigurationAggregator> get configurationAggregators =>
+  _i2.ListBuilder<ConfigurationAggregator>? _configurationAggregators;
+  _i2.ListBuilder<ConfigurationAggregator> get configurationAggregators =>
       _$this._configurationAggregators ??=
-          new _i3.ListBuilder<_i2.ConfigurationAggregator>();
+          new _i2.ListBuilder<ConfigurationAggregator>();
   set configurationAggregators(
-          _i3.ListBuilder<_i2.ConfigurationAggregator>?
-              configurationAggregators) =>
+          _i2.ListBuilder<ConfigurationAggregator>? configurationAggregators) =>
       _$this._configurationAggregators = configurationAggregators;
 
   String? _nextToken;

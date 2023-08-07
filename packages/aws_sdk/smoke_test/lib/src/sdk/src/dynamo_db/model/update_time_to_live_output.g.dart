@@ -8,7 +8,7 @@ part of 'update_time_to_live_output.dart';
 
 class _$UpdateTimeToLiveOutput extends UpdateTimeToLiveOutput {
   @override
-  final _i2.TimeToLiveSpecification? timeToLiveSpecification;
+  final TimeToLiveSpecification? timeToLiveSpecification;
 
   factory _$UpdateTimeToLiveOutput(
           [void Function(UpdateTimeToLiveOutputBuilder)? updates]) =>
@@ -45,12 +45,11 @@ class UpdateTimeToLiveOutputBuilder
     implements Builder<UpdateTimeToLiveOutput, UpdateTimeToLiveOutputBuilder> {
   _$UpdateTimeToLiveOutput? _$v;
 
-  _i2.TimeToLiveSpecificationBuilder? _timeToLiveSpecification;
-  _i2.TimeToLiveSpecificationBuilder get timeToLiveSpecification =>
-      _$this._timeToLiveSpecification ??=
-          new _i2.TimeToLiveSpecificationBuilder();
+  TimeToLiveSpecificationBuilder? _timeToLiveSpecification;
+  TimeToLiveSpecificationBuilder get timeToLiveSpecification =>
+      _$this._timeToLiveSpecification ??= new TimeToLiveSpecificationBuilder();
   set timeToLiveSpecification(
-          _i2.TimeToLiveSpecificationBuilder? timeToLiveSpecification) =>
+          TimeToLiveSpecificationBuilder? timeToLiveSpecification) =>
       _$this._timeToLiveSpecification = timeToLiveSpecification;
 
   UpdateTimeToLiveOutputBuilder();

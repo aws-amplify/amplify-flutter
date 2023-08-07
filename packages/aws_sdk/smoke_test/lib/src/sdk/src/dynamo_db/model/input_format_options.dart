@@ -6,8 +6,8 @@ library smoke_test.dynamo_db.model.input_format_options; // ignore_for_file: no_
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/csv_options.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/csv_options.dart';
 
 part 'input_format_options.g.dart';
 
@@ -16,7 +16,7 @@ abstract class InputFormatOptions
     with _i1.AWSEquatable<InputFormatOptions>
     implements Built<InputFormatOptions, InputFormatOptionsBuilder> {
   /// The format options for the data that was imported into the target table. There is one value, CsvOption.
-  factory InputFormatOptions({_i2.CsvOptions? csv}) {
+  factory InputFormatOptions({CsvOptions? csv}) {
     return _$InputFormatOptions._(csv: csv);
   }
 
@@ -27,12 +27,12 @@ abstract class InputFormatOptions
 
   const InputFormatOptions._();
 
-  static const List<_i3.SmithySerializer<InputFormatOptions>> serializers = [
+  static const List<_i2.SmithySerializer<InputFormatOptions>> serializers = [
     InputFormatOptionsAwsJson10Serializer()
   ];
 
   /// The options for imported source files in CSV format. The values are Delimiter and HeaderList.
-  _i2.CsvOptions? get csv;
+  CsvOptions? get csv;
   @override
   List<Object?> get props => [csv];
   @override
@@ -47,7 +47,7 @@ abstract class InputFormatOptions
 }
 
 class InputFormatOptionsAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<InputFormatOptions> {
+    extends _i2.StructuredSmithySerializer<InputFormatOptions> {
   const InputFormatOptionsAwsJson10Serializer() : super('InputFormatOptions');
 
   @override
@@ -56,8 +56,8 @@ class InputFormatOptionsAwsJson10Serializer
         _$InputFormatOptions,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -81,8 +81,8 @@ class InputFormatOptionsAwsJson10Serializer
         case 'Csv':
           result.csv.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.CsvOptions),
-          ) as _i2.CsvOptions));
+            specifiedType: const FullType(CsvOptions),
+          ) as CsvOptions));
       }
     }
 
@@ -102,7 +102,7 @@ class InputFormatOptionsAwsJson10Serializer
         ..add('Csv')
         ..add(serializers.serialize(
           csv,
-          specifiedType: const FullType(_i2.CsvOptions),
+          specifiedType: const FullType(CsvOptions),
         ));
     }
     return result$;

@@ -14,7 +14,7 @@ class _$EvaluationResultQualifier extends EvaluationResultQualifier {
   @override
   final String? resourceId;
   @override
-  final _i2.EvaluationMode? evaluationMode;
+  final EvaluationMode? evaluationMode;
 
   factory _$EvaluationResultQualifier(
           [void Function(EvaluationResultQualifierBuilder)? updates]) =>
@@ -76,9 +76,9 @@ class EvaluationResultQualifierBuilder
   String? get resourceId => _$this._resourceId;
   set resourceId(String? resourceId) => _$this._resourceId = resourceId;
 
-  _i2.EvaluationMode? _evaluationMode;
-  _i2.EvaluationMode? get evaluationMode => _$this._evaluationMode;
-  set evaluationMode(_i2.EvaluationMode? evaluationMode) =>
+  EvaluationMode? _evaluationMode;
+  EvaluationMode? get evaluationMode => _$this._evaluationMode;
+  set evaluationMode(EvaluationMode? evaluationMode) =>
       _$this._evaluationMode = evaluationMode;
 
   EvaluationResultQualifierBuilder();

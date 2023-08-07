@@ -5,12 +5,10 @@
 library rest_json1_v1.rest_json_protocol.test.simple_scalar_properties_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i6;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/simple_scalar_properties_input_output.dart'
-    as _i5;
-import 'package:rest_json1_v1/src/rest_json_protocol/operation/simple_scalar_properties_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:fixnum/fixnum.dart' as _i4;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/simple_scalar_properties_input_output.dart';
+import 'package:rest_json1_v1/src/rest_json_protocol/operation/simple_scalar_properties_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -19,14 +17,14 @@ void main() {
     'RestJsonSimpleScalarProperties (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'RestJsonSimpleScalarProperties',
           documentation: 'Serializes simple scalar properties',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -74,14 +72,14 @@ void main() {
     'RestJsonDoesntSerializeNullStructureValues (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'RestJsonDoesntSerializeNullStructureValues',
           documentation: 'Rest Json should not serialize null structure values',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -114,14 +112,14 @@ void main() {
     'RestJsonSupportsNaNFloatInputs (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'RestJsonSupportsNaNFloatInputs',
           documentation: 'Supports handling NaN float values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -157,14 +155,14 @@ void main() {
     'RestJsonSupportsInfinityFloatInputs (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'RestJsonSupportsInfinityFloatInputs',
           documentation: 'Supports handling Infinity float values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -201,14 +199,14 @@ void main() {
     'RestJsonSupportsNegativeInfinityFloatInputs (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'RestJsonSupportsNegativeInfinityFloatInputs',
           documentation: 'Supports handling -Infinity float values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -245,14 +243,14 @@ void main() {
     'RestJsonSimpleScalarProperties (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'RestJsonSimpleScalarProperties',
           documentation: 'Serializes simple scalar properties',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -294,7 +292,7 @@ void main() {
     'RestJsonDoesntDeserializeNullStructureValues (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -302,7 +300,7 @@ void main() {
           id: 'RestJsonDoesntDeserializeNullStructureValues',
           documentation:
               'Rest Json should not deserialize null structure values',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -329,14 +327,14 @@ void main() {
     'RestJsonSupportsNaNFloatInputs (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'RestJsonSupportsNaNFloatInputs',
           documentation: 'Supports handling NaN float values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -366,14 +364,14 @@ void main() {
     'RestJsonSupportsInfinityFloatInputs (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'RestJsonSupportsInfinityFloatInputs',
           documentation: 'Supports handling Infinity float values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -404,14 +402,14 @@ void main() {
     'RestJsonSupportsNegativeInfinityFloatInputs (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'RestJsonSupportsNegativeInfinityFloatInputs',
           documentation: 'Supports handling -Infinity float values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -440,27 +438,27 @@ void main() {
   );
 }
 
-class SimpleScalarPropertiesInputOutputRestJson1Serializer extends _i4
-    .StructuredSmithySerializer<_i5.SimpleScalarPropertiesInputOutput> {
+class SimpleScalarPropertiesInputOutputRestJson1Serializer
+    extends _i3.StructuredSmithySerializer<SimpleScalarPropertiesInputOutput> {
   const SimpleScalarPropertiesInputOutputRestJson1Serializer()
       : super('SimpleScalarPropertiesInputOutput');
 
   @override
-  Iterable<Type> get types => const [_i5.SimpleScalarPropertiesInputOutput];
+  Iterable<Type> get types => const [SimpleScalarPropertiesInputOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
       ];
   @override
-  _i5.SimpleScalarPropertiesInputOutput deserialize(
+  SimpleScalarPropertiesInputOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.SimpleScalarPropertiesInputOutputBuilder();
+    final result = SimpleScalarPropertiesInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -508,8 +506,8 @@ class SimpleScalarPropertiesInputOutputRestJson1Serializer extends _i4
         case 'longValue':
           result.longValue = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.Int64),
-          ) as _i6.Int64);
+            specifiedType: const FullType(_i4.Int64),
+          ) as _i4.Int64);
         case 'floatValue':
           result.floatValue = (serializers.deserialize(
             value,
@@ -529,7 +527,7 @@ class SimpleScalarPropertiesInputOutputRestJson1Serializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.SimpleScalarPropertiesInputOutput object, {
+    SimpleScalarPropertiesInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

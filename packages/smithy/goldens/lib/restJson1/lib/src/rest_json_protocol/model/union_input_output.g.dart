@@ -8,7 +8,7 @@ part of 'union_input_output.dart';
 
 class _$UnionInputOutput extends UnionInputOutput {
   @override
-  final _i3.MyUnion? contents;
+  final MyUnion? contents;
 
   factory _$UnionInputOutput(
           [void Function(UnionInputOutputBuilder)? updates]) =>
@@ -43,9 +43,9 @@ class UnionInputOutputBuilder
     implements Builder<UnionInputOutput, UnionInputOutputBuilder> {
   _$UnionInputOutput? _$v;
 
-  _i3.MyUnion? _contents;
-  _i3.MyUnion? get contents => _$this._contents;
-  set contents(_i3.MyUnion? contents) => _$this._contents = contents;
+  MyUnion? _contents;
+  MyUnion? get contents => _$this._contents;
+  set contents(MyUnion? contents) => _$this._contents = contents;
 
   UnionInputOutputBuilder();
 

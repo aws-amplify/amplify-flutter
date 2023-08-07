@@ -6,8 +6,8 @@ library smoke_test.dynamo_db.model.table_class_summary; // ignore_for_file: no_l
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_class.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_class.dart';
 
 part 'table_class_summary.g.dart';
 
@@ -17,7 +17,7 @@ abstract class TableClassSummary
     implements Built<TableClassSummary, TableClassSummaryBuilder> {
   /// Contains details of the table class.
   factory TableClassSummary({
-    _i2.TableClass? tableClass,
+    TableClass? tableClass,
     DateTime? lastUpdateDateTime,
   }) {
     return _$TableClassSummary._(
@@ -32,12 +32,12 @@ abstract class TableClassSummary
 
   const TableClassSummary._();
 
-  static const List<_i3.SmithySerializer<TableClassSummary>> serializers = [
+  static const List<_i2.SmithySerializer<TableClassSummary>> serializers = [
     TableClassSummaryAwsJson10Serializer()
   ];
 
   /// The table class of the specified table. Valid values are `STANDARD` and `STANDARD\_INFREQUENT\_ACCESS`.
-  _i2.TableClass? get tableClass;
+  TableClass? get tableClass;
 
   /// The date and time at which the table class was last updated.
   DateTime? get lastUpdateDateTime;
@@ -62,7 +62,7 @@ abstract class TableClassSummary
 }
 
 class TableClassSummaryAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<TableClassSummary> {
+    extends _i2.StructuredSmithySerializer<TableClassSummary> {
   const TableClassSummaryAwsJson10Serializer() : super('TableClassSummary');
 
   @override
@@ -71,8 +71,8 @@ class TableClassSummaryAwsJson10Serializer
         _$TableClassSummary,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -96,8 +96,8 @@ class TableClassSummaryAwsJson10Serializer
         case 'TableClass':
           result.tableClass = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.TableClass),
-          ) as _i2.TableClass);
+            specifiedType: const FullType(TableClass),
+          ) as TableClass);
         case 'LastUpdateDateTime':
           result.lastUpdateDateTime = (serializers.deserialize(
             value,
@@ -122,7 +122,7 @@ class TableClassSummaryAwsJson10Serializer
         ..add('TableClass')
         ..add(serializers.serialize(
           tableClass,
-          specifiedType: const FullType(_i2.TableClass),
+          specifiedType: const FullType(TableClass),
         ));
     }
     if (lastUpdateDateTime != null) {

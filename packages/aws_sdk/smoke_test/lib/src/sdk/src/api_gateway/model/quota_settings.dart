@@ -6,9 +6,8 @@ library smoke_test.api_gateway.model.quota_settings; // ignore_for_file: no_lead
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/quota_period_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/quota_period_type.dart';
 
 part 'quota_settings.g.dart';
 
@@ -20,7 +19,7 @@ abstract class QuotaSettings
   factory QuotaSettings({
     int? limit,
     int? offset,
-    _i2.QuotaPeriodType? period,
+    QuotaPeriodType? period,
   }) {
     limit ??= 0;
     offset ??= 0;
@@ -37,7 +36,7 @@ abstract class QuotaSettings
 
   const QuotaSettings._();
 
-  static const List<_i3.SmithySerializer<QuotaSettings>> serializers = [
+  static const List<_i2.SmithySerializer<QuotaSettings>> serializers = [
     QuotaSettingsRestJson1Serializer()
   ];
 
@@ -55,7 +54,7 @@ abstract class QuotaSettings
   int get offset;
 
   /// The time period in which the limit applies. Valid values are "DAY", "WEEK" or "MONTH".
-  _i2.QuotaPeriodType? get period;
+  QuotaPeriodType? get period;
   @override
   List<Object?> get props => [
         limit,
@@ -82,7 +81,7 @@ abstract class QuotaSettings
 }
 
 class QuotaSettingsRestJson1Serializer
-    extends _i3.StructuredSmithySerializer<QuotaSettings> {
+    extends _i2.StructuredSmithySerializer<QuotaSettings> {
   const QuotaSettingsRestJson1Serializer() : super('QuotaSettings');
 
   @override
@@ -91,8 +90,8 @@ class QuotaSettingsRestJson1Serializer
         _$QuotaSettings,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -126,8 +125,8 @@ class QuotaSettingsRestJson1Serializer
         case 'period':
           result.period = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.QuotaPeriodType),
-          ) as _i2.QuotaPeriodType);
+            specifiedType: const FullType(QuotaPeriodType),
+          ) as QuotaPeriodType);
       }
     }
 
@@ -159,7 +158,7 @@ class QuotaSettingsRestJson1Serializer
         ..add('period')
         ..add(serializers.serialize(
           period,
-          specifiedType: const FullType(_i2.QuotaPeriodType),
+          specifiedType: const FullType(QuotaPeriodType),
         ));
     }
     return result$;

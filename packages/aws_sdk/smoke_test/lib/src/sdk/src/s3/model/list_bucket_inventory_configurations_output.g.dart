@@ -11,7 +11,7 @@ class _$ListBucketInventoryConfigurationsOutput
   @override
   final String? continuationToken;
   @override
-  final _i3.BuiltList<_i2.InventoryConfiguration>? inventoryConfigurationList;
+  final _i2.BuiltList<InventoryConfiguration>? inventoryConfigurationList;
   @override
   final bool? isTruncated;
   @override
@@ -73,12 +73,12 @@ class ListBucketInventoryConfigurationsOutputBuilder
   set continuationToken(String? continuationToken) =>
       _$this._continuationToken = continuationToken;
 
-  _i3.ListBuilder<_i2.InventoryConfiguration>? _inventoryConfigurationList;
-  _i3.ListBuilder<_i2.InventoryConfiguration> get inventoryConfigurationList =>
+  _i2.ListBuilder<InventoryConfiguration>? _inventoryConfigurationList;
+  _i2.ListBuilder<InventoryConfiguration> get inventoryConfigurationList =>
       _$this._inventoryConfigurationList ??=
-          new _i3.ListBuilder<_i2.InventoryConfiguration>();
+          new _i2.ListBuilder<InventoryConfiguration>();
   set inventoryConfigurationList(
-          _i3.ListBuilder<_i2.InventoryConfiguration>?
+          _i2.ListBuilder<InventoryConfiguration>?
               inventoryConfigurationList) =>
       _$this._inventoryConfigurationList = inventoryConfigurationList;
 

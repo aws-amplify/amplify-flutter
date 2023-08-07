@@ -8,7 +8,7 @@ part of 'put_object_request.dart';
 
 class _$PutObjectRequest extends PutObjectRequest {
   @override
-  final _i4.ObjectCannedAcl? acl;
+  final ObjectCannedAcl? acl;
   @override
   final _i2.Stream<List<int>> body;
   @override
@@ -22,13 +22,13 @@ class _$PutObjectRequest extends PutObjectRequest {
   @override
   final String? contentLanguage;
   @override
-  final _i5.Int64? contentLength;
+  final _i4.Int64? contentLength;
   @override
   final String? contentMd5;
   @override
   final String? contentType;
   @override
-  final _i6.ChecksumAlgorithm? checksumAlgorithm;
+  final ChecksumAlgorithm? checksumAlgorithm;
   @override
   final String? checksumCrc32;
   @override
@@ -50,11 +50,11 @@ class _$PutObjectRequest extends PutObjectRequest {
   @override
   final String key;
   @override
-  final _i12.BuiltMap<String, String>? metadata;
+  final _i5.BuiltMap<String, String>? metadata;
   @override
-  final _i7.ServerSideEncryption? serverSideEncryption;
+  final ServerSideEncryption? serverSideEncryption;
   @override
-  final _i8.StorageClass? storageClass;
+  final StorageClass? storageClass;
   @override
   final String? websiteRedirectLocation;
   @override
@@ -70,15 +70,15 @@ class _$PutObjectRequest extends PutObjectRequest {
   @override
   final bool? bucketKeyEnabled;
   @override
-  final _i9.RequestPayer? requestPayer;
+  final RequestPayer? requestPayer;
   @override
   final String? tagging;
   @override
-  final _i10.ObjectLockMode? objectLockMode;
+  final ObjectLockMode? objectLockMode;
   @override
   final DateTime? objectLockRetainUntilDate;
   @override
-  final _i11.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus;
+  final ObjectLockLegalHoldStatus? objectLockLegalHoldStatus;
   @override
   final String? expectedBucketOwner;
 
@@ -231,9 +231,9 @@ class PutObjectRequestBuilder
     implements Builder<PutObjectRequest, PutObjectRequestBuilder> {
   _$PutObjectRequest? _$v;
 
-  _i4.ObjectCannedAcl? _acl;
-  _i4.ObjectCannedAcl? get acl => _$this._acl;
-  set acl(_i4.ObjectCannedAcl? acl) => _$this._acl = acl;
+  ObjectCannedAcl? _acl;
+  ObjectCannedAcl? get acl => _$this._acl;
+  set acl(ObjectCannedAcl? acl) => _$this._acl = acl;
 
   _i2.Stream<List<int>>? _body;
   _i2.Stream<List<int>>? get body => _$this._body;
@@ -262,9 +262,9 @@ class PutObjectRequestBuilder
   set contentLanguage(String? contentLanguage) =>
       _$this._contentLanguage = contentLanguage;
 
-  _i5.Int64? _contentLength;
-  _i5.Int64? get contentLength => _$this._contentLength;
-  set contentLength(_i5.Int64? contentLength) =>
+  _i4.Int64? _contentLength;
+  _i4.Int64? get contentLength => _$this._contentLength;
+  set contentLength(_i4.Int64? contentLength) =>
       _$this._contentLength = contentLength;
 
   String? _contentMd5;
@@ -275,9 +275,9 @@ class PutObjectRequestBuilder
   String? get contentType => _$this._contentType;
   set contentType(String? contentType) => _$this._contentType = contentType;
 
-  _i6.ChecksumAlgorithm? _checksumAlgorithm;
-  _i6.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i6.ChecksumAlgorithm? checksumAlgorithm) =>
+  ChecksumAlgorithm? _checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
   String? _checksumCrc32;
@@ -325,21 +325,21 @@ class PutObjectRequestBuilder
   String? get key => _$this._key;
   set key(String? key) => _$this._key = key;
 
-  _i12.MapBuilder<String, String>? _metadata;
-  _i12.MapBuilder<String, String> get metadata =>
-      _$this._metadata ??= new _i12.MapBuilder<String, String>();
-  set metadata(_i12.MapBuilder<String, String>? metadata) =>
+  _i5.MapBuilder<String, String>? _metadata;
+  _i5.MapBuilder<String, String> get metadata =>
+      _$this._metadata ??= new _i5.MapBuilder<String, String>();
+  set metadata(_i5.MapBuilder<String, String>? metadata) =>
       _$this._metadata = metadata;
 
-  _i7.ServerSideEncryption? _serverSideEncryption;
-  _i7.ServerSideEncryption? get serverSideEncryption =>
+  ServerSideEncryption? _serverSideEncryption;
+  ServerSideEncryption? get serverSideEncryption =>
       _$this._serverSideEncryption;
-  set serverSideEncryption(_i7.ServerSideEncryption? serverSideEncryption) =>
+  set serverSideEncryption(ServerSideEncryption? serverSideEncryption) =>
       _$this._serverSideEncryption = serverSideEncryption;
 
-  _i8.StorageClass? _storageClass;
-  _i8.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i8.StorageClass? storageClass) =>
+  StorageClass? _storageClass;
+  StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(StorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
   String? _websiteRedirectLocation;
@@ -376,18 +376,18 @@ class PutObjectRequestBuilder
   set bucketKeyEnabled(bool? bucketKeyEnabled) =>
       _$this._bucketKeyEnabled = bucketKeyEnabled;
 
-  _i9.RequestPayer? _requestPayer;
-  _i9.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i9.RequestPayer? requestPayer) =>
+  RequestPayer? _requestPayer;
+  RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
   String? _tagging;
   String? get tagging => _$this._tagging;
   set tagging(String? tagging) => _$this._tagging = tagging;
 
-  _i10.ObjectLockMode? _objectLockMode;
-  _i10.ObjectLockMode? get objectLockMode => _$this._objectLockMode;
-  set objectLockMode(_i10.ObjectLockMode? objectLockMode) =>
+  ObjectLockMode? _objectLockMode;
+  ObjectLockMode? get objectLockMode => _$this._objectLockMode;
+  set objectLockMode(ObjectLockMode? objectLockMode) =>
       _$this._objectLockMode = objectLockMode;
 
   DateTime? _objectLockRetainUntilDate;
@@ -395,11 +395,11 @@ class PutObjectRequestBuilder
   set objectLockRetainUntilDate(DateTime? objectLockRetainUntilDate) =>
       _$this._objectLockRetainUntilDate = objectLockRetainUntilDate;
 
-  _i11.ObjectLockLegalHoldStatus? _objectLockLegalHoldStatus;
-  _i11.ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
+  ObjectLockLegalHoldStatus? _objectLockLegalHoldStatus;
+  ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
       _$this._objectLockLegalHoldStatus;
   set objectLockLegalHoldStatus(
-          _i11.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
+          ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
       _$this._objectLockLegalHoldStatus = objectLockLegalHoldStatus;
 
   String? _expectedBucketOwner;

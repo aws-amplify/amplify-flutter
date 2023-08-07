@@ -8,9 +8,9 @@ part of 'assume_role_response.dart';
 
 class _$AssumeRoleResponse extends AssumeRoleResponse {
   @override
-  final _i2.Credentials? credentials;
+  final Credentials? credentials;
   @override
-  final _i3.AssumedRoleUser? assumedRoleUser;
+  final AssumedRoleUser? assumedRoleUser;
   @override
   final int? packedPolicySize;
   @override
@@ -62,16 +62,16 @@ class AssumeRoleResponseBuilder
     implements Builder<AssumeRoleResponse, AssumeRoleResponseBuilder> {
   _$AssumeRoleResponse? _$v;
 
-  _i2.CredentialsBuilder? _credentials;
-  _i2.CredentialsBuilder get credentials =>
-      _$this._credentials ??= new _i2.CredentialsBuilder();
-  set credentials(_i2.CredentialsBuilder? credentials) =>
+  CredentialsBuilder? _credentials;
+  CredentialsBuilder get credentials =>
+      _$this._credentials ??= new CredentialsBuilder();
+  set credentials(CredentialsBuilder? credentials) =>
       _$this._credentials = credentials;
 
-  _i3.AssumedRoleUserBuilder? _assumedRoleUser;
-  _i3.AssumedRoleUserBuilder get assumedRoleUser =>
-      _$this._assumedRoleUser ??= new _i3.AssumedRoleUserBuilder();
-  set assumedRoleUser(_i3.AssumedRoleUserBuilder? assumedRoleUser) =>
+  AssumedRoleUserBuilder? _assumedRoleUser;
+  AssumedRoleUserBuilder get assumedRoleUser =>
+      _$this._assumedRoleUser ??= new AssumedRoleUserBuilder();
+  set assumedRoleUser(AssumedRoleUserBuilder? assumedRoleUser) =>
       _$this._assumedRoleUser = assumedRoleUser;
 
   int? _packedPolicySize;

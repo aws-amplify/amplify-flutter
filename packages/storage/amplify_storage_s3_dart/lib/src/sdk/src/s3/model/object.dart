@@ -3,19 +3,16 @@
 
 library amplify_storage_s3_dart.s3.model.object; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/checksum_algorithm.dart'
-    as _i2;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/object_storage_class.dart'
-    as _i4;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/owner.dart' as _i5;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/restore_status.dart'
-    as _i6;
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/checksum_algorithm.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/object_storage_class.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/owner.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/restore_status.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i7;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i3;
-import 'package:smithy/smithy.dart' as _i8;
+import 'package:fixnum/fixnum.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i4;
 
 part 'object.g.dart';
 
@@ -28,18 +25,18 @@ abstract class S3Object
     String? key,
     DateTime? lastModified,
     String? eTag,
-    List<_i2.ChecksumAlgorithm>? checksumAlgorithm,
-    _i3.Int64? size,
-    _i4.ObjectStorageClass? storageClass,
-    _i5.Owner? owner,
-    _i6.RestoreStatus? restoreStatus,
+    List<ChecksumAlgorithm>? checksumAlgorithm,
+    _i2.Int64? size,
+    ObjectStorageClass? storageClass,
+    Owner? owner,
+    RestoreStatus? restoreStatus,
   }) {
     return _$S3Object._(
       key: key,
       lastModified: lastModified,
       eTag: eTag,
       checksumAlgorithm:
-          checksumAlgorithm == null ? null : _i7.BuiltList(checksumAlgorithm),
+          checksumAlgorithm == null ? null : _i3.BuiltList(checksumAlgorithm),
       size: size,
       storageClass: storageClass,
       owner: owner,
@@ -52,7 +49,7 @@ abstract class S3Object
 
   const S3Object._();
 
-  static const List<_i8.SmithySerializer<S3Object>> serializers = [
+  static const List<_i4.SmithySerializer<S3Object>> serializers = [
     ObjectRestXmlSerializer()
   ];
 
@@ -72,19 +69,19 @@ abstract class S3Object
   String? get eTag;
 
   /// The algorithm that was used to create a checksum of the object.
-  _i7.BuiltList<_i2.ChecksumAlgorithm>? get checksumAlgorithm;
+  _i3.BuiltList<ChecksumAlgorithm>? get checksumAlgorithm;
 
   /// Size in bytes of the object
-  _i3.Int64? get size;
+  _i2.Int64? get size;
 
   /// The class of storage used to store the object.
-  _i4.ObjectStorageClass? get storageClass;
+  ObjectStorageClass? get storageClass;
 
   /// The owner of the object
-  _i5.Owner? get owner;
+  Owner? get owner;
 
   /// Specifies the restoration status of an object. Objects in certain storage classes must be restored before they can be retrieved. For more information about these storage classes and how to work with archived objects, see [Working with archived objects](https://docs.aws.amazon.com/AmazonS3/latest/userguide/archived-objects.html) in the _Amazon S3 User Guide_.
-  _i6.RestoreStatus? get restoreStatus;
+  RestoreStatus? get restoreStatus;
   @override
   List<Object?> get props => [
         key,
@@ -135,7 +132,7 @@ abstract class S3Object
   }
 }
 
-class ObjectRestXmlSerializer extends _i8.StructuredSmithySerializer<S3Object> {
+class ObjectRestXmlSerializer extends _i4.StructuredSmithySerializer<S3Object> {
   const ObjectRestXmlSerializer() : super('Object');
 
   @override
@@ -144,8 +141,8 @@ class ObjectRestXmlSerializer extends _i8.StructuredSmithySerializer<S3Object> {
         _$S3Object,
       ];
   @override
-  Iterable<_i8.ShapeId> get supportedProtocols => const [
-        _i8.ShapeId(
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -169,8 +166,8 @@ class ObjectRestXmlSerializer extends _i8.StructuredSmithySerializer<S3Object> {
         case 'ChecksumAlgorithm':
           result.checksumAlgorithm.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ChecksumAlgorithm),
-          ) as _i2.ChecksumAlgorithm));
+            specifiedType: const FullType(ChecksumAlgorithm),
+          ) as ChecksumAlgorithm));
         case 'ETag':
           result.eTag = (serializers.deserialize(
             value,
@@ -189,23 +186,23 @@ class ObjectRestXmlSerializer extends _i8.StructuredSmithySerializer<S3Object> {
         case 'Owner':
           result.owner.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.Owner),
-          ) as _i5.Owner));
+            specifiedType: const FullType(Owner),
+          ) as Owner));
         case 'RestoreStatus':
           result.restoreStatus.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.RestoreStatus),
-          ) as _i6.RestoreStatus));
+            specifiedType: const FullType(RestoreStatus),
+          ) as RestoreStatus));
         case 'Size':
           result.size = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.Int64),
-          ) as _i3.Int64);
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'StorageClass':
           result.storageClass = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ObjectStorageClass),
-          ) as _i4.ObjectStorageClass);
+            specifiedType: const FullType(ObjectStorageClass),
+          ) as ObjectStorageClass);
       }
     }
 
@@ -219,9 +216,9 @@ class ObjectRestXmlSerializer extends _i8.StructuredSmithySerializer<S3Object> {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i8.XmlElementName(
+      const _i4.XmlElementName(
         'Object',
-        _i8.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final S3Object(
@@ -236,19 +233,19 @@ class ObjectRestXmlSerializer extends _i8.StructuredSmithySerializer<S3Object> {
     ) = object;
     if (checksumAlgorithm != null) {
       result$.addAll(
-          const _i8.XmlBuiltListSerializer(memberName: 'ChecksumAlgorithm')
+          const _i4.XmlBuiltListSerializer(memberName: 'ChecksumAlgorithm')
               .serialize(
         serializers,
         checksumAlgorithm,
         specifiedType: const FullType.nullable(
-          _i7.BuiltList,
-          [FullType(_i2.ChecksumAlgorithm)],
+          _i3.BuiltList,
+          [FullType(ChecksumAlgorithm)],
         ),
       ));
     }
     if (eTag != null) {
       result$
-        ..add(const _i8.XmlElementName('ETag'))
+        ..add(const _i4.XmlElementName('ETag'))
         ..add(serializers.serialize(
           eTag,
           specifiedType: const FullType(String),
@@ -256,7 +253,7 @@ class ObjectRestXmlSerializer extends _i8.StructuredSmithySerializer<S3Object> {
     }
     if (key != null) {
       result$
-        ..add(const _i8.XmlElementName('Key'))
+        ..add(const _i4.XmlElementName('Key'))
         ..add(serializers.serialize(
           key,
           specifiedType: const FullType(String),
@@ -264,7 +261,7 @@ class ObjectRestXmlSerializer extends _i8.StructuredSmithySerializer<S3Object> {
     }
     if (lastModified != null) {
       result$
-        ..add(const _i8.XmlElementName('LastModified'))
+        ..add(const _i4.XmlElementName('LastModified'))
         ..add(serializers.serialize(
           lastModified,
           specifiedType: const FullType.nullable(DateTime),
@@ -272,34 +269,34 @@ class ObjectRestXmlSerializer extends _i8.StructuredSmithySerializer<S3Object> {
     }
     if (owner != null) {
       result$
-        ..add(const _i8.XmlElementName('Owner'))
+        ..add(const _i4.XmlElementName('Owner'))
         ..add(serializers.serialize(
           owner,
-          specifiedType: const FullType(_i5.Owner),
+          specifiedType: const FullType(Owner),
         ));
     }
     if (restoreStatus != null) {
       result$
-        ..add(const _i8.XmlElementName('RestoreStatus'))
+        ..add(const _i4.XmlElementName('RestoreStatus'))
         ..add(serializers.serialize(
           restoreStatus,
-          specifiedType: const FullType(_i6.RestoreStatus),
+          specifiedType: const FullType(RestoreStatus),
         ));
     }
     if (size != null) {
       result$
-        ..add(const _i8.XmlElementName('Size'))
+        ..add(const _i4.XmlElementName('Size'))
         ..add(serializers.serialize(
           size,
-          specifiedType: const FullType.nullable(_i3.Int64),
+          specifiedType: const FullType.nullable(_i2.Int64),
         ));
     }
     if (storageClass != null) {
       result$
-        ..add(const _i8.XmlElementName('StorageClass'))
+        ..add(const _i4.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           storageClass,
-          specifiedType: const FullType.nullable(_i4.ObjectStorageClass),
+          specifiedType: const FullType.nullable(ObjectStorageClass),
         ));
     }
     return result$;

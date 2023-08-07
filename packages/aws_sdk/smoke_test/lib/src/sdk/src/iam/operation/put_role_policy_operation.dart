@@ -3,27 +3,20 @@
 
 library smoke_test.iam.operation.put_role_policy_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i13;
+import 'dart:async' as _i5;
 
-import 'package:aws_common/aws_common.dart' as _i6;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/common/endpoint_resolver.dart'
-    as _i7;
-import 'package:smoke_test/src/sdk/src/iam/common/serializers.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/iam/model/limit_exceeded_exception.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/iam/model/malformed_policy_document_exception.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/iam/model/no_such_entity_exception.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/iam/model/put_role_policy_request.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/iam/model/unmodifiable_entity_exception.dart'
-    as _i12;
+import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/iam/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/limit_exceeded_exception.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/malformed_policy_document_exception.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/no_such_entity_exception.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/put_role_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/unmodifiable_entity_exception.dart';
 
 /// Adds or updates an inline policy document that is embedded in the specified IAM role.
 ///
@@ -34,8 +27,8 @@ import 'package:smoke_test/src/sdk/src/iam/model/unmodifiable_entity_exception.d
 /// For information about the maximum number of inline policies that you can embed with a role, see [IAM and STS quotas](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html) in the _IAM User Guide_.
 ///
 /// Because policy documents can be large, you should use POST rather than GET when calling `PutRolePolicy`. For general information about using the Query API with IAM, see [Making query requests](https://docs.aws.amazon.com/IAM/latest/UserGuide/IAM_UsingQueryAPI.html) in the _IAM User Guide_.
-class PutRolePolicyOperation extends _i1.HttpOperation<_i2.PutRolePolicyRequest,
-    _i2.PutRolePolicyRequest, _i1.Unit, _i1.Unit> {
+class PutRolePolicyOperation extends _i1.HttpOperation<PutRolePolicyRequest,
+    PutRolePolicyRequest, _i1.Unit, _i1.Unit> {
   /// Adds or updates an inline policy document that is embedded in the specified IAM role.
   ///
   /// When you embed an inline policy in a role, the inline policy is used as part of the role's access (permissions) policy. The role's trust policy is created at the same time as the role, using [`CreateRole`](https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html) . You can update a role's trust policy using [`UpdateAssumeRolePolicy`](https://docs.aws.amazon.com/IAM/latest/APIReference/API_UpdateAssumeRolePolicy.html) . For more information about roles, see [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/roles-toplevel.html) in the _IAM User Guide_.
@@ -48,8 +41,8 @@ class PutRolePolicyOperation extends _i1.HttpOperation<_i2.PutRolePolicyRequest,
   PutRolePolicyOperation({
     required String region,
     Uri? baseUri,
-    _i3.AWSCredentialsProvider credentialsProvider =
-        const _i3.AWSCredentialsProvider.environment(),
+    _i2.AWSCredentialsProvider credentialsProvider =
+        const _i2.AWSCredentialsProvider.environment(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -60,22 +53,22 @@ class PutRolePolicyOperation extends _i1.HttpOperation<_i2.PutRolePolicyRequest,
 
   @override
   late final List<
-      _i1.HttpProtocol<_i2.PutRolePolicyRequest, _i2.PutRolePolicyRequest,
-          _i1.Unit, _i1.Unit>> protocols = [
-    _i4.AwsQueryProtocol(
-      serializers: _i5.serializers,
-      builderFactories: _i5.builderFactories,
+      _i1.HttpProtocol<PutRolePolicyRequest, PutRolePolicyRequest, _i1.Unit,
+          _i1.Unit>> protocols = [
+    _i3.AwsQueryProtocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
-            _i4.WithSigV4(
+            _i3.WithSigV4(
               region: _region,
-              service: _i6.AWSService.iam,
+              service: _i4.AWSService.iam,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i4.WithSdkInvocationId(),
-            const _i4.WithSdkRequest(),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -83,27 +76,27 @@ class PutRolePolicyOperation extends _i1.HttpOperation<_i2.PutRolePolicyRequest,
       action: 'PutRolePolicy',
       version: '2010-05-08',
       awsQueryErrors: const [
-        _i4.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'LimitExceededException',
           code: 'LimitExceeded',
           httpResponseCode: 409,
         ),
-        _i4.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'MalformedPolicyDocumentException',
           code: 'MalformedPolicyDocument',
           httpResponseCode: 400,
         ),
-        _i4.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'NoSuchEntityException',
           code: 'NoSuchEntity',
           httpResponseCode: 404,
         ),
-        _i4.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'ServiceFailureException',
           code: 'ServiceFailure',
           httpResponseCode: 500,
         ),
-        _i4.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'UnmodifiableEntityException',
           code: 'UnmodifiableEntity',
           httpResponseCode: 400,
@@ -112,8 +105,8 @@ class PutRolePolicyOperation extends _i1.HttpOperation<_i2.PutRolePolicyRequest,
     )
   ];
 
-  late final _i4.AWSEndpoint _awsEndpoint = _i7.endpointResolver.resolve(
-    _i7.sdkId,
+  late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -121,14 +114,14 @@ class PutRolePolicyOperation extends _i1.HttpOperation<_i2.PutRolePolicyRequest,
 
   final Uri? _baseUri;
 
-  final _i3.AWSCredentialsProvider _credentialsProvider;
+  final _i2.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.PutRolePolicyRequest input) =>
+  _i1.HttpRequest buildRequest(PutRolePolicyRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
@@ -138,80 +131,79 @@ class PutRolePolicyOperation extends _i1.HttpOperation<_i2.PutRolePolicyRequest,
   @override
   _i1.Unit buildOutput(
     _i1.Unit payload,
-    _i6.AWSBaseHttpResponse response,
+    _i4.AWSBaseHttpResponse response,
   ) =>
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i8.LimitExceededException, _i8.LimitExceededException>(
+        _i1.SmithyError<LimitExceededException, LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'LimitExceededException',
           ),
           _i1.ErrorKind.client,
-          _i8.LimitExceededException,
+          LimitExceededException,
           statusCode: 409,
-          builder: _i8.LimitExceededException.fromResponse,
+          builder: LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError<_i9.MalformedPolicyDocumentException,
-            _i9.MalformedPolicyDocumentException>(
+        _i1.SmithyError<MalformedPolicyDocumentException,
+            MalformedPolicyDocumentException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'MalformedPolicyDocumentException',
           ),
           _i1.ErrorKind.client,
-          _i9.MalformedPolicyDocumentException,
+          MalformedPolicyDocumentException,
           statusCode: 400,
-          builder: _i9.MalformedPolicyDocumentException.fromResponse,
+          builder: MalformedPolicyDocumentException.fromResponse,
         ),
-        _i1.SmithyError<_i10.NoSuchEntityException, _i10.NoSuchEntityException>(
+        _i1.SmithyError<NoSuchEntityException, NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
           ),
           _i1.ErrorKind.client,
-          _i10.NoSuchEntityException,
+          NoSuchEntityException,
           statusCode: 404,
-          builder: _i10.NoSuchEntityException.fromResponse,
+          builder: NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError<_i11.ServiceFailureException,
-            _i11.ServiceFailureException>(
+        _i1.SmithyError<ServiceFailureException, ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',
           ),
           _i1.ErrorKind.server,
-          _i11.ServiceFailureException,
+          ServiceFailureException,
           statusCode: 500,
-          builder: _i11.ServiceFailureException.fromResponse,
+          builder: ServiceFailureException.fromResponse,
         ),
-        _i1.SmithyError<_i12.UnmodifiableEntityException,
-            _i12.UnmodifiableEntityException>(
+        _i1.SmithyError<UnmodifiableEntityException,
+            UnmodifiableEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'UnmodifiableEntityException',
           ),
           _i1.ErrorKind.client,
-          _i12.UnmodifiableEntityException,
+          UnmodifiableEntityException,
           statusCode: 400,
-          builder: _i12.UnmodifiableEntityException.fromResponse,
+          builder: UnmodifiableEntityException.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'PutRolePolicy';
   @override
-  _i4.AWSRetryer get retryer => _i4.AWSRetryer();
+  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
   _i1.SmithyOperation<_i1.Unit> run(
-    _i2.PutRolePolicyRequest input, {
-    _i6.AWSHttpClient? client,
+    PutRolePolicyRequest input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i13.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -219,7 +211,7 @@ class PutRolePolicyOperation extends _i1.HttpOperation<_i2.PutRolePolicyRequest,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

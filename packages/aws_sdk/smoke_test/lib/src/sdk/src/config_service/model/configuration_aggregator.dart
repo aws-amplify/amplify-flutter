@@ -4,14 +4,12 @@
 library smoke_test.config_service.model.configuration_aggregator; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/config_service/model/account_aggregation_source.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/config_service/model/organization_aggregation_source.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/account_aggregation_source.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/organization_aggregation_source.dart';
 
 part 'configuration_aggregator.g.dart';
 
@@ -23,8 +21,8 @@ abstract class ConfigurationAggregator
   factory ConfigurationAggregator({
     String? configurationAggregatorName,
     String? configurationAggregatorArn,
-    List<_i2.AccountAggregationSource>? accountAggregationSources,
-    _i3.OrganizationAggregationSource? organizationAggregationSource,
+    List<AccountAggregationSource>? accountAggregationSources,
+    OrganizationAggregationSource? organizationAggregationSource,
     DateTime? creationTime,
     DateTime? lastUpdatedTime,
     String? createdBy,
@@ -34,7 +32,7 @@ abstract class ConfigurationAggregator
       configurationAggregatorArn: configurationAggregatorArn,
       accountAggregationSources: accountAggregationSources == null
           ? null
-          : _i4.BuiltList(accountAggregationSources),
+          : _i2.BuiltList(accountAggregationSources),
       organizationAggregationSource: organizationAggregationSource,
       creationTime: creationTime,
       lastUpdatedTime: lastUpdatedTime,
@@ -49,7 +47,7 @@ abstract class ConfigurationAggregator
 
   const ConfigurationAggregator._();
 
-  static const List<_i5.SmithySerializer<ConfigurationAggregator>> serializers =
+  static const List<_i3.SmithySerializer<ConfigurationAggregator>> serializers =
       [ConfigurationAggregatorAwsJson11Serializer()];
 
   /// The name of the aggregator.
@@ -59,10 +57,10 @@ abstract class ConfigurationAggregator
   String? get configurationAggregatorArn;
 
   /// Provides a list of source accounts and regions to be aggregated.
-  _i4.BuiltList<_i2.AccountAggregationSource>? get accountAggregationSources;
+  _i2.BuiltList<AccountAggregationSource>? get accountAggregationSources;
 
   /// Provides an organization and list of regions to be aggregated.
-  _i3.OrganizationAggregationSource? get organizationAggregationSource;
+  OrganizationAggregationSource? get organizationAggregationSource;
 
   /// The time stamp when the configuration aggregator was created.
   DateTime? get creationTime;
@@ -118,7 +116,7 @@ abstract class ConfigurationAggregator
 }
 
 class ConfigurationAggregatorAwsJson11Serializer
-    extends _i5.StructuredSmithySerializer<ConfigurationAggregator> {
+    extends _i3.StructuredSmithySerializer<ConfigurationAggregator> {
   const ConfigurationAggregatorAwsJson11Serializer()
       : super('ConfigurationAggregator');
 
@@ -128,8 +126,8 @@ class ConfigurationAggregatorAwsJson11Serializer
         _$ConfigurationAggregator,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -164,15 +162,15 @@ class ConfigurationAggregatorAwsJson11Serializer
           result.accountAggregationSources.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i2.AccountAggregationSource)],
+              _i2.BuiltList,
+              [FullType(AccountAggregationSource)],
             ),
-          ) as _i4.BuiltList<_i2.AccountAggregationSource>));
+          ) as _i2.BuiltList<AccountAggregationSource>));
         case 'OrganizationAggregationSource':
           result.organizationAggregationSource.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.OrganizationAggregationSource),
-          ) as _i3.OrganizationAggregationSource));
+            specifiedType: const FullType(OrganizationAggregationSource),
+          ) as OrganizationAggregationSource));
         case 'CreationTime':
           result.creationTime = (serializers.deserialize(
             value,
@@ -232,8 +230,8 @@ class ConfigurationAggregatorAwsJson11Serializer
         ..add(serializers.serialize(
           accountAggregationSources,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i2.AccountAggregationSource)],
+            _i2.BuiltList,
+            [FullType(AccountAggregationSource)],
           ),
         ));
     }
@@ -242,7 +240,7 @@ class ConfigurationAggregatorAwsJson11Serializer
         ..add('OrganizationAggregationSource')
         ..add(serializers.serialize(
           organizationAggregationSource,
-          specifiedType: const FullType(_i3.OrganizationAggregationSource),
+          specifiedType: const FullType(OrganizationAggregationSource),
         ));
     }
     if (creationTime != null) {

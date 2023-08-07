@@ -8,7 +8,7 @@ part of 'get_role_response.dart';
 
 class _$GetRoleResponse extends GetRoleResponse {
   @override
-  final _i2.Role role;
+  final Role role;
 
   factory _$GetRoleResponse([void Function(GetRoleResponseBuilder)? updates]) =>
       (new GetRoleResponseBuilder()..update(updates))._build();
@@ -44,9 +44,9 @@ class GetRoleResponseBuilder
     implements Builder<GetRoleResponse, GetRoleResponseBuilder> {
   _$GetRoleResponse? _$v;
 
-  _i2.RoleBuilder? _role;
-  _i2.RoleBuilder get role => _$this._role ??= new _i2.RoleBuilder();
-  set role(_i2.RoleBuilder? role) => _$this._role = role;
+  RoleBuilder? _role;
+  RoleBuilder get role => _$this._role ??= new RoleBuilder();
+  set role(RoleBuilder? role) => _$this._role = role;
 
   GetRoleResponseBuilder();
 

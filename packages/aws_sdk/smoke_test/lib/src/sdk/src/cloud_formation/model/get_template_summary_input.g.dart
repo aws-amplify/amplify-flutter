@@ -16,9 +16,9 @@ class _$GetTemplateSummaryInput extends GetTemplateSummaryInput {
   @override
   final String? stackSetName;
   @override
-  final _i3.CallAs? callAs;
+  final CallAs? callAs;
   @override
-  final _i4.TemplateSummaryConfig? templateSummaryConfig;
+  final TemplateSummaryConfig? templateSummaryConfig;
 
   factory _$GetTemplateSummaryInput(
           [void Function(GetTemplateSummaryInputBuilder)? updates]) =>
@@ -89,15 +89,15 @@ class GetTemplateSummaryInputBuilder
   String? get stackSetName => _$this._stackSetName;
   set stackSetName(String? stackSetName) => _$this._stackSetName = stackSetName;
 
-  _i3.CallAs? _callAs;
-  _i3.CallAs? get callAs => _$this._callAs;
-  set callAs(_i3.CallAs? callAs) => _$this._callAs = callAs;
+  CallAs? _callAs;
+  CallAs? get callAs => _$this._callAs;
+  set callAs(CallAs? callAs) => _$this._callAs = callAs;
 
-  _i4.TemplateSummaryConfigBuilder? _templateSummaryConfig;
-  _i4.TemplateSummaryConfigBuilder get templateSummaryConfig =>
-      _$this._templateSummaryConfig ??= new _i4.TemplateSummaryConfigBuilder();
+  TemplateSummaryConfigBuilder? _templateSummaryConfig;
+  TemplateSummaryConfigBuilder get templateSummaryConfig =>
+      _$this._templateSummaryConfig ??= new TemplateSummaryConfigBuilder();
   set templateSummaryConfig(
-          _i4.TemplateSummaryConfigBuilder? templateSummaryConfig) =>
+          TemplateSummaryConfigBuilder? templateSummaryConfig) =>
       _$this._templateSummaryConfig = templateSummaryConfig;
 
   GetTemplateSummaryInputBuilder();

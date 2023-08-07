@@ -4,11 +4,11 @@
 library smoke_test.config_service.model.list_tags_for_resource_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/tag.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/tag.dart';
 
 part 'list_tags_for_resource_response.g.dart';
 
@@ -17,11 +17,11 @@ abstract class ListTagsForResourceResponse
     implements
         Built<ListTagsForResourceResponse, ListTagsForResourceResponseBuilder> {
   factory ListTagsForResourceResponse({
-    List<_i2.Tag>? tags,
+    List<Tag>? tags,
     String? nextToken,
   }) {
     return _$ListTagsForResourceResponse._(
-      tags: tags == null ? null : _i3.BuiltList(tags),
+      tags: tags == null ? null : _i2.BuiltList(tags),
       nextToken: nextToken,
     );
   }
@@ -39,11 +39,11 @@ abstract class ListTagsForResourceResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<ListTagsForResourceResponse>>
+  static const List<_i3.SmithySerializer<ListTagsForResourceResponse>>
       serializers = [ListTagsForResourceResponseAwsJson11Serializer()];
 
   /// The tags for the resource.
-  _i3.BuiltList<_i2.Tag>? get tags;
+  _i2.BuiltList<Tag>? get tags;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -68,7 +68,7 @@ abstract class ListTagsForResourceResponse
 }
 
 class ListTagsForResourceResponseAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<ListTagsForResourceResponse> {
+    extends _i3.StructuredSmithySerializer<ListTagsForResourceResponse> {
   const ListTagsForResourceResponseAwsJson11Serializer()
       : super('ListTagsForResourceResponse');
 
@@ -78,8 +78,8 @@ class ListTagsForResourceResponseAwsJson11Serializer
         _$ListTagsForResourceResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -104,10 +104,10 @@ class ListTagsForResourceResponseAwsJson11Serializer
           result.tags.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.Tag)],
+              _i2.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i3.BuiltList<_i2.Tag>));
+          ) as _i2.BuiltList<Tag>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -133,8 +133,8 @@ class ListTagsForResourceResponseAwsJson11Serializer
         ..add(serializers.serialize(
           tags,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.Tag)],
+            _i2.BuiltList,
+            [FullType(Tag)],
           ),
         ));
     }

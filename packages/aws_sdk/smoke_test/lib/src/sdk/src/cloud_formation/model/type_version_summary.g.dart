@@ -8,7 +8,7 @@ part of 'type_version_summary.dart';
 
 class _$TypeVersionSummary extends TypeVersionSummary {
   @override
-  final _i2.RegistryType? type;
+  final RegistryType? type;
   @override
   final String? typeName;
   @override
@@ -82,9 +82,9 @@ class TypeVersionSummaryBuilder
     implements Builder<TypeVersionSummary, TypeVersionSummaryBuilder> {
   _$TypeVersionSummary? _$v;
 
-  _i2.RegistryType? _type;
-  _i2.RegistryType? get type => _$this._type;
-  set type(_i2.RegistryType? type) => _$this._type = type;
+  RegistryType? _type;
+  RegistryType? get type => _$this._type;
+  set type(RegistryType? type) => _$this._type = type;
 
   String? _typeName;
   String? get typeName => _$this._typeName;

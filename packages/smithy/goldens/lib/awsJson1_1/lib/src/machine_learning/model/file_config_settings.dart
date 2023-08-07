@@ -4,13 +4,11 @@
 library aws_json1_1_v1.machine_learning.model.file_config_settings; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:aws_json1_1_v1/src/machine_learning/model/retry_mode.dart'
-    as _i3;
-import 'package:aws_json1_1_v1/src/machine_learning/model/s3_config.dart'
-    as _i2;
+import 'package:aws_json1_1_v1/src/machine_learning/model/retry_mode.dart';
+import 'package:aws_json1_1_v1/src/machine_learning/model/s3_config.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'file_config_settings.g.dart';
 
@@ -24,8 +22,8 @@ abstract class FileConfigSettings
     String? awsSecretAccessKey,
     String? awsSessionToken,
     String? region,
-    _i2.S3Config? s3,
-    _i3.RetryMode? retryMode,
+    S3Config? s3,
+    RetryMode? retryMode,
     int? maxAttempts,
   }) {
     return _$FileConfigSettings._(
@@ -46,7 +44,7 @@ abstract class FileConfigSettings
 
   const FileConfigSettings._();
 
-  static const List<_i4.SmithySerializer<FileConfigSettings>> serializers = [
+  static const List<_i2.SmithySerializer<FileConfigSettings>> serializers = [
     FileConfigSettingsAwsJson11Serializer()
   ];
 
@@ -56,10 +54,10 @@ abstract class FileConfigSettings
   String? get region;
 
   /// Configuration specific to S3.
-  _i2.S3Config? get s3;
+  S3Config? get s3;
 
   /// Controls the strategy used for retries.
-  _i3.RetryMode? get retryMode;
+  RetryMode? get retryMode;
   int? get maxAttempts;
   @override
   List<Object?> get props => [
@@ -107,7 +105,7 @@ abstract class FileConfigSettings
 }
 
 class FileConfigSettingsAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<FileConfigSettings> {
+    extends _i2.StructuredSmithySerializer<FileConfigSettings> {
   const FileConfigSettingsAwsJson11Serializer() : super('FileConfigSettings');
 
   @override
@@ -116,8 +114,8 @@ class FileConfigSettingsAwsJson11Serializer
         _$FileConfigSettings,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -161,13 +159,13 @@ class FileConfigSettingsAwsJson11Serializer
         case 's3':
           result.s3.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.S3Config),
-          ) as _i2.S3Config));
+            specifiedType: const FullType(S3Config),
+          ) as S3Config));
         case 'retry_mode':
           result.retryMode = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.RetryMode),
-          ) as _i3.RetryMode);
+            specifiedType: const FullType(RetryMode),
+          ) as RetryMode);
         case 'max_attempts':
           result.maxAttempts = (serializers.deserialize(
             value,
@@ -232,7 +230,7 @@ class FileConfigSettingsAwsJson11Serializer
         ..add('s3')
         ..add(serializers.serialize(
           s3,
-          specifiedType: const FullType(_i2.S3Config),
+          specifiedType: const FullType(S3Config),
         ));
     }
     if (retryMode != null) {
@@ -240,7 +238,7 @@ class FileConfigSettingsAwsJson11Serializer
         ..add('retry_mode')
         ..add(serializers.serialize(
           retryMode,
-          specifiedType: const FullType(_i3.RetryMode),
+          specifiedType: const FullType(RetryMode),
         ));
     }
     if (maxAttempts != null) {

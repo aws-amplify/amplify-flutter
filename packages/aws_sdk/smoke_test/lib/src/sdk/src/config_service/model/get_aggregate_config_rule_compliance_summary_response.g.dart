@@ -11,7 +11,7 @@ class _$GetAggregateConfigRuleComplianceSummaryResponse
   @override
   final String? groupByKey;
   @override
-  final _i3.BuiltList<_i2.AggregateComplianceCount>? aggregateComplianceCounts;
+  final _i2.BuiltList<AggregateComplianceCount>? aggregateComplianceCounts;
   @override
   final String? nextToken;
 
@@ -68,12 +68,12 @@ class GetAggregateConfigRuleComplianceSummaryResponseBuilder
   String? get groupByKey => _$this._groupByKey;
   set groupByKey(String? groupByKey) => _$this._groupByKey = groupByKey;
 
-  _i3.ListBuilder<_i2.AggregateComplianceCount>? _aggregateComplianceCounts;
-  _i3.ListBuilder<_i2.AggregateComplianceCount> get aggregateComplianceCounts =>
+  _i2.ListBuilder<AggregateComplianceCount>? _aggregateComplianceCounts;
+  _i2.ListBuilder<AggregateComplianceCount> get aggregateComplianceCounts =>
       _$this._aggregateComplianceCounts ??=
-          new _i3.ListBuilder<_i2.AggregateComplianceCount>();
+          new _i2.ListBuilder<AggregateComplianceCount>();
   set aggregateComplianceCounts(
-          _i3.ListBuilder<_i2.AggregateComplianceCount>?
+          _i2.ListBuilder<AggregateComplianceCount>?
               aggregateComplianceCounts) =>
       _$this._aggregateComplianceCounts = aggregateComplianceCounts;
 

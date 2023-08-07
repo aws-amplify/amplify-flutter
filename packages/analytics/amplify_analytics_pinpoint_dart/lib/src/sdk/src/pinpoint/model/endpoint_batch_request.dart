@@ -3,13 +3,12 @@
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.endpoint_batch_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/endpoint_batch_item.dart'
-    as _i2;
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/endpoint_batch_item.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i3;
 
 part 'endpoint_batch_request.g.dart';
 
@@ -18,8 +17,8 @@ abstract class EndpointBatchRequest
     with _i1.AWSEquatable<EndpointBatchRequest>
     implements Built<EndpointBatchRequest, EndpointBatchRequestBuilder> {
   /// Specifies a batch of endpoints to create or update and the settings and attributes to set or change for each endpoint.
-  factory EndpointBatchRequest({required List<_i2.EndpointBatchItem> item}) {
-    return _$EndpointBatchRequest._(item: _i3.BuiltList(item));
+  factory EndpointBatchRequest({required List<EndpointBatchItem> item}) {
+    return _$EndpointBatchRequest._(item: _i2.BuiltList(item));
   }
 
   /// Specifies a batch of endpoints to create or update and the settings and attributes to set or change for each endpoint.
@@ -29,12 +28,12 @@ abstract class EndpointBatchRequest
 
   const EndpointBatchRequest._();
 
-  static const List<_i4.SmithySerializer<EndpointBatchRequest>> serializers = [
+  static const List<_i3.SmithySerializer<EndpointBatchRequest>> serializers = [
     EndpointBatchRequestRestJson1Serializer()
   ];
 
   /// An array that defines the endpoints to create or update and, for each endpoint, the property values to set or change. An array can contain a maximum of 100 items.
-  _i3.BuiltList<_i2.EndpointBatchItem> get item;
+  _i2.BuiltList<EndpointBatchItem> get item;
   @override
   List<Object?> get props => [item];
   @override
@@ -49,7 +48,7 @@ abstract class EndpointBatchRequest
 }
 
 class EndpointBatchRequestRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<EndpointBatchRequest> {
+    extends _i3.StructuredSmithySerializer<EndpointBatchRequest> {
   const EndpointBatchRequestRestJson1Serializer()
       : super('EndpointBatchRequest');
 
@@ -59,8 +58,8 @@ class EndpointBatchRequestRestJson1Serializer
         _$EndpointBatchRequest,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -85,10 +84,10 @@ class EndpointBatchRequestRestJson1Serializer
           result.item.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.EndpointBatchItem)],
+              _i2.BuiltList,
+              [FullType(EndpointBatchItem)],
             ),
-          ) as _i3.BuiltList<_i2.EndpointBatchItem>));
+          ) as _i2.BuiltList<EndpointBatchItem>));
       }
     }
 
@@ -108,8 +107,8 @@ class EndpointBatchRequestRestJson1Serializer
       serializers.serialize(
         item,
         specifiedType: const FullType(
-          _i3.BuiltList,
-          [FullType(_i2.EndpointBatchItem)],
+          _i2.BuiltList,
+          [FullType(EndpointBatchItem)],
         ),
       ),
     ]);

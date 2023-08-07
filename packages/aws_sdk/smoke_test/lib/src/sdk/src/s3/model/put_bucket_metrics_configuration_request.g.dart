@@ -13,7 +13,7 @@ class _$PutBucketMetricsConfigurationRequest
   @override
   final String id;
   @override
-  final _i2.MetricsConfiguration metricsConfiguration;
+  final MetricsConfiguration metricsConfiguration;
   @override
   final String? expectedBucketOwner;
 
@@ -82,11 +82,10 @@ class PutBucketMetricsConfigurationRequestBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  _i2.MetricsConfigurationBuilder? _metricsConfiguration;
-  _i2.MetricsConfigurationBuilder get metricsConfiguration =>
-      _$this._metricsConfiguration ??= new _i2.MetricsConfigurationBuilder();
-  set metricsConfiguration(
-          _i2.MetricsConfigurationBuilder? metricsConfiguration) =>
+  MetricsConfigurationBuilder? _metricsConfiguration;
+  MetricsConfigurationBuilder get metricsConfiguration =>
+      _$this._metricsConfiguration ??= new MetricsConfigurationBuilder();
+  set metricsConfiguration(MetricsConfigurationBuilder? metricsConfiguration) =>
       _$this._metricsConfiguration = metricsConfiguration;
 
   String? _expectedBucketOwner;

@@ -4,14 +4,12 @@
 library smoke_test.dynamo_db.model.global_table_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/global_table_status.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_description.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/global_table_status.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_description.dart';
 
 part 'global_table_description.g.dart';
 
@@ -21,15 +19,15 @@ abstract class GlobalTableDescription
     implements Built<GlobalTableDescription, GlobalTableDescriptionBuilder> {
   /// Contains details about the global table.
   factory GlobalTableDescription({
-    List<_i2.ReplicaDescription>? replicationGroup,
+    List<ReplicaDescription>? replicationGroup,
     String? globalTableArn,
     DateTime? creationDateTime,
-    _i3.GlobalTableStatus? globalTableStatus,
+    GlobalTableStatus? globalTableStatus,
     String? globalTableName,
   }) {
     return _$GlobalTableDescription._(
       replicationGroup:
-          replicationGroup == null ? null : _i4.BuiltList(replicationGroup),
+          replicationGroup == null ? null : _i2.BuiltList(replicationGroup),
       globalTableArn: globalTableArn,
       creationDateTime: creationDateTime,
       globalTableStatus: globalTableStatus,
@@ -44,11 +42,11 @@ abstract class GlobalTableDescription
 
   const GlobalTableDescription._();
 
-  static const List<_i5.SmithySerializer<GlobalTableDescription>> serializers =
+  static const List<_i3.SmithySerializer<GlobalTableDescription>> serializers =
       [GlobalTableDescriptionAwsJson10Serializer()];
 
   /// The Regions where the global table has replicas.
-  _i4.BuiltList<_i2.ReplicaDescription>? get replicationGroup;
+  _i2.BuiltList<ReplicaDescription>? get replicationGroup;
 
   /// The unique identifier of the global table.
   String? get globalTableArn;
@@ -65,7 +63,7 @@ abstract class GlobalTableDescription
   /// *   `DELETING` \- The global table is being deleted.
   ///
   /// *   `ACTIVE` \- The global table is ready for use.
-  _i3.GlobalTableStatus? get globalTableStatus;
+  GlobalTableStatus? get globalTableStatus;
 
   /// The global table name.
   String? get globalTableName;
@@ -105,7 +103,7 @@ abstract class GlobalTableDescription
 }
 
 class GlobalTableDescriptionAwsJson10Serializer
-    extends _i5.StructuredSmithySerializer<GlobalTableDescription> {
+    extends _i3.StructuredSmithySerializer<GlobalTableDescription> {
   const GlobalTableDescriptionAwsJson10Serializer()
       : super('GlobalTableDescription');
 
@@ -115,8 +113,8 @@ class GlobalTableDescriptionAwsJson10Serializer
         _$GlobalTableDescription,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -141,10 +139,10 @@ class GlobalTableDescriptionAwsJson10Serializer
           result.replicationGroup.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i2.ReplicaDescription)],
+              _i2.BuiltList,
+              [FullType(ReplicaDescription)],
             ),
-          ) as _i4.BuiltList<_i2.ReplicaDescription>));
+          ) as _i2.BuiltList<ReplicaDescription>));
         case 'GlobalTableArn':
           result.globalTableArn = (serializers.deserialize(
             value,
@@ -158,8 +156,8 @@ class GlobalTableDescriptionAwsJson10Serializer
         case 'GlobalTableStatus':
           result.globalTableStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.GlobalTableStatus),
-          ) as _i3.GlobalTableStatus);
+            specifiedType: const FullType(GlobalTableStatus),
+          ) as GlobalTableStatus);
         case 'GlobalTableName':
           result.globalTableName = (serializers.deserialize(
             value,
@@ -191,8 +189,8 @@ class GlobalTableDescriptionAwsJson10Serializer
         ..add(serializers.serialize(
           replicationGroup,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i2.ReplicaDescription)],
+            _i2.BuiltList,
+            [FullType(ReplicaDescription)],
           ),
         ));
     }
@@ -217,7 +215,7 @@ class GlobalTableDescriptionAwsJson10Serializer
         ..add('GlobalTableStatus')
         ..add(serializers.serialize(
           globalTableStatus,
-          specifiedType: const FullType(_i3.GlobalTableStatus),
+          specifiedType: const FullType(GlobalTableStatus),
         ));
     }
     if (globalTableName != null) {

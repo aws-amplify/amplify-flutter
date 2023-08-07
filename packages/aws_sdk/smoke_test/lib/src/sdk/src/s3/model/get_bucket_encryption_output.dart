@@ -4,14 +4,12 @@
 library smoke_test.s3.model.get_bucket_encryption_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/server_side_encryption_configuration.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/server_side_encryption_rule.dart'
-    as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/server_side_encryption_configuration.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/server_side_encryption_rule.dart';
 
 part 'get_bucket_encryption_output.g.dart';
 
@@ -19,10 +17,9 @@ abstract class GetBucketEncryptionOutput
     with _i1.AWSEquatable<GetBucketEncryptionOutput>
     implements
         Built<GetBucketEncryptionOutput, GetBucketEncryptionOutputBuilder>,
-        _i2.HasPayload<_i3.ServerSideEncryptionConfiguration> {
+        _i2.HasPayload<ServerSideEncryptionConfiguration> {
   factory GetBucketEncryptionOutput(
-      {_i3.ServerSideEncryptionConfiguration?
-          serverSideEncryptionConfiguration}) {
+      {ServerSideEncryptionConfiguration? serverSideEncryptionConfiguration}) {
     return _$GetBucketEncryptionOutput._(
         serverSideEncryptionConfiguration: serverSideEncryptionConfiguration);
   }
@@ -35,7 +32,7 @@ abstract class GetBucketEncryptionOutput
 
   /// Constructs a [GetBucketEncryptionOutput] from a [payload] and [response].
   factory GetBucketEncryptionOutput.fromResponse(
-    _i3.ServerSideEncryptionConfiguration? payload,
+    ServerSideEncryptionConfiguration? payload,
     _i1.AWSBaseHttpResponse response,
   ) =>
       GetBucketEncryptionOutput.build((b) {
@@ -44,14 +41,13 @@ abstract class GetBucketEncryptionOutput
         }
       });
 
-  static const List<
-          _i2.SmithySerializer<_i3.ServerSideEncryptionConfiguration?>>
+  static const List<_i2.SmithySerializer<ServerSideEncryptionConfiguration?>>
       serializers = [GetBucketEncryptionOutputRestXmlSerializer()];
 
   /// Specifies the default server-side-encryption configuration.
-  _i3.ServerSideEncryptionConfiguration? get serverSideEncryptionConfiguration;
+  ServerSideEncryptionConfiguration? get serverSideEncryptionConfiguration;
   @override
-  _i3.ServerSideEncryptionConfiguration? getPayload() =>
+  ServerSideEncryptionConfiguration? getPayload() =>
       serverSideEncryptionConfiguration;
   @override
   List<Object?> get props => [serverSideEncryptionConfiguration];
@@ -66,8 +62,8 @@ abstract class GetBucketEncryptionOutput
   }
 }
 
-class GetBucketEncryptionOutputRestXmlSerializer extends _i2
-    .StructuredSmithySerializer<_i3.ServerSideEncryptionConfiguration> {
+class GetBucketEncryptionOutputRestXmlSerializer
+    extends _i2.StructuredSmithySerializer<ServerSideEncryptionConfiguration> {
   const GetBucketEncryptionOutputRestXmlSerializer()
       : super('GetBucketEncryptionOutput');
 
@@ -84,12 +80,12 @@ class GetBucketEncryptionOutputRestXmlSerializer extends _i2
         )
       ];
   @override
-  _i3.ServerSideEncryptionConfiguration deserialize(
+  ServerSideEncryptionConfiguration deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i3.ServerSideEncryptionConfigurationBuilder();
+    final result = ServerSideEncryptionConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -102,8 +98,8 @@ class GetBucketEncryptionOutputRestXmlSerializer extends _i2
         case 'Rule':
           result.rules.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ServerSideEncryptionRule),
-          ) as _i4.ServerSideEncryptionRule));
+            specifiedType: const FullType(ServerSideEncryptionRule),
+          ) as ServerSideEncryptionRule));
       }
     }
 
@@ -113,7 +109,7 @@ class GetBucketEncryptionOutputRestXmlSerializer extends _i2
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i3.ServerSideEncryptionConfiguration object, {
+    ServerSideEncryptionConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -122,14 +118,14 @@ class GetBucketEncryptionOutputRestXmlSerializer extends _i2
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i3.ServerSideEncryptionConfiguration(:rules) = object;
+    final ServerSideEncryptionConfiguration(:rules) = object;
     result$
         .addAll(const _i2.XmlBuiltListSerializer(memberName: 'Rule').serialize(
       serializers,
       rules,
       specifiedType: const FullType.nullable(
-        _i5.BuiltList,
-        [FullType(_i4.ServerSideEncryptionRule)],
+        _i3.BuiltList,
+        [FullType(ServerSideEncryptionRule)],
       ),
     ));
     return result$;

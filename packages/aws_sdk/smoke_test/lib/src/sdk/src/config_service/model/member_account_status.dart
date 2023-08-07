@@ -6,9 +6,8 @@ library smoke_test.config_service.model.member_account_status; // ignore_for_fil
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/member_account_rule_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/member_account_rule_status.dart';
 
 part 'member_account_status.g.dart';
 
@@ -20,7 +19,7 @@ abstract class MemberAccountStatus
   factory MemberAccountStatus({
     required String accountId,
     required String configRuleName,
-    required _i2.MemberAccountRuleStatus memberAccountRuleStatus,
+    required MemberAccountRuleStatus memberAccountRuleStatus,
     String? errorCode,
     String? errorMessage,
     DateTime? lastUpdateTime,
@@ -42,7 +41,7 @@ abstract class MemberAccountStatus
 
   const MemberAccountStatus._();
 
-  static const List<_i3.SmithySerializer<MemberAccountStatus>> serializers = [
+  static const List<_i2.SmithySerializer<MemberAccountStatus>> serializers = [
     MemberAccountStatusAwsJson11Serializer()
   ];
 
@@ -73,7 +72,7 @@ abstract class MemberAccountStatus
   /// *   `UPDATE\_IN\_PROGRESS` when Config rule is being updated in the member account.
   ///
   /// *   `UPDATE_FAILED` when Config rule deletion has failed in the member account.
-  _i2.MemberAccountRuleStatus get memberAccountRuleStatus;
+  MemberAccountRuleStatus get memberAccountRuleStatus;
 
   /// An error code that is returned when Config rule creation or deletion failed in the member account.
   String? get errorCode;
@@ -124,7 +123,7 @@ abstract class MemberAccountStatus
 }
 
 class MemberAccountStatusAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<MemberAccountStatus> {
+    extends _i2.StructuredSmithySerializer<MemberAccountStatus> {
   const MemberAccountStatusAwsJson11Serializer() : super('MemberAccountStatus');
 
   @override
@@ -133,8 +132,8 @@ class MemberAccountStatusAwsJson11Serializer
         _$MemberAccountStatus,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -168,8 +167,8 @@ class MemberAccountStatusAwsJson11Serializer
         case 'MemberAccountRuleStatus':
           result.memberAccountRuleStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.MemberAccountRuleStatus),
-          ) as _i2.MemberAccountRuleStatus);
+            specifiedType: const FullType(MemberAccountRuleStatus),
+          ) as MemberAccountRuleStatus);
         case 'ErrorCode':
           result.errorCode = (serializers.deserialize(
             value,
@@ -220,7 +219,7 @@ class MemberAccountStatusAwsJson11Serializer
       'MemberAccountRuleStatus',
       serializers.serialize(
         memberAccountRuleStatus,
-        specifiedType: const FullType(_i2.MemberAccountRuleStatus),
+        specifiedType: const FullType(MemberAccountRuleStatus),
       ),
     ]);
     if (errorCode != null) {

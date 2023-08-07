@@ -12,17 +12,17 @@ class _$S3Location extends S3Location {
   @override
   final String prefix;
   @override
-  final _i2.Encryption? encryption;
+  final Encryption? encryption;
   @override
-  final _i3.ObjectCannedAcl? cannedAcl;
+  final ObjectCannedAcl? cannedAcl;
   @override
-  final _i8.BuiltList<_i4.Grant>? accessControlList;
+  final _i2.BuiltList<Grant>? accessControlList;
   @override
-  final _i5.Tagging? tagging;
+  final Tagging? tagging;
   @override
-  final _i8.BuiltList<_i6.MetadataEntry>? userMetadata;
+  final _i2.BuiltList<MetadataEntry>? userMetadata;
   @override
-  final _i7.StorageClass? storageClass;
+  final StorageClass? storageClass;
 
   factory _$S3Location([void Function(S3LocationBuilder)? updates]) =>
       (new S3LocationBuilder()..update(updates))._build();
@@ -90,37 +90,35 @@ class S3LocationBuilder implements Builder<S3Location, S3LocationBuilder> {
   String? get prefix => _$this._prefix;
   set prefix(String? prefix) => _$this._prefix = prefix;
 
-  _i2.EncryptionBuilder? _encryption;
-  _i2.EncryptionBuilder get encryption =>
-      _$this._encryption ??= new _i2.EncryptionBuilder();
-  set encryption(_i2.EncryptionBuilder? encryption) =>
+  EncryptionBuilder? _encryption;
+  EncryptionBuilder get encryption =>
+      _$this._encryption ??= new EncryptionBuilder();
+  set encryption(EncryptionBuilder? encryption) =>
       _$this._encryption = encryption;
 
-  _i3.ObjectCannedAcl? _cannedAcl;
-  _i3.ObjectCannedAcl? get cannedAcl => _$this._cannedAcl;
-  set cannedAcl(_i3.ObjectCannedAcl? cannedAcl) =>
-      _$this._cannedAcl = cannedAcl;
+  ObjectCannedAcl? _cannedAcl;
+  ObjectCannedAcl? get cannedAcl => _$this._cannedAcl;
+  set cannedAcl(ObjectCannedAcl? cannedAcl) => _$this._cannedAcl = cannedAcl;
 
-  _i8.ListBuilder<_i4.Grant>? _accessControlList;
-  _i8.ListBuilder<_i4.Grant> get accessControlList =>
-      _$this._accessControlList ??= new _i8.ListBuilder<_i4.Grant>();
-  set accessControlList(_i8.ListBuilder<_i4.Grant>? accessControlList) =>
+  _i2.ListBuilder<Grant>? _accessControlList;
+  _i2.ListBuilder<Grant> get accessControlList =>
+      _$this._accessControlList ??= new _i2.ListBuilder<Grant>();
+  set accessControlList(_i2.ListBuilder<Grant>? accessControlList) =>
       _$this._accessControlList = accessControlList;
 
-  _i5.TaggingBuilder? _tagging;
-  _i5.TaggingBuilder get tagging =>
-      _$this._tagging ??= new _i5.TaggingBuilder();
-  set tagging(_i5.TaggingBuilder? tagging) => _$this._tagging = tagging;
+  TaggingBuilder? _tagging;
+  TaggingBuilder get tagging => _$this._tagging ??= new TaggingBuilder();
+  set tagging(TaggingBuilder? tagging) => _$this._tagging = tagging;
 
-  _i8.ListBuilder<_i6.MetadataEntry>? _userMetadata;
-  _i8.ListBuilder<_i6.MetadataEntry> get userMetadata =>
-      _$this._userMetadata ??= new _i8.ListBuilder<_i6.MetadataEntry>();
-  set userMetadata(_i8.ListBuilder<_i6.MetadataEntry>? userMetadata) =>
+  _i2.ListBuilder<MetadataEntry>? _userMetadata;
+  _i2.ListBuilder<MetadataEntry> get userMetadata =>
+      _$this._userMetadata ??= new _i2.ListBuilder<MetadataEntry>();
+  set userMetadata(_i2.ListBuilder<MetadataEntry>? userMetadata) =>
       _$this._userMetadata = userMetadata;
 
-  _i7.StorageClass? _storageClass;
-  _i7.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i7.StorageClass? storageClass) =>
+  StorageClass? _storageClass;
+  StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(StorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
   S3LocationBuilder();

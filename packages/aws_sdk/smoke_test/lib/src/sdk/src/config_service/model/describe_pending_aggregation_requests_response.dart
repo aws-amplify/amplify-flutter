@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.describe_pending_aggregation_requests_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/pending_aggregation_request.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/pending_aggregation_request.dart';
 
 part 'describe_pending_aggregation_requests_response.g.dart';
 
@@ -20,13 +19,13 @@ abstract class DescribePendingAggregationRequestsResponse
         Built<DescribePendingAggregationRequestsResponse,
             DescribePendingAggregationRequestsResponseBuilder> {
   factory DescribePendingAggregationRequestsResponse({
-    List<_i2.PendingAggregationRequest>? pendingAggregationRequests,
+    List<PendingAggregationRequest>? pendingAggregationRequests,
     String? nextToken,
   }) {
     return _$DescribePendingAggregationRequestsResponse._(
       pendingAggregationRequests: pendingAggregationRequests == null
           ? null
-          : _i3.BuiltList(pendingAggregationRequests),
+          : _i2.BuiltList(pendingAggregationRequests),
       nextToken: nextToken,
     );
   }
@@ -45,13 +44,13 @@ abstract class DescribePendingAggregationRequestsResponse
       payload;
 
   static const List<
-          _i4.SmithySerializer<DescribePendingAggregationRequestsResponse>>
+          _i3.SmithySerializer<DescribePendingAggregationRequestsResponse>>
       serializers = [
     DescribePendingAggregationRequestsResponseAwsJson11Serializer()
   ];
 
   /// Returns a PendingAggregationRequests object.
-  _i3.BuiltList<_i2.PendingAggregationRequest>? get pendingAggregationRequests;
+  _i2.BuiltList<PendingAggregationRequest>? get pendingAggregationRequests;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -76,7 +75,7 @@ abstract class DescribePendingAggregationRequestsResponse
   }
 }
 
-class DescribePendingAggregationRequestsResponseAwsJson11Serializer extends _i4
+class DescribePendingAggregationRequestsResponseAwsJson11Serializer extends _i3
     .StructuredSmithySerializer<DescribePendingAggregationRequestsResponse> {
   const DescribePendingAggregationRequestsResponseAwsJson11Serializer()
       : super('DescribePendingAggregationRequestsResponse');
@@ -87,8 +86,8 @@ class DescribePendingAggregationRequestsResponseAwsJson11Serializer extends _i4
         _$DescribePendingAggregationRequestsResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -113,10 +112,10 @@ class DescribePendingAggregationRequestsResponseAwsJson11Serializer extends _i4
           result.pendingAggregationRequests.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.PendingAggregationRequest)],
+              _i2.BuiltList,
+              [FullType(PendingAggregationRequest)],
             ),
-          ) as _i3.BuiltList<_i2.PendingAggregationRequest>));
+          ) as _i2.BuiltList<PendingAggregationRequest>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -145,8 +144,8 @@ class DescribePendingAggregationRequestsResponseAwsJson11Serializer extends _i4
         ..add(serializers.serialize(
           pendingAggregationRequests,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.PendingAggregationRequest)],
+            _i2.BuiltList,
+            [FullType(PendingAggregationRequest)],
           ),
         ));
     }

@@ -8,11 +8,11 @@ part of 'start_resource_evaluation_request.dart';
 
 class _$StartResourceEvaluationRequest extends StartResourceEvaluationRequest {
   @override
-  final _i3.ResourceDetails resourceDetails;
+  final ResourceDetails resourceDetails;
   @override
-  final _i4.EvaluationContext? evaluationContext;
+  final EvaluationContext? evaluationContext;
   @override
-  final _i5.EvaluationMode evaluationMode;
+  final EvaluationMode evaluationMode;
   @override
   final int evaluationTimeout;
   @override
@@ -76,21 +76,21 @@ class StartResourceEvaluationRequestBuilder
             StartResourceEvaluationRequestBuilder> {
   _$StartResourceEvaluationRequest? _$v;
 
-  _i3.ResourceDetailsBuilder? _resourceDetails;
-  _i3.ResourceDetailsBuilder get resourceDetails =>
-      _$this._resourceDetails ??= new _i3.ResourceDetailsBuilder();
-  set resourceDetails(_i3.ResourceDetailsBuilder? resourceDetails) =>
+  ResourceDetailsBuilder? _resourceDetails;
+  ResourceDetailsBuilder get resourceDetails =>
+      _$this._resourceDetails ??= new ResourceDetailsBuilder();
+  set resourceDetails(ResourceDetailsBuilder? resourceDetails) =>
       _$this._resourceDetails = resourceDetails;
 
-  _i4.EvaluationContextBuilder? _evaluationContext;
-  _i4.EvaluationContextBuilder get evaluationContext =>
-      _$this._evaluationContext ??= new _i4.EvaluationContextBuilder();
-  set evaluationContext(_i4.EvaluationContextBuilder? evaluationContext) =>
+  EvaluationContextBuilder? _evaluationContext;
+  EvaluationContextBuilder get evaluationContext =>
+      _$this._evaluationContext ??= new EvaluationContextBuilder();
+  set evaluationContext(EvaluationContextBuilder? evaluationContext) =>
       _$this._evaluationContext = evaluationContext;
 
-  _i5.EvaluationMode? _evaluationMode;
-  _i5.EvaluationMode? get evaluationMode => _$this._evaluationMode;
-  set evaluationMode(_i5.EvaluationMode? evaluationMode) =>
+  EvaluationMode? _evaluationMode;
+  EvaluationMode? get evaluationMode => _$this._evaluationMode;
+  set evaluationMode(EvaluationMode? evaluationMode) =>
       _$this._evaluationMode = evaluationMode;
 
   int? _evaluationTimeout;

@@ -4,14 +4,12 @@
 library smoke_test.dynamo_db.model.transact_get_items_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_consumed_capacity.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/transact_get_item.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_consumed_capacity.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/transact_get_item.dart';
 
 part 'transact_get_items_input.g.dart';
 
@@ -21,11 +19,11 @@ abstract class TransactGetItemsInput
         _i2.AWSEquatable<TransactGetItemsInput>
     implements Built<TransactGetItemsInput, TransactGetItemsInputBuilder> {
   factory TransactGetItemsInput({
-    required List<_i3.TransactGetItem> transactItems,
-    _i4.ReturnConsumedCapacity? returnConsumedCapacity,
+    required List<TransactGetItem> transactItems,
+    ReturnConsumedCapacity? returnConsumedCapacity,
   }) {
     return _$TransactGetItemsInput._(
-      transactItems: _i5.BuiltList(transactItems),
+      transactItems: _i3.BuiltList(transactItems),
       returnConsumedCapacity: returnConsumedCapacity,
     );
   }
@@ -48,10 +46,10 @@ abstract class TransactGetItemsInput
   ];
 
   /// An ordered array of up to 100 `TransactGetItem` objects, each of which contains a `Get` structure.
-  _i5.BuiltList<_i3.TransactGetItem> get transactItems;
+  _i3.BuiltList<TransactGetItem> get transactItems;
 
   /// A value of `TOTAL` causes consumed capacity information to be returned, and a value of `NONE` prevents that information from being returned. No other value is valid.
-  _i4.ReturnConsumedCapacity? get returnConsumedCapacity;
+  ReturnConsumedCapacity? get returnConsumedCapacity;
   @override
   TransactGetItemsInput getPayload() => this;
   @override
@@ -111,15 +109,15 @@ class TransactGetItemsInputAwsJson10Serializer
           result.transactItems.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(_i3.TransactGetItem)],
+              _i3.BuiltList,
+              [FullType(TransactGetItem)],
             ),
-          ) as _i5.BuiltList<_i3.TransactGetItem>));
+          ) as _i3.BuiltList<TransactGetItem>));
         case 'ReturnConsumedCapacity':
           result.returnConsumedCapacity = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ReturnConsumedCapacity),
-          ) as _i4.ReturnConsumedCapacity);
+            specifiedType: const FullType(ReturnConsumedCapacity),
+          ) as ReturnConsumedCapacity);
       }
     }
 
@@ -140,8 +138,8 @@ class TransactGetItemsInputAwsJson10Serializer
       serializers.serialize(
         transactItems,
         specifiedType: const FullType(
-          _i5.BuiltList,
-          [FullType(_i3.TransactGetItem)],
+          _i3.BuiltList,
+          [FullType(TransactGetItem)],
         ),
       ),
     ]);
@@ -150,7 +148,7 @@ class TransactGetItemsInputAwsJson10Serializer
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
           returnConsumedCapacity,
-          specifiedType: const FullType(_i4.ReturnConsumedCapacity),
+          specifiedType: const FullType(ReturnConsumedCapacity),
         ));
     }
     return result$;

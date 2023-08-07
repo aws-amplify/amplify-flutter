@@ -4,13 +4,12 @@
 library smoke_test.s3.model.topic_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/event.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/notification_configuration_filter.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/event.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/notification_configuration_filter.dart';
 
 part 'topic_configuration.g.dart';
 
@@ -22,13 +21,13 @@ abstract class TopicConfiguration
   factory TopicConfiguration({
     String? id,
     required String topicArn,
-    required List<_i2.Event> events,
-    _i3.NotificationConfigurationFilter? filter,
+    required List<Event> events,
+    NotificationConfigurationFilter? filter,
   }) {
     return _$TopicConfiguration._(
       id: id,
       topicArn: topicArn,
-      events: _i4.BuiltList(events),
+      events: _i2.BuiltList(events),
       filter: filter,
     );
   }
@@ -40,7 +39,7 @@ abstract class TopicConfiguration
 
   const TopicConfiguration._();
 
-  static const List<_i5.SmithySerializer<TopicConfiguration>> serializers = [
+  static const List<_i3.SmithySerializer<TopicConfiguration>> serializers = [
     TopicConfigurationRestXmlSerializer()
   ];
 
@@ -51,10 +50,10 @@ abstract class TopicConfiguration
   String get topicArn;
 
   /// The Amazon S3 bucket event about which to send notifications. For more information, see [Supported Event Types](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) in the _Amazon S3 User Guide_.
-  _i4.BuiltList<_i2.Event> get events;
+  _i2.BuiltList<Event> get events;
 
   /// Specifies object key name filtering rules. For information about key name filtering, see [Configuring event notifications using object key name filtering](https://docs.aws.amazon.com/AmazonS3/latest/userguide/notification-how-to-filtering.html) in the _Amazon S3 User Guide_.
-  _i3.NotificationConfigurationFilter? get filter;
+  NotificationConfigurationFilter? get filter;
   @override
   List<Object?> get props => [
         id,
@@ -86,7 +85,7 @@ abstract class TopicConfiguration
 }
 
 class TopicConfigurationRestXmlSerializer
-    extends _i5.StructuredSmithySerializer<TopicConfiguration> {
+    extends _i3.StructuredSmithySerializer<TopicConfiguration> {
   const TopicConfigurationRestXmlSerializer() : super('TopicConfiguration');
 
   @override
@@ -95,8 +94,8 @@ class TopicConfigurationRestXmlSerializer
         _$TopicConfiguration,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -120,13 +119,13 @@ class TopicConfigurationRestXmlSerializer
         case 'Event':
           result.events.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Event),
-          ) as _i2.Event));
+            specifiedType: const FullType(Event),
+          ) as Event));
         case 'Filter':
           result.filter.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.NotificationConfigurationFilter),
-          ) as _i3.NotificationConfigurationFilter));
+            specifiedType: const FullType(NotificationConfigurationFilter),
+          ) as NotificationConfigurationFilter));
         case 'Id':
           result.id = (serializers.deserialize(
             value,
@@ -150,39 +149,39 @@ class TopicConfigurationRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i5.XmlElementName(
+      const _i3.XmlElementName(
         'TopicConfiguration',
-        _i5.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final TopicConfiguration(:events, :filter, :id, :topicArn) = object;
     result$
-        .addAll(const _i5.XmlBuiltListSerializer(memberName: 'Event').serialize(
+        .addAll(const _i3.XmlBuiltListSerializer(memberName: 'Event').serialize(
       serializers,
       events,
       specifiedType: const FullType.nullable(
-        _i4.BuiltList,
-        [FullType(_i2.Event)],
+        _i2.BuiltList,
+        [FullType(Event)],
       ),
     ));
     if (filter != null) {
       result$
-        ..add(const _i5.XmlElementName('Filter'))
+        ..add(const _i3.XmlElementName('Filter'))
         ..add(serializers.serialize(
           filter,
-          specifiedType: const FullType(_i3.NotificationConfigurationFilter),
+          specifiedType: const FullType(NotificationConfigurationFilter),
         ));
     }
     if (id != null) {
       result$
-        ..add(const _i5.XmlElementName('Id'))
+        ..add(const _i3.XmlElementName('Id'))
         ..add(serializers.serialize(
           id,
           specifiedType: const FullType(String),
         ));
     }
     result$
-      ..add(const _i5.XmlElementName('Topic'))
+      ..add(const _i3.XmlElementName('Topic'))
       ..add(serializers.serialize(
         topicArn,
         specifiedType: const FullType(String),

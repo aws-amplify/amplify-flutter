@@ -4,12 +4,11 @@
 library smoke_test.dynamo_db.model.list_imports_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/import_summary.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/import_summary.dart';
 
 part 'list_imports_output.g.dart';
 
@@ -17,12 +16,12 @@ abstract class ListImportsOutput
     with _i1.AWSEquatable<ListImportsOutput>
     implements Built<ListImportsOutput, ListImportsOutputBuilder> {
   factory ListImportsOutput({
-    List<_i2.ImportSummary>? importSummaryList,
+    List<ImportSummary>? importSummaryList,
     String? nextToken,
   }) {
     return _$ListImportsOutput._(
       importSummaryList:
-          importSummaryList == null ? null : _i3.BuiltList(importSummaryList),
+          importSummaryList == null ? null : _i2.BuiltList(importSummaryList),
       nextToken: nextToken,
     );
   }
@@ -39,12 +38,12 @@ abstract class ListImportsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<ListImportsOutput>> serializers = [
+  static const List<_i3.SmithySerializer<ListImportsOutput>> serializers = [
     ListImportsOutputAwsJson10Serializer()
   ];
 
   /// A list of `ImportSummary` objects.
-  _i3.BuiltList<_i2.ImportSummary>? get importSummaryList;
+  _i2.BuiltList<ImportSummary>? get importSummaryList;
 
   /// If this value is returned, there are additional results to be displayed. To retrieve them, call `ListImports` again, with `NextToken` set to this value.
   String? get nextToken;
@@ -69,7 +68,7 @@ abstract class ListImportsOutput
 }
 
 class ListImportsOutputAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<ListImportsOutput> {
+    extends _i3.StructuredSmithySerializer<ListImportsOutput> {
   const ListImportsOutputAwsJson10Serializer() : super('ListImportsOutput');
 
   @override
@@ -78,8 +77,8 @@ class ListImportsOutputAwsJson10Serializer
         _$ListImportsOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -104,10 +103,10 @@ class ListImportsOutputAwsJson10Serializer
           result.importSummaryList.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.ImportSummary)],
+              _i2.BuiltList,
+              [FullType(ImportSummary)],
             ),
-          ) as _i3.BuiltList<_i2.ImportSummary>));
+          ) as _i2.BuiltList<ImportSummary>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -133,8 +132,8 @@ class ListImportsOutputAwsJson10Serializer
         ..add(serializers.serialize(
           importSummaryList,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.ImportSummary)],
+            _i2.BuiltList,
+            [FullType(ImportSummary)],
           ),
         ));
     }

@@ -8,7 +8,7 @@ part of 'resource_count_filters.dart';
 
 class _$ResourceCountFilters extends ResourceCountFilters {
   @override
-  final _i2.ResourceType? resourceType;
+  final ResourceType? resourceType;
   @override
   final String? accountId;
   @override
@@ -54,9 +54,9 @@ class ResourceCountFiltersBuilder
     implements Builder<ResourceCountFilters, ResourceCountFiltersBuilder> {
   _$ResourceCountFilters? _$v;
 
-  _i2.ResourceType? _resourceType;
-  _i2.ResourceType? get resourceType => _$this._resourceType;
-  set resourceType(_i2.ResourceType? resourceType) =>
+  ResourceType? _resourceType;
+  ResourceType? get resourceType => _$this._resourceType;
+  set resourceType(ResourceType? resourceType) =>
       _$this._resourceType = resourceType;
 
   String? _accountId;

@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_compliance_filters.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_compliance_filters.dart';
 
 part 'describe_conformance_pack_compliance_request.g.dart';
 
@@ -21,7 +20,7 @@ abstract class DescribeConformancePackComplianceRequest
             DescribeConformancePackComplianceRequestBuilder> {
   factory DescribeConformancePackComplianceRequest({
     required String conformancePackName,
-    _i3.ConformancePackComplianceFilters? filters,
+    ConformancePackComplianceFilters? filters,
     int? limit,
     String? nextToken,
   }) {
@@ -62,7 +61,7 @@ abstract class DescribeConformancePackComplianceRequest
   String get conformancePackName;
 
   /// A `ConformancePackComplianceFilters` object.
-  _i3.ConformancePackComplianceFilters? get filters;
+  ConformancePackComplianceFilters? get filters;
 
   /// The maximum number of Config rules within a conformance pack are returned on each page.
   int get limit;
@@ -143,8 +142,8 @@ class DescribeConformancePackComplianceRequestAwsJson11Serializer extends _i1
         case 'Filters':
           result.filters.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ConformancePackComplianceFilters),
-          ) as _i3.ConformancePackComplianceFilters));
+            specifiedType: const FullType(ConformancePackComplianceFilters),
+          ) as ConformancePackComplianceFilters));
         case 'Limit':
           result.limit = (serializers.deserialize(
             value,
@@ -191,7 +190,7 @@ class DescribeConformancePackComplianceRequestAwsJson11Serializer extends _i1
         ..add('Filters')
         ..add(serializers.serialize(
           filters,
-          specifiedType: const FullType(_i3.ConformancePackComplianceFilters),
+          specifiedType: const FullType(ConformancePackComplianceFilters),
         ));
     }
     if (nextToken != null) {

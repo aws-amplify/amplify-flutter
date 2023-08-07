@@ -3,8 +3,7 @@
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.confirm_device_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/device_secret_verifier_config_type.dart'
-    as _i3;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/device_secret_verifier_config_type.dart';
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -22,7 +21,7 @@ abstract class ConfirmDeviceRequest
   factory ConfirmDeviceRequest({
     required String accessToken,
     required String deviceKey,
-    _i3.DeviceSecretVerifierConfigType? deviceSecretVerifierConfig,
+    DeviceSecretVerifierConfigType? deviceSecretVerifierConfig,
     String? deviceName,
   }) {
     return _$ConfirmDeviceRequest._(
@@ -58,7 +57,7 @@ abstract class ConfirmDeviceRequest
   String get deviceKey;
 
   /// The configuration of the device secret verifier.
-  _i3.DeviceSecretVerifierConfigType? get deviceSecretVerifierConfig;
+  DeviceSecretVerifierConfigType? get deviceSecretVerifierConfig;
 
   /// The device name.
   String? get deviceName;
@@ -140,8 +139,8 @@ class ConfirmDeviceRequestAwsJson11Serializer
         case 'DeviceSecretVerifierConfig':
           result.deviceSecretVerifierConfig.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.DeviceSecretVerifierConfigType),
-          ) as _i3.DeviceSecretVerifierConfigType));
+            specifiedType: const FullType(DeviceSecretVerifierConfigType),
+          ) as DeviceSecretVerifierConfigType));
         case 'DeviceName':
           result.deviceName = (serializers.deserialize(
             value,
@@ -183,7 +182,7 @@ class ConfirmDeviceRequestAwsJson11Serializer
         ..add('DeviceSecretVerifierConfig')
         ..add(serializers.serialize(
           deviceSecretVerifierConfig,
-          specifiedType: const FullType(_i3.DeviceSecretVerifierConfigType),
+          specifiedType: const FullType(DeviceSecretVerifierConfigType),
         ));
     }
     if (deviceName != null) {

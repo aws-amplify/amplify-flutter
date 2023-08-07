@@ -8,7 +8,7 @@ part of 'put_object_retention_output.dart';
 
 class _$PutObjectRetentionOutput extends PutObjectRetentionOutput {
   @override
-  final _i3.RequestCharged? requestCharged;
+  final RequestCharged? requestCharged;
 
   factory _$PutObjectRetentionOutput(
           [void Function(PutObjectRetentionOutputBuilder)? updates]) =>
@@ -46,9 +46,9 @@ class PutObjectRetentionOutputBuilder
         Builder<PutObjectRetentionOutput, PutObjectRetentionOutputBuilder> {
   _$PutObjectRetentionOutput? _$v;
 
-  _i3.RequestCharged? _requestCharged;
-  _i3.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i3.RequestCharged? requestCharged) =>
+  RequestCharged? _requestCharged;
+  RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
   PutObjectRetentionOutputBuilder();

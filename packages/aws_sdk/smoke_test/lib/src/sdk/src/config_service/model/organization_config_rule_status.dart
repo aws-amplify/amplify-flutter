@@ -6,9 +6,8 @@ library smoke_test.config_service.model.organization_config_rule_status; // igno
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/organization_rule_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/organization_rule_status.dart';
 
 part 'organization_config_rule_status.g.dart';
 
@@ -22,7 +21,7 @@ abstract class OrganizationConfigRuleStatus
   /// Returns the status for an organization Config rule in an organization.
   factory OrganizationConfigRuleStatus({
     required String organizationConfigRuleName,
-    required _i2.OrganizationRuleStatus organizationRuleStatus,
+    required OrganizationRuleStatus organizationRuleStatus,
     String? errorCode,
     String? errorMessage,
     DateTime? lastUpdateTime,
@@ -43,7 +42,7 @@ abstract class OrganizationConfigRuleStatus
 
   const OrganizationConfigRuleStatus._();
 
-  static const List<_i3.SmithySerializer<OrganizationConfigRuleStatus>>
+  static const List<_i2.SmithySerializer<OrganizationConfigRuleStatus>>
       serializers = [OrganizationConfigRuleStatusAwsJson11Serializer()];
 
   /// The name that you assign to organization Config rule.
@@ -70,7 +69,7 @@ abstract class OrganizationConfigRuleStatus
   /// *   `UPDATE\_IN\_PROGRESS` when an organization Config rule update is in progress.
   ///
   /// *   `UPDATE_FAILED` when an organization Config rule update failed in one or more member accounts within that organization.
-  _i2.OrganizationRuleStatus get organizationRuleStatus;
+  OrganizationRuleStatus get organizationRuleStatus;
 
   /// An error code that is returned when organization Config rule creation or deletion has failed.
   String? get errorCode;
@@ -116,7 +115,7 @@ abstract class OrganizationConfigRuleStatus
 }
 
 class OrganizationConfigRuleStatusAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<OrganizationConfigRuleStatus> {
+    extends _i2.StructuredSmithySerializer<OrganizationConfigRuleStatus> {
   const OrganizationConfigRuleStatusAwsJson11Serializer()
       : super('OrganizationConfigRuleStatus');
 
@@ -126,8 +125,8 @@ class OrganizationConfigRuleStatusAwsJson11Serializer
         _$OrganizationConfigRuleStatus,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -156,8 +155,8 @@ class OrganizationConfigRuleStatusAwsJson11Serializer
         case 'OrganizationRuleStatus':
           result.organizationRuleStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.OrganizationRuleStatus),
-          ) as _i2.OrganizationRuleStatus);
+            specifiedType: const FullType(OrganizationRuleStatus),
+          ) as OrganizationRuleStatus);
         case 'ErrorCode':
           result.errorCode = (serializers.deserialize(
             value,
@@ -202,7 +201,7 @@ class OrganizationConfigRuleStatusAwsJson11Serializer
       'OrganizationRuleStatus',
       serializers.serialize(
         organizationRuleStatus,
-        specifiedType: const FullType(_i2.OrganizationRuleStatus),
+        specifiedType: const FullType(OrganizationRuleStatus),
       ),
     ]);
     if (errorCode != null) {

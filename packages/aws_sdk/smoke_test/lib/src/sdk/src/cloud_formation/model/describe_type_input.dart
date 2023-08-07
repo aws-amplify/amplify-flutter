@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/registry_type.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/registry_type.dart';
 
 part 'describe_type_input.g.dart';
 
@@ -16,7 +15,7 @@ abstract class DescribeTypeInput
     with _i1.HttpInput<DescribeTypeInput>, _i2.AWSEquatable<DescribeTypeInput>
     implements Built<DescribeTypeInput, DescribeTypeInputBuilder> {
   factory DescribeTypeInput({
-    _i3.RegistryType? type,
+    RegistryType? type,
     String? typeName,
     String? arn,
     String? versionId,
@@ -52,7 +51,7 @@ abstract class DescribeTypeInput
   /// The kind of extension.
   ///
   /// Conditional: You must specify either `TypeName` and `Type`, or `Arn`.
-  _i3.RegistryType? get type;
+  RegistryType? get type;
 
   /// The name of the extension.
   ///
@@ -153,8 +152,8 @@ class DescribeTypeInputAwsQuerySerializer
         case 'Type':
           result.type = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.RegistryType),
-          ) as _i3.RegistryType);
+            specifiedType: const FullType(RegistryType),
+          ) as RegistryType);
         case 'TypeName':
           result.typeName = (serializers.deserialize(
             value,
@@ -211,7 +210,7 @@ class DescribeTypeInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(_i3.RegistryType),
+          specifiedType: const FullType.nullable(RegistryType),
         ));
     }
     if (typeName != null) {

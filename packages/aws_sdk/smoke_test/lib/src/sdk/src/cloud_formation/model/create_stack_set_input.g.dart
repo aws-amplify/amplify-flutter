@@ -18,25 +18,25 @@ class _$CreateStackSetInput extends CreateStackSetInput {
   @override
   final String? stackId;
   @override
-  final _i10.BuiltList<_i3.Parameter>? parameters;
+  final _i3.BuiltList<Parameter>? parameters;
   @override
-  final _i10.BuiltList<_i4.Capability>? capabilities;
+  final _i3.BuiltList<Capability>? capabilities;
   @override
-  final _i10.BuiltList<_i5.Tag>? tags;
+  final _i3.BuiltList<Tag>? tags;
   @override
   final String? administrationRoleArn;
   @override
   final String? executionRoleName;
   @override
-  final _i6.PermissionModels? permissionModel;
+  final PermissionModels? permissionModel;
   @override
-  final _i7.AutoDeployment? autoDeployment;
+  final AutoDeployment? autoDeployment;
   @override
-  final _i8.CallAs? callAs;
+  final CallAs? callAs;
   @override
   final String? clientRequestToken;
   @override
-  final _i9.ManagedExecution? managedExecution;
+  final ManagedExecution? managedExecution;
 
   factory _$CreateStackSetInput(
           [void Function(CreateStackSetInputBuilder)? updates]) =>
@@ -140,22 +140,21 @@ class CreateStackSetInputBuilder
   String? get stackId => _$this._stackId;
   set stackId(String? stackId) => _$this._stackId = stackId;
 
-  _i10.ListBuilder<_i3.Parameter>? _parameters;
-  _i10.ListBuilder<_i3.Parameter> get parameters =>
-      _$this._parameters ??= new _i10.ListBuilder<_i3.Parameter>();
-  set parameters(_i10.ListBuilder<_i3.Parameter>? parameters) =>
+  _i3.ListBuilder<Parameter>? _parameters;
+  _i3.ListBuilder<Parameter> get parameters =>
+      _$this._parameters ??= new _i3.ListBuilder<Parameter>();
+  set parameters(_i3.ListBuilder<Parameter>? parameters) =>
       _$this._parameters = parameters;
 
-  _i10.ListBuilder<_i4.Capability>? _capabilities;
-  _i10.ListBuilder<_i4.Capability> get capabilities =>
-      _$this._capabilities ??= new _i10.ListBuilder<_i4.Capability>();
-  set capabilities(_i10.ListBuilder<_i4.Capability>? capabilities) =>
+  _i3.ListBuilder<Capability>? _capabilities;
+  _i3.ListBuilder<Capability> get capabilities =>
+      _$this._capabilities ??= new _i3.ListBuilder<Capability>();
+  set capabilities(_i3.ListBuilder<Capability>? capabilities) =>
       _$this._capabilities = capabilities;
 
-  _i10.ListBuilder<_i5.Tag>? _tags;
-  _i10.ListBuilder<_i5.Tag> get tags =>
-      _$this._tags ??= new _i10.ListBuilder<_i5.Tag>();
-  set tags(_i10.ListBuilder<_i5.Tag>? tags) => _$this._tags = tags;
+  _i3.ListBuilder<Tag>? _tags;
+  _i3.ListBuilder<Tag> get tags => _$this._tags ??= new _i3.ListBuilder<Tag>();
+  set tags(_i3.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   String? _administrationRoleArn;
   String? get administrationRoleArn => _$this._administrationRoleArn;
@@ -167,30 +166,30 @@ class CreateStackSetInputBuilder
   set executionRoleName(String? executionRoleName) =>
       _$this._executionRoleName = executionRoleName;
 
-  _i6.PermissionModels? _permissionModel;
-  _i6.PermissionModels? get permissionModel => _$this._permissionModel;
-  set permissionModel(_i6.PermissionModels? permissionModel) =>
+  PermissionModels? _permissionModel;
+  PermissionModels? get permissionModel => _$this._permissionModel;
+  set permissionModel(PermissionModels? permissionModel) =>
       _$this._permissionModel = permissionModel;
 
-  _i7.AutoDeploymentBuilder? _autoDeployment;
-  _i7.AutoDeploymentBuilder get autoDeployment =>
-      _$this._autoDeployment ??= new _i7.AutoDeploymentBuilder();
-  set autoDeployment(_i7.AutoDeploymentBuilder? autoDeployment) =>
+  AutoDeploymentBuilder? _autoDeployment;
+  AutoDeploymentBuilder get autoDeployment =>
+      _$this._autoDeployment ??= new AutoDeploymentBuilder();
+  set autoDeployment(AutoDeploymentBuilder? autoDeployment) =>
       _$this._autoDeployment = autoDeployment;
 
-  _i8.CallAs? _callAs;
-  _i8.CallAs? get callAs => _$this._callAs;
-  set callAs(_i8.CallAs? callAs) => _$this._callAs = callAs;
+  CallAs? _callAs;
+  CallAs? get callAs => _$this._callAs;
+  set callAs(CallAs? callAs) => _$this._callAs = callAs;
 
   String? _clientRequestToken;
   String? get clientRequestToken => _$this._clientRequestToken;
   set clientRequestToken(String? clientRequestToken) =>
       _$this._clientRequestToken = clientRequestToken;
 
-  _i9.ManagedExecutionBuilder? _managedExecution;
-  _i9.ManagedExecutionBuilder get managedExecution =>
-      _$this._managedExecution ??= new _i9.ManagedExecutionBuilder();
-  set managedExecution(_i9.ManagedExecutionBuilder? managedExecution) =>
+  ManagedExecutionBuilder? _managedExecution;
+  ManagedExecutionBuilder get managedExecution =>
+      _$this._managedExecution ??= new ManagedExecutionBuilder();
+  set managedExecution(ManagedExecutionBuilder? managedExecution) =>
       _$this._managedExecution = managedExecution;
 
   CreateStackSetInputBuilder() {

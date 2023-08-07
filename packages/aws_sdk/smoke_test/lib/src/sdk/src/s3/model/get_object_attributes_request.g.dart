@@ -24,11 +24,11 @@ class _$GetObjectAttributesRequest extends GetObjectAttributesRequest {
   @override
   final String? sseCustomerKeyMd5;
   @override
-  final _i3.RequestPayer? requestPayer;
+  final RequestPayer? requestPayer;
   @override
   final String? expectedBucketOwner;
   @override
-  final _i5.BuiltList<_i4.ObjectAttributes> objectAttributes;
+  final _i3.BuiltList<ObjectAttributes> objectAttributes;
 
   factory _$GetObjectAttributesRequest(
           [void Function(GetObjectAttributesRequestBuilder)? updates]) =>
@@ -141,9 +141,9 @@ class GetObjectAttributesRequestBuilder
   set sseCustomerKeyMd5(String? sseCustomerKeyMd5) =>
       _$this._sseCustomerKeyMd5 = sseCustomerKeyMd5;
 
-  _i3.RequestPayer? _requestPayer;
-  _i3.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i3.RequestPayer? requestPayer) =>
+  RequestPayer? _requestPayer;
+  RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
   String? _expectedBucketOwner;
@@ -151,11 +151,10 @@ class GetObjectAttributesRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  _i5.ListBuilder<_i4.ObjectAttributes>? _objectAttributes;
-  _i5.ListBuilder<_i4.ObjectAttributes> get objectAttributes =>
-      _$this._objectAttributes ??= new _i5.ListBuilder<_i4.ObjectAttributes>();
-  set objectAttributes(
-          _i5.ListBuilder<_i4.ObjectAttributes>? objectAttributes) =>
+  _i3.ListBuilder<ObjectAttributes>? _objectAttributes;
+  _i3.ListBuilder<ObjectAttributes> get objectAttributes =>
+      _$this._objectAttributes ??= new _i3.ListBuilder<ObjectAttributes>();
+  set objectAttributes(_i3.ListBuilder<ObjectAttributes>? objectAttributes) =>
       _$this._objectAttributes = objectAttributes;
 
   GetObjectAttributesRequestBuilder();

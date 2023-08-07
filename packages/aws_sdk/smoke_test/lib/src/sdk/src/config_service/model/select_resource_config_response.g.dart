@@ -8,9 +8,9 @@ part of 'select_resource_config_response.dart';
 
 class _$SelectResourceConfigResponse extends SelectResourceConfigResponse {
   @override
-  final _i3.BuiltList<String>? results;
+  final _i2.BuiltList<String>? results;
   @override
-  final _i2.QueryInfo? queryInfo;
+  final QueryInfo? queryInfo;
   @override
   final String? nextToken;
 
@@ -57,16 +57,15 @@ class SelectResourceConfigResponseBuilder
             SelectResourceConfigResponseBuilder> {
   _$SelectResourceConfigResponse? _$v;
 
-  _i3.ListBuilder<String>? _results;
-  _i3.ListBuilder<String> get results =>
-      _$this._results ??= new _i3.ListBuilder<String>();
-  set results(_i3.ListBuilder<String>? results) => _$this._results = results;
+  _i2.ListBuilder<String>? _results;
+  _i2.ListBuilder<String> get results =>
+      _$this._results ??= new _i2.ListBuilder<String>();
+  set results(_i2.ListBuilder<String>? results) => _$this._results = results;
 
-  _i2.QueryInfoBuilder? _queryInfo;
-  _i2.QueryInfoBuilder get queryInfo =>
-      _$this._queryInfo ??= new _i2.QueryInfoBuilder();
-  set queryInfo(_i2.QueryInfoBuilder? queryInfo) =>
-      _$this._queryInfo = queryInfo;
+  QueryInfoBuilder? _queryInfo;
+  QueryInfoBuilder get queryInfo =>
+      _$this._queryInfo ??= new QueryInfoBuilder();
+  set queryInfo(QueryInfoBuilder? queryInfo) => _$this._queryInfo = queryInfo;
 
   String? _nextToken;
   String? get nextToken => _$this._nextToken;

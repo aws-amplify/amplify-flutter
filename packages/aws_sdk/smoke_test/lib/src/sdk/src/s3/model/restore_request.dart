@@ -6,14 +6,12 @@ library smoke_test.s3.model.restore_request; // ignore_for_file: no_leading_unde
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/s3/model/glacier_job_parameters.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/output_location.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/s3/model/restore_request_type.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/select_parameters.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/tier.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/glacier_job_parameters.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/output_location.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/restore_request_type.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/select_parameters.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/tier.dart';
 
 part 'restore_request.g.dart';
 
@@ -24,12 +22,12 @@ abstract class RestoreRequest
   /// Container for restore job parameters.
   factory RestoreRequest({
     int? days,
-    _i2.GlacierJobParameters? glacierJobParameters,
-    _i3.RestoreRequestType? type,
-    _i4.Tier? tier,
+    GlacierJobParameters? glacierJobParameters,
+    RestoreRequestType? type,
+    Tier? tier,
     String? description,
-    _i5.SelectParameters? selectParameters,
-    _i6.OutputLocation? outputLocation,
+    SelectParameters? selectParameters,
+    OutputLocation? outputLocation,
   }) {
     return _$RestoreRequest._(
       days: days,
@@ -48,7 +46,7 @@ abstract class RestoreRequest
 
   const RestoreRequest._();
 
-  static const List<_i7.SmithySerializer<RestoreRequest>> serializers = [
+  static const List<_i2.SmithySerializer<RestoreRequest>> serializers = [
     RestoreRequestRestXmlSerializer()
   ];
 
@@ -58,22 +56,22 @@ abstract class RestoreRequest
   int? get days;
 
   /// S3 Glacier related parameters pertaining to this job. Do not use with restores that specify `OutputLocation`.
-  _i2.GlacierJobParameters? get glacierJobParameters;
+  GlacierJobParameters? get glacierJobParameters;
 
   /// Type of restore request.
-  _i3.RestoreRequestType? get type;
+  RestoreRequestType? get type;
 
   /// Retrieval tier at which the restore will be processed.
-  _i4.Tier? get tier;
+  Tier? get tier;
 
   /// The optional description for the job.
   String? get description;
 
   /// Describes the parameters for Select job types.
-  _i5.SelectParameters? get selectParameters;
+  SelectParameters? get selectParameters;
 
   /// Describes the location where the restore job's output is stored.
-  _i6.OutputLocation? get outputLocation;
+  OutputLocation? get outputLocation;
   @override
   List<Object?> get props => [
         days,
@@ -120,7 +118,7 @@ abstract class RestoreRequest
 }
 
 class RestoreRequestRestXmlSerializer
-    extends _i7.StructuredSmithySerializer<RestoreRequest> {
+    extends _i2.StructuredSmithySerializer<RestoreRequest> {
   const RestoreRequestRestXmlSerializer() : super('RestoreRequest');
 
   @override
@@ -129,8 +127,8 @@ class RestoreRequestRestXmlSerializer
         _$RestoreRequest,
       ];
   @override
-  Iterable<_i7.ShapeId> get supportedProtocols => const [
-        _i7.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -164,28 +162,28 @@ class RestoreRequestRestXmlSerializer
         case 'GlacierJobParameters':
           result.glacierJobParameters.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.GlacierJobParameters),
-          ) as _i2.GlacierJobParameters));
+            specifiedType: const FullType(GlacierJobParameters),
+          ) as GlacierJobParameters));
         case 'OutputLocation':
           result.outputLocation.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.OutputLocation),
-          ) as _i6.OutputLocation));
+            specifiedType: const FullType(OutputLocation),
+          ) as OutputLocation));
         case 'SelectParameters':
           result.selectParameters.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.SelectParameters),
-          ) as _i5.SelectParameters));
+            specifiedType: const FullType(SelectParameters),
+          ) as SelectParameters));
         case 'Tier':
           result.tier = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.Tier),
-          ) as _i4.Tier);
+            specifiedType: const FullType(Tier),
+          ) as Tier);
         case 'Type':
           result.type = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.RestoreRequestType),
-          ) as _i3.RestoreRequestType);
+            specifiedType: const FullType(RestoreRequestType),
+          ) as RestoreRequestType);
       }
     }
 
@@ -199,9 +197,9 @@ class RestoreRequestRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i7.XmlElementName(
+      const _i2.XmlElementName(
         'RestoreRequest',
-        _i7.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final RestoreRequest(
@@ -215,7 +213,7 @@ class RestoreRequestRestXmlSerializer
     ) = object;
     if (days != null) {
       result$
-        ..add(const _i7.XmlElementName('Days'))
+        ..add(const _i2.XmlElementName('Days'))
         ..add(serializers.serialize(
           days,
           specifiedType: const FullType.nullable(int),
@@ -223,7 +221,7 @@ class RestoreRequestRestXmlSerializer
     }
     if (description != null) {
       result$
-        ..add(const _i7.XmlElementName('Description'))
+        ..add(const _i2.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
           specifiedType: const FullType(String),
@@ -231,42 +229,42 @@ class RestoreRequestRestXmlSerializer
     }
     if (glacierJobParameters != null) {
       result$
-        ..add(const _i7.XmlElementName('GlacierJobParameters'))
+        ..add(const _i2.XmlElementName('GlacierJobParameters'))
         ..add(serializers.serialize(
           glacierJobParameters,
-          specifiedType: const FullType(_i2.GlacierJobParameters),
+          specifiedType: const FullType(GlacierJobParameters),
         ));
     }
     if (outputLocation != null) {
       result$
-        ..add(const _i7.XmlElementName('OutputLocation'))
+        ..add(const _i2.XmlElementName('OutputLocation'))
         ..add(serializers.serialize(
           outputLocation,
-          specifiedType: const FullType(_i6.OutputLocation),
+          specifiedType: const FullType(OutputLocation),
         ));
     }
     if (selectParameters != null) {
       result$
-        ..add(const _i7.XmlElementName('SelectParameters'))
+        ..add(const _i2.XmlElementName('SelectParameters'))
         ..add(serializers.serialize(
           selectParameters,
-          specifiedType: const FullType(_i5.SelectParameters),
+          specifiedType: const FullType(SelectParameters),
         ));
     }
     if (tier != null) {
       result$
-        ..add(const _i7.XmlElementName('Tier'))
+        ..add(const _i2.XmlElementName('Tier'))
         ..add(serializers.serialize(
           tier,
-          specifiedType: const FullType.nullable(_i4.Tier),
+          specifiedType: const FullType.nullable(Tier),
         ));
     }
     if (type != null) {
       result$
-        ..add(const _i7.XmlElementName('Type'))
+        ..add(const _i2.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(_i3.RestoreRequestType),
+          specifiedType: const FullType.nullable(RestoreRequestType),
         ));
     }
     return result$;

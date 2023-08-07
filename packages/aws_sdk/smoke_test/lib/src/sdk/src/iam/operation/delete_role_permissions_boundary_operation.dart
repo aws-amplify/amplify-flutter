@@ -3,23 +3,18 @@
 
 library smoke_test.iam.operation.delete_role_permissions_boundary_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i11;
+import 'dart:async' as _i5;
 
-import 'package:aws_common/aws_common.dart' as _i6;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/common/endpoint_resolver.dart'
-    as _i7;
-import 'package:smoke_test/src/sdk/src/iam/common/serializers.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/iam/model/delete_role_permissions_boundary_request.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/iam/model/no_such_entity_exception.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/iam/model/unmodifiable_entity_exception.dart'
-    as _i10;
+import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/iam/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/delete_role_permissions_boundary_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/no_such_entity_exception.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/unmodifiable_entity_exception.dart';
 
 /// Deletes the permissions boundary for the specified IAM role.
 ///
@@ -27,8 +22,8 @@ import 'package:smoke_test/src/sdk/src/iam/model/unmodifiable_entity_exception.d
 ///
 /// Deleting the permissions boundary for a role might increase its permissions. For example, it might allow anyone who assumes the role to perform all the actions granted in its permissions policies.
 class DeleteRolePermissionsBoundaryOperation extends _i1.HttpOperation<
-    _i2.DeleteRolePermissionsBoundaryRequest,
-    _i2.DeleteRolePermissionsBoundaryRequest,
+    DeleteRolePermissionsBoundaryRequest,
+    DeleteRolePermissionsBoundaryRequest,
     _i1.Unit,
     _i1.Unit> {
   /// Deletes the permissions boundary for the specified IAM role.
@@ -39,8 +34,8 @@ class DeleteRolePermissionsBoundaryOperation extends _i1.HttpOperation<
   DeleteRolePermissionsBoundaryOperation({
     required String region,
     Uri? baseUri,
-    _i3.AWSCredentialsProvider credentialsProvider =
-        const _i3.AWSCredentialsProvider.environment(),
+    _i2.AWSCredentialsProvider credentialsProvider =
+        const _i2.AWSCredentialsProvider.environment(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -52,24 +47,24 @@ class DeleteRolePermissionsBoundaryOperation extends _i1.HttpOperation<
   @override
   late final List<
       _i1.HttpProtocol<
-          _i2.DeleteRolePermissionsBoundaryRequest,
-          _i2.DeleteRolePermissionsBoundaryRequest,
+          DeleteRolePermissionsBoundaryRequest,
+          DeleteRolePermissionsBoundaryRequest,
           _i1.Unit,
           _i1.Unit>> protocols = [
-    _i4.AwsQueryProtocol(
-      serializers: _i5.serializers,
-      builderFactories: _i5.builderFactories,
+    _i3.AwsQueryProtocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
-            _i4.WithSigV4(
+            _i3.WithSigV4(
               region: _region,
-              service: _i6.AWSService.iam,
+              service: _i4.AWSService.iam,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i4.WithSdkInvocationId(),
-            const _i4.WithSdkRequest(),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -77,17 +72,17 @@ class DeleteRolePermissionsBoundaryOperation extends _i1.HttpOperation<
       action: 'DeleteRolePermissionsBoundary',
       version: '2010-05-08',
       awsQueryErrors: const [
-        _i4.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'NoSuchEntityException',
           code: 'NoSuchEntity',
           httpResponseCode: 404,
         ),
-        _i4.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'ServiceFailureException',
           code: 'ServiceFailure',
           httpResponseCode: 500,
         ),
-        _i4.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'UnmodifiableEntityException',
           code: 'UnmodifiableEntity',
           httpResponseCode: 400,
@@ -96,8 +91,8 @@ class DeleteRolePermissionsBoundaryOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i4.AWSEndpoint _awsEndpoint = _i7.endpointResolver.resolve(
-    _i7.sdkId,
+  late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -105,15 +100,14 @@ class DeleteRolePermissionsBoundaryOperation extends _i1.HttpOperation<
 
   final Uri? _baseUri;
 
-  final _i3.AWSCredentialsProvider _credentialsProvider;
+  final _i2.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(
-          _i2.DeleteRolePermissionsBoundaryRequest input) =>
+  _i1.HttpRequest buildRequest(DeleteRolePermissionsBoundaryRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
@@ -123,59 +117,58 @@ class DeleteRolePermissionsBoundaryOperation extends _i1.HttpOperation<
   @override
   _i1.Unit buildOutput(
     _i1.Unit payload,
-    _i6.AWSBaseHttpResponse response,
+    _i4.AWSBaseHttpResponse response,
   ) =>
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i8.NoSuchEntityException, _i8.NoSuchEntityException>(
+        _i1.SmithyError<NoSuchEntityException, NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
           ),
           _i1.ErrorKind.client,
-          _i8.NoSuchEntityException,
+          NoSuchEntityException,
           statusCode: 404,
-          builder: _i8.NoSuchEntityException.fromResponse,
+          builder: NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError<_i9.ServiceFailureException,
-            _i9.ServiceFailureException>(
+        _i1.SmithyError<ServiceFailureException, ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',
           ),
           _i1.ErrorKind.server,
-          _i9.ServiceFailureException,
+          ServiceFailureException,
           statusCode: 500,
-          builder: _i9.ServiceFailureException.fromResponse,
+          builder: ServiceFailureException.fromResponse,
         ),
-        _i1.SmithyError<_i10.UnmodifiableEntityException,
-            _i10.UnmodifiableEntityException>(
+        _i1.SmithyError<UnmodifiableEntityException,
+            UnmodifiableEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'UnmodifiableEntityException',
           ),
           _i1.ErrorKind.client,
-          _i10.UnmodifiableEntityException,
+          UnmodifiableEntityException,
           statusCode: 400,
-          builder: _i10.UnmodifiableEntityException.fromResponse,
+          builder: UnmodifiableEntityException.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'DeleteRolePermissionsBoundary';
   @override
-  _i4.AWSRetryer get retryer => _i4.AWSRetryer();
+  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
   _i1.SmithyOperation<_i1.Unit> run(
-    _i2.DeleteRolePermissionsBoundaryRequest input, {
-    _i6.AWSHttpClient? client,
+    DeleteRolePermissionsBoundaryRequest input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i11.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -183,7 +176,7 @@ class DeleteRolePermissionsBoundaryOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

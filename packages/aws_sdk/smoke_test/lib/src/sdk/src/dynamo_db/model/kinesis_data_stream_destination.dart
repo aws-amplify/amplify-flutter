@@ -6,9 +6,8 @@ library smoke_test.dynamo_db.model.kinesis_data_stream_destination; // ignore_fo
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/destination_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/destination_status.dart';
 
 part 'kinesis_data_stream_destination.g.dart';
 
@@ -22,7 +21,7 @@ abstract class KinesisDataStreamDestination
   /// Describes a Kinesis data stream destination.
   factory KinesisDataStreamDestination({
     String? streamArn,
-    _i2.DestinationStatus? destinationStatus,
+    DestinationStatus? destinationStatus,
     String? destinationStatusDescription,
   }) {
     return _$KinesisDataStreamDestination._(
@@ -39,14 +38,14 @@ abstract class KinesisDataStreamDestination
 
   const KinesisDataStreamDestination._();
 
-  static const List<_i3.SmithySerializer<KinesisDataStreamDestination>>
+  static const List<_i2.SmithySerializer<KinesisDataStreamDestination>>
       serializers = [KinesisDataStreamDestinationAwsJson10Serializer()];
 
   /// The ARN for a specific Kinesis data stream.
   String? get streamArn;
 
   /// The current status of replication.
-  _i2.DestinationStatus? get destinationStatus;
+  DestinationStatus? get destinationStatus;
 
   /// The human-readable string that corresponds to the replica status.
   String? get destinationStatusDescription;
@@ -76,7 +75,7 @@ abstract class KinesisDataStreamDestination
 }
 
 class KinesisDataStreamDestinationAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<KinesisDataStreamDestination> {
+    extends _i2.StructuredSmithySerializer<KinesisDataStreamDestination> {
   const KinesisDataStreamDestinationAwsJson10Serializer()
       : super('KinesisDataStreamDestination');
 
@@ -86,8 +85,8 @@ class KinesisDataStreamDestinationAwsJson10Serializer
         _$KinesisDataStreamDestination,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -116,8 +115,8 @@ class KinesisDataStreamDestinationAwsJson10Serializer
         case 'DestinationStatus':
           result.destinationStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.DestinationStatus),
-          ) as _i2.DestinationStatus);
+            specifiedType: const FullType(DestinationStatus),
+          ) as DestinationStatus);
         case 'DestinationStatusDescription':
           result.destinationStatusDescription = (serializers.deserialize(
             value,
@@ -154,7 +153,7 @@ class KinesisDataStreamDestinationAwsJson10Serializer
         ..add('DestinationStatus')
         ..add(serializers.serialize(
           destinationStatus,
-          specifiedType: const FullType(_i2.DestinationStatus),
+          specifiedType: const FullType(DestinationStatus),
         ));
     }
     if (destinationStatusDescription != null) {

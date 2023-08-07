@@ -9,13 +9,13 @@ part of 'get_account_authorization_details_response.dart';
 class _$GetAccountAuthorizationDetailsResponse
     extends GetAccountAuthorizationDetailsResponse {
   @override
-  final _i6.BuiltList<_i2.UserDetail>? userDetailList;
+  final _i2.BuiltList<UserDetail>? userDetailList;
   @override
-  final _i6.BuiltList<_i3.GroupDetail>? groupDetailList;
+  final _i2.BuiltList<GroupDetail>? groupDetailList;
   @override
-  final _i6.BuiltList<_i4.RoleDetail>? roleDetailList;
+  final _i2.BuiltList<RoleDetail>? roleDetailList;
   @override
-  final _i6.BuiltList<_i5.ManagedPolicyDetail>? policies;
+  final _i2.BuiltList<ManagedPolicyDetail>? policies;
   @override
   final bool isTruncated;
   @override
@@ -81,28 +81,28 @@ class GetAccountAuthorizationDetailsResponseBuilder
             GetAccountAuthorizationDetailsResponseBuilder> {
   _$GetAccountAuthorizationDetailsResponse? _$v;
 
-  _i6.ListBuilder<_i2.UserDetail>? _userDetailList;
-  _i6.ListBuilder<_i2.UserDetail> get userDetailList =>
-      _$this._userDetailList ??= new _i6.ListBuilder<_i2.UserDetail>();
-  set userDetailList(_i6.ListBuilder<_i2.UserDetail>? userDetailList) =>
+  _i2.ListBuilder<UserDetail>? _userDetailList;
+  _i2.ListBuilder<UserDetail> get userDetailList =>
+      _$this._userDetailList ??= new _i2.ListBuilder<UserDetail>();
+  set userDetailList(_i2.ListBuilder<UserDetail>? userDetailList) =>
       _$this._userDetailList = userDetailList;
 
-  _i6.ListBuilder<_i3.GroupDetail>? _groupDetailList;
-  _i6.ListBuilder<_i3.GroupDetail> get groupDetailList =>
-      _$this._groupDetailList ??= new _i6.ListBuilder<_i3.GroupDetail>();
-  set groupDetailList(_i6.ListBuilder<_i3.GroupDetail>? groupDetailList) =>
+  _i2.ListBuilder<GroupDetail>? _groupDetailList;
+  _i2.ListBuilder<GroupDetail> get groupDetailList =>
+      _$this._groupDetailList ??= new _i2.ListBuilder<GroupDetail>();
+  set groupDetailList(_i2.ListBuilder<GroupDetail>? groupDetailList) =>
       _$this._groupDetailList = groupDetailList;
 
-  _i6.ListBuilder<_i4.RoleDetail>? _roleDetailList;
-  _i6.ListBuilder<_i4.RoleDetail> get roleDetailList =>
-      _$this._roleDetailList ??= new _i6.ListBuilder<_i4.RoleDetail>();
-  set roleDetailList(_i6.ListBuilder<_i4.RoleDetail>? roleDetailList) =>
+  _i2.ListBuilder<RoleDetail>? _roleDetailList;
+  _i2.ListBuilder<RoleDetail> get roleDetailList =>
+      _$this._roleDetailList ??= new _i2.ListBuilder<RoleDetail>();
+  set roleDetailList(_i2.ListBuilder<RoleDetail>? roleDetailList) =>
       _$this._roleDetailList = roleDetailList;
 
-  _i6.ListBuilder<_i5.ManagedPolicyDetail>? _policies;
-  _i6.ListBuilder<_i5.ManagedPolicyDetail> get policies =>
-      _$this._policies ??= new _i6.ListBuilder<_i5.ManagedPolicyDetail>();
-  set policies(_i6.ListBuilder<_i5.ManagedPolicyDetail>? policies) =>
+  _i2.ListBuilder<ManagedPolicyDetail>? _policies;
+  _i2.ListBuilder<ManagedPolicyDetail> get policies =>
+      _$this._policies ??= new _i2.ListBuilder<ManagedPolicyDetail>();
+  set policies(_i2.ListBuilder<ManagedPolicyDetail>? policies) =>
       _$this._policies = policies;
 
   bool? _isTruncated;

@@ -9,7 +9,7 @@ part of 'list_signing_certificates_response.dart';
 class _$ListSigningCertificatesResponse
     extends ListSigningCertificatesResponse {
   @override
-  final _i3.BuiltList<_i2.SigningCertificate> certificates;
+  final _i2.BuiltList<SigningCertificate> certificates;
   @override
   final bool isTruncated;
   @override
@@ -63,10 +63,10 @@ class ListSigningCertificatesResponseBuilder
             ListSigningCertificatesResponseBuilder> {
   _$ListSigningCertificatesResponse? _$v;
 
-  _i3.ListBuilder<_i2.SigningCertificate>? _certificates;
-  _i3.ListBuilder<_i2.SigningCertificate> get certificates =>
-      _$this._certificates ??= new _i3.ListBuilder<_i2.SigningCertificate>();
-  set certificates(_i3.ListBuilder<_i2.SigningCertificate>? certificates) =>
+  _i2.ListBuilder<SigningCertificate>? _certificates;
+  _i2.ListBuilder<SigningCertificate> get certificates =>
+      _$this._certificates ??= new _i2.ListBuilder<SigningCertificate>();
+  set certificates(_i2.ListBuilder<SigningCertificate>? certificates) =>
       _$this._certificates = certificates;
 
   bool? _isTruncated;

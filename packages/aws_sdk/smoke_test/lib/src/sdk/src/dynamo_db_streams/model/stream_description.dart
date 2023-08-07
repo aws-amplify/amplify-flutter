@@ -4,18 +4,14 @@
 library smoke_test.dynamo_db_streams.model.stream_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/key_schema_element.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/shard.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/stream_status.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/stream_view_type.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/key_schema_element.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/shard.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/stream_status.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/stream_view_type.dart';
 
 part 'stream_description.g.dart';
 
@@ -27,12 +23,12 @@ abstract class StreamDescription
   factory StreamDescription({
     String? streamArn,
     String? streamLabel,
-    _i2.StreamStatus? streamStatus,
-    _i3.StreamViewType? streamViewType,
+    StreamStatus? streamStatus,
+    StreamViewType? streamViewType,
     DateTime? creationRequestDateTime,
     String? tableName,
-    List<_i4.KeySchemaElement>? keySchema,
-    List<_i5.Shard>? shards,
+    List<KeySchemaElement>? keySchema,
+    List<Shard>? shards,
     String? lastEvaluatedShardId,
   }) {
     return _$StreamDescription._(
@@ -42,8 +38,8 @@ abstract class StreamDescription
       streamViewType: streamViewType,
       creationRequestDateTime: creationRequestDateTime,
       tableName: tableName,
-      keySchema: keySchema == null ? null : _i6.BuiltList(keySchema),
-      shards: shards == null ? null : _i6.BuiltList(shards),
+      keySchema: keySchema == null ? null : _i2.BuiltList(keySchema),
+      shards: shards == null ? null : _i2.BuiltList(shards),
       lastEvaluatedShardId: lastEvaluatedShardId,
     );
   }
@@ -54,7 +50,7 @@ abstract class StreamDescription
 
   const StreamDescription._();
 
-  static const List<_i7.SmithySerializer<StreamDescription>> serializers = [
+  static const List<_i3.SmithySerializer<StreamDescription>> serializers = [
     StreamDescriptionAwsJson10Serializer()
   ];
 
@@ -81,7 +77,7 @@ abstract class StreamDescription
   /// *   `DISABLING` \- Streams is currently being disabled on the DynamoDB table.
   ///
   /// *   `DISABLED` \- the stream is disabled.
-  _i2.StreamStatus? get streamStatus;
+  StreamStatus? get streamStatus;
 
   /// Indicates the format of the records within this stream:
   ///
@@ -92,7 +88,7 @@ abstract class StreamDescription
   /// *   `OLD_IMAGE` \- entire items from the table, as they appeared before they were modified.
   ///
   /// *   `NEW\_AND\_OLD_IMAGES` \- both the new and the old images of the items from the table.
-  _i3.StreamViewType? get streamViewType;
+  StreamViewType? get streamViewType;
 
   /// The date and time when the request to create this stream was issued.
   DateTime? get creationRequestDateTime;
@@ -101,10 +97,10 @@ abstract class StreamDescription
   String? get tableName;
 
   /// The key attribute(s) of the stream's DynamoDB table.
-  _i6.BuiltList<_i4.KeySchemaElement>? get keySchema;
+  _i2.BuiltList<KeySchemaElement>? get keySchema;
 
   /// The shards that comprise the stream.
-  _i6.BuiltList<_i5.Shard>? get shards;
+  _i2.BuiltList<Shard>? get shards;
 
   /// The shard ID of the item where the operation stopped, inclusive of the previous result set. Use this value to start a new operation, excluding this value in the new request.
   ///
@@ -168,7 +164,7 @@ abstract class StreamDescription
 }
 
 class StreamDescriptionAwsJson10Serializer
-    extends _i7.StructuredSmithySerializer<StreamDescription> {
+    extends _i3.StructuredSmithySerializer<StreamDescription> {
   const StreamDescriptionAwsJson10Serializer() : super('StreamDescription');
 
   @override
@@ -177,8 +173,8 @@ class StreamDescriptionAwsJson10Serializer
         _$StreamDescription,
       ];
   @override
-  Iterable<_i7.ShapeId> get supportedProtocols => const [
-        _i7.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -212,13 +208,13 @@ class StreamDescriptionAwsJson10Serializer
         case 'StreamStatus':
           result.streamStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.StreamStatus),
-          ) as _i2.StreamStatus);
+            specifiedType: const FullType(StreamStatus),
+          ) as StreamStatus);
         case 'StreamViewType':
           result.streamViewType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.StreamViewType),
-          ) as _i3.StreamViewType);
+            specifiedType: const FullType(StreamViewType),
+          ) as StreamViewType);
         case 'CreationRequestDateTime':
           result.creationRequestDateTime = (serializers.deserialize(
             value,
@@ -233,18 +229,18 @@ class StreamDescriptionAwsJson10Serializer
           result.keySchema.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(_i4.KeySchemaElement)],
+              _i2.BuiltList,
+              [FullType(KeySchemaElement)],
             ),
-          ) as _i6.BuiltList<_i4.KeySchemaElement>));
+          ) as _i2.BuiltList<KeySchemaElement>));
         case 'Shards':
           result.shards.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(_i5.Shard)],
+              _i2.BuiltList,
+              [FullType(Shard)],
             ),
-          ) as _i6.BuiltList<_i5.Shard>));
+          ) as _i2.BuiltList<Shard>));
         case 'LastEvaluatedShardId':
           result.lastEvaluatedShardId = (serializers.deserialize(
             value,
@@ -295,7 +291,7 @@ class StreamDescriptionAwsJson10Serializer
         ..add('StreamStatus')
         ..add(serializers.serialize(
           streamStatus,
-          specifiedType: const FullType(_i2.StreamStatus),
+          specifiedType: const FullType(StreamStatus),
         ));
     }
     if (streamViewType != null) {
@@ -303,7 +299,7 @@ class StreamDescriptionAwsJson10Serializer
         ..add('StreamViewType')
         ..add(serializers.serialize(
           streamViewType,
-          specifiedType: const FullType(_i3.StreamViewType),
+          specifiedType: const FullType(StreamViewType),
         ));
     }
     if (creationRequestDateTime != null) {
@@ -328,8 +324,8 @@ class StreamDescriptionAwsJson10Serializer
         ..add(serializers.serialize(
           keySchema,
           specifiedType: const FullType(
-            _i6.BuiltList,
-            [FullType(_i4.KeySchemaElement)],
+            _i2.BuiltList,
+            [FullType(KeySchemaElement)],
           ),
         ));
     }
@@ -339,8 +335,8 @@ class StreamDescriptionAwsJson10Serializer
         ..add(serializers.serialize(
           shards,
           specifiedType: const FullType(
-            _i6.BuiltList,
-            [FullType(_i5.Shard)],
+            _i2.BuiltList,
+            [FullType(Shard)],
           ),
         ));
     }

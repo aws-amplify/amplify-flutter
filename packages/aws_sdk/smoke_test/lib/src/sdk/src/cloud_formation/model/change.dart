@@ -6,11 +6,9 @@ library smoke_test.cloud_formation.model.change; // ignore_for_file: no_leading_
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/change_type.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/resource_change.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/change_type.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/resource_change.dart';
 
 part 'change.g.dart';
 
@@ -20,9 +18,9 @@ abstract class Change
     implements Built<Change, ChangeBuilder> {
   /// The `Change` structure describes the changes CloudFormation will perform if you execute the change set.
   factory Change({
-    _i2.ChangeType? type,
+    ChangeType? type,
     int? hookInvocationCount,
-    _i3.ResourceChange? resourceChange,
+    ResourceChange? resourceChange,
   }) {
     return _$Change._(
       type: type,
@@ -36,18 +34,18 @@ abstract class Change
 
   const Change._();
 
-  static const List<_i4.SmithySerializer<Change>> serializers = [
+  static const List<_i2.SmithySerializer<Change>> serializers = [
     ChangeAwsQuerySerializer()
   ];
 
   /// The type of entity that CloudFormation changes. Currently, the only entity type is `Resource`.
-  _i2.ChangeType? get type;
+  ChangeType? get type;
 
   /// Is either `null`, if no hooks invoke for the resource, or contains the number of hooks that will invoke for the resource.
   int? get hookInvocationCount;
 
   /// A `ResourceChange` structure that describes the resource and action that CloudFormation will perform.
-  _i3.ResourceChange? get resourceChange;
+  ResourceChange? get resourceChange;
   @override
   List<Object?> get props => [
         type,
@@ -73,7 +71,7 @@ abstract class Change
   }
 }
 
-class ChangeAwsQuerySerializer extends _i4.StructuredSmithySerializer<Change> {
+class ChangeAwsQuerySerializer extends _i2.StructuredSmithySerializer<Change> {
   const ChangeAwsQuerySerializer() : super('Change');
 
   @override
@@ -82,8 +80,8 @@ class ChangeAwsQuerySerializer extends _i4.StructuredSmithySerializer<Change> {
         _$Change,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -107,8 +105,8 @@ class ChangeAwsQuerySerializer extends _i4.StructuredSmithySerializer<Change> {
         case 'Type':
           result.type = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ChangeType),
-          ) as _i2.ChangeType);
+            specifiedType: const FullType(ChangeType),
+          ) as ChangeType);
         case 'HookInvocationCount':
           result.hookInvocationCount = (serializers.deserialize(
             value,
@@ -117,8 +115,8 @@ class ChangeAwsQuerySerializer extends _i4.StructuredSmithySerializer<Change> {
         case 'ResourceChange':
           result.resourceChange.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ResourceChange),
-          ) as _i3.ResourceChange));
+            specifiedType: const FullType(ResourceChange),
+          ) as ResourceChange));
       }
     }
 
@@ -132,23 +130,23 @@ class ChangeAwsQuerySerializer extends _i4.StructuredSmithySerializer<Change> {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'ChangeResponse',
-        _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final Change(:type, :hookInvocationCount, :resourceChange) = object;
     if (type != null) {
       result$
-        ..add(const _i4.XmlElementName('Type'))
+        ..add(const _i2.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(_i2.ChangeType),
+          specifiedType: const FullType.nullable(ChangeType),
         ));
     }
     if (hookInvocationCount != null) {
       result$
-        ..add(const _i4.XmlElementName('HookInvocationCount'))
+        ..add(const _i2.XmlElementName('HookInvocationCount'))
         ..add(serializers.serialize(
           hookInvocationCount,
           specifiedType: const FullType.nullable(int),
@@ -156,10 +154,10 @@ class ChangeAwsQuerySerializer extends _i4.StructuredSmithySerializer<Change> {
     }
     if (resourceChange != null) {
       result$
-        ..add(const _i4.XmlElementName('ResourceChange'))
+        ..add(const _i2.XmlElementName('ResourceChange'))
         ..add(serializers.serialize(
           resourceChange,
-          specifiedType: const FullType(_i3.ResourceChange),
+          specifiedType: const FullType(ResourceChange),
         ));
     }
     return result$;

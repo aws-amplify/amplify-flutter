@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.describe_remediation_exceptions_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/remediation_exception_resource_key.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/remediation_exception_resource_key.dart';
 
 part 'describe_remediation_exceptions_request.g.dart';
 
@@ -22,14 +21,14 @@ abstract class DescribeRemediationExceptionsRequest
             DescribeRemediationExceptionsRequestBuilder> {
   factory DescribeRemediationExceptionsRequest({
     required String configRuleName,
-    List<_i3.RemediationExceptionResourceKey>? resourceKeys,
+    List<RemediationExceptionResourceKey>? resourceKeys,
     int? limit,
     String? nextToken,
   }) {
     limit ??= 0;
     return _$DescribeRemediationExceptionsRequest._(
       configRuleName: configRuleName,
-      resourceKeys: resourceKeys == null ? null : _i4.BuiltList(resourceKeys),
+      resourceKeys: resourceKeys == null ? null : _i3.BuiltList(resourceKeys),
       limit: limit,
       nextToken: nextToken,
     );
@@ -60,7 +59,7 @@ abstract class DescribeRemediationExceptionsRequest
   String get configRuleName;
 
   /// An exception list of resource exception keys to be processed with the current request. Config adds exception for each resource key. For example, Config adds 3 exceptions for 3 resource keys.
-  _i4.BuiltList<_i3.RemediationExceptionResourceKey>? get resourceKeys;
+  _i3.BuiltList<RemediationExceptionResourceKey>? get resourceKeys;
 
   /// The maximum number of RemediationExceptionResourceKey returned on each page. The default is 25. If you specify 0, Config uses the default.
   int get limit;
@@ -142,10 +141,10 @@ class DescribeRemediationExceptionsRequestAwsJson11Serializer extends _i1
           result.resourceKeys.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.RemediationExceptionResourceKey)],
+              _i3.BuiltList,
+              [FullType(RemediationExceptionResourceKey)],
             ),
-          ) as _i4.BuiltList<_i3.RemediationExceptionResourceKey>));
+          ) as _i3.BuiltList<RemediationExceptionResourceKey>));
         case 'Limit':
           result.limit = (serializers.deserialize(
             value,
@@ -193,8 +192,8 @@ class DescribeRemediationExceptionsRequestAwsJson11Serializer extends _i1
         ..add(serializers.serialize(
           resourceKeys,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i3.RemediationExceptionResourceKey)],
+            _i3.BuiltList,
+            [FullType(RemediationExceptionResourceKey)],
           ),
         ));
     }

@@ -11,7 +11,7 @@ class _$ImportDocumentationPartsRequest
   @override
   final String restApiId;
   @override
-  final _i4.PutMode? mode;
+  final PutMode? mode;
   @override
   final bool failOnWarnings;
   @override
@@ -76,9 +76,9 @@ class ImportDocumentationPartsRequestBuilder
   String? get restApiId => _$this._restApiId;
   set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
-  _i4.PutMode? _mode;
-  _i4.PutMode? get mode => _$this._mode;
-  set mode(_i4.PutMode? mode) => _$this._mode = mode;
+  PutMode? _mode;
+  PutMode? get mode => _$this._mode;
+  set mode(PutMode? mode) => _$this._mode = mode;
 
   bool? _failOnWarnings;
   bool? get failOnWarnings => _$this._failOnWarnings;

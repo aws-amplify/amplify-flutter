@@ -6,9 +6,8 @@ library smoke_test.cloud_formation.model.change_set_hook_resource_target_details
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/change_action.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/change_action.dart';
 
 part 'change_set_hook_resource_target_details.g.dart';
 
@@ -23,7 +22,7 @@ abstract class ChangeSetHookResourceTargetDetails
   factory ChangeSetHookResourceTargetDetails({
     String? logicalResourceId,
     String? resourceType,
-    _i2.ChangeAction? resourceAction,
+    ChangeAction? resourceAction,
   }) {
     return _$ChangeSetHookResourceTargetDetails._(
       logicalResourceId: logicalResourceId,
@@ -39,7 +38,7 @@ abstract class ChangeSetHookResourceTargetDetails
 
   const ChangeSetHookResourceTargetDetails._();
 
-  static const List<_i3.SmithySerializer<ChangeSetHookResourceTargetDetails>>
+  static const List<_i2.SmithySerializer<ChangeSetHookResourceTargetDetails>>
       serializers = [ChangeSetHookResourceTargetDetailsAwsQuerySerializer()];
 
   /// The resource's logical ID, which is defined in the stack's template.
@@ -49,7 +48,7 @@ abstract class ChangeSetHookResourceTargetDetails
   String? get resourceType;
 
   /// Specifies the action of the resource.
-  _i2.ChangeAction? get resourceAction;
+  ChangeAction? get resourceAction;
   @override
   List<Object?> get props => [
         logicalResourceId,
@@ -77,7 +76,7 @@ abstract class ChangeSetHookResourceTargetDetails
 }
 
 class ChangeSetHookResourceTargetDetailsAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<ChangeSetHookResourceTargetDetails> {
+    extends _i2.StructuredSmithySerializer<ChangeSetHookResourceTargetDetails> {
   const ChangeSetHookResourceTargetDetailsAwsQuerySerializer()
       : super('ChangeSetHookResourceTargetDetails');
 
@@ -87,8 +86,8 @@ class ChangeSetHookResourceTargetDetailsAwsQuerySerializer
         _$ChangeSetHookResourceTargetDetails,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -122,8 +121,8 @@ class ChangeSetHookResourceTargetDetailsAwsQuerySerializer
         case 'ResourceAction':
           result.resourceAction = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ChangeAction),
-          ) as _i2.ChangeAction);
+            specifiedType: const FullType(ChangeAction),
+          ) as ChangeAction);
       }
     }
 
@@ -137,9 +136,9 @@ class ChangeSetHookResourceTargetDetailsAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'ChangeSetHookResourceTargetDetailsResponse',
-        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final ChangeSetHookResourceTargetDetails(
@@ -149,7 +148,7 @@ class ChangeSetHookResourceTargetDetailsAwsQuerySerializer
     ) = object;
     if (logicalResourceId != null) {
       result$
-        ..add(const _i3.XmlElementName('LogicalResourceId'))
+        ..add(const _i2.XmlElementName('LogicalResourceId'))
         ..add(serializers.serialize(
           logicalResourceId,
           specifiedType: const FullType(String),
@@ -157,7 +156,7 @@ class ChangeSetHookResourceTargetDetailsAwsQuerySerializer
     }
     if (resourceType != null) {
       result$
-        ..add(const _i3.XmlElementName('ResourceType'))
+        ..add(const _i2.XmlElementName('ResourceType'))
         ..add(serializers.serialize(
           resourceType,
           specifiedType: const FullType(String),
@@ -165,10 +164,10 @@ class ChangeSetHookResourceTargetDetailsAwsQuerySerializer
     }
     if (resourceAction != null) {
       result$
-        ..add(const _i3.XmlElementName('ResourceAction'))
+        ..add(const _i2.XmlElementName('ResourceAction'))
         ..add(serializers.serialize(
           resourceAction,
-          specifiedType: const FullType.nullable(_i2.ChangeAction),
+          specifiedType: const FullType.nullable(ChangeAction),
         ));
     }
     return result$;

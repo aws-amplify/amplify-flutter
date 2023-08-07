@@ -4,12 +4,11 @@
 library smoke_test.cloud_formation.model.rollback_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/rollback_trigger.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/rollback_trigger.dart';
 
 part 'rollback_configuration.g.dart';
 
@@ -23,12 +22,12 @@ abstract class RollbackConfiguration
   ///
   /// Rollback triggers enable you to have CloudFormation monitor the state of your application during stack creation and updating, and to roll back that operation if the application breaches the threshold of any of the alarms you've specified. For more information, see [Monitor and Roll Back Stack Operations](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-rollback-triggers.html).
   factory RollbackConfiguration({
-    List<_i2.RollbackTrigger>? rollbackTriggers,
+    List<RollbackTrigger>? rollbackTriggers,
     int? monitoringTimeInMinutes,
   }) {
     return _$RollbackConfiguration._(
       rollbackTriggers:
-          rollbackTriggers == null ? null : _i3.BuiltList(rollbackTriggers),
+          rollbackTriggers == null ? null : _i2.BuiltList(rollbackTriggers),
       monitoringTimeInMinutes: monitoringTimeInMinutes,
     );
   }
@@ -42,7 +41,7 @@ abstract class RollbackConfiguration
 
   const RollbackConfiguration._();
 
-  static const List<_i4.SmithySerializer<RollbackConfiguration>> serializers = [
+  static const List<_i3.SmithySerializer<RollbackConfiguration>> serializers = [
     RollbackConfigurationAwsQuerySerializer()
   ];
 
@@ -58,7 +57,7 @@ abstract class RollbackConfiguration
   ///
   ///
   /// If a specified trigger is missing, the entire stack operation fails and is rolled back.
-  _i3.BuiltList<_i2.RollbackTrigger>? get rollbackTriggers;
+  _i2.BuiltList<RollbackTrigger>? get rollbackTriggers;
 
   /// The amount of time, in minutes, during which CloudFormation should monitor all the rollback triggers after the stack creation or update operation deploys all necessary resources.
   ///
@@ -89,7 +88,7 @@ abstract class RollbackConfiguration
 }
 
 class RollbackConfigurationAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<RollbackConfiguration> {
+    extends _i3.StructuredSmithySerializer<RollbackConfiguration> {
   const RollbackConfigurationAwsQuerySerializer()
       : super('RollbackConfiguration');
 
@@ -99,8 +98,8 @@ class RollbackConfigurationAwsQuerySerializer
         _$RollbackConfiguration,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -122,16 +121,16 @@ class RollbackConfigurationAwsQuerySerializer
       }
       switch (key) {
         case 'RollbackTriggers':
-          result.rollbackTriggers.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.rollbackTriggers.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.RollbackTrigger)],
+              _i2.BuiltList,
+              [FullType(RollbackTrigger)],
             ),
-          ) as _i3.BuiltList<_i2.RollbackTrigger>));
+          ) as _i2.BuiltList<RollbackTrigger>));
         case 'MonitoringTimeInMinutes':
           result.monitoringTimeInMinutes = (serializers.deserialize(
             value,
@@ -150,30 +149,30 @@ class RollbackConfigurationAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'RollbackConfigurationResponse',
-        _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final RollbackConfiguration(:rollbackTriggers, :monitoringTimeInMinutes) =
         object;
     if (rollbackTriggers != null) {
       result$
-        ..add(const _i4.XmlElementName('RollbackTriggers'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('RollbackTriggers'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           rollbackTriggers,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
-            [FullType(_i2.RollbackTrigger)],
+            _i2.BuiltList,
+            [FullType(RollbackTrigger)],
           ),
         ));
     }
     if (monitoringTimeInMinutes != null) {
       result$
-        ..add(const _i4.XmlElementName('MonitoringTimeInMinutes'))
+        ..add(const _i3.XmlElementName('MonitoringTimeInMinutes'))
         ..add(serializers.serialize(
           monitoringTimeInMinutes,
           specifiedType: const FullType.nullable(int),

@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.organization_conformance_pack; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_input_parameter.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_input_parameter.dart';
 
 part 'organization_conformance_pack.g.dart';
 
@@ -24,7 +23,7 @@ abstract class OrganizationConformancePack
     required String organizationConformancePackArn,
     String? deliveryS3Bucket,
     String? deliveryS3KeyPrefix,
-    List<_i2.ConformancePackInputParameter>? conformancePackInputParameters,
+    List<ConformancePackInputParameter>? conformancePackInputParameters,
     List<String>? excludedAccounts,
     required DateTime lastUpdateTime,
   }) {
@@ -35,9 +34,9 @@ abstract class OrganizationConformancePack
       deliveryS3KeyPrefix: deliveryS3KeyPrefix,
       conformancePackInputParameters: conformancePackInputParameters == null
           ? null
-          : _i3.BuiltList(conformancePackInputParameters),
+          : _i2.BuiltList(conformancePackInputParameters),
       excludedAccounts:
-          excludedAccounts == null ? null : _i3.BuiltList(excludedAccounts),
+          excludedAccounts == null ? null : _i2.BuiltList(excludedAccounts),
       lastUpdateTime: lastUpdateTime,
     );
   }
@@ -49,7 +48,7 @@ abstract class OrganizationConformancePack
 
   const OrganizationConformancePack._();
 
-  static const List<_i4.SmithySerializer<OrganizationConformancePack>>
+  static const List<_i3.SmithySerializer<OrganizationConformancePack>>
       serializers = [OrganizationConformancePackAwsJson11Serializer()];
 
   /// The name you assign to an organization conformance pack.
@@ -69,11 +68,11 @@ abstract class OrganizationConformancePack
   String? get deliveryS3KeyPrefix;
 
   /// A list of `ConformancePackInputParameter` objects.
-  _i3.BuiltList<_i2.ConformancePackInputParameter>?
+  _i2.BuiltList<ConformancePackInputParameter>?
       get conformancePackInputParameters;
 
   /// A comma-separated list of accounts excluded from organization conformance pack.
-  _i3.BuiltList<String>? get excludedAccounts;
+  _i2.BuiltList<String>? get excludedAccounts;
 
   /// Last time when organization conformation pack was updated.
   DateTime get lastUpdateTime;
@@ -123,7 +122,7 @@ abstract class OrganizationConformancePack
 }
 
 class OrganizationConformancePackAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<OrganizationConformancePack> {
+    extends _i3.StructuredSmithySerializer<OrganizationConformancePack> {
   const OrganizationConformancePackAwsJson11Serializer()
       : super('OrganizationConformancePack');
 
@@ -133,8 +132,8 @@ class OrganizationConformancePackAwsJson11Serializer
         _$OrganizationConformancePack,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -180,18 +179,18 @@ class OrganizationConformancePackAwsJson11Serializer
               .replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.ConformancePackInputParameter)],
+              _i2.BuiltList,
+              [FullType(ConformancePackInputParameter)],
             ),
-          ) as _i3.BuiltList<_i2.ConformancePackInputParameter>));
+          ) as _i2.BuiltList<ConformancePackInputParameter>));
         case 'ExcludedAccounts':
           result.excludedAccounts.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i3.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
         case 'LastUpdateTime':
           result.lastUpdateTime = (serializers.deserialize(
             value,
@@ -258,8 +257,8 @@ class OrganizationConformancePackAwsJson11Serializer
         ..add(serializers.serialize(
           conformancePackInputParameters,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.ConformancePackInputParameter)],
+            _i2.BuiltList,
+            [FullType(ConformancePackInputParameter)],
           ),
         ));
     }
@@ -269,7 +268,7 @@ class OrganizationConformancePackAwsJson11Serializer
         ..add(serializers.serialize(
           excludedAccounts,
           specifiedType: const FullType(
-            _i3.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));

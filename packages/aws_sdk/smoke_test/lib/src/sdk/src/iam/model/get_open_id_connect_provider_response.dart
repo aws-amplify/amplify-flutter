@@ -4,11 +4,11 @@
 library smoke_test.iam.model.get_open_id_connect_provider_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/tag.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/tag.dart';
 
 part 'get_open_id_connect_provider_response.g.dart';
 
@@ -25,15 +25,15 @@ abstract class GetOpenIdConnectProviderResponse
     List<String>? clientIdList,
     List<String>? thumbprintList,
     DateTime? createDate,
-    List<_i2.Tag>? tags,
+    List<Tag>? tags,
   }) {
     return _$GetOpenIdConnectProviderResponse._(
       url: url,
-      clientIdList: clientIdList == null ? null : _i3.BuiltList(clientIdList),
+      clientIdList: clientIdList == null ? null : _i2.BuiltList(clientIdList),
       thumbprintList:
-          thumbprintList == null ? null : _i3.BuiltList(thumbprintList),
+          thumbprintList == null ? null : _i2.BuiltList(thumbprintList),
       createDate: createDate,
-      tags: tags == null ? null : _i3.BuiltList(tags),
+      tags: tags == null ? null : _i2.BuiltList(tags),
     );
   }
 
@@ -51,23 +51,23 @@ abstract class GetOpenIdConnectProviderResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<GetOpenIdConnectProviderResponse>>
+  static const List<_i3.SmithySerializer<GetOpenIdConnectProviderResponse>>
       serializers = [GetOpenIdConnectProviderResponseAwsQuerySerializer()];
 
   /// The URL that the IAM OIDC provider resource object is associated with. For more information, see CreateOpenIDConnectProvider.
   String? get url;
 
   /// A list of client IDs (also known as audiences) that are associated with the specified IAM OIDC provider resource object. For more information, see CreateOpenIDConnectProvider.
-  _i3.BuiltList<String>? get clientIdList;
+  _i2.BuiltList<String>? get clientIdList;
 
   /// A list of certificate thumbprints that are associated with the specified IAM OIDC provider resource object. For more information, see CreateOpenIDConnectProvider.
-  _i3.BuiltList<String>? get thumbprintList;
+  _i2.BuiltList<String>? get thumbprintList;
 
   /// The date and time when the IAM OIDC provider resource object was created in the Amazon Web Services account.
   DateTime? get createDate;
 
   /// A list of tags that are attached to the specified IAM OIDC provider. The returned list of tags is sorted by tag key. For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
-  _i3.BuiltList<_i2.Tag>? get tags;
+  _i2.BuiltList<Tag>? get tags;
   @override
   List<Object?> get props => [
         url,
@@ -105,7 +105,7 @@ abstract class GetOpenIdConnectProviderResponse
 }
 
 class GetOpenIdConnectProviderResponseAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<GetOpenIdConnectProviderResponse> {
+    extends _i3.StructuredSmithySerializer<GetOpenIdConnectProviderResponse> {
   const GetOpenIdConnectProviderResponseAwsQuerySerializer()
       : super('GetOpenIdConnectProviderResponse');
 
@@ -115,8 +115,8 @@ class GetOpenIdConnectProviderResponseAwsQuerySerializer
         _$GetOpenIdConnectProviderResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -143,43 +143,43 @@ class GetOpenIdConnectProviderResponseAwsQuerySerializer
             specifiedType: const FullType(String),
           ) as String);
         case 'ClientIDList':
-          result.clientIdList.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.clientIdList.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i3.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
         case 'ThumbprintList':
-          result.thumbprintList.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.thumbprintList.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i3.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
         case 'CreateDate':
           result.createDate = (serializers.deserialize(
             value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
         case 'Tags':
-          result.tags.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.tags.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.Tag)],
+              _i2.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i3.BuiltList<_i2.Tag>));
+          ) as _i2.BuiltList<Tag>));
       }
     }
 
@@ -193,9 +193,9 @@ class GetOpenIdConnectProviderResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'GetOpenIdConnectProviderResponseResponse',
-        _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final GetOpenIdConnectProviderResponse(
@@ -207,7 +207,7 @@ class GetOpenIdConnectProviderResponseAwsQuerySerializer
     ) = object;
     if (url != null) {
       result$
-        ..add(const _i4.XmlElementName('Url'))
+        ..add(const _i3.XmlElementName('Url'))
         ..add(serializers.serialize(
           url,
           specifiedType: const FullType(String),
@@ -215,35 +215,35 @@ class GetOpenIdConnectProviderResponseAwsQuerySerializer
     }
     if (clientIdList != null) {
       result$
-        ..add(const _i4.XmlElementName('ClientIDList'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('ClientIDList'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           clientIdList,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));
     }
     if (thumbprintList != null) {
       result$
-        ..add(const _i4.XmlElementName('ThumbprintList'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('ThumbprintList'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           thumbprintList,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));
     }
     if (createDate != null) {
       result$
-        ..add(const _i4.XmlElementName('CreateDate'))
+        ..add(const _i3.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
           specifiedType: const FullType.nullable(DateTime),
@@ -251,15 +251,15 @@ class GetOpenIdConnectProviderResponseAwsQuerySerializer
     }
     if (tags != null) {
       result$
-        ..add(const _i4.XmlElementName('Tags'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('Tags'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           tags,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
-            [FullType(_i2.Tag)],
+            _i2.BuiltList,
+            [FullType(Tag)],
           ),
         ));
     }

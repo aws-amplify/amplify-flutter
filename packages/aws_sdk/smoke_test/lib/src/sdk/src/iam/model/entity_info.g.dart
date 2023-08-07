@@ -12,7 +12,7 @@ class _$EntityInfo extends EntityInfo {
   @override
   final String name;
   @override
-  final _i2.PolicyOwnerEntityType type;
+  final PolicyOwnerEntityType type;
   @override
   final String id;
   @override
@@ -76,9 +76,9 @@ class EntityInfoBuilder implements Builder<EntityInfo, EntityInfoBuilder> {
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
-  _i2.PolicyOwnerEntityType? _type;
-  _i2.PolicyOwnerEntityType? get type => _$this._type;
-  set type(_i2.PolicyOwnerEntityType? type) => _$this._type = type;
+  PolicyOwnerEntityType? _type;
+  PolicyOwnerEntityType? get type => _$this._type;
+  set type(PolicyOwnerEntityType? type) => _$this._type = type;
 
   String? _id;
   String? get id => _$this._id;

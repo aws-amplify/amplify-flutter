@@ -16,11 +16,11 @@ class _$HeadObjectOutput extends HeadObjectOutput {
   @override
   final String? restore;
   @override
-  final _i3.ArchiveStatus? archiveStatus;
+  final ArchiveStatus? archiveStatus;
   @override
   final DateTime? lastModified;
   @override
-  final _i4.Int64? contentLength;
+  final _i3.Int64? contentLength;
   @override
   final String? checksumCrc32;
   @override
@@ -50,9 +50,9 @@ class _$HeadObjectOutput extends HeadObjectOutput {
   @override
   final String? websiteRedirectLocation;
   @override
-  final _i5.ServerSideEncryption? serverSideEncryption;
+  final ServerSideEncryption? serverSideEncryption;
   @override
-  final _i11.BuiltMap<String, String>? metadata;
+  final _i4.BuiltMap<String, String>? metadata;
   @override
   final String? sseCustomerAlgorithm;
   @override
@@ -62,19 +62,19 @@ class _$HeadObjectOutput extends HeadObjectOutput {
   @override
   final bool? bucketKeyEnabled;
   @override
-  final _i6.StorageClass? storageClass;
+  final StorageClass? storageClass;
   @override
-  final _i7.RequestCharged? requestCharged;
+  final RequestCharged? requestCharged;
   @override
-  final _i8.ReplicationStatus? replicationStatus;
+  final ReplicationStatus? replicationStatus;
   @override
   final int? partsCount;
   @override
-  final _i9.ObjectLockMode? objectLockMode;
+  final ObjectLockMode? objectLockMode;
   @override
   final DateTime? objectLockRetainUntilDate;
   @override
-  final _i10.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus;
+  final ObjectLockLegalHoldStatus? objectLockLegalHoldStatus;
 
   factory _$HeadObjectOutput(
           [void Function(HeadObjectOutputBuilder)? updates]) =>
@@ -227,9 +227,9 @@ class HeadObjectOutputBuilder
   String? get restore => _$this._restore;
   set restore(String? restore) => _$this._restore = restore;
 
-  _i3.ArchiveStatus? _archiveStatus;
-  _i3.ArchiveStatus? get archiveStatus => _$this._archiveStatus;
-  set archiveStatus(_i3.ArchiveStatus? archiveStatus) =>
+  ArchiveStatus? _archiveStatus;
+  ArchiveStatus? get archiveStatus => _$this._archiveStatus;
+  set archiveStatus(ArchiveStatus? archiveStatus) =>
       _$this._archiveStatus = archiveStatus;
 
   DateTime? _lastModified;
@@ -237,9 +237,9 @@ class HeadObjectOutputBuilder
   set lastModified(DateTime? lastModified) =>
       _$this._lastModified = lastModified;
 
-  _i4.Int64? _contentLength;
-  _i4.Int64? get contentLength => _$this._contentLength;
-  set contentLength(_i4.Int64? contentLength) =>
+  _i3.Int64? _contentLength;
+  _i3.Int64? get contentLength => _$this._contentLength;
+  set contentLength(_i3.Int64? contentLength) =>
       _$this._contentLength = contentLength;
 
   String? _checksumCrc32;
@@ -305,16 +305,16 @@ class HeadObjectOutputBuilder
   set websiteRedirectLocation(String? websiteRedirectLocation) =>
       _$this._websiteRedirectLocation = websiteRedirectLocation;
 
-  _i5.ServerSideEncryption? _serverSideEncryption;
-  _i5.ServerSideEncryption? get serverSideEncryption =>
+  ServerSideEncryption? _serverSideEncryption;
+  ServerSideEncryption? get serverSideEncryption =>
       _$this._serverSideEncryption;
-  set serverSideEncryption(_i5.ServerSideEncryption? serverSideEncryption) =>
+  set serverSideEncryption(ServerSideEncryption? serverSideEncryption) =>
       _$this._serverSideEncryption = serverSideEncryption;
 
-  _i11.MapBuilder<String, String>? _metadata;
-  _i11.MapBuilder<String, String> get metadata =>
-      _$this._metadata ??= new _i11.MapBuilder<String, String>();
-  set metadata(_i11.MapBuilder<String, String>? metadata) =>
+  _i4.MapBuilder<String, String>? _metadata;
+  _i4.MapBuilder<String, String> get metadata =>
+      _$this._metadata ??= new _i4.MapBuilder<String, String>();
+  set metadata(_i4.MapBuilder<String, String>? metadata) =>
       _$this._metadata = metadata;
 
   String? _sseCustomerAlgorithm;
@@ -336,28 +336,28 @@ class HeadObjectOutputBuilder
   set bucketKeyEnabled(bool? bucketKeyEnabled) =>
       _$this._bucketKeyEnabled = bucketKeyEnabled;
 
-  _i6.StorageClass? _storageClass;
-  _i6.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i6.StorageClass? storageClass) =>
+  StorageClass? _storageClass;
+  StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(StorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
-  _i7.RequestCharged? _requestCharged;
-  _i7.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i7.RequestCharged? requestCharged) =>
+  RequestCharged? _requestCharged;
+  RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
-  _i8.ReplicationStatus? _replicationStatus;
-  _i8.ReplicationStatus? get replicationStatus => _$this._replicationStatus;
-  set replicationStatus(_i8.ReplicationStatus? replicationStatus) =>
+  ReplicationStatus? _replicationStatus;
+  ReplicationStatus? get replicationStatus => _$this._replicationStatus;
+  set replicationStatus(ReplicationStatus? replicationStatus) =>
       _$this._replicationStatus = replicationStatus;
 
   int? _partsCount;
   int? get partsCount => _$this._partsCount;
   set partsCount(int? partsCount) => _$this._partsCount = partsCount;
 
-  _i9.ObjectLockMode? _objectLockMode;
-  _i9.ObjectLockMode? get objectLockMode => _$this._objectLockMode;
-  set objectLockMode(_i9.ObjectLockMode? objectLockMode) =>
+  ObjectLockMode? _objectLockMode;
+  ObjectLockMode? get objectLockMode => _$this._objectLockMode;
+  set objectLockMode(ObjectLockMode? objectLockMode) =>
       _$this._objectLockMode = objectLockMode;
 
   DateTime? _objectLockRetainUntilDate;
@@ -365,11 +365,11 @@ class HeadObjectOutputBuilder
   set objectLockRetainUntilDate(DateTime? objectLockRetainUntilDate) =>
       _$this._objectLockRetainUntilDate = objectLockRetainUntilDate;
 
-  _i10.ObjectLockLegalHoldStatus? _objectLockLegalHoldStatus;
-  _i10.ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
+  ObjectLockLegalHoldStatus? _objectLockLegalHoldStatus;
+  ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
       _$this._objectLockLegalHoldStatus;
   set objectLockLegalHoldStatus(
-          _i10.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
+          ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
       _$this._objectLockLegalHoldStatus = objectLockLegalHoldStatus;
 
   HeadObjectOutputBuilder();

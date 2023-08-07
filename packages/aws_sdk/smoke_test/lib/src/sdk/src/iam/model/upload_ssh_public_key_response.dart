@@ -6,8 +6,8 @@ library smoke_test.iam.model.upload_ssh_public_key_response; // ignore_for_file:
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/ssh_public_key.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/ssh_public_key.dart';
 
 part 'upload_ssh_public_key_response.g.dart';
 
@@ -17,7 +17,7 @@ abstract class UploadSshPublicKeyResponse
     implements
         Built<UploadSshPublicKeyResponse, UploadSshPublicKeyResponseBuilder> {
   /// Contains the response to a successful UploadSSHPublicKey request.
-  factory UploadSshPublicKeyResponse({_i2.SshPublicKey? sshPublicKey}) {
+  factory UploadSshPublicKeyResponse({SshPublicKey? sshPublicKey}) {
     return _$UploadSshPublicKeyResponse._(sshPublicKey: sshPublicKey);
   }
 
@@ -35,11 +35,11 @@ abstract class UploadSshPublicKeyResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<UploadSshPublicKeyResponse>>
+  static const List<_i2.SmithySerializer<UploadSshPublicKeyResponse>>
       serializers = [UploadSshPublicKeyResponseAwsQuerySerializer()];
 
   /// Contains information about the SSH public key.
-  _i2.SshPublicKey? get sshPublicKey;
+  SshPublicKey? get sshPublicKey;
   @override
   List<Object?> get props => [sshPublicKey];
   @override
@@ -54,7 +54,7 @@ abstract class UploadSshPublicKeyResponse
 }
 
 class UploadSshPublicKeyResponseAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<UploadSshPublicKeyResponse> {
+    extends _i2.StructuredSmithySerializer<UploadSshPublicKeyResponse> {
   const UploadSshPublicKeyResponseAwsQuerySerializer()
       : super('UploadSshPublicKeyResponse');
 
@@ -64,8 +64,8 @@ class UploadSshPublicKeyResponseAwsQuerySerializer
         _$UploadSshPublicKeyResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -89,8 +89,8 @@ class UploadSshPublicKeyResponseAwsQuerySerializer
         case 'SSHPublicKey':
           result.sshPublicKey.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.SshPublicKey),
-          ) as _i2.SshPublicKey));
+            specifiedType: const FullType(SshPublicKey),
+          ) as SshPublicKey));
       }
     }
 
@@ -104,18 +104,18 @@ class UploadSshPublicKeyResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'UploadSshPublicKeyResponseResponse',
-        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final UploadSshPublicKeyResponse(:sshPublicKey) = object;
     if (sshPublicKey != null) {
       result$
-        ..add(const _i3.XmlElementName('SSHPublicKey'))
+        ..add(const _i2.XmlElementName('SSHPublicKey'))
         ..add(serializers.serialize(
           sshPublicKey,
-          specifiedType: const FullType(_i2.SshPublicKey),
+          specifiedType: const FullType(SshPublicKey),
         ));
     }
     return result$;

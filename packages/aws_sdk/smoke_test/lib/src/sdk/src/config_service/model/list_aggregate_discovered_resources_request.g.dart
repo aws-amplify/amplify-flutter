@@ -11,9 +11,9 @@ class _$ListAggregateDiscoveredResourcesRequest
   @override
   final String configurationAggregatorName;
   @override
-  final _i3.ResourceType resourceType;
+  final ResourceType resourceType;
   @override
-  final _i4.ResourceFilters? filters;
+  final ResourceFilters? filters;
   @override
   final int limit;
   @override
@@ -88,15 +88,15 @@ class ListAggregateDiscoveredResourcesRequestBuilder
   set configurationAggregatorName(String? configurationAggregatorName) =>
       _$this._configurationAggregatorName = configurationAggregatorName;
 
-  _i3.ResourceType? _resourceType;
-  _i3.ResourceType? get resourceType => _$this._resourceType;
-  set resourceType(_i3.ResourceType? resourceType) =>
+  ResourceType? _resourceType;
+  ResourceType? get resourceType => _$this._resourceType;
+  set resourceType(ResourceType? resourceType) =>
       _$this._resourceType = resourceType;
 
-  _i4.ResourceFiltersBuilder? _filters;
-  _i4.ResourceFiltersBuilder get filters =>
-      _$this._filters ??= new _i4.ResourceFiltersBuilder();
-  set filters(_i4.ResourceFiltersBuilder? filters) => _$this._filters = filters;
+  ResourceFiltersBuilder? _filters;
+  ResourceFiltersBuilder get filters =>
+      _$this._filters ??= new ResourceFiltersBuilder();
+  set filters(ResourceFiltersBuilder? filters) => _$this._filters = filters;
 
   int? _limit;
   int? get limit => _$this._limit;

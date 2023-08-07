@@ -9,12 +9,12 @@ part of 'batch_describe_type_configurations_output.dart';
 class _$BatchDescribeTypeConfigurationsOutput
     extends BatchDescribeTypeConfigurationsOutput {
   @override
-  final _i5.BuiltList<_i2.BatchDescribeTypeConfigurationsError>? errors;
+  final _i2.BuiltList<BatchDescribeTypeConfigurationsError>? errors;
   @override
-  final _i5.BuiltList<_i3.TypeConfigurationIdentifier>?
+  final _i2.BuiltList<TypeConfigurationIdentifier>?
       unprocessedTypeConfigurations;
   @override
-  final _i5.BuiltList<_i4.TypeConfigurationDetails>? typeConfigurations;
+  final _i2.BuiltList<TypeConfigurationDetails>? typeConfigurations;
 
   factory _$BatchDescribeTypeConfigurationsOutput(
           [void Function(BatchDescribeTypeConfigurationsOutputBuilder)?
@@ -64,31 +64,29 @@ class BatchDescribeTypeConfigurationsOutputBuilder
             BatchDescribeTypeConfigurationsOutputBuilder> {
   _$BatchDescribeTypeConfigurationsOutput? _$v;
 
-  _i5.ListBuilder<_i2.BatchDescribeTypeConfigurationsError>? _errors;
-  _i5.ListBuilder<_i2.BatchDescribeTypeConfigurationsError> get errors =>
+  _i2.ListBuilder<BatchDescribeTypeConfigurationsError>? _errors;
+  _i2.ListBuilder<BatchDescribeTypeConfigurationsError> get errors =>
       _$this._errors ??=
-          new _i5.ListBuilder<_i2.BatchDescribeTypeConfigurationsError>();
-  set errors(
-          _i5.ListBuilder<_i2.BatchDescribeTypeConfigurationsError>? errors) =>
+          new _i2.ListBuilder<BatchDescribeTypeConfigurationsError>();
+  set errors(_i2.ListBuilder<BatchDescribeTypeConfigurationsError>? errors) =>
       _$this._errors = errors;
 
-  _i5.ListBuilder<_i3.TypeConfigurationIdentifier>?
-      _unprocessedTypeConfigurations;
-  _i5.ListBuilder<_i3.TypeConfigurationIdentifier>
+  _i2.ListBuilder<TypeConfigurationIdentifier>? _unprocessedTypeConfigurations;
+  _i2.ListBuilder<TypeConfigurationIdentifier>
       get unprocessedTypeConfigurations =>
           _$this._unprocessedTypeConfigurations ??=
-              new _i5.ListBuilder<_i3.TypeConfigurationIdentifier>();
+              new _i2.ListBuilder<TypeConfigurationIdentifier>();
   set unprocessedTypeConfigurations(
-          _i5.ListBuilder<_i3.TypeConfigurationIdentifier>?
+          _i2.ListBuilder<TypeConfigurationIdentifier>?
               unprocessedTypeConfigurations) =>
       _$this._unprocessedTypeConfigurations = unprocessedTypeConfigurations;
 
-  _i5.ListBuilder<_i4.TypeConfigurationDetails>? _typeConfigurations;
-  _i5.ListBuilder<_i4.TypeConfigurationDetails> get typeConfigurations =>
+  _i2.ListBuilder<TypeConfigurationDetails>? _typeConfigurations;
+  _i2.ListBuilder<TypeConfigurationDetails> get typeConfigurations =>
       _$this._typeConfigurations ??=
-          new _i5.ListBuilder<_i4.TypeConfigurationDetails>();
+          new _i2.ListBuilder<TypeConfigurationDetails>();
   set typeConfigurations(
-          _i5.ListBuilder<_i4.TypeConfigurationDetails>? typeConfigurations) =>
+          _i2.ListBuilder<TypeConfigurationDetails>? typeConfigurations) =>
       _$this._typeConfigurations = typeConfigurations;
 
   BatchDescribeTypeConfigurationsOutputBuilder();

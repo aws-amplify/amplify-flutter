@@ -4,13 +4,11 @@
 // ignore_for_file: unused_element
 library aws_query_v1.query_protocol.test.simple_scalar_xml_properties_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_query_v1/src/query_protocol/model/simple_scalar_xml_properties_output.dart'
-    as _i5;
-import 'package:aws_query_v1/src/query_protocol/operation/simple_scalar_xml_properties_operation.dart'
-    as _i3;
+import 'package:aws_query_v1/src/query_protocol/model/simple_scalar_xml_properties_output.dart';
+import 'package:aws_query_v1/src/query_protocol/operation/simple_scalar_xml_properties_operation.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i6;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:fixnum/fixnum.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -19,14 +17,14 @@ void main() {
     'QuerySimpleScalarProperties (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.SimpleScalarXmlPropertiesOperation(
+        operation: SimpleScalarXmlPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'QuerySimpleScalarProperties',
           documentation: 'Serializes simple scalar properties',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -65,14 +63,14 @@ void main() {
     'AwsQuerySupportsNaNFloatOutputs (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.SimpleScalarXmlPropertiesOperation(
+        operation: SimpleScalarXmlPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'AwsQuerySupportsNaNFloatOutputs',
           documentation: 'Supports handling NaN float values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -103,14 +101,14 @@ void main() {
     'AwsQuerySupportsInfinityFloatOutputs (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.SimpleScalarXmlPropertiesOperation(
+        operation: SimpleScalarXmlPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'AwsQuerySupportsInfinityFloatOutputs',
           documentation: 'Supports handling Infinity float values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -141,14 +139,14 @@ void main() {
     'AwsQuerySupportsNegativeInfinityFloatOutputs (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.SimpleScalarXmlPropertiesOperation(
+        operation: SimpleScalarXmlPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'AwsQuerySupportsNegativeInfinityFloatOutputs',
           documentation: 'Supports handling -Infinity float values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -177,27 +175,27 @@ void main() {
   );
 }
 
-class SimpleScalarXmlPropertiesOutputAwsQuerySerializer extends _i4
-    .StructuredSmithySerializer<_i5.SimpleScalarXmlPropertiesOutput> {
+class SimpleScalarXmlPropertiesOutputAwsQuerySerializer
+    extends _i3.StructuredSmithySerializer<SimpleScalarXmlPropertiesOutput> {
   const SimpleScalarXmlPropertiesOutputAwsQuerySerializer()
       : super('SimpleScalarXmlPropertiesOutput');
 
   @override
-  Iterable<Type> get types => const [_i5.SimpleScalarXmlPropertiesOutput];
+  Iterable<Type> get types => const [SimpleScalarXmlPropertiesOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
       ];
   @override
-  _i5.SimpleScalarXmlPropertiesOutput deserialize(
+  SimpleScalarXmlPropertiesOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.SimpleScalarXmlPropertiesOutputBuilder();
+    final result = SimpleScalarXmlPropertiesOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -245,8 +243,8 @@ class SimpleScalarXmlPropertiesOutputAwsQuerySerializer extends _i4
         case 'longValue':
           result.longValue = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.Int64),
-          ) as _i6.Int64);
+            specifiedType: const FullType(_i4.Int64),
+          ) as _i4.Int64);
         case 'floatValue':
           result.floatValue = (serializers.deserialize(
             value,
@@ -266,7 +264,7 @@ class SimpleScalarXmlPropertiesOutputAwsQuerySerializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.SimpleScalarXmlPropertiesOutput object, {
+    SimpleScalarXmlPropertiesOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

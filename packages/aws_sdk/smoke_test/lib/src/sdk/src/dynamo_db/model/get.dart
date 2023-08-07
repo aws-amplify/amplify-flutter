@@ -4,12 +4,11 @@
 library smoke_test.dynamo_db.model.get; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart';
 
 part 'get.g.dart';
 
@@ -19,18 +18,18 @@ abstract class Get
     implements Built<Get, GetBuilder> {
   /// Specifies an item and related attribute values to retrieve in a `TransactGetItem` object.
   factory Get({
-    required Map<String, _i2.AttributeValue> key,
+    required Map<String, AttributeValue> key,
     required String tableName,
     String? projectionExpression,
     Map<String, String>? expressionAttributeNames,
   }) {
     return _$Get._(
-      key: _i3.BuiltMap(key),
+      key: _i2.BuiltMap(key),
       tableName: tableName,
       projectionExpression: projectionExpression,
       expressionAttributeNames: expressionAttributeNames == null
           ? null
-          : _i3.BuiltMap(expressionAttributeNames),
+          : _i2.BuiltMap(expressionAttributeNames),
     );
   }
 
@@ -39,12 +38,12 @@ abstract class Get
 
   const Get._();
 
-  static const List<_i4.SmithySerializer<Get>> serializers = [
+  static const List<_i3.SmithySerializer<Get>> serializers = [
     GetAwsJson10Serializer()
   ];
 
   /// A map of attribute names to `AttributeValue` objects that specifies the primary key of the item to retrieve.
-  _i3.BuiltMap<String, _i2.AttributeValue> get key;
+  _i2.BuiltMap<String, AttributeValue> get key;
 
   /// The name of the table from which to retrieve the specified item.
   String get tableName;
@@ -53,7 +52,7 @@ abstract class Get
   String? get projectionExpression;
 
   /// One or more substitution tokens for attribute names in the ProjectionExpression parameter.
-  _i3.BuiltMap<String, String>? get expressionAttributeNames;
+  _i2.BuiltMap<String, String>? get expressionAttributeNames;
   @override
   List<Object?> get props => [
         key,
@@ -84,7 +83,7 @@ abstract class Get
   }
 }
 
-class GetAwsJson10Serializer extends _i4.StructuredSmithySerializer<Get> {
+class GetAwsJson10Serializer extends _i3.StructuredSmithySerializer<Get> {
   const GetAwsJson10Serializer() : super('Get');
 
   @override
@@ -93,8 +92,8 @@ class GetAwsJson10Serializer extends _i4.StructuredSmithySerializer<Get> {
         _$Get,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -119,13 +118,13 @@ class GetAwsJson10Serializer extends _i4.StructuredSmithySerializer<Get> {
           result.key.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i2.AttributeValue),
+                FullType(AttributeValue),
               ],
             ),
-          ) as _i3.BuiltMap<String, _i2.AttributeValue>));
+          ) as _i2.BuiltMap<String, AttributeValue>));
         case 'TableName':
           result.tableName = (serializers.deserialize(
             value,
@@ -140,13 +139,13 @@ class GetAwsJson10Serializer extends _i4.StructuredSmithySerializer<Get> {
           result.expressionAttributeNames.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i3.BuiltMap<String, String>));
+          ) as _i2.BuiltMap<String, String>));
       }
     }
 
@@ -171,10 +170,10 @@ class GetAwsJson10Serializer extends _i4.StructuredSmithySerializer<Get> {
       serializers.serialize(
         key,
         specifiedType: const FullType(
-          _i3.BuiltMap,
+          _i2.BuiltMap,
           [
             FullType(String),
-            FullType(_i2.AttributeValue),
+            FullType(AttributeValue),
           ],
         ),
       ),
@@ -198,7 +197,7 @@ class GetAwsJson10Serializer extends _i4.StructuredSmithySerializer<Get> {
         ..add(serializers.serialize(
           expressionAttributeNames,
           specifiedType: const FullType(
-            _i3.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
               FullType(String),

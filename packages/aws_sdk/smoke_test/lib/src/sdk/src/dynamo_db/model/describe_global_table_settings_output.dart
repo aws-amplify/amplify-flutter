@@ -4,12 +4,11 @@
 library smoke_test.dynamo_db.model.describe_global_table_settings_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_settings_description.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_settings_description.dart';
 
 part 'describe_global_table_settings_output.g.dart';
 
@@ -21,12 +20,12 @@ abstract class DescribeGlobalTableSettingsOutput
             DescribeGlobalTableSettingsOutputBuilder> {
   factory DescribeGlobalTableSettingsOutput({
     String? globalTableName,
-    List<_i2.ReplicaSettingsDescription>? replicaSettings,
+    List<ReplicaSettingsDescription>? replicaSettings,
   }) {
     return _$DescribeGlobalTableSettingsOutput._(
       globalTableName: globalTableName,
       replicaSettings:
-          replicaSettings == null ? null : _i3.BuiltList(replicaSettings),
+          replicaSettings == null ? null : _i2.BuiltList(replicaSettings),
     );
   }
 
@@ -43,14 +42,14 @@ abstract class DescribeGlobalTableSettingsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<DescribeGlobalTableSettingsOutput>>
+  static const List<_i3.SmithySerializer<DescribeGlobalTableSettingsOutput>>
       serializers = [DescribeGlobalTableSettingsOutputAwsJson10Serializer()];
 
   /// The name of the global table.
   String? get globalTableName;
 
   /// The Region-specific settings for the global table.
-  _i3.BuiltList<_i2.ReplicaSettingsDescription>? get replicaSettings;
+  _i2.BuiltList<ReplicaSettingsDescription>? get replicaSettings;
   @override
   List<Object?> get props => [
         globalTableName,
@@ -73,7 +72,7 @@ abstract class DescribeGlobalTableSettingsOutput
 }
 
 class DescribeGlobalTableSettingsOutputAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<DescribeGlobalTableSettingsOutput> {
+    extends _i3.StructuredSmithySerializer<DescribeGlobalTableSettingsOutput> {
   const DescribeGlobalTableSettingsOutputAwsJson10Serializer()
       : super('DescribeGlobalTableSettingsOutput');
 
@@ -83,8 +82,8 @@ class DescribeGlobalTableSettingsOutputAwsJson10Serializer
         _$DescribeGlobalTableSettingsOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -114,10 +113,10 @@ class DescribeGlobalTableSettingsOutputAwsJson10Serializer
           result.replicaSettings.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.ReplicaSettingsDescription)],
+              _i2.BuiltList,
+              [FullType(ReplicaSettingsDescription)],
             ),
-          ) as _i3.BuiltList<_i2.ReplicaSettingsDescription>));
+          ) as _i2.BuiltList<ReplicaSettingsDescription>));
       }
     }
 
@@ -149,8 +148,8 @@ class DescribeGlobalTableSettingsOutputAwsJson10Serializer
         ..add(serializers.serialize(
           replicaSettings,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.ReplicaSettingsDescription)],
+            _i2.BuiltList,
+            [FullType(ReplicaSettingsDescription)],
           ),
         ));
     }

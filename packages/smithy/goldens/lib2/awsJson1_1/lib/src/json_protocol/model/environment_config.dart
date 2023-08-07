@@ -4,10 +4,10 @@
 library aws_json1_1_v2.json_protocol.model.environment_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:aws_json1_1_v2/src/json_protocol/model/retry_mode.dart' as _i2;
+import 'package:aws_json1_1_v2/src/json_protocol/model/retry_mode.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'environment_config.g.dart';
 
@@ -20,7 +20,7 @@ abstract class EnvironmentConfig
     String? awsAccessKeyId,
     String? awsSecretAccessKey,
     String? awsDefaultRegion,
-    _i2.RetryMode? awsRetryMode,
+    RetryMode? awsRetryMode,
     String? awsSessionToken,
     String? awsProfile,
   }) {
@@ -40,7 +40,7 @@ abstract class EnvironmentConfig
 
   const EnvironmentConfig._();
 
-  static const List<_i3.SmithySerializer<EnvironmentConfig>> serializers = [
+  static const List<_i2.SmithySerializer<EnvironmentConfig>> serializers = [
     EnvironmentConfigAwsJson11Serializer()
   ];
 
@@ -49,7 +49,7 @@ abstract class EnvironmentConfig
   String? get awsDefaultRegion;
 
   /// Controls the strategy used for retries.
-  _i2.RetryMode? get awsRetryMode;
+  RetryMode? get awsRetryMode;
   String? get awsSessionToken;
   String? get awsProfile;
   @override
@@ -93,7 +93,7 @@ abstract class EnvironmentConfig
 }
 
 class EnvironmentConfigAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<EnvironmentConfig> {
+    extends _i2.StructuredSmithySerializer<EnvironmentConfig> {
   const EnvironmentConfigAwsJson11Serializer() : super('EnvironmentConfig');
 
   @override
@@ -102,8 +102,8 @@ class EnvironmentConfigAwsJson11Serializer
         _$EnvironmentConfig,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -142,8 +142,8 @@ class EnvironmentConfigAwsJson11Serializer
         case 'AWS_RETRY_MODE':
           result.awsRetryMode = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.RetryMode),
-          ) as _i2.RetryMode);
+            specifiedType: const FullType(RetryMode),
+          ) as RetryMode);
         case 'AWS_SESSION_TOKEN':
           result.awsSessionToken = (serializers.deserialize(
             value,
@@ -204,7 +204,7 @@ class EnvironmentConfigAwsJson11Serializer
         ..add('AWS_RETRY_MODE')
         ..add(serializers.serialize(
           awsRetryMode,
-          specifiedType: const FullType(_i2.RetryMode),
+          specifiedType: const FullType(RetryMode),
         ));
     }
     if (awsSessionToken != null) {

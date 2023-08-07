@@ -9,7 +9,7 @@ part of 'describe_delivery_channels_response.dart';
 class _$DescribeDeliveryChannelsResponse
     extends DescribeDeliveryChannelsResponse {
   @override
-  final _i3.BuiltList<_i2.DeliveryChannel>? deliveryChannels;
+  final _i2.BuiltList<DeliveryChannel>? deliveryChannels;
 
   factory _$DescribeDeliveryChannelsResponse(
           [void Function(DescribeDeliveryChannelsResponseBuilder)? updates]) =>
@@ -48,11 +48,10 @@ class DescribeDeliveryChannelsResponseBuilder
             DescribeDeliveryChannelsResponseBuilder> {
   _$DescribeDeliveryChannelsResponse? _$v;
 
-  _i3.ListBuilder<_i2.DeliveryChannel>? _deliveryChannels;
-  _i3.ListBuilder<_i2.DeliveryChannel> get deliveryChannels =>
-      _$this._deliveryChannels ??= new _i3.ListBuilder<_i2.DeliveryChannel>();
-  set deliveryChannels(
-          _i3.ListBuilder<_i2.DeliveryChannel>? deliveryChannels) =>
+  _i2.ListBuilder<DeliveryChannel>? _deliveryChannels;
+  _i2.ListBuilder<DeliveryChannel> get deliveryChannels =>
+      _$this._deliveryChannels ??= new _i2.ListBuilder<DeliveryChannel>();
+  set deliveryChannels(_i2.ListBuilder<DeliveryChannel>? deliveryChannels) =>
       _$this._deliveryChannels = deliveryChannels;
 
   DescribeDeliveryChannelsResponseBuilder();

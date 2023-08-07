@@ -8,35 +8,33 @@ part of 'table_description.dart';
 
 class _$TableDescription extends TableDescription {
   @override
-  final _i16.BuiltList<_i2.AttributeDefinition>? attributeDefinitions;
+  final _i3.BuiltList<AttributeDefinition>? attributeDefinitions;
   @override
   final String? tableName;
   @override
-  final _i16.BuiltList<_i3.KeySchemaElement>? keySchema;
+  final _i3.BuiltList<KeySchemaElement>? keySchema;
   @override
-  final _i4.TableStatus? tableStatus;
+  final TableStatus? tableStatus;
   @override
   final DateTime? creationDateTime;
   @override
-  final _i5.ProvisionedThroughputDescription? provisionedThroughput;
+  final ProvisionedThroughputDescription? provisionedThroughput;
   @override
-  final _i6.Int64? tableSizeBytes;
+  final _i2.Int64? tableSizeBytes;
   @override
-  final _i6.Int64? itemCount;
+  final _i2.Int64? itemCount;
   @override
   final String? tableArn;
   @override
   final String? tableId;
   @override
-  final _i7.BillingModeSummary? billingModeSummary;
+  final BillingModeSummary? billingModeSummary;
   @override
-  final _i16.BuiltList<_i8.LocalSecondaryIndexDescription>?
-      localSecondaryIndexes;
+  final _i3.BuiltList<LocalSecondaryIndexDescription>? localSecondaryIndexes;
   @override
-  final _i16.BuiltList<_i9.GlobalSecondaryIndexDescription>?
-      globalSecondaryIndexes;
+  final _i3.BuiltList<GlobalSecondaryIndexDescription>? globalSecondaryIndexes;
   @override
-  final _i10.StreamSpecification? streamSpecification;
+  final StreamSpecification? streamSpecification;
   @override
   final String? latestStreamLabel;
   @override
@@ -44,15 +42,15 @@ class _$TableDescription extends TableDescription {
   @override
   final String? globalTableVersion;
   @override
-  final _i16.BuiltList<_i11.ReplicaDescription>? replicas;
+  final _i3.BuiltList<ReplicaDescription>? replicas;
   @override
-  final _i12.RestoreSummary? restoreSummary;
+  final RestoreSummary? restoreSummary;
   @override
-  final _i13.SseDescription? sseDescription;
+  final SseDescription? sseDescription;
   @override
-  final _i14.ArchivalSummary? archivalSummary;
+  final ArchivalSummary? archivalSummary;
   @override
-  final _i15.TableClassSummary? tableClassSummary;
+  final TableClassSummary? tableClassSummary;
   @override
   final bool? deletionProtectionEnabled;
 
@@ -158,27 +156,27 @@ class TableDescriptionBuilder
     implements Builder<TableDescription, TableDescriptionBuilder> {
   _$TableDescription? _$v;
 
-  _i16.ListBuilder<_i2.AttributeDefinition>? _attributeDefinitions;
-  _i16.ListBuilder<_i2.AttributeDefinition> get attributeDefinitions =>
+  _i3.ListBuilder<AttributeDefinition>? _attributeDefinitions;
+  _i3.ListBuilder<AttributeDefinition> get attributeDefinitions =>
       _$this._attributeDefinitions ??=
-          new _i16.ListBuilder<_i2.AttributeDefinition>();
+          new _i3.ListBuilder<AttributeDefinition>();
   set attributeDefinitions(
-          _i16.ListBuilder<_i2.AttributeDefinition>? attributeDefinitions) =>
+          _i3.ListBuilder<AttributeDefinition>? attributeDefinitions) =>
       _$this._attributeDefinitions = attributeDefinitions;
 
   String? _tableName;
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
 
-  _i16.ListBuilder<_i3.KeySchemaElement>? _keySchema;
-  _i16.ListBuilder<_i3.KeySchemaElement> get keySchema =>
-      _$this._keySchema ??= new _i16.ListBuilder<_i3.KeySchemaElement>();
-  set keySchema(_i16.ListBuilder<_i3.KeySchemaElement>? keySchema) =>
+  _i3.ListBuilder<KeySchemaElement>? _keySchema;
+  _i3.ListBuilder<KeySchemaElement> get keySchema =>
+      _$this._keySchema ??= new _i3.ListBuilder<KeySchemaElement>();
+  set keySchema(_i3.ListBuilder<KeySchemaElement>? keySchema) =>
       _$this._keySchema = keySchema;
 
-  _i4.TableStatus? _tableStatus;
-  _i4.TableStatus? get tableStatus => _$this._tableStatus;
-  set tableStatus(_i4.TableStatus? tableStatus) =>
+  TableStatus? _tableStatus;
+  TableStatus? get tableStatus => _$this._tableStatus;
+  set tableStatus(TableStatus? tableStatus) =>
       _$this._tableStatus = tableStatus;
 
   DateTime? _creationDateTime;
@@ -186,22 +184,22 @@ class TableDescriptionBuilder
   set creationDateTime(DateTime? creationDateTime) =>
       _$this._creationDateTime = creationDateTime;
 
-  _i5.ProvisionedThroughputDescriptionBuilder? _provisionedThroughput;
-  _i5.ProvisionedThroughputDescriptionBuilder get provisionedThroughput =>
+  ProvisionedThroughputDescriptionBuilder? _provisionedThroughput;
+  ProvisionedThroughputDescriptionBuilder get provisionedThroughput =>
       _$this._provisionedThroughput ??=
-          new _i5.ProvisionedThroughputDescriptionBuilder();
+          new ProvisionedThroughputDescriptionBuilder();
   set provisionedThroughput(
-          _i5.ProvisionedThroughputDescriptionBuilder? provisionedThroughput) =>
+          ProvisionedThroughputDescriptionBuilder? provisionedThroughput) =>
       _$this._provisionedThroughput = provisionedThroughput;
 
-  _i6.Int64? _tableSizeBytes;
-  _i6.Int64? get tableSizeBytes => _$this._tableSizeBytes;
-  set tableSizeBytes(_i6.Int64? tableSizeBytes) =>
+  _i2.Int64? _tableSizeBytes;
+  _i2.Int64? get tableSizeBytes => _$this._tableSizeBytes;
+  set tableSizeBytes(_i2.Int64? tableSizeBytes) =>
       _$this._tableSizeBytes = tableSizeBytes;
 
-  _i6.Int64? _itemCount;
-  _i6.Int64? get itemCount => _$this._itemCount;
-  set itemCount(_i6.Int64? itemCount) => _$this._itemCount = itemCount;
+  _i2.Int64? _itemCount;
+  _i2.Int64? get itemCount => _$this._itemCount;
+  set itemCount(_i2.Int64? itemCount) => _$this._itemCount = itemCount;
 
   String? _tableArn;
   String? get tableArn => _$this._tableArn;
@@ -211,36 +209,34 @@ class TableDescriptionBuilder
   String? get tableId => _$this._tableId;
   set tableId(String? tableId) => _$this._tableId = tableId;
 
-  _i7.BillingModeSummaryBuilder? _billingModeSummary;
-  _i7.BillingModeSummaryBuilder get billingModeSummary =>
-      _$this._billingModeSummary ??= new _i7.BillingModeSummaryBuilder();
-  set billingModeSummary(_i7.BillingModeSummaryBuilder? billingModeSummary) =>
+  BillingModeSummaryBuilder? _billingModeSummary;
+  BillingModeSummaryBuilder get billingModeSummary =>
+      _$this._billingModeSummary ??= new BillingModeSummaryBuilder();
+  set billingModeSummary(BillingModeSummaryBuilder? billingModeSummary) =>
       _$this._billingModeSummary = billingModeSummary;
 
-  _i16.ListBuilder<_i8.LocalSecondaryIndexDescription>? _localSecondaryIndexes;
-  _i16.ListBuilder<_i8.LocalSecondaryIndexDescription>
-      get localSecondaryIndexes => _$this._localSecondaryIndexes ??=
-          new _i16.ListBuilder<_i8.LocalSecondaryIndexDescription>();
+  _i3.ListBuilder<LocalSecondaryIndexDescription>? _localSecondaryIndexes;
+  _i3.ListBuilder<LocalSecondaryIndexDescription> get localSecondaryIndexes =>
+      _$this._localSecondaryIndexes ??=
+          new _i3.ListBuilder<LocalSecondaryIndexDescription>();
   set localSecondaryIndexes(
-          _i16.ListBuilder<_i8.LocalSecondaryIndexDescription>?
+          _i3.ListBuilder<LocalSecondaryIndexDescription>?
               localSecondaryIndexes) =>
       _$this._localSecondaryIndexes = localSecondaryIndexes;
 
-  _i16.ListBuilder<_i9.GlobalSecondaryIndexDescription>?
-      _globalSecondaryIndexes;
-  _i16.ListBuilder<_i9.GlobalSecondaryIndexDescription>
-      get globalSecondaryIndexes => _$this._globalSecondaryIndexes ??=
-          new _i16.ListBuilder<_i9.GlobalSecondaryIndexDescription>();
+  _i3.ListBuilder<GlobalSecondaryIndexDescription>? _globalSecondaryIndexes;
+  _i3.ListBuilder<GlobalSecondaryIndexDescription> get globalSecondaryIndexes =>
+      _$this._globalSecondaryIndexes ??=
+          new _i3.ListBuilder<GlobalSecondaryIndexDescription>();
   set globalSecondaryIndexes(
-          _i16.ListBuilder<_i9.GlobalSecondaryIndexDescription>?
+          _i3.ListBuilder<GlobalSecondaryIndexDescription>?
               globalSecondaryIndexes) =>
       _$this._globalSecondaryIndexes = globalSecondaryIndexes;
 
-  _i10.StreamSpecificationBuilder? _streamSpecification;
-  _i10.StreamSpecificationBuilder get streamSpecification =>
-      _$this._streamSpecification ??= new _i10.StreamSpecificationBuilder();
-  set streamSpecification(
-          _i10.StreamSpecificationBuilder? streamSpecification) =>
+  StreamSpecificationBuilder? _streamSpecification;
+  StreamSpecificationBuilder get streamSpecification =>
+      _$this._streamSpecification ??= new StreamSpecificationBuilder();
+  set streamSpecification(StreamSpecificationBuilder? streamSpecification) =>
       _$this._streamSpecification = streamSpecification;
 
   String? _latestStreamLabel;
@@ -258,34 +254,34 @@ class TableDescriptionBuilder
   set globalTableVersion(String? globalTableVersion) =>
       _$this._globalTableVersion = globalTableVersion;
 
-  _i16.ListBuilder<_i11.ReplicaDescription>? _replicas;
-  _i16.ListBuilder<_i11.ReplicaDescription> get replicas =>
-      _$this._replicas ??= new _i16.ListBuilder<_i11.ReplicaDescription>();
-  set replicas(_i16.ListBuilder<_i11.ReplicaDescription>? replicas) =>
+  _i3.ListBuilder<ReplicaDescription>? _replicas;
+  _i3.ListBuilder<ReplicaDescription> get replicas =>
+      _$this._replicas ??= new _i3.ListBuilder<ReplicaDescription>();
+  set replicas(_i3.ListBuilder<ReplicaDescription>? replicas) =>
       _$this._replicas = replicas;
 
-  _i12.RestoreSummaryBuilder? _restoreSummary;
-  _i12.RestoreSummaryBuilder get restoreSummary =>
-      _$this._restoreSummary ??= new _i12.RestoreSummaryBuilder();
-  set restoreSummary(_i12.RestoreSummaryBuilder? restoreSummary) =>
+  RestoreSummaryBuilder? _restoreSummary;
+  RestoreSummaryBuilder get restoreSummary =>
+      _$this._restoreSummary ??= new RestoreSummaryBuilder();
+  set restoreSummary(RestoreSummaryBuilder? restoreSummary) =>
       _$this._restoreSummary = restoreSummary;
 
-  _i13.SseDescriptionBuilder? _sseDescription;
-  _i13.SseDescriptionBuilder get sseDescription =>
-      _$this._sseDescription ??= new _i13.SseDescriptionBuilder();
-  set sseDescription(_i13.SseDescriptionBuilder? sseDescription) =>
+  SseDescriptionBuilder? _sseDescription;
+  SseDescriptionBuilder get sseDescription =>
+      _$this._sseDescription ??= new SseDescriptionBuilder();
+  set sseDescription(SseDescriptionBuilder? sseDescription) =>
       _$this._sseDescription = sseDescription;
 
-  _i14.ArchivalSummaryBuilder? _archivalSummary;
-  _i14.ArchivalSummaryBuilder get archivalSummary =>
-      _$this._archivalSummary ??= new _i14.ArchivalSummaryBuilder();
-  set archivalSummary(_i14.ArchivalSummaryBuilder? archivalSummary) =>
+  ArchivalSummaryBuilder? _archivalSummary;
+  ArchivalSummaryBuilder get archivalSummary =>
+      _$this._archivalSummary ??= new ArchivalSummaryBuilder();
+  set archivalSummary(ArchivalSummaryBuilder? archivalSummary) =>
       _$this._archivalSummary = archivalSummary;
 
-  _i15.TableClassSummaryBuilder? _tableClassSummary;
-  _i15.TableClassSummaryBuilder get tableClassSummary =>
-      _$this._tableClassSummary ??= new _i15.TableClassSummaryBuilder();
-  set tableClassSummary(_i15.TableClassSummaryBuilder? tableClassSummary) =>
+  TableClassSummaryBuilder? _tableClassSummary;
+  TableClassSummaryBuilder get tableClassSummary =>
+      _$this._tableClassSummary ??= new TableClassSummaryBuilder();
+  set tableClassSummary(TableClassSummaryBuilder? tableClassSummary) =>
       _$this._tableClassSummary = tableClassSummary;
 
   bool? _deletionProtectionEnabled;

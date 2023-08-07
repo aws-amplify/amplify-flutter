@@ -5,11 +5,9 @@
 library rest_json1_v1.rest_json_protocol.test.http_request_with_regex_literal_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1_v1/src/rest_json_protocol/model/http_request_with_regex_literal_input.dart'
-    as _i5;
-import 'package:rest_json1_v1/src/rest_json_protocol/operation/http_request_with_regex_literal_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/http_request_with_regex_literal_input.dart';
+import 'package:rest_json1_v1/src/rest_json_protocol/operation/http_request_with_regex_literal_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -18,7 +16,7 @@ void main() {
     'RestJsonToleratesRegexCharsInSegments (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.HttpRequestWithRegexLiteralOperation(
+        operation: HttpRequestWithRegexLiteralOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -26,7 +24,7 @@ void main() {
           id: 'RestJsonToleratesRegexCharsInSegments',
           documentation:
               'Path matching is not broken by regex expressions in literal segments',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -57,27 +55,27 @@ void main() {
   );
 }
 
-class HttpRequestWithRegexLiteralInputRestJson1Serializer extends _i4
-    .StructuredSmithySerializer<_i5.HttpRequestWithRegexLiteralInput> {
+class HttpRequestWithRegexLiteralInputRestJson1Serializer
+    extends _i3.StructuredSmithySerializer<HttpRequestWithRegexLiteralInput> {
   const HttpRequestWithRegexLiteralInputRestJson1Serializer()
       : super('HttpRequestWithRegexLiteralInput');
 
   @override
-  Iterable<Type> get types => const [_i5.HttpRequestWithRegexLiteralInput];
+  Iterable<Type> get types => const [HttpRequestWithRegexLiteralInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
       ];
   @override
-  _i5.HttpRequestWithRegexLiteralInput deserialize(
+  HttpRequestWithRegexLiteralInput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.HttpRequestWithRegexLiteralInputBuilder();
+    final result = HttpRequestWithRegexLiteralInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -101,7 +99,7 @@ class HttpRequestWithRegexLiteralInputRestJson1Serializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.HttpRequestWithRegexLiteralInput object, {
+    HttpRequestWithRegexLiteralInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

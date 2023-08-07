@@ -10,9 +10,9 @@ class _$DescribePublisherOutput extends DescribePublisherOutput {
   @override
   final String? publisherId;
   @override
-  final _i2.PublisherStatus? publisherStatus;
+  final PublisherStatus? publisherStatus;
   @override
-  final _i3.IdentityProvider? identityProvider;
+  final IdentityProvider? identityProvider;
   @override
   final String? publisherProfile;
 
@@ -67,14 +67,14 @@ class DescribePublisherOutputBuilder
   String? get publisherId => _$this._publisherId;
   set publisherId(String? publisherId) => _$this._publisherId = publisherId;
 
-  _i2.PublisherStatus? _publisherStatus;
-  _i2.PublisherStatus? get publisherStatus => _$this._publisherStatus;
-  set publisherStatus(_i2.PublisherStatus? publisherStatus) =>
+  PublisherStatus? _publisherStatus;
+  PublisherStatus? get publisherStatus => _$this._publisherStatus;
+  set publisherStatus(PublisherStatus? publisherStatus) =>
       _$this._publisherStatus = publisherStatus;
 
-  _i3.IdentityProvider? _identityProvider;
-  _i3.IdentityProvider? get identityProvider => _$this._identityProvider;
-  set identityProvider(_i3.IdentityProvider? identityProvider) =>
+  IdentityProvider? _identityProvider;
+  IdentityProvider? get identityProvider => _$this._identityProvider;
+  set identityProvider(IdentityProvider? identityProvider) =>
       _$this._identityProvider = identityProvider;
 
   String? _publisherProfile;

@@ -8,7 +8,7 @@ part of 'create_multipart_upload_request.dart';
 
 class _$CreateMultipartUploadRequest extends CreateMultipartUploadRequest {
   @override
-  final _i3.ObjectCannedAcl? acl;
+  final ObjectCannedAcl? acl;
   @override
   final String bucket;
   @override
@@ -34,11 +34,11 @@ class _$CreateMultipartUploadRequest extends CreateMultipartUploadRequest {
   @override
   final String key;
   @override
-  final _i10.BuiltMap<String, String>? metadata;
+  final _i3.BuiltMap<String, String>? metadata;
   @override
-  final _i4.ServerSideEncryption? serverSideEncryption;
+  final ServerSideEncryption? serverSideEncryption;
   @override
-  final _i5.StorageClass? storageClass;
+  final StorageClass? storageClass;
   @override
   final String? websiteRedirectLocation;
   @override
@@ -54,19 +54,19 @@ class _$CreateMultipartUploadRequest extends CreateMultipartUploadRequest {
   @override
   final bool? bucketKeyEnabled;
   @override
-  final _i6.RequestPayer? requestPayer;
+  final RequestPayer? requestPayer;
   @override
   final String? tagging;
   @override
-  final _i7.ObjectLockMode? objectLockMode;
+  final ObjectLockMode? objectLockMode;
   @override
   final DateTime? objectLockRetainUntilDate;
   @override
-  final _i8.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus;
+  final ObjectLockLegalHoldStatus? objectLockLegalHoldStatus;
   @override
   final String? expectedBucketOwner;
   @override
-  final _i9.ChecksumAlgorithm? checksumAlgorithm;
+  final ChecksumAlgorithm? checksumAlgorithm;
 
   factory _$CreateMultipartUploadRequest(
           [void Function(CreateMultipartUploadRequestBuilder)? updates]) =>
@@ -199,9 +199,9 @@ class CreateMultipartUploadRequestBuilder
             CreateMultipartUploadRequestBuilder> {
   _$CreateMultipartUploadRequest? _$v;
 
-  _i3.ObjectCannedAcl? _acl;
-  _i3.ObjectCannedAcl? get acl => _$this._acl;
-  set acl(_i3.ObjectCannedAcl? acl) => _$this._acl = acl;
+  ObjectCannedAcl? _acl;
+  ObjectCannedAcl? get acl => _$this._acl;
+  set acl(ObjectCannedAcl? acl) => _$this._acl = acl;
 
   String? _bucket;
   String? get bucket => _$this._bucket;
@@ -256,21 +256,21 @@ class CreateMultipartUploadRequestBuilder
   String? get key => _$this._key;
   set key(String? key) => _$this._key = key;
 
-  _i10.MapBuilder<String, String>? _metadata;
-  _i10.MapBuilder<String, String> get metadata =>
-      _$this._metadata ??= new _i10.MapBuilder<String, String>();
-  set metadata(_i10.MapBuilder<String, String>? metadata) =>
+  _i3.MapBuilder<String, String>? _metadata;
+  _i3.MapBuilder<String, String> get metadata =>
+      _$this._metadata ??= new _i3.MapBuilder<String, String>();
+  set metadata(_i3.MapBuilder<String, String>? metadata) =>
       _$this._metadata = metadata;
 
-  _i4.ServerSideEncryption? _serverSideEncryption;
-  _i4.ServerSideEncryption? get serverSideEncryption =>
+  ServerSideEncryption? _serverSideEncryption;
+  ServerSideEncryption? get serverSideEncryption =>
       _$this._serverSideEncryption;
-  set serverSideEncryption(_i4.ServerSideEncryption? serverSideEncryption) =>
+  set serverSideEncryption(ServerSideEncryption? serverSideEncryption) =>
       _$this._serverSideEncryption = serverSideEncryption;
 
-  _i5.StorageClass? _storageClass;
-  _i5.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i5.StorageClass? storageClass) =>
+  StorageClass? _storageClass;
+  StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(StorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
   String? _websiteRedirectLocation;
@@ -307,18 +307,18 @@ class CreateMultipartUploadRequestBuilder
   set bucketKeyEnabled(bool? bucketKeyEnabled) =>
       _$this._bucketKeyEnabled = bucketKeyEnabled;
 
-  _i6.RequestPayer? _requestPayer;
-  _i6.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i6.RequestPayer? requestPayer) =>
+  RequestPayer? _requestPayer;
+  RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
   String? _tagging;
   String? get tagging => _$this._tagging;
   set tagging(String? tagging) => _$this._tagging = tagging;
 
-  _i7.ObjectLockMode? _objectLockMode;
-  _i7.ObjectLockMode? get objectLockMode => _$this._objectLockMode;
-  set objectLockMode(_i7.ObjectLockMode? objectLockMode) =>
+  ObjectLockMode? _objectLockMode;
+  ObjectLockMode? get objectLockMode => _$this._objectLockMode;
+  set objectLockMode(ObjectLockMode? objectLockMode) =>
       _$this._objectLockMode = objectLockMode;
 
   DateTime? _objectLockRetainUntilDate;
@@ -326,11 +326,11 @@ class CreateMultipartUploadRequestBuilder
   set objectLockRetainUntilDate(DateTime? objectLockRetainUntilDate) =>
       _$this._objectLockRetainUntilDate = objectLockRetainUntilDate;
 
-  _i8.ObjectLockLegalHoldStatus? _objectLockLegalHoldStatus;
-  _i8.ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
+  ObjectLockLegalHoldStatus? _objectLockLegalHoldStatus;
+  ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
       _$this._objectLockLegalHoldStatus;
   set objectLockLegalHoldStatus(
-          _i8.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
+          ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
       _$this._objectLockLegalHoldStatus = objectLockLegalHoldStatus;
 
   String? _expectedBucketOwner;
@@ -338,9 +338,9 @@ class CreateMultipartUploadRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  _i9.ChecksumAlgorithm? _checksumAlgorithm;
-  _i9.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i9.ChecksumAlgorithm? checksumAlgorithm) =>
+  ChecksumAlgorithm? _checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
   CreateMultipartUploadRequestBuilder();

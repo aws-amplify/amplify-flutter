@@ -4,19 +4,15 @@
 library smoke_test.cloud_formation.model.create_stack_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i8;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/capability.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/on_failure.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/parameter.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/rollback_configuration.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/tag.dart' as _i7;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/capability.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/on_failure.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/parameter.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/rollback_configuration.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/tag.dart';
 
 part 'create_stack_input.g.dart';
 
@@ -29,18 +25,18 @@ abstract class CreateStackInput
     required String stackName,
     String? templateBody,
     String? templateUrl,
-    List<_i3.Parameter>? parameters,
+    List<Parameter>? parameters,
     bool? disableRollback,
-    _i4.RollbackConfiguration? rollbackConfiguration,
+    RollbackConfiguration? rollbackConfiguration,
     int? timeoutInMinutes,
     List<String>? notificationArNs,
-    List<_i5.Capability>? capabilities,
+    List<Capability>? capabilities,
     List<String>? resourceTypes,
     String? roleArn,
-    _i6.OnFailure? onFailure,
+    OnFailure? onFailure,
     String? stackPolicyBody,
     String? stackPolicyUrl,
-    List<_i7.Tag>? tags,
+    List<Tag>? tags,
     String? clientRequestToken,
     bool? enableTerminationProtection,
     bool? retainExceptOnCreate,
@@ -49,20 +45,20 @@ abstract class CreateStackInput
       stackName: stackName,
       templateBody: templateBody,
       templateUrl: templateUrl,
-      parameters: parameters == null ? null : _i8.BuiltList(parameters),
+      parameters: parameters == null ? null : _i3.BuiltList(parameters),
       disableRollback: disableRollback,
       rollbackConfiguration: rollbackConfiguration,
       timeoutInMinutes: timeoutInMinutes,
       notificationArNs:
-          notificationArNs == null ? null : _i8.BuiltList(notificationArNs),
-      capabilities: capabilities == null ? null : _i8.BuiltList(capabilities),
+          notificationArNs == null ? null : _i3.BuiltList(notificationArNs),
+      capabilities: capabilities == null ? null : _i3.BuiltList(capabilities),
       resourceTypes:
-          resourceTypes == null ? null : _i8.BuiltList(resourceTypes),
+          resourceTypes == null ? null : _i3.BuiltList(resourceTypes),
       roleArn: roleArn,
       onFailure: onFailure,
       stackPolicyBody: stackPolicyBody,
       stackPolicyUrl: stackPolicyUrl,
-      tags: tags == null ? null : _i8.BuiltList(tags),
+      tags: tags == null ? null : _i3.BuiltList(tags),
       clientRequestToken: clientRequestToken,
       enableTerminationProtection: enableTerminationProtection,
       retainExceptOnCreate: retainExceptOnCreate,
@@ -102,7 +98,7 @@ abstract class CreateStackInput
   String? get templateUrl;
 
   /// A list of `Parameter` structures that specify input parameters for the stack. For more information, see the [Parameter](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_Parameter.html) data type.
-  _i8.BuiltList<_i3.Parameter>? get parameters;
+  _i3.BuiltList<Parameter>? get parameters;
 
   /// Set to `true` to disable rollback of the stack if stack creation failed. You can specify either `DisableRollback` or `OnFailure`, but not both.
   ///
@@ -110,13 +106,13 @@ abstract class CreateStackInput
   bool? get disableRollback;
 
   /// The rollback triggers for CloudFormation to monitor during stack creation and updating operations, and for the specified monitoring period afterwards.
-  _i4.RollbackConfiguration? get rollbackConfiguration;
+  RollbackConfiguration? get rollbackConfiguration;
 
   /// The amount of time that can pass before the stack status becomes CREATE_FAILED; if `DisableRollback` is not set or is set to `false`, the stack will be rolled back.
   int? get timeoutInMinutes;
 
   /// The Amazon Simple Notification Service (Amazon SNS) topic ARNs to publish stack related events. You can find your Amazon SNS topic ARNs using the Amazon SNS console or your Command Line Interface (CLI).
-  _i8.BuiltList<String>? get notificationArNs;
+  _i3.BuiltList<String>? get notificationArNs;
 
   /// In some cases, you must explicitly acknowledge that your stack template contains certain capabilities in order for CloudFormation to create the stack.
   ///
@@ -163,12 +159,12 @@ abstract class CreateStackInput
   ///     Each macro relies on an underlying Lambda service function for processing stack templates. Be aware that the Lambda function owner can update the function operation without CloudFormation being notified.
   ///
   ///     For more information, see [Using CloudFormation macros to perform custom processing on templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html).
-  _i8.BuiltList<_i5.Capability>? get capabilities;
+  _i3.BuiltList<Capability>? get capabilities;
 
   /// The template resource types that you have permissions to work with for this create stack action, such as `AWS::EC2::Instance`, `AWS::EC2::*`, or `Custom::MyCustomInstance`. Use the following syntax to describe template resource types: `AWS::*` (for all Amazon Web Services resources), `Custom::*` (for all custom resources), `Custom::_logical_ID_` (for a specific custom resource), `AWS::_service_name_::*` (for all resources of a particular Amazon Web Services service), and `AWS::_service_name_::_resource\_logical\_ID_` (for a specific Amazon Web Services resource).
   ///
   /// If the list of resource types doesn't include a resource that you're creating, the stack creation fails. By default, CloudFormation grants permissions to all resource types. Identity and Access Management (IAM) uses this parameter for CloudFormation-specific condition keys in IAM policies. For more information, see [Controlling Access with Identity and Access Management](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html).
-  _i8.BuiltList<String>? get resourceTypes;
+  _i3.BuiltList<String>? get resourceTypes;
 
   /// The Amazon Resource Name (ARN) of an Identity and Access Management (IAM) role that CloudFormation assumes to create the stack. CloudFormation uses the role's credentials to make calls on your behalf. CloudFormation always uses this role for all future operations on the stack. Provided that users have permission to operate on the stack, CloudFormation uses this role even if the users don't have permission to pass it. Ensure that the role grants least privilege.
   ///
@@ -178,7 +174,7 @@ abstract class CreateStackInput
   /// Determines what action will be taken if stack creation fails. This must be one of: `DO_NOTHING`, `ROLLBACK`, or `DELETE`. You can specify either `OnFailure` or `DisableRollback`, but not both.
   ///
   /// Default: `ROLLBACK`
-  _i6.OnFailure? get onFailure;
+  OnFailure? get onFailure;
 
   /// Structure containing the stack policy body. For more information, go to [Prevent Updates to Stack Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/protect-stack-resources.html) in the _CloudFormation User Guide_. You can specify either the `StackPolicyBody` or the `StackPolicyURL` parameter, but not both.
   String? get stackPolicyBody;
@@ -187,7 +183,7 @@ abstract class CreateStackInput
   String? get stackPolicyUrl;
 
   /// Key-value pairs to associate with this stack. CloudFormation also propagates these tags to the resources created in the stack. A maximum number of 50 tags can be specified.
-  _i8.BuiltList<_i7.Tag>? get tags;
+  _i3.BuiltList<Tag>? get tags;
 
   /// A unique identifier for this `CreateStack` request. Specify this token if you plan to retry requests so that CloudFormation knows that you're not attempting to create a stack with the same name. You might retry `CreateStack` requests to ensure that CloudFormation successfully received them.
   ///
@@ -359,10 +355,10 @@ class CreateStackInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i8.BuiltList,
-              [FullType(_i3.Parameter)],
+              _i3.BuiltList,
+              [FullType(Parameter)],
             ),
-          ) as _i8.BuiltList<_i3.Parameter>));
+          ) as _i3.BuiltList<Parameter>));
         case 'DisableRollback':
           result.disableRollback = (serializers.deserialize(
             value,
@@ -371,8 +367,8 @@ class CreateStackInputAwsQuerySerializer
         case 'RollbackConfiguration':
           result.rollbackConfiguration.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.RollbackConfiguration),
-          ) as _i4.RollbackConfiguration));
+            specifiedType: const FullType(RollbackConfiguration),
+          ) as RollbackConfiguration));
         case 'TimeoutInMinutes':
           result.timeoutInMinutes = (serializers.deserialize(
             value,
@@ -385,10 +381,10 @@ class CreateStackInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i8.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i8.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'Capabilities':
           result.capabilities.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -396,10 +392,10 @@ class CreateStackInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i8.BuiltList,
-              [FullType(_i5.Capability)],
+              _i3.BuiltList,
+              [FullType(Capability)],
             ),
-          ) as _i8.BuiltList<_i5.Capability>));
+          ) as _i3.BuiltList<Capability>));
         case 'ResourceTypes':
           result.resourceTypes.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -407,10 +403,10 @@ class CreateStackInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i8.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i8.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'RoleARN':
           result.roleArn = (serializers.deserialize(
             value,
@@ -419,8 +415,8 @@ class CreateStackInputAwsQuerySerializer
         case 'OnFailure':
           result.onFailure = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.OnFailure),
-          ) as _i6.OnFailure);
+            specifiedType: const FullType(OnFailure),
+          ) as OnFailure);
         case 'StackPolicyBody':
           result.stackPolicyBody = (serializers.deserialize(
             value,
@@ -438,10 +434,10 @@ class CreateStackInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i8.BuiltList,
-              [FullType(_i7.Tag)],
+              _i3.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i8.BuiltList<_i7.Tag>));
+          ) as _i3.BuiltList<Tag>));
         case 'ClientRequestToken':
           result.clientRequestToken = (serializers.deserialize(
             value,
@@ -526,8 +522,8 @@ class CreateStackInputAwsQuerySerializer
           serializers,
           parameters,
           specifiedType: const FullType.nullable(
-            _i8.BuiltList,
-            [FullType(_i3.Parameter)],
+            _i3.BuiltList,
+            [FullType(Parameter)],
           ),
         ));
     }
@@ -544,7 +540,7 @@ class CreateStackInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('RollbackConfiguration'))
         ..add(serializers.serialize(
           rollbackConfiguration,
-          specifiedType: const FullType(_i4.RollbackConfiguration),
+          specifiedType: const FullType(RollbackConfiguration),
         ));
     }
     if (timeoutInMinutes != null) {
@@ -564,7 +560,7 @@ class CreateStackInputAwsQuerySerializer
           serializers,
           notificationArNs,
           specifiedType: const FullType.nullable(
-            _i8.BuiltList,
+            _i3.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -578,8 +574,8 @@ class CreateStackInputAwsQuerySerializer
           serializers,
           capabilities,
           specifiedType: const FullType.nullable(
-            _i8.BuiltList,
-            [FullType(_i5.Capability)],
+            _i3.BuiltList,
+            [FullType(Capability)],
           ),
         ));
     }
@@ -592,7 +588,7 @@ class CreateStackInputAwsQuerySerializer
           serializers,
           resourceTypes,
           specifiedType: const FullType.nullable(
-            _i8.BuiltList,
+            _i3.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -610,7 +606,7 @@ class CreateStackInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('OnFailure'))
         ..add(serializers.serialize(
           onFailure,
-          specifiedType: const FullType.nullable(_i6.OnFailure),
+          specifiedType: const FullType.nullable(OnFailure),
         ));
     }
     if (stackPolicyBody != null) {
@@ -638,8 +634,8 @@ class CreateStackInputAwsQuerySerializer
           serializers,
           tags,
           specifiedType: const FullType.nullable(
-            _i8.BuiltList,
-            [FullType(_i7.Tag)],
+            _i3.BuiltList,
+            [FullType(Tag)],
           ),
         ));
     }

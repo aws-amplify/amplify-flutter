@@ -8,7 +8,7 @@ part of 'list_groups_response.dart';
 
 class _$ListGroupsResponse extends ListGroupsResponse {
   @override
-  final _i3.BuiltList<_i2.Group> groups;
+  final _i2.BuiltList<Group> groups;
   @override
   final bool isTruncated;
   @override
@@ -60,10 +60,10 @@ class ListGroupsResponseBuilder
     implements Builder<ListGroupsResponse, ListGroupsResponseBuilder> {
   _$ListGroupsResponse? _$v;
 
-  _i3.ListBuilder<_i2.Group>? _groups;
-  _i3.ListBuilder<_i2.Group> get groups =>
-      _$this._groups ??= new _i3.ListBuilder<_i2.Group>();
-  set groups(_i3.ListBuilder<_i2.Group>? groups) => _$this._groups = groups;
+  _i2.ListBuilder<Group>? _groups;
+  _i2.ListBuilder<Group> get groups =>
+      _$this._groups ??= new _i2.ListBuilder<Group>();
+  set groups(_i2.ListBuilder<Group>? groups) => _$this._groups = groups;
 
   bool? _isTruncated;
   bool? get isTruncated => _$this._isTruncated;

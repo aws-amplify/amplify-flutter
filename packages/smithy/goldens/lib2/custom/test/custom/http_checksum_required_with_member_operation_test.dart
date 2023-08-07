@@ -4,15 +4,13 @@
 // ignore_for_file: unused_element
 library custom_v2.custom.test.http_checksum_required_with_member_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:typed_data' as _i7;
+import 'dart:typed_data' as _i4;
 
 import 'package:built_value/serializer.dart';
-import 'package:custom_v2/src/custom/model/checksum_algorithm.dart' as _i6;
-import 'package:custom_v2/src/custom/model/http_checksum_required_with_member_input.dart'
-    as _i5;
-import 'package:custom_v2/src/custom/operation/http_checksum_required_with_member_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:custom_v2/src/custom/model/checksum_algorithm.dart';
+import 'package:custom_v2/src/custom/model/http_checksum_required_with_member_input.dart';
+import 'package:custom_v2/src/custom/operation/http_checksum_required_with_member_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -21,7 +19,7 @@ void main() {
     'HttpChecksumRequiredWithMemberNoAlgorithm (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.HttpChecksumRequiredWithMemberOperation(
+        operation: HttpChecksumRequiredWithMemberOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -29,7 +27,7 @@ void main() {
           id: 'HttpChecksumRequiredWithMemberNoAlgorithm',
           documentation:
               'Adds an MD5 checksum when required and no algorithm is provided',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -65,7 +63,7 @@ void main() {
     'HttpChecksumRequiredWithMemberWithSHA1 (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.HttpChecksumRequiredWithMemberOperation(
+        operation: HttpChecksumRequiredWithMemberOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -73,7 +71,7 @@ void main() {
           id: 'HttpChecksumRequiredWithMemberWithSHA1',
           documentation:
               'Adds a SHA-1 checksum when that algorithm is provided',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -113,7 +111,7 @@ void main() {
     'HttpChecksumRequiredWithMemberWithSHA256 (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.HttpChecksumRequiredWithMemberOperation(
+        operation: HttpChecksumRequiredWithMemberOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -121,7 +119,7 @@ void main() {
           id: 'HttpChecksumRequiredWithMemberWithSHA256',
           documentation:
               'Adds a SHA-256 checksum when that algorithm is provided',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -162,7 +160,7 @@ void main() {
     'HttpChecksumRequiredWithMemberWithCRC32 (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.HttpChecksumRequiredWithMemberOperation(
+        operation: HttpChecksumRequiredWithMemberOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -170,7 +168,7 @@ void main() {
           id: 'HttpChecksumRequiredWithMemberWithCRC32',
           documentation:
               'Adds a CRC32 checksum when that algorithm is provided',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -210,7 +208,7 @@ void main() {
     'HttpChecksumRequiredWithMemberWithCRC32C (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.HttpChecksumRequiredWithMemberOperation(
+        operation: HttpChecksumRequiredWithMemberOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -218,7 +216,7 @@ void main() {
           id: 'HttpChecksumRequiredWithMemberWithCRC32C',
           documentation:
               'Adds a CRC32C checksum when that algorithm is provided',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -256,27 +254,27 @@ void main() {
   );
 }
 
-class HttpChecksumRequiredWithMemberInputRestJson1Serializer extends _i4
-    .StructuredSmithySerializer<_i5.HttpChecksumRequiredWithMemberInput> {
+class HttpChecksumRequiredWithMemberInputRestJson1Serializer extends _i3
+    .StructuredSmithySerializer<HttpChecksumRequiredWithMemberInput> {
   const HttpChecksumRequiredWithMemberInputRestJson1Serializer()
       : super('HttpChecksumRequiredWithMemberInput');
 
   @override
-  Iterable<Type> get types => const [_i5.HttpChecksumRequiredWithMemberInput];
+  Iterable<Type> get types => const [HttpChecksumRequiredWithMemberInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
       ];
   @override
-  _i5.HttpChecksumRequiredWithMemberInput deserialize(
+  HttpChecksumRequiredWithMemberInput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.HttpChecksumRequiredWithMemberInputBuilder();
+    final result = HttpChecksumRequiredWithMemberInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -289,24 +287,24 @@ class HttpChecksumRequiredWithMemberInputRestJson1Serializer extends _i4
         case 'checksumAlgorithm':
           result.checksumAlgorithm = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.ChecksumAlgorithm),
-          ) as _i6.ChecksumAlgorithm);
+            specifiedType: const FullType(ChecksumAlgorithm),
+          ) as ChecksumAlgorithm);
         case 'content':
           result.content = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i7.Uint8List),
-          ) as _i7.Uint8List);
+            specifiedType: const FullType(_i4.Uint8List),
+          ) as _i4.Uint8List);
       }
     }
 
-    result.content ??= _i7.Uint8List(0);
+    result.content ??= _i4.Uint8List(0);
     return result.build();
   }
 
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.HttpChecksumRequiredWithMemberInput object, {
+    HttpChecksumRequiredWithMemberInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

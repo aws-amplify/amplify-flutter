@@ -5,16 +5,15 @@ library rest_json1_v1.rest_json_validation_protocol.model.enum_union; // ignore_
 
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1_v1/src/rest_json_validation_protocol/model/enum_string.dart'
-    as _i2;
+import 'package:rest_json1_v1/src/rest_json_validation_protocol/model/enum_string.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
 sealed class EnumUnion extends _i1.SmithyUnion<EnumUnion> {
   const EnumUnion._();
 
-  const factory EnumUnion.first(_i2.EnumString first) = EnumUnionFirst$;
+  const factory EnumUnion.first(EnumString first) = EnumUnionFirst$;
 
-  const factory EnumUnion.second(_i2.EnumString second) = EnumUnionSecond$;
+  const factory EnumUnion.second(EnumString second) = EnumUnionSecond$;
 
   const factory EnumUnion.sdkUnknown(
     String name,
@@ -25,8 +24,8 @@ sealed class EnumUnion extends _i1.SmithyUnion<EnumUnion> {
     EnumUnionRestJson1Serializer()
   ];
 
-  _i2.EnumString? get first => null;
-  _i2.EnumString? get second => null;
+  EnumString? get first => null;
+  EnumString? get second => null;
   @override
   Object get value => (first ?? second)!;
   @override
@@ -52,7 +51,7 @@ final class EnumUnionFirst$ extends EnumUnion {
   const EnumUnionFirst$(this.first) : super._();
 
   @override
-  final _i2.EnumString first;
+  final EnumString first;
 
   @override
   String get name => 'first';
@@ -62,7 +61,7 @@ final class EnumUnionSecond$ extends EnumUnion {
   const EnumUnionSecond$(this.second) : super._();
 
   @override
-  final _i2.EnumString second;
+  final EnumString second;
 
   @override
   String get name => 'second';
@@ -109,13 +108,13 @@ class EnumUnionRestJson1Serializer
       case 'first':
         return EnumUnionFirst$((serializers.deserialize(
           value,
-          specifiedType: const FullType(_i2.EnumString),
-        ) as _i2.EnumString));
+          specifiedType: const FullType(EnumString),
+        ) as EnumString));
       case 'second':
         return EnumUnionSecond$((serializers.deserialize(
           value,
-          specifiedType: const FullType(_i2.EnumString),
-        ) as _i2.EnumString));
+          specifiedType: const FullType(EnumString),
+        ) as EnumString));
     }
     return EnumUnion.sdkUnknown(
       key,
@@ -134,11 +133,11 @@ class EnumUnionRestJson1Serializer
       switch (object) {
         EnumUnionFirst$(:final value) => serializers.serialize(
             value,
-            specifiedType: const FullType(_i2.EnumString),
+            specifiedType: const FullType(EnumString),
           ),
         EnumUnionSecond$(:final value) => serializers.serialize(
             value,
-            specifiedType: const FullType(_i2.EnumString),
+            specifiedType: const FullType(EnumString),
           ),
         EnumUnionSdkUnknown$(:final value) => value,
       },

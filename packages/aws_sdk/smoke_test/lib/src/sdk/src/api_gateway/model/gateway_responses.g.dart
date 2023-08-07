@@ -8,7 +8,7 @@ part of 'gateway_responses.dart';
 
 class _$GatewayResponses extends GatewayResponses {
   @override
-  final _i3.BuiltList<_i2.GatewayResponse>? items;
+  final _i2.BuiltList<GatewayResponse>? items;
   @override
   final String? position;
 
@@ -48,11 +48,10 @@ class GatewayResponsesBuilder
     implements Builder<GatewayResponses, GatewayResponsesBuilder> {
   _$GatewayResponses? _$v;
 
-  _i3.ListBuilder<_i2.GatewayResponse>? _items;
-  _i3.ListBuilder<_i2.GatewayResponse> get items =>
-      _$this._items ??= new _i3.ListBuilder<_i2.GatewayResponse>();
-  set items(_i3.ListBuilder<_i2.GatewayResponse>? items) =>
-      _$this._items = items;
+  _i2.ListBuilder<GatewayResponse>? _items;
+  _i2.ListBuilder<GatewayResponse> get items =>
+      _$this._items ??= new _i2.ListBuilder<GatewayResponse>();
+  set items(_i2.ListBuilder<GatewayResponse>? items) => _$this._items = items;
 
   String? _position;
   String? get position => _$this._position;

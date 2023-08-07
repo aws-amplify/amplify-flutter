@@ -5,11 +5,9 @@
 library rest_xml_v1.rest_xml_protocol.test.endpoint_with_host_label_header_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v1/src/rest_xml_protocol/model/host_label_header_input.dart'
-    as _i5;
-import 'package:rest_xml_v1/src/rest_xml_protocol/operation/endpoint_with_host_label_header_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/host_label_header_input.dart';
+import 'package:rest_xml_v1/src/rest_xml_protocol/operation/endpoint_with_host_label_header_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -18,7 +16,7 @@ void main() {
     'RestXmlEndpointTraitWithHostLabelAndHttpBinding (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.EndpointWithHostLabelHeaderOperation(
+        operation: EndpointWithHostLabelHeaderOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -26,7 +24,7 @@ void main() {
           id: 'RestXmlEndpointTraitWithHostLabelAndHttpBinding',
           documentation:
               'Operations can prepend to the given host if they define the\nendpoint trait, and can use the host label trait to define\nfurther customization based on user input. The label must also\nbe serialized in into any other location it is bound to, such\nas the body or in this case an http header.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -56,25 +54,25 @@ void main() {
 }
 
 class HostLabelHeaderInputRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<_i5.HostLabelHeaderInput> {
+    extends _i3.StructuredSmithySerializer<HostLabelHeaderInput> {
   const HostLabelHeaderInputRestXmlSerializer() : super('HostLabelHeaderInput');
 
   @override
-  Iterable<Type> get types => const [_i5.HostLabelHeaderInput];
+  Iterable<Type> get types => const [HostLabelHeaderInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
       ];
   @override
-  _i5.HostLabelHeaderInput deserialize(
+  HostLabelHeaderInput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.HostLabelHeaderInputBuilder();
+    final result = HostLabelHeaderInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -98,7 +96,7 @@ class HostLabelHeaderInputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.HostLabelHeaderInput object, {
+    HostLabelHeaderInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

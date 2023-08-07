@@ -8,7 +8,7 @@ part of 'csv_input.dart';
 
 class _$CsvInput extends CsvInput {
   @override
-  final _i2.FileHeaderInfo? fileHeaderInfo;
+  final FileHeaderInfo? fileHeaderInfo;
   @override
   final String? comments;
   @override
@@ -73,9 +73,9 @@ class _$CsvInput extends CsvInput {
 class CsvInputBuilder implements Builder<CsvInput, CsvInputBuilder> {
   _$CsvInput? _$v;
 
-  _i2.FileHeaderInfo? _fileHeaderInfo;
-  _i2.FileHeaderInfo? get fileHeaderInfo => _$this._fileHeaderInfo;
-  set fileHeaderInfo(_i2.FileHeaderInfo? fileHeaderInfo) =>
+  FileHeaderInfo? _fileHeaderInfo;
+  FileHeaderInfo? get fileHeaderInfo => _$this._fileHeaderInfo;
+  set fileHeaderInfo(FileHeaderInfo? fileHeaderInfo) =>
       _$this._fileHeaderInfo = fileHeaderInfo;
 
   String? _comments;

@@ -4,14 +4,12 @@
 library smoke_test.config_service.model.base_configuration_item; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/config_service/model/configuration_item_status.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/configuration_item_status.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart';
 
 part 'base_configuration_item.g.dart';
 
@@ -24,10 +22,10 @@ abstract class BaseConfigurationItem
     String? version,
     String? accountId,
     DateTime? configurationItemCaptureTime,
-    _i2.ConfigurationItemStatus? configurationItemStatus,
+    ConfigurationItemStatus? configurationItemStatus,
     String? configurationStateId,
     String? arn,
-    _i3.ResourceType? resourceType,
+    ResourceType? resourceType,
     String? resourceId,
     String? resourceName,
     String? awsRegion,
@@ -52,7 +50,7 @@ abstract class BaseConfigurationItem
       configuration: configuration,
       supplementaryConfiguration: supplementaryConfiguration == null
           ? null
-          : _i4.BuiltMap(supplementaryConfiguration),
+          : _i2.BuiltMap(supplementaryConfiguration),
     );
   }
 
@@ -63,7 +61,7 @@ abstract class BaseConfigurationItem
 
   const BaseConfigurationItem._();
 
-  static const List<_i5.SmithySerializer<BaseConfigurationItem>> serializers = [
+  static const List<_i3.SmithySerializer<BaseConfigurationItem>> serializers = [
     BaseConfigurationItemAwsJson11Serializer()
   ];
 
@@ -90,7 +88,7 @@ abstract class BaseConfigurationItem
   ///
   ///
   /// The CIs do not incur any cost.
-  _i2.ConfigurationItemStatus? get configurationItemStatus;
+  ConfigurationItemStatus? get configurationItemStatus;
 
   /// An identifier that indicates the ordering of the configuration items of a resource.
   String? get configurationStateId;
@@ -99,7 +97,7 @@ abstract class BaseConfigurationItem
   String? get arn;
 
   /// The type of Amazon Web Services resource.
-  _i3.ResourceType? get resourceType;
+  ResourceType? get resourceType;
 
   /// The ID of the resource (for example., sg-xxxxxx).
   String? get resourceId;
@@ -120,7 +118,7 @@ abstract class BaseConfigurationItem
   String? get configuration;
 
   /// Configuration attributes that Config returns for certain resource types to supplement the information returned for the configuration parameter.
-  _i4.BuiltMap<String, String>? get supplementaryConfiguration;
+  _i2.BuiltMap<String, String>? get supplementaryConfiguration;
   @override
   List<Object?> get props => [
         version,
@@ -202,7 +200,7 @@ abstract class BaseConfigurationItem
 }
 
 class BaseConfigurationItemAwsJson11Serializer
-    extends _i5.StructuredSmithySerializer<BaseConfigurationItem> {
+    extends _i3.StructuredSmithySerializer<BaseConfigurationItem> {
   const BaseConfigurationItemAwsJson11Serializer()
       : super('BaseConfigurationItem');
 
@@ -212,8 +210,8 @@ class BaseConfigurationItemAwsJson11Serializer
         _$BaseConfigurationItem,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -252,8 +250,8 @@ class BaseConfigurationItemAwsJson11Serializer
         case 'configurationItemStatus':
           result.configurationItemStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ConfigurationItemStatus),
-          ) as _i2.ConfigurationItemStatus);
+            specifiedType: const FullType(ConfigurationItemStatus),
+          ) as ConfigurationItemStatus);
         case 'configurationStateId':
           result.configurationStateId = (serializers.deserialize(
             value,
@@ -267,8 +265,8 @@ class BaseConfigurationItemAwsJson11Serializer
         case 'resourceType':
           result.resourceType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ResourceType),
-          ) as _i3.ResourceType);
+            specifiedType: const FullType(ResourceType),
+          ) as ResourceType);
         case 'resourceId':
           result.resourceId = (serializers.deserialize(
             value,
@@ -303,13 +301,13 @@ class BaseConfigurationItemAwsJson11Serializer
           result.supplementaryConfiguration.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i4.BuiltMap<String, String>));
+          ) as _i2.BuiltMap<String, String>));
       }
     }
 
@@ -368,7 +366,7 @@ class BaseConfigurationItemAwsJson11Serializer
         ..add('configurationItemStatus')
         ..add(serializers.serialize(
           configurationItemStatus,
-          specifiedType: const FullType(_i2.ConfigurationItemStatus),
+          specifiedType: const FullType(ConfigurationItemStatus),
         ));
     }
     if (configurationStateId != null) {
@@ -392,7 +390,7 @@ class BaseConfigurationItemAwsJson11Serializer
         ..add('resourceType')
         ..add(serializers.serialize(
           resourceType,
-          specifiedType: const FullType(_i3.ResourceType),
+          specifiedType: const FullType(ResourceType),
         ));
     }
     if (resourceId != null) {
@@ -449,7 +447,7 @@ class BaseConfigurationItemAwsJson11Serializer
         ..add(serializers.serialize(
           supplementaryConfiguration,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
               FullType(String),

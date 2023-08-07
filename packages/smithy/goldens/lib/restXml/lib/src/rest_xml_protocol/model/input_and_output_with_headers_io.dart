@@ -4,12 +4,12 @@
 library rest_xml_v1.rest_xml_protocol.model.input_and_output_with_headers_io; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:fixnum/fixnum.dart' as _i3;
-import 'package:meta/meta.dart' as _i6;
-import 'package:rest_xml_v1/src/rest_xml_protocol/model/foo_enum.dart' as _i4;
+import 'package:meta/meta.dart' as _i5;
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/foo_enum.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'input_and_output_with_headers_io.g.dart';
@@ -37,8 +37,8 @@ abstract class InputAndOutputWithHeadersIo
     List<int>? headerIntegerList,
     List<bool>? headerBooleanList,
     List<DateTime>? headerTimestampList,
-    _i4.FooEnum? headerEnum,
-    List<_i4.FooEnum>? headerEnumList,
+    FooEnum? headerEnum,
+    List<FooEnum>? headerEnumList,
   }) {
     return _$InputAndOutputWithHeadersIo._(
       headerString: headerString,
@@ -51,19 +51,19 @@ abstract class InputAndOutputWithHeadersIo
       headerTrueBool: headerTrueBool,
       headerFalseBool: headerFalseBool,
       headerStringList:
-          headerStringList == null ? null : _i5.BuiltList(headerStringList),
+          headerStringList == null ? null : _i4.BuiltList(headerStringList),
       headerStringSet:
-          headerStringSet == null ? null : _i5.BuiltSet(headerStringSet),
+          headerStringSet == null ? null : _i4.BuiltSet(headerStringSet),
       headerIntegerList:
-          headerIntegerList == null ? null : _i5.BuiltList(headerIntegerList),
+          headerIntegerList == null ? null : _i4.BuiltList(headerIntegerList),
       headerBooleanList:
-          headerBooleanList == null ? null : _i5.BuiltList(headerBooleanList),
+          headerBooleanList == null ? null : _i4.BuiltList(headerBooleanList),
       headerTimestampList: headerTimestampList == null
           ? null
-          : _i5.BuiltList(headerTimestampList),
+          : _i4.BuiltList(headerTimestampList),
       headerEnum: headerEnum,
       headerEnumList:
-          headerEnumList == null ? null : _i5.BuiltList(headerEnumList),
+          headerEnumList == null ? null : _i4.BuiltList(headerEnumList),
     );
   }
 
@@ -138,12 +138,12 @@ abstract class InputAndOutputWithHeadersIo
                   ).asDateTime));
         }
         if (request.headers['X-Enum'] != null) {
-          b.headerEnum = _i4.FooEnum.values.byValue(request.headers['X-Enum']!);
+          b.headerEnum = FooEnum.values.byValue(request.headers['X-Enum']!);
         }
         if (request.headers['X-EnumList'] != null) {
           b.headerEnumList.addAll(_i1
               .parseHeader(request.headers['X-EnumList']!)
-              .map((el) => _i4.FooEnum.values.byValue(el.trim())));
+              .map((el) => FooEnum.values.byValue(el.trim())));
         }
       });
 
@@ -212,13 +212,12 @@ abstract class InputAndOutputWithHeadersIo
                   ).asDateTime));
         }
         if (response.headers['X-Enum'] != null) {
-          b.headerEnum =
-              _i4.FooEnum.values.byValue(response.headers['X-Enum']!);
+          b.headerEnum = FooEnum.values.byValue(response.headers['X-Enum']!);
         }
         if (response.headers['X-EnumList'] != null) {
           b.headerEnumList.addAll(_i1
               .parseHeader(response.headers['X-EnumList']!)
-              .map((el) => _i4.FooEnum.values.byValue(el.trim())));
+              .map((el) => FooEnum.values.byValue(el.trim())));
         }
       });
 
@@ -234,13 +233,13 @@ abstract class InputAndOutputWithHeadersIo
   double? get headerDouble;
   bool? get headerTrueBool;
   bool? get headerFalseBool;
-  _i5.BuiltList<String>? get headerStringList;
-  _i5.BuiltSet<String>? get headerStringSet;
-  _i5.BuiltList<int>? get headerIntegerList;
-  _i5.BuiltList<bool>? get headerBooleanList;
-  _i5.BuiltList<DateTime>? get headerTimestampList;
-  _i4.FooEnum? get headerEnum;
-  _i5.BuiltList<_i4.FooEnum>? get headerEnumList;
+  _i4.BuiltList<String>? get headerStringList;
+  _i4.BuiltSet<String>? get headerStringSet;
+  _i4.BuiltList<int>? get headerIntegerList;
+  _i4.BuiltList<bool>? get headerBooleanList;
+  _i4.BuiltList<DateTime>? get headerTimestampList;
+  FooEnum? get headerEnum;
+  _i4.BuiltList<FooEnum>? get headerEnumList;
   @override
   InputAndOutputWithHeadersIoPayload getPayload() =>
       InputAndOutputWithHeadersIoPayload();
@@ -334,7 +333,7 @@ abstract class InputAndOutputWithHeadersIo
   }
 }
 
-@_i6.internal
+@_i5.internal
 abstract class InputAndOutputWithHeadersIoPayload
     with
         _i2.AWSEquatable<InputAndOutputWithHeadersIoPayload>

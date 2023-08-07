@@ -6,10 +6,10 @@ library smoke_test.s3.model.list_multipart_uploads_request; // ignore_for_file: 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i5;
+import 'package:meta/meta.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/encoding_type.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/encoding_type.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart';
 
 part 'list_multipart_uploads_request.g.dart';
 
@@ -24,13 +24,13 @@ abstract class ListMultipartUploadsRequest
   factory ListMultipartUploadsRequest({
     required String bucket,
     String? delimiter,
-    _i3.EncodingType? encodingType,
+    EncodingType? encodingType,
     String? keyMarker,
     int? maxUploads,
     String? prefix,
     String? uploadIdMarker,
     String? expectedBucketOwner,
-    _i4.RequestPayer? requestPayer,
+    RequestPayer? requestPayer,
   }) {
     return _$ListMultipartUploadsRequest._(
       bucket: bucket,
@@ -62,14 +62,14 @@ abstract class ListMultipartUploadsRequest
               request.headers['x-amz-expected-bucket-owner']!;
         }
         if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = _i4.RequestPayer.values
+          b.requestPayer = RequestPayer.values
               .byValue(request.headers['x-amz-request-payer']!);
         }
         if (request.queryParameters['delimiter'] != null) {
           b.delimiter = request.queryParameters['delimiter']!;
         }
         if (request.queryParameters['encoding-type'] != null) {
-          b.encodingType = _i3.EncodingType.values
+          b.encodingType = EncodingType.values
               .byValue(request.queryParameters['encoding-type']!);
         }
         if (request.queryParameters['key-marker'] != null) {
@@ -105,7 +105,7 @@ abstract class ListMultipartUploadsRequest
   String? get delimiter;
 
   /// Requests Amazon S3 to encode the object keys in the response and specifies the encoding method to use. An object key can contain any Unicode character; however, the XML 1.0 parser cannot parse some characters, such as characters with an ASCII value from 0 to 10. For characters that are not supported in XML 1.0, you can add this parameter to request that Amazon S3 encode the keys in the response.
-  _i3.EncodingType? get encodingType;
+  EncodingType? get encodingType;
 
   /// Together with `upload-id-marker`, this parameter specifies the multipart upload after which listing should begin.
   ///
@@ -127,7 +127,7 @@ abstract class ListMultipartUploadsRequest
   String? get expectedBucketOwner;
 
   /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
-  _i4.RequestPayer? get requestPayer;
+  RequestPayer? get requestPayer;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -198,7 +198,7 @@ abstract class ListMultipartUploadsRequest
   }
 }
 
-@_i5.internal
+@_i3.internal
 abstract class ListMultipartUploadsRequestPayload
     with
         _i2.AWSEquatable<ListMultipartUploadsRequestPayload>

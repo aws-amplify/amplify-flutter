@@ -4,11 +4,11 @@
 library smoke_test.iam.model.managed_policy_detail; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/policy_version.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/policy_version.dart';
 
 part 'managed_policy_detail.g.dart';
 
@@ -37,7 +37,7 @@ abstract class ManagedPolicyDetail
     String? description,
     DateTime? createDate,
     DateTime? updateDate,
-    List<_i2.PolicyVersion>? policyVersionList,
+    List<PolicyVersion>? policyVersionList,
   }) {
     isAttachable ??= false;
     return _$ManagedPolicyDetail._(
@@ -53,7 +53,7 @@ abstract class ManagedPolicyDetail
       createDate: createDate,
       updateDate: updateDate,
       policyVersionList:
-          policyVersionList == null ? null : _i3.BuiltList(policyVersionList),
+          policyVersionList == null ? null : _i2.BuiltList(policyVersionList),
     );
   }
 
@@ -68,7 +68,7 @@ abstract class ManagedPolicyDetail
 
   const ManagedPolicyDetail._();
 
-  static const List<_i4.SmithySerializer<ManagedPolicyDetail>> serializers = [
+  static const List<_i3.SmithySerializer<ManagedPolicyDetail>> serializers = [
     ManagedPolicyDetailAwsQuerySerializer()
   ];
 
@@ -123,7 +123,7 @@ abstract class ManagedPolicyDetail
   DateTime? get updateDate;
 
   /// A list containing information about the versions of the policy.
-  _i3.BuiltList<_i2.PolicyVersion>? get policyVersionList;
+  _i2.BuiltList<PolicyVersion>? get policyVersionList;
   @override
   List<Object?> get props => [
         policyName,
@@ -195,7 +195,7 @@ abstract class ManagedPolicyDetail
 }
 
 class ManagedPolicyDetailAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<ManagedPolicyDetail> {
+    extends _i3.StructuredSmithySerializer<ManagedPolicyDetail> {
   const ManagedPolicyDetailAwsQuerySerializer() : super('ManagedPolicyDetail');
 
   @override
@@ -204,8 +204,8 @@ class ManagedPolicyDetailAwsQuerySerializer
         _$ManagedPolicyDetail,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -282,16 +282,16 @@ class ManagedPolicyDetailAwsQuerySerializer
             specifiedType: const FullType(DateTime),
           ) as DateTime);
         case 'PolicyVersionList':
-          result.policyVersionList.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.policyVersionList.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.PolicyVersion)],
+              _i2.BuiltList,
+              [FullType(PolicyVersion)],
             ),
-          ) as _i3.BuiltList<_i2.PolicyVersion>));
+          ) as _i2.BuiltList<PolicyVersion>));
       }
     }
 
@@ -305,9 +305,9 @@ class ManagedPolicyDetailAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'ManagedPolicyDetailResponse',
-        _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final ManagedPolicyDetail(
@@ -326,7 +326,7 @@ class ManagedPolicyDetailAwsQuerySerializer
     ) = object;
     if (policyName != null) {
       result$
-        ..add(const _i4.XmlElementName('PolicyName'))
+        ..add(const _i3.XmlElementName('PolicyName'))
         ..add(serializers.serialize(
           policyName,
           specifiedType: const FullType(String),
@@ -334,7 +334,7 @@ class ManagedPolicyDetailAwsQuerySerializer
     }
     if (policyId != null) {
       result$
-        ..add(const _i4.XmlElementName('PolicyId'))
+        ..add(const _i3.XmlElementName('PolicyId'))
         ..add(serializers.serialize(
           policyId,
           specifiedType: const FullType(String),
@@ -342,7 +342,7 @@ class ManagedPolicyDetailAwsQuerySerializer
     }
     if (arn != null) {
       result$
-        ..add(const _i4.XmlElementName('Arn'))
+        ..add(const _i3.XmlElementName('Arn'))
         ..add(serializers.serialize(
           arn,
           specifiedType: const FullType(String),
@@ -350,7 +350,7 @@ class ManagedPolicyDetailAwsQuerySerializer
     }
     if (path != null) {
       result$
-        ..add(const _i4.XmlElementName('Path'))
+        ..add(const _i3.XmlElementName('Path'))
         ..add(serializers.serialize(
           path,
           specifiedType: const FullType(String),
@@ -358,7 +358,7 @@ class ManagedPolicyDetailAwsQuerySerializer
     }
     if (defaultVersionId != null) {
       result$
-        ..add(const _i4.XmlElementName('DefaultVersionId'))
+        ..add(const _i3.XmlElementName('DefaultVersionId'))
         ..add(serializers.serialize(
           defaultVersionId,
           specifiedType: const FullType(String),
@@ -366,7 +366,7 @@ class ManagedPolicyDetailAwsQuerySerializer
     }
     if (attachmentCount != null) {
       result$
-        ..add(const _i4.XmlElementName('AttachmentCount'))
+        ..add(const _i3.XmlElementName('AttachmentCount'))
         ..add(serializers.serialize(
           attachmentCount,
           specifiedType: const FullType.nullable(int),
@@ -374,21 +374,21 @@ class ManagedPolicyDetailAwsQuerySerializer
     }
     if (permissionsBoundaryUsageCount != null) {
       result$
-        ..add(const _i4.XmlElementName('PermissionsBoundaryUsageCount'))
+        ..add(const _i3.XmlElementName('PermissionsBoundaryUsageCount'))
         ..add(serializers.serialize(
           permissionsBoundaryUsageCount,
           specifiedType: const FullType.nullable(int),
         ));
     }
     result$
-      ..add(const _i4.XmlElementName('IsAttachable'))
+      ..add(const _i3.XmlElementName('IsAttachable'))
       ..add(serializers.serialize(
         isAttachable,
         specifiedType: const FullType(bool),
       ));
     if (description != null) {
       result$
-        ..add(const _i4.XmlElementName('Description'))
+        ..add(const _i3.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
           specifiedType: const FullType(String),
@@ -396,7 +396,7 @@ class ManagedPolicyDetailAwsQuerySerializer
     }
     if (createDate != null) {
       result$
-        ..add(const _i4.XmlElementName('CreateDate'))
+        ..add(const _i3.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
           specifiedType: const FullType.nullable(DateTime),
@@ -404,7 +404,7 @@ class ManagedPolicyDetailAwsQuerySerializer
     }
     if (updateDate != null) {
       result$
-        ..add(const _i4.XmlElementName('UpdateDate'))
+        ..add(const _i3.XmlElementName('UpdateDate'))
         ..add(serializers.serialize(
           updateDate,
           specifiedType: const FullType.nullable(DateTime),
@@ -412,15 +412,15 @@ class ManagedPolicyDetailAwsQuerySerializer
     }
     if (policyVersionList != null) {
       result$
-        ..add(const _i4.XmlElementName('PolicyVersionList'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('PolicyVersionList'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           policyVersionList,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
-            [FullType(_i2.PolicyVersion)],
+            _i2.BuiltList,
+            [FullType(PolicyVersion)],
           ),
         ));
     }

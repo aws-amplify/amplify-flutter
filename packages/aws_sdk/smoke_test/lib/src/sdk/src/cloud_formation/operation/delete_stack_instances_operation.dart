@@ -3,43 +3,34 @@
 
 library smoke_test.cloud_formation.operation.delete_stack_instances_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i14;
+import 'dart:async' as _i5;
 
-import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/cloud_formation/common/endpoint_resolver.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/cloud_formation/common/serializers.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/delete_stack_instances_input.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/delete_stack_instances_output.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/invalid_operation_exception.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/operation_id_already_exists_exception.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/operation_in_progress_exception.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_not_found_exception.dart'
-    as _i12;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stale_request_exception.dart'
-    as _i13;
+import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/delete_stack_instances_input.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/delete_stack_instances_output.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/invalid_operation_exception.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/operation_id_already_exists_exception.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/operation_in_progress_exception.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_not_found_exception.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stale_request_exception.dart';
 
 /// Deletes stack instances for the specified accounts, in the specified Amazon Web Services Regions.
 class DeleteStackInstancesOperation extends _i1.HttpOperation<
-    _i2.DeleteStackInstancesInput,
-    _i2.DeleteStackInstancesInput,
-    _i3.DeleteStackInstancesOutput,
-    _i3.DeleteStackInstancesOutput> {
+    DeleteStackInstancesInput,
+    DeleteStackInstancesInput,
+    DeleteStackInstancesOutput,
+    DeleteStackInstancesOutput> {
   /// Deletes stack instances for the specified accounts, in the specified Amazon Web Services Regions.
   DeleteStackInstancesOperation({
     required String region,
     Uri? baseUri,
-    _i4.AWSCredentialsProvider credentialsProvider =
-        const _i4.AWSCredentialsProvider.environment(),
+    _i2.AWSCredentialsProvider credentialsProvider =
+        const _i2.AWSCredentialsProvider.environment(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -50,25 +41,22 @@ class DeleteStackInstancesOperation extends _i1.HttpOperation<
 
   @override
   late final List<
-      _i1.HttpProtocol<
-          _i2.DeleteStackInstancesInput,
-          _i2.DeleteStackInstancesInput,
-          _i3.DeleteStackInstancesOutput,
-          _i3.DeleteStackInstancesOutput>> protocols = [
-    _i5.AwsQueryProtocol(
-      serializers: _i6.serializers,
-      builderFactories: _i6.builderFactories,
+      _i1.HttpProtocol<DeleteStackInstancesInput, DeleteStackInstancesInput,
+          DeleteStackInstancesOutput, DeleteStackInstancesOutput>> protocols = [
+    _i3.AwsQueryProtocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
-            _i5.WithSigV4(
+            _i3.WithSigV4(
               region: _region,
-              service: _i7.AWSService.cloudFormation,
+              service: _i4.AWSService.cloudFormation,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i5.WithSdkInvocationId(),
-            const _i5.WithSdkRequest(),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -76,27 +64,27 @@ class DeleteStackInstancesOperation extends _i1.HttpOperation<
       action: 'DeleteStackInstances',
       version: '2010-05-15',
       awsQueryErrors: const [
-        _i5.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'InvalidOperationException',
           code: 'InvalidOperationException',
           httpResponseCode: 400,
         ),
-        _i5.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'OperationIdAlreadyExistsException',
           code: 'OperationIdAlreadyExistsException',
           httpResponseCode: 409,
         ),
-        _i5.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'OperationInProgressException',
           code: 'OperationInProgressException',
           httpResponseCode: 409,
         ),
-        _i5.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'StackSetNotFoundException',
           code: 'StackSetNotFoundException',
           httpResponseCode: 404,
         ),
-        _i5.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'StaleRequestException',
           code: 'StaleRequestException',
           httpResponseCode: 409,
@@ -105,8 +93,8 @@ class DeleteStackInstancesOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i5.AWSEndpoint _awsEndpoint = _i8.endpointResolver.resolve(
-    _i8.sdkId,
+  late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -114,101 +102,99 @@ class DeleteStackInstancesOperation extends _i1.HttpOperation<
 
   final Uri? _baseUri;
 
-  final _i4.AWSCredentialsProvider _credentialsProvider;
+  final _i2.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.DeleteStackInstancesInput input) =>
+  _i1.HttpRequest buildRequest(DeleteStackInstancesInput input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
       });
   @override
-  int successCode([_i3.DeleteStackInstancesOutput? output]) => 200;
+  int successCode([DeleteStackInstancesOutput? output]) => 200;
   @override
-  _i3.DeleteStackInstancesOutput buildOutput(
-    _i3.DeleteStackInstancesOutput payload,
-    _i7.AWSBaseHttpResponse response,
+  DeleteStackInstancesOutput buildOutput(
+    DeleteStackInstancesOutput payload,
+    _i4.AWSBaseHttpResponse response,
   ) =>
-      _i3.DeleteStackInstancesOutput.fromResponse(
+      DeleteStackInstancesOutput.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i9.InvalidOperationException,
-            _i9.InvalidOperationException>(
+        _i1.SmithyError<InvalidOperationException, InvalidOperationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'InvalidOperationException',
           ),
           _i1.ErrorKind.client,
-          _i9.InvalidOperationException,
+          InvalidOperationException,
           statusCode: 400,
-          builder: _i9.InvalidOperationException.fromResponse,
+          builder: InvalidOperationException.fromResponse,
         ),
-        _i1.SmithyError<_i10.OperationIdAlreadyExistsException,
-            _i10.OperationIdAlreadyExistsException>(
+        _i1.SmithyError<OperationIdAlreadyExistsException,
+            OperationIdAlreadyExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'OperationIdAlreadyExistsException',
           ),
           _i1.ErrorKind.client,
-          _i10.OperationIdAlreadyExistsException,
+          OperationIdAlreadyExistsException,
           statusCode: 409,
-          builder: _i10.OperationIdAlreadyExistsException.fromResponse,
+          builder: OperationIdAlreadyExistsException.fromResponse,
         ),
-        _i1.SmithyError<_i11.OperationInProgressException,
-            _i11.OperationInProgressException>(
+        _i1.SmithyError<OperationInProgressException,
+            OperationInProgressException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'OperationInProgressException',
           ),
           _i1.ErrorKind.client,
-          _i11.OperationInProgressException,
+          OperationInProgressException,
           statusCode: 409,
-          builder: _i11.OperationInProgressException.fromResponse,
+          builder: OperationInProgressException.fromResponse,
         ),
-        _i1.SmithyError<_i12.StackSetNotFoundException,
-            _i12.StackSetNotFoundException>(
+        _i1.SmithyError<StackSetNotFoundException, StackSetNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'StackSetNotFoundException',
           ),
           _i1.ErrorKind.client,
-          _i12.StackSetNotFoundException,
+          StackSetNotFoundException,
           statusCode: 404,
-          builder: _i12.StackSetNotFoundException.fromResponse,
+          builder: StackSetNotFoundException.fromResponse,
         ),
-        _i1.SmithyError<_i13.StaleRequestException, _i13.StaleRequestException>(
+        _i1.SmithyError<StaleRequestException, StaleRequestException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'StaleRequestException',
           ),
           _i1.ErrorKind.client,
-          _i13.StaleRequestException,
+          StaleRequestException,
           statusCode: 409,
-          builder: _i13.StaleRequestException.fromResponse,
+          builder: StaleRequestException.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'DeleteStackInstances';
   @override
-  _i5.AWSRetryer get retryer => _i5.AWSRetryer();
+  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.DeleteStackInstancesOutput> run(
-    _i2.DeleteStackInstancesInput input, {
-    _i7.AWSHttpClient? client,
+  _i1.SmithyOperation<DeleteStackInstancesOutput> run(
+    DeleteStackInstancesInput input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i14.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -216,7 +202,7 @@ class DeleteStackInstancesOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

@@ -6,11 +6,9 @@ library smoke_test.iam.model.get_service_linked_role_deletion_status_response; /
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/deletion_task_failure_reason_type.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/deletion_task_status_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/deletion_task_failure_reason_type.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/deletion_task_status_type.dart';
 
 part 'get_service_linked_role_deletion_status_response.g.dart';
 
@@ -21,8 +19,8 @@ abstract class GetServiceLinkedRoleDeletionStatusResponse
         Built<GetServiceLinkedRoleDeletionStatusResponse,
             GetServiceLinkedRoleDeletionStatusResponseBuilder> {
   factory GetServiceLinkedRoleDeletionStatusResponse({
-    required _i2.DeletionTaskStatusType status,
-    _i3.DeletionTaskFailureReasonType? reason,
+    required DeletionTaskStatusType status,
+    DeletionTaskFailureReasonType? reason,
   }) {
     return _$GetServiceLinkedRoleDeletionStatusResponse._(
       status: status,
@@ -44,16 +42,16 @@ abstract class GetServiceLinkedRoleDeletionStatusResponse
       payload;
 
   static const List<
-          _i4.SmithySerializer<GetServiceLinkedRoleDeletionStatusResponse>>
+          _i2.SmithySerializer<GetServiceLinkedRoleDeletionStatusResponse>>
       serializers = [
     GetServiceLinkedRoleDeletionStatusResponseAwsQuerySerializer()
   ];
 
   /// The status of the deletion.
-  _i2.DeletionTaskStatusType get status;
+  DeletionTaskStatusType get status;
 
   /// An object that contains details about the reason the deletion failed.
-  _i3.DeletionTaskFailureReasonType? get reason;
+  DeletionTaskFailureReasonType? get reason;
   @override
   List<Object?> get props => [
         status,
@@ -75,7 +73,7 @@ abstract class GetServiceLinkedRoleDeletionStatusResponse
   }
 }
 
-class GetServiceLinkedRoleDeletionStatusResponseAwsQuerySerializer extends _i4
+class GetServiceLinkedRoleDeletionStatusResponseAwsQuerySerializer extends _i2
     .StructuredSmithySerializer<GetServiceLinkedRoleDeletionStatusResponse> {
   const GetServiceLinkedRoleDeletionStatusResponseAwsQuerySerializer()
       : super('GetServiceLinkedRoleDeletionStatusResponse');
@@ -86,8 +84,8 @@ class GetServiceLinkedRoleDeletionStatusResponseAwsQuerySerializer extends _i4
         _$GetServiceLinkedRoleDeletionStatusResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -111,13 +109,13 @@ class GetServiceLinkedRoleDeletionStatusResponseAwsQuerySerializer extends _i4
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.DeletionTaskStatusType),
-          ) as _i2.DeletionTaskStatusType);
+            specifiedType: const FullType(DeletionTaskStatusType),
+          ) as DeletionTaskStatusType);
         case 'Reason':
           result.reason.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.DeletionTaskFailureReasonType),
-          ) as _i3.DeletionTaskFailureReasonType));
+            specifiedType: const FullType(DeletionTaskFailureReasonType),
+          ) as DeletionTaskFailureReasonType));
       }
     }
 
@@ -131,24 +129,24 @@ class GetServiceLinkedRoleDeletionStatusResponseAwsQuerySerializer extends _i4
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'GetServiceLinkedRoleDeletionStatusResponseResponse',
-        _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final GetServiceLinkedRoleDeletionStatusResponse(:status, :reason) = object;
     result$
-      ..add(const _i4.XmlElementName('Status'))
+      ..add(const _i2.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(_i2.DeletionTaskStatusType),
+        specifiedType: const FullType.nullable(DeletionTaskStatusType),
       ));
     if (reason != null) {
       result$
-        ..add(const _i4.XmlElementName('Reason'))
+        ..add(const _i2.XmlElementName('Reason'))
         ..add(serializers.serialize(
           reason,
-          specifiedType: const FullType(_i3.DeletionTaskFailureReasonType),
+          specifiedType: const FullType(DeletionTaskFailureReasonType),
         ));
     }
     return result$;

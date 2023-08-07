@@ -10,11 +10,11 @@ class _$AggregatedSourceStatus extends AggregatedSourceStatus {
   @override
   final String? sourceId;
   @override
-  final _i2.AggregatedSourceType? sourceType;
+  final AggregatedSourceType? sourceType;
   @override
   final String? awsRegion;
   @override
-  final _i3.AggregatedSourceStatusType? lastUpdateStatus;
+  final AggregatedSourceStatusType? lastUpdateStatus;
   @override
   final DateTime? lastUpdateTime;
   @override
@@ -81,19 +81,18 @@ class AggregatedSourceStatusBuilder
   String? get sourceId => _$this._sourceId;
   set sourceId(String? sourceId) => _$this._sourceId = sourceId;
 
-  _i2.AggregatedSourceType? _sourceType;
-  _i2.AggregatedSourceType? get sourceType => _$this._sourceType;
-  set sourceType(_i2.AggregatedSourceType? sourceType) =>
+  AggregatedSourceType? _sourceType;
+  AggregatedSourceType? get sourceType => _$this._sourceType;
+  set sourceType(AggregatedSourceType? sourceType) =>
       _$this._sourceType = sourceType;
 
   String? _awsRegion;
   String? get awsRegion => _$this._awsRegion;
   set awsRegion(String? awsRegion) => _$this._awsRegion = awsRegion;
 
-  _i3.AggregatedSourceStatusType? _lastUpdateStatus;
-  _i3.AggregatedSourceStatusType? get lastUpdateStatus =>
-      _$this._lastUpdateStatus;
-  set lastUpdateStatus(_i3.AggregatedSourceStatusType? lastUpdateStatus) =>
+  AggregatedSourceStatusType? _lastUpdateStatus;
+  AggregatedSourceStatusType? get lastUpdateStatus => _$this._lastUpdateStatus;
+  set lastUpdateStatus(AggregatedSourceStatusType? lastUpdateStatus) =>
       _$this._lastUpdateStatus = lastUpdateStatus;
 
   DateTime? _lastUpdateTime;

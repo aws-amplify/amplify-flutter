@@ -9,7 +9,7 @@ part of 'describe_delivery_channel_status_response.dart';
 class _$DescribeDeliveryChannelStatusResponse
     extends DescribeDeliveryChannelStatusResponse {
   @override
-  final _i3.BuiltList<_i2.DeliveryChannelStatus>? deliveryChannelsStatus;
+  final _i2.BuiltList<DeliveryChannelStatus>? deliveryChannelsStatus;
 
   factory _$DescribeDeliveryChannelStatusResponse(
           [void Function(DescribeDeliveryChannelStatusResponseBuilder)?
@@ -52,12 +52,12 @@ class DescribeDeliveryChannelStatusResponseBuilder
             DescribeDeliveryChannelStatusResponseBuilder> {
   _$DescribeDeliveryChannelStatusResponse? _$v;
 
-  _i3.ListBuilder<_i2.DeliveryChannelStatus>? _deliveryChannelsStatus;
-  _i3.ListBuilder<_i2.DeliveryChannelStatus> get deliveryChannelsStatus =>
+  _i2.ListBuilder<DeliveryChannelStatus>? _deliveryChannelsStatus;
+  _i2.ListBuilder<DeliveryChannelStatus> get deliveryChannelsStatus =>
       _$this._deliveryChannelsStatus ??=
-          new _i3.ListBuilder<_i2.DeliveryChannelStatus>();
+          new _i2.ListBuilder<DeliveryChannelStatus>();
   set deliveryChannelsStatus(
-          _i3.ListBuilder<_i2.DeliveryChannelStatus>? deliveryChannelsStatus) =>
+          _i2.ListBuilder<DeliveryChannelStatus>? deliveryChannelsStatus) =>
       _$this._deliveryChannelsStatus = deliveryChannelsStatus;
 
   DescribeDeliveryChannelStatusResponseBuilder();

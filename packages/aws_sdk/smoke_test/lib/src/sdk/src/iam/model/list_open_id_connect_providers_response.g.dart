@@ -9,7 +9,7 @@ part of 'list_open_id_connect_providers_response.dart';
 class _$ListOpenIdConnectProvidersResponse
     extends ListOpenIdConnectProvidersResponse {
   @override
-  final _i3.BuiltList<_i2.OpenIdConnectProviderListEntry>?
+  final _i2.BuiltList<OpenIdConnectProviderListEntry>?
       openIdConnectProviderList;
 
   factory _$ListOpenIdConnectProvidersResponse(
@@ -52,13 +52,12 @@ class ListOpenIdConnectProvidersResponseBuilder
             ListOpenIdConnectProvidersResponseBuilder> {
   _$ListOpenIdConnectProvidersResponse? _$v;
 
-  _i3.ListBuilder<_i2.OpenIdConnectProviderListEntry>?
-      _openIdConnectProviderList;
-  _i3.ListBuilder<_i2.OpenIdConnectProviderListEntry>
+  _i2.ListBuilder<OpenIdConnectProviderListEntry>? _openIdConnectProviderList;
+  _i2.ListBuilder<OpenIdConnectProviderListEntry>
       get openIdConnectProviderList => _$this._openIdConnectProviderList ??=
-          new _i3.ListBuilder<_i2.OpenIdConnectProviderListEntry>();
+          new _i2.ListBuilder<OpenIdConnectProviderListEntry>();
   set openIdConnectProviderList(
-          _i3.ListBuilder<_i2.OpenIdConnectProviderListEntry>?
+          _i2.ListBuilder<OpenIdConnectProviderListEntry>?
               openIdConnectProviderList) =>
       _$this._openIdConnectProviderList = openIdConnectProviderList;
 

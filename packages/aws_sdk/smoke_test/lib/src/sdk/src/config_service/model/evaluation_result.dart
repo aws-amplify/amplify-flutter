@@ -6,11 +6,9 @@ library smoke_test.config_service.model.evaluation_result; // ignore_for_file: n
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/compliance_type.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_result_identifier.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/compliance_type.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_result_identifier.dart';
 
 part 'evaluation_result.g.dart';
 
@@ -20,8 +18,8 @@ abstract class EvaluationResult
     implements Built<EvaluationResult, EvaluationResultBuilder> {
   /// The details of an Config evaluation. Provides the Amazon Web Services resource that was evaluated, the compliance of the resource, related time stamps, and supplementary information.
   factory EvaluationResult({
-    _i2.EvaluationResultIdentifier? evaluationResultIdentifier,
-    _i3.ComplianceType? complianceType,
+    EvaluationResultIdentifier? evaluationResultIdentifier,
+    ComplianceType? complianceType,
     DateTime? resultRecordedTime,
     DateTime? configRuleInvokedTime,
     String? annotation,
@@ -43,17 +41,17 @@ abstract class EvaluationResult
 
   const EvaluationResult._();
 
-  static const List<_i4.SmithySerializer<EvaluationResult>> serializers = [
+  static const List<_i2.SmithySerializer<EvaluationResult>> serializers = [
     EvaluationResultAwsJson11Serializer()
   ];
 
   /// Uniquely identifies the evaluation result.
-  _i2.EvaluationResultIdentifier? get evaluationResultIdentifier;
+  EvaluationResultIdentifier? get evaluationResultIdentifier;
 
   /// Indicates whether the Amazon Web Services resource complies with the Config rule that evaluated it.
   ///
   /// For the `EvaluationResult` data type, Config supports only the `COMPLIANT`, `NON_COMPLIANT`, and `NOT_APPLICABLE` values. Config does not support the `INSUFFICIENT_DATA` value for the `EvaluationResult` data type.
-  _i3.ComplianceType? get complianceType;
+  ComplianceType? get complianceType;
 
   /// The time when Config recorded the evaluation result.
   DateTime? get resultRecordedTime;
@@ -107,7 +105,7 @@ abstract class EvaluationResult
 }
 
 class EvaluationResultAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<EvaluationResult> {
+    extends _i2.StructuredSmithySerializer<EvaluationResult> {
   const EvaluationResultAwsJson11Serializer() : super('EvaluationResult');
 
   @override
@@ -116,8 +114,8 @@ class EvaluationResultAwsJson11Serializer
         _$EvaluationResult,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -141,13 +139,13 @@ class EvaluationResultAwsJson11Serializer
         case 'EvaluationResultIdentifier':
           result.evaluationResultIdentifier.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.EvaluationResultIdentifier),
-          ) as _i2.EvaluationResultIdentifier));
+            specifiedType: const FullType(EvaluationResultIdentifier),
+          ) as EvaluationResultIdentifier));
         case 'ComplianceType':
           result.complianceType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ComplianceType),
-          ) as _i3.ComplianceType);
+            specifiedType: const FullType(ComplianceType),
+          ) as ComplianceType);
         case 'ResultRecordedTime':
           result.resultRecordedTime = (serializers.deserialize(
             value,
@@ -194,7 +192,7 @@ class EvaluationResultAwsJson11Serializer
         ..add('EvaluationResultIdentifier')
         ..add(serializers.serialize(
           evaluationResultIdentifier,
-          specifiedType: const FullType(_i2.EvaluationResultIdentifier),
+          specifiedType: const FullType(EvaluationResultIdentifier),
         ));
     }
     if (complianceType != null) {
@@ -202,7 +200,7 @@ class EvaluationResultAwsJson11Serializer
         ..add('ComplianceType')
         ..add(serializers.serialize(
           complianceType,
-          specifiedType: const FullType(_i3.ComplianceType),
+          specifiedType: const FullType(ComplianceType),
         ));
     }
     if (resultRecordedTime != null) {

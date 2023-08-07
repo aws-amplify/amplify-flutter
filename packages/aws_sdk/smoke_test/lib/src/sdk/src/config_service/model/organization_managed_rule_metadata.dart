@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.organization_managed_rule_metadata; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/maximum_execution_frequency.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/maximum_execution_frequency.dart';
 
 part 'organization_managed_rule_metadata.g.dart';
 
@@ -25,7 +24,7 @@ abstract class OrganizationManagedRuleMetadata
     String? description,
     required String ruleIdentifier,
     String? inputParameters,
-    _i2.MaximumExecutionFrequency? maximumExecutionFrequency,
+    MaximumExecutionFrequency? maximumExecutionFrequency,
     List<String>? resourceTypesScope,
     String? resourceIdScope,
     String? tagKeyScope,
@@ -37,7 +36,7 @@ abstract class OrganizationManagedRuleMetadata
       inputParameters: inputParameters,
       maximumExecutionFrequency: maximumExecutionFrequency,
       resourceTypesScope:
-          resourceTypesScope == null ? null : _i3.BuiltList(resourceTypesScope),
+          resourceTypesScope == null ? null : _i2.BuiltList(resourceTypesScope),
       resourceIdScope: resourceIdScope,
       tagKeyScope: tagKeyScope,
       tagValueScope: tagValueScope,
@@ -51,7 +50,7 @@ abstract class OrganizationManagedRuleMetadata
 
   const OrganizationManagedRuleMetadata._();
 
-  static const List<_i4.SmithySerializer<OrganizationManagedRuleMetadata>>
+  static const List<_i3.SmithySerializer<OrganizationManagedRuleMetadata>>
       serializers = [OrganizationManagedRuleMetadataAwsJson11Serializer()];
 
   /// The description that you provide for your organization Config rule.
@@ -66,10 +65,10 @@ abstract class OrganizationManagedRuleMetadata
   /// The maximum frequency with which Config runs evaluations for a rule. This is for an Config managed rule that is triggered at a periodic frequency.
   ///
   /// By default, rules with a periodic trigger are evaluated every 24 hours. To change the frequency, specify a valid value for the `MaximumExecutionFrequency` parameter.
-  _i2.MaximumExecutionFrequency? get maximumExecutionFrequency;
+  MaximumExecutionFrequency? get maximumExecutionFrequency;
 
   /// The type of the Amazon Web Services resource that was evaluated.
-  _i3.BuiltList<String>? get resourceTypesScope;
+  _i2.BuiltList<String>? get resourceTypesScope;
 
   /// The ID of the Amazon Web Services resource that was evaluated.
   String? get resourceIdScope;
@@ -131,7 +130,7 @@ abstract class OrganizationManagedRuleMetadata
 }
 
 class OrganizationManagedRuleMetadataAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<OrganizationManagedRuleMetadata> {
+    extends _i3.StructuredSmithySerializer<OrganizationManagedRuleMetadata> {
   const OrganizationManagedRuleMetadataAwsJson11Serializer()
       : super('OrganizationManagedRuleMetadata');
 
@@ -141,8 +140,8 @@ class OrganizationManagedRuleMetadataAwsJson11Serializer
         _$OrganizationManagedRuleMetadata,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -181,16 +180,16 @@ class OrganizationManagedRuleMetadataAwsJson11Serializer
         case 'MaximumExecutionFrequency':
           result.maximumExecutionFrequency = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.MaximumExecutionFrequency),
-          ) as _i2.MaximumExecutionFrequency);
+            specifiedType: const FullType(MaximumExecutionFrequency),
+          ) as MaximumExecutionFrequency);
         case 'ResourceTypesScope':
           result.resourceTypesScope.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i3.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
         case 'ResourceIdScope':
           result.resourceIdScope = (serializers.deserialize(
             value,
@@ -257,7 +256,7 @@ class OrganizationManagedRuleMetadataAwsJson11Serializer
         ..add('MaximumExecutionFrequency')
         ..add(serializers.serialize(
           maximumExecutionFrequency,
-          specifiedType: const FullType(_i2.MaximumExecutionFrequency),
+          specifiedType: const FullType(MaximumExecutionFrequency),
         ));
     }
     if (resourceTypesScope != null) {
@@ -266,7 +265,7 @@ class OrganizationManagedRuleMetadataAwsJson11Serializer
         ..add(serializers.serialize(
           resourceTypesScope,
           specifiedType: const FullType(
-            _i3.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));

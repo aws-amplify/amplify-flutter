@@ -6,13 +6,10 @@ library smoke_test.dynamo_db.model.backup_description; // ignore_for_file: no_le
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/backup_details.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/source_table_details.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/source_table_feature_details.dart'
-    as _i4;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/backup_details.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/source_table_details.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/source_table_feature_details.dart';
 
 part 'backup_description.g.dart';
 
@@ -22,9 +19,9 @@ abstract class BackupDescription
     implements Built<BackupDescription, BackupDescriptionBuilder> {
   /// Contains the description of the backup created for the table.
   factory BackupDescription({
-    _i2.BackupDetails? backupDetails,
-    _i3.SourceTableDetails? sourceTableDetails,
-    _i4.SourceTableFeatureDetails? sourceTableFeatureDetails,
+    BackupDetails? backupDetails,
+    SourceTableDetails? sourceTableDetails,
+    SourceTableFeatureDetails? sourceTableFeatureDetails,
   }) {
     return _$BackupDescription._(
       backupDetails: backupDetails,
@@ -39,18 +36,18 @@ abstract class BackupDescription
 
   const BackupDescription._();
 
-  static const List<_i5.SmithySerializer<BackupDescription>> serializers = [
+  static const List<_i2.SmithySerializer<BackupDescription>> serializers = [
     BackupDescriptionAwsJson10Serializer()
   ];
 
   /// Contains the details of the backup created for the table.
-  _i2.BackupDetails? get backupDetails;
+  BackupDetails? get backupDetails;
 
   /// Contains the details of the table when the backup was created.
-  _i3.SourceTableDetails? get sourceTableDetails;
+  SourceTableDetails? get sourceTableDetails;
 
   /// Contains the details of the features enabled on the table when the backup was created. For example, LSIs, GSIs, streams, TTL.
-  _i4.SourceTableFeatureDetails? get sourceTableFeatureDetails;
+  SourceTableFeatureDetails? get sourceTableFeatureDetails;
   @override
   List<Object?> get props => [
         backupDetails,
@@ -77,7 +74,7 @@ abstract class BackupDescription
 }
 
 class BackupDescriptionAwsJson10Serializer
-    extends _i5.StructuredSmithySerializer<BackupDescription> {
+    extends _i2.StructuredSmithySerializer<BackupDescription> {
   const BackupDescriptionAwsJson10Serializer() : super('BackupDescription');
 
   @override
@@ -86,8 +83,8 @@ class BackupDescriptionAwsJson10Serializer
         _$BackupDescription,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -111,18 +108,18 @@ class BackupDescriptionAwsJson10Serializer
         case 'BackupDetails':
           result.backupDetails.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.BackupDetails),
-          ) as _i2.BackupDetails));
+            specifiedType: const FullType(BackupDetails),
+          ) as BackupDetails));
         case 'SourceTableDetails':
           result.sourceTableDetails.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.SourceTableDetails),
-          ) as _i3.SourceTableDetails));
+            specifiedType: const FullType(SourceTableDetails),
+          ) as SourceTableDetails));
         case 'SourceTableFeatureDetails':
           result.sourceTableFeatureDetails.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.SourceTableFeatureDetails),
-          ) as _i4.SourceTableFeatureDetails));
+            specifiedType: const FullType(SourceTableFeatureDetails),
+          ) as SourceTableFeatureDetails));
       }
     }
 
@@ -146,7 +143,7 @@ class BackupDescriptionAwsJson10Serializer
         ..add('BackupDetails')
         ..add(serializers.serialize(
           backupDetails,
-          specifiedType: const FullType(_i2.BackupDetails),
+          specifiedType: const FullType(BackupDetails),
         ));
     }
     if (sourceTableDetails != null) {
@@ -154,7 +151,7 @@ class BackupDescriptionAwsJson10Serializer
         ..add('SourceTableDetails')
         ..add(serializers.serialize(
           sourceTableDetails,
-          specifiedType: const FullType(_i3.SourceTableDetails),
+          specifiedType: const FullType(SourceTableDetails),
         ));
     }
     if (sourceTableFeatureDetails != null) {
@@ -162,7 +159,7 @@ class BackupDescriptionAwsJson10Serializer
         ..add('SourceTableFeatureDetails')
         ..add(serializers.serialize(
           sourceTableFeatureDetails,
-          specifiedType: const FullType(_i4.SourceTableFeatureDetails),
+          specifiedType: const FullType(SourceTableFeatureDetails),
         ));
     }
     return result$;

@@ -10,7 +10,7 @@ class _$TagResourceInput extends TagResourceInput {
   @override
   final String resourceArn;
   @override
-  final _i4.BuiltList<_i3.Tag> tags;
+  final _i3.BuiltList<Tag> tags;
 
   factory _$TagResourceInput(
           [void Function(TagResourceInputBuilder)? updates]) =>
@@ -57,10 +57,9 @@ class TagResourceInputBuilder
   String? get resourceArn => _$this._resourceArn;
   set resourceArn(String? resourceArn) => _$this._resourceArn = resourceArn;
 
-  _i4.ListBuilder<_i3.Tag>? _tags;
-  _i4.ListBuilder<_i3.Tag> get tags =>
-      _$this._tags ??= new _i4.ListBuilder<_i3.Tag>();
-  set tags(_i4.ListBuilder<_i3.Tag>? tags) => _$this._tags = tags;
+  _i3.ListBuilder<Tag>? _tags;
+  _i3.ListBuilder<Tag> get tags => _$this._tags ??= new _i3.ListBuilder<Tag>();
+  set tags(_i3.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   TagResourceInputBuilder();
 

@@ -16,7 +16,7 @@ class _$CreatePolicyRequest extends CreatePolicyRequest {
   @override
   final String? description;
   @override
-  final _i4.BuiltList<_i3.Tag>? tags;
+  final _i3.BuiltList<Tag>? tags;
 
   factory _$CreatePolicyRequest(
           [void Function(CreatePolicyRequestBuilder)? updates]) =>
@@ -89,10 +89,9 @@ class CreatePolicyRequestBuilder
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  _i4.ListBuilder<_i3.Tag>? _tags;
-  _i4.ListBuilder<_i3.Tag> get tags =>
-      _$this._tags ??= new _i4.ListBuilder<_i3.Tag>();
-  set tags(_i4.ListBuilder<_i3.Tag>? tags) => _$this._tags = tags;
+  _i3.ListBuilder<Tag>? _tags;
+  _i3.ListBuilder<Tag> get tags => _$this._tags ??= new _i3.ListBuilder<Tag>();
+  set tags(_i3.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   CreatePolicyRequestBuilder();
 

@@ -26,19 +26,19 @@ class _$InputAndOutputWithHeadersIo extends InputAndOutputWithHeadersIo {
   @override
   final bool? headerFalseBool;
   @override
-  final _i5.BuiltList<String>? headerStringList;
+  final _i4.BuiltList<String>? headerStringList;
   @override
-  final _i5.BuiltSet<String>? headerStringSet;
+  final _i4.BuiltSet<String>? headerStringSet;
   @override
-  final _i5.BuiltList<int>? headerIntegerList;
+  final _i4.BuiltList<int>? headerIntegerList;
   @override
-  final _i5.BuiltList<bool>? headerBooleanList;
+  final _i4.BuiltList<bool>? headerBooleanList;
   @override
-  final _i5.BuiltList<DateTime>? headerTimestampList;
+  final _i4.BuiltList<DateTime>? headerTimestampList;
   @override
-  final _i4.FooEnum? headerEnum;
+  final FooEnum? headerEnum;
   @override
-  final _i5.BuiltList<_i4.FooEnum>? headerEnumList;
+  final _i4.BuiltList<FooEnum>? headerEnumList;
 
   factory _$InputAndOutputWithHeadersIo(
           [void Function(InputAndOutputWithHeadersIoBuilder)? updates]) =>
@@ -163,44 +163,44 @@ class InputAndOutputWithHeadersIoBuilder
   set headerFalseBool(bool? headerFalseBool) =>
       _$this._headerFalseBool = headerFalseBool;
 
-  _i5.ListBuilder<String>? _headerStringList;
-  _i5.ListBuilder<String> get headerStringList =>
-      _$this._headerStringList ??= new _i5.ListBuilder<String>();
-  set headerStringList(_i5.ListBuilder<String>? headerStringList) =>
+  _i4.ListBuilder<String>? _headerStringList;
+  _i4.ListBuilder<String> get headerStringList =>
+      _$this._headerStringList ??= new _i4.ListBuilder<String>();
+  set headerStringList(_i4.ListBuilder<String>? headerStringList) =>
       _$this._headerStringList = headerStringList;
 
-  _i5.SetBuilder<String>? _headerStringSet;
-  _i5.SetBuilder<String> get headerStringSet =>
-      _$this._headerStringSet ??= new _i5.SetBuilder<String>();
-  set headerStringSet(_i5.SetBuilder<String>? headerStringSet) =>
+  _i4.SetBuilder<String>? _headerStringSet;
+  _i4.SetBuilder<String> get headerStringSet =>
+      _$this._headerStringSet ??= new _i4.SetBuilder<String>();
+  set headerStringSet(_i4.SetBuilder<String>? headerStringSet) =>
       _$this._headerStringSet = headerStringSet;
 
-  _i5.ListBuilder<int>? _headerIntegerList;
-  _i5.ListBuilder<int> get headerIntegerList =>
-      _$this._headerIntegerList ??= new _i5.ListBuilder<int>();
-  set headerIntegerList(_i5.ListBuilder<int>? headerIntegerList) =>
+  _i4.ListBuilder<int>? _headerIntegerList;
+  _i4.ListBuilder<int> get headerIntegerList =>
+      _$this._headerIntegerList ??= new _i4.ListBuilder<int>();
+  set headerIntegerList(_i4.ListBuilder<int>? headerIntegerList) =>
       _$this._headerIntegerList = headerIntegerList;
 
-  _i5.ListBuilder<bool>? _headerBooleanList;
-  _i5.ListBuilder<bool> get headerBooleanList =>
-      _$this._headerBooleanList ??= new _i5.ListBuilder<bool>();
-  set headerBooleanList(_i5.ListBuilder<bool>? headerBooleanList) =>
+  _i4.ListBuilder<bool>? _headerBooleanList;
+  _i4.ListBuilder<bool> get headerBooleanList =>
+      _$this._headerBooleanList ??= new _i4.ListBuilder<bool>();
+  set headerBooleanList(_i4.ListBuilder<bool>? headerBooleanList) =>
       _$this._headerBooleanList = headerBooleanList;
 
-  _i5.ListBuilder<DateTime>? _headerTimestampList;
-  _i5.ListBuilder<DateTime> get headerTimestampList =>
-      _$this._headerTimestampList ??= new _i5.ListBuilder<DateTime>();
-  set headerTimestampList(_i5.ListBuilder<DateTime>? headerTimestampList) =>
+  _i4.ListBuilder<DateTime>? _headerTimestampList;
+  _i4.ListBuilder<DateTime> get headerTimestampList =>
+      _$this._headerTimestampList ??= new _i4.ListBuilder<DateTime>();
+  set headerTimestampList(_i4.ListBuilder<DateTime>? headerTimestampList) =>
       _$this._headerTimestampList = headerTimestampList;
 
-  _i4.FooEnum? _headerEnum;
-  _i4.FooEnum? get headerEnum => _$this._headerEnum;
-  set headerEnum(_i4.FooEnum? headerEnum) => _$this._headerEnum = headerEnum;
+  FooEnum? _headerEnum;
+  FooEnum? get headerEnum => _$this._headerEnum;
+  set headerEnum(FooEnum? headerEnum) => _$this._headerEnum = headerEnum;
 
-  _i5.ListBuilder<_i4.FooEnum>? _headerEnumList;
-  _i5.ListBuilder<_i4.FooEnum> get headerEnumList =>
-      _$this._headerEnumList ??= new _i5.ListBuilder<_i4.FooEnum>();
-  set headerEnumList(_i5.ListBuilder<_i4.FooEnum>? headerEnumList) =>
+  _i4.ListBuilder<FooEnum>? _headerEnumList;
+  _i4.ListBuilder<FooEnum> get headerEnumList =>
+      _$this._headerEnumList ??= new _i4.ListBuilder<FooEnum>();
+  set headerEnumList(_i4.ListBuilder<FooEnum>? headerEnumList) =>
       _$this._headerEnumList = headerEnumList;
 
   InputAndOutputWithHeadersIoBuilder();

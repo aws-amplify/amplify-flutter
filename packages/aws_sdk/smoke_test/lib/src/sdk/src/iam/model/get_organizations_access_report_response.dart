@@ -4,13 +4,13 @@
 library smoke_test.iam.model.get_organizations_access_report_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/iam/model/access_detail.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/error_details.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/job_status_type.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/access_detail.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/error_details.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/job_status_type.dart';
 
 part 'get_organizations_access_report_response.g.dart';
 
@@ -21,15 +21,15 @@ abstract class GetOrganizationsAccessReportResponse
         Built<GetOrganizationsAccessReportResponse,
             GetOrganizationsAccessReportResponseBuilder> {
   factory GetOrganizationsAccessReportResponse({
-    required _i2.JobStatusType jobStatus,
+    required JobStatusType jobStatus,
     required DateTime jobCreationDate,
     DateTime? jobCompletionDate,
     int? numberOfServicesAccessible,
     int? numberOfServicesNotAccessed,
-    List<_i3.AccessDetail>? accessDetails,
+    List<AccessDetail>? accessDetails,
     bool? isTruncated,
     String? marker,
-    _i4.ErrorDetails? errorDetails,
+    ErrorDetails? errorDetails,
   }) {
     isTruncated ??= false;
     return _$GetOrganizationsAccessReportResponse._(
@@ -39,7 +39,7 @@ abstract class GetOrganizationsAccessReportResponse
       numberOfServicesAccessible: numberOfServicesAccessible,
       numberOfServicesNotAccessed: numberOfServicesNotAccessed,
       accessDetails:
-          accessDetails == null ? null : _i5.BuiltList(accessDetails),
+          accessDetails == null ? null : _i2.BuiltList(accessDetails),
       isTruncated: isTruncated,
       marker: marker,
       errorDetails: errorDetails,
@@ -59,7 +59,7 @@ abstract class GetOrganizationsAccessReportResponse
   ) =>
       payload;
 
-  static const List<_i6.SmithySerializer<GetOrganizationsAccessReportResponse>>
+  static const List<_i3.SmithySerializer<GetOrganizationsAccessReportResponse>>
       serializers = [GetOrganizationsAccessReportResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -68,7 +68,7 @@ abstract class GetOrganizationsAccessReportResponse
   }
 
   /// The status of the job.
-  _i2.JobStatusType get jobStatus;
+  JobStatusType get jobStatus;
 
   /// The date and time, in [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the report job was created.
   DateTime get jobCreationDate;
@@ -85,7 +85,7 @@ abstract class GetOrganizationsAccessReportResponse
   int? get numberOfServicesNotAccessed;
 
   /// An object that contains details about the most recent attempt to access the service.
-  _i5.BuiltList<_i3.AccessDetail>? get accessDetails;
+  _i2.BuiltList<AccessDetail>? get accessDetails;
 
   /// A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the `Marker` request parameter to retrieve more items. Note that IAM might return fewer than the `MaxItems` number of results even when there are more results available. We recommend that you check `IsTruncated` after every call to ensure that you receive all your results.
   bool get isTruncated;
@@ -96,7 +96,7 @@ abstract class GetOrganizationsAccessReportResponse
   /// Contains information about the reason that the operation failed.
   ///
   /// This data type is used as a response element in the GetOrganizationsAccessReport, GetServiceLastAccessedDetails, and GetServiceLastAccessedDetailsWithEntities operations.
-  _i4.ErrorDetails? get errorDetails;
+  ErrorDetails? get errorDetails;
   @override
   List<Object?> get props => [
         jobStatus,
@@ -153,7 +153,7 @@ abstract class GetOrganizationsAccessReportResponse
   }
 }
 
-class GetOrganizationsAccessReportResponseAwsQuerySerializer extends _i6
+class GetOrganizationsAccessReportResponseAwsQuerySerializer extends _i3
     .StructuredSmithySerializer<GetOrganizationsAccessReportResponse> {
   const GetOrganizationsAccessReportResponseAwsQuerySerializer()
       : super('GetOrganizationsAccessReportResponse');
@@ -164,8 +164,8 @@ class GetOrganizationsAccessReportResponseAwsQuerySerializer extends _i6
         _$GetOrganizationsAccessReportResponse,
       ];
   @override
-  Iterable<_i6.ShapeId> get supportedProtocols => const [
-        _i6.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -189,8 +189,8 @@ class GetOrganizationsAccessReportResponseAwsQuerySerializer extends _i6
         case 'JobStatus':
           result.jobStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.JobStatusType),
-          ) as _i2.JobStatusType);
+            specifiedType: const FullType(JobStatusType),
+          ) as JobStatusType);
         case 'JobCreationDate':
           result.jobCreationDate = (serializers.deserialize(
             value,
@@ -212,16 +212,16 @@ class GetOrganizationsAccessReportResponseAwsQuerySerializer extends _i6
             specifiedType: const FullType(int),
           ) as int);
         case 'AccessDetails':
-          result.accessDetails.replace((const _i6.XmlBuiltListSerializer(
-                  indexer: _i6.XmlIndexer.awsQueryList)
+          result.accessDetails.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(_i3.AccessDetail)],
+              _i2.BuiltList,
+              [FullType(AccessDetail)],
             ),
-          ) as _i5.BuiltList<_i3.AccessDetail>));
+          ) as _i2.BuiltList<AccessDetail>));
         case 'IsTruncated':
           result.isTruncated = (serializers.deserialize(
             value,
@@ -235,8 +235,8 @@ class GetOrganizationsAccessReportResponseAwsQuerySerializer extends _i6
         case 'ErrorDetails':
           result.errorDetails.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ErrorDetails),
-          ) as _i4.ErrorDetails));
+            specifiedType: const FullType(ErrorDetails),
+          ) as ErrorDetails));
       }
     }
 
@@ -250,9 +250,9 @@ class GetOrganizationsAccessReportResponseAwsQuerySerializer extends _i6
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i6.XmlElementName(
+      const _i3.XmlElementName(
         'GetOrganizationsAccessReportResponseResponse',
-        _i6.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final GetOrganizationsAccessReportResponse(
@@ -267,20 +267,20 @@ class GetOrganizationsAccessReportResponseAwsQuerySerializer extends _i6
       :errorDetails
     ) = object;
     result$
-      ..add(const _i6.XmlElementName('JobStatus'))
+      ..add(const _i3.XmlElementName('JobStatus'))
       ..add(serializers.serialize(
         jobStatus,
-        specifiedType: const FullType.nullable(_i2.JobStatusType),
+        specifiedType: const FullType.nullable(JobStatusType),
       ));
     result$
-      ..add(const _i6.XmlElementName('JobCreationDate'))
+      ..add(const _i3.XmlElementName('JobCreationDate'))
       ..add(serializers.serialize(
         jobCreationDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
     if (jobCompletionDate != null) {
       result$
-        ..add(const _i6.XmlElementName('JobCompletionDate'))
+        ..add(const _i3.XmlElementName('JobCompletionDate'))
         ..add(serializers.serialize(
           jobCompletionDate,
           specifiedType: const FullType.nullable(DateTime),
@@ -288,7 +288,7 @@ class GetOrganizationsAccessReportResponseAwsQuerySerializer extends _i6
     }
     if (numberOfServicesAccessible != null) {
       result$
-        ..add(const _i6.XmlElementName('NumberOfServicesAccessible'))
+        ..add(const _i3.XmlElementName('NumberOfServicesAccessible'))
         ..add(serializers.serialize(
           numberOfServicesAccessible,
           specifiedType: const FullType.nullable(int),
@@ -296,7 +296,7 @@ class GetOrganizationsAccessReportResponseAwsQuerySerializer extends _i6
     }
     if (numberOfServicesNotAccessed != null) {
       result$
-        ..add(const _i6.XmlElementName('NumberOfServicesNotAccessed'))
+        ..add(const _i3.XmlElementName('NumberOfServicesNotAccessed'))
         ..add(serializers.serialize(
           numberOfServicesNotAccessed,
           specifiedType: const FullType.nullable(int),
@@ -304,27 +304,27 @@ class GetOrganizationsAccessReportResponseAwsQuerySerializer extends _i6
     }
     if (accessDetails != null) {
       result$
-        ..add(const _i6.XmlElementName('AccessDetails'))
-        ..add(const _i6.XmlBuiltListSerializer(
-                indexer: _i6.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('AccessDetails'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           accessDetails,
           specifiedType: const FullType.nullable(
-            _i5.BuiltList,
-            [FullType(_i3.AccessDetail)],
+            _i2.BuiltList,
+            [FullType(AccessDetail)],
           ),
         ));
     }
     result$
-      ..add(const _i6.XmlElementName('IsTruncated'))
+      ..add(const _i3.XmlElementName('IsTruncated'))
       ..add(serializers.serialize(
         isTruncated,
         specifiedType: const FullType(bool),
       ));
     if (marker != null) {
       result$
-        ..add(const _i6.XmlElementName('Marker'))
+        ..add(const _i3.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
           specifiedType: const FullType(String),
@@ -332,10 +332,10 @@ class GetOrganizationsAccessReportResponseAwsQuerySerializer extends _i6
     }
     if (errorDetails != null) {
       result$
-        ..add(const _i6.XmlElementName('ErrorDetails'))
+        ..add(const _i3.XmlElementName('ErrorDetails'))
         ..add(serializers.serialize(
           errorDetails,
-          specifiedType: const FullType(_i4.ErrorDetails),
+          specifiedType: const FullType(ErrorDetails),
         ));
     }
     return result$;

@@ -8,9 +8,9 @@ part of 'condition.dart';
 
 class _$Condition extends Condition {
   @override
-  final _i4.BuiltList<_i2.AttributeValue>? attributeValueList;
+  final _i2.BuiltList<AttributeValue>? attributeValueList;
   @override
-  final _i3.ComparisonOperator comparisonOperator;
+  final ComparisonOperator comparisonOperator;
 
   factory _$Condition([void Function(ConditionBuilder)? updates]) =>
       (new ConditionBuilder()..update(updates))._build();
@@ -49,16 +49,15 @@ class _$Condition extends Condition {
 class ConditionBuilder implements Builder<Condition, ConditionBuilder> {
   _$Condition? _$v;
 
-  _i4.ListBuilder<_i2.AttributeValue>? _attributeValueList;
-  _i4.ListBuilder<_i2.AttributeValue> get attributeValueList =>
-      _$this._attributeValueList ??= new _i4.ListBuilder<_i2.AttributeValue>();
-  set attributeValueList(
-          _i4.ListBuilder<_i2.AttributeValue>? attributeValueList) =>
+  _i2.ListBuilder<AttributeValue>? _attributeValueList;
+  _i2.ListBuilder<AttributeValue> get attributeValueList =>
+      _$this._attributeValueList ??= new _i2.ListBuilder<AttributeValue>();
+  set attributeValueList(_i2.ListBuilder<AttributeValue>? attributeValueList) =>
       _$this._attributeValueList = attributeValueList;
 
-  _i3.ComparisonOperator? _comparisonOperator;
-  _i3.ComparisonOperator? get comparisonOperator => _$this._comparisonOperator;
-  set comparisonOperator(_i3.ComparisonOperator? comparisonOperator) =>
+  ComparisonOperator? _comparisonOperator;
+  ComparisonOperator? get comparisonOperator => _$this._comparisonOperator;
+  set comparisonOperator(ComparisonOperator? comparisonOperator) =>
       _$this._comparisonOperator = comparisonOperator;
 
   ConditionBuilder();

@@ -4,12 +4,11 @@
 library smoke_test.dynamo_db_streams.model.get_records_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/record.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/record.dart';
 
 part 'get_records_output.g.dart';
 
@@ -19,11 +18,11 @@ abstract class GetRecordsOutput
     implements Built<GetRecordsOutput, GetRecordsOutputBuilder> {
   /// Represents the output of a `GetRecords` operation.
   factory GetRecordsOutput({
-    List<_i2.Record>? records,
+    List<Record>? records,
     String? nextShardIterator,
   }) {
     return _$GetRecordsOutput._(
-      records: records == null ? null : _i3.BuiltList(records),
+      records: records == null ? null : _i2.BuiltList(records),
       nextShardIterator: nextShardIterator,
     );
   }
@@ -41,12 +40,12 @@ abstract class GetRecordsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<GetRecordsOutput>> serializers = [
+  static const List<_i3.SmithySerializer<GetRecordsOutput>> serializers = [
     GetRecordsOutputAwsJson10Serializer()
   ];
 
   /// The stream records from the shard, which were retrieved using the shard iterator.
-  _i3.BuiltList<_i2.Record>? get records;
+  _i2.BuiltList<Record>? get records;
 
   /// The next position in the shard from which to start sequentially reading stream records. If set to `null`, the shard has been closed and the requested iterator will not return any more data.
   String? get nextShardIterator;
@@ -71,7 +70,7 @@ abstract class GetRecordsOutput
 }
 
 class GetRecordsOutputAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<GetRecordsOutput> {
+    extends _i3.StructuredSmithySerializer<GetRecordsOutput> {
   const GetRecordsOutputAwsJson10Serializer() : super('GetRecordsOutput');
 
   @override
@@ -80,8 +79,8 @@ class GetRecordsOutputAwsJson10Serializer
         _$GetRecordsOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -106,10 +105,10 @@ class GetRecordsOutputAwsJson10Serializer
           result.records.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.Record)],
+              _i2.BuiltList,
+              [FullType(Record)],
             ),
-          ) as _i3.BuiltList<_i2.Record>));
+          ) as _i2.BuiltList<Record>));
         case 'NextShardIterator':
           result.nextShardIterator = (serializers.deserialize(
             value,
@@ -135,8 +134,8 @@ class GetRecordsOutputAwsJson10Serializer
         ..add(serializers.serialize(
           records,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.Record)],
+            _i2.BuiltList,
+            [FullType(Record)],
           ),
         ));
     }

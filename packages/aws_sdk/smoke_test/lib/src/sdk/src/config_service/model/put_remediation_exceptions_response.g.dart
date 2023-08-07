@@ -9,7 +9,7 @@ part of 'put_remediation_exceptions_response.dart';
 class _$PutRemediationExceptionsResponse
     extends PutRemediationExceptionsResponse {
   @override
-  final _i3.BuiltList<_i2.FailedRemediationExceptionBatch>? failedBatches;
+  final _i2.BuiltList<FailedRemediationExceptionBatch>? failedBatches;
 
   factory _$PutRemediationExceptionsResponse(
           [void Function(PutRemediationExceptionsResponseBuilder)? updates]) =>
@@ -48,13 +48,12 @@ class PutRemediationExceptionsResponseBuilder
             PutRemediationExceptionsResponseBuilder> {
   _$PutRemediationExceptionsResponse? _$v;
 
-  _i3.ListBuilder<_i2.FailedRemediationExceptionBatch>? _failedBatches;
-  _i3.ListBuilder<_i2.FailedRemediationExceptionBatch> get failedBatches =>
+  _i2.ListBuilder<FailedRemediationExceptionBatch>? _failedBatches;
+  _i2.ListBuilder<FailedRemediationExceptionBatch> get failedBatches =>
       _$this._failedBatches ??=
-          new _i3.ListBuilder<_i2.FailedRemediationExceptionBatch>();
+          new _i2.ListBuilder<FailedRemediationExceptionBatch>();
   set failedBatches(
-          _i3.ListBuilder<_i2.FailedRemediationExceptionBatch>?
-              failedBatches) =>
+          _i2.ListBuilder<FailedRemediationExceptionBatch>? failedBatches) =>
       _$this._failedBatches = failedBatches;
 
   PutRemediationExceptionsResponseBuilder();

@@ -8,7 +8,7 @@ part of 'domain_names.dart';
 
 class _$DomainNames extends DomainNames {
   @override
-  final _i3.BuiltList<_i2.DomainName>? items;
+  final _i2.BuiltList<DomainName>? items;
   @override
   final String? position;
 
@@ -45,10 +45,10 @@ class _$DomainNames extends DomainNames {
 class DomainNamesBuilder implements Builder<DomainNames, DomainNamesBuilder> {
   _$DomainNames? _$v;
 
-  _i3.ListBuilder<_i2.DomainName>? _items;
-  _i3.ListBuilder<_i2.DomainName> get items =>
-      _$this._items ??= new _i3.ListBuilder<_i2.DomainName>();
-  set items(_i3.ListBuilder<_i2.DomainName>? items) => _$this._items = items;
+  _i2.ListBuilder<DomainName>? _items;
+  _i2.ListBuilder<DomainName> get items =>
+      _$this._items ??= new _i2.ListBuilder<DomainName>();
+  set items(_i2.ListBuilder<DomainName>? items) => _$this._items = items;
 
   String? _position;
   String? get position => _$this._position;

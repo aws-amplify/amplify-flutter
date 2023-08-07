@@ -18,9 +18,9 @@ class _$GroupDetail extends GroupDetail {
   @override
   final DateTime? createDate;
   @override
-  final _i4.BuiltList<_i2.PolicyDetail>? groupPolicyList;
+  final _i2.BuiltList<PolicyDetail>? groupPolicyList;
   @override
-  final _i4.BuiltList<_i3.AttachedPolicy>? attachedManagedPolicies;
+  final _i2.BuiltList<AttachedPolicy>? attachedManagedPolicies;
 
   factory _$GroupDetail([void Function(GroupDetailBuilder)? updates]) =>
       (new GroupDetailBuilder()..update(updates))._build();
@@ -93,18 +93,17 @@ class GroupDetailBuilder implements Builder<GroupDetail, GroupDetailBuilder> {
   DateTime? get createDate => _$this._createDate;
   set createDate(DateTime? createDate) => _$this._createDate = createDate;
 
-  _i4.ListBuilder<_i2.PolicyDetail>? _groupPolicyList;
-  _i4.ListBuilder<_i2.PolicyDetail> get groupPolicyList =>
-      _$this._groupPolicyList ??= new _i4.ListBuilder<_i2.PolicyDetail>();
-  set groupPolicyList(_i4.ListBuilder<_i2.PolicyDetail>? groupPolicyList) =>
+  _i2.ListBuilder<PolicyDetail>? _groupPolicyList;
+  _i2.ListBuilder<PolicyDetail> get groupPolicyList =>
+      _$this._groupPolicyList ??= new _i2.ListBuilder<PolicyDetail>();
+  set groupPolicyList(_i2.ListBuilder<PolicyDetail>? groupPolicyList) =>
       _$this._groupPolicyList = groupPolicyList;
 
-  _i4.ListBuilder<_i3.AttachedPolicy>? _attachedManagedPolicies;
-  _i4.ListBuilder<_i3.AttachedPolicy> get attachedManagedPolicies =>
-      _$this._attachedManagedPolicies ??=
-          new _i4.ListBuilder<_i3.AttachedPolicy>();
+  _i2.ListBuilder<AttachedPolicy>? _attachedManagedPolicies;
+  _i2.ListBuilder<AttachedPolicy> get attachedManagedPolicies =>
+      _$this._attachedManagedPolicies ??= new _i2.ListBuilder<AttachedPolicy>();
   set attachedManagedPolicies(
-          _i4.ListBuilder<_i3.AttachedPolicy>? attachedManagedPolicies) =>
+          _i2.ListBuilder<AttachedPolicy>? attachedManagedPolicies) =>
       _$this._attachedManagedPolicies = attachedManagedPolicies;
 
   GroupDetailBuilder();

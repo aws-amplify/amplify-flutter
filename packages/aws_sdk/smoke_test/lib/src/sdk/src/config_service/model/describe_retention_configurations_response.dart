@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.describe_retention_configurations_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/retention_configuration.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/retention_configuration.dart';
 
 part 'describe_retention_configurations_response.g.dart';
 
@@ -20,13 +19,13 @@ abstract class DescribeRetentionConfigurationsResponse
         Built<DescribeRetentionConfigurationsResponse,
             DescribeRetentionConfigurationsResponseBuilder> {
   factory DescribeRetentionConfigurationsResponse({
-    List<_i2.RetentionConfiguration>? retentionConfigurations,
+    List<RetentionConfiguration>? retentionConfigurations,
     String? nextToken,
   }) {
     return _$DescribeRetentionConfigurationsResponse._(
       retentionConfigurations: retentionConfigurations == null
           ? null
-          : _i3.BuiltList(retentionConfigurations),
+          : _i2.BuiltList(retentionConfigurations),
       nextToken: nextToken,
     );
   }
@@ -45,13 +44,13 @@ abstract class DescribeRetentionConfigurationsResponse
       payload;
 
   static const List<
-          _i4.SmithySerializer<DescribeRetentionConfigurationsResponse>>
+          _i3.SmithySerializer<DescribeRetentionConfigurationsResponse>>
       serializers = [
     DescribeRetentionConfigurationsResponseAwsJson11Serializer()
   ];
 
   /// Returns a retention configuration object.
-  _i3.BuiltList<_i2.RetentionConfiguration>? get retentionConfigurations;
+  _i2.BuiltList<RetentionConfiguration>? get retentionConfigurations;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -76,7 +75,7 @@ abstract class DescribeRetentionConfigurationsResponse
   }
 }
 
-class DescribeRetentionConfigurationsResponseAwsJson11Serializer extends _i4
+class DescribeRetentionConfigurationsResponseAwsJson11Serializer extends _i3
     .StructuredSmithySerializer<DescribeRetentionConfigurationsResponse> {
   const DescribeRetentionConfigurationsResponseAwsJson11Serializer()
       : super('DescribeRetentionConfigurationsResponse');
@@ -87,8 +86,8 @@ class DescribeRetentionConfigurationsResponseAwsJson11Serializer extends _i4
         _$DescribeRetentionConfigurationsResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -113,10 +112,10 @@ class DescribeRetentionConfigurationsResponseAwsJson11Serializer extends _i4
           result.retentionConfigurations.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.RetentionConfiguration)],
+              _i2.BuiltList,
+              [FullType(RetentionConfiguration)],
             ),
-          ) as _i3.BuiltList<_i2.RetentionConfiguration>));
+          ) as _i2.BuiltList<RetentionConfiguration>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -145,8 +144,8 @@ class DescribeRetentionConfigurationsResponseAwsJson11Serializer extends _i4
         ..add(serializers.serialize(
           retentionConfigurations,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.RetentionConfiguration)],
+            _i2.BuiltList,
+            [FullType(RetentionConfiguration)],
           ),
         ));
     }

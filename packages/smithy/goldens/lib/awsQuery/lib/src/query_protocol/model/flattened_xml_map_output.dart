@@ -4,20 +4,20 @@
 library aws_query_v1.query_protocol.model.flattened_xml_map_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:aws_query_v1/src/query_protocol/model/foo_enum.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:aws_query_v1/src/query_protocol/model/foo_enum.dart';
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i3;
 
 part 'flattened_xml_map_output.g.dart';
 
 abstract class FlattenedXmlMapOutput
     with _i1.AWSEquatable<FlattenedXmlMapOutput>
     implements Built<FlattenedXmlMapOutput, FlattenedXmlMapOutputBuilder> {
-  factory FlattenedXmlMapOutput({Map<String, _i2.FooEnum>? myMap}) {
+  factory FlattenedXmlMapOutput({Map<String, FooEnum>? myMap}) {
     return _$FlattenedXmlMapOutput._(
-        myMap: myMap == null ? null : _i3.BuiltMap(myMap));
+        myMap: myMap == null ? null : _i2.BuiltMap(myMap));
   }
 
   factory FlattenedXmlMapOutput.build(
@@ -33,11 +33,11 @@ abstract class FlattenedXmlMapOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<FlattenedXmlMapOutput>> serializers = [
+  static const List<_i3.SmithySerializer<FlattenedXmlMapOutput>> serializers = [
     FlattenedXmlMapOutputAwsQuerySerializer()
   ];
 
-  _i3.BuiltMap<String, _i2.FooEnum>? get myMap;
+  _i2.BuiltMap<String, FooEnum>? get myMap;
   @override
   List<Object?> get props => [myMap];
   @override
@@ -52,7 +52,7 @@ abstract class FlattenedXmlMapOutput
 }
 
 class FlattenedXmlMapOutputAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<FlattenedXmlMapOutput> {
+    extends _i3.StructuredSmithySerializer<FlattenedXmlMapOutput> {
   const FlattenedXmlMapOutputAwsQuerySerializer()
       : super('FlattenedXmlMapOutput');
 
@@ -62,8 +62,8 @@ class FlattenedXmlMapOutputAwsQuerySerializer
         _$FlattenedXmlMapOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -85,18 +85,18 @@ class FlattenedXmlMapOutputAwsQuerySerializer
       }
       switch (key) {
         case 'myMap':
-          result.myMap.addAll(const _i4.XmlBuiltMapSerializer(
+          result.myMap.addAll(const _i3.XmlBuiltMapSerializer(
             flattenedKey: 'myMap',
-            indexer: _i4.XmlIndexer.awsQueryMap,
+            indexer: _i3.XmlIndexer.awsQueryMap,
           )
               .deserialize(
                 serializers,
                 value is String ? const [] : (value as Iterable<Object?>),
                 specifiedType: const FullType(
-                  _i3.BuiltMap,
+                  _i2.BuiltMap,
                   [
                     FullType(String),
-                    FullType(_i2.FooEnum),
+                    FullType(FooEnum),
                   ],
                 ),
               )
@@ -115,24 +115,24 @@ class FlattenedXmlMapOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'FlattenedXmlMapOutputResponse',
-        _i4.XmlNamespace('https://example.com/'),
+        _i3.XmlNamespace('https://example.com/'),
       )
     ];
     final FlattenedXmlMapOutput(:myMap) = object;
     if (myMap != null) {
-      result$.addAll(const _i4.XmlBuiltMapSerializer(
+      result$.addAll(const _i3.XmlBuiltMapSerializer(
         flattenedKey: 'myMap',
-        indexer: _i4.XmlIndexer.awsQueryMap,
+        indexer: _i3.XmlIndexer.awsQueryMap,
       ).serialize(
         serializers,
         myMap,
         specifiedType: const FullType.nullable(
-          _i3.BuiltMap,
+          _i2.BuiltMap,
           [
             FullType(String),
-            FullType(_i2.FooEnum),
+            FullType(FooEnum),
           ],
         ),
       ));

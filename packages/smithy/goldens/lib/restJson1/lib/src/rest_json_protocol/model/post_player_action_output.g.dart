@@ -8,7 +8,7 @@ part of 'post_player_action_output.dart';
 
 class _$PostPlayerActionOutput extends PostPlayerActionOutput {
   @override
-  final _i2.PlayerAction action;
+  final PlayerAction action;
 
   factory _$PostPlayerActionOutput(
           [void Function(PostPlayerActionOutputBuilder)? updates]) =>
@@ -47,9 +47,9 @@ class PostPlayerActionOutputBuilder
     implements Builder<PostPlayerActionOutput, PostPlayerActionOutputBuilder> {
   _$PostPlayerActionOutput? _$v;
 
-  _i2.PlayerAction? _action;
-  _i2.PlayerAction? get action => _$this._action;
-  set action(_i2.PlayerAction? action) => _$this._action = action;
+  PlayerAction? _action;
+  PlayerAction? get action => _$this._action;
+  set action(PlayerAction? action) => _$this._action = action;
 
   PostPlayerActionOutputBuilder();
 

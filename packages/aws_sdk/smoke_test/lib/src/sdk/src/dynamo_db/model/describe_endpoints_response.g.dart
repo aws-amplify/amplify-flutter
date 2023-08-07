@@ -8,7 +8,7 @@ part of 'describe_endpoints_response.dart';
 
 class _$DescribeEndpointsResponse extends DescribeEndpointsResponse {
   @override
-  final _i3.BuiltList<_i2.Endpoint> endpoints;
+  final _i2.BuiltList<Endpoint> endpoints;
 
   factory _$DescribeEndpointsResponse(
           [void Function(DescribeEndpointsResponseBuilder)? updates]) =>
@@ -48,10 +48,10 @@ class DescribeEndpointsResponseBuilder
         Builder<DescribeEndpointsResponse, DescribeEndpointsResponseBuilder> {
   _$DescribeEndpointsResponse? _$v;
 
-  _i3.ListBuilder<_i2.Endpoint>? _endpoints;
-  _i3.ListBuilder<_i2.Endpoint> get endpoints =>
-      _$this._endpoints ??= new _i3.ListBuilder<_i2.Endpoint>();
-  set endpoints(_i3.ListBuilder<_i2.Endpoint>? endpoints) =>
+  _i2.ListBuilder<Endpoint>? _endpoints;
+  _i2.ListBuilder<Endpoint> get endpoints =>
+      _$this._endpoints ??= new _i2.ListBuilder<Endpoint>();
+  set endpoints(_i2.ListBuilder<Endpoint>? endpoints) =>
       _$this._endpoints = endpoints;
 
   DescribeEndpointsResponseBuilder();

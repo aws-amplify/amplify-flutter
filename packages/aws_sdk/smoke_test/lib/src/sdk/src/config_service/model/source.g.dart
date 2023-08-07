@@ -8,13 +8,13 @@ part of 'source.dart';
 
 class _$Source extends Source {
   @override
-  final _i2.Owner owner;
+  final Owner owner;
   @override
   final String? sourceIdentifier;
   @override
-  final _i5.BuiltList<_i3.SourceDetail>? sourceDetails;
+  final _i2.BuiltList<SourceDetail>? sourceDetails;
   @override
-  final _i4.CustomPolicyDetails? customPolicyDetails;
+  final CustomPolicyDetails? customPolicyDetails;
 
   factory _$Source([void Function(SourceBuilder)? updates]) =>
       (new SourceBuilder()..update(updates))._build();
@@ -60,26 +60,25 @@ class _$Source extends Source {
 class SourceBuilder implements Builder<Source, SourceBuilder> {
   _$Source? _$v;
 
-  _i2.Owner? _owner;
-  _i2.Owner? get owner => _$this._owner;
-  set owner(_i2.Owner? owner) => _$this._owner = owner;
+  Owner? _owner;
+  Owner? get owner => _$this._owner;
+  set owner(Owner? owner) => _$this._owner = owner;
 
   String? _sourceIdentifier;
   String? get sourceIdentifier => _$this._sourceIdentifier;
   set sourceIdentifier(String? sourceIdentifier) =>
       _$this._sourceIdentifier = sourceIdentifier;
 
-  _i5.ListBuilder<_i3.SourceDetail>? _sourceDetails;
-  _i5.ListBuilder<_i3.SourceDetail> get sourceDetails =>
-      _$this._sourceDetails ??= new _i5.ListBuilder<_i3.SourceDetail>();
-  set sourceDetails(_i5.ListBuilder<_i3.SourceDetail>? sourceDetails) =>
+  _i2.ListBuilder<SourceDetail>? _sourceDetails;
+  _i2.ListBuilder<SourceDetail> get sourceDetails =>
+      _$this._sourceDetails ??= new _i2.ListBuilder<SourceDetail>();
+  set sourceDetails(_i2.ListBuilder<SourceDetail>? sourceDetails) =>
       _$this._sourceDetails = sourceDetails;
 
-  _i4.CustomPolicyDetailsBuilder? _customPolicyDetails;
-  _i4.CustomPolicyDetailsBuilder get customPolicyDetails =>
-      _$this._customPolicyDetails ??= new _i4.CustomPolicyDetailsBuilder();
-  set customPolicyDetails(
-          _i4.CustomPolicyDetailsBuilder? customPolicyDetails) =>
+  CustomPolicyDetailsBuilder? _customPolicyDetails;
+  CustomPolicyDetailsBuilder get customPolicyDetails =>
+      _$this._customPolicyDetails ??= new CustomPolicyDetailsBuilder();
+  set customPolicyDetails(CustomPolicyDetailsBuilder? customPolicyDetails) =>
       _$this._customPolicyDetails = customPolicyDetails;
 
   SourceBuilder();

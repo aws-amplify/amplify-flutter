@@ -10,17 +10,17 @@ class _$TableCreationParameters extends TableCreationParameters {
   @override
   final String tableName;
   @override
-  final _i8.BuiltList<_i2.AttributeDefinition> attributeDefinitions;
+  final _i2.BuiltList<AttributeDefinition> attributeDefinitions;
   @override
-  final _i8.BuiltList<_i3.KeySchemaElement> keySchema;
+  final _i2.BuiltList<KeySchemaElement> keySchema;
   @override
-  final _i4.BillingMode? billingMode;
+  final BillingMode? billingMode;
   @override
-  final _i5.ProvisionedThroughput? provisionedThroughput;
+  final ProvisionedThroughput? provisionedThroughput;
   @override
-  final _i6.SseSpecification? sseSpecification;
+  final SseSpecification? sseSpecification;
   @override
-  final _i8.BuiltList<_i7.GlobalSecondaryIndex>? globalSecondaryIndexes;
+  final _i2.BuiltList<GlobalSecondaryIndex>? globalSecondaryIndexes;
 
   factory _$TableCreationParameters(
           [void Function(TableCreationParametersBuilder)? updates]) =>
@@ -89,44 +89,44 @@ class TableCreationParametersBuilder
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
 
-  _i8.ListBuilder<_i2.AttributeDefinition>? _attributeDefinitions;
-  _i8.ListBuilder<_i2.AttributeDefinition> get attributeDefinitions =>
+  _i2.ListBuilder<AttributeDefinition>? _attributeDefinitions;
+  _i2.ListBuilder<AttributeDefinition> get attributeDefinitions =>
       _$this._attributeDefinitions ??=
-          new _i8.ListBuilder<_i2.AttributeDefinition>();
+          new _i2.ListBuilder<AttributeDefinition>();
   set attributeDefinitions(
-          _i8.ListBuilder<_i2.AttributeDefinition>? attributeDefinitions) =>
+          _i2.ListBuilder<AttributeDefinition>? attributeDefinitions) =>
       _$this._attributeDefinitions = attributeDefinitions;
 
-  _i8.ListBuilder<_i3.KeySchemaElement>? _keySchema;
-  _i8.ListBuilder<_i3.KeySchemaElement> get keySchema =>
-      _$this._keySchema ??= new _i8.ListBuilder<_i3.KeySchemaElement>();
-  set keySchema(_i8.ListBuilder<_i3.KeySchemaElement>? keySchema) =>
+  _i2.ListBuilder<KeySchemaElement>? _keySchema;
+  _i2.ListBuilder<KeySchemaElement> get keySchema =>
+      _$this._keySchema ??= new _i2.ListBuilder<KeySchemaElement>();
+  set keySchema(_i2.ListBuilder<KeySchemaElement>? keySchema) =>
       _$this._keySchema = keySchema;
 
-  _i4.BillingMode? _billingMode;
-  _i4.BillingMode? get billingMode => _$this._billingMode;
-  set billingMode(_i4.BillingMode? billingMode) =>
+  BillingMode? _billingMode;
+  BillingMode? get billingMode => _$this._billingMode;
+  set billingMode(BillingMode? billingMode) =>
       _$this._billingMode = billingMode;
 
-  _i5.ProvisionedThroughputBuilder? _provisionedThroughput;
-  _i5.ProvisionedThroughputBuilder get provisionedThroughput =>
-      _$this._provisionedThroughput ??= new _i5.ProvisionedThroughputBuilder();
+  ProvisionedThroughputBuilder? _provisionedThroughput;
+  ProvisionedThroughputBuilder get provisionedThroughput =>
+      _$this._provisionedThroughput ??= new ProvisionedThroughputBuilder();
   set provisionedThroughput(
-          _i5.ProvisionedThroughputBuilder? provisionedThroughput) =>
+          ProvisionedThroughputBuilder? provisionedThroughput) =>
       _$this._provisionedThroughput = provisionedThroughput;
 
-  _i6.SseSpecificationBuilder? _sseSpecification;
-  _i6.SseSpecificationBuilder get sseSpecification =>
-      _$this._sseSpecification ??= new _i6.SseSpecificationBuilder();
-  set sseSpecification(_i6.SseSpecificationBuilder? sseSpecification) =>
+  SseSpecificationBuilder? _sseSpecification;
+  SseSpecificationBuilder get sseSpecification =>
+      _$this._sseSpecification ??= new SseSpecificationBuilder();
+  set sseSpecification(SseSpecificationBuilder? sseSpecification) =>
       _$this._sseSpecification = sseSpecification;
 
-  _i8.ListBuilder<_i7.GlobalSecondaryIndex>? _globalSecondaryIndexes;
-  _i8.ListBuilder<_i7.GlobalSecondaryIndex> get globalSecondaryIndexes =>
+  _i2.ListBuilder<GlobalSecondaryIndex>? _globalSecondaryIndexes;
+  _i2.ListBuilder<GlobalSecondaryIndex> get globalSecondaryIndexes =>
       _$this._globalSecondaryIndexes ??=
-          new _i8.ListBuilder<_i7.GlobalSecondaryIndex>();
+          new _i2.ListBuilder<GlobalSecondaryIndex>();
   set globalSecondaryIndexes(
-          _i8.ListBuilder<_i7.GlobalSecondaryIndex>? globalSecondaryIndexes) =>
+          _i2.ListBuilder<GlobalSecondaryIndex>? globalSecondaryIndexes) =>
       _$this._globalSecondaryIndexes = globalSecondaryIndexes;
 
   TableCreationParametersBuilder();

@@ -3,30 +3,25 @@
 
 library aws_json1_1_v2.json_protocol.operation.kitchen_sink_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i10;
+import 'dart:async' as _i5;
 
-import 'package:aws_common/aws_common.dart' as _i6;
-import 'package:aws_json1_1_v2/src/json_protocol/common/endpoint_resolver.dart'
-    as _i7;
-import 'package:aws_json1_1_v2/src/json_protocol/common/serializers.dart'
-    as _i5;
-import 'package:aws_json1_1_v2/src/json_protocol/model/error_with_members.dart'
-    as _i8;
-import 'package:aws_json1_1_v2/src/json_protocol/model/error_without_members.dart'
-    as _i9;
-import 'package:aws_json1_1_v2/src/json_protocol/model/kitchen_sink.dart'
-    as _i2;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_json1_1_v2/src/json_protocol/common/endpoint_resolver.dart';
+import 'package:aws_json1_1_v2/src/json_protocol/common/serializers.dart';
+import 'package:aws_json1_1_v2/src/json_protocol/model/error_with_members.dart';
+import 'package:aws_json1_1_v2/src/json_protocol/model/error_without_members.dart';
+import 'package:aws_json1_1_v2/src/json_protocol/model/kitchen_sink.dart';
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i4;
+import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
-class KitchenSinkOperation extends _i1.HttpOperation<_i2.KitchenSink,
-    _i2.KitchenSink, _i2.KitchenSink, _i2.KitchenSink> {
+class KitchenSinkOperation extends _i1
+    .HttpOperation<KitchenSink, KitchenSink, KitchenSink, KitchenSink> {
   KitchenSinkOperation({
     required String region,
     Uri? baseUri,
-    _i3.AWSCredentialsProvider credentialsProvider =
-        const _i3.AWSCredentialsProvider.environment(),
+    _i2.AWSCredentialsProvider credentialsProvider =
+        const _i2.AWSCredentialsProvider.environment(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -37,11 +32,11 @@ class KitchenSinkOperation extends _i1.HttpOperation<_i2.KitchenSink,
 
   @override
   late final List<
-      _i1.HttpProtocol<_i2.KitchenSink, _i2.KitchenSink, _i2.KitchenSink,
-          _i2.KitchenSink>> protocols = [
-    _i4.AwsJson1_1Protocol(
-      serializers: _i5.serializers,
-      builderFactories: _i5.builderFactories,
+          _i1.HttpProtocol<KitchenSink, KitchenSink, KitchenSink, KitchenSink>>
+      protocols = [
+    _i3.AwsJson1_1Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
@@ -49,14 +44,14 @@ class KitchenSinkOperation extends _i1.HttpOperation<_i2.KitchenSink,
               'X-Amz-Target',
               'JsonProtocol.KitchenSinkOperation',
             ),
-            _i4.WithSigV4(
+            _i3.WithSigV4(
               region: _region,
-              service: _i6.AWSService.iam,
+              service: _i4.AWSService.iam,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i4.WithSdkInvocationId(),
-            const _i4.WithSdkRequest(),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -64,8 +59,8 @@ class KitchenSinkOperation extends _i1.HttpOperation<_i2.KitchenSink,
     )
   ];
 
-  late final _i4.AWSEndpoint _awsEndpoint = _i7.endpointResolver.resolve(
-    _i7.sdkId,
+  late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -73,64 +68,64 @@ class KitchenSinkOperation extends _i1.HttpOperation<_i2.KitchenSink,
 
   final Uri? _baseUri;
 
-  final _i3.AWSCredentialsProvider _credentialsProvider;
+  final _i2.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.KitchenSink input) => _i1.HttpRequest((b) {
+  _i1.HttpRequest buildRequest(KitchenSink input) => _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
       });
   @override
-  int successCode([_i2.KitchenSink? output]) => 200;
+  int successCode([KitchenSink? output]) => 200;
   @override
-  _i2.KitchenSink buildOutput(
-    _i2.KitchenSink payload,
-    _i6.AWSBaseHttpResponse response,
+  KitchenSink buildOutput(
+    KitchenSink payload,
+    _i4.AWSBaseHttpResponse response,
   ) =>
-      _i2.KitchenSink.fromResponse(
+      KitchenSink.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i8.ErrorWithMembers, _i8.ErrorWithMembers>(
+        _i1.SmithyError<ErrorWithMembers, ErrorWithMembers>(
           _i1.ShapeId(
             namespace: 'aws.protocoltests.json',
             shape: 'ErrorWithMembers',
           ),
           _i1.ErrorKind.client,
-          _i8.ErrorWithMembers,
-          builder: _i8.ErrorWithMembers.fromResponse,
+          ErrorWithMembers,
+          builder: ErrorWithMembers.fromResponse,
         ),
-        _i1.SmithyError<_i9.ErrorWithoutMembers, _i9.ErrorWithoutMembers>(
+        _i1.SmithyError<ErrorWithoutMembers, ErrorWithoutMembers>(
           _i1.ShapeId(
             namespace: 'aws.protocoltests.json',
             shape: 'ErrorWithoutMembers',
           ),
           _i1.ErrorKind.server,
-          _i9.ErrorWithoutMembers,
-          builder: _i9.ErrorWithoutMembers.fromResponse,
+          ErrorWithoutMembers,
+          builder: ErrorWithoutMembers.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'KitchenSinkOperation';
   @override
-  _i4.AWSRetryer get retryer => _i4.AWSRetryer();
+  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i2.KitchenSink> run(
-    _i2.KitchenSink input, {
-    _i6.AWSHttpClient? client,
+  _i1.SmithyOperation<KitchenSink> run(
+    KitchenSink input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i10.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -138,7 +133,7 @@ class KitchenSinkOperation extends _i1.HttpOperation<_i2.KitchenSink,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

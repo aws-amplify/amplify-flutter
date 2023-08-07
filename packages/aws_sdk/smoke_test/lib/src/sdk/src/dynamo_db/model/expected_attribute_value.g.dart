@@ -8,13 +8,13 @@ part of 'expected_attribute_value.dart';
 
 class _$ExpectedAttributeValue extends ExpectedAttributeValue {
   @override
-  final _i2.AttributeValue? value;
+  final AttributeValue? value;
   @override
   final bool? exists;
   @override
-  final _i3.ComparisonOperator? comparisonOperator;
+  final ComparisonOperator? comparisonOperator;
   @override
-  final _i4.BuiltList<_i2.AttributeValue>? attributeValueList;
+  final _i2.BuiltList<AttributeValue>? attributeValueList;
 
   factory _$ExpectedAttributeValue(
           [void Function(ExpectedAttributeValueBuilder)? updates]) =>
@@ -62,24 +62,23 @@ class ExpectedAttributeValueBuilder
     implements Builder<ExpectedAttributeValue, ExpectedAttributeValueBuilder> {
   _$ExpectedAttributeValue? _$v;
 
-  _i2.AttributeValue? _value;
-  _i2.AttributeValue? get value => _$this._value;
-  set value(_i2.AttributeValue? value) => _$this._value = value;
+  AttributeValue? _value;
+  AttributeValue? get value => _$this._value;
+  set value(AttributeValue? value) => _$this._value = value;
 
   bool? _exists;
   bool? get exists => _$this._exists;
   set exists(bool? exists) => _$this._exists = exists;
 
-  _i3.ComparisonOperator? _comparisonOperator;
-  _i3.ComparisonOperator? get comparisonOperator => _$this._comparisonOperator;
-  set comparisonOperator(_i3.ComparisonOperator? comparisonOperator) =>
+  ComparisonOperator? _comparisonOperator;
+  ComparisonOperator? get comparisonOperator => _$this._comparisonOperator;
+  set comparisonOperator(ComparisonOperator? comparisonOperator) =>
       _$this._comparisonOperator = comparisonOperator;
 
-  _i4.ListBuilder<_i2.AttributeValue>? _attributeValueList;
-  _i4.ListBuilder<_i2.AttributeValue> get attributeValueList =>
-      _$this._attributeValueList ??= new _i4.ListBuilder<_i2.AttributeValue>();
-  set attributeValueList(
-          _i4.ListBuilder<_i2.AttributeValue>? attributeValueList) =>
+  _i2.ListBuilder<AttributeValue>? _attributeValueList;
+  _i2.ListBuilder<AttributeValue> get attributeValueList =>
+      _$this._attributeValueList ??= new _i2.ListBuilder<AttributeValue>();
+  set attributeValueList(_i2.ListBuilder<AttributeValue>? attributeValueList) =>
       _$this._attributeValueList = attributeValueList;
 
   ExpectedAttributeValueBuilder();

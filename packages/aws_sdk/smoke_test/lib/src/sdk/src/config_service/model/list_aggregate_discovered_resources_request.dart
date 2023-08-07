@@ -7,10 +7,8 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_filters.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_filters.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart';
 
 part 'list_aggregate_discovered_resources_request.g.dart';
 
@@ -23,8 +21,8 @@ abstract class ListAggregateDiscoveredResourcesRequest
             ListAggregateDiscoveredResourcesRequestBuilder> {
   factory ListAggregateDiscoveredResourcesRequest({
     required String configurationAggregatorName,
-    required _i3.ResourceType resourceType,
-    _i4.ResourceFilters? filters,
+    required ResourceType resourceType,
+    ResourceFilters? filters,
     int? limit,
     String? nextToken,
   }) {
@@ -66,10 +64,10 @@ abstract class ListAggregateDiscoveredResourcesRequest
   String get configurationAggregatorName;
 
   /// The type of resources that you want Config to list in the response.
-  _i3.ResourceType get resourceType;
+  ResourceType get resourceType;
 
   /// Filters the results based on the `ResourceFilters` object.
-  _i4.ResourceFilters? get filters;
+  ResourceFilters? get filters;
 
   /// The maximum number of resource identifiers returned on each page. You cannot specify a number greater than 100. If you specify 0, Config uses the default.
   int get limit;
@@ -155,13 +153,13 @@ class ListAggregateDiscoveredResourcesRequestAwsJson11Serializer extends _i1
         case 'ResourceType':
           result.resourceType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ResourceType),
-          ) as _i3.ResourceType);
+            specifiedType: const FullType(ResourceType),
+          ) as ResourceType);
         case 'Filters':
           result.filters.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ResourceFilters),
-          ) as _i4.ResourceFilters));
+            specifiedType: const FullType(ResourceFilters),
+          ) as ResourceFilters));
         case 'Limit':
           result.limit = (serializers.deserialize(
             value,
@@ -201,7 +199,7 @@ class ListAggregateDiscoveredResourcesRequestAwsJson11Serializer extends _i1
       'ResourceType',
       serializers.serialize(
         resourceType,
-        specifiedType: const FullType(_i3.ResourceType),
+        specifiedType: const FullType(ResourceType),
       ),
       'Limit',
       serializers.serialize(
@@ -214,7 +212,7 @@ class ListAggregateDiscoveredResourcesRequestAwsJson11Serializer extends _i1
         ..add('Filters')
         ..add(serializers.serialize(
           filters,
-          specifiedType: const FullType(_i4.ResourceFilters),
+          specifiedType: const FullType(ResourceFilters),
         ));
     }
     if (nextToken != null) {

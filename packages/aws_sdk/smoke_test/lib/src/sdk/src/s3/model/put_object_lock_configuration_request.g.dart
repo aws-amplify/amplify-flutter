@@ -11,15 +11,15 @@ class _$PutObjectLockConfigurationRequest
   @override
   final String bucket;
   @override
-  final _i2.ObjectLockConfiguration? objectLockConfiguration;
+  final ObjectLockConfiguration? objectLockConfiguration;
   @override
-  final _i4.RequestPayer? requestPayer;
+  final RequestPayer? requestPayer;
   @override
   final String? token;
   @override
   final String? contentMd5;
   @override
-  final _i5.ChecksumAlgorithm? checksumAlgorithm;
+  final ChecksumAlgorithm? checksumAlgorithm;
   @override
   final String? expectedBucketOwner;
 
@@ -88,17 +88,16 @@ class PutObjectLockConfigurationRequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  _i2.ObjectLockConfigurationBuilder? _objectLockConfiguration;
-  _i2.ObjectLockConfigurationBuilder get objectLockConfiguration =>
-      _$this._objectLockConfiguration ??=
-          new _i2.ObjectLockConfigurationBuilder();
+  ObjectLockConfigurationBuilder? _objectLockConfiguration;
+  ObjectLockConfigurationBuilder get objectLockConfiguration =>
+      _$this._objectLockConfiguration ??= new ObjectLockConfigurationBuilder();
   set objectLockConfiguration(
-          _i2.ObjectLockConfigurationBuilder? objectLockConfiguration) =>
+          ObjectLockConfigurationBuilder? objectLockConfiguration) =>
       _$this._objectLockConfiguration = objectLockConfiguration;
 
-  _i4.RequestPayer? _requestPayer;
-  _i4.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i4.RequestPayer? requestPayer) =>
+  RequestPayer? _requestPayer;
+  RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
   String? _token;
@@ -109,9 +108,9 @@ class PutObjectLockConfigurationRequestBuilder
   String? get contentMd5 => _$this._contentMd5;
   set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
 
-  _i5.ChecksumAlgorithm? _checksumAlgorithm;
-  _i5.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i5.ChecksumAlgorithm? checksumAlgorithm) =>
+  ChecksumAlgorithm? _checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
   String? _expectedBucketOwner;

@@ -10,11 +10,11 @@ class _$PolicyGrantingServiceAccess extends PolicyGrantingServiceAccess {
   @override
   final String policyName;
   @override
-  final _i2.PolicyType policyType;
+  final PolicyType policyType;
   @override
   final String? policyArn;
   @override
-  final _i3.PolicyOwnerEntityType? entityType;
+  final PolicyOwnerEntityType? entityType;
   @override
   final String? entityName;
 
@@ -78,17 +78,17 @@ class PolicyGrantingServiceAccessBuilder
   String? get policyName => _$this._policyName;
   set policyName(String? policyName) => _$this._policyName = policyName;
 
-  _i2.PolicyType? _policyType;
-  _i2.PolicyType? get policyType => _$this._policyType;
-  set policyType(_i2.PolicyType? policyType) => _$this._policyType = policyType;
+  PolicyType? _policyType;
+  PolicyType? get policyType => _$this._policyType;
+  set policyType(PolicyType? policyType) => _$this._policyType = policyType;
 
   String? _policyArn;
   String? get policyArn => _$this._policyArn;
   set policyArn(String? policyArn) => _$this._policyArn = policyArn;
 
-  _i3.PolicyOwnerEntityType? _entityType;
-  _i3.PolicyOwnerEntityType? get entityType => _$this._entityType;
-  set entityType(_i3.PolicyOwnerEntityType? entityType) =>
+  PolicyOwnerEntityType? _entityType;
+  PolicyOwnerEntityType? get entityType => _$this._entityType;
+  set entityType(PolicyOwnerEntityType? entityType) =>
       _$this._entityType = entityType;
 
   String? _entityName;

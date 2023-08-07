@@ -8,7 +8,7 @@ part of 'list_stack_set_operations_output.dart';
 
 class _$ListStackSetOperationsOutput extends ListStackSetOperationsOutput {
   @override
-  final _i3.BuiltList<_i2.StackSetOperationSummary>? summaries;
+  final _i2.BuiltList<StackSetOperationSummary>? summaries;
   @override
   final String? nextToken;
 
@@ -52,10 +52,10 @@ class ListStackSetOperationsOutputBuilder
             ListStackSetOperationsOutputBuilder> {
   _$ListStackSetOperationsOutput? _$v;
 
-  _i3.ListBuilder<_i2.StackSetOperationSummary>? _summaries;
-  _i3.ListBuilder<_i2.StackSetOperationSummary> get summaries =>
-      _$this._summaries ??= new _i3.ListBuilder<_i2.StackSetOperationSummary>();
-  set summaries(_i3.ListBuilder<_i2.StackSetOperationSummary>? summaries) =>
+  _i2.ListBuilder<StackSetOperationSummary>? _summaries;
+  _i2.ListBuilder<StackSetOperationSummary> get summaries =>
+      _$this._summaries ??= new _i2.ListBuilder<StackSetOperationSummary>();
+  set summaries(_i2.ListBuilder<StackSetOperationSummary>? summaries) =>
       _$this._summaries = summaries;
 
   String? _nextToken;

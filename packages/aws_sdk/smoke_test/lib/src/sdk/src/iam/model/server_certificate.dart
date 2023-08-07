@@ -4,13 +4,12 @@
 library smoke_test.iam.model.server_certificate; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/iam/model/server_certificate_metadata.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/iam/model/tag.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/server_certificate_metadata.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/tag.dart';
 
 part 'server_certificate.g.dart';
 
@@ -24,16 +23,16 @@ abstract class ServerCertificate
   ///
   /// This data type is used as a response element in the GetServerCertificate operation.
   factory ServerCertificate({
-    required _i2.ServerCertificateMetadata serverCertificateMetadata,
+    required ServerCertificateMetadata serverCertificateMetadata,
     required String certificateBody,
     String? certificateChain,
-    List<_i3.Tag>? tags,
+    List<Tag>? tags,
   }) {
     return _$ServerCertificate._(
       serverCertificateMetadata: serverCertificateMetadata,
       certificateBody: certificateBody,
       certificateChain: certificateChain,
-      tags: tags == null ? null : _i4.BuiltList(tags),
+      tags: tags == null ? null : _i2.BuiltList(tags),
     );
   }
 
@@ -45,12 +44,12 @@ abstract class ServerCertificate
 
   const ServerCertificate._();
 
-  static const List<_i5.SmithySerializer<ServerCertificate>> serializers = [
+  static const List<_i3.SmithySerializer<ServerCertificate>> serializers = [
     ServerCertificateAwsQuerySerializer()
   ];
 
   /// The meta information of the server certificate, such as its name, path, ID, and ARN.
-  _i2.ServerCertificateMetadata get serverCertificateMetadata;
+  ServerCertificateMetadata get serverCertificateMetadata;
 
   /// The contents of the public key certificate.
   String get certificateBody;
@@ -59,7 +58,7 @@ abstract class ServerCertificate
   String? get certificateChain;
 
   /// A list of tags that are attached to the server certificate. For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
-  _i4.BuiltList<_i3.Tag>? get tags;
+  _i2.BuiltList<Tag>? get tags;
   @override
   List<Object?> get props => [
         serverCertificateMetadata,
@@ -91,7 +90,7 @@ abstract class ServerCertificate
 }
 
 class ServerCertificateAwsQuerySerializer
-    extends _i5.StructuredSmithySerializer<ServerCertificate> {
+    extends _i3.StructuredSmithySerializer<ServerCertificate> {
   const ServerCertificateAwsQuerySerializer() : super('ServerCertificate');
 
   @override
@@ -100,8 +99,8 @@ class ServerCertificateAwsQuerySerializer
         _$ServerCertificate,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -125,8 +124,8 @@ class ServerCertificateAwsQuerySerializer
         case 'ServerCertificateMetadata':
           result.serverCertificateMetadata.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ServerCertificateMetadata),
-          ) as _i2.ServerCertificateMetadata));
+            specifiedType: const FullType(ServerCertificateMetadata),
+          ) as ServerCertificateMetadata));
         case 'CertificateBody':
           result.certificateBody = (serializers.deserialize(
             value,
@@ -138,16 +137,16 @@ class ServerCertificateAwsQuerySerializer
             specifiedType: const FullType(String),
           ) as String);
         case 'Tags':
-          result.tags.replace((const _i5.XmlBuiltListSerializer(
-                  indexer: _i5.XmlIndexer.awsQueryList)
+          result.tags.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.Tag)],
+              _i2.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i4.BuiltList<_i3.Tag>));
+          ) as _i2.BuiltList<Tag>));
       }
     }
 
@@ -161,9 +160,9 @@ class ServerCertificateAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i5.XmlElementName(
+      const _i3.XmlElementName(
         'ServerCertificateResponse',
-        _i5.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final ServerCertificate(
@@ -173,20 +172,20 @@ class ServerCertificateAwsQuerySerializer
       :tags
     ) = object;
     result$
-      ..add(const _i5.XmlElementName('ServerCertificateMetadata'))
+      ..add(const _i3.XmlElementName('ServerCertificateMetadata'))
       ..add(serializers.serialize(
         serverCertificateMetadata,
-        specifiedType: const FullType(_i2.ServerCertificateMetadata),
+        specifiedType: const FullType(ServerCertificateMetadata),
       ));
     result$
-      ..add(const _i5.XmlElementName('CertificateBody'))
+      ..add(const _i3.XmlElementName('CertificateBody'))
       ..add(serializers.serialize(
         certificateBody,
         specifiedType: const FullType(String),
       ));
     if (certificateChain != null) {
       result$
-        ..add(const _i5.XmlElementName('CertificateChain'))
+        ..add(const _i3.XmlElementName('CertificateChain'))
         ..add(serializers.serialize(
           certificateChain,
           specifiedType: const FullType(String),
@@ -194,15 +193,15 @@ class ServerCertificateAwsQuerySerializer
     }
     if (tags != null) {
       result$
-        ..add(const _i5.XmlElementName('Tags'))
-        ..add(const _i5.XmlBuiltListSerializer(
-                indexer: _i5.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('Tags'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           tags,
           specifiedType: const FullType.nullable(
-            _i4.BuiltList,
-            [FullType(_i3.Tag)],
+            _i2.BuiltList,
+            [FullType(Tag)],
           ),
         ));
     }

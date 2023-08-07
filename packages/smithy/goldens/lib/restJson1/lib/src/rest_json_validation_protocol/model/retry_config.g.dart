@@ -8,7 +8,7 @@ part of 'retry_config.dart';
 
 class _$RetryConfig extends RetryConfig {
   @override
-  final _i2.RetryMode? mode;
+  final RetryMode? mode;
   @override
   final int? maxAttempts;
 
@@ -45,9 +45,9 @@ class _$RetryConfig extends RetryConfig {
 class RetryConfigBuilder implements Builder<RetryConfig, RetryConfigBuilder> {
   _$RetryConfig? _$v;
 
-  _i2.RetryMode? _mode;
-  _i2.RetryMode? get mode => _$this._mode;
-  set mode(_i2.RetryMode? mode) => _$this._mode = mode;
+  RetryMode? _mode;
+  RetryMode? get mode => _$this._mode;
+  set mode(RetryMode? mode) => _$this._mode = mode;
 
   int? _maxAttempts;
   int? get maxAttempts => _$this._maxAttempts;

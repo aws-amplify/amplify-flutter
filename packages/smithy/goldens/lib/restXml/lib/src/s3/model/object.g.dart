@@ -16,9 +16,9 @@ class _$S3Object extends S3Object {
   @override
   final int? size;
   @override
-  final _i2.ObjectStorageClass? storageClass;
+  final ObjectStorageClass? storageClass;
   @override
-  final _i3.Owner? owner;
+  final Owner? owner;
 
   factory _$S3Object([void Function(S3ObjectBuilder)? updates]) =>
       (new S3ObjectBuilder()..update(updates))._build();
@@ -85,14 +85,14 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
   int? get size => _$this._size;
   set size(int? size) => _$this._size = size;
 
-  _i2.ObjectStorageClass? _storageClass;
-  _i2.ObjectStorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i2.ObjectStorageClass? storageClass) =>
+  ObjectStorageClass? _storageClass;
+  ObjectStorageClass? get storageClass => _$this._storageClass;
+  set storageClass(ObjectStorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
-  _i3.OwnerBuilder? _owner;
-  _i3.OwnerBuilder get owner => _$this._owner ??= new _i3.OwnerBuilder();
-  set owner(_i3.OwnerBuilder? owner) => _$this._owner = owner;
+  OwnerBuilder? _owner;
+  OwnerBuilder get owner => _$this._owner ??= new OwnerBuilder();
+  set owner(OwnerBuilder? owner) => _$this._owner = owner;
 
   S3ObjectBuilder();
 

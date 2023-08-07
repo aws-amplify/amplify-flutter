@@ -8,9 +8,9 @@ part of 'attribute_dimension.dart';
 
 class _$AttributeDimension extends AttributeDimension {
   @override
-  final _i2.AttributeType? attributeType;
+  final AttributeType? attributeType;
   @override
-  final _i3.BuiltList<String> values;
+  final _i2.BuiltList<String> values;
 
   factory _$AttributeDimension(
           [void Function(AttributeDimensionBuilder)? updates]) =>
@@ -53,15 +53,15 @@ class AttributeDimensionBuilder
     implements Builder<AttributeDimension, AttributeDimensionBuilder> {
   _$AttributeDimension? _$v;
 
-  _i2.AttributeType? _attributeType;
-  _i2.AttributeType? get attributeType => _$this._attributeType;
-  set attributeType(_i2.AttributeType? attributeType) =>
+  AttributeType? _attributeType;
+  AttributeType? get attributeType => _$this._attributeType;
+  set attributeType(AttributeType? attributeType) =>
       _$this._attributeType = attributeType;
 
-  _i3.ListBuilder<String>? _values;
-  _i3.ListBuilder<String> get values =>
-      _$this._values ??= new _i3.ListBuilder<String>();
-  set values(_i3.ListBuilder<String>? values) => _$this._values = values;
+  _i2.ListBuilder<String>? _values;
+  _i2.ListBuilder<String> get values =>
+      _$this._values ??= new _i2.ListBuilder<String>();
+  set values(_i2.ListBuilder<String>? values) => _$this._values = values;
 
   AttributeDimensionBuilder();
 

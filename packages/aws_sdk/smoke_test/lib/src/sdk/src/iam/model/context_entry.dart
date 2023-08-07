@@ -4,12 +4,11 @@
 library smoke_test.iam.model.context_entry; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/context_key_type_enum.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/context_key_type_enum.dart';
 
 part 'context_entry.g.dart';
 
@@ -25,12 +24,12 @@ abstract class ContextEntry
   factory ContextEntry({
     String? contextKeyName,
     List<String>? contextKeyValues,
-    _i2.ContextKeyTypeEnum? contextKeyType,
+    ContextKeyTypeEnum? contextKeyType,
   }) {
     return _$ContextEntry._(
       contextKeyName: contextKeyName,
       contextKeyValues:
-          contextKeyValues == null ? null : _i3.BuiltList(contextKeyValues),
+          contextKeyValues == null ? null : _i2.BuiltList(contextKeyValues),
       contextKeyType: contextKeyType,
     );
   }
@@ -43,7 +42,7 @@ abstract class ContextEntry
 
   const ContextEntry._();
 
-  static const List<_i4.SmithySerializer<ContextEntry>> serializers = [
+  static const List<_i3.SmithySerializer<ContextEntry>> serializers = [
     ContextEntryAwsQuerySerializer()
   ];
 
@@ -51,10 +50,10 @@ abstract class ContextEntry
   String? get contextKeyName;
 
   /// The value (or values, if the condition context key supports multiple values) to provide to the simulation when the key is referenced by a `Condition` element in an input policy.
-  _i3.BuiltList<String>? get contextKeyValues;
+  _i2.BuiltList<String>? get contextKeyValues;
 
   /// The data type of the value (or values) specified in the `ContextKeyValues` parameter.
-  _i2.ContextKeyTypeEnum? get contextKeyType;
+  ContextKeyTypeEnum? get contextKeyType;
   @override
   List<Object?> get props => [
         contextKeyName,
@@ -81,7 +80,7 @@ abstract class ContextEntry
 }
 
 class ContextEntryAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<ContextEntry> {
+    extends _i3.StructuredSmithySerializer<ContextEntry> {
   const ContextEntryAwsQuerySerializer() : super('ContextEntry');
 
   @override
@@ -90,8 +89,8 @@ class ContextEntryAwsQuerySerializer
         _$ContextEntry,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -118,21 +117,21 @@ class ContextEntryAwsQuerySerializer
             specifiedType: const FullType(String),
           ) as String);
         case 'ContextKeyValues':
-          result.contextKeyValues.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.contextKeyValues.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i3.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
         case 'ContextKeyType':
           result.contextKeyType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ContextKeyTypeEnum),
-          ) as _i2.ContextKeyTypeEnum);
+            specifiedType: const FullType(ContextKeyTypeEnum),
+          ) as ContextKeyTypeEnum);
       }
     }
 
@@ -146,16 +145,16 @@ class ContextEntryAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'ContextEntryResponse',
-        _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final ContextEntry(:contextKeyName, :contextKeyValues, :contextKeyType) =
         object;
     if (contextKeyName != null) {
       result$
-        ..add(const _i4.XmlElementName('ContextKeyName'))
+        ..add(const _i3.XmlElementName('ContextKeyName'))
         ..add(serializers.serialize(
           contextKeyName,
           specifiedType: const FullType(String),
@@ -163,24 +162,24 @@ class ContextEntryAwsQuerySerializer
     }
     if (contextKeyValues != null) {
       result$
-        ..add(const _i4.XmlElementName('ContextKeyValues'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('ContextKeyValues'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           contextKeyValues,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));
     }
     if (contextKeyType != null) {
       result$
-        ..add(const _i4.XmlElementName('ContextKeyType'))
+        ..add(const _i3.XmlElementName('ContextKeyType'))
         ..add(serializers.serialize(
           contextKeyType,
-          specifiedType: const FullType.nullable(_i2.ContextKeyTypeEnum),
+          specifiedType: const FullType.nullable(ContextKeyTypeEnum),
         ));
     }
     return result$;

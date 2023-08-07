@@ -14,17 +14,17 @@ class _$ReplicationRule extends ReplicationRule {
   @override
   final String? prefix;
   @override
-  final _i2.ReplicationRuleFilter? filter;
+  final ReplicationRuleFilter? filter;
   @override
-  final _i3.ReplicationRuleStatus status;
+  final ReplicationRuleStatus status;
   @override
-  final _i4.SourceSelectionCriteria? sourceSelectionCriteria;
+  final SourceSelectionCriteria? sourceSelectionCriteria;
   @override
-  final _i5.ExistingObjectReplication? existingObjectReplication;
+  final ExistingObjectReplication? existingObjectReplication;
   @override
-  final _i6.Destination destination;
+  final Destination destination;
   @override
-  final _i7.DeleteMarkerReplication? deleteMarkerReplication;
+  final DeleteMarkerReplication? deleteMarkerReplication;
 
   factory _$ReplicationRule([void Function(ReplicationRuleBuilder)? updates]) =>
       (new ReplicationRuleBuilder()..update(updates))._build();
@@ -101,42 +101,40 @@ class ReplicationRuleBuilder
   String? get prefix => _$this._prefix;
   set prefix(String? prefix) => _$this._prefix = prefix;
 
-  _i2.ReplicationRuleFilter? _filter;
-  _i2.ReplicationRuleFilter? get filter => _$this._filter;
-  set filter(_i2.ReplicationRuleFilter? filter) => _$this._filter = filter;
+  ReplicationRuleFilter? _filter;
+  ReplicationRuleFilter? get filter => _$this._filter;
+  set filter(ReplicationRuleFilter? filter) => _$this._filter = filter;
 
-  _i3.ReplicationRuleStatus? _status;
-  _i3.ReplicationRuleStatus? get status => _$this._status;
-  set status(_i3.ReplicationRuleStatus? status) => _$this._status = status;
+  ReplicationRuleStatus? _status;
+  ReplicationRuleStatus? get status => _$this._status;
+  set status(ReplicationRuleStatus? status) => _$this._status = status;
 
-  _i4.SourceSelectionCriteriaBuilder? _sourceSelectionCriteria;
-  _i4.SourceSelectionCriteriaBuilder get sourceSelectionCriteria =>
-      _$this._sourceSelectionCriteria ??=
-          new _i4.SourceSelectionCriteriaBuilder();
+  SourceSelectionCriteriaBuilder? _sourceSelectionCriteria;
+  SourceSelectionCriteriaBuilder get sourceSelectionCriteria =>
+      _$this._sourceSelectionCriteria ??= new SourceSelectionCriteriaBuilder();
   set sourceSelectionCriteria(
-          _i4.SourceSelectionCriteriaBuilder? sourceSelectionCriteria) =>
+          SourceSelectionCriteriaBuilder? sourceSelectionCriteria) =>
       _$this._sourceSelectionCriteria = sourceSelectionCriteria;
 
-  _i5.ExistingObjectReplicationBuilder? _existingObjectReplication;
-  _i5.ExistingObjectReplicationBuilder get existingObjectReplication =>
+  ExistingObjectReplicationBuilder? _existingObjectReplication;
+  ExistingObjectReplicationBuilder get existingObjectReplication =>
       _$this._existingObjectReplication ??=
-          new _i5.ExistingObjectReplicationBuilder();
+          new ExistingObjectReplicationBuilder();
   set existingObjectReplication(
-          _i5.ExistingObjectReplicationBuilder? existingObjectReplication) =>
+          ExistingObjectReplicationBuilder? existingObjectReplication) =>
       _$this._existingObjectReplication = existingObjectReplication;
 
-  _i6.DestinationBuilder? _destination;
-  _i6.DestinationBuilder get destination =>
-      _$this._destination ??= new _i6.DestinationBuilder();
-  set destination(_i6.DestinationBuilder? destination) =>
+  DestinationBuilder? _destination;
+  DestinationBuilder get destination =>
+      _$this._destination ??= new DestinationBuilder();
+  set destination(DestinationBuilder? destination) =>
       _$this._destination = destination;
 
-  _i7.DeleteMarkerReplicationBuilder? _deleteMarkerReplication;
-  _i7.DeleteMarkerReplicationBuilder get deleteMarkerReplication =>
-      _$this._deleteMarkerReplication ??=
-          new _i7.DeleteMarkerReplicationBuilder();
+  DeleteMarkerReplicationBuilder? _deleteMarkerReplication;
+  DeleteMarkerReplicationBuilder get deleteMarkerReplication =>
+      _$this._deleteMarkerReplication ??= new DeleteMarkerReplicationBuilder();
   set deleteMarkerReplication(
-          _i7.DeleteMarkerReplicationBuilder? deleteMarkerReplication) =>
+          DeleteMarkerReplicationBuilder? deleteMarkerReplication) =>
       _$this._deleteMarkerReplication = deleteMarkerReplication;
 
   ReplicationRuleBuilder();

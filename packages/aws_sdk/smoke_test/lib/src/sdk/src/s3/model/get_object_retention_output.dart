@@ -7,10 +7,8 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/object_lock_retention.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/object_lock_retention_mode.dart'
-    as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/object_lock_retention.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/object_lock_retention_mode.dart';
 
 part 'get_object_retention_output.g.dart';
 
@@ -18,8 +16,8 @@ abstract class GetObjectRetentionOutput
     with _i1.AWSEquatable<GetObjectRetentionOutput>
     implements
         Built<GetObjectRetentionOutput, GetObjectRetentionOutputBuilder>,
-        _i2.HasPayload<_i3.ObjectLockRetention> {
-  factory GetObjectRetentionOutput({_i3.ObjectLockRetention? retention}) {
+        _i2.HasPayload<ObjectLockRetention> {
+  factory GetObjectRetentionOutput({ObjectLockRetention? retention}) {
     return _$GetObjectRetentionOutput._(retention: retention);
   }
 
@@ -31,7 +29,7 @@ abstract class GetObjectRetentionOutput
 
   /// Constructs a [GetObjectRetentionOutput] from a [payload] and [response].
   factory GetObjectRetentionOutput.fromResponse(
-    _i3.ObjectLockRetention? payload,
+    ObjectLockRetention? payload,
     _i1.AWSBaseHttpResponse response,
   ) =>
       GetObjectRetentionOutput.build((b) {
@@ -40,14 +38,14 @@ abstract class GetObjectRetentionOutput
         }
       });
 
-  static const List<_i2.SmithySerializer<_i3.ObjectLockRetention?>>
-      serializers = [GetObjectRetentionOutputRestXmlSerializer()];
+  static const List<_i2.SmithySerializer<ObjectLockRetention?>> serializers = [
+    GetObjectRetentionOutputRestXmlSerializer()
+  ];
 
   /// The container element for an object's retention settings.
-  _i3.ObjectLockRetention? get retention;
+  ObjectLockRetention? get retention;
   @override
-  _i3.ObjectLockRetention? getPayload() =>
-      retention ?? _i3.ObjectLockRetention();
+  ObjectLockRetention? getPayload() => retention ?? ObjectLockRetention();
   @override
   List<Object?> get props => [retention];
   @override
@@ -62,7 +60,7 @@ abstract class GetObjectRetentionOutput
 }
 
 class GetObjectRetentionOutputRestXmlSerializer
-    extends _i2.StructuredSmithySerializer<_i3.ObjectLockRetention> {
+    extends _i2.StructuredSmithySerializer<ObjectLockRetention> {
   const GetObjectRetentionOutputRestXmlSerializer()
       : super('GetObjectRetentionOutput');
 
@@ -79,12 +77,12 @@ class GetObjectRetentionOutputRestXmlSerializer
         )
       ];
   @override
-  _i3.ObjectLockRetention deserialize(
+  ObjectLockRetention deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i3.ObjectLockRetentionBuilder();
+    final result = ObjectLockRetentionBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -97,8 +95,8 @@ class GetObjectRetentionOutputRestXmlSerializer
         case 'Mode':
           result.mode = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ObjectLockRetentionMode),
-          ) as _i4.ObjectLockRetentionMode);
+            specifiedType: const FullType(ObjectLockRetentionMode),
+          ) as ObjectLockRetentionMode);
         case 'RetainUntilDate':
           result.retainUntilDate = _i2.TimestampSerializer.dateTime.deserialize(
             serializers,
@@ -113,7 +111,7 @@ class GetObjectRetentionOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i3.ObjectLockRetention object, {
+    ObjectLockRetention object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -122,13 +120,13 @@ class GetObjectRetentionOutputRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i3.ObjectLockRetention(:mode, :retainUntilDate) = object;
+    final ObjectLockRetention(:mode, :retainUntilDate) = object;
     if (mode != null) {
       result$
         ..add(const _i2.XmlElementName('Mode'))
         ..add(serializers.serialize(
           mode,
-          specifiedType: const FullType.nullable(_i4.ObjectLockRetentionMode),
+          specifiedType: const FullType.nullable(ObjectLockRetentionMode),
         ));
     }
     if (retainUntilDate != null) {

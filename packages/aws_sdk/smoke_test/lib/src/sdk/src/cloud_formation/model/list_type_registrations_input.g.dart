@@ -8,13 +8,13 @@ part of 'list_type_registrations_input.dart';
 
 class _$ListTypeRegistrationsInput extends ListTypeRegistrationsInput {
   @override
-  final _i3.RegistryType? type;
+  final RegistryType? type;
   @override
   final String? typeName;
   @override
   final String? typeArn;
   @override
-  final _i4.RegistrationStatus? registrationStatusFilter;
+  final RegistrationStatus? registrationStatusFilter;
   @override
   final int? maxResults;
   @override
@@ -73,9 +73,9 @@ class ListTypeRegistrationsInputBuilder
         Builder<ListTypeRegistrationsInput, ListTypeRegistrationsInputBuilder> {
   _$ListTypeRegistrationsInput? _$v;
 
-  _i3.RegistryType? _type;
-  _i3.RegistryType? get type => _$this._type;
-  set type(_i3.RegistryType? type) => _$this._type = type;
+  RegistryType? _type;
+  RegistryType? get type => _$this._type;
+  set type(RegistryType? type) => _$this._type = type;
 
   String? _typeName;
   String? get typeName => _$this._typeName;
@@ -85,11 +85,10 @@ class ListTypeRegistrationsInputBuilder
   String? get typeArn => _$this._typeArn;
   set typeArn(String? typeArn) => _$this._typeArn = typeArn;
 
-  _i4.RegistrationStatus? _registrationStatusFilter;
-  _i4.RegistrationStatus? get registrationStatusFilter =>
+  RegistrationStatus? _registrationStatusFilter;
+  RegistrationStatus? get registrationStatusFilter =>
       _$this._registrationStatusFilter;
-  set registrationStatusFilter(
-          _i4.RegistrationStatus? registrationStatusFilter) =>
+  set registrationStatusFilter(RegistrationStatus? registrationStatusFilter) =>
       _$this._registrationStatusFilter = registrationStatusFilter;
 
   int? _maxResults;

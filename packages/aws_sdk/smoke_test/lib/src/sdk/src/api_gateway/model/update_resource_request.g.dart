@@ -12,7 +12,7 @@ class _$UpdateResourceRequest extends UpdateResourceRequest {
   @override
   final String resourceId;
   @override
-  final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
+  final _i3.BuiltList<PatchOperation>? patchOperations;
 
   factory _$UpdateResourceRequest(
           [void Function(UpdateResourceRequestBuilder)? updates]) =>
@@ -68,10 +68,10 @@ class UpdateResourceRequestBuilder
   String? get resourceId => _$this._resourceId;
   set resourceId(String? resourceId) => _$this._resourceId = resourceId;
 
-  _i4.ListBuilder<_i3.PatchOperation>? _patchOperations;
-  _i4.ListBuilder<_i3.PatchOperation> get patchOperations =>
-      _$this._patchOperations ??= new _i4.ListBuilder<_i3.PatchOperation>();
-  set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
+  _i3.ListBuilder<PatchOperation>? _patchOperations;
+  _i3.ListBuilder<PatchOperation> get patchOperations =>
+      _$this._patchOperations ??= new _i3.ListBuilder<PatchOperation>();
+  set patchOperations(_i3.ListBuilder<PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
   UpdateResourceRequestBuilder();
@@ -129,7 +129,7 @@ class UpdateResourceRequestBuilder
 
 class _$UpdateResourceRequestPayload extends UpdateResourceRequestPayload {
   @override
-  final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
+  final _i3.BuiltList<PatchOperation>? patchOperations;
 
   factory _$UpdateResourceRequestPayload(
           [void Function(UpdateResourceRequestPayloadBuilder)? updates]) =>
@@ -168,10 +168,10 @@ class UpdateResourceRequestPayloadBuilder
             UpdateResourceRequestPayloadBuilder> {
   _$UpdateResourceRequestPayload? _$v;
 
-  _i4.ListBuilder<_i3.PatchOperation>? _patchOperations;
-  _i4.ListBuilder<_i3.PatchOperation> get patchOperations =>
-      _$this._patchOperations ??= new _i4.ListBuilder<_i3.PatchOperation>();
-  set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
+  _i3.ListBuilder<PatchOperation>? _patchOperations;
+  _i3.ListBuilder<PatchOperation> get patchOperations =>
+      _$this._patchOperations ??= new _i3.ListBuilder<PatchOperation>();
+  set patchOperations(_i3.ListBuilder<PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
   UpdateResourceRequestPayloadBuilder();

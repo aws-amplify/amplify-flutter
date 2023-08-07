@@ -4,12 +4,11 @@
 library smoke_test.dynamo_db_streams.model.list_streams_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/stream.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/stream.dart';
 
 part 'list_streams_output.g.dart';
 
@@ -19,11 +18,11 @@ abstract class ListStreamsOutput
     implements Built<ListStreamsOutput, ListStreamsOutputBuilder> {
   /// Represents the output of a `ListStreams` operation.
   factory ListStreamsOutput({
-    List<_i2.Stream>? streams,
+    List<Stream>? streams,
     String? lastEvaluatedStreamArn,
   }) {
     return _$ListStreamsOutput._(
-      streams: streams == null ? null : _i3.BuiltList(streams),
+      streams: streams == null ? null : _i2.BuiltList(streams),
       lastEvaluatedStreamArn: lastEvaluatedStreamArn,
     );
   }
@@ -41,12 +40,12 @@ abstract class ListStreamsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<ListStreamsOutput>> serializers = [
+  static const List<_i3.SmithySerializer<ListStreamsOutput>> serializers = [
     ListStreamsOutputAwsJson10Serializer()
   ];
 
   /// A list of stream descriptors associated with the current account and endpoint.
-  _i3.BuiltList<_i2.Stream>? get streams;
+  _i2.BuiltList<Stream>? get streams;
 
   /// The stream ARN of the item where the operation stopped, inclusive of the previous result set. Use this value to start a new operation, excluding this value in the new request.
   ///
@@ -75,7 +74,7 @@ abstract class ListStreamsOutput
 }
 
 class ListStreamsOutputAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<ListStreamsOutput> {
+    extends _i3.StructuredSmithySerializer<ListStreamsOutput> {
   const ListStreamsOutputAwsJson10Serializer() : super('ListStreamsOutput');
 
   @override
@@ -84,8 +83,8 @@ class ListStreamsOutputAwsJson10Serializer
         _$ListStreamsOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -110,10 +109,10 @@ class ListStreamsOutputAwsJson10Serializer
           result.streams.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.Stream)],
+              _i2.BuiltList,
+              [FullType(Stream)],
             ),
-          ) as _i3.BuiltList<_i2.Stream>));
+          ) as _i2.BuiltList<Stream>));
         case 'LastEvaluatedStreamArn':
           result.lastEvaluatedStreamArn = (serializers.deserialize(
             value,
@@ -139,8 +138,8 @@ class ListStreamsOutputAwsJson10Serializer
         ..add(serializers.serialize(
           streams,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.Stream)],
+            _i2.BuiltList,
+            [FullType(Stream)],
           ),
         ));
     }

@@ -10,7 +10,7 @@ class _$OrganizationConfigRuleStatus extends OrganizationConfigRuleStatus {
   @override
   final String organizationConfigRuleName;
   @override
-  final _i2.OrganizationRuleStatus organizationRuleStatus;
+  final OrganizationRuleStatus organizationRuleStatus;
   @override
   final String? errorCode;
   @override
@@ -79,11 +79,10 @@ class OrganizationConfigRuleStatusBuilder
   set organizationConfigRuleName(String? organizationConfigRuleName) =>
       _$this._organizationConfigRuleName = organizationConfigRuleName;
 
-  _i2.OrganizationRuleStatus? _organizationRuleStatus;
-  _i2.OrganizationRuleStatus? get organizationRuleStatus =>
+  OrganizationRuleStatus? _organizationRuleStatus;
+  OrganizationRuleStatus? get organizationRuleStatus =>
       _$this._organizationRuleStatus;
-  set organizationRuleStatus(
-          _i2.OrganizationRuleStatus? organizationRuleStatus) =>
+  set organizationRuleStatus(OrganizationRuleStatus? organizationRuleStatus) =>
       _$this._organizationRuleStatus = organizationRuleStatus;
 
   String? _errorCode;

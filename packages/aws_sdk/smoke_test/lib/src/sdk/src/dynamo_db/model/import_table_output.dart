@@ -6,9 +6,8 @@ library smoke_test.dynamo_db.model.import_table_output; // ignore_for_file: no_l
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/import_table_description.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/import_table_description.dart';
 
 part 'import_table_output.g.dart';
 
@@ -16,7 +15,7 @@ abstract class ImportTableOutput
     with _i1.AWSEquatable<ImportTableOutput>
     implements Built<ImportTableOutput, ImportTableOutputBuilder> {
   factory ImportTableOutput(
-      {required _i2.ImportTableDescription importTableDescription}) {
+      {required ImportTableDescription importTableDescription}) {
     return _$ImportTableOutput._(
         importTableDescription: importTableDescription);
   }
@@ -33,12 +32,12 @@ abstract class ImportTableOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<ImportTableOutput>> serializers = [
+  static const List<_i2.SmithySerializer<ImportTableOutput>> serializers = [
     ImportTableOutputAwsJson10Serializer()
   ];
 
   /// Represents the properties of the table created for the import, and parameters of the import. The import parameters include import status, how many items were processed, and how many errors were encountered.
-  _i2.ImportTableDescription get importTableDescription;
+  ImportTableDescription get importTableDescription;
   @override
   List<Object?> get props => [importTableDescription];
   @override
@@ -53,7 +52,7 @@ abstract class ImportTableOutput
 }
 
 class ImportTableOutputAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<ImportTableOutput> {
+    extends _i2.StructuredSmithySerializer<ImportTableOutput> {
   const ImportTableOutputAwsJson10Serializer() : super('ImportTableOutput');
 
   @override
@@ -62,8 +61,8 @@ class ImportTableOutputAwsJson10Serializer
         _$ImportTableOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -87,8 +86,8 @@ class ImportTableOutputAwsJson10Serializer
         case 'ImportTableDescription':
           result.importTableDescription.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ImportTableDescription),
-          ) as _i2.ImportTableDescription));
+            specifiedType: const FullType(ImportTableDescription),
+          ) as ImportTableDescription));
       }
     }
 
@@ -107,7 +106,7 @@ class ImportTableOutputAwsJson10Serializer
       'ImportTableDescription',
       serializers.serialize(
         importTableDescription,
-        specifiedType: const FullType(_i2.ImportTableDescription),
+        specifiedType: const FullType(ImportTableDescription),
       ),
     ]);
     return result$;

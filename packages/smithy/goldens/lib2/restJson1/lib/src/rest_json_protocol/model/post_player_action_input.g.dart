@@ -8,7 +8,7 @@ part of 'post_player_action_input.dart';
 
 class _$PostPlayerActionInput extends PostPlayerActionInput {
   @override
-  final _i3.PlayerAction? action;
+  final PlayerAction? action;
 
   factory _$PostPlayerActionInput(
           [void Function(PostPlayerActionInputBuilder)? updates]) =>
@@ -44,9 +44,9 @@ class PostPlayerActionInputBuilder
     implements Builder<PostPlayerActionInput, PostPlayerActionInputBuilder> {
   _$PostPlayerActionInput? _$v;
 
-  _i3.PlayerAction? _action;
-  _i3.PlayerAction? get action => _$this._action;
-  set action(_i3.PlayerAction? action) => _$this._action = action;
+  PlayerAction? _action;
+  PlayerAction? get action => _$this._action;
+  set action(PlayerAction? action) => _$this._action = action;
 
   PostPlayerActionInputBuilder();
 

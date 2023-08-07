@@ -8,7 +8,7 @@ part of 'client_certificates.dart';
 
 class _$ClientCertificates extends ClientCertificates {
   @override
-  final _i3.BuiltList<_i2.ClientCertificate>? items;
+  final _i2.BuiltList<ClientCertificate>? items;
   @override
   final String? position;
 
@@ -49,11 +49,10 @@ class ClientCertificatesBuilder
     implements Builder<ClientCertificates, ClientCertificatesBuilder> {
   _$ClientCertificates? _$v;
 
-  _i3.ListBuilder<_i2.ClientCertificate>? _items;
-  _i3.ListBuilder<_i2.ClientCertificate> get items =>
-      _$this._items ??= new _i3.ListBuilder<_i2.ClientCertificate>();
-  set items(_i3.ListBuilder<_i2.ClientCertificate>? items) =>
-      _$this._items = items;
+  _i2.ListBuilder<ClientCertificate>? _items;
+  _i2.ListBuilder<ClientCertificate> get items =>
+      _$this._items ??= new _i2.ListBuilder<ClientCertificate>();
+  set items(_i2.ListBuilder<ClientCertificate>? items) => _$this._items = items;
 
   String? _position;
   String? get position => _$this._position;

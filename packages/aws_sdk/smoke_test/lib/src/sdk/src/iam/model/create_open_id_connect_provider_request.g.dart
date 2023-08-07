@@ -11,11 +11,11 @@ class _$CreateOpenIdConnectProviderRequest
   @override
   final String url;
   @override
-  final _i4.BuiltList<String>? clientIdList;
+  final _i3.BuiltList<String>? clientIdList;
   @override
-  final _i4.BuiltList<String> thumbprintList;
+  final _i3.BuiltList<String> thumbprintList;
   @override
-  final _i4.BuiltList<_i3.Tag>? tags;
+  final _i3.BuiltList<Tag>? tags;
 
   factory _$CreateOpenIdConnectProviderRequest(
           [void Function(CreateOpenIdConnectProviderRequestBuilder)?
@@ -76,22 +76,21 @@ class CreateOpenIdConnectProviderRequestBuilder
   String? get url => _$this._url;
   set url(String? url) => _$this._url = url;
 
-  _i4.ListBuilder<String>? _clientIdList;
-  _i4.ListBuilder<String> get clientIdList =>
-      _$this._clientIdList ??= new _i4.ListBuilder<String>();
-  set clientIdList(_i4.ListBuilder<String>? clientIdList) =>
+  _i3.ListBuilder<String>? _clientIdList;
+  _i3.ListBuilder<String> get clientIdList =>
+      _$this._clientIdList ??= new _i3.ListBuilder<String>();
+  set clientIdList(_i3.ListBuilder<String>? clientIdList) =>
       _$this._clientIdList = clientIdList;
 
-  _i4.ListBuilder<String>? _thumbprintList;
-  _i4.ListBuilder<String> get thumbprintList =>
-      _$this._thumbprintList ??= new _i4.ListBuilder<String>();
-  set thumbprintList(_i4.ListBuilder<String>? thumbprintList) =>
+  _i3.ListBuilder<String>? _thumbprintList;
+  _i3.ListBuilder<String> get thumbprintList =>
+      _$this._thumbprintList ??= new _i3.ListBuilder<String>();
+  set thumbprintList(_i3.ListBuilder<String>? thumbprintList) =>
       _$this._thumbprintList = thumbprintList;
 
-  _i4.ListBuilder<_i3.Tag>? _tags;
-  _i4.ListBuilder<_i3.Tag> get tags =>
-      _$this._tags ??= new _i4.ListBuilder<_i3.Tag>();
-  set tags(_i4.ListBuilder<_i3.Tag>? tags) => _$this._tags = tags;
+  _i3.ListBuilder<Tag>? _tags;
+  _i3.ListBuilder<Tag> get tags => _$this._tags ??= new _i3.ListBuilder<Tag>();
+  set tags(_i3.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   CreateOpenIdConnectProviderRequestBuilder();
 

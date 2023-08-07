@@ -3,12 +3,10 @@
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.resend_confirmation_code_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/analytics_metadata_type.dart'
-    as _i4;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/user_context_data_type.dart'
-    as _i3;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/analytics_metadata_type.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/user_context_data_type.dart';
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
@@ -27,9 +25,9 @@ abstract class ResendConfirmationCodeRequest
   factory ResendConfirmationCodeRequest({
     required String clientId,
     String? secretHash,
-    _i3.UserContextDataType? userContextData,
+    UserContextDataType? userContextData,
     required String username,
-    _i4.AnalyticsMetadataType? analyticsMetadata,
+    AnalyticsMetadataType? analyticsMetadata,
     Map<String, String>? clientMetadata,
   }) {
     return _$ResendConfirmationCodeRequest._(
@@ -39,7 +37,7 @@ abstract class ResendConfirmationCodeRequest
       username: username,
       analyticsMetadata: analyticsMetadata,
       clientMetadata:
-          clientMetadata == null ? null : _i5.BuiltMap(clientMetadata),
+          clientMetadata == null ? null : _i3.BuiltMap(clientMetadata),
     );
   }
 
@@ -67,13 +65,13 @@ abstract class ResendConfirmationCodeRequest
   String? get secretHash;
 
   /// Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito advanced security evaluates the risk of an authentication event based on the context that your app generates and passes to Amazon Cognito when it makes API requests.
-  _i3.UserContextDataType? get userContextData;
+  UserContextDataType? get userContextData;
 
   /// The `username` attribute of the user to whom you want to resend a confirmation code.
   String get username;
 
   /// The Amazon Pinpoint analytics metadata that contributes to your metrics for `ResendConfirmationCode` calls.
-  _i4.AnalyticsMetadataType? get analyticsMetadata;
+  AnalyticsMetadataType? get analyticsMetadata;
 
   /// A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.
   ///
@@ -88,7 +86,7 @@ abstract class ResendConfirmationCodeRequest
   /// *   Validate the ClientMetadata value.
   ///
   /// *   Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
-  _i5.BuiltMap<String, String>? get clientMetadata;
+  _i3.BuiltMap<String, String>? get clientMetadata;
   @override
   ResendConfirmationCodeRequest getPayload() => this;
   @override
@@ -177,8 +175,8 @@ class ResendConfirmationCodeRequestAwsJson11Serializer
         case 'UserContextData':
           result.userContextData.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.UserContextDataType),
-          ) as _i3.UserContextDataType));
+            specifiedType: const FullType(UserContextDataType),
+          ) as UserContextDataType));
         case 'Username':
           result.username = (serializers.deserialize(
             value,
@@ -187,19 +185,19 @@ class ResendConfirmationCodeRequestAwsJson11Serializer
         case 'AnalyticsMetadata':
           result.analyticsMetadata.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.AnalyticsMetadataType),
-          ) as _i4.AnalyticsMetadataType));
+            specifiedType: const FullType(AnalyticsMetadataType),
+          ) as AnalyticsMetadataType));
         case 'ClientMetadata':
           result.clientMetadata.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i5.BuiltMap<String, String>));
+          ) as _i3.BuiltMap<String, String>));
       }
     }
 
@@ -246,7 +244,7 @@ class ResendConfirmationCodeRequestAwsJson11Serializer
         ..add('UserContextData')
         ..add(serializers.serialize(
           userContextData,
-          specifiedType: const FullType(_i3.UserContextDataType),
+          specifiedType: const FullType(UserContextDataType),
         ));
     }
     if (analyticsMetadata != null) {
@@ -254,7 +252,7 @@ class ResendConfirmationCodeRequestAwsJson11Serializer
         ..add('AnalyticsMetadata')
         ..add(serializers.serialize(
           analyticsMetadata,
-          specifiedType: const FullType(_i4.AnalyticsMetadataType),
+          specifiedType: const FullType(AnalyticsMetadataType),
         ));
     }
     if (clientMetadata != null) {
@@ -263,7 +261,7 @@ class ResendConfirmationCodeRequestAwsJson11Serializer
         ..add(serializers.serialize(
           clientMetadata,
           specifiedType: const FullType(
-            _i5.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType(String),

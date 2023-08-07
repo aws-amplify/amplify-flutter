@@ -3,12 +3,11 @@
 
 library amplify_storage_s3_dart.s3.model.json_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/json_type.dart'
-    as _i2;
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/json_type.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'json_input.g.dart';
 
@@ -17,7 +16,7 @@ abstract class JsonInput
     with _i1.AWSEquatable<JsonInput>
     implements Built<JsonInput, JsonInputBuilder> {
   /// Specifies JSON as object's input serialization format.
-  factory JsonInput({_i2.JsonType? type}) {
+  factory JsonInput({JsonType? type}) {
     return _$JsonInput._(type: type);
   }
 
@@ -27,12 +26,12 @@ abstract class JsonInput
 
   const JsonInput._();
 
-  static const List<_i3.SmithySerializer<JsonInput>> serializers = [
+  static const List<_i2.SmithySerializer<JsonInput>> serializers = [
     JsonInputRestXmlSerializer()
   ];
 
   /// The type of JSON. Valid values: Document, Lines.
-  _i2.JsonType? get type;
+  JsonType? get type;
   @override
   List<Object?> get props => [type];
   @override
@@ -47,7 +46,7 @@ abstract class JsonInput
 }
 
 class JsonInputRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<JsonInput> {
+    extends _i2.StructuredSmithySerializer<JsonInput> {
   const JsonInputRestXmlSerializer() : super('JsonInput');
 
   @override
@@ -56,8 +55,8 @@ class JsonInputRestXmlSerializer
         _$JsonInput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -81,8 +80,8 @@ class JsonInputRestXmlSerializer
         case 'Type':
           result.type = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.JsonType),
-          ) as _i2.JsonType);
+            specifiedType: const FullType(JsonType),
+          ) as JsonType);
       }
     }
 
@@ -96,18 +95,18 @@ class JsonInputRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'JsonInput',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final JsonInput(:type) = object;
     if (type != null) {
       result$
-        ..add(const _i3.XmlElementName('Type'))
+        ..add(const _i2.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(_i2.JsonType),
+          specifiedType: const FullType.nullable(JsonType),
         ));
     }
     return result$;

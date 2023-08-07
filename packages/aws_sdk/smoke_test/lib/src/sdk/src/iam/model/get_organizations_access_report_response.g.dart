@@ -9,7 +9,7 @@ part of 'get_organizations_access_report_response.dart';
 class _$GetOrganizationsAccessReportResponse
     extends GetOrganizationsAccessReportResponse {
   @override
-  final _i2.JobStatusType jobStatus;
+  final JobStatusType jobStatus;
   @override
   final DateTime jobCreationDate;
   @override
@@ -19,13 +19,13 @@ class _$GetOrganizationsAccessReportResponse
   @override
   final int? numberOfServicesNotAccessed;
   @override
-  final _i5.BuiltList<_i3.AccessDetail>? accessDetails;
+  final _i2.BuiltList<AccessDetail>? accessDetails;
   @override
   final bool isTruncated;
   @override
   final String? marker;
   @override
-  final _i4.ErrorDetails? errorDetails;
+  final ErrorDetails? errorDetails;
 
   factory _$GetOrganizationsAccessReportResponse(
           [void Function(GetOrganizationsAccessReportResponseBuilder)?
@@ -99,9 +99,9 @@ class GetOrganizationsAccessReportResponseBuilder
             GetOrganizationsAccessReportResponseBuilder> {
   _$GetOrganizationsAccessReportResponse? _$v;
 
-  _i2.JobStatusType? _jobStatus;
-  _i2.JobStatusType? get jobStatus => _$this._jobStatus;
-  set jobStatus(_i2.JobStatusType? jobStatus) => _$this._jobStatus = jobStatus;
+  JobStatusType? _jobStatus;
+  JobStatusType? get jobStatus => _$this._jobStatus;
+  set jobStatus(JobStatusType? jobStatus) => _$this._jobStatus = jobStatus;
 
   DateTime? _jobCreationDate;
   DateTime? get jobCreationDate => _$this._jobCreationDate;
@@ -123,10 +123,10 @@ class GetOrganizationsAccessReportResponseBuilder
   set numberOfServicesNotAccessed(int? numberOfServicesNotAccessed) =>
       _$this._numberOfServicesNotAccessed = numberOfServicesNotAccessed;
 
-  _i5.ListBuilder<_i3.AccessDetail>? _accessDetails;
-  _i5.ListBuilder<_i3.AccessDetail> get accessDetails =>
-      _$this._accessDetails ??= new _i5.ListBuilder<_i3.AccessDetail>();
-  set accessDetails(_i5.ListBuilder<_i3.AccessDetail>? accessDetails) =>
+  _i2.ListBuilder<AccessDetail>? _accessDetails;
+  _i2.ListBuilder<AccessDetail> get accessDetails =>
+      _$this._accessDetails ??= new _i2.ListBuilder<AccessDetail>();
+  set accessDetails(_i2.ListBuilder<AccessDetail>? accessDetails) =>
       _$this._accessDetails = accessDetails;
 
   bool? _isTruncated;
@@ -137,10 +137,10 @@ class GetOrganizationsAccessReportResponseBuilder
   String? get marker => _$this._marker;
   set marker(String? marker) => _$this._marker = marker;
 
-  _i4.ErrorDetailsBuilder? _errorDetails;
-  _i4.ErrorDetailsBuilder get errorDetails =>
-      _$this._errorDetails ??= new _i4.ErrorDetailsBuilder();
-  set errorDetails(_i4.ErrorDetailsBuilder? errorDetails) =>
+  ErrorDetailsBuilder? _errorDetails;
+  ErrorDetailsBuilder get errorDetails =>
+      _$this._errorDetails ??= new ErrorDetailsBuilder();
+  set errorDetails(ErrorDetailsBuilder? errorDetails) =>
       _$this._errorDetails = errorDetails;
 
   GetOrganizationsAccessReportResponseBuilder() {

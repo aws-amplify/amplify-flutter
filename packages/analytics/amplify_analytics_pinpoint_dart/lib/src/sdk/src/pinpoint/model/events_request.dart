@@ -3,13 +3,12 @@
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.events_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/events_batch.dart'
-    as _i2;
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/events_batch.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i3;
 
 part 'events_request.g.dart';
 
@@ -18,8 +17,8 @@ abstract class EventsRequest
     with _i1.AWSEquatable<EventsRequest>
     implements Built<EventsRequest, EventsRequestBuilder> {
   /// Specifies a batch of events to process.
-  factory EventsRequest({required Map<String, _i2.EventsBatch> batchItem}) {
-    return _$EventsRequest._(batchItem: _i3.BuiltMap(batchItem));
+  factory EventsRequest({required Map<String, EventsBatch> batchItem}) {
+    return _$EventsRequest._(batchItem: _i2.BuiltMap(batchItem));
   }
 
   /// Specifies a batch of events to process.
@@ -28,12 +27,12 @@ abstract class EventsRequest
 
   const EventsRequest._();
 
-  static const List<_i4.SmithySerializer<EventsRequest>> serializers = [
+  static const List<_i3.SmithySerializer<EventsRequest>> serializers = [
     EventsRequestRestJson1Serializer()
   ];
 
   /// The batch of events to process. For each item in a batch, the endpoint ID acts as a key that has an EventsBatch object as its value.
-  _i3.BuiltMap<String, _i2.EventsBatch> get batchItem;
+  _i2.BuiltMap<String, EventsBatch> get batchItem;
   @override
   List<Object?> get props => [batchItem];
   @override
@@ -48,7 +47,7 @@ abstract class EventsRequest
 }
 
 class EventsRequestRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<EventsRequest> {
+    extends _i3.StructuredSmithySerializer<EventsRequest> {
   const EventsRequestRestJson1Serializer() : super('EventsRequest');
 
   @override
@@ -57,8 +56,8 @@ class EventsRequestRestJson1Serializer
         _$EventsRequest,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -83,13 +82,13 @@ class EventsRequestRestJson1Serializer
           result.batchItem.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i2.EventsBatch),
+                FullType(EventsBatch),
               ],
             ),
-          ) as _i3.BuiltMap<String, _i2.EventsBatch>));
+          ) as _i2.BuiltMap<String, EventsBatch>));
       }
     }
 
@@ -109,10 +108,10 @@ class EventsRequestRestJson1Serializer
       serializers.serialize(
         batchItem,
         specifiedType: const FullType(
-          _i3.BuiltMap,
+          _i2.BuiltMap,
           [
             FullType(String),
-            FullType(_i2.EventsBatch),
+            FullType(EventsBatch),
           ],
         ),
       ),

@@ -11,7 +11,7 @@ class _$AggregateComplianceByConfigRule
   @override
   final String? configRuleName;
   @override
-  final _i2.Compliance? compliance;
+  final Compliance? compliance;
   @override
   final String? accountId;
   @override
@@ -67,10 +67,10 @@ class AggregateComplianceByConfigRuleBuilder
   set configRuleName(String? configRuleName) =>
       _$this._configRuleName = configRuleName;
 
-  _i2.ComplianceBuilder? _compliance;
-  _i2.ComplianceBuilder get compliance =>
-      _$this._compliance ??= new _i2.ComplianceBuilder();
-  set compliance(_i2.ComplianceBuilder? compliance) =>
+  ComplianceBuilder? _compliance;
+  ComplianceBuilder get compliance =>
+      _$this._compliance ??= new ComplianceBuilder();
+  set compliance(ComplianceBuilder? compliance) =>
       _$this._compliance = compliance;
 
   String? _accountId;

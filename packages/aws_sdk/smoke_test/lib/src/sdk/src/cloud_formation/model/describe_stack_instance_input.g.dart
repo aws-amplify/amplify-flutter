@@ -14,7 +14,7 @@ class _$DescribeStackInstanceInput extends DescribeStackInstanceInput {
   @override
   final String stackInstanceRegion;
   @override
-  final _i3.CallAs? callAs;
+  final CallAs? callAs;
 
   factory _$DescribeStackInstanceInput(
           [void Function(DescribeStackInstanceInputBuilder)? updates]) =>
@@ -84,9 +84,9 @@ class DescribeStackInstanceInputBuilder
   set stackInstanceRegion(String? stackInstanceRegion) =>
       _$this._stackInstanceRegion = stackInstanceRegion;
 
-  _i3.CallAs? _callAs;
-  _i3.CallAs? get callAs => _$this._callAs;
-  set callAs(_i3.CallAs? callAs) => _$this._callAs = callAs;
+  CallAs? _callAs;
+  CallAs? get callAs => _$this._callAs;
+  set callAs(CallAs? callAs) => _$this._callAs = callAs;
 
   DescribeStackInstanceInputBuilder();
 

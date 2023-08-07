@@ -10,17 +10,15 @@ class _$ResourceSpecificResult extends ResourceSpecificResult {
   @override
   final String evalResourceName;
   @override
-  final _i2.PolicyEvaluationDecisionType evalResourceDecision;
+  final PolicyEvaluationDecisionType evalResourceDecision;
   @override
-  final _i5.BuiltList<_i3.Statement>? matchedStatements;
+  final _i2.BuiltList<Statement>? matchedStatements;
   @override
-  final _i5.BuiltList<String>? missingContextValues;
+  final _i2.BuiltList<String>? missingContextValues;
   @override
-  final _i5.BuiltMap<String, _i2.PolicyEvaluationDecisionType>?
-      evalDecisionDetails;
+  final _i2.BuiltMap<String, PolicyEvaluationDecisionType>? evalDecisionDetails;
   @override
-  final _i4.PermissionsBoundaryDecisionDetail?
-      permissionsBoundaryDecisionDetail;
+  final PermissionsBoundaryDecisionDetail? permissionsBoundaryDecisionDetail;
 
   factory _$ResourceSpecificResult(
           [void Function(ResourceSpecificResultBuilder)? updates]) =>
@@ -85,43 +83,41 @@ class ResourceSpecificResultBuilder
   set evalResourceName(String? evalResourceName) =>
       _$this._evalResourceName = evalResourceName;
 
-  _i2.PolicyEvaluationDecisionType? _evalResourceDecision;
-  _i2.PolicyEvaluationDecisionType? get evalResourceDecision =>
+  PolicyEvaluationDecisionType? _evalResourceDecision;
+  PolicyEvaluationDecisionType? get evalResourceDecision =>
       _$this._evalResourceDecision;
   set evalResourceDecision(
-          _i2.PolicyEvaluationDecisionType? evalResourceDecision) =>
+          PolicyEvaluationDecisionType? evalResourceDecision) =>
       _$this._evalResourceDecision = evalResourceDecision;
 
-  _i5.ListBuilder<_i3.Statement>? _matchedStatements;
-  _i5.ListBuilder<_i3.Statement> get matchedStatements =>
-      _$this._matchedStatements ??= new _i5.ListBuilder<_i3.Statement>();
-  set matchedStatements(_i5.ListBuilder<_i3.Statement>? matchedStatements) =>
+  _i2.ListBuilder<Statement>? _matchedStatements;
+  _i2.ListBuilder<Statement> get matchedStatements =>
+      _$this._matchedStatements ??= new _i2.ListBuilder<Statement>();
+  set matchedStatements(_i2.ListBuilder<Statement>? matchedStatements) =>
       _$this._matchedStatements = matchedStatements;
 
-  _i5.ListBuilder<String>? _missingContextValues;
-  _i5.ListBuilder<String> get missingContextValues =>
-      _$this._missingContextValues ??= new _i5.ListBuilder<String>();
-  set missingContextValues(_i5.ListBuilder<String>? missingContextValues) =>
+  _i2.ListBuilder<String>? _missingContextValues;
+  _i2.ListBuilder<String> get missingContextValues =>
+      _$this._missingContextValues ??= new _i2.ListBuilder<String>();
+  set missingContextValues(_i2.ListBuilder<String>? missingContextValues) =>
       _$this._missingContextValues = missingContextValues;
 
-  _i5.MapBuilder<String, _i2.PolicyEvaluationDecisionType>?
-      _evalDecisionDetails;
-  _i5.MapBuilder<String, _i2.PolicyEvaluationDecisionType>
+  _i2.MapBuilder<String, PolicyEvaluationDecisionType>? _evalDecisionDetails;
+  _i2.MapBuilder<String, PolicyEvaluationDecisionType>
       get evalDecisionDetails => _$this._evalDecisionDetails ??=
-          new _i5.MapBuilder<String, _i2.PolicyEvaluationDecisionType>();
+          new _i2.MapBuilder<String, PolicyEvaluationDecisionType>();
   set evalDecisionDetails(
-          _i5.MapBuilder<String, _i2.PolicyEvaluationDecisionType>?
+          _i2.MapBuilder<String, PolicyEvaluationDecisionType>?
               evalDecisionDetails) =>
       _$this._evalDecisionDetails = evalDecisionDetails;
 
-  _i4.PermissionsBoundaryDecisionDetailBuilder?
-      _permissionsBoundaryDecisionDetail;
-  _i4.PermissionsBoundaryDecisionDetailBuilder
+  PermissionsBoundaryDecisionDetailBuilder? _permissionsBoundaryDecisionDetail;
+  PermissionsBoundaryDecisionDetailBuilder
       get permissionsBoundaryDecisionDetail =>
           _$this._permissionsBoundaryDecisionDetail ??=
-              new _i4.PermissionsBoundaryDecisionDetailBuilder();
+              new PermissionsBoundaryDecisionDetailBuilder();
   set permissionsBoundaryDecisionDetail(
-          _i4.PermissionsBoundaryDecisionDetailBuilder?
+          PermissionsBoundaryDecisionDetailBuilder?
               permissionsBoundaryDecisionDetail) =>
       _$this._permissionsBoundaryDecisionDetail =
           permissionsBoundaryDecisionDetail;

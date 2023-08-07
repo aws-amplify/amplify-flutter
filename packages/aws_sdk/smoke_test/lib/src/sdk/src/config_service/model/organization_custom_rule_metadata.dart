@@ -4,14 +4,12 @@
 library smoke_test.config_service.model.organization_custom_rule_metadata; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/config_service/model/maximum_execution_frequency.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/organization_config_rule_trigger_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/maximum_execution_frequency.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/organization_config_rule_trigger_type.dart';
 
 part 'organization_custom_rule_metadata.g.dart';
 
@@ -26,10 +24,10 @@ abstract class OrganizationCustomRuleMetadata
   factory OrganizationCustomRuleMetadata({
     String? description,
     required String lambdaFunctionArn,
-    required List<_i2.OrganizationConfigRuleTriggerType>
+    required List<OrganizationConfigRuleTriggerType>
         organizationConfigRuleTriggerTypes,
     String? inputParameters,
-    _i3.MaximumExecutionFrequency? maximumExecutionFrequency,
+    MaximumExecutionFrequency? maximumExecutionFrequency,
     List<String>? resourceTypesScope,
     String? resourceIdScope,
     String? tagKeyScope,
@@ -39,11 +37,11 @@ abstract class OrganizationCustomRuleMetadata
       description: description,
       lambdaFunctionArn: lambdaFunctionArn,
       organizationConfigRuleTriggerTypes:
-          _i4.BuiltList(organizationConfigRuleTriggerTypes),
+          _i2.BuiltList(organizationConfigRuleTriggerTypes),
       inputParameters: inputParameters,
       maximumExecutionFrequency: maximumExecutionFrequency,
       resourceTypesScope:
-          resourceTypesScope == null ? null : _i4.BuiltList(resourceTypesScope),
+          resourceTypesScope == null ? null : _i2.BuiltList(resourceTypesScope),
       resourceIdScope: resourceIdScope,
       tagKeyScope: tagKeyScope,
       tagValueScope: tagValueScope,
@@ -57,7 +55,7 @@ abstract class OrganizationCustomRuleMetadata
 
   const OrganizationCustomRuleMetadata._();
 
-  static const List<_i5.SmithySerializer<OrganizationCustomRuleMetadata>>
+  static const List<_i3.SmithySerializer<OrganizationCustomRuleMetadata>>
       serializers = [OrganizationCustomRuleMetadataAwsJson11Serializer()];
 
   /// The description that you provide for your organization Config rule.
@@ -73,7 +71,7 @@ abstract class OrganizationCustomRuleMetadata
   /// *   `OversizedConfigurationItemChangeNotification` \- Triggers an evaluation when Config delivers an oversized configuration item. Config may generate this notification type when a resource changes and the notification exceeds the maximum size allowed by Amazon SNS.
   ///
   /// *   `ScheduledNotification` \- Triggers a periodic evaluation at the frequency specified for `MaximumExecutionFrequency`.
-  _i4.BuiltList<_i2.OrganizationConfigRuleTriggerType>
+  _i2.BuiltList<OrganizationConfigRuleTriggerType>
       get organizationConfigRuleTriggerTypes;
 
   /// A string, in JSON format, that is passed to your organization Config rule Lambda function.
@@ -82,10 +80,10 @@ abstract class OrganizationCustomRuleMetadata
   /// The maximum frequency with which Config runs evaluations for a rule. Your custom rule is triggered when Config delivers the configuration snapshot. For more information, see ConfigSnapshotDeliveryProperties.
   ///
   /// By default, rules with a periodic trigger are evaluated every 24 hours. To change the frequency, specify a valid value for the `MaximumExecutionFrequency` parameter.
-  _i3.MaximumExecutionFrequency? get maximumExecutionFrequency;
+  MaximumExecutionFrequency? get maximumExecutionFrequency;
 
   /// The type of the Amazon Web Services resource that was evaluated.
-  _i4.BuiltList<String>? get resourceTypesScope;
+  _i2.BuiltList<String>? get resourceTypesScope;
 
   /// The ID of the Amazon Web Services resource that was evaluated.
   String? get resourceIdScope;
@@ -151,7 +149,7 @@ abstract class OrganizationCustomRuleMetadata
 }
 
 class OrganizationCustomRuleMetadataAwsJson11Serializer
-    extends _i5.StructuredSmithySerializer<OrganizationCustomRuleMetadata> {
+    extends _i3.StructuredSmithySerializer<OrganizationCustomRuleMetadata> {
   const OrganizationCustomRuleMetadataAwsJson11Serializer()
       : super('OrganizationCustomRuleMetadata');
 
@@ -161,8 +159,8 @@ class OrganizationCustomRuleMetadataAwsJson11Serializer
         _$OrganizationCustomRuleMetadata,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -198,10 +196,10 @@ class OrganizationCustomRuleMetadataAwsJson11Serializer
               .replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i2.OrganizationConfigRuleTriggerType)],
+              _i2.BuiltList,
+              [FullType(OrganizationConfigRuleTriggerType)],
             ),
-          ) as _i4.BuiltList<_i2.OrganizationConfigRuleTriggerType>));
+          ) as _i2.BuiltList<OrganizationConfigRuleTriggerType>));
         case 'InputParameters':
           result.inputParameters = (serializers.deserialize(
             value,
@@ -210,16 +208,16 @@ class OrganizationCustomRuleMetadataAwsJson11Serializer
         case 'MaximumExecutionFrequency':
           result.maximumExecutionFrequency = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.MaximumExecutionFrequency),
-          ) as _i3.MaximumExecutionFrequency);
+            specifiedType: const FullType(MaximumExecutionFrequency),
+          ) as MaximumExecutionFrequency);
         case 'ResourceTypesScope':
           result.resourceTypesScope.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i4.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
         case 'ResourceIdScope':
           result.resourceIdScope = (serializers.deserialize(
             value,
@@ -269,8 +267,8 @@ class OrganizationCustomRuleMetadataAwsJson11Serializer
       serializers.serialize(
         organizationConfigRuleTriggerTypes,
         specifiedType: const FullType(
-          _i4.BuiltList,
-          [FullType(_i2.OrganizationConfigRuleTriggerType)],
+          _i2.BuiltList,
+          [FullType(OrganizationConfigRuleTriggerType)],
         ),
       ),
     ]);
@@ -295,7 +293,7 @@ class OrganizationCustomRuleMetadataAwsJson11Serializer
         ..add('MaximumExecutionFrequency')
         ..add(serializers.serialize(
           maximumExecutionFrequency,
-          specifiedType: const FullType(_i3.MaximumExecutionFrequency),
+          specifiedType: const FullType(MaximumExecutionFrequency),
         ));
     }
     if (resourceTypesScope != null) {
@@ -304,7 +302,7 @@ class OrganizationCustomRuleMetadataAwsJson11Serializer
         ..add(serializers.serialize(
           resourceTypesScope,
           specifiedType: const FullType(
-            _i4.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));

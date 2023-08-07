@@ -6,10 +6,9 @@ library smoke_test.iam.model.statement; // ignore_for_file: no_leading_underscor
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/policy_source_type.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/iam/model/position.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/policy_source_type.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/position.dart';
 
 part 'statement.g.dart';
 
@@ -24,9 +23,9 @@ abstract class Statement
   /// This data type is used by the `MatchedStatements` member of the `EvaluationResult` type.
   factory Statement({
     String? sourcePolicyId,
-    _i2.PolicySourceType? sourcePolicyType,
-    _i3.Position? startPosition,
-    _i3.Position? endPosition,
+    PolicySourceType? sourcePolicyType,
+    Position? startPosition,
+    Position? endPosition,
   }) {
     return _$Statement._(
       sourcePolicyId: sourcePolicyId,
@@ -44,7 +43,7 @@ abstract class Statement
 
   const Statement._();
 
-  static const List<_i4.SmithySerializer<Statement>> serializers = [
+  static const List<_i2.SmithySerializer<Statement>> serializers = [
     StatementAwsQuerySerializer()
   ];
 
@@ -52,13 +51,13 @@ abstract class Statement
   String? get sourcePolicyId;
 
   /// The type of the policy.
-  _i2.PolicySourceType? get sourcePolicyType;
+  PolicySourceType? get sourcePolicyType;
 
   /// The row and column of the beginning of the `Statement` in an IAM policy.
-  _i3.Position? get startPosition;
+  Position? get startPosition;
 
   /// The row and column of the end of a `Statement` in an IAM policy.
-  _i3.Position? get endPosition;
+  Position? get endPosition;
   @override
   List<Object?> get props => [
         sourcePolicyId,
@@ -90,7 +89,7 @@ abstract class Statement
 }
 
 class StatementAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<Statement> {
+    extends _i2.StructuredSmithySerializer<Statement> {
   const StatementAwsQuerySerializer() : super('Statement');
 
   @override
@@ -99,8 +98,8 @@ class StatementAwsQuerySerializer
         _$Statement,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -129,18 +128,18 @@ class StatementAwsQuerySerializer
         case 'SourcePolicyType':
           result.sourcePolicyType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.PolicySourceType),
-          ) as _i2.PolicySourceType);
+            specifiedType: const FullType(PolicySourceType),
+          ) as PolicySourceType);
         case 'StartPosition':
           result.startPosition.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.Position),
-          ) as _i3.Position));
+            specifiedType: const FullType(Position),
+          ) as Position));
         case 'EndPosition':
           result.endPosition.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.Position),
-          ) as _i3.Position));
+            specifiedType: const FullType(Position),
+          ) as Position));
       }
     }
 
@@ -154,9 +153,9 @@ class StatementAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'StatementResponse',
-        _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final Statement(
@@ -167,7 +166,7 @@ class StatementAwsQuerySerializer
     ) = object;
     if (sourcePolicyId != null) {
       result$
-        ..add(const _i4.XmlElementName('SourcePolicyId'))
+        ..add(const _i2.XmlElementName('SourcePolicyId'))
         ..add(serializers.serialize(
           sourcePolicyId,
           specifiedType: const FullType(String),
@@ -175,26 +174,26 @@ class StatementAwsQuerySerializer
     }
     if (sourcePolicyType != null) {
       result$
-        ..add(const _i4.XmlElementName('SourcePolicyType'))
+        ..add(const _i2.XmlElementName('SourcePolicyType'))
         ..add(serializers.serialize(
           sourcePolicyType,
-          specifiedType: const FullType.nullable(_i2.PolicySourceType),
+          specifiedType: const FullType.nullable(PolicySourceType),
         ));
     }
     if (startPosition != null) {
       result$
-        ..add(const _i4.XmlElementName('StartPosition'))
+        ..add(const _i2.XmlElementName('StartPosition'))
         ..add(serializers.serialize(
           startPosition,
-          specifiedType: const FullType(_i3.Position),
+          specifiedType: const FullType(Position),
         ));
     }
     if (endPosition != null) {
       result$
-        ..add(const _i4.XmlElementName('EndPosition'))
+        ..add(const _i2.XmlElementName('EndPosition'))
         ..add(serializers.serialize(
           endPosition,
-          specifiedType: const FullType(_i3.Position),
+          specifiedType: const FullType(Position),
         ));
     }
     return result$;

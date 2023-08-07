@@ -7,10 +7,8 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/deprecated_status.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/registry_type.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/deprecated_status.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/registry_type.dart';
 
 part 'list_type_versions_input.g.dart';
 
@@ -20,12 +18,12 @@ abstract class ListTypeVersionsInput
         _i2.AWSEquatable<ListTypeVersionsInput>
     implements Built<ListTypeVersionsInput, ListTypeVersionsInputBuilder> {
   factory ListTypeVersionsInput({
-    _i3.RegistryType? type,
+    RegistryType? type,
     String? typeName,
     String? arn,
     int? maxResults,
     String? nextToken,
-    _i4.DeprecatedStatus? deprecatedStatus,
+    DeprecatedStatus? deprecatedStatus,
     String? publisherId,
   }) {
     return _$ListTypeVersionsInput._(
@@ -59,7 +57,7 @@ abstract class ListTypeVersionsInput
   /// The kind of the extension.
   ///
   /// Conditional: You must specify either `TypeName` and `Type`, or `Arn`.
-  _i3.RegistryType? get type;
+  RegistryType? get type;
 
   /// The name of the extension for which you want version summary information.
   ///
@@ -87,7 +85,7 @@ abstract class ListTypeVersionsInput
   ///
   ///
   /// The default is `LIVE`.
-  _i4.DeprecatedStatus? get deprecatedStatus;
+  DeprecatedStatus? get deprecatedStatus;
 
   /// The publisher ID of the extension publisher.
   ///
@@ -176,8 +174,8 @@ class ListTypeVersionsInputAwsQuerySerializer
         case 'Type':
           result.type = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.RegistryType),
-          ) as _i3.RegistryType);
+            specifiedType: const FullType(RegistryType),
+          ) as RegistryType);
         case 'TypeName':
           result.typeName = (serializers.deserialize(
             value,
@@ -201,8 +199,8 @@ class ListTypeVersionsInputAwsQuerySerializer
         case 'DeprecatedStatus':
           result.deprecatedStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.DeprecatedStatus),
-          ) as _i4.DeprecatedStatus);
+            specifiedType: const FullType(DeprecatedStatus),
+          ) as DeprecatedStatus);
         case 'PublisherId':
           result.publisherId = (serializers.deserialize(
             value,
@@ -240,7 +238,7 @@ class ListTypeVersionsInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(_i3.RegistryType),
+          specifiedType: const FullType.nullable(RegistryType),
         ));
     }
     if (typeName != null) {
@@ -280,7 +278,7 @@ class ListTypeVersionsInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('DeprecatedStatus'))
         ..add(serializers.serialize(
           deprecatedStatus,
-          specifiedType: const FullType.nullable(_i4.DeprecatedStatus),
+          specifiedType: const FullType.nullable(DeprecatedStatus),
         ));
     }
     if (publisherId != null) {

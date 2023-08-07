@@ -6,8 +6,7 @@ library rest_json1_v2.rest_json_protocol.model.union_input_output; // ignore_for
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1_v2/src/rest_json_protocol/model/my_union.dart'
-    as _i3;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/my_union.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'union_input_output.g.dart';
@@ -17,7 +16,7 @@ abstract class UnionInputOutput
     with _i1.HttpInput<UnionInputOutput>, _i2.AWSEquatable<UnionInputOutput>
     implements Built<UnionInputOutput, UnionInputOutputBuilder> {
   /// A shared structure that contains a single union member.
-  factory UnionInputOutput({_i3.MyUnion? contents}) {
+  factory UnionInputOutput({MyUnion? contents}) {
     return _$UnionInputOutput._(contents: contents);
   }
 
@@ -46,7 +45,7 @@ abstract class UnionInputOutput
   ];
 
   /// A union with a representative set of types for members.
-  _i3.MyUnion? get contents;
+  MyUnion? get contents;
   @override
   UnionInputOutput getPayload() => this;
   @override
@@ -97,8 +96,8 @@ class UnionInputOutputRestJson1Serializer
         case 'contents':
           result.contents = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.MyUnion),
-          ) as _i3.MyUnion);
+            specifiedType: const FullType(MyUnion),
+          ) as MyUnion);
       }
     }
 
@@ -118,7 +117,7 @@ class UnionInputOutputRestJson1Serializer
         ..add('contents')
         ..add(serializers.serialize(
           contents,
-          specifiedType: const FullType(_i3.MyUnion),
+          specifiedType: const FullType(MyUnion),
         ));
     }
     return result$;

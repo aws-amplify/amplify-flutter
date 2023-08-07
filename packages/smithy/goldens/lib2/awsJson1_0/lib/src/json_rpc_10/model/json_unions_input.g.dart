@@ -8,7 +8,7 @@ part of 'json_unions_input.dart';
 
 class _$JsonUnionsInput extends JsonUnionsInput {
   @override
-  final _i3.MyUnion? contents;
+  final MyUnion? contents;
 
   factory _$JsonUnionsInput([void Function(JsonUnionsInputBuilder)? updates]) =>
       (new JsonUnionsInputBuilder()..update(updates))._build();
@@ -42,9 +42,9 @@ class JsonUnionsInputBuilder
     implements Builder<JsonUnionsInput, JsonUnionsInputBuilder> {
   _$JsonUnionsInput? _$v;
 
-  _i3.MyUnion? _contents;
-  _i3.MyUnion? get contents => _$this._contents;
-  set contents(_i3.MyUnion? contents) => _$this._contents = contents;
+  MyUnion? _contents;
+  MyUnion? get contents => _$this._contents;
+  set contents(MyUnion? contents) => _$this._contents = contents;
 
   JsonUnionsInputBuilder();
 

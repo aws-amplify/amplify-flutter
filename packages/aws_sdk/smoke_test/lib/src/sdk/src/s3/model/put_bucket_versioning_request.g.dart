@@ -12,11 +12,11 @@ class _$PutBucketVersioningRequest extends PutBucketVersioningRequest {
   @override
   final String? contentMd5;
   @override
-  final _i4.ChecksumAlgorithm? checksumAlgorithm;
+  final ChecksumAlgorithm? checksumAlgorithm;
   @override
   final String? mfa;
   @override
-  final _i2.VersioningConfiguration versioningConfiguration;
+  final VersioningConfiguration versioningConfiguration;
   @override
   final String? expectedBucketOwner;
 
@@ -86,21 +86,20 @@ class PutBucketVersioningRequestBuilder
   String? get contentMd5 => _$this._contentMd5;
   set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
 
-  _i4.ChecksumAlgorithm? _checksumAlgorithm;
-  _i4.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
+  ChecksumAlgorithm? _checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
   String? _mfa;
   String? get mfa => _$this._mfa;
   set mfa(String? mfa) => _$this._mfa = mfa;
 
-  _i2.VersioningConfigurationBuilder? _versioningConfiguration;
-  _i2.VersioningConfigurationBuilder get versioningConfiguration =>
-      _$this._versioningConfiguration ??=
-          new _i2.VersioningConfigurationBuilder();
+  VersioningConfigurationBuilder? _versioningConfiguration;
+  VersioningConfigurationBuilder get versioningConfiguration =>
+      _$this._versioningConfiguration ??= new VersioningConfigurationBuilder();
   set versioningConfiguration(
-          _i2.VersioningConfigurationBuilder? versioningConfiguration) =>
+          VersioningConfigurationBuilder? versioningConfiguration) =>
       _$this._versioningConfiguration = versioningConfiguration;
 
   String? _expectedBucketOwner;

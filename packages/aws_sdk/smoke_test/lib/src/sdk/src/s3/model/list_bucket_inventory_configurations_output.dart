@@ -4,12 +4,11 @@
 library smoke_test.s3.model.list_bucket_inventory_configurations_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/inventory_configuration.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/inventory_configuration.dart';
 
 part 'list_bucket_inventory_configurations_output.g.dart';
 
@@ -21,7 +20,7 @@ abstract class ListBucketInventoryConfigurationsOutput
             ListBucketInventoryConfigurationsOutputBuilder> {
   factory ListBucketInventoryConfigurationsOutput({
     String? continuationToken,
-    List<_i2.InventoryConfiguration>? inventoryConfigurationList,
+    List<InventoryConfiguration>? inventoryConfigurationList,
     bool? isTruncated,
     String? nextContinuationToken,
   }) {
@@ -29,7 +28,7 @@ abstract class ListBucketInventoryConfigurationsOutput
       continuationToken: continuationToken,
       inventoryConfigurationList: inventoryConfigurationList == null
           ? null
-          : _i3.BuiltList(inventoryConfigurationList),
+          : _i2.BuiltList(inventoryConfigurationList),
       isTruncated: isTruncated,
       nextContinuationToken: nextContinuationToken,
     );
@@ -49,7 +48,7 @@ abstract class ListBucketInventoryConfigurationsOutput
       payload;
 
   static const List<
-          _i4.SmithySerializer<ListBucketInventoryConfigurationsOutput>>
+          _i3.SmithySerializer<ListBucketInventoryConfigurationsOutput>>
       serializers = [
     ListBucketInventoryConfigurationsOutputRestXmlSerializer()
   ];
@@ -58,7 +57,7 @@ abstract class ListBucketInventoryConfigurationsOutput
   String? get continuationToken;
 
   /// The list of inventory configurations for a bucket.
-  _i3.BuiltList<_i2.InventoryConfiguration>? get inventoryConfigurationList;
+  _i2.BuiltList<InventoryConfiguration>? get inventoryConfigurationList;
 
   /// Tells whether the returned list of inventory configurations is complete. A value of true indicates that the list is not complete and the NextContinuationToken is provided for a subsequent request.
   bool? get isTruncated;
@@ -96,7 +95,7 @@ abstract class ListBucketInventoryConfigurationsOutput
   }
 }
 
-class ListBucketInventoryConfigurationsOutputRestXmlSerializer extends _i4
+class ListBucketInventoryConfigurationsOutputRestXmlSerializer extends _i3
     .StructuredSmithySerializer<ListBucketInventoryConfigurationsOutput> {
   const ListBucketInventoryConfigurationsOutputRestXmlSerializer()
       : super('ListBucketInventoryConfigurationsOutput');
@@ -107,8 +106,8 @@ class ListBucketInventoryConfigurationsOutputRestXmlSerializer extends _i4
         _$ListBucketInventoryConfigurationsOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -137,8 +136,8 @@ class ListBucketInventoryConfigurationsOutputRestXmlSerializer extends _i4
         case 'InventoryConfiguration':
           result.inventoryConfigurationList.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.InventoryConfiguration),
-          ) as _i2.InventoryConfiguration));
+            specifiedType: const FullType(InventoryConfiguration),
+          ) as InventoryConfiguration));
         case 'IsTruncated':
           result.isTruncated = (serializers.deserialize(
             value,
@@ -162,9 +161,9 @@ class ListBucketInventoryConfigurationsOutputRestXmlSerializer extends _i4
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'ListInventoryConfigurationsResult',
-        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final ListBucketInventoryConfigurationsOutput(
@@ -175,7 +174,7 @@ class ListBucketInventoryConfigurationsOutputRestXmlSerializer extends _i4
     ) = object;
     if (continuationToken != null) {
       result$
-        ..add(const _i4.XmlElementName('ContinuationToken'))
+        ..add(const _i3.XmlElementName('ContinuationToken'))
         ..add(serializers.serialize(
           continuationToken,
           specifiedType: const FullType(String),
@@ -183,19 +182,19 @@ class ListBucketInventoryConfigurationsOutputRestXmlSerializer extends _i4
     }
     if (inventoryConfigurationList != null) {
       result$.addAll(
-          const _i4.XmlBuiltListSerializer(memberName: 'InventoryConfiguration')
+          const _i3.XmlBuiltListSerializer(memberName: 'InventoryConfiguration')
               .serialize(
         serializers,
         inventoryConfigurationList,
         specifiedType: const FullType.nullable(
-          _i3.BuiltList,
-          [FullType(_i2.InventoryConfiguration)],
+          _i2.BuiltList,
+          [FullType(InventoryConfiguration)],
         ),
       ));
     }
     if (isTruncated != null) {
       result$
-        ..add(const _i4.XmlElementName('IsTruncated'))
+        ..add(const _i3.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
           specifiedType: const FullType.nullable(bool),
@@ -203,7 +202,7 @@ class ListBucketInventoryConfigurationsOutputRestXmlSerializer extends _i4
     }
     if (nextContinuationToken != null) {
       result$
-        ..add(const _i4.XmlElementName('NextContinuationToken'))
+        ..add(const _i3.XmlElementName('NextContinuationToken'))
         ..add(serializers.serialize(
           nextContinuationToken,
           specifiedType: const FullType(String),

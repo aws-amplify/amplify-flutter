@@ -4,11 +4,11 @@
 library smoke_test.api_gateway.model.resource; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/method.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/method.dart';
 
 part 'resource.g.dart';
 
@@ -22,7 +22,7 @@ abstract class Resource
     String? parentId,
     String? pathPart,
     String? path,
-    Map<String, _i2.Method>? resourceMethods,
+    Map<String, Method>? resourceMethods,
   }) {
     return _$Resource._(
       id: id,
@@ -30,7 +30,7 @@ abstract class Resource
       pathPart: pathPart,
       path: path,
       resourceMethods:
-          resourceMethods == null ? null : _i3.BuiltMap(resourceMethods),
+          resourceMethods == null ? null : _i2.BuiltMap(resourceMethods),
     );
   }
 
@@ -46,7 +46,7 @@ abstract class Resource
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<Resource>> serializers = [
+  static const List<_i3.SmithySerializer<Resource>> serializers = [
     ResourceRestJson1Serializer()
   ];
 
@@ -63,7 +63,7 @@ abstract class Resource
   String? get path;
 
   /// Gets an API resource's method of a given HTTP verb.
-  _i3.BuiltMap<String, _i2.Method>? get resourceMethods;
+  _i2.BuiltMap<String, Method>? get resourceMethods;
   @override
   List<Object?> get props => [
         id,
@@ -100,7 +100,7 @@ abstract class Resource
 }
 
 class ResourceRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<Resource> {
+    extends _i3.StructuredSmithySerializer<Resource> {
   const ResourceRestJson1Serializer() : super('Resource');
 
   @override
@@ -109,8 +109,8 @@ class ResourceRestJson1Serializer
         _$Resource,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -155,13 +155,13 @@ class ResourceRestJson1Serializer
           result.resourceMethods.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i2.Method),
+                FullType(Method),
               ],
             ),
-          ) as _i3.BuiltMap<String, _i2.Method>));
+          ) as _i2.BuiltMap<String, Method>));
       }
     }
 
@@ -214,10 +214,10 @@ class ResourceRestJson1Serializer
         ..add(serializers.serialize(
           resourceMethods,
           specifiedType: const FullType(
-            _i3.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
-              FullType(_i2.Method),
+              FullType(Method),
             ],
           ),
         ));

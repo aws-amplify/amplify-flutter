@@ -7,10 +7,8 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/logging_config.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/registry_type.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/logging_config.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/registry_type.dart';
 
 part 'register_type_input.g.dart';
 
@@ -18,10 +16,10 @@ abstract class RegisterTypeInput
     with _i1.HttpInput<RegisterTypeInput>, _i2.AWSEquatable<RegisterTypeInput>
     implements Built<RegisterTypeInput, RegisterTypeInputBuilder> {
   factory RegisterTypeInput({
-    _i3.RegistryType? type,
+    RegistryType? type,
     required String typeName,
     required String schemaHandlerPackage,
-    _i4.LoggingConfig? loggingConfig,
+    LoggingConfig? loggingConfig,
     String? executionRoleArn,
     String? clientRequestToken,
   }) {
@@ -52,7 +50,7 @@ abstract class RegisterTypeInput
   ];
 
   /// The kind of extension.
-  _i3.RegistryType? get type;
+  RegistryType? get type;
 
   /// The name of the extension being registered.
   ///
@@ -88,7 +86,7 @@ abstract class RegisterTypeInput
   String get schemaHandlerPackage;
 
   /// Specifies logging configuration information for an extension.
-  _i4.LoggingConfig? get loggingConfig;
+  LoggingConfig? get loggingConfig;
 
   /// The Amazon Resource Name (ARN) of the IAM role for CloudFormation to assume when invoking the extension.
   ///
@@ -176,8 +174,8 @@ class RegisterTypeInputAwsQuerySerializer
         case 'Type':
           result.type = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.RegistryType),
-          ) as _i3.RegistryType);
+            specifiedType: const FullType(RegistryType),
+          ) as RegistryType);
         case 'TypeName':
           result.typeName = (serializers.deserialize(
             value,
@@ -191,8 +189,8 @@ class RegisterTypeInputAwsQuerySerializer
         case 'LoggingConfig':
           result.loggingConfig.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.LoggingConfig),
-          ) as _i4.LoggingConfig));
+            specifiedType: const FullType(LoggingConfig),
+          ) as LoggingConfig));
         case 'ExecutionRoleArn':
           result.executionRoleArn = (serializers.deserialize(
             value,
@@ -234,7 +232,7 @@ class RegisterTypeInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(_i3.RegistryType),
+          specifiedType: const FullType.nullable(RegistryType),
         ));
     }
     result$
@@ -254,7 +252,7 @@ class RegisterTypeInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('LoggingConfig'))
         ..add(serializers.serialize(
           loggingConfig,
-          specifiedType: const FullType(_i4.LoggingConfig),
+          specifiedType: const FullType(LoggingConfig),
         ));
     }
     if (executionRoleArn != null) {

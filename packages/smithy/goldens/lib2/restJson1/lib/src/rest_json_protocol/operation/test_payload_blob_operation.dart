@@ -3,25 +3,19 @@
 
 library rest_json1_v2.rest_json_protocol.operation.test_payload_blob_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i8;
+import 'dart:async' as _i5;
 import 'dart:typed_data' as _i2;
 
-import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:rest_json1_v2/src/rest_json_protocol/common/endpoint_resolver.dart'
-    as _i6;
-import 'package:rest_json1_v2/src/rest_json_protocol/common/serializers.dart'
-    as _i5;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/test_payload_blob_input_output.dart'
-    as _i3;
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:rest_json1_v2/src/rest_json_protocol/common/endpoint_resolver.dart';
+import 'package:rest_json1_v2/src/rest_json_protocol/common/serializers.dart';
+import 'package:rest_json1_v2/src/rest_json_protocol/model/test_payload_blob_input_output.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i4;
+import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
 /// This example operation serializes a payload targeting a blob. The Blob shape is not structured content and we cannot make assumptions about what data will be sent. This test ensures only a generic "Content-Type: application/octet-stream" header is used, and that we are not treating an empty body as an empty JSON document.
-class TestPayloadBlobOperation extends _i1.HttpOperation<
-    _i2.Uint8List,
-    _i3.TestPayloadBlobInputOutput,
-    _i2.Uint8List,
-    _i3.TestPayloadBlobInputOutput> {
+class TestPayloadBlobOperation extends _i1.HttpOperation<_i2.Uint8List,
+    TestPayloadBlobInputOutput, _i2.Uint8List, TestPayloadBlobInputOutput> {
   /// This example operation serializes a payload targeting a blob. The Blob shape is not structured content and we cannot make assumptions about what data will be sent. This test ensures only a generic "Content-Type: application/octet-stream" header is used, and that we are not treating an empty body as an empty JSON document.
   TestPayloadBlobOperation({
     required String region,
@@ -35,17 +29,17 @@ class TestPayloadBlobOperation extends _i1.HttpOperation<
 
   @override
   late final List<
-      _i1.HttpProtocol<_i2.Uint8List, _i3.TestPayloadBlobInputOutput,
-          _i2.Uint8List, _i3.TestPayloadBlobInputOutput>> protocols = [
-    _i4.RestJson1Protocol(
-      serializers: _i5.serializers,
-      builderFactories: _i5.builderFactories,
+      _i1.HttpProtocol<_i2.Uint8List, TestPayloadBlobInputOutput, _i2.Uint8List,
+          TestPayloadBlobInputOutput>> protocols = [
+    _i3.RestJson1Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i4.WithSdkInvocationId(),
-            const _i4.WithSdkRequest(),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -53,8 +47,8 @@ class TestPayloadBlobOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i4.AWSEndpoint _awsEndpoint = _i6.endpointResolver.resolve(
-    _i6.sdkId,
+  late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -67,7 +61,7 @@ class TestPayloadBlobOperation extends _i1.HttpOperation<
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i3.TestPayloadBlobInputOutput input) =>
+  _i1.HttpRequest buildRequest(TestPayloadBlobInputOutput input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/blob_payload';
@@ -78,13 +72,13 @@ class TestPayloadBlobOperation extends _i1.HttpOperation<
         }
       });
   @override
-  int successCode([_i3.TestPayloadBlobInputOutput? output]) => 200;
+  int successCode([TestPayloadBlobInputOutput? output]) => 200;
   @override
-  _i3.TestPayloadBlobInputOutput buildOutput(
+  TestPayloadBlobInputOutput buildOutput(
     _i2.Uint8List? payload,
-    _i7.AWSBaseHttpResponse response,
+    _i4.AWSBaseHttpResponse response,
   ) =>
-      _i3.TestPayloadBlobInputOutput.fromResponse(
+      TestPayloadBlobInputOutput.fromResponse(
         payload,
         response,
       );
@@ -93,18 +87,18 @@ class TestPayloadBlobOperation extends _i1.HttpOperation<
   @override
   String get runtimeTypeName => 'TestPayloadBlob';
   @override
-  _i4.AWSRetryer get retryer => _i4.AWSRetryer();
+  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.TestPayloadBlobInputOutput> run(
-    _i3.TestPayloadBlobInputOutput input, {
-    _i7.AWSHttpClient? client,
+  _i1.SmithyOperation<TestPayloadBlobInputOutput> run(
+    TestPayloadBlobInputOutput input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i8.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -112,7 +106,7 @@ class TestPayloadBlobOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

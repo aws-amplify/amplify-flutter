@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/bucket_location_constraint.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/bucket_location_constraint.dart';
 
 part 'get_bucket_location_output.g.dart';
 
@@ -16,9 +15,9 @@ abstract class GetBucketLocationOutput
     with _i1.AWSEquatable<GetBucketLocationOutput>
     implements
         Built<GetBucketLocationOutput, GetBucketLocationOutputBuilder>,
-        _i2.HasPayload<_i3.BucketLocationConstraint> {
+        _i2.HasPayload<BucketLocationConstraint> {
   factory GetBucketLocationOutput(
-      {_i3.BucketLocationConstraint? locationConstraint}) {
+      {BucketLocationConstraint? locationConstraint}) {
     return _$GetBucketLocationOutput._(locationConstraint: locationConstraint);
   }
 
@@ -30,20 +29,20 @@ abstract class GetBucketLocationOutput
 
   /// Constructs a [GetBucketLocationOutput] from a [payload] and [response].
   factory GetBucketLocationOutput.fromResponse(
-    _i3.BucketLocationConstraint? payload,
+    BucketLocationConstraint? payload,
     _i1.AWSBaseHttpResponse response,
   ) =>
       GetBucketLocationOutput.build((b) {
         b.locationConstraint = payload;
       });
 
-  static const List<_i2.SmithySerializer<_i3.BucketLocationConstraint?>>
+  static const List<_i2.SmithySerializer<BucketLocationConstraint?>>
       serializers = [GetBucketLocationOutputRestXmlSerializer()];
 
   /// Specifies the Region where the bucket resides. For a list of all the Amazon S3 supported location constraints by Region, see [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region). Buckets in Region `us-east-1` have a LocationConstraint of `null`.
-  _i3.BucketLocationConstraint? get locationConstraint;
+  BucketLocationConstraint? get locationConstraint;
   @override
-  _i3.BucketLocationConstraint? getPayload() => locationConstraint;
+  BucketLocationConstraint? getPayload() => locationConstraint;
   @override
   List<Object?> get props => [locationConstraint];
   @override
@@ -58,7 +57,7 @@ abstract class GetBucketLocationOutput
 }
 
 class GetBucketLocationOutputRestXmlSerializer
-    extends _i2.PrimitiveSmithySerializer<_i3.BucketLocationConstraint> {
+    extends _i2.PrimitiveSmithySerializer<BucketLocationConstraint> {
   const GetBucketLocationOutputRestXmlSerializer()
       : super('GetBucketLocationOutput');
 
@@ -75,21 +74,21 @@ class GetBucketLocationOutputRestXmlSerializer
         )
       ];
   @override
-  _i3.BucketLocationConstraint deserialize(
+  BucketLocationConstraint deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
       serialized,
-      specifiedType: const FullType(_i3.BucketLocationConstraint),
-    ) as _i3.BucketLocationConstraint);
+      specifiedType: const FullType(BucketLocationConstraint),
+    ) as BucketLocationConstraint);
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    _i3.BucketLocationConstraint object, {
+    BucketLocationConstraint object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -101,7 +100,7 @@ class GetBucketLocationOutputRestXmlSerializer
 
     result$.add(serializers.serialize(
       object,
-      specifiedType: const FullType(_i3.BucketLocationConstraint),
+      specifiedType: const FullType(BucketLocationConstraint),
     ));
     return result$;
   }

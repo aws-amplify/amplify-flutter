@@ -6,9 +6,8 @@ library smoke_test.config_service.model.compliance_by_resource; // ignore_for_fi
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/compliance.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/compliance.dart';
 
 part 'compliance_by_resource.g.dart';
 
@@ -20,7 +19,7 @@ abstract class ComplianceByResource
   factory ComplianceByResource({
     String? resourceType,
     String? resourceId,
-    _i2.Compliance? compliance,
+    Compliance? compliance,
   }) {
     return _$ComplianceByResource._(
       resourceType: resourceType,
@@ -36,7 +35,7 @@ abstract class ComplianceByResource
 
   const ComplianceByResource._();
 
-  static const List<_i3.SmithySerializer<ComplianceByResource>> serializers = [
+  static const List<_i2.SmithySerializer<ComplianceByResource>> serializers = [
     ComplianceByResourceAwsJson11Serializer()
   ];
 
@@ -47,7 +46,7 @@ abstract class ComplianceByResource
   String? get resourceId;
 
   /// Indicates whether the Amazon Web Services resource complies with all of the Config rules that evaluated it.
-  _i2.Compliance? get compliance;
+  Compliance? get compliance;
   @override
   List<Object?> get props => [
         resourceType,
@@ -74,7 +73,7 @@ abstract class ComplianceByResource
 }
 
 class ComplianceByResourceAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<ComplianceByResource> {
+    extends _i2.StructuredSmithySerializer<ComplianceByResource> {
   const ComplianceByResourceAwsJson11Serializer()
       : super('ComplianceByResource');
 
@@ -84,8 +83,8 @@ class ComplianceByResourceAwsJson11Serializer
         _$ComplianceByResource,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -119,8 +118,8 @@ class ComplianceByResourceAwsJson11Serializer
         case 'Compliance':
           result.compliance.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Compliance),
-          ) as _i2.Compliance));
+            specifiedType: const FullType(Compliance),
+          ) as Compliance));
       }
     }
 
@@ -157,7 +156,7 @@ class ComplianceByResourceAwsJson11Serializer
         ..add('Compliance')
         ..add(serializers.serialize(
           compliance,
-          specifiedType: const FullType(_i2.Compliance),
+          specifiedType: const FullType(Compliance),
         ));
     }
     return result$;

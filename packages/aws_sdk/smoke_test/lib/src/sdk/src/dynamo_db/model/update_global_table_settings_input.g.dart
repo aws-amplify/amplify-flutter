@@ -10,17 +10,17 @@ class _$UpdateGlobalTableSettingsInput extends UpdateGlobalTableSettingsInput {
   @override
   final String globalTableName;
   @override
-  final _i3.BillingMode? globalTableBillingMode;
+  final BillingMode? globalTableBillingMode;
   @override
-  final _i4.Int64? globalTableProvisionedWriteCapacityUnits;
+  final _i3.Int64? globalTableProvisionedWriteCapacityUnits;
   @override
-  final _i5.AutoScalingSettingsUpdate?
+  final AutoScalingSettingsUpdate?
       globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate;
   @override
-  final _i8.BuiltList<_i6.GlobalTableGlobalSecondaryIndexSettingsUpdate>?
+  final _i4.BuiltList<GlobalTableGlobalSecondaryIndexSettingsUpdate>?
       globalTableGlobalSecondaryIndexSettingsUpdate;
   @override
-  final _i8.BuiltList<_i7.ReplicaSettingsUpdate>? replicaSettingsUpdate;
+  final _i4.BuiltList<ReplicaSettingsUpdate>? replicaSettingsUpdate;
 
   factory _$UpdateGlobalTableSettingsInput(
           [void Function(UpdateGlobalTableSettingsInputBuilder)? updates]) =>
@@ -90,49 +90,49 @@ class UpdateGlobalTableSettingsInputBuilder
   set globalTableName(String? globalTableName) =>
       _$this._globalTableName = globalTableName;
 
-  _i3.BillingMode? _globalTableBillingMode;
-  _i3.BillingMode? get globalTableBillingMode => _$this._globalTableBillingMode;
-  set globalTableBillingMode(_i3.BillingMode? globalTableBillingMode) =>
+  BillingMode? _globalTableBillingMode;
+  BillingMode? get globalTableBillingMode => _$this._globalTableBillingMode;
+  set globalTableBillingMode(BillingMode? globalTableBillingMode) =>
       _$this._globalTableBillingMode = globalTableBillingMode;
 
-  _i4.Int64? _globalTableProvisionedWriteCapacityUnits;
-  _i4.Int64? get globalTableProvisionedWriteCapacityUnits =>
+  _i3.Int64? _globalTableProvisionedWriteCapacityUnits;
+  _i3.Int64? get globalTableProvisionedWriteCapacityUnits =>
       _$this._globalTableProvisionedWriteCapacityUnits;
   set globalTableProvisionedWriteCapacityUnits(
-          _i4.Int64? globalTableProvisionedWriteCapacityUnits) =>
+          _i3.Int64? globalTableProvisionedWriteCapacityUnits) =>
       _$this._globalTableProvisionedWriteCapacityUnits =
           globalTableProvisionedWriteCapacityUnits;
 
-  _i5.AutoScalingSettingsUpdateBuilder?
+  AutoScalingSettingsUpdateBuilder?
       _globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate;
-  _i5.AutoScalingSettingsUpdateBuilder
+  AutoScalingSettingsUpdateBuilder
       get globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate => _$this
               ._globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate ??=
-          new _i5.AutoScalingSettingsUpdateBuilder();
+          new AutoScalingSettingsUpdateBuilder();
   set globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate(
-          _i5.AutoScalingSettingsUpdateBuilder?
+          AutoScalingSettingsUpdateBuilder?
               globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate) =>
       _$this._globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate =
           globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate;
 
-  _i8.ListBuilder<_i6.GlobalTableGlobalSecondaryIndexSettingsUpdate>?
+  _i4.ListBuilder<GlobalTableGlobalSecondaryIndexSettingsUpdate>?
       _globalTableGlobalSecondaryIndexSettingsUpdate;
-  _i8.ListBuilder<_i6.GlobalTableGlobalSecondaryIndexSettingsUpdate>
-      get globalTableGlobalSecondaryIndexSettingsUpdate =>
-          _$this._globalTableGlobalSecondaryIndexSettingsUpdate ??= new _i8
-              .ListBuilder<_i6.GlobalTableGlobalSecondaryIndexSettingsUpdate>();
+  _i4.ListBuilder<GlobalTableGlobalSecondaryIndexSettingsUpdate>
+      get globalTableGlobalSecondaryIndexSettingsUpdate => _$this
+              ._globalTableGlobalSecondaryIndexSettingsUpdate ??=
+          new _i4.ListBuilder<GlobalTableGlobalSecondaryIndexSettingsUpdate>();
   set globalTableGlobalSecondaryIndexSettingsUpdate(
-          _i8.ListBuilder<_i6.GlobalTableGlobalSecondaryIndexSettingsUpdate>?
+          _i4.ListBuilder<GlobalTableGlobalSecondaryIndexSettingsUpdate>?
               globalTableGlobalSecondaryIndexSettingsUpdate) =>
       _$this._globalTableGlobalSecondaryIndexSettingsUpdate =
           globalTableGlobalSecondaryIndexSettingsUpdate;
 
-  _i8.ListBuilder<_i7.ReplicaSettingsUpdate>? _replicaSettingsUpdate;
-  _i8.ListBuilder<_i7.ReplicaSettingsUpdate> get replicaSettingsUpdate =>
+  _i4.ListBuilder<ReplicaSettingsUpdate>? _replicaSettingsUpdate;
+  _i4.ListBuilder<ReplicaSettingsUpdate> get replicaSettingsUpdate =>
       _$this._replicaSettingsUpdate ??=
-          new _i8.ListBuilder<_i7.ReplicaSettingsUpdate>();
+          new _i4.ListBuilder<ReplicaSettingsUpdate>();
   set replicaSettingsUpdate(
-          _i8.ListBuilder<_i7.ReplicaSettingsUpdate>? replicaSettingsUpdate) =>
+          _i4.ListBuilder<ReplicaSettingsUpdate>? replicaSettingsUpdate) =>
       _$this._replicaSettingsUpdate = replicaSettingsUpdate;
 
   UpdateGlobalTableSettingsInputBuilder();

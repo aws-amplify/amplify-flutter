@@ -7,11 +7,9 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/object_lock_configuration.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/object_lock_enabled.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/object_lock_rule.dart' as _i5;
+import 'package:smoke_test/src/sdk/src/s3/model/object_lock_configuration.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/object_lock_enabled.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/object_lock_rule.dart';
 
 part 'get_object_lock_configuration_output.g.dart';
 
@@ -21,9 +19,9 @@ abstract class GetObjectLockConfigurationOutput
     implements
         Built<GetObjectLockConfigurationOutput,
             GetObjectLockConfigurationOutputBuilder>,
-        _i2.HasPayload<_i3.ObjectLockConfiguration> {
+        _i2.HasPayload<ObjectLockConfiguration> {
   factory GetObjectLockConfigurationOutput(
-      {_i3.ObjectLockConfiguration? objectLockConfiguration}) {
+      {ObjectLockConfiguration? objectLockConfiguration}) {
     return _$GetObjectLockConfigurationOutput._(
         objectLockConfiguration: objectLockConfiguration);
   }
@@ -36,7 +34,7 @@ abstract class GetObjectLockConfigurationOutput
 
   /// Constructs a [GetObjectLockConfigurationOutput] from a [payload] and [response].
   factory GetObjectLockConfigurationOutput.fromResponse(
-    _i3.ObjectLockConfiguration? payload,
+    ObjectLockConfiguration? payload,
     _i1.AWSBaseHttpResponse response,
   ) =>
       GetObjectLockConfigurationOutput.build((b) {
@@ -45,14 +43,14 @@ abstract class GetObjectLockConfigurationOutput
         }
       });
 
-  static const List<_i2.SmithySerializer<_i3.ObjectLockConfiguration?>>
+  static const List<_i2.SmithySerializer<ObjectLockConfiguration?>>
       serializers = [GetObjectLockConfigurationOutputRestXmlSerializer()];
 
   /// The specified bucket's Object Lock configuration.
-  _i3.ObjectLockConfiguration? get objectLockConfiguration;
+  ObjectLockConfiguration? get objectLockConfiguration;
   @override
-  _i3.ObjectLockConfiguration? getPayload() =>
-      objectLockConfiguration ?? _i3.ObjectLockConfiguration();
+  ObjectLockConfiguration? getPayload() =>
+      objectLockConfiguration ?? ObjectLockConfiguration();
   @override
   List<Object?> get props => [objectLockConfiguration];
   @override
@@ -68,7 +66,7 @@ abstract class GetObjectLockConfigurationOutput
 }
 
 class GetObjectLockConfigurationOutputRestXmlSerializer
-    extends _i2.StructuredSmithySerializer<_i3.ObjectLockConfiguration> {
+    extends _i2.StructuredSmithySerializer<ObjectLockConfiguration> {
   const GetObjectLockConfigurationOutputRestXmlSerializer()
       : super('GetObjectLockConfigurationOutput');
 
@@ -85,12 +83,12 @@ class GetObjectLockConfigurationOutputRestXmlSerializer
         )
       ];
   @override
-  _i3.ObjectLockConfiguration deserialize(
+  ObjectLockConfiguration deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i3.ObjectLockConfigurationBuilder();
+    final result = ObjectLockConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -103,13 +101,13 @@ class GetObjectLockConfigurationOutputRestXmlSerializer
         case 'ObjectLockEnabled':
           result.objectLockEnabled = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ObjectLockEnabled),
-          ) as _i4.ObjectLockEnabled);
+            specifiedType: const FullType(ObjectLockEnabled),
+          ) as ObjectLockEnabled);
         case 'Rule':
           result.rule.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.ObjectLockRule),
-          ) as _i5.ObjectLockRule));
+            specifiedType: const FullType(ObjectLockRule),
+          ) as ObjectLockRule));
       }
     }
 
@@ -119,7 +117,7 @@ class GetObjectLockConfigurationOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i3.ObjectLockConfiguration object, {
+    ObjectLockConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -128,13 +126,13 @@ class GetObjectLockConfigurationOutputRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i3.ObjectLockConfiguration(:objectLockEnabled, :rule) = object;
+    final ObjectLockConfiguration(:objectLockEnabled, :rule) = object;
     if (objectLockEnabled != null) {
       result$
         ..add(const _i2.XmlElementName('ObjectLockEnabled'))
         ..add(serializers.serialize(
           objectLockEnabled,
-          specifiedType: const FullType.nullable(_i4.ObjectLockEnabled),
+          specifiedType: const FullType.nullable(ObjectLockEnabled),
         ));
     }
     if (rule != null) {
@@ -142,7 +140,7 @@ class GetObjectLockConfigurationOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('Rule'))
         ..add(serializers.serialize(
           rule,
-          specifiedType: const FullType(_i5.ObjectLockRule),
+          specifiedType: const FullType(ObjectLockRule),
         ));
     }
     return result$;

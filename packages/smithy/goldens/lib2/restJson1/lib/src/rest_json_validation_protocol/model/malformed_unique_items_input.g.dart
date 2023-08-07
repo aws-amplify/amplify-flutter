@@ -8,37 +8,37 @@ part of 'malformed_unique_items_input.dart';
 
 class _$MalformedUniqueItemsInput extends MalformedUniqueItemsInput {
   @override
-  final _i10.BuiltSet<_i3.Uint8List>? blobList;
+  final _i5.BuiltSet<_i3.Uint8List>? blobList;
   @override
-  final _i10.BuiltSet<bool>? booleanList;
+  final _i5.BuiltSet<bool>? booleanList;
   @override
-  final _i10.BuiltSet<String>? stringList;
+  final _i5.BuiltSet<String>? stringList;
   @override
-  final _i10.BuiltSet<int>? byteList;
+  final _i5.BuiltSet<int>? byteList;
   @override
-  final _i10.BuiltSet<int>? shortList;
+  final _i5.BuiltSet<int>? shortList;
   @override
-  final _i10.BuiltSet<int>? integerList;
+  final _i5.BuiltSet<int>? integerList;
   @override
-  final _i10.BuiltSet<_i4.Int64>? longList;
+  final _i5.BuiltSet<_i4.Int64>? longList;
   @override
-  final _i10.BuiltSet<DateTime>? timestampList;
+  final _i5.BuiltSet<DateTime>? timestampList;
   @override
-  final _i10.BuiltSet<DateTime>? dateTimeList;
+  final _i5.BuiltSet<DateTime>? dateTimeList;
   @override
-  final _i10.BuiltSet<DateTime>? httpDateList;
+  final _i5.BuiltSet<DateTime>? httpDateList;
   @override
-  final _i10.BuiltSet<_i5.FooEnum>? enumList;
+  final _i5.BuiltSet<FooEnum>? enumList;
   @override
-  final _i10.BuiltSet<_i6.IntegerEnum>? intEnumList;
+  final _i5.BuiltSet<IntegerEnum>? intEnumList;
   @override
-  final _i10.BuiltSet<_i10.BuiltList<String>>? listList;
+  final _i5.BuiltSet<_i5.BuiltList<String>>? listList;
   @override
-  final _i10.BuiltSet<_i7.GreetingStruct>? structureList;
+  final _i5.BuiltSet<GreetingStruct>? structureList;
   @override
-  final _i10.BuiltSet<_i8.MissingKeyStructure>? structureListWithNoKey;
+  final _i5.BuiltSet<MissingKeyStructure>? structureListWithNoKey;
   @override
-  final _i10.BuiltSet<_i9.FooUnion>? unionList;
+  final _i5.BuiltSet<FooUnion>? unionList;
 
   factory _$MalformedUniqueItemsInput(
           [void Function(MalformedUniqueItemsInputBuilder)? updates]) =>
@@ -123,101 +123,101 @@ class MalformedUniqueItemsInputBuilder
         Builder<MalformedUniqueItemsInput, MalformedUniqueItemsInputBuilder> {
   _$MalformedUniqueItemsInput? _$v;
 
-  _i10.SetBuilder<_i3.Uint8List>? _blobList;
-  _i10.SetBuilder<_i3.Uint8List> get blobList =>
-      _$this._blobList ??= new _i10.SetBuilder<_i3.Uint8List>();
-  set blobList(_i10.SetBuilder<_i3.Uint8List>? blobList) =>
+  _i5.SetBuilder<_i3.Uint8List>? _blobList;
+  _i5.SetBuilder<_i3.Uint8List> get blobList =>
+      _$this._blobList ??= new _i5.SetBuilder<_i3.Uint8List>();
+  set blobList(_i5.SetBuilder<_i3.Uint8List>? blobList) =>
       _$this._blobList = blobList;
 
-  _i10.SetBuilder<bool>? _booleanList;
-  _i10.SetBuilder<bool> get booleanList =>
-      _$this._booleanList ??= new _i10.SetBuilder<bool>();
-  set booleanList(_i10.SetBuilder<bool>? booleanList) =>
+  _i5.SetBuilder<bool>? _booleanList;
+  _i5.SetBuilder<bool> get booleanList =>
+      _$this._booleanList ??= new _i5.SetBuilder<bool>();
+  set booleanList(_i5.SetBuilder<bool>? booleanList) =>
       _$this._booleanList = booleanList;
 
-  _i10.SetBuilder<String>? _stringList;
-  _i10.SetBuilder<String> get stringList =>
-      _$this._stringList ??= new _i10.SetBuilder<String>();
-  set stringList(_i10.SetBuilder<String>? stringList) =>
+  _i5.SetBuilder<String>? _stringList;
+  _i5.SetBuilder<String> get stringList =>
+      _$this._stringList ??= new _i5.SetBuilder<String>();
+  set stringList(_i5.SetBuilder<String>? stringList) =>
       _$this._stringList = stringList;
 
-  _i10.SetBuilder<int>? _byteList;
-  _i10.SetBuilder<int> get byteList =>
-      _$this._byteList ??= new _i10.SetBuilder<int>();
-  set byteList(_i10.SetBuilder<int>? byteList) => _$this._byteList = byteList;
+  _i5.SetBuilder<int>? _byteList;
+  _i5.SetBuilder<int> get byteList =>
+      _$this._byteList ??= new _i5.SetBuilder<int>();
+  set byteList(_i5.SetBuilder<int>? byteList) => _$this._byteList = byteList;
 
-  _i10.SetBuilder<int>? _shortList;
-  _i10.SetBuilder<int> get shortList =>
-      _$this._shortList ??= new _i10.SetBuilder<int>();
-  set shortList(_i10.SetBuilder<int>? shortList) =>
+  _i5.SetBuilder<int>? _shortList;
+  _i5.SetBuilder<int> get shortList =>
+      _$this._shortList ??= new _i5.SetBuilder<int>();
+  set shortList(_i5.SetBuilder<int>? shortList) =>
       _$this._shortList = shortList;
 
-  _i10.SetBuilder<int>? _integerList;
-  _i10.SetBuilder<int> get integerList =>
-      _$this._integerList ??= new _i10.SetBuilder<int>();
-  set integerList(_i10.SetBuilder<int>? integerList) =>
+  _i5.SetBuilder<int>? _integerList;
+  _i5.SetBuilder<int> get integerList =>
+      _$this._integerList ??= new _i5.SetBuilder<int>();
+  set integerList(_i5.SetBuilder<int>? integerList) =>
       _$this._integerList = integerList;
 
-  _i10.SetBuilder<_i4.Int64>? _longList;
-  _i10.SetBuilder<_i4.Int64> get longList =>
-      _$this._longList ??= new _i10.SetBuilder<_i4.Int64>();
-  set longList(_i10.SetBuilder<_i4.Int64>? longList) =>
+  _i5.SetBuilder<_i4.Int64>? _longList;
+  _i5.SetBuilder<_i4.Int64> get longList =>
+      _$this._longList ??= new _i5.SetBuilder<_i4.Int64>();
+  set longList(_i5.SetBuilder<_i4.Int64>? longList) =>
       _$this._longList = longList;
 
-  _i10.SetBuilder<DateTime>? _timestampList;
-  _i10.SetBuilder<DateTime> get timestampList =>
-      _$this._timestampList ??= new _i10.SetBuilder<DateTime>();
-  set timestampList(_i10.SetBuilder<DateTime>? timestampList) =>
+  _i5.SetBuilder<DateTime>? _timestampList;
+  _i5.SetBuilder<DateTime> get timestampList =>
+      _$this._timestampList ??= new _i5.SetBuilder<DateTime>();
+  set timestampList(_i5.SetBuilder<DateTime>? timestampList) =>
       _$this._timestampList = timestampList;
 
-  _i10.SetBuilder<DateTime>? _dateTimeList;
-  _i10.SetBuilder<DateTime> get dateTimeList =>
-      _$this._dateTimeList ??= new _i10.SetBuilder<DateTime>();
-  set dateTimeList(_i10.SetBuilder<DateTime>? dateTimeList) =>
+  _i5.SetBuilder<DateTime>? _dateTimeList;
+  _i5.SetBuilder<DateTime> get dateTimeList =>
+      _$this._dateTimeList ??= new _i5.SetBuilder<DateTime>();
+  set dateTimeList(_i5.SetBuilder<DateTime>? dateTimeList) =>
       _$this._dateTimeList = dateTimeList;
 
-  _i10.SetBuilder<DateTime>? _httpDateList;
-  _i10.SetBuilder<DateTime> get httpDateList =>
-      _$this._httpDateList ??= new _i10.SetBuilder<DateTime>();
-  set httpDateList(_i10.SetBuilder<DateTime>? httpDateList) =>
+  _i5.SetBuilder<DateTime>? _httpDateList;
+  _i5.SetBuilder<DateTime> get httpDateList =>
+      _$this._httpDateList ??= new _i5.SetBuilder<DateTime>();
+  set httpDateList(_i5.SetBuilder<DateTime>? httpDateList) =>
       _$this._httpDateList = httpDateList;
 
-  _i10.SetBuilder<_i5.FooEnum>? _enumList;
-  _i10.SetBuilder<_i5.FooEnum> get enumList =>
-      _$this._enumList ??= new _i10.SetBuilder<_i5.FooEnum>();
-  set enumList(_i10.SetBuilder<_i5.FooEnum>? enumList) =>
+  _i5.SetBuilder<FooEnum>? _enumList;
+  _i5.SetBuilder<FooEnum> get enumList =>
+      _$this._enumList ??= new _i5.SetBuilder<FooEnum>();
+  set enumList(_i5.SetBuilder<FooEnum>? enumList) =>
       _$this._enumList = enumList;
 
-  _i10.SetBuilder<_i6.IntegerEnum>? _intEnumList;
-  _i10.SetBuilder<_i6.IntegerEnum> get intEnumList =>
-      _$this._intEnumList ??= new _i10.SetBuilder<_i6.IntegerEnum>();
-  set intEnumList(_i10.SetBuilder<_i6.IntegerEnum>? intEnumList) =>
+  _i5.SetBuilder<IntegerEnum>? _intEnumList;
+  _i5.SetBuilder<IntegerEnum> get intEnumList =>
+      _$this._intEnumList ??= new _i5.SetBuilder<IntegerEnum>();
+  set intEnumList(_i5.SetBuilder<IntegerEnum>? intEnumList) =>
       _$this._intEnumList = intEnumList;
 
-  _i10.SetBuilder<_i10.BuiltList<String>>? _listList;
-  _i10.SetBuilder<_i10.BuiltList<String>> get listList =>
-      _$this._listList ??= new _i10.SetBuilder<_i10.BuiltList<String>>();
-  set listList(_i10.SetBuilder<_i10.BuiltList<String>>? listList) =>
+  _i5.SetBuilder<_i5.BuiltList<String>>? _listList;
+  _i5.SetBuilder<_i5.BuiltList<String>> get listList =>
+      _$this._listList ??= new _i5.SetBuilder<_i5.BuiltList<String>>();
+  set listList(_i5.SetBuilder<_i5.BuiltList<String>>? listList) =>
       _$this._listList = listList;
 
-  _i10.SetBuilder<_i7.GreetingStruct>? _structureList;
-  _i10.SetBuilder<_i7.GreetingStruct> get structureList =>
-      _$this._structureList ??= new _i10.SetBuilder<_i7.GreetingStruct>();
-  set structureList(_i10.SetBuilder<_i7.GreetingStruct>? structureList) =>
+  _i5.SetBuilder<GreetingStruct>? _structureList;
+  _i5.SetBuilder<GreetingStruct> get structureList =>
+      _$this._structureList ??= new _i5.SetBuilder<GreetingStruct>();
+  set structureList(_i5.SetBuilder<GreetingStruct>? structureList) =>
       _$this._structureList = structureList;
 
-  _i10.SetBuilder<_i8.MissingKeyStructure>? _structureListWithNoKey;
-  _i10.SetBuilder<_i8.MissingKeyStructure> get structureListWithNoKey =>
+  _i5.SetBuilder<MissingKeyStructure>? _structureListWithNoKey;
+  _i5.SetBuilder<MissingKeyStructure> get structureListWithNoKey =>
       _$this._structureListWithNoKey ??=
-          new _i10.SetBuilder<_i8.MissingKeyStructure>();
+          new _i5.SetBuilder<MissingKeyStructure>();
   set structureListWithNoKey(
-          _i10.SetBuilder<_i8.MissingKeyStructure>? structureListWithNoKey) =>
+          _i5.SetBuilder<MissingKeyStructure>? structureListWithNoKey) =>
       _$this._structureListWithNoKey = structureListWithNoKey;
 
-  _i10.SetBuilder<_i9.FooUnion>? _unionList;
-  _i10.SetBuilder<_i9.FooUnion> get unionList =>
-      _$this._unionList ??= new _i10.SetBuilder<_i9.FooUnion>();
-  set unionList(_i10.SetBuilder<_i9.FooUnion>? unionList) =>
+  _i5.SetBuilder<FooUnion>? _unionList;
+  _i5.SetBuilder<FooUnion> get unionList =>
+      _$this._unionList ??= new _i5.SetBuilder<FooUnion>();
+  set unionList(_i5.SetBuilder<FooUnion>? unionList) =>
       _$this._unionList = unionList;
 
   MalformedUniqueItemsInputBuilder();

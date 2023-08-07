@@ -8,7 +8,7 @@ part of 'filter_rule.dart';
 
 class _$FilterRule extends FilterRule {
   @override
-  final _i2.FilterRuleName? name;
+  final FilterRuleName? name;
   @override
   final String? value;
 
@@ -43,9 +43,9 @@ class _$FilterRule extends FilterRule {
 class FilterRuleBuilder implements Builder<FilterRule, FilterRuleBuilder> {
   _$FilterRule? _$v;
 
-  _i2.FilterRuleName? _name;
-  _i2.FilterRuleName? get name => _$this._name;
-  set name(_i2.FilterRuleName? name) => _$this._name = name;
+  FilterRuleName? _name;
+  FilterRuleName? get name => _$this._name;
+  set name(FilterRuleName? name) => _$this._name = name;
 
   String? _value;
   String? get value => _$this._value;

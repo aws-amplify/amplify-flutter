@@ -3,14 +3,11 @@
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.respond_to_auth_challenge_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/analytics_metadata_type.dart'
-    as _i4;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/challenge_name_type.dart'
-    as _i3;
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/user_context_data_type.dart'
-    as _i5;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/analytics_metadata_type.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/challenge_name_type.dart';
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/user_context_data_type.dart';
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
@@ -28,11 +25,11 @@ abstract class RespondToAuthChallengeRequest
   /// The request to respond to an authentication challenge.
   factory RespondToAuthChallengeRequest({
     required String clientId,
-    required _i3.ChallengeNameType challengeName,
+    required ChallengeNameType challengeName,
     String? session,
     Map<String, String>? challengeResponses,
-    _i4.AnalyticsMetadataType? analyticsMetadata,
-    _i5.UserContextDataType? userContextData,
+    AnalyticsMetadataType? analyticsMetadata,
+    UserContextDataType? userContextData,
     Map<String, String>? clientMetadata,
   }) {
     return _$RespondToAuthChallengeRequest._(
@@ -40,11 +37,11 @@ abstract class RespondToAuthChallengeRequest
       challengeName: challengeName,
       session: session,
       challengeResponses:
-          challengeResponses == null ? null : _i6.BuiltMap(challengeResponses),
+          challengeResponses == null ? null : _i3.BuiltMap(challengeResponses),
       analyticsMetadata: analyticsMetadata,
       userContextData: userContextData,
       clientMetadata:
-          clientMetadata == null ? null : _i6.BuiltMap(clientMetadata),
+          clientMetadata == null ? null : _i3.BuiltMap(clientMetadata),
     );
   }
 
@@ -71,7 +68,7 @@ abstract class RespondToAuthChallengeRequest
   /// The challenge name. For more information, see [InitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html).
   ///
   /// `ADMIN\_NO\_SRP_AUTH` isn't a valid value.
-  _i3.ChallengeNameType get challengeName;
+  ChallengeNameType get challengeName;
 
   /// The session that should be passed both ways in challenge-response calls to the service. If `InitiateAuth` or `RespondToAuthChallenge` API call determines that the caller must pass another challenge, they return a session with other challenge parameters. This session should be passed as it is to the next `RespondToAuthChallenge` API call.
   String? get session;
@@ -100,13 +97,13 @@ abstract class RespondToAuthChallengeRequest
   ///
   ///
   /// For more information about `SECRET_HASH`, see [Computing secret hash values](https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash). For information about `DEVICE_KEY`, see [Working with user devices in your user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html).
-  _i6.BuiltMap<String, String>? get challengeResponses;
+  _i3.BuiltMap<String, String>? get challengeResponses;
 
   /// The Amazon Pinpoint analytics metadata that contributes to your metrics for `RespondToAuthChallenge` calls.
-  _i4.AnalyticsMetadataType? get analyticsMetadata;
+  AnalyticsMetadataType? get analyticsMetadata;
 
   /// Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito advanced security evaluates the risk of an authentication event based on the context that your app generates and passes to Amazon Cognito when it makes API requests.
-  _i5.UserContextDataType? get userContextData;
+  UserContextDataType? get userContextData;
 
   /// A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.
   ///
@@ -121,7 +118,7 @@ abstract class RespondToAuthChallengeRequest
   /// *   Validate the ClientMetadata value.
   ///
   /// *   Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
-  _i6.BuiltMap<String, String>? get clientMetadata;
+  _i3.BuiltMap<String, String>? get clientMetadata;
   @override
   RespondToAuthChallengeRequest getPayload() => this;
   @override
@@ -210,8 +207,8 @@ class RespondToAuthChallengeRequestAwsJson11Serializer
         case 'ChallengeName':
           result.challengeName = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ChallengeNameType),
-          ) as _i3.ChallengeNameType);
+            specifiedType: const FullType(ChallengeNameType),
+          ) as ChallengeNameType);
         case 'Session':
           result.session = (serializers.deserialize(
             value,
@@ -221,34 +218,34 @@ class RespondToAuthChallengeRequestAwsJson11Serializer
           result.challengeResponses.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i6.BuiltMap<String, String>));
+          ) as _i3.BuiltMap<String, String>));
         case 'AnalyticsMetadata':
           result.analyticsMetadata.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.AnalyticsMetadataType),
-          ) as _i4.AnalyticsMetadataType));
+            specifiedType: const FullType(AnalyticsMetadataType),
+          ) as AnalyticsMetadataType));
         case 'UserContextData':
           result.userContextData.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.UserContextDataType),
-          ) as _i5.UserContextDataType));
+            specifiedType: const FullType(UserContextDataType),
+          ) as UserContextDataType));
         case 'ClientMetadata':
           result.clientMetadata.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i6.BuiltMap<String, String>));
+          ) as _i3.BuiltMap<String, String>));
       }
     }
 
@@ -280,7 +277,7 @@ class RespondToAuthChallengeRequestAwsJson11Serializer
       'ChallengeName',
       serializers.serialize(
         challengeName,
-        specifiedType: const FullType(_i3.ChallengeNameType),
+        specifiedType: const FullType(ChallengeNameType),
       ),
     ]);
     if (session != null) {
@@ -297,7 +294,7 @@ class RespondToAuthChallengeRequestAwsJson11Serializer
         ..add(serializers.serialize(
           challengeResponses,
           specifiedType: const FullType(
-            _i6.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -310,7 +307,7 @@ class RespondToAuthChallengeRequestAwsJson11Serializer
         ..add('AnalyticsMetadata')
         ..add(serializers.serialize(
           analyticsMetadata,
-          specifiedType: const FullType(_i4.AnalyticsMetadataType),
+          specifiedType: const FullType(AnalyticsMetadataType),
         ));
     }
     if (userContextData != null) {
@@ -318,7 +315,7 @@ class RespondToAuthChallengeRequestAwsJson11Serializer
         ..add('UserContextData')
         ..add(serializers.serialize(
           userContextData,
-          specifiedType: const FullType(_i5.UserContextDataType),
+          specifiedType: const FullType(UserContextDataType),
         ));
     }
     if (clientMetadata != null) {
@@ -327,7 +324,7 @@ class RespondToAuthChallengeRequestAwsJson11Serializer
         ..add(serializers.serialize(
           clientMetadata,
           specifiedType: const FullType(
-            _i6.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType(String),

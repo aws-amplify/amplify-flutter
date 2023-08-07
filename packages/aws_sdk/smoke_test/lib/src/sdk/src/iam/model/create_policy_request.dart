@@ -4,11 +4,11 @@
 library smoke_test.iam.model.create_policy_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/iam/model/tag.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/tag.dart';
 
 part 'create_policy_request.g.dart';
 
@@ -22,14 +22,14 @@ abstract class CreatePolicyRequest
     String? path,
     required String policyDocument,
     String? description,
-    List<_i3.Tag>? tags,
+    List<Tag>? tags,
   }) {
     return _$CreatePolicyRequest._(
       policyName: policyName,
       path: path,
       policyDocument: policyDocument,
       description: description,
-      tags: tags == null ? null : _i4.BuiltList(tags),
+      tags: tags == null ? null : _i3.BuiltList(tags),
     );
   }
 
@@ -93,7 +93,7 @@ abstract class CreatePolicyRequest
   /// A list of tags that you want to attach to the new IAM customer managed policy. Each tag consists of a key name and an associated value. For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
   ///
   /// If any one of the tags is invalid or if you exceed the allowed maximum number of tags, then the entire request fails and the resource is not created.
-  _i4.BuiltList<_i3.Tag>? get tags;
+  _i3.BuiltList<Tag>? get tags;
   @override
   CreatePolicyRequest getPayload() => this;
   @override
@@ -190,10 +190,10 @@ class CreatePolicyRequestAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.Tag)],
+              _i3.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i4.BuiltList<_i3.Tag>));
+          ) as _i3.BuiltList<Tag>));
       }
     }
 
@@ -256,8 +256,8 @@ class CreatePolicyRequestAwsQuerySerializer
           serializers,
           tags,
           specifiedType: const FullType.nullable(
-            _i4.BuiltList,
-            [FullType(_i3.Tag)],
+            _i3.BuiltList,
+            [FullType(Tag)],
           ),
         ));
     }

@@ -9,7 +9,7 @@ part of 'describe_table_replica_auto_scaling_output.dart';
 class _$DescribeTableReplicaAutoScalingOutput
     extends DescribeTableReplicaAutoScalingOutput {
   @override
-  final _i2.TableAutoScalingDescription? tableAutoScalingDescription;
+  final TableAutoScalingDescription? tableAutoScalingDescription;
 
   factory _$DescribeTableReplicaAutoScalingOutput(
           [void Function(DescribeTableReplicaAutoScalingOutputBuilder)?
@@ -52,13 +52,12 @@ class DescribeTableReplicaAutoScalingOutputBuilder
             DescribeTableReplicaAutoScalingOutputBuilder> {
   _$DescribeTableReplicaAutoScalingOutput? _$v;
 
-  _i2.TableAutoScalingDescriptionBuilder? _tableAutoScalingDescription;
-  _i2.TableAutoScalingDescriptionBuilder get tableAutoScalingDescription =>
+  TableAutoScalingDescriptionBuilder? _tableAutoScalingDescription;
+  TableAutoScalingDescriptionBuilder get tableAutoScalingDescription =>
       _$this._tableAutoScalingDescription ??=
-          new _i2.TableAutoScalingDescriptionBuilder();
+          new TableAutoScalingDescriptionBuilder();
   set tableAutoScalingDescription(
-          _i2.TableAutoScalingDescriptionBuilder?
-              tableAutoScalingDescription) =>
+          TableAutoScalingDescriptionBuilder? tableAutoScalingDescription) =>
       _$this._tableAutoScalingDescription = tableAutoScalingDescription;
 
   DescribeTableReplicaAutoScalingOutputBuilder();

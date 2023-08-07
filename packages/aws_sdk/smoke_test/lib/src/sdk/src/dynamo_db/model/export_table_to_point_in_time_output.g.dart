@@ -8,7 +8,7 @@ part of 'export_table_to_point_in_time_output.dart';
 
 class _$ExportTableToPointInTimeOutput extends ExportTableToPointInTimeOutput {
   @override
-  final _i2.ExportDescription? exportDescription;
+  final ExportDescription? exportDescription;
 
   factory _$ExportTableToPointInTimeOutput(
           [void Function(ExportTableToPointInTimeOutputBuilder)? updates]) =>
@@ -47,10 +47,10 @@ class ExportTableToPointInTimeOutputBuilder
             ExportTableToPointInTimeOutputBuilder> {
   _$ExportTableToPointInTimeOutput? _$v;
 
-  _i2.ExportDescriptionBuilder? _exportDescription;
-  _i2.ExportDescriptionBuilder get exportDescription =>
-      _$this._exportDescription ??= new _i2.ExportDescriptionBuilder();
-  set exportDescription(_i2.ExportDescriptionBuilder? exportDescription) =>
+  ExportDescriptionBuilder? _exportDescription;
+  ExportDescriptionBuilder get exportDescription =>
+      _$this._exportDescription ??= new ExportDescriptionBuilder();
+  set exportDescription(ExportDescriptionBuilder? exportDescription) =>
       _$this._exportDescription = exportDescription;
 
   ExportTableToPointInTimeOutputBuilder();

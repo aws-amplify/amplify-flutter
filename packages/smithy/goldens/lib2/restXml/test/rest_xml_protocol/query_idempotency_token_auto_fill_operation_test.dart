@@ -5,25 +5,23 @@
 library rest_xml_v2.rest_xml_protocol.test.query_idempotency_token_auto_fill_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/query_idempotency_token_auto_fill_input.dart'
-    as _i5;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/query_idempotency_token_auto_fill_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/query_idempotency_token_auto_fill_input.dart';
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/query_idempotency_token_auto_fill_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
   _i1.test('QueryIdempotencyTokenAutoFill (request)', () async {
     await _i2.httpRequestTest(
-      operation: _i3.QueryIdempotencyTokenAutoFillOperation(
+      operation: QueryIdempotencyTokenAutoFillOperation(
         region: 'us-east-1',
         baseUri: Uri.parse('https://example.com'),
       ),
       testCase: const _i2.HttpRequestTestCase(
         id: 'QueryIdempotencyTokenAutoFill',
         documentation: 'Automatically adds idempotency token when not set',
-        protocol: _i4.ShapeId(
+        protocol: _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         ),
@@ -55,14 +53,14 @@ void main() {
     'QueryIdempotencyTokenAutoFillIsSet (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.QueryIdempotencyTokenAutoFillOperation(
+        operation: QueryIdempotencyTokenAutoFillOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'QueryIdempotencyTokenAutoFillIsSet',
           documentation: 'Uses the given idempotency token as-is',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -93,27 +91,27 @@ void main() {
   );
 }
 
-class QueryIdempotencyTokenAutoFillInputRestXmlSerializer extends _i4
-    .StructuredSmithySerializer<_i5.QueryIdempotencyTokenAutoFillInput> {
+class QueryIdempotencyTokenAutoFillInputRestXmlSerializer
+    extends _i3.StructuredSmithySerializer<QueryIdempotencyTokenAutoFillInput> {
   const QueryIdempotencyTokenAutoFillInputRestXmlSerializer()
       : super('QueryIdempotencyTokenAutoFillInput');
 
   @override
-  Iterable<Type> get types => const [_i5.QueryIdempotencyTokenAutoFillInput];
+  Iterable<Type> get types => const [QueryIdempotencyTokenAutoFillInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
       ];
   @override
-  _i5.QueryIdempotencyTokenAutoFillInput deserialize(
+  QueryIdempotencyTokenAutoFillInput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.QueryIdempotencyTokenAutoFillInputBuilder();
+    final result = QueryIdempotencyTokenAutoFillInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -137,7 +135,7 @@ class QueryIdempotencyTokenAutoFillInputRestXmlSerializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.QueryIdempotencyTokenAutoFillInput object, {
+    QueryIdempotencyTokenAutoFillInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

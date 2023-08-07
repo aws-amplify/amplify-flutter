@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.describe_organization_conformance_pack_statuses_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/organization_conformance_pack_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/organization_conformance_pack_status.dart';
 
 part 'describe_organization_conformance_pack_statuses_response.g.dart';
 
@@ -20,7 +19,7 @@ abstract class DescribeOrganizationConformancePackStatusesResponse
         Built<DescribeOrganizationConformancePackStatusesResponse,
             DescribeOrganizationConformancePackStatusesResponseBuilder> {
   factory DescribeOrganizationConformancePackStatusesResponse({
-    List<_i2.OrganizationConformancePackStatus>?
+    List<OrganizationConformancePackStatus>?
         organizationConformancePackStatuses,
     String? nextToken,
   }) {
@@ -28,7 +27,7 @@ abstract class DescribeOrganizationConformancePackStatusesResponse
       organizationConformancePackStatuses:
           organizationConformancePackStatuses == null
               ? null
-              : _i3.BuiltList(organizationConformancePackStatuses),
+              : _i2.BuiltList(organizationConformancePackStatuses),
       nextToken: nextToken,
     );
   }
@@ -47,13 +46,13 @@ abstract class DescribeOrganizationConformancePackStatusesResponse
       payload;
 
   static const List<
-      _i4.SmithySerializer<
+      _i3.SmithySerializer<
           DescribeOrganizationConformancePackStatusesResponse>> serializers = [
     DescribeOrganizationConformancePackStatusesResponseAwsJson11Serializer()
   ];
 
   /// A list of `OrganizationConformancePackStatus` objects.
-  _i3.BuiltList<_i2.OrganizationConformancePackStatus>?
+  _i2.BuiltList<OrganizationConformancePackStatus>?
       get organizationConformancePackStatuses;
 
   /// The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
@@ -80,7 +79,7 @@ abstract class DescribeOrganizationConformancePackStatusesResponse
 }
 
 class DescribeOrganizationConformancePackStatusesResponseAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<
+    extends _i3.StructuredSmithySerializer<
         DescribeOrganizationConformancePackStatusesResponse> {
   const DescribeOrganizationConformancePackStatusesResponseAwsJson11Serializer()
       : super('DescribeOrganizationConformancePackStatusesResponse');
@@ -91,8 +90,8 @@ class DescribeOrganizationConformancePackStatusesResponseAwsJson11Serializer
         _$DescribeOrganizationConformancePackStatusesResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -118,10 +117,10 @@ class DescribeOrganizationConformancePackStatusesResponseAwsJson11Serializer
               .replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.OrganizationConformancePackStatus)],
+              _i2.BuiltList,
+              [FullType(OrganizationConformancePackStatus)],
             ),
-          ) as _i3.BuiltList<_i2.OrganizationConformancePackStatus>));
+          ) as _i2.BuiltList<OrganizationConformancePackStatus>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -150,8 +149,8 @@ class DescribeOrganizationConformancePackStatusesResponseAwsJson11Serializer
         ..add(serializers.serialize(
           organizationConformancePackStatuses,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.OrganizationConformancePackStatus)],
+            _i2.BuiltList,
+            [FullType(OrganizationConformancePackStatus)],
           ),
         ));
     }

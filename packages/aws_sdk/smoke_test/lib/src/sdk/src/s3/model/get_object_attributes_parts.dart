@@ -4,11 +4,11 @@
 library smoke_test.s3.model.get_object_attributes_parts; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/object_part.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/object_part.dart';
 
 part 'get_object_attributes_parts.g.dart';
 
@@ -24,7 +24,7 @@ abstract class GetObjectAttributesParts
     String? nextPartNumberMarker,
     int? maxParts,
     bool? isTruncated,
-    List<_i2.ObjectPart>? parts,
+    List<ObjectPart>? parts,
   }) {
     return _$GetObjectAttributesParts._(
       totalPartsCount: totalPartsCount,
@@ -32,7 +32,7 @@ abstract class GetObjectAttributesParts
       nextPartNumberMarker: nextPartNumberMarker,
       maxParts: maxParts,
       isTruncated: isTruncated,
-      parts: parts == null ? null : _i3.BuiltList(parts),
+      parts: parts == null ? null : _i2.BuiltList(parts),
     );
   }
 
@@ -43,7 +43,7 @@ abstract class GetObjectAttributesParts
 
   const GetObjectAttributesParts._();
 
-  static const List<_i4.SmithySerializer<GetObjectAttributesParts>>
+  static const List<_i3.SmithySerializer<GetObjectAttributesParts>>
       serializers = [GetObjectAttributesPartsRestXmlSerializer()];
 
   /// The total number of parts.
@@ -62,7 +62,7 @@ abstract class GetObjectAttributesParts
   bool? get isTruncated;
 
   /// A container for elements related to a particular part. A response can contain zero or more `Parts` elements.
-  _i3.BuiltList<_i2.ObjectPart>? get parts;
+  _i2.BuiltList<ObjectPart>? get parts;
   @override
   List<Object?> get props => [
         totalPartsCount,
@@ -104,7 +104,7 @@ abstract class GetObjectAttributesParts
 }
 
 class GetObjectAttributesPartsRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<GetObjectAttributesParts> {
+    extends _i3.StructuredSmithySerializer<GetObjectAttributesParts> {
   const GetObjectAttributesPartsRestXmlSerializer()
       : super('GetObjectAttributesParts');
 
@@ -114,8 +114,8 @@ class GetObjectAttributesPartsRestXmlSerializer
         _$GetObjectAttributesParts,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -159,8 +159,8 @@ class GetObjectAttributesPartsRestXmlSerializer
         case 'Part':
           result.parts.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ObjectPart),
-          ) as _i2.ObjectPart));
+            specifiedType: const FullType(ObjectPart),
+          ) as ObjectPart));
         case 'PartsCount':
           result.totalPartsCount = (serializers.deserialize(
             value,
@@ -179,9 +179,9 @@ class GetObjectAttributesPartsRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'GetObjectAttributesParts',
-        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final GetObjectAttributesParts(
@@ -194,7 +194,7 @@ class GetObjectAttributesPartsRestXmlSerializer
     ) = object;
     if (isTruncated != null) {
       result$
-        ..add(const _i4.XmlElementName('IsTruncated'))
+        ..add(const _i3.XmlElementName('IsTruncated'))
         ..add(serializers.serialize(
           isTruncated,
           specifiedType: const FullType.nullable(bool),
@@ -202,7 +202,7 @@ class GetObjectAttributesPartsRestXmlSerializer
     }
     if (maxParts != null) {
       result$
-        ..add(const _i4.XmlElementName('MaxParts'))
+        ..add(const _i3.XmlElementName('MaxParts'))
         ..add(serializers.serialize(
           maxParts,
           specifiedType: const FullType.nullable(int),
@@ -210,7 +210,7 @@ class GetObjectAttributesPartsRestXmlSerializer
     }
     if (nextPartNumberMarker != null) {
       result$
-        ..add(const _i4.XmlElementName('NextPartNumberMarker'))
+        ..add(const _i3.XmlElementName('NextPartNumberMarker'))
         ..add(serializers.serialize(
           nextPartNumberMarker,
           specifiedType: const FullType(String),
@@ -218,7 +218,7 @@ class GetObjectAttributesPartsRestXmlSerializer
     }
     if (partNumberMarker != null) {
       result$
-        ..add(const _i4.XmlElementName('PartNumberMarker'))
+        ..add(const _i3.XmlElementName('PartNumberMarker'))
         ..add(serializers.serialize(
           partNumberMarker,
           specifiedType: const FullType(String),
@@ -226,18 +226,18 @@ class GetObjectAttributesPartsRestXmlSerializer
     }
     if (parts != null) {
       result$.addAll(
-          const _i4.XmlBuiltListSerializer(memberName: 'Part').serialize(
+          const _i3.XmlBuiltListSerializer(memberName: 'Part').serialize(
         serializers,
         parts,
         specifiedType: const FullType.nullable(
-          _i3.BuiltList,
-          [FullType(_i2.ObjectPart)],
+          _i2.BuiltList,
+          [FullType(ObjectPart)],
         ),
       ));
     }
     if (totalPartsCount != null) {
       result$
-        ..add(const _i4.XmlElementName('PartsCount'))
+        ..add(const _i3.XmlElementName('PartsCount'))
         ..add(serializers.serialize(
           totalPartsCount,
           specifiedType: const FullType.nullable(int),

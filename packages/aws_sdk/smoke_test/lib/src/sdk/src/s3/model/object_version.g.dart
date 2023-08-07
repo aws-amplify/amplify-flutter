@@ -10,11 +10,11 @@ class _$ObjectVersion extends ObjectVersion {
   @override
   final String? eTag;
   @override
-  final _i7.BuiltList<_i2.ChecksumAlgorithm>? checksumAlgorithm;
+  final _i3.BuiltList<ChecksumAlgorithm>? checksumAlgorithm;
   @override
-  final _i3.Int64? size;
+  final _i2.Int64? size;
   @override
-  final _i4.ObjectVersionStorageClass? storageClass;
+  final ObjectVersionStorageClass? storageClass;
   @override
   final String? key;
   @override
@@ -24,9 +24,9 @@ class _$ObjectVersion extends ObjectVersion {
   @override
   final DateTime? lastModified;
   @override
-  final _i5.Owner? owner;
+  final Owner? owner;
   @override
-  final _i6.RestoreStatus? restoreStatus;
+  final RestoreStatus? restoreStatus;
 
   factory _$ObjectVersion([void Function(ObjectVersionBuilder)? updates]) =>
       (new ObjectVersionBuilder()..update(updates))._build();
@@ -93,21 +93,20 @@ class ObjectVersionBuilder
   String? get eTag => _$this._eTag;
   set eTag(String? eTag) => _$this._eTag = eTag;
 
-  _i7.ListBuilder<_i2.ChecksumAlgorithm>? _checksumAlgorithm;
-  _i7.ListBuilder<_i2.ChecksumAlgorithm> get checksumAlgorithm =>
-      _$this._checksumAlgorithm ??=
-          new _i7.ListBuilder<_i2.ChecksumAlgorithm>();
+  _i3.ListBuilder<ChecksumAlgorithm>? _checksumAlgorithm;
+  _i3.ListBuilder<ChecksumAlgorithm> get checksumAlgorithm =>
+      _$this._checksumAlgorithm ??= new _i3.ListBuilder<ChecksumAlgorithm>();
   set checksumAlgorithm(
-          _i7.ListBuilder<_i2.ChecksumAlgorithm>? checksumAlgorithm) =>
+          _i3.ListBuilder<ChecksumAlgorithm>? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
-  _i3.Int64? _size;
-  _i3.Int64? get size => _$this._size;
-  set size(_i3.Int64? size) => _$this._size = size;
+  _i2.Int64? _size;
+  _i2.Int64? get size => _$this._size;
+  set size(_i2.Int64? size) => _$this._size = size;
 
-  _i4.ObjectVersionStorageClass? _storageClass;
-  _i4.ObjectVersionStorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i4.ObjectVersionStorageClass? storageClass) =>
+  ObjectVersionStorageClass? _storageClass;
+  ObjectVersionStorageClass? get storageClass => _$this._storageClass;
+  set storageClass(ObjectVersionStorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
   String? _key;
@@ -127,14 +126,14 @@ class ObjectVersionBuilder
   set lastModified(DateTime? lastModified) =>
       _$this._lastModified = lastModified;
 
-  _i5.OwnerBuilder? _owner;
-  _i5.OwnerBuilder get owner => _$this._owner ??= new _i5.OwnerBuilder();
-  set owner(_i5.OwnerBuilder? owner) => _$this._owner = owner;
+  OwnerBuilder? _owner;
+  OwnerBuilder get owner => _$this._owner ??= new OwnerBuilder();
+  set owner(OwnerBuilder? owner) => _$this._owner = owner;
 
-  _i6.RestoreStatusBuilder? _restoreStatus;
-  _i6.RestoreStatusBuilder get restoreStatus =>
-      _$this._restoreStatus ??= new _i6.RestoreStatusBuilder();
-  set restoreStatus(_i6.RestoreStatusBuilder? restoreStatus) =>
+  RestoreStatusBuilder? _restoreStatus;
+  RestoreStatusBuilder get restoreStatus =>
+      _$this._restoreStatus ??= new RestoreStatusBuilder();
+  set restoreStatus(RestoreStatusBuilder? restoreStatus) =>
       _$this._restoreStatus = restoreStatus;
 
   ObjectVersionBuilder();

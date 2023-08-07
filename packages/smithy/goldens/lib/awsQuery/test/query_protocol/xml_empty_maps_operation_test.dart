@@ -4,15 +4,12 @@
 // ignore_for_file: unused_element
 library aws_query_v1.query_protocol.test.xml_empty_maps_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_query_v1/src/query_protocol/model/greeting_struct.dart'
-    as _i7;
-import 'package:aws_query_v1/src/query_protocol/model/xml_maps_output.dart'
-    as _i5;
-import 'package:aws_query_v1/src/query_protocol/operation/xml_empty_maps_operation.dart'
-    as _i3;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:aws_query_v1/src/query_protocol/model/greeting_struct.dart';
+import 'package:aws_query_v1/src/query_protocol/model/xml_maps_output.dart';
+import 'package:aws_query_v1/src/query_protocol/operation/xml_empty_maps_operation.dart';
+import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -21,14 +18,14 @@ void main() {
     'QueryXmlEmptyMaps (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.XmlEmptyMapsOperation(
+        operation: XmlEmptyMapsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'QueryXmlEmptyMaps',
           documentation: 'Deserializes Empty XML maps',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -57,14 +54,14 @@ void main() {
     'QueryXmlEmptySelfClosedMaps (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.XmlEmptyMapsOperation(
+        operation: XmlEmptyMapsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'QueryXmlEmptySelfClosedMaps',
           documentation: 'Deserializes Self-Closed XML maps',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -92,25 +89,25 @@ void main() {
 }
 
 class XmlMapsOutputAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<_i5.XmlMapsOutput> {
+    extends _i3.StructuredSmithySerializer<XmlMapsOutput> {
   const XmlMapsOutputAwsQuerySerializer() : super('XmlMapsOutput');
 
   @override
-  Iterable<Type> get types => const [_i5.XmlMapsOutput];
+  Iterable<Type> get types => const [XmlMapsOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
       ];
   @override
-  _i5.XmlMapsOutput deserialize(
+  XmlMapsOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.XmlMapsOutputBuilder();
+    final result = XmlMapsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -124,13 +121,13 @@ class XmlMapsOutputAwsQuerySerializer
           result.myMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltMap,
+              _i4.BuiltMap,
               [
                 FullType(String),
-                FullType(_i7.GreetingStruct),
+                FullType(GreetingStruct),
               ],
             ),
-          ) as _i6.BuiltMap<String, _i7.GreetingStruct>));
+          ) as _i4.BuiltMap<String, GreetingStruct>));
       }
     }
 
@@ -140,7 +137,7 @@ class XmlMapsOutputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.XmlMapsOutput object, {
+    XmlMapsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -148,25 +145,25 @@ class XmlMapsOutputAwsQuerySerializer
 }
 
 class GreetingStructAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<_i7.GreetingStruct> {
+    extends _i3.StructuredSmithySerializer<GreetingStruct> {
   const GreetingStructAwsQuerySerializer() : super('GreetingStruct');
 
   @override
-  Iterable<Type> get types => const [_i7.GreetingStruct];
+  Iterable<Type> get types => const [GreetingStruct];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
       ];
   @override
-  _i7.GreetingStruct deserialize(
+  GreetingStruct deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i7.GreetingStructBuilder();
+    final result = GreetingStructBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -190,7 +187,7 @@ class GreetingStructAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i7.GreetingStruct object, {
+    GreetingStruct object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

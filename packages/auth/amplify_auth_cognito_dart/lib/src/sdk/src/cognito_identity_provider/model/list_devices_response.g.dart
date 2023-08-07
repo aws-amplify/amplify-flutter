@@ -8,7 +8,7 @@ part of 'list_devices_response.dart';
 
 class _$ListDevicesResponse extends ListDevicesResponse {
   @override
-  final _i3.BuiltList<_i2.DeviceType>? devices;
+  final _i2.BuiltList<DeviceType>? devices;
   @override
   final String? paginationToken;
 
@@ -49,10 +49,10 @@ class ListDevicesResponseBuilder
     implements Builder<ListDevicesResponse, ListDevicesResponseBuilder> {
   _$ListDevicesResponse? _$v;
 
-  _i3.ListBuilder<_i2.DeviceType>? _devices;
-  _i3.ListBuilder<_i2.DeviceType> get devices =>
-      _$this._devices ??= new _i3.ListBuilder<_i2.DeviceType>();
-  set devices(_i3.ListBuilder<_i2.DeviceType>? devices) =>
+  _i2.ListBuilder<DeviceType>? _devices;
+  _i2.ListBuilder<DeviceType> get devices =>
+      _$this._devices ??= new _i2.ListBuilder<DeviceType>();
+  set devices(_i2.ListBuilder<DeviceType>? devices) =>
       _$this._devices = devices;
 
   String? _paginationToken;

@@ -4,16 +4,14 @@
 library smoke_test.dynamo_db.model.replica_settings_update; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:fixnum/fixnum.dart' as _i2;
-import 'package:smithy/smithy.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/auto_scaling_settings_update.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_global_secondary_index_settings_update.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_class.dart' as _i5;
+import 'package:smithy/smithy.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/auto_scaling_settings_update.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_global_secondary_index_settings_update.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_class.dart';
 
 part 'replica_settings_update.g.dart';
 
@@ -25,11 +23,11 @@ abstract class ReplicaSettingsUpdate
   factory ReplicaSettingsUpdate({
     required String regionName,
     _i2.Int64? replicaProvisionedReadCapacityUnits,
-    _i3.AutoScalingSettingsUpdate?
+    AutoScalingSettingsUpdate?
         replicaProvisionedReadCapacityAutoScalingSettingsUpdate,
-    List<_i4.ReplicaGlobalSecondaryIndexSettingsUpdate>?
+    List<ReplicaGlobalSecondaryIndexSettingsUpdate>?
         replicaGlobalSecondaryIndexSettingsUpdate,
-    _i5.TableClass? replicaTableClass,
+    TableClass? replicaTableClass,
   }) {
     return _$ReplicaSettingsUpdate._(
       regionName: regionName,
@@ -39,7 +37,7 @@ abstract class ReplicaSettingsUpdate
       replicaGlobalSecondaryIndexSettingsUpdate:
           replicaGlobalSecondaryIndexSettingsUpdate == null
               ? null
-              : _i6.BuiltList(replicaGlobalSecondaryIndexSettingsUpdate),
+              : _i3.BuiltList(replicaGlobalSecondaryIndexSettingsUpdate),
       replicaTableClass: replicaTableClass,
     );
   }
@@ -51,7 +49,7 @@ abstract class ReplicaSettingsUpdate
 
   const ReplicaSettingsUpdate._();
 
-  static const List<_i7.SmithySerializer<ReplicaSettingsUpdate>> serializers = [
+  static const List<_i4.SmithySerializer<ReplicaSettingsUpdate>> serializers = [
     ReplicaSettingsUpdateAwsJson10Serializer()
   ];
 
@@ -62,15 +60,15 @@ abstract class ReplicaSettingsUpdate
   _i2.Int64? get replicaProvisionedReadCapacityUnits;
 
   /// Auto scaling settings for managing a global table replica's read capacity units.
-  _i3.AutoScalingSettingsUpdate?
+  AutoScalingSettingsUpdate?
       get replicaProvisionedReadCapacityAutoScalingSettingsUpdate;
 
   /// Represents the settings of a global secondary index for a global table that will be modified.
-  _i6.BuiltList<_i4.ReplicaGlobalSecondaryIndexSettingsUpdate>?
+  _i3.BuiltList<ReplicaGlobalSecondaryIndexSettingsUpdate>?
       get replicaGlobalSecondaryIndexSettingsUpdate;
 
   /// Replica-specific table class. If not specified, uses the source table's table class.
-  _i5.TableClass? get replicaTableClass;
+  TableClass? get replicaTableClass;
   @override
   List<Object?> get props => [
         regionName,
@@ -107,7 +105,7 @@ abstract class ReplicaSettingsUpdate
 }
 
 class ReplicaSettingsUpdateAwsJson10Serializer
-    extends _i7.StructuredSmithySerializer<ReplicaSettingsUpdate> {
+    extends _i4.StructuredSmithySerializer<ReplicaSettingsUpdate> {
   const ReplicaSettingsUpdateAwsJson10Serializer()
       : super('ReplicaSettingsUpdate');
 
@@ -117,8 +115,8 @@ class ReplicaSettingsUpdateAwsJson10Serializer
         _$ReplicaSettingsUpdate,
       ];
   @override
-  Iterable<_i7.ShapeId> get supportedProtocols => const [
-        _i7.ShapeId(
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -153,22 +151,22 @@ class ReplicaSettingsUpdateAwsJson10Serializer
           result.replicaProvisionedReadCapacityAutoScalingSettingsUpdate
               .replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.AutoScalingSettingsUpdate),
-          ) as _i3.AutoScalingSettingsUpdate));
+            specifiedType: const FullType(AutoScalingSettingsUpdate),
+          ) as AutoScalingSettingsUpdate));
         case 'ReplicaGlobalSecondaryIndexSettingsUpdate':
           result.replicaGlobalSecondaryIndexSettingsUpdate
               .replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(_i4.ReplicaGlobalSecondaryIndexSettingsUpdate)],
+              _i3.BuiltList,
+              [FullType(ReplicaGlobalSecondaryIndexSettingsUpdate)],
             ),
-          ) as _i6.BuiltList<_i4.ReplicaGlobalSecondaryIndexSettingsUpdate>));
+          ) as _i3.BuiltList<ReplicaGlobalSecondaryIndexSettingsUpdate>));
         case 'ReplicaTableClass':
           result.replicaTableClass = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.TableClass),
-          ) as _i5.TableClass);
+            specifiedType: const FullType(TableClass),
+          ) as TableClass);
       }
     }
 
@@ -209,7 +207,7 @@ class ReplicaSettingsUpdateAwsJson10Serializer
         ..add('ReplicaProvisionedReadCapacityAutoScalingSettingsUpdate')
         ..add(serializers.serialize(
           replicaProvisionedReadCapacityAutoScalingSettingsUpdate,
-          specifiedType: const FullType(_i3.AutoScalingSettingsUpdate),
+          specifiedType: const FullType(AutoScalingSettingsUpdate),
         ));
     }
     if (replicaGlobalSecondaryIndexSettingsUpdate != null) {
@@ -218,8 +216,8 @@ class ReplicaSettingsUpdateAwsJson10Serializer
         ..add(serializers.serialize(
           replicaGlobalSecondaryIndexSettingsUpdate,
           specifiedType: const FullType(
-            _i6.BuiltList,
-            [FullType(_i4.ReplicaGlobalSecondaryIndexSettingsUpdate)],
+            _i3.BuiltList,
+            [FullType(ReplicaGlobalSecondaryIndexSettingsUpdate)],
           ),
         ));
     }
@@ -228,7 +226,7 @@ class ReplicaSettingsUpdateAwsJson10Serializer
         ..add('ReplicaTableClass')
         ..add(serializers.serialize(
           replicaTableClass,
-          specifiedType: const FullType(_i5.TableClass),
+          specifiedType: const FullType(TableClass),
         ));
     }
     return result$;

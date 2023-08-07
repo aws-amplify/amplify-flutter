@@ -8,15 +8,15 @@ part of 'source_table_feature_details.dart';
 
 class _$SourceTableFeatureDetails extends SourceTableFeatureDetails {
   @override
-  final _i7.BuiltList<_i2.LocalSecondaryIndexInfo>? localSecondaryIndexes;
+  final _i2.BuiltList<LocalSecondaryIndexInfo>? localSecondaryIndexes;
   @override
-  final _i7.BuiltList<_i3.GlobalSecondaryIndexInfo>? globalSecondaryIndexes;
+  final _i2.BuiltList<GlobalSecondaryIndexInfo>? globalSecondaryIndexes;
   @override
-  final _i4.StreamSpecification? streamDescription;
+  final StreamSpecification? streamDescription;
   @override
-  final _i5.TimeToLiveDescription? timeToLiveDescription;
+  final TimeToLiveDescription? timeToLiveDescription;
   @override
-  final _i6.SseDescription? sseDescription;
+  final SseDescription? sseDescription;
 
   factory _$SourceTableFeatureDetails(
           [void Function(SourceTableFeatureDetailsBuilder)? updates]) =>
@@ -68,41 +68,39 @@ class SourceTableFeatureDetailsBuilder
         Builder<SourceTableFeatureDetails, SourceTableFeatureDetailsBuilder> {
   _$SourceTableFeatureDetails? _$v;
 
-  _i7.ListBuilder<_i2.LocalSecondaryIndexInfo>? _localSecondaryIndexes;
-  _i7.ListBuilder<_i2.LocalSecondaryIndexInfo> get localSecondaryIndexes =>
+  _i2.ListBuilder<LocalSecondaryIndexInfo>? _localSecondaryIndexes;
+  _i2.ListBuilder<LocalSecondaryIndexInfo> get localSecondaryIndexes =>
       _$this._localSecondaryIndexes ??=
-          new _i7.ListBuilder<_i2.LocalSecondaryIndexInfo>();
+          new _i2.ListBuilder<LocalSecondaryIndexInfo>();
   set localSecondaryIndexes(
-          _i7.ListBuilder<_i2.LocalSecondaryIndexInfo>?
-              localSecondaryIndexes) =>
+          _i2.ListBuilder<LocalSecondaryIndexInfo>? localSecondaryIndexes) =>
       _$this._localSecondaryIndexes = localSecondaryIndexes;
 
-  _i7.ListBuilder<_i3.GlobalSecondaryIndexInfo>? _globalSecondaryIndexes;
-  _i7.ListBuilder<_i3.GlobalSecondaryIndexInfo> get globalSecondaryIndexes =>
+  _i2.ListBuilder<GlobalSecondaryIndexInfo>? _globalSecondaryIndexes;
+  _i2.ListBuilder<GlobalSecondaryIndexInfo> get globalSecondaryIndexes =>
       _$this._globalSecondaryIndexes ??=
-          new _i7.ListBuilder<_i3.GlobalSecondaryIndexInfo>();
+          new _i2.ListBuilder<GlobalSecondaryIndexInfo>();
   set globalSecondaryIndexes(
-          _i7.ListBuilder<_i3.GlobalSecondaryIndexInfo>?
-              globalSecondaryIndexes) =>
+          _i2.ListBuilder<GlobalSecondaryIndexInfo>? globalSecondaryIndexes) =>
       _$this._globalSecondaryIndexes = globalSecondaryIndexes;
 
-  _i4.StreamSpecificationBuilder? _streamDescription;
-  _i4.StreamSpecificationBuilder get streamDescription =>
-      _$this._streamDescription ??= new _i4.StreamSpecificationBuilder();
-  set streamDescription(_i4.StreamSpecificationBuilder? streamDescription) =>
+  StreamSpecificationBuilder? _streamDescription;
+  StreamSpecificationBuilder get streamDescription =>
+      _$this._streamDescription ??= new StreamSpecificationBuilder();
+  set streamDescription(StreamSpecificationBuilder? streamDescription) =>
       _$this._streamDescription = streamDescription;
 
-  _i5.TimeToLiveDescriptionBuilder? _timeToLiveDescription;
-  _i5.TimeToLiveDescriptionBuilder get timeToLiveDescription =>
-      _$this._timeToLiveDescription ??= new _i5.TimeToLiveDescriptionBuilder();
+  TimeToLiveDescriptionBuilder? _timeToLiveDescription;
+  TimeToLiveDescriptionBuilder get timeToLiveDescription =>
+      _$this._timeToLiveDescription ??= new TimeToLiveDescriptionBuilder();
   set timeToLiveDescription(
-          _i5.TimeToLiveDescriptionBuilder? timeToLiveDescription) =>
+          TimeToLiveDescriptionBuilder? timeToLiveDescription) =>
       _$this._timeToLiveDescription = timeToLiveDescription;
 
-  _i6.SseDescriptionBuilder? _sseDescription;
-  _i6.SseDescriptionBuilder get sseDescription =>
-      _$this._sseDescription ??= new _i6.SseDescriptionBuilder();
-  set sseDescription(_i6.SseDescriptionBuilder? sseDescription) =>
+  SseDescriptionBuilder? _sseDescription;
+  SseDescriptionBuilder get sseDescription =>
+      _$this._sseDescription ??= new SseDescriptionBuilder();
+  set sseDescription(SseDescriptionBuilder? sseDescription) =>
       _$this._sseDescription = sseDescription;
 
   SourceTableFeatureDetailsBuilder();

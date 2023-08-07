@@ -8,9 +8,9 @@ part of 'put_config_rule_request.dart';
 
 class _$PutConfigRuleRequest extends PutConfigRuleRequest {
   @override
-  final _i3.ConfigRule configRule;
+  final ConfigRule configRule;
   @override
-  final _i5.BuiltList<_i4.Tag>? tags;
+  final _i3.BuiltList<Tag>? tags;
 
   factory _$PutConfigRuleRequest(
           [void Function(PutConfigRuleRequestBuilder)? updates]) =>
@@ -52,16 +52,15 @@ class PutConfigRuleRequestBuilder
     implements Builder<PutConfigRuleRequest, PutConfigRuleRequestBuilder> {
   _$PutConfigRuleRequest? _$v;
 
-  _i3.ConfigRuleBuilder? _configRule;
-  _i3.ConfigRuleBuilder get configRule =>
-      _$this._configRule ??= new _i3.ConfigRuleBuilder();
-  set configRule(_i3.ConfigRuleBuilder? configRule) =>
+  ConfigRuleBuilder? _configRule;
+  ConfigRuleBuilder get configRule =>
+      _$this._configRule ??= new ConfigRuleBuilder();
+  set configRule(ConfigRuleBuilder? configRule) =>
       _$this._configRule = configRule;
 
-  _i5.ListBuilder<_i4.Tag>? _tags;
-  _i5.ListBuilder<_i4.Tag> get tags =>
-      _$this._tags ??= new _i5.ListBuilder<_i4.Tag>();
-  set tags(_i5.ListBuilder<_i4.Tag>? tags) => _$this._tags = tags;
+  _i3.ListBuilder<Tag>? _tags;
+  _i3.ListBuilder<Tag> get tags => _$this._tags ??= new _i3.ListBuilder<Tag>();
+  set tags(_i3.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   PutConfigRuleRequestBuilder();
 

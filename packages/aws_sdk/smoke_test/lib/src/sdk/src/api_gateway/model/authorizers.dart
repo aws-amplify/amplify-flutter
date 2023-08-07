@@ -4,12 +4,11 @@
 library smoke_test.api_gateway.model.authorizers; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/authorizer.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/authorizer.dart';
 
 part 'authorizers.g.dart';
 
@@ -19,11 +18,11 @@ abstract class Authorizers
     implements Built<Authorizers, AuthorizersBuilder> {
   /// Represents a collection of Authorizer resources.
   factory Authorizers({
-    List<_i2.Authorizer>? items,
+    List<Authorizer>? items,
     String? position,
   }) {
     return _$Authorizers._(
-      items: items == null ? null : _i3.BuiltList(items),
+      items: items == null ? null : _i2.BuiltList(items),
       position: position,
     );
   }
@@ -41,12 +40,12 @@ abstract class Authorizers
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<Authorizers>> serializers = [
+  static const List<_i3.SmithySerializer<Authorizers>> serializers = [
     AuthorizersRestJson1Serializer()
   ];
 
   /// The current page of elements from this collection.
-  _i3.BuiltList<_i2.Authorizer>? get items;
+  _i2.BuiltList<Authorizer>? get items;
 
   /// The current pagination position in the paged result set.
   String? get position;
@@ -71,7 +70,7 @@ abstract class Authorizers
 }
 
 class AuthorizersRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<Authorizers> {
+    extends _i3.StructuredSmithySerializer<Authorizers> {
   const AuthorizersRestJson1Serializer() : super('Authorizers');
 
   @override
@@ -80,8 +79,8 @@ class AuthorizersRestJson1Serializer
         _$Authorizers,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -106,10 +105,10 @@ class AuthorizersRestJson1Serializer
           result.items.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.Authorizer)],
+              _i2.BuiltList,
+              [FullType(Authorizer)],
             ),
-          ) as _i3.BuiltList<_i2.Authorizer>));
+          ) as _i2.BuiltList<Authorizer>));
         case 'position':
           result.position = (serializers.deserialize(
             value,
@@ -135,8 +134,8 @@ class AuthorizersRestJson1Serializer
         ..add(serializers.serialize(
           items,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.Authorizer)],
+            _i2.BuiltList,
+            [FullType(Authorizer)],
           ),
         ));
     }

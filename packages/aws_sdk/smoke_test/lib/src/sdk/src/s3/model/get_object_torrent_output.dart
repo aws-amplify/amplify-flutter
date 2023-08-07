@@ -9,7 +9,7 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart';
 
 part 'get_object_torrent_output.g.dart';
 
@@ -20,7 +20,7 @@ abstract class GetObjectTorrentOutput
         _i2.HasPayload<_i3.Stream<List<int>>> {
   factory GetObjectTorrentOutput({
     _i3.Stream<List<int>>? body,
-    _i4.RequestCharged? requestCharged,
+    RequestCharged? requestCharged,
   }) {
     body ??= const _i3.Stream.empty();
     return _$GetObjectTorrentOutput._(
@@ -43,7 +43,7 @@ abstract class GetObjectTorrentOutput
       GetObjectTorrentOutput.build((b) {
         b.body = payload;
         if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = _i4.RequestCharged.values
+          b.requestCharged = RequestCharged.values
               .byValue(response.headers['x-amz-request-charged']!);
         }
       });
@@ -61,7 +61,7 @@ abstract class GetObjectTorrentOutput
   _i3.Stream<List<int>> get body;
 
   /// If present, indicates that the requester was successfully charged for the request.
-  _i4.RequestCharged? get requestCharged;
+  RequestCharged? get requestCharged;
   @override
   _i3.Stream<List<int>> getPayload() => body;
   @override

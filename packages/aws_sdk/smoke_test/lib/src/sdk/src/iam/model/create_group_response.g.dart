@@ -8,7 +8,7 @@ part of 'create_group_response.dart';
 
 class _$CreateGroupResponse extends CreateGroupResponse {
   @override
-  final _i2.Group group;
+  final Group group;
 
   factory _$CreateGroupResponse(
           [void Function(CreateGroupResponseBuilder)? updates]) =>
@@ -47,9 +47,9 @@ class CreateGroupResponseBuilder
     implements Builder<CreateGroupResponse, CreateGroupResponseBuilder> {
   _$CreateGroupResponse? _$v;
 
-  _i2.GroupBuilder? _group;
-  _i2.GroupBuilder get group => _$this._group ??= new _i2.GroupBuilder();
-  set group(_i2.GroupBuilder? group) => _$this._group = group;
+  GroupBuilder? _group;
+  GroupBuilder get group => _$this._group ??= new GroupBuilder();
+  set group(GroupBuilder? group) => _$this._group = group;
 
   CreateGroupResponseBuilder();
 

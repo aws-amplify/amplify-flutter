@@ -10,7 +10,7 @@ class _$GetAccessKeyLastUsedResponse extends GetAccessKeyLastUsedResponse {
   @override
   final String? userName;
   @override
-  final _i2.AccessKeyLastUsed? accessKeyLastUsed;
+  final AccessKeyLastUsed? accessKeyLastUsed;
 
   factory _$GetAccessKeyLastUsedResponse(
           [void Function(GetAccessKeyLastUsedResponseBuilder)? updates]) =>
@@ -56,10 +56,10 @@ class GetAccessKeyLastUsedResponseBuilder
   String? get userName => _$this._userName;
   set userName(String? userName) => _$this._userName = userName;
 
-  _i2.AccessKeyLastUsedBuilder? _accessKeyLastUsed;
-  _i2.AccessKeyLastUsedBuilder get accessKeyLastUsed =>
-      _$this._accessKeyLastUsed ??= new _i2.AccessKeyLastUsedBuilder();
-  set accessKeyLastUsed(_i2.AccessKeyLastUsedBuilder? accessKeyLastUsed) =>
+  AccessKeyLastUsedBuilder? _accessKeyLastUsed;
+  AccessKeyLastUsedBuilder get accessKeyLastUsed =>
+      _$this._accessKeyLastUsed ??= new AccessKeyLastUsedBuilder();
+  set accessKeyLastUsed(AccessKeyLastUsedBuilder? accessKeyLastUsed) =>
       _$this._accessKeyLastUsed = accessKeyLastUsed;
 
   GetAccessKeyLastUsedResponseBuilder();

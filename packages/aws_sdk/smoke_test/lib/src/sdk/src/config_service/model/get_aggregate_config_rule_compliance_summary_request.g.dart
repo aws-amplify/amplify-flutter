@@ -11,9 +11,9 @@ class _$GetAggregateConfigRuleComplianceSummaryRequest
   @override
   final String configurationAggregatorName;
   @override
-  final _i3.ConfigRuleComplianceSummaryFilters? filters;
+  final ConfigRuleComplianceSummaryFilters? filters;
   @override
-  final _i4.ConfigRuleComplianceSummaryGroupKey? groupByKey;
+  final ConfigRuleComplianceSummaryGroupKey? groupByKey;
   @override
   final int limit;
   @override
@@ -88,15 +88,15 @@ class GetAggregateConfigRuleComplianceSummaryRequestBuilder
   set configurationAggregatorName(String? configurationAggregatorName) =>
       _$this._configurationAggregatorName = configurationAggregatorName;
 
-  _i3.ConfigRuleComplianceSummaryFiltersBuilder? _filters;
-  _i3.ConfigRuleComplianceSummaryFiltersBuilder get filters =>
-      _$this._filters ??= new _i3.ConfigRuleComplianceSummaryFiltersBuilder();
-  set filters(_i3.ConfigRuleComplianceSummaryFiltersBuilder? filters) =>
+  ConfigRuleComplianceSummaryFiltersBuilder? _filters;
+  ConfigRuleComplianceSummaryFiltersBuilder get filters =>
+      _$this._filters ??= new ConfigRuleComplianceSummaryFiltersBuilder();
+  set filters(ConfigRuleComplianceSummaryFiltersBuilder? filters) =>
       _$this._filters = filters;
 
-  _i4.ConfigRuleComplianceSummaryGroupKey? _groupByKey;
-  _i4.ConfigRuleComplianceSummaryGroupKey? get groupByKey => _$this._groupByKey;
-  set groupByKey(_i4.ConfigRuleComplianceSummaryGroupKey? groupByKey) =>
+  ConfigRuleComplianceSummaryGroupKey? _groupByKey;
+  ConfigRuleComplianceSummaryGroupKey? get groupByKey => _$this._groupByKey;
+  set groupByKey(ConfigRuleComplianceSummaryGroupKey? groupByKey) =>
       _$this._groupByKey = groupByKey;
 
   int? _limit;

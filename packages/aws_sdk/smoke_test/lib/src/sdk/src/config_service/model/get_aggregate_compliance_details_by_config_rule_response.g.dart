@@ -9,8 +9,7 @@ part of 'get_aggregate_compliance_details_by_config_rule_response.dart';
 class _$GetAggregateComplianceDetailsByConfigRuleResponse
     extends GetAggregateComplianceDetailsByConfigRuleResponse {
   @override
-  final _i3.BuiltList<_i2.AggregateEvaluationResult>?
-      aggregateEvaluationResults;
+  final _i2.BuiltList<AggregateEvaluationResult>? aggregateEvaluationResults;
   @override
   final String? nextToken;
 
@@ -62,12 +61,12 @@ class GetAggregateComplianceDetailsByConfigRuleResponseBuilder
             GetAggregateComplianceDetailsByConfigRuleResponseBuilder> {
   _$GetAggregateComplianceDetailsByConfigRuleResponse? _$v;
 
-  _i3.ListBuilder<_i2.AggregateEvaluationResult>? _aggregateEvaluationResults;
-  _i3.ListBuilder<_i2.AggregateEvaluationResult>
-      get aggregateEvaluationResults => _$this._aggregateEvaluationResults ??=
-          new _i3.ListBuilder<_i2.AggregateEvaluationResult>();
+  _i2.ListBuilder<AggregateEvaluationResult>? _aggregateEvaluationResults;
+  _i2.ListBuilder<AggregateEvaluationResult> get aggregateEvaluationResults =>
+      _$this._aggregateEvaluationResults ??=
+          new _i2.ListBuilder<AggregateEvaluationResult>();
   set aggregateEvaluationResults(
-          _i3.ListBuilder<_i2.AggregateEvaluationResult>?
+          _i2.ListBuilder<AggregateEvaluationResult>?
               aggregateEvaluationResults) =>
       _$this._aggregateEvaluationResults = aggregateEvaluationResults;
 

@@ -3,13 +3,12 @@
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.event; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/session.dart'
-    as _i2;
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/session.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i3;
 
 part 'event.g.dart';
 
@@ -27,17 +26,17 @@ abstract class Event
     required String eventType,
     Map<String, double>? metrics,
     String? sdkName,
-    _i2.Session? session,
+    Session? session,
     required String timestamp,
   }) {
     return _$Event._(
       appPackageName: appPackageName,
       appTitle: appTitle,
       appVersionCode: appVersionCode,
-      attributes: attributes == null ? null : _i3.BuiltMap(attributes),
+      attributes: attributes == null ? null : _i2.BuiltMap(attributes),
       clientSdkVersion: clientSdkVersion,
       eventType: eventType,
-      metrics: metrics == null ? null : _i3.BuiltMap(metrics),
+      metrics: metrics == null ? null : _i2.BuiltMap(metrics),
       sdkName: sdkName,
       session: session,
       timestamp: timestamp,
@@ -49,7 +48,7 @@ abstract class Event
 
   const Event._();
 
-  static const List<_i4.SmithySerializer<Event>> serializers = [
+  static const List<_i3.SmithySerializer<Event>> serializers = [
     EventRestJson1Serializer()
   ];
 
@@ -63,7 +62,7 @@ abstract class Event
   String? get appVersionCode;
 
   /// One or more custom attributes that are associated with the event.
-  _i3.BuiltMap<String, String>? get attributes;
+  _i2.BuiltMap<String, String>? get attributes;
 
   /// The version of the SDK that's running on the client device.
   String? get clientSdkVersion;
@@ -72,13 +71,13 @@ abstract class Event
   String get eventType;
 
   /// One or more custom metrics that are associated with the event.
-  _i3.BuiltMap<String, double>? get metrics;
+  _i2.BuiltMap<String, double>? get metrics;
 
   /// The name of the SDK that's being used to record the event.
   String? get sdkName;
 
   /// Information about the session in which the event occurred.
-  _i2.Session? get session;
+  Session? get session;
 
   /// The date and time, in ISO 8601 format, when the event occurred.
   String get timestamp;
@@ -142,7 +141,7 @@ abstract class Event
   }
 }
 
-class EventRestJson1Serializer extends _i4.StructuredSmithySerializer<Event> {
+class EventRestJson1Serializer extends _i3.StructuredSmithySerializer<Event> {
   const EventRestJson1Serializer() : super('Event');
 
   @override
@@ -151,8 +150,8 @@ class EventRestJson1Serializer extends _i4.StructuredSmithySerializer<Event> {
         _$Event,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -192,13 +191,13 @@ class EventRestJson1Serializer extends _i4.StructuredSmithySerializer<Event> {
           result.attributes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i3.BuiltMap<String, String>));
+          ) as _i2.BuiltMap<String, String>));
         case 'ClientSdkVersion':
           result.clientSdkVersion = (serializers.deserialize(
             value,
@@ -213,13 +212,13 @@ class EventRestJson1Serializer extends _i4.StructuredSmithySerializer<Event> {
           result.metrics.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
                 FullType(double),
               ],
             ),
-          ) as _i3.BuiltMap<String, double>));
+          ) as _i2.BuiltMap<String, double>));
         case 'SdkName':
           result.sdkName = (serializers.deserialize(
             value,
@@ -228,8 +227,8 @@ class EventRestJson1Serializer extends _i4.StructuredSmithySerializer<Event> {
         case 'Session':
           result.session.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Session),
-          ) as _i2.Session));
+            specifiedType: const FullType(Session),
+          ) as Session));
         case 'Timestamp':
           result.timestamp = (serializers.deserialize(
             value,
@@ -302,7 +301,7 @@ class EventRestJson1Serializer extends _i4.StructuredSmithySerializer<Event> {
         ..add(serializers.serialize(
           attributes,
           specifiedType: const FullType(
-            _i3.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -324,7 +323,7 @@ class EventRestJson1Serializer extends _i4.StructuredSmithySerializer<Event> {
         ..add(serializers.serialize(
           metrics,
           specifiedType: const FullType(
-            _i3.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
               FullType(double),
@@ -345,7 +344,7 @@ class EventRestJson1Serializer extends _i4.StructuredSmithySerializer<Event> {
         ..add('Session')
         ..add(serializers.serialize(
           session,
-          specifiedType: const FullType(_i2.Session),
+          specifiedType: const FullType(Session),
         ));
     }
     return result$;

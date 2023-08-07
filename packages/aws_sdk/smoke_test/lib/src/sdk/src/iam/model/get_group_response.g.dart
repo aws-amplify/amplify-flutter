@@ -8,9 +8,9 @@ part of 'get_group_response.dart';
 
 class _$GetGroupResponse extends GetGroupResponse {
   @override
-  final _i2.Group group;
+  final Group group;
   @override
-  final _i4.BuiltList<_i3.User> users;
+  final _i2.BuiltList<User> users;
   @override
   final bool isTruncated;
   @override
@@ -66,14 +66,14 @@ class GetGroupResponseBuilder
     implements Builder<GetGroupResponse, GetGroupResponseBuilder> {
   _$GetGroupResponse? _$v;
 
-  _i2.GroupBuilder? _group;
-  _i2.GroupBuilder get group => _$this._group ??= new _i2.GroupBuilder();
-  set group(_i2.GroupBuilder? group) => _$this._group = group;
+  GroupBuilder? _group;
+  GroupBuilder get group => _$this._group ??= new GroupBuilder();
+  set group(GroupBuilder? group) => _$this._group = group;
 
-  _i4.ListBuilder<_i3.User>? _users;
-  _i4.ListBuilder<_i3.User> get users =>
-      _$this._users ??= new _i4.ListBuilder<_i3.User>();
-  set users(_i4.ListBuilder<_i3.User>? users) => _$this._users = users;
+  _i2.ListBuilder<User>? _users;
+  _i2.ListBuilder<User> get users =>
+      _$this._users ??= new _i2.ListBuilder<User>();
+  set users(_i2.ListBuilder<User>? users) => _$this._users = users;
 
   bool? _isTruncated;
   bool? get isTruncated => _$this._isTruncated;

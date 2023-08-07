@@ -6,9 +6,8 @@ library smoke_test.config_service.model.relationship; // ignore_for_file: no_lea
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart';
 
 part 'relationship.g.dart';
 
@@ -18,7 +17,7 @@ abstract class Relationship
     implements Built<Relationship, RelationshipBuilder> {
   /// The relationship of the related resource to the main resource.
   factory Relationship({
-    _i2.ResourceType? resourceType,
+    ResourceType? resourceType,
     String? resourceId,
     String? resourceName,
     String? relationshipName,
@@ -37,12 +36,12 @@ abstract class Relationship
 
   const Relationship._();
 
-  static const List<_i3.SmithySerializer<Relationship>> serializers = [
+  static const List<_i2.SmithySerializer<Relationship>> serializers = [
     RelationshipAwsJson11Serializer()
   ];
 
   /// The resource type of the related resource.
-  _i2.ResourceType? get resourceType;
+  ResourceType? get resourceType;
 
   /// The ID of the related resource (for example, `sg-xxxxxx`).
   String? get resourceId;
@@ -83,7 +82,7 @@ abstract class Relationship
 }
 
 class RelationshipAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<Relationship> {
+    extends _i2.StructuredSmithySerializer<Relationship> {
   const RelationshipAwsJson11Serializer() : super('Relationship');
 
   @override
@@ -92,8 +91,8 @@ class RelationshipAwsJson11Serializer
         _$Relationship,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -117,8 +116,8 @@ class RelationshipAwsJson11Serializer
         case 'resourceType':
           result.resourceType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ResourceType),
-          ) as _i2.ResourceType);
+            specifiedType: const FullType(ResourceType),
+          ) as ResourceType);
         case 'resourceId':
           result.resourceId = (serializers.deserialize(
             value,
@@ -158,7 +157,7 @@ class RelationshipAwsJson11Serializer
         ..add('resourceType')
         ..add(serializers.serialize(
           resourceType,
-          specifiedType: const FullType(_i2.ResourceType),
+          specifiedType: const FullType(ResourceType),
         ));
     }
     if (resourceId != null) {

@@ -6,9 +6,8 @@ library smoke_test.config_service.model.put_configuration_aggregator_response; /
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/configuration_aggregator.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/configuration_aggregator.dart';
 
 part 'put_configuration_aggregator_response.g.dart';
 
@@ -19,7 +18,7 @@ abstract class PutConfigurationAggregatorResponse
         Built<PutConfigurationAggregatorResponse,
             PutConfigurationAggregatorResponseBuilder> {
   factory PutConfigurationAggregatorResponse(
-      {_i2.ConfigurationAggregator? configurationAggregator}) {
+      {ConfigurationAggregator? configurationAggregator}) {
     return _$PutConfigurationAggregatorResponse._(
         configurationAggregator: configurationAggregator);
   }
@@ -37,11 +36,11 @@ abstract class PutConfigurationAggregatorResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<PutConfigurationAggregatorResponse>>
+  static const List<_i2.SmithySerializer<PutConfigurationAggregatorResponse>>
       serializers = [PutConfigurationAggregatorResponseAwsJson11Serializer()];
 
   /// Returns a ConfigurationAggregator object.
-  _i2.ConfigurationAggregator? get configurationAggregator;
+  ConfigurationAggregator? get configurationAggregator;
   @override
   List<Object?> get props => [configurationAggregator];
   @override
@@ -57,7 +56,7 @@ abstract class PutConfigurationAggregatorResponse
 }
 
 class PutConfigurationAggregatorResponseAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<PutConfigurationAggregatorResponse> {
+    extends _i2.StructuredSmithySerializer<PutConfigurationAggregatorResponse> {
   const PutConfigurationAggregatorResponseAwsJson11Serializer()
       : super('PutConfigurationAggregatorResponse');
 
@@ -67,8 +66,8 @@ class PutConfigurationAggregatorResponseAwsJson11Serializer
         _$PutConfigurationAggregatorResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -92,8 +91,8 @@ class PutConfigurationAggregatorResponseAwsJson11Serializer
         case 'ConfigurationAggregator':
           result.configurationAggregator.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ConfigurationAggregator),
-          ) as _i2.ConfigurationAggregator));
+            specifiedType: const FullType(ConfigurationAggregator),
+          ) as ConfigurationAggregator));
       }
     }
 
@@ -113,7 +112,7 @@ class PutConfigurationAggregatorResponseAwsJson11Serializer
         ..add('ConfigurationAggregator')
         ..add(serializers.serialize(
           configurationAggregator,
-          specifiedType: const FullType(_i2.ConfigurationAggregator),
+          specifiedType: const FullType(ConfigurationAggregator),
         ));
     }
     return result$;

@@ -4,12 +4,11 @@
 library smoke_test.cloud_formation.model.list_exports_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/export.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/export.dart';
 
 part 'list_exports_output.g.dart';
 
@@ -17,11 +16,11 @@ abstract class ListExportsOutput
     with _i1.AWSEquatable<ListExportsOutput>
     implements Built<ListExportsOutput, ListExportsOutputBuilder> {
   factory ListExportsOutput({
-    List<_i2.Export>? exports,
+    List<Export>? exports,
     String? nextToken,
   }) {
     return _$ListExportsOutput._(
-      exports: exports == null ? null : _i3.BuiltList(exports),
+      exports: exports == null ? null : _i2.BuiltList(exports),
       nextToken: nextToken,
     );
   }
@@ -38,12 +37,12 @@ abstract class ListExportsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<ListExportsOutput>> serializers = [
+  static const List<_i3.SmithySerializer<ListExportsOutput>> serializers = [
     ListExportsOutputAwsQuerySerializer()
   ];
 
   /// The output for the ListExports action.
-  _i3.BuiltList<_i2.Export>? get exports;
+  _i2.BuiltList<Export>? get exports;
 
   /// If the output exceeds 100 exported output values, a string that identifies the next page of exports. If there is no additional page, this value is null.
   String? get nextToken;
@@ -68,7 +67,7 @@ abstract class ListExportsOutput
 }
 
 class ListExportsOutputAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<ListExportsOutput> {
+    extends _i3.StructuredSmithySerializer<ListExportsOutput> {
   const ListExportsOutputAwsQuerySerializer() : super('ListExportsOutput');
 
   @override
@@ -77,8 +76,8 @@ class ListExportsOutputAwsQuerySerializer
         _$ListExportsOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -100,16 +99,16 @@ class ListExportsOutputAwsQuerySerializer
       }
       switch (key) {
         case 'Exports':
-          result.exports.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.exports.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.Export)],
+              _i2.BuiltList,
+              [FullType(Export)],
             ),
-          ) as _i3.BuiltList<_i2.Export>));
+          ) as _i2.BuiltList<Export>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -128,29 +127,29 @@ class ListExportsOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'ListExportsOutputResponse',
-        _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final ListExportsOutput(:exports, :nextToken) = object;
     if (exports != null) {
       result$
-        ..add(const _i4.XmlElementName('Exports'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('Exports'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           exports,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
-            [FullType(_i2.Export)],
+            _i2.BuiltList,
+            [FullType(Export)],
           ),
         ));
     }
     if (nextToken != null) {
       result$
-        ..add(const _i4.XmlElementName('NextToken'))
+        ..add(const _i3.XmlElementName('NextToken'))
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),

@@ -8,7 +8,7 @@ part of 'create_user_response.dart';
 
 class _$CreateUserResponse extends CreateUserResponse {
   @override
-  final _i2.User? user;
+  final User? user;
 
   factory _$CreateUserResponse(
           [void Function(CreateUserResponseBuilder)? updates]) =>
@@ -44,9 +44,9 @@ class CreateUserResponseBuilder
     implements Builder<CreateUserResponse, CreateUserResponseBuilder> {
   _$CreateUserResponse? _$v;
 
-  _i2.UserBuilder? _user;
-  _i2.UserBuilder get user => _$this._user ??= new _i2.UserBuilder();
-  set user(_i2.UserBuilder? user) => _$this._user = user;
+  UserBuilder? _user;
+  UserBuilder get user => _$this._user ??= new UserBuilder();
+  set user(UserBuilder? user) => _$this._user = user;
 
   CreateUserResponseBuilder();
 

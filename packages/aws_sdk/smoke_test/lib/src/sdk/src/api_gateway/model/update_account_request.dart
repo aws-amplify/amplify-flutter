@@ -4,12 +4,11 @@
 library smoke_test.api_gateway.model.update_account_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/patch_operation.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/patch_operation.dart';
 
 part 'update_account_request.g.dart';
 
@@ -20,10 +19,10 @@ abstract class UpdateAccountRequest
         _i2.AWSEquatable<UpdateAccountRequest>
     implements Built<UpdateAccountRequest, UpdateAccountRequestBuilder> {
   /// Requests API Gateway to change information about the current Account resource.
-  factory UpdateAccountRequest({List<_i3.PatchOperation>? patchOperations}) {
+  factory UpdateAccountRequest({List<PatchOperation>? patchOperations}) {
     return _$UpdateAccountRequest._(
         patchOperations:
-            patchOperations == null ? null : _i4.BuiltList(patchOperations));
+            patchOperations == null ? null : _i3.BuiltList(patchOperations));
   }
 
   /// Requests API Gateway to change information about the current Account resource.
@@ -45,7 +44,7 @@ abstract class UpdateAccountRequest
   ];
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
-  _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
+  _i3.BuiltList<PatchOperation>? get patchOperations;
   @override
   UpdateAccountRequest getPayload() => this;
   @override
@@ -98,10 +97,10 @@ class UpdateAccountRequestRestJson1Serializer
           result.patchOperations.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.PatchOperation)],
+              _i3.BuiltList,
+              [FullType(PatchOperation)],
             ),
-          ) as _i4.BuiltList<_i3.PatchOperation>));
+          ) as _i3.BuiltList<PatchOperation>));
       }
     }
 
@@ -122,8 +121,8 @@ class UpdateAccountRequestRestJson1Serializer
         ..add(serializers.serialize(
           patchOperations,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i3.PatchOperation)],
+            _i3.BuiltList,
+            [FullType(PatchOperation)],
           ),
         ));
     }

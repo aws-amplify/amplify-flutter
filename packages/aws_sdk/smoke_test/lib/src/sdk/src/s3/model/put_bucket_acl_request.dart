@@ -3,33 +3,32 @@
 
 library smoke_test.s3.model.put_bucket_acl_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_common/aws_common.dart' as _i3;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:aws_common/aws_common.dart' as _i2;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/access_control_policy.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/bucket_canned_acl.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/grant.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/s3/model/owner.dart' as _i8;
+import 'package:smoke_test/src/sdk/src/s3/model/access_control_policy.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/bucket_canned_acl.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/grant.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/owner.dart';
 
 part 'put_bucket_acl_request.g.dart';
 
 abstract class PutBucketAclRequest
     with
-        _i1.HttpInput<_i2.AccessControlPolicy>,
-        _i3.AWSEquatable<PutBucketAclRequest>
+        _i1.HttpInput<AccessControlPolicy>,
+        _i2.AWSEquatable<PutBucketAclRequest>
     implements
         Built<PutBucketAclRequest, PutBucketAclRequestBuilder>,
-        _i1.HasPayload<_i2.AccessControlPolicy> {
+        _i1.HasPayload<AccessControlPolicy> {
   factory PutBucketAclRequest({
-    _i4.BucketCannedAcl? acl,
-    _i2.AccessControlPolicy? accessControlPolicy,
+    BucketCannedAcl? acl,
+    AccessControlPolicy? accessControlPolicy,
     required String bucket,
     String? contentMd5,
-    _i5.ChecksumAlgorithm? checksumAlgorithm,
+    ChecksumAlgorithm? checksumAlgorithm,
     String? grantFullControl,
     String? grantRead,
     String? grantReadAcp,
@@ -59,8 +58,8 @@ abstract class PutBucketAclRequest
   const PutBucketAclRequest._();
 
   factory PutBucketAclRequest.fromRequest(
-    _i2.AccessControlPolicy? payload,
-    _i3.AWSBaseHttpRequest request, {
+    AccessControlPolicy? payload,
+    _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
       PutBucketAclRequest.build((b) {
@@ -68,14 +67,13 @@ abstract class PutBucketAclRequest
           b.accessControlPolicy.replace(payload);
         }
         if (request.headers['x-amz-acl'] != null) {
-          b.acl =
-              _i4.BucketCannedAcl.values.byValue(request.headers['x-amz-acl']!);
+          b.acl = BucketCannedAcl.values.byValue(request.headers['x-amz-acl']!);
         }
         if (request.headers['Content-MD5'] != null) {
           b.contentMd5 = request.headers['Content-MD5']!;
         }
         if (request.headers['x-amz-sdk-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = _i5.ChecksumAlgorithm.values
+          b.checksumAlgorithm = ChecksumAlgorithm.values
               .byValue(request.headers['x-amz-sdk-checksum-algorithm']!);
         }
         if (request.headers['x-amz-grant-full-control'] != null) {
@@ -102,14 +100,15 @@ abstract class PutBucketAclRequest
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.AccessControlPolicy?>>
-      serializers = [PutBucketAclRequestRestXmlSerializer()];
+  static const List<_i1.SmithySerializer<AccessControlPolicy?>> serializers = [
+    PutBucketAclRequestRestXmlSerializer()
+  ];
 
   /// The canned ACL to apply to the bucket.
-  _i4.BucketCannedAcl? get acl;
+  BucketCannedAcl? get acl;
 
   /// Contains the elements that set the ACL permissions for an object per grantee.
-  _i2.AccessControlPolicy? get accessControlPolicy;
+  AccessControlPolicy? get accessControlPolicy;
 
   /// The bucket to which to apply the ACL.
   String get bucket;
@@ -122,7 +121,7 @@ abstract class PutBucketAclRequest
   /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
   ///
   /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
-  _i5.ChecksumAlgorithm? get checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm;
 
   /// Allows grantee the read, write, read ACP, and write ACP permissions on the bucket.
   String? get grantFullControl;
@@ -156,8 +155,8 @@ abstract class PutBucketAclRequest
   }
 
   @override
-  _i2.AccessControlPolicy? getPayload() =>
-      accessControlPolicy ?? _i2.AccessControlPolicy();
+  AccessControlPolicy? getPayload() =>
+      accessControlPolicy ?? AccessControlPolicy();
   @override
   List<Object?> get props => [
         acl,
@@ -224,7 +223,7 @@ abstract class PutBucketAclRequest
 }
 
 class PutBucketAclRequestRestXmlSerializer
-    extends _i1.StructuredSmithySerializer<_i2.AccessControlPolicy> {
+    extends _i1.StructuredSmithySerializer<AccessControlPolicy> {
   const PutBucketAclRequestRestXmlSerializer() : super('PutBucketAclRequest');
 
   @override
@@ -240,12 +239,12 @@ class PutBucketAclRequestRestXmlSerializer
         )
       ];
   @override
-  _i2.AccessControlPolicy deserialize(
+  AccessControlPolicy deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i2.AccessControlPolicyBuilder();
+    final result = AccessControlPolicyBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -262,15 +261,15 @@ class PutBucketAclRequestRestXmlSerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(_i7.Grant)],
+              _i3.BuiltList,
+              [FullType(Grant)],
             ),
-          ) as _i6.BuiltList<_i7.Grant>));
+          ) as _i3.BuiltList<Grant>));
         case 'Owner':
           result.owner.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i8.Owner),
-          ) as _i8.Owner));
+            specifiedType: const FullType(Owner),
+          ) as Owner));
       }
     }
 
@@ -280,7 +279,7 @@ class PutBucketAclRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i2.AccessControlPolicy object, {
+    AccessControlPolicy object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -289,7 +288,7 @@ class PutBucketAclRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i2.AccessControlPolicy(:grants, :owner) = object;
+    final AccessControlPolicy(:grants, :owner) = object;
     if (grants != null) {
       result$
         ..add(const _i1.XmlElementName('AccessControlList'))
@@ -297,8 +296,8 @@ class PutBucketAclRequestRestXmlSerializer
           serializers,
           grants,
           specifiedType: const FullType.nullable(
-            _i6.BuiltList,
-            [FullType(_i7.Grant)],
+            _i3.BuiltList,
+            [FullType(Grant)],
           ),
         ));
     }
@@ -307,7 +306,7 @@ class PutBucketAclRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('Owner'))
         ..add(serializers.serialize(
           owner,
-          specifiedType: const FullType(_i8.Owner),
+          specifiedType: const FullType(Owner),
         ));
     }
     return result$;

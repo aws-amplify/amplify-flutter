@@ -9,7 +9,7 @@ part of 'get_bucket_metrics_configuration_output.dart';
 class _$GetBucketMetricsConfigurationOutput
     extends GetBucketMetricsConfigurationOutput {
   @override
-  final _i3.MetricsConfiguration? metricsConfiguration;
+  final MetricsConfiguration? metricsConfiguration;
 
   factory _$GetBucketMetricsConfigurationOutput(
           [void Function(GetBucketMetricsConfigurationOutputBuilder)?
@@ -51,11 +51,10 @@ class GetBucketMetricsConfigurationOutputBuilder
             GetBucketMetricsConfigurationOutputBuilder> {
   _$GetBucketMetricsConfigurationOutput? _$v;
 
-  _i3.MetricsConfigurationBuilder? _metricsConfiguration;
-  _i3.MetricsConfigurationBuilder get metricsConfiguration =>
-      _$this._metricsConfiguration ??= new _i3.MetricsConfigurationBuilder();
-  set metricsConfiguration(
-          _i3.MetricsConfigurationBuilder? metricsConfiguration) =>
+  MetricsConfigurationBuilder? _metricsConfiguration;
+  MetricsConfigurationBuilder get metricsConfiguration =>
+      _$this._metricsConfiguration ??= new MetricsConfigurationBuilder();
+  set metricsConfiguration(MetricsConfigurationBuilder? metricsConfiguration) =>
       _$this._metricsConfiguration = metricsConfiguration;
 
   GetBucketMetricsConfigurationOutputBuilder();

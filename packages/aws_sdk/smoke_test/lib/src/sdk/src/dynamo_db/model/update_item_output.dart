@@ -4,16 +4,13 @@
 library smoke_test.dynamo_db.model.update_item_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/consumed_capacity.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/item_collection_metrics.dart'
-    as _i4;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/consumed_capacity.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/item_collection_metrics.dart';
 
 part 'update_item_output.g.dart';
 
@@ -23,12 +20,12 @@ abstract class UpdateItemOutput
     implements Built<UpdateItemOutput, UpdateItemOutputBuilder> {
   /// Represents the output of an `UpdateItem` operation.
   factory UpdateItemOutput({
-    Map<String, _i2.AttributeValue>? attributes,
-    _i3.ConsumedCapacity? consumedCapacity,
-    _i4.ItemCollectionMetrics? itemCollectionMetrics,
+    Map<String, AttributeValue>? attributes,
+    ConsumedCapacity? consumedCapacity,
+    ItemCollectionMetrics? itemCollectionMetrics,
   }) {
     return _$UpdateItemOutput._(
-      attributes: attributes == null ? null : _i5.BuiltMap(attributes),
+      attributes: attributes == null ? null : _i2.BuiltMap(attributes),
       consumedCapacity: consumedCapacity,
       itemCollectionMetrics: itemCollectionMetrics,
     );
@@ -47,17 +44,17 @@ abstract class UpdateItemOutput
   ) =>
       payload;
 
-  static const List<_i6.SmithySerializer<UpdateItemOutput>> serializers = [
+  static const List<_i3.SmithySerializer<UpdateItemOutput>> serializers = [
     UpdateItemOutputAwsJson10Serializer()
   ];
 
   /// A map of attribute values as they appear before or after the `UpdateItem` operation, as determined by the `ReturnValues` parameter.
   ///
   /// The `Attributes` map is only present if the update was successful and `ReturnValues` was specified as something other than `NONE` in the request. Each element represents one attribute.
-  _i5.BuiltMap<String, _i2.AttributeValue>? get attributes;
+  _i2.BuiltMap<String, AttributeValue>? get attributes;
 
   /// The capacity units consumed by the `UpdateItem` operation. The data returned includes the total provisioned throughput consumed, along with statistics for the table and any indexes involved in the operation. `ConsumedCapacity` is only returned if the `ReturnConsumedCapacity` parameter was specified. For more information, see [Provisioned Throughput](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughput.html#ItemSizeCalculations.Reads) in the _Amazon DynamoDB Developer Guide_.
-  _i3.ConsumedCapacity? get consumedCapacity;
+  ConsumedCapacity? get consumedCapacity;
 
   /// Information about item collections, if any, that were affected by the `UpdateItem` operation. `ItemCollectionMetrics` is only returned if the `ReturnItemCollectionMetrics` parameter was specified. If the table does not have any local secondary indexes, this information is not returned in the response.
   ///
@@ -68,7 +65,7 @@ abstract class UpdateItemOutput
   /// *   `SizeEstimateRangeGB` \- An estimate of item collection size, in gigabytes. This value is a two-element array containing a lower bound and an upper bound for the estimate. The estimate includes the size of all the items in the table, plus the size of all attributes projected into all of the local secondary indexes on that table. Use this estimate to measure whether a local secondary index is approaching its size limit.
   ///
   ///     The estimate is subject to change over time; therefore, do not rely on the precision or accuracy of the estimate.
-  _i4.ItemCollectionMetrics? get itemCollectionMetrics;
+  ItemCollectionMetrics? get itemCollectionMetrics;
   @override
   List<Object?> get props => [
         attributes,
@@ -95,7 +92,7 @@ abstract class UpdateItemOutput
 }
 
 class UpdateItemOutputAwsJson10Serializer
-    extends _i6.StructuredSmithySerializer<UpdateItemOutput> {
+    extends _i3.StructuredSmithySerializer<UpdateItemOutput> {
   const UpdateItemOutputAwsJson10Serializer() : super('UpdateItemOutput');
 
   @override
@@ -104,8 +101,8 @@ class UpdateItemOutputAwsJson10Serializer
         _$UpdateItemOutput,
       ];
   @override
-  Iterable<_i6.ShapeId> get supportedProtocols => const [
-        _i6.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -130,23 +127,23 @@ class UpdateItemOutputAwsJson10Serializer
           result.attributes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i2.AttributeValue),
+                FullType(AttributeValue),
               ],
             ),
-          ) as _i5.BuiltMap<String, _i2.AttributeValue>));
+          ) as _i2.BuiltMap<String, AttributeValue>));
         case 'ConsumedCapacity':
           result.consumedCapacity.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ConsumedCapacity),
-          ) as _i3.ConsumedCapacity));
+            specifiedType: const FullType(ConsumedCapacity),
+          ) as ConsumedCapacity));
         case 'ItemCollectionMetrics':
           result.itemCollectionMetrics.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ItemCollectionMetrics),
-          ) as _i4.ItemCollectionMetrics));
+            specifiedType: const FullType(ItemCollectionMetrics),
+          ) as ItemCollectionMetrics));
       }
     }
 
@@ -171,10 +168,10 @@ class UpdateItemOutputAwsJson10Serializer
         ..add(serializers.serialize(
           attributes,
           specifiedType: const FullType(
-            _i5.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
-              FullType(_i2.AttributeValue),
+              FullType(AttributeValue),
             ],
           ),
         ));
@@ -184,7 +181,7 @@ class UpdateItemOutputAwsJson10Serializer
         ..add('ConsumedCapacity')
         ..add(serializers.serialize(
           consumedCapacity,
-          specifiedType: const FullType(_i3.ConsumedCapacity),
+          specifiedType: const FullType(ConsumedCapacity),
         ));
     }
     if (itemCollectionMetrics != null) {
@@ -192,7 +189,7 @@ class UpdateItemOutputAwsJson10Serializer
         ..add('ItemCollectionMetrics')
         ..add(serializers.serialize(
           itemCollectionMetrics,
-          specifiedType: const FullType(_i4.ItemCollectionMetrics),
+          specifiedType: const FullType(ItemCollectionMetrics),
         ));
     }
     return result$;

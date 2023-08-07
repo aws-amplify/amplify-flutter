@@ -10,9 +10,9 @@ class _$ConformancePackRuleCompliance extends ConformancePackRuleCompliance {
   @override
   final String? configRuleName;
   @override
-  final _i2.ConformancePackComplianceType? complianceType;
+  final ConformancePackComplianceType? complianceType;
   @override
-  final _i3.BuiltList<String>? controls;
+  final _i2.BuiltList<String>? controls;
 
   factory _$ConformancePackRuleCompliance(
           [void Function(ConformancePackRuleComplianceBuilder)? updates]) =>
@@ -62,16 +62,15 @@ class ConformancePackRuleComplianceBuilder
   set configRuleName(String? configRuleName) =>
       _$this._configRuleName = configRuleName;
 
-  _i2.ConformancePackComplianceType? _complianceType;
-  _i2.ConformancePackComplianceType? get complianceType =>
-      _$this._complianceType;
-  set complianceType(_i2.ConformancePackComplianceType? complianceType) =>
+  ConformancePackComplianceType? _complianceType;
+  ConformancePackComplianceType? get complianceType => _$this._complianceType;
+  set complianceType(ConformancePackComplianceType? complianceType) =>
       _$this._complianceType = complianceType;
 
-  _i3.ListBuilder<String>? _controls;
-  _i3.ListBuilder<String> get controls =>
-      _$this._controls ??= new _i3.ListBuilder<String>();
-  set controls(_i3.ListBuilder<String>? controls) =>
+  _i2.ListBuilder<String>? _controls;
+  _i2.ListBuilder<String> get controls =>
+      _$this._controls ??= new _i2.ListBuilder<String>();
+  set controls(_i2.ListBuilder<String>? controls) =>
       _$this._controls = controls;
 
   ConformancePackRuleComplianceBuilder();

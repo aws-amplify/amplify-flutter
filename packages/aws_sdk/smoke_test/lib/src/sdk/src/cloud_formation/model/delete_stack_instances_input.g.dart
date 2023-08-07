@@ -10,19 +10,19 @@ class _$DeleteStackInstancesInput extends DeleteStackInstancesInput {
   @override
   final String stackSetName;
   @override
-  final _i6.BuiltList<String>? accounts;
+  final _i3.BuiltList<String>? accounts;
   @override
-  final _i3.DeploymentTargets? deploymentTargets;
+  final DeploymentTargets? deploymentTargets;
   @override
-  final _i6.BuiltList<String> regions;
+  final _i3.BuiltList<String> regions;
   @override
-  final _i4.StackSetOperationPreferences? operationPreferences;
+  final StackSetOperationPreferences? operationPreferences;
   @override
   final bool retainStacks;
   @override
   final String? operationId;
   @override
-  final _i5.CallAs? callAs;
+  final CallAs? callAs;
 
   factory _$DeleteStackInstancesInput(
           [void Function(DeleteStackInstancesInputBuilder)? updates]) =>
@@ -94,29 +94,29 @@ class DeleteStackInstancesInputBuilder
   String? get stackSetName => _$this._stackSetName;
   set stackSetName(String? stackSetName) => _$this._stackSetName = stackSetName;
 
-  _i6.ListBuilder<String>? _accounts;
-  _i6.ListBuilder<String> get accounts =>
-      _$this._accounts ??= new _i6.ListBuilder<String>();
-  set accounts(_i6.ListBuilder<String>? accounts) =>
+  _i3.ListBuilder<String>? _accounts;
+  _i3.ListBuilder<String> get accounts =>
+      _$this._accounts ??= new _i3.ListBuilder<String>();
+  set accounts(_i3.ListBuilder<String>? accounts) =>
       _$this._accounts = accounts;
 
-  _i3.DeploymentTargetsBuilder? _deploymentTargets;
-  _i3.DeploymentTargetsBuilder get deploymentTargets =>
-      _$this._deploymentTargets ??= new _i3.DeploymentTargetsBuilder();
-  set deploymentTargets(_i3.DeploymentTargetsBuilder? deploymentTargets) =>
+  DeploymentTargetsBuilder? _deploymentTargets;
+  DeploymentTargetsBuilder get deploymentTargets =>
+      _$this._deploymentTargets ??= new DeploymentTargetsBuilder();
+  set deploymentTargets(DeploymentTargetsBuilder? deploymentTargets) =>
       _$this._deploymentTargets = deploymentTargets;
 
-  _i6.ListBuilder<String>? _regions;
-  _i6.ListBuilder<String> get regions =>
-      _$this._regions ??= new _i6.ListBuilder<String>();
-  set regions(_i6.ListBuilder<String>? regions) => _$this._regions = regions;
+  _i3.ListBuilder<String>? _regions;
+  _i3.ListBuilder<String> get regions =>
+      _$this._regions ??= new _i3.ListBuilder<String>();
+  set regions(_i3.ListBuilder<String>? regions) => _$this._regions = regions;
 
-  _i4.StackSetOperationPreferencesBuilder? _operationPreferences;
-  _i4.StackSetOperationPreferencesBuilder get operationPreferences =>
+  StackSetOperationPreferencesBuilder? _operationPreferences;
+  StackSetOperationPreferencesBuilder get operationPreferences =>
       _$this._operationPreferences ??=
-          new _i4.StackSetOperationPreferencesBuilder();
+          new StackSetOperationPreferencesBuilder();
   set operationPreferences(
-          _i4.StackSetOperationPreferencesBuilder? operationPreferences) =>
+          StackSetOperationPreferencesBuilder? operationPreferences) =>
       _$this._operationPreferences = operationPreferences;
 
   bool? _retainStacks;
@@ -127,9 +127,9 @@ class DeleteStackInstancesInputBuilder
   String? get operationId => _$this._operationId;
   set operationId(String? operationId) => _$this._operationId = operationId;
 
-  _i5.CallAs? _callAs;
-  _i5.CallAs? get callAs => _$this._callAs;
-  set callAs(_i5.CallAs? callAs) => _$this._callAs = callAs;
+  CallAs? _callAs;
+  CallAs? get callAs => _$this._callAs;
+  set callAs(CallAs? callAs) => _$this._callAs = callAs;
 
   DeleteStackInstancesInputBuilder() {
     DeleteStackInstancesInput._init(this);

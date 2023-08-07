@@ -8,7 +8,7 @@ part of 'config_stream_delivery_info.dart';
 
 class _$ConfigStreamDeliveryInfo extends ConfigStreamDeliveryInfo {
   @override
-  final _i2.DeliveryStatus? lastStatus;
+  final DeliveryStatus? lastStatus;
   @override
   final String? lastErrorCode;
   @override
@@ -63,10 +63,9 @@ class ConfigStreamDeliveryInfoBuilder
         Builder<ConfigStreamDeliveryInfo, ConfigStreamDeliveryInfoBuilder> {
   _$ConfigStreamDeliveryInfo? _$v;
 
-  _i2.DeliveryStatus? _lastStatus;
-  _i2.DeliveryStatus? get lastStatus => _$this._lastStatus;
-  set lastStatus(_i2.DeliveryStatus? lastStatus) =>
-      _$this._lastStatus = lastStatus;
+  DeliveryStatus? _lastStatus;
+  DeliveryStatus? get lastStatus => _$this._lastStatus;
+  set lastStatus(DeliveryStatus? lastStatus) => _$this._lastStatus = lastStatus;
 
   String? _lastErrorCode;
   String? get lastErrorCode => _$this._lastErrorCode;

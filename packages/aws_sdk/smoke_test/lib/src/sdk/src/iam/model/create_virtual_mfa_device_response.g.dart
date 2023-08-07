@@ -8,7 +8,7 @@ part of 'create_virtual_mfa_device_response.dart';
 
 class _$CreateVirtualMfaDeviceResponse extends CreateVirtualMfaDeviceResponse {
   @override
-  final _i2.VirtualMfaDevice virtualMfaDevice;
+  final VirtualMfaDevice virtualMfaDevice;
 
   factory _$CreateVirtualMfaDeviceResponse(
           [void Function(CreateVirtualMfaDeviceResponseBuilder)? updates]) =>
@@ -51,10 +51,10 @@ class CreateVirtualMfaDeviceResponseBuilder
             CreateVirtualMfaDeviceResponseBuilder> {
   _$CreateVirtualMfaDeviceResponse? _$v;
 
-  _i2.VirtualMfaDeviceBuilder? _virtualMfaDevice;
-  _i2.VirtualMfaDeviceBuilder get virtualMfaDevice =>
-      _$this._virtualMfaDevice ??= new _i2.VirtualMfaDeviceBuilder();
-  set virtualMfaDevice(_i2.VirtualMfaDeviceBuilder? virtualMfaDevice) =>
+  VirtualMfaDeviceBuilder? _virtualMfaDevice;
+  VirtualMfaDeviceBuilder get virtualMfaDevice =>
+      _$this._virtualMfaDevice ??= new VirtualMfaDeviceBuilder();
+  set virtualMfaDevice(VirtualMfaDeviceBuilder? virtualMfaDevice) =>
       _$this._virtualMfaDevice = virtualMfaDevice;
 
   CreateVirtualMfaDeviceResponseBuilder();

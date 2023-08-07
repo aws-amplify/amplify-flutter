@@ -14,7 +14,7 @@ class _$SdkType extends SdkType {
   @override
   final String? description;
   @override
-  final _i3.BuiltList<_i2.SdkConfigurationProperty>? configurationProperties;
+  final _i2.BuiltList<SdkConfigurationProperty>? configurationProperties;
 
   factory _$SdkType([void Function(SdkTypeBuilder)? updates]) =>
       (new SdkTypeBuilder()..update(updates))._build();
@@ -70,13 +70,12 @@ class SdkTypeBuilder implements Builder<SdkType, SdkTypeBuilder> {
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  _i3.ListBuilder<_i2.SdkConfigurationProperty>? _configurationProperties;
-  _i3.ListBuilder<_i2.SdkConfigurationProperty> get configurationProperties =>
+  _i2.ListBuilder<SdkConfigurationProperty>? _configurationProperties;
+  _i2.ListBuilder<SdkConfigurationProperty> get configurationProperties =>
       _$this._configurationProperties ??=
-          new _i3.ListBuilder<_i2.SdkConfigurationProperty>();
+          new _i2.ListBuilder<SdkConfigurationProperty>();
   set configurationProperties(
-          _i3.ListBuilder<_i2.SdkConfigurationProperty>?
-              configurationProperties) =>
+          _i2.ListBuilder<SdkConfigurationProperty>? configurationProperties) =>
       _$this._configurationProperties = configurationProperties;
 
   SdkTypeBuilder();

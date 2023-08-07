@@ -8,7 +8,7 @@ part of 'in_app_message_body_config.dart';
 
 class _$InAppMessageBodyConfig extends InAppMessageBodyConfig {
   @override
-  final _i2.Alignment alignment;
+  final Alignment alignment;
   @override
   final String body;
   @override
@@ -62,9 +62,9 @@ class InAppMessageBodyConfigBuilder
     implements Builder<InAppMessageBodyConfig, InAppMessageBodyConfigBuilder> {
   _$InAppMessageBodyConfig? _$v;
 
-  _i2.Alignment? _alignment;
-  _i2.Alignment? get alignment => _$this._alignment;
-  set alignment(_i2.Alignment? alignment) => _$this._alignment = alignment;
+  Alignment? _alignment;
+  Alignment? get alignment => _$this._alignment;
+  set alignment(Alignment? alignment) => _$this._alignment = alignment;
 
   String? _body;
   String? get body => _$this._body;

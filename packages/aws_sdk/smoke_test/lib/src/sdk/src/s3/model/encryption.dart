@@ -6,9 +6,8 @@ library smoke_test.s3.model.encryption; // ignore_for_file: no_leading_underscor
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/server_side_encryption.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/server_side_encryption.dart';
 
 part 'encryption.g.dart';
 
@@ -18,7 +17,7 @@ abstract class Encryption
     implements Built<Encryption, EncryptionBuilder> {
   /// Contains the type of server-side encryption used.
   factory Encryption({
-    required _i2.ServerSideEncryption encryptionType,
+    required ServerSideEncryption encryptionType,
     String? kmsKeyId,
     String? kmsContext,
   }) {
@@ -35,12 +34,12 @@ abstract class Encryption
 
   const Encryption._();
 
-  static const List<_i3.SmithySerializer<Encryption>> serializers = [
+  static const List<_i2.SmithySerializer<Encryption>> serializers = [
     EncryptionRestXmlSerializer()
   ];
 
   /// The server-side encryption algorithm used when storing job results in Amazon S3 (for example, AES256, `aws:kms`).
-  _i2.ServerSideEncryption get encryptionType;
+  ServerSideEncryption get encryptionType;
 
   /// If the encryption type is `aws:kms`, this optional value specifies the ID of the symmetric encryption customer managed key to use for encryption of job results. Amazon S3 only supports symmetric encryption KMS keys. For more information, see [Asymmetric keys in KMS](https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html) in the _Amazon Web Services Key Management Service Developer Guide_.
   String? get kmsKeyId;
@@ -73,7 +72,7 @@ abstract class Encryption
 }
 
 class EncryptionRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<Encryption> {
+    extends _i2.StructuredSmithySerializer<Encryption> {
   const EncryptionRestXmlSerializer() : super('Encryption');
 
   @override
@@ -82,8 +81,8 @@ class EncryptionRestXmlSerializer
         _$Encryption,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -107,8 +106,8 @@ class EncryptionRestXmlSerializer
         case 'EncryptionType':
           result.encryptionType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ServerSideEncryption),
-          ) as _i2.ServerSideEncryption);
+            specifiedType: const FullType(ServerSideEncryption),
+          ) as ServerSideEncryption);
         case 'KMSContext':
           result.kmsContext = (serializers.deserialize(
             value,
@@ -132,21 +131,21 @@ class EncryptionRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'Encryption',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final Encryption(:encryptionType, :kmsContext, :kmsKeyId) = object;
     result$
-      ..add(const _i3.XmlElementName('EncryptionType'))
+      ..add(const _i2.XmlElementName('EncryptionType'))
       ..add(serializers.serialize(
         encryptionType,
-        specifiedType: const FullType.nullable(_i2.ServerSideEncryption),
+        specifiedType: const FullType.nullable(ServerSideEncryption),
       ));
     if (kmsContext != null) {
       result$
-        ..add(const _i3.XmlElementName('KMSContext'))
+        ..add(const _i2.XmlElementName('KMSContext'))
         ..add(serializers.serialize(
           kmsContext,
           specifiedType: const FullType(String),
@@ -154,7 +153,7 @@ class EncryptionRestXmlSerializer
     }
     if (kmsKeyId != null) {
       result$
-        ..add(const _i3.XmlElementName('KMSKeyId'))
+        ..add(const _i2.XmlElementName('KMSKeyId'))
         ..add(serializers.serialize(
           kmsKeyId,
           specifiedType: const FullType(String),

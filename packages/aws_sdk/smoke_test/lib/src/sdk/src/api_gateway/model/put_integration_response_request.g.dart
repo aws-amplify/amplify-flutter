@@ -18,11 +18,11 @@ class _$PutIntegrationResponseRequest extends PutIntegrationResponseRequest {
   @override
   final String? selectionPattern;
   @override
-  final _i4.BuiltMap<String, String>? responseParameters;
+  final _i3.BuiltMap<String, String>? responseParameters;
   @override
-  final _i4.BuiltMap<String, String>? responseTemplates;
+  final _i3.BuiltMap<String, String>? responseTemplates;
   @override
-  final _i3.ContentHandlingStrategy? contentHandling;
+  final ContentHandlingStrategy? contentHandling;
 
   factory _$PutIntegrationResponseRequest(
           [void Function(PutIntegrationResponseRequestBuilder)? updates]) =>
@@ -114,21 +114,21 @@ class PutIntegrationResponseRequestBuilder
   set selectionPattern(String? selectionPattern) =>
       _$this._selectionPattern = selectionPattern;
 
-  _i4.MapBuilder<String, String>? _responseParameters;
-  _i4.MapBuilder<String, String> get responseParameters =>
-      _$this._responseParameters ??= new _i4.MapBuilder<String, String>();
-  set responseParameters(_i4.MapBuilder<String, String>? responseParameters) =>
+  _i3.MapBuilder<String, String>? _responseParameters;
+  _i3.MapBuilder<String, String> get responseParameters =>
+      _$this._responseParameters ??= new _i3.MapBuilder<String, String>();
+  set responseParameters(_i3.MapBuilder<String, String>? responseParameters) =>
       _$this._responseParameters = responseParameters;
 
-  _i4.MapBuilder<String, String>? _responseTemplates;
-  _i4.MapBuilder<String, String> get responseTemplates =>
-      _$this._responseTemplates ??= new _i4.MapBuilder<String, String>();
-  set responseTemplates(_i4.MapBuilder<String, String>? responseTemplates) =>
+  _i3.MapBuilder<String, String>? _responseTemplates;
+  _i3.MapBuilder<String, String> get responseTemplates =>
+      _$this._responseTemplates ??= new _i3.MapBuilder<String, String>();
+  set responseTemplates(_i3.MapBuilder<String, String>? responseTemplates) =>
       _$this._responseTemplates = responseTemplates;
 
-  _i3.ContentHandlingStrategy? _contentHandling;
-  _i3.ContentHandlingStrategy? get contentHandling => _$this._contentHandling;
-  set contentHandling(_i3.ContentHandlingStrategy? contentHandling) =>
+  ContentHandlingStrategy? _contentHandling;
+  ContentHandlingStrategy? get contentHandling => _$this._contentHandling;
+  set contentHandling(ContentHandlingStrategy? contentHandling) =>
       _$this._contentHandling = contentHandling;
 
   PutIntegrationResponseRequestBuilder();
@@ -201,11 +201,11 @@ class PutIntegrationResponseRequestBuilder
 class _$PutIntegrationResponseRequestPayload
     extends PutIntegrationResponseRequestPayload {
   @override
-  final _i3.ContentHandlingStrategy? contentHandling;
+  final ContentHandlingStrategy? contentHandling;
   @override
-  final _i4.BuiltMap<String, String>? responseParameters;
+  final _i3.BuiltMap<String, String>? responseParameters;
   @override
-  final _i4.BuiltMap<String, String>? responseTemplates;
+  final _i3.BuiltMap<String, String>? responseTemplates;
   @override
   final String? selectionPattern;
 
@@ -259,21 +259,21 @@ class PutIntegrationResponseRequestPayloadBuilder
             PutIntegrationResponseRequestPayloadBuilder> {
   _$PutIntegrationResponseRequestPayload? _$v;
 
-  _i3.ContentHandlingStrategy? _contentHandling;
-  _i3.ContentHandlingStrategy? get contentHandling => _$this._contentHandling;
-  set contentHandling(_i3.ContentHandlingStrategy? contentHandling) =>
+  ContentHandlingStrategy? _contentHandling;
+  ContentHandlingStrategy? get contentHandling => _$this._contentHandling;
+  set contentHandling(ContentHandlingStrategy? contentHandling) =>
       _$this._contentHandling = contentHandling;
 
-  _i4.MapBuilder<String, String>? _responseParameters;
-  _i4.MapBuilder<String, String> get responseParameters =>
-      _$this._responseParameters ??= new _i4.MapBuilder<String, String>();
-  set responseParameters(_i4.MapBuilder<String, String>? responseParameters) =>
+  _i3.MapBuilder<String, String>? _responseParameters;
+  _i3.MapBuilder<String, String> get responseParameters =>
+      _$this._responseParameters ??= new _i3.MapBuilder<String, String>();
+  set responseParameters(_i3.MapBuilder<String, String>? responseParameters) =>
       _$this._responseParameters = responseParameters;
 
-  _i4.MapBuilder<String, String>? _responseTemplates;
-  _i4.MapBuilder<String, String> get responseTemplates =>
-      _$this._responseTemplates ??= new _i4.MapBuilder<String, String>();
-  set responseTemplates(_i4.MapBuilder<String, String>? responseTemplates) =>
+  _i3.MapBuilder<String, String>? _responseTemplates;
+  _i3.MapBuilder<String, String> get responseTemplates =>
+      _$this._responseTemplates ??= new _i3.MapBuilder<String, String>();
+  set responseTemplates(_i3.MapBuilder<String, String>? responseTemplates) =>
       _$this._responseTemplates = responseTemplates;
 
   String? _selectionPattern;

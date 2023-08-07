@@ -4,14 +4,14 @@
 library smoke_test.s3.model.get_object_acl_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i7;
+import 'package:meta/meta.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/grant.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/owner.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart' as _i5;
+import 'package:smoke_test/src/sdk/src/s3/model/grant.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/owner.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart';
 
 part 'get_object_acl_output.g.dart';
 
@@ -21,13 +21,13 @@ abstract class GetObjectAclOutput
         Built<GetObjectAclOutput, GetObjectAclOutputBuilder>,
         _i2.HasPayload<GetObjectAclOutputPayload> {
   factory GetObjectAclOutput({
-    _i3.Owner? owner,
-    List<_i4.Grant>? grants,
-    _i5.RequestCharged? requestCharged,
+    Owner? owner,
+    List<Grant>? grants,
+    RequestCharged? requestCharged,
   }) {
     return _$GetObjectAclOutput._(
       owner: owner,
-      grants: grants == null ? null : _i6.BuiltList(grants),
+      grants: grants == null ? null : _i3.BuiltList(grants),
       requestCharged: requestCharged,
     );
   }
@@ -51,7 +51,7 @@ abstract class GetObjectAclOutput
           b.owner.replace(payload.owner!);
         }
         if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = _i5.RequestCharged.values
+          b.requestCharged = RequestCharged.values
               .byValue(response.headers['x-amz-request-charged']!);
         }
       });
@@ -60,13 +60,13 @@ abstract class GetObjectAclOutput
       serializers = [GetObjectAclOutputRestXmlSerializer()];
 
   /// Container for the bucket owner's display name and ID.
-  _i3.Owner? get owner;
+  Owner? get owner;
 
   /// A list of grants.
-  _i6.BuiltList<_i4.Grant>? get grants;
+  _i3.BuiltList<Grant>? get grants;
 
   /// If present, indicates that the requester was successfully charged for the request.
-  _i5.RequestCharged? get requestCharged;
+  RequestCharged? get requestCharged;
   @override
   GetObjectAclOutputPayload getPayload() => GetObjectAclOutputPayload((b) {
         if (grants != null) {
@@ -101,7 +101,7 @@ abstract class GetObjectAclOutput
   }
 }
 
-@_i7.internal
+@_i4.internal
 abstract class GetObjectAclOutputPayload
     with _i1.AWSEquatable<GetObjectAclOutputPayload>
     implements
@@ -113,10 +113,10 @@ abstract class GetObjectAclOutputPayload
   const GetObjectAclOutputPayload._();
 
   /// A list of grants.
-  _i6.BuiltList<_i4.Grant>? get grants;
+  _i3.BuiltList<Grant>? get grants;
 
   /// Container for the bucket owner's display name and ID.
-  _i3.Owner? get owner;
+  Owner? get owner;
   @override
   List<Object?> get props => [
         grants,
@@ -178,15 +178,15 @@ class GetObjectAclOutputRestXmlSerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(_i4.Grant)],
+              _i3.BuiltList,
+              [FullType(Grant)],
             ),
-          ) as _i6.BuiltList<_i4.Grant>));
+          ) as _i3.BuiltList<Grant>));
         case 'Owner':
           result.owner.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.Owner),
-          ) as _i3.Owner));
+            specifiedType: const FullType(Owner),
+          ) as Owner));
       }
     }
 
@@ -213,8 +213,8 @@ class GetObjectAclOutputRestXmlSerializer
           serializers,
           grants,
           specifiedType: const FullType.nullable(
-            _i6.BuiltList,
-            [FullType(_i4.Grant)],
+            _i3.BuiltList,
+            [FullType(Grant)],
           ),
         ));
     }
@@ -223,7 +223,7 @@ class GetObjectAclOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('Owner'))
         ..add(serializers.serialize(
           owner,
-          specifiedType: const FullType(_i3.Owner),
+          specifiedType: const FullType(Owner),
         ));
     }
     return result$;

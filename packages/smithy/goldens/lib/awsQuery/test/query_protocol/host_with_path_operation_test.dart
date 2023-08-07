@@ -4,9 +4,8 @@
 // ignore_for_file: unused_element
 library aws_query_v1.query_protocol.test.host_with_path_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_query_v1/src/query_protocol/operation/host_with_path_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:aws_query_v1/src/query_protocol/operation/host_with_path_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -15,14 +14,14 @@ void main() {
     'QueryHostWithPath (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.HostWithPathOperation(
+        operation: HostWithPathOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com/custom'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'QueryHostWithPath',
           documentation: 'Custom endpoints supplied by users can have paths',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),

@@ -4,11 +4,11 @@
 library smoke_test.dynamo_db.model.consumed_capacity; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/capacity.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/capacity.dart';
 
 part 'consumed_capacity.g.dart';
 
@@ -22,9 +22,9 @@ abstract class ConsumedCapacity
     double? capacityUnits,
     double? readCapacityUnits,
     double? writeCapacityUnits,
-    _i2.Capacity? table,
-    Map<String, _i2.Capacity>? localSecondaryIndexes,
-    Map<String, _i2.Capacity>? globalSecondaryIndexes,
+    Capacity? table,
+    Map<String, Capacity>? localSecondaryIndexes,
+    Map<String, Capacity>? globalSecondaryIndexes,
   }) {
     return _$ConsumedCapacity._(
       tableName: tableName,
@@ -34,10 +34,10 @@ abstract class ConsumedCapacity
       table: table,
       localSecondaryIndexes: localSecondaryIndexes == null
           ? null
-          : _i3.BuiltMap(localSecondaryIndexes),
+          : _i2.BuiltMap(localSecondaryIndexes),
       globalSecondaryIndexes: globalSecondaryIndexes == null
           ? null
-          : _i3.BuiltMap(globalSecondaryIndexes),
+          : _i2.BuiltMap(globalSecondaryIndexes),
     );
   }
 
@@ -47,7 +47,7 @@ abstract class ConsumedCapacity
 
   const ConsumedCapacity._();
 
-  static const List<_i4.SmithySerializer<ConsumedCapacity>> serializers = [
+  static const List<_i3.SmithySerializer<ConsumedCapacity>> serializers = [
     ConsumedCapacityAwsJson10Serializer()
   ];
 
@@ -64,13 +64,13 @@ abstract class ConsumedCapacity
   double? get writeCapacityUnits;
 
   /// The amount of throughput consumed on the table affected by the operation.
-  _i2.Capacity? get table;
+  Capacity? get table;
 
   /// The amount of throughput consumed on each local index affected by the operation.
-  _i3.BuiltMap<String, _i2.Capacity>? get localSecondaryIndexes;
+  _i2.BuiltMap<String, Capacity>? get localSecondaryIndexes;
 
   /// The amount of throughput consumed on each global index affected by the operation.
-  _i3.BuiltMap<String, _i2.Capacity>? get globalSecondaryIndexes;
+  _i2.BuiltMap<String, Capacity>? get globalSecondaryIndexes;
   @override
   List<Object?> get props => [
         tableName,
@@ -117,7 +117,7 @@ abstract class ConsumedCapacity
 }
 
 class ConsumedCapacityAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<ConsumedCapacity> {
+    extends _i3.StructuredSmithySerializer<ConsumedCapacity> {
   const ConsumedCapacityAwsJson10Serializer() : super('ConsumedCapacity');
 
   @override
@@ -126,8 +126,8 @@ class ConsumedCapacityAwsJson10Serializer
         _$ConsumedCapacity,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -171,30 +171,30 @@ class ConsumedCapacityAwsJson10Serializer
         case 'Table':
           result.table.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Capacity),
-          ) as _i2.Capacity));
+            specifiedType: const FullType(Capacity),
+          ) as Capacity));
         case 'LocalSecondaryIndexes':
           result.localSecondaryIndexes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i2.Capacity),
+                FullType(Capacity),
               ],
             ),
-          ) as _i3.BuiltMap<String, _i2.Capacity>));
+          ) as _i2.BuiltMap<String, Capacity>));
         case 'GlobalSecondaryIndexes':
           result.globalSecondaryIndexes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i2.Capacity),
+                FullType(Capacity),
               ],
             ),
-          ) as _i3.BuiltMap<String, _i2.Capacity>));
+          ) as _i2.BuiltMap<String, Capacity>));
       }
     }
 
@@ -254,7 +254,7 @@ class ConsumedCapacityAwsJson10Serializer
         ..add('Table')
         ..add(serializers.serialize(
           table,
-          specifiedType: const FullType(_i2.Capacity),
+          specifiedType: const FullType(Capacity),
         ));
     }
     if (localSecondaryIndexes != null) {
@@ -263,10 +263,10 @@ class ConsumedCapacityAwsJson10Serializer
         ..add(serializers.serialize(
           localSecondaryIndexes,
           specifiedType: const FullType(
-            _i3.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
-              FullType(_i2.Capacity),
+              FullType(Capacity),
             ],
           ),
         ));
@@ -277,10 +277,10 @@ class ConsumedCapacityAwsJson10Serializer
         ..add(serializers.serialize(
           globalSecondaryIndexes,
           specifiedType: const FullType(
-            _i3.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
-              FullType(_i2.Capacity),
+              FullType(Capacity),
             ],
           ),
         ));

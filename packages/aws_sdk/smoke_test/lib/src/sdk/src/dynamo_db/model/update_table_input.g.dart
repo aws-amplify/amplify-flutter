@@ -8,24 +8,23 @@ part of 'update_table_input.dart';
 
 class _$UpdateTableInput extends UpdateTableInput {
   @override
-  final _i11.BuiltList<_i3.AttributeDefinition>? attributeDefinitions;
+  final _i3.BuiltList<AttributeDefinition>? attributeDefinitions;
   @override
   final String tableName;
   @override
-  final _i4.BillingMode? billingMode;
+  final BillingMode? billingMode;
   @override
-  final _i5.ProvisionedThroughput? provisionedThroughput;
+  final ProvisionedThroughput? provisionedThroughput;
   @override
-  final _i11.BuiltList<_i6.GlobalSecondaryIndexUpdate>?
-      globalSecondaryIndexUpdates;
+  final _i3.BuiltList<GlobalSecondaryIndexUpdate>? globalSecondaryIndexUpdates;
   @override
-  final _i7.StreamSpecification? streamSpecification;
+  final StreamSpecification? streamSpecification;
   @override
-  final _i8.SseSpecification? sseSpecification;
+  final SseSpecification? sseSpecification;
   @override
-  final _i11.BuiltList<_i9.ReplicationGroupUpdate>? replicaUpdates;
+  final _i3.BuiltList<ReplicationGroupUpdate>? replicaUpdates;
   @override
-  final _i10.TableClass? tableClass;
+  final TableClass? tableClass;
   @override
   final bool? deletionProtectionEnabled;
 
@@ -95,65 +94,60 @@ class UpdateTableInputBuilder
     implements Builder<UpdateTableInput, UpdateTableInputBuilder> {
   _$UpdateTableInput? _$v;
 
-  _i11.ListBuilder<_i3.AttributeDefinition>? _attributeDefinitions;
-  _i11.ListBuilder<_i3.AttributeDefinition> get attributeDefinitions =>
+  _i3.ListBuilder<AttributeDefinition>? _attributeDefinitions;
+  _i3.ListBuilder<AttributeDefinition> get attributeDefinitions =>
       _$this._attributeDefinitions ??=
-          new _i11.ListBuilder<_i3.AttributeDefinition>();
+          new _i3.ListBuilder<AttributeDefinition>();
   set attributeDefinitions(
-          _i11.ListBuilder<_i3.AttributeDefinition>? attributeDefinitions) =>
+          _i3.ListBuilder<AttributeDefinition>? attributeDefinitions) =>
       _$this._attributeDefinitions = attributeDefinitions;
 
   String? _tableName;
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
 
-  _i4.BillingMode? _billingMode;
-  _i4.BillingMode? get billingMode => _$this._billingMode;
-  set billingMode(_i4.BillingMode? billingMode) =>
+  BillingMode? _billingMode;
+  BillingMode? get billingMode => _$this._billingMode;
+  set billingMode(BillingMode? billingMode) =>
       _$this._billingMode = billingMode;
 
-  _i5.ProvisionedThroughputBuilder? _provisionedThroughput;
-  _i5.ProvisionedThroughputBuilder get provisionedThroughput =>
-      _$this._provisionedThroughput ??= new _i5.ProvisionedThroughputBuilder();
+  ProvisionedThroughputBuilder? _provisionedThroughput;
+  ProvisionedThroughputBuilder get provisionedThroughput =>
+      _$this._provisionedThroughput ??= new ProvisionedThroughputBuilder();
   set provisionedThroughput(
-          _i5.ProvisionedThroughputBuilder? provisionedThroughput) =>
+          ProvisionedThroughputBuilder? provisionedThroughput) =>
       _$this._provisionedThroughput = provisionedThroughput;
 
-  _i11.ListBuilder<_i6.GlobalSecondaryIndexUpdate>?
-      _globalSecondaryIndexUpdates;
-  _i11.ListBuilder<_i6.GlobalSecondaryIndexUpdate>
-      get globalSecondaryIndexUpdates => _$this._globalSecondaryIndexUpdates ??=
-          new _i11.ListBuilder<_i6.GlobalSecondaryIndexUpdate>();
+  _i3.ListBuilder<GlobalSecondaryIndexUpdate>? _globalSecondaryIndexUpdates;
+  _i3.ListBuilder<GlobalSecondaryIndexUpdate> get globalSecondaryIndexUpdates =>
+      _$this._globalSecondaryIndexUpdates ??=
+          new _i3.ListBuilder<GlobalSecondaryIndexUpdate>();
   set globalSecondaryIndexUpdates(
-          _i11.ListBuilder<_i6.GlobalSecondaryIndexUpdate>?
+          _i3.ListBuilder<GlobalSecondaryIndexUpdate>?
               globalSecondaryIndexUpdates) =>
       _$this._globalSecondaryIndexUpdates = globalSecondaryIndexUpdates;
 
-  _i7.StreamSpecificationBuilder? _streamSpecification;
-  _i7.StreamSpecificationBuilder get streamSpecification =>
-      _$this._streamSpecification ??= new _i7.StreamSpecificationBuilder();
-  set streamSpecification(
-          _i7.StreamSpecificationBuilder? streamSpecification) =>
+  StreamSpecificationBuilder? _streamSpecification;
+  StreamSpecificationBuilder get streamSpecification =>
+      _$this._streamSpecification ??= new StreamSpecificationBuilder();
+  set streamSpecification(StreamSpecificationBuilder? streamSpecification) =>
       _$this._streamSpecification = streamSpecification;
 
-  _i8.SseSpecificationBuilder? _sseSpecification;
-  _i8.SseSpecificationBuilder get sseSpecification =>
-      _$this._sseSpecification ??= new _i8.SseSpecificationBuilder();
-  set sseSpecification(_i8.SseSpecificationBuilder? sseSpecification) =>
+  SseSpecificationBuilder? _sseSpecification;
+  SseSpecificationBuilder get sseSpecification =>
+      _$this._sseSpecification ??= new SseSpecificationBuilder();
+  set sseSpecification(SseSpecificationBuilder? sseSpecification) =>
       _$this._sseSpecification = sseSpecification;
 
-  _i11.ListBuilder<_i9.ReplicationGroupUpdate>? _replicaUpdates;
-  _i11.ListBuilder<_i9.ReplicationGroupUpdate> get replicaUpdates =>
-      _$this._replicaUpdates ??=
-          new _i11.ListBuilder<_i9.ReplicationGroupUpdate>();
-  set replicaUpdates(
-          _i11.ListBuilder<_i9.ReplicationGroupUpdate>? replicaUpdates) =>
+  _i3.ListBuilder<ReplicationGroupUpdate>? _replicaUpdates;
+  _i3.ListBuilder<ReplicationGroupUpdate> get replicaUpdates =>
+      _$this._replicaUpdates ??= new _i3.ListBuilder<ReplicationGroupUpdate>();
+  set replicaUpdates(_i3.ListBuilder<ReplicationGroupUpdate>? replicaUpdates) =>
       _$this._replicaUpdates = replicaUpdates;
 
-  _i10.TableClass? _tableClass;
-  _i10.TableClass? get tableClass => _$this._tableClass;
-  set tableClass(_i10.TableClass? tableClass) =>
-      _$this._tableClass = tableClass;
+  TableClass? _tableClass;
+  TableClass? get tableClass => _$this._tableClass;
+  set tableClass(TableClass? tableClass) => _$this._tableClass = tableClass;
 
   bool? _deletionProtectionEnabled;
   bool? get deletionProtectionEnabled => _$this._deletionProtectionEnabled;

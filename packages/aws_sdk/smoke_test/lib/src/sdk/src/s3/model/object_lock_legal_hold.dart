@@ -6,9 +6,8 @@ library smoke_test.s3.model.object_lock_legal_hold; // ignore_for_file: no_leadi
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/object_lock_legal_hold_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/object_lock_legal_hold_status.dart';
 
 part 'object_lock_legal_hold.g.dart';
 
@@ -17,7 +16,7 @@ abstract class ObjectLockLegalHold
     with _i1.AWSEquatable<ObjectLockLegalHold>
     implements Built<ObjectLockLegalHold, ObjectLockLegalHoldBuilder> {
   /// A legal hold configuration for an object.
-  factory ObjectLockLegalHold({_i2.ObjectLockLegalHoldStatus? status}) {
+  factory ObjectLockLegalHold({ObjectLockLegalHoldStatus? status}) {
     return _$ObjectLockLegalHold._(status: status);
   }
 
@@ -28,12 +27,12 @@ abstract class ObjectLockLegalHold
 
   const ObjectLockLegalHold._();
 
-  static const List<_i3.SmithySerializer<ObjectLockLegalHold>> serializers = [
+  static const List<_i2.SmithySerializer<ObjectLockLegalHold>> serializers = [
     ObjectLockLegalHoldRestXmlSerializer()
   ];
 
   /// Indicates whether the specified object has a legal hold in place.
-  _i2.ObjectLockLegalHoldStatus? get status;
+  ObjectLockLegalHoldStatus? get status;
   @override
   List<Object?> get props => [status];
   @override
@@ -48,7 +47,7 @@ abstract class ObjectLockLegalHold
 }
 
 class ObjectLockLegalHoldRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<ObjectLockLegalHold> {
+    extends _i2.StructuredSmithySerializer<ObjectLockLegalHold> {
   const ObjectLockLegalHoldRestXmlSerializer() : super('ObjectLockLegalHold');
 
   @override
@@ -57,8 +56,8 @@ class ObjectLockLegalHoldRestXmlSerializer
         _$ObjectLockLegalHold,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -82,8 +81,8 @@ class ObjectLockLegalHoldRestXmlSerializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ObjectLockLegalHoldStatus),
-          ) as _i2.ObjectLockLegalHoldStatus);
+            specifiedType: const FullType(ObjectLockLegalHoldStatus),
+          ) as ObjectLockLegalHoldStatus);
       }
     }
 
@@ -97,18 +96,18 @@ class ObjectLockLegalHoldRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'ObjectLockLegalHold',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final ObjectLockLegalHold(:status) = object;
     if (status != null) {
       result$
-        ..add(const _i3.XmlElementName('Status'))
+        ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(_i2.ObjectLockLegalHoldStatus),
+          specifiedType: const FullType.nullable(ObjectLockLegalHoldStatus),
         ));
     }
     return result$;

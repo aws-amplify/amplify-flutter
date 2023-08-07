@@ -9,7 +9,7 @@ part of 'describe_compliance_by_resource_response.dart';
 class _$DescribeComplianceByResourceResponse
     extends DescribeComplianceByResourceResponse {
   @override
-  final _i3.BuiltList<_i2.ComplianceByResource>? complianceByResources;
+  final _i2.BuiltList<ComplianceByResource>? complianceByResources;
   @override
   final String? nextToken;
 
@@ -56,12 +56,12 @@ class DescribeComplianceByResourceResponseBuilder
             DescribeComplianceByResourceResponseBuilder> {
   _$DescribeComplianceByResourceResponse? _$v;
 
-  _i3.ListBuilder<_i2.ComplianceByResource>? _complianceByResources;
-  _i3.ListBuilder<_i2.ComplianceByResource> get complianceByResources =>
+  _i2.ListBuilder<ComplianceByResource>? _complianceByResources;
+  _i2.ListBuilder<ComplianceByResource> get complianceByResources =>
       _$this._complianceByResources ??=
-          new _i3.ListBuilder<_i2.ComplianceByResource>();
+          new _i2.ListBuilder<ComplianceByResource>();
   set complianceByResources(
-          _i3.ListBuilder<_i2.ComplianceByResource>? complianceByResources) =>
+          _i2.ListBuilder<ComplianceByResource>? complianceByResources) =>
       _$this._complianceByResources = complianceByResources;
 
   String? _nextToken;

@@ -8,9 +8,9 @@ part of 'change_set_hook.dart';
 
 class _$ChangeSetHook extends ChangeSetHook {
   @override
-  final _i2.HookInvocationPoint? invocationPoint;
+  final HookInvocationPoint? invocationPoint;
   @override
-  final _i3.HookFailureMode? failureMode;
+  final HookFailureMode? failureMode;
   @override
   final String? typeName;
   @override
@@ -18,7 +18,7 @@ class _$ChangeSetHook extends ChangeSetHook {
   @override
   final String? typeConfigurationVersionId;
   @override
-  final _i4.ChangeSetHookTargetDetails? targetDetails;
+  final ChangeSetHookTargetDetails? targetDetails;
 
   factory _$ChangeSetHook([void Function(ChangeSetHookBuilder)? updates]) =>
       (new ChangeSetHookBuilder()..update(updates))._build();
@@ -69,14 +69,14 @@ class ChangeSetHookBuilder
     implements Builder<ChangeSetHook, ChangeSetHookBuilder> {
   _$ChangeSetHook? _$v;
 
-  _i2.HookInvocationPoint? _invocationPoint;
-  _i2.HookInvocationPoint? get invocationPoint => _$this._invocationPoint;
-  set invocationPoint(_i2.HookInvocationPoint? invocationPoint) =>
+  HookInvocationPoint? _invocationPoint;
+  HookInvocationPoint? get invocationPoint => _$this._invocationPoint;
+  set invocationPoint(HookInvocationPoint? invocationPoint) =>
       _$this._invocationPoint = invocationPoint;
 
-  _i3.HookFailureMode? _failureMode;
-  _i3.HookFailureMode? get failureMode => _$this._failureMode;
-  set failureMode(_i3.HookFailureMode? failureMode) =>
+  HookFailureMode? _failureMode;
+  HookFailureMode? get failureMode => _$this._failureMode;
+  set failureMode(HookFailureMode? failureMode) =>
       _$this._failureMode = failureMode;
 
   String? _typeName;
@@ -93,10 +93,10 @@ class ChangeSetHookBuilder
   set typeConfigurationVersionId(String? typeConfigurationVersionId) =>
       _$this._typeConfigurationVersionId = typeConfigurationVersionId;
 
-  _i4.ChangeSetHookTargetDetailsBuilder? _targetDetails;
-  _i4.ChangeSetHookTargetDetailsBuilder get targetDetails =>
-      _$this._targetDetails ??= new _i4.ChangeSetHookTargetDetailsBuilder();
-  set targetDetails(_i4.ChangeSetHookTargetDetailsBuilder? targetDetails) =>
+  ChangeSetHookTargetDetailsBuilder? _targetDetails;
+  ChangeSetHookTargetDetailsBuilder get targetDetails =>
+      _$this._targetDetails ??= new ChangeSetHookTargetDetailsBuilder();
+  set targetDetails(ChangeSetHookTargetDetailsBuilder? targetDetails) =>
       _$this._targetDetails = targetDetails;
 
   ChangeSetHookBuilder();

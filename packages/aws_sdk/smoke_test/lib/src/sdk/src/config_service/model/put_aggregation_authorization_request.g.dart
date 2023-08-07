@@ -13,7 +13,7 @@ class _$PutAggregationAuthorizationRequest
   @override
   final String authorizedAwsRegion;
   @override
-  final _i4.BuiltList<_i3.Tag>? tags;
+  final _i3.BuiltList<Tag>? tags;
 
   factory _$PutAggregationAuthorizationRequest(
           [void Function(PutAggregationAuthorizationRequestBuilder)?
@@ -77,10 +77,9 @@ class PutAggregationAuthorizationRequestBuilder
   set authorizedAwsRegion(String? authorizedAwsRegion) =>
       _$this._authorizedAwsRegion = authorizedAwsRegion;
 
-  _i4.ListBuilder<_i3.Tag>? _tags;
-  _i4.ListBuilder<_i3.Tag> get tags =>
-      _$this._tags ??= new _i4.ListBuilder<_i3.Tag>();
-  set tags(_i4.ListBuilder<_i3.Tag>? tags) => _$this._tags = tags;
+  _i3.ListBuilder<Tag>? _tags;
+  _i3.ListBuilder<Tag> get tags => _$this._tags ??= new _i3.ListBuilder<Tag>();
+  set tags(_i3.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   PutAggregationAuthorizationRequestBuilder();
 

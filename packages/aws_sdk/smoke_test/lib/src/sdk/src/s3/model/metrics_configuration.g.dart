@@ -10,7 +10,7 @@ class _$MetricsConfiguration extends MetricsConfiguration {
   @override
   final String id;
   @override
-  final _i2.MetricsFilter? filter;
+  final MetricsFilter? filter;
 
   factory _$MetricsConfiguration(
           [void Function(MetricsConfigurationBuilder)? updates]) =>
@@ -55,9 +55,9 @@ class MetricsConfigurationBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  _i2.MetricsFilter? _filter;
-  _i2.MetricsFilter? get filter => _$this._filter;
-  set filter(_i2.MetricsFilter? filter) => _$this._filter = filter;
+  MetricsFilter? _filter;
+  MetricsFilter? get filter => _$this._filter;
+  set filter(MetricsFilter? filter) => _$this._filter = filter;
 
   MetricsConfigurationBuilder();
 

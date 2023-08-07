@@ -6,9 +6,8 @@ library smoke_test.cloud_formation.model.operation_result_filter; // ignore_for_
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/operation_result_filter_name.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/operation_result_filter_name.dart';
 
 part 'operation_result_filter.g.dart';
 
@@ -18,7 +17,7 @@ abstract class OperationResultFilter
     implements Built<OperationResultFilter, OperationResultFilterBuilder> {
   /// The status that operation results are filtered by.
   factory OperationResultFilter({
-    _i2.OperationResultFilterName? name,
+    OperationResultFilterName? name,
     String? values,
   }) {
     return _$OperationResultFilter._(
@@ -34,12 +33,12 @@ abstract class OperationResultFilter
 
   const OperationResultFilter._();
 
-  static const List<_i3.SmithySerializer<OperationResultFilter>> serializers = [
+  static const List<_i2.SmithySerializer<OperationResultFilter>> serializers = [
     OperationResultFilterAwsQuerySerializer()
   ];
 
   /// The type of filter to apply.
-  _i2.OperationResultFilterName? get name;
+  OperationResultFilterName? get name;
 
   /// The value to filter by.
   String? get values;
@@ -64,7 +63,7 @@ abstract class OperationResultFilter
 }
 
 class OperationResultFilterAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<OperationResultFilter> {
+    extends _i2.StructuredSmithySerializer<OperationResultFilter> {
   const OperationResultFilterAwsQuerySerializer()
       : super('OperationResultFilter');
 
@@ -74,8 +73,8 @@ class OperationResultFilterAwsQuerySerializer
         _$OperationResultFilter,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -99,8 +98,8 @@ class OperationResultFilterAwsQuerySerializer
         case 'Name':
           result.name = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.OperationResultFilterName),
-          ) as _i2.OperationResultFilterName);
+            specifiedType: const FullType(OperationResultFilterName),
+          ) as OperationResultFilterName);
         case 'Values':
           result.values = (serializers.deserialize(
             value,
@@ -119,23 +118,23 @@ class OperationResultFilterAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'OperationResultFilterResponse',
-        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final OperationResultFilter(:name, :values) = object;
     if (name != null) {
       result$
-        ..add(const _i3.XmlElementName('Name'))
+        ..add(const _i2.XmlElementName('Name'))
         ..add(serializers.serialize(
           name,
-          specifiedType: const FullType.nullable(_i2.OperationResultFilterName),
+          specifiedType: const FullType.nullable(OperationResultFilterName),
         ));
     }
     if (values != null) {
       result$
-        ..add(const _i3.XmlElementName('Values'))
+        ..add(const _i2.XmlElementName('Values'))
         ..add(serializers.serialize(
           values,
           specifiedType: const FullType(String),

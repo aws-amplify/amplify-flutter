@@ -8,14 +8,14 @@ part of 'notification_configuration.dart';
 
 class _$NotificationConfiguration extends NotificationConfiguration {
   @override
-  final _i6.BuiltList<_i2.TopicConfiguration>? topicConfigurations;
+  final _i2.BuiltList<TopicConfiguration>? topicConfigurations;
   @override
-  final _i6.BuiltList<_i3.QueueConfiguration>? queueConfigurations;
+  final _i2.BuiltList<QueueConfiguration>? queueConfigurations;
   @override
-  final _i6.BuiltList<_i4.LambdaFunctionConfiguration>?
+  final _i2.BuiltList<LambdaFunctionConfiguration>?
       lambdaFunctionConfigurations;
   @override
-  final _i5.EventBridgeConfiguration? eventBridgeConfiguration;
+  final EventBridgeConfiguration? eventBridgeConfiguration;
 
   factory _$NotificationConfiguration(
           [void Function(NotificationConfigurationBuilder)? updates]) =>
@@ -64,39 +64,36 @@ class NotificationConfigurationBuilder
         Builder<NotificationConfiguration, NotificationConfigurationBuilder> {
   _$NotificationConfiguration? _$v;
 
-  _i6.ListBuilder<_i2.TopicConfiguration>? _topicConfigurations;
-  _i6.ListBuilder<_i2.TopicConfiguration> get topicConfigurations =>
-      _$this._topicConfigurations ??=
-          new _i6.ListBuilder<_i2.TopicConfiguration>();
+  _i2.ListBuilder<TopicConfiguration>? _topicConfigurations;
+  _i2.ListBuilder<TopicConfiguration> get topicConfigurations =>
+      _$this._topicConfigurations ??= new _i2.ListBuilder<TopicConfiguration>();
   set topicConfigurations(
-          _i6.ListBuilder<_i2.TopicConfiguration>? topicConfigurations) =>
+          _i2.ListBuilder<TopicConfiguration>? topicConfigurations) =>
       _$this._topicConfigurations = topicConfigurations;
 
-  _i6.ListBuilder<_i3.QueueConfiguration>? _queueConfigurations;
-  _i6.ListBuilder<_i3.QueueConfiguration> get queueConfigurations =>
-      _$this._queueConfigurations ??=
-          new _i6.ListBuilder<_i3.QueueConfiguration>();
+  _i2.ListBuilder<QueueConfiguration>? _queueConfigurations;
+  _i2.ListBuilder<QueueConfiguration> get queueConfigurations =>
+      _$this._queueConfigurations ??= new _i2.ListBuilder<QueueConfiguration>();
   set queueConfigurations(
-          _i6.ListBuilder<_i3.QueueConfiguration>? queueConfigurations) =>
+          _i2.ListBuilder<QueueConfiguration>? queueConfigurations) =>
       _$this._queueConfigurations = queueConfigurations;
 
-  _i6.ListBuilder<_i4.LambdaFunctionConfiguration>?
-      _lambdaFunctionConfigurations;
-  _i6.ListBuilder<_i4.LambdaFunctionConfiguration>
+  _i2.ListBuilder<LambdaFunctionConfiguration>? _lambdaFunctionConfigurations;
+  _i2.ListBuilder<LambdaFunctionConfiguration>
       get lambdaFunctionConfigurations =>
           _$this._lambdaFunctionConfigurations ??=
-              new _i6.ListBuilder<_i4.LambdaFunctionConfiguration>();
+              new _i2.ListBuilder<LambdaFunctionConfiguration>();
   set lambdaFunctionConfigurations(
-          _i6.ListBuilder<_i4.LambdaFunctionConfiguration>?
+          _i2.ListBuilder<LambdaFunctionConfiguration>?
               lambdaFunctionConfigurations) =>
       _$this._lambdaFunctionConfigurations = lambdaFunctionConfigurations;
 
-  _i5.EventBridgeConfigurationBuilder? _eventBridgeConfiguration;
-  _i5.EventBridgeConfigurationBuilder get eventBridgeConfiguration =>
+  EventBridgeConfigurationBuilder? _eventBridgeConfiguration;
+  EventBridgeConfigurationBuilder get eventBridgeConfiguration =>
       _$this._eventBridgeConfiguration ??=
-          new _i5.EventBridgeConfigurationBuilder();
+          new EventBridgeConfigurationBuilder();
   set eventBridgeConfiguration(
-          _i5.EventBridgeConfigurationBuilder? eventBridgeConfiguration) =>
+          EventBridgeConfigurationBuilder? eventBridgeConfiguration) =>
       _$this._eventBridgeConfiguration = eventBridgeConfiguration;
 
   NotificationConfigurationBuilder();

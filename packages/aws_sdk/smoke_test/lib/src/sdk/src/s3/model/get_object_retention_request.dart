@@ -6,9 +6,9 @@ library smoke_test.s3.model.get_object_retention_request; // ignore_for_file: no
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i4;
+import 'package:meta/meta.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart';
 
 part 'get_object_retention_request.g.dart';
 
@@ -24,7 +24,7 @@ abstract class GetObjectRetentionRequest
     required String bucket,
     required String key,
     String? versionId,
-    _i3.RequestPayer? requestPayer,
+    RequestPayer? requestPayer,
     String? expectedBucketOwner,
   }) {
     return _$GetObjectRetentionRequest._(
@@ -49,7 +49,7 @@ abstract class GetObjectRetentionRequest
   }) =>
       GetObjectRetentionRequest.build((b) {
         if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = _i3.RequestPayer.values
+          b.requestPayer = RequestPayer.values
               .byValue(request.headers['x-amz-request-payer']!);
         }
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
@@ -82,7 +82,7 @@ abstract class GetObjectRetentionRequest
   String? get versionId;
 
   /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
-  _i3.RequestPayer? get requestPayer;
+  RequestPayer? get requestPayer;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
@@ -138,7 +138,7 @@ abstract class GetObjectRetentionRequest
   }
 }
 
-@_i4.internal
+@_i3.internal
 abstract class GetObjectRetentionRequestPayload
     with
         _i2.AWSEquatable<GetObjectRetentionRequestPayload>

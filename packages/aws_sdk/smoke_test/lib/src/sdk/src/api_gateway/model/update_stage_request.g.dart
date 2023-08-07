@@ -12,7 +12,7 @@ class _$UpdateStageRequest extends UpdateStageRequest {
   @override
   final String stageName;
   @override
-  final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
+  final _i3.BuiltList<PatchOperation>? patchOperations;
 
   factory _$UpdateStageRequest(
           [void Function(UpdateStageRequestBuilder)? updates]) =>
@@ -68,10 +68,10 @@ class UpdateStageRequestBuilder
   String? get stageName => _$this._stageName;
   set stageName(String? stageName) => _$this._stageName = stageName;
 
-  _i4.ListBuilder<_i3.PatchOperation>? _patchOperations;
-  _i4.ListBuilder<_i3.PatchOperation> get patchOperations =>
-      _$this._patchOperations ??= new _i4.ListBuilder<_i3.PatchOperation>();
-  set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
+  _i3.ListBuilder<PatchOperation>? _patchOperations;
+  _i3.ListBuilder<PatchOperation> get patchOperations =>
+      _$this._patchOperations ??= new _i3.ListBuilder<PatchOperation>();
+  set patchOperations(_i3.ListBuilder<PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
   UpdateStageRequestBuilder();
@@ -129,7 +129,7 @@ class UpdateStageRequestBuilder
 
 class _$UpdateStageRequestPayload extends UpdateStageRequestPayload {
   @override
-  final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
+  final _i3.BuiltList<PatchOperation>? patchOperations;
 
   factory _$UpdateStageRequestPayload(
           [void Function(UpdateStageRequestPayloadBuilder)? updates]) =>
@@ -167,10 +167,10 @@ class UpdateStageRequestPayloadBuilder
         Builder<UpdateStageRequestPayload, UpdateStageRequestPayloadBuilder> {
   _$UpdateStageRequestPayload? _$v;
 
-  _i4.ListBuilder<_i3.PatchOperation>? _patchOperations;
-  _i4.ListBuilder<_i3.PatchOperation> get patchOperations =>
-      _$this._patchOperations ??= new _i4.ListBuilder<_i3.PatchOperation>();
-  set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
+  _i3.ListBuilder<PatchOperation>? _patchOperations;
+  _i3.ListBuilder<PatchOperation> get patchOperations =>
+      _$this._patchOperations ??= new _i3.ListBuilder<PatchOperation>();
+  set patchOperations(_i3.ListBuilder<PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
   UpdateStageRequestPayloadBuilder();

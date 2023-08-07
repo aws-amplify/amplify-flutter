@@ -8,7 +8,7 @@ part of 'item_response.dart';
 
 class _$ItemResponse extends ItemResponse {
   @override
-  final _i3.BuiltMap<String, _i2.AttributeValue>? item;
+  final _i2.BuiltMap<String, AttributeValue>? item;
 
   factory _$ItemResponse([void Function(ItemResponseBuilder)? updates]) =>
       (new ItemResponseBuilder()..update(updates))._build();
@@ -41,11 +41,10 @@ class ItemResponseBuilder
     implements Builder<ItemResponse, ItemResponseBuilder> {
   _$ItemResponse? _$v;
 
-  _i3.MapBuilder<String, _i2.AttributeValue>? _item;
-  _i3.MapBuilder<String, _i2.AttributeValue> get item =>
-      _$this._item ??= new _i3.MapBuilder<String, _i2.AttributeValue>();
-  set item(_i3.MapBuilder<String, _i2.AttributeValue>? item) =>
-      _$this._item = item;
+  _i2.MapBuilder<String, AttributeValue>? _item;
+  _i2.MapBuilder<String, AttributeValue> get item =>
+      _$this._item ??= new _i2.MapBuilder<String, AttributeValue>();
+  set item(_i2.MapBuilder<String, AttributeValue>? item) => _$this._item = item;
 
   ItemResponseBuilder();
 

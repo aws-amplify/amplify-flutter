@@ -11,13 +11,13 @@ class _$PutOrganizationConfigRuleRequest
   @override
   final String organizationConfigRuleName;
   @override
-  final _i3.OrganizationManagedRuleMetadata? organizationManagedRuleMetadata;
+  final OrganizationManagedRuleMetadata? organizationManagedRuleMetadata;
   @override
-  final _i4.OrganizationCustomRuleMetadata? organizationCustomRuleMetadata;
+  final OrganizationCustomRuleMetadata? organizationCustomRuleMetadata;
   @override
-  final _i6.BuiltList<String>? excludedAccounts;
+  final _i3.BuiltList<String>? excludedAccounts;
   @override
-  final _i5.OrganizationCustomPolicyRuleMetadata?
+  final OrganizationCustomPolicyRuleMetadata?
       organizationCustomPolicyRuleMetadata;
 
   factory _$PutOrganizationConfigRuleRequest(
@@ -82,40 +82,38 @@ class PutOrganizationConfigRuleRequestBuilder
   set organizationConfigRuleName(String? organizationConfigRuleName) =>
       _$this._organizationConfigRuleName = organizationConfigRuleName;
 
-  _i3.OrganizationManagedRuleMetadataBuilder? _organizationManagedRuleMetadata;
-  _i3.OrganizationManagedRuleMetadataBuilder
-      get organizationManagedRuleMetadata =>
-          _$this._organizationManagedRuleMetadata ??=
-              new _i3.OrganizationManagedRuleMetadataBuilder();
+  OrganizationManagedRuleMetadataBuilder? _organizationManagedRuleMetadata;
+  OrganizationManagedRuleMetadataBuilder get organizationManagedRuleMetadata =>
+      _$this._organizationManagedRuleMetadata ??=
+          new OrganizationManagedRuleMetadataBuilder();
   set organizationManagedRuleMetadata(
-          _i3.OrganizationManagedRuleMetadataBuilder?
+          OrganizationManagedRuleMetadataBuilder?
               organizationManagedRuleMetadata) =>
       _$this._organizationManagedRuleMetadata = organizationManagedRuleMetadata;
 
-  _i4.OrganizationCustomRuleMetadataBuilder? _organizationCustomRuleMetadata;
-  _i4.OrganizationCustomRuleMetadataBuilder
-      get organizationCustomRuleMetadata =>
-          _$this._organizationCustomRuleMetadata ??=
-              new _i4.OrganizationCustomRuleMetadataBuilder();
+  OrganizationCustomRuleMetadataBuilder? _organizationCustomRuleMetadata;
+  OrganizationCustomRuleMetadataBuilder get organizationCustomRuleMetadata =>
+      _$this._organizationCustomRuleMetadata ??=
+          new OrganizationCustomRuleMetadataBuilder();
   set organizationCustomRuleMetadata(
-          _i4.OrganizationCustomRuleMetadataBuilder?
+          OrganizationCustomRuleMetadataBuilder?
               organizationCustomRuleMetadata) =>
       _$this._organizationCustomRuleMetadata = organizationCustomRuleMetadata;
 
-  _i6.ListBuilder<String>? _excludedAccounts;
-  _i6.ListBuilder<String> get excludedAccounts =>
-      _$this._excludedAccounts ??= new _i6.ListBuilder<String>();
-  set excludedAccounts(_i6.ListBuilder<String>? excludedAccounts) =>
+  _i3.ListBuilder<String>? _excludedAccounts;
+  _i3.ListBuilder<String> get excludedAccounts =>
+      _$this._excludedAccounts ??= new _i3.ListBuilder<String>();
+  set excludedAccounts(_i3.ListBuilder<String>? excludedAccounts) =>
       _$this._excludedAccounts = excludedAccounts;
 
-  _i5.OrganizationCustomPolicyRuleMetadataBuilder?
+  OrganizationCustomPolicyRuleMetadataBuilder?
       _organizationCustomPolicyRuleMetadata;
-  _i5.OrganizationCustomPolicyRuleMetadataBuilder
+  OrganizationCustomPolicyRuleMetadataBuilder
       get organizationCustomPolicyRuleMetadata =>
           _$this._organizationCustomPolicyRuleMetadata ??=
-              new _i5.OrganizationCustomPolicyRuleMetadataBuilder();
+              new OrganizationCustomPolicyRuleMetadataBuilder();
   set organizationCustomPolicyRuleMetadata(
-          _i5.OrganizationCustomPolicyRuleMetadataBuilder?
+          OrganizationCustomPolicyRuleMetadataBuilder?
               organizationCustomPolicyRuleMetadata) =>
       _$this._organizationCustomPolicyRuleMetadata =
           organizationCustomPolicyRuleMetadata;

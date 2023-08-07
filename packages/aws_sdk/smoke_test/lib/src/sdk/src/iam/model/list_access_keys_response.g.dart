@@ -8,7 +8,7 @@ part of 'list_access_keys_response.dart';
 
 class _$ListAccessKeysResponse extends ListAccessKeysResponse {
   @override
-  final _i3.BuiltList<_i2.AccessKeyMetadata> accessKeyMetadata;
+  final _i2.BuiltList<AccessKeyMetadata> accessKeyMetadata;
   @override
   final bool isTruncated;
   @override
@@ -60,12 +60,11 @@ class ListAccessKeysResponseBuilder
     implements Builder<ListAccessKeysResponse, ListAccessKeysResponseBuilder> {
   _$ListAccessKeysResponse? _$v;
 
-  _i3.ListBuilder<_i2.AccessKeyMetadata>? _accessKeyMetadata;
-  _i3.ListBuilder<_i2.AccessKeyMetadata> get accessKeyMetadata =>
-      _$this._accessKeyMetadata ??=
-          new _i3.ListBuilder<_i2.AccessKeyMetadata>();
+  _i2.ListBuilder<AccessKeyMetadata>? _accessKeyMetadata;
+  _i2.ListBuilder<AccessKeyMetadata> get accessKeyMetadata =>
+      _$this._accessKeyMetadata ??= new _i2.ListBuilder<AccessKeyMetadata>();
   set accessKeyMetadata(
-          _i3.ListBuilder<_i2.AccessKeyMetadata>? accessKeyMetadata) =>
+          _i2.ListBuilder<AccessKeyMetadata>? accessKeyMetadata) =>
       _$this._accessKeyMetadata = accessKeyMetadata;
 
   bool? _isTruncated;

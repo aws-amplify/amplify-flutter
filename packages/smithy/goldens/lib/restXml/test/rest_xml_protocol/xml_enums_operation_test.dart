@@ -4,14 +4,12 @@
 // ignore_for_file: unused_element
 library rest_xml_v1.rest_xml_protocol.test.xml_enums_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:built_collection/built_collection.dart' as _i7;
+import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v1/src/rest_xml_protocol/model/foo_enum.dart' as _i6;
-import 'package:rest_xml_v1/src/rest_xml_protocol/model/xml_enums_input_output.dart'
-    as _i5;
-import 'package:rest_xml_v1/src/rest_xml_protocol/operation/xml_enums_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/foo_enum.dart';
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/xml_enums_input_output.dart';
+import 'package:rest_xml_v1/src/rest_xml_protocol/operation/xml_enums_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -20,14 +18,14 @@ void main() {
     'XmlEnums (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.XmlEnumsOperation(
+        operation: XmlEnumsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'XmlEnums',
           documentation: 'Serializes simple scalar properties',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -75,14 +73,14 @@ void main() {
     'XmlEnums (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.XmlEnumsOperation(
+        operation: XmlEnumsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'XmlEnums',
           documentation: 'Serializes simple scalar properties',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -123,25 +121,25 @@ void main() {
 }
 
 class XmlEnumsInputOutputRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<_i5.XmlEnumsInputOutput> {
+    extends _i3.StructuredSmithySerializer<XmlEnumsInputOutput> {
   const XmlEnumsInputOutputRestXmlSerializer() : super('XmlEnumsInputOutput');
 
   @override
-  Iterable<Type> get types => const [_i5.XmlEnumsInputOutput];
+  Iterable<Type> get types => const [XmlEnumsInputOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
       ];
   @override
-  _i5.XmlEnumsInputOutput deserialize(
+  XmlEnumsInputOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.XmlEnumsInputOutputBuilder();
+    final result = XmlEnumsInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -154,45 +152,45 @@ class XmlEnumsInputOutputRestXmlSerializer
         case 'fooEnum1':
           result.fooEnum1 = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.FooEnum),
-          ) as _i6.FooEnum);
+            specifiedType: const FullType(FooEnum),
+          ) as FooEnum);
         case 'fooEnum2':
           result.fooEnum2 = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.FooEnum),
-          ) as _i6.FooEnum);
+            specifiedType: const FullType(FooEnum),
+          ) as FooEnum);
         case 'fooEnum3':
           result.fooEnum3 = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.FooEnum),
-          ) as _i6.FooEnum);
+            specifiedType: const FullType(FooEnum),
+          ) as FooEnum);
         case 'fooEnumList':
           result.fooEnumList.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltList,
-              [FullType(_i6.FooEnum)],
+              _i4.BuiltList,
+              [FullType(FooEnum)],
             ),
-          ) as _i7.BuiltList<_i6.FooEnum>));
+          ) as _i4.BuiltList<FooEnum>));
         case 'fooEnumSet':
           result.fooEnumSet.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltSet,
-              [FullType(_i6.FooEnum)],
+              _i4.BuiltSet,
+              [FullType(FooEnum)],
             ),
-          ) as _i7.BuiltSet<_i6.FooEnum>));
+          ) as _i4.BuiltSet<FooEnum>));
         case 'fooEnumMap':
           result.fooEnumMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltMap,
+              _i4.BuiltMap,
               [
                 FullType(String),
-                FullType(_i6.FooEnum),
+                FullType(FooEnum),
               ],
             ),
-          ) as _i7.BuiltMap<String, _i6.FooEnum>));
+          ) as _i4.BuiltMap<String, FooEnum>));
       }
     }
 
@@ -202,7 +200,7 @@ class XmlEnumsInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.XmlEnumsInputOutput object, {
+    XmlEnumsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

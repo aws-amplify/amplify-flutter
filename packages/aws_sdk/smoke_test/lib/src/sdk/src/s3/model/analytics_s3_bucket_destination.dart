@@ -6,9 +6,8 @@ library smoke_test.s3.model.analytics_s3_bucket_destination; // ignore_for_file:
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/analytics_s3_export_file_format.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/analytics_s3_export_file_format.dart';
 
 part 'analytics_s3_bucket_destination.g.dart';
 
@@ -21,7 +20,7 @@ abstract class AnalyticsS3BucketDestination
             AnalyticsS3BucketDestinationBuilder> {
   /// Contains information about where to publish the analytics results.
   factory AnalyticsS3BucketDestination({
-    required _i2.AnalyticsS3ExportFileFormat format,
+    required AnalyticsS3ExportFileFormat format,
     String? bucketAccountId,
     required String bucket,
     String? prefix,
@@ -41,11 +40,11 @@ abstract class AnalyticsS3BucketDestination
 
   const AnalyticsS3BucketDestination._();
 
-  static const List<_i3.SmithySerializer<AnalyticsS3BucketDestination>>
+  static const List<_i2.SmithySerializer<AnalyticsS3BucketDestination>>
       serializers = [AnalyticsS3BucketDestinationRestXmlSerializer()];
 
   /// Specifies the file format used when exporting data to Amazon S3.
-  _i2.AnalyticsS3ExportFileFormat get format;
+  AnalyticsS3ExportFileFormat get format;
 
   /// The account ID that owns the destination S3 bucket. If no account ID is provided, the owner is not validated before exporting data.
   ///
@@ -88,7 +87,7 @@ abstract class AnalyticsS3BucketDestination
 }
 
 class AnalyticsS3BucketDestinationRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<AnalyticsS3BucketDestination> {
+    extends _i2.StructuredSmithySerializer<AnalyticsS3BucketDestination> {
   const AnalyticsS3BucketDestinationRestXmlSerializer()
       : super('AnalyticsS3BucketDestination');
 
@@ -98,8 +97,8 @@ class AnalyticsS3BucketDestinationRestXmlSerializer
         _$AnalyticsS3BucketDestination,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -133,8 +132,8 @@ class AnalyticsS3BucketDestinationRestXmlSerializer
         case 'Format':
           result.format = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.AnalyticsS3ExportFileFormat),
-          ) as _i2.AnalyticsS3ExportFileFormat);
+            specifiedType: const FullType(AnalyticsS3ExportFileFormat),
+          ) as AnalyticsS3ExportFileFormat);
         case 'Prefix':
           result.prefix = (serializers.deserialize(
             value,
@@ -153,9 +152,9 @@ class AnalyticsS3BucketDestinationRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'AnalyticsS3BucketDestination',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final AnalyticsS3BucketDestination(
@@ -165,28 +164,28 @@ class AnalyticsS3BucketDestinationRestXmlSerializer
       :prefix
     ) = object;
     result$
-      ..add(const _i3.XmlElementName('Bucket'))
+      ..add(const _i2.XmlElementName('Bucket'))
       ..add(serializers.serialize(
         bucket,
         specifiedType: const FullType(String),
       ));
     if (bucketAccountId != null) {
       result$
-        ..add(const _i3.XmlElementName('BucketAccountId'))
+        ..add(const _i2.XmlElementName('BucketAccountId'))
         ..add(serializers.serialize(
           bucketAccountId,
           specifiedType: const FullType(String),
         ));
     }
     result$
-      ..add(const _i3.XmlElementName('Format'))
+      ..add(const _i2.XmlElementName('Format'))
       ..add(serializers.serialize(
         format,
-        specifiedType: const FullType.nullable(_i2.AnalyticsS3ExportFileFormat),
+        specifiedType: const FullType.nullable(AnalyticsS3ExportFileFormat),
       ));
     if (prefix != null) {
       result$
-        ..add(const _i3.XmlElementName('Prefix'))
+        ..add(const _i2.XmlElementName('Prefix'))
         ..add(serializers.serialize(
           prefix,
           specifiedType: const FullType(String),

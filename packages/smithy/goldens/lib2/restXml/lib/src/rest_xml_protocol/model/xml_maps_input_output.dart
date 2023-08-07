@@ -4,11 +4,10 @@
 library rest_xml_v2.rest_xml_protocol.model.xml_maps_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/greeting_struct.dart'
-    as _i3;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/greeting_struct.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'xml_maps_input_output.g.dart';
@@ -16,9 +15,9 @@ part 'xml_maps_input_output.g.dart';
 abstract class XmlMapsInputOutput
     with _i1.HttpInput<XmlMapsInputOutput>, _i2.AWSEquatable<XmlMapsInputOutput>
     implements Built<XmlMapsInputOutput, XmlMapsInputOutputBuilder> {
-  factory XmlMapsInputOutput({Map<String, _i3.GreetingStruct>? myMap}) {
+  factory XmlMapsInputOutput({Map<String, GreetingStruct>? myMap}) {
     return _$XmlMapsInputOutput._(
-        myMap: myMap == null ? null : _i4.BuiltMap(myMap));
+        myMap: myMap == null ? null : _i3.BuiltMap(myMap));
   }
 
   factory XmlMapsInputOutput.build(
@@ -45,7 +44,7 @@ abstract class XmlMapsInputOutput
     XmlMapsInputOutputRestXmlSerializer()
   ];
 
-  _i4.BuiltMap<String, _i3.GreetingStruct>? get myMap;
+  _i3.BuiltMap<String, GreetingStruct>? get myMap;
   @override
   XmlMapsInputOutput getPayload() => this;
   @override
@@ -98,10 +97,10 @@ class XmlMapsInputOutputRestXmlSerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
-                FullType(_i3.GreetingStruct),
+                FullType(GreetingStruct),
               ],
             ),
           ));
@@ -126,10 +125,10 @@ class XmlMapsInputOutputRestXmlSerializer
           serializers,
           myMap,
           specifiedType: const FullType.nullable(
-            _i4.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
-              FullType(_i3.GreetingStruct),
+              FullType(GreetingStruct),
             ],
           ),
         ));
