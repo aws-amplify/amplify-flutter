@@ -1,3 +1,9 @@
+## 1.3.1
+
+### Fixes
+- fix(datastore): hot restart ([#3497](https://github.com/aws-amplify/amplify-flutter/pull/3497))
+- fix(datastore): make event history list thread safe ([#3509](https://github.com/aws-amplify/amplify-flutter/pull/3509))
+
 ## 1.3.0
 
 ### Features
