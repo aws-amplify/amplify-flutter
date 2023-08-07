@@ -70,42 +70,44 @@ import 'package:rest_xml_v2/src/rest_xml_protocol/model/null_and_empty_headers_i
     as _i66;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/omits_null_serializes_empty_string_input.dart'
     as _i69;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/query_idempotency_token_auto_fill_input.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/put_with_content_encoding_input.dart'
     as _i71;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/query_params_as_string_list_map_input.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/query_idempotency_token_auto_fill_input.dart'
     as _i73;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/query_precedence_input.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/query_params_as_string_list_map_input.dart'
     as _i75;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/recursive_shapes_input_output.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/query_precedence_input.dart'
     as _i77;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/simple_scalar_properties_input_output.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/recursive_shapes_input_output.dart'
     as _i79;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/timestamp_format_headers_io.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/simple_scalar_properties_input_output.dart'
     as _i81;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_attributes_input_output.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/timestamp_format_headers_io.dart'
     as _i83;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_attributes_on_payload_input_output.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_attributes_input_output.dart'
     as _i85;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_blobs_input_output.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_attributes_on_payload_input_output.dart'
     as _i87;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_blobs_input_output.dart'
+    as _i89;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_empty_strings_input_output.dart'
-    as _i94;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_enums_input_output.dart'
     as _i96;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_int_enums_input_output.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_enums_input_output.dart'
     as _i98;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_int_enums_input_output.dart'
+    as _i100;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_lists_input_output.dart'
-    as _i90;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_maps_input_output.dart'
     as _i92;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_maps_input_output.dart'
+    as _i94;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_maps_xml_name_input_output.dart'
-    as _i102;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_namespaces_input_output.dart'
     as _i104;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_timestamps_input_output.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_namespaces_input_output.dart'
     as _i106;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_unions_input_output.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_timestamps_input_output.dart'
     as _i108;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_unions_input_output.dart'
+    as _i110;
 import 'package:rest_xml_v2/src/rest_xml_protocol/operation/all_query_string_types_operation.dart'
     as _i4;
 import 'package:rest_xml_v2/src/rest_xml_protocol/operation/body_with_xml_name_operation.dart'
@@ -176,48 +178,50 @@ import 'package:rest_xml_v2/src/rest_xml_protocol/operation/null_and_empty_heade
     as _i68;
 import 'package:rest_xml_v2/src/rest_xml_protocol/operation/omits_null_serializes_empty_string_operation.dart'
     as _i70;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/query_idempotency_token_auto_fill_operation.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/put_with_content_encoding_operation.dart'
     as _i72;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/query_params_as_string_list_map_operation.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/query_idempotency_token_auto_fill_operation.dart'
     as _i74;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/query_precedence_operation.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/query_params_as_string_list_map_operation.dart'
     as _i76;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/recursive_shapes_operation.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/query_precedence_operation.dart'
     as _i78;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/simple_scalar_properties_operation.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/recursive_shapes_operation.dart'
     as _i80;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/timestamp_format_headers_operation.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/simple_scalar_properties_operation.dart'
     as _i82;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_attributes_on_payload_operation.dart'
-    as _i86;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_attributes_operation.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/timestamp_format_headers_operation.dart'
     as _i84;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_blobs_operation.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_attributes_on_payload_operation.dart'
     as _i88;
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_attributes_operation.dart'
+    as _i86;
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_blobs_operation.dart'
+    as _i90;
 import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_empty_blobs_operation.dart'
-    as _i89;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_empty_lists_operation.dart'
     as _i91;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_empty_maps_operation.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_empty_lists_operation.dart'
     as _i93;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_empty_strings_operation.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_empty_maps_operation.dart'
     as _i95;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_enums_operation.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_empty_strings_operation.dart'
     as _i97;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_int_enums_operation.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_enums_operation.dart'
     as _i99;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_lists_operation.dart'
-    as _i100;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_maps_operation.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_int_enums_operation.dart'
     as _i101;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_maps_xml_name_operation.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_lists_operation.dart'
+    as _i102;
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_maps_operation.dart'
     as _i103;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_namespaces_operation.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_maps_xml_name_operation.dart'
     as _i105;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_timestamps_operation.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_namespaces_operation.dart'
     as _i107;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_unions_operation.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_timestamps_operation.dart'
     as _i109;
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_unions_operation.dart'
+    as _i111;
 import 'package:smithy/smithy.dart' as _i2;
 
 /// A REST XML service that sends XML requests and responses.
@@ -788,12 +792,27 @@ class RestXmlProtocolClient {
     );
   }
 
-  /// Automatically adds idempotency tokens.
-  _i2.SmithyOperation<void> queryIdempotencyTokenAutoFill(
-    _i71.QueryIdempotencyTokenAutoFillInput input, {
+  _i2.SmithyOperation<void> putWithContentEncoding(
+    _i71.PutWithContentEncodingInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i72.QueryIdempotencyTokenAutoFillOperation(
+    return _i72.PutWithContentEncodingOperation(
+      region: _region,
+      baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
+  }
+
+  /// Automatically adds idempotency tokens.
+  _i2.SmithyOperation<void> queryIdempotencyTokenAutoFill(
+    _i73.QueryIdempotencyTokenAutoFillInput input, {
+    _i1.AWSHttpClient? client,
+  }) {
+    return _i74.QueryIdempotencyTokenAutoFillOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -805,10 +824,10 @@ class RestXmlProtocolClient {
   }
 
   _i2.SmithyOperation<void> queryParamsAsStringListMap(
-    _i73.QueryParamsAsStringListMapInput input, {
+    _i75.QueryParamsAsStringListMapInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i74.QueryParamsAsStringListMapOperation(
+    return _i76.QueryParamsAsStringListMapOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -820,10 +839,10 @@ class RestXmlProtocolClient {
   }
 
   _i2.SmithyOperation<void> queryPrecedence(
-    _i75.QueryPrecedenceInput input, {
+    _i77.QueryPrecedenceInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i76.QueryPrecedenceOperation(
+    return _i78.QueryPrecedenceOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -835,11 +854,11 @@ class RestXmlProtocolClient {
   }
 
   /// Recursive shapes
-  _i2.SmithyOperation<_i77.RecursiveShapesInputOutput> recursiveShapes(
-    _i77.RecursiveShapesInputOutput input, {
+  _i2.SmithyOperation<_i79.RecursiveShapesInputOutput> recursiveShapes(
+    _i79.RecursiveShapesInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i78.RecursiveShapesOperation(
+    return _i80.RecursiveShapesOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -850,12 +869,12 @@ class RestXmlProtocolClient {
     );
   }
 
-  _i2.SmithyOperation<_i79.SimpleScalarPropertiesInputOutput>
+  _i2.SmithyOperation<_i81.SimpleScalarPropertiesInputOutput>
       simpleScalarProperties(
-    _i79.SimpleScalarPropertiesInputOutput input, {
+    _i81.SimpleScalarPropertiesInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i80.SimpleScalarPropertiesOperation(
+    return _i82.SimpleScalarPropertiesOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -867,11 +886,11 @@ class RestXmlProtocolClient {
   }
 
   /// The example tests how timestamp request and response headers are serialized.
-  _i2.SmithyOperation<_i81.TimestampFormatHeadersIo> timestampFormatHeaders(
-    _i81.TimestampFormatHeadersIo input, {
+  _i2.SmithyOperation<_i83.TimestampFormatHeadersIo> timestampFormatHeaders(
+    _i83.TimestampFormatHeadersIo input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i82.TimestampFormatHeadersOperation(
+    return _i84.TimestampFormatHeadersOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -883,11 +902,11 @@ class RestXmlProtocolClient {
   }
 
   /// This example serializes an XML attributes on synthesized document.
-  _i2.SmithyOperation<_i83.XmlAttributesInputOutput> xmlAttributes(
-    _i83.XmlAttributesInputOutput input, {
+  _i2.SmithyOperation<_i85.XmlAttributesInputOutput> xmlAttributes(
+    _i85.XmlAttributesInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i84.XmlAttributesOperation(
+    return _i86.XmlAttributesOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -899,12 +918,12 @@ class RestXmlProtocolClient {
   }
 
   /// This example serializes an XML attributes on a document targeted by httpPayload.
-  _i2.SmithyOperation<_i85.XmlAttributesOnPayloadInputOutput>
+  _i2.SmithyOperation<_i87.XmlAttributesOnPayloadInputOutput>
       xmlAttributesOnPayload(
-    _i85.XmlAttributesOnPayloadInputOutput input, {
+    _i87.XmlAttributesOnPayloadInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i86.XmlAttributesOnPayloadOperation(
+    return _i88.XmlAttributesOnPayloadOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -916,11 +935,11 @@ class RestXmlProtocolClient {
   }
 
   /// Blobs are base64 encoded
-  _i2.SmithyOperation<_i87.XmlBlobsInputOutput> xmlBlobs(
-    _i87.XmlBlobsInputOutput input, {
+  _i2.SmithyOperation<_i89.XmlBlobsInputOutput> xmlBlobs(
+    _i89.XmlBlobsInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i88.XmlBlobsOperation(
+    return _i90.XmlBlobsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -932,11 +951,11 @@ class RestXmlProtocolClient {
   }
 
   /// Blobs are base64 encoded
-  _i2.SmithyOperation<_i87.XmlBlobsInputOutput> xmlEmptyBlobs(
-    _i87.XmlBlobsInputOutput input, {
+  _i2.SmithyOperation<_i89.XmlBlobsInputOutput> xmlEmptyBlobs(
+    _i89.XmlBlobsInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i89.XmlEmptyBlobsOperation(
+    return _i91.XmlEmptyBlobsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -947,11 +966,11 @@ class RestXmlProtocolClient {
     );
   }
 
-  _i2.SmithyOperation<_i90.XmlListsInputOutput> xmlEmptyLists(
-    _i90.XmlListsInputOutput input, {
+  _i2.SmithyOperation<_i92.XmlListsInputOutput> xmlEmptyLists(
+    _i92.XmlListsInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i91.XmlEmptyListsOperation(
+    return _i93.XmlEmptyListsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -962,11 +981,11 @@ class RestXmlProtocolClient {
     );
   }
 
-  _i2.SmithyOperation<_i92.XmlMapsInputOutput> xmlEmptyMaps(
-    _i92.XmlMapsInputOutput input, {
+  _i2.SmithyOperation<_i94.XmlMapsInputOutput> xmlEmptyMaps(
+    _i94.XmlMapsInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i93.XmlEmptyMapsOperation(
+    return _i95.XmlEmptyMapsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -977,27 +996,11 @@ class RestXmlProtocolClient {
     );
   }
 
-  _i2.SmithyOperation<_i94.XmlEmptyStringsInputOutput> xmlEmptyStrings(
-    _i94.XmlEmptyStringsInputOutput input, {
+  _i2.SmithyOperation<_i96.XmlEmptyStringsInputOutput> xmlEmptyStrings(
+    _i96.XmlEmptyStringsInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i95.XmlEmptyStringsOperation(
-      region: _region,
-      baseUri: _baseUri,
-      requestInterceptors: _requestInterceptors,
-      responseInterceptors: _responseInterceptors,
-    ).run(
-      input,
-      client: client ?? _client,
-    );
-  }
-
-  /// This example serializes enums as top level properties, in lists, sets, and maps.
-  _i2.SmithyOperation<_i96.XmlEnumsInputOutput> xmlEnums(
-    _i96.XmlEnumsInputOutput input, {
-    _i1.AWSHttpClient? client,
-  }) {
-    return _i97.XmlEnumsOperation(
+    return _i97.XmlEmptyStringsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1009,11 +1012,27 @@ class RestXmlProtocolClient {
   }
 
   /// This example serializes enums as top level properties, in lists, sets, and maps.
-  _i2.SmithyOperation<_i98.XmlIntEnumsInputOutput> xmlIntEnums(
-    _i98.XmlIntEnumsInputOutput input, {
+  _i2.SmithyOperation<_i98.XmlEnumsInputOutput> xmlEnums(
+    _i98.XmlEnumsInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i99.XmlIntEnumsOperation(
+    return _i99.XmlEnumsOperation(
+      region: _region,
+      baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
+  }
+
+  /// This example serializes enums as top level properties, in lists, sets, and maps.
+  _i2.SmithyOperation<_i100.XmlIntEnumsInputOutput> xmlIntEnums(
+    _i100.XmlIntEnumsInputOutput input, {
+    _i1.AWSHttpClient? client,
+  }) {
+    return _i101.XmlIntEnumsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1025,11 +1044,11 @@ class RestXmlProtocolClient {
   }
 
   /// This test case serializes XML lists for the following cases for both input and output: 1. Normal XML lists. 2. Normal XML sets. 3. XML lists of lists. 4. XML lists with @xmlName on its members 5. Flattened XML lists. 6. Flattened XML lists with @xmlName. 7. Flattened XML lists with @xmlNamespace. 8. Lists of structures. 9. Flattened XML list of structures
-  _i2.SmithyOperation<_i90.XmlListsInputOutput> xmlLists(
-    _i90.XmlListsInputOutput input, {
+  _i2.SmithyOperation<_i92.XmlListsInputOutput> xmlLists(
+    _i92.XmlListsInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i100.XmlListsOperation(
+    return _i102.XmlListsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1041,11 +1060,11 @@ class RestXmlProtocolClient {
   }
 
   /// The example tests basic map serialization.
-  _i2.SmithyOperation<_i92.XmlMapsInputOutput> xmlMaps(
-    _i92.XmlMapsInputOutput input, {
+  _i2.SmithyOperation<_i94.XmlMapsInputOutput> xmlMaps(
+    _i94.XmlMapsInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i101.XmlMapsOperation(
+    return _i103.XmlMapsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1056,11 +1075,11 @@ class RestXmlProtocolClient {
     );
   }
 
-  _i2.SmithyOperation<_i102.XmlMapsXmlNameInputOutput> xmlMapsXmlName(
-    _i102.XmlMapsXmlNameInputOutput input, {
+  _i2.SmithyOperation<_i104.XmlMapsXmlNameInputOutput> xmlMapsXmlName(
+    _i104.XmlMapsXmlNameInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i103.XmlMapsXmlNameOperation(
+    return _i105.XmlMapsXmlNameOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1071,11 +1090,11 @@ class RestXmlProtocolClient {
     );
   }
 
-  _i2.SmithyOperation<_i104.XmlNamespacesInputOutput> xmlNamespaces(
-    _i104.XmlNamespacesInputOutput input, {
+  _i2.SmithyOperation<_i106.XmlNamespacesInputOutput> xmlNamespaces(
+    _i106.XmlNamespacesInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i105.XmlNamespacesOperation(
+    return _i107.XmlNamespacesOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1087,11 +1106,11 @@ class RestXmlProtocolClient {
   }
 
   /// This tests how timestamps are serialized, including using the default format of date-time and various @timestampFormat trait values.
-  _i2.SmithyOperation<_i106.XmlTimestampsInputOutput> xmlTimestamps(
-    _i106.XmlTimestampsInputOutput input, {
+  _i2.SmithyOperation<_i108.XmlTimestampsInputOutput> xmlTimestamps(
+    _i108.XmlTimestampsInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i107.XmlTimestampsOperation(
+    return _i109.XmlTimestampsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -1102,11 +1121,11 @@ class RestXmlProtocolClient {
     );
   }
 
-  _i2.SmithyOperation<_i108.XmlUnionsInputOutput> xmlUnions(
-    _i108.XmlUnionsInputOutput input, {
+  _i2.SmithyOperation<_i110.XmlUnionsInputOutput> xmlUnions(
+    _i110.XmlUnionsInputOutput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i109.XmlUnionsOperation(
+    return _i111.XmlUnionsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,

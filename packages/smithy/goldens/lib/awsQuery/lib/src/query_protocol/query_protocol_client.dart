@@ -30,36 +30,38 @@ import 'package:aws_query_v1/src/query_protocol/model/no_input_and_output_input.
     as _i28;
 import 'package:aws_query_v1/src/query_protocol/model/no_input_and_output_output.dart'
     as _i27;
-import 'package:aws_query_v1/src/query_protocol/model/query_idempotency_token_auto_fill_input.dart'
+import 'package:aws_query_v1/src/query_protocol/model/put_with_content_encoding_input.dart'
     as _i30;
-import 'package:aws_query_v1/src/query_protocol/model/query_lists_input.dart'
+import 'package:aws_query_v1/src/query_protocol/model/query_idempotency_token_auto_fill_input.dart'
     as _i32;
-import 'package:aws_query_v1/src/query_protocol/model/query_maps_input.dart'
+import 'package:aws_query_v1/src/query_protocol/model/query_lists_input.dart'
     as _i34;
-import 'package:aws_query_v1/src/query_protocol/model/query_timestamps_input.dart'
+import 'package:aws_query_v1/src/query_protocol/model/query_maps_input.dart'
     as _i36;
-import 'package:aws_query_v1/src/query_protocol/model/recursive_xml_shapes_output.dart'
+import 'package:aws_query_v1/src/query_protocol/model/query_timestamps_input.dart'
     as _i38;
-import 'package:aws_query_v1/src/query_protocol/model/simple_input_params_input.dart'
+import 'package:aws_query_v1/src/query_protocol/model/recursive_xml_shapes_output.dart'
     as _i40;
-import 'package:aws_query_v1/src/query_protocol/model/simple_scalar_xml_properties_output.dart'
+import 'package:aws_query_v1/src/query_protocol/model/simple_input_params_input.dart'
     as _i42;
-import 'package:aws_query_v1/src/query_protocol/model/xml_blobs_output.dart'
+import 'package:aws_query_v1/src/query_protocol/model/simple_scalar_xml_properties_output.dart'
     as _i44;
+import 'package:aws_query_v1/src/query_protocol/model/xml_blobs_output.dart'
+    as _i46;
 import 'package:aws_query_v1/src/query_protocol/model/xml_enums_output.dart'
-    as _i51;
-import 'package:aws_query_v1/src/query_protocol/model/xml_int_enums_output.dart'
     as _i53;
+import 'package:aws_query_v1/src/query_protocol/model/xml_int_enums_output.dart'
+    as _i55;
 import 'package:aws_query_v1/src/query_protocol/model/xml_lists_output.dart'
-    as _i47;
-import 'package:aws_query_v1/src/query_protocol/model/xml_maps_output.dart'
     as _i49;
+import 'package:aws_query_v1/src/query_protocol/model/xml_maps_output.dart'
+    as _i51;
 import 'package:aws_query_v1/src/query_protocol/model/xml_maps_xml_name_output.dart'
-    as _i57;
-import 'package:aws_query_v1/src/query_protocol/model/xml_namespaces_output.dart'
     as _i59;
-import 'package:aws_query_v1/src/query_protocol/model/xml_timestamps_output.dart'
+import 'package:aws_query_v1/src/query_protocol/model/xml_namespaces_output.dart'
     as _i61;
+import 'package:aws_query_v1/src/query_protocol/model/xml_timestamps_output.dart'
+    as _i63;
 import 'package:aws_query_v1/src/query_protocol/operation/datetime_offsets_operation.dart'
     as _i4;
 import 'package:aws_query_v1/src/query_protocol/operation/empty_input_and_empty_output_operation.dart'
@@ -88,42 +90,44 @@ import 'package:aws_query_v1/src/query_protocol/operation/no_input_and_no_output
     as _i26;
 import 'package:aws_query_v1/src/query_protocol/operation/no_input_and_output_operation.dart'
     as _i29;
-import 'package:aws_query_v1/src/query_protocol/operation/query_idempotency_token_auto_fill_operation.dart'
+import 'package:aws_query_v1/src/query_protocol/operation/put_with_content_encoding_operation.dart'
     as _i31;
-import 'package:aws_query_v1/src/query_protocol/operation/query_lists_operation.dart'
+import 'package:aws_query_v1/src/query_protocol/operation/query_idempotency_token_auto_fill_operation.dart'
     as _i33;
-import 'package:aws_query_v1/src/query_protocol/operation/query_maps_operation.dart'
+import 'package:aws_query_v1/src/query_protocol/operation/query_lists_operation.dart'
     as _i35;
-import 'package:aws_query_v1/src/query_protocol/operation/query_timestamps_operation.dart'
+import 'package:aws_query_v1/src/query_protocol/operation/query_maps_operation.dart'
     as _i37;
-import 'package:aws_query_v1/src/query_protocol/operation/recursive_xml_shapes_operation.dart'
+import 'package:aws_query_v1/src/query_protocol/operation/query_timestamps_operation.dart'
     as _i39;
-import 'package:aws_query_v1/src/query_protocol/operation/simple_input_params_operation.dart'
+import 'package:aws_query_v1/src/query_protocol/operation/recursive_xml_shapes_operation.dart'
     as _i41;
-import 'package:aws_query_v1/src/query_protocol/operation/simple_scalar_xml_properties_operation.dart'
+import 'package:aws_query_v1/src/query_protocol/operation/simple_input_params_operation.dart'
     as _i43;
-import 'package:aws_query_v1/src/query_protocol/operation/xml_blobs_operation.dart'
+import 'package:aws_query_v1/src/query_protocol/operation/simple_scalar_xml_properties_operation.dart'
     as _i45;
+import 'package:aws_query_v1/src/query_protocol/operation/xml_blobs_operation.dart'
+    as _i47;
 import 'package:aws_query_v1/src/query_protocol/operation/xml_empty_blobs_operation.dart'
-    as _i46;
-import 'package:aws_query_v1/src/query_protocol/operation/xml_empty_lists_operation.dart'
     as _i48;
-import 'package:aws_query_v1/src/query_protocol/operation/xml_empty_maps_operation.dart'
+import 'package:aws_query_v1/src/query_protocol/operation/xml_empty_lists_operation.dart'
     as _i50;
-import 'package:aws_query_v1/src/query_protocol/operation/xml_enums_operation.dart'
+import 'package:aws_query_v1/src/query_protocol/operation/xml_empty_maps_operation.dart'
     as _i52;
-import 'package:aws_query_v1/src/query_protocol/operation/xml_int_enums_operation.dart'
+import 'package:aws_query_v1/src/query_protocol/operation/xml_enums_operation.dart'
     as _i54;
-import 'package:aws_query_v1/src/query_protocol/operation/xml_lists_operation.dart'
-    as _i55;
-import 'package:aws_query_v1/src/query_protocol/operation/xml_maps_operation.dart'
+import 'package:aws_query_v1/src/query_protocol/operation/xml_int_enums_operation.dart'
     as _i56;
-import 'package:aws_query_v1/src/query_protocol/operation/xml_maps_xml_name_operation.dart'
+import 'package:aws_query_v1/src/query_protocol/operation/xml_lists_operation.dart'
+    as _i57;
+import 'package:aws_query_v1/src/query_protocol/operation/xml_maps_operation.dart'
     as _i58;
-import 'package:aws_query_v1/src/query_protocol/operation/xml_namespaces_operation.dart'
+import 'package:aws_query_v1/src/query_protocol/operation/xml_maps_xml_name_operation.dart'
     as _i60;
-import 'package:aws_query_v1/src/query_protocol/operation/xml_timestamps_operation.dart'
+import 'package:aws_query_v1/src/query_protocol/operation/xml_namespaces_operation.dart'
     as _i62;
+import 'package:aws_query_v1/src/query_protocol/operation/xml_timestamps_operation.dart'
+    as _i64;
 import 'package:smithy/smithy.dart' as _i2;
 
 /// A query service that sends query requests and XML responses.
@@ -348,12 +352,27 @@ class QueryProtocolClient {
     );
   }
 
-  /// Automatically adds idempotency tokens.
-  _i2.SmithyOperation<void> queryIdempotencyTokenAutoFill(
-    _i30.QueryIdempotencyTokenAutoFillInput input, {
+  _i2.SmithyOperation<void> putWithContentEncoding(
+    _i30.PutWithContentEncodingInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i31.QueryIdempotencyTokenAutoFillOperation(
+    return _i31.PutWithContentEncodingOperation(
+      region: _region,
+      baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
+  }
+
+  /// Automatically adds idempotency tokens.
+  _i2.SmithyOperation<void> queryIdempotencyTokenAutoFill(
+    _i32.QueryIdempotencyTokenAutoFillInput input, {
+    _i1.AWSHttpClient? client,
+  }) {
+    return _i33.QueryIdempotencyTokenAutoFillOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -366,10 +385,10 @@ class QueryProtocolClient {
 
   /// This test serializes simple and complex lists.
   _i2.SmithyOperation<void> queryLists(
-    _i32.QueryListsInput input, {
+    _i34.QueryListsInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i33.QueryListsOperation(
+    return _i35.QueryListsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -382,10 +401,10 @@ class QueryProtocolClient {
 
   /// This test serializes simple and complex maps.
   _i2.SmithyOperation<void> queryMaps(
-    _i34.QueryMapsInput input, {
+    _i36.QueryMapsInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i35.QueryMapsOperation(
+    return _i37.QueryMapsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -398,10 +417,10 @@ class QueryProtocolClient {
 
   /// This test serializes timestamps. 1. Timestamps are serialized as RFC 3339 date-time values by default. 2. A timestampFormat trait on a member changes the format. 3. A timestampFormat trait on the shape targeted by the member changes the format.
   _i2.SmithyOperation<void> queryTimestamps(
-    _i36.QueryTimestampsInput input, {
+    _i38.QueryTimestampsInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i37.QueryTimestampsOperation(
+    return _i39.QueryTimestampsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -413,9 +432,9 @@ class QueryProtocolClient {
   }
 
   /// Recursive shapes
-  _i2.SmithyOperation<_i38.RecursiveXmlShapesOutput> recursiveXmlShapes(
+  _i2.SmithyOperation<_i40.RecursiveXmlShapesOutput> recursiveXmlShapes(
       {_i1.AWSHttpClient? client}) {
-    return _i39.RecursiveXmlShapesOperation(
+    return _i41.RecursiveXmlShapesOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -428,10 +447,10 @@ class QueryProtocolClient {
 
   /// This test serializes strings, numbers, and boolean values.
   _i2.SmithyOperation<void> simpleInputParams(
-    _i40.SimpleInputParamsInput input, {
+    _i42.SimpleInputParamsInput input, {
     _i1.AWSHttpClient? client,
   }) {
-    return _i41.SimpleInputParamsOperation(
+    return _i43.SimpleInputParamsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -442,9 +461,9 @@ class QueryProtocolClient {
     );
   }
 
-  _i2.SmithyOperation<_i42.SimpleScalarXmlPropertiesOutput>
+  _i2.SmithyOperation<_i44.SimpleScalarXmlPropertiesOutput>
       simpleScalarXmlProperties({_i1.AWSHttpClient? client}) {
-    return _i43.SimpleScalarXmlPropertiesOperation(
+    return _i45.SimpleScalarXmlPropertiesOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -456,9 +475,9 @@ class QueryProtocolClient {
   }
 
   /// Blobs are base64 encoded
-  _i2.SmithyOperation<_i44.XmlBlobsOutput> xmlBlobs(
+  _i2.SmithyOperation<_i46.XmlBlobsOutput> xmlBlobs(
       {_i1.AWSHttpClient? client}) {
-    return _i45.XmlBlobsOperation(
+    return _i47.XmlBlobsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -469,9 +488,9 @@ class QueryProtocolClient {
     );
   }
 
-  _i2.SmithyOperation<_i44.XmlBlobsOutput> xmlEmptyBlobs(
+  _i2.SmithyOperation<_i46.XmlBlobsOutput> xmlEmptyBlobs(
       {_i1.AWSHttpClient? client}) {
-    return _i46.XmlEmptyBlobsOperation(
+    return _i48.XmlEmptyBlobsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -482,9 +501,9 @@ class QueryProtocolClient {
     );
   }
 
-  _i2.SmithyOperation<_i47.XmlListsOutput> xmlEmptyLists(
+  _i2.SmithyOperation<_i49.XmlListsOutput> xmlEmptyLists(
       {_i1.AWSHttpClient? client}) {
-    return _i48.XmlEmptyListsOperation(
+    return _i50.XmlEmptyListsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -495,23 +514,9 @@ class QueryProtocolClient {
     );
   }
 
-  _i2.SmithyOperation<_i49.XmlMapsOutput> xmlEmptyMaps(
+  _i2.SmithyOperation<_i51.XmlMapsOutput> xmlEmptyMaps(
       {_i1.AWSHttpClient? client}) {
-    return _i50.XmlEmptyMapsOperation(
-      region: _region,
-      baseUri: _baseUri,
-      requestInterceptors: _requestInterceptors,
-      responseInterceptors: _responseInterceptors,
-    ).run(
-      const _i2.Unit(),
-      client: client ?? _client,
-    );
-  }
-
-  /// This example serializes enums as top level properties, in lists, sets, and maps.
-  _i2.SmithyOperation<_i51.XmlEnumsOutput> xmlEnums(
-      {_i1.AWSHttpClient? client}) {
-    return _i52.XmlEnumsOperation(
+    return _i52.XmlEmptyMapsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -523,9 +528,23 @@ class QueryProtocolClient {
   }
 
   /// This example serializes enums as top level properties, in lists, sets, and maps.
-  _i2.SmithyOperation<_i53.XmlIntEnumsOutput> xmlIntEnums(
+  _i2.SmithyOperation<_i53.XmlEnumsOutput> xmlEnums(
       {_i1.AWSHttpClient? client}) {
-    return _i54.XmlIntEnumsOperation(
+    return _i54.XmlEnumsOperation(
+      region: _region,
+      baseUri: _baseUri,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
+    ).run(
+      const _i2.Unit(),
+      client: client ?? _client,
+    );
+  }
+
+  /// This example serializes enums as top level properties, in lists, sets, and maps.
+  _i2.SmithyOperation<_i55.XmlIntEnumsOutput> xmlIntEnums(
+      {_i1.AWSHttpClient? client}) {
+    return _i56.XmlIntEnumsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -537,9 +556,9 @@ class QueryProtocolClient {
   }
 
   /// This test case serializes XML lists for the following cases for both input and output: 1. Normal XML lists. 2. Normal XML sets. 3. XML lists of lists. 4. XML lists with @xmlName on its members 5. Flattened XML lists. 6. Flattened XML lists with @xmlName. 7. Lists of structures.
-  _i2.SmithyOperation<_i47.XmlListsOutput> xmlLists(
+  _i2.SmithyOperation<_i49.XmlListsOutput> xmlLists(
       {_i1.AWSHttpClient? client}) {
-    return _i55.XmlListsOperation(
+    return _i57.XmlListsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -551,8 +570,8 @@ class QueryProtocolClient {
   }
 
   /// The example tests basic map serialization.
-  _i2.SmithyOperation<_i49.XmlMapsOutput> xmlMaps({_i1.AWSHttpClient? client}) {
-    return _i56.XmlMapsOperation(
+  _i2.SmithyOperation<_i51.XmlMapsOutput> xmlMaps({_i1.AWSHttpClient? client}) {
+    return _i58.XmlMapsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -563,9 +582,9 @@ class QueryProtocolClient {
     );
   }
 
-  _i2.SmithyOperation<_i57.XmlMapsXmlNameOutput> xmlMapsXmlName(
+  _i2.SmithyOperation<_i59.XmlMapsXmlNameOutput> xmlMapsXmlName(
       {_i1.AWSHttpClient? client}) {
-    return _i58.XmlMapsXmlNameOperation(
+    return _i60.XmlMapsXmlNameOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -576,9 +595,9 @@ class QueryProtocolClient {
     );
   }
 
-  _i2.SmithyOperation<_i59.XmlNamespacesOutput> xmlNamespaces(
+  _i2.SmithyOperation<_i61.XmlNamespacesOutput> xmlNamespaces(
       {_i1.AWSHttpClient? client}) {
-    return _i60.XmlNamespacesOperation(
+    return _i62.XmlNamespacesOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,
@@ -590,9 +609,9 @@ class QueryProtocolClient {
   }
 
   /// This tests how timestamps are serialized, including using the default format of date-time and various @timestampFormat trait values.
-  _i2.SmithyOperation<_i61.XmlTimestampsOutput> xmlTimestamps(
+  _i2.SmithyOperation<_i63.XmlTimestampsOutput> xmlTimestamps(
       {_i1.AWSHttpClient? client}) {
-    return _i62.XmlTimestampsOperation(
+    return _i64.XmlTimestampsOperation(
       region: _region,
       baseUri: _baseUri,
       requestInterceptors: _requestInterceptors,

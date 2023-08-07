@@ -199,6 +199,47 @@ void main() {
     },
   );
   _i1.test(
+    'RestXmlQueryStringEscaping (request)',
+    () async {
+      await _i2.httpRequestTest(
+        operation: _i3.AllQueryStringTypesOperation(
+          region: 'us-east-1',
+          baseUri: Uri.parse('https://example.com'),
+        ),
+        testCase: const _i2.HttpRequestTestCase(
+          id: 'RestXmlQueryStringEscaping',
+          documentation:
+              'Handles escaping all required characters in the query string.',
+          protocol: _i4.ShapeId(
+            namespace: 'aws.protocols',
+            shape: 'restXml',
+          ),
+          authScheme: null,
+          body: '',
+          bodyMediaType: null,
+          params: {'queryString': ' %:/?#[]@!\$&\'()*+,;=😹'},
+          vendorParamsShape: null,
+          vendorParams: {},
+          headers: {},
+          forbidHeaders: [],
+          requireHeaders: [],
+          tags: [],
+          appliesTo: null,
+          method: 'GET',
+          uri: '/AllQueryStringTypesInput',
+          host: null,
+          resolvedHost: null,
+          queryParams: [
+            'String=%20%25%3A%2F%3F%23%5B%5D%40%21%24%26%27%28%29%2A%2B%2C%3B%3D%F0%9F%98%B9'
+          ],
+          forbidQueryParams: [],
+          requireQueryParams: [],
+        ),
+        inputSerializers: const [AllQueryStringTypesInputRestXmlSerializer()],
+      );
+    },
+  );
+  _i1.test(
     'RestXmlSupportsNaNFloatQueryValues (request)',
     () async {
       await _i2.httpRequestTest(

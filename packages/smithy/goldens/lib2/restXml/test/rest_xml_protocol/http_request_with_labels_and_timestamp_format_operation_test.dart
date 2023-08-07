@@ -65,8 +65,8 @@ void main() {
   );
 }
 
-class HttpRequestWithLabelsAndTimestampFormatInputRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<
+class HttpRequestWithLabelsAndTimestampFormatInputRestXmlSerializer extends _i4
+    .StructuredSmithySerializer<
         _i5.HttpRequestWithLabelsAndTimestampFormatInput> {
   const HttpRequestWithLabelsAndTimestampFormatInputRestXmlSerializer()
       : super('HttpRequestWithLabelsAndTimestampFormatInput');

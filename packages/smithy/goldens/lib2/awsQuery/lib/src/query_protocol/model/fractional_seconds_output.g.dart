@@ -9,14 +9,12 @@ part of 'fractional_seconds_output.dart';
 class _$FractionalSecondsOutput extends FractionalSecondsOutput {
   @override
   final DateTime? datetime;
-  @override
-  final DateTime? httpdate;
 
   factory _$FractionalSecondsOutput(
           [void Function(FractionalSecondsOutputBuilder)? updates]) =>
       (new FractionalSecondsOutputBuilder()..update(updates))._build();
 
-  _$FractionalSecondsOutput._({this.datetime, this.httpdate}) : super._();
+  _$FractionalSecondsOutput._({this.datetime}) : super._();
 
   @override
   FractionalSecondsOutput rebuild(
@@ -30,16 +28,13 @@ class _$FractionalSecondsOutput extends FractionalSecondsOutput {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is FractionalSecondsOutput &&
-        datetime == other.datetime &&
-        httpdate == other.httpdate;
+    return other is FractionalSecondsOutput && datetime == other.datetime;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, datetime.hashCode);
-    _$hash = $jc(_$hash, httpdate.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -54,17 +49,12 @@ class FractionalSecondsOutputBuilder
   DateTime? get datetime => _$this._datetime;
   set datetime(DateTime? datetime) => _$this._datetime = datetime;
 
-  DateTime? _httpdate;
-  DateTime? get httpdate => _$this._httpdate;
-  set httpdate(DateTime? httpdate) => _$this._httpdate = httpdate;
-
   FractionalSecondsOutputBuilder();
 
   FractionalSecondsOutputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _datetime = $v.datetime;
-      _httpdate = $v.httpdate;
       _$v = null;
     }
     return this;
@@ -85,8 +75,7 @@ class FractionalSecondsOutputBuilder
   FractionalSecondsOutput build() => _build();
 
   _$FractionalSecondsOutput _build() {
-    final _$result = _$v ??
-        new _$FractionalSecondsOutput._(datetime: datetime, httpdate: httpdate);
+    final _$result = _$v ?? new _$FractionalSecondsOutput._(datetime: datetime);
     replace(_$result);
     return _$result;
   }

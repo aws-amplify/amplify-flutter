@@ -3,9 +3,9 @@
 
 library aws_json1_1_v1.json_protocol.common.serializers; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_json1_1_v1/src/json_protocol/model/aws_config.dart' as _i36;
+import 'package:aws_json1_1_v1/src/json_protocol/model/aws_config.dart' as _i37;
 import 'package:aws_json1_1_v1/src/json_protocol/model/client_config.dart'
-    as _i33;
+    as _i34;
 import 'package:aws_json1_1_v1/src/json_protocol/model/complex_error.dart'
     as _i5;
 import 'package:aws_json1_1_v1/src/json_protocol/model/complex_nested_error_data.dart'
@@ -15,13 +15,13 @@ import 'package:aws_json1_1_v1/src/json_protocol/model/datetime_offsets_output.d
 import 'package:aws_json1_1_v1/src/json_protocol/model/empty_struct.dart'
     as _i17;
 import 'package:aws_json1_1_v1/src/json_protocol/model/environment_config.dart'
-    as _i28;
+    as _i29;
 import 'package:aws_json1_1_v1/src/json_protocol/model/error_with_members.dart'
     as _i20;
 import 'package:aws_json1_1_v1/src/json_protocol/model/error_without_members.dart'
     as _i21;
 import 'package:aws_json1_1_v1/src/json_protocol/model/file_config_settings.dart'
-    as _i31;
+    as _i32;
 import 'package:aws_json1_1_v1/src/json_protocol/model/foo_enum.dart' as _i11;
 import 'package:aws_json1_1_v1/src/json_protocol/model/foo_error.dart' as _i7;
 import 'package:aws_json1_1_v1/src/json_protocol/model/fractional_seconds_output.dart'
@@ -44,30 +44,32 @@ import 'package:aws_json1_1_v1/src/json_protocol/model/my_union.dart' as _i15;
 import 'package:aws_json1_1_v1/src/json_protocol/model/null_operation_input_output.dart'
     as _i22;
 import 'package:aws_json1_1_v1/src/json_protocol/model/operation_config.dart'
-    as _i34;
+    as _i35;
 import 'package:aws_json1_1_v1/src/json_protocol/model/operation_with_optional_input_output_input.dart'
     as _i23;
 import 'package:aws_json1_1_v1/src/json_protocol/model/operation_with_optional_input_output_output.dart'
     as _i24;
 import 'package:aws_json1_1_v1/src/json_protocol/model/put_and_get_inline_documents_input_output.dart'
     as _i25;
-import 'package:aws_json1_1_v1/src/json_protocol/model/retry_config.dart'
-    as _i32;
-import 'package:aws_json1_1_v1/src/json_protocol/model/retry_mode.dart' as _i27;
-import 'package:aws_json1_1_v1/src/json_protocol/model/s3_addressing_style.dart'
-    as _i29;
-import 'package:aws_json1_1_v1/src/json_protocol/model/s3_config.dart' as _i30;
-import 'package:aws_json1_1_v1/src/json_protocol/model/scoped_config.dart'
-    as _i35;
-import 'package:aws_json1_1_v1/src/json_protocol/model/simple_scalar_properties_input_output.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/put_with_content_encoding_input.dart'
     as _i26;
+import 'package:aws_json1_1_v1/src/json_protocol/model/retry_config.dart'
+    as _i33;
+import 'package:aws_json1_1_v1/src/json_protocol/model/retry_mode.dart' as _i28;
+import 'package:aws_json1_1_v1/src/json_protocol/model/s3_addressing_style.dart'
+    as _i30;
+import 'package:aws_json1_1_v1/src/json_protocol/model/s3_config.dart' as _i31;
+import 'package:aws_json1_1_v1/src/json_protocol/model/scoped_config.dart'
+    as _i36;
+import 'package:aws_json1_1_v1/src/json_protocol/model/simple_scalar_properties_input_output.dart'
+    as _i27;
 import 'package:aws_json1_1_v1/src/json_protocol/model/simple_struct.dart'
     as _i18;
 import 'package:aws_json1_1_v1/src/json_protocol/model/struct_with_json_name.dart'
     as _i19;
 import 'package:aws_json1_1_v1/src/json_protocol/model/union_input_output.dart'
     as _i13;
-import 'package:built_collection/built_collection.dart' as _i37;
+import 'package:built_collection/built_collection.dart' as _i38;
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
@@ -96,139 +98,140 @@ const List<_i1.SmithySerializer> serializers = [
   ..._i23.OperationWithOptionalInputOutputInput.serializers,
   ..._i24.OperationWithOptionalInputOutputOutput.serializers,
   ..._i25.PutAndGetInlineDocumentsInputOutput.serializers,
-  ..._i26.SimpleScalarPropertiesInputOutput.serializers,
-  ..._i27.RetryMode.serializers,
-  ..._i28.EnvironmentConfig.serializers,
-  ..._i29.S3AddressingStyle.serializers,
-  ..._i30.S3Config.serializers,
-  ..._i31.FileConfigSettings.serializers,
-  ..._i32.RetryConfig.serializers,
-  ..._i33.ClientConfig.serializers,
-  ..._i34.OperationConfig.serializers,
-  ..._i35.ScopedConfig.serializers,
-  ..._i36.AwsConfig.serializers,
+  ..._i26.PutWithContentEncodingInput.serializers,
+  ..._i27.SimpleScalarPropertiesInputOutput.serializers,
+  ..._i28.RetryMode.serializers,
+  ..._i29.EnvironmentConfig.serializers,
+  ..._i30.S3AddressingStyle.serializers,
+  ..._i31.S3Config.serializers,
+  ..._i32.FileConfigSettings.serializers,
+  ..._i33.RetryConfig.serializers,
+  ..._i34.ClientConfig.serializers,
+  ..._i35.OperationConfig.serializers,
+  ..._i36.ScopedConfig.serializers,
+  ..._i37.AwsConfig.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
   const FullType(
-    _i37.BuiltList,
+    _i38.BuiltList,
     [FullType(_i11.FooEnum)],
-  ): _i37.ListBuilder<_i11.FooEnum>.new,
+  ): _i38.ListBuilder<_i11.FooEnum>.new,
   const FullType(
-    _i37.BuiltSet,
+    _i38.BuiltSet,
     [FullType(_i11.FooEnum)],
-  ): _i37.SetBuilder<_i11.FooEnum>.new,
+  ): _i38.SetBuilder<_i11.FooEnum>.new,
   const FullType(
-    _i37.BuiltMap,
+    _i38.BuiltMap,
     [
       FullType(String),
       FullType(_i11.FooEnum),
     ],
-  ): _i37.MapBuilder<String, _i11.FooEnum>.new,
+  ): _i38.MapBuilder<String, _i11.FooEnum>.new,
   const FullType(
-    _i37.BuiltList,
+    _i38.BuiltList,
     [FullType(int)],
-  ): _i37.ListBuilder<int>.new,
+  ): _i38.ListBuilder<int>.new,
   const FullType(
-    _i37.BuiltSet,
+    _i38.BuiltSet,
     [FullType(int)],
-  ): _i37.SetBuilder<int>.new,
+  ): _i38.SetBuilder<int>.new,
   const FullType(
-    _i37.BuiltMap,
+    _i38.BuiltMap,
     [
       FullType(String),
       FullType(int),
     ],
-  ): _i37.MapBuilder<String, int>.new,
+  ): _i38.MapBuilder<String, int>.new,
   const FullType(
-    _i37.BuiltList,
+    _i38.BuiltList,
     [FullType(String)],
-  ): _i37.ListBuilder<String>.new,
+  ): _i38.ListBuilder<String>.new,
   const FullType(
-    _i37.BuiltMap,
+    _i38.BuiltMap,
     [
       FullType(String),
       FullType(String),
     ],
-  ): _i37.MapBuilder<String, String>.new,
+  ): _i38.MapBuilder<String, String>.new,
   const FullType(
-    _i37.BuiltList,
+    _i38.BuiltList,
     [
       FullType(
-        _i37.BuiltList,
+        _i38.BuiltList,
         [FullType(String)],
       )
     ],
-  ): _i37.ListBuilder<_i37.BuiltList<String>>.new,
+  ): _i38.ListBuilder<_i38.BuiltList<String>>.new,
   const FullType(
-    _i37.BuiltList,
+    _i38.BuiltList,
     [
       FullType(
-        _i37.BuiltMap,
+        _i38.BuiltMap,
         [
           FullType(String),
           FullType(String),
         ],
       )
     ],
-  ): _i37.ListBuilder<_i37.BuiltMap<String, String>>.new,
+  ): _i38.ListBuilder<_i38.BuiltMap<String, String>>.new,
   const FullType(
-    _i37.BuiltList,
+    _i38.BuiltList,
     [FullType(_i18.SimpleStruct)],
-  ): _i37.ListBuilder<_i18.SimpleStruct>.new,
+  ): _i38.ListBuilder<_i18.SimpleStruct>.new,
   const FullType(
-    _i37.BuiltListMultimap,
+    _i38.BuiltListMultimap,
     [
       FullType(String),
       FullType(String),
     ],
-  ): _i37.ListMultimapBuilder<String, String>.new,
+  ): _i38.ListMultimapBuilder<String, String>.new,
   const FullType(
-    _i37.BuiltMap,
+    _i38.BuiltMap,
     [
       FullType(String),
       FullType(
-        _i37.BuiltMap,
+        _i38.BuiltMap,
         [
           FullType(String),
           FullType(String),
         ],
       ),
     ],
-  ): _i37.MapBuilder<String, _i37.BuiltMap<String, String>>.new,
+  ): _i38.MapBuilder<String, _i38.BuiltMap<String, String>>.new,
   const FullType(
-    _i37.BuiltMap,
+    _i38.BuiltMap,
     [
       FullType(String),
       FullType(_i18.SimpleStruct),
     ],
-  ): _i37.MapBuilder<String, _i18.SimpleStruct>.new,
+  ): _i38.MapBuilder<String, _i18.SimpleStruct>.new,
   const FullType(
-    _i37.BuiltList,
+    _i38.BuiltList,
     [FullType(_i16.KitchenSink)],
-  ): _i37.ListBuilder<_i16.KitchenSink>.new,
+  ): _i38.ListBuilder<_i16.KitchenSink>.new,
   const FullType(
-    _i37.BuiltMap,
+    _i38.BuiltMap,
     [
       FullType(String),
       FullType(_i16.KitchenSink),
     ],
-  ): _i37.MapBuilder<String, _i16.KitchenSink>.new,
+  ): _i38.MapBuilder<String, _i16.KitchenSink>.new,
   const FullType(
-    _i37.BuiltList,
+    _i38.BuiltList,
     [FullType.nullable(String)],
-  ): _i37.ListBuilder<String?>.new,
+  ): _i38.ListBuilder<String?>.new,
   const FullType(
-    _i37.BuiltMap,
+    _i38.BuiltMap,
     [
       FullType(String),
       FullType.nullable(String),
     ],
-  ): _i37.MapBuilder<String, String?>.new,
+  ): _i38.MapBuilder<String, String?>.new,
   const FullType(
-    _i37.BuiltMap,
+    _i38.BuiltMap,
     [
       FullType(String),
-      FullType(_i31.FileConfigSettings),
+      FullType(_i32.FileConfigSettings),
     ],
-  ): _i37.MapBuilder<String, _i31.FileConfigSettings>.new,
+  ): _i38.MapBuilder<String, _i32.FileConfigSettings>.new,
 };
