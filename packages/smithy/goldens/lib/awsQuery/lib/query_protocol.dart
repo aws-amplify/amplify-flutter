@@ -30,6 +30,7 @@ export 'package:aws_query_v1/src/query_protocol/model/nested_structures_input.da
 export 'package:aws_query_v1/src/query_protocol/model/no_input_and_output_input.dart';
 export 'package:aws_query_v1/src/query_protocol/model/no_input_and_output_output.dart';
 export 'package:aws_query_v1/src/query_protocol/model/operation_config.dart';
+export 'package:aws_query_v1/src/query_protocol/model/put_with_content_encoding_input.dart';
 export 'package:aws_query_v1/src/query_protocol/model/query_idempotency_token_auto_fill_input.dart';
 export 'package:aws_query_v1/src/query_protocol/model/query_lists_input.dart';
 export 'package:aws_query_v1/src/query_protocol/model/query_maps_input.dart';

@@ -7,6 +7,7 @@ library rest_json1_v1.rest_json_validation_protocol;
 export 'package:rest_json1_v1/src/rest_json_validation_protocol/model/aws_config.dart';
 export 'package:rest_json1_v1/src/rest_json_validation_protocol/model/client_config.dart';
 export 'package:rest_json1_v1/src/rest_json_validation_protocol/model/enum_string.dart';
+export 'package:rest_json1_v1/src/rest_json_validation_protocol/model/enum_trait_string.dart';
 export 'package:rest_json1_v1/src/rest_json_validation_protocol/model/enum_union.dart';
 export 'package:rest_json1_v1/src/rest_json_validation_protocol/model/environment_config.dart';
 export 'package:rest_json1_v1/src/rest_json_validation_protocol/model/file_config_settings.dart';
@@ -25,6 +26,7 @@ export 'package:rest_json1_v1/src/rest_json_validation_protocol/model/malformed_
 export 'package:rest_json1_v1/src/rest_json_validation_protocol/model/malformed_required_input.dart'
     hide MalformedRequiredInputPayload;
 export 'package:rest_json1_v1/src/rest_json_validation_protocol/model/malformed_unique_items_input.dart';
+export 'package:rest_json1_v1/src/rest_json_validation_protocol/model/missing_key_structure.dart';
 export 'package:rest_json1_v1/src/rest_json_validation_protocol/model/operation_config.dart';
 export 'package:rest_json1_v1/src/rest_json_validation_protocol/model/pattern_union.dart';
 export 'package:rest_json1_v1/src/rest_json_validation_protocol/model/pattern_union_override.dart';
