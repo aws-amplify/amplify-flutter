@@ -137,8 +137,8 @@ abstract class GetBucketAccelerateConfigurationRequestPayload
   }
 }
 
-class GetBucketAccelerateConfigurationRequestRestXmlSerializer
-    extends _i1.StructuredSmithySerializer<
+class GetBucketAccelerateConfigurationRequestRestXmlSerializer extends _i1
+    .StructuredSmithySerializer<
         GetBucketAccelerateConfigurationRequestPayload> {
   const GetBucketAccelerateConfigurationRequestRestXmlSerializer()
       : super('GetBucketAccelerateConfigurationRequest');

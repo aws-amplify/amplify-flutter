@@ -41,6 +41,8 @@ class _$CreateStackInput extends CreateStackInput {
   final String? clientRequestToken;
   @override
   final bool? enableTerminationProtection;
+  @override
+  final bool? retainExceptOnCreate;
 
   factory _$CreateStackInput(
           [void Function(CreateStackInputBuilder)? updates]) =>
@@ -63,7 +65,8 @@ class _$CreateStackInput extends CreateStackInput {
       this.stackPolicyUrl,
       this.tags,
       this.clientRequestToken,
-      this.enableTerminationProtection})
+      this.enableTerminationProtection,
+      this.retainExceptOnCreate})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         stackName, r'CreateStackInput', 'stackName');
@@ -97,7 +100,8 @@ class _$CreateStackInput extends CreateStackInput {
         stackPolicyUrl == other.stackPolicyUrl &&
         tags == other.tags &&
         clientRequestToken == other.clientRequestToken &&
-        enableTerminationProtection == other.enableTerminationProtection;
+        enableTerminationProtection == other.enableTerminationProtection &&
+        retainExceptOnCreate == other.retainExceptOnCreate;
   }
 
   @override
@@ -120,6 +124,7 @@ class _$CreateStackInput extends CreateStackInput {
     _$hash = $jc(_$hash, tags.hashCode);
     _$hash = $jc(_$hash, clientRequestToken.hashCode);
     _$hash = $jc(_$hash, enableTerminationProtection.hashCode);
+    _$hash = $jc(_$hash, retainExceptOnCreate.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -215,6 +220,11 @@ class CreateStackInputBuilder
   set enableTerminationProtection(bool? enableTerminationProtection) =>
       _$this._enableTerminationProtection = enableTerminationProtection;
 
+  bool? _retainExceptOnCreate;
+  bool? get retainExceptOnCreate => _$this._retainExceptOnCreate;
+  set retainExceptOnCreate(bool? retainExceptOnCreate) =>
+      _$this._retainExceptOnCreate = retainExceptOnCreate;
+
   CreateStackInputBuilder();
 
   CreateStackInputBuilder get _$this {
@@ -237,6 +247,7 @@ class CreateStackInputBuilder
       _tags = $v.tags?.toBuilder();
       _clientRequestToken = $v.clientRequestToken;
       _enableTerminationProtection = $v.enableTerminationProtection;
+      _retainExceptOnCreate = $v.retainExceptOnCreate;
       _$v = null;
     }
     return this;
@@ -278,7 +289,8 @@ class CreateStackInputBuilder
               stackPolicyUrl: stackPolicyUrl,
               tags: _tags?.build(),
               clientRequestToken: clientRequestToken,
-              enableTerminationProtection: enableTerminationProtection);
+              enableTerminationProtection: enableTerminationProtection,
+              retainExceptOnCreate: retainExceptOnCreate);
     } catch (_) {
       late String _$failedField;
       try {

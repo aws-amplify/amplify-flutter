@@ -60,9 +60,7 @@ class VerifySoftwareTokenResponseBuilder
   String? get session => _$this._session;
   set session(String? session) => _$this._session = session;
 
-  VerifySoftwareTokenResponseBuilder() {
-    VerifySoftwareTokenResponse._init(this);
-  }
+  VerifySoftwareTokenResponseBuilder();
 
   VerifySoftwareTokenResponseBuilder get _$this {
     final $v = _$v;

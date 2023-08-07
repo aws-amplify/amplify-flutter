@@ -28,8 +28,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/no_such_config_rule_
     as _i13;
 
 /// Returns the evaluation results for the specified Config rule. The results indicate which Amazon Web Services resources were evaluated by the rule, when each resource was last evaluated, and whether each resource complies with the rule.
-class GetComplianceDetailsByConfigRuleOperation
-    extends _i1.PaginatedHttpOperation<
+class GetComplianceDetailsByConfigRuleOperation extends _i1
+    .PaginatedHttpOperation<
         _i2.GetComplianceDetailsByConfigRuleRequest,
         _i2.GetComplianceDetailsByConfigRuleRequest,
         _i3.GetComplianceDetailsByConfigRuleResponse,

@@ -60,9 +60,7 @@ class GetDeviceRequestBuilder
   String? get accessToken => _$this._accessToken;
   set accessToken(String? accessToken) => _$this._accessToken = accessToken;
 
-  GetDeviceRequestBuilder() {
-    GetDeviceRequest._init(this);
-  }
+  GetDeviceRequestBuilder();
 
   GetDeviceRequestBuilder get _$this {
     final $v = _$v;

@@ -97,9 +97,7 @@ class GetUserResponseBuilder
   set userMfaSettingList(_i4.ListBuilder<String>? userMfaSettingList) =>
       _$this._userMfaSettingList = userMfaSettingList;
 
-  GetUserResponseBuilder() {
-    GetUserResponse._init(this);
-  }
+  GetUserResponseBuilder();
 
   GetUserResponseBuilder get _$this {
     final $v = _$v;

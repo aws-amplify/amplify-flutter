@@ -52,8 +52,8 @@ import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_intelligent_tiering_c
 /// HTTP 403 Forbidden Error
 ///
 /// _Cause:_ You are not the owner of the specified bucket, or you do not have the `s3:PutIntelligentTieringConfiguration` bucket permission to set the configuration on the bucket.
-class PutBucketIntelligentTieringConfigurationOperation
-    extends _i1.HttpOperation<
+class PutBucketIntelligentTieringConfigurationOperation extends _i1
+    .HttpOperation<
         _i2.IntelligentTieringConfiguration,
         _i3.PutBucketIntelligentTieringConfigurationRequest,
         _i1.Unit,

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.get_user_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -54,10 +54,7 @@ abstract class GetUserResponse
     GetUserResponseAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetUserResponseBuilder b) {}
-
-  /// The user name of the user you want to retrieve from the get user request.
+  /// The username of the user that you requested.
   String get username;
 
   /// An array of name-value pairs representing user attributes.

@@ -54,9 +54,7 @@ class AliasExistsExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  AliasExistsExceptionBuilder() {
-    AliasExistsException._init(this);
-  }
+  AliasExistsExceptionBuilder();
 
   AliasExistsExceptionBuilder get _$this {
     final $v = _$v;

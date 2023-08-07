@@ -28,8 +28,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/no_such_conformance_
     as _i13;
 
 /// Returns compliance details for the conformance pack based on the cumulative compliance results of all the rules in that conformance pack.
-class GetConformancePackComplianceSummaryOperation
-    extends _i1.PaginatedHttpOperation<
+class GetConformancePackComplianceSummaryOperation extends _i1
+    .PaginatedHttpOperation<
         _i2.GetConformancePackComplianceSummaryRequest,
         _i2.GetConformancePackComplianceSummaryRequest,
         _i3.GetConformancePackComplianceSummaryResponse,

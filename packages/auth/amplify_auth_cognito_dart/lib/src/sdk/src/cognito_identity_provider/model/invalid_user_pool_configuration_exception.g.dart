@@ -62,9 +62,7 @@ class InvalidUserPoolConfigurationExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InvalidUserPoolConfigurationExceptionBuilder() {
-    InvalidUserPoolConfigurationException._init(this);
-  }
+  InvalidUserPoolConfigurationExceptionBuilder();
 
   InvalidUserPoolConfigurationExceptionBuilder get _$this {
     final $v = _$v;

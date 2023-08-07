@@ -60,9 +60,7 @@ class ListDevicesResponseBuilder
   set paginationToken(String? paginationToken) =>
       _$this._paginationToken = paginationToken;
 
-  ListDevicesResponseBuilder() {
-    ListDevicesResponse._init(this);
-  }
+  ListDevicesResponseBuilder();
 
   ListDevicesResponseBuilder get _$this {
     final $v = _$v;

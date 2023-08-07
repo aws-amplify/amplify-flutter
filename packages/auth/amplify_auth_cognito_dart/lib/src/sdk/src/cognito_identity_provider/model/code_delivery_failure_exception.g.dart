@@ -56,9 +56,7 @@ class CodeDeliveryFailureExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  CodeDeliveryFailureExceptionBuilder() {
-    CodeDeliveryFailureException._init(this);
-  }
+  CodeDeliveryFailureExceptionBuilder();
 
   CodeDeliveryFailureExceptionBuilder get _$this {
     final $v = _$v;

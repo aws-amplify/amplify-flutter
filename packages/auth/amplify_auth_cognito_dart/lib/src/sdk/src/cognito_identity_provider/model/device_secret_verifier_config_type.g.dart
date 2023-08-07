@@ -61,9 +61,7 @@ class DeviceSecretVerifierConfigTypeBuilder
   String? get salt => _$this._salt;
   set salt(String? salt) => _$this._salt = salt;
 
-  DeviceSecretVerifierConfigTypeBuilder() {
-    DeviceSecretVerifierConfigType._init(this);
-  }
+  DeviceSecretVerifierConfigTypeBuilder();
 
   DeviceSecretVerifierConfigTypeBuilder get _$this {
     final $v = _$v;

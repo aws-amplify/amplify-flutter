@@ -12,15 +12,15 @@ class _$AssumeRoleRequest extends AssumeRoleRequest {
   @override
   final String roleSessionName;
   @override
-  final _i5.BuiltList<_i3.PolicyDescriptorType>? policyArns;
+  final _i6.BuiltList<_i3.PolicyDescriptorType>? policyArns;
   @override
   final String? policy;
   @override
   final int? durationSeconds;
   @override
-  final _i5.BuiltList<_i4.Tag>? tags;
+  final _i6.BuiltList<_i4.Tag>? tags;
   @override
-  final _i5.BuiltList<String>? transitiveTagKeys;
+  final _i6.BuiltList<String>? transitiveTagKeys;
   @override
   final String? externalId;
   @override
@@ -29,6 +29,8 @@ class _$AssumeRoleRequest extends AssumeRoleRequest {
   final String? tokenCode;
   @override
   final String? sourceIdentity;
+  @override
+  final _i6.BuiltList<_i5.ProvidedContext>? providedContexts;
 
   factory _$AssumeRoleRequest(
           [void Function(AssumeRoleRequestBuilder)? updates]) =>
@@ -45,7 +47,8 @@ class _$AssumeRoleRequest extends AssumeRoleRequest {
       this.externalId,
       this.serialNumber,
       this.tokenCode,
-      this.sourceIdentity})
+      this.sourceIdentity,
+      this.providedContexts})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         roleArn, r'AssumeRoleRequest', 'roleArn');
@@ -75,7 +78,8 @@ class _$AssumeRoleRequest extends AssumeRoleRequest {
         externalId == other.externalId &&
         serialNumber == other.serialNumber &&
         tokenCode == other.tokenCode &&
-        sourceIdentity == other.sourceIdentity;
+        sourceIdentity == other.sourceIdentity &&
+        providedContexts == other.providedContexts;
   }
 
   @override
@@ -92,6 +96,7 @@ class _$AssumeRoleRequest extends AssumeRoleRequest {
     _$hash = $jc(_$hash, serialNumber.hashCode);
     _$hash = $jc(_$hash, tokenCode.hashCode);
     _$hash = $jc(_$hash, sourceIdentity.hashCode);
+    _$hash = $jc(_$hash, providedContexts.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -110,10 +115,10 @@ class AssumeRoleRequestBuilder
   set roleSessionName(String? roleSessionName) =>
       _$this._roleSessionName = roleSessionName;
 
-  _i5.ListBuilder<_i3.PolicyDescriptorType>? _policyArns;
-  _i5.ListBuilder<_i3.PolicyDescriptorType> get policyArns =>
-      _$this._policyArns ??= new _i5.ListBuilder<_i3.PolicyDescriptorType>();
-  set policyArns(_i5.ListBuilder<_i3.PolicyDescriptorType>? policyArns) =>
+  _i6.ListBuilder<_i3.PolicyDescriptorType>? _policyArns;
+  _i6.ListBuilder<_i3.PolicyDescriptorType> get policyArns =>
+      _$this._policyArns ??= new _i6.ListBuilder<_i3.PolicyDescriptorType>();
+  set policyArns(_i6.ListBuilder<_i3.PolicyDescriptorType>? policyArns) =>
       _$this._policyArns = policyArns;
 
   String? _policy;
@@ -125,15 +130,15 @@ class AssumeRoleRequestBuilder
   set durationSeconds(int? durationSeconds) =>
       _$this._durationSeconds = durationSeconds;
 
-  _i5.ListBuilder<_i4.Tag>? _tags;
-  _i5.ListBuilder<_i4.Tag> get tags =>
-      _$this._tags ??= new _i5.ListBuilder<_i4.Tag>();
-  set tags(_i5.ListBuilder<_i4.Tag>? tags) => _$this._tags = tags;
+  _i6.ListBuilder<_i4.Tag>? _tags;
+  _i6.ListBuilder<_i4.Tag> get tags =>
+      _$this._tags ??= new _i6.ListBuilder<_i4.Tag>();
+  set tags(_i6.ListBuilder<_i4.Tag>? tags) => _$this._tags = tags;
 
-  _i5.ListBuilder<String>? _transitiveTagKeys;
-  _i5.ListBuilder<String> get transitiveTagKeys =>
-      _$this._transitiveTagKeys ??= new _i5.ListBuilder<String>();
-  set transitiveTagKeys(_i5.ListBuilder<String>? transitiveTagKeys) =>
+  _i6.ListBuilder<String>? _transitiveTagKeys;
+  _i6.ListBuilder<String> get transitiveTagKeys =>
+      _$this._transitiveTagKeys ??= new _i6.ListBuilder<String>();
+  set transitiveTagKeys(_i6.ListBuilder<String>? transitiveTagKeys) =>
       _$this._transitiveTagKeys = transitiveTagKeys;
 
   String? _externalId;
@@ -153,6 +158,13 @@ class AssumeRoleRequestBuilder
   set sourceIdentity(String? sourceIdentity) =>
       _$this._sourceIdentity = sourceIdentity;
 
+  _i6.ListBuilder<_i5.ProvidedContext>? _providedContexts;
+  _i6.ListBuilder<_i5.ProvidedContext> get providedContexts =>
+      _$this._providedContexts ??= new _i6.ListBuilder<_i5.ProvidedContext>();
+  set providedContexts(
+          _i6.ListBuilder<_i5.ProvidedContext>? providedContexts) =>
+      _$this._providedContexts = providedContexts;
+
   AssumeRoleRequestBuilder();
 
   AssumeRoleRequestBuilder get _$this {
@@ -169,6 +181,7 @@ class AssumeRoleRequestBuilder
       _serialNumber = $v.serialNumber;
       _tokenCode = $v.tokenCode;
       _sourceIdentity = $v.sourceIdentity;
+      _providedContexts = $v.providedContexts?.toBuilder();
       _$v = null;
     }
     return this;
@@ -205,7 +218,8 @@ class AssumeRoleRequestBuilder
               externalId: externalId,
               serialNumber: serialNumber,
               tokenCode: tokenCode,
-              sourceIdentity: sourceIdentity);
+              sourceIdentity: sourceIdentity,
+              providedContexts: _providedContexts?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -216,6 +230,9 @@ class AssumeRoleRequestBuilder
         _tags?.build();
         _$failedField = 'transitiveTagKeys';
         _transitiveTagKeys?.build();
+
+        _$failedField = 'providedContexts';
+        _providedContexts?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'AssumeRoleRequest', _$failedField, e.toString());

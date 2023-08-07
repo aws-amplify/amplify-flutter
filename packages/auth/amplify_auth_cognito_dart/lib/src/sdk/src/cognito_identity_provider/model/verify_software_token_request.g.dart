@@ -83,9 +83,7 @@ class VerifySoftwareTokenRequestBuilder
   set friendlyDeviceName(String? friendlyDeviceName) =>
       _$this._friendlyDeviceName = friendlyDeviceName;
 
-  VerifySoftwareTokenRequestBuilder() {
-    VerifySoftwareTokenRequest._init(this);
-  }
+  VerifySoftwareTokenRequestBuilder();
 
   VerifySoftwareTokenRequestBuilder get _$this {
     final $v = _$v;

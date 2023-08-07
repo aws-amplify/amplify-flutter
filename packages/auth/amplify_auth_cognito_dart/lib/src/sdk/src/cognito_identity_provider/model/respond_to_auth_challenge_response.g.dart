@@ -88,9 +88,7 @@ class RespondToAuthChallengeResponseBuilder
           _i3.AuthenticationResultTypeBuilder? authenticationResult) =>
       _$this._authenticationResult = authenticationResult;
 
-  RespondToAuthChallengeResponseBuilder() {
-    RespondToAuthChallengeResponse._init(this);
-  }
+  RespondToAuthChallengeResponseBuilder();
 
   RespondToAuthChallengeResponseBuilder get _$this {
     final $v = _$v;

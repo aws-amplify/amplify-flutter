@@ -4,12 +4,13 @@
 library smoke_test.sts.model.assume_role_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i6;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/sts/model/policy_descriptor_type.dart'
     as _i3;
+import 'package:smoke_test/src/sdk/src/sts/model/provided_context.dart' as _i5;
 import 'package:smoke_test/src/sdk/src/sts/model/tag.dart' as _i4;
 
 part 'assume_role_request.g.dart';
@@ -29,20 +30,23 @@ abstract class AssumeRoleRequest
     String? serialNumber,
     String? tokenCode,
     String? sourceIdentity,
+    List<_i5.ProvidedContext>? providedContexts,
   }) {
     return _$AssumeRoleRequest._(
       roleArn: roleArn,
       roleSessionName: roleSessionName,
-      policyArns: policyArns == null ? null : _i5.BuiltList(policyArns),
+      policyArns: policyArns == null ? null : _i6.BuiltList(policyArns),
       policy: policy,
       durationSeconds: durationSeconds,
-      tags: tags == null ? null : _i5.BuiltList(tags),
+      tags: tags == null ? null : _i6.BuiltList(tags),
       transitiveTagKeys:
-          transitiveTagKeys == null ? null : _i5.BuiltList(transitiveTagKeys),
+          transitiveTagKeys == null ? null : _i6.BuiltList(transitiveTagKeys),
       externalId: externalId,
       serialNumber: serialNumber,
       tokenCode: tokenCode,
       sourceIdentity: sourceIdentity,
+      providedContexts:
+          providedContexts == null ? null : _i6.BuiltList(providedContexts),
     );
   }
 
@@ -79,7 +83,7 @@ abstract class AssumeRoleRequest
   /// An Amazon Web Services conversion compresses the passed inline session policy, managed policy ARNs, and session tags into a packed binary format that has a separate limit. Your request can fail for this limit even if your plaintext meets the other requirements. The `PackedPolicySize` response element indicates by percentage how close the policies and tags for your request are to the upper size limit.
   ///
   /// Passing policies to this operation returns new temporary credentials. The resulting session's permissions are the intersection of the role's identity-based policy and the session policies. You can use the role's temporary credentials in subsequent Amazon Web Services API calls to access resources in the account that owns the role. You cannot use session policies to grant more permissions than those allowed by the identity-based policy of the role that is being assumed. For more information, see [Session Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session) in the _IAM User Guide_.
-  _i5.BuiltList<_i3.PolicyDescriptorType>? get policyArns;
+  _i6.BuiltList<_i3.PolicyDescriptorType>? get policyArns;
 
   /// An IAM policy in JSON format that you want to use as an inline session policy.
   ///
@@ -110,14 +114,14 @@ abstract class AssumeRoleRequest
   /// Tag key–value pairs are not case sensitive, but case is preserved. This means that you cannot have separate `Department` and `department` tag keys. Assume that the role has the `Department`=`Marketing` tag and you pass the `department`=`engineering` session tag. `Department` and `department` are not saved as separate tags, and the session tag passed in the request takes precedence over the role tag.
   ///
   /// Additionally, if you used temporary credentials to perform this operation, the new session inherits any transitive session tags from the calling session. If you pass a session tag with the same key as an inherited tag, the operation fails. To view the inherited tags for a session, see the CloudTrail logs. For more information, see [Viewing Session Tags in CloudTrail](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html#id_session-tags_ctlogs) in the _IAM User Guide_.
-  _i5.BuiltList<_i4.Tag>? get tags;
+  _i6.BuiltList<_i4.Tag>? get tags;
 
   /// A list of keys for session tags that you want to set as transitive. If you set a tag key as transitive, the corresponding key and value passes to subsequent sessions in a role chain. For more information, see [Chaining Roles with Session Tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html#id_session-tags_role-chaining) in the _IAM User Guide_.
   ///
   /// This parameter is optional. When you set session tags as transitive, the session policy and session tags packed binary limit is not affected.
   ///
   /// If you choose not to specify a transitive tag key, then no tags are passed from this session to any subsequent sessions.
-  _i5.BuiltList<String>? get transitiveTagKeys;
+  _i6.BuiltList<String>? get transitiveTagKeys;
 
   /// A unique identifier that might be required when you assume a role in another account. If the administrator of the account to which the role belongs provided you with an external ID, then provide that value in the `ExternalId` parameter. This value can be any string, such as a passphrase or account number. A cross-account role is usually set up to trust everyone in an account. Therefore, the administrator of the trusting account might send an external ID to the administrator of the trusted account. That way, only someone with the ID can assume the role, rather than everyone in the account. For more information about the external ID, see [How to Use an External ID When Granting Access to Your Amazon Web Services Resources to a Third Party](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user_externalid.html) in the _IAM User Guide_.
   ///
@@ -140,6 +144,9 @@ abstract class AssumeRoleRequest
   ///
   /// The regex used to validate this parameter is a string of characters consisting of upper- and lower-case alphanumeric characters with no spaces. You can also include underscores or any of the following characters: =,.@-. You cannot use a value that begins with the text `aws:`. This prefix is reserved for Amazon Web Services internal use.
   String? get sourceIdentity;
+
+  /// Reserved for future use.
+  _i6.BuiltList<_i5.ProvidedContext>? get providedContexts;
   @override
   AssumeRoleRequest getPayload() => this;
   @override
@@ -155,6 +162,7 @@ abstract class AssumeRoleRequest
         serialNumber,
         tokenCode,
         sourceIdentity,
+        providedContexts,
       ];
   @override
   String toString() {
@@ -202,6 +210,10 @@ abstract class AssumeRoleRequest
       ..add(
         'sourceIdentity',
         sourceIdentity,
+      )
+      ..add(
+        'providedContexts',
+        providedContexts,
       );
     return helper.toString();
   }
@@ -256,10 +268,10 @@ class AssumeRoleRequestAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i5.BuiltList,
+              _i6.BuiltList,
               [FullType(_i3.PolicyDescriptorType)],
             ),
-          ) as _i5.BuiltList<_i3.PolicyDescriptorType>));
+          ) as _i6.BuiltList<_i3.PolicyDescriptorType>));
         case 'Policy':
           result.policy = (serializers.deserialize(
             value,
@@ -277,10 +289,10 @@ class AssumeRoleRequestAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i5.BuiltList,
+              _i6.BuiltList,
               [FullType(_i4.Tag)],
             ),
-          ) as _i5.BuiltList<_i4.Tag>));
+          ) as _i6.BuiltList<_i4.Tag>));
         case 'TransitiveTagKeys':
           result.transitiveTagKeys.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -288,10 +300,10 @@ class AssumeRoleRequestAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i5.BuiltList,
+              _i6.BuiltList,
               [FullType(String)],
             ),
-          ) as _i5.BuiltList<String>));
+          ) as _i6.BuiltList<String>));
         case 'ExternalId':
           result.externalId = (serializers.deserialize(
             value,
@@ -312,6 +324,17 @@ class AssumeRoleRequestAwsQuerySerializer
             value,
             specifiedType: const FullType(String),
           ) as String);
+        case 'ProvidedContexts':
+          result.providedContexts.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i5.ProvidedContext)],
+            ),
+          ) as _i6.BuiltList<_i5.ProvidedContext>));
       }
     }
 
@@ -341,7 +364,8 @@ class AssumeRoleRequestAwsQuerySerializer
       :externalId,
       :serialNumber,
       :tokenCode,
-      :sourceIdentity
+      :sourceIdentity,
+      :providedContexts
     ) = object;
     result$
       ..add(const _i1.XmlElementName('RoleArn'))
@@ -364,7 +388,7 @@ class AssumeRoleRequestAwsQuerySerializer
           serializers,
           policyArns,
           specifiedType: const FullType.nullable(
-            _i5.BuiltList,
+            _i6.BuiltList,
             [FullType(_i3.PolicyDescriptorType)],
           ),
         ));
@@ -394,7 +418,7 @@ class AssumeRoleRequestAwsQuerySerializer
           serializers,
           tags,
           specifiedType: const FullType.nullable(
-            _i5.BuiltList,
+            _i6.BuiltList,
             [FullType(_i4.Tag)],
           ),
         ));
@@ -408,7 +432,7 @@ class AssumeRoleRequestAwsQuerySerializer
           serializers,
           transitiveTagKeys,
           specifiedType: const FullType.nullable(
-            _i5.BuiltList,
+            _i6.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -443,6 +467,20 @@ class AssumeRoleRequestAwsQuerySerializer
         ..add(serializers.serialize(
           sourceIdentity,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (providedContexts != null) {
+      result$
+        ..add(const _i1.XmlElementName('ProvidedContexts'))
+        ..add(const _i1.XmlBuiltListSerializer(
+                indexer: _i1.XmlIndexer.awsQueryList)
+            .serialize(
+          serializers,
+          providedContexts,
+          specifiedType: const FullType.nullable(
+            _i6.BuiltList,
+            [FullType(_i5.ProvidedContext)],
+          ),
         ));
     }
     return result$;

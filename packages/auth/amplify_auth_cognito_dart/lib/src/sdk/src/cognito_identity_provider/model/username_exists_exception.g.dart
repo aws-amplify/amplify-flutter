@@ -55,9 +55,7 @@ class UsernameExistsExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  UsernameExistsExceptionBuilder() {
-    UsernameExistsException._init(this);
-  }
+  UsernameExistsExceptionBuilder();
 
   UsernameExistsExceptionBuilder get _$this {
     final $v = _$v;

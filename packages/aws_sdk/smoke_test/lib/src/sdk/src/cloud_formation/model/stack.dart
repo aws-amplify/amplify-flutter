@@ -52,6 +52,7 @@ abstract class Stack
     String? parentId,
     String? rootId,
     _i8.StackDriftInformation? driftInformation,
+    bool? retainExceptOnCreate,
   }) {
     return _$Stack._(
       stackId: stackId,
@@ -77,6 +78,7 @@ abstract class Stack
       parentId: parentId,
       rootId: rootId,
       driftInformation: driftInformation,
+      retainExceptOnCreate: retainExceptOnCreate,
     );
   }
 
@@ -149,21 +151,24 @@ abstract class Stack
 
   /// Whether termination protection is enabled for the stack.
   ///
-  /// For [nested stacks](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html), termination protection is set on the root stack and can't be changed directly on the nested stack. For more information, see [Protecting a Stack From Being Deleted](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html) in the _CloudFormation User Guide_.
+  /// For [nested stacks](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html), termination protection is set on the root stack and can't be changed directly on the nested stack. For more information, see [Protecting a Stack From Being Deleted](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html) in the _CloudFormation User Guide_.
   bool? get enableTerminationProtection;
 
   /// For nested stacks--stacks created as resources for another stack--the stack ID of the direct parent of this stack. For the first level of nested stacks, the root stack is also the parent stack.
   ///
-  /// For more information, see [Working with Nested Stacks](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html) in the _CloudFormation User Guide_.
+  /// For more information, see [Working with Nested Stacks](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html) in the _CloudFormation User Guide_.
   String? get parentId;
 
   /// For nested stacks--stacks created as resources for another stack--the stack ID of the top-level stack to which the nested stack ultimately belongs.
   ///
-  /// For more information, see [Working with Nested Stacks](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html) in the _CloudFormation User Guide_.
+  /// For more information, see [Working with Nested Stacks](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html) in the _CloudFormation User Guide_.
   String? get rootId;
 
-  /// Information about whether a stack's actual configuration differs, or has _drifted_, from its expected configuration, as defined in the stack template and any values specified as template parameters. For more information, see [Detecting Unregulated Configuration Changes to Stacks and Resources](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
+  /// Information about whether a stack's actual configuration differs, or has _drifted_, from its expected configuration, as defined in the stack template and any values specified as template parameters. For more information, see [Detecting Unregulated Configuration Changes to Stacks and Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
   _i8.StackDriftInformation? get driftInformation;
+
+  /// This deletion policy deletes newly created resources, but retains existing resources, when a stack operation is rolled back. This ensures new, empty, and unused resources are deleted, while critical resources and their data are retained. `RetainExceptOnCreate` can be specified for any resource that supports the [DeletionPolicy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html) attribute.
+  bool? get retainExceptOnCreate;
   @override
   List<Object?> get props => [
         stackId,
@@ -188,6 +193,7 @@ abstract class Stack
         parentId,
         rootId,
         driftInformation,
+        retainExceptOnCreate,
       ];
   @override
   String toString() {
@@ -279,6 +285,10 @@ abstract class Stack
       ..add(
         'driftInformation',
         driftInformation,
+      )
+      ..add(
+        'retainExceptOnCreate',
+        retainExceptOnCreate,
       );
     return helper.toString();
   }
@@ -455,6 +465,11 @@ class StackAwsQuerySerializer extends _i10.StructuredSmithySerializer<Stack> {
             value,
             specifiedType: const FullType(_i8.StackDriftInformation),
           ) as _i8.StackDriftInformation));
+        case 'RetainExceptOnCreate':
+          result.retainExceptOnCreate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -496,7 +511,8 @@ class StackAwsQuerySerializer extends _i10.StructuredSmithySerializer<Stack> {
       :enableTerminationProtection,
       :parentId,
       :rootId,
-      :driftInformation
+      :driftInformation,
+      :retainExceptOnCreate
     ) = object;
     if (stackId != null) {
       result$
@@ -696,6 +712,14 @@ class StackAwsQuerySerializer extends _i10.StructuredSmithySerializer<Stack> {
         ..add(serializers.serialize(
           driftInformation,
           specifiedType: const FullType(_i8.StackDriftInformation),
+        ));
+    }
+    if (retainExceptOnCreate != null) {
+      result$
+        ..add(const _i10.XmlElementName('RetainExceptOnCreate'))
+        ..add(serializers.serialize(
+          retainExceptOnCreate,
+          specifiedType: const FullType.nullable(bool),
         ));
     }
     return result$;

@@ -88,9 +88,7 @@ class ConfirmDeviceRequestBuilder
   String? get deviceName => _$this._deviceName;
   set deviceName(String? deviceName) => _$this._deviceName = deviceName;
 
-  ConfirmDeviceRequestBuilder() {
-    ConfirmDeviceRequest._init(this);
-  }
+  ConfirmDeviceRequestBuilder();
 
   ConfirmDeviceRequestBuilder get _$this {
     final $v = _$v;

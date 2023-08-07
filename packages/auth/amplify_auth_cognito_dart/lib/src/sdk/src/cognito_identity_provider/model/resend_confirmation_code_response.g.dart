@@ -54,9 +54,7 @@ class ResendConfirmationCodeResponseBuilder
           _i2.CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails) =>
       _$this._codeDeliveryDetails = codeDeliveryDetails;
 
-  ResendConfirmationCodeResponseBuilder() {
-    ResendConfirmationCodeResponse._init(this);
-  }
+  ResendConfirmationCodeResponseBuilder();
 
   ResendConfirmationCodeResponseBuilder get _$this {
     final $v = _$v;

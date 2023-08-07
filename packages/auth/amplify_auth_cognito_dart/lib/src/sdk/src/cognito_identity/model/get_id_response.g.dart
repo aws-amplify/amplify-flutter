@@ -45,9 +45,7 @@ class GetIdResponseBuilder
   String? get identityId => _$this._identityId;
   set identityId(String? identityId) => _$this._identityId = identityId;
 
-  GetIdResponseBuilder() {
-    GetIdResponse._init(this);
-  }
+  GetIdResponseBuilder();
 
   GetIdResponseBuilder get _$this {
     final $v = _$v;

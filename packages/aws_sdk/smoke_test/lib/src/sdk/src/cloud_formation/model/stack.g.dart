@@ -51,6 +51,8 @@ class _$Stack extends Stack {
   final String? rootId;
   @override
   final _i8.StackDriftInformation? driftInformation;
+  @override
+  final bool? retainExceptOnCreate;
 
   factory _$Stack([void Function(StackBuilder)? updates]) =>
       (new StackBuilder()..update(updates))._build();
@@ -77,7 +79,8 @@ class _$Stack extends Stack {
       this.enableTerminationProtection,
       this.parentId,
       this.rootId,
-      this.driftInformation})
+      this.driftInformation,
+      this.retainExceptOnCreate})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(stackName, r'Stack', 'stackName');
     BuiltValueNullFieldError.checkNotNull(
@@ -117,7 +120,8 @@ class _$Stack extends Stack {
         enableTerminationProtection == other.enableTerminationProtection &&
         parentId == other.parentId &&
         rootId == other.rootId &&
-        driftInformation == other.driftInformation;
+        driftInformation == other.driftInformation &&
+        retainExceptOnCreate == other.retainExceptOnCreate;
   }
 
   @override
@@ -145,6 +149,7 @@ class _$Stack extends Stack {
     _$hash = $jc(_$hash, parentId.hashCode);
     _$hash = $jc(_$hash, rootId.hashCode);
     _$hash = $jc(_$hash, driftInformation.hashCode);
+    _$hash = $jc(_$hash, retainExceptOnCreate.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -263,6 +268,11 @@ class StackBuilder implements Builder<Stack, StackBuilder> {
   set driftInformation(_i8.StackDriftInformationBuilder? driftInformation) =>
       _$this._driftInformation = driftInformation;
 
+  bool? _retainExceptOnCreate;
+  bool? get retainExceptOnCreate => _$this._retainExceptOnCreate;
+  set retainExceptOnCreate(bool? retainExceptOnCreate) =>
+      _$this._retainExceptOnCreate = retainExceptOnCreate;
+
   StackBuilder();
 
   StackBuilder get _$this {
@@ -290,6 +300,7 @@ class StackBuilder implements Builder<Stack, StackBuilder> {
       _parentId = $v.parentId;
       _rootId = $v.rootId;
       _driftInformation = $v.driftInformation?.toBuilder();
+      _retainExceptOnCreate = $v.retainExceptOnCreate;
       _$v = null;
     }
     return this;
@@ -338,7 +349,8 @@ class StackBuilder implements Builder<Stack, StackBuilder> {
               enableTerminationProtection: enableTerminationProtection,
               parentId: parentId,
               rootId: rootId,
-              driftInformation: _driftInformation?.build());
+              driftInformation: _driftInformation?.build(),
+              retainExceptOnCreate: retainExceptOnCreate);
     } catch (_) {
       late String _$failedField;
       try {

@@ -84,8 +84,8 @@ abstract class GlobalTableGlobalSecondaryIndexSettingsUpdate
 }
 
 class GlobalTableGlobalSecondaryIndexSettingsUpdateAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<
-        GlobalTableGlobalSecondaryIndexSettingsUpdate> {
+    extends _i4
+    .StructuredSmithySerializer<GlobalTableGlobalSecondaryIndexSettingsUpdate> {
   const GlobalTableGlobalSecondaryIndexSettingsUpdateAwsJson10Serializer()
       : super('GlobalTableGlobalSecondaryIndexSettingsUpdate');
 

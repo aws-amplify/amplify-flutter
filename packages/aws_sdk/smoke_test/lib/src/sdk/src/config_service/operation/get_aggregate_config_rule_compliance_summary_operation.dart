@@ -29,8 +29,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/validation_exception
 /// Returns the number of compliant and noncompliant rules for one or more accounts and regions in an aggregator.
 ///
 /// The results can return an empty result page, but if you have a nextToken, the results are displayed on the next page.
-class GetAggregateConfigRuleComplianceSummaryOperation
-    extends _i1.PaginatedHttpOperation<
+class GetAggregateConfigRuleComplianceSummaryOperation extends _i1
+    .PaginatedHttpOperation<
         _i2.GetAggregateConfigRuleComplianceSummaryRequest,
         _i2.GetAggregateConfigRuleComplianceSummaryRequest,
         _i3.GetAggregateConfigRuleComplianceSummaryResponse,
