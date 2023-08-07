@@ -51,8 +51,9 @@ abstract class ListBucketIntelligentTieringConfigurationsOutput
       payload;
 
   static const List<
-      _i4.SmithySerializer<
-          ListBucketIntelligentTieringConfigurationsOutput>> serializers = [
+          _i4
+          .SmithySerializer<ListBucketIntelligentTieringConfigurationsOutput>>
+      serializers = [
     ListBucketIntelligentTieringConfigurationsOutputRestXmlSerializer()
   ];
 

@@ -74,9 +74,7 @@ class GetCredentialsForIdentityInputBuilder
   set customRoleArn(String? customRoleArn) =>
       _$this._customRoleArn = customRoleArn;
 
-  GetCredentialsForIdentityInputBuilder() {
-    GetCredentialsForIdentityInput._init(this);
-  }
+  GetCredentialsForIdentityInputBuilder();
 
   GetCredentialsForIdentityInputBuilder get _$this {
     final $v = _$v;

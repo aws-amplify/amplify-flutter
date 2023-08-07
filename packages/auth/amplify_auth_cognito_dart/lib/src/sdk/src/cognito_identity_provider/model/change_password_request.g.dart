@@ -78,9 +78,7 @@ class ChangePasswordRequestBuilder
   String? get accessToken => _$this._accessToken;
   set accessToken(String? accessToken) => _$this._accessToken = accessToken;
 
-  ChangePasswordRequestBuilder() {
-    ChangePasswordRequest._init(this);
-  }
+  ChangePasswordRequestBuilder();
 
   ChangePasswordRequestBuilder get _$this {
     final $v = _$v;

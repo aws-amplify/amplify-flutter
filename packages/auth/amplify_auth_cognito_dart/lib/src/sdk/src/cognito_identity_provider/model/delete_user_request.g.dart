@@ -50,9 +50,7 @@ class DeleteUserRequestBuilder
   String? get accessToken => _$this._accessToken;
   set accessToken(String? accessToken) => _$this._accessToken = accessToken;
 
-  DeleteUserRequestBuilder() {
-    DeleteUserRequest._init(this);
-  }
+  DeleteUserRequestBuilder();
 
   DeleteUserRequestBuilder get _$this {
     final $v = _$v;

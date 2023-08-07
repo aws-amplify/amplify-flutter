@@ -32,8 +32,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/validation_exception
 /// Returns the evaluation results for the specified Config rule for a specific resource in a rule. The results indicate which Amazon Web Services resources were evaluated by the rule, when each resource was last evaluated, and whether each resource complies with the rule.
 ///
 /// The results can return an empty result page. But if you have a `nextToken`, the results are displayed on the next page.
-class GetAggregateComplianceDetailsByConfigRuleOperation
-    extends _i1.PaginatedHttpOperation<
+class GetAggregateComplianceDetailsByConfigRuleOperation extends _i1
+    .PaginatedHttpOperation<
         _i2.GetAggregateComplianceDetailsByConfigRuleRequest,
         _i2.GetAggregateComplianceDetailsByConfigRuleRequest,
         _i3.GetAggregateComplianceDetailsByConfigRuleResponse,

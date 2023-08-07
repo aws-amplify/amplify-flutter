@@ -19,8 +19,8 @@ abstract class ListBucketIntelligentTieringConfigurationsRequest
         Built<ListBucketIntelligentTieringConfigurationsRequest,
             ListBucketIntelligentTieringConfigurationsRequestBuilder>,
         _i1.EmptyPayload,
-        _i1.HasPayload<
-            ListBucketIntelligentTieringConfigurationsRequestPayload> {
+        _i1
+        .HasPayload<ListBucketIntelligentTieringConfigurationsRequestPayload> {
   factory ListBucketIntelligentTieringConfigurationsRequest({
     required String bucket,
     String? continuationToken,
@@ -102,8 +102,8 @@ abstract class ListBucketIntelligentTieringConfigurationsRequest
 @_i3.internal
 abstract class ListBucketIntelligentTieringConfigurationsRequestPayload
     with
-        _i2.AWSEquatable<
-            ListBucketIntelligentTieringConfigurationsRequestPayload>
+        _i2
+        .AWSEquatable<ListBucketIntelligentTieringConfigurationsRequestPayload>
     implements
         Built<ListBucketIntelligentTieringConfigurationsRequestPayload,
             ListBucketIntelligentTieringConfigurationsRequestPayloadBuilder>,

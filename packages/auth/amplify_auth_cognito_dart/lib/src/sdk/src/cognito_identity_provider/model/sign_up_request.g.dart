@@ -137,9 +137,7 @@ class SignUpRequestBuilder
   set clientMetadata(_i6.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
-  SignUpRequestBuilder() {
-    SignUpRequest._init(this);
-  }
+  SignUpRequestBuilder();
 
   SignUpRequestBuilder get _$this {
     final $v = _$v;

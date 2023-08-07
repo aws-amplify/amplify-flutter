@@ -39,9 +39,7 @@ class UpdateDeviceStatusResponseBuilder
         Builder<UpdateDeviceStatusResponse, UpdateDeviceStatusResponseBuilder> {
   _$UpdateDeviceStatusResponse? _$v;
 
-  UpdateDeviceStatusResponseBuilder() {
-    UpdateDeviceStatusResponse._init(this);
-  }
+  UpdateDeviceStatusResponseBuilder();
 
   @override
   void replace(UpdateDeviceStatusResponse other) {

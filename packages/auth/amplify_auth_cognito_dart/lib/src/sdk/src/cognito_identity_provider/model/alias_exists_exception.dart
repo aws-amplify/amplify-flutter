@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.alias_exists_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,9 +40,6 @@ abstract class AliasExistsException
   static const List<_i2.SmithySerializer<AliasExistsException>> serializers = [
     AliasExistsExceptionAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AliasExistsExceptionBuilder b) {}
 
   /// The message that Amazon Cognito sends to the user when the value of an alias attribute is already linked to another user profile.
   @override

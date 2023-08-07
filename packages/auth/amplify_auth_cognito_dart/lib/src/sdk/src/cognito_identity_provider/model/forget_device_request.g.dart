@@ -61,9 +61,7 @@ class ForgetDeviceRequestBuilder
   String? get deviceKey => _$this._deviceKey;
   set deviceKey(String? deviceKey) => _$this._deviceKey = deviceKey;
 
-  ForgetDeviceRequestBuilder() {
-    ForgetDeviceRequest._init(this);
-  }
+  ForgetDeviceRequestBuilder();
 
   ForgetDeviceRequestBuilder get _$this {
     final $v = _$v;

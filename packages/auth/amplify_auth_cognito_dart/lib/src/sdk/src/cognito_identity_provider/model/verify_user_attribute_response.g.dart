@@ -40,9 +40,7 @@ class VerifyUserAttributeResponseBuilder
             VerifyUserAttributeResponseBuilder> {
   _$VerifyUserAttributeResponse? _$v;
 
-  VerifyUserAttributeResponseBuilder() {
-    VerifyUserAttributeResponse._init(this);
-  }
+  VerifyUserAttributeResponseBuilder();
 
   @override
   void replace(VerifyUserAttributeResponse other) {

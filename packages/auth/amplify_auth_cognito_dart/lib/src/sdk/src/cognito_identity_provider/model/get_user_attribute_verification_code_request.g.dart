@@ -83,9 +83,7 @@ class GetUserAttributeVerificationCodeRequestBuilder
   set clientMetadata(_i3.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
-  GetUserAttributeVerificationCodeRequestBuilder() {
-    GetUserAttributeVerificationCodeRequest._init(this);
-  }
+  GetUserAttributeVerificationCodeRequestBuilder();
 
   GetUserAttributeVerificationCodeRequestBuilder get _$this {
     final $v = _$v;

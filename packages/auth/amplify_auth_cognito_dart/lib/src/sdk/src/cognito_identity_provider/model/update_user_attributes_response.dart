@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.update_user_attributes_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -45,9 +45,6 @@ abstract class UpdateUserAttributesResponse
 
   static const List<_i4.SmithySerializer<UpdateUserAttributesResponse>>
       serializers = [UpdateUserAttributesResponseAwsJson11Serializer()];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateUserAttributesResponseBuilder b) {}
 
   /// The code delivery details list from the server for the request to update user attributes.
   _i3.BuiltList<_i2.CodeDeliveryDetailsType>? get codeDeliveryDetailsList;

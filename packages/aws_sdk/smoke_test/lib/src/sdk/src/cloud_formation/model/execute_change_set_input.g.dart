@@ -15,6 +15,8 @@ class _$ExecuteChangeSetInput extends ExecuteChangeSetInput {
   final String? clientRequestToken;
   @override
   final bool? disableRollback;
+  @override
+  final bool? retainExceptOnCreate;
 
   factory _$ExecuteChangeSetInput(
           [void Function(ExecuteChangeSetInputBuilder)? updates]) =>
@@ -24,7 +26,8 @@ class _$ExecuteChangeSetInput extends ExecuteChangeSetInput {
       {required this.changeSetName,
       this.stackName,
       this.clientRequestToken,
-      this.disableRollback})
+      this.disableRollback,
+      this.retainExceptOnCreate})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         changeSetName, r'ExecuteChangeSetInput', 'changeSetName');
@@ -46,7 +49,8 @@ class _$ExecuteChangeSetInput extends ExecuteChangeSetInput {
         changeSetName == other.changeSetName &&
         stackName == other.stackName &&
         clientRequestToken == other.clientRequestToken &&
-        disableRollback == other.disableRollback;
+        disableRollback == other.disableRollback &&
+        retainExceptOnCreate == other.retainExceptOnCreate;
   }
 
   @override
@@ -56,6 +60,7 @@ class _$ExecuteChangeSetInput extends ExecuteChangeSetInput {
     _$hash = $jc(_$hash, stackName.hashCode);
     _$hash = $jc(_$hash, clientRequestToken.hashCode);
     _$hash = $jc(_$hash, disableRollback.hashCode);
+    _$hash = $jc(_$hash, retainExceptOnCreate.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -84,6 +89,11 @@ class ExecuteChangeSetInputBuilder
   set disableRollback(bool? disableRollback) =>
       _$this._disableRollback = disableRollback;
 
+  bool? _retainExceptOnCreate;
+  bool? get retainExceptOnCreate => _$this._retainExceptOnCreate;
+  set retainExceptOnCreate(bool? retainExceptOnCreate) =>
+      _$this._retainExceptOnCreate = retainExceptOnCreate;
+
   ExecuteChangeSetInputBuilder();
 
   ExecuteChangeSetInputBuilder get _$this {
@@ -93,6 +103,7 @@ class ExecuteChangeSetInputBuilder
       _stackName = $v.stackName;
       _clientRequestToken = $v.clientRequestToken;
       _disableRollback = $v.disableRollback;
+      _retainExceptOnCreate = $v.retainExceptOnCreate;
       _$v = null;
     }
     return this;
@@ -119,7 +130,8 @@ class ExecuteChangeSetInputBuilder
                 changeSetName, r'ExecuteChangeSetInput', 'changeSetName'),
             stackName: stackName,
             clientRequestToken: clientRequestToken,
-            disableRollback: disableRollback);
+            disableRollback: disableRollback,
+            retainExceptOnCreate: retainExceptOnCreate);
     replace(_$result);
     return _$result;
   }

@@ -41,6 +41,7 @@ abstract class UpdateStackInput
     List<_i6.Tag>? tags,
     bool? disableRollback,
     String? clientRequestToken,
+    bool? retainExceptOnCreate,
   }) {
     return _$UpdateStackInput._(
       stackName: stackName,
@@ -62,6 +63,7 @@ abstract class UpdateStackInput
       tags: tags == null ? null : _i7.BuiltList(tags),
       disableRollback: disableRollback,
       clientRequestToken: clientRequestToken,
+      retainExceptOnCreate: retainExceptOnCreate,
     );
   }
 
@@ -145,11 +147,11 @@ abstract class UpdateStackInput
   ///     *   [AWS::IAM::UserToGroupAddition](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-addusertogroup.html)
   ///
   ///
-  ///     For more information, see [Acknowledging IAM Resources in CloudFormation Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities).
+  ///     For more information, see [Acknowledging IAM Resources in CloudFormation Templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities).
   ///
   /// *   `CAPABILITY\_AUTO\_EXPAND`
   ///
-  ///     Some template contain macros. Macros perform custom processing on templates; this can include simple actions like find-and-replace operations, all the way to extensive transformations of entire templates. Because of this, users typically create a change set from the processed template, so that they can review the changes resulting from the macros before actually updating the stack. If your stack template contains one or more macros, and you choose to update a stack directly from the processed template, without first reviewing the resulting changes in a change set, you must acknowledge this capability. This includes the [AWS::Include](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/create-reusable-transform-function-snippets-and-add-to-your-template-with-aws-include-transform.html) and [AWS::Serverless](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-aws-serverless.html) transforms, which are macros hosted by CloudFormation.
+  ///     Some template contain macros. Macros perform custom processing on templates; this can include simple actions like find-and-replace operations, all the way to extensive transformations of entire templates. Because of this, users typically create a change set from the processed template, so that they can review the changes resulting from the macros before actually updating the stack. If your stack template contains one or more macros, and you choose to update a stack directly from the processed template, without first reviewing the resulting changes in a change set, you must acknowledge this capability. This includes the [AWS::Include](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/create-reusable-transform-function-snippets-and-add-to-your-template-with-aws-include-transform.html) and [AWS::Serverless](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-aws-serverless.html) transforms, which are macros hosted by CloudFormation.
   ///
   ///     If you want to update a stack from a stack template that contains macros _and_ nested stacks, you must update the stack directly from the template using this capability.
   ///
@@ -157,7 +159,7 @@ abstract class UpdateStackInput
   ///
   ///     Each macro relies on an underlying Lambda service function for processing stack templates. Be aware that the Lambda function owner can update the function operation without CloudFormation being notified.
   ///
-  ///     For more information, see [Using CloudFormation Macros to Perform Custom Processing on Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html).
+  ///     For more information, see [Using CloudFormation Macros to Perform Custom Processing on Templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html).
   _i7.BuiltList<_i4.Capability>? get capabilities;
 
   /// The template resource types that you have permissions to work with for this update stack action, such as `AWS::EC2::Instance`, `AWS::EC2::*`, or `Custom::MyCustomInstance`.
@@ -202,6 +204,9 @@ abstract class UpdateStackInput
   ///
   /// In the console, stack operations display the client request token on the Events tab. Stack operations that are initiated from the console use the token format _Console-StackOperation-ID_, which helps you easily identify the stack operation . For example, if you create a stack using the console, each stack event would be assigned the same token in the following format: `Console-CreateStack-7f59c3cf-00d2-40c7-b2ff-e75db0987002`.
   String? get clientRequestToken;
+
+  /// This deletion policy deletes newly created resources, but retains existing resources, when a stack operation is rolled back. This ensures new, empty, and unused resources are deleted, while critical resources and their data are retained. `RetainExceptOnCreate` can be specified for any resource that supports the [DeletionPolicy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html) attribute.
+  bool? get retainExceptOnCreate;
   @override
   UpdateStackInput getPayload() => this;
   @override
@@ -223,6 +228,7 @@ abstract class UpdateStackInput
         tags,
         disableRollback,
         clientRequestToken,
+        retainExceptOnCreate,
       ];
   @override
   String toString() {
@@ -294,6 +300,10 @@ abstract class UpdateStackInput
       ..add(
         'clientRequestToken',
         clientRequestToken,
+      )
+      ..add(
+        'retainExceptOnCreate',
+        retainExceptOnCreate,
       );
     return helper.toString();
   }
@@ -446,6 +456,11 @@ class UpdateStackInputAwsQuerySerializer
             value,
             specifiedType: const FullType(String),
           ) as String);
+        case 'RetainExceptOnCreate':
+          result.retainExceptOnCreate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -481,7 +496,8 @@ class UpdateStackInputAwsQuerySerializer
       :notificationArNs,
       :tags,
       :disableRollback,
-      :clientRequestToken
+      :clientRequestToken,
+      :retainExceptOnCreate
     ) = object;
     result$
       ..add(const _i1.XmlElementName('StackName'))
@@ -645,6 +661,14 @@ class UpdateStackInputAwsQuerySerializer
         ..add(serializers.serialize(
           clientRequestToken,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (retainExceptOnCreate != null) {
+      result$
+        ..add(const _i1.XmlElementName('RetainExceptOnCreate'))
+        ..add(serializers.serialize(
+          retainExceptOnCreate,
+          specifiedType: const FullType.nullable(bool),
         ));
     }
     return result$;

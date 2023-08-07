@@ -173,106 +173,110 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_exports_input.
     as _i130;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_imports_input.dart'
     as _i132;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_instances_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_instance_resource_drifts_input.dart'
     as _i135;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_resources_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_instance_resource_drifts_output.dart'
+    as _i134;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_instances_input.dart'
     as _i138;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_set_operation_results_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_resources_input.dart'
     as _i141;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_set_operations_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_set_operation_results_input.dart'
     as _i144;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_sets_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_set_operations_input.dart'
     as _i147;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stacks_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_sets_input.dart'
     as _i150;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_type_registrations_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stacks_input.dart'
     as _i153;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_type_registrations_output.dart'
-    as _i152;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_type_versions_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_type_registrations_input.dart'
     as _i156;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_type_versions_output.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_type_registrations_output.dart'
     as _i155;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_types_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_type_versions_input.dart'
     as _i159;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/publish_type_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_type_versions_output.dart'
+    as _i158;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_types_input.dart'
     as _i162;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/publish_type_output.dart'
-    as _i161;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/record_handler_progress_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/publish_type_input.dart'
     as _i165;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/record_handler_progress_output.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/publish_type_output.dart'
     as _i164;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/register_publisher_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/record_handler_progress_input.dart'
     as _i168;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/register_publisher_output.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/record_handler_progress_output.dart'
     as _i167;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/register_type_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/register_publisher_input.dart'
     as _i171;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/register_type_output.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/register_publisher_output.dart'
     as _i170;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/rollback_stack_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/register_type_input.dart'
     as _i174;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/rollback_stack_output.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/register_type_output.dart'
     as _i173;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/set_stack_policy_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/rollback_stack_input.dart'
+    as _i177;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/rollback_stack_output.dart'
     as _i176;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/set_type_configuration_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/set_stack_policy_input.dart'
     as _i179;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/set_type_configuration_output.dart'
-    as _i178;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/set_type_default_version_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/set_type_configuration_input.dart'
     as _i182;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/set_type_default_version_output.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/set_type_configuration_output.dart'
     as _i181;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/signal_resource_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/set_type_default_version_input.dart'
+    as _i185;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/set_type_default_version_output.dart'
     as _i184;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/signal_resource_input.dart'
+    as _i187;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack.dart'
     as _i90;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_event.dart'
     as _i69;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_summary.dart'
-    as _i134;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_resource_summary.dart'
     as _i137;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_result_summary.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_resource_summary.dart'
     as _i140;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_summary.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_result_summary.dart'
     as _i143;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_summary.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_summary.dart'
     as _i146;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_summary.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_summary.dart'
     as _i149;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_summary.dart'
+    as _i152;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stop_stack_set_operation_input.dart'
-    as _i187;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stop_stack_set_operation_output.dart'
-    as _i186;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/test_type_input.dart'
     as _i190;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/test_type_output.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stop_stack_set_operation_output.dart'
     as _i189;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/type_summary.dart'
-    as _i158;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_stack_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/test_type_input.dart'
     as _i193;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_stack_instances_input.dart'
-    as _i196;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_stack_instances_output.dart'
-    as _i195;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_stack_output.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/test_type_output.dart'
     as _i192;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_stack_set_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/type_summary.dart'
+    as _i161;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_stack_input.dart'
+    as _i196;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_stack_instances_input.dart'
     as _i199;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_stack_set_output.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_stack_instances_output.dart'
     as _i198;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_termination_protection_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_stack_output.dart'
+    as _i195;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_stack_set_input.dart'
     as _i202;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_termination_protection_output.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_stack_set_output.dart'
     as _i201;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/validate_template_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_termination_protection_input.dart'
     as _i205;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/validate_template_output.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_termination_protection_output.dart'
     as _i204;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/validate_template_input.dart'
+    as _i208;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/validate_template_output.dart'
+    as _i207;
 import 'package:smoke_test/src/sdk/src/cloud_formation/operation/activate_organizations_access_operation.dart'
     as _i6;
 import 'package:smoke_test/src/sdk/src/cloud_formation/operation/activate_type_operation.dart'
@@ -361,56 +365,58 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_exports_op
     as _i131;
 import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_imports_operation.dart'
     as _i133;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_stack_instances_operation.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_stack_instance_resource_drifts_operation.dart'
     as _i136;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_stack_resources_operation.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_stack_instances_operation.dart'
     as _i139;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_stack_set_operation_results_operation.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_stack_resources_operation.dart'
     as _i142;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_stack_set_operations_operation.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_stack_set_operation_results_operation.dart'
     as _i145;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_stack_sets_operation.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_stack_set_operations_operation.dart'
     as _i148;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_stacks_operation.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_stack_sets_operation.dart'
     as _i151;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_type_registrations_operation.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_stacks_operation.dart'
     as _i154;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_type_versions_operation.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_type_registrations_operation.dart'
     as _i157;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_types_operation.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_type_versions_operation.dart'
     as _i160;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/publish_type_operation.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/list_types_operation.dart'
     as _i163;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/record_handler_progress_operation.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/publish_type_operation.dart'
     as _i166;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/register_publisher_operation.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/record_handler_progress_operation.dart'
     as _i169;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/register_type_operation.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/register_publisher_operation.dart'
     as _i172;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/rollback_stack_operation.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/register_type_operation.dart'
     as _i175;
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/rollback_stack_operation.dart'
+    as _i178;
 import 'package:smoke_test/src/sdk/src/cloud_formation/operation/set_stack_policy_operation.dart'
-    as _i177;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/set_type_configuration_operation.dart'
     as _i180;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/set_type_default_version_operation.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/set_type_configuration_operation.dart'
     as _i183;
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/set_type_default_version_operation.dart'
+    as _i186;
 import 'package:smoke_test/src/sdk/src/cloud_formation/operation/signal_resource_operation.dart'
-    as _i185;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/stop_stack_set_operation.dart'
     as _i188;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/test_type_operation.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/stop_stack_set_operation.dart'
     as _i191;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/update_stack_instances_operation.dart'
-    as _i197;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/update_stack_operation.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/test_type_operation.dart'
     as _i194;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/update_stack_set_operation.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/update_stack_instances_operation.dart'
     as _i200;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/update_termination_protection_operation.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/update_stack_operation.dart'
+    as _i197;
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/update_stack_set_operation.dart'
     as _i203;
-import 'package:smoke_test/src/sdk/src/cloud_formation/operation/validate_template_operation.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/update_termination_protection_operation.dart'
     as _i206;
+import 'package:smoke_test/src/sdk/src/cloud_formation/operation/validate_template_operation.dart'
+    as _i209;
 
 /// ## CloudFormation
 ///
@@ -965,8 +971,9 @@ class CloudFormationClient {
   ///
   /// Use DetectStackResourceDrift to detect drift on individual resources, or DetectStackDrift to detect drift on all supported resources for a given stack.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i78.DescribeStackResourceDriftsOutput, int,
-          String>> describeStackResourceDrifts(
+          _i3
+          .PaginatedResult<_i78.DescribeStackResourceDriftsOutput, int, String>>
+      describeStackResourceDrifts(
     _i79.DescribeStackResourceDriftsInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -1381,15 +1388,36 @@ class CloudFormationClient {
     );
   }
 
-  /// Returns summary information about stack instances that are associated with the specified stack set. You can filter for stack instances that are associated with a specific Amazon Web Services account name or Region, or that have a specific status.
-  _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i134.StackInstanceSummary>, int,
-          String>> listStackInstances(
-    _i135.ListStackInstancesInput input, {
+  /// Returns drift information for resources in a stack instance.
+  ///
+  /// `ListStackInstanceResourceDrifts` returns drift information for the most recent drift detection operation. If an operation is in progress, it may only return partial results.
+  _i3.SmithyOperation<_i134.ListStackInstanceResourceDriftsOutput>
+      listStackInstanceResourceDrifts(
+    _i135.ListStackInstanceResourceDriftsInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i136.ListStackInstancesOperation(
+    return _i136.ListStackInstanceResourceDriftsOperation(
+      region: _region,
+      baseUri: _baseUri,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
+  }
+
+  /// Returns summary information about stack instances that are associated with the specified stack set. You can filter for stack instances that are associated with a specific Amazon Web Services account name or Region, or that have a specific status.
+  _i3.SmithyOperation<
+      _i3.PaginatedResult<_i50.BuiltList<_i137.StackInstanceSummary>, int,
+          String>> listStackInstances(
+    _i138.ListStackInstancesInput input, {
+    _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
+  }) {
+    return _i139.ListStackInstancesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1405,13 +1433,13 @@ class CloudFormationClient {
   ///
   /// For deleted stacks, ListStackResources returns resource information for up to 90 days after the stack has been deleted.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i137.StackResourceSummary>, void,
+      _i3.PaginatedResult<_i50.BuiltList<_i140.StackResourceSummary>, void,
           String>> listStackResources(
-    _i138.ListStackResourcesInput input, {
+    _i141.ListStackResourcesInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i139.ListStackResourcesOperation(
+    return _i142.ListStackResourcesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1425,13 +1453,13 @@ class CloudFormationClient {
 
   /// Returns summary information about the results of a stack set operation.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i140.StackSetOperationResultSummary>,
+      _i3.PaginatedResult<_i50.BuiltList<_i143.StackSetOperationResultSummary>,
           int, String>> listStackSetOperationResults(
-    _i141.ListStackSetOperationResultsInput input, {
+    _i144.ListStackSetOperationResultsInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i142.ListStackSetOperationResultsOperation(
+    return _i145.ListStackSetOperationResultsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1445,13 +1473,13 @@ class CloudFormationClient {
 
   /// Returns summary information about operations performed on a stack set.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i143.StackSetOperationSummary>, int,
+      _i3.PaginatedResult<_i50.BuiltList<_i146.StackSetOperationSummary>, int,
           String>> listStackSetOperations(
-    _i144.ListStackSetOperationsInput input, {
+    _i147.ListStackSetOperationsInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i145.ListStackSetOperationsOperation(
+    return _i148.ListStackSetOperationsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1471,13 +1499,14 @@ class CloudFormationClient {
   ///
   /// *   \[Service-managed permissions\] If you set the `CallAs` parameter to `DELEGATED_ADMIN` while signed in to your member account, `ListStackSets` returns all stack sets with service-managed permissions in the management account.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i146.StackSetSummary>, int,
-          String>> listStackSets(
-    _i147.ListStackSetsInput input, {
+          _i3
+          .PaginatedResult<_i50.BuiltList<_i149.StackSetSummary>, int, String>>
+      listStackSets(
+    _i150.ListStackSetsInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i148.ListStackSetsOperation(
+    return _i151.ListStackSetsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1491,13 +1520,13 @@ class CloudFormationClient {
 
   /// Returns the summary information for stacks whose status matches the specified StackStatusFilter. Summary information for stacks that have been deleted is kept for 90 days after the stack is deleted. If no StackStatusFilter is specified, summary information for all stacks is returned (including existing stacks and stacks that have been deleted).
   _i3.SmithyOperation<
-          _i3.PaginatedResult<_i50.BuiltList<_i149.StackSummary>, void, String>>
+          _i3.PaginatedResult<_i50.BuiltList<_i152.StackSummary>, void, String>>
       listStacks(
-    _i150.ListStacksInput input, {
+    _i153.ListStacksInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i151.ListStacksOperation(
+    return _i154.ListStacksOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1511,13 +1540,13 @@ class CloudFormationClient {
 
   /// Returns a list of registration tokens for the specified extension(s).
   _i3.SmithyOperation<
-          _i3.PaginatedResult<_i152.ListTypeRegistrationsOutput, int, String>>
+          _i3.PaginatedResult<_i155.ListTypeRegistrationsOutput, int, String>>
       listTypeRegistrations(
-    _i153.ListTypeRegistrationsInput input, {
+    _i156.ListTypeRegistrationsInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i154.ListTypeRegistrationsOperation(
+    return _i157.ListTypeRegistrationsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1531,13 +1560,13 @@ class CloudFormationClient {
 
   /// Returns summary information about the versions of an extension.
   _i3.SmithyOperation<
-          _i3.PaginatedResult<_i155.ListTypeVersionsOutput, int, String>>
+          _i3.PaginatedResult<_i158.ListTypeVersionsOutput, int, String>>
       listTypeVersions(
-    _i156.ListTypeVersionsInput input, {
+    _i159.ListTypeVersionsInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i157.ListTypeVersionsOperation(
+    return _i160.ListTypeVersionsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1551,13 +1580,13 @@ class CloudFormationClient {
 
   /// Returns summary information about extension that have been registered with CloudFormation.
   _i3.SmithyOperation<
-          _i3.PaginatedResult<_i50.BuiltList<_i158.TypeSummary>, int, String>>
+          _i3.PaginatedResult<_i50.BuiltList<_i161.TypeSummary>, int, String>>
       listTypes(
-    _i159.ListTypesInput input, {
+    _i162.ListTypesInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i160.ListTypesOperation(
+    return _i163.ListTypesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1572,12 +1601,12 @@ class CloudFormationClient {
   /// Publishes the specified extension to the CloudFormation registry as a public extension in this Region. Public extensions are available for use by all CloudFormation users. For more information about publishing extensions, see [Publishing extensions to make them available for public use](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/publish-extension.html) in the _CloudFormation CLI User Guide_.
   ///
   /// To publish an extension, you must be registered as a publisher with CloudFormation. For more information, see [RegisterPublisher](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterPublisher.html).
-  _i3.SmithyOperation<_i161.PublishTypeOutput> publishType(
-    _i162.PublishTypeInput input, {
+  _i3.SmithyOperation<_i164.PublishTypeOutput> publishType(
+    _i165.PublishTypeInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i163.PublishTypeOperation(
+    return _i166.PublishTypeOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1592,12 +1621,12 @@ class CloudFormationClient {
   /// Reports progress of a resource handler to CloudFormation.
   ///
   /// Reserved for use by the [CloudFormation CLI](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html). Don't use this API in your code.
-  _i3.SmithyOperation<_i164.RecordHandlerProgressOutput> recordHandlerProgress(
-    _i165.RecordHandlerProgressInput input, {
+  _i3.SmithyOperation<_i167.RecordHandlerProgressOutput> recordHandlerProgress(
+    _i168.RecordHandlerProgressInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i166.RecordHandlerProgressOperation(
+    return _i169.RecordHandlerProgressOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1612,12 +1641,12 @@ class CloudFormationClient {
   /// Registers your account as a publisher of public extensions in the CloudFormation registry. Public extensions are available for use by all CloudFormation users. This publisher ID applies to your account in all Amazon Web Services Regions.
   ///
   /// For information about requirements for registering as a public extension publisher, see [Registering your account to publish CloudFormation extensions](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/publish-extension.html#publish-extension-prereqs) in the _CloudFormation CLI User Guide_.
-  _i3.SmithyOperation<_i167.RegisterPublisherOutput> registerPublisher(
-    _i168.RegisterPublisherInput input, {
+  _i3.SmithyOperation<_i170.RegisterPublisherOutput> registerPublisher(
+    _i171.RegisterPublisherInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i169.RegisterPublisherOperation(
+    return _i172.RegisterPublisherOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1645,12 +1674,12 @@ class CloudFormationClient {
   /// Once you have initiated a registration request using RegisterType, you can use DescribeTypeRegistration to monitor the progress of the registration request.
   ///
   /// Once you have registered a private extension in your account and Region, use [SetTypeConfiguration](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_SetTypeConfiguration.html) to specify configuration properties for the extension. For more information, see [Configuring extensions at the account level](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-register.html#registry-set-configuration) in the _CloudFormation User Guide_.
-  _i3.SmithyOperation<_i170.RegisterTypeOutput> registerType(
-    _i171.RegisterTypeInput input, {
+  _i3.SmithyOperation<_i173.RegisterTypeOutput> registerType(
+    _i174.RegisterTypeInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i172.RegisterTypeOperation(
+    return _i175.RegisterTypeOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1677,12 +1706,12 @@ class CloudFormationClient {
   /// *   `IMPORT_COMPLETE`
   ///
   /// *   `IMPORT\_ROLLBACK\_COMPLETE`
-  _i3.SmithyOperation<_i173.RollbackStackOutput> rollbackStack(
-    _i174.RollbackStackInput input, {
+  _i3.SmithyOperation<_i176.RollbackStackOutput> rollbackStack(
+    _i177.RollbackStackInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i175.RollbackStackOperation(
+    return _i178.RollbackStackOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1696,11 +1725,11 @@ class CloudFormationClient {
 
   /// Sets a stack policy for a specified stack.
   _i3.SmithyOperation<void> setStackPolicy(
-    _i176.SetStackPolicyInput input, {
+    _i179.SetStackPolicyInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i177.SetStackPolicyOperation(
+    return _i180.SetStackPolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1717,12 +1746,12 @@ class CloudFormationClient {
   /// To view the current configuration data for an extension, refer to the `ConfigurationSchema` element of [DescribeType](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DescribeType.html). For more information, see [Configuring extensions at the account level](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-register.html#registry-set-configuration) in the _CloudFormation User Guide_.
   ///
   /// It's strongly recommended that you use dynamic references to restrict sensitive configuration definitions, such as third-party credentials. For more details on dynamic references, see [Using dynamic references to specify template values](https://docs.aws.amazon.com/) in the _CloudFormation User Guide_.
-  _i3.SmithyOperation<_i178.SetTypeConfigurationOutput> setTypeConfiguration(
-    _i179.SetTypeConfigurationInput input, {
+  _i3.SmithyOperation<_i181.SetTypeConfigurationOutput> setTypeConfiguration(
+    _i182.SetTypeConfigurationInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i180.SetTypeConfigurationOperation(
+    return _i183.SetTypeConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1735,12 +1764,12 @@ class CloudFormationClient {
   }
 
   /// Specify the default version of an extension. The default version of an extension will be used in CloudFormation operations.
-  _i3.SmithyOperation<_i181.SetTypeDefaultVersionOutput> setTypeDefaultVersion(
-    _i182.SetTypeDefaultVersionInput input, {
+  _i3.SmithyOperation<_i184.SetTypeDefaultVersionOutput> setTypeDefaultVersion(
+    _i185.SetTypeDefaultVersionInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i183.SetTypeDefaultVersionOperation(
+    return _i186.SetTypeDefaultVersionOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1754,11 +1783,11 @@ class CloudFormationClient {
 
   /// Sends a signal to the specified resource with a success or failure status. You can use the `SignalResource` operation in conjunction with a creation policy or update policy. CloudFormation doesn't proceed with a stack creation or update until resources receive the required number of signals or the timeout period is exceeded. The `SignalResource` operation is useful in cases where you want to send signals from anywhere other than an Amazon EC2 instance.
   _i3.SmithyOperation<void> signalResource(
-    _i184.SignalResourceInput input, {
+    _i187.SignalResourceInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i185.SignalResourceOperation(
+    return _i188.SignalResourceOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1771,12 +1800,12 @@ class CloudFormationClient {
   }
 
   /// Stops an in-progress operation on a stack set and its associated stack instances. StackSets will cancel all the unstarted stack instance deployments and wait for those are in-progress to complete.
-  _i3.SmithyOperation<_i186.StopStackSetOperationOutput> stopStackSetOperation(
-    _i187.StopStackSetOperationInput input, {
+  _i3.SmithyOperation<_i189.StopStackSetOperationOutput> stopStackSetOperation(
+    _i190.StopStackSetOperationInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i188.StopStackSetOperation(
+    return _i191.StopStackSetOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1804,12 +1833,12 @@ class CloudFormationClient {
   /// Once you've initiated testing on an extension using `TestType`, you can pass the returned `TypeVersionArn` into [DescribeType](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DescribeType.html) to monitor the current test status and test status description for the extension.
   ///
   /// An extension must have a test status of `PASSED` before it can be published. For more information, see [Publishing extensions to make them available for public use](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-publish.html) in the _CloudFormation CLI User Guide_.
-  _i3.SmithyOperation<_i189.TestTypeOutput> testType(
-    _i190.TestTypeInput input, {
+  _i3.SmithyOperation<_i192.TestTypeOutput> testType(
+    _i193.TestTypeInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i191.TestTypeOperation(
+    return _i194.TestTypeOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1826,12 +1855,12 @@ class CloudFormationClient {
   /// To get a copy of the template for an existing stack, you can use the GetTemplate action.
   ///
   /// For more information about creating an update template, updating a stack, and monitoring the progress of the update, see [Updating a Stack](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks.html).
-  _i3.SmithyOperation<_i192.UpdateStackOutput> updateStack(
-    _i193.UpdateStackInput input, {
+  _i3.SmithyOperation<_i195.UpdateStackOutput> updateStack(
+    _i196.UpdateStackInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i194.UpdateStackOperation(
+    return _i197.UpdateStackOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1850,12 +1879,12 @@ class CloudFormationClient {
   /// During stack set updates, any parameters overridden for a stack instance aren't updated, but retain their overridden value.
   ///
   /// You can only update the parameter _values_ that are specified in the stack set; to add or delete a parameter itself, use [UpdateStackSet](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_UpdateStackSet.html) to update the stack set template. If you add a parameter to a template, before you can override the parameter value specified in the stack set you must first use [UpdateStackSet](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_UpdateStackSet.html) to update all stack instances with the updated template and parameter value specified in the stack set. Once a stack instance has been updated with the new parameter, you can then override the parameter value using `UpdateStackInstances`.
-  _i3.SmithyOperation<_i195.UpdateStackInstancesOutput> updateStackInstances(
-    _i196.UpdateStackInstancesInput input, {
+  _i3.SmithyOperation<_i198.UpdateStackInstancesOutput> updateStackInstances(
+    _i199.UpdateStackInstancesInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i197.UpdateStackInstancesOperation(
+    return _i200.UpdateStackInstancesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1870,12 +1899,12 @@ class CloudFormationClient {
   /// Updates the stack set, and associated stack instances in the specified accounts and Amazon Web Services Regions.
   ///
   /// Even if the stack set operation created by updating the stack set fails (completely or partially, below or above a specified failure tolerance), the stack set is updated with your changes. Subsequent CreateStackInstances calls on the specified stack set use the updated stack set.
-  _i3.SmithyOperation<_i198.UpdateStackSetOutput> updateStackSet(
-    _i199.UpdateStackSetInput input, {
+  _i3.SmithyOperation<_i201.UpdateStackSetOutput> updateStackSet(
+    _i202.UpdateStackSetInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i200.UpdateStackSetOperation(
+    return _i203.UpdateStackSetOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1890,13 +1919,13 @@ class CloudFormationClient {
   /// Updates termination protection for the specified stack. If a user attempts to delete a stack with termination protection enabled, the operation fails and the stack remains unchanged. For more information, see [Protecting a Stack From Being Deleted](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html) in the _CloudFormation User Guide_.
   ///
   /// For [nested stacks](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html), termination protection is set on the root stack and can't be changed directly on the nested stack.
-  _i3.SmithyOperation<_i201.UpdateTerminationProtectionOutput>
+  _i3.SmithyOperation<_i204.UpdateTerminationProtectionOutput>
       updateTerminationProtection(
-    _i202.UpdateTerminationProtectionInput input, {
+    _i205.UpdateTerminationProtectionInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i203.UpdateTerminationProtectionOperation(
+    return _i206.UpdateTerminationProtectionOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1909,12 +1938,12 @@ class CloudFormationClient {
   }
 
   /// Validates a specified template. CloudFormation first checks if the template is valid JSON. If it isn't, CloudFormation checks if the template is valid YAML. If both these checks fail, CloudFormation returns a template validation error.
-  _i3.SmithyOperation<_i204.ValidateTemplateOutput> validateTemplate(
-    _i205.ValidateTemplateInput input, {
+  _i3.SmithyOperation<_i207.ValidateTemplateOutput> validateTemplate(
+    _i208.ValidateTemplateInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i206.ValidateTemplateOperation(
+    return _i209.ValidateTemplateOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,

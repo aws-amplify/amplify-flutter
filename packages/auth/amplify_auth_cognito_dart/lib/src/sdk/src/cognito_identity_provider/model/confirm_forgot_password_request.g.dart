@@ -132,9 +132,7 @@ class ConfirmForgotPasswordRequestBuilder
   set clientMetadata(_i5.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
-  ConfirmForgotPasswordRequestBuilder() {
-    ConfirmForgotPasswordRequest._init(this);
-  }
+  ConfirmForgotPasswordRequestBuilder();
 
   ConfirmForgotPasswordRequestBuilder get _$this {
     final $v = _$v;

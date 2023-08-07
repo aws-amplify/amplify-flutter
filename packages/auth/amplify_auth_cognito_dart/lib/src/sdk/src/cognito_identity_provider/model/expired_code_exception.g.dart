@@ -54,9 +54,7 @@ class ExpiredCodeExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ExpiredCodeExceptionBuilder() {
-    ExpiredCodeException._init(this);
-  }
+  ExpiredCodeExceptionBuilder();
 
   ExpiredCodeExceptionBuilder get _$this {
     final $v = _$v;

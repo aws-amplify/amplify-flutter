@@ -57,8 +57,9 @@ abstract class DeleteBucketAnalyticsConfigurationRequest
       });
 
   static const List<
-      _i1.SmithySerializer<
-          DeleteBucketAnalyticsConfigurationRequestPayload>> serializers = [
+          _i1
+          .SmithySerializer<DeleteBucketAnalyticsConfigurationRequestPayload>>
+      serializers = [
     DeleteBucketAnalyticsConfigurationRequestRestXmlSerializer()
   ];
 
@@ -135,8 +136,8 @@ abstract class DeleteBucketAnalyticsConfigurationRequestPayload
   }
 }
 
-class DeleteBucketAnalyticsConfigurationRequestRestXmlSerializer
-    extends _i1.StructuredSmithySerializer<
+class DeleteBucketAnalyticsConfigurationRequestRestXmlSerializer extends _i1
+    .StructuredSmithySerializer<
         DeleteBucketAnalyticsConfigurationRequestPayload> {
   const DeleteBucketAnalyticsConfigurationRequestRestXmlSerializer()
       : super('DeleteBucketAnalyticsConfigurationRequest');

@@ -92,7 +92,7 @@ abstract class StackResourceDetail
   /// The content of the `Metadata` attribute declared for the resource. For more information, see [Metadata Attribute](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-metadata.html) in the CloudFormation User Guide.
   String? get metadata;
 
-  /// Information about whether the resource's actual configuration differs, or has _drifted_, from its expected configuration, as defined in the stack template and any values specified as template parameters. For more information, see [Detecting Unregulated Configuration Changes to Stacks and Resources](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
+  /// Information about whether the resource's actual configuration differs, or has _drifted_, from its expected configuration, as defined in the stack template and any values specified as template parameters. For more information, see [Detecting Unregulated Configuration Changes to Stacks and Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
   _i3.StackResourceDriftInformation? get driftInformation;
 
   /// Contains information about the module from which the resource was created, if the resource was created from a module included in the stack template.

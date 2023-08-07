@@ -55,9 +55,7 @@ class ResourceConflictExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ResourceConflictExceptionBuilder() {
-    ResourceConflictException._init(this);
-  }
+  ResourceConflictExceptionBuilder();
 
   ResourceConflictExceptionBuilder get _$this {
     final $v = _$v;

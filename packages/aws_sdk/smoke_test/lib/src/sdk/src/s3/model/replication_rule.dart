@@ -29,8 +29,9 @@ abstract class ReplicationRule
   factory ReplicationRule({
     String? id,
     int? priority,
-    @Deprecated('No longer recommended for use. See API documentation for more details.')
-        String? prefix,
+    @Deprecated(
+        'No longer recommended for use. See API documentation for more details.')
+    String? prefix,
     _i2.ReplicationRuleFilter? filter,
     required _i3.ReplicationRuleStatus status,
     _i4.SourceSelectionCriteria? sourceSelectionCriteria,

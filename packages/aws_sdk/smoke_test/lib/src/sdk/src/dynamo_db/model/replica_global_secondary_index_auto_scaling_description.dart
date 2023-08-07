@@ -48,8 +48,9 @@ abstract class ReplicaGlobalSecondaryIndexAutoScalingDescription
   const ReplicaGlobalSecondaryIndexAutoScalingDescription._();
 
   static const List<
-      _i4.SmithySerializer<
-          ReplicaGlobalSecondaryIndexAutoScalingDescription>> serializers = [
+          _i4
+          .SmithySerializer<ReplicaGlobalSecondaryIndexAutoScalingDescription>>
+      serializers = [
     ReplicaGlobalSecondaryIndexAutoScalingDescriptionAwsJson10Serializer()
   ];
 

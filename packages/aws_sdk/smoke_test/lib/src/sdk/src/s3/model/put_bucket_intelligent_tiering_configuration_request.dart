@@ -116,7 +116,7 @@ abstract class PutBucketIntelligentTieringConfigurationRequest
 
 class PutBucketIntelligentTieringConfigurationRequestRestXmlSerializer
     extends _i1
-        .StructuredSmithySerializer<_i2.IntelligentTieringConfiguration> {
+    .StructuredSmithySerializer<_i2.IntelligentTieringConfiguration> {
   const PutBucketIntelligentTieringConfigurationRequestRestXmlSerializer()
       : super('PutBucketIntelligentTieringConfigurationRequest');
 

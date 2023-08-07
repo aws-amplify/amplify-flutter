@@ -121,9 +121,7 @@ class RespondToAuthChallengeRequestBuilder
   set clientMetadata(_i6.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
-  RespondToAuthChallengeRequestBuilder() {
-    RespondToAuthChallengeRequest._init(this);
-  }
+  RespondToAuthChallengeRequestBuilder();
 
   RespondToAuthChallengeRequestBuilder get _$this {
     final $v = _$v;

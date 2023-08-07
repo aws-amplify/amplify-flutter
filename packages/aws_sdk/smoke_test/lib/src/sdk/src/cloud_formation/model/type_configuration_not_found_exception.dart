@@ -42,6 +42,7 @@ abstract class TypeConfigurationNotFoundException
   static const List<_i2.SmithySerializer<TypeConfigurationNotFoundException>>
       serializers = [TypeConfigurationNotFoundExceptionAwsQuerySerializer()];
 
+  /// An message with details about the error that occurred.
   @override
   String? get message;
   @override

@@ -89,9 +89,7 @@ class DeviceTypeBuilder implements Builder<DeviceType, DeviceTypeBuilder> {
   set deviceLastAuthenticatedDate(DateTime? deviceLastAuthenticatedDate) =>
       _$this._deviceLastAuthenticatedDate = deviceLastAuthenticatedDate;
 
-  DeviceTypeBuilder() {
-    DeviceType._init(this);
-  }
+  DeviceTypeBuilder();
 
   DeviceTypeBuilder get _$this {
     final $v = _$v;

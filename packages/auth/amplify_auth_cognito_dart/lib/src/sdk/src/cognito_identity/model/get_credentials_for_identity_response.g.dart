@@ -64,9 +64,7 @@ class GetCredentialsForIdentityResponseBuilder
   set credentials(_i2.CredentialsBuilder? credentials) =>
       _$this._credentials = credentials;
 
-  GetCredentialsForIdentityResponseBuilder() {
-    GetCredentialsForIdentityResponse._init(this);
-  }
+  GetCredentialsForIdentityResponseBuilder();
 
   GetCredentialsForIdentityResponseBuilder get _$this {
     final $v = _$v;

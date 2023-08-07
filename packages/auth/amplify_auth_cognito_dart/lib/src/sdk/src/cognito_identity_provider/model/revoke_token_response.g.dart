@@ -38,9 +38,7 @@ class RevokeTokenResponseBuilder
     implements Builder<RevokeTokenResponse, RevokeTokenResponseBuilder> {
   _$RevokeTokenResponse? _$v;
 
-  RevokeTokenResponseBuilder() {
-    RevokeTokenResponse._init(this);
-  }
+  RevokeTokenResponseBuilder();
 
   @override
   void replace(RevokeTokenResponse other) {

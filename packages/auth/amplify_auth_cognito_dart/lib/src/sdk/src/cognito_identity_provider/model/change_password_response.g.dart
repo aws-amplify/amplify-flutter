@@ -38,9 +38,7 @@ class ChangePasswordResponseBuilder
     implements Builder<ChangePasswordResponse, ChangePasswordResponseBuilder> {
   _$ChangePasswordResponse? _$v;
 
-  ChangePasswordResponseBuilder() {
-    ChangePasswordResponse._init(this);
-  }
+  ChangePasswordResponseBuilder();
 
   @override
   void replace(ChangePasswordResponse other) {

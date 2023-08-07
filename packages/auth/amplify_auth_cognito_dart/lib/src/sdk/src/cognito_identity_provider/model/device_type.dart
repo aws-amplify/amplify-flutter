@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.device_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -45,9 +45,6 @@ abstract class DeviceType
     DeviceTypeAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeviceTypeBuilder b) {}
-
   /// The device key.
   String? get deviceKey;
 
@@ -57,7 +54,7 @@ abstract class DeviceType
   /// The creation date of the device.
   DateTime? get deviceCreateDate;
 
-  /// The last modified date of the device.
+  /// The date and time, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format, when the item was modified.
   DateTime? get deviceLastModifiedDate;
 
   /// The date when the device was last authenticated.
