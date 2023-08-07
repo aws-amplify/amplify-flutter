@@ -1,3 +1,22 @@
+## 1.3.1
+
+### Fixes
+- fix(datastore): hot restart ([#3497](https://github.com/aws-amplify/amplify-flutter/pull/3497))
+- fix(datastore): make event history list thread safe ([#3509](https://github.com/aws-amplify/amplify-flutter/pull/3509))
+
+## 1.3.0
+
+### Features
+- feat(datastore): Adds DataStoreHubEventType to DataStoreHubEvents ([#3454](https://github.com/aws-amplify/amplify-flutter/pull/3454))
+
+### Chores
+
+- chore(deps): Bump Amplify Android to 2.11.0
+
+## 1.2.0-supports-only-mobile+1
+
+- chore(datastore): Amplify Swift version bump to 1.30.4 (#3327). Fixes #663, addresses #1693 and #2527 on iOS.
+
 ## 1.2.0-supports-only-mobile
 
 - Minor bug fixes and improvements

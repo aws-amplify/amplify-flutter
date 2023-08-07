@@ -1,3 +1,26 @@
+## 1.3.1
+
+### Fixes
+- fix(auth): Remove `nonce` usage ([#3321](https://github.com/aws-amplify/amplify-flutter/pull/3321))
+- fix(push): Incorrect handling of simple alert ([#3502](https://github.com/aws-amplify/amplify-flutter/pull/3502))
+- perf(auth): Fetch auth session ([#3510](https://github.com/aws-amplify/amplify-flutter/pull/3510))
+
+## 1.3.0
+
+### Features
+- feat(auth): Enable ASF
+- feat(datastore): Adds DataStoreHubEventType to DataStoreHubEvents ([#3454](https://github.com/aws-amplify/amplify-flutter/pull/3454))
+
+### Fixes
+- fix(codegen): Mark Cognito map as sparse ([#3386](https://github.com/aws-amplify/amplify-flutter/pull/3386))
+- fix(smithy): Union variant naming ([#3415](https://github.com/aws-amplify/amplify-flutter/pull/3415))
+
+## 1.2.1
+
+### Fixes
+- fix(analytics): Disallowed unauth access
+- fix(storage): list options pageSize and nextToken params got lost ([#3291](https://github.com/aws-amplify/amplify-flutter/pull/3291))
+
 ## 1.2.0
 
 ### Fixes

@@ -1,3 +1,21 @@
+## 0.10.2+1
+
+### Fixes
+- fix(auth): Remove `nonce` usage ([#3321](https://github.com/aws-amplify/amplify-flutter/pull/3321))
+- perf(auth): Fetch auth session ([#3510](https://github.com/aws-amplify/amplify-flutter/pull/3510))
+
+## 0.10.2
+
+### Features
+- feat(auth): Enable ASF
+
+### Fixes
+- fix(codegen): Mark Cognito map as sparse ([#3386](https://github.com/aws-amplify/amplify-flutter/pull/3386))
+
+## 0.10.1+1
+
+- Minor bug fixes and improvements
+
 ## 0.10.1
 
 ### Fixes
