@@ -8,6 +8,10 @@ export 'package:rest_xml_v1/src/s3/model/aws_config.dart';
 export 'package:rest_xml_v1/src/s3/model/bucket_location_constraint.dart';
 export 'package:rest_xml_v1/src/s3/model/client_config.dart';
 export 'package:rest_xml_v1/src/s3/model/common_prefix.dart';
+export 'package:rest_xml_v1/src/s3/model/delete_object_tagging_output.dart'
+    hide DeleteObjectTaggingOutputPayload;
+export 'package:rest_xml_v1/src/s3/model/delete_object_tagging_request.dart'
+    hide DeleteObjectTaggingRequestPayload;
 export 'package:rest_xml_v1/src/s3/model/encoding_type.dart';
 export 'package:rest_xml_v1/src/s3/model/environment_config.dart';
 export 'package:rest_xml_v1/src/s3/model/file_config_settings.dart';

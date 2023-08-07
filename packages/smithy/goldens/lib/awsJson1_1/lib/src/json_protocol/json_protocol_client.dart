@@ -26,8 +26,10 @@ import 'package:aws_json1_1_v1/src/json_protocol/model/operation_with_optional_i
     as _i25;
 import 'package:aws_json1_1_v1/src/json_protocol/model/put_and_get_inline_documents_input_output.dart'
     as _i28;
-import 'package:aws_json1_1_v1/src/json_protocol/model/simple_scalar_properties_input_output.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/model/put_with_content_encoding_input.dart'
     as _i30;
+import 'package:aws_json1_1_v1/src/json_protocol/model/simple_scalar_properties_input_output.dart'
+    as _i32;
 import 'package:aws_json1_1_v1/src/json_protocol/model/union_input_output.dart'
     as _i19;
 import 'package:aws_json1_1_v1/src/json_protocol/operation/datetime_offsets_operation.dart'
@@ -58,8 +60,10 @@ import 'package:aws_json1_1_v1/src/json_protocol/operation/operation_with_option
     as _i27;
 import 'package:aws_json1_1_v1/src/json_protocol/operation/put_and_get_inline_documents_operation.dart'
     as _i29;
-import 'package:aws_json1_1_v1/src/json_protocol/operation/simple_scalar_properties_operation.dart'
+import 'package:aws_json1_1_v1/src/json_protocol/operation/put_with_content_encoding_operation.dart'
     as _i31;
+import 'package:aws_json1_1_v1/src/json_protocol/operation/simple_scalar_properties_operation.dart'
+    as _i33;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i3;
 
@@ -330,13 +334,30 @@ class JsonProtocolClient {
     );
   }
 
-  _i3.SmithyOperation<_i30.SimpleScalarPropertiesInputOutput>
-      simpleScalarProperties(
-    _i30.SimpleScalarPropertiesInputOutput input, {
+  _i3.SmithyOperation<void> putWithContentEncoding(
+    _i30.PutWithContentEncodingInput input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i31.SimpleScalarPropertiesOperation(
+    return _i31.PutWithContentEncodingOperation(
+      region: _region,
+      baseUri: _baseUri,
+      credentialsProvider: credentialsProvider ?? _credentialsProvider,
+      requestInterceptors: _requestInterceptors,
+      responseInterceptors: _responseInterceptors,
+    ).run(
+      input,
+      client: client ?? _client,
+    );
+  }
+
+  _i3.SmithyOperation<_i32.SimpleScalarPropertiesInputOutput>
+      simpleScalarProperties(
+    _i32.SimpleScalarPropertiesInputOutput input, {
+    _i1.AWSHttpClient? client,
+    _i2.AWSCredentialsProvider? credentialsProvider,
+  }) {
+    return _i33.SimpleScalarPropertiesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,

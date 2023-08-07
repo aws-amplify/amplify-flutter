@@ -78,7 +78,7 @@ abstract class HttpPayloadWithXmlNamespaceAndPrefixInputOutput
 
 class HttpPayloadWithXmlNamespaceAndPrefixInputOutputRestXmlSerializer
     extends _i1
-        .StructuredSmithySerializer<_i2.PayloadWithXmlNamespaceAndPrefix> {
+    .StructuredSmithySerializer<_i2.PayloadWithXmlNamespaceAndPrefix> {
   const HttpPayloadWithXmlNamespaceAndPrefixInputOutputRestXmlSerializer()
       : super('HttpPayloadWithXmlNamespaceAndPrefixInputOutput');
 

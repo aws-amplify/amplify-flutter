@@ -54,45 +54,6 @@ void main() {
       );
     },
   );
-  _i1.test(
-    'AwsJson11HttpDateWithFractionalSeconds (response)',
-    () async {
-      await _i2.httpResponseTest(
-        operation: _i3.FractionalSecondsOperation(
-          region: 'us-east-1',
-          baseUri: Uri.parse('https://example.com'),
-          credentialsProvider:
-              const _i4.AWSCredentialsProvider(_i4.AWSCredentials(
-            'DUMMY-ACCESS-KEY-ID',
-            'DUMMY-SECRET-ACCESS-KEY',
-          )),
-        ),
-        testCase: const _i2.HttpResponseTestCase(
-          id: 'AwsJson11HttpDateWithFractionalSeconds',
-          documentation:
-              'Ensures that clients can correctly parse http-date timestamps with fractional seconds',
-          protocol: _i5.ShapeId(
-            namespace: 'aws.protocols',
-            shape: 'awsJson1_1',
-          ),
-          authScheme: null,
-          body:
-              '      {\n          "httpdate": "Sun, 02 Jan 2000 20:34:56.456 GMT"\n      }\n',
-          bodyMediaType: 'application/json',
-          params: {'httpdate': 946845296.456},
-          vendorParamsShape: null,
-          vendorParams: {},
-          headers: {'Content-Type': 'application/x-amz-json-1.1'},
-          forbidHeaders: [],
-          requireHeaders: [],
-          tags: [],
-          appliesTo: _i2.AppliesTo.client,
-          code: 200,
-        ),
-        outputSerializers: const [FractionalSecondsOutputAwsJson11Serializer()],
-      );
-    },
-  );
 }
 
 class FractionalSecondsOutputAwsJson11Serializer
@@ -127,11 +88,6 @@ class FractionalSecondsOutputAwsJson11Serializer
       switch (key) {
         case 'datetime':
           result.datetime = _i5.TimestampSerializer.epochSeconds.deserialize(
-            serializers,
-            value,
-          );
-        case 'httpdate':
-          result.httpdate = _i5.TimestampSerializer.epochSeconds.deserialize(
             serializers,
             value,
           );

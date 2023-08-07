@@ -3,16 +3,16 @@
 
 library rest_xml_v2.rest_xml_protocol.common.serializers; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:built_collection/built_collection.dart' as _i79;
+import 'package:built_collection/built_collection.dart' as _i80;
 import 'package:built_value/serializer.dart';
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/all_query_string_types_input.dart'
     as _i2;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/aws_config.dart'
-    as _i78;
+    as _i79;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/body_with_xml_name_input_output.dart'
     as _i5;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/client_config.dart'
-    as _i75;
+    as _i76;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/complex_error.dart'
     as _i19;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/complex_nested_error_data.dart'
@@ -28,9 +28,9 @@ import 'package:rest_xml_v2/src/rest_xml_protocol/model/empty_input_and_empty_ou
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/empty_input_and_empty_output_output.dart'
     as _i11;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/environment_config.dart'
-    as _i70;
+    as _i71;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/file_config_settings.dart'
-    as _i73;
+    as _i74;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/flattened_xml_map_input_output.dart'
     as _i14;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/flattened_xml_map_with_xml_name_input_output.dart'
@@ -41,7 +41,7 @@ import 'package:rest_xml_v2/src/rest_xml_protocol/model/foo_enum.dart' as _i3;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/fractional_seconds_output.dart'
     as _i17;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/greeting_struct.dart'
-    as _i58;
+    as _i59;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/greeting_with_errors_output.dart'
     as _i18;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/host_label_header_input.dart'
@@ -93,70 +93,72 @@ import 'package:rest_xml_v2/src/rest_xml_protocol/model/null_and_empty_headers_i
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/omits_null_serializes_empty_string_input.dart'
     as _i43;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/operation_config.dart'
-    as _i76;
+    as _i77;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/payload_with_xml_name.dart'
     as _i6;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/payload_with_xml_namespace.dart'
     as _i29;
 import 'package:rest_xml_v2/src/rest_xml_protocol/model/payload_with_xml_namespace_and_prefix.dart'
     as _i31;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/query_idempotency_token_auto_fill_input.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/put_with_content_encoding_input.dart'
     as _i44;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/query_params_as_string_list_map_input.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/query_idempotency_token_auto_fill_input.dart'
     as _i45;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/query_precedence_input.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/query_params_as_string_list_map_input.dart'
     as _i46;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/recursive_shapes_input_output.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/query_precedence_input.dart'
     as _i47;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/recursive_shapes_input_output_nested1.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/recursive_shapes_input_output.dart'
     as _i48;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/recursive_shapes_input_output_nested2.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/recursive_shapes_input_output_nested1.dart'
     as _i49;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/retry_config.dart'
-    as _i74;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/retry_mode.dart'
-    as _i69;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/s3_addressing_style.dart'
-    as _i71;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/s3_config.dart' as _i72;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/scoped_config.dart'
-    as _i77;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/simple_scalar_properties_input_output.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/recursive_shapes_input_output_nested2.dart'
     as _i50;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/structure_list_member.dart'
-    as _i56;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/timestamp_format_headers_io.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/retry_config.dart'
+    as _i75;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/retry_mode.dart'
+    as _i70;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/s3_addressing_style.dart'
+    as _i72;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/s3_config.dart' as _i73;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/scoped_config.dart'
+    as _i78;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/simple_scalar_properties_input_output.dart'
     as _i51;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_attributes_input_output.dart'
-    as _i52;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_attributes_on_payload_input_output.dart'
-    as _i53;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_blobs_input_output.dart'
-    as _i54;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_empty_strings_input_output.dart'
-    as _i59;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_enums_input_output.dart'
-    as _i60;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_int_enums_input_output.dart'
-    as _i61;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_lists_input_output.dart'
-    as _i55;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_maps_input_output.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/structure_list_member.dart'
     as _i57;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_maps_xml_name_input_output.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/timestamp_format_headers_io.dart'
+    as _i52;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_attributes_input_output.dart'
+    as _i53;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_attributes_on_payload_input_output.dart'
+    as _i54;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_blobs_input_output.dart'
+    as _i55;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_empty_strings_input_output.dart'
+    as _i60;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_enums_input_output.dart'
+    as _i61;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_int_enums_input_output.dart'
     as _i62;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_namespace_nested.dart'
-    as _i64;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_namespaces_input_output.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_lists_input_output.dart'
+    as _i56;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_maps_input_output.dart'
+    as _i58;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_maps_xml_name_input_output.dart'
     as _i63;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_nested_union_struct.dart'
-    as _i67;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_timestamps_input_output.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_namespace_nested.dart'
     as _i65;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_union_shape.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_namespaces_input_output.dart'
+    as _i64;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_nested_union_struct.dart'
     as _i68;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_unions_input_output.dart'
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_timestamps_input_output.dart'
     as _i66;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_union_shape.dart'
+    as _i69;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_unions_input_output.dart'
+    as _i67;
 import 'package:smithy/smithy.dart' as _i1;
 
 const List<_i1.SmithySerializer> serializers = [
@@ -202,153 +204,154 @@ const List<_i1.SmithySerializer> serializers = [
   ..._i41.NoInputAndOutputOutput.serializers,
   ..._i42.NullAndEmptyHeadersIo.serializers,
   ..._i43.OmitsNullSerializesEmptyStringInput.serializers,
-  ..._i44.QueryIdempotencyTokenAutoFillInput.serializers,
-  ..._i45.QueryParamsAsStringListMapInput.serializers,
-  ..._i46.QueryPrecedenceInput.serializers,
-  ..._i47.RecursiveShapesInputOutput.serializers,
-  ..._i48.RecursiveShapesInputOutputNested1.serializers,
-  ..._i49.RecursiveShapesInputOutputNested2.serializers,
-  ..._i50.SimpleScalarPropertiesInputOutput.serializers,
-  ..._i51.TimestampFormatHeadersIo.serializers,
-  ..._i52.XmlAttributesInputOutput.serializers,
-  ..._i53.XmlAttributesOnPayloadInputOutput.serializers,
-  ..._i54.XmlBlobsInputOutput.serializers,
-  ..._i55.XmlListsInputOutput.serializers,
-  ..._i56.StructureListMember.serializers,
-  ..._i57.XmlMapsInputOutput.serializers,
-  ..._i58.GreetingStruct.serializers,
-  ..._i59.XmlEmptyStringsInputOutput.serializers,
-  ..._i60.XmlEnumsInputOutput.serializers,
-  ..._i61.XmlIntEnumsInputOutput.serializers,
-  ..._i62.XmlMapsXmlNameInputOutput.serializers,
-  ..._i63.XmlNamespacesInputOutput.serializers,
-  ..._i64.XmlNamespaceNested.serializers,
-  ..._i65.XmlTimestampsInputOutput.serializers,
-  ..._i66.XmlUnionsInputOutput.serializers,
-  ..._i67.XmlNestedUnionStruct.serializers,
-  ..._i68.XmlUnionShape.serializers,
-  ..._i69.RetryMode.serializers,
-  ..._i70.EnvironmentConfig.serializers,
-  ..._i71.S3AddressingStyle.serializers,
-  ..._i72.S3Config.serializers,
-  ..._i73.FileConfigSettings.serializers,
-  ..._i74.RetryConfig.serializers,
-  ..._i75.ClientConfig.serializers,
-  ..._i76.OperationConfig.serializers,
-  ..._i77.ScopedConfig.serializers,
-  ..._i78.AwsConfig.serializers,
+  ..._i44.PutWithContentEncodingInput.serializers,
+  ..._i45.QueryIdempotencyTokenAutoFillInput.serializers,
+  ..._i46.QueryParamsAsStringListMapInput.serializers,
+  ..._i47.QueryPrecedenceInput.serializers,
+  ..._i48.RecursiveShapesInputOutput.serializers,
+  ..._i49.RecursiveShapesInputOutputNested1.serializers,
+  ..._i50.RecursiveShapesInputOutputNested2.serializers,
+  ..._i51.SimpleScalarPropertiesInputOutput.serializers,
+  ..._i52.TimestampFormatHeadersIo.serializers,
+  ..._i53.XmlAttributesInputOutput.serializers,
+  ..._i54.XmlAttributesOnPayloadInputOutput.serializers,
+  ..._i55.XmlBlobsInputOutput.serializers,
+  ..._i56.XmlListsInputOutput.serializers,
+  ..._i57.StructureListMember.serializers,
+  ..._i58.XmlMapsInputOutput.serializers,
+  ..._i59.GreetingStruct.serializers,
+  ..._i60.XmlEmptyStringsInputOutput.serializers,
+  ..._i61.XmlEnumsInputOutput.serializers,
+  ..._i62.XmlIntEnumsInputOutput.serializers,
+  ..._i63.XmlMapsXmlNameInputOutput.serializers,
+  ..._i64.XmlNamespacesInputOutput.serializers,
+  ..._i65.XmlNamespaceNested.serializers,
+  ..._i66.XmlTimestampsInputOutput.serializers,
+  ..._i67.XmlUnionsInputOutput.serializers,
+  ..._i68.XmlNestedUnionStruct.serializers,
+  ..._i69.XmlUnionShape.serializers,
+  ..._i70.RetryMode.serializers,
+  ..._i71.EnvironmentConfig.serializers,
+  ..._i72.S3AddressingStyle.serializers,
+  ..._i73.S3Config.serializers,
+  ..._i74.FileConfigSettings.serializers,
+  ..._i75.RetryConfig.serializers,
+  ..._i76.ClientConfig.serializers,
+  ..._i77.OperationConfig.serializers,
+  ..._i78.ScopedConfig.serializers,
+  ..._i79.AwsConfig.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
   const FullType(
-    _i79.BuiltList,
+    _i80.BuiltList,
     [FullType(String)],
-  ): _i79.ListBuilder<String>.new,
+  ): _i80.ListBuilder<String>.new,
   const FullType(
-    _i79.BuiltSet,
+    _i80.BuiltSet,
     [FullType(String)],
-  ): _i79.SetBuilder<String>.new,
+  ): _i80.SetBuilder<String>.new,
   const FullType(
-    _i79.BuiltList,
+    _i80.BuiltList,
     [FullType(int)],
-  ): _i79.ListBuilder<int>.new,
+  ): _i80.ListBuilder<int>.new,
   const FullType(
-    _i79.BuiltSet,
+    _i80.BuiltSet,
     [FullType(int)],
-  ): _i79.SetBuilder<int>.new,
+  ): _i80.SetBuilder<int>.new,
   const FullType(
-    _i79.BuiltList,
+    _i80.BuiltList,
     [FullType(double)],
-  ): _i79.ListBuilder<double>.new,
+  ): _i80.ListBuilder<double>.new,
   const FullType(
-    _i79.BuiltList,
+    _i80.BuiltList,
     [FullType(bool)],
-  ): _i79.ListBuilder<bool>.new,
+  ): _i80.ListBuilder<bool>.new,
   const FullType(
-    _i79.BuiltList,
+    _i80.BuiltList,
     [FullType(DateTime)],
-  ): _i79.ListBuilder<DateTime>.new,
+  ): _i80.ListBuilder<DateTime>.new,
   const FullType(
-    _i79.BuiltList,
+    _i80.BuiltList,
     [FullType(_i3.FooEnum)],
-  ): _i79.ListBuilder<_i3.FooEnum>.new,
+  ): _i80.ListBuilder<_i3.FooEnum>.new,
   const FullType(
-    _i79.BuiltList,
+    _i80.BuiltList,
     [FullType(_i4.IntegerEnum)],
-  ): _i79.ListBuilder<_i4.IntegerEnum>.new,
+  ): _i80.ListBuilder<_i4.IntegerEnum>.new,
   const FullType(
-    _i79.BuiltMap,
+    _i80.BuiltMap,
     [
       FullType(String),
       FullType(String),
     ],
-  ): _i79.MapBuilder<String, String>.new,
+  ): _i80.MapBuilder<String, String>.new,
   const FullType(
-    _i79.BuiltMap,
+    _i80.BuiltMap,
     [
       FullType(String),
       FullType(_i3.FooEnum),
     ],
-  ): _i79.MapBuilder<String, _i3.FooEnum>.new,
+  ): _i80.MapBuilder<String, _i3.FooEnum>.new,
   const FullType(
-    _i79.BuiltMap,
+    _i80.BuiltMap,
     [
       FullType(String),
       FullType(
-        _i79.BuiltMap,
+        _i80.BuiltMap,
         [
           FullType(String),
           FullType(_i3.FooEnum),
         ],
       ),
     ],
-  ): _i79.MapBuilder<String, _i79.BuiltMap<String, _i3.FooEnum>>.new,
+  ): _i80.MapBuilder<String, _i80.BuiltMap<String, _i3.FooEnum>>.new,
   const FullType(
-    _i79.BuiltListMultimap,
+    _i80.BuiltListMultimap,
     [
       FullType(String),
       FullType(String),
     ],
-  ): _i79.ListMultimapBuilder<String, String>.new,
+  ): _i80.ListMultimapBuilder<String, String>.new,
   const FullType(
-    _i79.BuiltList,
+    _i80.BuiltList,
     [
       FullType(
-        _i79.BuiltList,
+        _i80.BuiltList,
         [FullType(String)],
       )
     ],
-  ): _i79.ListBuilder<_i79.BuiltList<String>>.new,
+  ): _i80.ListBuilder<_i80.BuiltList<String>>.new,
   const FullType(
-    _i79.BuiltList,
-    [FullType(_i56.StructureListMember)],
-  ): _i79.ListBuilder<_i56.StructureListMember>.new,
+    _i80.BuiltList,
+    [FullType(_i57.StructureListMember)],
+  ): _i80.ListBuilder<_i57.StructureListMember>.new,
   const FullType(
-    _i79.BuiltMap,
+    _i80.BuiltMap,
     [
       FullType(String),
-      FullType(_i58.GreetingStruct),
+      FullType(_i59.GreetingStruct),
     ],
-  ): _i79.MapBuilder<String, _i58.GreetingStruct>.new,
+  ): _i80.MapBuilder<String, _i59.GreetingStruct>.new,
   const FullType(
-    _i79.BuiltSet,
+    _i80.BuiltSet,
     [FullType(_i3.FooEnum)],
-  ): _i79.SetBuilder<_i3.FooEnum>.new,
+  ): _i80.SetBuilder<_i3.FooEnum>.new,
   const FullType(
-    _i79.BuiltSet,
+    _i80.BuiltSet,
     [FullType(_i4.IntegerEnum)],
-  ): _i79.SetBuilder<_i4.IntegerEnum>.new,
+  ): _i80.SetBuilder<_i4.IntegerEnum>.new,
   const FullType(
-    _i79.BuiltMap,
+    _i80.BuiltMap,
     [
       FullType(String),
       FullType(_i4.IntegerEnum),
     ],
-  ): _i79.MapBuilder<String, _i4.IntegerEnum>.new,
+  ): _i80.MapBuilder<String, _i4.IntegerEnum>.new,
   const FullType(
-    _i79.BuiltMap,
+    _i80.BuiltMap,
     [
       FullType(String),
-      FullType(_i73.FileConfigSettings),
+      FullType(_i74.FileConfigSettings),
     ],
-  ): _i79.MapBuilder<String, _i73.FileConfigSettings>.new,
+  ): _i80.MapBuilder<String, _i74.FileConfigSettings>.new,
 };
