@@ -78,9 +78,7 @@ class VerifyUserAttributeRequestBuilder
   String? get code => _$this._code;
   set code(String? code) => _$this._code = code;
 
-  VerifyUserAttributeRequestBuilder() {
-    VerifyUserAttributeRequest._init(this);
-  }
+  VerifyUserAttributeRequestBuilder();
 
   VerifyUserAttributeRequestBuilder get _$this {
     final $v = _$v;

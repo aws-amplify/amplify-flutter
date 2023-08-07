@@ -38,9 +38,7 @@ class ConfirmSignUpResponseBuilder
     implements Builder<ConfirmSignUpResponse, ConfirmSignUpResponseBuilder> {
   _$ConfirmSignUpResponse? _$v;
 
-  ConfirmSignUpResponseBuilder() {
-    ConfirmSignUpResponse._init(this);
-  }
+  ConfirmSignUpResponseBuilder();
 
   @override
   void replace(ConfirmSignUpResponse other) {

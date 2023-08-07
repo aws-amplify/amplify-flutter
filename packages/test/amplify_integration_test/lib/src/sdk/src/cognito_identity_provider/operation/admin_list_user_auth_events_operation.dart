@@ -36,6 +36,14 @@ import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i7;
 
 /// A history of user activity and any risks detected as part of Amazon Cognito advanced security.
+///
+/// Amazon Cognito evaluates Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you must use IAM credentials to authorize requests, and you must grant yourself the corresponding IAM permission in a policy.
+///
+/// **Learn more**
+///
+/// *   [Signing Amazon Web Services API Requests](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html)
+///
+/// *   [Using the Amazon Cognito user pools API and user pool endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html)
 class AdminListUserAuthEventsOperation extends _i1.PaginatedHttpOperation<
     _i2.AdminListUserAuthEventsRequest,
     _i2.AdminListUserAuthEventsRequest,
@@ -45,6 +53,14 @@ class AdminListUserAuthEventsOperation extends _i1.PaginatedHttpOperation<
     int,
     _i4.BuiltList<_i5.AuthEventType>> {
   /// A history of user activity and any risks detected as part of Amazon Cognito advanced security.
+  ///
+  /// Amazon Cognito evaluates Identity and Access Management (IAM) policies in requests for this API operation. For this operation, you must use IAM credentials to authorize requests, and you must grant yourself the corresponding IAM permission in a policy.
+  ///
+  /// **Learn more**
+  ///
+  /// *   [Signing Amazon Web Services API Requests](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html)
+  ///
+  /// *   [Using the Amazon Cognito user pools API and user pool endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html)
   AdminListUserAuthEventsOperation({
     required String region,
     Uri? baseUri,

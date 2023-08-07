@@ -72,7 +72,7 @@ abstract class Update
   /// One or more values that can be substituted in an expression.
   _i4.BuiltMap<String, _i2.AttributeValue>? get expressionAttributeValues;
 
-  /// Use `ReturnValuesOnConditionCheckFailure` to get the item attributes if the `Update` condition fails. For `ReturnValuesOnConditionCheckFailure`, the valid values are: NONE, ALL\_OLD, UPDATED\_OLD, ALL\_NEW, UPDATED\_NEW.
+  /// Use `ReturnValuesOnConditionCheckFailure` to get the item attributes if the `Update` condition fails. For `ReturnValuesOnConditionCheckFailure`, the valid values are: NONE and ALL_OLD.
   _i3.ReturnValuesOnConditionCheckFailure?
       get returnValuesOnConditionCheckFailure;
   @override

@@ -13,13 +13,18 @@ class _$RollbackStackInput extends RollbackStackInput {
   final String? roleArn;
   @override
   final String? clientRequestToken;
+  @override
+  final bool? retainExceptOnCreate;
 
   factory _$RollbackStackInput(
           [void Function(RollbackStackInputBuilder)? updates]) =>
       (new RollbackStackInputBuilder()..update(updates))._build();
 
   _$RollbackStackInput._(
-      {required this.stackName, this.roleArn, this.clientRequestToken})
+      {required this.stackName,
+      this.roleArn,
+      this.clientRequestToken,
+      this.retainExceptOnCreate})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         stackName, r'RollbackStackInput', 'stackName');
@@ -40,7 +45,8 @@ class _$RollbackStackInput extends RollbackStackInput {
     return other is RollbackStackInput &&
         stackName == other.stackName &&
         roleArn == other.roleArn &&
-        clientRequestToken == other.clientRequestToken;
+        clientRequestToken == other.clientRequestToken &&
+        retainExceptOnCreate == other.retainExceptOnCreate;
   }
 
   @override
@@ -49,6 +55,7 @@ class _$RollbackStackInput extends RollbackStackInput {
     _$hash = $jc(_$hash, stackName.hashCode);
     _$hash = $jc(_$hash, roleArn.hashCode);
     _$hash = $jc(_$hash, clientRequestToken.hashCode);
+    _$hash = $jc(_$hash, retainExceptOnCreate.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -71,6 +78,11 @@ class RollbackStackInputBuilder
   set clientRequestToken(String? clientRequestToken) =>
       _$this._clientRequestToken = clientRequestToken;
 
+  bool? _retainExceptOnCreate;
+  bool? get retainExceptOnCreate => _$this._retainExceptOnCreate;
+  set retainExceptOnCreate(bool? retainExceptOnCreate) =>
+      _$this._retainExceptOnCreate = retainExceptOnCreate;
+
   RollbackStackInputBuilder();
 
   RollbackStackInputBuilder get _$this {
@@ -79,6 +91,7 @@ class RollbackStackInputBuilder
       _stackName = $v.stackName;
       _roleArn = $v.roleArn;
       _clientRequestToken = $v.clientRequestToken;
+      _retainExceptOnCreate = $v.retainExceptOnCreate;
       _$v = null;
     }
     return this;
@@ -104,7 +117,8 @@ class RollbackStackInputBuilder
             stackName: BuiltValueNullFieldError.checkNotNull(
                 stackName, r'RollbackStackInput', 'stackName'),
             roleArn: roleArn,
-            clientRequestToken: clientRequestToken);
+            clientRequestToken: clientRequestToken,
+            retainExceptOnCreate: retainExceptOnCreate);
     replace(_$result);
     return _$result;
   }

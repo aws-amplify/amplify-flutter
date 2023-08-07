@@ -56,9 +56,7 @@ class MfaOptionTypeBuilder
   set attributeName(String? attributeName) =>
       _$this._attributeName = attributeName;
 
-  MfaOptionTypeBuilder() {
-    MfaOptionType._init(this);
-  }
+  MfaOptionTypeBuilder();
 
   MfaOptionTypeBuilder get _$this {
     final $v = _$v;

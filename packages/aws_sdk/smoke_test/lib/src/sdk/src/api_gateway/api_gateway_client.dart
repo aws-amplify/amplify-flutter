@@ -1403,8 +1403,9 @@ class ApiGatewayClient {
 
   /// Represents a collection of BasePathMapping resources.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i103.BuiltList<_i10.BasePathMapping>, int,
-          String>> getBasePathMappings(
+          _i3
+          .PaginatedResult<_i103.BuiltList<_i10.BasePathMapping>, int, String>>
+      getBasePathMappings(
     _i113.GetBasePathMappingsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,

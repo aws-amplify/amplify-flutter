@@ -59,9 +59,7 @@ class GetUserAttributeVerificationCodeResponseBuilder
           _i2.CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails) =>
       _$this._codeDeliveryDetails = codeDeliveryDetails;
 
-  GetUserAttributeVerificationCodeResponseBuilder() {
-    GetUserAttributeVerificationCodeResponse._init(this);
-  }
+  GetUserAttributeVerificationCodeResponseBuilder();
 
   GetUserAttributeVerificationCodeResponseBuilder get _$this {
     final $v = _$v;

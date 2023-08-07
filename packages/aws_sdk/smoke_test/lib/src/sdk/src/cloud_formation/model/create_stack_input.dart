@@ -43,6 +43,7 @@ abstract class CreateStackInput
     List<_i7.Tag>? tags,
     String? clientRequestToken,
     bool? enableTerminationProtection,
+    bool? retainExceptOnCreate,
   }) {
     return _$CreateStackInput._(
       stackName: stackName,
@@ -64,6 +65,7 @@ abstract class CreateStackInput
       tags: tags == null ? null : _i8.BuiltList(tags),
       clientRequestToken: clientRequestToken,
       enableTerminationProtection: enableTerminationProtection,
+      retainExceptOnCreate: retainExceptOnCreate,
     );
   }
 
@@ -148,11 +150,11 @@ abstract class CreateStackInput
   ///     *   [AWS::IAM::UserToGroupAddition](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-addusertogroup.html)
   ///
   ///
-  ///     For more information, see [Acknowledging IAM Resources in CloudFormation Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities).
+  ///     For more information, see [Acknowledging IAM Resources in CloudFormation Templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities).
   ///
   /// *   `CAPABILITY\_AUTO\_EXPAND`
   ///
-  ///     Some template contain macros. Macros perform custom processing on templates; this can include simple actions like find-and-replace operations, all the way to extensive transformations of entire templates. Because of this, users typically create a change set from the processed template, so that they can review the changes resulting from the macros before actually creating the stack. If your stack template contains one or more macros, and you choose to create a stack directly from the processed template, without first reviewing the resulting changes in a change set, you must acknowledge this capability. This includes the [AWS::Include](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/create-reusable-transform-function-snippets-and-add-to-your-template-with-aws-include-transform.html) and [AWS::Serverless](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-aws-serverless.html) transforms, which are macros hosted by CloudFormation.
+  ///     Some template contain macros. Macros perform custom processing on templates; this can include simple actions like find-and-replace operations, all the way to extensive transformations of entire templates. Because of this, users typically create a change set from the processed template, so that they can review the changes resulting from the macros before actually creating the stack. If your stack template contains one or more macros, and you choose to create a stack directly from the processed template, without first reviewing the resulting changes in a change set, you must acknowledge this capability. This includes the [AWS::Include](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/create-reusable-transform-function-snippets-and-add-to-your-template-with-aws-include-transform.html) and [AWS::Serverless](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-aws-serverless.html) transforms, which are macros hosted by CloudFormation.
   ///
   ///     If you want to create a stack from a stack template that contains macros _and_ nested stacks, you must create the stack directly from the template using this capability.
   ///
@@ -160,7 +162,7 @@ abstract class CreateStackInput
   ///
   ///     Each macro relies on an underlying Lambda service function for processing stack templates. Be aware that the Lambda function owner can update the function operation without CloudFormation being notified.
   ///
-  ///     For more information, see [Using CloudFormation macros to perform custom processing on templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html).
+  ///     For more information, see [Using CloudFormation macros to perform custom processing on templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html).
   _i8.BuiltList<_i5.Capability>? get capabilities;
 
   /// The template resource types that you have permissions to work with for this create stack action, such as `AWS::EC2::Instance`, `AWS::EC2::*`, or `Custom::MyCustomInstance`. Use the following syntax to describe template resource types: `AWS::*` (for all Amazon Web Services resources), `Custom::*` (for all custom resources), `Custom::_logical_ID_` (for a specific custom resource), `AWS::_service_name_::*` (for all resources of a particular Amazon Web Services service), and `AWS::_service_name_::_resource\_logical\_ID_` (for a specific Amazon Web Services resource).
@@ -194,10 +196,13 @@ abstract class CreateStackInput
   /// In the console, stack operations display the client request token on the Events tab. Stack operations that are initiated from the console use the token format _Console-StackOperation-ID_, which helps you easily identify the stack operation . For example, if you create a stack using the console, each stack event would be assigned the same token in the following format: `Console-CreateStack-7f59c3cf-00d2-40c7-b2ff-e75db0987002`.
   String? get clientRequestToken;
 
-  /// Whether to enable termination protection on the specified stack. If a user attempts to delete a stack with termination protection enabled, the operation fails and the stack remains unchanged. For more information, see [Protecting a Stack From Being Deleted](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html) in the _CloudFormation User Guide_. Termination protection is deactivated on stacks by default.
+  /// Whether to enable termination protection on the specified stack. If a user attempts to delete a stack with termination protection enabled, the operation fails and the stack remains unchanged. For more information, see [Protecting a Stack From Being Deleted](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html) in the _CloudFormation User Guide_. Termination protection is deactivated on stacks by default.
   ///
-  /// For [nested stacks](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html), termination protection is set on the root stack and can't be changed directly on the nested stack.
+  /// For [nested stacks](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html), termination protection is set on the root stack and can't be changed directly on the nested stack.
   bool? get enableTerminationProtection;
+
+  /// This deletion policy deletes newly created resources, but retains existing resources, when a stack operation is rolled back. This ensures new, empty, and unused resources are deleted, while critical resources and their data are retained. `RetainExceptOnCreate` can be specified for any resource that supports the [DeletionPolicy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html) attribute.
+  bool? get retainExceptOnCreate;
   @override
   CreateStackInput getPayload() => this;
   @override
@@ -219,6 +224,7 @@ abstract class CreateStackInput
         tags,
         clientRequestToken,
         enableTerminationProtection,
+        retainExceptOnCreate,
       ];
   @override
   String toString() {
@@ -290,6 +296,10 @@ abstract class CreateStackInput
       ..add(
         'enableTerminationProtection',
         enableTerminationProtection,
+      )
+      ..add(
+        'retainExceptOnCreate',
+        retainExceptOnCreate,
       );
     return helper.toString();
   }
@@ -442,6 +452,11 @@ class CreateStackInputAwsQuerySerializer
             value,
             specifiedType: const FullType(bool),
           ) as bool);
+        case 'RetainExceptOnCreate':
+          result.retainExceptOnCreate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -477,7 +492,8 @@ class CreateStackInputAwsQuerySerializer
       :stackPolicyUrl,
       :tags,
       :clientRequestToken,
-      :enableTerminationProtection
+      :enableTerminationProtection,
+      :retainExceptOnCreate
     ) = object;
     result$
       ..add(const _i1.XmlElementName('StackName'))
@@ -640,6 +656,14 @@ class CreateStackInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('EnableTerminationProtection'))
         ..add(serializers.serialize(
           enableTerminationProtection,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
+    if (retainExceptOnCreate != null) {
+      result$
+        ..add(const _i1.XmlElementName('RetainExceptOnCreate'))
+        ..add(serializers.serialize(
+          retainExceptOnCreate,
           specifiedType: const FullType.nullable(bool),
         ));
     }

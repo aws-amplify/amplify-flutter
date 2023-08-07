@@ -41,6 +41,8 @@ class _$UpdateStackInput extends UpdateStackInput {
   final bool? disableRollback;
   @override
   final String? clientRequestToken;
+  @override
+  final bool? retainExceptOnCreate;
 
   factory _$UpdateStackInput(
           [void Function(UpdateStackInputBuilder)? updates]) =>
@@ -63,7 +65,8 @@ class _$UpdateStackInput extends UpdateStackInput {
       this.notificationArNs,
       this.tags,
       this.disableRollback,
-      this.clientRequestToken})
+      this.clientRequestToken,
+      this.retainExceptOnCreate})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         stackName, r'UpdateStackInput', 'stackName');
@@ -97,7 +100,8 @@ class _$UpdateStackInput extends UpdateStackInput {
         notificationArNs == other.notificationArNs &&
         tags == other.tags &&
         disableRollback == other.disableRollback &&
-        clientRequestToken == other.clientRequestToken;
+        clientRequestToken == other.clientRequestToken &&
+        retainExceptOnCreate == other.retainExceptOnCreate;
   }
 
   @override
@@ -120,6 +124,7 @@ class _$UpdateStackInput extends UpdateStackInput {
     _$hash = $jc(_$hash, tags.hashCode);
     _$hash = $jc(_$hash, disableRollback.hashCode);
     _$hash = $jc(_$hash, clientRequestToken.hashCode);
+    _$hash = $jc(_$hash, retainExceptOnCreate.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -217,6 +222,11 @@ class UpdateStackInputBuilder
   set clientRequestToken(String? clientRequestToken) =>
       _$this._clientRequestToken = clientRequestToken;
 
+  bool? _retainExceptOnCreate;
+  bool? get retainExceptOnCreate => _$this._retainExceptOnCreate;
+  set retainExceptOnCreate(bool? retainExceptOnCreate) =>
+      _$this._retainExceptOnCreate = retainExceptOnCreate;
+
   UpdateStackInputBuilder();
 
   UpdateStackInputBuilder get _$this {
@@ -239,6 +249,7 @@ class UpdateStackInputBuilder
       _tags = $v.tags?.toBuilder();
       _disableRollback = $v.disableRollback;
       _clientRequestToken = $v.clientRequestToken;
+      _retainExceptOnCreate = $v.retainExceptOnCreate;
       _$v = null;
     }
     return this;
@@ -280,7 +291,8 @@ class UpdateStackInputBuilder
               notificationArNs: _notificationArNs?.build(),
               tags: _tags?.build(),
               disableRollback: disableRollback,
-              clientRequestToken: clientRequestToken);
+              clientRequestToken: clientRequestToken,
+              retainExceptOnCreate: retainExceptOnCreate);
     } catch (_) {
       late String _$failedField;
       try {

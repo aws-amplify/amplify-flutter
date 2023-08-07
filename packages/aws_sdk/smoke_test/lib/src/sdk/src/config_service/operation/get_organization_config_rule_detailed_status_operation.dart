@@ -30,8 +30,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/organization_access_
     as _i14;
 
 /// Returns detailed status for each member account within an organization for a given organization Config rule.
-class GetOrganizationConfigRuleDetailedStatusOperation
-    extends _i1.PaginatedHttpOperation<
+class GetOrganizationConfigRuleDetailedStatusOperation extends _i1
+    .PaginatedHttpOperation<
         _i2.GetOrganizationConfigRuleDetailedStatusRequest,
         _i2.GetOrganizationConfigRuleDetailedStatusRequest,
         _i3.GetOrganizationConfigRuleDetailedStatusResponse,

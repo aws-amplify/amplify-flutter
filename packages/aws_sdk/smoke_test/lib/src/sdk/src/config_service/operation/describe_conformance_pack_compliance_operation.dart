@@ -31,8 +31,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/no_such_conformance_
 /// Returns compliance details for each rule in that conformance pack.
 ///
 /// You must provide exact rule names.
-class DescribeConformancePackComplianceOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeConformancePackComplianceOperation extends _i1
+    .PaginatedHttpOperation<
         _i2.DescribeConformancePackComplianceRequest,
         _i2.DescribeConformancePackComplianceRequest,
         _i3.DescribeConformancePackComplianceResponse,

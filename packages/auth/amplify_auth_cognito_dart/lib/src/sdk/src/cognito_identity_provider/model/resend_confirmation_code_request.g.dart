@@ -109,9 +109,7 @@ class ResendConfirmationCodeRequestBuilder
   set clientMetadata(_i5.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
-  ResendConfirmationCodeRequestBuilder() {
-    ResendConfirmationCodeRequest._init(this);
-  }
+  ResendConfirmationCodeRequestBuilder();
 
   ResendConfirmationCodeRequestBuilder get _$this {
     final $v = _$v;

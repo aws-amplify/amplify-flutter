@@ -111,7 +111,7 @@ abstract class StackSet
 
   /// The Amazon Resource Name (ARN) of the IAM role used to create or update the stack set.
   ///
-  /// Use customized administrator roles to control which users or groups can manage specific stack sets within the same administrator account. For more information, see [Prerequisites: Granting Permissions for Stack Set Operations](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html) in the _CloudFormation User Guide_.
+  /// Use customized administrator roles to control which users or groups can manage specific stack sets within the same administrator account. For more information, see [Prerequisites: Granting Permissions for Stack Set Operations](https://docs.aws.amazon.com/AWSCloudFormation/stacksets-prereqs.html) in the _CloudFormation User Guide_.
   String? get administrationRoleArn;
 
   /// The name of the IAM execution role used to create or update the stack set.

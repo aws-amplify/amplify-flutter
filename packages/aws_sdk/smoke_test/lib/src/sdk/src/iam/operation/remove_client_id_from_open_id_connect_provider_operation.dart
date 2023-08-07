@@ -24,8 +24,8 @@ import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
 /// Removes the specified client ID (also known as audience) from the list of client IDs registered for the specified IAM OpenID Connect (OIDC) provider resource object.
 ///
 /// This operation is idempotent; it does not fail or return an error if you try to remove a client ID that does not exist.
-class RemoveClientIdFromOpenIdConnectProviderOperation
-    extends _i1.HttpOperation<
+class RemoveClientIdFromOpenIdConnectProviderOperation extends _i1
+    .HttpOperation<
         _i2.RemoveClientIdFromOpenIdConnectProviderRequest,
         _i2.RemoveClientIdFromOpenIdConnectProviderRequest,
         _i1.Unit,

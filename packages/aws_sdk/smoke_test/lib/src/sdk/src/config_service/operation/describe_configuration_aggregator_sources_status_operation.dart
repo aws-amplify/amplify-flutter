@@ -30,8 +30,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/no_such_configuratio
     as _i14;
 
 /// Returns status information for sources within an aggregator. The status includes information about the last time Config verified authorization between the source account and an aggregator account. In case of a failure, the status contains the related error code or message.
-class DescribeConfigurationAggregatorSourcesStatusOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeConfigurationAggregatorSourcesStatusOperation extends _i1
+    .PaginatedHttpOperation<
         _i2.DescribeConfigurationAggregatorSourcesStatusRequest,
         _i2.DescribeConfigurationAggregatorSourcesStatusRequest,
         _i3.DescribeConfigurationAggregatorSourcesStatusResponse,

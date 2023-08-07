@@ -236,7 +236,7 @@ class ReplicaSettingsDescriptionAwsJson10Serializer
           ) as _i5.AutoScalingSettingsDescription));
         case 'ReplicaGlobalSecondaryIndexSettings':
           result.replicaGlobalSecondaryIndexSettings.replace((serializers
-              .deserialize(
+                  .deserialize(
             value,
             specifiedType: const FullType(
               _i8.BuiltList,

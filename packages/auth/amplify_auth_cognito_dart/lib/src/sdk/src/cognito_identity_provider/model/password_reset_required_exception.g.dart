@@ -56,9 +56,7 @@ class PasswordResetRequiredExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  PasswordResetRequiredExceptionBuilder() {
-    PasswordResetRequiredException._init(this);
-  }
+  PasswordResetRequiredExceptionBuilder();
 
   PasswordResetRequiredExceptionBuilder get _$this {
     final $v = _$v;

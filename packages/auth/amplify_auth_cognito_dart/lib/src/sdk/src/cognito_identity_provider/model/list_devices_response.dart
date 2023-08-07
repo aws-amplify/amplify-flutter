@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.list_devices_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -45,9 +45,6 @@ abstract class ListDevicesResponse
   static const List<_i4.SmithySerializer<ListDevicesResponse>> serializers = [
     ListDevicesResponseAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListDevicesResponseBuilder b) {}
 
   /// The devices returned in the list devices response.
   _i3.BuiltList<_i2.DeviceType>? get devices;

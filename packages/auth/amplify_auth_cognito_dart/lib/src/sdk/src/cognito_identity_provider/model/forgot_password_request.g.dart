@@ -107,9 +107,7 @@ class ForgotPasswordRequestBuilder
   set clientMetadata(_i5.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
-  ForgotPasswordRequestBuilder() {
-    ForgotPasswordRequest._init(this);
-  }
+  ForgotPasswordRequestBuilder();
 
   ForgotPasswordRequestBuilder get _$this {
     final $v = _$v;

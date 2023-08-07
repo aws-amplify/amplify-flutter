@@ -46,7 +46,7 @@ abstract class BatchExecuteStatementOutput
   static const List<_i5.SmithySerializer<BatchExecuteStatementOutput>>
       serializers = [BatchExecuteStatementOutputAwsJson10Serializer()];
 
-  /// The response to each PartiQL statement in the batch.
+  /// The response to each PartiQL statement in the batch. The values of the list are ordered according to the ordering of the request statements.
   _i4.BuiltList<_i2.BatchStatementResponse>? get responses;
 
   /// The capacity units consumed by the entire operation. The values of the list are ordered according to the ordering of the statements.

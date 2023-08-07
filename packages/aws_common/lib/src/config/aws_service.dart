@@ -375,6 +375,9 @@ class AWSService {
   /// EMR Serverless
   static const emrServerless = AWSService('emr-serverless');
 
+  /// AWS EntityResolution
+  static const entityResolution = AWSService('entityresolution');
+
   /// Amazon EventBridge
   static const eventBridge = AWSService('events');
 
@@ -628,6 +631,9 @@ class AWSService {
 
   /// Amazon Managed Blockchain
   static const managedBlockchain = AWSService('managedblockchain');
+
+  /// Amazon Managed Blockchain Query
+  static const managedBlockchainQuery = AWSService('managedblockchain-query');
 
   /// AWS Marketplace Catalog Service
   static const marketplaceCatalog = AWSService('aws-marketplace');

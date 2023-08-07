@@ -41,6 +41,7 @@ abstract class TypeNotFoundException
     TypeNotFoundExceptionAwsQuerySerializer()
   ];
 
+  /// An message with details about the error that occurred.
   @override
   String? get message;
   @override

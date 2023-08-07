@@ -49,9 +49,7 @@ class GetUserRequestBuilder
   String? get accessToken => _$this._accessToken;
   set accessToken(String? accessToken) => _$this._accessToken = accessToken;
 
-  GetUserRequestBuilder() {
-    GetUserRequest._init(this);
-  }
+  GetUserRequestBuilder();
 
   GetUserRequestBuilder get _$this {
     final $v = _$v;

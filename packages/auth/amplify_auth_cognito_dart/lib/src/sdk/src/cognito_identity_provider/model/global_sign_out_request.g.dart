@@ -51,9 +51,7 @@ class GlobalSignOutRequestBuilder
   String? get accessToken => _$this._accessToken;
   set accessToken(String? accessToken) => _$this._accessToken = accessToken;
 
-  GlobalSignOutRequestBuilder() {
-    GlobalSignOutRequest._init(this);
-  }
+  GlobalSignOutRequestBuilder();
 
   GlobalSignOutRequestBuilder get _$this {
     final $v = _$v;

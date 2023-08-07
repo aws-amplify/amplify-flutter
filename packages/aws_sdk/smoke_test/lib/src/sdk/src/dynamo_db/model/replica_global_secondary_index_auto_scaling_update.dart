@@ -71,8 +71,8 @@ abstract class ReplicaGlobalSecondaryIndexAutoScalingUpdate
 }
 
 class ReplicaGlobalSecondaryIndexAutoScalingUpdateAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<
-        ReplicaGlobalSecondaryIndexAutoScalingUpdate> {
+    extends _i3
+    .StructuredSmithySerializer<ReplicaGlobalSecondaryIndexAutoScalingUpdate> {
   const ReplicaGlobalSecondaryIndexAutoScalingUpdateAwsJson10Serializer()
       : super('ReplicaGlobalSecondaryIndexAutoScalingUpdate');
 

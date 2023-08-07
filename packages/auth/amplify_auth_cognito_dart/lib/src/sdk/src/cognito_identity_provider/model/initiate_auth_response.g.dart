@@ -86,9 +86,7 @@ class InitiateAuthResponseBuilder
           _i3.AuthenticationResultTypeBuilder? authenticationResult) =>
       _$this._authenticationResult = authenticationResult;
 
-  InitiateAuthResponseBuilder() {
-    InitiateAuthResponse._init(this);
-  }
+  InitiateAuthResponseBuilder();
 
   InitiateAuthResponseBuilder get _$this {
     final $v = _$v;

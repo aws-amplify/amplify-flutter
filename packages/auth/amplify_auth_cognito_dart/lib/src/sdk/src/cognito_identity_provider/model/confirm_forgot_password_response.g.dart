@@ -40,9 +40,7 @@ class ConfirmForgotPasswordResponseBuilder
             ConfirmForgotPasswordResponseBuilder> {
   _$ConfirmForgotPasswordResponse? _$v;
 
-  ConfirmForgotPasswordResponseBuilder() {
-    ConfirmForgotPasswordResponse._init(this);
-  }
+  ConfirmForgotPasswordResponseBuilder();
 
   @override
   void replace(ConfirmForgotPasswordResponse other) {

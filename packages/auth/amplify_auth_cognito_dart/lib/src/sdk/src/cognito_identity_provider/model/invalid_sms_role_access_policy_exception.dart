@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.invalid_sms_role_access_policy_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,9 +41,6 @@ abstract class InvalidSmsRoleAccessPolicyException
 
   static const List<_i2.SmithySerializer<InvalidSmsRoleAccessPolicyException>>
       serializers = [InvalidSmsRoleAccessPolicyExceptionAwsJson11Serializer()];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidSmsRoleAccessPolicyExceptionBuilder b) {}
 
   /// The message returned when the invalid SMS role access policy exception is thrown.
   @override

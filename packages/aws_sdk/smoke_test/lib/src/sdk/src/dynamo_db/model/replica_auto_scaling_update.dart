@@ -124,7 +124,7 @@ class ReplicaAutoScalingUpdateAwsJson10Serializer
           ) as String);
         case 'ReplicaGlobalSecondaryIndexUpdates':
           result.replicaGlobalSecondaryIndexUpdates.replace((serializers
-              .deserialize(
+                  .deserialize(
             value,
             specifiedType: const FullType(
               _i4.BuiltList,
