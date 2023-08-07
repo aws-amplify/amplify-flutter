@@ -1,3 +1,25 @@
+## 1.3.1
+
+### Fixes
+- fix(auth): Android Hosted UI flakiness
+- fix(datastore): hot restart ([#3497](https://github.com/aws-amplify/amplify-flutter/pull/3497))
+- fix(datastore): make event history list thread safe ([#3509](https://github.com/aws-amplify/amplify-flutter/pull/3509))
+- fix(push): Incorrect handling of simple alert ([#3502](https://github.com/aws-amplify/amplify-flutter/pull/3502))
+
+## 1.3.0
+
+### Features
+- feat(auth): Enable ASF
+- feat(datastore): Adds DataStoreHubEventType to DataStoreHubEvents ([#3454](https://github.com/aws-amplify/amplify-flutter/pull/3454))
+- feat(logging): logger can register one plugin per type in a logger hierarchy ([#3173](https://github.com/aws-amplify/amplify-flutter/pull/3173))
+- feat(storage): example app ([#3359](https://github.com/aws-amplify/amplify-flutter/pull/3359))
+
+## 1.2.1
+
+### Fixes
+- fix(analytics): Disallowed unauth access
+- fix(storage): list options pageSize and nextToken params got lost ([#3291](https://github.com/aws-amplify/amplify-flutter/pull/3291))
+
 ## 1.2.0
 
 ### Fixes

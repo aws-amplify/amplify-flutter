@@ -1,3 +1,16 @@
+## 1.3.1
+
+### Fixes
+- fix(push): Incorrect handling of simple alert ([#3502](https://github.com/aws-amplify/amplify-flutter/pull/3502))
+
+## 1.3.0
+
+- Minor bug fixes and improvements
+
+## 1.2.1
+
+- Minor bug fixes and improvements
+
 ## 1.2.0
 
 - Minor bug fixes and improvements
