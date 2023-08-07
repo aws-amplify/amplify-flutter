@@ -8,13 +8,13 @@ part of 'transact_write_item.dart';
 
 class _$TransactWriteItem extends TransactWriteItem {
   @override
-  final _i2.ConditionCheck? conditionCheck;
+  final ConditionCheck? conditionCheck;
   @override
-  final _i3.Put? put;
+  final Put? put;
   @override
-  final _i4.Delete? delete;
+  final Delete? delete;
   @override
-  final _i5.Update? update_;
+  final Update? update_;
 
   factory _$TransactWriteItem(
           [void Function(TransactWriteItemBuilder)? updates]) =>
@@ -58,23 +58,23 @@ class TransactWriteItemBuilder
     implements Builder<TransactWriteItem, TransactWriteItemBuilder> {
   _$TransactWriteItem? _$v;
 
-  _i2.ConditionCheckBuilder? _conditionCheck;
-  _i2.ConditionCheckBuilder get conditionCheck =>
-      _$this._conditionCheck ??= new _i2.ConditionCheckBuilder();
-  set conditionCheck(_i2.ConditionCheckBuilder? conditionCheck) =>
+  ConditionCheckBuilder? _conditionCheck;
+  ConditionCheckBuilder get conditionCheck =>
+      _$this._conditionCheck ??= new ConditionCheckBuilder();
+  set conditionCheck(ConditionCheckBuilder? conditionCheck) =>
       _$this._conditionCheck = conditionCheck;
 
-  _i3.PutBuilder? _put;
-  _i3.PutBuilder get put => _$this._put ??= new _i3.PutBuilder();
-  set put(_i3.PutBuilder? put) => _$this._put = put;
+  PutBuilder? _put;
+  PutBuilder get put => _$this._put ??= new PutBuilder();
+  set put(PutBuilder? put) => _$this._put = put;
 
-  _i4.DeleteBuilder? _delete;
-  _i4.DeleteBuilder get delete => _$this._delete ??= new _i4.DeleteBuilder();
-  set delete(_i4.DeleteBuilder? delete) => _$this._delete = delete;
+  DeleteBuilder? _delete;
+  DeleteBuilder get delete => _$this._delete ??= new DeleteBuilder();
+  set delete(DeleteBuilder? delete) => _$this._delete = delete;
 
-  _i5.UpdateBuilder? _update_;
-  _i5.UpdateBuilder get update_ => _$this._update_ ??= new _i5.UpdateBuilder();
-  set update_(_i5.UpdateBuilder? update_) => _$this._update_ = update_;
+  UpdateBuilder? _update_;
+  UpdateBuilder get update_ => _$this._update_ ??= new UpdateBuilder();
+  set update_(UpdateBuilder? update_) => _$this._update_ = update_;
 
   TransactWriteItemBuilder();
 

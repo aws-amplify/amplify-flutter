@@ -4,12 +4,10 @@
 // ignore_for_file: unused_element
 library aws_json1_0_v2.json_rpc_10.test.endpoint_with_host_label_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_json1_0_v2/src/json_rpc_10/model/endpoint_with_host_label_operation_input.dart'
-    as _i5;
-import 'package:aws_json1_0_v2/src/json_rpc_10/operation/endpoint_with_host_label_operation.dart'
-    as _i3;
+import 'package:aws_json1_0_v2/src/json_rpc_10/model/endpoint_with_host_label_operation_input.dart';
+import 'package:aws_json1_0_v2/src/json_rpc_10/operation/endpoint_with_host_label_operation.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -18,7 +16,7 @@ void main() {
     'AwsJson10EndpointTraitWithHostLabel (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.EndpointWithHostLabelOperation(
+        operation: EndpointWithHostLabelOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -26,7 +24,7 @@ void main() {
           id: 'AwsJson10EndpointTraitWithHostLabel',
           documentation:
               'Operations can prepend to the given host if they define the\nendpoint trait, and can use the host label trait to define\nfurther customization based on user input.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsJson1_0',
           ),
@@ -57,27 +55,27 @@ void main() {
   );
 }
 
-class EndpointWithHostLabelOperationInputAwsJson10Serializer extends _i4
-    .StructuredSmithySerializer<_i5.EndpointWithHostLabelOperationInput> {
+class EndpointWithHostLabelOperationInputAwsJson10Serializer extends _i3
+    .StructuredSmithySerializer<EndpointWithHostLabelOperationInput> {
   const EndpointWithHostLabelOperationInputAwsJson10Serializer()
       : super('EndpointWithHostLabelOperationInput');
 
   @override
-  Iterable<Type> get types => const [_i5.EndpointWithHostLabelOperationInput];
+  Iterable<Type> get types => const [EndpointWithHostLabelOperationInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
       ];
   @override
-  _i5.EndpointWithHostLabelOperationInput deserialize(
+  EndpointWithHostLabelOperationInput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.EndpointWithHostLabelOperationInputBuilder();
+    final result = EndpointWithHostLabelOperationInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -101,7 +99,7 @@ class EndpointWithHostLabelOperationInputAwsJson10Serializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.EndpointWithHostLabelOperationInput object, {
+    EndpointWithHostLabelOperationInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

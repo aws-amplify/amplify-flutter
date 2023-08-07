@@ -8,7 +8,7 @@ part of 'get_endpoint_response.dart';
 
 class _$GetEndpointResponse extends GetEndpointResponse {
   @override
-  final _i3.EndpointResponse endpointResponse;
+  final EndpointResponse endpointResponse;
 
   factory _$GetEndpointResponse(
           [void Function(GetEndpointResponseBuilder)? updates]) =>
@@ -48,10 +48,10 @@ class GetEndpointResponseBuilder
     implements Builder<GetEndpointResponse, GetEndpointResponseBuilder> {
   _$GetEndpointResponse? _$v;
 
-  _i3.EndpointResponseBuilder? _endpointResponse;
-  _i3.EndpointResponseBuilder get endpointResponse =>
-      _$this._endpointResponse ??= new _i3.EndpointResponseBuilder();
-  set endpointResponse(_i3.EndpointResponseBuilder? endpointResponse) =>
+  EndpointResponseBuilder? _endpointResponse;
+  EndpointResponseBuilder get endpointResponse =>
+      _$this._endpointResponse ??= new EndpointResponseBuilder();
+  set endpointResponse(EndpointResponseBuilder? endpointResponse) =>
       _$this._endpointResponse = endpointResponse;
 
   GetEndpointResponseBuilder();

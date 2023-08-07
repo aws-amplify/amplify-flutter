@@ -6,11 +6,9 @@ library smoke_test.cloud_formation.model.change_set_summary; // ignore_for_file:
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/change_set_status.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/execution_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/change_set_status.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/execution_status.dart';
 
 part 'change_set_summary.g.dart';
 
@@ -24,8 +22,8 @@ abstract class ChangeSetSummary
     String? stackName,
     String? changeSetId,
     String? changeSetName,
-    _i2.ExecutionStatus? executionStatus,
-    _i3.ChangeSetStatus? status,
+    ExecutionStatus? executionStatus,
+    ChangeSetStatus? status,
     String? statusReason,
     DateTime? creationTime,
     String? description,
@@ -55,7 +53,7 @@ abstract class ChangeSetSummary
 
   const ChangeSetSummary._();
 
-  static const List<_i4.SmithySerializer<ChangeSetSummary>> serializers = [
+  static const List<_i2.SmithySerializer<ChangeSetSummary>> serializers = [
     ChangeSetSummaryAwsQuerySerializer()
   ];
 
@@ -72,10 +70,10 @@ abstract class ChangeSetSummary
   String? get changeSetName;
 
   /// If the change set execution status is `AVAILABLE`, you can execute the change set. If you can't execute the change set, the status indicates why. For example, a change set might be in an `UNAVAILABLE` state because CloudFormation is still creating it or in an `OBSOLETE` state because the stack was already updated.
-  _i2.ExecutionStatus? get executionStatus;
+  ExecutionStatus? get executionStatus;
 
   /// The state of the change set, such as `CREATE\_IN\_PROGRESS`, `CREATE_COMPLETE`, or `FAILED`.
-  _i3.ChangeSetStatus? get status;
+  ChangeSetStatus? get status;
 
   /// A description of the change set's status. For example, if your change set is in the `FAILED` state, CloudFormation shows the error message.
   String? get statusReason;
@@ -165,7 +163,7 @@ abstract class ChangeSetSummary
 }
 
 class ChangeSetSummaryAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<ChangeSetSummary> {
+    extends _i2.StructuredSmithySerializer<ChangeSetSummary> {
   const ChangeSetSummaryAwsQuerySerializer() : super('ChangeSetSummary');
 
   @override
@@ -174,8 +172,8 @@ class ChangeSetSummaryAwsQuerySerializer
         _$ChangeSetSummary,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -219,13 +217,13 @@ class ChangeSetSummaryAwsQuerySerializer
         case 'ExecutionStatus':
           result.executionStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ExecutionStatus),
-          ) as _i2.ExecutionStatus);
+            specifiedType: const FullType(ExecutionStatus),
+          ) as ExecutionStatus);
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ChangeSetStatus),
-          ) as _i3.ChangeSetStatus);
+            specifiedType: const FullType(ChangeSetStatus),
+          ) as ChangeSetStatus);
         case 'StatusReason':
           result.statusReason = (serializers.deserialize(
             value,
@@ -269,9 +267,9 @@ class ChangeSetSummaryAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'ChangeSetSummaryResponse',
-        _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final ChangeSetSummary(
@@ -290,7 +288,7 @@ class ChangeSetSummaryAwsQuerySerializer
     ) = object;
     if (stackId != null) {
       result$
-        ..add(const _i4.XmlElementName('StackId'))
+        ..add(const _i2.XmlElementName('StackId'))
         ..add(serializers.serialize(
           stackId,
           specifiedType: const FullType(String),
@@ -298,7 +296,7 @@ class ChangeSetSummaryAwsQuerySerializer
     }
     if (stackName != null) {
       result$
-        ..add(const _i4.XmlElementName('StackName'))
+        ..add(const _i2.XmlElementName('StackName'))
         ..add(serializers.serialize(
           stackName,
           specifiedType: const FullType(String),
@@ -306,7 +304,7 @@ class ChangeSetSummaryAwsQuerySerializer
     }
     if (changeSetId != null) {
       result$
-        ..add(const _i4.XmlElementName('ChangeSetId'))
+        ..add(const _i2.XmlElementName('ChangeSetId'))
         ..add(serializers.serialize(
           changeSetId,
           specifiedType: const FullType(String),
@@ -314,7 +312,7 @@ class ChangeSetSummaryAwsQuerySerializer
     }
     if (changeSetName != null) {
       result$
-        ..add(const _i4.XmlElementName('ChangeSetName'))
+        ..add(const _i2.XmlElementName('ChangeSetName'))
         ..add(serializers.serialize(
           changeSetName,
           specifiedType: const FullType(String),
@@ -322,23 +320,23 @@ class ChangeSetSummaryAwsQuerySerializer
     }
     if (executionStatus != null) {
       result$
-        ..add(const _i4.XmlElementName('ExecutionStatus'))
+        ..add(const _i2.XmlElementName('ExecutionStatus'))
         ..add(serializers.serialize(
           executionStatus,
-          specifiedType: const FullType.nullable(_i2.ExecutionStatus),
+          specifiedType: const FullType.nullable(ExecutionStatus),
         ));
     }
     if (status != null) {
       result$
-        ..add(const _i4.XmlElementName('Status'))
+        ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(_i3.ChangeSetStatus),
+          specifiedType: const FullType.nullable(ChangeSetStatus),
         ));
     }
     if (statusReason != null) {
       result$
-        ..add(const _i4.XmlElementName('StatusReason'))
+        ..add(const _i2.XmlElementName('StatusReason'))
         ..add(serializers.serialize(
           statusReason,
           specifiedType: const FullType(String),
@@ -346,7 +344,7 @@ class ChangeSetSummaryAwsQuerySerializer
     }
     if (creationTime != null) {
       result$
-        ..add(const _i4.XmlElementName('CreationTime'))
+        ..add(const _i2.XmlElementName('CreationTime'))
         ..add(serializers.serialize(
           creationTime,
           specifiedType: const FullType.nullable(DateTime),
@@ -354,7 +352,7 @@ class ChangeSetSummaryAwsQuerySerializer
     }
     if (description != null) {
       result$
-        ..add(const _i4.XmlElementName('Description'))
+        ..add(const _i2.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
           specifiedType: const FullType(String),
@@ -362,7 +360,7 @@ class ChangeSetSummaryAwsQuerySerializer
     }
     if (includeNestedStacks != null) {
       result$
-        ..add(const _i4.XmlElementName('IncludeNestedStacks'))
+        ..add(const _i2.XmlElementName('IncludeNestedStacks'))
         ..add(serializers.serialize(
           includeNestedStacks,
           specifiedType: const FullType.nullable(bool),
@@ -370,7 +368,7 @@ class ChangeSetSummaryAwsQuerySerializer
     }
     if (parentChangeSetId != null) {
       result$
-        ..add(const _i4.XmlElementName('ParentChangeSetId'))
+        ..add(const _i2.XmlElementName('ParentChangeSetId'))
         ..add(serializers.serialize(
           parentChangeSetId,
           specifiedType: const FullType(String),
@@ -378,7 +376,7 @@ class ChangeSetSummaryAwsQuerySerializer
     }
     if (rootChangeSetId != null) {
       result$
-        ..add(const _i4.XmlElementName('RootChangeSetId'))
+        ..add(const _i2.XmlElementName('RootChangeSetId'))
         ..add(serializers.serialize(
           rootChangeSetId,
           specifiedType: const FullType(String),

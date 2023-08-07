@@ -8,7 +8,7 @@ part of 'server_side_encryption_by_default.dart';
 
 class _$ServerSideEncryptionByDefault extends ServerSideEncryptionByDefault {
   @override
-  final _i2.ServerSideEncryption sseAlgorithm;
+  final ServerSideEncryption sseAlgorithm;
   @override
   final String? kmsMasterKeyId;
 
@@ -56,9 +56,9 @@ class ServerSideEncryptionByDefaultBuilder
             ServerSideEncryptionByDefaultBuilder> {
   _$ServerSideEncryptionByDefault? _$v;
 
-  _i2.ServerSideEncryption? _sseAlgorithm;
-  _i2.ServerSideEncryption? get sseAlgorithm => _$this._sseAlgorithm;
-  set sseAlgorithm(_i2.ServerSideEncryption? sseAlgorithm) =>
+  ServerSideEncryption? _sseAlgorithm;
+  ServerSideEncryption? get sseAlgorithm => _$this._sseAlgorithm;
+  set sseAlgorithm(ServerSideEncryption? sseAlgorithm) =>
       _$this._sseAlgorithm = sseAlgorithm;
 
   String? _kmsMasterKeyId;

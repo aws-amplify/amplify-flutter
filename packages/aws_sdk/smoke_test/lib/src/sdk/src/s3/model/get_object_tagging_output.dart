@@ -4,12 +4,12 @@
 library smoke_test.s3.model.get_object_tagging_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i5;
+import 'package:meta/meta.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/tag.dart';
 
 part 'get_object_tagging_output.g.dart';
 
@@ -20,11 +20,11 @@ abstract class GetObjectTaggingOutput
         _i2.HasPayload<GetObjectTaggingOutputPayload> {
   factory GetObjectTaggingOutput({
     String? versionId,
-    required List<_i3.Tag> tagSet,
+    required List<Tag> tagSet,
   }) {
     return _$GetObjectTaggingOutput._(
       versionId: versionId,
-      tagSet: _i4.BuiltList(tagSet),
+      tagSet: _i3.BuiltList(tagSet),
     );
   }
 
@@ -53,7 +53,7 @@ abstract class GetObjectTaggingOutput
   String? get versionId;
 
   /// Contains the tag set.
-  _i4.BuiltList<_i3.Tag> get tagSet;
+  _i3.BuiltList<Tag> get tagSet;
   @override
   GetObjectTaggingOutputPayload getPayload() =>
       GetObjectTaggingOutputPayload((b) {
@@ -79,7 +79,7 @@ abstract class GetObjectTaggingOutput
   }
 }
 
-@_i5.internal
+@_i4.internal
 abstract class GetObjectTaggingOutputPayload
     with
         _i1.AWSEquatable<GetObjectTaggingOutputPayload>
@@ -93,7 +93,7 @@ abstract class GetObjectTaggingOutputPayload
   const GetObjectTaggingOutputPayload._();
 
   /// Contains the tag set.
-  _i4.BuiltList<_i3.Tag> get tagSet;
+  _i3.BuiltList<Tag> get tagSet;
   @override
   List<Object?> get props => [tagSet];
   @override
@@ -148,10 +148,10 @@ class GetObjectTaggingOutputRestXmlSerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.Tag)],
+              _i3.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i4.BuiltList<_i3.Tag>));
+          ) as _i3.BuiltList<Tag>));
       }
     }
 
@@ -177,8 +177,8 @@ class GetObjectTaggingOutputRestXmlSerializer
         serializers,
         tagSet,
         specifiedType: const FullType.nullable(
-          _i4.BuiltList,
-          [FullType(_i3.Tag)],
+          _i3.BuiltList,
+          [FullType(Tag)],
         ),
       ));
     return result$;

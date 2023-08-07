@@ -6,16 +6,15 @@ library rest_json1_v1.rest_json_protocol.model.post_player_action_output; // ign
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1_v1/src/rest_json_protocol/model/player_action.dart'
-    as _i2;
-import 'package:smithy/smithy.dart' as _i3;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/player_action.dart';
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'post_player_action_output.g.dart';
 
 abstract class PostPlayerActionOutput
     with _i1.AWSEquatable<PostPlayerActionOutput>
     implements Built<PostPlayerActionOutput, PostPlayerActionOutputBuilder> {
-  factory PostPlayerActionOutput({required _i2.PlayerAction action}) {
+  factory PostPlayerActionOutput({required PlayerAction action}) {
     return _$PostPlayerActionOutput._(action: action);
   }
 
@@ -32,10 +31,10 @@ abstract class PostPlayerActionOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<PostPlayerActionOutput>> serializers =
+  static const List<_i2.SmithySerializer<PostPlayerActionOutput>> serializers =
       [PostPlayerActionOutputRestJson1Serializer()];
 
-  _i2.PlayerAction get action;
+  PlayerAction get action;
   @override
   List<Object?> get props => [action];
   @override
@@ -50,7 +49,7 @@ abstract class PostPlayerActionOutput
 }
 
 class PostPlayerActionOutputRestJson1Serializer
-    extends _i3.StructuredSmithySerializer<PostPlayerActionOutput> {
+    extends _i2.StructuredSmithySerializer<PostPlayerActionOutput> {
   const PostPlayerActionOutputRestJson1Serializer()
       : super('PostPlayerActionOutput');
 
@@ -60,8 +59,8 @@ class PostPlayerActionOutputRestJson1Serializer
         _$PostPlayerActionOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -85,8 +84,8 @@ class PostPlayerActionOutputRestJson1Serializer
         case 'action':
           result.action = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.PlayerAction),
-          ) as _i2.PlayerAction);
+            specifiedType: const FullType(PlayerAction),
+          ) as PlayerAction);
       }
     }
 
@@ -105,7 +104,7 @@ class PostPlayerActionOutputRestJson1Serializer
       'action',
       serializers.serialize(
         action,
-        specifiedType: const FullType(_i2.PlayerAction),
+        specifiedType: const FullType(PlayerAction),
       ),
     ]);
     return result$;

@@ -8,7 +8,7 @@ part of 'in_app_message_header_config.dart';
 
 class _$InAppMessageHeaderConfig extends InAppMessageHeaderConfig {
   @override
-  final _i2.Alignment alignment;
+  final Alignment alignment;
   @override
   final String header;
   @override
@@ -63,9 +63,9 @@ class InAppMessageHeaderConfigBuilder
         Builder<InAppMessageHeaderConfig, InAppMessageHeaderConfigBuilder> {
   _$InAppMessageHeaderConfig? _$v;
 
-  _i2.Alignment? _alignment;
-  _i2.Alignment? get alignment => _$this._alignment;
-  set alignment(_i2.Alignment? alignment) => _$this._alignment = alignment;
+  Alignment? _alignment;
+  Alignment? get alignment => _$this._alignment;
+  set alignment(Alignment? alignment) => _$this._alignment = alignment;
 
   String? _header;
   String? get header => _$this._header;

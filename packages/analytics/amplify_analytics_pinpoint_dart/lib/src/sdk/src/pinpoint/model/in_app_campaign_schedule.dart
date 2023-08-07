@@ -3,14 +3,12 @@
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.in_app_campaign_schedule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/campaign_event_filter.dart'
-    as _i2;
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/quiet_time.dart'
-    as _i3;
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/campaign_event_filter.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/quiet_time.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'in_app_campaign_schedule.g.dart';
 
@@ -21,8 +19,8 @@ abstract class InAppCampaignSchedule
   /// Schedule of the campaign.
   factory InAppCampaignSchedule({
     String? endDate,
-    _i2.CampaignEventFilter? eventFilter,
-    _i3.QuietTime? quietTime,
+    CampaignEventFilter? eventFilter,
+    QuietTime? quietTime,
   }) {
     return _$InAppCampaignSchedule._(
       endDate: endDate,
@@ -38,7 +36,7 @@ abstract class InAppCampaignSchedule
 
   const InAppCampaignSchedule._();
 
-  static const List<_i4.SmithySerializer<InAppCampaignSchedule>> serializers = [
+  static const List<_i2.SmithySerializer<InAppCampaignSchedule>> serializers = [
     InAppCampaignScheduleRestJson1Serializer()
   ];
 
@@ -46,10 +44,10 @@ abstract class InAppCampaignSchedule
   String? get endDate;
 
   /// The event filter the SDK has to use to show the in-app message in the application.
-  _i2.CampaignEventFilter? get eventFilter;
+  CampaignEventFilter? get eventFilter;
 
   /// Time during which the in-app message should not be shown to the user.
-  _i3.QuietTime? get quietTime;
+  QuietTime? get quietTime;
   @override
   List<Object?> get props => [
         endDate,
@@ -76,7 +74,7 @@ abstract class InAppCampaignSchedule
 }
 
 class InAppCampaignScheduleRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<InAppCampaignSchedule> {
+    extends _i2.StructuredSmithySerializer<InAppCampaignSchedule> {
   const InAppCampaignScheduleRestJson1Serializer()
       : super('InAppCampaignSchedule');
 
@@ -86,8 +84,8 @@ class InAppCampaignScheduleRestJson1Serializer
         _$InAppCampaignSchedule,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -116,13 +114,13 @@ class InAppCampaignScheduleRestJson1Serializer
         case 'EventFilter':
           result.eventFilter.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.CampaignEventFilter),
-          ) as _i2.CampaignEventFilter));
+            specifiedType: const FullType(CampaignEventFilter),
+          ) as CampaignEventFilter));
         case 'QuietTime':
           result.quietTime.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.QuietTime),
-          ) as _i3.QuietTime));
+            specifiedType: const FullType(QuietTime),
+          ) as QuietTime));
       }
     }
 
@@ -150,7 +148,7 @@ class InAppCampaignScheduleRestJson1Serializer
         ..add('EventFilter')
         ..add(serializers.serialize(
           eventFilter,
-          specifiedType: const FullType(_i2.CampaignEventFilter),
+          specifiedType: const FullType(CampaignEventFilter),
         ));
     }
     if (quietTime != null) {
@@ -158,7 +156,7 @@ class InAppCampaignScheduleRestJson1Serializer
         ..add('QuietTime')
         ..add(serializers.serialize(
           quietTime,
-          specifiedType: const FullType(_i3.QuietTime),
+          specifiedType: const FullType(QuietTime),
         ));
     }
     return result$;

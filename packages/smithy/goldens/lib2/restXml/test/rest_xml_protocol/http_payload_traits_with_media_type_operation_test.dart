@@ -4,14 +4,12 @@
 // ignore_for_file: unused_element
 library rest_xml_v2.rest_xml_protocol.test.http_payload_traits_with_media_type_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:typed_data' as _i6;
+import 'dart:typed_data' as _i4;
 
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/http_payload_traits_with_media_type_input_output.dart'
-    as _i5;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/http_payload_traits_with_media_type_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/http_payload_traits_with_media_type_input_output.dart';
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/http_payload_traits_with_media_type_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -20,7 +18,7 @@ void main() {
     'HttpPayloadTraitsWithMediaTypeWithBlob (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.HttpPayloadTraitsWithMediaTypeOperation(
+        operation: HttpPayloadTraitsWithMediaTypeOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -28,7 +26,7 @@ void main() {
           id: 'HttpPayloadTraitsWithMediaTypeWithBlob',
           documentation:
               'Serializes a blob in the HTTP payload with a content-type',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -67,7 +65,7 @@ void main() {
     'HttpPayloadTraitsWithMediaTypeWithBlob (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.HttpPayloadTraitsWithMediaTypeOperation(
+        operation: HttpPayloadTraitsWithMediaTypeOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -75,7 +73,7 @@ void main() {
           id: 'HttpPayloadTraitsWithMediaTypeWithBlob',
           documentation:
               'Serializes a blob in the HTTP payload with a content-type',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -106,28 +104,27 @@ void main() {
   );
 }
 
-class HttpPayloadTraitsWithMediaTypeInputOutputRestXmlSerializer extends _i4
-    .StructuredSmithySerializer<_i5.HttpPayloadTraitsWithMediaTypeInputOutput> {
+class HttpPayloadTraitsWithMediaTypeInputOutputRestXmlSerializer extends _i3
+    .StructuredSmithySerializer<HttpPayloadTraitsWithMediaTypeInputOutput> {
   const HttpPayloadTraitsWithMediaTypeInputOutputRestXmlSerializer()
       : super('HttpPayloadTraitsWithMediaTypeInputOutput');
 
   @override
-  Iterable<Type> get types =>
-      const [_i5.HttpPayloadTraitsWithMediaTypeInputOutput];
+  Iterable<Type> get types => const [HttpPayloadTraitsWithMediaTypeInputOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
       ];
   @override
-  _i5.HttpPayloadTraitsWithMediaTypeInputOutput deserialize(
+  HttpPayloadTraitsWithMediaTypeInputOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.HttpPayloadTraitsWithMediaTypeInputOutputBuilder();
+    final result = HttpPayloadTraitsWithMediaTypeInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -145,19 +142,19 @@ class HttpPayloadTraitsWithMediaTypeInputOutputRestXmlSerializer extends _i4
         case 'blob':
           result.blob = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.Uint8List),
-          ) as _i6.Uint8List);
+            specifiedType: const FullType(_i4.Uint8List),
+          ) as _i4.Uint8List);
       }
     }
 
-    result.blob ??= _i6.Uint8List(0);
+    result.blob ??= _i4.Uint8List(0);
     return result.build();
   }
 
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.HttpPayloadTraitsWithMediaTypeInputOutput object, {
+    HttpPayloadTraitsWithMediaTypeInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

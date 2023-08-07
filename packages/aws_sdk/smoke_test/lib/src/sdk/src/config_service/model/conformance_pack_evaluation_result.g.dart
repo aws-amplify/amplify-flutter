@@ -9,9 +9,9 @@ part of 'conformance_pack_evaluation_result.dart';
 class _$ConformancePackEvaluationResult
     extends ConformancePackEvaluationResult {
   @override
-  final _i2.ConformancePackComplianceType complianceType;
+  final ConformancePackComplianceType complianceType;
   @override
-  final _i3.EvaluationResultIdentifier evaluationResultIdentifier;
+  final EvaluationResultIdentifier evaluationResultIdentifier;
   @override
   final DateTime configRuleInvokedTime;
   @override
@@ -79,18 +79,17 @@ class ConformancePackEvaluationResultBuilder
             ConformancePackEvaluationResultBuilder> {
   _$ConformancePackEvaluationResult? _$v;
 
-  _i2.ConformancePackComplianceType? _complianceType;
-  _i2.ConformancePackComplianceType? get complianceType =>
-      _$this._complianceType;
-  set complianceType(_i2.ConformancePackComplianceType? complianceType) =>
+  ConformancePackComplianceType? _complianceType;
+  ConformancePackComplianceType? get complianceType => _$this._complianceType;
+  set complianceType(ConformancePackComplianceType? complianceType) =>
       _$this._complianceType = complianceType;
 
-  _i3.EvaluationResultIdentifierBuilder? _evaluationResultIdentifier;
-  _i3.EvaluationResultIdentifierBuilder get evaluationResultIdentifier =>
+  EvaluationResultIdentifierBuilder? _evaluationResultIdentifier;
+  EvaluationResultIdentifierBuilder get evaluationResultIdentifier =>
       _$this._evaluationResultIdentifier ??=
-          new _i3.EvaluationResultIdentifierBuilder();
+          new EvaluationResultIdentifierBuilder();
   set evaluationResultIdentifier(
-          _i3.EvaluationResultIdentifierBuilder? evaluationResultIdentifier) =>
+          EvaluationResultIdentifierBuilder? evaluationResultIdentifier) =>
       _$this._evaluationResultIdentifier = evaluationResultIdentifier;
 
   DateTime? _configRuleInvokedTime;

@@ -11,9 +11,9 @@ class _$GetAggregateDiscoveredResourceCountsRequest
   @override
   final String configurationAggregatorName;
   @override
-  final _i3.ResourceCountFilters? filters;
+  final ResourceCountFilters? filters;
   @override
-  final _i4.ResourceCountGroupKey? groupByKey;
+  final ResourceCountGroupKey? groupByKey;
   @override
   final int limit;
   @override
@@ -87,15 +87,15 @@ class GetAggregateDiscoveredResourceCountsRequestBuilder
   set configurationAggregatorName(String? configurationAggregatorName) =>
       _$this._configurationAggregatorName = configurationAggregatorName;
 
-  _i3.ResourceCountFiltersBuilder? _filters;
-  _i3.ResourceCountFiltersBuilder get filters =>
-      _$this._filters ??= new _i3.ResourceCountFiltersBuilder();
-  set filters(_i3.ResourceCountFiltersBuilder? filters) =>
+  ResourceCountFiltersBuilder? _filters;
+  ResourceCountFiltersBuilder get filters =>
+      _$this._filters ??= new ResourceCountFiltersBuilder();
+  set filters(ResourceCountFiltersBuilder? filters) =>
       _$this._filters = filters;
 
-  _i4.ResourceCountGroupKey? _groupByKey;
-  _i4.ResourceCountGroupKey? get groupByKey => _$this._groupByKey;
-  set groupByKey(_i4.ResourceCountGroupKey? groupByKey) =>
+  ResourceCountGroupKey? _groupByKey;
+  ResourceCountGroupKey? get groupByKey => _$this._groupByKey;
+  set groupByKey(ResourceCountGroupKey? groupByKey) =>
       _$this._groupByKey = groupByKey;
 
   int? _limit;

@@ -6,8 +6,8 @@ library smoke_test.dynamo_db.model.sse_specification; // ignore_for_file: no_lea
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/sse_type.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/sse_type.dart';
 
 part 'sse_specification.g.dart';
 
@@ -18,7 +18,7 @@ abstract class SseSpecification
   /// Represents the settings used to enable server-side encryption.
   factory SseSpecification({
     bool? enabled,
-    _i2.SseType? sseType,
+    SseType? sseType,
     String? kmsMasterKeyId,
   }) {
     return _$SseSpecification._(
@@ -34,7 +34,7 @@ abstract class SseSpecification
 
   const SseSpecification._();
 
-  static const List<_i3.SmithySerializer<SseSpecification>> serializers = [
+  static const List<_i2.SmithySerializer<SseSpecification>> serializers = [
     SseSpecificationAwsJson10Serializer()
   ];
 
@@ -44,7 +44,7 @@ abstract class SseSpecification
   /// Server-side encryption type. The only supported value is:
   ///
   /// *   `KMS` \- Server-side encryption that uses Key Management Service. The key is stored in your account and is managed by KMS (KMS charges apply).
-  _i2.SseType? get sseType;
+  SseType? get sseType;
 
   /// The KMS key that should be used for the KMS encryption. To specify a key, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. Note that you should only provide this parameter if the key is different from the default DynamoDB key `alias/aws/dynamodb`.
   String? get kmsMasterKeyId;
@@ -74,7 +74,7 @@ abstract class SseSpecification
 }
 
 class SseSpecificationAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<SseSpecification> {
+    extends _i2.StructuredSmithySerializer<SseSpecification> {
   const SseSpecificationAwsJson10Serializer() : super('SseSpecification');
 
   @override
@@ -83,8 +83,8 @@ class SseSpecificationAwsJson10Serializer
         _$SseSpecification,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -113,8 +113,8 @@ class SseSpecificationAwsJson10Serializer
         case 'SSEType':
           result.sseType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.SseType),
-          ) as _i2.SseType);
+            specifiedType: const FullType(SseType),
+          ) as SseType);
         case 'KMSMasterKeyId':
           result.kmsMasterKeyId = (serializers.deserialize(
             value,
@@ -147,7 +147,7 @@ class SseSpecificationAwsJson10Serializer
         ..add('SSEType')
         ..add(serializers.serialize(
           sseType,
-          specifiedType: const FullType(_i2.SseType),
+          specifiedType: const FullType(SseType),
         ));
     }
     if (kmsMasterKeyId != null) {

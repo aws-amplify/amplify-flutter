@@ -8,9 +8,9 @@ part of 'put_stored_query_request.dart';
 
 class _$PutStoredQueryRequest extends PutStoredQueryRequest {
   @override
-  final _i3.StoredQuery storedQuery;
+  final StoredQuery storedQuery;
   @override
-  final _i5.BuiltList<_i4.Tag>? tags;
+  final _i3.BuiltList<Tag>? tags;
 
   factory _$PutStoredQueryRequest(
           [void Function(PutStoredQueryRequestBuilder)? updates]) =>
@@ -53,16 +53,15 @@ class PutStoredQueryRequestBuilder
     implements Builder<PutStoredQueryRequest, PutStoredQueryRequestBuilder> {
   _$PutStoredQueryRequest? _$v;
 
-  _i3.StoredQueryBuilder? _storedQuery;
-  _i3.StoredQueryBuilder get storedQuery =>
-      _$this._storedQuery ??= new _i3.StoredQueryBuilder();
-  set storedQuery(_i3.StoredQueryBuilder? storedQuery) =>
+  StoredQueryBuilder? _storedQuery;
+  StoredQueryBuilder get storedQuery =>
+      _$this._storedQuery ??= new StoredQueryBuilder();
+  set storedQuery(StoredQueryBuilder? storedQuery) =>
       _$this._storedQuery = storedQuery;
 
-  _i5.ListBuilder<_i4.Tag>? _tags;
-  _i5.ListBuilder<_i4.Tag> get tags =>
-      _$this._tags ??= new _i5.ListBuilder<_i4.Tag>();
-  set tags(_i5.ListBuilder<_i4.Tag>? tags) => _$this._tags = tags;
+  _i3.ListBuilder<Tag>? _tags;
+  _i3.ListBuilder<Tag> get tags => _$this._tags ??= new _i3.ListBuilder<Tag>();
+  set tags(_i3.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   PutStoredQueryRequestBuilder();
 

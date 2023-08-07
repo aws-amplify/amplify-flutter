@@ -6,9 +6,8 @@ library smoke_test.dynamo_db_streams.model.key_schema_element; // ignore_for_fil
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/key_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/key_type.dart';
 
 part 'key_schema_element.g.dart';
 
@@ -27,7 +26,7 @@ abstract class KeySchemaElement
   /// A `KeySchemaElement` must be a scalar, top-level attribute (not a nested attribute). The data type must be one of String, Number, or Binary. The attribute cannot be nested within a List or a Map.
   factory KeySchemaElement({
     required String attributeName,
-    required _i2.KeyType keyType,
+    required KeyType keyType,
   }) {
     return _$KeySchemaElement._(
       attributeName: attributeName,
@@ -45,7 +44,7 @@ abstract class KeySchemaElement
 
   const KeySchemaElement._();
 
-  static const List<_i3.SmithySerializer<KeySchemaElement>> serializers = [
+  static const List<_i2.SmithySerializer<KeySchemaElement>> serializers = [
     KeySchemaElementAwsJson10Serializer()
   ];
 
@@ -62,7 +61,7 @@ abstract class KeySchemaElement
   /// The partition key of an item is also known as its _hash attribute_. The term "hash attribute" derives from DynamoDB's usage of an internal hash function to evenly distribute data items across partitions, based on their partition key values.
   ///
   /// The sort key of an item is also known as its _range attribute_. The term "range attribute" derives from the way DynamoDB stores items with the same partition key physically close together, in sorted order by the sort key value.
-  _i2.KeyType get keyType;
+  KeyType get keyType;
   @override
   List<Object?> get props => [
         attributeName,
@@ -84,7 +83,7 @@ abstract class KeySchemaElement
 }
 
 class KeySchemaElementAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<KeySchemaElement> {
+    extends _i2.StructuredSmithySerializer<KeySchemaElement> {
   const KeySchemaElementAwsJson10Serializer() : super('KeySchemaElement');
 
   @override
@@ -93,8 +92,8 @@ class KeySchemaElementAwsJson10Serializer
         _$KeySchemaElement,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -123,8 +122,8 @@ class KeySchemaElementAwsJson10Serializer
         case 'KeyType':
           result.keyType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.KeyType),
-          ) as _i2.KeyType);
+            specifiedType: const FullType(KeyType),
+          ) as KeyType);
       }
     }
 
@@ -148,7 +147,7 @@ class KeySchemaElementAwsJson10Serializer
       'KeyType',
       serializers.serialize(
         keyType,
-        specifiedType: const FullType(_i2.KeyType),
+        specifiedType: const FullType(KeyType),
       ),
     ]);
     return result$;

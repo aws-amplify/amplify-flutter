@@ -15,9 +15,9 @@ class _$OrganizationManagedRuleMetadata
   @override
   final String? inputParameters;
   @override
-  final _i2.MaximumExecutionFrequency? maximumExecutionFrequency;
+  final MaximumExecutionFrequency? maximumExecutionFrequency;
   @override
-  final _i3.BuiltList<String>? resourceTypesScope;
+  final _i2.BuiltList<String>? resourceTypesScope;
   @override
   final String? resourceIdScope;
   @override
@@ -102,17 +102,17 @@ class OrganizationManagedRuleMetadataBuilder
   set inputParameters(String? inputParameters) =>
       _$this._inputParameters = inputParameters;
 
-  _i2.MaximumExecutionFrequency? _maximumExecutionFrequency;
-  _i2.MaximumExecutionFrequency? get maximumExecutionFrequency =>
+  MaximumExecutionFrequency? _maximumExecutionFrequency;
+  MaximumExecutionFrequency? get maximumExecutionFrequency =>
       _$this._maximumExecutionFrequency;
   set maximumExecutionFrequency(
-          _i2.MaximumExecutionFrequency? maximumExecutionFrequency) =>
+          MaximumExecutionFrequency? maximumExecutionFrequency) =>
       _$this._maximumExecutionFrequency = maximumExecutionFrequency;
 
-  _i3.ListBuilder<String>? _resourceTypesScope;
-  _i3.ListBuilder<String> get resourceTypesScope =>
-      _$this._resourceTypesScope ??= new _i3.ListBuilder<String>();
-  set resourceTypesScope(_i3.ListBuilder<String>? resourceTypesScope) =>
+  _i2.ListBuilder<String>? _resourceTypesScope;
+  _i2.ListBuilder<String> get resourceTypesScope =>
+      _$this._resourceTypesScope ??= new _i2.ListBuilder<String>();
+  set resourceTypesScope(_i2.ListBuilder<String>? resourceTypesScope) =>
       _$this._resourceTypesScope = resourceTypesScope;
 
   String? _resourceIdScope;

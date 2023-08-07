@@ -4,12 +4,11 @@
 library smoke_test.dynamo_db.model.conditional_check_failed_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart';
 
 part 'conditional_check_failed_exception.g.dart';
 
@@ -24,11 +23,11 @@ abstract class ConditionalCheckFailedException
   /// A condition specified in the operation could not be evaluated.
   factory ConditionalCheckFailedException({
     String? message,
-    Map<String, _i3.AttributeValue>? item,
+    Map<String, AttributeValue>? item,
   }) {
     return _$ConditionalCheckFailedException._(
       message: message,
-      item: item == null ? null : _i4.BuiltMap(item),
+      item: item == null ? null : _i3.BuiltMap(item),
     );
   }
 
@@ -57,7 +56,7 @@ abstract class ConditionalCheckFailedException
   String? get message;
 
   /// Item which caused the `ConditionalCheckFailedException`.
-  _i4.BuiltMap<String, _i3.AttributeValue>? get item;
+  _i3.BuiltMap<String, AttributeValue>? get item;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
         namespace: 'com.amazonaws.dynamodb',
@@ -136,13 +135,13 @@ class ConditionalCheckFailedExceptionAwsJson10Serializer
           result.item.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
-                FullType(_i3.AttributeValue),
+                FullType(AttributeValue),
               ],
             ),
-          ) as _i4.BuiltMap<String, _i3.AttributeValue>));
+          ) as _i3.BuiltMap<String, AttributeValue>));
       }
     }
 
@@ -171,10 +170,10 @@ class ConditionalCheckFailedExceptionAwsJson10Serializer
         ..add(serializers.serialize(
           item,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
-              FullType(_i3.AttributeValue),
+              FullType(AttributeValue),
             ],
           ),
         ));

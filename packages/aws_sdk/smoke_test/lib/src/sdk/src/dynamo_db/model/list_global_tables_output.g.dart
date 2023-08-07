@@ -8,7 +8,7 @@ part of 'list_global_tables_output.dart';
 
 class _$ListGlobalTablesOutput extends ListGlobalTablesOutput {
   @override
-  final _i3.BuiltList<_i2.GlobalTable>? globalTables;
+  final _i2.BuiltList<GlobalTable>? globalTables;
   @override
   final String? lastEvaluatedGlobalTableName;
 
@@ -51,10 +51,10 @@ class ListGlobalTablesOutputBuilder
     implements Builder<ListGlobalTablesOutput, ListGlobalTablesOutputBuilder> {
   _$ListGlobalTablesOutput? _$v;
 
-  _i3.ListBuilder<_i2.GlobalTable>? _globalTables;
-  _i3.ListBuilder<_i2.GlobalTable> get globalTables =>
-      _$this._globalTables ??= new _i3.ListBuilder<_i2.GlobalTable>();
-  set globalTables(_i3.ListBuilder<_i2.GlobalTable>? globalTables) =>
+  _i2.ListBuilder<GlobalTable>? _globalTables;
+  _i2.ListBuilder<GlobalTable> get globalTables =>
+      _$this._globalTables ??= new _i2.ListBuilder<GlobalTable>();
+  set globalTables(_i2.ListBuilder<GlobalTable>? globalTables) =>
       _$this._globalTables = globalTables;
 
   String? _lastEvaluatedGlobalTableName;

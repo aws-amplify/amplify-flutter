@@ -4,16 +4,13 @@
 library smoke_test.dynamo_db.model.update_table_replica_auto_scaling_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/auto_scaling_settings_update.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/global_secondary_index_auto_scaling_update.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_auto_scaling_update.dart'
-    as _i5;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/auto_scaling_settings_update.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/global_secondary_index_auto_scaling_update.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_auto_scaling_update.dart';
 
 part 'update_table_replica_auto_scaling_input.g.dart';
 
@@ -25,21 +22,20 @@ abstract class UpdateTableReplicaAutoScalingInput
         Built<UpdateTableReplicaAutoScalingInput,
             UpdateTableReplicaAutoScalingInputBuilder> {
   factory UpdateTableReplicaAutoScalingInput({
-    List<_i3.GlobalSecondaryIndexAutoScalingUpdate>?
-        globalSecondaryIndexUpdates,
+    List<GlobalSecondaryIndexAutoScalingUpdate>? globalSecondaryIndexUpdates,
     required String tableName,
-    _i4.AutoScalingSettingsUpdate? provisionedWriteCapacityAutoScalingUpdate,
-    List<_i5.ReplicaAutoScalingUpdate>? replicaUpdates,
+    AutoScalingSettingsUpdate? provisionedWriteCapacityAutoScalingUpdate,
+    List<ReplicaAutoScalingUpdate>? replicaUpdates,
   }) {
     return _$UpdateTableReplicaAutoScalingInput._(
       globalSecondaryIndexUpdates: globalSecondaryIndexUpdates == null
           ? null
-          : _i6.BuiltList(globalSecondaryIndexUpdates),
+          : _i3.BuiltList(globalSecondaryIndexUpdates),
       tableName: tableName,
       provisionedWriteCapacityAutoScalingUpdate:
           provisionedWriteCapacityAutoScalingUpdate,
       replicaUpdates:
-          replicaUpdates == null ? null : _i6.BuiltList(replicaUpdates),
+          replicaUpdates == null ? null : _i3.BuiltList(replicaUpdates),
     );
   }
 
@@ -60,17 +56,17 @@ abstract class UpdateTableReplicaAutoScalingInput
       serializers = [UpdateTableReplicaAutoScalingInputAwsJson10Serializer()];
 
   /// Represents the auto scaling settings of the global secondary indexes of the replica to be updated.
-  _i6.BuiltList<_i3.GlobalSecondaryIndexAutoScalingUpdate>?
+  _i3.BuiltList<GlobalSecondaryIndexAutoScalingUpdate>?
       get globalSecondaryIndexUpdates;
 
   /// The name of the global table to be updated.
   String get tableName;
 
   /// Represents the auto scaling settings to be modified for a global table or global secondary index.
-  _i4.AutoScalingSettingsUpdate? get provisionedWriteCapacityAutoScalingUpdate;
+  AutoScalingSettingsUpdate? get provisionedWriteCapacityAutoScalingUpdate;
 
   /// Represents the auto scaling settings of replicas of the table that will be modified.
-  _i6.BuiltList<_i5.ReplicaAutoScalingUpdate>? get replicaUpdates;
+  _i3.BuiltList<ReplicaAutoScalingUpdate>? get replicaUpdates;
   @override
   UpdateTableReplicaAutoScalingInput getPayload() => this;
   @override
@@ -141,10 +137,10 @@ class UpdateTableReplicaAutoScalingInputAwsJson10Serializer
           result.globalSecondaryIndexUpdates.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(_i3.GlobalSecondaryIndexAutoScalingUpdate)],
+              _i3.BuiltList,
+              [FullType(GlobalSecondaryIndexAutoScalingUpdate)],
             ),
-          ) as _i6.BuiltList<_i3.GlobalSecondaryIndexAutoScalingUpdate>));
+          ) as _i3.BuiltList<GlobalSecondaryIndexAutoScalingUpdate>));
         case 'TableName':
           result.tableName = (serializers.deserialize(
             value,
@@ -154,16 +150,16 @@ class UpdateTableReplicaAutoScalingInputAwsJson10Serializer
           result.provisionedWriteCapacityAutoScalingUpdate
               .replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.AutoScalingSettingsUpdate),
-          ) as _i4.AutoScalingSettingsUpdate));
+            specifiedType: const FullType(AutoScalingSettingsUpdate),
+          ) as AutoScalingSettingsUpdate));
         case 'ReplicaUpdates':
           result.replicaUpdates.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(_i5.ReplicaAutoScalingUpdate)],
+              _i3.BuiltList,
+              [FullType(ReplicaAutoScalingUpdate)],
             ),
-          ) as _i6.BuiltList<_i5.ReplicaAutoScalingUpdate>));
+          ) as _i3.BuiltList<ReplicaAutoScalingUpdate>));
       }
     }
 
@@ -196,8 +192,8 @@ class UpdateTableReplicaAutoScalingInputAwsJson10Serializer
         ..add(serializers.serialize(
           globalSecondaryIndexUpdates,
           specifiedType: const FullType(
-            _i6.BuiltList,
-            [FullType(_i3.GlobalSecondaryIndexAutoScalingUpdate)],
+            _i3.BuiltList,
+            [FullType(GlobalSecondaryIndexAutoScalingUpdate)],
           ),
         ));
     }
@@ -206,7 +202,7 @@ class UpdateTableReplicaAutoScalingInputAwsJson10Serializer
         ..add('ProvisionedWriteCapacityAutoScalingUpdate')
         ..add(serializers.serialize(
           provisionedWriteCapacityAutoScalingUpdate,
-          specifiedType: const FullType(_i4.AutoScalingSettingsUpdate),
+          specifiedType: const FullType(AutoScalingSettingsUpdate),
         ));
     }
     if (replicaUpdates != null) {
@@ -215,8 +211,8 @@ class UpdateTableReplicaAutoScalingInputAwsJson10Serializer
         ..add(serializers.serialize(
           replicaUpdates,
           specifiedType: const FullType(
-            _i6.BuiltList,
-            [FullType(_i5.ReplicaAutoScalingUpdate)],
+            _i3.BuiltList,
+            [FullType(ReplicaAutoScalingUpdate)],
           ),
         ));
     }

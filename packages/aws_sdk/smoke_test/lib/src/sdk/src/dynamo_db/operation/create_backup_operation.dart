@@ -3,34 +3,23 @@
 
 library smoke_test.dynamo_db.operation.create_backup_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i16;
+import 'dart:async' as _i5;
 
-import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/common/endpoint_resolver.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/dynamo_db/common/serializers.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/backup_in_use_exception.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/continuous_backups_unavailable_exception.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/create_backup_input.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/create_backup_output.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/internal_server_error.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/invalid_endpoint_exception.dart'
-    as _i12;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/limit_exceeded_exception.dart'
-    as _i13;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_in_use_exception.dart'
-    as _i14;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_not_found_exception.dart'
-    as _i15;
+import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/backup_in_use_exception.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/continuous_backups_unavailable_exception.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/create_backup_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/create_backup_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/internal_server_error.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/invalid_endpoint_exception.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/limit_exceeded_exception.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_in_use_exception.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_not_found_exception.dart';
 
 /// Creates a backup for an existing table.
 ///
@@ -53,8 +42,8 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_not_found_exception
 /// *   Streams
 ///
 /// *   Provisioned read and write capacity
-class CreateBackupOperation extends _i1.HttpOperation<_i2.CreateBackupInput,
-    _i2.CreateBackupInput, _i3.CreateBackupOutput, _i3.CreateBackupOutput> {
+class CreateBackupOperation extends _i1.HttpOperation<CreateBackupInput,
+    CreateBackupInput, CreateBackupOutput, CreateBackupOutput> {
   /// Creates a backup for an existing table.
   ///
   /// Each time you create an on-demand backup, the entire table data is backed up. There is no limit to the number of on-demand backups that can be taken.
@@ -79,8 +68,8 @@ class CreateBackupOperation extends _i1.HttpOperation<_i2.CreateBackupInput,
   CreateBackupOperation({
     required String region,
     Uri? baseUri,
-    _i4.AWSCredentialsProvider credentialsProvider =
-        const _i4.AWSCredentialsProvider.environment(),
+    _i2.AWSCredentialsProvider credentialsProvider =
+        const _i2.AWSCredentialsProvider.environment(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -91,11 +80,11 @@ class CreateBackupOperation extends _i1.HttpOperation<_i2.CreateBackupInput,
 
   @override
   late final List<
-      _i1.HttpProtocol<_i2.CreateBackupInput, _i2.CreateBackupInput,
-          _i3.CreateBackupOutput, _i3.CreateBackupOutput>> protocols = [
-    _i5.AwsJson1_0Protocol(
-      serializers: _i6.serializers,
-      builderFactories: _i6.builderFactories,
+      _i1.HttpProtocol<CreateBackupInput, CreateBackupInput, CreateBackupOutput,
+          CreateBackupOutput>> protocols = [
+    _i3.AwsJson1_0Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
@@ -103,14 +92,14 @@ class CreateBackupOperation extends _i1.HttpOperation<_i2.CreateBackupInput,
               'X-Amz-Target',
               'DynamoDB_20120810.CreateBackup',
             ),
-            _i5.WithSigV4(
+            _i3.WithSigV4(
               region: _region,
-              service: _i7.AWSService.dynamoDb,
+              service: _i4.AWSService.dynamoDb,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i5.WithSdkInvocationId(),
-            const _i5.WithSdkRequest(),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -118,8 +107,8 @@ class CreateBackupOperation extends _i1.HttpOperation<_i2.CreateBackupInput,
     )
   ];
 
-  late final _i5.AWSEndpoint _awsEndpoint = _i8.endpointResolver.resolve(
-    _i8.sdkId,
+  late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -127,115 +116,111 @@ class CreateBackupOperation extends _i1.HttpOperation<_i2.CreateBackupInput,
 
   final Uri? _baseUri;
 
-  final _i4.AWSCredentialsProvider _credentialsProvider;
+  final _i2.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.CreateBackupInput input) =>
-      _i1.HttpRequest((b) {
+  _i1.HttpRequest buildRequest(CreateBackupInput input) => _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
       });
   @override
-  int successCode([_i3.CreateBackupOutput? output]) => 200;
+  int successCode([CreateBackupOutput? output]) => 200;
   @override
-  _i3.CreateBackupOutput buildOutput(
-    _i3.CreateBackupOutput payload,
-    _i7.AWSBaseHttpResponse response,
+  CreateBackupOutput buildOutput(
+    CreateBackupOutput payload,
+    _i4.AWSBaseHttpResponse response,
   ) =>
-      _i3.CreateBackupOutput.fromResponse(
+      CreateBackupOutput.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i9.BackupInUseException, _i9.BackupInUseException>(
+        _i1.SmithyError<BackupInUseException, BackupInUseException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'BackupInUseException',
           ),
           _i1.ErrorKind.client,
-          _i9.BackupInUseException,
-          builder: _i9.BackupInUseException.fromResponse,
+          BackupInUseException,
+          builder: BackupInUseException.fromResponse,
         ),
-        _i1.SmithyError<_i10.ContinuousBackupsUnavailableException,
-            _i10.ContinuousBackupsUnavailableException>(
+        _i1.SmithyError<ContinuousBackupsUnavailableException,
+            ContinuousBackupsUnavailableException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ContinuousBackupsUnavailableException',
           ),
           _i1.ErrorKind.client,
-          _i10.ContinuousBackupsUnavailableException,
-          builder: _i10.ContinuousBackupsUnavailableException.fromResponse,
+          ContinuousBackupsUnavailableException,
+          builder: ContinuousBackupsUnavailableException.fromResponse,
         ),
-        _i1.SmithyError<_i11.InternalServerError, _i11.InternalServerError>(
+        _i1.SmithyError<InternalServerError, InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
           ),
           _i1.ErrorKind.server,
-          _i11.InternalServerError,
-          builder: _i11.InternalServerError.fromResponse,
+          InternalServerError,
+          builder: InternalServerError.fromResponse,
         ),
-        _i1.SmithyError<_i12.InvalidEndpointException,
-            _i12.InvalidEndpointException>(
+        _i1.SmithyError<InvalidEndpointException, InvalidEndpointException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InvalidEndpointException',
           ),
           _i1.ErrorKind.client,
-          _i12.InvalidEndpointException,
+          InvalidEndpointException,
           statusCode: 421,
-          builder: _i12.InvalidEndpointException.fromResponse,
+          builder: InvalidEndpointException.fromResponse,
         ),
-        _i1.SmithyError<_i13.LimitExceededException,
-            _i13.LimitExceededException>(
+        _i1.SmithyError<LimitExceededException, LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'LimitExceededException',
           ),
           _i1.ErrorKind.client,
-          _i13.LimitExceededException,
-          builder: _i13.LimitExceededException.fromResponse,
+          LimitExceededException,
+          builder: LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError<_i14.TableInUseException, _i14.TableInUseException>(
+        _i1.SmithyError<TableInUseException, TableInUseException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'TableInUseException',
           ),
           _i1.ErrorKind.client,
-          _i14.TableInUseException,
-          builder: _i14.TableInUseException.fromResponse,
+          TableInUseException,
+          builder: TableInUseException.fromResponse,
         ),
-        _i1.SmithyError<_i15.TableNotFoundException,
-            _i15.TableNotFoundException>(
+        _i1.SmithyError<TableNotFoundException, TableNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'TableNotFoundException',
           ),
           _i1.ErrorKind.client,
-          _i15.TableNotFoundException,
-          builder: _i15.TableNotFoundException.fromResponse,
+          TableNotFoundException,
+          builder: TableNotFoundException.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'CreateBackup';
   @override
-  _i5.AWSRetryer get retryer => _i5.AWSRetryer();
+  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.CreateBackupOutput> run(
-    _i2.CreateBackupInput input, {
-    _i7.AWSHttpClient? client,
+  _i1.SmithyOperation<CreateBackupOutput> run(
+    CreateBackupInput input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i16.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -243,7 +228,7 @@ class CreateBackupOperation extends _i1.HttpOperation<_i2.CreateBackupInput,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

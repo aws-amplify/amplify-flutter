@@ -8,9 +8,9 @@ part of 'event_risk_type.dart';
 
 class _$EventRiskType extends EventRiskType {
   @override
-  final _i2.RiskDecisionType? riskDecision;
+  final RiskDecisionType? riskDecision;
   @override
-  final _i3.RiskLevelType? riskLevel;
+  final RiskLevelType? riskLevel;
   @override
   final bool? compromisedCredentialsDetected;
 
@@ -52,14 +52,14 @@ class EventRiskTypeBuilder
     implements Builder<EventRiskType, EventRiskTypeBuilder> {
   _$EventRiskType? _$v;
 
-  _i2.RiskDecisionType? _riskDecision;
-  _i2.RiskDecisionType? get riskDecision => _$this._riskDecision;
-  set riskDecision(_i2.RiskDecisionType? riskDecision) =>
+  RiskDecisionType? _riskDecision;
+  RiskDecisionType? get riskDecision => _$this._riskDecision;
+  set riskDecision(RiskDecisionType? riskDecision) =>
       _$this._riskDecision = riskDecision;
 
-  _i3.RiskLevelType? _riskLevel;
-  _i3.RiskLevelType? get riskLevel => _$this._riskLevel;
-  set riskLevel(_i3.RiskLevelType? riskLevel) => _$this._riskLevel = riskLevel;
+  RiskLevelType? _riskLevel;
+  RiskLevelType? get riskLevel => _$this._riskLevel;
+  set riskLevel(RiskLevelType? riskLevel) => _$this._riskLevel = riskLevel;
 
   bool? _compromisedCredentialsDetected;
   bool? get compromisedCredentialsDetected =>

@@ -6,9 +6,8 @@ library smoke_test.dynamo_db.model.attribute_definition; // ignore_for_file: no_
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/scalar_attribute_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/scalar_attribute_type.dart';
 
 part 'attribute_definition.g.dart';
 
@@ -19,7 +18,7 @@ abstract class AttributeDefinition
   /// Represents an attribute for describing the key schema for the table and indexes.
   factory AttributeDefinition({
     required String attributeName,
-    required _i2.ScalarAttributeType attributeType,
+    required ScalarAttributeType attributeType,
   }) {
     return _$AttributeDefinition._(
       attributeName: attributeName,
@@ -34,7 +33,7 @@ abstract class AttributeDefinition
 
   const AttributeDefinition._();
 
-  static const List<_i3.SmithySerializer<AttributeDefinition>> serializers = [
+  static const List<_i2.SmithySerializer<AttributeDefinition>> serializers = [
     AttributeDefinitionAwsJson10Serializer()
   ];
 
@@ -48,7 +47,7 @@ abstract class AttributeDefinition
   /// *   `N` \- the attribute is of type Number
   ///
   /// *   `B` \- the attribute is of type Binary
-  _i2.ScalarAttributeType get attributeType;
+  ScalarAttributeType get attributeType;
   @override
   List<Object?> get props => [
         attributeName,
@@ -70,7 +69,7 @@ abstract class AttributeDefinition
 }
 
 class AttributeDefinitionAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<AttributeDefinition> {
+    extends _i2.StructuredSmithySerializer<AttributeDefinition> {
   const AttributeDefinitionAwsJson10Serializer() : super('AttributeDefinition');
 
   @override
@@ -79,8 +78,8 @@ class AttributeDefinitionAwsJson10Serializer
         _$AttributeDefinition,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -109,8 +108,8 @@ class AttributeDefinitionAwsJson10Serializer
         case 'AttributeType':
           result.attributeType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ScalarAttributeType),
-          ) as _i2.ScalarAttributeType);
+            specifiedType: const FullType(ScalarAttributeType),
+          ) as ScalarAttributeType);
       }
     }
 
@@ -134,7 +133,7 @@ class AttributeDefinitionAwsJson10Serializer
       'AttributeType',
       serializers.serialize(
         attributeType,
-        specifiedType: const FullType(_i2.ScalarAttributeType),
+        specifiedType: const FullType(ScalarAttributeType),
       ),
     ]);
     return result$;

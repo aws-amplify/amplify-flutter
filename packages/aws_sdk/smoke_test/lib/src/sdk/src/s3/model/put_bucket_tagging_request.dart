@@ -3,27 +3,27 @@
 
 library smoke_test.s3.model.put_bucket_tagging_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_common/aws_common.dart' as _i3;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:aws_common/aws_common.dart' as _i2;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/s3/model/tagging.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/tag.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/tagging.dart';
 
 part 'put_bucket_tagging_request.g.dart';
 
 abstract class PutBucketTaggingRequest
-    with _i1.HttpInput<_i2.Tagging>, _i3.AWSEquatable<PutBucketTaggingRequest>
+    with _i1.HttpInput<Tagging>, _i2.AWSEquatable<PutBucketTaggingRequest>
     implements
         Built<PutBucketTaggingRequest, PutBucketTaggingRequestBuilder>,
-        _i1.HasPayload<_i2.Tagging> {
+        _i1.HasPayload<Tagging> {
   factory PutBucketTaggingRequest({
     required String bucket,
     String? contentMd5,
-    _i4.ChecksumAlgorithm? checksumAlgorithm,
-    required _i2.Tagging tagging,
+    ChecksumAlgorithm? checksumAlgorithm,
+    required Tagging tagging,
     String? expectedBucketOwner,
   }) {
     return _$PutBucketTaggingRequest._(
@@ -42,8 +42,8 @@ abstract class PutBucketTaggingRequest
   const PutBucketTaggingRequest._();
 
   factory PutBucketTaggingRequest.fromRequest(
-    _i2.Tagging payload,
-    _i3.AWSBaseHttpRequest request, {
+    Tagging payload,
+    _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
       PutBucketTaggingRequest.build((b) {
@@ -52,7 +52,7 @@ abstract class PutBucketTaggingRequest
           b.contentMd5 = request.headers['Content-MD5']!;
         }
         if (request.headers['x-amz-sdk-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = _i4.ChecksumAlgorithm.values
+          b.checksumAlgorithm = ChecksumAlgorithm.values
               .byValue(request.headers['x-amz-sdk-checksum-algorithm']!);
         }
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
@@ -64,7 +64,7 @@ abstract class PutBucketTaggingRequest
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.Tagging>> serializers = [
+  static const List<_i1.SmithySerializer<Tagging>> serializers = [
     PutBucketTaggingRequestRestXmlSerializer()
   ];
 
@@ -79,10 +79,10 @@ abstract class PutBucketTaggingRequest
   /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
   ///
   /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
-  _i4.ChecksumAlgorithm? get checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm;
 
   /// Container for the `TagSet` and `Tag` elements.
-  _i2.Tagging get tagging;
+  Tagging get tagging;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
@@ -99,7 +99,7 @@ abstract class PutBucketTaggingRequest
   }
 
   @override
-  _i2.Tagging getPayload() => tagging;
+  Tagging getPayload() => tagging;
   @override
   List<Object?> get props => [
         bucket,
@@ -136,7 +136,7 @@ abstract class PutBucketTaggingRequest
 }
 
 class PutBucketTaggingRequestRestXmlSerializer
-    extends _i1.StructuredSmithySerializer<_i2.Tagging> {
+    extends _i1.StructuredSmithySerializer<Tagging> {
   const PutBucketTaggingRequestRestXmlSerializer()
       : super('PutBucketTaggingRequest');
 
@@ -153,12 +153,12 @@ class PutBucketTaggingRequestRestXmlSerializer
         )
       ];
   @override
-  _i2.Tagging deserialize(
+  Tagging deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i2.TaggingBuilder();
+    final result = TaggingBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -174,10 +174,10 @@ class PutBucketTaggingRequestRestXmlSerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(_i6.Tag)],
+              _i3.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i5.BuiltList<_i6.Tag>));
+          ) as _i3.BuiltList<Tag>));
       }
     }
 
@@ -187,7 +187,7 @@ class PutBucketTaggingRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i2.Tagging object, {
+    Tagging object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -196,15 +196,15 @@ class PutBucketTaggingRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i2.Tagging(:tagSet) = object;
+    final Tagging(:tagSet) = object;
     result$
       ..add(const _i1.XmlElementName('TagSet'))
       ..add(const _i1.XmlBuiltListSerializer(memberName: 'Tag').serialize(
         serializers,
         tagSet,
         specifiedType: const FullType.nullable(
-          _i5.BuiltList,
-          [FullType(_i6.Tag)],
+          _i3.BuiltList,
+          [FullType(Tag)],
         ),
       ));
     return result$;

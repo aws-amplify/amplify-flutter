@@ -4,12 +4,11 @@
 library smoke_test.dynamo_db.model.keys_and_attributes; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart';
 
 part 'keys_and_attributes.g.dart';
 
@@ -23,21 +22,21 @@ abstract class KeysAndAttributes
   ///
   /// For each primary key, you must provide _all_ of the key attributes. For example, with a simple primary key, you only need to provide the partition key. For a composite primary key, you must provide _both_ the partition key and the sort key.
   factory KeysAndAttributes({
-    required List<Map<String, _i2.AttributeValue>> keys,
+    required List<Map<String, AttributeValue>> keys,
     List<String>? attributesToGet,
     bool? consistentRead,
     String? projectionExpression,
     Map<String, String>? expressionAttributeNames,
   }) {
     return _$KeysAndAttributes._(
-      keys: _i3.BuiltList(keys.map((el) => _i3.BuiltMap(el))),
+      keys: _i2.BuiltList(keys.map((el) => _i2.BuiltMap(el))),
       attributesToGet:
-          attributesToGet == null ? null : _i3.BuiltList(attributesToGet),
+          attributesToGet == null ? null : _i2.BuiltList(attributesToGet),
       consistentRead: consistentRead,
       projectionExpression: projectionExpression,
       expressionAttributeNames: expressionAttributeNames == null
           ? null
-          : _i3.BuiltMap(expressionAttributeNames),
+          : _i2.BuiltMap(expressionAttributeNames),
     );
   }
 
@@ -49,15 +48,15 @@ abstract class KeysAndAttributes
 
   const KeysAndAttributes._();
 
-  static const List<_i4.SmithySerializer<KeysAndAttributes>> serializers = [
+  static const List<_i3.SmithySerializer<KeysAndAttributes>> serializers = [
     KeysAndAttributesAwsJson10Serializer()
   ];
 
   /// The primary key attribute values that define the items and the attributes associated with the items.
-  _i3.BuiltList<_i3.BuiltMap<String, _i2.AttributeValue>> get keys;
+  _i2.BuiltList<_i2.BuiltMap<String, AttributeValue>> get keys;
 
   /// This is a legacy parameter. Use `ProjectionExpression` instead. For more information, see [Legacy Conditional Parameters](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.html) in the _Amazon DynamoDB Developer Guide_.
-  _i3.BuiltList<String>? get attributesToGet;
+  _i2.BuiltList<String>? get attributesToGet;
 
   /// The consistency of a read operation. If set to `true`, then a strongly consistent read is used; otherwise, an eventually consistent read is used.
   bool? get consistentRead;
@@ -96,7 +95,7 @@ abstract class KeysAndAttributes
   /// Tokens that begin with the **:** character are _expression attribute values_, which are placeholders for the actual value at runtime.
   ///
   /// For more information on expression attribute names, see [Accessing Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html) in the _Amazon DynamoDB Developer Guide_.
-  _i3.BuiltMap<String, String>? get expressionAttributeNames;
+  _i2.BuiltMap<String, String>? get expressionAttributeNames;
   @override
   List<Object?> get props => [
         keys,
@@ -133,7 +132,7 @@ abstract class KeysAndAttributes
 }
 
 class KeysAndAttributesAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<KeysAndAttributes> {
+    extends _i3.StructuredSmithySerializer<KeysAndAttributes> {
   const KeysAndAttributesAwsJson10Serializer() : super('KeysAndAttributes');
 
   @override
@@ -142,8 +141,8 @@ class KeysAndAttributesAwsJson10Serializer
         _$KeysAndAttributes,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -168,26 +167,26 @@ class KeysAndAttributesAwsJson10Serializer
           result.keys.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
+              _i2.BuiltList,
               [
                 FullType(
-                  _i3.BuiltMap,
+                  _i2.BuiltMap,
                   [
                     FullType(String),
-                    FullType(_i2.AttributeValue),
+                    FullType(AttributeValue),
                   ],
                 )
               ],
             ),
-          ) as _i3.BuiltList<_i3.BuiltMap<String, _i2.AttributeValue>>));
+          ) as _i2.BuiltList<_i2.BuiltMap<String, AttributeValue>>));
         case 'AttributesToGet':
           result.attributesToGet.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i3.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
         case 'ConsistentRead':
           result.consistentRead = (serializers.deserialize(
             value,
@@ -202,13 +201,13 @@ class KeysAndAttributesAwsJson10Serializer
           result.expressionAttributeNames.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i3.BuiltMap<String, String>));
+          ) as _i2.BuiltMap<String, String>));
       }
     }
 
@@ -234,13 +233,13 @@ class KeysAndAttributesAwsJson10Serializer
       serializers.serialize(
         keys,
         specifiedType: const FullType(
-          _i3.BuiltList,
+          _i2.BuiltList,
           [
             FullType(
-              _i3.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i2.AttributeValue),
+                FullType(AttributeValue),
               ],
             )
           ],
@@ -253,7 +252,7 @@ class KeysAndAttributesAwsJson10Serializer
         ..add(serializers.serialize(
           attributesToGet,
           specifiedType: const FullType(
-            _i3.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -280,7 +279,7 @@ class KeysAndAttributesAwsJson10Serializer
         ..add(serializers.serialize(
           expressionAttributeNames,
           specifiedType: const FullType(
-            _i3.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
               FullType(String),

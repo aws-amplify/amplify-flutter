@@ -9,8 +9,7 @@ part of 'describe_pending_aggregation_requests_response.dart';
 class _$DescribePendingAggregationRequestsResponse
     extends DescribePendingAggregationRequestsResponse {
   @override
-  final _i3.BuiltList<_i2.PendingAggregationRequest>?
-      pendingAggregationRequests;
+  final _i2.BuiltList<PendingAggregationRequest>? pendingAggregationRequests;
   @override
   final String? nextToken;
 
@@ -58,12 +57,12 @@ class DescribePendingAggregationRequestsResponseBuilder
             DescribePendingAggregationRequestsResponseBuilder> {
   _$DescribePendingAggregationRequestsResponse? _$v;
 
-  _i3.ListBuilder<_i2.PendingAggregationRequest>? _pendingAggregationRequests;
-  _i3.ListBuilder<_i2.PendingAggregationRequest>
-      get pendingAggregationRequests => _$this._pendingAggregationRequests ??=
-          new _i3.ListBuilder<_i2.PendingAggregationRequest>();
+  _i2.ListBuilder<PendingAggregationRequest>? _pendingAggregationRequests;
+  _i2.ListBuilder<PendingAggregationRequest> get pendingAggregationRequests =>
+      _$this._pendingAggregationRequests ??=
+          new _i2.ListBuilder<PendingAggregationRequest>();
   set pendingAggregationRequests(
-          _i3.ListBuilder<_i2.PendingAggregationRequest>?
+          _i2.ListBuilder<PendingAggregationRequest>?
               pendingAggregationRequests) =>
       _$this._pendingAggregationRequests = pendingAggregationRequests;
 

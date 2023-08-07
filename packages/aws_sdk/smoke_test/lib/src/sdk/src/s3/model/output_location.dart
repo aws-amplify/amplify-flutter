@@ -6,8 +6,8 @@ library smoke_test.s3.model.output_location; // ignore_for_file: no_leading_unde
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/s3_location.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/s3_location.dart';
 
 part 'output_location.g.dart';
 
@@ -16,7 +16,7 @@ abstract class OutputLocation
     with _i1.AWSEquatable<OutputLocation>
     implements Built<OutputLocation, OutputLocationBuilder> {
   /// Describes the location where the restore job's output is stored.
-  factory OutputLocation({_i2.S3Location? s3}) {
+  factory OutputLocation({S3Location? s3}) {
     return _$OutputLocation._(s3: s3);
   }
 
@@ -26,12 +26,12 @@ abstract class OutputLocation
 
   const OutputLocation._();
 
-  static const List<_i3.SmithySerializer<OutputLocation>> serializers = [
+  static const List<_i2.SmithySerializer<OutputLocation>> serializers = [
     OutputLocationRestXmlSerializer()
   ];
 
   /// Describes an S3 location that will receive the results of the restore request.
-  _i2.S3Location? get s3;
+  S3Location? get s3;
   @override
   List<Object?> get props => [s3];
   @override
@@ -46,7 +46,7 @@ abstract class OutputLocation
 }
 
 class OutputLocationRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<OutputLocation> {
+    extends _i2.StructuredSmithySerializer<OutputLocation> {
   const OutputLocationRestXmlSerializer() : super('OutputLocation');
 
   @override
@@ -55,8 +55,8 @@ class OutputLocationRestXmlSerializer
         _$OutputLocation,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -80,8 +80,8 @@ class OutputLocationRestXmlSerializer
         case 'S3':
           result.s3.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.S3Location),
-          ) as _i2.S3Location));
+            specifiedType: const FullType(S3Location),
+          ) as S3Location));
       }
     }
 
@@ -95,18 +95,18 @@ class OutputLocationRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'OutputLocation',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final OutputLocation(:s3) = object;
     if (s3 != null) {
       result$
-        ..add(const _i3.XmlElementName('S3'))
+        ..add(const _i2.XmlElementName('S3'))
         ..add(serializers.serialize(
           s3,
-          specifiedType: const FullType(_i2.S3Location),
+          specifiedType: const FullType(S3Location),
         ));
     }
     return result$;

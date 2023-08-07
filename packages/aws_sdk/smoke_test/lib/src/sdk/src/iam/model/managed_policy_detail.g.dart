@@ -30,7 +30,7 @@ class _$ManagedPolicyDetail extends ManagedPolicyDetail {
   @override
   final DateTime? updateDate;
   @override
-  final _i3.BuiltList<_i2.PolicyVersion>? policyVersionList;
+  final _i2.BuiltList<PolicyVersion>? policyVersionList;
 
   factory _$ManagedPolicyDetail(
           [void Function(ManagedPolicyDetailBuilder)? updates]) =>
@@ -153,11 +153,10 @@ class ManagedPolicyDetailBuilder
   DateTime? get updateDate => _$this._updateDate;
   set updateDate(DateTime? updateDate) => _$this._updateDate = updateDate;
 
-  _i3.ListBuilder<_i2.PolicyVersion>? _policyVersionList;
-  _i3.ListBuilder<_i2.PolicyVersion> get policyVersionList =>
-      _$this._policyVersionList ??= new _i3.ListBuilder<_i2.PolicyVersion>();
-  set policyVersionList(
-          _i3.ListBuilder<_i2.PolicyVersion>? policyVersionList) =>
+  _i2.ListBuilder<PolicyVersion>? _policyVersionList;
+  _i2.ListBuilder<PolicyVersion> get policyVersionList =>
+      _$this._policyVersionList ??= new _i2.ListBuilder<PolicyVersion>();
+  set policyVersionList(_i2.ListBuilder<PolicyVersion>? policyVersionList) =>
       _$this._policyVersionList = policyVersionList;
 
   ManagedPolicyDetailBuilder() {

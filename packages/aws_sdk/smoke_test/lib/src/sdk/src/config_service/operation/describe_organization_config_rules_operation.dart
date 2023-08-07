@@ -3,31 +3,22 @@
 
 library smoke_test.config_service.operation.describe_organization_config_rules_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i15;
+import 'dart:async' as _i6;
 
-import 'package:aws_common/aws_common.dart' as _i9;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i6;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:aws_common/aws_common.dart' as _i5;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/config_service/common/endpoint_resolver.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/config_service/common/serializers.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_organization_config_rules_request.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_organization_config_rules_response.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/invalid_limit_exception.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/config_service/model/invalid_next_token_exception.dart'
-    as _i12;
-import 'package:smoke_test/src/sdk/src/config_service/model/no_such_organization_config_rule_exception.dart'
-    as _i13;
-import 'package:smoke_test/src/sdk/src/config_service/model/organization_access_denied_exception.dart'
-    as _i14;
-import 'package:smoke_test/src/sdk/src/config_service/model/organization_config_rule.dart'
-    as _i5;
+import 'package:smithy_aws/smithy_aws.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/config_service/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/config_service/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_organization_config_rules_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_organization_config_rules_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/invalid_limit_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/invalid_next_token_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/no_such_organization_config_rule_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/organization_access_denied_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/organization_config_rule.dart';
 
 /// Returns a list of organization Config rules.
 ///
@@ -40,13 +31,13 @@ import 'package:smoke_test/src/sdk/src/config_service/model/organization_config_
 /// If you deploy an organizational rule or conformance pack in an organization administrator account, and then establish a delegated administrator and deploy an organizational rule or conformance pack in the delegated administrator account, you won't be able to see the organizational rule or conformance pack in the organization administrator account from the delegated administrator account or see the organizational rule or conformance pack in the delegated administrator account from organization administrator account. The `DescribeOrganizationConfigRules` and `DescribeOrganizationConformancePacks` APIs can only see and interact with the organization-related resource that were deployed from within the account calling those APIs.
 class DescribeOrganizationConfigRulesOperation extends _i1
     .PaginatedHttpOperation<
-        _i2.DescribeOrganizationConfigRulesRequest,
-        _i2.DescribeOrganizationConfigRulesRequest,
-        _i3.DescribeOrganizationConfigRulesResponse,
-        _i3.DescribeOrganizationConfigRulesResponse,
+        DescribeOrganizationConfigRulesRequest,
+        DescribeOrganizationConfigRulesRequest,
+        DescribeOrganizationConfigRulesResponse,
+        DescribeOrganizationConfigRulesResponse,
         String,
         int,
-        _i4.BuiltList<_i5.OrganizationConfigRule>> {
+        _i2.BuiltList<OrganizationConfigRule>> {
   /// Returns a list of organization Config rules.
   ///
   /// When you specify the limit and the next token, you receive a paginated response.
@@ -59,8 +50,8 @@ class DescribeOrganizationConfigRulesOperation extends _i1
   DescribeOrganizationConfigRulesOperation({
     required String region,
     Uri? baseUri,
-    _i6.AWSCredentialsProvider credentialsProvider =
-        const _i6.AWSCredentialsProvider.environment(),
+    _i3.AWSCredentialsProvider credentialsProvider =
+        const _i3.AWSCredentialsProvider.environment(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -72,13 +63,13 @@ class DescribeOrganizationConfigRulesOperation extends _i1
   @override
   late final List<
       _i1.HttpProtocol<
-          _i2.DescribeOrganizationConfigRulesRequest,
-          _i2.DescribeOrganizationConfigRulesRequest,
-          _i3.DescribeOrganizationConfigRulesResponse,
-          _i3.DescribeOrganizationConfigRulesResponse>> protocols = [
-    _i7.AwsJson1_1Protocol(
-      serializers: _i8.serializers,
-      builderFactories: _i8.builderFactories,
+          DescribeOrganizationConfigRulesRequest,
+          DescribeOrganizationConfigRulesRequest,
+          DescribeOrganizationConfigRulesResponse,
+          DescribeOrganizationConfigRulesResponse>> protocols = [
+    _i4.AwsJson1_1Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
@@ -86,14 +77,14 @@ class DescribeOrganizationConfigRulesOperation extends _i1
               'X-Amz-Target',
               'StarlingDoveService.DescribeOrganizationConfigRules',
             ),
-            _i7.WithSigV4(
+            _i4.WithSigV4(
               region: _region,
-              service: _i9.AWSService.configService,
+              service: _i5.AWSService.configService,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i7.WithSdkInvocationId(),
-            const _i7.WithSdkRequest(),
+            const _i4.WithSdkInvocationId(),
+            const _i4.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -101,8 +92,8 @@ class DescribeOrganizationConfigRulesOperation extends _i1
     )
   ];
 
-  late final _i7.AWSEndpoint _awsEndpoint = _i10.endpointResolver.resolve(
-    _i10.sdkId,
+  late final _i4.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -110,87 +101,85 @@ class DescribeOrganizationConfigRulesOperation extends _i1
 
   final Uri? _baseUri;
 
-  final _i6.AWSCredentialsProvider _credentialsProvider;
+  final _i3.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(
-          _i2.DescribeOrganizationConfigRulesRequest input) =>
+  _i1.HttpRequest buildRequest(DescribeOrganizationConfigRulesRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
       });
   @override
-  int successCode([_i3.DescribeOrganizationConfigRulesResponse? output]) => 200;
+  int successCode([DescribeOrganizationConfigRulesResponse? output]) => 200;
   @override
-  _i3.DescribeOrganizationConfigRulesResponse buildOutput(
-    _i3.DescribeOrganizationConfigRulesResponse payload,
-    _i9.AWSBaseHttpResponse response,
+  DescribeOrganizationConfigRulesResponse buildOutput(
+    DescribeOrganizationConfigRulesResponse payload,
+    _i5.AWSBaseHttpResponse response,
   ) =>
-      _i3.DescribeOrganizationConfigRulesResponse.fromResponse(
+      DescribeOrganizationConfigRulesResponse.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i11.InvalidLimitException, _i11.InvalidLimitException>(
+        _i1.SmithyError<InvalidLimitException, InvalidLimitException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidLimitException',
           ),
           _i1.ErrorKind.client,
-          _i11.InvalidLimitException,
-          builder: _i11.InvalidLimitException.fromResponse,
+          InvalidLimitException,
+          builder: InvalidLimitException.fromResponse,
         ),
-        _i1.SmithyError<_i12.InvalidNextTokenException,
-            _i12.InvalidNextTokenException>(
+        _i1.SmithyError<InvalidNextTokenException, InvalidNextTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidNextTokenException',
           ),
           _i1.ErrorKind.client,
-          _i12.InvalidNextTokenException,
-          builder: _i12.InvalidNextTokenException.fromResponse,
+          InvalidNextTokenException,
+          builder: InvalidNextTokenException.fromResponse,
         ),
-        _i1.SmithyError<_i13.NoSuchOrganizationConfigRuleException,
-            _i13.NoSuchOrganizationConfigRuleException>(
+        _i1.SmithyError<NoSuchOrganizationConfigRuleException,
+            NoSuchOrganizationConfigRuleException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchOrganizationConfigRuleException',
           ),
           _i1.ErrorKind.client,
-          _i13.NoSuchOrganizationConfigRuleException,
-          builder: _i13.NoSuchOrganizationConfigRuleException.fromResponse,
+          NoSuchOrganizationConfigRuleException,
+          builder: NoSuchOrganizationConfigRuleException.fromResponse,
         ),
-        _i1.SmithyError<_i14.OrganizationAccessDeniedException,
-            _i14.OrganizationAccessDeniedException>(
+        _i1.SmithyError<OrganizationAccessDeniedException,
+            OrganizationAccessDeniedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'OrganizationAccessDeniedException',
           ),
           _i1.ErrorKind.client,
-          _i14.OrganizationAccessDeniedException,
-          builder: _i14.OrganizationAccessDeniedException.fromResponse,
+          OrganizationAccessDeniedException,
+          builder: OrganizationAccessDeniedException.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'DescribeOrganizationConfigRules';
   @override
-  _i7.AWSRetryer get retryer => _i7.AWSRetryer();
+  _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.DescribeOrganizationConfigRulesResponse> run(
-    _i2.DescribeOrganizationConfigRulesRequest input, {
-    _i9.AWSHttpClient? client,
+  _i1.SmithyOperation<DescribeOrganizationConfigRulesResponse> run(
+    DescribeOrganizationConfigRulesRequest input, {
+    _i5.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i15.runZoned(
+    return _i6.runZoned(
       () => super.run(
         input,
         client: client,
@@ -198,21 +187,21 @@ class DescribeOrganizationConfigRulesOperation extends _i1
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)},
+        ...{_i5.AWSHeaders.sdkInvocationId: _i5.uuid(secure: true)},
       },
     );
   }
 
   @override
-  String? getToken(_i3.DescribeOrganizationConfigRulesResponse output) =>
+  String? getToken(DescribeOrganizationConfigRulesResponse output) =>
       output.nextToken;
   @override
-  _i4.BuiltList<_i5.OrganizationConfigRule> getItems(
-          _i3.DescribeOrganizationConfigRulesResponse output) =>
-      output.organizationConfigRules ?? _i4.BuiltList();
+  _i2.BuiltList<OrganizationConfigRule> getItems(
+          DescribeOrganizationConfigRulesResponse output) =>
+      output.organizationConfigRules ?? _i2.BuiltList();
   @override
-  _i2.DescribeOrganizationConfigRulesRequest rebuildInput(
-    _i2.DescribeOrganizationConfigRulesRequest input,
+  DescribeOrganizationConfigRulesRequest rebuildInput(
+    DescribeOrganizationConfigRulesRequest input,
     String token,
     int? pageSize,
   ) =>

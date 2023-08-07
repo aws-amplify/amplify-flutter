@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.describe_configuration_recorder_status_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/configuration_recorder_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/configuration_recorder_status.dart';
 
 part 'describe_configuration_recorder_status_response.g.dart';
 
@@ -22,11 +21,11 @@ abstract class DescribeConfigurationRecorderStatusResponse
             DescribeConfigurationRecorderStatusResponseBuilder> {
   /// The output for the DescribeConfigurationRecorderStatus action, in JSON format.
   factory DescribeConfigurationRecorderStatusResponse(
-      {List<_i2.ConfigurationRecorderStatus>? configurationRecordersStatus}) {
+      {List<ConfigurationRecorderStatus>? configurationRecordersStatus}) {
     return _$DescribeConfigurationRecorderStatusResponse._(
         configurationRecordersStatus: configurationRecordersStatus == null
             ? null
-            : _i3.BuiltList(configurationRecordersStatus));
+            : _i2.BuiltList(configurationRecordersStatus));
   }
 
   /// The output for the DescribeConfigurationRecorderStatus action, in JSON format.
@@ -44,14 +43,13 @@ abstract class DescribeConfigurationRecorderStatusResponse
       payload;
 
   static const List<
-          _i4.SmithySerializer<DescribeConfigurationRecorderStatusResponse>>
+          _i3.SmithySerializer<DescribeConfigurationRecorderStatusResponse>>
       serializers = [
     DescribeConfigurationRecorderStatusResponseAwsJson11Serializer()
   ];
 
   /// A list that contains status of the specified recorders.
-  _i3.BuiltList<_i2.ConfigurationRecorderStatus>?
-      get configurationRecordersStatus;
+  _i2.BuiltList<ConfigurationRecorderStatus>? get configurationRecordersStatus;
   @override
   List<Object?> get props => [configurationRecordersStatus];
   @override
@@ -66,7 +64,7 @@ abstract class DescribeConfigurationRecorderStatusResponse
   }
 }
 
-class DescribeConfigurationRecorderStatusResponseAwsJson11Serializer extends _i4
+class DescribeConfigurationRecorderStatusResponseAwsJson11Serializer extends _i3
     .StructuredSmithySerializer<DescribeConfigurationRecorderStatusResponse> {
   const DescribeConfigurationRecorderStatusResponseAwsJson11Serializer()
       : super('DescribeConfigurationRecorderStatusResponse');
@@ -77,8 +75,8 @@ class DescribeConfigurationRecorderStatusResponseAwsJson11Serializer extends _i4
         _$DescribeConfigurationRecorderStatusResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -103,10 +101,10 @@ class DescribeConfigurationRecorderStatusResponseAwsJson11Serializer extends _i4
           result.configurationRecordersStatus.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.ConfigurationRecorderStatus)],
+              _i2.BuiltList,
+              [FullType(ConfigurationRecorderStatus)],
             ),
-          ) as _i3.BuiltList<_i2.ConfigurationRecorderStatus>));
+          ) as _i2.BuiltList<ConfigurationRecorderStatus>));
       }
     }
 
@@ -129,8 +127,8 @@ class DescribeConfigurationRecorderStatusResponseAwsJson11Serializer extends _i4
         ..add(serializers.serialize(
           configurationRecordersStatus,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.ConfigurationRecorderStatus)],
+            _i2.BuiltList,
+            [FullType(ConfigurationRecorderStatus)],
           ),
         ));
     }

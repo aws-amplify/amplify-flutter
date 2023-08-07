@@ -8,7 +8,7 @@ part of 'replica_modifications.dart';
 
 class _$ReplicaModifications extends ReplicaModifications {
   @override
-  final _i2.ReplicaModificationsStatus status;
+  final ReplicaModificationsStatus status;
 
   factory _$ReplicaModifications(
           [void Function(ReplicaModificationsBuilder)? updates]) =>
@@ -47,9 +47,9 @@ class ReplicaModificationsBuilder
     implements Builder<ReplicaModifications, ReplicaModificationsBuilder> {
   _$ReplicaModifications? _$v;
 
-  _i2.ReplicaModificationsStatus? _status;
-  _i2.ReplicaModificationsStatus? get status => _$this._status;
-  set status(_i2.ReplicaModificationsStatus? status) => _$this._status = status;
+  ReplicaModificationsStatus? _status;
+  ReplicaModificationsStatus? get status => _$this._status;
+  set status(ReplicaModificationsStatus? status) => _$this._status = status;
 
   ReplicaModificationsBuilder();
 

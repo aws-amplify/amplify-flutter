@@ -9,7 +9,7 @@ import 'package:aws_common/aws_common.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/put_mode.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/put_mode.dart';
 
 part 'import_documentation_parts_request.g.dart';
 
@@ -25,7 +25,7 @@ abstract class ImportDocumentationPartsRequest
   /// Import documentation parts from an external (e.g., OpenAPI) definition file.
   factory ImportDocumentationPartsRequest({
     required String restApiId,
-    _i4.PutMode? mode,
+    PutMode? mode,
     bool? failOnWarnings,
     required _i2.Uint8List body,
   }) {
@@ -53,7 +53,7 @@ abstract class ImportDocumentationPartsRequest
       ImportDocumentationPartsRequest.build((b) {
         b.body = payload;
         if (request.queryParameters['mode'] != null) {
-          b.mode = _i4.PutMode.values.byValue(request.queryParameters['mode']!);
+          b.mode = PutMode.values.byValue(request.queryParameters['mode']!);
         }
         if (request.queryParameters['failonwarnings'] != null) {
           b.failOnWarnings =
@@ -77,7 +77,7 @@ abstract class ImportDocumentationPartsRequest
   String get restApiId;
 
   /// A query parameter to indicate whether to overwrite (`OVERWRITE`) any existing DocumentationParts definition or to merge (`MERGE`) the new definition into the existing one. The default value is `MERGE`.
-  _i4.PutMode? get mode;
+  PutMode? get mode;
 
   /// A query parameter to specify whether to rollback the documentation importation (`true`) or not (`false`) when a warning is encountered. The default value is `false`.
   bool get failOnWarnings;

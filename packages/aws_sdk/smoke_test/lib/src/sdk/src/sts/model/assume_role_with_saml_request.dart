@@ -4,12 +4,11 @@
 library smoke_test.sts.model.assume_role_with_saml_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/sts/model/policy_descriptor_type.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/sts/model/policy_descriptor_type.dart';
 
 part 'assume_role_with_saml_request.g.dart';
 
@@ -23,7 +22,7 @@ abstract class AssumeRoleWithSamlRequest
     required String roleArn,
     required String principalArn,
     required String samlAssertion,
-    List<_i3.PolicyDescriptorType>? policyArns,
+    List<PolicyDescriptorType>? policyArns,
     String? policy,
     int? durationSeconds,
   }) {
@@ -31,7 +30,7 @@ abstract class AssumeRoleWithSamlRequest
       roleArn: roleArn,
       principalArn: principalArn,
       samlAssertion: samlAssertion,
-      policyArns: policyArns == null ? null : _i4.BuiltList(policyArns),
+      policyArns: policyArns == null ? null : _i3.BuiltList(policyArns),
       policy: policy,
       durationSeconds: durationSeconds,
     );
@@ -71,7 +70,7 @@ abstract class AssumeRoleWithSamlRequest
   /// An Amazon Web Services conversion compresses the passed inline session policy, managed policy ARNs, and session tags into a packed binary format that has a separate limit. Your request can fail for this limit even if your plaintext meets the other requirements. The `PackedPolicySize` response element indicates by percentage how close the policies and tags for your request are to the upper size limit.
   ///
   /// Passing policies to this operation returns new temporary credentials. The resulting session's permissions are the intersection of the role's identity-based policy and the session policies. You can use the role's temporary credentials in subsequent Amazon Web Services API calls to access resources in the account that owns the role. You cannot use session policies to grant more permissions than those allowed by the identity-based policy of the role that is being assumed. For more information, see [Session Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session) in the _IAM User Guide_.
-  _i4.BuiltList<_i3.PolicyDescriptorType>? get policyArns;
+  _i3.BuiltList<PolicyDescriptorType>? get policyArns;
 
   /// An IAM policy in JSON format that you want to use as an inline session policy.
   ///
@@ -185,10 +184,10 @@ class AssumeRoleWithSamlRequestAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.PolicyDescriptorType)],
+              _i3.BuiltList,
+              [FullType(PolicyDescriptorType)],
             ),
-          ) as _i4.BuiltList<_i3.PolicyDescriptorType>));
+          ) as _i3.BuiltList<PolicyDescriptorType>));
         case 'Policy':
           result.policy = (serializers.deserialize(
             value,
@@ -252,8 +251,8 @@ class AssumeRoleWithSamlRequestAwsQuerySerializer
           serializers,
           policyArns,
           specifiedType: const FullType.nullable(
-            _i4.BuiltList,
-            [FullType(_i3.PolicyDescriptorType)],
+            _i3.BuiltList,
+            [FullType(PolicyDescriptorType)],
           ),
         ));
     }

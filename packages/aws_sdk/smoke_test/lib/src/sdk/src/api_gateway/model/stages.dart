@@ -4,11 +4,11 @@
 library smoke_test.api_gateway.model.stages; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/stage.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/stage.dart';
 
 part 'stages.g.dart';
 
@@ -17,8 +17,8 @@ abstract class Stages
     with _i1.AWSEquatable<Stages>
     implements Built<Stages, StagesBuilder> {
   /// A list of Stage resources that are associated with the ApiKey resource.
-  factory Stages({List<_i2.Stage>? item}) {
-    return _$Stages._(item: item == null ? null : _i3.BuiltList(item));
+  factory Stages({List<Stage>? item}) {
+    return _$Stages._(item: item == null ? null : _i2.BuiltList(item));
   }
 
   /// A list of Stage resources that are associated with the ApiKey resource.
@@ -33,12 +33,12 @@ abstract class Stages
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<Stages>> serializers = [
+  static const List<_i3.SmithySerializer<Stages>> serializers = [
     StagesRestJson1Serializer()
   ];
 
   /// The current page of elements from this collection.
-  _i3.BuiltList<_i2.Stage>? get item;
+  _i2.BuiltList<Stage>? get item;
   @override
   List<Object?> get props => [item];
   @override
@@ -52,7 +52,7 @@ abstract class Stages
   }
 }
 
-class StagesRestJson1Serializer extends _i4.StructuredSmithySerializer<Stages> {
+class StagesRestJson1Serializer extends _i3.StructuredSmithySerializer<Stages> {
   const StagesRestJson1Serializer() : super('Stages');
 
   @override
@@ -61,8 +61,8 @@ class StagesRestJson1Serializer extends _i4.StructuredSmithySerializer<Stages> {
         _$Stages,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -87,10 +87,10 @@ class StagesRestJson1Serializer extends _i4.StructuredSmithySerializer<Stages> {
           result.item.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.Stage)],
+              _i2.BuiltList,
+              [FullType(Stage)],
             ),
-          ) as _i3.BuiltList<_i2.Stage>));
+          ) as _i2.BuiltList<Stage>));
       }
     }
 
@@ -111,8 +111,8 @@ class StagesRestJson1Serializer extends _i4.StructuredSmithySerializer<Stages> {
         ..add(serializers.serialize(
           item,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.Stage)],
+            _i2.BuiltList,
+            [FullType(Stage)],
           ),
         ));
     }

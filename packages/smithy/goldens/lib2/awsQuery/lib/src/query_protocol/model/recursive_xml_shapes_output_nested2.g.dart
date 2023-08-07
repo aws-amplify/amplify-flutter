@@ -11,7 +11,7 @@ class _$RecursiveXmlShapesOutputNested2
   @override
   final String? bar;
   @override
-  final _i2.RecursiveXmlShapesOutputNested1? recursiveMember;
+  final RecursiveXmlShapesOutputNested1? recursiveMember;
 
   factory _$RecursiveXmlShapesOutputNested2(
           [void Function(RecursiveXmlShapesOutputNested2Builder)? updates]) =>
@@ -57,12 +57,11 @@ class RecursiveXmlShapesOutputNested2Builder
   String? get bar => _$this._bar;
   set bar(String? bar) => _$this._bar = bar;
 
-  _i2.RecursiveXmlShapesOutputNested1Builder? _recursiveMember;
-  _i2.RecursiveXmlShapesOutputNested1Builder get recursiveMember =>
-      _$this._recursiveMember ??=
-          new _i2.RecursiveXmlShapesOutputNested1Builder();
+  RecursiveXmlShapesOutputNested1Builder? _recursiveMember;
+  RecursiveXmlShapesOutputNested1Builder get recursiveMember =>
+      _$this._recursiveMember ??= new RecursiveXmlShapesOutputNested1Builder();
   set recursiveMember(
-          _i2.RecursiveXmlShapesOutputNested1Builder? recursiveMember) =>
+          RecursiveXmlShapesOutputNested1Builder? recursiveMember) =>
       _$this._recursiveMember = recursiveMember;
 
   RecursiveXmlShapesOutputNested2Builder();

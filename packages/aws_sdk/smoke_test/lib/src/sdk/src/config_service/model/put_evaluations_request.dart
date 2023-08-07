@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.put_evaluations_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/evaluation.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/evaluation.dart';
 
 part 'put_evaluations_request.g.dart';
 
@@ -19,13 +18,13 @@ abstract class PutEvaluationsRequest
         _i2.AWSEquatable<PutEvaluationsRequest>
     implements Built<PutEvaluationsRequest, PutEvaluationsRequestBuilder> {
   factory PutEvaluationsRequest({
-    List<_i3.Evaluation>? evaluations,
+    List<Evaluation>? evaluations,
     required String resultToken,
     bool? testMode,
   }) {
     testMode ??= false;
     return _$PutEvaluationsRequest._(
-      evaluations: evaluations == null ? null : _i4.BuiltList(evaluations),
+      evaluations: evaluations == null ? null : _i3.BuiltList(evaluations),
       resultToken: resultToken,
       testMode: testMode,
     );
@@ -54,7 +53,7 @@ abstract class PutEvaluationsRequest
   }
 
   /// The assessments that the Lambda function performs. Each evaluation identifies an Amazon Web Services resource and indicates whether it complies with the Config rule that invokes the Lambda function.
-  _i4.BuiltList<_i3.Evaluation>? get evaluations;
+  _i3.BuiltList<Evaluation>? get evaluations;
 
   /// An encrypted token that associates an evaluation with an Config rule. Identifies the rule and the event that triggered the evaluation.
   String get resultToken;
@@ -127,10 +126,10 @@ class PutEvaluationsRequestAwsJson11Serializer
           result.evaluations.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.Evaluation)],
+              _i3.BuiltList,
+              [FullType(Evaluation)],
             ),
-          ) as _i4.BuiltList<_i3.Evaluation>));
+          ) as _i3.BuiltList<Evaluation>));
         case 'ResultToken':
           result.resultToken = (serializers.deserialize(
             value,
@@ -173,8 +172,8 @@ class PutEvaluationsRequestAwsJson11Serializer
         ..add(serializers.serialize(
           evaluations,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i3.Evaluation)],
+            _i3.BuiltList,
+            [FullType(Evaluation)],
           ),
         ));
     }

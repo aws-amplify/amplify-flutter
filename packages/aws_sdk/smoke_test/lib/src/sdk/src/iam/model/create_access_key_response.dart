@@ -6,8 +6,8 @@ library smoke_test.iam.model.create_access_key_response; // ignore_for_file: no_
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/access_key.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/access_key.dart';
 
 part 'create_access_key_response.g.dart';
 
@@ -16,7 +16,7 @@ abstract class CreateAccessKeyResponse
     with _i1.AWSEquatable<CreateAccessKeyResponse>
     implements Built<CreateAccessKeyResponse, CreateAccessKeyResponseBuilder> {
   /// Contains the response to a successful CreateAccessKey request.
-  factory CreateAccessKeyResponse({required _i2.AccessKey accessKey}) {
+  factory CreateAccessKeyResponse({required AccessKey accessKey}) {
     return _$CreateAccessKeyResponse._(accessKey: accessKey);
   }
 
@@ -34,11 +34,11 @@ abstract class CreateAccessKeyResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<CreateAccessKeyResponse>> serializers =
+  static const List<_i2.SmithySerializer<CreateAccessKeyResponse>> serializers =
       [CreateAccessKeyResponseAwsQuerySerializer()];
 
   /// A structure with details about the access key.
-  _i2.AccessKey get accessKey;
+  AccessKey get accessKey;
   @override
   List<Object?> get props => [accessKey];
   @override
@@ -53,7 +53,7 @@ abstract class CreateAccessKeyResponse
 }
 
 class CreateAccessKeyResponseAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<CreateAccessKeyResponse> {
+    extends _i2.StructuredSmithySerializer<CreateAccessKeyResponse> {
   const CreateAccessKeyResponseAwsQuerySerializer()
       : super('CreateAccessKeyResponse');
 
@@ -63,8 +63,8 @@ class CreateAccessKeyResponseAwsQuerySerializer
         _$CreateAccessKeyResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -88,8 +88,8 @@ class CreateAccessKeyResponseAwsQuerySerializer
         case 'AccessKey':
           result.accessKey.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.AccessKey),
-          ) as _i2.AccessKey));
+            specifiedType: const FullType(AccessKey),
+          ) as AccessKey));
       }
     }
 
@@ -103,17 +103,17 @@ class CreateAccessKeyResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'CreateAccessKeyResponseResponse',
-        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final CreateAccessKeyResponse(:accessKey) = object;
     result$
-      ..add(const _i3.XmlElementName('AccessKey'))
+      ..add(const _i2.XmlElementName('AccessKey'))
       ..add(serializers.serialize(
         accessKey,
-        specifiedType: const FullType(_i2.AccessKey),
+        specifiedType: const FullType(AccessKey),
       ));
     return result$;
   }

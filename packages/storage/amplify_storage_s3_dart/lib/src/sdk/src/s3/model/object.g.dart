@@ -14,15 +14,15 @@ class _$S3Object extends S3Object {
   @override
   final String? eTag;
   @override
-  final _i7.BuiltList<_i2.ChecksumAlgorithm>? checksumAlgorithm;
+  final _i3.BuiltList<ChecksumAlgorithm>? checksumAlgorithm;
   @override
-  final _i3.Int64? size;
+  final _i2.Int64? size;
   @override
-  final _i4.ObjectStorageClass? storageClass;
+  final ObjectStorageClass? storageClass;
   @override
-  final _i5.Owner? owner;
+  final Owner? owner;
   @override
-  final _i6.RestoreStatus? restoreStatus;
+  final RestoreStatus? restoreStatus;
 
   factory _$S3Object([void Function(S3ObjectBuilder)? updates]) =>
       (new S3ObjectBuilder()..update(updates))._build();
@@ -91,31 +91,30 @@ class S3ObjectBuilder implements Builder<S3Object, S3ObjectBuilder> {
   String? get eTag => _$this._eTag;
   set eTag(String? eTag) => _$this._eTag = eTag;
 
-  _i7.ListBuilder<_i2.ChecksumAlgorithm>? _checksumAlgorithm;
-  _i7.ListBuilder<_i2.ChecksumAlgorithm> get checksumAlgorithm =>
-      _$this._checksumAlgorithm ??=
-          new _i7.ListBuilder<_i2.ChecksumAlgorithm>();
+  _i3.ListBuilder<ChecksumAlgorithm>? _checksumAlgorithm;
+  _i3.ListBuilder<ChecksumAlgorithm> get checksumAlgorithm =>
+      _$this._checksumAlgorithm ??= new _i3.ListBuilder<ChecksumAlgorithm>();
   set checksumAlgorithm(
-          _i7.ListBuilder<_i2.ChecksumAlgorithm>? checksumAlgorithm) =>
+          _i3.ListBuilder<ChecksumAlgorithm>? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
-  _i3.Int64? _size;
-  _i3.Int64? get size => _$this._size;
-  set size(_i3.Int64? size) => _$this._size = size;
+  _i2.Int64? _size;
+  _i2.Int64? get size => _$this._size;
+  set size(_i2.Int64? size) => _$this._size = size;
 
-  _i4.ObjectStorageClass? _storageClass;
-  _i4.ObjectStorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i4.ObjectStorageClass? storageClass) =>
+  ObjectStorageClass? _storageClass;
+  ObjectStorageClass? get storageClass => _$this._storageClass;
+  set storageClass(ObjectStorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
-  _i5.OwnerBuilder? _owner;
-  _i5.OwnerBuilder get owner => _$this._owner ??= new _i5.OwnerBuilder();
-  set owner(_i5.OwnerBuilder? owner) => _$this._owner = owner;
+  OwnerBuilder? _owner;
+  OwnerBuilder get owner => _$this._owner ??= new OwnerBuilder();
+  set owner(OwnerBuilder? owner) => _$this._owner = owner;
 
-  _i6.RestoreStatusBuilder? _restoreStatus;
-  _i6.RestoreStatusBuilder get restoreStatus =>
-      _$this._restoreStatus ??= new _i6.RestoreStatusBuilder();
-  set restoreStatus(_i6.RestoreStatusBuilder? restoreStatus) =>
+  RestoreStatusBuilder? _restoreStatus;
+  RestoreStatusBuilder get restoreStatus =>
+      _$this._restoreStatus ??= new RestoreStatusBuilder();
+  set restoreStatus(RestoreStatusBuilder? restoreStatus) =>
       _$this._restoreStatus = restoreStatus;
 
   S3ObjectBuilder();

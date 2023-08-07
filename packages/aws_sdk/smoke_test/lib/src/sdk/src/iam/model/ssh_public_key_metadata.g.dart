@@ -12,7 +12,7 @@ class _$SshPublicKeyMetadata extends SshPublicKeyMetadata {
   @override
   final String sshPublicKeyId;
   @override
-  final _i2.StatusType status;
+  final StatusType status;
   @override
   final DateTime uploadDate;
 
@@ -80,9 +80,9 @@ class SshPublicKeyMetadataBuilder
   set sshPublicKeyId(String? sshPublicKeyId) =>
       _$this._sshPublicKeyId = sshPublicKeyId;
 
-  _i2.StatusType? _status;
-  _i2.StatusType? get status => _$this._status;
-  set status(_i2.StatusType? status) => _$this._status = status;
+  StatusType? _status;
+  StatusType? get status => _$this._status;
+  set status(StatusType? status) => _$this._status = status;
 
   DateTime? _uploadDate;
   DateTime? get uploadDate => _$this._uploadDate;

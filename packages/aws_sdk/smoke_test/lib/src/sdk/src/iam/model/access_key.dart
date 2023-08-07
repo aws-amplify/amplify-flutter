@@ -6,8 +6,8 @@ library smoke_test.iam.model.access_key; // ignore_for_file: no_leading_undersco
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/status_type.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/status_type.dart';
 
 part 'access_key.g.dart';
 
@@ -27,7 +27,7 @@ abstract class AccessKey
   factory AccessKey({
     required String userName,
     required String accessKeyId,
-    required _i2.StatusType status,
+    required StatusType status,
     required String secretAccessKey,
     DateTime? createDate,
   }) {
@@ -50,7 +50,7 @@ abstract class AccessKey
 
   const AccessKey._();
 
-  static const List<_i3.SmithySerializer<AccessKey>> serializers = [
+  static const List<_i2.SmithySerializer<AccessKey>> serializers = [
     AccessKeyAwsQuerySerializer()
   ];
 
@@ -61,7 +61,7 @@ abstract class AccessKey
   String get accessKeyId;
 
   /// The status of the access key. `Active` means that the key is valid for API calls, while `Inactive` means it is not.
-  _i2.StatusType get status;
+  StatusType get status;
 
   /// The secret key used to sign requests.
   String get secretAccessKey;
@@ -104,7 +104,7 @@ abstract class AccessKey
 }
 
 class AccessKeyAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<AccessKey> {
+    extends _i2.StructuredSmithySerializer<AccessKey> {
   const AccessKeyAwsQuerySerializer() : super('AccessKey');
 
   @override
@@ -113,8 +113,8 @@ class AccessKeyAwsQuerySerializer
         _$AccessKey,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -148,8 +148,8 @@ class AccessKeyAwsQuerySerializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.StatusType),
-          ) as _i2.StatusType);
+            specifiedType: const FullType(StatusType),
+          ) as StatusType);
         case 'SecretAccessKey':
           result.secretAccessKey = (serializers.deserialize(
             value,
@@ -173,9 +173,9 @@ class AccessKeyAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'AccessKeyResponse',
-        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final AccessKey(
@@ -186,32 +186,32 @@ class AccessKeyAwsQuerySerializer
       :createDate
     ) = object;
     result$
-      ..add(const _i3.XmlElementName('UserName'))
+      ..add(const _i2.XmlElementName('UserName'))
       ..add(serializers.serialize(
         userName,
         specifiedType: const FullType(String),
       ));
     result$
-      ..add(const _i3.XmlElementName('AccessKeyId'))
+      ..add(const _i2.XmlElementName('AccessKeyId'))
       ..add(serializers.serialize(
         accessKeyId,
         specifiedType: const FullType(String),
       ));
     result$
-      ..add(const _i3.XmlElementName('Status'))
+      ..add(const _i2.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(_i2.StatusType),
+        specifiedType: const FullType.nullable(StatusType),
       ));
     result$
-      ..add(const _i3.XmlElementName('SecretAccessKey'))
+      ..add(const _i2.XmlElementName('SecretAccessKey'))
       ..add(serializers.serialize(
         secretAccessKey,
         specifiedType: const FullType(String),
       ));
     if (createDate != null) {
       result$
-        ..add(const _i3.XmlElementName('CreateDate'))
+        ..add(const _i2.XmlElementName('CreateDate'))
         ..add(serializers.serialize(
           createDate,
           specifiedType: const FullType.nullable(DateTime),

@@ -8,7 +8,7 @@ part of 'ownership_controls.dart';
 
 class _$OwnershipControls extends OwnershipControls {
   @override
-  final _i3.BuiltList<_i2.OwnershipControlsRule> rules;
+  final _i2.BuiltList<OwnershipControlsRule> rules;
 
   factory _$OwnershipControls(
           [void Function(OwnershipControlsBuilder)? updates]) =>
@@ -45,10 +45,10 @@ class OwnershipControlsBuilder
     implements Builder<OwnershipControls, OwnershipControlsBuilder> {
   _$OwnershipControls? _$v;
 
-  _i3.ListBuilder<_i2.OwnershipControlsRule>? _rules;
-  _i3.ListBuilder<_i2.OwnershipControlsRule> get rules =>
-      _$this._rules ??= new _i3.ListBuilder<_i2.OwnershipControlsRule>();
-  set rules(_i3.ListBuilder<_i2.OwnershipControlsRule>? rules) =>
+  _i2.ListBuilder<OwnershipControlsRule>? _rules;
+  _i2.ListBuilder<OwnershipControlsRule> get rules =>
+      _$this._rules ??= new _i2.ListBuilder<OwnershipControlsRule>();
+  set rules(_i2.ListBuilder<OwnershipControlsRule>? rules) =>
       _$this._rules = rules;
 
   OwnershipControlsBuilder();

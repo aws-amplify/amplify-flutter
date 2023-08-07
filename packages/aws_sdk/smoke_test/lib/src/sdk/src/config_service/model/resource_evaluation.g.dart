@@ -10,7 +10,7 @@ class _$ResourceEvaluation extends ResourceEvaluation {
   @override
   final String? resourceEvaluationId;
   @override
-  final _i2.EvaluationMode? evaluationMode;
+  final EvaluationMode? evaluationMode;
   @override
   final DateTime? evaluationStartTimestamp;
 
@@ -62,9 +62,9 @@ class ResourceEvaluationBuilder
   set resourceEvaluationId(String? resourceEvaluationId) =>
       _$this._resourceEvaluationId = resourceEvaluationId;
 
-  _i2.EvaluationMode? _evaluationMode;
-  _i2.EvaluationMode? get evaluationMode => _$this._evaluationMode;
-  set evaluationMode(_i2.EvaluationMode? evaluationMode) =>
+  EvaluationMode? _evaluationMode;
+  EvaluationMode? get evaluationMode => _$this._evaluationMode;
+  set evaluationMode(EvaluationMode? evaluationMode) =>
       _$this._evaluationMode = evaluationMode;
 
   DateTime? _evaluationStartTimestamp;

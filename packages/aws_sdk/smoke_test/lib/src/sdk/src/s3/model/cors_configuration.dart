@@ -4,11 +4,11 @@
 library smoke_test.s3.model.cors_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/cors_rule.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/cors_rule.dart';
 
 part 'cors_configuration.g.dart';
 
@@ -17,8 +17,8 @@ abstract class CorsConfiguration
     with _i1.AWSEquatable<CorsConfiguration>
     implements Built<CorsConfiguration, CorsConfigurationBuilder> {
   /// Describes the cross-origin access configuration for objects in an Amazon S3 bucket. For more information, see [Enabling Cross-Origin Resource Sharing](https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html) in the _Amazon S3 User Guide_.
-  factory CorsConfiguration({required List<_i2.CorsRule> corsRules}) {
-    return _$CorsConfiguration._(corsRules: _i3.BuiltList(corsRules));
+  factory CorsConfiguration({required List<CorsRule> corsRules}) {
+    return _$CorsConfiguration._(corsRules: _i2.BuiltList(corsRules));
   }
 
   /// Describes the cross-origin access configuration for objects in an Amazon S3 bucket. For more information, see [Enabling Cross-Origin Resource Sharing](https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html) in the _Amazon S3 User Guide_.
@@ -27,12 +27,12 @@ abstract class CorsConfiguration
 
   const CorsConfiguration._();
 
-  static const List<_i4.SmithySerializer<CorsConfiguration>> serializers = [
+  static const List<_i3.SmithySerializer<CorsConfiguration>> serializers = [
     CorsConfigurationRestXmlSerializer()
   ];
 
   /// A set of origins and methods (cross-origin access that you want to allow). You can add up to 100 rules to the configuration.
-  _i3.BuiltList<_i2.CorsRule> get corsRules;
+  _i2.BuiltList<CorsRule> get corsRules;
   @override
   List<Object?> get props => [corsRules];
   @override
@@ -47,7 +47,7 @@ abstract class CorsConfiguration
 }
 
 class CorsConfigurationRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<CorsConfiguration> {
+    extends _i3.StructuredSmithySerializer<CorsConfiguration> {
   const CorsConfigurationRestXmlSerializer() : super('CorsConfiguration');
 
   @override
@@ -56,8 +56,8 @@ class CorsConfigurationRestXmlSerializer
         _$CorsConfiguration,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -81,8 +81,8 @@ class CorsConfigurationRestXmlSerializer
         case 'CORSRule':
           result.corsRules.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.CorsRule),
-          ) as _i2.CorsRule));
+            specifiedType: const FullType(CorsRule),
+          ) as CorsRule));
       }
     }
 
@@ -96,19 +96,19 @@ class CorsConfigurationRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'CorsConfiguration',
-        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final CorsConfiguration(:corsRules) = object;
     result$.addAll(
-        const _i4.XmlBuiltListSerializer(memberName: 'CORSRule').serialize(
+        const _i3.XmlBuiltListSerializer(memberName: 'CORSRule').serialize(
       serializers,
       corsRules,
       specifiedType: const FullType.nullable(
-        _i3.BuiltList,
-        [FullType(_i2.CorsRule)],
+        _i2.BuiltList,
+        [FullType(CorsRule)],
       ),
     ));
     return result$;

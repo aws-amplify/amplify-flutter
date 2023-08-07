@@ -11,7 +11,7 @@ class _$ListPoliciesGrantingServiceAccessEntry
   @override
   final String? serviceNamespace;
   @override
-  final _i3.BuiltList<_i2.PolicyGrantingServiceAccess>? policies;
+  final _i2.BuiltList<PolicyGrantingServiceAccess>? policies;
 
   factory _$ListPoliciesGrantingServiceAccessEntry(
           [void Function(ListPoliciesGrantingServiceAccessEntryBuilder)?
@@ -62,11 +62,10 @@ class ListPoliciesGrantingServiceAccessEntryBuilder
   set serviceNamespace(String? serviceNamespace) =>
       _$this._serviceNamespace = serviceNamespace;
 
-  _i3.ListBuilder<_i2.PolicyGrantingServiceAccess>? _policies;
-  _i3.ListBuilder<_i2.PolicyGrantingServiceAccess> get policies =>
-      _$this._policies ??=
-          new _i3.ListBuilder<_i2.PolicyGrantingServiceAccess>();
-  set policies(_i3.ListBuilder<_i2.PolicyGrantingServiceAccess>? policies) =>
+  _i2.ListBuilder<PolicyGrantingServiceAccess>? _policies;
+  _i2.ListBuilder<PolicyGrantingServiceAccess> get policies =>
+      _$this._policies ??= new _i2.ListBuilder<PolicyGrantingServiceAccess>();
+  set policies(_i2.ListBuilder<PolicyGrantingServiceAccess>? policies) =>
       _$this._policies = policies;
 
   ListPoliciesGrantingServiceAccessEntryBuilder();

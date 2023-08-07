@@ -12,9 +12,9 @@ class _$PutBucketRequestPaymentRequest extends PutBucketRequestPaymentRequest {
   @override
   final String? contentMd5;
   @override
-  final _i4.ChecksumAlgorithm? checksumAlgorithm;
+  final ChecksumAlgorithm? checksumAlgorithm;
   @override
-  final _i2.RequestPaymentConfiguration requestPaymentConfiguration;
+  final RequestPaymentConfiguration requestPaymentConfiguration;
   @override
   final String? expectedBucketOwner;
 
@@ -82,18 +82,17 @@ class PutBucketRequestPaymentRequestBuilder
   String? get contentMd5 => _$this._contentMd5;
   set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
 
-  _i4.ChecksumAlgorithm? _checksumAlgorithm;
-  _i4.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
+  ChecksumAlgorithm? _checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
-  _i2.RequestPaymentConfigurationBuilder? _requestPaymentConfiguration;
-  _i2.RequestPaymentConfigurationBuilder get requestPaymentConfiguration =>
+  RequestPaymentConfigurationBuilder? _requestPaymentConfiguration;
+  RequestPaymentConfigurationBuilder get requestPaymentConfiguration =>
       _$this._requestPaymentConfiguration ??=
-          new _i2.RequestPaymentConfigurationBuilder();
+          new RequestPaymentConfigurationBuilder();
   set requestPaymentConfiguration(
-          _i2.RequestPaymentConfigurationBuilder?
-              requestPaymentConfiguration) =>
+          RequestPaymentConfigurationBuilder? requestPaymentConfiguration) =>
       _$this._requestPaymentConfiguration = requestPaymentConfiguration;
 
   String? _expectedBucketOwner;

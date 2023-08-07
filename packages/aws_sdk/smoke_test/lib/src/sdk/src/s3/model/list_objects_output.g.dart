@@ -14,7 +14,7 @@ class _$ListObjectsOutput extends ListObjectsOutput {
   @override
   final String? nextMarker;
   @override
-  final _i7.BuiltList<_i3.S3Object>? contents;
+  final _i3.BuiltList<S3Object>? contents;
   @override
   final String? name;
   @override
@@ -24,11 +24,11 @@ class _$ListObjectsOutput extends ListObjectsOutput {
   @override
   final int? maxKeys;
   @override
-  final _i7.BuiltList<_i4.CommonPrefix>? commonPrefixes;
+  final _i3.BuiltList<CommonPrefix>? commonPrefixes;
   @override
-  final _i5.EncodingType? encodingType;
+  final EncodingType? encodingType;
   @override
-  final _i6.RequestCharged? requestCharged;
+  final RequestCharged? requestCharged;
 
   factory _$ListObjectsOutput(
           [void Function(ListObjectsOutputBuilder)? updates]) =>
@@ -108,10 +108,10 @@ class ListObjectsOutputBuilder
   String? get nextMarker => _$this._nextMarker;
   set nextMarker(String? nextMarker) => _$this._nextMarker = nextMarker;
 
-  _i7.ListBuilder<_i3.S3Object>? _contents;
-  _i7.ListBuilder<_i3.S3Object> get contents =>
-      _$this._contents ??= new _i7.ListBuilder<_i3.S3Object>();
-  set contents(_i7.ListBuilder<_i3.S3Object>? contents) =>
+  _i3.ListBuilder<S3Object>? _contents;
+  _i3.ListBuilder<S3Object> get contents =>
+      _$this._contents ??= new _i3.ListBuilder<S3Object>();
+  set contents(_i3.ListBuilder<S3Object>? contents) =>
       _$this._contents = contents;
 
   String? _name;
@@ -130,20 +130,20 @@ class ListObjectsOutputBuilder
   int? get maxKeys => _$this._maxKeys;
   set maxKeys(int? maxKeys) => _$this._maxKeys = maxKeys;
 
-  _i7.ListBuilder<_i4.CommonPrefix>? _commonPrefixes;
-  _i7.ListBuilder<_i4.CommonPrefix> get commonPrefixes =>
-      _$this._commonPrefixes ??= new _i7.ListBuilder<_i4.CommonPrefix>();
-  set commonPrefixes(_i7.ListBuilder<_i4.CommonPrefix>? commonPrefixes) =>
+  _i3.ListBuilder<CommonPrefix>? _commonPrefixes;
+  _i3.ListBuilder<CommonPrefix> get commonPrefixes =>
+      _$this._commonPrefixes ??= new _i3.ListBuilder<CommonPrefix>();
+  set commonPrefixes(_i3.ListBuilder<CommonPrefix>? commonPrefixes) =>
       _$this._commonPrefixes = commonPrefixes;
 
-  _i5.EncodingType? _encodingType;
-  _i5.EncodingType? get encodingType => _$this._encodingType;
-  set encodingType(_i5.EncodingType? encodingType) =>
+  EncodingType? _encodingType;
+  EncodingType? get encodingType => _$this._encodingType;
+  set encodingType(EncodingType? encodingType) =>
       _$this._encodingType = encodingType;
 
-  _i6.RequestCharged? _requestCharged;
-  _i6.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i6.RequestCharged? requestCharged) =>
+  RequestCharged? _requestCharged;
+  RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
   ListObjectsOutputBuilder();
@@ -218,13 +218,13 @@ class ListObjectsOutputBuilder
 
 class _$ListObjectsOutputPayload extends ListObjectsOutputPayload {
   @override
-  final _i7.BuiltList<_i4.CommonPrefix>? commonPrefixes;
+  final _i3.BuiltList<CommonPrefix>? commonPrefixes;
   @override
-  final _i7.BuiltList<_i3.S3Object>? contents;
+  final _i3.BuiltList<S3Object>? contents;
   @override
   final String? delimiter;
   @override
-  final _i5.EncodingType? encodingType;
+  final EncodingType? encodingType;
   @override
   final bool? isTruncated;
   @override
@@ -303,25 +303,25 @@ class ListObjectsOutputPayloadBuilder
         Builder<ListObjectsOutputPayload, ListObjectsOutputPayloadBuilder> {
   _$ListObjectsOutputPayload? _$v;
 
-  _i7.ListBuilder<_i4.CommonPrefix>? _commonPrefixes;
-  _i7.ListBuilder<_i4.CommonPrefix> get commonPrefixes =>
-      _$this._commonPrefixes ??= new _i7.ListBuilder<_i4.CommonPrefix>();
-  set commonPrefixes(_i7.ListBuilder<_i4.CommonPrefix>? commonPrefixes) =>
+  _i3.ListBuilder<CommonPrefix>? _commonPrefixes;
+  _i3.ListBuilder<CommonPrefix> get commonPrefixes =>
+      _$this._commonPrefixes ??= new _i3.ListBuilder<CommonPrefix>();
+  set commonPrefixes(_i3.ListBuilder<CommonPrefix>? commonPrefixes) =>
       _$this._commonPrefixes = commonPrefixes;
 
-  _i7.ListBuilder<_i3.S3Object>? _contents;
-  _i7.ListBuilder<_i3.S3Object> get contents =>
-      _$this._contents ??= new _i7.ListBuilder<_i3.S3Object>();
-  set contents(_i7.ListBuilder<_i3.S3Object>? contents) =>
+  _i3.ListBuilder<S3Object>? _contents;
+  _i3.ListBuilder<S3Object> get contents =>
+      _$this._contents ??= new _i3.ListBuilder<S3Object>();
+  set contents(_i3.ListBuilder<S3Object>? contents) =>
       _$this._contents = contents;
 
   String? _delimiter;
   String? get delimiter => _$this._delimiter;
   set delimiter(String? delimiter) => _$this._delimiter = delimiter;
 
-  _i5.EncodingType? _encodingType;
-  _i5.EncodingType? get encodingType => _$this._encodingType;
-  set encodingType(_i5.EncodingType? encodingType) =>
+  EncodingType? _encodingType;
+  EncodingType? get encodingType => _$this._encodingType;
+  set encodingType(EncodingType? encodingType) =>
       _$this._encodingType = encodingType;
 
   bool? _isTruncated;

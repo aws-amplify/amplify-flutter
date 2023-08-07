@@ -8,7 +8,7 @@ part of 'list_resource_evaluations_request.dart';
 
 class _$ListResourceEvaluationsRequest extends ListResourceEvaluationsRequest {
   @override
-  final _i3.ResourceEvaluationFilters? filters;
+  final ResourceEvaluationFilters? filters;
   @override
   final int limit;
   @override
@@ -60,10 +60,10 @@ class ListResourceEvaluationsRequestBuilder
             ListResourceEvaluationsRequestBuilder> {
   _$ListResourceEvaluationsRequest? _$v;
 
-  _i3.ResourceEvaluationFiltersBuilder? _filters;
-  _i3.ResourceEvaluationFiltersBuilder get filters =>
-      _$this._filters ??= new _i3.ResourceEvaluationFiltersBuilder();
-  set filters(_i3.ResourceEvaluationFiltersBuilder? filters) =>
+  ResourceEvaluationFiltersBuilder? _filters;
+  ResourceEvaluationFiltersBuilder get filters =>
+      _$this._filters ??= new ResourceEvaluationFiltersBuilder();
+  set filters(ResourceEvaluationFiltersBuilder? filters) =>
       _$this._filters = filters;
 
   int? _limit;

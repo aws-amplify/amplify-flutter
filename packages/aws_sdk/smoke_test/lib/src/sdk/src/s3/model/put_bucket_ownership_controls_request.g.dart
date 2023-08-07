@@ -15,7 +15,7 @@ class _$PutBucketOwnershipControlsRequest
   @override
   final String? expectedBucketOwner;
   @override
-  final _i2.OwnershipControls ownershipControls;
+  final OwnershipControls ownershipControls;
 
   factory _$PutBucketOwnershipControlsRequest(
           [void Function(PutBucketOwnershipControlsRequestBuilder)? updates]) =>
@@ -84,10 +84,10 @@ class PutBucketOwnershipControlsRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  _i2.OwnershipControlsBuilder? _ownershipControls;
-  _i2.OwnershipControlsBuilder get ownershipControls =>
-      _$this._ownershipControls ??= new _i2.OwnershipControlsBuilder();
-  set ownershipControls(_i2.OwnershipControlsBuilder? ownershipControls) =>
+  OwnershipControlsBuilder? _ownershipControls;
+  OwnershipControlsBuilder get ownershipControls =>
+      _$this._ownershipControls ??= new OwnershipControlsBuilder();
+  set ownershipControls(OwnershipControlsBuilder? ownershipControls) =>
       _$this._ownershipControls = ownershipControls;
 
   PutBucketOwnershipControlsRequestBuilder();

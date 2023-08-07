@@ -8,7 +8,7 @@ part of 'describe_import_output.dart';
 
 class _$DescribeImportOutput extends DescribeImportOutput {
   @override
-  final _i2.ImportTableDescription importTableDescription;
+  final ImportTableDescription importTableDescription;
 
   factory _$DescribeImportOutput(
           [void Function(DescribeImportOutputBuilder)? updates]) =>
@@ -48,12 +48,11 @@ class DescribeImportOutputBuilder
     implements Builder<DescribeImportOutput, DescribeImportOutputBuilder> {
   _$DescribeImportOutput? _$v;
 
-  _i2.ImportTableDescriptionBuilder? _importTableDescription;
-  _i2.ImportTableDescriptionBuilder get importTableDescription =>
-      _$this._importTableDescription ??=
-          new _i2.ImportTableDescriptionBuilder();
+  ImportTableDescriptionBuilder? _importTableDescription;
+  ImportTableDescriptionBuilder get importTableDescription =>
+      _$this._importTableDescription ??= new ImportTableDescriptionBuilder();
   set importTableDescription(
-          _i2.ImportTableDescriptionBuilder? importTableDescription) =>
+          ImportTableDescriptionBuilder? importTableDescription) =>
       _$this._importTableDescription = importTableDescription;
 
   DescribeImportOutputBuilder();

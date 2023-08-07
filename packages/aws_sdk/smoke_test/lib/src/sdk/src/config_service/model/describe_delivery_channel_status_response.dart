@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.describe_delivery_channel_status_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/delivery_channel_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/delivery_channel_status.dart';
 
 part 'describe_delivery_channel_status_response.g.dart';
 
@@ -22,11 +21,11 @@ abstract class DescribeDeliveryChannelStatusResponse
             DescribeDeliveryChannelStatusResponseBuilder> {
   /// The output for the DescribeDeliveryChannelStatus action.
   factory DescribeDeliveryChannelStatusResponse(
-      {List<_i2.DeliveryChannelStatus>? deliveryChannelsStatus}) {
+      {List<DeliveryChannelStatus>? deliveryChannelsStatus}) {
     return _$DescribeDeliveryChannelStatusResponse._(
         deliveryChannelsStatus: deliveryChannelsStatus == null
             ? null
-            : _i3.BuiltList(deliveryChannelsStatus));
+            : _i2.BuiltList(deliveryChannelsStatus));
   }
 
   /// The output for the DescribeDeliveryChannelStatus action.
@@ -43,13 +42,13 @@ abstract class DescribeDeliveryChannelStatusResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<DescribeDeliveryChannelStatusResponse>>
+  static const List<_i3.SmithySerializer<DescribeDeliveryChannelStatusResponse>>
       serializers = [
     DescribeDeliveryChannelStatusResponseAwsJson11Serializer()
   ];
 
   /// A list that contains the status of a specified delivery channel.
-  _i3.BuiltList<_i2.DeliveryChannelStatus>? get deliveryChannelsStatus;
+  _i2.BuiltList<DeliveryChannelStatus>? get deliveryChannelsStatus;
   @override
   List<Object?> get props => [deliveryChannelsStatus];
   @override
@@ -64,7 +63,7 @@ abstract class DescribeDeliveryChannelStatusResponse
   }
 }
 
-class DescribeDeliveryChannelStatusResponseAwsJson11Serializer extends _i4
+class DescribeDeliveryChannelStatusResponseAwsJson11Serializer extends _i3
     .StructuredSmithySerializer<DescribeDeliveryChannelStatusResponse> {
   const DescribeDeliveryChannelStatusResponseAwsJson11Serializer()
       : super('DescribeDeliveryChannelStatusResponse');
@@ -75,8 +74,8 @@ class DescribeDeliveryChannelStatusResponseAwsJson11Serializer extends _i4
         _$DescribeDeliveryChannelStatusResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -101,10 +100,10 @@ class DescribeDeliveryChannelStatusResponseAwsJson11Serializer extends _i4
           result.deliveryChannelsStatus.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.DeliveryChannelStatus)],
+              _i2.BuiltList,
+              [FullType(DeliveryChannelStatus)],
             ),
-          ) as _i3.BuiltList<_i2.DeliveryChannelStatus>));
+          ) as _i2.BuiltList<DeliveryChannelStatus>));
       }
     }
 
@@ -126,8 +125,8 @@ class DescribeDeliveryChannelStatusResponseAwsJson11Serializer extends _i4
         ..add(serializers.serialize(
           deliveryChannelsStatus,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.DeliveryChannelStatus)],
+            _i2.BuiltList,
+            [FullType(DeliveryChannelStatus)],
           ),
         ));
     }

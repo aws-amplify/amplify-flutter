@@ -20,23 +20,23 @@ class _$UpdateStackInput extends UpdateStackInput {
   @override
   final String? stackPolicyDuringUpdateUrl;
   @override
-  final _i7.BuiltList<_i3.Parameter>? parameters;
+  final _i3.BuiltList<Parameter>? parameters;
   @override
-  final _i7.BuiltList<_i4.Capability>? capabilities;
+  final _i3.BuiltList<Capability>? capabilities;
   @override
-  final _i7.BuiltList<String>? resourceTypes;
+  final _i3.BuiltList<String>? resourceTypes;
   @override
   final String? roleArn;
   @override
-  final _i5.RollbackConfiguration? rollbackConfiguration;
+  final RollbackConfiguration? rollbackConfiguration;
   @override
   final String? stackPolicyBody;
   @override
   final String? stackPolicyUrl;
   @override
-  final _i7.BuiltList<String>? notificationArNs;
+  final _i3.BuiltList<String>? notificationArNs;
   @override
-  final _i7.BuiltList<_i6.Tag>? tags;
+  final _i3.BuiltList<Tag>? tags;
   @override
   final bool? disableRollback;
   @override
@@ -162,33 +162,33 @@ class UpdateStackInputBuilder
   set stackPolicyDuringUpdateUrl(String? stackPolicyDuringUpdateUrl) =>
       _$this._stackPolicyDuringUpdateUrl = stackPolicyDuringUpdateUrl;
 
-  _i7.ListBuilder<_i3.Parameter>? _parameters;
-  _i7.ListBuilder<_i3.Parameter> get parameters =>
-      _$this._parameters ??= new _i7.ListBuilder<_i3.Parameter>();
-  set parameters(_i7.ListBuilder<_i3.Parameter>? parameters) =>
+  _i3.ListBuilder<Parameter>? _parameters;
+  _i3.ListBuilder<Parameter> get parameters =>
+      _$this._parameters ??= new _i3.ListBuilder<Parameter>();
+  set parameters(_i3.ListBuilder<Parameter>? parameters) =>
       _$this._parameters = parameters;
 
-  _i7.ListBuilder<_i4.Capability>? _capabilities;
-  _i7.ListBuilder<_i4.Capability> get capabilities =>
-      _$this._capabilities ??= new _i7.ListBuilder<_i4.Capability>();
-  set capabilities(_i7.ListBuilder<_i4.Capability>? capabilities) =>
+  _i3.ListBuilder<Capability>? _capabilities;
+  _i3.ListBuilder<Capability> get capabilities =>
+      _$this._capabilities ??= new _i3.ListBuilder<Capability>();
+  set capabilities(_i3.ListBuilder<Capability>? capabilities) =>
       _$this._capabilities = capabilities;
 
-  _i7.ListBuilder<String>? _resourceTypes;
-  _i7.ListBuilder<String> get resourceTypes =>
-      _$this._resourceTypes ??= new _i7.ListBuilder<String>();
-  set resourceTypes(_i7.ListBuilder<String>? resourceTypes) =>
+  _i3.ListBuilder<String>? _resourceTypes;
+  _i3.ListBuilder<String> get resourceTypes =>
+      _$this._resourceTypes ??= new _i3.ListBuilder<String>();
+  set resourceTypes(_i3.ListBuilder<String>? resourceTypes) =>
       _$this._resourceTypes = resourceTypes;
 
   String? _roleArn;
   String? get roleArn => _$this._roleArn;
   set roleArn(String? roleArn) => _$this._roleArn = roleArn;
 
-  _i5.RollbackConfigurationBuilder? _rollbackConfiguration;
-  _i5.RollbackConfigurationBuilder get rollbackConfiguration =>
-      _$this._rollbackConfiguration ??= new _i5.RollbackConfigurationBuilder();
+  RollbackConfigurationBuilder? _rollbackConfiguration;
+  RollbackConfigurationBuilder get rollbackConfiguration =>
+      _$this._rollbackConfiguration ??= new RollbackConfigurationBuilder();
   set rollbackConfiguration(
-          _i5.RollbackConfigurationBuilder? rollbackConfiguration) =>
+          RollbackConfigurationBuilder? rollbackConfiguration) =>
       _$this._rollbackConfiguration = rollbackConfiguration;
 
   String? _stackPolicyBody;
@@ -201,16 +201,15 @@ class UpdateStackInputBuilder
   set stackPolicyUrl(String? stackPolicyUrl) =>
       _$this._stackPolicyUrl = stackPolicyUrl;
 
-  _i7.ListBuilder<String>? _notificationArNs;
-  _i7.ListBuilder<String> get notificationArNs =>
-      _$this._notificationArNs ??= new _i7.ListBuilder<String>();
-  set notificationArNs(_i7.ListBuilder<String>? notificationArNs) =>
+  _i3.ListBuilder<String>? _notificationArNs;
+  _i3.ListBuilder<String> get notificationArNs =>
+      _$this._notificationArNs ??= new _i3.ListBuilder<String>();
+  set notificationArNs(_i3.ListBuilder<String>? notificationArNs) =>
       _$this._notificationArNs = notificationArNs;
 
-  _i7.ListBuilder<_i6.Tag>? _tags;
-  _i7.ListBuilder<_i6.Tag> get tags =>
-      _$this._tags ??= new _i7.ListBuilder<_i6.Tag>();
-  set tags(_i7.ListBuilder<_i6.Tag>? tags) => _$this._tags = tags;
+  _i3.ListBuilder<Tag>? _tags;
+  _i3.ListBuilder<Tag> get tags => _$this._tags ??= new _i3.ListBuilder<Tag>();
+  set tags(_i3.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   bool? _disableRollback;
   bool? get disableRollback => _$this._disableRollback;

@@ -9,7 +9,7 @@ part of 'admin_list_user_auth_events_response.dart';
 class _$AdminListUserAuthEventsResponse
     extends AdminListUserAuthEventsResponse {
   @override
-  final _i3.BuiltList<_i2.AuthEventType>? authEvents;
+  final _i2.BuiltList<AuthEventType>? authEvents;
   @override
   final String? nextToken;
 
@@ -53,10 +53,10 @@ class AdminListUserAuthEventsResponseBuilder
             AdminListUserAuthEventsResponseBuilder> {
   _$AdminListUserAuthEventsResponse? _$v;
 
-  _i3.ListBuilder<_i2.AuthEventType>? _authEvents;
-  _i3.ListBuilder<_i2.AuthEventType> get authEvents =>
-      _$this._authEvents ??= new _i3.ListBuilder<_i2.AuthEventType>();
-  set authEvents(_i3.ListBuilder<_i2.AuthEventType>? authEvents) =>
+  _i2.ListBuilder<AuthEventType>? _authEvents;
+  _i2.ListBuilder<AuthEventType> get authEvents =>
+      _$this._authEvents ??= new _i2.ListBuilder<AuthEventType>();
+  set authEvents(_i2.ListBuilder<AuthEventType>? authEvents) =>
       _$this._authEvents = authEvents;
 
   String? _nextToken;

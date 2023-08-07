@@ -11,7 +11,7 @@ class _$FailedRemediationExceptionBatch
   @override
   final String? failureMessage;
   @override
-  final _i3.BuiltList<_i2.RemediationException>? failedItems;
+  final _i2.BuiltList<RemediationException>? failedItems;
 
   factory _$FailedRemediationExceptionBatch(
           [void Function(FailedRemediationExceptionBatchBuilder)? updates]) =>
@@ -58,10 +58,10 @@ class FailedRemediationExceptionBatchBuilder
   set failureMessage(String? failureMessage) =>
       _$this._failureMessage = failureMessage;
 
-  _i3.ListBuilder<_i2.RemediationException>? _failedItems;
-  _i3.ListBuilder<_i2.RemediationException> get failedItems =>
-      _$this._failedItems ??= new _i3.ListBuilder<_i2.RemediationException>();
-  set failedItems(_i3.ListBuilder<_i2.RemediationException>? failedItems) =>
+  _i2.ListBuilder<RemediationException>? _failedItems;
+  _i2.ListBuilder<RemediationException> get failedItems =>
+      _$this._failedItems ??= new _i2.ListBuilder<RemediationException>();
+  set failedItems(_i2.ListBuilder<RemediationException>? failedItems) =>
       _$this._failedItems = failedItems;
 
   FailedRemediationExceptionBatchBuilder();

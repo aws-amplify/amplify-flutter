@@ -9,7 +9,7 @@ part of 'put_retention_configuration_response.dart';
 class _$PutRetentionConfigurationResponse
     extends PutRetentionConfigurationResponse {
   @override
-  final _i2.RetentionConfiguration? retentionConfiguration;
+  final RetentionConfiguration? retentionConfiguration;
 
   factory _$PutRetentionConfigurationResponse(
           [void Function(PutRetentionConfigurationResponseBuilder)? updates]) =>
@@ -50,12 +50,11 @@ class PutRetentionConfigurationResponseBuilder
             PutRetentionConfigurationResponseBuilder> {
   _$PutRetentionConfigurationResponse? _$v;
 
-  _i2.RetentionConfigurationBuilder? _retentionConfiguration;
-  _i2.RetentionConfigurationBuilder get retentionConfiguration =>
-      _$this._retentionConfiguration ??=
-          new _i2.RetentionConfigurationBuilder();
+  RetentionConfigurationBuilder? _retentionConfiguration;
+  RetentionConfigurationBuilder get retentionConfiguration =>
+      _$this._retentionConfiguration ??= new RetentionConfigurationBuilder();
   set retentionConfiguration(
-          _i2.RetentionConfigurationBuilder? retentionConfiguration) =>
+          RetentionConfigurationBuilder? retentionConfiguration) =>
       _$this._retentionConfiguration = retentionConfiguration;
 
   PutRetentionConfigurationResponseBuilder();

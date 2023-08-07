@@ -10,13 +10,13 @@ class _$GetUserResponse extends GetUserResponse {
   @override
   final String username;
   @override
-  final _i4.BuiltList<_i2.AttributeType> userAttributes;
+  final _i2.BuiltList<AttributeType> userAttributes;
   @override
-  final _i4.BuiltList<_i3.MfaOptionType>? mfaOptions;
+  final _i2.BuiltList<MfaOptionType>? mfaOptions;
   @override
   final String? preferredMfaSetting;
   @override
-  final _i4.BuiltList<String>? userMfaSettingList;
+  final _i2.BuiltList<String>? userMfaSettingList;
 
   factory _$GetUserResponse([void Function(GetUserResponseBuilder)? updates]) =>
       (new GetUserResponseBuilder()..update(updates))._build();
@@ -74,16 +74,16 @@ class GetUserResponseBuilder
   String? get username => _$this._username;
   set username(String? username) => _$this._username = username;
 
-  _i4.ListBuilder<_i2.AttributeType>? _userAttributes;
-  _i4.ListBuilder<_i2.AttributeType> get userAttributes =>
-      _$this._userAttributes ??= new _i4.ListBuilder<_i2.AttributeType>();
-  set userAttributes(_i4.ListBuilder<_i2.AttributeType>? userAttributes) =>
+  _i2.ListBuilder<AttributeType>? _userAttributes;
+  _i2.ListBuilder<AttributeType> get userAttributes =>
+      _$this._userAttributes ??= new _i2.ListBuilder<AttributeType>();
+  set userAttributes(_i2.ListBuilder<AttributeType>? userAttributes) =>
       _$this._userAttributes = userAttributes;
 
-  _i4.ListBuilder<_i3.MfaOptionType>? _mfaOptions;
-  _i4.ListBuilder<_i3.MfaOptionType> get mfaOptions =>
-      _$this._mfaOptions ??= new _i4.ListBuilder<_i3.MfaOptionType>();
-  set mfaOptions(_i4.ListBuilder<_i3.MfaOptionType>? mfaOptions) =>
+  _i2.ListBuilder<MfaOptionType>? _mfaOptions;
+  _i2.ListBuilder<MfaOptionType> get mfaOptions =>
+      _$this._mfaOptions ??= new _i2.ListBuilder<MfaOptionType>();
+  set mfaOptions(_i2.ListBuilder<MfaOptionType>? mfaOptions) =>
       _$this._mfaOptions = mfaOptions;
 
   String? _preferredMfaSetting;
@@ -91,10 +91,10 @@ class GetUserResponseBuilder
   set preferredMfaSetting(String? preferredMfaSetting) =>
       _$this._preferredMfaSetting = preferredMfaSetting;
 
-  _i4.ListBuilder<String>? _userMfaSettingList;
-  _i4.ListBuilder<String> get userMfaSettingList =>
-      _$this._userMfaSettingList ??= new _i4.ListBuilder<String>();
-  set userMfaSettingList(_i4.ListBuilder<String>? userMfaSettingList) =>
+  _i2.ListBuilder<String>? _userMfaSettingList;
+  _i2.ListBuilder<String> get userMfaSettingList =>
+      _$this._userMfaSettingList ??= new _i2.ListBuilder<String>();
+  set userMfaSettingList(_i2.ListBuilder<String>? userMfaSettingList) =>
       _$this._userMfaSettingList = userMfaSettingList;
 
   GetUserResponseBuilder();

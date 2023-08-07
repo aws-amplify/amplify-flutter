@@ -9,7 +9,7 @@ part of 'server_side_encryption_configuration.dart';
 class _$ServerSideEncryptionConfiguration
     extends ServerSideEncryptionConfiguration {
   @override
-  final _i3.BuiltList<_i2.ServerSideEncryptionRule> rules;
+  final _i2.BuiltList<ServerSideEncryptionRule> rules;
 
   factory _$ServerSideEncryptionConfiguration(
           [void Function(ServerSideEncryptionConfigurationBuilder)? updates]) =>
@@ -51,10 +51,10 @@ class ServerSideEncryptionConfigurationBuilder
             ServerSideEncryptionConfigurationBuilder> {
   _$ServerSideEncryptionConfiguration? _$v;
 
-  _i3.ListBuilder<_i2.ServerSideEncryptionRule>? _rules;
-  _i3.ListBuilder<_i2.ServerSideEncryptionRule> get rules =>
-      _$this._rules ??= new _i3.ListBuilder<_i2.ServerSideEncryptionRule>();
-  set rules(_i3.ListBuilder<_i2.ServerSideEncryptionRule>? rules) =>
+  _i2.ListBuilder<ServerSideEncryptionRule>? _rules;
+  _i2.ListBuilder<ServerSideEncryptionRule> get rules =>
+      _$this._rules ??= new _i2.ListBuilder<ServerSideEncryptionRule>();
+  set rules(_i2.ListBuilder<ServerSideEncryptionRule>? rules) =>
       _$this._rules = rules;
 
   ServerSideEncryptionConfigurationBuilder();

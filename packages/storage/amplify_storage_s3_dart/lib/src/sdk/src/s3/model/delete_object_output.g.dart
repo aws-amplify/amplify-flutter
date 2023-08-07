@@ -12,7 +12,7 @@ class _$DeleteObjectOutput extends DeleteObjectOutput {
   @override
   final String? versionId;
   @override
-  final _i3.RequestCharged? requestCharged;
+  final RequestCharged? requestCharged;
 
   factory _$DeleteObjectOutput(
           [void Function(DeleteObjectOutputBuilder)? updates]) =>
@@ -63,9 +63,9 @@ class DeleteObjectOutputBuilder
   String? get versionId => _$this._versionId;
   set versionId(String? versionId) => _$this._versionId = versionId;
 
-  _i3.RequestCharged? _requestCharged;
-  _i3.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i3.RequestCharged? requestCharged) =>
+  RequestCharged? _requestCharged;
+  RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
   DeleteObjectOutputBuilder();

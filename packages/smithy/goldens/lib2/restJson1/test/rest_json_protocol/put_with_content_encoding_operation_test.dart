@@ -5,18 +5,16 @@
 library rest_json1_v2.rest_json_protocol.test.put_with_content_encoding_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1_v2/src/rest_json_protocol/model/put_with_content_encoding_input.dart'
-    as _i5;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/put_with_content_encoding_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/put_with_content_encoding_input.dart';
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/put_with_content_encoding_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
   _i1.test('SDKAppliedContentEncoding_restJson1 (request)', () async {
     await _i2.httpRequestTest(
-      operation: _i3.PutWithContentEncodingOperation(
+      operation: PutWithContentEncodingOperation(
         region: 'us-east-1',
         baseUri: Uri.parse('https://example.com'),
       ),
@@ -24,7 +22,7 @@ void main() {
         id: 'SDKAppliedContentEncoding_restJson1',
         documentation:
             'Compression algorithm encoding is appended to the Content-Encoding header.',
-        protocol: _i4.ShapeId(
+        protocol: _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         ),
@@ -58,7 +56,7 @@ void main() {
   _i1.test('SDKAppendedGzipAfterProvidedEncoding_restJson1 (request)',
       () async {
     await _i2.httpRequestTest(
-      operation: _i3.PutWithContentEncodingOperation(
+      operation: PutWithContentEncodingOperation(
         region: 'us-east-1',
         baseUri: Uri.parse('https://example.com'),
       ),
@@ -66,7 +64,7 @@ void main() {
         id: 'SDKAppendedGzipAfterProvidedEncoding_restJson1',
         documentation:
             'Compression algorithm encoding is appended to the Content-Encoding header, and the\nuser-provided content-encoding is in the Content-Encoding header before the\nrequest compression encoding from the HTTP binding.\n',
-        protocol: _i4.ShapeId(
+        protocol: _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         ),
@@ -101,26 +99,26 @@ void main() {
 }
 
 class PutWithContentEncodingInputRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<_i5.PutWithContentEncodingInput> {
+    extends _i3.StructuredSmithySerializer<PutWithContentEncodingInput> {
   const PutWithContentEncodingInputRestJson1Serializer()
       : super('PutWithContentEncodingInput');
 
   @override
-  Iterable<Type> get types => const [_i5.PutWithContentEncodingInput];
+  Iterable<Type> get types => const [PutWithContentEncodingInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
       ];
   @override
-  _i5.PutWithContentEncodingInput deserialize(
+  PutWithContentEncodingInput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.PutWithContentEncodingInputBuilder();
+    final result = PutWithContentEncodingInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -149,7 +147,7 @@ class PutWithContentEncodingInputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.PutWithContentEncodingInput object, {
+    PutWithContentEncodingInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

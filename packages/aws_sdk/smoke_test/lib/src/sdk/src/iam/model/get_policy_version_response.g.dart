@@ -8,7 +8,7 @@ part of 'get_policy_version_response.dart';
 
 class _$GetPolicyVersionResponse extends GetPolicyVersionResponse {
   @override
-  final _i2.PolicyVersion? policyVersion;
+  final PolicyVersion? policyVersion;
 
   factory _$GetPolicyVersionResponse(
           [void Function(GetPolicyVersionResponseBuilder)? updates]) =>
@@ -46,10 +46,10 @@ class GetPolicyVersionResponseBuilder
         Builder<GetPolicyVersionResponse, GetPolicyVersionResponseBuilder> {
   _$GetPolicyVersionResponse? _$v;
 
-  _i2.PolicyVersionBuilder? _policyVersion;
-  _i2.PolicyVersionBuilder get policyVersion =>
-      _$this._policyVersion ??= new _i2.PolicyVersionBuilder();
-  set policyVersion(_i2.PolicyVersionBuilder? policyVersion) =>
+  PolicyVersionBuilder? _policyVersion;
+  PolicyVersionBuilder get policyVersion =>
+      _$this._policyVersion ??= new PolicyVersionBuilder();
+  set policyVersion(PolicyVersionBuilder? policyVersion) =>
       _$this._policyVersion = policyVersion;
 
   GetPolicyVersionResponseBuilder();

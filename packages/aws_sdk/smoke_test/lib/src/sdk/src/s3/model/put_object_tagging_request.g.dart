@@ -16,13 +16,13 @@ class _$PutObjectTaggingRequest extends PutObjectTaggingRequest {
   @override
   final String? contentMd5;
   @override
-  final _i4.ChecksumAlgorithm? checksumAlgorithm;
+  final ChecksumAlgorithm? checksumAlgorithm;
   @override
-  final _i2.Tagging tagging;
+  final Tagging tagging;
   @override
   final String? expectedBucketOwner;
   @override
-  final _i5.RequestPayer? requestPayer;
+  final RequestPayer? requestPayer;
 
   factory _$PutObjectTaggingRequest(
           [void Function(PutObjectTaggingRequestBuilder)? updates]) =>
@@ -106,24 +106,23 @@ class PutObjectTaggingRequestBuilder
   String? get contentMd5 => _$this._contentMd5;
   set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
 
-  _i4.ChecksumAlgorithm? _checksumAlgorithm;
-  _i4.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
+  ChecksumAlgorithm? _checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
-  _i2.TaggingBuilder? _tagging;
-  _i2.TaggingBuilder get tagging =>
-      _$this._tagging ??= new _i2.TaggingBuilder();
-  set tagging(_i2.TaggingBuilder? tagging) => _$this._tagging = tagging;
+  TaggingBuilder? _tagging;
+  TaggingBuilder get tagging => _$this._tagging ??= new TaggingBuilder();
+  set tagging(TaggingBuilder? tagging) => _$this._tagging = tagging;
 
   String? _expectedBucketOwner;
   String? get expectedBucketOwner => _$this._expectedBucketOwner;
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  _i5.RequestPayer? _requestPayer;
-  _i5.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i5.RequestPayer? requestPayer) =>
+  RequestPayer? _requestPayer;
+  RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
   PutObjectTaggingRequestBuilder();

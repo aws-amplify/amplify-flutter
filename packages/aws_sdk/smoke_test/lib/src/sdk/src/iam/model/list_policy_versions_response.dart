@@ -4,11 +4,11 @@
 library smoke_test.iam.model.list_policy_versions_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/policy_version.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/policy_version.dart';
 
 part 'list_policy_versions_response.g.dart';
 
@@ -19,13 +19,13 @@ abstract class ListPolicyVersionsResponse
         Built<ListPolicyVersionsResponse, ListPolicyVersionsResponseBuilder> {
   /// Contains the response to a successful ListPolicyVersions request.
   factory ListPolicyVersionsResponse({
-    List<_i2.PolicyVersion>? versions,
+    List<PolicyVersion>? versions,
     bool? isTruncated,
     String? marker,
   }) {
     isTruncated ??= false;
     return _$ListPolicyVersionsResponse._(
-      versions: versions == null ? null : _i3.BuiltList(versions),
+      versions: versions == null ? null : _i2.BuiltList(versions),
       isTruncated: isTruncated,
       marker: marker,
     );
@@ -45,7 +45,7 @@ abstract class ListPolicyVersionsResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<ListPolicyVersionsResponse>>
+  static const List<_i3.SmithySerializer<ListPolicyVersionsResponse>>
       serializers = [ListPolicyVersionsResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -56,7 +56,7 @@ abstract class ListPolicyVersionsResponse
   /// A list of policy versions.
   ///
   /// For more information about managed policy versions, see [Versioning for managed policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html) in the _IAM User Guide_.
-  _i3.BuiltList<_i2.PolicyVersion>? get versions;
+  _i2.BuiltList<PolicyVersion>? get versions;
 
   /// A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the `Marker` request parameter to retrieve more items. Note that IAM might return fewer than the `MaxItems` number of results even when there are more results available. We recommend that you check `IsTruncated` after every call to ensure that you receive all your results.
   bool get isTruncated;
@@ -89,7 +89,7 @@ abstract class ListPolicyVersionsResponse
 }
 
 class ListPolicyVersionsResponseAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<ListPolicyVersionsResponse> {
+    extends _i3.StructuredSmithySerializer<ListPolicyVersionsResponse> {
   const ListPolicyVersionsResponseAwsQuerySerializer()
       : super('ListPolicyVersionsResponse');
 
@@ -99,8 +99,8 @@ class ListPolicyVersionsResponseAwsQuerySerializer
         _$ListPolicyVersionsResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -122,16 +122,16 @@ class ListPolicyVersionsResponseAwsQuerySerializer
       }
       switch (key) {
         case 'Versions':
-          result.versions.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.versions.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.PolicyVersion)],
+              _i2.BuiltList,
+              [FullType(PolicyVersion)],
             ),
-          ) as _i3.BuiltList<_i2.PolicyVersion>));
+          ) as _i2.BuiltList<PolicyVersion>));
         case 'IsTruncated':
           result.isTruncated = (serializers.deserialize(
             value,
@@ -155,35 +155,35 @@ class ListPolicyVersionsResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'ListPolicyVersionsResponseResponse',
-        _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final ListPolicyVersionsResponse(:versions, :isTruncated, :marker) = object;
     if (versions != null) {
       result$
-        ..add(const _i4.XmlElementName('Versions'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('Versions'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           versions,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
-            [FullType(_i2.PolicyVersion)],
+            _i2.BuiltList,
+            [FullType(PolicyVersion)],
           ),
         ));
     }
     result$
-      ..add(const _i4.XmlElementName('IsTruncated'))
+      ..add(const _i3.XmlElementName('IsTruncated'))
       ..add(serializers.serialize(
         isTruncated,
         specifiedType: const FullType(bool),
       ));
     if (marker != null) {
       result$
-        ..add(const _i4.XmlElementName('Marker'))
+        ..add(const _i3.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
           specifiedType: const FullType(String),

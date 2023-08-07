@@ -16,9 +16,9 @@ class _$FileConfigSettings extends FileConfigSettings {
   @override
   final String? region;
   @override
-  final _i2.S3Config? s3;
+  final S3Config? s3;
   @override
-  final _i3.RetryMode? retryMode;
+  final RetryMode? retryMode;
   @override
   final int? maxAttempts;
 
@@ -96,13 +96,13 @@ class FileConfigSettingsBuilder
   String? get region => _$this._region;
   set region(String? region) => _$this._region = region;
 
-  _i2.S3ConfigBuilder? _s3;
-  _i2.S3ConfigBuilder get s3 => _$this._s3 ??= new _i2.S3ConfigBuilder();
-  set s3(_i2.S3ConfigBuilder? s3) => _$this._s3 = s3;
+  S3ConfigBuilder? _s3;
+  S3ConfigBuilder get s3 => _$this._s3 ??= new S3ConfigBuilder();
+  set s3(S3ConfigBuilder? s3) => _$this._s3 = s3;
 
-  _i3.RetryMode? _retryMode;
-  _i3.RetryMode? get retryMode => _$this._retryMode;
-  set retryMode(_i3.RetryMode? retryMode) => _$this._retryMode = retryMode;
+  RetryMode? _retryMode;
+  RetryMode? get retryMode => _$this._retryMode;
+  set retryMode(RetryMode? retryMode) => _$this._retryMode = retryMode;
 
   int? _maxAttempts;
   int? get maxAttempts => _$this._maxAttempts;

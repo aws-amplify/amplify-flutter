@@ -8,7 +8,7 @@ part of 'abort_multipart_upload_output.dart';
 
 class _$AbortMultipartUploadOutput extends AbortMultipartUploadOutput {
   @override
-  final _i3.RequestCharged? requestCharged;
+  final RequestCharged? requestCharged;
 
   factory _$AbortMultipartUploadOutput(
           [void Function(AbortMultipartUploadOutputBuilder)? updates]) =>
@@ -46,9 +46,9 @@ class AbortMultipartUploadOutputBuilder
         Builder<AbortMultipartUploadOutput, AbortMultipartUploadOutputBuilder> {
   _$AbortMultipartUploadOutput? _$v;
 
-  _i3.RequestCharged? _requestCharged;
-  _i3.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i3.RequestCharged? requestCharged) =>
+  RequestCharged? _requestCharged;
+  RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
   AbortMultipartUploadOutputBuilder();

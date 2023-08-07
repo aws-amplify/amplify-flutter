@@ -3,52 +3,43 @@
 
 library smoke_test.config_service.operation.describe_aggregate_compliance_by_conformance_packs_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i15;
+import 'dart:async' as _i6;
 
-import 'package:aws_common/aws_common.dart' as _i9;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i6;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:aws_common/aws_common.dart' as _i5;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/config_service/common/endpoint_resolver.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/config_service/common/serializers.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_compliance_by_conformance_pack.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_aggregate_compliance_by_conformance_packs_request.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_aggregate_compliance_by_conformance_packs_response.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/invalid_limit_exception.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/config_service/model/invalid_next_token_exception.dart'
-    as _i12;
-import 'package:smoke_test/src/sdk/src/config_service/model/no_such_configuration_aggregator_exception.dart'
-    as _i13;
-import 'package:smoke_test/src/sdk/src/config_service/model/validation_exception.dart'
-    as _i14;
+import 'package:smithy_aws/smithy_aws.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/config_service/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/config_service/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_compliance_by_conformance_pack.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_aggregate_compliance_by_conformance_packs_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_aggregate_compliance_by_conformance_packs_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/invalid_limit_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/invalid_next_token_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/no_such_configuration_aggregator_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/validation_exception.dart';
 
 /// Returns a list of the conformance packs and their associated compliance status with the count of compliant and noncompliant Config rules within each conformance pack. Also returns the total rule count which includes compliant rules, noncompliant rules, and rules that cannot be evaluated due to insufficient data.
 ///
 /// The results can return an empty result page, but if you have a `nextToken`, the results are displayed on the next page.
 class DescribeAggregateComplianceByConformancePacksOperation extends _i1
     .PaginatedHttpOperation<
-        _i2.DescribeAggregateComplianceByConformancePacksRequest,
-        _i2.DescribeAggregateComplianceByConformancePacksRequest,
-        _i3.DescribeAggregateComplianceByConformancePacksResponse,
-        _i3.DescribeAggregateComplianceByConformancePacksResponse,
+        DescribeAggregateComplianceByConformancePacksRequest,
+        DescribeAggregateComplianceByConformancePacksRequest,
+        DescribeAggregateComplianceByConformancePacksResponse,
+        DescribeAggregateComplianceByConformancePacksResponse,
         String,
         int,
-        _i4.BuiltList<_i5.AggregateComplianceByConformancePack>> {
+        _i2.BuiltList<AggregateComplianceByConformancePack>> {
   /// Returns a list of the conformance packs and their associated compliance status with the count of compliant and noncompliant Config rules within each conformance pack. Also returns the total rule count which includes compliant rules, noncompliant rules, and rules that cannot be evaluated due to insufficient data.
   ///
   /// The results can return an empty result page, but if you have a `nextToken`, the results are displayed on the next page.
   DescribeAggregateComplianceByConformancePacksOperation({
     required String region,
     Uri? baseUri,
-    _i6.AWSCredentialsProvider credentialsProvider =
-        const _i6.AWSCredentialsProvider.environment(),
+    _i3.AWSCredentialsProvider credentialsProvider =
+        const _i3.AWSCredentialsProvider.environment(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -59,15 +50,14 @@ class DescribeAggregateComplianceByConformancePacksOperation extends _i1
 
   @override
   late final List<
-          _i1.HttpProtocol<
-              _i2.DescribeAggregateComplianceByConformancePacksRequest,
-              _i2.DescribeAggregateComplianceByConformancePacksRequest,
-              _i3.DescribeAggregateComplianceByConformancePacksResponse,
-              _i3.DescribeAggregateComplianceByConformancePacksResponse>>
-      protocols = [
-    _i7.AwsJson1_1Protocol(
-      serializers: _i8.serializers,
-      builderFactories: _i8.builderFactories,
+      _i1.HttpProtocol<
+          DescribeAggregateComplianceByConformancePacksRequest,
+          DescribeAggregateComplianceByConformancePacksRequest,
+          DescribeAggregateComplianceByConformancePacksResponse,
+          DescribeAggregateComplianceByConformancePacksResponse>> protocols = [
+    _i4.AwsJson1_1Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
@@ -75,14 +65,14 @@ class DescribeAggregateComplianceByConformancePacksOperation extends _i1
               'X-Amz-Target',
               'StarlingDoveService.DescribeAggregateComplianceByConformancePacks',
             ),
-            _i7.WithSigV4(
+            _i4.WithSigV4(
               region: _region,
-              service: _i9.AWSService.configService,
+              service: _i5.AWSService.configService,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i7.WithSdkInvocationId(),
-            const _i7.WithSdkRequest(),
+            const _i4.WithSdkInvocationId(),
+            const _i4.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -90,8 +80,8 @@ class DescribeAggregateComplianceByConformancePacksOperation extends _i1
     )
   ];
 
-  late final _i7.AWSEndpoint _awsEndpoint = _i10.endpointResolver.resolve(
-    _i10.sdkId,
+  late final _i4.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -99,7 +89,7 @@ class DescribeAggregateComplianceByConformancePacksOperation extends _i1
 
   final Uri? _baseUri;
 
-  final _i6.AWSCredentialsProvider _credentialsProvider;
+  final _i3.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
@@ -107,82 +97,80 @@ class DescribeAggregateComplianceByConformancePacksOperation extends _i1
 
   @override
   _i1.HttpRequest buildRequest(
-          _i2.DescribeAggregateComplianceByConformancePacksRequest input) =>
+          DescribeAggregateComplianceByConformancePacksRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
       });
   @override
   int successCode(
-          [_i3.DescribeAggregateComplianceByConformancePacksResponse?
-              output]) =>
+          [DescribeAggregateComplianceByConformancePacksResponse? output]) =>
       200;
   @override
-  _i3.DescribeAggregateComplianceByConformancePacksResponse buildOutput(
-    _i3.DescribeAggregateComplianceByConformancePacksResponse payload,
-    _i9.AWSBaseHttpResponse response,
+  DescribeAggregateComplianceByConformancePacksResponse buildOutput(
+    DescribeAggregateComplianceByConformancePacksResponse payload,
+    _i5.AWSBaseHttpResponse response,
   ) =>
-      _i3.DescribeAggregateComplianceByConformancePacksResponse.fromResponse(
+      DescribeAggregateComplianceByConformancePacksResponse.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i11.InvalidLimitException, _i11.InvalidLimitException>(
+        _i1.SmithyError<InvalidLimitException, InvalidLimitException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidLimitException',
           ),
           _i1.ErrorKind.client,
-          _i11.InvalidLimitException,
-          builder: _i11.InvalidLimitException.fromResponse,
+          InvalidLimitException,
+          builder: InvalidLimitException.fromResponse,
         ),
-        _i1.SmithyError<_i12.InvalidNextTokenException,
-            _i12.InvalidNextTokenException>(
+        _i1.SmithyError<InvalidNextTokenException, InvalidNextTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidNextTokenException',
           ),
           _i1.ErrorKind.client,
-          _i12.InvalidNextTokenException,
-          builder: _i12.InvalidNextTokenException.fromResponse,
+          InvalidNextTokenException,
+          builder: InvalidNextTokenException.fromResponse,
         ),
-        _i1.SmithyError<_i13.NoSuchConfigurationAggregatorException,
-            _i13.NoSuchConfigurationAggregatorException>(
+        _i1.SmithyError<NoSuchConfigurationAggregatorException,
+            NoSuchConfigurationAggregatorException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchConfigurationAggregatorException',
           ),
           _i1.ErrorKind.client,
-          _i13.NoSuchConfigurationAggregatorException,
-          builder: _i13.NoSuchConfigurationAggregatorException.fromResponse,
+          NoSuchConfigurationAggregatorException,
+          builder: NoSuchConfigurationAggregatorException.fromResponse,
         ),
-        _i1.SmithyError<_i14.ValidationException, _i14.ValidationException>(
+        _i1.SmithyError<ValidationException, ValidationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ValidationException',
           ),
           _i1.ErrorKind.client,
-          _i14.ValidationException,
-          builder: _i14.ValidationException.fromResponse,
+          ValidationException,
+          builder: ValidationException.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'DescribeAggregateComplianceByConformancePacks';
   @override
-  _i7.AWSRetryer get retryer => _i7.AWSRetryer();
+  _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.DescribeAggregateComplianceByConformancePacksResponse>
+  _i1.SmithyOperation<DescribeAggregateComplianceByConformancePacksResponse>
       run(
-    _i2.DescribeAggregateComplianceByConformancePacksRequest input, {
-    _i9.AWSHttpClient? client,
+    DescribeAggregateComplianceByConformancePacksRequest input, {
+    _i5.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i15.runZoned(
+    return _i6.runZoned(
       () => super.run(
         input,
         client: client,
@@ -190,22 +178,22 @@ class DescribeAggregateComplianceByConformancePacksOperation extends _i1
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)},
+        ...{_i5.AWSHeaders.sdkInvocationId: _i5.uuid(secure: true)},
       },
     );
   }
 
   @override
   String? getToken(
-          _i3.DescribeAggregateComplianceByConformancePacksResponse output) =>
+          DescribeAggregateComplianceByConformancePacksResponse output) =>
       output.nextToken;
   @override
-  _i4.BuiltList<_i5.AggregateComplianceByConformancePack> getItems(
-          _i3.DescribeAggregateComplianceByConformancePacksResponse output) =>
-      output.aggregateComplianceByConformancePacks ?? _i4.BuiltList();
+  _i2.BuiltList<AggregateComplianceByConformancePack> getItems(
+          DescribeAggregateComplianceByConformancePacksResponse output) =>
+      output.aggregateComplianceByConformancePacks ?? _i2.BuiltList();
   @override
-  _i2.DescribeAggregateComplianceByConformancePacksRequest rebuildInput(
-    _i2.DescribeAggregateComplianceByConformancePacksRequest input,
+  DescribeAggregateComplianceByConformancePacksRequest rebuildInput(
+    DescribeAggregateComplianceByConformancePacksRequest input,
     String token,
     int? pageSize,
   ) =>

@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/status_detail_filters.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/status_detail_filters.dart';
 
 part 'get_organization_config_rule_detailed_status_request.g.dart';
 
@@ -21,7 +20,7 @@ abstract class GetOrganizationConfigRuleDetailedStatusRequest
             GetOrganizationConfigRuleDetailedStatusRequestBuilder> {
   factory GetOrganizationConfigRuleDetailedStatusRequest({
     required String organizationConfigRuleName,
-    _i3.StatusDetailFilters? filters,
+    StatusDetailFilters? filters,
     int? limit,
     String? nextToken,
   }) {
@@ -62,7 +61,7 @@ abstract class GetOrganizationConfigRuleDetailedStatusRequest
   String get organizationConfigRuleName;
 
   /// A `StatusDetailFilters` object.
-  _i3.StatusDetailFilters? get filters;
+  StatusDetailFilters? get filters;
 
   /// The maximum number of `OrganizationConfigRuleDetailedStatus` returned on each page. If you do not specify a number, Config uses the default. The default is 100.
   int get limit;
@@ -144,8 +143,8 @@ class GetOrganizationConfigRuleDetailedStatusRequestAwsJson11Serializer
         case 'Filters':
           result.filters.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.StatusDetailFilters),
-          ) as _i3.StatusDetailFilters));
+            specifiedType: const FullType(StatusDetailFilters),
+          ) as StatusDetailFilters));
         case 'Limit':
           result.limit = (serializers.deserialize(
             value,
@@ -192,7 +191,7 @@ class GetOrganizationConfigRuleDetailedStatusRequestAwsJson11Serializer
         ..add('Filters')
         ..add(serializers.serialize(
           filters,
-          specifiedType: const FullType(_i3.StatusDetailFilters),
+          specifiedType: const FullType(StatusDetailFilters),
         ));
     }
     if (nextToken != null) {

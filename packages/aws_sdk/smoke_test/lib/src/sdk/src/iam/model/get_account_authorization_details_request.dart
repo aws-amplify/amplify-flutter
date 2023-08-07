@@ -4,11 +4,11 @@
 library smoke_test.iam.model.get_account_authorization_details_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/iam/model/entity_type.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/entity_type.dart';
 
 part 'get_account_authorization_details_request.g.dart';
 
@@ -20,12 +20,12 @@ abstract class GetAccountAuthorizationDetailsRequest
         Built<GetAccountAuthorizationDetailsRequest,
             GetAccountAuthorizationDetailsRequestBuilder> {
   factory GetAccountAuthorizationDetailsRequest({
-    List<_i3.EntityType>? filter,
+    List<EntityType>? filter,
     int? maxItems,
     String? marker,
   }) {
     return _$GetAccountAuthorizationDetailsRequest._(
-      filter: filter == null ? null : _i4.BuiltList(filter),
+      filter: filter == null ? null : _i3.BuiltList(filter),
       maxItems: maxItems,
       marker: marker,
     );
@@ -50,7 +50,7 @@ abstract class GetAccountAuthorizationDetailsRequest
   /// A list of entity types used to filter the results. Only the entities that match the types you specify are included in the output. Use the value `LocalManagedPolicy` to include customer managed policies.
   ///
   /// The format for this parameter is a comma-separated (if more than one) list of strings. Each string value in the list must be one of the valid values listed below.
-  _i4.BuiltList<_i3.EntityType>? get filter;
+  _i3.BuiltList<EntityType>? get filter;
 
   /// Use this only when paginating results to indicate the maximum number of items you want in the response. If additional items exist beyond the maximum you specify, the `IsTruncated` response element is `true`.
   ///
@@ -127,10 +127,10 @@ class GetAccountAuthorizationDetailsRequestAwsQuerySerializer extends _i1
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.EntityType)],
+              _i3.BuiltList,
+              [FullType(EntityType)],
             ),
-          ) as _i4.BuiltList<_i3.EntityType>));
+          ) as _i3.BuiltList<EntityType>));
         case 'MaxItems':
           result.maxItems = (serializers.deserialize(
             value,
@@ -170,8 +170,8 @@ class GetAccountAuthorizationDetailsRequestAwsQuerySerializer extends _i1
           serializers,
           filter,
           specifiedType: const FullType.nullable(
-            _i4.BuiltList,
-            [FullType(_i3.EntityType)],
+            _i3.BuiltList,
+            [FullType(EntityType)],
           ),
         ));
     }

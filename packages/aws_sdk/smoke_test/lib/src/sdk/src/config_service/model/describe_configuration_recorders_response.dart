@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.describe_configuration_recorders_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/configuration_recorder.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/configuration_recorder.dart';
 
 part 'describe_configuration_recorders_response.g.dart';
 
@@ -22,11 +21,11 @@ abstract class DescribeConfigurationRecordersResponse
             DescribeConfigurationRecordersResponseBuilder> {
   /// The output for the DescribeConfigurationRecorders action.
   factory DescribeConfigurationRecordersResponse(
-      {List<_i2.ConfigurationRecorder>? configurationRecorders}) {
+      {List<ConfigurationRecorder>? configurationRecorders}) {
     return _$DescribeConfigurationRecordersResponse._(
         configurationRecorders: configurationRecorders == null
             ? null
-            : _i3.BuiltList(configurationRecorders));
+            : _i2.BuiltList(configurationRecorders));
   }
 
   /// The output for the DescribeConfigurationRecorders action.
@@ -44,13 +43,13 @@ abstract class DescribeConfigurationRecordersResponse
       payload;
 
   static const List<
-          _i4.SmithySerializer<DescribeConfigurationRecordersResponse>>
+          _i3.SmithySerializer<DescribeConfigurationRecordersResponse>>
       serializers = [
     DescribeConfigurationRecordersResponseAwsJson11Serializer()
   ];
 
   /// A list that contains the descriptions of the specified configuration recorders.
-  _i3.BuiltList<_i2.ConfigurationRecorder>? get configurationRecorders;
+  _i2.BuiltList<ConfigurationRecorder>? get configurationRecorders;
   @override
   List<Object?> get props => [configurationRecorders];
   @override
@@ -65,7 +64,7 @@ abstract class DescribeConfigurationRecordersResponse
   }
 }
 
-class DescribeConfigurationRecordersResponseAwsJson11Serializer extends _i4
+class DescribeConfigurationRecordersResponseAwsJson11Serializer extends _i3
     .StructuredSmithySerializer<DescribeConfigurationRecordersResponse> {
   const DescribeConfigurationRecordersResponseAwsJson11Serializer()
       : super('DescribeConfigurationRecordersResponse');
@@ -76,8 +75,8 @@ class DescribeConfigurationRecordersResponseAwsJson11Serializer extends _i4
         _$DescribeConfigurationRecordersResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -102,10 +101,10 @@ class DescribeConfigurationRecordersResponseAwsJson11Serializer extends _i4
           result.configurationRecorders.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.ConfigurationRecorder)],
+              _i2.BuiltList,
+              [FullType(ConfigurationRecorder)],
             ),
-          ) as _i3.BuiltList<_i2.ConfigurationRecorder>));
+          ) as _i2.BuiltList<ConfigurationRecorder>));
       }
     }
 
@@ -127,8 +126,8 @@ class DescribeConfigurationRecordersResponseAwsJson11Serializer extends _i4
         ..add(serializers.serialize(
           configurationRecorders,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.ConfigurationRecorder)],
+            _i2.BuiltList,
+            [FullType(ConfigurationRecorder)],
           ),
         ));
     }

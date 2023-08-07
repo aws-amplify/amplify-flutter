@@ -10,7 +10,7 @@ class _$GetCredentialReportResponse extends GetCredentialReportResponse {
   @override
   final _i2.Uint8List? content;
   @override
-  final _i3.ReportFormatType? reportFormat;
+  final ReportFormatType? reportFormat;
   @override
   final DateTime? generatedTime;
 
@@ -61,9 +61,9 @@ class GetCredentialReportResponseBuilder
   _i2.Uint8List? get content => _$this._content;
   set content(_i2.Uint8List? content) => _$this._content = content;
 
-  _i3.ReportFormatType? _reportFormat;
-  _i3.ReportFormatType? get reportFormat => _$this._reportFormat;
-  set reportFormat(_i3.ReportFormatType? reportFormat) =>
+  ReportFormatType? _reportFormat;
+  ReportFormatType? get reportFormat => _$this._reportFormat;
+  set reportFormat(ReportFormatType? reportFormat) =>
       _$this._reportFormat = reportFormat;
 
   DateTime? _generatedTime;

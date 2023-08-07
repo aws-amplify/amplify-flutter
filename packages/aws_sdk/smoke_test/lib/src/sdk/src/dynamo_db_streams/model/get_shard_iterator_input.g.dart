@@ -12,7 +12,7 @@ class _$GetShardIteratorInput extends GetShardIteratorInput {
   @override
   final String shardId;
   @override
-  final _i3.ShardIteratorType shardIteratorType;
+  final ShardIteratorType shardIteratorType;
   @override
   final String? sequenceNumber;
 
@@ -77,9 +77,9 @@ class GetShardIteratorInputBuilder
   String? get shardId => _$this._shardId;
   set shardId(String? shardId) => _$this._shardId = shardId;
 
-  _i3.ShardIteratorType? _shardIteratorType;
-  _i3.ShardIteratorType? get shardIteratorType => _$this._shardIteratorType;
-  set shardIteratorType(_i3.ShardIteratorType? shardIteratorType) =>
+  ShardIteratorType? _shardIteratorType;
+  ShardIteratorType? get shardIteratorType => _$this._shardIteratorType;
+  set shardIteratorType(ShardIteratorType? shardIteratorType) =>
       _$this._shardIteratorType = shardIteratorType;
 
   String? _sequenceNumber;

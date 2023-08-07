@@ -6,9 +6,8 @@ library smoke_test.s3.model.server_side_encryption_by_default; // ignore_for_fil
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/server_side_encryption.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/server_side_encryption.dart';
 
 part 'server_side_encryption_by_default.g.dart';
 
@@ -21,7 +20,7 @@ abstract class ServerSideEncryptionByDefault
             ServerSideEncryptionByDefaultBuilder> {
   /// Describes the default server-side encryption to apply to new objects in the bucket. If a PUT Object request doesn't specify any server-side encryption, this default encryption will be applied. If you don't specify a customer managed key at configuration, Amazon S3 automatically creates an Amazon Web Services KMS key in your Amazon Web Services account the first time that you add an object encrypted with SSE-KMS to a bucket. By default, Amazon S3 uses this KMS key for SSE-KMS. For more information, see [PUT Bucket encryption](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTencryption.html) in the _Amazon S3 API Reference_.
   factory ServerSideEncryptionByDefault({
-    required _i2.ServerSideEncryption sseAlgorithm,
+    required ServerSideEncryption sseAlgorithm,
     String? kmsMasterKeyId,
   }) {
     return _$ServerSideEncryptionByDefault._(
@@ -37,11 +36,11 @@ abstract class ServerSideEncryptionByDefault
 
   const ServerSideEncryptionByDefault._();
 
-  static const List<_i3.SmithySerializer<ServerSideEncryptionByDefault>>
+  static const List<_i2.SmithySerializer<ServerSideEncryptionByDefault>>
       serializers = [ServerSideEncryptionByDefaultRestXmlSerializer()];
 
   /// Server-side encryption algorithm to use for the default encryption.
-  _i2.ServerSideEncryption get sseAlgorithm;
+  ServerSideEncryption get sseAlgorithm;
 
   /// Amazon Web Services Key Management Service (KMS) customer Amazon Web Services KMS key ID to use for the default encryption. This parameter is allowed if and only if `SSEAlgorithm` is set to `aws:kms`.
   ///
@@ -77,7 +76,7 @@ abstract class ServerSideEncryptionByDefault
 }
 
 class ServerSideEncryptionByDefaultRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<ServerSideEncryptionByDefault> {
+    extends _i2.StructuredSmithySerializer<ServerSideEncryptionByDefault> {
   const ServerSideEncryptionByDefaultRestXmlSerializer()
       : super('ServerSideEncryptionByDefault');
 
@@ -87,8 +86,8 @@ class ServerSideEncryptionByDefaultRestXmlSerializer
         _$ServerSideEncryptionByDefault,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -117,8 +116,8 @@ class ServerSideEncryptionByDefaultRestXmlSerializer
         case 'SSEAlgorithm':
           result.sseAlgorithm = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ServerSideEncryption),
-          ) as _i2.ServerSideEncryption);
+            specifiedType: const FullType(ServerSideEncryption),
+          ) as ServerSideEncryption);
       }
     }
 
@@ -132,26 +131,26 @@ class ServerSideEncryptionByDefaultRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'ServerSideEncryptionByDefault',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final ServerSideEncryptionByDefault(:kmsMasterKeyId, :sseAlgorithm) =
         object;
     if (kmsMasterKeyId != null) {
       result$
-        ..add(const _i3.XmlElementName('KMSMasterKeyID'))
+        ..add(const _i2.XmlElementName('KMSMasterKeyID'))
         ..add(serializers.serialize(
           kmsMasterKeyId,
           specifiedType: const FullType(String),
         ));
     }
     result$
-      ..add(const _i3.XmlElementName('SSEAlgorithm'))
+      ..add(const _i2.XmlElementName('SSEAlgorithm'))
       ..add(serializers.serialize(
         sseAlgorithm,
-        specifiedType: const FullType.nullable(_i2.ServerSideEncryption),
+        specifiedType: const FullType.nullable(ServerSideEncryption),
       ));
     return result$;
   }

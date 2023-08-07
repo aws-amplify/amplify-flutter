@@ -3,45 +3,35 @@
 
 library smoke_test.dynamo_db.operation.export_table_to_point_in_time_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i15;
+import 'dart:async' as _i5;
 
-import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/common/endpoint_resolver.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/dynamo_db/common/serializers.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/export_conflict_exception.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/export_table_to_point_in_time_input.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/export_table_to_point_in_time_output.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/internal_server_error.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/invalid_export_time_exception.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/limit_exceeded_exception.dart'
-    as _i12;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/point_in_time_recovery_unavailable_exception.dart'
-    as _i13;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_not_found_exception.dart'
-    as _i14;
+import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/export_conflict_exception.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/export_table_to_point_in_time_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/export_table_to_point_in_time_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/internal_server_error.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/invalid_export_time_exception.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/limit_exceeded_exception.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/point_in_time_recovery_unavailable_exception.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_not_found_exception.dart';
 
 /// Exports table data to an S3 bucket. The table must have point in time recovery enabled, and you can export data from any time within the point in time recovery window.
 class ExportTableToPointInTimeOperation extends _i1.HttpOperation<
-    _i2.ExportTableToPointInTimeInput,
-    _i2.ExportTableToPointInTimeInput,
-    _i3.ExportTableToPointInTimeOutput,
-    _i3.ExportTableToPointInTimeOutput> {
+    ExportTableToPointInTimeInput,
+    ExportTableToPointInTimeInput,
+    ExportTableToPointInTimeOutput,
+    ExportTableToPointInTimeOutput> {
   /// Exports table data to an S3 bucket. The table must have point in time recovery enabled, and you can export data from any time within the point in time recovery window.
   ExportTableToPointInTimeOperation({
     required String region,
     Uri? baseUri,
-    _i4.AWSCredentialsProvider credentialsProvider =
-        const _i4.AWSCredentialsProvider.environment(),
+    _i2.AWSCredentialsProvider credentialsProvider =
+        const _i2.AWSCredentialsProvider.environment(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -53,13 +43,13 @@ class ExportTableToPointInTimeOperation extends _i1.HttpOperation<
   @override
   late final List<
       _i1.HttpProtocol<
-          _i2.ExportTableToPointInTimeInput,
-          _i2.ExportTableToPointInTimeInput,
-          _i3.ExportTableToPointInTimeOutput,
-          _i3.ExportTableToPointInTimeOutput>> protocols = [
-    _i5.AwsJson1_0Protocol(
-      serializers: _i6.serializers,
-      builderFactories: _i6.builderFactories,
+          ExportTableToPointInTimeInput,
+          ExportTableToPointInTimeInput,
+          ExportTableToPointInTimeOutput,
+          ExportTableToPointInTimeOutput>> protocols = [
+    _i3.AwsJson1_0Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
@@ -67,14 +57,14 @@ class ExportTableToPointInTimeOperation extends _i1.HttpOperation<
               'X-Amz-Target',
               'DynamoDB_20120810.ExportTableToPointInTime',
             ),
-            _i5.WithSigV4(
+            _i3.WithSigV4(
               region: _region,
-              service: _i7.AWSService.dynamoDb,
+              service: _i4.AWSService.dynamoDb,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i5.WithSdkInvocationId(),
-            const _i5.WithSdkRequest(),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -82,8 +72,8 @@ class ExportTableToPointInTimeOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i5.AWSEndpoint _awsEndpoint = _i8.endpointResolver.resolve(
-    _i8.sdkId,
+  late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -91,106 +81,102 @@ class ExportTableToPointInTimeOperation extends _i1.HttpOperation<
 
   final Uri? _baseUri;
 
-  final _i4.AWSCredentialsProvider _credentialsProvider;
+  final _i2.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.ExportTableToPointInTimeInput input) =>
+  _i1.HttpRequest buildRequest(ExportTableToPointInTimeInput input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
       });
   @override
-  int successCode([_i3.ExportTableToPointInTimeOutput? output]) => 200;
+  int successCode([ExportTableToPointInTimeOutput? output]) => 200;
   @override
-  _i3.ExportTableToPointInTimeOutput buildOutput(
-    _i3.ExportTableToPointInTimeOutput payload,
-    _i7.AWSBaseHttpResponse response,
+  ExportTableToPointInTimeOutput buildOutput(
+    ExportTableToPointInTimeOutput payload,
+    _i4.AWSBaseHttpResponse response,
   ) =>
-      _i3.ExportTableToPointInTimeOutput.fromResponse(
+      ExportTableToPointInTimeOutput.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i9.ExportConflictException,
-            _i9.ExportConflictException>(
+        _i1.SmithyError<ExportConflictException, ExportConflictException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ExportConflictException',
           ),
           _i1.ErrorKind.client,
-          _i9.ExportConflictException,
-          builder: _i9.ExportConflictException.fromResponse,
+          ExportConflictException,
+          builder: ExportConflictException.fromResponse,
         ),
-        _i1.SmithyError<_i10.InternalServerError, _i10.InternalServerError>(
+        _i1.SmithyError<InternalServerError, InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
           ),
           _i1.ErrorKind.server,
-          _i10.InternalServerError,
-          builder: _i10.InternalServerError.fromResponse,
+          InternalServerError,
+          builder: InternalServerError.fromResponse,
         ),
-        _i1.SmithyError<_i11.InvalidExportTimeException,
-            _i11.InvalidExportTimeException>(
+        _i1.SmithyError<InvalidExportTimeException, InvalidExportTimeException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InvalidExportTimeException',
           ),
           _i1.ErrorKind.client,
-          _i11.InvalidExportTimeException,
-          builder: _i11.InvalidExportTimeException.fromResponse,
+          InvalidExportTimeException,
+          builder: InvalidExportTimeException.fromResponse,
         ),
-        _i1.SmithyError<_i12.LimitExceededException,
-            _i12.LimitExceededException>(
+        _i1.SmithyError<LimitExceededException, LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'LimitExceededException',
           ),
           _i1.ErrorKind.client,
-          _i12.LimitExceededException,
-          builder: _i12.LimitExceededException.fromResponse,
+          LimitExceededException,
+          builder: LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError<_i13.PointInTimeRecoveryUnavailableException,
-            _i13.PointInTimeRecoveryUnavailableException>(
+        _i1.SmithyError<PointInTimeRecoveryUnavailableException,
+            PointInTimeRecoveryUnavailableException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'PointInTimeRecoveryUnavailableException',
           ),
           _i1.ErrorKind.client,
-          _i13.PointInTimeRecoveryUnavailableException,
-          builder: _i13.PointInTimeRecoveryUnavailableException.fromResponse,
+          PointInTimeRecoveryUnavailableException,
+          builder: PointInTimeRecoveryUnavailableException.fromResponse,
         ),
-        _i1.SmithyError<_i14.TableNotFoundException,
-            _i14.TableNotFoundException>(
+        _i1.SmithyError<TableNotFoundException, TableNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'TableNotFoundException',
           ),
           _i1.ErrorKind.client,
-          _i14.TableNotFoundException,
-          builder: _i14.TableNotFoundException.fromResponse,
+          TableNotFoundException,
+          builder: TableNotFoundException.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'ExportTableToPointInTime';
   @override
-  _i5.AWSRetryer get retryer => _i5.AWSRetryer();
+  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.ExportTableToPointInTimeOutput> run(
-    _i2.ExportTableToPointInTimeInput input, {
-    _i7.AWSHttpClient? client,
+  _i1.SmithyOperation<ExportTableToPointInTimeOutput> run(
+    ExportTableToPointInTimeInput input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i15.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -198,7 +184,7 @@ class ExportTableToPointInTimeOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

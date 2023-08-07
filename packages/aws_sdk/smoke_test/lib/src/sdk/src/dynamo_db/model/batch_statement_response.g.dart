@@ -8,11 +8,11 @@ part of 'batch_statement_response.dart';
 
 class _$BatchStatementResponse extends BatchStatementResponse {
   @override
-  final _i2.BatchStatementError? error;
+  final BatchStatementError? error;
   @override
   final String? tableName;
   @override
-  final _i4.BuiltMap<String, _i3.AttributeValue>? item;
+  final _i2.BuiltMap<String, AttributeValue>? item;
 
   factory _$BatchStatementResponse(
           [void Function(BatchStatementResponseBuilder)? updates]) =>
@@ -54,20 +54,19 @@ class BatchStatementResponseBuilder
     implements Builder<BatchStatementResponse, BatchStatementResponseBuilder> {
   _$BatchStatementResponse? _$v;
 
-  _i2.BatchStatementErrorBuilder? _error;
-  _i2.BatchStatementErrorBuilder get error =>
-      _$this._error ??= new _i2.BatchStatementErrorBuilder();
-  set error(_i2.BatchStatementErrorBuilder? error) => _$this._error = error;
+  BatchStatementErrorBuilder? _error;
+  BatchStatementErrorBuilder get error =>
+      _$this._error ??= new BatchStatementErrorBuilder();
+  set error(BatchStatementErrorBuilder? error) => _$this._error = error;
 
   String? _tableName;
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
 
-  _i4.MapBuilder<String, _i3.AttributeValue>? _item;
-  _i4.MapBuilder<String, _i3.AttributeValue> get item =>
-      _$this._item ??= new _i4.MapBuilder<String, _i3.AttributeValue>();
-  set item(_i4.MapBuilder<String, _i3.AttributeValue>? item) =>
-      _$this._item = item;
+  _i2.MapBuilder<String, AttributeValue>? _item;
+  _i2.MapBuilder<String, AttributeValue> get item =>
+      _$this._item ??= new _i2.MapBuilder<String, AttributeValue>();
+  set item(_i2.MapBuilder<String, AttributeValue>? item) => _$this._item = item;
 
   BatchStatementResponseBuilder();
 

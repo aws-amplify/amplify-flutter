@@ -8,7 +8,7 @@ part of 'list_stack_instances_output.dart';
 
 class _$ListStackInstancesOutput extends ListStackInstancesOutput {
   @override
-  final _i3.BuiltList<_i2.StackInstanceSummary>? summaries;
+  final _i2.BuiltList<StackInstanceSummary>? summaries;
   @override
   final String? nextToken;
 
@@ -50,10 +50,10 @@ class ListStackInstancesOutputBuilder
         Builder<ListStackInstancesOutput, ListStackInstancesOutputBuilder> {
   _$ListStackInstancesOutput? _$v;
 
-  _i3.ListBuilder<_i2.StackInstanceSummary>? _summaries;
-  _i3.ListBuilder<_i2.StackInstanceSummary> get summaries =>
-      _$this._summaries ??= new _i3.ListBuilder<_i2.StackInstanceSummary>();
-  set summaries(_i3.ListBuilder<_i2.StackInstanceSummary>? summaries) =>
+  _i2.ListBuilder<StackInstanceSummary>? _summaries;
+  _i2.ListBuilder<StackInstanceSummary> get summaries =>
+      _$this._summaries ??= new _i2.ListBuilder<StackInstanceSummary>();
+  set summaries(_i2.ListBuilder<StackInstanceSummary>? summaries) =>
       _$this._summaries = summaries;
 
   String? _nextToken;

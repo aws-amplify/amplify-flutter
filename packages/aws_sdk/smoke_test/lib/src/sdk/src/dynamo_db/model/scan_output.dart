@@ -4,14 +4,12 @@
 library smoke_test.dynamo_db.model.scan_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/consumed_capacity.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/consumed_capacity.dart';
 
 part 'scan_output.g.dart';
 
@@ -21,22 +19,22 @@ abstract class ScanOutput
     implements Built<ScanOutput, ScanOutputBuilder> {
   /// Represents the output of a `Scan` operation.
   factory ScanOutput({
-    List<Map<String, _i2.AttributeValue>>? items,
+    List<Map<String, AttributeValue>>? items,
     int? count,
     int? scannedCount,
-    Map<String, _i2.AttributeValue>? lastEvaluatedKey,
-    _i3.ConsumedCapacity? consumedCapacity,
+    Map<String, AttributeValue>? lastEvaluatedKey,
+    ConsumedCapacity? consumedCapacity,
   }) {
     count ??= 0;
     scannedCount ??= 0;
     return _$ScanOutput._(
       items: items == null
           ? null
-          : _i4.BuiltList(items.map((el) => _i4.BuiltMap(el))),
+          : _i2.BuiltList(items.map((el) => _i2.BuiltMap(el))),
       count: count,
       scannedCount: scannedCount,
       lastEvaluatedKey:
-          lastEvaluatedKey == null ? null : _i4.BuiltMap(lastEvaluatedKey),
+          lastEvaluatedKey == null ? null : _i2.BuiltMap(lastEvaluatedKey),
       consumedCapacity: consumedCapacity,
     );
   }
@@ -54,7 +52,7 @@ abstract class ScanOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer<ScanOutput>> serializers = [
+  static const List<_i3.SmithySerializer<ScanOutput>> serializers = [
     ScanOutputAwsJson10Serializer()
   ];
 
@@ -66,7 +64,7 @@ abstract class ScanOutput
   }
 
   /// An array of item attributes that match the scan criteria. Each element in this array consists of an attribute name and the value for that attribute.
-  _i4.BuiltList<_i4.BuiltMap<String, _i2.AttributeValue>>? get items;
+  _i2.BuiltList<_i2.BuiltMap<String, AttributeValue>>? get items;
 
   /// The number of items in the response.
   ///
@@ -85,10 +83,10 @@ abstract class ScanOutput
   /// If `LastEvaluatedKey` is empty, then the "last page" of results has been processed and there is no more data to be retrieved.
   ///
   /// If `LastEvaluatedKey` is not empty, it does not necessarily mean that there is more data in the result set. The only way to know when you have reached the end of the result set is when `LastEvaluatedKey` is empty.
-  _i4.BuiltMap<String, _i2.AttributeValue>? get lastEvaluatedKey;
+  _i2.BuiltMap<String, AttributeValue>? get lastEvaluatedKey;
 
   /// The capacity units consumed by the `Scan` operation. The data returned includes the total provisioned throughput consumed, along with statistics for the table and any indexes involved in the operation. `ConsumedCapacity` is only returned if the `ReturnConsumedCapacity` parameter was specified. For more information, see [Provisioned Throughput](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughput.html#ItemSizeCalculations.Reads) in the _Amazon DynamoDB Developer Guide_.
-  _i3.ConsumedCapacity? get consumedCapacity;
+  ConsumedCapacity? get consumedCapacity;
   @override
   List<Object?> get props => [
         items,
@@ -125,7 +123,7 @@ abstract class ScanOutput
 }
 
 class ScanOutputAwsJson10Serializer
-    extends _i5.StructuredSmithySerializer<ScanOutput> {
+    extends _i3.StructuredSmithySerializer<ScanOutput> {
   const ScanOutputAwsJson10Serializer() : super('ScanOutput');
 
   @override
@@ -134,8 +132,8 @@ class ScanOutputAwsJson10Serializer
         _$ScanOutput,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -160,18 +158,18 @@ class ScanOutputAwsJson10Serializer
           result.items.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
+              _i2.BuiltList,
               [
                 FullType(
-                  _i4.BuiltMap,
+                  _i2.BuiltMap,
                   [
                     FullType(String),
-                    FullType(_i2.AttributeValue),
+                    FullType(AttributeValue),
                   ],
                 )
               ],
             ),
-          ) as _i4.BuiltList<_i4.BuiltMap<String, _i2.AttributeValue>>));
+          ) as _i2.BuiltList<_i2.BuiltMap<String, AttributeValue>>));
         case 'Count':
           result.count = (serializers.deserialize(
             value,
@@ -186,18 +184,18 @@ class ScanOutputAwsJson10Serializer
           result.lastEvaluatedKey.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i2.AttributeValue),
+                FullType(AttributeValue),
               ],
             ),
-          ) as _i4.BuiltMap<String, _i2.AttributeValue>));
+          ) as _i2.BuiltMap<String, AttributeValue>));
         case 'ConsumedCapacity':
           result.consumedCapacity.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ConsumedCapacity),
-          ) as _i3.ConsumedCapacity));
+            specifiedType: const FullType(ConsumedCapacity),
+          ) as ConsumedCapacity));
       }
     }
 
@@ -236,13 +234,13 @@ class ScanOutputAwsJson10Serializer
         ..add(serializers.serialize(
           items,
           specifiedType: const FullType(
-            _i4.BuiltList,
+            _i2.BuiltList,
             [
               FullType(
-                _i4.BuiltMap,
+                _i2.BuiltMap,
                 [
                   FullType(String),
-                  FullType(_i2.AttributeValue),
+                  FullType(AttributeValue),
                 ],
               )
             ],
@@ -255,10 +253,10 @@ class ScanOutputAwsJson10Serializer
         ..add(serializers.serialize(
           lastEvaluatedKey,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
-              FullType(_i2.AttributeValue),
+              FullType(AttributeValue),
             ],
           ),
         ));
@@ -268,7 +266,7 @@ class ScanOutputAwsJson10Serializer
         ..add('ConsumedCapacity')
         ..add(serializers.serialize(
           consumedCapacity,
-          specifiedType: const FullType(_i3.ConsumedCapacity),
+          specifiedType: const FullType(ConsumedCapacity),
         ));
     }
     return result$;

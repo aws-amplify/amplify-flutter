@@ -3,14 +3,11 @@
 
 library amplify_storage_s3_dart.s3.model.complete_multipart_upload_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/completed_multipart_upload.dart'
-    as _i2;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/completed_part.dart'
-    as _i5;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_payer.dart'
-    as _i4;
-import 'package:aws_common/aws_common.dart' as _i3;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/completed_multipart_upload.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/completed_part.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_payer.dart';
+import 'package:aws_common/aws_common.dart' as _i2;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
@@ -19,22 +16,22 @@ part 'complete_multipart_upload_request.g.dart';
 
 abstract class CompleteMultipartUploadRequest
     with
-        _i1.HttpInput<_i2.CompletedMultipartUpload>,
-        _i3.AWSEquatable<CompleteMultipartUploadRequest>
+        _i1.HttpInput<CompletedMultipartUpload>,
+        _i2.AWSEquatable<CompleteMultipartUploadRequest>
     implements
         Built<CompleteMultipartUploadRequest,
             CompleteMultipartUploadRequestBuilder>,
-        _i1.HasPayload<_i2.CompletedMultipartUpload> {
+        _i1.HasPayload<CompletedMultipartUpload> {
   factory CompleteMultipartUploadRequest({
     required String bucket,
     required String key,
-    _i2.CompletedMultipartUpload? multipartUpload,
+    CompletedMultipartUpload? multipartUpload,
     required String uploadId,
     String? checksumCrc32,
     String? checksumCrc32C,
     String? checksumSha1,
     String? checksumSha256,
-    _i4.RequestPayer? requestPayer,
+    RequestPayer? requestPayer,
     String? expectedBucketOwner,
     String? sseCustomerAlgorithm,
     String? sseCustomerKey,
@@ -64,8 +61,8 @@ abstract class CompleteMultipartUploadRequest
   const CompleteMultipartUploadRequest._();
 
   factory CompleteMultipartUploadRequest.fromRequest(
-    _i2.CompletedMultipartUpload? payload,
-    _i3.AWSBaseHttpRequest request, {
+    CompletedMultipartUpload? payload,
+    _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
       CompleteMultipartUploadRequest.build((b) {
@@ -85,7 +82,7 @@ abstract class CompleteMultipartUploadRequest
           b.checksumSha256 = request.headers['x-amz-checksum-sha256']!;
         }
         if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = _i4.RequestPayer.values
+          b.requestPayer = RequestPayer.values
               .byValue(request.headers['x-amz-request-payer']!);
         }
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
@@ -119,7 +116,7 @@ abstract class CompleteMultipartUploadRequest
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.CompletedMultipartUpload?>>
+  static const List<_i1.SmithySerializer<CompletedMultipartUpload?>>
       serializers = [CompleteMultipartUploadRequestRestXmlSerializer()];
 
   /// Name of the bucket to which the multipart upload was initiated.
@@ -133,7 +130,7 @@ abstract class CompleteMultipartUploadRequest
   String get key;
 
   /// The container for the multipart upload request information.
-  _i2.CompletedMultipartUpload? get multipartUpload;
+  CompletedMultipartUpload? get multipartUpload;
 
   /// ID for the initiated multipart upload.
   String get uploadId;
@@ -151,7 +148,7 @@ abstract class CompleteMultipartUploadRequest
   String? get checksumSha256;
 
   /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
-  _i4.RequestPayer? get requestPayer;
+  RequestPayer? get requestPayer;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
@@ -179,8 +176,8 @@ abstract class CompleteMultipartUploadRequest
   }
 
   @override
-  _i2.CompletedMultipartUpload? getPayload() =>
-      multipartUpload ?? _i2.CompletedMultipartUpload();
+  CompletedMultipartUpload? getPayload() =>
+      multipartUpload ?? CompletedMultipartUpload();
   @override
   List<Object?> get props => [
         bucket,
@@ -257,7 +254,7 @@ abstract class CompleteMultipartUploadRequest
 }
 
 class CompleteMultipartUploadRequestRestXmlSerializer
-    extends _i1.StructuredSmithySerializer<_i2.CompletedMultipartUpload> {
+    extends _i1.StructuredSmithySerializer<CompletedMultipartUpload> {
   const CompleteMultipartUploadRequestRestXmlSerializer()
       : super('CompleteMultipartUploadRequest');
 
@@ -274,12 +271,12 @@ class CompleteMultipartUploadRequestRestXmlSerializer
         )
       ];
   @override
-  _i2.CompletedMultipartUpload deserialize(
+  CompletedMultipartUpload deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i2.CompletedMultipartUploadBuilder();
+    final result = CompletedMultipartUploadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -292,8 +289,8 @@ class CompleteMultipartUploadRequestRestXmlSerializer
         case 'Part':
           result.parts.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.CompletedPart),
-          ) as _i5.CompletedPart));
+            specifiedType: const FullType(CompletedPart),
+          ) as CompletedPart));
       }
     }
 
@@ -303,7 +300,7 @@ class CompleteMultipartUploadRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i2.CompletedMultipartUpload object, {
+    CompletedMultipartUpload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -312,15 +309,15 @@ class CompleteMultipartUploadRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i2.CompletedMultipartUpload(:parts) = object;
+    final CompletedMultipartUpload(:parts) = object;
     if (parts != null) {
       result$.addAll(
           const _i1.XmlBuiltListSerializer(memberName: 'Part').serialize(
         serializers,
         parts,
         specifiedType: const FullType.nullable(
-          _i6.BuiltList,
-          [FullType(_i5.CompletedPart)],
+          _i3.BuiltList,
+          [FullType(CompletedPart)],
         ),
       ));
     }

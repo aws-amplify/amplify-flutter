@@ -9,7 +9,7 @@ part of 'stack_instance_comprehensive_status.dart';
 class _$StackInstanceComprehensiveStatus
     extends StackInstanceComprehensiveStatus {
   @override
-  final _i2.StackInstanceDetailedStatus? detailedStatus;
+  final StackInstanceDetailedStatus? detailedStatus;
 
   factory _$StackInstanceComprehensiveStatus(
           [void Function(StackInstanceComprehensiveStatusBuilder)? updates]) =>
@@ -48,9 +48,9 @@ class StackInstanceComprehensiveStatusBuilder
             StackInstanceComprehensiveStatusBuilder> {
   _$StackInstanceComprehensiveStatus? _$v;
 
-  _i2.StackInstanceDetailedStatus? _detailedStatus;
-  _i2.StackInstanceDetailedStatus? get detailedStatus => _$this._detailedStatus;
-  set detailedStatus(_i2.StackInstanceDetailedStatus? detailedStatus) =>
+  StackInstanceDetailedStatus? _detailedStatus;
+  StackInstanceDetailedStatus? get detailedStatus => _$this._detailedStatus;
+  set detailedStatus(StackInstanceDetailedStatus? detailedStatus) =>
       _$this._detailedStatus = detailedStatus;
 
   StackInstanceComprehensiveStatusBuilder();

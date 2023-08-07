@@ -26,17 +26,17 @@ class _$ListPartsOutput extends ListPartsOutput {
   @override
   final bool? isTruncated;
   @override
-  final _i9.BuiltList<_i3.Part>? parts;
+  final _i3.BuiltList<Part>? parts;
   @override
-  final _i4.Initiator? initiator;
+  final Initiator? initiator;
   @override
-  final _i5.Owner? owner;
+  final Owner? owner;
   @override
-  final _i6.StorageClass? storageClass;
+  final StorageClass? storageClass;
   @override
-  final _i7.RequestCharged? requestCharged;
+  final RequestCharged? requestCharged;
   @override
-  final _i8.ChecksumAlgorithm? checksumAlgorithm;
+  final ChecksumAlgorithm? checksumAlgorithm;
 
   factory _$ListPartsOutput([void Function(ListPartsOutputBuilder)? updates]) =>
       (new ListPartsOutputBuilder()..update(updates))._build();
@@ -153,34 +153,33 @@ class ListPartsOutputBuilder
   bool? get isTruncated => _$this._isTruncated;
   set isTruncated(bool? isTruncated) => _$this._isTruncated = isTruncated;
 
-  _i9.ListBuilder<_i3.Part>? _parts;
-  _i9.ListBuilder<_i3.Part> get parts =>
-      _$this._parts ??= new _i9.ListBuilder<_i3.Part>();
-  set parts(_i9.ListBuilder<_i3.Part>? parts) => _$this._parts = parts;
+  _i3.ListBuilder<Part>? _parts;
+  _i3.ListBuilder<Part> get parts =>
+      _$this._parts ??= new _i3.ListBuilder<Part>();
+  set parts(_i3.ListBuilder<Part>? parts) => _$this._parts = parts;
 
-  _i4.InitiatorBuilder? _initiator;
-  _i4.InitiatorBuilder get initiator =>
-      _$this._initiator ??= new _i4.InitiatorBuilder();
-  set initiator(_i4.InitiatorBuilder? initiator) =>
-      _$this._initiator = initiator;
+  InitiatorBuilder? _initiator;
+  InitiatorBuilder get initiator =>
+      _$this._initiator ??= new InitiatorBuilder();
+  set initiator(InitiatorBuilder? initiator) => _$this._initiator = initiator;
 
-  _i5.OwnerBuilder? _owner;
-  _i5.OwnerBuilder get owner => _$this._owner ??= new _i5.OwnerBuilder();
-  set owner(_i5.OwnerBuilder? owner) => _$this._owner = owner;
+  OwnerBuilder? _owner;
+  OwnerBuilder get owner => _$this._owner ??= new OwnerBuilder();
+  set owner(OwnerBuilder? owner) => _$this._owner = owner;
 
-  _i6.StorageClass? _storageClass;
-  _i6.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i6.StorageClass? storageClass) =>
+  StorageClass? _storageClass;
+  StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(StorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
-  _i7.RequestCharged? _requestCharged;
-  _i7.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i7.RequestCharged? requestCharged) =>
+  RequestCharged? _requestCharged;
+  RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
-  _i8.ChecksumAlgorithm? _checksumAlgorithm;
-  _i8.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i8.ChecksumAlgorithm? checksumAlgorithm) =>
+  ChecksumAlgorithm? _checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
   ListPartsOutputBuilder();
@@ -266,9 +265,9 @@ class _$ListPartsOutputPayload extends ListPartsOutputPayload {
   @override
   final String? bucket;
   @override
-  final _i8.ChecksumAlgorithm? checksumAlgorithm;
+  final ChecksumAlgorithm? checksumAlgorithm;
   @override
-  final _i4.Initiator? initiator;
+  final Initiator? initiator;
   @override
   final bool? isTruncated;
   @override
@@ -278,13 +277,13 @@ class _$ListPartsOutputPayload extends ListPartsOutputPayload {
   @override
   final String? nextPartNumberMarker;
   @override
-  final _i5.Owner? owner;
+  final Owner? owner;
   @override
   final String? partNumberMarker;
   @override
-  final _i9.BuiltList<_i3.Part>? parts;
+  final _i3.BuiltList<Part>? parts;
   @override
-  final _i6.StorageClass? storageClass;
+  final StorageClass? storageClass;
   @override
   final String? uploadId;
 
@@ -362,16 +361,15 @@ class ListPartsOutputPayloadBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  _i8.ChecksumAlgorithm? _checksumAlgorithm;
-  _i8.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i8.ChecksumAlgorithm? checksumAlgorithm) =>
+  ChecksumAlgorithm? _checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
-  _i4.InitiatorBuilder? _initiator;
-  _i4.InitiatorBuilder get initiator =>
-      _$this._initiator ??= new _i4.InitiatorBuilder();
-  set initiator(_i4.InitiatorBuilder? initiator) =>
-      _$this._initiator = initiator;
+  InitiatorBuilder? _initiator;
+  InitiatorBuilder get initiator =>
+      _$this._initiator ??= new InitiatorBuilder();
+  set initiator(InitiatorBuilder? initiator) => _$this._initiator = initiator;
 
   bool? _isTruncated;
   bool? get isTruncated => _$this._isTruncated;
@@ -390,23 +388,23 @@ class ListPartsOutputPayloadBuilder
   set nextPartNumberMarker(String? nextPartNumberMarker) =>
       _$this._nextPartNumberMarker = nextPartNumberMarker;
 
-  _i5.OwnerBuilder? _owner;
-  _i5.OwnerBuilder get owner => _$this._owner ??= new _i5.OwnerBuilder();
-  set owner(_i5.OwnerBuilder? owner) => _$this._owner = owner;
+  OwnerBuilder? _owner;
+  OwnerBuilder get owner => _$this._owner ??= new OwnerBuilder();
+  set owner(OwnerBuilder? owner) => _$this._owner = owner;
 
   String? _partNumberMarker;
   String? get partNumberMarker => _$this._partNumberMarker;
   set partNumberMarker(String? partNumberMarker) =>
       _$this._partNumberMarker = partNumberMarker;
 
-  _i9.ListBuilder<_i3.Part>? _parts;
-  _i9.ListBuilder<_i3.Part> get parts =>
-      _$this._parts ??= new _i9.ListBuilder<_i3.Part>();
-  set parts(_i9.ListBuilder<_i3.Part>? parts) => _$this._parts = parts;
+  _i3.ListBuilder<Part>? _parts;
+  _i3.ListBuilder<Part> get parts =>
+      _$this._parts ??= new _i3.ListBuilder<Part>();
+  set parts(_i3.ListBuilder<Part>? parts) => _$this._parts = parts;
 
-  _i6.StorageClass? _storageClass;
-  _i6.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i6.StorageClass? storageClass) =>
+  StorageClass? _storageClass;
+  StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(StorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
   String? _uploadId;

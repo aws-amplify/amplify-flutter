@@ -4,14 +4,12 @@
 library smoke_test.cloud_formation.model.import_stacks_to_stack_set_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_preferences.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_preferences.dart';
 
 part 'import_stacks_to_stack_set_input.g.dart';
 
@@ -26,17 +24,17 @@ abstract class ImportStacksToStackSetInput
     List<String>? stackIds,
     String? stackIdsUrl,
     List<String>? organizationalUnitIds,
-    _i3.StackSetOperationPreferences? operationPreferences,
+    StackSetOperationPreferences? operationPreferences,
     String? operationId,
-    _i4.CallAs? callAs,
+    CallAs? callAs,
   }) {
     return _$ImportStacksToStackSetInput._(
       stackSetName: stackSetName,
-      stackIds: stackIds == null ? null : _i5.BuiltList(stackIds),
+      stackIds: stackIds == null ? null : _i3.BuiltList(stackIds),
       stackIdsUrl: stackIdsUrl,
       organizationalUnitIds: organizationalUnitIds == null
           ? null
-          : _i5.BuiltList(organizationalUnitIds),
+          : _i3.BuiltList(organizationalUnitIds),
       operationPreferences: operationPreferences,
       operationId: operationId,
       callAs: callAs,
@@ -72,7 +70,7 @@ abstract class ImportStacksToStackSetInput
   /// The IDs of the stacks you are importing into a stack set. You import up to 10 stacks per stack set at a time.
   ///
   /// Specify either `StackIds` or `StackIdsUrl`.
-  _i5.BuiltList<String>? get stackIds;
+  _i3.BuiltList<String>? get stackIds;
 
   /// The Amazon S3 URL which contains list of stack ids to be inputted.
   ///
@@ -80,12 +78,12 @@ abstract class ImportStacksToStackSetInput
   String? get stackIdsUrl;
 
   /// The list of OU ID's to which the stacks being imported has to be mapped as deployment target.
-  _i5.BuiltList<String>? get organizationalUnitIds;
+  _i3.BuiltList<String>? get organizationalUnitIds;
 
   /// The user-specified preferences for how CloudFormation performs a stack set operation.
   ///
   /// For more information about maximum concurrent accounts and failure tolerance, see [Stack set operation options](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-concepts.html#stackset-ops-options).
-  _i3.StackSetOperationPreferences? get operationPreferences;
+  StackSetOperationPreferences? get operationPreferences;
 
   /// A unique, user defined, identifier for the stack set operation.
   String? get operationId;
@@ -95,7 +93,7 @@ abstract class ImportStacksToStackSetInput
   /// *   If you are signed in to the management account, specify `SELF`.
   ///
   /// *   For service managed stack sets, specify `DELEGATED_ADMIN`.
-  _i4.CallAs? get callAs;
+  CallAs? get callAs;
   @override
   ImportStacksToStackSetInput getPayload() => this;
   @override
@@ -188,10 +186,10 @@ class ImportStacksToStackSetInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i5.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i5.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'StackIdsUrl':
           result.stackIdsUrl = (serializers.deserialize(
             value,
@@ -205,15 +203,15 @@ class ImportStacksToStackSetInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i5.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i5.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'OperationPreferences':
           result.operationPreferences.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.StackSetOperationPreferences),
-          ) as _i3.StackSetOperationPreferences));
+            specifiedType: const FullType(StackSetOperationPreferences),
+          ) as StackSetOperationPreferences));
         case 'OperationId':
           result.operationId = (serializers.deserialize(
             value,
@@ -222,8 +220,8 @@ class ImportStacksToStackSetInputAwsQuerySerializer
         case 'CallAs':
           result.callAs = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.CallAs),
-          ) as _i4.CallAs);
+            specifiedType: const FullType(CallAs),
+          ) as CallAs);
       }
     }
 
@@ -266,7 +264,7 @@ class ImportStacksToStackSetInputAwsQuerySerializer
           serializers,
           stackIds,
           specifiedType: const FullType.nullable(
-            _i5.BuiltList,
+            _i3.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -288,7 +286,7 @@ class ImportStacksToStackSetInputAwsQuerySerializer
           serializers,
           organizationalUnitIds,
           specifiedType: const FullType.nullable(
-            _i5.BuiltList,
+            _i3.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -298,7 +296,7 @@ class ImportStacksToStackSetInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('OperationPreferences'))
         ..add(serializers.serialize(
           operationPreferences,
-          specifiedType: const FullType(_i3.StackSetOperationPreferences),
+          specifiedType: const FullType(StackSetOperationPreferences),
         ));
     }
     if (operationId != null) {
@@ -314,7 +312,7 @@ class ImportStacksToStackSetInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
           callAs,
-          specifiedType: const FullType.nullable(_i4.CallAs),
+          specifiedType: const FullType.nullable(CallAs),
         ));
     }
     return result$;

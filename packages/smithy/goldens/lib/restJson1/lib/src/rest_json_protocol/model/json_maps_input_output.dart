@@ -4,11 +4,10 @@
 library rest_json1_v1.rest_json_protocol.model.json_maps_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1_v1/src/rest_json_protocol/model/greeting_struct.dart'
-    as _i3;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/greeting_struct.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'json_maps_input_output.g.dart';
@@ -19,8 +18,8 @@ abstract class JsonMapsInputOutput
         _i2.AWSEquatable<JsonMapsInputOutput>
     implements Built<JsonMapsInputOutput, JsonMapsInputOutputBuilder> {
   factory JsonMapsInputOutput({
-    Map<String, _i3.GreetingStruct>? denseStructMap,
-    Map<String, _i3.GreetingStruct?>? sparseStructMap,
+    Map<String, GreetingStruct>? denseStructMap,
+    Map<String, GreetingStruct?>? sparseStructMap,
     Map<String, int>? denseNumberMap,
     Map<String, bool>? denseBooleanMap,
     Map<String, String>? denseStringMap,
@@ -32,25 +31,25 @@ abstract class JsonMapsInputOutput
   }) {
     return _$JsonMapsInputOutput._(
       denseStructMap:
-          denseStructMap == null ? null : _i4.BuiltMap(denseStructMap),
+          denseStructMap == null ? null : _i3.BuiltMap(denseStructMap),
       sparseStructMap:
-          sparseStructMap == null ? null : _i4.BuiltMap(sparseStructMap),
+          sparseStructMap == null ? null : _i3.BuiltMap(sparseStructMap),
       denseNumberMap:
-          denseNumberMap == null ? null : _i4.BuiltMap(denseNumberMap),
+          denseNumberMap == null ? null : _i3.BuiltMap(denseNumberMap),
       denseBooleanMap:
-          denseBooleanMap == null ? null : _i4.BuiltMap(denseBooleanMap),
+          denseBooleanMap == null ? null : _i3.BuiltMap(denseBooleanMap),
       denseStringMap:
-          denseStringMap == null ? null : _i4.BuiltMap(denseStringMap),
+          denseStringMap == null ? null : _i3.BuiltMap(denseStringMap),
       sparseNumberMap:
-          sparseNumberMap == null ? null : _i4.BuiltMap(sparseNumberMap),
+          sparseNumberMap == null ? null : _i3.BuiltMap(sparseNumberMap),
       sparseBooleanMap:
-          sparseBooleanMap == null ? null : _i4.BuiltMap(sparseBooleanMap),
+          sparseBooleanMap == null ? null : _i3.BuiltMap(sparseBooleanMap),
       sparseStringMap:
-          sparseStringMap == null ? null : _i4.BuiltMap(sparseStringMap),
+          sparseStringMap == null ? null : _i3.BuiltMap(sparseStringMap),
       denseSetMap:
-          denseSetMap == null ? null : _i4.BuiltSetMultimap(denseSetMap),
+          denseSetMap == null ? null : _i3.BuiltSetMultimap(denseSetMap),
       sparseSetMap:
-          sparseSetMap == null ? null : _i4.BuiltSetMultimap(sparseSetMap),
+          sparseSetMap == null ? null : _i3.BuiltSetMultimap(sparseSetMap),
     );
   }
 
@@ -78,16 +77,16 @@ abstract class JsonMapsInputOutput
     JsonMapsInputOutputRestJson1Serializer()
   ];
 
-  _i4.BuiltMap<String, _i3.GreetingStruct>? get denseStructMap;
-  _i4.BuiltMap<String, _i3.GreetingStruct?>? get sparseStructMap;
-  _i4.BuiltMap<String, int>? get denseNumberMap;
-  _i4.BuiltMap<String, bool>? get denseBooleanMap;
-  _i4.BuiltMap<String, String>? get denseStringMap;
-  _i4.BuiltMap<String, int?>? get sparseNumberMap;
-  _i4.BuiltMap<String, bool?>? get sparseBooleanMap;
-  _i4.BuiltMap<String, String?>? get sparseStringMap;
-  _i4.BuiltSetMultimap<String, String>? get denseSetMap;
-  _i4.BuiltSetMultimap<String, String>? get sparseSetMap;
+  _i3.BuiltMap<String, GreetingStruct>? get denseStructMap;
+  _i3.BuiltMap<String, GreetingStruct?>? get sparseStructMap;
+  _i3.BuiltMap<String, int>? get denseNumberMap;
+  _i3.BuiltMap<String, bool>? get denseBooleanMap;
+  _i3.BuiltMap<String, String>? get denseStringMap;
+  _i3.BuiltMap<String, int?>? get sparseNumberMap;
+  _i3.BuiltMap<String, bool?>? get sparseBooleanMap;
+  _i3.BuiltMap<String, String?>? get sparseStringMap;
+  _i3.BuiltSetMultimap<String, String>? get denseSetMap;
+  _i3.BuiltSetMultimap<String, String>? get sparseSetMap;
   @override
   JsonMapsInputOutput getPayload() => this;
   @override
@@ -186,112 +185,112 @@ class JsonMapsInputOutputRestJson1Serializer
           result.denseBooleanMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType(bool),
               ],
             ),
-          ) as _i4.BuiltMap<String, bool>));
+          ) as _i3.BuiltMap<String, bool>));
         case 'denseNumberMap':
           result.denseNumberMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType(int),
               ],
             ),
-          ) as _i4.BuiltMap<String, int>));
+          ) as _i3.BuiltMap<String, int>));
         case 'denseSetMap':
           result.denseSetMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltSetMultimap,
+              _i3.BuiltSetMultimap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i4.BuiltSetMultimap<String, String>));
+          ) as _i3.BuiltSetMultimap<String, String>));
         case 'denseStringMap':
           result.denseStringMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i4.BuiltMap<String, String>));
+          ) as _i3.BuiltMap<String, String>));
         case 'denseStructMap':
           result.denseStructMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
-                FullType(_i3.GreetingStruct),
+                FullType(GreetingStruct),
               ],
             ),
-          ) as _i4.BuiltMap<String, _i3.GreetingStruct>));
+          ) as _i3.BuiltMap<String, GreetingStruct>));
         case 'sparseBooleanMap':
           result.sparseBooleanMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType.nullable(bool),
               ],
             ),
-          ) as _i4.BuiltMap<String, bool?>));
+          ) as _i3.BuiltMap<String, bool?>));
         case 'sparseNumberMap':
           result.sparseNumberMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType.nullable(int),
               ],
             ),
-          ) as _i4.BuiltMap<String, int?>));
+          ) as _i3.BuiltMap<String, int?>));
         case 'sparseSetMap':
           result.sparseSetMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltSetMultimap,
+              _i3.BuiltSetMultimap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i4.BuiltSetMultimap<String, String>));
+          ) as _i3.BuiltSetMultimap<String, String>));
         case 'sparseStringMap':
           result.sparseStringMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType.nullable(String),
               ],
             ),
-          ) as _i4.BuiltMap<String, String?>));
+          ) as _i3.BuiltMap<String, String?>));
         case 'sparseStructMap':
           result.sparseStructMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
-                FullType.nullable(_i3.GreetingStruct),
+                FullType.nullable(GreetingStruct),
               ],
             ),
-          ) as _i4.BuiltMap<String, _i3.GreetingStruct?>));
+          ) as _i3.BuiltMap<String, GreetingStruct?>));
       }
     }
 
@@ -323,7 +322,7 @@ class JsonMapsInputOutputRestJson1Serializer
         ..add(serializers.serialize(
           denseBooleanMap,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType(bool),
@@ -337,7 +336,7 @@ class JsonMapsInputOutputRestJson1Serializer
         ..add(serializers.serialize(
           denseNumberMap,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType(int),
@@ -351,7 +350,7 @@ class JsonMapsInputOutputRestJson1Serializer
         ..add(serializers.serialize(
           denseSetMap,
           specifiedType: const FullType(
-            _i4.BuiltSetMultimap,
+            _i3.BuiltSetMultimap,
             [
               FullType(String),
               FullType(String),
@@ -365,7 +364,7 @@ class JsonMapsInputOutputRestJson1Serializer
         ..add(serializers.serialize(
           denseStringMap,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -379,10 +378,10 @@ class JsonMapsInputOutputRestJson1Serializer
         ..add(serializers.serialize(
           denseStructMap,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
-              FullType(_i3.GreetingStruct),
+              FullType(GreetingStruct),
             ],
           ),
         ));
@@ -393,7 +392,7 @@ class JsonMapsInputOutputRestJson1Serializer
         ..add(serializers.serialize(
           sparseBooleanMap,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType.nullable(bool),
@@ -407,7 +406,7 @@ class JsonMapsInputOutputRestJson1Serializer
         ..add(serializers.serialize(
           sparseNumberMap,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType.nullable(int),
@@ -421,7 +420,7 @@ class JsonMapsInputOutputRestJson1Serializer
         ..add(serializers.serialize(
           sparseSetMap,
           specifiedType: const FullType(
-            _i4.BuiltSetMultimap,
+            _i3.BuiltSetMultimap,
             [
               FullType(String),
               FullType(String),
@@ -435,7 +434,7 @@ class JsonMapsInputOutputRestJson1Serializer
         ..add(serializers.serialize(
           sparseStringMap,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType.nullable(String),
@@ -449,10 +448,10 @@ class JsonMapsInputOutputRestJson1Serializer
         ..add(serializers.serialize(
           sparseStructMap,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
-              FullType.nullable(_i3.GreetingStruct),
+              FullType.nullable(GreetingStruct),
             ],
           ),
         ));

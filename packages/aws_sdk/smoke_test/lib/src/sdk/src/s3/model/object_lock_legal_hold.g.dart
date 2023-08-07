@@ -8,7 +8,7 @@ part of 'object_lock_legal_hold.dart';
 
 class _$ObjectLockLegalHold extends ObjectLockLegalHold {
   @override
-  final _i2.ObjectLockLegalHoldStatus? status;
+  final ObjectLockLegalHoldStatus? status;
 
   factory _$ObjectLockLegalHold(
           [void Function(ObjectLockLegalHoldBuilder)? updates]) =>
@@ -44,9 +44,9 @@ class ObjectLockLegalHoldBuilder
     implements Builder<ObjectLockLegalHold, ObjectLockLegalHoldBuilder> {
   _$ObjectLockLegalHold? _$v;
 
-  _i2.ObjectLockLegalHoldStatus? _status;
-  _i2.ObjectLockLegalHoldStatus? get status => _$this._status;
-  set status(_i2.ObjectLockLegalHoldStatus? status) => _$this._status = status;
+  ObjectLockLegalHoldStatus? _status;
+  ObjectLockLegalHoldStatus? get status => _$this._status;
+  set status(ObjectLockLegalHoldStatus? status) => _$this._status = status;
 
   ObjectLockLegalHoldBuilder();
 

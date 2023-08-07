@@ -8,9 +8,9 @@ part of 'replica_update.dart';
 
 class _$ReplicaUpdate extends ReplicaUpdate {
   @override
-  final _i2.CreateReplicaAction? create;
+  final CreateReplicaAction? create;
   @override
-  final _i3.DeleteReplicaAction? delete;
+  final DeleteReplicaAction? delete;
 
   factory _$ReplicaUpdate([void Function(ReplicaUpdateBuilder)? updates]) =>
       (new ReplicaUpdateBuilder()..update(updates))._build();
@@ -46,15 +46,15 @@ class ReplicaUpdateBuilder
     implements Builder<ReplicaUpdate, ReplicaUpdateBuilder> {
   _$ReplicaUpdate? _$v;
 
-  _i2.CreateReplicaActionBuilder? _create;
-  _i2.CreateReplicaActionBuilder get create =>
-      _$this._create ??= new _i2.CreateReplicaActionBuilder();
-  set create(_i2.CreateReplicaActionBuilder? create) => _$this._create = create;
+  CreateReplicaActionBuilder? _create;
+  CreateReplicaActionBuilder get create =>
+      _$this._create ??= new CreateReplicaActionBuilder();
+  set create(CreateReplicaActionBuilder? create) => _$this._create = create;
 
-  _i3.DeleteReplicaActionBuilder? _delete;
-  _i3.DeleteReplicaActionBuilder get delete =>
-      _$this._delete ??= new _i3.DeleteReplicaActionBuilder();
-  set delete(_i3.DeleteReplicaActionBuilder? delete) => _$this._delete = delete;
+  DeleteReplicaActionBuilder? _delete;
+  DeleteReplicaActionBuilder get delete =>
+      _$this._delete ??= new DeleteReplicaActionBuilder();
+  set delete(DeleteReplicaActionBuilder? delete) => _$this._delete = delete;
 
   ReplicaUpdateBuilder();
 

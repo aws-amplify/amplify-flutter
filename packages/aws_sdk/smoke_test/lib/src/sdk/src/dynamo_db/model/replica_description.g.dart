@@ -10,7 +10,7 @@ class _$ReplicaDescription extends ReplicaDescription {
   @override
   final String? regionName;
   @override
-  final _i2.ReplicaStatus? replicaStatus;
+  final ReplicaStatus? replicaStatus;
   @override
   final String? replicaStatusDescription;
   @override
@@ -18,14 +18,14 @@ class _$ReplicaDescription extends ReplicaDescription {
   @override
   final String? kmsMasterKeyId;
   @override
-  final _i3.ProvisionedThroughputOverride? provisionedThroughputOverride;
+  final ProvisionedThroughputOverride? provisionedThroughputOverride;
   @override
-  final _i6.BuiltList<_i4.ReplicaGlobalSecondaryIndexDescription>?
+  final _i2.BuiltList<ReplicaGlobalSecondaryIndexDescription>?
       globalSecondaryIndexes;
   @override
   final DateTime? replicaInaccessibleDateTime;
   @override
-  final _i5.TableClassSummary? replicaTableClassSummary;
+  final TableClassSummary? replicaTableClassSummary;
 
   factory _$ReplicaDescription(
           [void Function(ReplicaDescriptionBuilder)? updates]) =>
@@ -92,9 +92,9 @@ class ReplicaDescriptionBuilder
   String? get regionName => _$this._regionName;
   set regionName(String? regionName) => _$this._regionName = regionName;
 
-  _i2.ReplicaStatus? _replicaStatus;
-  _i2.ReplicaStatus? get replicaStatus => _$this._replicaStatus;
-  set replicaStatus(_i2.ReplicaStatus? replicaStatus) =>
+  ReplicaStatus? _replicaStatus;
+  ReplicaStatus? get replicaStatus => _$this._replicaStatus;
+  set replicaStatus(ReplicaStatus? replicaStatus) =>
       _$this._replicaStatus = replicaStatus;
 
   String? _replicaStatusDescription;
@@ -113,22 +113,22 @@ class ReplicaDescriptionBuilder
   set kmsMasterKeyId(String? kmsMasterKeyId) =>
       _$this._kmsMasterKeyId = kmsMasterKeyId;
 
-  _i3.ProvisionedThroughputOverrideBuilder? _provisionedThroughputOverride;
-  _i3.ProvisionedThroughputOverrideBuilder get provisionedThroughputOverride =>
+  ProvisionedThroughputOverrideBuilder? _provisionedThroughputOverride;
+  ProvisionedThroughputOverrideBuilder get provisionedThroughputOverride =>
       _$this._provisionedThroughputOverride ??=
-          new _i3.ProvisionedThroughputOverrideBuilder();
+          new ProvisionedThroughputOverrideBuilder();
   set provisionedThroughputOverride(
-          _i3.ProvisionedThroughputOverrideBuilder?
+          ProvisionedThroughputOverrideBuilder?
               provisionedThroughputOverride) =>
       _$this._provisionedThroughputOverride = provisionedThroughputOverride;
 
-  _i6.ListBuilder<_i4.ReplicaGlobalSecondaryIndexDescription>?
+  _i2.ListBuilder<ReplicaGlobalSecondaryIndexDescription>?
       _globalSecondaryIndexes;
-  _i6.ListBuilder<_i4.ReplicaGlobalSecondaryIndexDescription>
+  _i2.ListBuilder<ReplicaGlobalSecondaryIndexDescription>
       get globalSecondaryIndexes => _$this._globalSecondaryIndexes ??=
-          new _i6.ListBuilder<_i4.ReplicaGlobalSecondaryIndexDescription>();
+          new _i2.ListBuilder<ReplicaGlobalSecondaryIndexDescription>();
   set globalSecondaryIndexes(
-          _i6.ListBuilder<_i4.ReplicaGlobalSecondaryIndexDescription>?
+          _i2.ListBuilder<ReplicaGlobalSecondaryIndexDescription>?
               globalSecondaryIndexes) =>
       _$this._globalSecondaryIndexes = globalSecondaryIndexes;
 
@@ -138,11 +138,11 @@ class ReplicaDescriptionBuilder
   set replicaInaccessibleDateTime(DateTime? replicaInaccessibleDateTime) =>
       _$this._replicaInaccessibleDateTime = replicaInaccessibleDateTime;
 
-  _i5.TableClassSummaryBuilder? _replicaTableClassSummary;
-  _i5.TableClassSummaryBuilder get replicaTableClassSummary =>
-      _$this._replicaTableClassSummary ??= new _i5.TableClassSummaryBuilder();
+  TableClassSummaryBuilder? _replicaTableClassSummary;
+  TableClassSummaryBuilder get replicaTableClassSummary =>
+      _$this._replicaTableClassSummary ??= new TableClassSummaryBuilder();
   set replicaTableClassSummary(
-          _i5.TableClassSummaryBuilder? replicaTableClassSummary) =>
+          TableClassSummaryBuilder? replicaTableClassSummary) =>
       _$this._replicaTableClassSummary = replicaTableClassSummary;
 
   ReplicaDescriptionBuilder();

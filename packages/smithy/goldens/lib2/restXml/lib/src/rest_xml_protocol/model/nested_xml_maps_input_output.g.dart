@@ -8,9 +8,9 @@ part of 'nested_xml_maps_input_output.dart';
 
 class _$NestedXmlMapsInputOutput extends NestedXmlMapsInputOutput {
   @override
-  final _i4.BuiltMap<String, _i4.BuiltMap<String, _i3.FooEnum>>? nestedMap;
+  final _i3.BuiltMap<String, _i3.BuiltMap<String, FooEnum>>? nestedMap;
   @override
-  final _i4.BuiltMap<String, _i4.BuiltMap<String, _i3.FooEnum>>? flatNestedMap;
+  final _i3.BuiltMap<String, _i3.BuiltMap<String, FooEnum>>? flatNestedMap;
 
   factory _$NestedXmlMapsInputOutput(
           [void Function(NestedXmlMapsInputOutputBuilder)? updates]) =>
@@ -51,21 +51,20 @@ class NestedXmlMapsInputOutputBuilder
         Builder<NestedXmlMapsInputOutput, NestedXmlMapsInputOutputBuilder> {
   _$NestedXmlMapsInputOutput? _$v;
 
-  _i4.MapBuilder<String, _i4.BuiltMap<String, _i3.FooEnum>>? _nestedMap;
-  _i4.MapBuilder<String, _i4.BuiltMap<String, _i3.FooEnum>> get nestedMap =>
+  _i3.MapBuilder<String, _i3.BuiltMap<String, FooEnum>>? _nestedMap;
+  _i3.MapBuilder<String, _i3.BuiltMap<String, FooEnum>> get nestedMap =>
       _$this._nestedMap ??=
-          new _i4.MapBuilder<String, _i4.BuiltMap<String, _i3.FooEnum>>();
+          new _i3.MapBuilder<String, _i3.BuiltMap<String, FooEnum>>();
   set nestedMap(
-          _i4.MapBuilder<String, _i4.BuiltMap<String, _i3.FooEnum>>?
-              nestedMap) =>
+          _i3.MapBuilder<String, _i3.BuiltMap<String, FooEnum>>? nestedMap) =>
       _$this._nestedMap = nestedMap;
 
-  _i4.MapBuilder<String, _i4.BuiltMap<String, _i3.FooEnum>>? _flatNestedMap;
-  _i4.MapBuilder<String, _i4.BuiltMap<String, _i3.FooEnum>> get flatNestedMap =>
+  _i3.MapBuilder<String, _i3.BuiltMap<String, FooEnum>>? _flatNestedMap;
+  _i3.MapBuilder<String, _i3.BuiltMap<String, FooEnum>> get flatNestedMap =>
       _$this._flatNestedMap ??=
-          new _i4.MapBuilder<String, _i4.BuiltMap<String, _i3.FooEnum>>();
+          new _i3.MapBuilder<String, _i3.BuiltMap<String, FooEnum>>();
   set flatNestedMap(
-          _i4.MapBuilder<String, _i4.BuiltMap<String, _i3.FooEnum>>?
+          _i3.MapBuilder<String, _i3.BuiltMap<String, FooEnum>>?
               flatNestedMap) =>
       _$this._flatNestedMap = flatNestedMap;
 

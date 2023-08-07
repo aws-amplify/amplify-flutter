@@ -4,11 +4,11 @@
 library smoke_test.s3.model.tagging; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/tag.dart';
 
 part 'tagging.g.dart';
 
@@ -17,8 +17,8 @@ abstract class Tagging
     with _i1.AWSEquatable<Tagging>
     implements Built<Tagging, TaggingBuilder> {
   /// Container for `TagSet` elements.
-  factory Tagging({required List<_i2.Tag> tagSet}) {
-    return _$Tagging._(tagSet: _i3.BuiltList(tagSet));
+  factory Tagging({required List<Tag> tagSet}) {
+    return _$Tagging._(tagSet: _i2.BuiltList(tagSet));
   }
 
   /// Container for `TagSet` elements.
@@ -26,12 +26,12 @@ abstract class Tagging
 
   const Tagging._();
 
-  static const List<_i4.SmithySerializer<Tagging>> serializers = [
+  static const List<_i3.SmithySerializer<Tagging>> serializers = [
     TaggingRestXmlSerializer()
   ];
 
   /// A collection for a set of tags
-  _i3.BuiltList<_i2.Tag> get tagSet;
+  _i2.BuiltList<Tag> get tagSet;
   @override
   List<Object?> get props => [tagSet];
   @override
@@ -45,7 +45,7 @@ abstract class Tagging
   }
 }
 
-class TaggingRestXmlSerializer extends _i4.StructuredSmithySerializer<Tagging> {
+class TaggingRestXmlSerializer extends _i3.StructuredSmithySerializer<Tagging> {
   const TaggingRestXmlSerializer() : super('Tagging');
 
   @override
@@ -54,8 +54,8 @@ class TaggingRestXmlSerializer extends _i4.StructuredSmithySerializer<Tagging> {
         _$Tagging,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -78,14 +78,14 @@ class TaggingRestXmlSerializer extends _i4.StructuredSmithySerializer<Tagging> {
       switch (key) {
         case 'TagSet':
           result.tagSet.replace(
-              (const _i4.XmlBuiltListSerializer(memberName: 'Tag').deserialize(
+              (const _i3.XmlBuiltListSerializer(memberName: 'Tag').deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.Tag)],
+              _i2.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i3.BuiltList<_i2.Tag>));
+          ) as _i2.BuiltList<Tag>));
       }
     }
 
@@ -99,20 +99,20 @@ class TaggingRestXmlSerializer extends _i4.StructuredSmithySerializer<Tagging> {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'Tagging',
-        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final Tagging(:tagSet) = object;
     result$
-      ..add(const _i4.XmlElementName('TagSet'))
-      ..add(const _i4.XmlBuiltListSerializer(memberName: 'Tag').serialize(
+      ..add(const _i3.XmlElementName('TagSet'))
+      ..add(const _i3.XmlBuiltListSerializer(memberName: 'Tag').serialize(
         serializers,
         tagSet,
         specifiedType: const FullType.nullable(
-          _i3.BuiltList,
-          [FullType(_i2.Tag)],
+          _i2.BuiltList,
+          [FullType(Tag)],
         ),
       ));
     return result$;

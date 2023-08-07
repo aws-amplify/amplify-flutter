@@ -4,12 +4,11 @@
 library smoke_test.dynamo_db.model.transaction_canceled_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/cancellation_reason.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/cancellation_reason.dart';
 
 part 'transaction_canceled_exception.g.dart';
 
@@ -240,13 +239,13 @@ abstract class TransactionCanceledException
   ///         *   The provided expression refers to an attribute that does not exist in the item.
   factory TransactionCanceledException({
     String? message,
-    List<_i3.CancellationReason>? cancellationReasons,
+    List<CancellationReason>? cancellationReasons,
   }) {
     return _$TransactionCanceledException._(
       message: message,
       cancellationReasons: cancellationReasons == null
           ? null
-          : _i4.BuiltList(cancellationReasons),
+          : _i3.BuiltList(cancellationReasons),
     );
   }
 
@@ -382,7 +381,7 @@ abstract class TransactionCanceledException
   String? get message;
 
   /// A list of cancellation reasons.
-  _i4.BuiltList<_i3.CancellationReason>? get cancellationReasons;
+  _i3.BuiltList<CancellationReason>? get cancellationReasons;
   @override
   _i2.ShapeId get shapeId => const _i2.ShapeId(
         namespace: 'com.amazonaws.dynamodb',
@@ -460,10 +459,10 @@ class TransactionCanceledExceptionAwsJson10Serializer
           result.cancellationReasons.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.CancellationReason)],
+              _i3.BuiltList,
+              [FullType(CancellationReason)],
             ),
-          ) as _i4.BuiltList<_i3.CancellationReason>));
+          ) as _i3.BuiltList<CancellationReason>));
       }
     }
 
@@ -492,8 +491,8 @@ class TransactionCanceledExceptionAwsJson10Serializer
         ..add(serializers.serialize(
           cancellationReasons,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i3.CancellationReason)],
+            _i3.BuiltList,
+            [FullType(CancellationReason)],
           ),
         ));
     }

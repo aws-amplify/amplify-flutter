@@ -4,12 +4,11 @@
 library aws_json1_1_v1.machine_learning.model.prediction; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:aws_json1_1_v1/src/machine_learning/model/details_attributes.dart'
-    as _i2;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:aws_json1_1_v1/src/machine_learning/model/details_attributes.dart';
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i3;
 
 part 'prediction.g.dart';
 
@@ -20,14 +19,14 @@ abstract class Prediction
     String? predictedLabel,
     double? predictedValue,
     Map<String, double>? predictedScores,
-    Map<_i2.DetailsAttributes, String>? details,
+    Map<DetailsAttributes, String>? details,
   }) {
     return _$Prediction._(
       predictedLabel: predictedLabel,
       predictedValue: predictedValue,
       predictedScores:
-          predictedScores == null ? null : _i3.BuiltMap(predictedScores),
-      details: details == null ? null : _i3.BuiltMap(details),
+          predictedScores == null ? null : _i2.BuiltMap(predictedScores),
+      details: details == null ? null : _i2.BuiltMap(details),
     );
   }
 
@@ -36,14 +35,14 @@ abstract class Prediction
 
   const Prediction._();
 
-  static const List<_i4.SmithySerializer<Prediction>> serializers = [
+  static const List<_i3.SmithySerializer<Prediction>> serializers = [
     PredictionAwsJson11Serializer()
   ];
 
   String? get predictedLabel;
   double? get predictedValue;
-  _i3.BuiltMap<String, double>? get predictedScores;
-  _i3.BuiltMap<_i2.DetailsAttributes, String>? get details;
+  _i2.BuiltMap<String, double>? get predictedScores;
+  _i2.BuiltMap<DetailsAttributes, String>? get details;
   @override
   List<Object?> get props => [
         predictedLabel,
@@ -75,7 +74,7 @@ abstract class Prediction
 }
 
 class PredictionAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<Prediction> {
+    extends _i3.StructuredSmithySerializer<Prediction> {
   const PredictionAwsJson11Serializer() : super('Prediction');
 
   @override
@@ -84,8 +83,8 @@ class PredictionAwsJson11Serializer
         _$Prediction,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -120,24 +119,24 @@ class PredictionAwsJson11Serializer
           result.predictedScores.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
                 FullType(double),
               ],
             ),
-          ) as _i3.BuiltMap<String, double>));
+          ) as _i2.BuiltMap<String, double>));
         case 'details':
           result.details.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltMap,
+              _i2.BuiltMap,
               [
-                FullType(_i2.DetailsAttributes),
+                FullType(DetailsAttributes),
                 FullType(String),
               ],
             ),
-          ) as _i3.BuiltMap<_i2.DetailsAttributes, String>));
+          ) as _i2.BuiltMap<DetailsAttributes, String>));
       }
     }
 
@@ -179,7 +178,7 @@ class PredictionAwsJson11Serializer
         ..add(serializers.serialize(
           predictedScores,
           specifiedType: const FullType(
-            _i3.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
               FullType(double),
@@ -193,9 +192,9 @@ class PredictionAwsJson11Serializer
         ..add(serializers.serialize(
           details,
           specifiedType: const FullType(
-            _i3.BuiltMap,
+            _i2.BuiltMap,
             [
-              FullType(_i2.DetailsAttributes),
+              FullType(DetailsAttributes),
               FullType(String),
             ],
           ),

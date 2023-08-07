@@ -4,12 +4,11 @@
 library smoke_test.api_gateway.model.gateway_responses; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/gateway_response.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/gateway_response.dart';
 
 part 'gateway_responses.g.dart';
 
@@ -19,11 +18,11 @@ abstract class GatewayResponses
     implements Built<GatewayResponses, GatewayResponsesBuilder> {
   /// The collection of the GatewayResponse instances of a RestApi as a `responseType`-to-GatewayResponse object map of key-value pairs. As such, pagination is not supported for querying this collection.
   factory GatewayResponses({
-    List<_i2.GatewayResponse>? items,
+    List<GatewayResponse>? items,
     String? position,
   }) {
     return _$GatewayResponses._(
-      items: items == null ? null : _i3.BuiltList(items),
+      items: items == null ? null : _i2.BuiltList(items),
       position: position,
     );
   }
@@ -41,12 +40,12 @@ abstract class GatewayResponses
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<GatewayResponses>> serializers = [
+  static const List<_i3.SmithySerializer<GatewayResponses>> serializers = [
     GatewayResponsesRestJson1Serializer()
   ];
 
   /// Returns the entire collection, because of no pagination support.
-  _i3.BuiltList<_i2.GatewayResponse>? get items;
+  _i2.BuiltList<GatewayResponse>? get items;
 
   /// The current pagination position in the paged result set. The GatewayResponse collection does not support pagination and the position does not apply here.
   String? get position;
@@ -71,7 +70,7 @@ abstract class GatewayResponses
 }
 
 class GatewayResponsesRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<GatewayResponses> {
+    extends _i3.StructuredSmithySerializer<GatewayResponses> {
   const GatewayResponsesRestJson1Serializer() : super('GatewayResponses');
 
   @override
@@ -80,8 +79,8 @@ class GatewayResponsesRestJson1Serializer
         _$GatewayResponses,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -106,10 +105,10 @@ class GatewayResponsesRestJson1Serializer
           result.items.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.GatewayResponse)],
+              _i2.BuiltList,
+              [FullType(GatewayResponse)],
             ),
-          ) as _i3.BuiltList<_i2.GatewayResponse>));
+          ) as _i2.BuiltList<GatewayResponse>));
         case 'position':
           result.position = (serializers.deserialize(
             value,
@@ -135,8 +134,8 @@ class GatewayResponsesRestJson1Serializer
         ..add(serializers.serialize(
           items,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.GatewayResponse)],
+            _i2.BuiltList,
+            [FullType(GatewayResponse)],
           ),
         ));
     }

@@ -3,25 +3,24 @@
 
 library rest_xml_v2.rest_xml_protocol.model.http_payload_with_xml_namespace_and_prefix_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_common/aws_common.dart' as _i3;
+import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/payload_with_xml_namespace_and_prefix.dart'
-    as _i2;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/payload_with_xml_namespace_and_prefix.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'http_payload_with_xml_namespace_and_prefix_input_output.g.dart';
 
 abstract class HttpPayloadWithXmlNamespaceAndPrefixInputOutput
     with
-        _i1.HttpInput<_i2.PayloadWithXmlNamespaceAndPrefix>,
-        _i3.AWSEquatable<HttpPayloadWithXmlNamespaceAndPrefixInputOutput>
+        _i1.HttpInput<PayloadWithXmlNamespaceAndPrefix>,
+        _i2.AWSEquatable<HttpPayloadWithXmlNamespaceAndPrefixInputOutput>
     implements
         Built<HttpPayloadWithXmlNamespaceAndPrefixInputOutput,
             HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder>,
-        _i1.HasPayload<_i2.PayloadWithXmlNamespaceAndPrefix> {
+        _i1.HasPayload<PayloadWithXmlNamespaceAndPrefix> {
   factory HttpPayloadWithXmlNamespaceAndPrefixInputOutput(
-      {_i2.PayloadWithXmlNamespaceAndPrefix? nested}) {
+      {PayloadWithXmlNamespaceAndPrefix? nested}) {
     return _$HttpPayloadWithXmlNamespaceAndPrefixInputOutput._(nested: nested);
   }
 
@@ -32,8 +31,8 @@ abstract class HttpPayloadWithXmlNamespaceAndPrefixInputOutput
   const HttpPayloadWithXmlNamespaceAndPrefixInputOutput._();
 
   factory HttpPayloadWithXmlNamespaceAndPrefixInputOutput.fromRequest(
-    _i2.PayloadWithXmlNamespaceAndPrefix? payload,
-    _i3.AWSBaseHttpRequest request, {
+    PayloadWithXmlNamespaceAndPrefix? payload,
+    _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
       HttpPayloadWithXmlNamespaceAndPrefixInputOutput.build((b) {
@@ -44,8 +43,8 @@ abstract class HttpPayloadWithXmlNamespaceAndPrefixInputOutput
 
   /// Constructs a [HttpPayloadWithXmlNamespaceAndPrefixInputOutput] from a [payload] and [response].
   factory HttpPayloadWithXmlNamespaceAndPrefixInputOutput.fromResponse(
-    _i2.PayloadWithXmlNamespaceAndPrefix? payload,
-    _i3.AWSBaseHttpResponse response,
+    PayloadWithXmlNamespaceAndPrefix? payload,
+    _i2.AWSBaseHttpResponse response,
   ) =>
       HttpPayloadWithXmlNamespaceAndPrefixInputOutput.build((b) {
         if (payload != null) {
@@ -53,15 +52,15 @@ abstract class HttpPayloadWithXmlNamespaceAndPrefixInputOutput
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.PayloadWithXmlNamespaceAndPrefix?>>
+  static const List<_i1.SmithySerializer<PayloadWithXmlNamespaceAndPrefix?>>
       serializers = [
     HttpPayloadWithXmlNamespaceAndPrefixInputOutputRestXmlSerializer()
   ];
 
-  _i2.PayloadWithXmlNamespaceAndPrefix? get nested;
+  PayloadWithXmlNamespaceAndPrefix? get nested;
   @override
-  _i2.PayloadWithXmlNamespaceAndPrefix? getPayload() =>
-      nested ?? _i2.PayloadWithXmlNamespaceAndPrefix();
+  PayloadWithXmlNamespaceAndPrefix? getPayload() =>
+      nested ?? PayloadWithXmlNamespaceAndPrefix();
   @override
   List<Object?> get props => [nested];
   @override
@@ -77,8 +76,7 @@ abstract class HttpPayloadWithXmlNamespaceAndPrefixInputOutput
 }
 
 class HttpPayloadWithXmlNamespaceAndPrefixInputOutputRestXmlSerializer
-    extends _i1
-    .StructuredSmithySerializer<_i2.PayloadWithXmlNamespaceAndPrefix> {
+    extends _i1.StructuredSmithySerializer<PayloadWithXmlNamespaceAndPrefix> {
   const HttpPayloadWithXmlNamespaceAndPrefixInputOutputRestXmlSerializer()
       : super('HttpPayloadWithXmlNamespaceAndPrefixInputOutput');
 
@@ -95,12 +93,12 @@ class HttpPayloadWithXmlNamespaceAndPrefixInputOutputRestXmlSerializer
         )
       ];
   @override
-  _i2.PayloadWithXmlNamespaceAndPrefix deserialize(
+  PayloadWithXmlNamespaceAndPrefix deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i2.PayloadWithXmlNamespaceAndPrefixBuilder();
+    final result = PayloadWithXmlNamespaceAndPrefixBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -124,7 +122,7 @@ class HttpPayloadWithXmlNamespaceAndPrefixInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i2.PayloadWithXmlNamespaceAndPrefix object, {
+    PayloadWithXmlNamespaceAndPrefix object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -136,7 +134,7 @@ class HttpPayloadWithXmlNamespaceAndPrefixInputOutputRestXmlSerializer
         ),
       )
     ];
-    final _i2.PayloadWithXmlNamespaceAndPrefix(:name) = object;
+    final PayloadWithXmlNamespaceAndPrefix(:name) = object;
     if (name != null) {
       result$
         ..add(const _i1.XmlElementName('name'))

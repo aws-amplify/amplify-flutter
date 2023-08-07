@@ -8,7 +8,7 @@ part of 'cors_configuration.dart';
 
 class _$CorsConfiguration extends CorsConfiguration {
   @override
-  final _i3.BuiltList<_i2.CorsRule> corsRules;
+  final _i2.BuiltList<CorsRule> corsRules;
 
   factory _$CorsConfiguration(
           [void Function(CorsConfigurationBuilder)? updates]) =>
@@ -46,10 +46,10 @@ class CorsConfigurationBuilder
     implements Builder<CorsConfiguration, CorsConfigurationBuilder> {
   _$CorsConfiguration? _$v;
 
-  _i3.ListBuilder<_i2.CorsRule>? _corsRules;
-  _i3.ListBuilder<_i2.CorsRule> get corsRules =>
-      _$this._corsRules ??= new _i3.ListBuilder<_i2.CorsRule>();
-  set corsRules(_i3.ListBuilder<_i2.CorsRule>? corsRules) =>
+  _i2.ListBuilder<CorsRule>? _corsRules;
+  _i2.ListBuilder<CorsRule> get corsRules =>
+      _$this._corsRules ??= new _i2.ListBuilder<CorsRule>();
+  set corsRules(_i2.ListBuilder<CorsRule>? corsRules) =>
       _$this._corsRules = corsRules;
 
   CorsConfigurationBuilder();

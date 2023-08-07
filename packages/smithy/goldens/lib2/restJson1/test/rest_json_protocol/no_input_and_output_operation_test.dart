@@ -5,11 +5,9 @@
 library rest_json1_v2.rest_json_protocol.test.no_input_and_output_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1_v2/src/rest_json_protocol/model/no_input_and_output_output.dart'
-    as _i5;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/no_input_and_output_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/no_input_and_output_output.dart';
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/no_input_and_output_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -18,7 +16,7 @@ void main() {
     'RestJsonNoInputAndOutput (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.NoInputAndOutputOperation(
+        operation: NoInputAndOutputOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -26,7 +24,7 @@ void main() {
           id: 'RestJsonNoInputAndOutput',
           documentation:
               'No input serializes no payload. When clients do not need to\nserialize any data in the payload, they should omit a payload\naltogether.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -57,7 +55,7 @@ void main() {
     'RestJsonNoInputAndOutputWithJson (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.NoInputAndOutputOperation(
+        operation: NoInputAndOutputOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -65,7 +63,7 @@ void main() {
           id: 'RestJsonNoInputAndOutputWithJson',
           documentation:
               'Operations that define output and do not bind anything to\nthe payload return a JSON object in the response.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -90,7 +88,7 @@ void main() {
     'RestJsonNoInputAndOutputNoPayload (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.NoInputAndOutputOperation(
+        operation: NoInputAndOutputOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -98,7 +96,7 @@ void main() {
           id: 'RestJsonNoInputAndOutputNoPayload',
           documentation:
               'This test is similar to RestJsonNoInputAndOutputWithJson, but\nit ensures that clients can gracefully handle responses that\nomit a JSON payload.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -122,32 +120,32 @@ void main() {
 }
 
 class NoInputAndOutputOutputRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<_i5.NoInputAndOutputOutput> {
+    extends _i3.StructuredSmithySerializer<NoInputAndOutputOutput> {
   const NoInputAndOutputOutputRestJson1Serializer()
       : super('NoInputAndOutputOutput');
 
   @override
-  Iterable<Type> get types => const [_i5.NoInputAndOutputOutput];
+  Iterable<Type> get types => const [NoInputAndOutputOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
       ];
   @override
-  _i5.NoInputAndOutputOutput deserialize(
+  NoInputAndOutputOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _i5.NoInputAndOutputOutputBuilder().build();
+    return NoInputAndOutputOutputBuilder().build();
   }
 
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.NoInputAndOutputOutput object, {
+    NoInputAndOutputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

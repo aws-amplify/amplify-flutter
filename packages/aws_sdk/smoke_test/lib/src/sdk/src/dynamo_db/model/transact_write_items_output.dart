@@ -4,14 +4,12 @@
 library smoke_test.dynamo_db.model.transact_write_items_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/consumed_capacity.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/item_collection_metrics.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/consumed_capacity.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/item_collection_metrics.dart';
 
 part 'transact_write_items_output.g.dart';
 
@@ -20,15 +18,15 @@ abstract class TransactWriteItemsOutput
     implements
         Built<TransactWriteItemsOutput, TransactWriteItemsOutputBuilder> {
   factory TransactWriteItemsOutput({
-    List<_i2.ConsumedCapacity>? consumedCapacity,
-    Map<String, List<_i3.ItemCollectionMetrics>>? itemCollectionMetrics,
+    List<ConsumedCapacity>? consumedCapacity,
+    Map<String, List<ItemCollectionMetrics>>? itemCollectionMetrics,
   }) {
     return _$TransactWriteItemsOutput._(
       consumedCapacity:
-          consumedCapacity == null ? null : _i4.BuiltList(consumedCapacity),
+          consumedCapacity == null ? null : _i2.BuiltList(consumedCapacity),
       itemCollectionMetrics: itemCollectionMetrics == null
           ? null
-          : _i4.BuiltListMultimap(itemCollectionMetrics),
+          : _i2.BuiltListMultimap(itemCollectionMetrics),
     );
   }
 
@@ -45,14 +43,14 @@ abstract class TransactWriteItemsOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer<TransactWriteItemsOutput>>
+  static const List<_i3.SmithySerializer<TransactWriteItemsOutput>>
       serializers = [TransactWriteItemsOutputAwsJson10Serializer()];
 
   /// The capacity units consumed by the entire `TransactWriteItems` operation. The values of the list are ordered according to the ordering of the `TransactItems` request parameter.
-  _i4.BuiltList<_i2.ConsumedCapacity>? get consumedCapacity;
+  _i2.BuiltList<ConsumedCapacity>? get consumedCapacity;
 
   /// A list of tables that were processed by `TransactWriteItems` and, for each table, information about any item collections that were affected by individual `UpdateItem`, `PutItem`, or `DeleteItem` operations.
-  _i4.BuiltListMultimap<String, _i3.ItemCollectionMetrics>?
+  _i2.BuiltListMultimap<String, ItemCollectionMetrics>?
       get itemCollectionMetrics;
   @override
   List<Object?> get props => [
@@ -75,7 +73,7 @@ abstract class TransactWriteItemsOutput
 }
 
 class TransactWriteItemsOutputAwsJson10Serializer
-    extends _i5.StructuredSmithySerializer<TransactWriteItemsOutput> {
+    extends _i3.StructuredSmithySerializer<TransactWriteItemsOutput> {
   const TransactWriteItemsOutputAwsJson10Serializer()
       : super('TransactWriteItemsOutput');
 
@@ -85,8 +83,8 @@ class TransactWriteItemsOutputAwsJson10Serializer
         _$TransactWriteItemsOutput,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -111,21 +109,21 @@ class TransactWriteItemsOutputAwsJson10Serializer
           result.consumedCapacity.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i2.ConsumedCapacity)],
+              _i2.BuiltList,
+              [FullType(ConsumedCapacity)],
             ),
-          ) as _i4.BuiltList<_i2.ConsumedCapacity>));
+          ) as _i2.BuiltList<ConsumedCapacity>));
         case 'ItemCollectionMetrics':
           result.itemCollectionMetrics.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltListMultimap,
+              _i2.BuiltListMultimap,
               [
                 FullType(String),
-                FullType(_i3.ItemCollectionMetrics),
+                FullType(ItemCollectionMetrics),
               ],
             ),
-          ) as _i4.BuiltListMultimap<String, _i3.ItemCollectionMetrics>));
+          ) as _i2.BuiltListMultimap<String, ItemCollectionMetrics>));
       }
     }
 
@@ -147,8 +145,8 @@ class TransactWriteItemsOutputAwsJson10Serializer
         ..add(serializers.serialize(
           consumedCapacity,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i2.ConsumedCapacity)],
+            _i2.BuiltList,
+            [FullType(ConsumedCapacity)],
           ),
         ));
     }
@@ -158,10 +156,10 @@ class TransactWriteItemsOutputAwsJson10Serializer
         ..add(serializers.serialize(
           itemCollectionMetrics,
           specifiedType: const FullType(
-            _i4.BuiltListMultimap,
+            _i2.BuiltListMultimap,
             [
               FullType(String),
-              FullType(_i3.ItemCollectionMetrics),
+              FullType(ItemCollectionMetrics),
             ],
           ),
         ));

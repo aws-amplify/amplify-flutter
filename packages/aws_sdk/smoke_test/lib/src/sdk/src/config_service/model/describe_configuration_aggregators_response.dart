@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.describe_configuration_aggregators_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/configuration_aggregator.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/configuration_aggregator.dart';
 
 part 'describe_configuration_aggregators_response.g.dart';
 
@@ -20,13 +19,13 @@ abstract class DescribeConfigurationAggregatorsResponse
         Built<DescribeConfigurationAggregatorsResponse,
             DescribeConfigurationAggregatorsResponseBuilder> {
   factory DescribeConfigurationAggregatorsResponse({
-    List<_i2.ConfigurationAggregator>? configurationAggregators,
+    List<ConfigurationAggregator>? configurationAggregators,
     String? nextToken,
   }) {
     return _$DescribeConfigurationAggregatorsResponse._(
       configurationAggregators: configurationAggregators == null
           ? null
-          : _i3.BuiltList(configurationAggregators),
+          : _i2.BuiltList(configurationAggregators),
       nextToken: nextToken,
     );
   }
@@ -45,13 +44,13 @@ abstract class DescribeConfigurationAggregatorsResponse
       payload;
 
   static const List<
-          _i4.SmithySerializer<DescribeConfigurationAggregatorsResponse>>
+          _i3.SmithySerializer<DescribeConfigurationAggregatorsResponse>>
       serializers = [
     DescribeConfigurationAggregatorsResponseAwsJson11Serializer()
   ];
 
   /// Returns a ConfigurationAggregators object.
-  _i3.BuiltList<_i2.ConfigurationAggregator>? get configurationAggregators;
+  _i2.BuiltList<ConfigurationAggregator>? get configurationAggregators;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -76,7 +75,7 @@ abstract class DescribeConfigurationAggregatorsResponse
   }
 }
 
-class DescribeConfigurationAggregatorsResponseAwsJson11Serializer extends _i4
+class DescribeConfigurationAggregatorsResponseAwsJson11Serializer extends _i3
     .StructuredSmithySerializer<DescribeConfigurationAggregatorsResponse> {
   const DescribeConfigurationAggregatorsResponseAwsJson11Serializer()
       : super('DescribeConfigurationAggregatorsResponse');
@@ -87,8 +86,8 @@ class DescribeConfigurationAggregatorsResponseAwsJson11Serializer extends _i4
         _$DescribeConfigurationAggregatorsResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -113,10 +112,10 @@ class DescribeConfigurationAggregatorsResponseAwsJson11Serializer extends _i4
           result.configurationAggregators.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.ConfigurationAggregator)],
+              _i2.BuiltList,
+              [FullType(ConfigurationAggregator)],
             ),
-          ) as _i3.BuiltList<_i2.ConfigurationAggregator>));
+          ) as _i2.BuiltList<ConfigurationAggregator>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -145,8 +144,8 @@ class DescribeConfigurationAggregatorsResponseAwsJson11Serializer extends _i4
         ..add(serializers.serialize(
           configurationAggregators,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.ConfigurationAggregator)],
+            _i2.BuiltList,
+            [FullType(ConfigurationAggregator)],
           ),
         ));
     }

@@ -9,9 +9,9 @@ part of 'get_bucket_accelerate_configuration_output.dart';
 class _$GetBucketAccelerateConfigurationOutput
     extends GetBucketAccelerateConfigurationOutput {
   @override
-  final _i3.BucketAccelerateStatus? status;
+  final BucketAccelerateStatus? status;
   @override
-  final _i4.RequestCharged? requestCharged;
+  final RequestCharged? requestCharged;
 
   factory _$GetBucketAccelerateConfigurationOutput(
           [void Function(GetBucketAccelerateConfigurationOutputBuilder)?
@@ -56,13 +56,13 @@ class GetBucketAccelerateConfigurationOutputBuilder
             GetBucketAccelerateConfigurationOutputBuilder> {
   _$GetBucketAccelerateConfigurationOutput? _$v;
 
-  _i3.BucketAccelerateStatus? _status;
-  _i3.BucketAccelerateStatus? get status => _$this._status;
-  set status(_i3.BucketAccelerateStatus? status) => _$this._status = status;
+  BucketAccelerateStatus? _status;
+  BucketAccelerateStatus? get status => _$this._status;
+  set status(BucketAccelerateStatus? status) => _$this._status = status;
 
-  _i4.RequestCharged? _requestCharged;
-  _i4.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i4.RequestCharged? requestCharged) =>
+  RequestCharged? _requestCharged;
+  RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
   GetBucketAccelerateConfigurationOutputBuilder();
@@ -104,7 +104,7 @@ class GetBucketAccelerateConfigurationOutputBuilder
 class _$GetBucketAccelerateConfigurationOutputPayload
     extends GetBucketAccelerateConfigurationOutputPayload {
   @override
-  final _i3.BucketAccelerateStatus? status;
+  final BucketAccelerateStatus? status;
 
   factory _$GetBucketAccelerateConfigurationOutputPayload(
           [void Function(GetBucketAccelerateConfigurationOutputPayloadBuilder)?
@@ -147,9 +147,9 @@ class GetBucketAccelerateConfigurationOutputPayloadBuilder
             GetBucketAccelerateConfigurationOutputPayloadBuilder> {
   _$GetBucketAccelerateConfigurationOutputPayload? _$v;
 
-  _i3.BucketAccelerateStatus? _status;
-  _i3.BucketAccelerateStatus? get status => _$this._status;
-  set status(_i3.BucketAccelerateStatus? status) => _$this._status = status;
+  BucketAccelerateStatus? _status;
+  BucketAccelerateStatus? get status => _$this._status;
+  set status(BucketAccelerateStatus? status) => _$this._status = status;
 
   GetBucketAccelerateConfigurationOutputPayloadBuilder();
 

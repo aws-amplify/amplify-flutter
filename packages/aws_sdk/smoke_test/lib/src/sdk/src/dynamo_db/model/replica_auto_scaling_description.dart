@@ -4,16 +4,13 @@
 library smoke_test.dynamo_db.model.replica_auto_scaling_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/auto_scaling_settings_description.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_global_secondary_index_auto_scaling_description.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_status.dart'
-    as _i4;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/auto_scaling_settings_description.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_global_secondary_index_auto_scaling_description.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_status.dart';
 
 part 'replica_auto_scaling_description.g.dart';
 
@@ -27,19 +24,19 @@ abstract class ReplicaAutoScalingDescription
   /// Represents the auto scaling settings of the replica.
   factory ReplicaAutoScalingDescription({
     String? regionName,
-    List<_i2.ReplicaGlobalSecondaryIndexAutoScalingDescription>?
+    List<ReplicaGlobalSecondaryIndexAutoScalingDescription>?
         globalSecondaryIndexes,
-    _i3.AutoScalingSettingsDescription?
+    AutoScalingSettingsDescription?
         replicaProvisionedReadCapacityAutoScalingSettings,
-    _i3.AutoScalingSettingsDescription?
+    AutoScalingSettingsDescription?
         replicaProvisionedWriteCapacityAutoScalingSettings,
-    _i4.ReplicaStatus? replicaStatus,
+    ReplicaStatus? replicaStatus,
   }) {
     return _$ReplicaAutoScalingDescription._(
       regionName: regionName,
       globalSecondaryIndexes: globalSecondaryIndexes == null
           ? null
-          : _i5.BuiltList(globalSecondaryIndexes),
+          : _i2.BuiltList(globalSecondaryIndexes),
       replicaProvisionedReadCapacityAutoScalingSettings:
           replicaProvisionedReadCapacityAutoScalingSettings,
       replicaProvisionedWriteCapacityAutoScalingSettings:
@@ -55,22 +52,22 @@ abstract class ReplicaAutoScalingDescription
 
   const ReplicaAutoScalingDescription._();
 
-  static const List<_i6.SmithySerializer<ReplicaAutoScalingDescription>>
+  static const List<_i3.SmithySerializer<ReplicaAutoScalingDescription>>
       serializers = [ReplicaAutoScalingDescriptionAwsJson10Serializer()];
 
   /// The Region where the replica exists.
   String? get regionName;
 
   /// Replica-specific global secondary index auto scaling settings.
-  _i5.BuiltList<_i2.ReplicaGlobalSecondaryIndexAutoScalingDescription>?
+  _i2.BuiltList<ReplicaGlobalSecondaryIndexAutoScalingDescription>?
       get globalSecondaryIndexes;
 
   /// Represents the auto scaling settings for a global table or global secondary index.
-  _i3.AutoScalingSettingsDescription?
+  AutoScalingSettingsDescription?
       get replicaProvisionedReadCapacityAutoScalingSettings;
 
   /// Represents the auto scaling settings for a global table or global secondary index.
-  _i3.AutoScalingSettingsDescription?
+  AutoScalingSettingsDescription?
       get replicaProvisionedWriteCapacityAutoScalingSettings;
 
   /// The current state of the replica:
@@ -82,7 +79,7 @@ abstract class ReplicaAutoScalingDescription
   /// *   `DELETING` \- The replica is being deleted.
   ///
   /// *   `ACTIVE` \- The replica is ready for use.
-  _i4.ReplicaStatus? get replicaStatus;
+  ReplicaStatus? get replicaStatus;
   @override
   List<Object?> get props => [
         regionName,
@@ -119,7 +116,7 @@ abstract class ReplicaAutoScalingDescription
 }
 
 class ReplicaAutoScalingDescriptionAwsJson10Serializer
-    extends _i6.StructuredSmithySerializer<ReplicaAutoScalingDescription> {
+    extends _i3.StructuredSmithySerializer<ReplicaAutoScalingDescription> {
   const ReplicaAutoScalingDescriptionAwsJson10Serializer()
       : super('ReplicaAutoScalingDescription');
 
@@ -129,8 +126,8 @@ class ReplicaAutoScalingDescriptionAwsJson10Serializer
         _$ReplicaAutoScalingDescription,
       ];
   @override
-  Iterable<_i6.ShapeId> get supportedProtocols => const [
-        _i6.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -160,28 +157,28 @@ class ReplicaAutoScalingDescriptionAwsJson10Serializer
           result.globalSecondaryIndexes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(_i2.ReplicaGlobalSecondaryIndexAutoScalingDescription)],
+              _i2.BuiltList,
+              [FullType(ReplicaGlobalSecondaryIndexAutoScalingDescription)],
             ),
-          ) as _i5.BuiltList<
-              _i2.ReplicaGlobalSecondaryIndexAutoScalingDescription>));
+          ) as _i2
+              .BuiltList<ReplicaGlobalSecondaryIndexAutoScalingDescription>));
         case 'ReplicaProvisionedReadCapacityAutoScalingSettings':
           result.replicaProvisionedReadCapacityAutoScalingSettings
               .replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.AutoScalingSettingsDescription),
-          ) as _i3.AutoScalingSettingsDescription));
+            specifiedType: const FullType(AutoScalingSettingsDescription),
+          ) as AutoScalingSettingsDescription));
         case 'ReplicaProvisionedWriteCapacityAutoScalingSettings':
           result.replicaProvisionedWriteCapacityAutoScalingSettings
               .replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.AutoScalingSettingsDescription),
-          ) as _i3.AutoScalingSettingsDescription));
+            specifiedType: const FullType(AutoScalingSettingsDescription),
+          ) as AutoScalingSettingsDescription));
         case 'ReplicaStatus':
           result.replicaStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ReplicaStatus),
-          ) as _i4.ReplicaStatus);
+            specifiedType: const FullType(ReplicaStatus),
+          ) as ReplicaStatus);
       }
     }
 
@@ -216,8 +213,8 @@ class ReplicaAutoScalingDescriptionAwsJson10Serializer
         ..add(serializers.serialize(
           globalSecondaryIndexes,
           specifiedType: const FullType(
-            _i5.BuiltList,
-            [FullType(_i2.ReplicaGlobalSecondaryIndexAutoScalingDescription)],
+            _i2.BuiltList,
+            [FullType(ReplicaGlobalSecondaryIndexAutoScalingDescription)],
           ),
         ));
     }
@@ -226,7 +223,7 @@ class ReplicaAutoScalingDescriptionAwsJson10Serializer
         ..add('ReplicaProvisionedReadCapacityAutoScalingSettings')
         ..add(serializers.serialize(
           replicaProvisionedReadCapacityAutoScalingSettings,
-          specifiedType: const FullType(_i3.AutoScalingSettingsDescription),
+          specifiedType: const FullType(AutoScalingSettingsDescription),
         ));
     }
     if (replicaProvisionedWriteCapacityAutoScalingSettings != null) {
@@ -234,7 +231,7 @@ class ReplicaAutoScalingDescriptionAwsJson10Serializer
         ..add('ReplicaProvisionedWriteCapacityAutoScalingSettings')
         ..add(serializers.serialize(
           replicaProvisionedWriteCapacityAutoScalingSettings,
-          specifiedType: const FullType(_i3.AutoScalingSettingsDescription),
+          specifiedType: const FullType(AutoScalingSettingsDescription),
         ));
     }
     if (replicaStatus != null) {
@@ -242,7 +239,7 @@ class ReplicaAutoScalingDescriptionAwsJson10Serializer
         ..add('ReplicaStatus')
         ..add(serializers.serialize(
           replicaStatus,
-          specifiedType: const FullType(_i4.ReplicaStatus),
+          specifiedType: const FullType(ReplicaStatus),
         ));
     }
     return result$;

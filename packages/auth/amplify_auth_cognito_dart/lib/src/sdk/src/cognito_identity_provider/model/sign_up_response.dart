@@ -3,12 +3,11 @@
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.sign_up_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/code_delivery_details_type.dart'
-    as _i2;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/code_delivery_details_type.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'sign_up_response.g.dart';
 
@@ -19,7 +18,7 @@ abstract class SignUpResponse
   /// The response from the server for a registration request.
   factory SignUpResponse({
     bool? userConfirmed,
-    _i2.CodeDeliveryDetailsType? codeDeliveryDetails,
+    CodeDeliveryDetailsType? codeDeliveryDetails,
     required String userSub,
   }) {
     userConfirmed ??= false;
@@ -43,7 +42,7 @@ abstract class SignUpResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<SignUpResponse>> serializers = [
+  static const List<_i2.SmithySerializer<SignUpResponse>> serializers = [
     SignUpResponseAwsJson11Serializer()
   ];
 
@@ -56,7 +55,7 @@ abstract class SignUpResponse
   bool get userConfirmed;
 
   /// The code delivery details returned by the server response to the user registration request.
-  _i2.CodeDeliveryDetailsType? get codeDeliveryDetails;
+  CodeDeliveryDetailsType? get codeDeliveryDetails;
 
   /// The UUID of the authenticated user. This isn't the same as `username`.
   String get userSub;
@@ -86,7 +85,7 @@ abstract class SignUpResponse
 }
 
 class SignUpResponseAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<SignUpResponse> {
+    extends _i2.StructuredSmithySerializer<SignUpResponse> {
   const SignUpResponseAwsJson11Serializer() : super('SignUpResponse');
 
   @override
@@ -95,8 +94,8 @@ class SignUpResponseAwsJson11Serializer
         _$SignUpResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -125,8 +124,8 @@ class SignUpResponseAwsJson11Serializer
         case 'CodeDeliveryDetails':
           result.codeDeliveryDetails.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.CodeDeliveryDetailsType),
-          ) as _i2.CodeDeliveryDetailsType));
+            specifiedType: const FullType(CodeDeliveryDetailsType),
+          ) as CodeDeliveryDetailsType));
         case 'UserSub':
           result.userSub = (serializers.deserialize(
             value,
@@ -164,7 +163,7 @@ class SignUpResponseAwsJson11Serializer
         ..add('CodeDeliveryDetails')
         ..add(serializers.serialize(
           codeDeliveryDetails,
-          specifiedType: const FullType(_i2.CodeDeliveryDetailsType),
+          specifiedType: const FullType(CodeDeliveryDetailsType),
         ));
     }
     return result$;

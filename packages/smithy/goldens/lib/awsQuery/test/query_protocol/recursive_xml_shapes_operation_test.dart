@@ -4,16 +4,12 @@
 // ignore_for_file: unused_element
 library aws_query_v1.query_protocol.test.recursive_xml_shapes_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_query_v1/src/query_protocol/model/recursive_xml_shapes_output.dart'
-    as _i5;
-import 'package:aws_query_v1/src/query_protocol/model/recursive_xml_shapes_output_nested1.dart'
-    as _i6;
-import 'package:aws_query_v1/src/query_protocol/model/recursive_xml_shapes_output_nested2.dart'
-    as _i7;
-import 'package:aws_query_v1/src/query_protocol/operation/recursive_xml_shapes_operation.dart'
-    as _i3;
+import 'package:aws_query_v1/src/query_protocol/model/recursive_xml_shapes_output.dart';
+import 'package:aws_query_v1/src/query_protocol/model/recursive_xml_shapes_output_nested1.dart';
+import 'package:aws_query_v1/src/query_protocol/model/recursive_xml_shapes_output_nested2.dart';
+import 'package:aws_query_v1/src/query_protocol/operation/recursive_xml_shapes_operation.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -22,14 +18,14 @@ void main() {
     'QueryRecursiveShapes (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.RecursiveXmlShapesOperation(
+        operation: RecursiveXmlShapesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'QueryRecursiveShapes',
           documentation: 'Serializes recursive structures',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -69,26 +65,26 @@ void main() {
 }
 
 class RecursiveXmlShapesOutputAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<_i5.RecursiveXmlShapesOutput> {
+    extends _i3.StructuredSmithySerializer<RecursiveXmlShapesOutput> {
   const RecursiveXmlShapesOutputAwsQuerySerializer()
       : super('RecursiveXmlShapesOutput');
 
   @override
-  Iterable<Type> get types => const [_i5.RecursiveXmlShapesOutput];
+  Iterable<Type> get types => const [RecursiveXmlShapesOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
       ];
   @override
-  _i5.RecursiveXmlShapesOutput deserialize(
+  RecursiveXmlShapesOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.RecursiveXmlShapesOutputBuilder();
+    final result = RecursiveXmlShapesOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -101,8 +97,8 @@ class RecursiveXmlShapesOutputAwsQuerySerializer
         case 'nested':
           result.nested.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.RecursiveXmlShapesOutputNested1),
-          ) as _i6.RecursiveXmlShapesOutputNested1));
+            specifiedType: const FullType(RecursiveXmlShapesOutputNested1),
+          ) as RecursiveXmlShapesOutputNested1));
       }
     }
 
@@ -112,34 +108,34 @@ class RecursiveXmlShapesOutputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.RecursiveXmlShapesOutput object, {
+    RecursiveXmlShapesOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
   }
 }
 
-class RecursiveXmlShapesOutputNested1AwsQuerySerializer extends _i4
-    .StructuredSmithySerializer<_i6.RecursiveXmlShapesOutputNested1> {
+class RecursiveXmlShapesOutputNested1AwsQuerySerializer
+    extends _i3.StructuredSmithySerializer<RecursiveXmlShapesOutputNested1> {
   const RecursiveXmlShapesOutputNested1AwsQuerySerializer()
       : super('RecursiveXmlShapesOutputNested1');
 
   @override
-  Iterable<Type> get types => const [_i6.RecursiveXmlShapesOutputNested1];
+  Iterable<Type> get types => const [RecursiveXmlShapesOutputNested1];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
       ];
   @override
-  _i6.RecursiveXmlShapesOutputNested1 deserialize(
+  RecursiveXmlShapesOutputNested1 deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i6.RecursiveXmlShapesOutputNested1Builder();
+    final result = RecursiveXmlShapesOutputNested1Builder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -157,8 +153,8 @@ class RecursiveXmlShapesOutputNested1AwsQuerySerializer extends _i4
         case 'nested':
           result.nested.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i7.RecursiveXmlShapesOutputNested2),
-          ) as _i7.RecursiveXmlShapesOutputNested2));
+            specifiedType: const FullType(RecursiveXmlShapesOutputNested2),
+          ) as RecursiveXmlShapesOutputNested2));
       }
     }
 
@@ -168,34 +164,34 @@ class RecursiveXmlShapesOutputNested1AwsQuerySerializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i6.RecursiveXmlShapesOutputNested1 object, {
+    RecursiveXmlShapesOutputNested1 object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
   }
 }
 
-class RecursiveXmlShapesOutputNested2AwsQuerySerializer extends _i4
-    .StructuredSmithySerializer<_i7.RecursiveXmlShapesOutputNested2> {
+class RecursiveXmlShapesOutputNested2AwsQuerySerializer
+    extends _i3.StructuredSmithySerializer<RecursiveXmlShapesOutputNested2> {
   const RecursiveXmlShapesOutputNested2AwsQuerySerializer()
       : super('RecursiveXmlShapesOutputNested2');
 
   @override
-  Iterable<Type> get types => const [_i7.RecursiveXmlShapesOutputNested2];
+  Iterable<Type> get types => const [RecursiveXmlShapesOutputNested2];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
       ];
   @override
-  _i7.RecursiveXmlShapesOutputNested2 deserialize(
+  RecursiveXmlShapesOutputNested2 deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i7.RecursiveXmlShapesOutputNested2Builder();
+    final result = RecursiveXmlShapesOutputNested2Builder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -213,8 +209,8 @@ class RecursiveXmlShapesOutputNested2AwsQuerySerializer extends _i4
         case 'recursiveMember':
           result.recursiveMember.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.RecursiveXmlShapesOutputNested1),
-          ) as _i6.RecursiveXmlShapesOutputNested1));
+            specifiedType: const FullType(RecursiveXmlShapesOutputNested1),
+          ) as RecursiveXmlShapesOutputNested1));
       }
     }
 
@@ -224,7 +220,7 @@ class RecursiveXmlShapesOutputNested2AwsQuerySerializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i7.RecursiveXmlShapesOutputNested2 object, {
+    RecursiveXmlShapesOutputNested2 object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

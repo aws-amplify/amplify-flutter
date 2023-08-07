@@ -3,32 +3,22 @@
 
 library smoke_test.dynamo_db.operation.transact_get_items_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i15;
+import 'dart:async' as _i5;
 
-import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/common/endpoint_resolver.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/dynamo_db/common/serializers.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/internal_server_error.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/invalid_endpoint_exception.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput_exceeded_exception.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/request_limit_exceeded.dart'
-    as _i12;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/resource_not_found_exception.dart'
-    as _i13;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/transact_get_items_input.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/transact_get_items_output.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/transaction_canceled_exception.dart'
-    as _i14;
+import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/internal_server_error.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/invalid_endpoint_exception.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput_exceeded_exception.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/request_limit_exceeded.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/resource_not_found_exception.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/transact_get_items_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/transact_get_items_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/transaction_canceled_exception.dart';
 
 /// `TransactGetItems` is a synchronous operation that atomically retrieves multiple items from one or more tables (but not from indexes) in a single account and Region. A `TransactGetItems` call can contain up to 100 `TransactGetItem` objects, each of which contains a `Get` structure that specifies an item to retrieve from a table in the account and Region. A call to `TransactGetItems` cannot retrieve items from tables in more than one Amazon Web Services account or Region. The aggregate size of the items in the transaction cannot exceed 4 MB.
 ///
@@ -41,11 +31,8 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/transaction_canceled_exce
 /// *   There is a user error, such as an invalid data format.
 ///
 /// *   The aggregate size of the items in the transaction exceeded 4 MB.
-class TransactGetItemsOperation extends _i1.HttpOperation<
-    _i2.TransactGetItemsInput,
-    _i2.TransactGetItemsInput,
-    _i3.TransactGetItemsOutput,
-    _i3.TransactGetItemsOutput> {
+class TransactGetItemsOperation extends _i1.HttpOperation<TransactGetItemsInput,
+    TransactGetItemsInput, TransactGetItemsOutput, TransactGetItemsOutput> {
   /// `TransactGetItems` is a synchronous operation that atomically retrieves multiple items from one or more tables (but not from indexes) in a single account and Region. A `TransactGetItems` call can contain up to 100 `TransactGetItem` objects, each of which contains a `Get` structure that specifies an item to retrieve from a table in the account and Region. A call to `TransactGetItems` cannot retrieve items from tables in more than one Amazon Web Services account or Region. The aggregate size of the items in the transaction cannot exceed 4 MB.
   ///
   /// DynamoDB rejects the entire `TransactGetItems` request if any of the following is true:
@@ -60,8 +47,8 @@ class TransactGetItemsOperation extends _i1.HttpOperation<
   TransactGetItemsOperation({
     required String region,
     Uri? baseUri,
-    _i4.AWSCredentialsProvider credentialsProvider =
-        const _i4.AWSCredentialsProvider.environment(),
+    _i2.AWSCredentialsProvider credentialsProvider =
+        const _i2.AWSCredentialsProvider.environment(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -72,11 +59,11 @@ class TransactGetItemsOperation extends _i1.HttpOperation<
 
   @override
   late final List<
-      _i1.HttpProtocol<_i2.TransactGetItemsInput, _i2.TransactGetItemsInput,
-          _i3.TransactGetItemsOutput, _i3.TransactGetItemsOutput>> protocols = [
-    _i5.AwsJson1_0Protocol(
-      serializers: _i6.serializers,
-      builderFactories: _i6.builderFactories,
+      _i1.HttpProtocol<TransactGetItemsInput, TransactGetItemsInput,
+          TransactGetItemsOutput, TransactGetItemsOutput>> protocols = [
+    _i3.AwsJson1_0Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
@@ -84,14 +71,14 @@ class TransactGetItemsOperation extends _i1.HttpOperation<
               'X-Amz-Target',
               'DynamoDB_20120810.TransactGetItems',
             ),
-            _i5.WithSigV4(
+            _i3.WithSigV4(
               region: _region,
-              service: _i7.AWSService.dynamoDb,
+              service: _i4.AWSService.dynamoDb,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i5.WithSdkInvocationId(),
-            const _i5.WithSdkRequest(),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -99,8 +86,8 @@ class TransactGetItemsOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i5.AWSEndpoint _awsEndpoint = _i8.endpointResolver.resolve(
-    _i8.sdkId,
+  late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -108,106 +95,104 @@ class TransactGetItemsOperation extends _i1.HttpOperation<
 
   final Uri? _baseUri;
 
-  final _i4.AWSCredentialsProvider _credentialsProvider;
+  final _i2.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.TransactGetItemsInput input) =>
+  _i1.HttpRequest buildRequest(TransactGetItemsInput input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
       });
   @override
-  int successCode([_i3.TransactGetItemsOutput? output]) => 200;
+  int successCode([TransactGetItemsOutput? output]) => 200;
   @override
-  _i3.TransactGetItemsOutput buildOutput(
-    _i3.TransactGetItemsOutput payload,
-    _i7.AWSBaseHttpResponse response,
+  TransactGetItemsOutput buildOutput(
+    TransactGetItemsOutput payload,
+    _i4.AWSBaseHttpResponse response,
   ) =>
-      _i3.TransactGetItemsOutput.fromResponse(
+      TransactGetItemsOutput.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i9.InternalServerError, _i9.InternalServerError>(
+        _i1.SmithyError<InternalServerError, InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
           ),
           _i1.ErrorKind.server,
-          _i9.InternalServerError,
-          builder: _i9.InternalServerError.fromResponse,
+          InternalServerError,
+          builder: InternalServerError.fromResponse,
         ),
-        _i1.SmithyError<_i10.InvalidEndpointException,
-            _i10.InvalidEndpointException>(
+        _i1.SmithyError<InvalidEndpointException, InvalidEndpointException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InvalidEndpointException',
           ),
           _i1.ErrorKind.client,
-          _i10.InvalidEndpointException,
+          InvalidEndpointException,
           statusCode: 421,
-          builder: _i10.InvalidEndpointException.fromResponse,
+          builder: InvalidEndpointException.fromResponse,
         ),
-        _i1.SmithyError<_i11.ProvisionedThroughputExceededException,
-            _i11.ProvisionedThroughputExceededException>(
+        _i1.SmithyError<ProvisionedThroughputExceededException,
+            ProvisionedThroughputExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ProvisionedThroughputExceededException',
           ),
           _i1.ErrorKind.client,
-          _i11.ProvisionedThroughputExceededException,
-          builder: _i11.ProvisionedThroughputExceededException.fromResponse,
+          ProvisionedThroughputExceededException,
+          builder: ProvisionedThroughputExceededException.fromResponse,
         ),
-        _i1.SmithyError<_i12.RequestLimitExceeded, _i12.RequestLimitExceeded>(
+        _i1.SmithyError<RequestLimitExceeded, RequestLimitExceeded>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'RequestLimitExceeded',
           ),
           _i1.ErrorKind.client,
-          _i12.RequestLimitExceeded,
-          builder: _i12.RequestLimitExceeded.fromResponse,
+          RequestLimitExceeded,
+          builder: RequestLimitExceeded.fromResponse,
         ),
-        _i1.SmithyError<_i13.ResourceNotFoundException,
-            _i13.ResourceNotFoundException>(
+        _i1.SmithyError<ResourceNotFoundException, ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ResourceNotFoundException',
           ),
           _i1.ErrorKind.client,
-          _i13.ResourceNotFoundException,
-          builder: _i13.ResourceNotFoundException.fromResponse,
+          ResourceNotFoundException,
+          builder: ResourceNotFoundException.fromResponse,
         ),
-        _i1.SmithyError<_i14.TransactionCanceledException,
-            _i14.TransactionCanceledException>(
+        _i1.SmithyError<TransactionCanceledException,
+            TransactionCanceledException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'TransactionCanceledException',
           ),
           _i1.ErrorKind.client,
-          _i14.TransactionCanceledException,
-          builder: _i14.TransactionCanceledException.fromResponse,
+          TransactionCanceledException,
+          builder: TransactionCanceledException.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'TransactGetItems';
   @override
-  _i5.AWSRetryer get retryer => _i5.AWSRetryer();
+  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.TransactGetItemsOutput> run(
-    _i2.TransactGetItemsInput input, {
-    _i7.AWSHttpClient? client,
+  _i1.SmithyOperation<TransactGetItemsOutput> run(
+    TransactGetItemsInput input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i15.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -215,7 +200,7 @@ class TransactGetItemsOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

@@ -3,30 +3,29 @@
 
 library smoke_test.s3.model.put_bucket_replication_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_common/aws_common.dart' as _i3;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:aws_common/aws_common.dart' as _i2;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/replication_configuration.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/replication_rule.dart' as _i5;
+import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/replication_configuration.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/replication_rule.dart';
 
 part 'put_bucket_replication_request.g.dart';
 
 abstract class PutBucketReplicationRequest
     with
-        _i1.HttpInput<_i2.ReplicationConfiguration>,
-        _i3.AWSEquatable<PutBucketReplicationRequest>
+        _i1.HttpInput<ReplicationConfiguration>,
+        _i2.AWSEquatable<PutBucketReplicationRequest>
     implements
         Built<PutBucketReplicationRequest, PutBucketReplicationRequestBuilder>,
-        _i1.HasPayload<_i2.ReplicationConfiguration> {
+        _i1.HasPayload<ReplicationConfiguration> {
   factory PutBucketReplicationRequest({
     required String bucket,
     String? contentMd5,
-    _i4.ChecksumAlgorithm? checksumAlgorithm,
-    required _i2.ReplicationConfiguration replicationConfiguration,
+    ChecksumAlgorithm? checksumAlgorithm,
+    required ReplicationConfiguration replicationConfiguration,
     String? token,
     String? expectedBucketOwner,
   }) {
@@ -47,8 +46,8 @@ abstract class PutBucketReplicationRequest
   const PutBucketReplicationRequest._();
 
   factory PutBucketReplicationRequest.fromRequest(
-    _i2.ReplicationConfiguration payload,
-    _i3.AWSBaseHttpRequest request, {
+    ReplicationConfiguration payload,
+    _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
       PutBucketReplicationRequest.build((b) {
@@ -57,7 +56,7 @@ abstract class PutBucketReplicationRequest
           b.contentMd5 = request.headers['Content-MD5']!;
         }
         if (request.headers['x-amz-sdk-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = _i4.ChecksumAlgorithm.values
+          b.checksumAlgorithm = ChecksumAlgorithm.values
               .byValue(request.headers['x-amz-sdk-checksum-algorithm']!);
         }
         if (request.headers['x-amz-bucket-object-lock-token'] != null) {
@@ -72,7 +71,7 @@ abstract class PutBucketReplicationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.ReplicationConfiguration>>
+  static const List<_i1.SmithySerializer<ReplicationConfiguration>>
       serializers = [PutBucketReplicationRequestRestXmlSerializer()];
 
   /// The name of the bucket
@@ -86,10 +85,10 @@ abstract class PutBucketReplicationRequest
   /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
   ///
   /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
-  _i4.ChecksumAlgorithm? get checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm;
 
   /// A container for replication rules. You can add up to 1,000 rules. The maximum size of a replication configuration is 2 MB.
-  _i2.ReplicationConfiguration get replicationConfiguration;
+  ReplicationConfiguration get replicationConfiguration;
 
   /// A token to allow Object Lock to be enabled for an existing bucket.
   String? get token;
@@ -109,7 +108,7 @@ abstract class PutBucketReplicationRequest
   }
 
   @override
-  _i2.ReplicationConfiguration getPayload() => replicationConfiguration;
+  ReplicationConfiguration getPayload() => replicationConfiguration;
   @override
   List<Object?> get props => [
         bucket,
@@ -151,7 +150,7 @@ abstract class PutBucketReplicationRequest
 }
 
 class PutBucketReplicationRequestRestXmlSerializer
-    extends _i1.StructuredSmithySerializer<_i2.ReplicationConfiguration> {
+    extends _i1.StructuredSmithySerializer<ReplicationConfiguration> {
   const PutBucketReplicationRequestRestXmlSerializer()
       : super('PutBucketReplicationRequest');
 
@@ -168,12 +167,12 @@ class PutBucketReplicationRequestRestXmlSerializer
         )
       ];
   @override
-  _i2.ReplicationConfiguration deserialize(
+  ReplicationConfiguration deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i2.ReplicationConfigurationBuilder();
+    final result = ReplicationConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -191,8 +190,8 @@ class PutBucketReplicationRequestRestXmlSerializer
         case 'Rule':
           result.rules.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.ReplicationRule),
-          ) as _i5.ReplicationRule));
+            specifiedType: const FullType(ReplicationRule),
+          ) as ReplicationRule));
       }
     }
 
@@ -202,7 +201,7 @@ class PutBucketReplicationRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i2.ReplicationConfiguration object, {
+    ReplicationConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -211,7 +210,7 @@ class PutBucketReplicationRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i2.ReplicationConfiguration(:role, :rules) = object;
+    final ReplicationConfiguration(:role, :rules) = object;
     result$
       ..add(const _i1.XmlElementName('Role'))
       ..add(serializers.serialize(
@@ -223,8 +222,8 @@ class PutBucketReplicationRequestRestXmlSerializer
       serializers,
       rules,
       specifiedType: const FullType.nullable(
-        _i6.BuiltList,
-        [FullType(_i5.ReplicationRule)],
+        _i3.BuiltList,
+        [FullType(ReplicationRule)],
       ),
     ));
     return result$;

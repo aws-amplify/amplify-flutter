@@ -6,9 +6,9 @@ library smoke_test.s3.model.grantee; // ignore_for_file: no_leading_underscores_
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/type.dart' as _i2;
-import 'package:xml/xml.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/type.dart';
+import 'package:xml/xml.dart' as _i3;
 
 part 'grantee.g.dart';
 
@@ -22,7 +22,7 @@ abstract class Grantee
     String? emailAddress,
     String? id,
     String? uri,
-    required _i2.S3Type type,
+    required S3Type type,
   }) {
     return _$Grantee._(
       displayName: displayName,
@@ -38,7 +38,7 @@ abstract class Grantee
 
   const Grantee._();
 
-  static const List<_i3.SmithySerializer<Grantee>> serializers = [
+  static const List<_i2.SmithySerializer<Grantee>> serializers = [
     GranteeRestXmlSerializer()
   ];
 
@@ -76,7 +76,7 @@ abstract class Grantee
   String? get uri;
 
   /// Type of grantee
-  _i2.S3Type get type;
+  S3Type get type;
   @override
   List<Object?> get props => [
         displayName,
@@ -112,7 +112,7 @@ abstract class Grantee
   }
 }
 
-class GranteeRestXmlSerializer extends _i3.StructuredSmithySerializer<Grantee> {
+class GranteeRestXmlSerializer extends _i2.StructuredSmithySerializer<Grantee> {
   const GranteeRestXmlSerializer() : super('Grantee');
 
   @override
@@ -121,8 +121,8 @@ class GranteeRestXmlSerializer extends _i3.StructuredSmithySerializer<Grantee> {
         _$Grantee,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -161,8 +161,8 @@ class GranteeRestXmlSerializer extends _i3.StructuredSmithySerializer<Grantee> {
         case 'xsi:type':
           result.type = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.S3Type),
-          ) as _i2.S3Type);
+            specifiedType: const FullType(S3Type),
+          ) as S3Type);
         case 'URI':
           result.uri = (serializers.deserialize(
             value,
@@ -181,22 +181,22 @@ class GranteeRestXmlSerializer extends _i3.StructuredSmithySerializer<Grantee> {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'Grantee',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final Grantee(:displayName, :emailAddress, :id, :type, :uri) = object;
-    result$.add(_i4.XmlAttribute(
-      _i4.XmlName('xsi:type'),
+    result$.add(_i3.XmlAttribute(
+      _i3.XmlName('xsi:type'),
       (serializers.serialize(
         type,
-        specifiedType: const FullType.nullable(_i2.S3Type),
+        specifiedType: const FullType.nullable(S3Type),
       ) as String),
     ));
     if (displayName != null) {
       result$
-        ..add(const _i3.XmlElementName('DisplayName'))
+        ..add(const _i2.XmlElementName('DisplayName'))
         ..add(serializers.serialize(
           displayName,
           specifiedType: const FullType(String),
@@ -204,7 +204,7 @@ class GranteeRestXmlSerializer extends _i3.StructuredSmithySerializer<Grantee> {
     }
     if (emailAddress != null) {
       result$
-        ..add(const _i3.XmlElementName('EmailAddress'))
+        ..add(const _i2.XmlElementName('EmailAddress'))
         ..add(serializers.serialize(
           emailAddress,
           specifiedType: const FullType(String),
@@ -212,7 +212,7 @@ class GranteeRestXmlSerializer extends _i3.StructuredSmithySerializer<Grantee> {
     }
     if (id != null) {
       result$
-        ..add(const _i3.XmlElementName('ID'))
+        ..add(const _i2.XmlElementName('ID'))
         ..add(serializers.serialize(
           id,
           specifiedType: const FullType(String),
@@ -220,7 +220,7 @@ class GranteeRestXmlSerializer extends _i3.StructuredSmithySerializer<Grantee> {
     }
     if (uri != null) {
       result$
-        ..add(const _i3.XmlElementName('URI'))
+        ..add(const _i2.XmlElementName('URI'))
         ..add(serializers.serialize(
           uri,
           specifiedType: const FullType(String),

@@ -3,23 +3,21 @@
 
 library aws_query_v2.query_protocol.operation.flattened_xml_map_with_xml_name_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i7;
+import 'dart:async' as _i4;
 
-import 'package:aws_common/aws_common.dart' as _i6;
-import 'package:aws_query_v2/src/query_protocol/common/endpoint_resolver.dart'
-    as _i5;
-import 'package:aws_query_v2/src/query_protocol/common/serializers.dart' as _i4;
-import 'package:aws_query_v2/src/query_protocol/model/flattened_xml_map_with_xml_name_output.dart'
-    as _i2;
+import 'package:aws_common/aws_common.dart' as _i3;
+import 'package:aws_query_v2/src/query_protocol/common/endpoint_resolver.dart';
+import 'package:aws_query_v2/src/query_protocol/common/serializers.dart';
+import 'package:aws_query_v2/src/query_protocol/model/flattened_xml_map_with_xml_name_output.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 /// Flattened maps with @xmlName
 class FlattenedXmlMapWithXmlNameOperation extends _i1.HttpOperation<
     _i1.Unit,
     _i1.Unit,
-    _i2.FlattenedXmlMapWithXmlNameOutput,
-    _i2.FlattenedXmlMapWithXmlNameOutput> {
+    FlattenedXmlMapWithXmlNameOutput,
+    FlattenedXmlMapWithXmlNameOutput> {
   /// Flattened maps with @xmlName
   FlattenedXmlMapWithXmlNameOperation({
     required String region,
@@ -33,16 +31,16 @@ class FlattenedXmlMapWithXmlNameOperation extends _i1.HttpOperation<
 
   @override
   late final List<
-      _i1.HttpProtocol<_i1.Unit, _i1.Unit, _i2.FlattenedXmlMapWithXmlNameOutput,
-          _i2.FlattenedXmlMapWithXmlNameOutput>> protocols = [
-    _i3.AwsQueryProtocol(
-      serializers: _i4.serializers,
-      builderFactories: _i4.builderFactories,
+      _i1.HttpProtocol<_i1.Unit, _i1.Unit, FlattenedXmlMapWithXmlNameOutput,
+          FlattenedXmlMapWithXmlNameOutput>> protocols = [
+    _i2.AwsQueryProtocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i3.WithSdkInvocationId(),
-            const _i3.WithSdkRequest(),
+            const _i2.WithSdkInvocationId(),
+            const _i2.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -52,8 +50,8 @@ class FlattenedXmlMapWithXmlNameOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i3.AWSEndpoint _awsEndpoint = _i5.endpointResolver.resolve(
-    _i5.sdkId,
+  late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -71,13 +69,13 @@ class FlattenedXmlMapWithXmlNameOperation extends _i1.HttpOperation<
         b.path = r'/';
       });
   @override
-  int successCode([_i2.FlattenedXmlMapWithXmlNameOutput? output]) => 200;
+  int successCode([FlattenedXmlMapWithXmlNameOutput? output]) => 200;
   @override
-  _i2.FlattenedXmlMapWithXmlNameOutput buildOutput(
-    _i2.FlattenedXmlMapWithXmlNameOutput payload,
-    _i6.AWSBaseHttpResponse response,
+  FlattenedXmlMapWithXmlNameOutput buildOutput(
+    FlattenedXmlMapWithXmlNameOutput payload,
+    _i3.AWSBaseHttpResponse response,
   ) =>
-      _i2.FlattenedXmlMapWithXmlNameOutput.fromResponse(
+      FlattenedXmlMapWithXmlNameOutput.fromResponse(
         payload,
         response,
       );
@@ -86,18 +84,18 @@ class FlattenedXmlMapWithXmlNameOperation extends _i1.HttpOperation<
   @override
   String get runtimeTypeName => 'FlattenedXmlMapWithXmlName';
   @override
-  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+  _i2.AWSRetryer get retryer => _i2.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i2.FlattenedXmlMapWithXmlNameOutput> run(
+  _i1.SmithyOperation<FlattenedXmlMapWithXmlNameOutput> run(
     _i1.Unit input, {
-    _i6.AWSHttpClient? client,
+    _i3.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i7.runZoned(
+    return _i4.runZoned(
       () => super.run(
         input,
         client: client,
@@ -105,7 +103,7 @@ class FlattenedXmlMapWithXmlNameOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
+        ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},
       },
     );
   }

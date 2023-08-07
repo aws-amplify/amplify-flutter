@@ -8,9 +8,9 @@ part of 'list_buckets_output.dart';
 
 class _$ListBucketsOutput extends ListBucketsOutput {
   @override
-  final _i4.BuiltList<_i2.Bucket>? buckets;
+  final _i2.BuiltList<Bucket>? buckets;
   @override
-  final _i3.Owner? owner;
+  final Owner? owner;
 
   factory _$ListBucketsOutput(
           [void Function(ListBucketsOutputBuilder)? updates]) =>
@@ -48,15 +48,14 @@ class ListBucketsOutputBuilder
     implements Builder<ListBucketsOutput, ListBucketsOutputBuilder> {
   _$ListBucketsOutput? _$v;
 
-  _i4.ListBuilder<_i2.Bucket>? _buckets;
-  _i4.ListBuilder<_i2.Bucket> get buckets =>
-      _$this._buckets ??= new _i4.ListBuilder<_i2.Bucket>();
-  set buckets(_i4.ListBuilder<_i2.Bucket>? buckets) =>
-      _$this._buckets = buckets;
+  _i2.ListBuilder<Bucket>? _buckets;
+  _i2.ListBuilder<Bucket> get buckets =>
+      _$this._buckets ??= new _i2.ListBuilder<Bucket>();
+  set buckets(_i2.ListBuilder<Bucket>? buckets) => _$this._buckets = buckets;
 
-  _i3.OwnerBuilder? _owner;
-  _i3.OwnerBuilder get owner => _$this._owner ??= new _i3.OwnerBuilder();
-  set owner(_i3.OwnerBuilder? owner) => _$this._owner = owner;
+  OwnerBuilder? _owner;
+  OwnerBuilder get owner => _$this._owner ??= new OwnerBuilder();
+  set owner(OwnerBuilder? owner) => _$this._owner = owner;
 
   ListBucketsOutputBuilder();
 

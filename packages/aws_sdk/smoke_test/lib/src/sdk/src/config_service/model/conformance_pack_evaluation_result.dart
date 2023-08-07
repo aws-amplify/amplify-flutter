@@ -6,11 +6,9 @@ library smoke_test.config_service.model.conformance_pack_evaluation_result; // i
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_compliance_type.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_result_identifier.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_compliance_type.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_result_identifier.dart';
 
 part 'conformance_pack_evaluation_result.g.dart';
 
@@ -23,8 +21,8 @@ abstract class ConformancePackEvaluationResult
             ConformancePackEvaluationResultBuilder> {
   /// The details of a conformance pack evaluation. Provides Config rule and Amazon Web Services resource type that was evaluated, the compliance of the conformance pack, related time stamps, and supplementary information.
   factory ConformancePackEvaluationResult({
-    required _i2.ConformancePackComplianceType complianceType,
-    required _i3.EvaluationResultIdentifier evaluationResultIdentifier,
+    required ConformancePackComplianceType complianceType,
+    required EvaluationResultIdentifier evaluationResultIdentifier,
     required DateTime configRuleInvokedTime,
     required DateTime resultRecordedTime,
     String? annotation,
@@ -45,14 +43,14 @@ abstract class ConformancePackEvaluationResult
 
   const ConformancePackEvaluationResult._();
 
-  static const List<_i4.SmithySerializer<ConformancePackEvaluationResult>>
+  static const List<_i2.SmithySerializer<ConformancePackEvaluationResult>>
       serializers = [ConformancePackEvaluationResultAwsJson11Serializer()];
 
   /// The compliance type. The allowed values are `COMPLIANT` and `NON_COMPLIANT`. `INSUFFICIENT_DATA` is not supported.
-  _i2.ConformancePackComplianceType get complianceType;
+  ConformancePackComplianceType get complianceType;
 
   /// Uniquely identifies an evaluation result.
-  _i3.EvaluationResultIdentifier get evaluationResultIdentifier;
+  EvaluationResultIdentifier get evaluationResultIdentifier;
 
   /// The time when Config rule evaluated Amazon Web Services resource.
   DateTime get configRuleInvokedTime;
@@ -99,7 +97,7 @@ abstract class ConformancePackEvaluationResult
 }
 
 class ConformancePackEvaluationResultAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<ConformancePackEvaluationResult> {
+    extends _i2.StructuredSmithySerializer<ConformancePackEvaluationResult> {
   const ConformancePackEvaluationResultAwsJson11Serializer()
       : super('ConformancePackEvaluationResult');
 
@@ -109,8 +107,8 @@ class ConformancePackEvaluationResultAwsJson11Serializer
         _$ConformancePackEvaluationResult,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -134,13 +132,13 @@ class ConformancePackEvaluationResultAwsJson11Serializer
         case 'ComplianceType':
           result.complianceType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ConformancePackComplianceType),
-          ) as _i2.ConformancePackComplianceType);
+            specifiedType: const FullType(ConformancePackComplianceType),
+          ) as ConformancePackComplianceType);
         case 'EvaluationResultIdentifier':
           result.evaluationResultIdentifier.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.EvaluationResultIdentifier),
-          ) as _i3.EvaluationResultIdentifier));
+            specifiedType: const FullType(EvaluationResultIdentifier),
+          ) as EvaluationResultIdentifier));
         case 'ConfigRuleInvokedTime':
           result.configRuleInvokedTime = (serializers.deserialize(
             value,
@@ -180,12 +178,12 @@ class ConformancePackEvaluationResultAwsJson11Serializer
       'ComplianceType',
       serializers.serialize(
         complianceType,
-        specifiedType: const FullType(_i2.ConformancePackComplianceType),
+        specifiedType: const FullType(ConformancePackComplianceType),
       ),
       'EvaluationResultIdentifier',
       serializers.serialize(
         evaluationResultIdentifier,
-        specifiedType: const FullType(_i3.EvaluationResultIdentifier),
+        specifiedType: const FullType(EvaluationResultIdentifier),
       ),
       'ConfigRuleInvokedTime',
       serializers.serialize(

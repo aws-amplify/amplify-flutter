@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/contributor_insights_action.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/contributor_insights_action.dart';
 
 part 'update_contributor_insights_input.g.dart';
 
@@ -22,7 +21,7 @@ abstract class UpdateContributorInsightsInput
   factory UpdateContributorInsightsInput({
     required String tableName,
     String? indexName,
-    required _i3.ContributorInsightsAction contributorInsightsAction,
+    required ContributorInsightsAction contributorInsightsAction,
   }) {
     return _$UpdateContributorInsightsInput._(
       tableName: tableName,
@@ -54,7 +53,7 @@ abstract class UpdateContributorInsightsInput
   String? get indexName;
 
   /// Represents the contributor insights action.
-  _i3.ContributorInsightsAction get contributorInsightsAction;
+  ContributorInsightsAction get contributorInsightsAction;
   @override
   UpdateContributorInsightsInput getPayload() => this;
   @override
@@ -128,8 +127,8 @@ class UpdateContributorInsightsInputAwsJson10Serializer
         case 'ContributorInsightsAction':
           result.contributorInsightsAction = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ContributorInsightsAction),
-          ) as _i3.ContributorInsightsAction);
+            specifiedType: const FullType(ContributorInsightsAction),
+          ) as ContributorInsightsAction);
       }
     }
 
@@ -157,7 +156,7 @@ class UpdateContributorInsightsInputAwsJson10Serializer
       'ContributorInsightsAction',
       serializers.serialize(
         contributorInsightsAction,
-        specifiedType: const FullType(_i3.ContributorInsightsAction),
+        specifiedType: const FullType(ContributorInsightsAction),
       ),
     ]);
     if (indexName != null) {

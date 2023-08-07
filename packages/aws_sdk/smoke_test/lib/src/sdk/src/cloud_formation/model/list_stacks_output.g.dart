@@ -8,7 +8,7 @@ part of 'list_stacks_output.dart';
 
 class _$ListStacksOutput extends ListStacksOutput {
   @override
-  final _i3.BuiltList<_i2.StackSummary>? stackSummaries;
+  final _i2.BuiltList<StackSummary>? stackSummaries;
   @override
   final String? nextToken;
 
@@ -48,10 +48,10 @@ class ListStacksOutputBuilder
     implements Builder<ListStacksOutput, ListStacksOutputBuilder> {
   _$ListStacksOutput? _$v;
 
-  _i3.ListBuilder<_i2.StackSummary>? _stackSummaries;
-  _i3.ListBuilder<_i2.StackSummary> get stackSummaries =>
-      _$this._stackSummaries ??= new _i3.ListBuilder<_i2.StackSummary>();
-  set stackSummaries(_i3.ListBuilder<_i2.StackSummary>? stackSummaries) =>
+  _i2.ListBuilder<StackSummary>? _stackSummaries;
+  _i2.ListBuilder<StackSummary> get stackSummaries =>
+      _$this._stackSummaries ??= new _i2.ListBuilder<StackSummary>();
+  set stackSummaries(_i2.ListBuilder<StackSummary>? stackSummaries) =>
       _$this._stackSummaries = stackSummaries;
 
   String? _nextToken;

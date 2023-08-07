@@ -26,7 +26,7 @@ class _$MethodSetting extends MethodSetting {
   @override
   final bool requireAuthorizationForCacheControl;
   @override
-  final _i2.UnauthorizedCacheControlHeaderStrategy?
+  final UnauthorizedCacheControlHeaderStrategy?
       unauthorizedCacheControlHeaderStrategy;
 
   factory _$MethodSetting([void Function(MethodSettingBuilder)? updates]) =>
@@ -156,13 +156,13 @@ class MethodSettingBuilder
       _$this._requireAuthorizationForCacheControl =
           requireAuthorizationForCacheControl;
 
-  _i2.UnauthorizedCacheControlHeaderStrategy?
+  UnauthorizedCacheControlHeaderStrategy?
       _unauthorizedCacheControlHeaderStrategy;
-  _i2.UnauthorizedCacheControlHeaderStrategy?
+  UnauthorizedCacheControlHeaderStrategy?
       get unauthorizedCacheControlHeaderStrategy =>
           _$this._unauthorizedCacheControlHeaderStrategy;
   set unauthorizedCacheControlHeaderStrategy(
-          _i2.UnauthorizedCacheControlHeaderStrategy?
+          UnauthorizedCacheControlHeaderStrategy?
               unauthorizedCacheControlHeaderStrategy) =>
       _$this._unauthorizedCacheControlHeaderStrategy =
           unauthorizedCacheControlHeaderStrategy;

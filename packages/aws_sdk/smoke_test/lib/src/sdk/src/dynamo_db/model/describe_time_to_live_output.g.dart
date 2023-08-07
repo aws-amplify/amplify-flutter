@@ -8,7 +8,7 @@ part of 'describe_time_to_live_output.dart';
 
 class _$DescribeTimeToLiveOutput extends DescribeTimeToLiveOutput {
   @override
-  final _i2.TimeToLiveDescription? timeToLiveDescription;
+  final TimeToLiveDescription? timeToLiveDescription;
 
   factory _$DescribeTimeToLiveOutput(
           [void Function(DescribeTimeToLiveOutputBuilder)? updates]) =>
@@ -46,11 +46,11 @@ class DescribeTimeToLiveOutputBuilder
         Builder<DescribeTimeToLiveOutput, DescribeTimeToLiveOutputBuilder> {
   _$DescribeTimeToLiveOutput? _$v;
 
-  _i2.TimeToLiveDescriptionBuilder? _timeToLiveDescription;
-  _i2.TimeToLiveDescriptionBuilder get timeToLiveDescription =>
-      _$this._timeToLiveDescription ??= new _i2.TimeToLiveDescriptionBuilder();
+  TimeToLiveDescriptionBuilder? _timeToLiveDescription;
+  TimeToLiveDescriptionBuilder get timeToLiveDescription =>
+      _$this._timeToLiveDescription ??= new TimeToLiveDescriptionBuilder();
   set timeToLiveDescription(
-          _i2.TimeToLiveDescriptionBuilder? timeToLiveDescription) =>
+          TimeToLiveDescriptionBuilder? timeToLiveDescription) =>
       _$this._timeToLiveDescription = timeToLiveDescription;
 
   DescribeTimeToLiveOutputBuilder();

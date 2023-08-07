@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.exclusion_by_resource_types; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart';
 
 part 'exclusion_by_resource_types.g.dart';
 
@@ -19,10 +18,10 @@ abstract class ExclusionByResourceTypes
     implements
         Built<ExclusionByResourceTypes, ExclusionByResourceTypesBuilder> {
   /// Specifies whether the configuration recorder excludes resource types from being recorded. Use the `resourceTypes` field to enter a comma-separated list of resource types to exclude as exemptions.
-  factory ExclusionByResourceTypes({List<_i2.ResourceType>? resourceTypes}) {
+  factory ExclusionByResourceTypes({List<ResourceType>? resourceTypes}) {
     return _$ExclusionByResourceTypes._(
         resourceTypes:
-            resourceTypes == null ? null : _i3.BuiltList(resourceTypes));
+            resourceTypes == null ? null : _i2.BuiltList(resourceTypes));
   }
 
   /// Specifies whether the configuration recorder excludes resource types from being recorded. Use the `resourceTypes` field to enter a comma-separated list of resource types to exclude as exemptions.
@@ -32,11 +31,11 @@ abstract class ExclusionByResourceTypes
 
   const ExclusionByResourceTypes._();
 
-  static const List<_i4.SmithySerializer<ExclusionByResourceTypes>>
+  static const List<_i3.SmithySerializer<ExclusionByResourceTypes>>
       serializers = [ExclusionByResourceTypesAwsJson11Serializer()];
 
   /// A comma-separated list of resource types to exclude from recording by the configuration recorder.
-  _i3.BuiltList<_i2.ResourceType>? get resourceTypes;
+  _i2.BuiltList<ResourceType>? get resourceTypes;
   @override
   List<Object?> get props => [resourceTypes];
   @override
@@ -51,7 +50,7 @@ abstract class ExclusionByResourceTypes
 }
 
 class ExclusionByResourceTypesAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<ExclusionByResourceTypes> {
+    extends _i3.StructuredSmithySerializer<ExclusionByResourceTypes> {
   const ExclusionByResourceTypesAwsJson11Serializer()
       : super('ExclusionByResourceTypes');
 
@@ -61,8 +60,8 @@ class ExclusionByResourceTypesAwsJson11Serializer
         _$ExclusionByResourceTypes,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -87,10 +86,10 @@ class ExclusionByResourceTypesAwsJson11Serializer
           result.resourceTypes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.ResourceType)],
+              _i2.BuiltList,
+              [FullType(ResourceType)],
             ),
-          ) as _i3.BuiltList<_i2.ResourceType>));
+          ) as _i2.BuiltList<ResourceType>));
       }
     }
 
@@ -111,8 +110,8 @@ class ExclusionByResourceTypesAwsJson11Serializer
         ..add(serializers.serialize(
           resourceTypes,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.ResourceType)],
+            _i2.BuiltList,
+            [FullType(ResourceType)],
           ),
         ));
     }

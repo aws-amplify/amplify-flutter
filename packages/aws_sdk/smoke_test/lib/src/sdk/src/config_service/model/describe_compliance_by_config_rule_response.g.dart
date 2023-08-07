@@ -9,7 +9,7 @@ part of 'describe_compliance_by_config_rule_response.dart';
 class _$DescribeComplianceByConfigRuleResponse
     extends DescribeComplianceByConfigRuleResponse {
   @override
-  final _i3.BuiltList<_i2.ComplianceByConfigRule>? complianceByConfigRules;
+  final _i2.BuiltList<ComplianceByConfigRule>? complianceByConfigRules;
   @override
   final String? nextToken;
 
@@ -57,13 +57,12 @@ class DescribeComplianceByConfigRuleResponseBuilder
             DescribeComplianceByConfigRuleResponseBuilder> {
   _$DescribeComplianceByConfigRuleResponse? _$v;
 
-  _i3.ListBuilder<_i2.ComplianceByConfigRule>? _complianceByConfigRules;
-  _i3.ListBuilder<_i2.ComplianceByConfigRule> get complianceByConfigRules =>
+  _i2.ListBuilder<ComplianceByConfigRule>? _complianceByConfigRules;
+  _i2.ListBuilder<ComplianceByConfigRule> get complianceByConfigRules =>
       _$this._complianceByConfigRules ??=
-          new _i3.ListBuilder<_i2.ComplianceByConfigRule>();
+          new _i2.ListBuilder<ComplianceByConfigRule>();
   set complianceByConfigRules(
-          _i3.ListBuilder<_i2.ComplianceByConfigRule>?
-              complianceByConfigRules) =>
+          _i2.ListBuilder<ComplianceByConfigRule>? complianceByConfigRules) =>
       _$this._complianceByConfigRules = complianceByConfigRules;
 
   String? _nextToken;

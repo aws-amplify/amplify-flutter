@@ -6,9 +6,8 @@ library rest_xml_with_namespace_v2.rest_xml_protocol_namespace.model.retry_confi
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_with_namespace_v2/src/rest_xml_protocol_namespace/model/retry_mode.dart'
-    as _i2;
-import 'package:smithy/smithy.dart' as _i3;
+import 'package:rest_xml_with_namespace_v2/src/rest_xml_protocol_namespace/model/retry_mode.dart';
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'retry_config.g.dart';
 
@@ -18,7 +17,7 @@ abstract class RetryConfig
     implements Built<RetryConfig, RetryConfigBuilder> {
   /// Configuration specific to retries.
   factory RetryConfig({
-    _i2.RetryMode? mode,
+    RetryMode? mode,
     int? maxAttempts,
   }) {
     return _$RetryConfig._(
@@ -33,12 +32,12 @@ abstract class RetryConfig
 
   const RetryConfig._();
 
-  static const List<_i3.SmithySerializer<RetryConfig>> serializers = [
+  static const List<_i2.SmithySerializer<RetryConfig>> serializers = [
     RetryConfigRestXmlSerializer()
   ];
 
   /// Controls the strategy used for retries.
-  _i2.RetryMode? get mode;
+  RetryMode? get mode;
   int? get maxAttempts;
   @override
   List<Object?> get props => [
@@ -61,7 +60,7 @@ abstract class RetryConfig
 }
 
 class RetryConfigRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<RetryConfig> {
+    extends _i2.StructuredSmithySerializer<RetryConfig> {
   const RetryConfigRestXmlSerializer() : super('RetryConfig');
 
   @override
@@ -70,8 +69,8 @@ class RetryConfigRestXmlSerializer
         _$RetryConfig,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -100,8 +99,8 @@ class RetryConfigRestXmlSerializer
         case 'mode':
           result.mode = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.RetryMode),
-          ) as _i2.RetryMode);
+            specifiedType: const FullType(RetryMode),
+          ) as RetryMode);
       }
     }
 
@@ -115,15 +114,15 @@ class RetryConfigRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'RetryConfig',
-        _i3.XmlNamespace('https://example.com'),
+        _i2.XmlNamespace('https://example.com'),
       )
     ];
     final RetryConfig(:maxAttempts, :mode) = object;
     if (maxAttempts != null) {
       result$
-        ..add(const _i3.XmlElementName('max_attempts'))
+        ..add(const _i2.XmlElementName('max_attempts'))
         ..add(serializers.serialize(
           maxAttempts,
           specifiedType: const FullType.nullable(int),
@@ -131,10 +130,10 @@ class RetryConfigRestXmlSerializer
     }
     if (mode != null) {
       result$
-        ..add(const _i3.XmlElementName('mode'))
+        ..add(const _i2.XmlElementName('mode'))
         ..add(serializers.serialize(
           mode,
-          specifiedType: const FullType.nullable(_i2.RetryMode),
+          specifiedType: const FullType.nullable(RetryMode),
         ));
     }
     return result$;

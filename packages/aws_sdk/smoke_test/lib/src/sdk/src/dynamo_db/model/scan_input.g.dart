@@ -12,19 +12,19 @@ class _$ScanInput extends ScanInput {
   @override
   final String? indexName;
   @override
-  final _i8.BuiltList<String>? attributesToGet;
+  final _i3.BuiltList<String>? attributesToGet;
   @override
   final int? limit;
   @override
-  final _i3.Select? select;
+  final Select? select;
   @override
-  final _i8.BuiltMap<String, _i4.Condition>? scanFilter;
+  final _i3.BuiltMap<String, Condition>? scanFilter;
   @override
-  final _i5.ConditionalOperator? conditionalOperator;
+  final ConditionalOperator? conditionalOperator;
   @override
-  final _i8.BuiltMap<String, _i6.AttributeValue>? exclusiveStartKey;
+  final _i3.BuiltMap<String, AttributeValue>? exclusiveStartKey;
   @override
-  final _i7.ReturnConsumedCapacity? returnConsumedCapacity;
+  final ReturnConsumedCapacity? returnConsumedCapacity;
   @override
   final int? totalSegments;
   @override
@@ -34,9 +34,9 @@ class _$ScanInput extends ScanInput {
   @override
   final String? filterExpression;
   @override
-  final _i8.BuiltMap<String, String>? expressionAttributeNames;
+  final _i3.BuiltMap<String, String>? expressionAttributeNames;
   @override
-  final _i8.BuiltMap<String, _i6.AttributeValue>? expressionAttributeValues;
+  final _i3.BuiltMap<String, AttributeValue>? expressionAttributeValues;
   @override
   final bool? consistentRead;
 
@@ -128,45 +128,43 @@ class ScanInputBuilder implements Builder<ScanInput, ScanInputBuilder> {
   String? get indexName => _$this._indexName;
   set indexName(String? indexName) => _$this._indexName = indexName;
 
-  _i8.ListBuilder<String>? _attributesToGet;
-  _i8.ListBuilder<String> get attributesToGet =>
-      _$this._attributesToGet ??= new _i8.ListBuilder<String>();
-  set attributesToGet(_i8.ListBuilder<String>? attributesToGet) =>
+  _i3.ListBuilder<String>? _attributesToGet;
+  _i3.ListBuilder<String> get attributesToGet =>
+      _$this._attributesToGet ??= new _i3.ListBuilder<String>();
+  set attributesToGet(_i3.ListBuilder<String>? attributesToGet) =>
       _$this._attributesToGet = attributesToGet;
 
   int? _limit;
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
 
-  _i3.Select? _select;
-  _i3.Select? get select => _$this._select;
-  set select(_i3.Select? select) => _$this._select = select;
+  Select? _select;
+  Select? get select => _$this._select;
+  set select(Select? select) => _$this._select = select;
 
-  _i8.MapBuilder<String, _i4.Condition>? _scanFilter;
-  _i8.MapBuilder<String, _i4.Condition> get scanFilter =>
-      _$this._scanFilter ??= new _i8.MapBuilder<String, _i4.Condition>();
-  set scanFilter(_i8.MapBuilder<String, _i4.Condition>? scanFilter) =>
+  _i3.MapBuilder<String, Condition>? _scanFilter;
+  _i3.MapBuilder<String, Condition> get scanFilter =>
+      _$this._scanFilter ??= new _i3.MapBuilder<String, Condition>();
+  set scanFilter(_i3.MapBuilder<String, Condition>? scanFilter) =>
       _$this._scanFilter = scanFilter;
 
-  _i5.ConditionalOperator? _conditionalOperator;
-  _i5.ConditionalOperator? get conditionalOperator =>
-      _$this._conditionalOperator;
-  set conditionalOperator(_i5.ConditionalOperator? conditionalOperator) =>
+  ConditionalOperator? _conditionalOperator;
+  ConditionalOperator? get conditionalOperator => _$this._conditionalOperator;
+  set conditionalOperator(ConditionalOperator? conditionalOperator) =>
       _$this._conditionalOperator = conditionalOperator;
 
-  _i8.MapBuilder<String, _i6.AttributeValue>? _exclusiveStartKey;
-  _i8.MapBuilder<String, _i6.AttributeValue> get exclusiveStartKey =>
+  _i3.MapBuilder<String, AttributeValue>? _exclusiveStartKey;
+  _i3.MapBuilder<String, AttributeValue> get exclusiveStartKey =>
       _$this._exclusiveStartKey ??=
-          new _i8.MapBuilder<String, _i6.AttributeValue>();
+          new _i3.MapBuilder<String, AttributeValue>();
   set exclusiveStartKey(
-          _i8.MapBuilder<String, _i6.AttributeValue>? exclusiveStartKey) =>
+          _i3.MapBuilder<String, AttributeValue>? exclusiveStartKey) =>
       _$this._exclusiveStartKey = exclusiveStartKey;
 
-  _i7.ReturnConsumedCapacity? _returnConsumedCapacity;
-  _i7.ReturnConsumedCapacity? get returnConsumedCapacity =>
+  ReturnConsumedCapacity? _returnConsumedCapacity;
+  ReturnConsumedCapacity? get returnConsumedCapacity =>
       _$this._returnConsumedCapacity;
-  set returnConsumedCapacity(
-          _i7.ReturnConsumedCapacity? returnConsumedCapacity) =>
+  set returnConsumedCapacity(ReturnConsumedCapacity? returnConsumedCapacity) =>
       _$this._returnConsumedCapacity = returnConsumedCapacity;
 
   int? _totalSegments;
@@ -188,20 +186,19 @@ class ScanInputBuilder implements Builder<ScanInput, ScanInputBuilder> {
   set filterExpression(String? filterExpression) =>
       _$this._filterExpression = filterExpression;
 
-  _i8.MapBuilder<String, String>? _expressionAttributeNames;
-  _i8.MapBuilder<String, String> get expressionAttributeNames =>
-      _$this._expressionAttributeNames ??= new _i8.MapBuilder<String, String>();
+  _i3.MapBuilder<String, String>? _expressionAttributeNames;
+  _i3.MapBuilder<String, String> get expressionAttributeNames =>
+      _$this._expressionAttributeNames ??= new _i3.MapBuilder<String, String>();
   set expressionAttributeNames(
-          _i8.MapBuilder<String, String>? expressionAttributeNames) =>
+          _i3.MapBuilder<String, String>? expressionAttributeNames) =>
       _$this._expressionAttributeNames = expressionAttributeNames;
 
-  _i8.MapBuilder<String, _i6.AttributeValue>? _expressionAttributeValues;
-  _i8.MapBuilder<String, _i6.AttributeValue> get expressionAttributeValues =>
+  _i3.MapBuilder<String, AttributeValue>? _expressionAttributeValues;
+  _i3.MapBuilder<String, AttributeValue> get expressionAttributeValues =>
       _$this._expressionAttributeValues ??=
-          new _i8.MapBuilder<String, _i6.AttributeValue>();
+          new _i3.MapBuilder<String, AttributeValue>();
   set expressionAttributeValues(
-          _i8.MapBuilder<String, _i6.AttributeValue>?
-              expressionAttributeValues) =>
+          _i3.MapBuilder<String, AttributeValue>? expressionAttributeValues) =>
       _$this._expressionAttributeValues = expressionAttributeValues;
 
   bool? _consistentRead;

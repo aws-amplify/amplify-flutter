@@ -3,19 +3,15 @@
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.endpoint_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/channel_type.dart'
-    as _i2;
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/endpoint_demographic.dart'
-    as _i3;
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/endpoint_location.dart'
-    as _i4;
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/endpoint_user.dart'
-    as _i5;
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/channel_type.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/endpoint_demographic.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/endpoint_location.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/endpoint_user.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i7;
+import 'package:smithy/smithy.dart' as _i3;
 
 part 'endpoint_request.g.dart';
 
@@ -27,25 +23,25 @@ abstract class EndpointRequest
   factory EndpointRequest({
     String? address,
     Map<String, List<String>>? attributes,
-    _i2.ChannelType? channelType,
-    _i3.EndpointDemographic? demographic,
+    ChannelType? channelType,
+    EndpointDemographic? demographic,
     String? effectiveDate,
     String? endpointStatus,
-    _i4.EndpointLocation? location,
+    EndpointLocation? location,
     Map<String, double>? metrics,
     String? optOut,
     String? requestId,
-    _i5.EndpointUser? user,
+    EndpointUser? user,
   }) {
     return _$EndpointRequest._(
       address: address,
-      attributes: attributes == null ? null : _i6.BuiltListMultimap(attributes),
+      attributes: attributes == null ? null : _i2.BuiltListMultimap(attributes),
       channelType: channelType,
       demographic: demographic,
       effectiveDate: effectiveDate,
       endpointStatus: endpointStatus,
       location: location,
-      metrics: metrics == null ? null : _i6.BuiltMap(metrics),
+      metrics: metrics == null ? null : _i2.BuiltMap(metrics),
       optOut: optOut,
       requestId: requestId,
       user: user,
@@ -58,7 +54,7 @@ abstract class EndpointRequest
 
   const EndpointRequest._();
 
-  static const List<_i7.SmithySerializer<EndpointRequest>> serializers = [
+  static const List<_i3.SmithySerializer<EndpointRequest>> serializers = [
     EndpointRequestRestJson1Serializer()
   ];
 
@@ -68,13 +64,13 @@ abstract class EndpointRequest
   /// One or more custom attributes that describe the endpoint by associating a name with an array of values. For example, the value of a custom attribute named Interests might be: \["Science", "Music", "Travel"\]. You can use these attributes as filter criteria when you create segments. Attribute names are case sensitive.
   ///
   /// An attribute name can contain up to 50 characters. An attribute value can contain up to 100 characters. When you define the name of a custom attribute, avoid using the following characters: number sign (#), colon (:), question mark (?), backslash (\\), and slash (/). The Amazon Pinpoint console can't display attribute names that contain these characters. This restriction doesn't apply to attribute values.
-  _i6.BuiltListMultimap<String, String>? get attributes;
+  _i2.BuiltListMultimap<String, String>? get attributes;
 
   /// The channel to use when sending messages or push notifications to the endpoint.
-  _i2.ChannelType? get channelType;
+  ChannelType? get channelType;
 
   /// The demographic information for the endpoint, such as the time zone and platform.
-  _i3.EndpointDemographic? get demographic;
+  EndpointDemographic? get demographic;
 
   /// The date and time, in ISO 8601 format, when the endpoint is updated.
   String? get effectiveDate;
@@ -85,10 +81,10 @@ abstract class EndpointRequest
   String? get endpointStatus;
 
   /// The geographic information for the endpoint.
-  _i4.EndpointLocation? get location;
+  EndpointLocation? get location;
 
   /// One or more custom metrics that your app reports to Amazon Pinpoint for the endpoint.
-  _i6.BuiltMap<String, double>? get metrics;
+  _i2.BuiltMap<String, double>? get metrics;
 
   /// Specifies whether the user who's associated with the endpoint has opted out of receiving messages and push notifications from you. Possible values are: ALL, the user has opted out and doesn't want to receive any messages or push notifications; and, NONE, the user hasn't opted out and wants to receive all messages and push notifications.
   String? get optOut;
@@ -97,7 +93,7 @@ abstract class EndpointRequest
   String? get requestId;
 
   /// One or more custom attributes that describe the user who's associated with the endpoint.
-  _i5.EndpointUser? get user;
+  EndpointUser? get user;
   @override
   List<Object?> get props => [
         address,
@@ -164,7 +160,7 @@ abstract class EndpointRequest
 }
 
 class EndpointRequestRestJson1Serializer
-    extends _i7.StructuredSmithySerializer<EndpointRequest> {
+    extends _i3.StructuredSmithySerializer<EndpointRequest> {
   const EndpointRequestRestJson1Serializer() : super('EndpointRequest');
 
   @override
@@ -173,8 +169,8 @@ class EndpointRequestRestJson1Serializer
         _$EndpointRequest,
       ];
   @override
-  Iterable<_i7.ShapeId> get supportedProtocols => const [
-        _i7.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -204,23 +200,23 @@ class EndpointRequestRestJson1Serializer
           result.attributes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltListMultimap,
+              _i2.BuiltListMultimap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i6.BuiltListMultimap<String, String>));
+          ) as _i2.BuiltListMultimap<String, String>));
         case 'ChannelType':
           result.channelType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ChannelType),
-          ) as _i2.ChannelType);
+            specifiedType: const FullType(ChannelType),
+          ) as ChannelType);
         case 'Demographic':
           result.demographic.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.EndpointDemographic),
-          ) as _i3.EndpointDemographic));
+            specifiedType: const FullType(EndpointDemographic),
+          ) as EndpointDemographic));
         case 'EffectiveDate':
           result.effectiveDate = (serializers.deserialize(
             value,
@@ -234,19 +230,19 @@ class EndpointRequestRestJson1Serializer
         case 'Location':
           result.location.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.EndpointLocation),
-          ) as _i4.EndpointLocation));
+            specifiedType: const FullType(EndpointLocation),
+          ) as EndpointLocation));
         case 'Metrics':
           result.metrics.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
                 FullType(double),
               ],
             ),
-          ) as _i6.BuiltMap<String, double>));
+          ) as _i2.BuiltMap<String, double>));
         case 'OptOut':
           result.optOut = (serializers.deserialize(
             value,
@@ -260,8 +256,8 @@ class EndpointRequestRestJson1Serializer
         case 'User':
           result.user.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.EndpointUser),
-          ) as _i5.EndpointUser));
+            specifiedType: const FullType(EndpointUser),
+          ) as EndpointUser));
       }
     }
 
@@ -302,7 +298,7 @@ class EndpointRequestRestJson1Serializer
         ..add(serializers.serialize(
           attributes,
           specifiedType: const FullType(
-            _i6.BuiltListMultimap,
+            _i2.BuiltListMultimap,
             [
               FullType(String),
               FullType(String),
@@ -315,7 +311,7 @@ class EndpointRequestRestJson1Serializer
         ..add('ChannelType')
         ..add(serializers.serialize(
           channelType,
-          specifiedType: const FullType(_i2.ChannelType),
+          specifiedType: const FullType(ChannelType),
         ));
     }
     if (demographic != null) {
@@ -323,7 +319,7 @@ class EndpointRequestRestJson1Serializer
         ..add('Demographic')
         ..add(serializers.serialize(
           demographic,
-          specifiedType: const FullType(_i3.EndpointDemographic),
+          specifiedType: const FullType(EndpointDemographic),
         ));
     }
     if (effectiveDate != null) {
@@ -347,7 +343,7 @@ class EndpointRequestRestJson1Serializer
         ..add('Location')
         ..add(serializers.serialize(
           location,
-          specifiedType: const FullType(_i4.EndpointLocation),
+          specifiedType: const FullType(EndpointLocation),
         ));
     }
     if (metrics != null) {
@@ -356,7 +352,7 @@ class EndpointRequestRestJson1Serializer
         ..add(serializers.serialize(
           metrics,
           specifiedType: const FullType(
-            _i6.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
               FullType(double),
@@ -385,7 +381,7 @@ class EndpointRequestRestJson1Serializer
         ..add('User')
         ..add(serializers.serialize(
           user,
-          specifiedType: const FullType(_i5.EndpointUser),
+          specifiedType: const FullType(EndpointUser),
         ));
     }
     return result$;

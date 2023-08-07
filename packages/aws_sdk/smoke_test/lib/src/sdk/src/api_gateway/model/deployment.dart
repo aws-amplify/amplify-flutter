@@ -4,12 +4,11 @@
 library smoke_test.api_gateway.model.deployment; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/method_snapshot.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/method_snapshot.dart';
 
 part 'deployment.g.dart';
 
@@ -22,7 +21,7 @@ abstract class Deployment
     String? id,
     String? description,
     DateTime? createdDate,
-    Map<String, Map<String, _i2.MethodSnapshot>>? apiSummary,
+    Map<String, Map<String, MethodSnapshot>>? apiSummary,
   }) {
     return _$Deployment._(
       id: id,
@@ -30,13 +29,13 @@ abstract class Deployment
       createdDate: createdDate,
       apiSummary: apiSummary == null
           ? null
-          : _i3.BuiltMap(apiSummary.map((
+          : _i2.BuiltMap(apiSummary.map((
               key,
               value,
             ) =>
               MapEntry(
                 key,
-                _i3.BuiltMap(value),
+                _i2.BuiltMap(value),
               ))),
     );
   }
@@ -54,7 +53,7 @@ abstract class Deployment
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<Deployment>> serializers = [
+  static const List<_i3.SmithySerializer<Deployment>> serializers = [
     DeploymentRestJson1Serializer()
   ];
 
@@ -68,8 +67,7 @@ abstract class Deployment
   DateTime? get createdDate;
 
   /// A summary of the RestApi at the date and time that the deployment resource was created.
-  _i3.BuiltMap<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>?
-      get apiSummary;
+  _i2.BuiltMap<String, _i2.BuiltMap<String, MethodSnapshot>>? get apiSummary;
   @override
   List<Object?> get props => [
         id,
@@ -101,7 +99,7 @@ abstract class Deployment
 }
 
 class DeploymentRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<Deployment> {
+    extends _i3.StructuredSmithySerializer<Deployment> {
   const DeploymentRestJson1Serializer() : super('Deployment');
 
   @override
@@ -110,8 +108,8 @@ class DeploymentRestJson1Serializer
         _$Deployment,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -136,19 +134,19 @@ class DeploymentRestJson1Serializer
           result.apiSummary.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
                 FullType(
-                  _i3.BuiltMap,
+                  _i2.BuiltMap,
                   [
                     FullType(String),
-                    FullType(_i2.MethodSnapshot),
+                    FullType(MethodSnapshot),
                   ],
                 ),
               ],
             ),
-          ) as _i3.BuiltMap<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>));
+          ) as _i2.BuiltMap<String, _i2.BuiltMap<String, MethodSnapshot>>));
         case 'createdDate':
           result.createdDate = (serializers.deserialize(
             value,
@@ -184,14 +182,14 @@ class DeploymentRestJson1Serializer
         ..add(serializers.serialize(
           apiSummary,
           specifiedType: const FullType(
-            _i3.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
               FullType(
-                _i3.BuiltMap,
+                _i2.BuiltMap,
                 [
                   FullType(String),
-                  FullType(_i2.MethodSnapshot),
+                  FullType(MethodSnapshot),
                 ],
               ),
             ],

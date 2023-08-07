@@ -4,14 +4,14 @@
 library smoke_test.s3.model.delete_objects_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i7;
+import 'package:meta/meta.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/deleted_object.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/error.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/deleted_object.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/error.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart';
 
 part 'delete_objects_output.g.dart';
 
@@ -21,14 +21,14 @@ abstract class DeleteObjectsOutput
         Built<DeleteObjectsOutput, DeleteObjectsOutputBuilder>,
         _i2.HasPayload<DeleteObjectsOutputPayload> {
   factory DeleteObjectsOutput({
-    List<_i3.DeletedObject>? deleted,
-    _i4.RequestCharged? requestCharged,
-    List<_i5.Error>? errors,
+    List<DeletedObject>? deleted,
+    RequestCharged? requestCharged,
+    List<Error>? errors,
   }) {
     return _$DeleteObjectsOutput._(
-      deleted: deleted == null ? null : _i6.BuiltList(deleted),
+      deleted: deleted == null ? null : _i3.BuiltList(deleted),
       requestCharged: requestCharged,
-      errors: errors == null ? null : _i6.BuiltList(errors),
+      errors: errors == null ? null : _i3.BuiltList(errors),
     );
   }
 
@@ -51,7 +51,7 @@ abstract class DeleteObjectsOutput
           b.errors.replace(payload.errors!);
         }
         if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = _i4.RequestCharged.values
+          b.requestCharged = RequestCharged.values
               .byValue(response.headers['x-amz-request-charged']!);
         }
       });
@@ -60,13 +60,13 @@ abstract class DeleteObjectsOutput
       serializers = [DeleteObjectsOutputRestXmlSerializer()];
 
   /// Container element for a successful delete. It identifies the object that was successfully deleted.
-  _i6.BuiltList<_i3.DeletedObject>? get deleted;
+  _i3.BuiltList<DeletedObject>? get deleted;
 
   /// If present, indicates that the requester was successfully charged for the request.
-  _i4.RequestCharged? get requestCharged;
+  RequestCharged? get requestCharged;
 
   /// Container for a failed delete action that describes the object that Amazon S3 attempted to delete and the error it encountered.
-  _i6.BuiltList<_i5.Error>? get errors;
+  _i3.BuiltList<Error>? get errors;
   @override
   DeleteObjectsOutputPayload getPayload() => DeleteObjectsOutputPayload((b) {
         if (deleted != null) {
@@ -101,7 +101,7 @@ abstract class DeleteObjectsOutput
   }
 }
 
-@_i7.internal
+@_i4.internal
 abstract class DeleteObjectsOutputPayload
     with _i1.AWSEquatable<DeleteObjectsOutputPayload>
     implements
@@ -113,10 +113,10 @@ abstract class DeleteObjectsOutputPayload
   const DeleteObjectsOutputPayload._();
 
   /// Container element for a successful delete. It identifies the object that was successfully deleted.
-  _i6.BuiltList<_i3.DeletedObject>? get deleted;
+  _i3.BuiltList<DeletedObject>? get deleted;
 
   /// Container for a failed delete action that describes the object that Amazon S3 attempted to delete and the error it encountered.
-  _i6.BuiltList<_i5.Error>? get errors;
+  _i3.BuiltList<Error>? get errors;
   @override
   List<Object?> get props => [
         deleted,
@@ -174,13 +174,13 @@ class DeleteObjectsOutputRestXmlSerializer
         case 'Deleted':
           result.deleted.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.DeletedObject),
-          ) as _i3.DeletedObject));
+            specifiedType: const FullType(DeletedObject),
+          ) as DeletedObject));
         case 'Error':
           result.errors.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.Error),
-          ) as _i5.Error));
+            specifiedType: const FullType(Error),
+          ) as Error));
       }
     }
 
@@ -206,8 +206,8 @@ class DeleteObjectsOutputRestXmlSerializer
         serializers,
         deleted,
         specifiedType: const FullType.nullable(
-          _i6.BuiltList,
-          [FullType(_i3.DeletedObject)],
+          _i3.BuiltList,
+          [FullType(DeletedObject)],
         ),
       ));
     }
@@ -217,8 +217,8 @@ class DeleteObjectsOutputRestXmlSerializer
         serializers,
         errors,
         specifiedType: const FullType.nullable(
-          _i6.BuiltList,
-          [FullType(_i5.Error)],
+          _i3.BuiltList,
+          [FullType(Error)],
         ),
       ));
     }

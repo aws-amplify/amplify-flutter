@@ -4,18 +4,14 @@
 library smoke_test.cloud_formation.model.update_stack_instances_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i7;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/deployment_targets.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/parameter.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_preferences.dart'
-    as _i5;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/deployment_targets.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/parameter.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_preferences.dart';
 
 part 'update_stack_instances_input.g.dart';
 
@@ -28,20 +24,20 @@ abstract class UpdateStackInstancesInput
   factory UpdateStackInstancesInput({
     required String stackSetName,
     List<String>? accounts,
-    _i3.DeploymentTargets? deploymentTargets,
+    DeploymentTargets? deploymentTargets,
     required List<String> regions,
-    List<_i4.Parameter>? parameterOverrides,
-    _i5.StackSetOperationPreferences? operationPreferences,
+    List<Parameter>? parameterOverrides,
+    StackSetOperationPreferences? operationPreferences,
     String? operationId,
-    _i6.CallAs? callAs,
+    CallAs? callAs,
   }) {
     return _$UpdateStackInstancesInput._(
       stackSetName: stackSetName,
-      accounts: accounts == null ? null : _i7.BuiltList(accounts),
+      accounts: accounts == null ? null : _i3.BuiltList(accounts),
       deploymentTargets: deploymentTargets,
-      regions: _i7.BuiltList(regions),
+      regions: _i3.BuiltList(regions),
       parameterOverrides:
-          parameterOverrides == null ? null : _i7.BuiltList(parameterOverrides),
+          parameterOverrides == null ? null : _i3.BuiltList(parameterOverrides),
       operationPreferences: operationPreferences,
       operationId: operationId,
       callAs: callAs,
@@ -77,15 +73,15 @@ abstract class UpdateStackInstancesInput
   /// \[Self-managed permissions\] The names of one or more Amazon Web Services accounts for which you want to update parameter values for stack instances. The overridden parameter values will be applied to all stack instances in the specified accounts and Amazon Web Services Regions.
   ///
   /// You can specify `Accounts` or `DeploymentTargets`, but not both.
-  _i7.BuiltList<String>? get accounts;
+  _i3.BuiltList<String>? get accounts;
 
   /// \[Service-managed permissions\] The Organizations accounts for which you want to update parameter values for stack instances. If your update targets OUs, the overridden parameter values only apply to the accounts that are currently in the target OUs and their child OUs. Accounts added to the target OUs and their child OUs in the future won't use the overridden values.
   ///
   /// You can specify `Accounts` or `DeploymentTargets`, but not both.
-  _i3.DeploymentTargets? get deploymentTargets;
+  DeploymentTargets? get deploymentTargets;
 
   /// The names of one or more Amazon Web Services Regions in which you want to update parameter values for stack instances. The overridden parameter values will be applied to all stack instances in the specified accounts and Amazon Web Services Regions.
-  _i7.BuiltList<String> get regions;
+  _i3.BuiltList<String> get regions;
 
   /// A list of input parameters whose values you want to update for the specified stack instances.
   ///
@@ -103,10 +99,10 @@ abstract class UpdateStackInstancesInput
   /// During stack set updates, any parameter values overridden for a stack instance aren't updated, but retain their overridden value.
   ///
   /// You can only override the parameter _values_ that are specified in the stack set; to add or delete a parameter itself, use `UpdateStackSet` to update the stack set template. If you add a parameter to a template, before you can override the parameter value specified in the stack set you must first use [UpdateStackSet](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_UpdateStackSet.html) to update all stack instances with the updated template and parameter value specified in the stack set. Once a stack instance has been updated with the new parameter, you can then override the parameter value using `UpdateStackInstances`.
-  _i7.BuiltList<_i4.Parameter>? get parameterOverrides;
+  _i3.BuiltList<Parameter>? get parameterOverrides;
 
   /// Preferences for how CloudFormation performs this stack set operation.
-  _i5.StackSetOperationPreferences? get operationPreferences;
+  StackSetOperationPreferences? get operationPreferences;
 
   /// The unique identifier for this stack set operation.
   ///
@@ -124,7 +120,7 @@ abstract class UpdateStackInstancesInput
   /// *   If you are signed in to a delegated administrator account, specify `DELEGATED_ADMIN`.
   ///
   ///     Your Amazon Web Services account must be registered as a delegated administrator in the management account. For more information, see [Register a delegated administrator](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html) in the _CloudFormation User Guide_.
-  _i6.CallAs? get callAs;
+  CallAs? get callAs;
   @override
   UpdateStackInstancesInput getPayload() => this;
   @override
@@ -222,15 +218,15 @@ class UpdateStackInstancesInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i7.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i7.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'DeploymentTargets':
           result.deploymentTargets.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.DeploymentTargets),
-          ) as _i3.DeploymentTargets));
+            specifiedType: const FullType(DeploymentTargets),
+          ) as DeploymentTargets));
         case 'Regions':
           result.regions.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -238,10 +234,10 @@ class UpdateStackInstancesInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i7.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i7.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'ParameterOverrides':
           result.parameterOverrides.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -249,15 +245,15 @@ class UpdateStackInstancesInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i7.BuiltList,
-              [FullType(_i4.Parameter)],
+              _i3.BuiltList,
+              [FullType(Parameter)],
             ),
-          ) as _i7.BuiltList<_i4.Parameter>));
+          ) as _i3.BuiltList<Parameter>));
         case 'OperationPreferences':
           result.operationPreferences.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.StackSetOperationPreferences),
-          ) as _i5.StackSetOperationPreferences));
+            specifiedType: const FullType(StackSetOperationPreferences),
+          ) as StackSetOperationPreferences));
         case 'OperationId':
           result.operationId = (serializers.deserialize(
             value,
@@ -266,8 +262,8 @@ class UpdateStackInstancesInputAwsQuerySerializer
         case 'CallAs':
           result.callAs = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.CallAs),
-          ) as _i6.CallAs);
+            specifiedType: const FullType(CallAs),
+          ) as CallAs);
       }
     }
 
@@ -311,7 +307,7 @@ class UpdateStackInstancesInputAwsQuerySerializer
           serializers,
           accounts,
           specifiedType: const FullType.nullable(
-            _i7.BuiltList,
+            _i3.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -321,7 +317,7 @@ class UpdateStackInstancesInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('DeploymentTargets'))
         ..add(serializers.serialize(
           deploymentTargets,
-          specifiedType: const FullType(_i3.DeploymentTargets),
+          specifiedType: const FullType(DeploymentTargets),
         ));
     }
     result$
@@ -332,7 +328,7 @@ class UpdateStackInstancesInputAwsQuerySerializer
         serializers,
         regions,
         specifiedType: const FullType.nullable(
-          _i7.BuiltList,
+          _i3.BuiltList,
           [FullType(String)],
         ),
       ));
@@ -345,8 +341,8 @@ class UpdateStackInstancesInputAwsQuerySerializer
           serializers,
           parameterOverrides,
           specifiedType: const FullType.nullable(
-            _i7.BuiltList,
-            [FullType(_i4.Parameter)],
+            _i3.BuiltList,
+            [FullType(Parameter)],
           ),
         ));
     }
@@ -355,7 +351,7 @@ class UpdateStackInstancesInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('OperationPreferences'))
         ..add(serializers.serialize(
           operationPreferences,
-          specifiedType: const FullType(_i5.StackSetOperationPreferences),
+          specifiedType: const FullType(StackSetOperationPreferences),
         ));
     }
     if (operationId != null) {
@@ -371,7 +367,7 @@ class UpdateStackInstancesInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
           callAs,
-          specifiedType: const FullType.nullable(_i6.CallAs),
+          specifiedType: const FullType.nullable(CallAs),
         ));
     }
     return result$;

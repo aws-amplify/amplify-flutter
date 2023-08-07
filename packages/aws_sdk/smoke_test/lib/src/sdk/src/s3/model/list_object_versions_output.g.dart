@@ -18,9 +18,9 @@ class _$ListObjectVersionsOutput extends ListObjectVersionsOutput {
   @override
   final String? nextVersionIdMarker;
   @override
-  final _i8.BuiltList<_i3.ObjectVersion>? versions;
+  final _i3.BuiltList<ObjectVersion>? versions;
   @override
-  final _i8.BuiltList<_i4.DeleteMarkerEntry>? deleteMarkers;
+  final _i3.BuiltList<DeleteMarkerEntry>? deleteMarkers;
   @override
   final String? name;
   @override
@@ -30,11 +30,11 @@ class _$ListObjectVersionsOutput extends ListObjectVersionsOutput {
   @override
   final int? maxKeys;
   @override
-  final _i8.BuiltList<_i5.CommonPrefix>? commonPrefixes;
+  final _i3.BuiltList<CommonPrefix>? commonPrefixes;
   @override
-  final _i6.EncodingType? encodingType;
+  final EncodingType? encodingType;
   @override
-  final _i7.RequestCharged? requestCharged;
+  final RequestCharged? requestCharged;
 
   factory _$ListObjectVersionsOutput(
           [void Function(ListObjectVersionsOutputBuilder)? updates]) =>
@@ -136,16 +136,16 @@ class ListObjectVersionsOutputBuilder
   set nextVersionIdMarker(String? nextVersionIdMarker) =>
       _$this._nextVersionIdMarker = nextVersionIdMarker;
 
-  _i8.ListBuilder<_i3.ObjectVersion>? _versions;
-  _i8.ListBuilder<_i3.ObjectVersion> get versions =>
-      _$this._versions ??= new _i8.ListBuilder<_i3.ObjectVersion>();
-  set versions(_i8.ListBuilder<_i3.ObjectVersion>? versions) =>
+  _i3.ListBuilder<ObjectVersion>? _versions;
+  _i3.ListBuilder<ObjectVersion> get versions =>
+      _$this._versions ??= new _i3.ListBuilder<ObjectVersion>();
+  set versions(_i3.ListBuilder<ObjectVersion>? versions) =>
       _$this._versions = versions;
 
-  _i8.ListBuilder<_i4.DeleteMarkerEntry>? _deleteMarkers;
-  _i8.ListBuilder<_i4.DeleteMarkerEntry> get deleteMarkers =>
-      _$this._deleteMarkers ??= new _i8.ListBuilder<_i4.DeleteMarkerEntry>();
-  set deleteMarkers(_i8.ListBuilder<_i4.DeleteMarkerEntry>? deleteMarkers) =>
+  _i3.ListBuilder<DeleteMarkerEntry>? _deleteMarkers;
+  _i3.ListBuilder<DeleteMarkerEntry> get deleteMarkers =>
+      _$this._deleteMarkers ??= new _i3.ListBuilder<DeleteMarkerEntry>();
+  set deleteMarkers(_i3.ListBuilder<DeleteMarkerEntry>? deleteMarkers) =>
       _$this._deleteMarkers = deleteMarkers;
 
   String? _name;
@@ -164,20 +164,20 @@ class ListObjectVersionsOutputBuilder
   int? get maxKeys => _$this._maxKeys;
   set maxKeys(int? maxKeys) => _$this._maxKeys = maxKeys;
 
-  _i8.ListBuilder<_i5.CommonPrefix>? _commonPrefixes;
-  _i8.ListBuilder<_i5.CommonPrefix> get commonPrefixes =>
-      _$this._commonPrefixes ??= new _i8.ListBuilder<_i5.CommonPrefix>();
-  set commonPrefixes(_i8.ListBuilder<_i5.CommonPrefix>? commonPrefixes) =>
+  _i3.ListBuilder<CommonPrefix>? _commonPrefixes;
+  _i3.ListBuilder<CommonPrefix> get commonPrefixes =>
+      _$this._commonPrefixes ??= new _i3.ListBuilder<CommonPrefix>();
+  set commonPrefixes(_i3.ListBuilder<CommonPrefix>? commonPrefixes) =>
       _$this._commonPrefixes = commonPrefixes;
 
-  _i6.EncodingType? _encodingType;
-  _i6.EncodingType? get encodingType => _$this._encodingType;
-  set encodingType(_i6.EncodingType? encodingType) =>
+  EncodingType? _encodingType;
+  EncodingType? get encodingType => _$this._encodingType;
+  set encodingType(EncodingType? encodingType) =>
       _$this._encodingType = encodingType;
 
-  _i7.RequestCharged? _requestCharged;
-  _i7.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i7.RequestCharged? requestCharged) =>
+  RequestCharged? _requestCharged;
+  RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
   ListObjectVersionsOutputBuilder();
@@ -261,13 +261,13 @@ class ListObjectVersionsOutputBuilder
 class _$ListObjectVersionsOutputPayload
     extends ListObjectVersionsOutputPayload {
   @override
-  final _i8.BuiltList<_i5.CommonPrefix>? commonPrefixes;
+  final _i3.BuiltList<CommonPrefix>? commonPrefixes;
   @override
-  final _i8.BuiltList<_i4.DeleteMarkerEntry>? deleteMarkers;
+  final _i3.BuiltList<DeleteMarkerEntry>? deleteMarkers;
   @override
   final String? delimiter;
   @override
-  final _i6.EncodingType? encodingType;
+  final EncodingType? encodingType;
   @override
   final bool? isTruncated;
   @override
@@ -285,7 +285,7 @@ class _$ListObjectVersionsOutputPayload
   @override
   final String? versionIdMarker;
   @override
-  final _i8.BuiltList<_i3.ObjectVersion>? versions;
+  final _i3.BuiltList<ObjectVersion>? versions;
 
   factory _$ListObjectVersionsOutputPayload(
           [void Function(ListObjectVersionsOutputPayloadBuilder)? updates]) =>
@@ -362,25 +362,25 @@ class ListObjectVersionsOutputPayloadBuilder
             ListObjectVersionsOutputPayloadBuilder> {
   _$ListObjectVersionsOutputPayload? _$v;
 
-  _i8.ListBuilder<_i5.CommonPrefix>? _commonPrefixes;
-  _i8.ListBuilder<_i5.CommonPrefix> get commonPrefixes =>
-      _$this._commonPrefixes ??= new _i8.ListBuilder<_i5.CommonPrefix>();
-  set commonPrefixes(_i8.ListBuilder<_i5.CommonPrefix>? commonPrefixes) =>
+  _i3.ListBuilder<CommonPrefix>? _commonPrefixes;
+  _i3.ListBuilder<CommonPrefix> get commonPrefixes =>
+      _$this._commonPrefixes ??= new _i3.ListBuilder<CommonPrefix>();
+  set commonPrefixes(_i3.ListBuilder<CommonPrefix>? commonPrefixes) =>
       _$this._commonPrefixes = commonPrefixes;
 
-  _i8.ListBuilder<_i4.DeleteMarkerEntry>? _deleteMarkers;
-  _i8.ListBuilder<_i4.DeleteMarkerEntry> get deleteMarkers =>
-      _$this._deleteMarkers ??= new _i8.ListBuilder<_i4.DeleteMarkerEntry>();
-  set deleteMarkers(_i8.ListBuilder<_i4.DeleteMarkerEntry>? deleteMarkers) =>
+  _i3.ListBuilder<DeleteMarkerEntry>? _deleteMarkers;
+  _i3.ListBuilder<DeleteMarkerEntry> get deleteMarkers =>
+      _$this._deleteMarkers ??= new _i3.ListBuilder<DeleteMarkerEntry>();
+  set deleteMarkers(_i3.ListBuilder<DeleteMarkerEntry>? deleteMarkers) =>
       _$this._deleteMarkers = deleteMarkers;
 
   String? _delimiter;
   String? get delimiter => _$this._delimiter;
   set delimiter(String? delimiter) => _$this._delimiter = delimiter;
 
-  _i6.EncodingType? _encodingType;
-  _i6.EncodingType? get encodingType => _$this._encodingType;
-  set encodingType(_i6.EncodingType? encodingType) =>
+  EncodingType? _encodingType;
+  EncodingType? get encodingType => _$this._encodingType;
+  set encodingType(EncodingType? encodingType) =>
       _$this._encodingType = encodingType;
 
   bool? _isTruncated;
@@ -418,10 +418,10 @@ class ListObjectVersionsOutputPayloadBuilder
   set versionIdMarker(String? versionIdMarker) =>
       _$this._versionIdMarker = versionIdMarker;
 
-  _i8.ListBuilder<_i3.ObjectVersion>? _versions;
-  _i8.ListBuilder<_i3.ObjectVersion> get versions =>
-      _$this._versions ??= new _i8.ListBuilder<_i3.ObjectVersion>();
-  set versions(_i8.ListBuilder<_i3.ObjectVersion>? versions) =>
+  _i3.ListBuilder<ObjectVersion>? _versions;
+  _i3.ListBuilder<ObjectVersion> get versions =>
+      _$this._versions ??= new _i3.ListBuilder<ObjectVersion>();
+  set versions(_i3.ListBuilder<ObjectVersion>? versions) =>
       _$this._versions = versions;
 
   ListObjectVersionsOutputPayloadBuilder();

@@ -8,7 +8,7 @@ part of 'list_stored_queries_response.dart';
 
 class _$ListStoredQueriesResponse extends ListStoredQueriesResponse {
   @override
-  final _i3.BuiltList<_i2.StoredQueryMetadata>? storedQueryMetadata;
+  final _i2.BuiltList<StoredQueryMetadata>? storedQueryMetadata;
   @override
   final String? nextToken;
 
@@ -51,12 +51,12 @@ class ListStoredQueriesResponseBuilder
         Builder<ListStoredQueriesResponse, ListStoredQueriesResponseBuilder> {
   _$ListStoredQueriesResponse? _$v;
 
-  _i3.ListBuilder<_i2.StoredQueryMetadata>? _storedQueryMetadata;
-  _i3.ListBuilder<_i2.StoredQueryMetadata> get storedQueryMetadata =>
+  _i2.ListBuilder<StoredQueryMetadata>? _storedQueryMetadata;
+  _i2.ListBuilder<StoredQueryMetadata> get storedQueryMetadata =>
       _$this._storedQueryMetadata ??=
-          new _i3.ListBuilder<_i2.StoredQueryMetadata>();
+          new _i2.ListBuilder<StoredQueryMetadata>();
   set storedQueryMetadata(
-          _i3.ListBuilder<_i2.StoredQueryMetadata>? storedQueryMetadata) =>
+          _i2.ListBuilder<StoredQueryMetadata>? storedQueryMetadata) =>
       _$this._storedQueryMetadata = storedQueryMetadata;
 
   String? _nextToken;

@@ -16,7 +16,7 @@ class _$SetTypeConfigurationInput extends SetTypeConfigurationInput {
   @override
   final String? typeName;
   @override
-  final _i3.ThirdPartyType? type;
+  final ThirdPartyType? type;
 
   factory _$SetTypeConfigurationInput(
           [void Function(SetTypeConfigurationInputBuilder)? updates]) =>
@@ -89,9 +89,9 @@ class SetTypeConfigurationInputBuilder
   String? get typeName => _$this._typeName;
   set typeName(String? typeName) => _$this._typeName = typeName;
 
-  _i3.ThirdPartyType? _type;
-  _i3.ThirdPartyType? get type => _$this._type;
-  set type(_i3.ThirdPartyType? type) => _$this._type = type;
+  ThirdPartyType? _type;
+  ThirdPartyType? get type => _$this._type;
+  set type(ThirdPartyType? type) => _$this._type = type;
 
   SetTypeConfigurationInputBuilder();
 

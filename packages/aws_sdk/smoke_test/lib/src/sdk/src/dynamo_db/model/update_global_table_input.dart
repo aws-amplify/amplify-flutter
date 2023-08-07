@@ -4,12 +4,11 @@
 library smoke_test.dynamo_db.model.update_global_table_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_update.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_update.dart';
 
 part 'update_global_table_input.g.dart';
 
@@ -20,11 +19,11 @@ abstract class UpdateGlobalTableInput
     implements Built<UpdateGlobalTableInput, UpdateGlobalTableInputBuilder> {
   factory UpdateGlobalTableInput({
     required String globalTableName,
-    required List<_i3.ReplicaUpdate> replicaUpdates,
+    required List<ReplicaUpdate> replicaUpdates,
   }) {
     return _$UpdateGlobalTableInput._(
       globalTableName: globalTableName,
-      replicaUpdates: _i4.BuiltList(replicaUpdates),
+      replicaUpdates: _i3.BuiltList(replicaUpdates),
     );
   }
 
@@ -48,7 +47,7 @@ abstract class UpdateGlobalTableInput
   String get globalTableName;
 
   /// A list of Regions that should be added or removed from the global table.
-  _i4.BuiltList<_i3.ReplicaUpdate> get replicaUpdates;
+  _i3.BuiltList<ReplicaUpdate> get replicaUpdates;
   @override
   UpdateGlobalTableInput getPayload() => this;
   @override
@@ -113,10 +112,10 @@ class UpdateGlobalTableInputAwsJson10Serializer
           result.replicaUpdates.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.ReplicaUpdate)],
+              _i3.BuiltList,
+              [FullType(ReplicaUpdate)],
             ),
-          ) as _i4.BuiltList<_i3.ReplicaUpdate>));
+          ) as _i3.BuiltList<ReplicaUpdate>));
       }
     }
 
@@ -141,8 +140,8 @@ class UpdateGlobalTableInputAwsJson10Serializer
       serializers.serialize(
         replicaUpdates,
         specifiedType: const FullType(
-          _i4.BuiltList,
-          [FullType(_i3.ReplicaUpdate)],
+          _i3.BuiltList,
+          [FullType(ReplicaUpdate)],
         ),
       ),
     ]);

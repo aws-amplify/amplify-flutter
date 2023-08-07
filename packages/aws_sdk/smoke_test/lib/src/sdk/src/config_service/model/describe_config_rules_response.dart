@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.describe_config_rules_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/config_rule.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/config_rule.dart';
 
 part 'describe_config_rules_response.g.dart';
 
@@ -18,11 +17,11 @@ abstract class DescribeConfigRulesResponse
     implements
         Built<DescribeConfigRulesResponse, DescribeConfigRulesResponseBuilder> {
   factory DescribeConfigRulesResponse({
-    List<_i2.ConfigRule>? configRules,
+    List<ConfigRule>? configRules,
     String? nextToken,
   }) {
     return _$DescribeConfigRulesResponse._(
-      configRules: configRules == null ? null : _i3.BuiltList(configRules),
+      configRules: configRules == null ? null : _i2.BuiltList(configRules),
       nextToken: nextToken,
     );
   }
@@ -40,11 +39,11 @@ abstract class DescribeConfigRulesResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<DescribeConfigRulesResponse>>
+  static const List<_i3.SmithySerializer<DescribeConfigRulesResponse>>
       serializers = [DescribeConfigRulesResponseAwsJson11Serializer()];
 
   /// The details about your Config rules.
-  _i3.BuiltList<_i2.ConfigRule>? get configRules;
+  _i2.BuiltList<ConfigRule>? get configRules;
 
   /// The string that you use in a subsequent request to get the next page of results in a paginated response.
   String? get nextToken;
@@ -69,7 +68,7 @@ abstract class DescribeConfigRulesResponse
 }
 
 class DescribeConfigRulesResponseAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<DescribeConfigRulesResponse> {
+    extends _i3.StructuredSmithySerializer<DescribeConfigRulesResponse> {
   const DescribeConfigRulesResponseAwsJson11Serializer()
       : super('DescribeConfigRulesResponse');
 
@@ -79,8 +78,8 @@ class DescribeConfigRulesResponseAwsJson11Serializer
         _$DescribeConfigRulesResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -105,10 +104,10 @@ class DescribeConfigRulesResponseAwsJson11Serializer
           result.configRules.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.ConfigRule)],
+              _i2.BuiltList,
+              [FullType(ConfigRule)],
             ),
-          ) as _i3.BuiltList<_i2.ConfigRule>));
+          ) as _i2.BuiltList<ConfigRule>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -134,8 +133,8 @@ class DescribeConfigRulesResponseAwsJson11Serializer
         ..add(serializers.serialize(
           configRules,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.ConfigRule)],
+            _i2.BuiltList,
+            [FullType(ConfigRule)],
           ),
         ));
     }

@@ -4,11 +4,11 @@
 library smoke_test.dynamo_db.model.create_global_table_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica.dart';
 
 part 'create_global_table_input.g.dart';
 
@@ -19,11 +19,11 @@ abstract class CreateGlobalTableInput
     implements Built<CreateGlobalTableInput, CreateGlobalTableInputBuilder> {
   factory CreateGlobalTableInput({
     required String globalTableName,
-    required List<_i3.Replica> replicationGroup,
+    required List<Replica> replicationGroup,
   }) {
     return _$CreateGlobalTableInput._(
       globalTableName: globalTableName,
-      replicationGroup: _i4.BuiltList(replicationGroup),
+      replicationGroup: _i3.BuiltList(replicationGroup),
     );
   }
 
@@ -47,7 +47,7 @@ abstract class CreateGlobalTableInput
   String get globalTableName;
 
   /// The Regions where the global table needs to be created.
-  _i4.BuiltList<_i3.Replica> get replicationGroup;
+  _i3.BuiltList<Replica> get replicationGroup;
   @override
   CreateGlobalTableInput getPayload() => this;
   @override
@@ -112,10 +112,10 @@ class CreateGlobalTableInputAwsJson10Serializer
           result.replicationGroup.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.Replica)],
+              _i3.BuiltList,
+              [FullType(Replica)],
             ),
-          ) as _i4.BuiltList<_i3.Replica>));
+          ) as _i3.BuiltList<Replica>));
       }
     }
 
@@ -140,8 +140,8 @@ class CreateGlobalTableInputAwsJson10Serializer
       serializers.serialize(
         replicationGroup,
         specifiedType: const FullType(
-          _i4.BuiltList,
-          [FullType(_i3.Replica)],
+          _i3.BuiltList,
+          [FullType(Replica)],
         ),
       ),
     ]);

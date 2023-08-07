@@ -12,9 +12,9 @@ class _$CreateAuthorizerRequest extends CreateAuthorizerRequest {
   @override
   final String name;
   @override
-  final _i3.AuthorizerType type;
+  final AuthorizerType type;
   @override
-  final _i4.BuiltList<String>? providerArNs;
+  final _i3.BuiltList<String>? providerArNs;
   @override
   final String? authType;
   @override
@@ -108,14 +108,14 @@ class CreateAuthorizerRequestBuilder
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
-  _i3.AuthorizerType? _type;
-  _i3.AuthorizerType? get type => _$this._type;
-  set type(_i3.AuthorizerType? type) => _$this._type = type;
+  AuthorizerType? _type;
+  AuthorizerType? get type => _$this._type;
+  set type(AuthorizerType? type) => _$this._type = type;
 
-  _i4.ListBuilder<String>? _providerArNs;
-  _i4.ListBuilder<String> get providerArNs =>
-      _$this._providerArNs ??= new _i4.ListBuilder<String>();
-  set providerArNs(_i4.ListBuilder<String>? providerArNs) =>
+  _i3.ListBuilder<String>? _providerArNs;
+  _i3.ListBuilder<String> get providerArNs =>
+      _$this._providerArNs ??= new _i3.ListBuilder<String>();
+  set providerArNs(_i3.ListBuilder<String>? providerArNs) =>
       _$this._providerArNs = providerArNs;
 
   String? _authType;
@@ -232,9 +232,9 @@ class _$CreateAuthorizerRequestPayload extends CreateAuthorizerRequestPayload {
   @override
   final String name;
   @override
-  final _i4.BuiltList<String>? providerArNs;
+  final _i3.BuiltList<String>? providerArNs;
   @override
-  final _i3.AuthorizerType type;
+  final AuthorizerType type;
 
   factory _$CreateAuthorizerRequestPayload(
           [void Function(CreateAuthorizerRequestPayloadBuilder)? updates]) =>
@@ -338,15 +338,15 @@ class CreateAuthorizerRequestPayloadBuilder
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
-  _i4.ListBuilder<String>? _providerArNs;
-  _i4.ListBuilder<String> get providerArNs =>
-      _$this._providerArNs ??= new _i4.ListBuilder<String>();
-  set providerArNs(_i4.ListBuilder<String>? providerArNs) =>
+  _i3.ListBuilder<String>? _providerArNs;
+  _i3.ListBuilder<String> get providerArNs =>
+      _$this._providerArNs ??= new _i3.ListBuilder<String>();
+  set providerArNs(_i3.ListBuilder<String>? providerArNs) =>
       _$this._providerArNs = providerArNs;
 
-  _i3.AuthorizerType? _type;
-  _i3.AuthorizerType? get type => _$this._type;
-  set type(_i3.AuthorizerType? type) => _$this._type = type;
+  AuthorizerType? _type;
+  AuthorizerType? get type => _$this._type;
+  set type(AuthorizerType? type) => _$this._type = type;
 
   CreateAuthorizerRequestPayloadBuilder();
 

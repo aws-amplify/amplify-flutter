@@ -8,9 +8,9 @@ part of 'set_dimension.dart';
 
 class _$SetDimension extends SetDimension {
   @override
-  final _i2.DimensionType? dimensionType;
+  final DimensionType? dimensionType;
   @override
-  final _i3.BuiltList<String> values;
+  final _i2.BuiltList<String> values;
 
   factory _$SetDimension([void Function(SetDimensionBuilder)? updates]) =>
       (new SetDimensionBuilder()..update(updates))._build();
@@ -48,15 +48,15 @@ class SetDimensionBuilder
     implements Builder<SetDimension, SetDimensionBuilder> {
   _$SetDimension? _$v;
 
-  _i2.DimensionType? _dimensionType;
-  _i2.DimensionType? get dimensionType => _$this._dimensionType;
-  set dimensionType(_i2.DimensionType? dimensionType) =>
+  DimensionType? _dimensionType;
+  DimensionType? get dimensionType => _$this._dimensionType;
+  set dimensionType(DimensionType? dimensionType) =>
       _$this._dimensionType = dimensionType;
 
-  _i3.ListBuilder<String>? _values;
-  _i3.ListBuilder<String> get values =>
-      _$this._values ??= new _i3.ListBuilder<String>();
-  set values(_i3.ListBuilder<String>? values) => _$this._values = values;
+  _i2.ListBuilder<String>? _values;
+  _i2.ListBuilder<String> get values =>
+      _$this._values ??= new _i2.ListBuilder<String>();
+  set values(_i2.ListBuilder<String>? values) => _$this._values = values;
 
   SetDimensionBuilder();
 

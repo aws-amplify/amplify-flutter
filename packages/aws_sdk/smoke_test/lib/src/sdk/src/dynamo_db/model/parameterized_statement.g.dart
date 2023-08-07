@@ -10,9 +10,9 @@ class _$ParameterizedStatement extends ParameterizedStatement {
   @override
   final String statement;
   @override
-  final _i4.BuiltList<_i2.AttributeValue>? parameters;
+  final _i2.BuiltList<AttributeValue>? parameters;
   @override
-  final _i3.ReturnValuesOnConditionCheckFailure?
+  final ReturnValuesOnConditionCheckFailure?
       returnValuesOnConditionCheckFailure;
 
   factory _$ParameterizedStatement(
@@ -66,18 +66,18 @@ class ParameterizedStatementBuilder
   String? get statement => _$this._statement;
   set statement(String? statement) => _$this._statement = statement;
 
-  _i4.ListBuilder<_i2.AttributeValue>? _parameters;
-  _i4.ListBuilder<_i2.AttributeValue> get parameters =>
-      _$this._parameters ??= new _i4.ListBuilder<_i2.AttributeValue>();
-  set parameters(_i4.ListBuilder<_i2.AttributeValue>? parameters) =>
+  _i2.ListBuilder<AttributeValue>? _parameters;
+  _i2.ListBuilder<AttributeValue> get parameters =>
+      _$this._parameters ??= new _i2.ListBuilder<AttributeValue>();
+  set parameters(_i2.ListBuilder<AttributeValue>? parameters) =>
       _$this._parameters = parameters;
 
-  _i3.ReturnValuesOnConditionCheckFailure? _returnValuesOnConditionCheckFailure;
-  _i3.ReturnValuesOnConditionCheckFailure?
+  ReturnValuesOnConditionCheckFailure? _returnValuesOnConditionCheckFailure;
+  ReturnValuesOnConditionCheckFailure?
       get returnValuesOnConditionCheckFailure =>
           _$this._returnValuesOnConditionCheckFailure;
   set returnValuesOnConditionCheckFailure(
-          _i3.ReturnValuesOnConditionCheckFailure?
+          ReturnValuesOnConditionCheckFailure?
               returnValuesOnConditionCheckFailure) =>
       _$this._returnValuesOnConditionCheckFailure =
           returnValuesOnConditionCheckFailure;

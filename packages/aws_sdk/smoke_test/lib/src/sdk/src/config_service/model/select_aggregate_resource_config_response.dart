@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.select_aggregate_resource_config_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/query_info.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/query_info.dart';
 
 part 'select_aggregate_resource_config_response.g.dart';
 
@@ -21,11 +20,11 @@ abstract class SelectAggregateResourceConfigResponse
             SelectAggregateResourceConfigResponseBuilder> {
   factory SelectAggregateResourceConfigResponse({
     List<String>? results,
-    _i2.QueryInfo? queryInfo,
+    QueryInfo? queryInfo,
     String? nextToken,
   }) {
     return _$SelectAggregateResourceConfigResponse._(
-      results: results == null ? null : _i3.BuiltList(results),
+      results: results == null ? null : _i2.BuiltList(results),
       queryInfo: queryInfo,
       nextToken: nextToken,
     );
@@ -44,16 +43,16 @@ abstract class SelectAggregateResourceConfigResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<SelectAggregateResourceConfigResponse>>
+  static const List<_i3.SmithySerializer<SelectAggregateResourceConfigResponse>>
       serializers = [
     SelectAggregateResourceConfigResponseAwsJson11Serializer()
   ];
 
   /// Returns the results for the SQL query.
-  _i3.BuiltList<String>? get results;
+  _i2.BuiltList<String>? get results;
 
   /// Details about the query.
-  _i2.QueryInfo? get queryInfo;
+  QueryInfo? get queryInfo;
 
   /// The nextToken string returned in a previous request that you use to request the next page of results in a paginated response.
   String? get nextToken;
@@ -83,7 +82,7 @@ abstract class SelectAggregateResourceConfigResponse
   }
 }
 
-class SelectAggregateResourceConfigResponseAwsJson11Serializer extends _i4
+class SelectAggregateResourceConfigResponseAwsJson11Serializer extends _i3
     .StructuredSmithySerializer<SelectAggregateResourceConfigResponse> {
   const SelectAggregateResourceConfigResponseAwsJson11Serializer()
       : super('SelectAggregateResourceConfigResponse');
@@ -94,8 +93,8 @@ class SelectAggregateResourceConfigResponseAwsJson11Serializer extends _i4
         _$SelectAggregateResourceConfigResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -120,15 +119,15 @@ class SelectAggregateResourceConfigResponseAwsJson11Serializer extends _i4
           result.results.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i3.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
         case 'QueryInfo':
           result.queryInfo.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.QueryInfo),
-          ) as _i2.QueryInfo));
+            specifiedType: const FullType(QueryInfo),
+          ) as QueryInfo));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -158,7 +157,7 @@ class SelectAggregateResourceConfigResponseAwsJson11Serializer extends _i4
         ..add(serializers.serialize(
           results,
           specifiedType: const FullType(
-            _i3.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -168,7 +167,7 @@ class SelectAggregateResourceConfigResponseAwsJson11Serializer extends _i4
         ..add('QueryInfo')
         ..add(serializers.serialize(
           queryInfo,
-          specifiedType: const FullType(_i2.QueryInfo),
+          specifiedType: const FullType(QueryInfo),
         ));
     }
     if (nextToken != null) {

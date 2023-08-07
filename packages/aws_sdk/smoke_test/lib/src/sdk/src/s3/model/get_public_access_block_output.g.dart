@@ -8,7 +8,7 @@ part of 'get_public_access_block_output.dart';
 
 class _$GetPublicAccessBlockOutput extends GetPublicAccessBlockOutput {
   @override
-  final _i3.PublicAccessBlockConfiguration? publicAccessBlockConfiguration;
+  final PublicAccessBlockConfiguration? publicAccessBlockConfiguration;
 
   factory _$GetPublicAccessBlockOutput(
           [void Function(GetPublicAccessBlockOutputBuilder)? updates]) =>
@@ -47,13 +47,12 @@ class GetPublicAccessBlockOutputBuilder
         Builder<GetPublicAccessBlockOutput, GetPublicAccessBlockOutputBuilder> {
   _$GetPublicAccessBlockOutput? _$v;
 
-  _i3.PublicAccessBlockConfigurationBuilder? _publicAccessBlockConfiguration;
-  _i3.PublicAccessBlockConfigurationBuilder
-      get publicAccessBlockConfiguration =>
-          _$this._publicAccessBlockConfiguration ??=
-              new _i3.PublicAccessBlockConfigurationBuilder();
+  PublicAccessBlockConfigurationBuilder? _publicAccessBlockConfiguration;
+  PublicAccessBlockConfigurationBuilder get publicAccessBlockConfiguration =>
+      _$this._publicAccessBlockConfiguration ??=
+          new PublicAccessBlockConfigurationBuilder();
   set publicAccessBlockConfiguration(
-          _i3.PublicAccessBlockConfigurationBuilder?
+          PublicAccessBlockConfigurationBuilder?
               publicAccessBlockConfiguration) =>
       _$this._publicAccessBlockConfiguration = publicAccessBlockConfiguration;
 

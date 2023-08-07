@@ -20,17 +20,17 @@ class _$RoleDetail extends RoleDetail {
   @override
   final String? assumeRolePolicyDocument;
   @override
-  final _i8.BuiltList<_i2.InstanceProfile>? instanceProfileList;
+  final _i2.BuiltList<InstanceProfile>? instanceProfileList;
   @override
-  final _i8.BuiltList<_i3.PolicyDetail>? rolePolicyList;
+  final _i2.BuiltList<PolicyDetail>? rolePolicyList;
   @override
-  final _i8.BuiltList<_i4.AttachedPolicy>? attachedManagedPolicies;
+  final _i2.BuiltList<AttachedPolicy>? attachedManagedPolicies;
   @override
-  final _i5.AttachedPermissionsBoundary? permissionsBoundary;
+  final AttachedPermissionsBoundary? permissionsBoundary;
   @override
-  final _i8.BuiltList<_i6.Tag>? tags;
+  final _i2.BuiltList<Tag>? tags;
   @override
-  final _i7.RoleLastUsed? roleLastUsed;
+  final RoleLastUsed? roleLastUsed;
 
   factory _$RoleDetail([void Function(RoleDetailBuilder)? updates]) =>
       (new RoleDetailBuilder()..update(updates))._build();
@@ -123,45 +123,41 @@ class RoleDetailBuilder implements Builder<RoleDetail, RoleDetailBuilder> {
   set assumeRolePolicyDocument(String? assumeRolePolicyDocument) =>
       _$this._assumeRolePolicyDocument = assumeRolePolicyDocument;
 
-  _i8.ListBuilder<_i2.InstanceProfile>? _instanceProfileList;
-  _i8.ListBuilder<_i2.InstanceProfile> get instanceProfileList =>
-      _$this._instanceProfileList ??=
-          new _i8.ListBuilder<_i2.InstanceProfile>();
+  _i2.ListBuilder<InstanceProfile>? _instanceProfileList;
+  _i2.ListBuilder<InstanceProfile> get instanceProfileList =>
+      _$this._instanceProfileList ??= new _i2.ListBuilder<InstanceProfile>();
   set instanceProfileList(
-          _i8.ListBuilder<_i2.InstanceProfile>? instanceProfileList) =>
+          _i2.ListBuilder<InstanceProfile>? instanceProfileList) =>
       _$this._instanceProfileList = instanceProfileList;
 
-  _i8.ListBuilder<_i3.PolicyDetail>? _rolePolicyList;
-  _i8.ListBuilder<_i3.PolicyDetail> get rolePolicyList =>
-      _$this._rolePolicyList ??= new _i8.ListBuilder<_i3.PolicyDetail>();
-  set rolePolicyList(_i8.ListBuilder<_i3.PolicyDetail>? rolePolicyList) =>
+  _i2.ListBuilder<PolicyDetail>? _rolePolicyList;
+  _i2.ListBuilder<PolicyDetail> get rolePolicyList =>
+      _$this._rolePolicyList ??= new _i2.ListBuilder<PolicyDetail>();
+  set rolePolicyList(_i2.ListBuilder<PolicyDetail>? rolePolicyList) =>
       _$this._rolePolicyList = rolePolicyList;
 
-  _i8.ListBuilder<_i4.AttachedPolicy>? _attachedManagedPolicies;
-  _i8.ListBuilder<_i4.AttachedPolicy> get attachedManagedPolicies =>
-      _$this._attachedManagedPolicies ??=
-          new _i8.ListBuilder<_i4.AttachedPolicy>();
+  _i2.ListBuilder<AttachedPolicy>? _attachedManagedPolicies;
+  _i2.ListBuilder<AttachedPolicy> get attachedManagedPolicies =>
+      _$this._attachedManagedPolicies ??= new _i2.ListBuilder<AttachedPolicy>();
   set attachedManagedPolicies(
-          _i8.ListBuilder<_i4.AttachedPolicy>? attachedManagedPolicies) =>
+          _i2.ListBuilder<AttachedPolicy>? attachedManagedPolicies) =>
       _$this._attachedManagedPolicies = attachedManagedPolicies;
 
-  _i5.AttachedPermissionsBoundaryBuilder? _permissionsBoundary;
-  _i5.AttachedPermissionsBoundaryBuilder get permissionsBoundary =>
-      _$this._permissionsBoundary ??=
-          new _i5.AttachedPermissionsBoundaryBuilder();
+  AttachedPermissionsBoundaryBuilder? _permissionsBoundary;
+  AttachedPermissionsBoundaryBuilder get permissionsBoundary =>
+      _$this._permissionsBoundary ??= new AttachedPermissionsBoundaryBuilder();
   set permissionsBoundary(
-          _i5.AttachedPermissionsBoundaryBuilder? permissionsBoundary) =>
+          AttachedPermissionsBoundaryBuilder? permissionsBoundary) =>
       _$this._permissionsBoundary = permissionsBoundary;
 
-  _i8.ListBuilder<_i6.Tag>? _tags;
-  _i8.ListBuilder<_i6.Tag> get tags =>
-      _$this._tags ??= new _i8.ListBuilder<_i6.Tag>();
-  set tags(_i8.ListBuilder<_i6.Tag>? tags) => _$this._tags = tags;
+  _i2.ListBuilder<Tag>? _tags;
+  _i2.ListBuilder<Tag> get tags => _$this._tags ??= new _i2.ListBuilder<Tag>();
+  set tags(_i2.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
-  _i7.RoleLastUsedBuilder? _roleLastUsed;
-  _i7.RoleLastUsedBuilder get roleLastUsed =>
-      _$this._roleLastUsed ??= new _i7.RoleLastUsedBuilder();
-  set roleLastUsed(_i7.RoleLastUsedBuilder? roleLastUsed) =>
+  RoleLastUsedBuilder? _roleLastUsed;
+  RoleLastUsedBuilder get roleLastUsed =>
+      _$this._roleLastUsed ??= new RoleLastUsedBuilder();
+  set roleLastUsed(RoleLastUsedBuilder? roleLastUsed) =>
       _$this._roleLastUsed = roleLastUsed;
 
   RoleDetailBuilder();

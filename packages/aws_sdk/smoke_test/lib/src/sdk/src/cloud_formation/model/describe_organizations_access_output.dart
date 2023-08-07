@@ -6,9 +6,8 @@ library smoke_test.cloud_formation.model.describe_organizations_access_output; /
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/organization_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/organization_status.dart';
 
 part 'describe_organizations_access_output.g.dart';
 
@@ -18,7 +17,7 @@ abstract class DescribeOrganizationsAccessOutput
     implements
         Built<DescribeOrganizationsAccessOutput,
             DescribeOrganizationsAccessOutputBuilder> {
-  factory DescribeOrganizationsAccessOutput({_i2.OrganizationStatus? status}) {
+  factory DescribeOrganizationsAccessOutput({OrganizationStatus? status}) {
     return _$DescribeOrganizationsAccessOutput._(status: status);
   }
 
@@ -35,11 +34,11 @@ abstract class DescribeOrganizationsAccessOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<DescribeOrganizationsAccessOutput>>
+  static const List<_i2.SmithySerializer<DescribeOrganizationsAccessOutput>>
       serializers = [DescribeOrganizationsAccessOutputAwsQuerySerializer()];
 
   /// Presents the status of the `OrganizationAccess`.
-  _i2.OrganizationStatus? get status;
+  OrganizationStatus? get status;
   @override
   List<Object?> get props => [status];
   @override
@@ -55,7 +54,7 @@ abstract class DescribeOrganizationsAccessOutput
 }
 
 class DescribeOrganizationsAccessOutputAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<DescribeOrganizationsAccessOutput> {
+    extends _i2.StructuredSmithySerializer<DescribeOrganizationsAccessOutput> {
   const DescribeOrganizationsAccessOutputAwsQuerySerializer()
       : super('DescribeOrganizationsAccessOutput');
 
@@ -65,8 +64,8 @@ class DescribeOrganizationsAccessOutputAwsQuerySerializer
         _$DescribeOrganizationsAccessOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -90,8 +89,8 @@ class DescribeOrganizationsAccessOutputAwsQuerySerializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.OrganizationStatus),
-          ) as _i2.OrganizationStatus);
+            specifiedType: const FullType(OrganizationStatus),
+          ) as OrganizationStatus);
       }
     }
 
@@ -105,18 +104,18 @@ class DescribeOrganizationsAccessOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'DescribeOrganizationsAccessOutputResponse',
-        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final DescribeOrganizationsAccessOutput(:status) = object;
     if (status != null) {
       result$
-        ..add(const _i3.XmlElementName('Status'))
+        ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(_i2.OrganizationStatus),
+          specifiedType: const FullType.nullable(OrganizationStatus),
         ));
     }
     return result$;

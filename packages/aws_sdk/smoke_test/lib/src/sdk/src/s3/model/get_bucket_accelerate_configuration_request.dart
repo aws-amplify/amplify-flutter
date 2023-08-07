@@ -6,9 +6,9 @@ library smoke_test.s3.model.get_bucket_accelerate_configuration_request; // igno
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i4;
+import 'package:meta/meta.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart';
 
 part 'get_bucket_accelerate_configuration_request.g.dart';
 
@@ -24,7 +24,7 @@ abstract class GetBucketAccelerateConfigurationRequest
   factory GetBucketAccelerateConfigurationRequest({
     required String bucket,
     String? expectedBucketOwner,
-    _i3.RequestPayer? requestPayer,
+    RequestPayer? requestPayer,
   }) {
     return _$GetBucketAccelerateConfigurationRequest._(
       bucket: bucket,
@@ -50,7 +50,7 @@ abstract class GetBucketAccelerateConfigurationRequest
               request.headers['x-amz-expected-bucket-owner']!;
         }
         if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = _i3.RequestPayer.values
+          b.requestPayer = RequestPayer.values
               .byValue(request.headers['x-amz-request-payer']!);
         }
         if (labels['bucket'] != null) {
@@ -71,7 +71,7 @@ abstract class GetBucketAccelerateConfigurationRequest
   String? get expectedBucketOwner;
 
   /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
-  _i3.RequestPayer? get requestPayer;
+  RequestPayer? get requestPayer;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -113,7 +113,7 @@ abstract class GetBucketAccelerateConfigurationRequest
   }
 }
 
-@_i4.internal
+@_i3.internal
 abstract class GetBucketAccelerateConfigurationRequestPayload
     with
         _i2.AWSEquatable<GetBucketAccelerateConfigurationRequestPayload>

@@ -6,10 +6,9 @@ library smoke_test.api_gateway.model.get_gateway_response_request; // ignore_for
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i4;
+import 'package:meta/meta.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/gateway_response_type.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/gateway_response_type.dart';
 
 part 'get_gateway_response_request.g.dart';
 
@@ -25,7 +24,7 @@ abstract class GetGatewayResponseRequest
   /// Gets a GatewayResponse of a specified response type on the given RestApi.
   factory GetGatewayResponseRequest({
     required String restApiId,
-    required _i3.GatewayResponseType responseType,
+    required GatewayResponseType responseType,
   }) {
     return _$GetGatewayResponseRequest._(
       restApiId: restApiId,
@@ -51,7 +50,7 @@ abstract class GetGatewayResponseRequest
         }
         if (labels['responseType'] != null) {
           b.responseType =
-              _i3.GatewayResponseType.values.byValue(labels['responseType']!);
+              GatewayResponseType.values.byValue(labels['responseType']!);
         }
       });
 
@@ -62,7 +61,7 @@ abstract class GetGatewayResponseRequest
   String get restApiId;
 
   /// The response type of the associated GatewayResponse.
-  _i3.GatewayResponseType get responseType;
+  GatewayResponseType get responseType;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -100,7 +99,7 @@ abstract class GetGatewayResponseRequest
   }
 }
 
-@_i4.internal
+@_i3.internal
 abstract class GetGatewayResponseRequestPayload
     with
         _i2.AWSEquatable<GetGatewayResponseRequestPayload>

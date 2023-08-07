@@ -6,15 +6,15 @@ library smoke_test.s3.model.get_bucket_logging_output; // ignore_for_file: no_le
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/logging_enabled.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/logging_enabled.dart';
 
 part 'get_bucket_logging_output.g.dart';
 
 abstract class GetBucketLoggingOutput
     with _i1.AWSEquatable<GetBucketLoggingOutput>
     implements Built<GetBucketLoggingOutput, GetBucketLoggingOutputBuilder> {
-  factory GetBucketLoggingOutput({_i2.LoggingEnabled? loggingEnabled}) {
+  factory GetBucketLoggingOutput({LoggingEnabled? loggingEnabled}) {
     return _$GetBucketLoggingOutput._(loggingEnabled: loggingEnabled);
   }
 
@@ -31,11 +31,11 @@ abstract class GetBucketLoggingOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<GetBucketLoggingOutput>> serializers =
+  static const List<_i2.SmithySerializer<GetBucketLoggingOutput>> serializers =
       [GetBucketLoggingOutputRestXmlSerializer()];
 
   /// Describes where logs are stored and the prefix that Amazon S3 assigns to all log object keys for a bucket. For more information, see [PUT Bucket logging](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTlogging.html) in the _Amazon S3 API Reference_.
-  _i2.LoggingEnabled? get loggingEnabled;
+  LoggingEnabled? get loggingEnabled;
   @override
   List<Object?> get props => [loggingEnabled];
   @override
@@ -50,7 +50,7 @@ abstract class GetBucketLoggingOutput
 }
 
 class GetBucketLoggingOutputRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<GetBucketLoggingOutput> {
+    extends _i2.StructuredSmithySerializer<GetBucketLoggingOutput> {
   const GetBucketLoggingOutputRestXmlSerializer()
       : super('GetBucketLoggingOutput');
 
@@ -60,8 +60,8 @@ class GetBucketLoggingOutputRestXmlSerializer
         _$GetBucketLoggingOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -85,8 +85,8 @@ class GetBucketLoggingOutputRestXmlSerializer
         case 'LoggingEnabled':
           result.loggingEnabled.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.LoggingEnabled),
-          ) as _i2.LoggingEnabled));
+            specifiedType: const FullType(LoggingEnabled),
+          ) as LoggingEnabled));
       }
     }
 
@@ -100,18 +100,18 @@ class GetBucketLoggingOutputRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'BucketLoggingStatus',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final GetBucketLoggingOutput(:loggingEnabled) = object;
     if (loggingEnabled != null) {
       result$
-        ..add(const _i3.XmlElementName('LoggingEnabled'))
+        ..add(const _i2.XmlElementName('LoggingEnabled'))
         ..add(serializers.serialize(
           loggingEnabled,
-          specifiedType: const FullType(_i2.LoggingEnabled),
+          specifiedType: const FullType(LoggingEnabled),
         ));
     }
     return result$;

@@ -9,7 +9,7 @@ part of 'http_payload_with_xml_namespace_input_output.dart';
 class _$HttpPayloadWithXmlNamespaceInputOutput
     extends HttpPayloadWithXmlNamespaceInputOutput {
   @override
-  final _i2.PayloadWithXmlNamespace? nested;
+  final PayloadWithXmlNamespace? nested;
 
   factory _$HttpPayloadWithXmlNamespaceInputOutput(
           [void Function(HttpPayloadWithXmlNamespaceInputOutputBuilder)?
@@ -51,11 +51,10 @@ class HttpPayloadWithXmlNamespaceInputOutputBuilder
             HttpPayloadWithXmlNamespaceInputOutputBuilder> {
   _$HttpPayloadWithXmlNamespaceInputOutput? _$v;
 
-  _i2.PayloadWithXmlNamespaceBuilder? _nested;
-  _i2.PayloadWithXmlNamespaceBuilder get nested =>
-      _$this._nested ??= new _i2.PayloadWithXmlNamespaceBuilder();
-  set nested(_i2.PayloadWithXmlNamespaceBuilder? nested) =>
-      _$this._nested = nested;
+  PayloadWithXmlNamespaceBuilder? _nested;
+  PayloadWithXmlNamespaceBuilder get nested =>
+      _$this._nested ??= new PayloadWithXmlNamespaceBuilder();
+  set nested(PayloadWithXmlNamespaceBuilder? nested) => _$this._nested = nested;
 
   HttpPayloadWithXmlNamespaceInputOutputBuilder();
 

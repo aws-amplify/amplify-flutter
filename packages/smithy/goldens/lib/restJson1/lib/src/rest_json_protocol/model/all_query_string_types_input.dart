@@ -4,13 +4,12 @@
 library rest_json1_v1.rest_json_protocol.model.all_query_string_types_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:fixnum/fixnum.dart' as _i3;
-import 'package:meta/meta.dart' as _i6;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/foo_enum.dart'
-    as _i4;
+import 'package:meta/meta.dart' as _i5;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/foo_enum.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'all_query_string_types_input.g.dart';
@@ -40,8 +39,8 @@ abstract class AllQueryStringTypesInput
     List<bool>? queryBooleanList,
     DateTime? queryTimestamp,
     List<DateTime>? queryTimestampList,
-    _i4.FooEnum? queryEnum,
-    List<_i4.FooEnum>? queryEnumList,
+    FooEnum? queryEnum,
+    List<FooEnum>? queryEnumList,
     int? queryIntegerEnum,
     List<int>? queryIntegerEnumList,
     Map<String, List<String>>? queryParamsMapOfStringList,
@@ -49,37 +48,37 @@ abstract class AllQueryStringTypesInput
     return _$AllQueryStringTypesInput._(
       queryString: queryString,
       queryStringList:
-          queryStringList == null ? null : _i5.BuiltList(queryStringList),
+          queryStringList == null ? null : _i4.BuiltList(queryStringList),
       queryStringSet:
-          queryStringSet == null ? null : _i5.BuiltSet(queryStringSet),
+          queryStringSet == null ? null : _i4.BuiltSet(queryStringSet),
       queryByte: queryByte,
       queryShort: queryShort,
       queryInteger: queryInteger,
       queryIntegerList:
-          queryIntegerList == null ? null : _i5.BuiltList(queryIntegerList),
+          queryIntegerList == null ? null : _i4.BuiltList(queryIntegerList),
       queryIntegerSet:
-          queryIntegerSet == null ? null : _i5.BuiltSet(queryIntegerSet),
+          queryIntegerSet == null ? null : _i4.BuiltSet(queryIntegerSet),
       queryLong: queryLong,
       queryFloat: queryFloat,
       queryDouble: queryDouble,
       queryDoubleList:
-          queryDoubleList == null ? null : _i5.BuiltList(queryDoubleList),
+          queryDoubleList == null ? null : _i4.BuiltList(queryDoubleList),
       queryBoolean: queryBoolean,
       queryBooleanList:
-          queryBooleanList == null ? null : _i5.BuiltList(queryBooleanList),
+          queryBooleanList == null ? null : _i4.BuiltList(queryBooleanList),
       queryTimestamp: queryTimestamp,
       queryTimestampList:
-          queryTimestampList == null ? null : _i5.BuiltList(queryTimestampList),
+          queryTimestampList == null ? null : _i4.BuiltList(queryTimestampList),
       queryEnum: queryEnum,
       queryEnumList:
-          queryEnumList == null ? null : _i5.BuiltList(queryEnumList),
+          queryEnumList == null ? null : _i4.BuiltList(queryEnumList),
       queryIntegerEnum: queryIntegerEnum,
       queryIntegerEnumList: queryIntegerEnumList == null
           ? null
-          : _i5.BuiltList(queryIntegerEnumList),
+          : _i4.BuiltList(queryIntegerEnumList),
       queryParamsMapOfStringList: queryParamsMapOfStringList == null
           ? null
-          : _i5.BuiltListMultimap(queryParamsMapOfStringList),
+          : _i4.BuiltListMultimap(queryParamsMapOfStringList),
     );
   }
 
@@ -168,12 +167,12 @@ abstract class AllQueryStringTypesInput
         }
         if (request.queryParameters['Enum'] != null) {
           b.queryEnum =
-              _i4.FooEnum.values.byValue(request.queryParameters['Enum']!);
+              FooEnum.values.byValue(request.queryParameters['Enum']!);
         }
         if (request.queryParameters['EnumList'] != null) {
           b.queryEnumList.addAll(_i1
               .parseHeader(request.queryParameters['EnumList']!)
-              .map((el) => _i4.FooEnum.values.byValue(el.trim())));
+              .map((el) => FooEnum.values.byValue(el.trim())));
         }
         if (request.queryParameters['IntegerEnum'] != null) {
           b.queryIntegerEnum =
@@ -190,26 +189,26 @@ abstract class AllQueryStringTypesInput
       serializers = [AllQueryStringTypesInputRestJson1Serializer()];
 
   String? get queryString;
-  _i5.BuiltList<String>? get queryStringList;
-  _i5.BuiltSet<String>? get queryStringSet;
+  _i4.BuiltList<String>? get queryStringList;
+  _i4.BuiltSet<String>? get queryStringSet;
   int? get queryByte;
   int? get queryShort;
   int? get queryInteger;
-  _i5.BuiltList<int>? get queryIntegerList;
-  _i5.BuiltSet<int>? get queryIntegerSet;
+  _i4.BuiltList<int>? get queryIntegerList;
+  _i4.BuiltSet<int>? get queryIntegerSet;
   _i3.Int64? get queryLong;
   double? get queryFloat;
   double? get queryDouble;
-  _i5.BuiltList<double>? get queryDoubleList;
+  _i4.BuiltList<double>? get queryDoubleList;
   bool? get queryBoolean;
-  _i5.BuiltList<bool>? get queryBooleanList;
+  _i4.BuiltList<bool>? get queryBooleanList;
   DateTime? get queryTimestamp;
-  _i5.BuiltList<DateTime>? get queryTimestampList;
-  _i4.FooEnum? get queryEnum;
-  _i5.BuiltList<_i4.FooEnum>? get queryEnumList;
+  _i4.BuiltList<DateTime>? get queryTimestampList;
+  FooEnum? get queryEnum;
+  _i4.BuiltList<FooEnum>? get queryEnumList;
   int? get queryIntegerEnum;
-  _i5.BuiltList<int>? get queryIntegerEnumList;
-  _i5.BuiltListMultimap<String, String>? get queryParamsMapOfStringList;
+  _i4.BuiltList<int>? get queryIntegerEnumList;
+  _i4.BuiltListMultimap<String, String>? get queryParamsMapOfStringList;
   @override
   AllQueryStringTypesInputPayload getPayload() =>
       AllQueryStringTypesInputPayload();
@@ -328,7 +327,7 @@ abstract class AllQueryStringTypesInput
   }
 }
 
-@_i6.internal
+@_i5.internal
 abstract class AllQueryStringTypesInputPayload
     with
         _i2.AWSEquatable<AllQueryStringTypesInputPayload>

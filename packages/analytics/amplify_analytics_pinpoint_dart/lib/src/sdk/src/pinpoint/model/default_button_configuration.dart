@@ -3,12 +3,11 @@
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.default_button_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/button_action.dart'
-    as _i2;
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/button_action.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'default_button_configuration.g.dart';
 
@@ -21,7 +20,7 @@ abstract class DefaultButtonConfiguration
   factory DefaultButtonConfiguration({
     String? backgroundColor,
     int? borderRadius,
-    required _i2.ButtonAction buttonAction,
+    required ButtonAction buttonAction,
     String? link,
     required String text,
     String? textColor,
@@ -43,7 +42,7 @@ abstract class DefaultButtonConfiguration
 
   const DefaultButtonConfiguration._();
 
-  static const List<_i3.SmithySerializer<DefaultButtonConfiguration>>
+  static const List<_i2.SmithySerializer<DefaultButtonConfiguration>>
       serializers = [DefaultButtonConfigurationRestJson1Serializer()];
 
   /// The background color of the button.
@@ -53,7 +52,7 @@ abstract class DefaultButtonConfiguration
   int? get borderRadius;
 
   /// Action triggered by the button.
-  _i2.ButtonAction get buttonAction;
+  ButtonAction get buttonAction;
 
   /// Button destination.
   String? get link;
@@ -104,7 +103,7 @@ abstract class DefaultButtonConfiguration
 }
 
 class DefaultButtonConfigurationRestJson1Serializer
-    extends _i3.StructuredSmithySerializer<DefaultButtonConfiguration> {
+    extends _i2.StructuredSmithySerializer<DefaultButtonConfiguration> {
   const DefaultButtonConfigurationRestJson1Serializer()
       : super('DefaultButtonConfiguration');
 
@@ -114,8 +113,8 @@ class DefaultButtonConfigurationRestJson1Serializer
         _$DefaultButtonConfiguration,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -149,8 +148,8 @@ class DefaultButtonConfigurationRestJson1Serializer
         case 'ButtonAction':
           result.buttonAction = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ButtonAction),
-          ) as _i2.ButtonAction);
+            specifiedType: const FullType(ButtonAction),
+          ) as ButtonAction);
         case 'Link':
           result.link = (serializers.deserialize(
             value,
@@ -191,7 +190,7 @@ class DefaultButtonConfigurationRestJson1Serializer
       'ButtonAction',
       serializers.serialize(
         buttonAction,
-        specifiedType: const FullType(_i2.ButtonAction),
+        specifiedType: const FullType(ButtonAction),
       ),
       'Text',
       serializers.serialize(

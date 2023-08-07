@@ -9,7 +9,7 @@ part of 'describe_organizations_access_output.dart';
 class _$DescribeOrganizationsAccessOutput
     extends DescribeOrganizationsAccessOutput {
   @override
-  final _i2.OrganizationStatus? status;
+  final OrganizationStatus? status;
 
   factory _$DescribeOrganizationsAccessOutput(
           [void Function(DescribeOrganizationsAccessOutputBuilder)? updates]) =>
@@ -48,9 +48,9 @@ class DescribeOrganizationsAccessOutputBuilder
             DescribeOrganizationsAccessOutputBuilder> {
   _$DescribeOrganizationsAccessOutput? _$v;
 
-  _i2.OrganizationStatus? _status;
-  _i2.OrganizationStatus? get status => _$this._status;
-  set status(_i2.OrganizationStatus? status) => _$this._status = status;
+  OrganizationStatus? _status;
+  OrganizationStatus? get status => _$this._status;
+  set status(OrganizationStatus? status) => _$this._status = status;
 
   DescribeOrganizationsAccessOutputBuilder();
 

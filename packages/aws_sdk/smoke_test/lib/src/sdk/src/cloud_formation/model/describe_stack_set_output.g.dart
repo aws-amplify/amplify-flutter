@@ -8,7 +8,7 @@ part of 'describe_stack_set_output.dart';
 
 class _$DescribeStackSetOutput extends DescribeStackSetOutput {
   @override
-  final _i2.StackSet? stackSet;
+  final StackSet? stackSet;
 
   factory _$DescribeStackSetOutput(
           [void Function(DescribeStackSetOutputBuilder)? updates]) =>
@@ -44,10 +44,9 @@ class DescribeStackSetOutputBuilder
     implements Builder<DescribeStackSetOutput, DescribeStackSetOutputBuilder> {
   _$DescribeStackSetOutput? _$v;
 
-  _i2.StackSetBuilder? _stackSet;
-  _i2.StackSetBuilder get stackSet =>
-      _$this._stackSet ??= new _i2.StackSetBuilder();
-  set stackSet(_i2.StackSetBuilder? stackSet) => _$this._stackSet = stackSet;
+  StackSetBuilder? _stackSet;
+  StackSetBuilder get stackSet => _$this._stackSet ??= new StackSetBuilder();
+  set stackSet(StackSetBuilder? stackSet) => _$this._stackSet = stackSet;
 
   DescribeStackSetOutputBuilder();
 

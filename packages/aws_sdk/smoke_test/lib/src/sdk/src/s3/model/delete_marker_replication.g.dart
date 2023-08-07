@@ -8,7 +8,7 @@ part of 'delete_marker_replication.dart';
 
 class _$DeleteMarkerReplication extends DeleteMarkerReplication {
   @override
-  final _i2.DeleteMarkerReplicationStatus? status;
+  final DeleteMarkerReplicationStatus? status;
 
   factory _$DeleteMarkerReplication(
           [void Function(DeleteMarkerReplicationBuilder)? updates]) =>
@@ -45,10 +45,9 @@ class DeleteMarkerReplicationBuilder
         Builder<DeleteMarkerReplication, DeleteMarkerReplicationBuilder> {
   _$DeleteMarkerReplication? _$v;
 
-  _i2.DeleteMarkerReplicationStatus? _status;
-  _i2.DeleteMarkerReplicationStatus? get status => _$this._status;
-  set status(_i2.DeleteMarkerReplicationStatus? status) =>
-      _$this._status = status;
+  DeleteMarkerReplicationStatus? _status;
+  DeleteMarkerReplicationStatus? get status => _$this._status;
+  set status(DeleteMarkerReplicationStatus? status) => _$this._status = status;
 
   DeleteMarkerReplicationBuilder();
 

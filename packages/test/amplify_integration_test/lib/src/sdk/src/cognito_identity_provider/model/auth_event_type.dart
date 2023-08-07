@@ -3,23 +3,17 @@
 
 library amplify_integration_test.cognito_identity_provider.model.auth_event_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/challenge_response_type.dart'
-    as _i5;
-import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/event_context_data_type.dart'
-    as _i6;
-import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/event_feedback_type.dart'
-    as _i7;
-import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/event_response_type.dart'
-    as _i3;
-import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/event_risk_type.dart'
-    as _i4;
-import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/event_type.dart'
-    as _i2;
+import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/challenge_response_type.dart';
+import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/event_context_data_type.dart';
+import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/event_feedback_type.dart';
+import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/event_response_type.dart';
+import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/event_risk_type.dart';
+import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/event_type.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i8;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i9;
+import 'package:smithy/smithy.dart' as _i3;
 
 part 'auth_event_type.g.dart';
 
@@ -30,13 +24,13 @@ abstract class AuthEventType
   /// The authentication event type.
   factory AuthEventType({
     String? eventId,
-    _i2.EventType? eventType,
+    EventType? eventType,
     DateTime? creationDate,
-    _i3.EventResponseType? eventResponse,
-    _i4.EventRiskType? eventRisk,
-    List<_i5.ChallengeResponseType>? challengeResponses,
-    _i6.EventContextDataType? eventContextData,
-    _i7.EventFeedbackType? eventFeedback,
+    EventResponseType? eventResponse,
+    EventRiskType? eventRisk,
+    List<ChallengeResponseType>? challengeResponses,
+    EventContextDataType? eventContextData,
+    EventFeedbackType? eventFeedback,
   }) {
     return _$AuthEventType._(
       eventId: eventId,
@@ -45,7 +39,7 @@ abstract class AuthEventType
       eventResponse: eventResponse,
       eventRisk: eventRisk,
       challengeResponses:
-          challengeResponses == null ? null : _i8.BuiltList(challengeResponses),
+          challengeResponses == null ? null : _i2.BuiltList(challengeResponses),
       eventContextData: eventContextData,
       eventFeedback: eventFeedback,
     );
@@ -57,7 +51,7 @@ abstract class AuthEventType
 
   const AuthEventType._();
 
-  static const List<_i9.SmithySerializer<AuthEventType>> serializers = [
+  static const List<_i3.SmithySerializer<AuthEventType>> serializers = [
     AuthEventTypeAwsJson11Serializer()
   ];
 
@@ -65,25 +59,25 @@ abstract class AuthEventType
   String? get eventId;
 
   /// The event type.
-  _i2.EventType? get eventType;
+  EventType? get eventType;
 
   /// The date and time, in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format, when the item was created.
   DateTime? get creationDate;
 
   /// The event response.
-  _i3.EventResponseType? get eventResponse;
+  EventResponseType? get eventResponse;
 
   /// The event risk.
-  _i4.EventRiskType? get eventRisk;
+  EventRiskType? get eventRisk;
 
   /// The challenge responses.
-  _i8.BuiltList<_i5.ChallengeResponseType>? get challengeResponses;
+  _i2.BuiltList<ChallengeResponseType>? get challengeResponses;
 
   /// The user context data captured at the time of an event request. This value provides additional information about the client from which event the request is received.
-  _i6.EventContextDataType? get eventContextData;
+  EventContextDataType? get eventContextData;
 
   /// A flag specifying the user feedback captured at the time of an event request is good or bad.
-  _i7.EventFeedbackType? get eventFeedback;
+  EventFeedbackType? get eventFeedback;
   @override
   List<Object?> get props => [
         eventId,
@@ -135,7 +129,7 @@ abstract class AuthEventType
 }
 
 class AuthEventTypeAwsJson11Serializer
-    extends _i9.StructuredSmithySerializer<AuthEventType> {
+    extends _i3.StructuredSmithySerializer<AuthEventType> {
   const AuthEventTypeAwsJson11Serializer() : super('AuthEventType');
 
   @override
@@ -144,8 +138,8 @@ class AuthEventTypeAwsJson11Serializer
         _$AuthEventType,
       ];
   @override
-  Iterable<_i9.ShapeId> get supportedProtocols => const [
-        _i9.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -174,8 +168,8 @@ class AuthEventTypeAwsJson11Serializer
         case 'EventType':
           result.eventType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.EventType),
-          ) as _i2.EventType);
+            specifiedType: const FullType(EventType),
+          ) as EventType);
         case 'CreationDate':
           result.creationDate = (serializers.deserialize(
             value,
@@ -184,31 +178,31 @@ class AuthEventTypeAwsJson11Serializer
         case 'EventResponse':
           result.eventResponse = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.EventResponseType),
-          ) as _i3.EventResponseType);
+            specifiedType: const FullType(EventResponseType),
+          ) as EventResponseType);
         case 'EventRisk':
           result.eventRisk.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.EventRiskType),
-          ) as _i4.EventRiskType));
+            specifiedType: const FullType(EventRiskType),
+          ) as EventRiskType));
         case 'ChallengeResponses':
           result.challengeResponses.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i8.BuiltList,
-              [FullType(_i5.ChallengeResponseType)],
+              _i2.BuiltList,
+              [FullType(ChallengeResponseType)],
             ),
-          ) as _i8.BuiltList<_i5.ChallengeResponseType>));
+          ) as _i2.BuiltList<ChallengeResponseType>));
         case 'EventContextData':
           result.eventContextData.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.EventContextDataType),
-          ) as _i6.EventContextDataType));
+            specifiedType: const FullType(EventContextDataType),
+          ) as EventContextDataType));
         case 'EventFeedback':
           result.eventFeedback.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i7.EventFeedbackType),
-          ) as _i7.EventFeedbackType));
+            specifiedType: const FullType(EventFeedbackType),
+          ) as EventFeedbackType));
       }
     }
 
@@ -245,7 +239,7 @@ class AuthEventTypeAwsJson11Serializer
         ..add('EventType')
         ..add(serializers.serialize(
           eventType,
-          specifiedType: const FullType(_i2.EventType),
+          specifiedType: const FullType(EventType),
         ));
     }
     if (creationDate != null) {
@@ -261,7 +255,7 @@ class AuthEventTypeAwsJson11Serializer
         ..add('EventResponse')
         ..add(serializers.serialize(
           eventResponse,
-          specifiedType: const FullType(_i3.EventResponseType),
+          specifiedType: const FullType(EventResponseType),
         ));
     }
     if (eventRisk != null) {
@@ -269,7 +263,7 @@ class AuthEventTypeAwsJson11Serializer
         ..add('EventRisk')
         ..add(serializers.serialize(
           eventRisk,
-          specifiedType: const FullType(_i4.EventRiskType),
+          specifiedType: const FullType(EventRiskType),
         ));
     }
     if (challengeResponses != null) {
@@ -278,8 +272,8 @@ class AuthEventTypeAwsJson11Serializer
         ..add(serializers.serialize(
           challengeResponses,
           specifiedType: const FullType(
-            _i8.BuiltList,
-            [FullType(_i5.ChallengeResponseType)],
+            _i2.BuiltList,
+            [FullType(ChallengeResponseType)],
           ),
         ));
     }
@@ -288,7 +282,7 @@ class AuthEventTypeAwsJson11Serializer
         ..add('EventContextData')
         ..add(serializers.serialize(
           eventContextData,
-          specifiedType: const FullType(_i6.EventContextDataType),
+          specifiedType: const FullType(EventContextDataType),
         ));
     }
     if (eventFeedback != null) {
@@ -296,7 +290,7 @@ class AuthEventTypeAwsJson11Serializer
         ..add('EventFeedback')
         ..add(serializers.serialize(
           eventFeedback,
-          specifiedType: const FullType(_i7.EventFeedbackType),
+          specifiedType: const FullType(EventFeedbackType),
         ));
     }
     return result$;

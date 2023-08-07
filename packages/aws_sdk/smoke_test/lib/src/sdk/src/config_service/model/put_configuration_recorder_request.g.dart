@@ -9,7 +9,7 @@ part of 'put_configuration_recorder_request.dart';
 class _$PutConfigurationRecorderRequest
     extends PutConfigurationRecorderRequest {
   @override
-  final _i3.ConfigurationRecorder configurationRecorder;
+  final ConfigurationRecorder configurationRecorder;
 
   factory _$PutConfigurationRecorderRequest(
           [void Function(PutConfigurationRecorderRequestBuilder)? updates]) =>
@@ -52,11 +52,11 @@ class PutConfigurationRecorderRequestBuilder
             PutConfigurationRecorderRequestBuilder> {
   _$PutConfigurationRecorderRequest? _$v;
 
-  _i3.ConfigurationRecorderBuilder? _configurationRecorder;
-  _i3.ConfigurationRecorderBuilder get configurationRecorder =>
-      _$this._configurationRecorder ??= new _i3.ConfigurationRecorderBuilder();
+  ConfigurationRecorderBuilder? _configurationRecorder;
+  ConfigurationRecorderBuilder get configurationRecorder =>
+      _$this._configurationRecorder ??= new ConfigurationRecorderBuilder();
   set configurationRecorder(
-          _i3.ConfigurationRecorderBuilder? configurationRecorder) =>
+          ConfigurationRecorderBuilder? configurationRecorder) =>
       _$this._configurationRecorder = configurationRecorder;
 
   PutConfigurationRecorderRequestBuilder();

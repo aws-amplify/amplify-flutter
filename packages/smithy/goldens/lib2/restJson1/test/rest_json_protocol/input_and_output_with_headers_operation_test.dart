@@ -4,18 +4,14 @@
 // ignore_for_file: unused_element
 library rest_json1_v2.rest_json_protocol.test.input_and_output_with_headers_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:built_collection/built_collection.dart' as _i7;
+import 'package:built_collection/built_collection.dart' as _i5;
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i6;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/foo_enum.dart'
-    as _i8;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/input_and_output_with_headers_io.dart'
-    as _i5;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/integer_enum.dart'
-    as _i9;
-import 'package:rest_json1_v2/src/rest_json_protocol/operation/input_and_output_with_headers_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:fixnum/fixnum.dart' as _i4;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/foo_enum.dart';
+import 'package:rest_json1_v2/src/rest_json_protocol/model/input_and_output_with_headers_io.dart';
+import 'package:rest_json1_v2/src/rest_json_protocol/model/integer_enum.dart';
+import 'package:rest_json1_v2/src/rest_json_protocol/operation/input_and_output_with_headers_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -24,14 +20,14 @@ void main() {
     'RestJsonInputAndOutputWithStringHeaders (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.InputAndOutputWithHeadersOperation(
+        operation: InputAndOutputWithHeadersOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'RestJsonInputAndOutputWithStringHeaders',
           documentation: 'Tests requests with string header bindings',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -80,7 +76,7 @@ void main() {
     'RestJsonInputAndOutputWithQuotedStringHeaders (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.InputAndOutputWithHeadersOperation(
+        operation: InputAndOutputWithHeadersOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -88,7 +84,7 @@ void main() {
           id: 'RestJsonInputAndOutputWithQuotedStringHeaders',
           documentation:
               'Tests requests with string list header bindings that require quoting',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -127,14 +123,14 @@ void main() {
     'RestJsonInputAndOutputWithNumericHeaders (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.InputAndOutputWithHeadersOperation(
+        operation: InputAndOutputWithHeadersOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'RestJsonInputAndOutputWithNumericHeaders',
           documentation: 'Tests requests with numeric header bindings',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -187,14 +183,14 @@ void main() {
     'RestJsonInputAndOutputWithBooleanHeaders (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.InputAndOutputWithHeadersOperation(
+        operation: InputAndOutputWithHeadersOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'RestJsonInputAndOutputWithBooleanHeaders',
           documentation: 'Tests requests with boolean header bindings',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -239,14 +235,14 @@ void main() {
     'RestJsonInputAndOutputWithTimestampHeaders (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.InputAndOutputWithHeadersOperation(
+        operation: InputAndOutputWithHeadersOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'RestJsonInputAndOutputWithTimestampHeaders',
           documentation: 'Tests requests with timestamp header bindings',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -287,14 +283,14 @@ void main() {
     'RestJsonInputAndOutputWithEnumHeaders (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.InputAndOutputWithHeadersOperation(
+        operation: InputAndOutputWithHeadersOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'RestJsonInputAndOutputWithEnumHeaders',
           documentation: 'Tests requests with enum header bindings',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -337,14 +333,14 @@ void main() {
     'RestJsonInputAndOutputWithIntEnumHeaders (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.InputAndOutputWithHeadersOperation(
+        operation: InputAndOutputWithHeadersOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'RestJsonInputAndOutputWithIntEnumHeaders',
           documentation: 'Tests requests with intEnum header bindings',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -387,14 +383,14 @@ void main() {
     'RestJsonSupportsNaNFloatHeaderInputs (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.InputAndOutputWithHeadersOperation(
+        operation: InputAndOutputWithHeadersOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'RestJsonSupportsNaNFloatHeaderInputs',
           documentation: 'Supports handling NaN float header values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -433,14 +429,14 @@ void main() {
     'RestJsonSupportsInfinityFloatHeaderInputs (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.InputAndOutputWithHeadersOperation(
+        operation: InputAndOutputWithHeadersOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'RestJsonSupportsInfinityFloatHeaderInputs',
           documentation: 'Supports handling Infinity float header values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -479,14 +475,14 @@ void main() {
     'RestJsonSupportsNegativeInfinityFloatHeaderInputs (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.InputAndOutputWithHeadersOperation(
+        operation: InputAndOutputWithHeadersOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'RestJsonSupportsNegativeInfinityFloatHeaderInputs',
           documentation: 'Supports handling -Infinity float header values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -525,14 +521,14 @@ void main() {
     'RestJsonInputAndOutputWithStringHeaders (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.InputAndOutputWithHeadersOperation(
+        operation: InputAndOutputWithHeadersOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'RestJsonInputAndOutputWithStringHeaders',
           documentation: 'Tests responses with string header bindings',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -575,7 +571,7 @@ void main() {
     'RestJsonInputAndOutputWithQuotedStringHeaders (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.InputAndOutputWithHeadersOperation(
+        operation: InputAndOutputWithHeadersOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -583,7 +579,7 @@ void main() {
           id: 'RestJsonInputAndOutputWithQuotedStringHeaders',
           documentation:
               'Tests responses with string list header bindings that require quoting',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -616,14 +612,14 @@ void main() {
     'RestJsonInputAndOutputWithNumericHeaders (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.InputAndOutputWithHeadersOperation(
+        operation: InputAndOutputWithHeadersOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'RestJsonInputAndOutputWithNumericHeaders',
           documentation: 'Tests responses with numeric header bindings',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -670,14 +666,14 @@ void main() {
     'RestJsonInputAndOutputWithBooleanHeaders (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.InputAndOutputWithHeadersOperation(
+        operation: InputAndOutputWithHeadersOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'RestJsonInputAndOutputWithBooleanHeaders',
           documentation: 'Tests responses with boolean header bindings',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -716,14 +712,14 @@ void main() {
     'RestJsonInputAndOutputWithTimestampHeaders (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.InputAndOutputWithHeadersOperation(
+        operation: InputAndOutputWithHeadersOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'RestJsonInputAndOutputWithTimestampHeaders',
           documentation: 'Tests responses with timestamp header bindings',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -758,14 +754,14 @@ void main() {
     'RestJsonInputAndOutputWithEnumHeaders (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.InputAndOutputWithHeadersOperation(
+        operation: InputAndOutputWithHeadersOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'RestJsonInputAndOutputWithEnumHeaders',
           documentation: 'Tests responses with enum header bindings',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -802,14 +798,14 @@ void main() {
     'RestJsonInputAndOutputWithIntEnumHeaders (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.InputAndOutputWithHeadersOperation(
+        operation: InputAndOutputWithHeadersOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'RestJsonInputAndOutputWithIntEnumHeaders',
           documentation: 'Tests responses with intEnum header bindings',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -846,14 +842,14 @@ void main() {
     'RestJsonSupportsNaNFloatHeaderOutputs (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.InputAndOutputWithHeadersOperation(
+        operation: InputAndOutputWithHeadersOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'RestJsonSupportsNaNFloatHeaderOutputs',
           documentation: 'Supports handling NaN float header values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -886,14 +882,14 @@ void main() {
     'RestJsonSupportsInfinityFloatHeaderOutputs (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.InputAndOutputWithHeadersOperation(
+        operation: InputAndOutputWithHeadersOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'RestJsonSupportsInfinityFloatHeaderOutputs',
           documentation: 'Supports handling Infinity float header values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -926,14 +922,14 @@ void main() {
     'RestJsonSupportsNegativeInfinityFloatHeaderOutputs (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.InputAndOutputWithHeadersOperation(
+        operation: InputAndOutputWithHeadersOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'RestJsonSupportsNegativeInfinityFloatHeaderOutputs',
           documentation: 'Supports handling -Infinity float header values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -965,26 +961,26 @@ void main() {
 }
 
 class InputAndOutputWithHeadersIoRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<_i5.InputAndOutputWithHeadersIo> {
+    extends _i3.StructuredSmithySerializer<InputAndOutputWithHeadersIo> {
   const InputAndOutputWithHeadersIoRestJson1Serializer()
       : super('InputAndOutputWithHeadersIo');
 
   @override
-  Iterable<Type> get types => const [_i5.InputAndOutputWithHeadersIo];
+  Iterable<Type> get types => const [InputAndOutputWithHeadersIo];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
       ];
   @override
-  _i5.InputAndOutputWithHeadersIo deserialize(
+  InputAndOutputWithHeadersIo deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.InputAndOutputWithHeadersIoBuilder();
+    final result = InputAndOutputWithHeadersIoBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -1017,8 +1013,8 @@ class InputAndOutputWithHeadersIoRestJson1Serializer
         case 'headerLong':
           result.headerLong = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.Int64),
-          ) as _i6.Int64);
+            specifiedType: const FullType(_i4.Int64),
+          ) as _i4.Int64);
         case 'headerFloat':
           result.headerFloat = (serializers.deserialize(
             value,
@@ -1043,68 +1039,68 @@ class InputAndOutputWithHeadersIoRestJson1Serializer
           result.headerStringList.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltList,
+              _i5.BuiltList,
               [FullType(String)],
             ),
-          ) as _i7.BuiltList<String>));
+          ) as _i5.BuiltList<String>));
         case 'headerStringSet':
           result.headerStringSet.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltSet,
+              _i5.BuiltSet,
               [FullType(String)],
             ),
-          ) as _i7.BuiltSet<String>));
+          ) as _i5.BuiltSet<String>));
         case 'headerIntegerList':
           result.headerIntegerList.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltList,
+              _i5.BuiltList,
               [FullType(int)],
             ),
-          ) as _i7.BuiltList<int>));
+          ) as _i5.BuiltList<int>));
         case 'headerBooleanList':
           result.headerBooleanList.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltList,
+              _i5.BuiltList,
               [FullType(bool)],
             ),
-          ) as _i7.BuiltList<bool>));
+          ) as _i5.BuiltList<bool>));
         case 'headerTimestampList':
           result.headerTimestampList.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltList,
+              _i5.BuiltList,
               [FullType(DateTime)],
             ),
-          ) as _i7.BuiltList<DateTime>));
+          ) as _i5.BuiltList<DateTime>));
         case 'headerEnum':
           result.headerEnum = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i8.FooEnum),
-          ) as _i8.FooEnum);
+            specifiedType: const FullType(FooEnum),
+          ) as FooEnum);
         case 'headerEnumList':
           result.headerEnumList.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltList,
-              [FullType(_i8.FooEnum)],
+              _i5.BuiltList,
+              [FullType(FooEnum)],
             ),
-          ) as _i7.BuiltList<_i8.FooEnum>));
+          ) as _i5.BuiltList<FooEnum>));
         case 'headerIntegerEnum':
           result.headerIntegerEnum = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i9.IntegerEnum),
-          ) as _i9.IntegerEnum);
+            specifiedType: const FullType(IntegerEnum),
+          ) as IntegerEnum);
         case 'headerIntegerEnumList':
           result.headerIntegerEnumList.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltList,
-              [FullType(_i9.IntegerEnum)],
+              _i5.BuiltList,
+              [FullType(IntegerEnum)],
             ),
-          ) as _i7.BuiltList<_i9.IntegerEnum>));
+          ) as _i5.BuiltList<IntegerEnum>));
       }
     }
 
@@ -1114,7 +1110,7 @@ class InputAndOutputWithHeadersIoRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.InputAndOutputWithHeadersIo object, {
+    InputAndOutputWithHeadersIo object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

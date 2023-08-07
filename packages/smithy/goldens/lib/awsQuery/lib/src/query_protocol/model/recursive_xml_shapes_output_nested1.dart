@@ -4,11 +4,10 @@
 library aws_query_v1.query_protocol.model.recursive_xml_shapes_output_nested1; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:aws_query_v1/src/query_protocol/model/recursive_xml_shapes_output_nested2.dart'
-    as _i2;
+import 'package:aws_query_v1/src/query_protocol/model/recursive_xml_shapes_output_nested2.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'recursive_xml_shapes_output_nested1.g.dart';
 
@@ -20,7 +19,7 @@ abstract class RecursiveXmlShapesOutputNested1
             RecursiveXmlShapesOutputNested1Builder> {
   factory RecursiveXmlShapesOutputNested1({
     String? foo,
-    _i2.RecursiveXmlShapesOutputNested2? nested,
+    RecursiveXmlShapesOutputNested2? nested,
   }) {
     return _$RecursiveXmlShapesOutputNested1._(
       foo: foo,
@@ -34,11 +33,11 @@ abstract class RecursiveXmlShapesOutputNested1
 
   const RecursiveXmlShapesOutputNested1._();
 
-  static const List<_i3.SmithySerializer<RecursiveXmlShapesOutputNested1>>
+  static const List<_i2.SmithySerializer<RecursiveXmlShapesOutputNested1>>
       serializers = [RecursiveXmlShapesOutputNested1AwsQuerySerializer()];
 
   String? get foo;
-  _i2.RecursiveXmlShapesOutputNested2? get nested;
+  RecursiveXmlShapesOutputNested2? get nested;
   @override
   List<Object?> get props => [
         foo,
@@ -61,7 +60,7 @@ abstract class RecursiveXmlShapesOutputNested1
 }
 
 class RecursiveXmlShapesOutputNested1AwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<RecursiveXmlShapesOutputNested1> {
+    extends _i2.StructuredSmithySerializer<RecursiveXmlShapesOutputNested1> {
   const RecursiveXmlShapesOutputNested1AwsQuerySerializer()
       : super('RecursiveXmlShapesOutputNested1');
 
@@ -71,8 +70,8 @@ class RecursiveXmlShapesOutputNested1AwsQuerySerializer
         _$RecursiveXmlShapesOutputNested1,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -101,8 +100,8 @@ class RecursiveXmlShapesOutputNested1AwsQuerySerializer
         case 'nested':
           result.nested.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.RecursiveXmlShapesOutputNested2),
-          ) as _i2.RecursiveXmlShapesOutputNested2));
+            specifiedType: const FullType(RecursiveXmlShapesOutputNested2),
+          ) as RecursiveXmlShapesOutputNested2));
       }
     }
 
@@ -116,15 +115,15 @@ class RecursiveXmlShapesOutputNested1AwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'RecursiveXmlShapesOutputNested1Response',
-        _i3.XmlNamespace('https://example.com/'),
+        _i2.XmlNamespace('https://example.com/'),
       )
     ];
     final RecursiveXmlShapesOutputNested1(:foo, :nested) = object;
     if (foo != null) {
       result$
-        ..add(const _i3.XmlElementName('foo'))
+        ..add(const _i2.XmlElementName('foo'))
         ..add(serializers.serialize(
           foo,
           specifiedType: const FullType(String),
@@ -132,10 +131,10 @@ class RecursiveXmlShapesOutputNested1AwsQuerySerializer
     }
     if (nested != null) {
       result$
-        ..add(const _i3.XmlElementName('nested'))
+        ..add(const _i2.XmlElementName('nested'))
         ..add(serializers.serialize(
           nested,
-          specifiedType: const FullType(_i2.RecursiveXmlShapesOutputNested2),
+          specifiedType: const FullType(RecursiveXmlShapesOutputNested2),
         ));
     }
     return result$;

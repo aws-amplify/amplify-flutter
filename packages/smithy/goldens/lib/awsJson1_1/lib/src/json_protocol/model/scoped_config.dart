@@ -4,18 +4,14 @@
 library aws_json1_1_v1.json_protocol.model.scoped_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:aws_json1_1_v1/src/json_protocol/model/client_config.dart'
-    as _i4;
-import 'package:aws_json1_1_v1/src/json_protocol/model/environment_config.dart'
-    as _i2;
-import 'package:aws_json1_1_v1/src/json_protocol/model/file_config_settings.dart'
-    as _i3;
-import 'package:aws_json1_1_v1/src/json_protocol/model/operation_config.dart'
-    as _i5;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:aws_json1_1_v1/src/json_protocol/model/client_config.dart';
+import 'package:aws_json1_1_v1/src/json_protocol/model/environment_config.dart';
+import 'package:aws_json1_1_v1/src/json_protocol/model/file_config_settings.dart';
+import 'package:aws_json1_1_v1/src/json_protocol/model/operation_config.dart';
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i7;
+import 'package:smithy/smithy.dart' as _i3;
 
 part 'scoped_config.g.dart';
 
@@ -25,17 +21,17 @@ abstract class ScopedConfig
     implements Built<ScopedConfig, ScopedConfigBuilder> {
   /// Config settings that are scoped to different sources, such as environment variables or the AWS config file.
   factory ScopedConfig({
-    _i2.EnvironmentConfig? environment,
-    Map<String, _i3.FileConfigSettings>? configFile,
-    Map<String, _i3.FileConfigSettings>? credentialsFile,
-    _i4.ClientConfig? client,
-    _i5.OperationConfig? operation,
+    EnvironmentConfig? environment,
+    Map<String, FileConfigSettings>? configFile,
+    Map<String, FileConfigSettings>? credentialsFile,
+    ClientConfig? client,
+    OperationConfig? operation,
   }) {
     return _$ScopedConfig._(
       environment: environment,
-      configFile: configFile == null ? null : _i6.BuiltMap(configFile),
+      configFile: configFile == null ? null : _i2.BuiltMap(configFile),
       credentialsFile:
-          credentialsFile == null ? null : _i6.BuiltMap(credentialsFile),
+          credentialsFile == null ? null : _i2.BuiltMap(credentialsFile),
       client: client,
       operation: operation,
     );
@@ -47,24 +43,24 @@ abstract class ScopedConfig
 
   const ScopedConfig._();
 
-  static const List<_i7.SmithySerializer<ScopedConfig>> serializers = [
+  static const List<_i3.SmithySerializer<ScopedConfig>> serializers = [
     ScopedConfigAwsJson11Serializer()
   ];
 
   /// Config settings that can be set as environment variables.
-  _i2.EnvironmentConfig? get environment;
+  EnvironmentConfig? get environment;
 
   /// A shape representing a parsed config file, which is a map of profile names to configuration sets.
-  _i6.BuiltMap<String, _i3.FileConfigSettings>? get configFile;
+  _i2.BuiltMap<String, FileConfigSettings>? get configFile;
 
   /// A shape representing a parsed config file, which is a map of profile names to configuration sets.
-  _i6.BuiltMap<String, _i3.FileConfigSettings>? get credentialsFile;
+  _i2.BuiltMap<String, FileConfigSettings>? get credentialsFile;
 
   /// Configuration that is set on the constructed client.
-  _i4.ClientConfig? get client;
+  ClientConfig? get client;
 
   /// Configuration that is set for the scope of a single operation.
-  _i5.OperationConfig? get operation;
+  OperationConfig? get operation;
   @override
   List<Object?> get props => [
         environment,
@@ -101,7 +97,7 @@ abstract class ScopedConfig
 }
 
 class ScopedConfigAwsJson11Serializer
-    extends _i7.StructuredSmithySerializer<ScopedConfig> {
+    extends _i3.StructuredSmithySerializer<ScopedConfig> {
   const ScopedConfigAwsJson11Serializer() : super('ScopedConfig');
 
   @override
@@ -110,8 +106,8 @@ class ScopedConfigAwsJson11Serializer
         _$ScopedConfig,
       ];
   @override
-  Iterable<_i7.ShapeId> get supportedProtocols => const [
-        _i7.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -135,40 +131,40 @@ class ScopedConfigAwsJson11Serializer
         case 'environment':
           result.environment.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.EnvironmentConfig),
-          ) as _i2.EnvironmentConfig));
+            specifiedType: const FullType(EnvironmentConfig),
+          ) as EnvironmentConfig));
         case 'configFile':
           result.configFile.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i3.FileConfigSettings),
+                FullType(FileConfigSettings),
               ],
             ),
-          ) as _i6.BuiltMap<String, _i3.FileConfigSettings>));
+          ) as _i2.BuiltMap<String, FileConfigSettings>));
         case 'credentialsFile':
           result.credentialsFile.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i3.FileConfigSettings),
+                FullType(FileConfigSettings),
               ],
             ),
-          ) as _i6.BuiltMap<String, _i3.FileConfigSettings>));
+          ) as _i2.BuiltMap<String, FileConfigSettings>));
         case 'client':
           result.client.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ClientConfig),
-          ) as _i4.ClientConfig));
+            specifiedType: const FullType(ClientConfig),
+          ) as ClientConfig));
         case 'operation':
           result.operation.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.OperationConfig),
-          ) as _i5.OperationConfig));
+            specifiedType: const FullType(OperationConfig),
+          ) as OperationConfig));
       }
     }
 
@@ -194,7 +190,7 @@ class ScopedConfigAwsJson11Serializer
         ..add('environment')
         ..add(serializers.serialize(
           environment,
-          specifiedType: const FullType(_i2.EnvironmentConfig),
+          specifiedType: const FullType(EnvironmentConfig),
         ));
     }
     if (configFile != null) {
@@ -203,10 +199,10 @@ class ScopedConfigAwsJson11Serializer
         ..add(serializers.serialize(
           configFile,
           specifiedType: const FullType(
-            _i6.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
-              FullType(_i3.FileConfigSettings),
+              FullType(FileConfigSettings),
             ],
           ),
         ));
@@ -217,10 +213,10 @@ class ScopedConfigAwsJson11Serializer
         ..add(serializers.serialize(
           credentialsFile,
           specifiedType: const FullType(
-            _i6.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
-              FullType(_i3.FileConfigSettings),
+              FullType(FileConfigSettings),
             ],
           ),
         ));
@@ -230,7 +226,7 @@ class ScopedConfigAwsJson11Serializer
         ..add('client')
         ..add(serializers.serialize(
           client,
-          specifiedType: const FullType(_i4.ClientConfig),
+          specifiedType: const FullType(ClientConfig),
         ));
     }
     if (operation != null) {
@@ -238,7 +234,7 @@ class ScopedConfigAwsJson11Serializer
         ..add('operation')
         ..add(serializers.serialize(
           operation,
-          specifiedType: const FullType(_i5.OperationConfig),
+          specifiedType: const FullType(OperationConfig),
         ));
     }
     return result$;

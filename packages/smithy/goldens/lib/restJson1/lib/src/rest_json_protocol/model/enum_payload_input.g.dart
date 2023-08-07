@@ -8,7 +8,7 @@ part of 'enum_payload_input.dart';
 
 class _$EnumPayloadInput extends EnumPayloadInput {
   @override
-  final _i2.StringEnum? payload;
+  final StringEnum? payload;
 
   factory _$EnumPayloadInput(
           [void Function(EnumPayloadInputBuilder)? updates]) =>
@@ -43,9 +43,9 @@ class EnumPayloadInputBuilder
     implements Builder<EnumPayloadInput, EnumPayloadInputBuilder> {
   _$EnumPayloadInput? _$v;
 
-  _i2.StringEnum? _payload;
-  _i2.StringEnum? get payload => _$this._payload;
-  set payload(_i2.StringEnum? payload) => _$this._payload = payload;
+  StringEnum? _payload;
+  StringEnum? get payload => _$this._payload;
+  set payload(StringEnum? payload) => _$this._payload = payload;
 
   EnumPayloadInputBuilder();
 

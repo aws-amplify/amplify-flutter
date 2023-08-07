@@ -8,7 +8,7 @@ part of 'usage_plan_keys.dart';
 
 class _$UsagePlanKeys extends UsagePlanKeys {
   @override
-  final _i3.BuiltList<_i2.UsagePlanKey>? items;
+  final _i2.BuiltList<UsagePlanKey>? items;
   @override
   final String? position;
 
@@ -46,10 +46,10 @@ class UsagePlanKeysBuilder
     implements Builder<UsagePlanKeys, UsagePlanKeysBuilder> {
   _$UsagePlanKeys? _$v;
 
-  _i3.ListBuilder<_i2.UsagePlanKey>? _items;
-  _i3.ListBuilder<_i2.UsagePlanKey> get items =>
-      _$this._items ??= new _i3.ListBuilder<_i2.UsagePlanKey>();
-  set items(_i3.ListBuilder<_i2.UsagePlanKey>? items) => _$this._items = items;
+  _i2.ListBuilder<UsagePlanKey>? _items;
+  _i2.ListBuilder<UsagePlanKey> get items =>
+      _$this._items ??= new _i2.ListBuilder<UsagePlanKey>();
+  set items(_i2.ListBuilder<UsagePlanKey>? items) => _$this._items = items;
 
   String? _position;
   String? get position => _$this._position;

@@ -4,12 +4,11 @@
 library smoke_test.iam.model.list_server_certificates_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/server_certificate_metadata.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/server_certificate_metadata.dart';
 
 part 'list_server_certificates_response.g.dart';
 
@@ -22,14 +21,14 @@ abstract class ListServerCertificatesResponse
             ListServerCertificatesResponseBuilder> {
   /// Contains the response to a successful ListServerCertificates request.
   factory ListServerCertificatesResponse({
-    required List<_i2.ServerCertificateMetadata> serverCertificateMetadataList,
+    required List<ServerCertificateMetadata> serverCertificateMetadataList,
     bool? isTruncated,
     String? marker,
   }) {
     isTruncated ??= false;
     return _$ListServerCertificatesResponse._(
       serverCertificateMetadataList:
-          _i3.BuiltList(serverCertificateMetadataList),
+          _i2.BuiltList(serverCertificateMetadataList),
       isTruncated: isTruncated,
       marker: marker,
     );
@@ -49,7 +48,7 @@ abstract class ListServerCertificatesResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<ListServerCertificatesResponse>>
+  static const List<_i3.SmithySerializer<ListServerCertificatesResponse>>
       serializers = [ListServerCertificatesResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -58,8 +57,7 @@ abstract class ListServerCertificatesResponse
   }
 
   /// A list of server certificates.
-  _i3.BuiltList<_i2.ServerCertificateMetadata>
-      get serverCertificateMetadataList;
+  _i2.BuiltList<ServerCertificateMetadata> get serverCertificateMetadataList;
 
   /// A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the `Marker` request parameter to retrieve more items. Note that IAM might return fewer than the `MaxItems` number of results even when there are more results available. We recommend that you check `IsTruncated` after every call to ensure that you receive all your results.
   bool get isTruncated;
@@ -92,7 +90,7 @@ abstract class ListServerCertificatesResponse
 }
 
 class ListServerCertificatesResponseAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<ListServerCertificatesResponse> {
+    extends _i3.StructuredSmithySerializer<ListServerCertificatesResponse> {
   const ListServerCertificatesResponseAwsQuerySerializer()
       : super('ListServerCertificatesResponse');
 
@@ -102,8 +100,8 @@ class ListServerCertificatesResponseAwsQuerySerializer
         _$ListServerCertificatesResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -126,16 +124,16 @@ class ListServerCertificatesResponseAwsQuerySerializer
       switch (key) {
         case 'ServerCertificateMetadataList':
           result.serverCertificateMetadataList.replace(
-              (const _i4.XmlBuiltListSerializer(
-                      indexer: _i4.XmlIndexer.awsQueryList)
+              (const _i3.XmlBuiltListSerializer(
+                      indexer: _i3.XmlIndexer.awsQueryList)
                   .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.ServerCertificateMetadata)],
+              _i2.BuiltList,
+              [FullType(ServerCertificateMetadata)],
             ),
-          ) as _i3.BuiltList<_i2.ServerCertificateMetadata>));
+          ) as _i2.BuiltList<ServerCertificateMetadata>));
         case 'IsTruncated':
           result.isTruncated = (serializers.deserialize(
             value,
@@ -159,9 +157,9 @@ class ListServerCertificatesResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'ListServerCertificatesResponseResponse',
-        _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final ListServerCertificatesResponse(
@@ -170,26 +168,26 @@ class ListServerCertificatesResponseAwsQuerySerializer
       :marker
     ) = object;
     result$
-      ..add(const _i4.XmlElementName('ServerCertificateMetadataList'))
+      ..add(const _i3.XmlElementName('ServerCertificateMetadataList'))
       ..add(
-          const _i4.XmlBuiltListSerializer(indexer: _i4.XmlIndexer.awsQueryList)
+          const _i3.XmlBuiltListSerializer(indexer: _i3.XmlIndexer.awsQueryList)
               .serialize(
         serializers,
         serverCertificateMetadataList,
         specifiedType: const FullType.nullable(
-          _i3.BuiltList,
-          [FullType(_i2.ServerCertificateMetadata)],
+          _i2.BuiltList,
+          [FullType(ServerCertificateMetadata)],
         ),
       ));
     result$
-      ..add(const _i4.XmlElementName('IsTruncated'))
+      ..add(const _i3.XmlElementName('IsTruncated'))
       ..add(serializers.serialize(
         isTruncated,
         specifiedType: const FullType(bool),
       ));
     if (marker != null) {
       result$
-        ..add(const _i4.XmlElementName('Marker'))
+        ..add(const _i3.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
           specifiedType: const FullType(String),

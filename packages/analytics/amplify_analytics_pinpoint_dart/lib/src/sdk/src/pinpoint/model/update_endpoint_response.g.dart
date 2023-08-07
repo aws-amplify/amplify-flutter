@@ -8,7 +8,7 @@ part of 'update_endpoint_response.dart';
 
 class _$UpdateEndpointResponse extends UpdateEndpointResponse {
   @override
-  final _i3.MessageBody messageBody;
+  final MessageBody messageBody;
 
   factory _$UpdateEndpointResponse(
           [void Function(UpdateEndpointResponseBuilder)? updates]) =>
@@ -47,10 +47,10 @@ class UpdateEndpointResponseBuilder
     implements Builder<UpdateEndpointResponse, UpdateEndpointResponseBuilder> {
   _$UpdateEndpointResponse? _$v;
 
-  _i3.MessageBodyBuilder? _messageBody;
-  _i3.MessageBodyBuilder get messageBody =>
-      _$this._messageBody ??= new _i3.MessageBodyBuilder();
-  set messageBody(_i3.MessageBodyBuilder? messageBody) =>
+  MessageBodyBuilder? _messageBody;
+  MessageBodyBuilder get messageBody =>
+      _$this._messageBody ??= new MessageBodyBuilder();
+  set messageBody(MessageBodyBuilder? messageBody) =>
       _$this._messageBody = messageBody;
 
   UpdateEndpointResponseBuilder();

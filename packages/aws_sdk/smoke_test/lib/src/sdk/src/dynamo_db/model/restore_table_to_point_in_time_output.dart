@@ -6,9 +6,8 @@ library smoke_test.dynamo_db.model.restore_table_to_point_in_time_output; // ign
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_description.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_description.dart';
 
 part 'restore_table_to_point_in_time_output.g.dart';
 
@@ -19,7 +18,7 @@ abstract class RestoreTableToPointInTimeOutput
         Built<RestoreTableToPointInTimeOutput,
             RestoreTableToPointInTimeOutputBuilder> {
   factory RestoreTableToPointInTimeOutput(
-      {_i2.TableDescription? tableDescription}) {
+      {TableDescription? tableDescription}) {
     return _$RestoreTableToPointInTimeOutput._(
         tableDescription: tableDescription);
   }
@@ -37,11 +36,11 @@ abstract class RestoreTableToPointInTimeOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<RestoreTableToPointInTimeOutput>>
+  static const List<_i2.SmithySerializer<RestoreTableToPointInTimeOutput>>
       serializers = [RestoreTableToPointInTimeOutputAwsJson10Serializer()];
 
   /// Represents the properties of a table.
-  _i2.TableDescription? get tableDescription;
+  TableDescription? get tableDescription;
   @override
   List<Object?> get props => [tableDescription];
   @override
@@ -57,7 +56,7 @@ abstract class RestoreTableToPointInTimeOutput
 }
 
 class RestoreTableToPointInTimeOutputAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<RestoreTableToPointInTimeOutput> {
+    extends _i2.StructuredSmithySerializer<RestoreTableToPointInTimeOutput> {
   const RestoreTableToPointInTimeOutputAwsJson10Serializer()
       : super('RestoreTableToPointInTimeOutput');
 
@@ -67,8 +66,8 @@ class RestoreTableToPointInTimeOutputAwsJson10Serializer
         _$RestoreTableToPointInTimeOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -92,8 +91,8 @@ class RestoreTableToPointInTimeOutputAwsJson10Serializer
         case 'TableDescription':
           result.tableDescription.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.TableDescription),
-          ) as _i2.TableDescription));
+            specifiedType: const FullType(TableDescription),
+          ) as TableDescription));
       }
     }
 
@@ -113,7 +112,7 @@ class RestoreTableToPointInTimeOutputAwsJson10Serializer
         ..add('TableDescription')
         ..add(serializers.serialize(
           tableDescription,
-          specifiedType: const FullType(_i2.TableDescription),
+          specifiedType: const FullType(TableDescription),
         ));
     }
     return result$;

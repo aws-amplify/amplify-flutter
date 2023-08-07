@@ -8,9 +8,9 @@ part of 'challenge_response_type.dart';
 
 class _$ChallengeResponseType extends ChallengeResponseType {
   @override
-  final _i2.ChallengeName? challengeName;
+  final ChallengeName? challengeName;
   @override
-  final _i3.ChallengeResponse? challengeResponse;
+  final ChallengeResponse? challengeResponse;
 
   factory _$ChallengeResponseType(
           [void Function(ChallengeResponseTypeBuilder)? updates]) =>
@@ -50,14 +50,14 @@ class ChallengeResponseTypeBuilder
     implements Builder<ChallengeResponseType, ChallengeResponseTypeBuilder> {
   _$ChallengeResponseType? _$v;
 
-  _i2.ChallengeName? _challengeName;
-  _i2.ChallengeName? get challengeName => _$this._challengeName;
-  set challengeName(_i2.ChallengeName? challengeName) =>
+  ChallengeName? _challengeName;
+  ChallengeName? get challengeName => _$this._challengeName;
+  set challengeName(ChallengeName? challengeName) =>
       _$this._challengeName = challengeName;
 
-  _i3.ChallengeResponse? _challengeResponse;
-  _i3.ChallengeResponse? get challengeResponse => _$this._challengeResponse;
-  set challengeResponse(_i3.ChallengeResponse? challengeResponse) =>
+  ChallengeResponse? _challengeResponse;
+  ChallengeResponse? get challengeResponse => _$this._challengeResponse;
+  set challengeResponse(ChallengeResponse? challengeResponse) =>
       _$this._challengeResponse = challengeResponse;
 
   ChallengeResponseTypeBuilder();

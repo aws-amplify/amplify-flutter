@@ -6,9 +6,8 @@ library smoke_test.dynamo_db.model.time_to_live_description; // ignore_for_file:
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/time_to_live_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/time_to_live_status.dart';
 
 part 'time_to_live_description.g.dart';
 
@@ -18,7 +17,7 @@ abstract class TimeToLiveDescription
     implements Built<TimeToLiveDescription, TimeToLiveDescriptionBuilder> {
   /// The description of the Time to Live (TTL) status on the specified table.
   factory TimeToLiveDescription({
-    _i2.TimeToLiveStatus? timeToLiveStatus,
+    TimeToLiveStatus? timeToLiveStatus,
     String? attributeName,
   }) {
     return _$TimeToLiveDescription._(
@@ -34,12 +33,12 @@ abstract class TimeToLiveDescription
 
   const TimeToLiveDescription._();
 
-  static const List<_i3.SmithySerializer<TimeToLiveDescription>> serializers = [
+  static const List<_i2.SmithySerializer<TimeToLiveDescription>> serializers = [
     TimeToLiveDescriptionAwsJson10Serializer()
   ];
 
   /// The TTL status for the table.
-  _i2.TimeToLiveStatus? get timeToLiveStatus;
+  TimeToLiveStatus? get timeToLiveStatus;
 
   /// The name of the TTL attribute for items in the table.
   String? get attributeName;
@@ -64,7 +63,7 @@ abstract class TimeToLiveDescription
 }
 
 class TimeToLiveDescriptionAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<TimeToLiveDescription> {
+    extends _i2.StructuredSmithySerializer<TimeToLiveDescription> {
   const TimeToLiveDescriptionAwsJson10Serializer()
       : super('TimeToLiveDescription');
 
@@ -74,8 +73,8 @@ class TimeToLiveDescriptionAwsJson10Serializer
         _$TimeToLiveDescription,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -99,8 +98,8 @@ class TimeToLiveDescriptionAwsJson10Serializer
         case 'TimeToLiveStatus':
           result.timeToLiveStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.TimeToLiveStatus),
-          ) as _i2.TimeToLiveStatus);
+            specifiedType: const FullType(TimeToLiveStatus),
+          ) as TimeToLiveStatus);
         case 'AttributeName':
           result.attributeName = (serializers.deserialize(
             value,
@@ -125,7 +124,7 @@ class TimeToLiveDescriptionAwsJson10Serializer
         ..add('TimeToLiveStatus')
         ..add(serializers.serialize(
           timeToLiveStatus,
-          specifiedType: const FullType(_i2.TimeToLiveStatus),
+          specifiedType: const FullType(TimeToLiveStatus),
         ));
     }
     if (attributeName != null) {

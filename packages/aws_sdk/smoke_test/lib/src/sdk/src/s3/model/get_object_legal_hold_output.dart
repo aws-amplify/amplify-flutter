@@ -7,10 +7,8 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/object_lock_legal_hold.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/object_lock_legal_hold_status.dart'
-    as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/object_lock_legal_hold.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/object_lock_legal_hold_status.dart';
 
 part 'get_object_legal_hold_output.g.dart';
 
@@ -18,8 +16,8 @@ abstract class GetObjectLegalHoldOutput
     with _i1.AWSEquatable<GetObjectLegalHoldOutput>
     implements
         Built<GetObjectLegalHoldOutput, GetObjectLegalHoldOutputBuilder>,
-        _i2.HasPayload<_i3.ObjectLockLegalHold> {
-  factory GetObjectLegalHoldOutput({_i3.ObjectLockLegalHold? legalHold}) {
+        _i2.HasPayload<ObjectLockLegalHold> {
+  factory GetObjectLegalHoldOutput({ObjectLockLegalHold? legalHold}) {
     return _$GetObjectLegalHoldOutput._(legalHold: legalHold);
   }
 
@@ -31,7 +29,7 @@ abstract class GetObjectLegalHoldOutput
 
   /// Constructs a [GetObjectLegalHoldOutput] from a [payload] and [response].
   factory GetObjectLegalHoldOutput.fromResponse(
-    _i3.ObjectLockLegalHold? payload,
+    ObjectLockLegalHold? payload,
     _i1.AWSBaseHttpResponse response,
   ) =>
       GetObjectLegalHoldOutput.build((b) {
@@ -40,14 +38,14 @@ abstract class GetObjectLegalHoldOutput
         }
       });
 
-  static const List<_i2.SmithySerializer<_i3.ObjectLockLegalHold?>>
-      serializers = [GetObjectLegalHoldOutputRestXmlSerializer()];
+  static const List<_i2.SmithySerializer<ObjectLockLegalHold?>> serializers = [
+    GetObjectLegalHoldOutputRestXmlSerializer()
+  ];
 
   /// The current legal hold status for the specified object.
-  _i3.ObjectLockLegalHold? get legalHold;
+  ObjectLockLegalHold? get legalHold;
   @override
-  _i3.ObjectLockLegalHold? getPayload() =>
-      legalHold ?? _i3.ObjectLockLegalHold();
+  ObjectLockLegalHold? getPayload() => legalHold ?? ObjectLockLegalHold();
   @override
   List<Object?> get props => [legalHold];
   @override
@@ -62,7 +60,7 @@ abstract class GetObjectLegalHoldOutput
 }
 
 class GetObjectLegalHoldOutputRestXmlSerializer
-    extends _i2.StructuredSmithySerializer<_i3.ObjectLockLegalHold> {
+    extends _i2.StructuredSmithySerializer<ObjectLockLegalHold> {
   const GetObjectLegalHoldOutputRestXmlSerializer()
       : super('GetObjectLegalHoldOutput');
 
@@ -79,12 +77,12 @@ class GetObjectLegalHoldOutputRestXmlSerializer
         )
       ];
   @override
-  _i3.ObjectLockLegalHold deserialize(
+  ObjectLockLegalHold deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i3.ObjectLockLegalHoldBuilder();
+    final result = ObjectLockLegalHoldBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -97,8 +95,8 @@ class GetObjectLegalHoldOutputRestXmlSerializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ObjectLockLegalHoldStatus),
-          ) as _i4.ObjectLockLegalHoldStatus);
+            specifiedType: const FullType(ObjectLockLegalHoldStatus),
+          ) as ObjectLockLegalHoldStatus);
       }
     }
 
@@ -108,7 +106,7 @@ class GetObjectLegalHoldOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i3.ObjectLockLegalHold object, {
+    ObjectLockLegalHold object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -117,13 +115,13 @@ class GetObjectLegalHoldOutputRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i3.ObjectLockLegalHold(:status) = object;
+    final ObjectLockLegalHold(:status) = object;
     if (status != null) {
       result$
         ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(_i4.ObjectLockLegalHoldStatus),
+          specifiedType: const FullType.nullable(ObjectLockLegalHoldStatus),
         ));
     }
     return result$;

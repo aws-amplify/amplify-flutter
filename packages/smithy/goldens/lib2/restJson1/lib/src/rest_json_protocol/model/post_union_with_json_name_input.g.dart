@@ -8,7 +8,7 @@ part of 'post_union_with_json_name_input.dart';
 
 class _$PostUnionWithJsonNameInput extends PostUnionWithJsonNameInput {
   @override
-  final _i3.UnionWithJsonName? value;
+  final UnionWithJsonName? value;
 
   factory _$PostUnionWithJsonNameInput(
           [void Function(PostUnionWithJsonNameInputBuilder)? updates]) =>
@@ -45,9 +45,9 @@ class PostUnionWithJsonNameInputBuilder
         Builder<PostUnionWithJsonNameInput, PostUnionWithJsonNameInputBuilder> {
   _$PostUnionWithJsonNameInput? _$v;
 
-  _i3.UnionWithJsonName? _value;
-  _i3.UnionWithJsonName? get value => _$this._value;
-  set value(_i3.UnionWithJsonName? value) => _$this._value = value;
+  UnionWithJsonName? _value;
+  UnionWithJsonName? get value => _$this._value;
+  set value(UnionWithJsonName? value) => _$this._value = value;
 
   PostUnionWithJsonNameInputBuilder();
 

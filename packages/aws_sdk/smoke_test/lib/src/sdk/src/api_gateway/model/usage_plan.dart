@@ -4,15 +4,13 @@
 library smoke_test.api_gateway.model.usage_plan; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/api_stage.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/quota_settings.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/throttle_settings.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/api_stage.dart';
+import 'package:smoke_test/src/sdk/src/api_gateway/model/quota_settings.dart';
+import 'package:smoke_test/src/sdk/src/api_gateway/model/throttle_settings.dart';
 
 part 'usage_plan.g.dart';
 
@@ -25,9 +23,9 @@ abstract class UsagePlan
     String? id,
     String? name,
     String? description,
-    List<_i2.ApiStage>? apiStages,
-    _i3.ThrottleSettings? throttle,
-    _i4.QuotaSettings? quota,
+    List<ApiStage>? apiStages,
+    ThrottleSettings? throttle,
+    QuotaSettings? quota,
     String? productCode,
     Map<String, String>? tags,
   }) {
@@ -35,11 +33,11 @@ abstract class UsagePlan
       id: id,
       name: name,
       description: description,
-      apiStages: apiStages == null ? null : _i5.BuiltList(apiStages),
+      apiStages: apiStages == null ? null : _i2.BuiltList(apiStages),
       throttle: throttle,
       quota: quota,
       productCode: productCode,
-      tags: tags == null ? null : _i5.BuiltMap(tags),
+      tags: tags == null ? null : _i2.BuiltMap(tags),
     );
   }
 
@@ -56,7 +54,7 @@ abstract class UsagePlan
   ) =>
       payload;
 
-  static const List<_i6.SmithySerializer<UsagePlan>> serializers = [
+  static const List<_i3.SmithySerializer<UsagePlan>> serializers = [
     UsagePlanRestJson1Serializer()
   ];
 
@@ -70,19 +68,19 @@ abstract class UsagePlan
   String? get description;
 
   /// The associated API stages of a usage plan.
-  _i5.BuiltList<_i2.ApiStage>? get apiStages;
+  _i2.BuiltList<ApiStage>? get apiStages;
 
   /// A map containing method level throttling information for API stage in a usage plan.
-  _i3.ThrottleSettings? get throttle;
+  ThrottleSettings? get throttle;
 
   /// The target maximum number of permitted requests per a given unit time interval.
-  _i4.QuotaSettings? get quota;
+  QuotaSettings? get quota;
 
   /// The AWS Markeplace product identifier to associate with the usage plan as a SaaS product on AWS Marketplace.
   String? get productCode;
 
   /// The collection of tags. Each tag element is associated with a given resource.
-  _i5.BuiltMap<String, String>? get tags;
+  _i2.BuiltMap<String, String>? get tags;
   @override
   List<Object?> get props => [
         id,
@@ -134,7 +132,7 @@ abstract class UsagePlan
 }
 
 class UsagePlanRestJson1Serializer
-    extends _i6.StructuredSmithySerializer<UsagePlan> {
+    extends _i3.StructuredSmithySerializer<UsagePlan> {
   const UsagePlanRestJson1Serializer() : super('UsagePlan');
 
   @override
@@ -143,8 +141,8 @@ class UsagePlanRestJson1Serializer
         _$UsagePlan,
       ];
   @override
-  Iterable<_i6.ShapeId> get supportedProtocols => const [
-        _i6.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -169,10 +167,10 @@ class UsagePlanRestJson1Serializer
           result.apiStages.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(_i2.ApiStage)],
+              _i2.BuiltList,
+              [FullType(ApiStage)],
             ),
-          ) as _i5.BuiltList<_i2.ApiStage>));
+          ) as _i2.BuiltList<ApiStage>));
         case 'description':
           result.description = (serializers.deserialize(
             value,
@@ -196,24 +194,24 @@ class UsagePlanRestJson1Serializer
         case 'quota':
           result.quota.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.QuotaSettings),
-          ) as _i4.QuotaSettings));
+            specifiedType: const FullType(QuotaSettings),
+          ) as QuotaSettings));
         case 'tags':
           result.tags.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i5.BuiltMap<String, String>));
+          ) as _i2.BuiltMap<String, String>));
         case 'throttle':
           result.throttle.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ThrottleSettings),
-          ) as _i3.ThrottleSettings));
+            specifiedType: const FullType(ThrottleSettings),
+          ) as ThrottleSettings));
       }
     }
 
@@ -243,8 +241,8 @@ class UsagePlanRestJson1Serializer
         ..add(serializers.serialize(
           apiStages,
           specifiedType: const FullType(
-            _i5.BuiltList,
-            [FullType(_i2.ApiStage)],
+            _i2.BuiltList,
+            [FullType(ApiStage)],
           ),
         ));
     }
@@ -285,7 +283,7 @@ class UsagePlanRestJson1Serializer
         ..add('quota')
         ..add(serializers.serialize(
           quota,
-          specifiedType: const FullType(_i4.QuotaSettings),
+          specifiedType: const FullType(QuotaSettings),
         ));
     }
     if (tags != null) {
@@ -294,7 +292,7 @@ class UsagePlanRestJson1Serializer
         ..add(serializers.serialize(
           tags,
           specifiedType: const FullType(
-            _i5.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -307,7 +305,7 @@ class UsagePlanRestJson1Serializer
         ..add('throttle')
         ..add(serializers.serialize(
           throttle,
-          specifiedType: const FullType(_i3.ThrottleSettings),
+          specifiedType: const FullType(ThrottleSettings),
         ));
     }
     return result$;

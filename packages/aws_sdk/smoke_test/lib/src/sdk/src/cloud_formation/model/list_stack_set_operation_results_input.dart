@@ -4,14 +4,12 @@
 library smoke_test.cloud_formation.model.list_stack_set_operation_results_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/operation_result_filter.dart'
-    as _i4;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/operation_result_filter.dart';
 
 part 'list_stack_set_operation_results_input.g.dart';
 
@@ -27,8 +25,8 @@ abstract class ListStackSetOperationResultsInput
     required String operationId,
     String? nextToken,
     int? maxResults,
-    _i3.CallAs? callAs,
-    List<_i4.OperationResultFilter>? filters,
+    CallAs? callAs,
+    List<OperationResultFilter>? filters,
   }) {
     return _$ListStackSetOperationResultsInput._(
       stackSetName: stackSetName,
@@ -36,7 +34,7 @@ abstract class ListStackSetOperationResultsInput
       nextToken: nextToken,
       maxResults: maxResults,
       callAs: callAs,
-      filters: filters == null ? null : _i5.BuiltList(filters),
+      filters: filters == null ? null : _i3.BuiltList(filters),
     );
   }
 
@@ -77,10 +75,10 @@ abstract class ListStackSetOperationResultsInput
   /// *   If you are signed in to a delegated administrator account, specify `DELEGATED_ADMIN`.
   ///
   ///     Your Amazon Web Services account must be registered as a delegated administrator in the management account. For more information, see [Register a delegated administrator](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html) in the _CloudFormation User Guide_.
-  _i3.CallAs? get callAs;
+  CallAs? get callAs;
 
   /// The filter to apply to operation results.
-  _i5.BuiltList<_i4.OperationResultFilter>? get filters;
+  _i3.BuiltList<OperationResultFilter>? get filters;
   @override
   ListStackSetOperationResultsInput getPayload() => this;
   @override
@@ -180,8 +178,8 @@ class ListStackSetOperationResultsInputAwsQuerySerializer
         case 'CallAs':
           result.callAs = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.CallAs),
-          ) as _i3.CallAs);
+            specifiedType: const FullType(CallAs),
+          ) as CallAs);
         case 'Filters':
           result.filters.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -189,10 +187,10 @@ class ListStackSetOperationResultsInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(_i4.OperationResultFilter)],
+              _i3.BuiltList,
+              [FullType(OperationResultFilter)],
             ),
-          ) as _i5.BuiltList<_i4.OperationResultFilter>));
+          ) as _i3.BuiltList<OperationResultFilter>));
       }
     }
 
@@ -252,7 +250,7 @@ class ListStackSetOperationResultsInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
           callAs,
-          specifiedType: const FullType.nullable(_i3.CallAs),
+          specifiedType: const FullType.nullable(CallAs),
         ));
     }
     if (filters != null) {
@@ -264,8 +262,8 @@ class ListStackSetOperationResultsInputAwsQuerySerializer
           serializers,
           filters,
           specifiedType: const FullType.nullable(
-            _i5.BuiltList,
-            [FullType(_i4.OperationResultFilter)],
+            _i3.BuiltList,
+            [FullType(OperationResultFilter)],
           ),
         ));
     }

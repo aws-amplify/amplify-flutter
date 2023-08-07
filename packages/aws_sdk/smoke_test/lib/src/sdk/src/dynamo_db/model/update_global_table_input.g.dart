@@ -10,7 +10,7 @@ class _$UpdateGlobalTableInput extends UpdateGlobalTableInput {
   @override
   final String globalTableName;
   @override
-  final _i4.BuiltList<_i3.ReplicaUpdate> replicaUpdates;
+  final _i3.BuiltList<ReplicaUpdate> replicaUpdates;
 
   factory _$UpdateGlobalTableInput(
           [void Function(UpdateGlobalTableInputBuilder)? updates]) =>
@@ -61,10 +61,10 @@ class UpdateGlobalTableInputBuilder
   set globalTableName(String? globalTableName) =>
       _$this._globalTableName = globalTableName;
 
-  _i4.ListBuilder<_i3.ReplicaUpdate>? _replicaUpdates;
-  _i4.ListBuilder<_i3.ReplicaUpdate> get replicaUpdates =>
-      _$this._replicaUpdates ??= new _i4.ListBuilder<_i3.ReplicaUpdate>();
-  set replicaUpdates(_i4.ListBuilder<_i3.ReplicaUpdate>? replicaUpdates) =>
+  _i3.ListBuilder<ReplicaUpdate>? _replicaUpdates;
+  _i3.ListBuilder<ReplicaUpdate> get replicaUpdates =>
+      _$this._replicaUpdates ??= new _i3.ListBuilder<ReplicaUpdate>();
+  set replicaUpdates(_i3.ListBuilder<ReplicaUpdate>? replicaUpdates) =>
       _$this._replicaUpdates = replicaUpdates;
 
   UpdateGlobalTableInputBuilder();

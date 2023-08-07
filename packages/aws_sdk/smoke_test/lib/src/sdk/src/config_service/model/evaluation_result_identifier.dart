@@ -6,9 +6,8 @@ library smoke_test.config_service.model.evaluation_result_identifier; // ignore_
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_result_qualifier.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_result_qualifier.dart';
 
 part 'evaluation_result_identifier.g.dart';
 
@@ -19,7 +18,7 @@ abstract class EvaluationResultIdentifier
         Built<EvaluationResultIdentifier, EvaluationResultIdentifierBuilder> {
   /// Uniquely identifies an evaluation result.
   factory EvaluationResultIdentifier({
-    _i2.EvaluationResultQualifier? evaluationResultQualifier,
+    EvaluationResultQualifier? evaluationResultQualifier,
     DateTime? orderingTimestamp,
     String? resourceEvaluationId,
   }) {
@@ -37,11 +36,11 @@ abstract class EvaluationResultIdentifier
 
   const EvaluationResultIdentifier._();
 
-  static const List<_i3.SmithySerializer<EvaluationResultIdentifier>>
+  static const List<_i2.SmithySerializer<EvaluationResultIdentifier>>
       serializers = [EvaluationResultIdentifierAwsJson11Serializer()];
 
   /// Identifies an Config rule used to evaluate an Amazon Web Services resource, and provides the type and ID of the evaluated resource.
-  _i2.EvaluationResultQualifier? get evaluationResultQualifier;
+  EvaluationResultQualifier? get evaluationResultQualifier;
 
   /// The time of the event that triggered the evaluation of your Amazon Web Services resources. The time can indicate when Config delivered a configuration item change notification, or it can indicate when Config delivered the configuration snapshot, depending on which event triggered the evaluation.
   DateTime? get orderingTimestamp;
@@ -74,7 +73,7 @@ abstract class EvaluationResultIdentifier
 }
 
 class EvaluationResultIdentifierAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<EvaluationResultIdentifier> {
+    extends _i2.StructuredSmithySerializer<EvaluationResultIdentifier> {
   const EvaluationResultIdentifierAwsJson11Serializer()
       : super('EvaluationResultIdentifier');
 
@@ -84,8 +83,8 @@ class EvaluationResultIdentifierAwsJson11Serializer
         _$EvaluationResultIdentifier,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -109,8 +108,8 @@ class EvaluationResultIdentifierAwsJson11Serializer
         case 'EvaluationResultQualifier':
           result.evaluationResultQualifier.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.EvaluationResultQualifier),
-          ) as _i2.EvaluationResultQualifier));
+            specifiedType: const FullType(EvaluationResultQualifier),
+          ) as EvaluationResultQualifier));
         case 'OrderingTimestamp':
           result.orderingTimestamp = (serializers.deserialize(
             value,
@@ -144,7 +143,7 @@ class EvaluationResultIdentifierAwsJson11Serializer
         ..add('EvaluationResultQualifier')
         ..add(serializers.serialize(
           evaluationResultQualifier,
-          specifiedType: const FullType(_i2.EvaluationResultQualifier),
+          specifiedType: const FullType(EvaluationResultQualifier),
         ));
     }
     if (orderingTimestamp != null) {

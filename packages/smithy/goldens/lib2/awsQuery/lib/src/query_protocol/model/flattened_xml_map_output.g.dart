@@ -8,7 +8,7 @@ part of 'flattened_xml_map_output.dart';
 
 class _$FlattenedXmlMapOutput extends FlattenedXmlMapOutput {
   @override
-  final _i3.BuiltMap<String, _i2.FooEnum>? myMap;
+  final _i2.BuiltMap<String, FooEnum>? myMap;
 
   factory _$FlattenedXmlMapOutput(
           [void Function(FlattenedXmlMapOutputBuilder)? updates]) =>
@@ -44,11 +44,10 @@ class FlattenedXmlMapOutputBuilder
     implements Builder<FlattenedXmlMapOutput, FlattenedXmlMapOutputBuilder> {
   _$FlattenedXmlMapOutput? _$v;
 
-  _i3.MapBuilder<String, _i2.FooEnum>? _myMap;
-  _i3.MapBuilder<String, _i2.FooEnum> get myMap =>
-      _$this._myMap ??= new _i3.MapBuilder<String, _i2.FooEnum>();
-  set myMap(_i3.MapBuilder<String, _i2.FooEnum>? myMap) =>
-      _$this._myMap = myMap;
+  _i2.MapBuilder<String, FooEnum>? _myMap;
+  _i2.MapBuilder<String, FooEnum> get myMap =>
+      _$this._myMap ??= new _i2.MapBuilder<String, FooEnum>();
+  set myMap(_i2.MapBuilder<String, FooEnum>? myMap) => _$this._myMap = myMap;
 
   FlattenedXmlMapOutputBuilder();
 

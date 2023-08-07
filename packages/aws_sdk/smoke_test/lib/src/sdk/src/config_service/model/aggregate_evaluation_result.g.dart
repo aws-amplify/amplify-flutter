@@ -8,9 +8,9 @@ part of 'aggregate_evaluation_result.dart';
 
 class _$AggregateEvaluationResult extends AggregateEvaluationResult {
   @override
-  final _i2.EvaluationResultIdentifier? evaluationResultIdentifier;
+  final EvaluationResultIdentifier? evaluationResultIdentifier;
   @override
-  final _i3.ComplianceType? complianceType;
+  final ComplianceType? complianceType;
   @override
   final DateTime? resultRecordedTime;
   @override
@@ -78,17 +78,17 @@ class AggregateEvaluationResultBuilder
         Builder<AggregateEvaluationResult, AggregateEvaluationResultBuilder> {
   _$AggregateEvaluationResult? _$v;
 
-  _i2.EvaluationResultIdentifierBuilder? _evaluationResultIdentifier;
-  _i2.EvaluationResultIdentifierBuilder get evaluationResultIdentifier =>
+  EvaluationResultIdentifierBuilder? _evaluationResultIdentifier;
+  EvaluationResultIdentifierBuilder get evaluationResultIdentifier =>
       _$this._evaluationResultIdentifier ??=
-          new _i2.EvaluationResultIdentifierBuilder();
+          new EvaluationResultIdentifierBuilder();
   set evaluationResultIdentifier(
-          _i2.EvaluationResultIdentifierBuilder? evaluationResultIdentifier) =>
+          EvaluationResultIdentifierBuilder? evaluationResultIdentifier) =>
       _$this._evaluationResultIdentifier = evaluationResultIdentifier;
 
-  _i3.ComplianceType? _complianceType;
-  _i3.ComplianceType? get complianceType => _$this._complianceType;
-  set complianceType(_i3.ComplianceType? complianceType) =>
+  ComplianceType? _complianceType;
+  ComplianceType? get complianceType => _$this._complianceType;
+  set complianceType(ComplianceType? complianceType) =>
       _$this._complianceType = complianceType;
 
   DateTime? _resultRecordedTime;

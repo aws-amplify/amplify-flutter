@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.conformance_pack_compliance_filters; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_compliance_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_compliance_type.dart';
 
 part 'conformance_pack_compliance_filters.g.dart';
 
@@ -23,11 +22,11 @@ abstract class ConformancePackComplianceFilters
   /// Filters the conformance pack by compliance types and Config rule names.
   factory ConformancePackComplianceFilters({
     List<String>? configRuleNames,
-    _i2.ConformancePackComplianceType? complianceType,
+    ConformancePackComplianceType? complianceType,
   }) {
     return _$ConformancePackComplianceFilters._(
       configRuleNames:
-          configRuleNames == null ? null : _i3.BuiltList(configRuleNames),
+          configRuleNames == null ? null : _i2.BuiltList(configRuleNames),
       complianceType: complianceType,
     );
   }
@@ -39,16 +38,16 @@ abstract class ConformancePackComplianceFilters
 
   const ConformancePackComplianceFilters._();
 
-  static const List<_i4.SmithySerializer<ConformancePackComplianceFilters>>
+  static const List<_i3.SmithySerializer<ConformancePackComplianceFilters>>
       serializers = [ConformancePackComplianceFiltersAwsJson11Serializer()];
 
   /// Filters the results by Config rule names.
-  _i3.BuiltList<String>? get configRuleNames;
+  _i2.BuiltList<String>? get configRuleNames;
 
   /// Filters the results by compliance.
   ///
   /// The allowed values are `COMPLIANT` and `NON_COMPLIANT`. `INSUFFICIENT_DATA` is not supported.
-  _i2.ConformancePackComplianceType? get complianceType;
+  ConformancePackComplianceType? get complianceType;
   @override
   List<Object?> get props => [
         configRuleNames,
@@ -71,7 +70,7 @@ abstract class ConformancePackComplianceFilters
 }
 
 class ConformancePackComplianceFiltersAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<ConformancePackComplianceFilters> {
+    extends _i3.StructuredSmithySerializer<ConformancePackComplianceFilters> {
   const ConformancePackComplianceFiltersAwsJson11Serializer()
       : super('ConformancePackComplianceFilters');
 
@@ -81,8 +80,8 @@ class ConformancePackComplianceFiltersAwsJson11Serializer
         _$ConformancePackComplianceFilters,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -107,15 +106,15 @@ class ConformancePackComplianceFiltersAwsJson11Serializer
           result.configRuleNames.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i3.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
         case 'ComplianceType':
           result.complianceType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ConformancePackComplianceType),
-          ) as _i2.ConformancePackComplianceType);
+            specifiedType: const FullType(ConformancePackComplianceType),
+          ) as ConformancePackComplianceType);
       }
     }
 
@@ -137,7 +136,7 @@ class ConformancePackComplianceFiltersAwsJson11Serializer
         ..add(serializers.serialize(
           configRuleNames,
           specifiedType: const FullType(
-            _i3.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -147,7 +146,7 @@ class ConformancePackComplianceFiltersAwsJson11Serializer
         ..add('ComplianceType')
         ..add(serializers.serialize(
           complianceType,
-          specifiedType: const FullType(_i2.ConformancePackComplianceType),
+          specifiedType: const FullType(ConformancePackComplianceType),
         ));
     }
     return result$;

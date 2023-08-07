@@ -11,7 +11,7 @@ class _$GetOrganizationConformancePackDetailedStatusRequest
   @override
   final String organizationConformancePackName;
   @override
-  final _i3.OrganizationResourceDetailedStatusFilters? filters;
+  final OrganizationResourceDetailedStatusFilters? filters;
   @override
   final int limit;
   @override
@@ -87,11 +87,11 @@ class GetOrganizationConformancePackDetailedStatusRequestBuilder
           String? organizationConformancePackName) =>
       _$this._organizationConformancePackName = organizationConformancePackName;
 
-  _i3.OrganizationResourceDetailedStatusFiltersBuilder? _filters;
-  _i3.OrganizationResourceDetailedStatusFiltersBuilder get filters =>
+  OrganizationResourceDetailedStatusFiltersBuilder? _filters;
+  OrganizationResourceDetailedStatusFiltersBuilder get filters =>
       _$this._filters ??=
-          new _i3.OrganizationResourceDetailedStatusFiltersBuilder();
-  set filters(_i3.OrganizationResourceDetailedStatusFiltersBuilder? filters) =>
+          new OrganizationResourceDetailedStatusFiltersBuilder();
+  set filters(OrganizationResourceDetailedStatusFiltersBuilder? filters) =>
       _$this._filters = filters;
 
   int? _limit;

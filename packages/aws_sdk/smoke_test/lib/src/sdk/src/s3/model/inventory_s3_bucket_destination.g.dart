@@ -12,11 +12,11 @@ class _$InventoryS3BucketDestination extends InventoryS3BucketDestination {
   @override
   final String bucket;
   @override
-  final _i2.InventoryFormat format;
+  final InventoryFormat format;
   @override
   final String? prefix;
   @override
-  final _i3.InventoryEncryption? encryption;
+  final InventoryEncryption? encryption;
 
   factory _$InventoryS3BucketDestination(
           [void Function(InventoryS3BucketDestinationBuilder)? updates]) =>
@@ -82,18 +82,18 @@ class InventoryS3BucketDestinationBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  _i2.InventoryFormat? _format;
-  _i2.InventoryFormat? get format => _$this._format;
-  set format(_i2.InventoryFormat? format) => _$this._format = format;
+  InventoryFormat? _format;
+  InventoryFormat? get format => _$this._format;
+  set format(InventoryFormat? format) => _$this._format = format;
 
   String? _prefix;
   String? get prefix => _$this._prefix;
   set prefix(String? prefix) => _$this._prefix = prefix;
 
-  _i3.InventoryEncryptionBuilder? _encryption;
-  _i3.InventoryEncryptionBuilder get encryption =>
-      _$this._encryption ??= new _i3.InventoryEncryptionBuilder();
-  set encryption(_i3.InventoryEncryptionBuilder? encryption) =>
+  InventoryEncryptionBuilder? _encryption;
+  InventoryEncryptionBuilder get encryption =>
+      _$this._encryption ??= new InventoryEncryptionBuilder();
+  set encryption(InventoryEncryptionBuilder? encryption) =>
       _$this._encryption = encryption;
 
   InventoryS3BucketDestinationBuilder();

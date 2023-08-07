@@ -8,7 +8,7 @@ part of 'list_ssh_public_keys_response.dart';
 
 class _$ListSshPublicKeysResponse extends ListSshPublicKeysResponse {
   @override
-  final _i3.BuiltList<_i2.SshPublicKeyMetadata>? sshPublicKeys;
+  final _i2.BuiltList<SshPublicKeyMetadata>? sshPublicKeys;
   @override
   final bool isTruncated;
   @override
@@ -59,10 +59,10 @@ class ListSshPublicKeysResponseBuilder
         Builder<ListSshPublicKeysResponse, ListSshPublicKeysResponseBuilder> {
   _$ListSshPublicKeysResponse? _$v;
 
-  _i3.ListBuilder<_i2.SshPublicKeyMetadata>? _sshPublicKeys;
-  _i3.ListBuilder<_i2.SshPublicKeyMetadata> get sshPublicKeys =>
-      _$this._sshPublicKeys ??= new _i3.ListBuilder<_i2.SshPublicKeyMetadata>();
-  set sshPublicKeys(_i3.ListBuilder<_i2.SshPublicKeyMetadata>? sshPublicKeys) =>
+  _i2.ListBuilder<SshPublicKeyMetadata>? _sshPublicKeys;
+  _i2.ListBuilder<SshPublicKeyMetadata> get sshPublicKeys =>
+      _$this._sshPublicKeys ??= new _i2.ListBuilder<SshPublicKeyMetadata>();
+  set sshPublicKeys(_i2.ListBuilder<SshPublicKeyMetadata>? sshPublicKeys) =>
       _$this._sshPublicKeys = sshPublicKeys;
 
   bool? _isTruncated;

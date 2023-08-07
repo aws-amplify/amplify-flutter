@@ -6,8 +6,7 @@ library rest_xml_v1.rest_xml_protocol.model.xml_unions_input_output; // ignore_f
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v1/src/rest_xml_protocol/model/xml_union_shape.dart'
-    as _i3;
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/xml_union_shape.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'xml_unions_input_output.g.dart';
@@ -17,7 +16,7 @@ abstract class XmlUnionsInputOutput
         _i1.HttpInput<XmlUnionsInputOutput>,
         _i2.AWSEquatable<XmlUnionsInputOutput>
     implements Built<XmlUnionsInputOutput, XmlUnionsInputOutputBuilder> {
-  factory XmlUnionsInputOutput({_i3.XmlUnionShape? unionValue}) {
+  factory XmlUnionsInputOutput({XmlUnionShape? unionValue}) {
     return _$XmlUnionsInputOutput._(unionValue: unionValue);
   }
 
@@ -45,7 +44,7 @@ abstract class XmlUnionsInputOutput
     XmlUnionsInputOutputRestXmlSerializer()
   ];
 
-  _i3.XmlUnionShape? get unionValue;
+  XmlUnionShape? get unionValue;
   @override
   XmlUnionsInputOutput getPayload() => this;
   @override
@@ -96,8 +95,8 @@ class XmlUnionsInputOutputRestXmlSerializer
         case 'unionValue':
           result.unionValue = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.XmlUnionShape),
-          ) as _i3.XmlUnionShape);
+            specifiedType: const FullType(XmlUnionShape),
+          ) as XmlUnionShape);
       }
     }
 
@@ -117,7 +116,7 @@ class XmlUnionsInputOutputRestXmlSerializer
         ..add(const _i1.XmlElementName('unionValue'))
         ..add(serializers.serialize(
           unionValue,
-          specifiedType: const FullType(_i3.XmlUnionShape),
+          specifiedType: const FullType(XmlUnionShape),
         ));
     }
     return result$;

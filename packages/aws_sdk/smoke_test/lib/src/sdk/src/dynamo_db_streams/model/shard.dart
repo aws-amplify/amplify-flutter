@@ -6,9 +6,8 @@ library smoke_test.dynamo_db_streams.model.shard; // ignore_for_file: no_leading
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/sequence_number_range.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/sequence_number_range.dart';
 
 part 'shard.g.dart';
 
@@ -19,7 +18,7 @@ abstract class Shard
   /// A uniquely identified group of stream records within a stream.
   factory Shard({
     String? shardId,
-    _i2.SequenceNumberRange? sequenceNumberRange,
+    SequenceNumberRange? sequenceNumberRange,
     String? parentShardId,
   }) {
     return _$Shard._(
@@ -34,7 +33,7 @@ abstract class Shard
 
   const Shard._();
 
-  static const List<_i3.SmithySerializer<Shard>> serializers = [
+  static const List<_i2.SmithySerializer<Shard>> serializers = [
     ShardAwsJson10Serializer()
   ];
 
@@ -42,7 +41,7 @@ abstract class Shard
   String? get shardId;
 
   /// The range of possible sequence numbers for the shard.
-  _i2.SequenceNumberRange? get sequenceNumberRange;
+  SequenceNumberRange? get sequenceNumberRange;
 
   /// The shard ID of the current shard's parent.
   String? get parentShardId;
@@ -71,7 +70,7 @@ abstract class Shard
   }
 }
 
-class ShardAwsJson10Serializer extends _i3.StructuredSmithySerializer<Shard> {
+class ShardAwsJson10Serializer extends _i2.StructuredSmithySerializer<Shard> {
   const ShardAwsJson10Serializer() : super('Shard');
 
   @override
@@ -80,8 +79,8 @@ class ShardAwsJson10Serializer extends _i3.StructuredSmithySerializer<Shard> {
         _$Shard,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -110,8 +109,8 @@ class ShardAwsJson10Serializer extends _i3.StructuredSmithySerializer<Shard> {
         case 'SequenceNumberRange':
           result.sequenceNumberRange.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.SequenceNumberRange),
-          ) as _i2.SequenceNumberRange));
+            specifiedType: const FullType(SequenceNumberRange),
+          ) as SequenceNumberRange));
         case 'ParentShardId':
           result.parentShardId = (serializers.deserialize(
             value,
@@ -144,7 +143,7 @@ class ShardAwsJson10Serializer extends _i3.StructuredSmithySerializer<Shard> {
         ..add('SequenceNumberRange')
         ..add(serializers.serialize(
           sequenceNumberRange,
-          specifiedType: const FullType(_i2.SequenceNumberRange),
+          specifiedType: const FullType(SequenceNumberRange),
         ));
     }
     if (parentShardId != null) {

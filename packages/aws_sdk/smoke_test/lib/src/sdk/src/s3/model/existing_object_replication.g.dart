@@ -8,7 +8,7 @@ part of 'existing_object_replication.dart';
 
 class _$ExistingObjectReplication extends ExistingObjectReplication {
   @override
-  final _i2.ExistingObjectReplicationStatus status;
+  final ExistingObjectReplicationStatus status;
 
   factory _$ExistingObjectReplication(
           [void Function(ExistingObjectReplicationBuilder)? updates]) =>
@@ -48,9 +48,9 @@ class ExistingObjectReplicationBuilder
         Builder<ExistingObjectReplication, ExistingObjectReplicationBuilder> {
   _$ExistingObjectReplication? _$v;
 
-  _i2.ExistingObjectReplicationStatus? _status;
-  _i2.ExistingObjectReplicationStatus? get status => _$this._status;
-  set status(_i2.ExistingObjectReplicationStatus? status) =>
+  ExistingObjectReplicationStatus? _status;
+  ExistingObjectReplicationStatus? get status => _$this._status;
+  set status(ExistingObjectReplicationStatus? status) =>
       _$this._status = status;
 
   ExistingObjectReplicationBuilder();

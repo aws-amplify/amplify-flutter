@@ -11,7 +11,7 @@ class _$OrganizationResourceDetailedStatusFilters
   @override
   final String? accountId;
   @override
-  final _i2.OrganizationResourceDetailedStatus? status;
+  final OrganizationResourceDetailedStatus? status;
 
   factory _$OrganizationResourceDetailedStatusFilters(
           [void Function(OrganizationResourceDetailedStatusFiltersBuilder)?
@@ -60,9 +60,9 @@ class OrganizationResourceDetailedStatusFiltersBuilder
   String? get accountId => _$this._accountId;
   set accountId(String? accountId) => _$this._accountId = accountId;
 
-  _i2.OrganizationResourceDetailedStatus? _status;
-  _i2.OrganizationResourceDetailedStatus? get status => _$this._status;
-  set status(_i2.OrganizationResourceDetailedStatus? status) =>
+  OrganizationResourceDetailedStatus? _status;
+  OrganizationResourceDetailedStatus? get status => _$this._status;
+  set status(OrganizationResourceDetailedStatus? status) =>
       _$this._status = status;
 
   OrganizationResourceDetailedStatusFiltersBuilder();

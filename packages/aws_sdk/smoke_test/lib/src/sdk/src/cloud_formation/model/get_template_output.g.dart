@@ -10,7 +10,7 @@ class _$GetTemplateOutput extends GetTemplateOutput {
   @override
   final String? templateBody;
   @override
-  final _i3.BuiltList<_i2.TemplateStage>? stagesAvailable;
+  final _i2.BuiltList<TemplateStage>? stagesAvailable;
 
   factory _$GetTemplateOutput(
           [void Function(GetTemplateOutputBuilder)? updates]) =>
@@ -52,10 +52,10 @@ class GetTemplateOutputBuilder
   String? get templateBody => _$this._templateBody;
   set templateBody(String? templateBody) => _$this._templateBody = templateBody;
 
-  _i3.ListBuilder<_i2.TemplateStage>? _stagesAvailable;
-  _i3.ListBuilder<_i2.TemplateStage> get stagesAvailable =>
-      _$this._stagesAvailable ??= new _i3.ListBuilder<_i2.TemplateStage>();
-  set stagesAvailable(_i3.ListBuilder<_i2.TemplateStage>? stagesAvailable) =>
+  _i2.ListBuilder<TemplateStage>? _stagesAvailable;
+  _i2.ListBuilder<TemplateStage> get stagesAvailable =>
+      _$this._stagesAvailable ??= new _i2.ListBuilder<TemplateStage>();
+  set stagesAvailable(_i2.ListBuilder<TemplateStage>? stagesAvailable) =>
       _$this._stagesAvailable = stagesAvailable;
 
   GetTemplateOutputBuilder();

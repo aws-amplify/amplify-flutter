@@ -6,9 +6,8 @@ library smoke_test.dynamo_db.model.describe_global_table_output; // ignore_for_f
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/global_table_description.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/global_table_description.dart';
 
 part 'describe_global_table_output.g.dart';
 
@@ -17,7 +16,7 @@ abstract class DescribeGlobalTableOutput
     implements
         Built<DescribeGlobalTableOutput, DescribeGlobalTableOutputBuilder> {
   factory DescribeGlobalTableOutput(
-      {_i2.GlobalTableDescription? globalTableDescription}) {
+      {GlobalTableDescription? globalTableDescription}) {
     return _$DescribeGlobalTableOutput._(
         globalTableDescription: globalTableDescription);
   }
@@ -35,11 +34,11 @@ abstract class DescribeGlobalTableOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<DescribeGlobalTableOutput>>
+  static const List<_i2.SmithySerializer<DescribeGlobalTableOutput>>
       serializers = [DescribeGlobalTableOutputAwsJson10Serializer()];
 
   /// Contains the details of the global table.
-  _i2.GlobalTableDescription? get globalTableDescription;
+  GlobalTableDescription? get globalTableDescription;
   @override
   List<Object?> get props => [globalTableDescription];
   @override
@@ -54,7 +53,7 @@ abstract class DescribeGlobalTableOutput
 }
 
 class DescribeGlobalTableOutputAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<DescribeGlobalTableOutput> {
+    extends _i2.StructuredSmithySerializer<DescribeGlobalTableOutput> {
   const DescribeGlobalTableOutputAwsJson10Serializer()
       : super('DescribeGlobalTableOutput');
 
@@ -64,8 +63,8 @@ class DescribeGlobalTableOutputAwsJson10Serializer
         _$DescribeGlobalTableOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -89,8 +88,8 @@ class DescribeGlobalTableOutputAwsJson10Serializer
         case 'GlobalTableDescription':
           result.globalTableDescription.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.GlobalTableDescription),
-          ) as _i2.GlobalTableDescription));
+            specifiedType: const FullType(GlobalTableDescription),
+          ) as GlobalTableDescription));
       }
     }
 
@@ -110,7 +109,7 @@ class DescribeGlobalTableOutputAwsJson10Serializer
         ..add('GlobalTableDescription')
         ..add(serializers.serialize(
           globalTableDescription,
-          specifiedType: const FullType(_i2.GlobalTableDescription),
+          specifiedType: const FullType(GlobalTableDescription),
         ));
     }
     return result$;

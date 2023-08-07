@@ -8,7 +8,7 @@ part of 'activate_type_input.dart';
 
 class _$ActivateTypeInput extends ActivateTypeInput {
   @override
-  final _i3.ThirdPartyType? type;
+  final ThirdPartyType? type;
   @override
   final String? publicTypeArn;
   @override
@@ -20,13 +20,13 @@ class _$ActivateTypeInput extends ActivateTypeInput {
   @override
   final bool? autoUpdate;
   @override
-  final _i4.LoggingConfig? loggingConfig;
+  final LoggingConfig? loggingConfig;
   @override
   final String? executionRoleArn;
   @override
-  final _i5.VersionBump? versionBump;
+  final VersionBump? versionBump;
   @override
-  final _i6.Int64? majorVersion;
+  final _i3.Int64? majorVersion;
 
   factory _$ActivateTypeInput(
           [void Function(ActivateTypeInputBuilder)? updates]) =>
@@ -91,9 +91,9 @@ class ActivateTypeInputBuilder
     implements Builder<ActivateTypeInput, ActivateTypeInputBuilder> {
   _$ActivateTypeInput? _$v;
 
-  _i3.ThirdPartyType? _type;
-  _i3.ThirdPartyType? get type => _$this._type;
-  set type(_i3.ThirdPartyType? type) => _$this._type = type;
+  ThirdPartyType? _type;
+  ThirdPartyType? get type => _$this._type;
+  set type(ThirdPartyType? type) => _$this._type = type;
 
   String? _publicTypeArn;
   String? get publicTypeArn => _$this._publicTypeArn;
@@ -117,10 +117,10 @@ class ActivateTypeInputBuilder
   bool? get autoUpdate => _$this._autoUpdate;
   set autoUpdate(bool? autoUpdate) => _$this._autoUpdate = autoUpdate;
 
-  _i4.LoggingConfigBuilder? _loggingConfig;
-  _i4.LoggingConfigBuilder get loggingConfig =>
-      _$this._loggingConfig ??= new _i4.LoggingConfigBuilder();
-  set loggingConfig(_i4.LoggingConfigBuilder? loggingConfig) =>
+  LoggingConfigBuilder? _loggingConfig;
+  LoggingConfigBuilder get loggingConfig =>
+      _$this._loggingConfig ??= new LoggingConfigBuilder();
+  set loggingConfig(LoggingConfigBuilder? loggingConfig) =>
       _$this._loggingConfig = loggingConfig;
 
   String? _executionRoleArn;
@@ -128,14 +128,14 @@ class ActivateTypeInputBuilder
   set executionRoleArn(String? executionRoleArn) =>
       _$this._executionRoleArn = executionRoleArn;
 
-  _i5.VersionBump? _versionBump;
-  _i5.VersionBump? get versionBump => _$this._versionBump;
-  set versionBump(_i5.VersionBump? versionBump) =>
+  VersionBump? _versionBump;
+  VersionBump? get versionBump => _$this._versionBump;
+  set versionBump(VersionBump? versionBump) =>
       _$this._versionBump = versionBump;
 
-  _i6.Int64? _majorVersion;
-  _i6.Int64? get majorVersion => _$this._majorVersion;
-  set majorVersion(_i6.Int64? majorVersion) =>
+  _i3.Int64? _majorVersion;
+  _i3.Int64? get majorVersion => _$this._majorVersion;
+  set majorVersion(_i3.Int64? majorVersion) =>
       _$this._majorVersion = majorVersion;
 
   ActivateTypeInputBuilder();

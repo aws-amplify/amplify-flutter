@@ -6,9 +6,8 @@ library smoke_test.config_service.model.execution_controls; // ignore_for_file: 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/ssm_controls.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/ssm_controls.dart';
 
 part 'execution_controls.g.dart';
 
@@ -17,7 +16,7 @@ abstract class ExecutionControls
     with _i1.AWSEquatable<ExecutionControls>
     implements Built<ExecutionControls, ExecutionControlsBuilder> {
   /// The controls that Config uses for executing remediations.
-  factory ExecutionControls({_i2.SsmControls? ssmControls}) {
+  factory ExecutionControls({SsmControls? ssmControls}) {
     return _$ExecutionControls._(ssmControls: ssmControls);
   }
 
@@ -27,12 +26,12 @@ abstract class ExecutionControls
 
   const ExecutionControls._();
 
-  static const List<_i3.SmithySerializer<ExecutionControls>> serializers = [
+  static const List<_i2.SmithySerializer<ExecutionControls>> serializers = [
     ExecutionControlsAwsJson11Serializer()
   ];
 
   /// A SsmControls object.
-  _i2.SsmControls? get ssmControls;
+  SsmControls? get ssmControls;
   @override
   List<Object?> get props => [ssmControls];
   @override
@@ -47,7 +46,7 @@ abstract class ExecutionControls
 }
 
 class ExecutionControlsAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<ExecutionControls> {
+    extends _i2.StructuredSmithySerializer<ExecutionControls> {
   const ExecutionControlsAwsJson11Serializer() : super('ExecutionControls');
 
   @override
@@ -56,8 +55,8 @@ class ExecutionControlsAwsJson11Serializer
         _$ExecutionControls,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -81,8 +80,8 @@ class ExecutionControlsAwsJson11Serializer
         case 'SsmControls':
           result.ssmControls.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.SsmControls),
-          ) as _i2.SsmControls));
+            specifiedType: const FullType(SsmControls),
+          ) as SsmControls));
       }
     }
 
@@ -102,7 +101,7 @@ class ExecutionControlsAwsJson11Serializer
         ..add('SsmControls')
         ..add(serializers.serialize(
           ssmControls,
-          specifiedType: const FullType(_i2.SsmControls),
+          specifiedType: const FullType(SsmControls),
         ));
     }
     return result$;

@@ -6,9 +6,8 @@ library smoke_test.dynamo_db.model.describe_continuous_backups_output; // ignore
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/continuous_backups_description.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/continuous_backups_description.dart';
 
 part 'describe_continuous_backups_output.g.dart';
 
@@ -19,7 +18,7 @@ abstract class DescribeContinuousBackupsOutput
         Built<DescribeContinuousBackupsOutput,
             DescribeContinuousBackupsOutputBuilder> {
   factory DescribeContinuousBackupsOutput(
-      {_i2.ContinuousBackupsDescription? continuousBackupsDescription}) {
+      {ContinuousBackupsDescription? continuousBackupsDescription}) {
     return _$DescribeContinuousBackupsOutput._(
         continuousBackupsDescription: continuousBackupsDescription);
   }
@@ -37,11 +36,11 @@ abstract class DescribeContinuousBackupsOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<DescribeContinuousBackupsOutput>>
+  static const List<_i2.SmithySerializer<DescribeContinuousBackupsOutput>>
       serializers = [DescribeContinuousBackupsOutputAwsJson10Serializer()];
 
   /// Represents the continuous backups and point in time recovery settings on the table.
-  _i2.ContinuousBackupsDescription? get continuousBackupsDescription;
+  ContinuousBackupsDescription? get continuousBackupsDescription;
   @override
   List<Object?> get props => [continuousBackupsDescription];
   @override
@@ -57,7 +56,7 @@ abstract class DescribeContinuousBackupsOutput
 }
 
 class DescribeContinuousBackupsOutputAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<DescribeContinuousBackupsOutput> {
+    extends _i2.StructuredSmithySerializer<DescribeContinuousBackupsOutput> {
   const DescribeContinuousBackupsOutputAwsJson10Serializer()
       : super('DescribeContinuousBackupsOutput');
 
@@ -67,8 +66,8 @@ class DescribeContinuousBackupsOutputAwsJson10Serializer
         _$DescribeContinuousBackupsOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -92,8 +91,8 @@ class DescribeContinuousBackupsOutputAwsJson10Serializer
         case 'ContinuousBackupsDescription':
           result.continuousBackupsDescription.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ContinuousBackupsDescription),
-          ) as _i2.ContinuousBackupsDescription));
+            specifiedType: const FullType(ContinuousBackupsDescription),
+          ) as ContinuousBackupsDescription));
       }
     }
 
@@ -114,7 +113,7 @@ class DescribeContinuousBackupsOutputAwsJson10Serializer
         ..add('ContinuousBackupsDescription')
         ..add(serializers.serialize(
           continuousBackupsDescription,
-          specifiedType: const FullType(_i2.ContinuousBackupsDescription),
+          specifiedType: const FullType(ContinuousBackupsDescription),
         ));
     }
     return result$;

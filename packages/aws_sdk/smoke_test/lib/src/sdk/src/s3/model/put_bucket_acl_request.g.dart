@@ -8,15 +8,15 @@ part of 'put_bucket_acl_request.dart';
 
 class _$PutBucketAclRequest extends PutBucketAclRequest {
   @override
-  final _i4.BucketCannedAcl? acl;
+  final BucketCannedAcl? acl;
   @override
-  final _i2.AccessControlPolicy? accessControlPolicy;
+  final AccessControlPolicy? accessControlPolicy;
   @override
   final String bucket;
   @override
   final String? contentMd5;
   @override
-  final _i5.ChecksumAlgorithm? checksumAlgorithm;
+  final ChecksumAlgorithm? checksumAlgorithm;
   @override
   final String? grantFullControl;
   @override
@@ -100,15 +100,14 @@ class PutBucketAclRequestBuilder
     implements Builder<PutBucketAclRequest, PutBucketAclRequestBuilder> {
   _$PutBucketAclRequest? _$v;
 
-  _i4.BucketCannedAcl? _acl;
-  _i4.BucketCannedAcl? get acl => _$this._acl;
-  set acl(_i4.BucketCannedAcl? acl) => _$this._acl = acl;
+  BucketCannedAcl? _acl;
+  BucketCannedAcl? get acl => _$this._acl;
+  set acl(BucketCannedAcl? acl) => _$this._acl = acl;
 
-  _i2.AccessControlPolicyBuilder? _accessControlPolicy;
-  _i2.AccessControlPolicyBuilder get accessControlPolicy =>
-      _$this._accessControlPolicy ??= new _i2.AccessControlPolicyBuilder();
-  set accessControlPolicy(
-          _i2.AccessControlPolicyBuilder? accessControlPolicy) =>
+  AccessControlPolicyBuilder? _accessControlPolicy;
+  AccessControlPolicyBuilder get accessControlPolicy =>
+      _$this._accessControlPolicy ??= new AccessControlPolicyBuilder();
+  set accessControlPolicy(AccessControlPolicyBuilder? accessControlPolicy) =>
       _$this._accessControlPolicy = accessControlPolicy;
 
   String? _bucket;
@@ -119,9 +118,9 @@ class PutBucketAclRequestBuilder
   String? get contentMd5 => _$this._contentMd5;
   set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
 
-  _i5.ChecksumAlgorithm? _checksumAlgorithm;
-  _i5.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i5.ChecksumAlgorithm? checksumAlgorithm) =>
+  ChecksumAlgorithm? _checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
   String? _grantFullControl;

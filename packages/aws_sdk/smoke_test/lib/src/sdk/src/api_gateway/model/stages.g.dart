@@ -8,7 +8,7 @@ part of 'stages.dart';
 
 class _$Stages extends Stages {
   @override
-  final _i3.BuiltList<_i2.Stage>? item;
+  final _i2.BuiltList<Stage>? item;
 
   factory _$Stages([void Function(StagesBuilder)? updates]) =>
       (new StagesBuilder()..update(updates))._build();
@@ -40,10 +40,10 @@ class _$Stages extends Stages {
 class StagesBuilder implements Builder<Stages, StagesBuilder> {
   _$Stages? _$v;
 
-  _i3.ListBuilder<_i2.Stage>? _item;
-  _i3.ListBuilder<_i2.Stage> get item =>
-      _$this._item ??= new _i3.ListBuilder<_i2.Stage>();
-  set item(_i3.ListBuilder<_i2.Stage>? item) => _$this._item = item;
+  _i2.ListBuilder<Stage>? _item;
+  _i2.ListBuilder<Stage> get item =>
+      _$this._item ??= new _i2.ListBuilder<Stage>();
+  set item(_i2.ListBuilder<Stage>? item) => _$this._item = item;
 
   StagesBuilder();
 

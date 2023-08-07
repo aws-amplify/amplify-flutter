@@ -4,9 +4,8 @@
 // ignore_for_file: unused_element
 library aws_query_v2.query_protocol.test.endpoint_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_query_v2/src/query_protocol/operation/endpoint_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:aws_query_v2/src/query_protocol/operation/endpoint_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -15,7 +14,7 @@ void main() {
     'AwsQueryEndpointTrait (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.EndpointOperation(
+        operation: EndpointOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -23,7 +22,7 @@ void main() {
           id: 'AwsQueryEndpointTrait',
           documentation:
               'Operations can prepend to the given host if they define the\nendpoint trait.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),

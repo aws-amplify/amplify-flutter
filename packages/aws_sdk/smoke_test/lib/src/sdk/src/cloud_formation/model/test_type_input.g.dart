@@ -10,7 +10,7 @@ class _$TestTypeInput extends TestTypeInput {
   @override
   final String? arn;
   @override
-  final _i3.ThirdPartyType? type;
+  final ThirdPartyType? type;
   @override
   final String? typeName;
   @override
@@ -68,9 +68,9 @@ class TestTypeInputBuilder
   String? get arn => _$this._arn;
   set arn(String? arn) => _$this._arn = arn;
 
-  _i3.ThirdPartyType? _type;
-  _i3.ThirdPartyType? get type => _$this._type;
-  set type(_i3.ThirdPartyType? type) => _$this._type = type;
+  ThirdPartyType? _type;
+  ThirdPartyType? get type => _$this._type;
+  set type(ThirdPartyType? type) => _$this._type = type;
 
   String? _typeName;
   String? get typeName => _$this._typeName;

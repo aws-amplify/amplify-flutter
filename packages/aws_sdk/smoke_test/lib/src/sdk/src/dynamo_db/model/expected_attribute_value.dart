@@ -4,14 +4,12 @@
 library smoke_test.dynamo_db.model.expected_attribute_value; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/comparison_operator.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/comparison_operator.dart';
 
 part 'expected_attribute_value.g.dart';
 
@@ -35,17 +33,17 @@ abstract class ExpectedAttributeValue
   ///
   /// `Value` and `Exists` are incompatible with `AttributeValueList` and `ComparisonOperator`. Note that if you use both sets of parameters at once, DynamoDB will return a `ValidationException` exception.
   factory ExpectedAttributeValue({
-    _i2.AttributeValue? value,
+    AttributeValue? value,
     bool? exists,
-    _i3.ComparisonOperator? comparisonOperator,
-    List<_i2.AttributeValue>? attributeValueList,
+    ComparisonOperator? comparisonOperator,
+    List<AttributeValue>? attributeValueList,
   }) {
     return _$ExpectedAttributeValue._(
       value: value,
       exists: exists,
       comparisonOperator: comparisonOperator,
       attributeValueList:
-          attributeValueList == null ? null : _i4.BuiltList(attributeValueList),
+          attributeValueList == null ? null : _i2.BuiltList(attributeValueList),
     );
   }
 
@@ -63,7 +61,7 @@ abstract class ExpectedAttributeValue
 
   const ExpectedAttributeValue._();
 
-  static const List<_i5.SmithySerializer<ExpectedAttributeValue>> serializers =
+  static const List<_i3.SmithySerializer<ExpectedAttributeValue>> serializers =
       [ExpectedAttributeValueAwsJson10Serializer()];
 
   /// Represents the data for the expected attribute.
@@ -71,7 +69,7 @@ abstract class ExpectedAttributeValue
   /// Each attribute value is described as a name-value pair. The name is the data type, and the value is the data itself.
   ///
   /// For more information, see [Data Types](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes) in the _Amazon DynamoDB Developer Guide_.
-  _i2.AttributeValue? get value;
+  AttributeValue? get value;
 
   /// Causes DynamoDB to evaluate the value before attempting a conditional operation:
   ///
@@ -152,7 +150,7 @@ abstract class ExpectedAttributeValue
   /// *   `BETWEEN` : Greater than or equal to the first value, and less than or equal to the second value.
   ///
   ///     `AttributeValueList` must contain two `AttributeValue` elements of the same type, either String, Number, or Binary (not a set type). A target attribute matches if the target value is greater than, or equal to, the first element and less than, or equal to, the second element. If an item contains an `AttributeValue` element of a different type than the one provided in the request, the value does not match. For example, `{"S":"6"}` does not compare to `{"N":"6"}`. Also, `{"N":"6"}` does not compare to `{"NS":\["6", "2", "1"\]}`
-  _i3.ComparisonOperator? get comparisonOperator;
+  ComparisonOperator? get comparisonOperator;
 
   /// One or more values to evaluate against the supplied attribute. The number of values in the list depends on the `ComparisonOperator` being used.
   ///
@@ -163,7 +161,7 @@ abstract class ExpectedAttributeValue
   /// For Binary, DynamoDB treats each byte of the binary data as unsigned when it compares binary values.
   ///
   /// For information on specifying data types in JSON, see [JSON Data Format](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataFormat.html) in the _Amazon DynamoDB Developer Guide_.
-  _i4.BuiltList<_i2.AttributeValue>? get attributeValueList;
+  _i2.BuiltList<AttributeValue>? get attributeValueList;
   @override
   List<Object?> get props => [
         value,
@@ -195,7 +193,7 @@ abstract class ExpectedAttributeValue
 }
 
 class ExpectedAttributeValueAwsJson10Serializer
-    extends _i5.StructuredSmithySerializer<ExpectedAttributeValue> {
+    extends _i3.StructuredSmithySerializer<ExpectedAttributeValue> {
   const ExpectedAttributeValueAwsJson10Serializer()
       : super('ExpectedAttributeValue');
 
@@ -205,8 +203,8 @@ class ExpectedAttributeValueAwsJson10Serializer
         _$ExpectedAttributeValue,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -230,8 +228,8 @@ class ExpectedAttributeValueAwsJson10Serializer
         case 'Value':
           result.value = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.AttributeValue),
-          ) as _i2.AttributeValue);
+            specifiedType: const FullType(AttributeValue),
+          ) as AttributeValue);
         case 'Exists':
           result.exists = (serializers.deserialize(
             value,
@@ -240,16 +238,16 @@ class ExpectedAttributeValueAwsJson10Serializer
         case 'ComparisonOperator':
           result.comparisonOperator = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ComparisonOperator),
-          ) as _i3.ComparisonOperator);
+            specifiedType: const FullType(ComparisonOperator),
+          ) as ComparisonOperator);
         case 'AttributeValueList':
           result.attributeValueList.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i2.AttributeValue)],
+              _i2.BuiltList,
+              [FullType(AttributeValue)],
             ),
-          ) as _i4.BuiltList<_i2.AttributeValue>));
+          ) as _i2.BuiltList<AttributeValue>));
       }
     }
 
@@ -274,7 +272,7 @@ class ExpectedAttributeValueAwsJson10Serializer
         ..add('Value')
         ..add(serializers.serialize(
           value,
-          specifiedType: const FullType(_i2.AttributeValue),
+          specifiedType: const FullType(AttributeValue),
         ));
     }
     if (exists != null) {
@@ -290,7 +288,7 @@ class ExpectedAttributeValueAwsJson10Serializer
         ..add('ComparisonOperator')
         ..add(serializers.serialize(
           comparisonOperator,
-          specifiedType: const FullType(_i3.ComparisonOperator),
+          specifiedType: const FullType(ComparisonOperator),
         ));
     }
     if (attributeValueList != null) {
@@ -299,8 +297,8 @@ class ExpectedAttributeValueAwsJson10Serializer
         ..add(serializers.serialize(
           attributeValueList,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i2.AttributeValue)],
+            _i2.BuiltList,
+            [FullType(AttributeValue)],
           ),
         ));
     }

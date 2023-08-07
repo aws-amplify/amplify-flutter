@@ -13,7 +13,7 @@ class _$GetComplianceDetailsByResourceRequest
   @override
   final String? resourceId;
   @override
-  final _i4.BuiltList<_i3.ComplianceType>? complianceTypes;
+  final _i3.BuiltList<ComplianceType>? complianceTypes;
   @override
   final String? nextToken;
   @override
@@ -81,10 +81,10 @@ class GetComplianceDetailsByResourceRequestBuilder
   String? get resourceId => _$this._resourceId;
   set resourceId(String? resourceId) => _$this._resourceId = resourceId;
 
-  _i4.ListBuilder<_i3.ComplianceType>? _complianceTypes;
-  _i4.ListBuilder<_i3.ComplianceType> get complianceTypes =>
-      _$this._complianceTypes ??= new _i4.ListBuilder<_i3.ComplianceType>();
-  set complianceTypes(_i4.ListBuilder<_i3.ComplianceType>? complianceTypes) =>
+  _i3.ListBuilder<ComplianceType>? _complianceTypes;
+  _i3.ListBuilder<ComplianceType> get complianceTypes =>
+      _$this._complianceTypes ??= new _i3.ListBuilder<ComplianceType>();
+  set complianceTypes(_i3.ListBuilder<ComplianceType>? complianceTypes) =>
       _$this._complianceTypes = complianceTypes;
 
   String? _nextToken;

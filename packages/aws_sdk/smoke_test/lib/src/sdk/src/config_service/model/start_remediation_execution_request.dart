@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.start_remediation_execution_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_key.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_key.dart';
 
 part 'start_remediation_execution_request.g.dart';
 
@@ -22,11 +21,11 @@ abstract class StartRemediationExecutionRequest
             StartRemediationExecutionRequestBuilder> {
   factory StartRemediationExecutionRequest({
     required String configRuleName,
-    required List<_i3.ResourceKey> resourceKeys,
+    required List<ResourceKey> resourceKeys,
   }) {
     return _$StartRemediationExecutionRequest._(
       configRuleName: configRuleName,
-      resourceKeys: _i4.BuiltList(resourceKeys),
+      resourceKeys: _i3.BuiltList(resourceKeys),
     );
   }
 
@@ -50,7 +49,7 @@ abstract class StartRemediationExecutionRequest
   String get configRuleName;
 
   /// A list of resource keys to be processed with the current request. Each element in the list consists of the resource type and resource ID.
-  _i4.BuiltList<_i3.ResourceKey> get resourceKeys;
+  _i3.BuiltList<ResourceKey> get resourceKeys;
   @override
   StartRemediationExecutionRequest getPayload() => this;
   @override
@@ -116,10 +115,10 @@ class StartRemediationExecutionRequestAwsJson11Serializer
           result.resourceKeys.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.ResourceKey)],
+              _i3.BuiltList,
+              [FullType(ResourceKey)],
             ),
-          ) as _i4.BuiltList<_i3.ResourceKey>));
+          ) as _i3.BuiltList<ResourceKey>));
       }
     }
 
@@ -145,8 +144,8 @@ class StartRemediationExecutionRequestAwsJson11Serializer
       serializers.serialize(
         resourceKeys,
         specifiedType: const FullType(
-          _i4.BuiltList,
-          [FullType(_i3.ResourceKey)],
+          _i3.BuiltList,
+          [FullType(ResourceKey)],
         ),
       ),
     ]);

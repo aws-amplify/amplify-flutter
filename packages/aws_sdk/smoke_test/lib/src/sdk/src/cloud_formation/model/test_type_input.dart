@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/third_party_type.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/third_party_type.dart';
 
 part 'test_type_input.g.dart';
 
@@ -17,7 +16,7 @@ abstract class TestTypeInput
     implements Built<TestTypeInput, TestTypeInputBuilder> {
   factory TestTypeInput({
     String? arn,
-    _i3.ThirdPartyType? type,
+    ThirdPartyType? type,
     String? typeName,
     String? versionId,
     String? logDeliveryBucket,
@@ -55,7 +54,7 @@ abstract class TestTypeInput
   /// The type of the extension to test.
   ///
   /// Conditional: You must specify `Arn`, or `TypeName` and `Type`.
-  _i3.ThirdPartyType? get type;
+  ThirdPartyType? get type;
 
   /// The name of the extension to test.
   ///
@@ -159,8 +158,8 @@ class TestTypeInputAwsQuerySerializer
         case 'Type':
           result.type = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ThirdPartyType),
-          ) as _i3.ThirdPartyType);
+            specifiedType: const FullType(ThirdPartyType),
+          ) as ThirdPartyType);
         case 'TypeName':
           result.typeName = (serializers.deserialize(
             value,
@@ -214,7 +213,7 @@ class TestTypeInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(_i3.ThirdPartyType),
+          specifiedType: const FullType.nullable(ThirdPartyType),
         ));
     }
     if (typeName != null) {

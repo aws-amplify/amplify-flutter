@@ -10,17 +10,17 @@ class _$StreamRecord extends StreamRecord {
   @override
   final DateTime? approximateCreationDateTime;
   @override
-  final _i5.BuiltMap<String, _i2.AttributeValue>? keys;
+  final _i3.BuiltMap<String, AttributeValue>? keys;
   @override
-  final _i5.BuiltMap<String, _i2.AttributeValue>? newImage;
+  final _i3.BuiltMap<String, AttributeValue>? newImage;
   @override
-  final _i5.BuiltMap<String, _i2.AttributeValue>? oldImage;
+  final _i3.BuiltMap<String, AttributeValue>? oldImage;
   @override
   final String? sequenceNumber;
   @override
-  final _i3.Int64? sizeBytes;
+  final _i2.Int64? sizeBytes;
   @override
-  final _i4.StreamViewType? streamViewType;
+  final StreamViewType? streamViewType;
 
   factory _$StreamRecord([void Function(StreamRecordBuilder)? updates]) =>
       (new StreamRecordBuilder()..update(updates))._build();
@@ -80,22 +80,21 @@ class StreamRecordBuilder
   set approximateCreationDateTime(DateTime? approximateCreationDateTime) =>
       _$this._approximateCreationDateTime = approximateCreationDateTime;
 
-  _i5.MapBuilder<String, _i2.AttributeValue>? _keys;
-  _i5.MapBuilder<String, _i2.AttributeValue> get keys =>
-      _$this._keys ??= new _i5.MapBuilder<String, _i2.AttributeValue>();
-  set keys(_i5.MapBuilder<String, _i2.AttributeValue>? keys) =>
-      _$this._keys = keys;
+  _i3.MapBuilder<String, AttributeValue>? _keys;
+  _i3.MapBuilder<String, AttributeValue> get keys =>
+      _$this._keys ??= new _i3.MapBuilder<String, AttributeValue>();
+  set keys(_i3.MapBuilder<String, AttributeValue>? keys) => _$this._keys = keys;
 
-  _i5.MapBuilder<String, _i2.AttributeValue>? _newImage;
-  _i5.MapBuilder<String, _i2.AttributeValue> get newImage =>
-      _$this._newImage ??= new _i5.MapBuilder<String, _i2.AttributeValue>();
-  set newImage(_i5.MapBuilder<String, _i2.AttributeValue>? newImage) =>
+  _i3.MapBuilder<String, AttributeValue>? _newImage;
+  _i3.MapBuilder<String, AttributeValue> get newImage =>
+      _$this._newImage ??= new _i3.MapBuilder<String, AttributeValue>();
+  set newImage(_i3.MapBuilder<String, AttributeValue>? newImage) =>
       _$this._newImage = newImage;
 
-  _i5.MapBuilder<String, _i2.AttributeValue>? _oldImage;
-  _i5.MapBuilder<String, _i2.AttributeValue> get oldImage =>
-      _$this._oldImage ??= new _i5.MapBuilder<String, _i2.AttributeValue>();
-  set oldImage(_i5.MapBuilder<String, _i2.AttributeValue>? oldImage) =>
+  _i3.MapBuilder<String, AttributeValue>? _oldImage;
+  _i3.MapBuilder<String, AttributeValue> get oldImage =>
+      _$this._oldImage ??= new _i3.MapBuilder<String, AttributeValue>();
+  set oldImage(_i3.MapBuilder<String, AttributeValue>? oldImage) =>
       _$this._oldImage = oldImage;
 
   String? _sequenceNumber;
@@ -103,13 +102,13 @@ class StreamRecordBuilder
   set sequenceNumber(String? sequenceNumber) =>
       _$this._sequenceNumber = sequenceNumber;
 
-  _i3.Int64? _sizeBytes;
-  _i3.Int64? get sizeBytes => _$this._sizeBytes;
-  set sizeBytes(_i3.Int64? sizeBytes) => _$this._sizeBytes = sizeBytes;
+  _i2.Int64? _sizeBytes;
+  _i2.Int64? get sizeBytes => _$this._sizeBytes;
+  set sizeBytes(_i2.Int64? sizeBytes) => _$this._sizeBytes = sizeBytes;
 
-  _i4.StreamViewType? _streamViewType;
-  _i4.StreamViewType? get streamViewType => _$this._streamViewType;
-  set streamViewType(_i4.StreamViewType? streamViewType) =>
+  StreamViewType? _streamViewType;
+  StreamViewType? get streamViewType => _$this._streamViewType;
+  set streamViewType(StreamViewType? streamViewType) =>
       _$this._streamViewType = streamViewType;
 
   StreamRecordBuilder();

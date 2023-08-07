@@ -6,11 +6,9 @@ library smoke_test.config_service.model.delivery_channel_status; // ignore_for_f
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/config_export_delivery_info.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/config_service/model/config_stream_delivery_info.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/config_export_delivery_info.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/config_stream_delivery_info.dart';
 
 part 'delivery_channel_status.g.dart';
 
@@ -25,9 +23,9 @@ abstract class DeliveryChannelStatus
   /// Valid values: `Success` | `Failure`
   factory DeliveryChannelStatus({
     String? name,
-    _i2.ConfigExportDeliveryInfo? configSnapshotDeliveryInfo,
-    _i2.ConfigExportDeliveryInfo? configHistoryDeliveryInfo,
-    _i3.ConfigStreamDeliveryInfo? configStreamDeliveryInfo,
+    ConfigExportDeliveryInfo? configSnapshotDeliveryInfo,
+    ConfigExportDeliveryInfo? configHistoryDeliveryInfo,
+    ConfigStreamDeliveryInfo? configStreamDeliveryInfo,
   }) {
     return _$DeliveryChannelStatus._(
       name: name,
@@ -46,7 +44,7 @@ abstract class DeliveryChannelStatus
 
   const DeliveryChannelStatus._();
 
-  static const List<_i4.SmithySerializer<DeliveryChannelStatus>> serializers = [
+  static const List<_i2.SmithySerializer<DeliveryChannelStatus>> serializers = [
     DeliveryChannelStatusAwsJson11Serializer()
   ];
 
@@ -54,13 +52,13 @@ abstract class DeliveryChannelStatus
   String? get name;
 
   /// A list containing the status of the delivery of the snapshot to the specified Amazon S3 bucket.
-  _i2.ConfigExportDeliveryInfo? get configSnapshotDeliveryInfo;
+  ConfigExportDeliveryInfo? get configSnapshotDeliveryInfo;
 
   /// A list that contains the status of the delivery of the configuration history to the specified Amazon S3 bucket.
-  _i2.ConfigExportDeliveryInfo? get configHistoryDeliveryInfo;
+  ConfigExportDeliveryInfo? get configHistoryDeliveryInfo;
 
   /// A list containing the status of the delivery of the configuration stream notification to the specified Amazon SNS topic.
-  _i3.ConfigStreamDeliveryInfo? get configStreamDeliveryInfo;
+  ConfigStreamDeliveryInfo? get configStreamDeliveryInfo;
   @override
   List<Object?> get props => [
         name,
@@ -92,7 +90,7 @@ abstract class DeliveryChannelStatus
 }
 
 class DeliveryChannelStatusAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<DeliveryChannelStatus> {
+    extends _i2.StructuredSmithySerializer<DeliveryChannelStatus> {
   const DeliveryChannelStatusAwsJson11Serializer()
       : super('DeliveryChannelStatus');
 
@@ -102,8 +100,8 @@ class DeliveryChannelStatusAwsJson11Serializer
         _$DeliveryChannelStatus,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -132,18 +130,18 @@ class DeliveryChannelStatusAwsJson11Serializer
         case 'configSnapshotDeliveryInfo':
           result.configSnapshotDeliveryInfo.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ConfigExportDeliveryInfo),
-          ) as _i2.ConfigExportDeliveryInfo));
+            specifiedType: const FullType(ConfigExportDeliveryInfo),
+          ) as ConfigExportDeliveryInfo));
         case 'configHistoryDeliveryInfo':
           result.configHistoryDeliveryInfo.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ConfigExportDeliveryInfo),
-          ) as _i2.ConfigExportDeliveryInfo));
+            specifiedType: const FullType(ConfigExportDeliveryInfo),
+          ) as ConfigExportDeliveryInfo));
         case 'configStreamDeliveryInfo':
           result.configStreamDeliveryInfo.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ConfigStreamDeliveryInfo),
-          ) as _i3.ConfigStreamDeliveryInfo));
+            specifiedType: const FullType(ConfigStreamDeliveryInfo),
+          ) as ConfigStreamDeliveryInfo));
       }
     }
 
@@ -176,7 +174,7 @@ class DeliveryChannelStatusAwsJson11Serializer
         ..add('configSnapshotDeliveryInfo')
         ..add(serializers.serialize(
           configSnapshotDeliveryInfo,
-          specifiedType: const FullType(_i2.ConfigExportDeliveryInfo),
+          specifiedType: const FullType(ConfigExportDeliveryInfo),
         ));
     }
     if (configHistoryDeliveryInfo != null) {
@@ -184,7 +182,7 @@ class DeliveryChannelStatusAwsJson11Serializer
         ..add('configHistoryDeliveryInfo')
         ..add(serializers.serialize(
           configHistoryDeliveryInfo,
-          specifiedType: const FullType(_i2.ConfigExportDeliveryInfo),
+          specifiedType: const FullType(ConfigExportDeliveryInfo),
         ));
     }
     if (configStreamDeliveryInfo != null) {
@@ -192,7 +190,7 @@ class DeliveryChannelStatusAwsJson11Serializer
         ..add('configStreamDeliveryInfo')
         ..add(serializers.serialize(
           configStreamDeliveryInfo,
-          specifiedType: const FullType(_i3.ConfigStreamDeliveryInfo),
+          specifiedType: const FullType(ConfigStreamDeliveryInfo),
         ));
     }
     return result$;

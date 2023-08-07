@@ -6,8 +6,8 @@ library smoke_test.iam.model.create_policy_version_response; // ignore_for_file:
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/policy_version.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/policy_version.dart';
 
 part 'create_policy_version_response.g.dart';
 
@@ -17,7 +17,7 @@ abstract class CreatePolicyVersionResponse
     implements
         Built<CreatePolicyVersionResponse, CreatePolicyVersionResponseBuilder> {
   /// Contains the response to a successful CreatePolicyVersion request.
-  factory CreatePolicyVersionResponse({_i2.PolicyVersion? policyVersion}) {
+  factory CreatePolicyVersionResponse({PolicyVersion? policyVersion}) {
     return _$CreatePolicyVersionResponse._(policyVersion: policyVersion);
   }
 
@@ -35,11 +35,11 @@ abstract class CreatePolicyVersionResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<CreatePolicyVersionResponse>>
+  static const List<_i2.SmithySerializer<CreatePolicyVersionResponse>>
       serializers = [CreatePolicyVersionResponseAwsQuerySerializer()];
 
   /// A structure containing details about the new policy version.
-  _i2.PolicyVersion? get policyVersion;
+  PolicyVersion? get policyVersion;
   @override
   List<Object?> get props => [policyVersion];
   @override
@@ -54,7 +54,7 @@ abstract class CreatePolicyVersionResponse
 }
 
 class CreatePolicyVersionResponseAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<CreatePolicyVersionResponse> {
+    extends _i2.StructuredSmithySerializer<CreatePolicyVersionResponse> {
   const CreatePolicyVersionResponseAwsQuerySerializer()
       : super('CreatePolicyVersionResponse');
 
@@ -64,8 +64,8 @@ class CreatePolicyVersionResponseAwsQuerySerializer
         _$CreatePolicyVersionResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -89,8 +89,8 @@ class CreatePolicyVersionResponseAwsQuerySerializer
         case 'PolicyVersion':
           result.policyVersion.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.PolicyVersion),
-          ) as _i2.PolicyVersion));
+            specifiedType: const FullType(PolicyVersion),
+          ) as PolicyVersion));
       }
     }
 
@@ -104,18 +104,18 @@ class CreatePolicyVersionResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'CreatePolicyVersionResponseResponse',
-        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final CreatePolicyVersionResponse(:policyVersion) = object;
     if (policyVersion != null) {
       result$
-        ..add(const _i3.XmlElementName('PolicyVersion'))
+        ..add(const _i2.XmlElementName('PolicyVersion'))
         ..add(serializers.serialize(
           policyVersion,
-          specifiedType: const FullType(_i2.PolicyVersion),
+          specifiedType: const FullType(PolicyVersion),
         ));
     }
     return result$;

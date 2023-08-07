@@ -10,7 +10,7 @@ class _$AttributeDefinition extends AttributeDefinition {
   @override
   final String attributeName;
   @override
-  final _i2.ScalarAttributeType attributeType;
+  final ScalarAttributeType attributeType;
 
   factory _$AttributeDefinition(
           [void Function(AttributeDefinitionBuilder)? updates]) =>
@@ -61,9 +61,9 @@ class AttributeDefinitionBuilder
   set attributeName(String? attributeName) =>
       _$this._attributeName = attributeName;
 
-  _i2.ScalarAttributeType? _attributeType;
-  _i2.ScalarAttributeType? get attributeType => _$this._attributeType;
-  set attributeType(_i2.ScalarAttributeType? attributeType) =>
+  ScalarAttributeType? _attributeType;
+  ScalarAttributeType? get attributeType => _$this._attributeType;
+  set attributeType(ScalarAttributeType? attributeType) =>
       _$this._attributeType = attributeType;
 
   AttributeDefinitionBuilder();

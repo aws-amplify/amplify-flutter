@@ -8,7 +8,7 @@ part of 'config_export_delivery_info.dart';
 
 class _$ConfigExportDeliveryInfo extends ConfigExportDeliveryInfo {
   @override
-  final _i2.DeliveryStatus? lastStatus;
+  final DeliveryStatus? lastStatus;
   @override
   final String? lastErrorCode;
   @override
@@ -73,10 +73,9 @@ class ConfigExportDeliveryInfoBuilder
         Builder<ConfigExportDeliveryInfo, ConfigExportDeliveryInfoBuilder> {
   _$ConfigExportDeliveryInfo? _$v;
 
-  _i2.DeliveryStatus? _lastStatus;
-  _i2.DeliveryStatus? get lastStatus => _$this._lastStatus;
-  set lastStatus(_i2.DeliveryStatus? lastStatus) =>
-      _$this._lastStatus = lastStatus;
+  DeliveryStatus? _lastStatus;
+  DeliveryStatus? get lastStatus => _$this._lastStatus;
+  set lastStatus(DeliveryStatus? lastStatus) => _$this._lastStatus = lastStatus;
 
   String? _lastErrorCode;
   String? get lastErrorCode => _$this._lastErrorCode;

@@ -14,7 +14,7 @@ class _$SigningCertificate extends SigningCertificate {
   @override
   final String certificateBody;
   @override
-  final _i2.StatusType status;
+  final StatusType status;
   @override
   final DateTime? uploadDate;
 
@@ -90,9 +90,9 @@ class SigningCertificateBuilder
   set certificateBody(String? certificateBody) =>
       _$this._certificateBody = certificateBody;
 
-  _i2.StatusType? _status;
-  _i2.StatusType? get status => _$this._status;
-  set status(_i2.StatusType? status) => _$this._status = status;
+  StatusType? _status;
+  StatusType? get status => _$this._status;
+  set status(StatusType? status) => _$this._status = status;
 
   DateTime? _uploadDate;
   DateTime? get uploadDate => _$this._uploadDate;

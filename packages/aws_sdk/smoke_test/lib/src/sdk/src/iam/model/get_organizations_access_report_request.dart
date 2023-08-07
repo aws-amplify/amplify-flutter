@@ -7,7 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/iam/model/sort_key_type.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/sort_key_type.dart';
 
 part 'get_organizations_access_report_request.g.dart';
 
@@ -22,7 +22,7 @@ abstract class GetOrganizationsAccessReportRequest
     required String jobId,
     int? maxItems,
     String? marker,
-    _i3.SortKeyType? sortKey,
+    SortKeyType? sortKey,
   }) {
     return _$GetOrganizationsAccessReportRequest._(
       jobId: jobId,
@@ -60,7 +60,7 @@ abstract class GetOrganizationsAccessReportRequest
   String? get marker;
 
   /// The key that is used to sort the results. If you choose the namespace key, the results are returned in alphabetical order. If you choose the time key, the results are sorted numerically by the date and time.
-  _i3.SortKeyType? get sortKey;
+  SortKeyType? get sortKey;
   @override
   GetOrganizationsAccessReportRequest getPayload() => this;
   @override
@@ -145,8 +145,8 @@ class GetOrganizationsAccessReportRequestAwsQuerySerializer extends _i1
         case 'SortKey':
           result.sortKey = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.SortKeyType),
-          ) as _i3.SortKeyType);
+            specifiedType: const FullType(SortKeyType),
+          ) as SortKeyType);
       }
     }
 
@@ -198,7 +198,7 @@ class GetOrganizationsAccessReportRequestAwsQuerySerializer extends _i1
         ..add(const _i1.XmlElementName('SortKey'))
         ..add(serializers.serialize(
           sortKey,
-          specifiedType: const FullType.nullable(_i3.SortKeyType),
+          specifiedType: const FullType.nullable(SortKeyType),
         ));
     }
     return result$;

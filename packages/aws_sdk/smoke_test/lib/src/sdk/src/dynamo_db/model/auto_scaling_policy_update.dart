@@ -6,9 +6,8 @@ library smoke_test.dynamo_db.model.auto_scaling_policy_update; // ignore_for_fil
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/auto_scaling_target_tracking_scaling_policy_configuration_update.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/auto_scaling_target_tracking_scaling_policy_configuration_update.dart';
 
 part 'auto_scaling_policy_update.g.dart';
 
@@ -19,7 +18,7 @@ abstract class AutoScalingPolicyUpdate
   /// Represents the auto scaling policy to be modified.
   factory AutoScalingPolicyUpdate({
     String? policyName,
-    required _i2.AutoScalingTargetTrackingScalingPolicyConfigurationUpdate
+    required AutoScalingTargetTrackingScalingPolicyConfigurationUpdate
         targetTrackingScalingPolicyConfiguration,
   }) {
     return _$AutoScalingPolicyUpdate._(
@@ -36,14 +35,14 @@ abstract class AutoScalingPolicyUpdate
 
   const AutoScalingPolicyUpdate._();
 
-  static const List<_i3.SmithySerializer<AutoScalingPolicyUpdate>> serializers =
+  static const List<_i2.SmithySerializer<AutoScalingPolicyUpdate>> serializers =
       [AutoScalingPolicyUpdateAwsJson10Serializer()];
 
   /// The name of the scaling policy.
   String? get policyName;
 
   /// Represents a target tracking scaling policy configuration.
-  _i2.AutoScalingTargetTrackingScalingPolicyConfigurationUpdate
+  AutoScalingTargetTrackingScalingPolicyConfigurationUpdate
       get targetTrackingScalingPolicyConfiguration;
   @override
   List<Object?> get props => [
@@ -66,7 +65,7 @@ abstract class AutoScalingPolicyUpdate
 }
 
 class AutoScalingPolicyUpdateAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<AutoScalingPolicyUpdate> {
+    extends _i2.StructuredSmithySerializer<AutoScalingPolicyUpdate> {
   const AutoScalingPolicyUpdateAwsJson10Serializer()
       : super('AutoScalingPolicyUpdate');
 
@@ -76,8 +75,8 @@ class AutoScalingPolicyUpdateAwsJson10Serializer
         _$AutoScalingPolicyUpdate,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -108,8 +107,8 @@ class AutoScalingPolicyUpdateAwsJson10Serializer
               .replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-                _i2.AutoScalingTargetTrackingScalingPolicyConfigurationUpdate),
-          ) as _i2.AutoScalingTargetTrackingScalingPolicyConfigurationUpdate));
+                AutoScalingTargetTrackingScalingPolicyConfigurationUpdate),
+          ) as AutoScalingTargetTrackingScalingPolicyConfigurationUpdate));
       }
     }
 
@@ -132,7 +131,7 @@ class AutoScalingPolicyUpdateAwsJson10Serializer
       serializers.serialize(
         targetTrackingScalingPolicyConfiguration,
         specifiedType: const FullType(
-            _i2.AutoScalingTargetTrackingScalingPolicyConfigurationUpdate),
+            AutoScalingTargetTrackingScalingPolicyConfigurationUpdate),
       ),
     ]);
     if (policyName != null) {

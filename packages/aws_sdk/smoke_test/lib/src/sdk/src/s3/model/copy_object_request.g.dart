@@ -8,13 +8,13 @@ part of 'copy_object_request.dart';
 
 class _$CopyObjectRequest extends CopyObjectRequest {
   @override
-  final _i3.ObjectCannedAcl? acl;
+  final ObjectCannedAcl? acl;
   @override
   final String bucket;
   @override
   final String? cacheControl;
   @override
-  final _i4.ChecksumAlgorithm? checksumAlgorithm;
+  final ChecksumAlgorithm? checksumAlgorithm;
   @override
   final String? contentDisposition;
   @override
@@ -46,15 +46,15 @@ class _$CopyObjectRequest extends CopyObjectRequest {
   @override
   final String key;
   @override
-  final _i12.BuiltMap<String, String>? metadata;
+  final _i3.BuiltMap<String, String>? metadata;
   @override
-  final _i5.MetadataDirective? metadataDirective;
+  final MetadataDirective? metadataDirective;
   @override
-  final _i6.TaggingDirective? taggingDirective;
+  final TaggingDirective? taggingDirective;
   @override
-  final _i7.ServerSideEncryption? serverSideEncryption;
+  final ServerSideEncryption? serverSideEncryption;
   @override
-  final _i8.StorageClass? storageClass;
+  final StorageClass? storageClass;
   @override
   final String? websiteRedirectLocation;
   @override
@@ -76,15 +76,15 @@ class _$CopyObjectRequest extends CopyObjectRequest {
   @override
   final String? copySourceSseCustomerKeyMd5;
   @override
-  final _i9.RequestPayer? requestPayer;
+  final RequestPayer? requestPayer;
   @override
   final String? tagging;
   @override
-  final _i10.ObjectLockMode? objectLockMode;
+  final ObjectLockMode? objectLockMode;
   @override
   final DateTime? objectLockRetainUntilDate;
   @override
-  final _i11.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus;
+  final ObjectLockLegalHoldStatus? objectLockLegalHoldStatus;
   @override
   final String? expectedBucketOwner;
   @override
@@ -253,9 +253,9 @@ class CopyObjectRequestBuilder
     implements Builder<CopyObjectRequest, CopyObjectRequestBuilder> {
   _$CopyObjectRequest? _$v;
 
-  _i3.ObjectCannedAcl? _acl;
-  _i3.ObjectCannedAcl? get acl => _$this._acl;
-  set acl(_i3.ObjectCannedAcl? acl) => _$this._acl = acl;
+  ObjectCannedAcl? _acl;
+  ObjectCannedAcl? get acl => _$this._acl;
+  set acl(ObjectCannedAcl? acl) => _$this._acl = acl;
 
   String? _bucket;
   String? get bucket => _$this._bucket;
@@ -265,9 +265,9 @@ class CopyObjectRequestBuilder
   String? get cacheControl => _$this._cacheControl;
   set cacheControl(String? cacheControl) => _$this._cacheControl = cacheControl;
 
-  _i4.ChecksumAlgorithm? _checksumAlgorithm;
-  _i4.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
+  ChecksumAlgorithm? _checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
   String? _contentDisposition;
@@ -340,31 +340,31 @@ class CopyObjectRequestBuilder
   String? get key => _$this._key;
   set key(String? key) => _$this._key = key;
 
-  _i12.MapBuilder<String, String>? _metadata;
-  _i12.MapBuilder<String, String> get metadata =>
-      _$this._metadata ??= new _i12.MapBuilder<String, String>();
-  set metadata(_i12.MapBuilder<String, String>? metadata) =>
+  _i3.MapBuilder<String, String>? _metadata;
+  _i3.MapBuilder<String, String> get metadata =>
+      _$this._metadata ??= new _i3.MapBuilder<String, String>();
+  set metadata(_i3.MapBuilder<String, String>? metadata) =>
       _$this._metadata = metadata;
 
-  _i5.MetadataDirective? _metadataDirective;
-  _i5.MetadataDirective? get metadataDirective => _$this._metadataDirective;
-  set metadataDirective(_i5.MetadataDirective? metadataDirective) =>
+  MetadataDirective? _metadataDirective;
+  MetadataDirective? get metadataDirective => _$this._metadataDirective;
+  set metadataDirective(MetadataDirective? metadataDirective) =>
       _$this._metadataDirective = metadataDirective;
 
-  _i6.TaggingDirective? _taggingDirective;
-  _i6.TaggingDirective? get taggingDirective => _$this._taggingDirective;
-  set taggingDirective(_i6.TaggingDirective? taggingDirective) =>
+  TaggingDirective? _taggingDirective;
+  TaggingDirective? get taggingDirective => _$this._taggingDirective;
+  set taggingDirective(TaggingDirective? taggingDirective) =>
       _$this._taggingDirective = taggingDirective;
 
-  _i7.ServerSideEncryption? _serverSideEncryption;
-  _i7.ServerSideEncryption? get serverSideEncryption =>
+  ServerSideEncryption? _serverSideEncryption;
+  ServerSideEncryption? get serverSideEncryption =>
       _$this._serverSideEncryption;
-  set serverSideEncryption(_i7.ServerSideEncryption? serverSideEncryption) =>
+  set serverSideEncryption(ServerSideEncryption? serverSideEncryption) =>
       _$this._serverSideEncryption = serverSideEncryption;
 
-  _i8.StorageClass? _storageClass;
-  _i8.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i8.StorageClass? storageClass) =>
+  StorageClass? _storageClass;
+  StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(StorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
   String? _websiteRedirectLocation;
@@ -418,18 +418,18 @@ class CopyObjectRequestBuilder
   set copySourceSseCustomerKeyMd5(String? copySourceSseCustomerKeyMd5) =>
       _$this._copySourceSseCustomerKeyMd5 = copySourceSseCustomerKeyMd5;
 
-  _i9.RequestPayer? _requestPayer;
-  _i9.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i9.RequestPayer? requestPayer) =>
+  RequestPayer? _requestPayer;
+  RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
   String? _tagging;
   String? get tagging => _$this._tagging;
   set tagging(String? tagging) => _$this._tagging = tagging;
 
-  _i10.ObjectLockMode? _objectLockMode;
-  _i10.ObjectLockMode? get objectLockMode => _$this._objectLockMode;
-  set objectLockMode(_i10.ObjectLockMode? objectLockMode) =>
+  ObjectLockMode? _objectLockMode;
+  ObjectLockMode? get objectLockMode => _$this._objectLockMode;
+  set objectLockMode(ObjectLockMode? objectLockMode) =>
       _$this._objectLockMode = objectLockMode;
 
   DateTime? _objectLockRetainUntilDate;
@@ -437,11 +437,11 @@ class CopyObjectRequestBuilder
   set objectLockRetainUntilDate(DateTime? objectLockRetainUntilDate) =>
       _$this._objectLockRetainUntilDate = objectLockRetainUntilDate;
 
-  _i11.ObjectLockLegalHoldStatus? _objectLockLegalHoldStatus;
-  _i11.ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
+  ObjectLockLegalHoldStatus? _objectLockLegalHoldStatus;
+  ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus =>
       _$this._objectLockLegalHoldStatus;
   set objectLockLegalHoldStatus(
-          _i11.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
+          ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
       _$this._objectLockLegalHoldStatus = objectLockLegalHoldStatus;
 
   String? _expectedBucketOwner;

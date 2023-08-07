@@ -4,13 +4,12 @@
 library smoke_test.api_gateway.model.update_stage_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i5;
+import 'package:meta/meta.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/patch_operation.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/patch_operation.dart';
 
 part 'update_stage_request.g.dart';
 
@@ -26,13 +25,13 @@ abstract class UpdateStageRequest
   factory UpdateStageRequest({
     required String restApiId,
     required String stageName,
-    List<_i3.PatchOperation>? patchOperations,
+    List<PatchOperation>? patchOperations,
   }) {
     return _$UpdateStageRequest._(
       restApiId: restApiId,
       stageName: stageName,
       patchOperations:
-          patchOperations == null ? null : _i4.BuiltList(patchOperations),
+          patchOperations == null ? null : _i3.BuiltList(patchOperations),
     );
   }
 
@@ -70,7 +69,7 @@ abstract class UpdateStageRequest
   String get stageName;
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
-  _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
+  _i3.BuiltList<PatchOperation>? get patchOperations;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -116,7 +115,7 @@ abstract class UpdateStageRequest
   }
 }
 
-@_i5.internal
+@_i4.internal
 abstract class UpdateStageRequestPayload
     with _i2.AWSEquatable<UpdateStageRequestPayload>
     implements
@@ -128,7 +127,7 @@ abstract class UpdateStageRequestPayload
   const UpdateStageRequestPayload._();
 
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
-  _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
+  _i3.BuiltList<PatchOperation>? get patchOperations;
   @override
   List<Object?> get props => [patchOperations];
   @override
@@ -180,10 +179,10 @@ class UpdateStageRequestRestJson1Serializer
           result.patchOperations.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.PatchOperation)],
+              _i3.BuiltList,
+              [FullType(PatchOperation)],
             ),
-          ) as _i4.BuiltList<_i3.PatchOperation>));
+          ) as _i3.BuiltList<PatchOperation>));
       }
     }
 
@@ -204,8 +203,8 @@ class UpdateStageRequestRestJson1Serializer
         ..add(serializers.serialize(
           patchOperations,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i3.PatchOperation)],
+            _i3.BuiltList,
+            [FullType(PatchOperation)],
           ),
         ));
     }

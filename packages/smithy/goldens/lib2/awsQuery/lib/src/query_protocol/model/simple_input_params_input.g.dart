@@ -22,9 +22,9 @@ class _$SimpleInputParamsInput extends SimpleInputParamsInput {
   @override
   final _i3.Uint8List? qux;
   @override
-  final _i4.FooEnum? fooEnum;
+  final FooEnum? fooEnum;
   @override
-  final _i5.IntegerEnum? integerEnum;
+  final IntegerEnum? integerEnum;
 
   factory _$SimpleInputParamsInput(
           [void Function(SimpleInputParamsInputBuilder)? updates]) =>
@@ -115,13 +115,13 @@ class SimpleInputParamsInputBuilder
   _i3.Uint8List? get qux => _$this._qux;
   set qux(_i3.Uint8List? qux) => _$this._qux = qux;
 
-  _i4.FooEnum? _fooEnum;
-  _i4.FooEnum? get fooEnum => _$this._fooEnum;
-  set fooEnum(_i4.FooEnum? fooEnum) => _$this._fooEnum = fooEnum;
+  FooEnum? _fooEnum;
+  FooEnum? get fooEnum => _$this._fooEnum;
+  set fooEnum(FooEnum? fooEnum) => _$this._fooEnum = fooEnum;
 
-  _i5.IntegerEnum? _integerEnum;
-  _i5.IntegerEnum? get integerEnum => _$this._integerEnum;
-  set integerEnum(_i5.IntegerEnum? integerEnum) =>
+  IntegerEnum? _integerEnum;
+  IntegerEnum? get integerEnum => _$this._integerEnum;
+  set integerEnum(IntegerEnum? integerEnum) =>
       _$this._integerEnum = integerEnum;
 
   SimpleInputParamsInputBuilder();

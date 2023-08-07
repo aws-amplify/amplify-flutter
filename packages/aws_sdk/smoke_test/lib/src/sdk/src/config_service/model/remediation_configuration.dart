@@ -4,17 +4,14 @@
 library smoke_test.config_service.model.remediation_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i5;
-import 'package:smithy/smithy.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/config_service/model/execution_controls.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/remediation_parameter_value.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/remediation_target_type.dart'
-    as _i2;
+import 'package:fixnum/fixnum.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/config_service/model/execution_controls.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/remediation_parameter_value.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/remediation_target_type.dart';
 
 part 'remediation_configuration.g.dart';
 
@@ -26,15 +23,15 @@ abstract class RemediationConfiguration
   /// An object that represents the details about the remediation configuration that includes the remediation action, parameters, and data to execute the action.
   factory RemediationConfiguration({
     required String configRuleName,
-    required _i2.RemediationTargetType targetType,
+    required RemediationTargetType targetType,
     required String targetId,
     String? targetVersion,
-    Map<String, _i3.RemediationParameterValue>? parameters,
+    Map<String, RemediationParameterValue>? parameters,
     String? resourceType,
     bool? automatic,
-    _i4.ExecutionControls? executionControls,
+    ExecutionControls? executionControls,
     int? maximumAutomaticAttempts,
-    _i5.Int64? retryAttemptSeconds,
+    _i2.Int64? retryAttemptSeconds,
     String? arn,
     String? createdByService,
   }) {
@@ -44,7 +41,7 @@ abstract class RemediationConfiguration
       targetType: targetType,
       targetId: targetId,
       targetVersion: targetVersion,
-      parameters: parameters == null ? null : _i6.BuiltMap(parameters),
+      parameters: parameters == null ? null : _i3.BuiltMap(parameters),
       resourceType: resourceType,
       automatic: automatic,
       executionControls: executionControls,
@@ -62,7 +59,7 @@ abstract class RemediationConfiguration
 
   const RemediationConfiguration._();
 
-  static const List<_i7.SmithySerializer<RemediationConfiguration>>
+  static const List<_i4.SmithySerializer<RemediationConfiguration>>
       serializers = [RemediationConfigurationAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -74,7 +71,7 @@ abstract class RemediationConfiguration
   String get configRuleName;
 
   /// The type of the target. Target executes remediation. For example, SSM document.
-  _i2.RemediationTargetType get targetType;
+  RemediationTargetType get targetType;
 
   /// Target ID is the name of the SSM document.
   String get targetId;
@@ -85,7 +82,7 @@ abstract class RemediationConfiguration
   String? get targetVersion;
 
   /// An object of the RemediationParameterValue.
-  _i6.BuiltMap<String, _i3.RemediationParameterValue>? get parameters;
+  _i3.BuiltMap<String, RemediationParameterValue>? get parameters;
 
   /// The type of a resource.
   String? get resourceType;
@@ -94,7 +91,7 @@ abstract class RemediationConfiguration
   bool get automatic;
 
   /// An ExecutionControls object.
-  _i4.ExecutionControls? get executionControls;
+  ExecutionControls? get executionControls;
 
   /// The maximum number of failed attempts for auto-remediation. If you do not select a number, the default is 5.
   ///
@@ -104,7 +101,7 @@ abstract class RemediationConfiguration
   /// Maximum time in seconds that Config runs auto-remediation. If you do not select a number, the default is 60 seconds.
   ///
   /// For example, if you specify RetryAttemptSeconds as 50 seconds and MaximumAutomaticAttempts as 5, Config will run auto-remediations 5 times within 50 seconds before throwing an exception.
-  _i5.Int64? get retryAttemptSeconds;
+  _i2.Int64? get retryAttemptSeconds;
 
   /// Amazon Resource Name (ARN) of remediation configuration.
   String? get arn;
@@ -182,7 +179,7 @@ abstract class RemediationConfiguration
 }
 
 class RemediationConfigurationAwsJson11Serializer
-    extends _i7.StructuredSmithySerializer<RemediationConfiguration> {
+    extends _i4.StructuredSmithySerializer<RemediationConfiguration> {
   const RemediationConfigurationAwsJson11Serializer()
       : super('RemediationConfiguration');
 
@@ -192,8 +189,8 @@ class RemediationConfigurationAwsJson11Serializer
         _$RemediationConfiguration,
       ];
   @override
-  Iterable<_i7.ShapeId> get supportedProtocols => const [
-        _i7.ShapeId(
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -222,8 +219,8 @@ class RemediationConfigurationAwsJson11Serializer
         case 'TargetType':
           result.targetType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.RemediationTargetType),
-          ) as _i2.RemediationTargetType);
+            specifiedType: const FullType(RemediationTargetType),
+          ) as RemediationTargetType);
         case 'TargetId':
           result.targetId = (serializers.deserialize(
             value,
@@ -238,13 +235,13 @@ class RemediationConfigurationAwsJson11Serializer
           result.parameters.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
-                FullType(_i3.RemediationParameterValue),
+                FullType(RemediationParameterValue),
               ],
             ),
-          ) as _i6.BuiltMap<String, _i3.RemediationParameterValue>));
+          ) as _i3.BuiltMap<String, RemediationParameterValue>));
         case 'ResourceType':
           result.resourceType = (serializers.deserialize(
             value,
@@ -258,8 +255,8 @@ class RemediationConfigurationAwsJson11Serializer
         case 'ExecutionControls':
           result.executionControls.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ExecutionControls),
-          ) as _i4.ExecutionControls));
+            specifiedType: const FullType(ExecutionControls),
+          ) as ExecutionControls));
         case 'MaximumAutomaticAttempts':
           result.maximumAutomaticAttempts = (serializers.deserialize(
             value,
@@ -268,8 +265,8 @@ class RemediationConfigurationAwsJson11Serializer
         case 'RetryAttemptSeconds':
           result.retryAttemptSeconds = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.Int64),
-          ) as _i5.Int64);
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'Arn':
           result.arn = (serializers.deserialize(
             value,
@@ -316,7 +313,7 @@ class RemediationConfigurationAwsJson11Serializer
       'TargetType',
       serializers.serialize(
         targetType,
-        specifiedType: const FullType(_i2.RemediationTargetType),
+        specifiedType: const FullType(RemediationTargetType),
       ),
       'TargetId',
       serializers.serialize(
@@ -343,10 +340,10 @@ class RemediationConfigurationAwsJson11Serializer
         ..add(serializers.serialize(
           parameters,
           specifiedType: const FullType(
-            _i6.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
-              FullType(_i3.RemediationParameterValue),
+              FullType(RemediationParameterValue),
             ],
           ),
         ));
@@ -364,7 +361,7 @@ class RemediationConfigurationAwsJson11Serializer
         ..add('ExecutionControls')
         ..add(serializers.serialize(
           executionControls,
-          specifiedType: const FullType(_i4.ExecutionControls),
+          specifiedType: const FullType(ExecutionControls),
         ));
     }
     if (maximumAutomaticAttempts != null) {
@@ -380,7 +377,7 @@ class RemediationConfigurationAwsJson11Serializer
         ..add('RetryAttemptSeconds')
         ..add(serializers.serialize(
           retryAttemptSeconds,
-          specifiedType: const FullType(_i5.Int64),
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     if (arn != null) {

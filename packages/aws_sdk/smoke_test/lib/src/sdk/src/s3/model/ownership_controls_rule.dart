@@ -6,8 +6,8 @@ library smoke_test.s3.model.ownership_controls_rule; // ignore_for_file: no_lead
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/object_ownership.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/object_ownership.dart';
 
 part 'ownership_controls_rule.g.dart';
 
@@ -16,8 +16,7 @@ abstract class OwnershipControlsRule
     with _i1.AWSEquatable<OwnershipControlsRule>
     implements Built<OwnershipControlsRule, OwnershipControlsRuleBuilder> {
   /// The container element for an ownership control rule.
-  factory OwnershipControlsRule(
-      {required _i2.ObjectOwnership objectOwnership}) {
+  factory OwnershipControlsRule({required ObjectOwnership objectOwnership}) {
     return _$OwnershipControlsRule._(objectOwnership: objectOwnership);
   }
 
@@ -28,7 +27,7 @@ abstract class OwnershipControlsRule
 
   const OwnershipControlsRule._();
 
-  static const List<_i3.SmithySerializer<OwnershipControlsRule>> serializers = [
+  static const List<_i2.SmithySerializer<OwnershipControlsRule>> serializers = [
     OwnershipControlsRuleRestXmlSerializer()
   ];
 
@@ -39,7 +38,7 @@ abstract class OwnershipControlsRule
   /// ObjectWriter - The uploading account will own the object if the object is uploaded with the `bucket-owner-full-control` canned ACL.
   ///
   /// BucketOwnerEnforced - Access control lists (ACLs) are disabled and no longer affect permissions. The bucket owner automatically owns and has full control over every object in the bucket. The bucket only accepts PUT requests that don't specify an ACL or bucket owner full control ACLs, such as the `bucket-owner-full-control` canned ACL or an equivalent form of this ACL expressed in the XML format.
-  _i2.ObjectOwnership get objectOwnership;
+  ObjectOwnership get objectOwnership;
   @override
   List<Object?> get props => [objectOwnership];
   @override
@@ -54,7 +53,7 @@ abstract class OwnershipControlsRule
 }
 
 class OwnershipControlsRuleRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<OwnershipControlsRule> {
+    extends _i2.StructuredSmithySerializer<OwnershipControlsRule> {
   const OwnershipControlsRuleRestXmlSerializer()
       : super('OwnershipControlsRule');
 
@@ -64,8 +63,8 @@ class OwnershipControlsRuleRestXmlSerializer
         _$OwnershipControlsRule,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -89,8 +88,8 @@ class OwnershipControlsRuleRestXmlSerializer
         case 'ObjectOwnership':
           result.objectOwnership = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ObjectOwnership),
-          ) as _i2.ObjectOwnership);
+            specifiedType: const FullType(ObjectOwnership),
+          ) as ObjectOwnership);
       }
     }
 
@@ -104,17 +103,17 @@ class OwnershipControlsRuleRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'OwnershipControlsRule',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final OwnershipControlsRule(:objectOwnership) = object;
     result$
-      ..add(const _i3.XmlElementName('ObjectOwnership'))
+      ..add(const _i2.XmlElementName('ObjectOwnership'))
       ..add(serializers.serialize(
         objectOwnership,
-        specifiedType: const FullType.nullable(_i2.ObjectOwnership),
+        specifiedType: const FullType.nullable(ObjectOwnership),
       ));
     return result$;
   }

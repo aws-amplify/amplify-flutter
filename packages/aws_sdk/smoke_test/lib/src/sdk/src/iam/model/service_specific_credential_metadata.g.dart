@@ -11,7 +11,7 @@ class _$ServiceSpecificCredentialMetadata
   @override
   final String userName;
   @override
-  final _i2.StatusType status;
+  final StatusType status;
   @override
   final String serviceUserName;
   @override
@@ -93,9 +93,9 @@ class ServiceSpecificCredentialMetadataBuilder
   String? get userName => _$this._userName;
   set userName(String? userName) => _$this._userName = userName;
 
-  _i2.StatusType? _status;
-  _i2.StatusType? get status => _$this._status;
-  set status(_i2.StatusType? status) => _$this._status = status;
+  StatusType? _status;
+  StatusType? get status => _$this._status;
+  set status(StatusType? status) => _$this._status = status;
 
   String? _serviceUserName;
   String? get serviceUserName => _$this._serviceUserName;

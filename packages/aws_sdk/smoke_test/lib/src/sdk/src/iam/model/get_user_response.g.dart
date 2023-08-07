@@ -8,7 +8,7 @@ part of 'get_user_response.dart';
 
 class _$GetUserResponse extends GetUserResponse {
   @override
-  final _i2.User user;
+  final User user;
 
   factory _$GetUserResponse([void Function(GetUserResponseBuilder)? updates]) =>
       (new GetUserResponseBuilder()..update(updates))._build();
@@ -44,9 +44,9 @@ class GetUserResponseBuilder
     implements Builder<GetUserResponse, GetUserResponseBuilder> {
   _$GetUserResponse? _$v;
 
-  _i2.UserBuilder? _user;
-  _i2.UserBuilder get user => _$this._user ??= new _i2.UserBuilder();
-  set user(_i2.UserBuilder? user) => _$this._user = user;
+  UserBuilder? _user;
+  UserBuilder get user => _$this._user ??= new UserBuilder();
+  set user(UserBuilder? user) => _$this._user = user;
 
   GetUserResponseBuilder();
 

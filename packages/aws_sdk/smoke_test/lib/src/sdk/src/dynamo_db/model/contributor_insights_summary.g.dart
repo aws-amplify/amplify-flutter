@@ -12,7 +12,7 @@ class _$ContributorInsightsSummary extends ContributorInsightsSummary {
   @override
   final String? indexName;
   @override
-  final _i2.ContributorInsightsStatus? contributorInsightsStatus;
+  final ContributorInsightsStatus? contributorInsightsStatus;
 
   factory _$ContributorInsightsSummary(
           [void Function(ContributorInsightsSummaryBuilder)? updates]) =>
@@ -64,11 +64,11 @@ class ContributorInsightsSummaryBuilder
   String? get indexName => _$this._indexName;
   set indexName(String? indexName) => _$this._indexName = indexName;
 
-  _i2.ContributorInsightsStatus? _contributorInsightsStatus;
-  _i2.ContributorInsightsStatus? get contributorInsightsStatus =>
+  ContributorInsightsStatus? _contributorInsightsStatus;
+  ContributorInsightsStatus? get contributorInsightsStatus =>
       _$this._contributorInsightsStatus;
   set contributorInsightsStatus(
-          _i2.ContributorInsightsStatus? contributorInsightsStatus) =>
+          ContributorInsightsStatus? contributorInsightsStatus) =>
       _$this._contributorInsightsStatus = contributorInsightsStatus;
 
   ContributorInsightsSummaryBuilder();

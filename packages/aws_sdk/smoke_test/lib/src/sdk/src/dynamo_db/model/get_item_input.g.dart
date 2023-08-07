@@ -10,17 +10,17 @@ class _$GetItemInput extends GetItemInput {
   @override
   final String tableName;
   @override
-  final _i5.BuiltMap<String, _i3.AttributeValue> key;
+  final _i3.BuiltMap<String, AttributeValue> key;
   @override
-  final _i5.BuiltList<String>? attributesToGet;
+  final _i3.BuiltList<String>? attributesToGet;
   @override
   final bool? consistentRead;
   @override
-  final _i4.ReturnConsumedCapacity? returnConsumedCapacity;
+  final ReturnConsumedCapacity? returnConsumedCapacity;
   @override
   final String? projectionExpression;
   @override
-  final _i5.BuiltMap<String, String>? expressionAttributeNames;
+  final _i3.BuiltMap<String, String>? expressionAttributeNames;
 
   factory _$GetItemInput([void Function(GetItemInputBuilder)? updates]) =>
       (new GetItemInputBuilder()..update(updates))._build();
@@ -82,15 +82,15 @@ class GetItemInputBuilder
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
 
-  _i5.MapBuilder<String, _i3.AttributeValue>? _key;
-  _i5.MapBuilder<String, _i3.AttributeValue> get key =>
-      _$this._key ??= new _i5.MapBuilder<String, _i3.AttributeValue>();
-  set key(_i5.MapBuilder<String, _i3.AttributeValue>? key) => _$this._key = key;
+  _i3.MapBuilder<String, AttributeValue>? _key;
+  _i3.MapBuilder<String, AttributeValue> get key =>
+      _$this._key ??= new _i3.MapBuilder<String, AttributeValue>();
+  set key(_i3.MapBuilder<String, AttributeValue>? key) => _$this._key = key;
 
-  _i5.ListBuilder<String>? _attributesToGet;
-  _i5.ListBuilder<String> get attributesToGet =>
-      _$this._attributesToGet ??= new _i5.ListBuilder<String>();
-  set attributesToGet(_i5.ListBuilder<String>? attributesToGet) =>
+  _i3.ListBuilder<String>? _attributesToGet;
+  _i3.ListBuilder<String> get attributesToGet =>
+      _$this._attributesToGet ??= new _i3.ListBuilder<String>();
+  set attributesToGet(_i3.ListBuilder<String>? attributesToGet) =>
       _$this._attributesToGet = attributesToGet;
 
   bool? _consistentRead;
@@ -98,11 +98,10 @@ class GetItemInputBuilder
   set consistentRead(bool? consistentRead) =>
       _$this._consistentRead = consistentRead;
 
-  _i4.ReturnConsumedCapacity? _returnConsumedCapacity;
-  _i4.ReturnConsumedCapacity? get returnConsumedCapacity =>
+  ReturnConsumedCapacity? _returnConsumedCapacity;
+  ReturnConsumedCapacity? get returnConsumedCapacity =>
       _$this._returnConsumedCapacity;
-  set returnConsumedCapacity(
-          _i4.ReturnConsumedCapacity? returnConsumedCapacity) =>
+  set returnConsumedCapacity(ReturnConsumedCapacity? returnConsumedCapacity) =>
       _$this._returnConsumedCapacity = returnConsumedCapacity;
 
   String? _projectionExpression;
@@ -110,11 +109,11 @@ class GetItemInputBuilder
   set projectionExpression(String? projectionExpression) =>
       _$this._projectionExpression = projectionExpression;
 
-  _i5.MapBuilder<String, String>? _expressionAttributeNames;
-  _i5.MapBuilder<String, String> get expressionAttributeNames =>
-      _$this._expressionAttributeNames ??= new _i5.MapBuilder<String, String>();
+  _i3.MapBuilder<String, String>? _expressionAttributeNames;
+  _i3.MapBuilder<String, String> get expressionAttributeNames =>
+      _$this._expressionAttributeNames ??= new _i3.MapBuilder<String, String>();
   set expressionAttributeNames(
-          _i5.MapBuilder<String, String>? expressionAttributeNames) =>
+          _i3.MapBuilder<String, String>? expressionAttributeNames) =>
       _$this._expressionAttributeNames = expressionAttributeNames;
 
   GetItemInputBuilder();

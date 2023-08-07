@@ -6,10 +6,9 @@ library smoke_test.s3.model.intelligent_tiering_filter; // ignore_for_file: no_l
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/intelligent_tiering_and_operator.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/intelligent_tiering_and_operator.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/tag.dart';
 
 part 'intelligent_tiering_filter.g.dart';
 
@@ -21,8 +20,8 @@ abstract class IntelligentTieringFilter
   /// The `Filter` is used to identify objects that the S3 Intelligent-Tiering configuration applies to.
   factory IntelligentTieringFilter({
     String? prefix,
-    _i2.Tag? tag,
-    _i3.IntelligentTieringAndOperator? and,
+    Tag? tag,
+    IntelligentTieringAndOperator? and,
   }) {
     return _$IntelligentTieringFilter._(
       prefix: prefix,
@@ -38,7 +37,7 @@ abstract class IntelligentTieringFilter
 
   const IntelligentTieringFilter._();
 
-  static const List<_i4.SmithySerializer<IntelligentTieringFilter>>
+  static const List<_i2.SmithySerializer<IntelligentTieringFilter>>
       serializers = [IntelligentTieringFilterRestXmlSerializer()];
 
   /// An object key name prefix that identifies the subset of objects to which the rule applies.
@@ -47,10 +46,10 @@ abstract class IntelligentTieringFilter
   String? get prefix;
 
   /// A container of a key value name pair.
-  _i2.Tag? get tag;
+  Tag? get tag;
 
   /// A conjunction (logical AND) of predicates, which is used in evaluating a metrics filter. The operator must have at least two predicates, and an object must match all of the predicates in order for the filter to apply.
-  _i3.IntelligentTieringAndOperator? get and;
+  IntelligentTieringAndOperator? get and;
   @override
   List<Object?> get props => [
         prefix,
@@ -77,7 +76,7 @@ abstract class IntelligentTieringFilter
 }
 
 class IntelligentTieringFilterRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<IntelligentTieringFilter> {
+    extends _i2.StructuredSmithySerializer<IntelligentTieringFilter> {
   const IntelligentTieringFilterRestXmlSerializer()
       : super('IntelligentTieringFilter');
 
@@ -87,8 +86,8 @@ class IntelligentTieringFilterRestXmlSerializer
         _$IntelligentTieringFilter,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -112,8 +111,8 @@ class IntelligentTieringFilterRestXmlSerializer
         case 'And':
           result.and.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.IntelligentTieringAndOperator),
-          ) as _i3.IntelligentTieringAndOperator));
+            specifiedType: const FullType(IntelligentTieringAndOperator),
+          ) as IntelligentTieringAndOperator));
         case 'Prefix':
           result.prefix = (serializers.deserialize(
             value,
@@ -122,8 +121,8 @@ class IntelligentTieringFilterRestXmlSerializer
         case 'Tag':
           result.tag.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Tag),
-          ) as _i2.Tag));
+            specifiedType: const FullType(Tag),
+          ) as Tag));
       }
     }
 
@@ -137,23 +136,23 @@ class IntelligentTieringFilterRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'IntelligentTieringFilter',
-        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final IntelligentTieringFilter(:and, :prefix, :tag) = object;
     if (and != null) {
       result$
-        ..add(const _i4.XmlElementName('And'))
+        ..add(const _i2.XmlElementName('And'))
         ..add(serializers.serialize(
           and,
-          specifiedType: const FullType(_i3.IntelligentTieringAndOperator),
+          specifiedType: const FullType(IntelligentTieringAndOperator),
         ));
     }
     if (prefix != null) {
       result$
-        ..add(const _i4.XmlElementName('Prefix'))
+        ..add(const _i2.XmlElementName('Prefix'))
         ..add(serializers.serialize(
           prefix,
           specifiedType: const FullType(String),
@@ -161,10 +160,10 @@ class IntelligentTieringFilterRestXmlSerializer
     }
     if (tag != null) {
       result$
-        ..add(const _i4.XmlElementName('Tag'))
+        ..add(const _i2.XmlElementName('Tag'))
         ..add(serializers.serialize(
           tag,
-          specifiedType: const FullType(_i2.Tag),
+          specifiedType: const FullType(Tag),
         ));
     }
     return result$;

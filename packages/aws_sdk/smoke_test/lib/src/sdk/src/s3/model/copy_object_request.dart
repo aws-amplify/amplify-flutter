@@ -4,22 +4,20 @@
 library smoke_test.s3.model.copy_object_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i12;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i13;
+import 'package:meta/meta.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/metadata_directive.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/object_canned_acl.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/object_lock_legal_hold_status.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/s3/model/object_lock_mode.dart' as _i10;
-import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart' as _i9;
-import 'package:smoke_test/src/sdk/src/s3/model/server_side_encryption.dart'
-    as _i7;
-import 'package:smoke_test/src/sdk/src/s3/model/storage_class.dart' as _i8;
-import 'package:smoke_test/src/sdk/src/s3/model/tagging_directive.dart' as _i6;
+import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/metadata_directive.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/object_canned_acl.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/object_lock_legal_hold_status.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/object_lock_mode.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/server_side_encryption.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/storage_class.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/tagging_directive.dart';
 
 part 'copy_object_request.g.dart';
 
@@ -32,10 +30,10 @@ abstract class CopyObjectRequest
         _i1.EmptyPayload,
         _i1.HasPayload<CopyObjectRequestPayload> {
   factory CopyObjectRequest({
-    _i3.ObjectCannedAcl? acl,
+    ObjectCannedAcl? acl,
     required String bucket,
     String? cacheControl,
-    _i4.ChecksumAlgorithm? checksumAlgorithm,
+    ChecksumAlgorithm? checksumAlgorithm,
     String? contentDisposition,
     String? contentEncoding,
     String? contentLanguage,
@@ -52,10 +50,10 @@ abstract class CopyObjectRequest
     String? grantWriteAcp,
     required String key,
     Map<String, String>? metadata,
-    _i5.MetadataDirective? metadataDirective,
-    _i6.TaggingDirective? taggingDirective,
-    _i7.ServerSideEncryption? serverSideEncryption,
-    _i8.StorageClass? storageClass,
+    MetadataDirective? metadataDirective,
+    TaggingDirective? taggingDirective,
+    ServerSideEncryption? serverSideEncryption,
+    StorageClass? storageClass,
     String? websiteRedirectLocation,
     String? sseCustomerAlgorithm,
     String? sseCustomerKey,
@@ -66,11 +64,11 @@ abstract class CopyObjectRequest
     String? copySourceSseCustomerAlgorithm,
     String? copySourceSseCustomerKey,
     String? copySourceSseCustomerKeyMd5,
-    _i9.RequestPayer? requestPayer,
+    RequestPayer? requestPayer,
     String? tagging,
-    _i10.ObjectLockMode? objectLockMode,
+    ObjectLockMode? objectLockMode,
     DateTime? objectLockRetainUntilDate,
-    _i11.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
+    ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
     String? expectedBucketOwner,
     String? expectedSourceBucketOwner,
   }) {
@@ -94,7 +92,7 @@ abstract class CopyObjectRequest
       grantReadAcp: grantReadAcp,
       grantWriteAcp: grantWriteAcp,
       key: key,
-      metadata: metadata == null ? null : _i12.BuiltMap(metadata),
+      metadata: metadata == null ? null : _i3.BuiltMap(metadata),
       metadataDirective: metadataDirective,
       taggingDirective: taggingDirective,
       serverSideEncryption: serverSideEncryption,
@@ -131,14 +129,13 @@ abstract class CopyObjectRequest
   }) =>
       CopyObjectRequest.build((b) {
         if (request.headers['x-amz-acl'] != null) {
-          b.acl =
-              _i3.ObjectCannedAcl.values.byValue(request.headers['x-amz-acl']!);
+          b.acl = ObjectCannedAcl.values.byValue(request.headers['x-amz-acl']!);
         }
         if (request.headers['Cache-Control'] != null) {
           b.cacheControl = request.headers['Cache-Control']!;
         }
         if (request.headers['x-amz-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = _i4.ChecksumAlgorithm.values
+          b.checksumAlgorithm = ChecksumAlgorithm.values
               .byValue(request.headers['x-amz-checksum-algorithm']!);
         }
         if (request.headers['Content-Disposition'] != null) {
@@ -194,19 +191,19 @@ abstract class CopyObjectRequest
           b.grantWriteAcp = request.headers['x-amz-grant-write-acp']!;
         }
         if (request.headers['x-amz-metadata-directive'] != null) {
-          b.metadataDirective = _i5.MetadataDirective.values
+          b.metadataDirective = MetadataDirective.values
               .byValue(request.headers['x-amz-metadata-directive']!);
         }
         if (request.headers['x-amz-tagging-directive'] != null) {
-          b.taggingDirective = _i6.TaggingDirective.values
+          b.taggingDirective = TaggingDirective.values
               .byValue(request.headers['x-amz-tagging-directive']!);
         }
         if (request.headers['x-amz-server-side-encryption'] != null) {
-          b.serverSideEncryption = _i7.ServerSideEncryption.values
+          b.serverSideEncryption = ServerSideEncryption.values
               .byValue(request.headers['x-amz-server-side-encryption']!);
         }
         if (request.headers['x-amz-storage-class'] != null) {
-          b.storageClass = _i8.StorageClass.values
+          b.storageClass = StorageClass.values
               .byValue(request.headers['x-amz-storage-class']!);
         }
         if (request.headers['x-amz-website-redirect-location'] != null) {
@@ -264,14 +261,14 @@ abstract class CopyObjectRequest
               'x-amz-copy-source-server-side-encryption-customer-key-MD5']!;
         }
         if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = _i9.RequestPayer.values
+          b.requestPayer = RequestPayer.values
               .byValue(request.headers['x-amz-request-payer']!);
         }
         if (request.headers['x-amz-tagging'] != null) {
           b.tagging = request.headers['x-amz-tagging']!;
         }
         if (request.headers['x-amz-object-lock-mode'] != null) {
-          b.objectLockMode = _i10.ObjectLockMode.values
+          b.objectLockMode = ObjectLockMode.values
               .byValue(request.headers['x-amz-object-lock-mode']!);
         }
         if (request.headers['x-amz-object-lock-retain-until-date'] != null) {
@@ -281,7 +278,7 @@ abstract class CopyObjectRequest
           ).asDateTime;
         }
         if (request.headers['x-amz-object-lock-legal-hold'] != null) {
-          b.objectLockLegalHoldStatus = _i11.ObjectLockLegalHoldStatus.values
+          b.objectLockLegalHoldStatus = ObjectLockLegalHoldStatus.values
               .byValue(request.headers['x-amz-object-lock-legal-hold']!);
         }
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
@@ -315,7 +312,7 @@ abstract class CopyObjectRequest
   /// The canned ACL to apply to the object.
   ///
   /// This action is not supported by Amazon S3 on Outposts.
-  _i3.ObjectCannedAcl? get acl;
+  ObjectCannedAcl? get acl;
 
   /// The name of the destination bucket.
   ///
@@ -328,7 +325,7 @@ abstract class CopyObjectRequest
   String? get cacheControl;
 
   /// Indicates the algorithm you want Amazon S3 to use to create the checksum for the object. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
-  _i4.ChecksumAlgorithm? get checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm;
 
   /// Specifies presentational information for the object.
   String? get contentDisposition;
@@ -395,19 +392,19 @@ abstract class CopyObjectRequest
   String get key;
 
   /// A map of metadata to store with the object in S3.
-  _i12.BuiltMap<String, String>? get metadata;
+  _i3.BuiltMap<String, String>? get metadata;
 
   /// Specifies whether the metadata is copied from the source object or replaced with metadata provided in the request.
-  _i5.MetadataDirective? get metadataDirective;
+  MetadataDirective? get metadataDirective;
 
   /// Specifies whether the object tag-set are copied from the source object or replaced with tag-set provided in the request.
-  _i6.TaggingDirective? get taggingDirective;
+  TaggingDirective? get taggingDirective;
 
   /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`, `aws:kms:dsse`).
-  _i7.ServerSideEncryption? get serverSideEncryption;
+  ServerSideEncryption? get serverSideEncryption;
 
   /// By default, Amazon S3 uses the STANDARD Storage Class to store newly created objects. The STANDARD storage class provides high durability and high availability. Depending on performance needs, you can specify a different Storage Class. Amazon S3 on Outposts only uses the OUTPOSTS Storage Class. For more information, see [Storage Classes](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html) in the _Amazon S3 User Guide_.
-  _i8.StorageClass? get storageClass;
+  StorageClass? get storageClass;
 
   /// If the bucket is configured as a website, redirects requests for this object to another object in the same bucket or to an external URL. Amazon S3 stores the value of this header in the object metadata. This value is unique to each object and is not copied when using the `x-amz-metadata-directive` header. Instead, you may opt to provide this header in combination with the directive.
   String? get websiteRedirectLocation;
@@ -442,19 +439,19 @@ abstract class CopyObjectRequest
   String? get copySourceSseCustomerKeyMd5;
 
   /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
-  _i9.RequestPayer? get requestPayer;
+  RequestPayer? get requestPayer;
 
   /// The tag-set for the object destination object this value must be used in conjunction with the `TaggingDirective`. The tag-set must be encoded as URL Query parameters.
   String? get tagging;
 
   /// The Object Lock mode that you want to apply to the copied object.
-  _i10.ObjectLockMode? get objectLockMode;
+  ObjectLockMode? get objectLockMode;
 
   /// The date and time when you want the copied object's Object Lock to expire.
   DateTime? get objectLockRetainUntilDate;
 
   /// Specifies whether you want to apply a legal hold to the copied object.
-  _i11.ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus;
+  ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus;
 
   /// The account ID of the expected destination bucket owner. If the destination bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
@@ -692,7 +689,7 @@ abstract class CopyObjectRequest
   }
 }
 
-@_i13.internal
+@_i4.internal
 abstract class CopyObjectRequestPayload
     with _i2.AWSEquatable<CopyObjectRequestPayload>
     implements

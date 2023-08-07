@@ -8,7 +8,7 @@ part of 'list_users_response.dart';
 
 class _$ListUsersResponse extends ListUsersResponse {
   @override
-  final _i3.BuiltList<_i2.User> users;
+  final _i2.BuiltList<User> users;
   @override
   final bool isTruncated;
   @override
@@ -58,10 +58,10 @@ class ListUsersResponseBuilder
     implements Builder<ListUsersResponse, ListUsersResponseBuilder> {
   _$ListUsersResponse? _$v;
 
-  _i3.ListBuilder<_i2.User>? _users;
-  _i3.ListBuilder<_i2.User> get users =>
-      _$this._users ??= new _i3.ListBuilder<_i2.User>();
-  set users(_i3.ListBuilder<_i2.User>? users) => _$this._users = users;
+  _i2.ListBuilder<User>? _users;
+  _i2.ListBuilder<User> get users =>
+      _$this._users ??= new _i2.ListBuilder<User>();
+  set users(_i2.ListBuilder<User>? users) => _$this._users = users;
 
   bool? _isTruncated;
   bool? get isTruncated => _$this._isTruncated;

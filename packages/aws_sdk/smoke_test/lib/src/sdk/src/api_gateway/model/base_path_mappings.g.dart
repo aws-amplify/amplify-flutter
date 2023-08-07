@@ -8,7 +8,7 @@ part of 'base_path_mappings.dart';
 
 class _$BasePathMappings extends BasePathMappings {
   @override
-  final _i3.BuiltList<_i2.BasePathMapping>? items;
+  final _i2.BuiltList<BasePathMapping>? items;
   @override
   final String? position;
 
@@ -48,11 +48,10 @@ class BasePathMappingsBuilder
     implements Builder<BasePathMappings, BasePathMappingsBuilder> {
   _$BasePathMappings? _$v;
 
-  _i3.ListBuilder<_i2.BasePathMapping>? _items;
-  _i3.ListBuilder<_i2.BasePathMapping> get items =>
-      _$this._items ??= new _i3.ListBuilder<_i2.BasePathMapping>();
-  set items(_i3.ListBuilder<_i2.BasePathMapping>? items) =>
-      _$this._items = items;
+  _i2.ListBuilder<BasePathMapping>? _items;
+  _i2.ListBuilder<BasePathMapping> get items =>
+      _$this._items ??= new _i2.ListBuilder<BasePathMapping>();
+  set items(_i2.ListBuilder<BasePathMapping>? items) => _$this._items = items;
 
   String? _position;
   String? get position => _$this._position;

@@ -40,7 +40,7 @@ class _$UploadPartCopyRequest extends UploadPartCopyRequest {
   @override
   final String? copySourceSseCustomerKeyMd5;
   @override
-  final _i3.RequestPayer? requestPayer;
+  final RequestPayer? requestPayer;
   @override
   final String? expectedBucketOwner;
   @override
@@ -224,9 +224,9 @@ class UploadPartCopyRequestBuilder
   set copySourceSseCustomerKeyMd5(String? copySourceSseCustomerKeyMd5) =>
       _$this._copySourceSseCustomerKeyMd5 = copySourceSseCustomerKeyMd5;
 
-  _i3.RequestPayer? _requestPayer;
-  _i3.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i3.RequestPayer? requestPayer) =>
+  RequestPayer? _requestPayer;
+  RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
   String? _expectedBucketOwner;

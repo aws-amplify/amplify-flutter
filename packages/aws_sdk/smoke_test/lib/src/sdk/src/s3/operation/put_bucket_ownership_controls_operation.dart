@@ -3,17 +3,16 @@
 
 library smoke_test.s3.operation.put_bucket_ownership_controls_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i9;
+import 'dart:async' as _i5;
 
-import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i5;
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/common/endpoint_resolver.dart' as _i8;
-import 'package:smoke_test/src/sdk/src/s3/common/serializers.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/s3/model/ownership_controls.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_ownership_controls_request.dart'
-    as _i3;
+import 'package:smithy_aws/smithy_aws.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/s3/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/ownership_controls.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_ownership_controls_request.dart';
 
 /// Creates or modifies `OwnershipControls` for an Amazon S3 bucket. To use this operation, you must have the `s3:PutBucketOwnershipControls` permission. For more information about Amazon S3 permissions, see [Specifying permissions in a policy](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/using-with-s3-actions.html).
 ///
@@ -25,10 +24,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_ownership_controls_re
 ///
 /// *   DeleteBucketOwnershipControls
 class PutBucketOwnershipControlsOperation extends _i1.HttpOperation<
-    _i2.OwnershipControls,
-    _i3.PutBucketOwnershipControlsRequest,
-    _i1.Unit,
-    _i1.Unit> {
+    OwnershipControls, PutBucketOwnershipControlsRequest, _i1.Unit, _i1.Unit> {
   /// Creates or modifies `OwnershipControls` for an Amazon S3 bucket. To use this operation, you must have the `s3:PutBucketOwnershipControls` permission. For more information about Amazon S3 permissions, see [Specifying permissions in a policy](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/using-with-s3-actions.html).
   ///
   /// For information about Amazon S3 Object Ownership, see [Using object ownership](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/about-object-ownership.html).
@@ -41,9 +37,9 @@ class PutBucketOwnershipControlsOperation extends _i1.HttpOperation<
   PutBucketOwnershipControlsOperation({
     required String region,
     Uri? baseUri,
-    _i4.S3ClientConfig s3ClientConfig = const _i4.S3ClientConfig(),
-    _i5.AWSCredentialsProvider credentialsProvider =
-        const _i5.AWSCredentialsProvider.environment(),
+    _i2.S3ClientConfig s3ClientConfig = const _i2.S3ClientConfig(),
+    _i3.AWSCredentialsProvider credentialsProvider =
+        const _i3.AWSCredentialsProvider.environment(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -55,27 +51,24 @@ class PutBucketOwnershipControlsOperation extends _i1.HttpOperation<
 
   @override
   late final List<
-      _i1.HttpProtocol<
-          _i2.OwnershipControls,
-          _i3.PutBucketOwnershipControlsRequest,
-          _i1.Unit,
-          _i1.Unit>> protocols = [
-    _i4.RestXmlProtocol(
-      serializers: _i6.serializers,
-      builderFactories: _i6.builderFactories,
+      _i1.HttpProtocol<OwnershipControls, PutBucketOwnershipControlsRequest,
+          _i1.Unit, _i1.Unit>> protocols = [
+    _i2.RestXmlProtocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
-            _i4.WithSigV4(
+            _i2.WithSigV4(
               region: _region,
-              service: _i7.AWSService.s3,
+              service: _i4.AWSService.s3,
               credentialsProvider: _credentialsProvider,
               serviceConfiguration: _s3ClientConfig.signerConfiguration ??
-                  _i5.S3ServiceConfiguration(),
+                  _i3.S3ServiceConfiguration(),
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i4.WithSdkInvocationId(),
-            const _i4.WithSdkRequest(),
+            const _i2.WithSdkInvocationId(),
+            const _i2.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -84,8 +77,8 @@ class PutBucketOwnershipControlsOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i4.AWSEndpoint _awsEndpoint = _i8.endpointResolver.resolve(
-    _i8.sdkId,
+  late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -93,16 +86,16 @@ class PutBucketOwnershipControlsOperation extends _i1.HttpOperation<
 
   final Uri? _baseUri;
 
-  final _i4.S3ClientConfig _s3ClientConfig;
+  final _i2.S3ClientConfig _s3ClientConfig;
 
-  final _i5.AWSCredentialsProvider _credentialsProvider;
+  final _i3.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i3.PutBucketOwnershipControlsRequest input) =>
+  _i1.HttpRequest buildRequest(PutBucketOwnershipControlsRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'PUT';
         b.path = _s3ClientConfig.usePathStyle
@@ -120,14 +113,14 @@ class PutBucketOwnershipControlsOperation extends _i1.HttpOperation<
                 input.expectedBucketOwner!;
           }
         }
-        b.requestInterceptors.add(const _i4.WithChecksum());
+        b.requestInterceptors.add(const _i2.WithChecksum());
       });
   @override
   int successCode([_i1.Unit? output]) => 200;
   @override
   _i1.Unit buildOutput(
     _i1.Unit payload,
-    _i7.AWSBaseHttpResponse response,
+    _i4.AWSBaseHttpResponse response,
   ) =>
       payload;
   @override
@@ -135,7 +128,7 @@ class PutBucketOwnershipControlsOperation extends _i1.HttpOperation<
   @override
   String get runtimeTypeName => 'PutBucketOwnershipControls';
   @override
-  _i4.AWSRetryer get retryer => _i4.AWSRetryer();
+  _i2.AWSRetryer get retryer => _i2.AWSRetryer();
   @override
   Uri get baseUri {
     var baseUri = _baseUri ?? endpoint.uri;
@@ -158,11 +151,11 @@ class PutBucketOwnershipControlsOperation extends _i1.HttpOperation<
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
   _i1.SmithyOperation<_i1.Unit> run(
-    _i3.PutBucketOwnershipControlsRequest input, {
-    _i7.AWSHttpClient? client,
+    PutBucketOwnershipControlsRequest input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i9.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -170,7 +163,7 @@ class PutBucketOwnershipControlsOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

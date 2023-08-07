@@ -8,8 +8,7 @@ part of 'list_contributor_insights_output.dart';
 
 class _$ListContributorInsightsOutput extends ListContributorInsightsOutput {
   @override
-  final _i3.BuiltList<_i2.ContributorInsightsSummary>?
-      contributorInsightsSummaries;
+  final _i2.BuiltList<ContributorInsightsSummary>? contributorInsightsSummaries;
   @override
   final String? nextToken;
 
@@ -54,14 +53,13 @@ class ListContributorInsightsOutputBuilder
             ListContributorInsightsOutputBuilder> {
   _$ListContributorInsightsOutput? _$v;
 
-  _i3.ListBuilder<_i2.ContributorInsightsSummary>?
-      _contributorInsightsSummaries;
-  _i3.ListBuilder<_i2.ContributorInsightsSummary>
+  _i2.ListBuilder<ContributorInsightsSummary>? _contributorInsightsSummaries;
+  _i2.ListBuilder<ContributorInsightsSummary>
       get contributorInsightsSummaries =>
           _$this._contributorInsightsSummaries ??=
-              new _i3.ListBuilder<_i2.ContributorInsightsSummary>();
+              new _i2.ListBuilder<ContributorInsightsSummary>();
   set contributorInsightsSummaries(
-          _i3.ListBuilder<_i2.ContributorInsightsSummary>?
+          _i2.ListBuilder<ContributorInsightsSummary>?
               contributorInsightsSummaries) =>
       _$this._contributorInsightsSummaries = contributorInsightsSummaries;
 

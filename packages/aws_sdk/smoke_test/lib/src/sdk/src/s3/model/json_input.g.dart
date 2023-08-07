@@ -8,7 +8,7 @@ part of 'json_input.dart';
 
 class _$JsonInput extends JsonInput {
   @override
-  final _i2.JsonType? type;
+  final JsonType? type;
 
   factory _$JsonInput([void Function(JsonInputBuilder)? updates]) =>
       (new JsonInputBuilder()..update(updates))._build();
@@ -40,9 +40,9 @@ class _$JsonInput extends JsonInput {
 class JsonInputBuilder implements Builder<JsonInput, JsonInputBuilder> {
   _$JsonInput? _$v;
 
-  _i2.JsonType? _type;
-  _i2.JsonType? get type => _$this._type;
-  set type(_i2.JsonType? type) => _$this._type = type;
+  JsonType? _type;
+  JsonType? get type => _$this._type;
+  set type(JsonType? type) => _$this._type = type;
 
   JsonInputBuilder();
 

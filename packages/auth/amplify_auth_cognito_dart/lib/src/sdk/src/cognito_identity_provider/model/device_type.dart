@@ -3,13 +3,12 @@
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.device_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/attribute_type.dart'
-    as _i2;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/attribute_type.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i3;
 
 part 'device_type.g.dart';
 
@@ -20,7 +19,7 @@ abstract class DeviceType
   /// The device type.
   factory DeviceType({
     String? deviceKey,
-    List<_i2.AttributeType>? deviceAttributes,
+    List<AttributeType>? deviceAttributes,
     DateTime? deviceCreateDate,
     DateTime? deviceLastModifiedDate,
     DateTime? deviceLastAuthenticatedDate,
@@ -28,7 +27,7 @@ abstract class DeviceType
     return _$DeviceType._(
       deviceKey: deviceKey,
       deviceAttributes:
-          deviceAttributes == null ? null : _i3.BuiltList(deviceAttributes),
+          deviceAttributes == null ? null : _i2.BuiltList(deviceAttributes),
       deviceCreateDate: deviceCreateDate,
       deviceLastModifiedDate: deviceLastModifiedDate,
       deviceLastAuthenticatedDate: deviceLastAuthenticatedDate,
@@ -41,7 +40,7 @@ abstract class DeviceType
 
   const DeviceType._();
 
-  static const List<_i4.SmithySerializer<DeviceType>> serializers = [
+  static const List<_i3.SmithySerializer<DeviceType>> serializers = [
     DeviceTypeAwsJson11Serializer()
   ];
 
@@ -49,7 +48,7 @@ abstract class DeviceType
   String? get deviceKey;
 
   /// The device attributes.
-  _i3.BuiltList<_i2.AttributeType>? get deviceAttributes;
+  _i2.BuiltList<AttributeType>? get deviceAttributes;
 
   /// The creation date of the device.
   DateTime? get deviceCreateDate;
@@ -95,7 +94,7 @@ abstract class DeviceType
 }
 
 class DeviceTypeAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<DeviceType> {
+    extends _i3.StructuredSmithySerializer<DeviceType> {
   const DeviceTypeAwsJson11Serializer() : super('DeviceType');
 
   @override
@@ -104,8 +103,8 @@ class DeviceTypeAwsJson11Serializer
         _$DeviceType,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -135,10 +134,10 @@ class DeviceTypeAwsJson11Serializer
           result.deviceAttributes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.AttributeType)],
+              _i2.BuiltList,
+              [FullType(AttributeType)],
             ),
-          ) as _i3.BuiltList<_i2.AttributeType>));
+          ) as _i2.BuiltList<AttributeType>));
         case 'DeviceCreateDate':
           result.deviceCreateDate = (serializers.deserialize(
             value,
@@ -188,8 +187,8 @@ class DeviceTypeAwsJson11Serializer
         ..add(serializers.serialize(
           deviceAttributes,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.AttributeType)],
+            _i2.BuiltList,
+            [FullType(AttributeType)],
           ),
         ));
     }

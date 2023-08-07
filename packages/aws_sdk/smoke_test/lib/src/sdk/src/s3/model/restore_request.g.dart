@@ -10,17 +10,17 @@ class _$RestoreRequest extends RestoreRequest {
   @override
   final int? days;
   @override
-  final _i2.GlacierJobParameters? glacierJobParameters;
+  final GlacierJobParameters? glacierJobParameters;
   @override
-  final _i3.RestoreRequestType? type;
+  final RestoreRequestType? type;
   @override
-  final _i4.Tier? tier;
+  final Tier? tier;
   @override
   final String? description;
   @override
-  final _i5.SelectParameters? selectParameters;
+  final SelectParameters? selectParameters;
   @override
-  final _i6.OutputLocation? outputLocation;
+  final OutputLocation? outputLocation;
 
   factory _$RestoreRequest([void Function(RestoreRequestBuilder)? updates]) =>
       (new RestoreRequestBuilder()..update(updates))._build();
@@ -79,35 +79,34 @@ class RestoreRequestBuilder
   int? get days => _$this._days;
   set days(int? days) => _$this._days = days;
 
-  _i2.GlacierJobParametersBuilder? _glacierJobParameters;
-  _i2.GlacierJobParametersBuilder get glacierJobParameters =>
-      _$this._glacierJobParameters ??= new _i2.GlacierJobParametersBuilder();
-  set glacierJobParameters(
-          _i2.GlacierJobParametersBuilder? glacierJobParameters) =>
+  GlacierJobParametersBuilder? _glacierJobParameters;
+  GlacierJobParametersBuilder get glacierJobParameters =>
+      _$this._glacierJobParameters ??= new GlacierJobParametersBuilder();
+  set glacierJobParameters(GlacierJobParametersBuilder? glacierJobParameters) =>
       _$this._glacierJobParameters = glacierJobParameters;
 
-  _i3.RestoreRequestType? _type;
-  _i3.RestoreRequestType? get type => _$this._type;
-  set type(_i3.RestoreRequestType? type) => _$this._type = type;
+  RestoreRequestType? _type;
+  RestoreRequestType? get type => _$this._type;
+  set type(RestoreRequestType? type) => _$this._type = type;
 
-  _i4.Tier? _tier;
-  _i4.Tier? get tier => _$this._tier;
-  set tier(_i4.Tier? tier) => _$this._tier = tier;
+  Tier? _tier;
+  Tier? get tier => _$this._tier;
+  set tier(Tier? tier) => _$this._tier = tier;
 
   String? _description;
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  _i5.SelectParametersBuilder? _selectParameters;
-  _i5.SelectParametersBuilder get selectParameters =>
-      _$this._selectParameters ??= new _i5.SelectParametersBuilder();
-  set selectParameters(_i5.SelectParametersBuilder? selectParameters) =>
+  SelectParametersBuilder? _selectParameters;
+  SelectParametersBuilder get selectParameters =>
+      _$this._selectParameters ??= new SelectParametersBuilder();
+  set selectParameters(SelectParametersBuilder? selectParameters) =>
       _$this._selectParameters = selectParameters;
 
-  _i6.OutputLocationBuilder? _outputLocation;
-  _i6.OutputLocationBuilder get outputLocation =>
-      _$this._outputLocation ??= new _i6.OutputLocationBuilder();
-  set outputLocation(_i6.OutputLocationBuilder? outputLocation) =>
+  OutputLocationBuilder? _outputLocation;
+  OutputLocationBuilder get outputLocation =>
+      _$this._outputLocation ??= new OutputLocationBuilder();
+  set outputLocation(OutputLocationBuilder? outputLocation) =>
       _$this._outputLocation = outputLocation;
 
   RestoreRequestBuilder();

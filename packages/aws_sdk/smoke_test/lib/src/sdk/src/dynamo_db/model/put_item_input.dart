@@ -4,24 +4,17 @@
 library smoke_test.dynamo_db.model.put_item_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i10;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/conditional_operator.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/expected_attribute_value.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_consumed_capacity.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_item_collection_metrics.dart'
-    as _i7;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_value.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_values_on_condition_check_failure.dart'
-    as _i9;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/conditional_operator.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/expected_attribute_value.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_consumed_capacity.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_item_collection_metrics.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_value.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_values_on_condition_check_failure.dart';
 
 part 'put_item_input.g.dart';
 
@@ -32,22 +25,21 @@ abstract class PutItemInput
   /// Represents the input of a `PutItem` operation.
   factory PutItemInput({
     required String tableName,
-    required Map<String, _i3.AttributeValue> item,
-    Map<String, _i4.ExpectedAttributeValue>? expected,
-    _i5.ReturnValue? returnValues,
-    _i6.ReturnConsumedCapacity? returnConsumedCapacity,
-    _i7.ReturnItemCollectionMetrics? returnItemCollectionMetrics,
-    _i8.ConditionalOperator? conditionalOperator,
+    required Map<String, AttributeValue> item,
+    Map<String, ExpectedAttributeValue>? expected,
+    ReturnValue? returnValues,
+    ReturnConsumedCapacity? returnConsumedCapacity,
+    ReturnItemCollectionMetrics? returnItemCollectionMetrics,
+    ConditionalOperator? conditionalOperator,
     String? conditionExpression,
     Map<String, String>? expressionAttributeNames,
-    Map<String, _i3.AttributeValue>? expressionAttributeValues,
-    _i9.ReturnValuesOnConditionCheckFailure?
-        returnValuesOnConditionCheckFailure,
+    Map<String, AttributeValue>? expressionAttributeValues,
+    ReturnValuesOnConditionCheckFailure? returnValuesOnConditionCheckFailure,
   }) {
     return _$PutItemInput._(
       tableName: tableName,
-      item: _i10.BuiltMap(item),
-      expected: expected == null ? null : _i10.BuiltMap(expected),
+      item: _i3.BuiltMap(item),
+      expected: expected == null ? null : _i3.BuiltMap(expected),
       returnValues: returnValues,
       returnConsumedCapacity: returnConsumedCapacity,
       returnItemCollectionMetrics: returnItemCollectionMetrics,
@@ -55,10 +47,10 @@ abstract class PutItemInput
       conditionExpression: conditionExpression,
       expressionAttributeNames: expressionAttributeNames == null
           ? null
-          : _i10.BuiltMap(expressionAttributeNames),
+          : _i3.BuiltMap(expressionAttributeNames),
       expressionAttributeValues: expressionAttributeValues == null
           ? null
-          : _i10.BuiltMap(expressionAttributeValues),
+          : _i3.BuiltMap(expressionAttributeValues),
       returnValuesOnConditionCheckFailure: returnValuesOnConditionCheckFailure,
     );
   }
@@ -94,10 +86,10 @@ abstract class PutItemInput
   /// For more information about primary keys, see [Primary Key](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html#HowItWorks.CoreComponents.PrimaryKey) in the _Amazon DynamoDB Developer Guide_.
   ///
   /// Each element in the `Item` map is an `AttributeValue` object.
-  _i10.BuiltMap<String, _i3.AttributeValue> get item;
+  _i3.BuiltMap<String, AttributeValue> get item;
 
   /// This is a legacy parameter. Use `ConditionExpression` instead. For more information, see [Expected](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.Expected.html) in the _Amazon DynamoDB Developer Guide_.
-  _i10.BuiltMap<String, _i4.ExpectedAttributeValue>? get expected;
+  _i3.BuiltMap<String, ExpectedAttributeValue>? get expected;
 
   /// Use `ReturnValues` if you want to get the item attributes as they appeared before they were updated with the `PutItem` request. For `PutItem`, the valid values are:
   ///
@@ -111,7 +103,7 @@ abstract class PutItemInput
   /// There is no additional cost associated with requesting a return value aside from the small network and processing overhead of receiving a larger response. No read capacity units are consumed.
   ///
   /// The `ReturnValues` parameter is used by several DynamoDB operations; however, `PutItem` does not recognize any values other than `NONE` or `ALL_OLD`.
-  _i5.ReturnValue? get returnValues;
+  ReturnValue? get returnValues;
 
   /// Determines the level of detail about either provisioned or on-demand throughput consumption that is returned in the response:
   ///
@@ -122,13 +114,13 @@ abstract class PutItemInput
   /// *   `TOTAL` \- The response includes only the aggregate `ConsumedCapacity` for the operation.
   ///
   /// *   `NONE` \- No `ConsumedCapacity` details are included in the response.
-  _i6.ReturnConsumedCapacity? get returnConsumedCapacity;
+  ReturnConsumedCapacity? get returnConsumedCapacity;
 
   /// Determines whether item collection metrics are returned. If set to `SIZE`, the response includes statistics about item collections, if any, that were modified during the operation are returned in the response. If set to `NONE` (the default), no statistics are returned.
-  _i7.ReturnItemCollectionMetrics? get returnItemCollectionMetrics;
+  ReturnItemCollectionMetrics? get returnItemCollectionMetrics;
 
   /// This is a legacy parameter. Use `ConditionExpression` instead. For more information, see [ConditionalOperator](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html) in the _Amazon DynamoDB Developer Guide_.
-  _i8.ConditionalOperator? get conditionalOperator;
+  ConditionalOperator? get conditionalOperator;
 
   /// A condition that must be satisfied in order for a conditional `PutItem` operation to succeed.
   ///
@@ -173,7 +165,7 @@ abstract class PutItemInput
   /// Tokens that begin with the **:** character are _expression attribute values_, which are placeholders for the actual value at runtime.
   ///
   /// For more information on expression attribute names, see [Specifying Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html) in the _Amazon DynamoDB Developer Guide_.
-  _i10.BuiltMap<String, String>? get expressionAttributeNames;
+  _i3.BuiltMap<String, String>? get expressionAttributeNames;
 
   /// One or more values that can be substituted in an expression.
   ///
@@ -190,13 +182,12 @@ abstract class PutItemInput
   /// `ProductStatus IN (:avail, :back, :disc)`
   ///
   /// For more information on expression attribute values, see [Condition Expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html) in the _Amazon DynamoDB Developer Guide_.
-  _i10.BuiltMap<String, _i3.AttributeValue>? get expressionAttributeValues;
+  _i3.BuiltMap<String, AttributeValue>? get expressionAttributeValues;
 
   /// An optional parameter that returns the item attributes for a `PutItem` operation that failed a condition check.
   ///
   /// There is no additional cost associated with requesting a return value aside from the small network and processing overhead of receiving a larger response. No read capacity units are consumed.
-  _i9.ReturnValuesOnConditionCheckFailure?
-      get returnValuesOnConditionCheckFailure;
+  ReturnValuesOnConditionCheckFailure? get returnValuesOnConditionCheckFailure;
   @override
   PutItemInput getPayload() => this;
   @override
@@ -305,44 +296,44 @@ class PutItemInputAwsJson10Serializer
           result.item.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i10.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
-                FullType(_i3.AttributeValue),
+                FullType(AttributeValue),
               ],
             ),
-          ) as _i10.BuiltMap<String, _i3.AttributeValue>));
+          ) as _i3.BuiltMap<String, AttributeValue>));
         case 'Expected':
           result.expected.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i10.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
-                FullType(_i4.ExpectedAttributeValue),
+                FullType(ExpectedAttributeValue),
               ],
             ),
-          ) as _i10.BuiltMap<String, _i4.ExpectedAttributeValue>));
+          ) as _i3.BuiltMap<String, ExpectedAttributeValue>));
         case 'ReturnValues':
           result.returnValues = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.ReturnValue),
-          ) as _i5.ReturnValue);
+            specifiedType: const FullType(ReturnValue),
+          ) as ReturnValue);
         case 'ReturnConsumedCapacity':
           result.returnConsumedCapacity = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.ReturnConsumedCapacity),
-          ) as _i6.ReturnConsumedCapacity);
+            specifiedType: const FullType(ReturnConsumedCapacity),
+          ) as ReturnConsumedCapacity);
         case 'ReturnItemCollectionMetrics':
           result.returnItemCollectionMetrics = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i7.ReturnItemCollectionMetrics),
-          ) as _i7.ReturnItemCollectionMetrics);
+            specifiedType: const FullType(ReturnItemCollectionMetrics),
+          ) as ReturnItemCollectionMetrics);
         case 'ConditionalOperator':
           result.conditionalOperator = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i8.ConditionalOperator),
-          ) as _i8.ConditionalOperator);
+            specifiedType: const FullType(ConditionalOperator),
+          ) as ConditionalOperator);
         case 'ConditionExpression':
           result.conditionExpression = (serializers.deserialize(
             value,
@@ -352,30 +343,29 @@ class PutItemInputAwsJson10Serializer
           result.expressionAttributeNames.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i10.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i10.BuiltMap<String, String>));
+          ) as _i3.BuiltMap<String, String>));
         case 'ExpressionAttributeValues':
           result.expressionAttributeValues.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i10.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
-                FullType(_i3.AttributeValue),
+                FullType(AttributeValue),
               ],
             ),
-          ) as _i10.BuiltMap<String, _i3.AttributeValue>));
+          ) as _i3.BuiltMap<String, AttributeValue>));
         case 'ReturnValuesOnConditionCheckFailure':
           result.returnValuesOnConditionCheckFailure = (serializers.deserialize(
             value,
-            specifiedType:
-                const FullType(_i9.ReturnValuesOnConditionCheckFailure),
-          ) as _i9.ReturnValuesOnConditionCheckFailure);
+            specifiedType: const FullType(ReturnValuesOnConditionCheckFailure),
+          ) as ReturnValuesOnConditionCheckFailure);
       }
     }
 
@@ -412,10 +402,10 @@ class PutItemInputAwsJson10Serializer
       serializers.serialize(
         item,
         specifiedType: const FullType(
-          _i10.BuiltMap,
+          _i3.BuiltMap,
           [
             FullType(String),
-            FullType(_i3.AttributeValue),
+            FullType(AttributeValue),
           ],
         ),
       ),
@@ -426,10 +416,10 @@ class PutItemInputAwsJson10Serializer
         ..add(serializers.serialize(
           expected,
           specifiedType: const FullType(
-            _i10.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
-              FullType(_i4.ExpectedAttributeValue),
+              FullType(ExpectedAttributeValue),
             ],
           ),
         ));
@@ -439,7 +429,7 @@ class PutItemInputAwsJson10Serializer
         ..add('ReturnValues')
         ..add(serializers.serialize(
           returnValues,
-          specifiedType: const FullType(_i5.ReturnValue),
+          specifiedType: const FullType(ReturnValue),
         ));
     }
     if (returnConsumedCapacity != null) {
@@ -447,7 +437,7 @@ class PutItemInputAwsJson10Serializer
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
           returnConsumedCapacity,
-          specifiedType: const FullType(_i6.ReturnConsumedCapacity),
+          specifiedType: const FullType(ReturnConsumedCapacity),
         ));
     }
     if (returnItemCollectionMetrics != null) {
@@ -455,7 +445,7 @@ class PutItemInputAwsJson10Serializer
         ..add('ReturnItemCollectionMetrics')
         ..add(serializers.serialize(
           returnItemCollectionMetrics,
-          specifiedType: const FullType(_i7.ReturnItemCollectionMetrics),
+          specifiedType: const FullType(ReturnItemCollectionMetrics),
         ));
     }
     if (conditionalOperator != null) {
@@ -463,7 +453,7 @@ class PutItemInputAwsJson10Serializer
         ..add('ConditionalOperator')
         ..add(serializers.serialize(
           conditionalOperator,
-          specifiedType: const FullType(_i8.ConditionalOperator),
+          specifiedType: const FullType(ConditionalOperator),
         ));
     }
     if (conditionExpression != null) {
@@ -480,7 +470,7 @@ class PutItemInputAwsJson10Serializer
         ..add(serializers.serialize(
           expressionAttributeNames,
           specifiedType: const FullType(
-            _i10.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -494,10 +484,10 @@ class PutItemInputAwsJson10Serializer
         ..add(serializers.serialize(
           expressionAttributeValues,
           specifiedType: const FullType(
-            _i10.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
-              FullType(_i3.AttributeValue),
+              FullType(AttributeValue),
             ],
           ),
         ));
@@ -507,8 +497,7 @@ class PutItemInputAwsJson10Serializer
         ..add('ReturnValuesOnConditionCheckFailure')
         ..add(serializers.serialize(
           returnValuesOnConditionCheckFailure,
-          specifiedType:
-              const FullType(_i9.ReturnValuesOnConditionCheckFailure),
+          specifiedType: const FullType(ReturnValuesOnConditionCheckFailure),
         ));
     }
     return result$;

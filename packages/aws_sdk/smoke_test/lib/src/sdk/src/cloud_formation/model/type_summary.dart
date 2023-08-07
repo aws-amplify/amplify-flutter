@@ -6,11 +6,9 @@ library smoke_test.cloud_formation.model.type_summary; // ignore_for_file: no_le
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/identity_provider.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/registry_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/identity_provider.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/registry_type.dart';
 
 part 'type_summary.g.dart';
 
@@ -20,7 +18,7 @@ abstract class TypeSummary
     implements Built<TypeSummary, TypeSummaryBuilder> {
   /// Contains summary information about the specified CloudFormation extension.
   factory TypeSummary({
-    _i2.RegistryType? type,
+    RegistryType? type,
     String? typeName,
     String? defaultVersionId,
     String? typeArn,
@@ -30,7 +28,7 @@ abstract class TypeSummary
     String? originalTypeName,
     String? publicVersionNumber,
     String? latestPublicVersion,
-    _i3.IdentityProvider? publisherIdentity,
+    IdentityProvider? publisherIdentity,
     String? publisherName,
     bool? isActivated,
   }) {
@@ -57,12 +55,12 @@ abstract class TypeSummary
 
   const TypeSummary._();
 
-  static const List<_i4.SmithySerializer<TypeSummary>> serializers = [
+  static const List<_i2.SmithySerializer<TypeSummary>> serializers = [
     TypeSummaryAwsQuerySerializer()
   ];
 
   /// The kind of extension.
-  _i2.RegistryType? get type;
+  RegistryType? get type;
 
   /// The name of the extension.
   ///
@@ -113,7 +111,7 @@ abstract class TypeSummary
   /// The service used to verify the publisher identity.
   ///
   /// For more information, see [Registering your account to publish CloudFormation extensions](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/publish-extension.html) in the _CFN-CLI User Guide for Extension Development_.
-  _i3.IdentityProvider? get publisherIdentity;
+  IdentityProvider? get publisherIdentity;
 
   /// The publisher name, as defined in the public profile for that publisher in the service used to verify the publisher identity.
   String? get publisherName;
@@ -198,7 +196,7 @@ abstract class TypeSummary
 }
 
 class TypeSummaryAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<TypeSummary> {
+    extends _i2.StructuredSmithySerializer<TypeSummary> {
   const TypeSummaryAwsQuerySerializer() : super('TypeSummary');
 
   @override
@@ -207,8 +205,8 @@ class TypeSummaryAwsQuerySerializer
         _$TypeSummary,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -232,8 +230,8 @@ class TypeSummaryAwsQuerySerializer
         case 'Type':
           result.type = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.RegistryType),
-          ) as _i2.RegistryType);
+            specifiedType: const FullType(RegistryType),
+          ) as RegistryType);
         case 'TypeName':
           result.typeName = (serializers.deserialize(
             value,
@@ -282,8 +280,8 @@ class TypeSummaryAwsQuerySerializer
         case 'PublisherIdentity':
           result.publisherIdentity = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.IdentityProvider),
-          ) as _i3.IdentityProvider);
+            specifiedType: const FullType(IdentityProvider),
+          ) as IdentityProvider);
         case 'PublisherName':
           result.publisherName = (serializers.deserialize(
             value,
@@ -307,9 +305,9 @@ class TypeSummaryAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'TypeSummaryResponse',
-        _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final TypeSummary(
@@ -329,15 +327,15 @@ class TypeSummaryAwsQuerySerializer
     ) = object;
     if (type != null) {
       result$
-        ..add(const _i4.XmlElementName('Type'))
+        ..add(const _i2.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(_i2.RegistryType),
+          specifiedType: const FullType.nullable(RegistryType),
         ));
     }
     if (typeName != null) {
       result$
-        ..add(const _i4.XmlElementName('TypeName'))
+        ..add(const _i2.XmlElementName('TypeName'))
         ..add(serializers.serialize(
           typeName,
           specifiedType: const FullType(String),
@@ -345,7 +343,7 @@ class TypeSummaryAwsQuerySerializer
     }
     if (defaultVersionId != null) {
       result$
-        ..add(const _i4.XmlElementName('DefaultVersionId'))
+        ..add(const _i2.XmlElementName('DefaultVersionId'))
         ..add(serializers.serialize(
           defaultVersionId,
           specifiedType: const FullType(String),
@@ -353,7 +351,7 @@ class TypeSummaryAwsQuerySerializer
     }
     if (typeArn != null) {
       result$
-        ..add(const _i4.XmlElementName('TypeArn'))
+        ..add(const _i2.XmlElementName('TypeArn'))
         ..add(serializers.serialize(
           typeArn,
           specifiedType: const FullType(String),
@@ -361,7 +359,7 @@ class TypeSummaryAwsQuerySerializer
     }
     if (lastUpdated != null) {
       result$
-        ..add(const _i4.XmlElementName('LastUpdated'))
+        ..add(const _i2.XmlElementName('LastUpdated'))
         ..add(serializers.serialize(
           lastUpdated,
           specifiedType: const FullType.nullable(DateTime),
@@ -369,7 +367,7 @@ class TypeSummaryAwsQuerySerializer
     }
     if (description != null) {
       result$
-        ..add(const _i4.XmlElementName('Description'))
+        ..add(const _i2.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
           specifiedType: const FullType(String),
@@ -377,7 +375,7 @@ class TypeSummaryAwsQuerySerializer
     }
     if (publisherId != null) {
       result$
-        ..add(const _i4.XmlElementName('PublisherId'))
+        ..add(const _i2.XmlElementName('PublisherId'))
         ..add(serializers.serialize(
           publisherId,
           specifiedType: const FullType(String),
@@ -385,7 +383,7 @@ class TypeSummaryAwsQuerySerializer
     }
     if (originalTypeName != null) {
       result$
-        ..add(const _i4.XmlElementName('OriginalTypeName'))
+        ..add(const _i2.XmlElementName('OriginalTypeName'))
         ..add(serializers.serialize(
           originalTypeName,
           specifiedType: const FullType(String),
@@ -393,7 +391,7 @@ class TypeSummaryAwsQuerySerializer
     }
     if (publicVersionNumber != null) {
       result$
-        ..add(const _i4.XmlElementName('PublicVersionNumber'))
+        ..add(const _i2.XmlElementName('PublicVersionNumber'))
         ..add(serializers.serialize(
           publicVersionNumber,
           specifiedType: const FullType(String),
@@ -401,7 +399,7 @@ class TypeSummaryAwsQuerySerializer
     }
     if (latestPublicVersion != null) {
       result$
-        ..add(const _i4.XmlElementName('LatestPublicVersion'))
+        ..add(const _i2.XmlElementName('LatestPublicVersion'))
         ..add(serializers.serialize(
           latestPublicVersion,
           specifiedType: const FullType(String),
@@ -409,15 +407,15 @@ class TypeSummaryAwsQuerySerializer
     }
     if (publisherIdentity != null) {
       result$
-        ..add(const _i4.XmlElementName('PublisherIdentity'))
+        ..add(const _i2.XmlElementName('PublisherIdentity'))
         ..add(serializers.serialize(
           publisherIdentity,
-          specifiedType: const FullType.nullable(_i3.IdentityProvider),
+          specifiedType: const FullType.nullable(IdentityProvider),
         ));
     }
     if (publisherName != null) {
       result$
-        ..add(const _i4.XmlElementName('PublisherName'))
+        ..add(const _i2.XmlElementName('PublisherName'))
         ..add(serializers.serialize(
           publisherName,
           specifiedType: const FullType(String),
@@ -425,7 +423,7 @@ class TypeSummaryAwsQuerySerializer
     }
     if (isActivated != null) {
       result$
-        ..add(const _i4.XmlElementName('IsActivated'))
+        ..add(const _i2.XmlElementName('IsActivated'))
         ..add(serializers.serialize(
           isActivated,
           specifiedType: const FullType.nullable(bool),

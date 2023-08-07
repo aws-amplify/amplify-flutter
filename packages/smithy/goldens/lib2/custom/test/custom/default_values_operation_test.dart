@@ -4,14 +4,13 @@
 // ignore_for_file: unused_element
 library custom_v2.custom.test.default_values_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:built_collection/built_collection.dart' as _i7;
+import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/serializer.dart';
-import 'package:custom_v2/src/custom/model/default_enum.dart' as _i6;
-import 'package:custom_v2/src/custom/model/default_values_input.dart' as _i5;
-import 'package:custom_v2/src/custom/model/default_values_output.dart' as _i8;
-import 'package:custom_v2/src/custom/operation/default_values_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:custom_v2/src/custom/model/default_enum.dart';
+import 'package:custom_v2/src/custom/model/default_values_input.dart';
+import 'package:custom_v2/src/custom/model/default_values_output.dart';
+import 'package:custom_v2/src/custom/operation/default_values_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -20,7 +19,7 @@ void main() {
     'DefaultValuesRequestSerialization (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.DefaultValuesOperation(
+        operation: DefaultValuesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -28,7 +27,7 @@ void main() {
           id: 'DefaultValuesRequestSerialization',
           documentation:
               'Default values SHOULD be serialized and MUST be when @required',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -67,7 +66,7 @@ void main() {
     'DefaultValuesResponseSerialization (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.DefaultValuesOperation(
+        operation: DefaultValuesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -75,7 +74,7 @@ void main() {
           id: 'DefaultValuesResponseSerialization',
           documentation:
               'Default values SHOULD be serialized and MUST be when @required',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -119,25 +118,25 @@ void main() {
 }
 
 class DefaultValuesInputRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<_i5.DefaultValuesInput> {
+    extends _i3.StructuredSmithySerializer<DefaultValuesInput> {
   const DefaultValuesInputRestJson1Serializer() : super('DefaultValuesInput');
 
   @override
-  Iterable<Type> get types => const [_i5.DefaultValuesInput];
+  Iterable<Type> get types => const [DefaultValuesInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
       ];
   @override
-  _i5.DefaultValuesInput deserialize(
+  DefaultValuesInput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.DefaultValuesInputBuilder();
+    final result = DefaultValuesInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -180,75 +179,75 @@ class DefaultValuesInputRestJson1Serializer
         case 'requiredDefaultEnum':
           result.requiredDefaultEnum = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.DefaultEnum),
-          ) as _i6.DefaultEnum);
+            specifiedType: const FullType(DefaultEnum),
+          ) as DefaultEnum);
         case 'optionalDefaultEnum':
           result.optionalDefaultEnum = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.DefaultEnum),
-          ) as _i6.DefaultEnum);
+            specifiedType: const FullType(DefaultEnum),
+          ) as DefaultEnum);
         case 'nullifiedDefaultEnum':
           result.nullifiedDefaultEnum = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.DefaultEnum),
-          ) as _i6.DefaultEnum);
+            specifiedType: const FullType(DefaultEnum),
+          ) as DefaultEnum);
         case 'requiredDefaultList':
           result.requiredDefaultList.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltList,
+              _i4.BuiltList,
               [FullType(String)],
             ),
-          ) as _i7.BuiltList<String>));
+          ) as _i4.BuiltList<String>));
         case 'optionalDefaultList':
           result.optionalDefaultList.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltList,
+              _i4.BuiltList,
               [FullType(String)],
             ),
-          ) as _i7.BuiltList<String>));
+          ) as _i4.BuiltList<String>));
         case 'nullifiedDefaultList':
           result.nullifiedDefaultList.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltList,
+              _i4.BuiltList,
               [FullType(String)],
             ),
-          ) as _i7.BuiltList<String>));
+          ) as _i4.BuiltList<String>));
         case 'requiredDefaultMap':
           result.requiredDefaultMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltMap,
+              _i4.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i7.BuiltMap<String, String>));
+          ) as _i4.BuiltMap<String, String>));
         case 'optionalDefaultMap':
           result.optionalDefaultMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltMap,
+              _i4.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i7.BuiltMap<String, String>));
+          ) as _i4.BuiltMap<String, String>));
         case 'nullifiedDefaultMap':
           result.nullifiedDefaultMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltMap,
+              _i4.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i7.BuiltMap<String, String>));
+          ) as _i4.BuiltMap<String, String>));
         case 'requiredDefaultBool':
           result.requiredDefaultBool = (serializers.deserialize(
             value,
@@ -273,7 +272,7 @@ class DefaultValuesInputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.DefaultValuesInput object, {
+    DefaultValuesInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -281,25 +280,25 @@ class DefaultValuesInputRestJson1Serializer
 }
 
 class DefaultValuesOutputRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<_i8.DefaultValuesOutput> {
+    extends _i3.StructuredSmithySerializer<DefaultValuesOutput> {
   const DefaultValuesOutputRestJson1Serializer() : super('DefaultValuesOutput');
 
   @override
-  Iterable<Type> get types => const [_i8.DefaultValuesOutput];
+  Iterable<Type> get types => const [DefaultValuesOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
       ];
   @override
-  _i8.DefaultValuesOutput deserialize(
+  DefaultValuesOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i8.DefaultValuesOutputBuilder();
+    final result = DefaultValuesOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -342,75 +341,75 @@ class DefaultValuesOutputRestJson1Serializer
         case 'requiredDefaultEnum':
           result.requiredDefaultEnum = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.DefaultEnum),
-          ) as _i6.DefaultEnum);
+            specifiedType: const FullType(DefaultEnum),
+          ) as DefaultEnum);
         case 'optionalDefaultEnum':
           result.optionalDefaultEnum = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.DefaultEnum),
-          ) as _i6.DefaultEnum);
+            specifiedType: const FullType(DefaultEnum),
+          ) as DefaultEnum);
         case 'nullifiedDefaultEnum':
           result.nullifiedDefaultEnum = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.DefaultEnum),
-          ) as _i6.DefaultEnum);
+            specifiedType: const FullType(DefaultEnum),
+          ) as DefaultEnum);
         case 'requiredDefaultList':
           result.requiredDefaultList.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltList,
+              _i4.BuiltList,
               [FullType(String)],
             ),
-          ) as _i7.BuiltList<String>));
+          ) as _i4.BuiltList<String>));
         case 'optionalDefaultList':
           result.optionalDefaultList.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltList,
+              _i4.BuiltList,
               [FullType(String)],
             ),
-          ) as _i7.BuiltList<String>));
+          ) as _i4.BuiltList<String>));
         case 'nullifiedDefaultList':
           result.nullifiedDefaultList.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltList,
+              _i4.BuiltList,
               [FullType(String)],
             ),
-          ) as _i7.BuiltList<String>));
+          ) as _i4.BuiltList<String>));
         case 'requiredDefaultMap':
           result.requiredDefaultMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltMap,
+              _i4.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i7.BuiltMap<String, String>));
+          ) as _i4.BuiltMap<String, String>));
         case 'optionalDefaultMap':
           result.optionalDefaultMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltMap,
+              _i4.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i7.BuiltMap<String, String>));
+          ) as _i4.BuiltMap<String, String>));
         case 'nullifiedDefaultMap':
           result.nullifiedDefaultMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltMap,
+              _i4.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i7.BuiltMap<String, String>));
+          ) as _i4.BuiltMap<String, String>));
         case 'requiredDefaultBool':
           result.requiredDefaultBool = (serializers.deserialize(
             value,
@@ -435,7 +434,7 @@ class DefaultValuesOutputRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i8.DefaultValuesOutput object, {
+    DefaultValuesOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

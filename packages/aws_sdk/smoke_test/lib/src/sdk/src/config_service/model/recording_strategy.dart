@@ -6,9 +6,8 @@ library smoke_test.config_service.model.recording_strategy; // ignore_for_file: 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/recording_strategy_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/recording_strategy_type.dart';
 
 part 'recording_strategy.g.dart';
 
@@ -17,7 +16,7 @@ abstract class RecordingStrategy
     with _i1.AWSEquatable<RecordingStrategy>
     implements Built<RecordingStrategy, RecordingStrategyBuilder> {
   /// Specifies the recording strategy of the configuration recorder.
-  factory RecordingStrategy({_i2.RecordingStrategyType? useOnly}) {
+  factory RecordingStrategy({RecordingStrategyType? useOnly}) {
     return _$RecordingStrategy._(useOnly: useOnly);
   }
 
@@ -27,7 +26,7 @@ abstract class RecordingStrategy
 
   const RecordingStrategy._();
 
-  static const List<_i3.SmithySerializer<RecordingStrategy>> serializers = [
+  static const List<_i2.SmithySerializer<RecordingStrategy>> serializers = [
     RecordingStrategyAwsJson11Serializer()
   ];
 
@@ -53,7 +52,7 @@ abstract class RecordingStrategy
   /// For example, even if you set `includeGlobalResourceTypes` to false, global resource types will still be automatically recorded in this option unless those resource types are specifically listed as exemptions in the `resourceTypes` field of `exclusionByResourceTypes`.
   ///
   /// By default, if you choose the `EXCLUSION\_BY\_RESOURCE_TYPES` recording strategy, when Config adds support for a new resource type in the Region where you set up the configuration recorder, including global resource types, Config starts recording resources of that type automatically.
-  _i2.RecordingStrategyType? get useOnly;
+  RecordingStrategyType? get useOnly;
   @override
   List<Object?> get props => [useOnly];
   @override
@@ -68,7 +67,7 @@ abstract class RecordingStrategy
 }
 
 class RecordingStrategyAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<RecordingStrategy> {
+    extends _i2.StructuredSmithySerializer<RecordingStrategy> {
   const RecordingStrategyAwsJson11Serializer() : super('RecordingStrategy');
 
   @override
@@ -77,8 +76,8 @@ class RecordingStrategyAwsJson11Serializer
         _$RecordingStrategy,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -102,8 +101,8 @@ class RecordingStrategyAwsJson11Serializer
         case 'useOnly':
           result.useOnly = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.RecordingStrategyType),
-          ) as _i2.RecordingStrategyType);
+            specifiedType: const FullType(RecordingStrategyType),
+          ) as RecordingStrategyType);
       }
     }
 
@@ -123,7 +122,7 @@ class RecordingStrategyAwsJson11Serializer
         ..add('useOnly')
         ..add(serializers.serialize(
           useOnly,
-          specifiedType: const FullType(_i2.RecordingStrategyType),
+          specifiedType: const FullType(RecordingStrategyType),
         ));
     }
     return result$;

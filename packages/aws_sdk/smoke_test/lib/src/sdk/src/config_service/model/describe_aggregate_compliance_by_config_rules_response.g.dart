@@ -9,7 +9,7 @@ part of 'describe_aggregate_compliance_by_config_rules_response.dart';
 class _$DescribeAggregateComplianceByConfigRulesResponse
     extends DescribeAggregateComplianceByConfigRulesResponse {
   @override
-  final _i3.BuiltList<_i2.AggregateComplianceByConfigRule>?
+  final _i2.BuiltList<AggregateComplianceByConfigRule>?
       aggregateComplianceByConfigRules;
   @override
   final String? nextToken;
@@ -62,14 +62,14 @@ class DescribeAggregateComplianceByConfigRulesResponseBuilder
             DescribeAggregateComplianceByConfigRulesResponseBuilder> {
   _$DescribeAggregateComplianceByConfigRulesResponse? _$v;
 
-  _i3.ListBuilder<_i2.AggregateComplianceByConfigRule>?
+  _i2.ListBuilder<AggregateComplianceByConfigRule>?
       _aggregateComplianceByConfigRules;
-  _i3.ListBuilder<_i2.AggregateComplianceByConfigRule>
+  _i2.ListBuilder<AggregateComplianceByConfigRule>
       get aggregateComplianceByConfigRules =>
           _$this._aggregateComplianceByConfigRules ??=
-              new _i3.ListBuilder<_i2.AggregateComplianceByConfigRule>();
+              new _i2.ListBuilder<AggregateComplianceByConfigRule>();
   set aggregateComplianceByConfigRules(
-          _i3.ListBuilder<_i2.AggregateComplianceByConfigRule>?
+          _i2.ListBuilder<AggregateComplianceByConfigRule>?
               aggregateComplianceByConfigRules) =>
       _$this._aggregateComplianceByConfigRules =
           aggregateComplianceByConfigRules;

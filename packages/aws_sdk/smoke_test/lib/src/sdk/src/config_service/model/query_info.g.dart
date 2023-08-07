@@ -8,7 +8,7 @@ part of 'query_info.dart';
 
 class _$QueryInfo extends QueryInfo {
   @override
-  final _i3.BuiltList<_i2.FieldInfo>? selectFields;
+  final _i2.BuiltList<FieldInfo>? selectFields;
 
   factory _$QueryInfo([void Function(QueryInfoBuilder)? updates]) =>
       (new QueryInfoBuilder()..update(updates))._build();
@@ -40,10 +40,10 @@ class _$QueryInfo extends QueryInfo {
 class QueryInfoBuilder implements Builder<QueryInfo, QueryInfoBuilder> {
   _$QueryInfo? _$v;
 
-  _i3.ListBuilder<_i2.FieldInfo>? _selectFields;
-  _i3.ListBuilder<_i2.FieldInfo> get selectFields =>
-      _$this._selectFields ??= new _i3.ListBuilder<_i2.FieldInfo>();
-  set selectFields(_i3.ListBuilder<_i2.FieldInfo>? selectFields) =>
+  _i2.ListBuilder<FieldInfo>? _selectFields;
+  _i2.ListBuilder<FieldInfo> get selectFields =>
+      _$this._selectFields ??= new _i2.ListBuilder<FieldInfo>();
+  set selectFields(_i2.ListBuilder<FieldInfo>? selectFields) =>
       _$this._selectFields = selectFields;
 
   QueryInfoBuilder();

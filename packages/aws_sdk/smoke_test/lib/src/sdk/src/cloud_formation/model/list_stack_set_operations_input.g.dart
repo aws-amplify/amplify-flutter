@@ -14,7 +14,7 @@ class _$ListStackSetOperationsInput extends ListStackSetOperationsInput {
   @override
   final int? maxResults;
   @override
-  final _i3.CallAs? callAs;
+  final CallAs? callAs;
 
   factory _$ListStackSetOperationsInput(
           [void Function(ListStackSetOperationsInputBuilder)? updates]) =>
@@ -79,9 +79,9 @@ class ListStackSetOperationsInputBuilder
   int? get maxResults => _$this._maxResults;
   set maxResults(int? maxResults) => _$this._maxResults = maxResults;
 
-  _i3.CallAs? _callAs;
-  _i3.CallAs? get callAs => _$this._callAs;
-  set callAs(_i3.CallAs? callAs) => _$this._callAs = callAs;
+  CallAs? _callAs;
+  CallAs? get callAs => _$this._callAs;
+  set callAs(CallAs? callAs) => _$this._callAs = callAs;
 
   ListStackSetOperationsInputBuilder();
 

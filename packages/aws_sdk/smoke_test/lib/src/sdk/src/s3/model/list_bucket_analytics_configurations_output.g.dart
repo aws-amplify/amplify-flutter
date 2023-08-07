@@ -15,7 +15,7 @@ class _$ListBucketAnalyticsConfigurationsOutput
   @override
   final String? nextContinuationToken;
   @override
-  final _i3.BuiltList<_i2.AnalyticsConfiguration>? analyticsConfigurationList;
+  final _i2.BuiltList<AnalyticsConfiguration>? analyticsConfigurationList;
 
   factory _$ListBucketAnalyticsConfigurationsOutput(
           [void Function(ListBucketAnalyticsConfigurationsOutputBuilder)?
@@ -82,12 +82,12 @@ class ListBucketAnalyticsConfigurationsOutputBuilder
   set nextContinuationToken(String? nextContinuationToken) =>
       _$this._nextContinuationToken = nextContinuationToken;
 
-  _i3.ListBuilder<_i2.AnalyticsConfiguration>? _analyticsConfigurationList;
-  _i3.ListBuilder<_i2.AnalyticsConfiguration> get analyticsConfigurationList =>
+  _i2.ListBuilder<AnalyticsConfiguration>? _analyticsConfigurationList;
+  _i2.ListBuilder<AnalyticsConfiguration> get analyticsConfigurationList =>
       _$this._analyticsConfigurationList ??=
-          new _i3.ListBuilder<_i2.AnalyticsConfiguration>();
+          new _i2.ListBuilder<AnalyticsConfiguration>();
   set analyticsConfigurationList(
-          _i3.ListBuilder<_i2.AnalyticsConfiguration>?
+          _i2.ListBuilder<AnalyticsConfiguration>?
               analyticsConfigurationList) =>
       _$this._analyticsConfigurationList = analyticsConfigurationList;
 

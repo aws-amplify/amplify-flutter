@@ -6,9 +6,8 @@ library smoke_test.config_service.model.describe_config_rules_filters; // ignore
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_mode.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_mode.dart';
 
 part 'describe_config_rules_filters.g.dart';
 
@@ -18,7 +17,7 @@ abstract class DescribeConfigRulesFilters
     implements
         Built<DescribeConfigRulesFilters, DescribeConfigRulesFiltersBuilder> {
   /// Returns a filtered list of Detective or Proactive Config rules. By default, if the filter is not defined, this API returns an unfiltered list. For more information on Detective or Proactive Config rules, see [**Evaluation Mode**](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config-rules.html) in the _Config Developer Guide_.
-  factory DescribeConfigRulesFilters({_i2.EvaluationMode? evaluationMode}) {
+  factory DescribeConfigRulesFilters({EvaluationMode? evaluationMode}) {
     return _$DescribeConfigRulesFilters._(evaluationMode: evaluationMode);
   }
 
@@ -29,11 +28,11 @@ abstract class DescribeConfigRulesFilters
 
   const DescribeConfigRulesFilters._();
 
-  static const List<_i3.SmithySerializer<DescribeConfigRulesFilters>>
+  static const List<_i2.SmithySerializer<DescribeConfigRulesFilters>>
       serializers = [DescribeConfigRulesFiltersAwsJson11Serializer()];
 
   /// The mode of an evaluation. The valid values are Detective or Proactive.
-  _i2.EvaluationMode? get evaluationMode;
+  EvaluationMode? get evaluationMode;
   @override
   List<Object?> get props => [evaluationMode];
   @override
@@ -48,7 +47,7 @@ abstract class DescribeConfigRulesFilters
 }
 
 class DescribeConfigRulesFiltersAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<DescribeConfigRulesFilters> {
+    extends _i2.StructuredSmithySerializer<DescribeConfigRulesFilters> {
   const DescribeConfigRulesFiltersAwsJson11Serializer()
       : super('DescribeConfigRulesFilters');
 
@@ -58,8 +57,8 @@ class DescribeConfigRulesFiltersAwsJson11Serializer
         _$DescribeConfigRulesFilters,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -83,8 +82,8 @@ class DescribeConfigRulesFiltersAwsJson11Serializer
         case 'EvaluationMode':
           result.evaluationMode = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.EvaluationMode),
-          ) as _i2.EvaluationMode);
+            specifiedType: const FullType(EvaluationMode),
+          ) as EvaluationMode);
       }
     }
 
@@ -104,7 +103,7 @@ class DescribeConfigRulesFiltersAwsJson11Serializer
         ..add('EvaluationMode')
         ..add(serializers.serialize(
           evaluationMode,
-          specifiedType: const FullType(_i2.EvaluationMode),
+          specifiedType: const FullType(EvaluationMode),
         ));
     }
     return result$;

@@ -8,7 +8,7 @@ part of 'put_delivery_channel_request.dart';
 
 class _$PutDeliveryChannelRequest extends PutDeliveryChannelRequest {
   @override
-  final _i3.DeliveryChannel deliveryChannel;
+  final DeliveryChannel deliveryChannel;
 
   factory _$PutDeliveryChannelRequest(
           [void Function(PutDeliveryChannelRequestBuilder)? updates]) =>
@@ -49,10 +49,10 @@ class PutDeliveryChannelRequestBuilder
         Builder<PutDeliveryChannelRequest, PutDeliveryChannelRequestBuilder> {
   _$PutDeliveryChannelRequest? _$v;
 
-  _i3.DeliveryChannelBuilder? _deliveryChannel;
-  _i3.DeliveryChannelBuilder get deliveryChannel =>
-      _$this._deliveryChannel ??= new _i3.DeliveryChannelBuilder();
-  set deliveryChannel(_i3.DeliveryChannelBuilder? deliveryChannel) =>
+  DeliveryChannelBuilder? _deliveryChannel;
+  DeliveryChannelBuilder get deliveryChannel =>
+      _$this._deliveryChannel ??= new DeliveryChannelBuilder();
+  set deliveryChannel(DeliveryChannelBuilder? deliveryChannel) =>
       _$this._deliveryChannel = deliveryChannel;
 
   PutDeliveryChannelRequestBuilder();

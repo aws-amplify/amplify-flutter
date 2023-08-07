@@ -4,9 +4,8 @@
 library aws_json1_1_v1.json_protocol.model.error_with_members; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:aws_json1_1_v1/src/json_protocol/model/kitchen_sink.dart'
-    as _i3;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:aws_json1_1_v1/src/json_protocol/model/kitchen_sink.dart';
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i2;
@@ -20,7 +19,7 @@ abstract class ErrorWithMembers
         _i2.SmithyHttpException {
   factory ErrorWithMembers({
     String? code,
-    _i3.KitchenSink? complexData,
+    KitchenSink? complexData,
     int? integerField,
     List<String>? listField,
     Map<String, String>? mapField,
@@ -31,8 +30,8 @@ abstract class ErrorWithMembers
       code: code,
       complexData: complexData,
       integerField: integerField,
-      listField: listField == null ? null : _i4.BuiltList(listField),
-      mapField: mapField == null ? null : _i4.BuiltMap(mapField),
+      listField: listField == null ? null : _i3.BuiltList(listField),
+      mapField: mapField == null ? null : _i3.BuiltMap(mapField),
       message: message,
       stringField: stringField,
     );
@@ -58,10 +57,10 @@ abstract class ErrorWithMembers
   ];
 
   String? get code;
-  _i3.KitchenSink? get complexData;
+  KitchenSink? get complexData;
   int? get integerField;
-  _i4.BuiltList<String>? get listField;
-  _i4.BuiltMap<String, String>? get mapField;
+  _i3.BuiltList<String>? get listField;
+  _i3.BuiltMap<String, String>? get mapField;
   @override
   String? get message;
 
@@ -167,8 +166,8 @@ class ErrorWithMembersAwsJson11Serializer
         case 'ComplexData':
           result.complexData.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.KitchenSink),
-          ) as _i3.KitchenSink));
+            specifiedType: const FullType(KitchenSink),
+          ) as KitchenSink));
         case 'IntegerField':
           result.integerField = (serializers.deserialize(
             value,
@@ -178,21 +177,21 @@ class ErrorWithMembersAwsJson11Serializer
           result.listField.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i4.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'MapField':
           result.mapField.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i4.BuiltMap<String, String>));
+          ) as _i3.BuiltMap<String, String>));
         case 'Message':
           result.message = (serializers.deserialize(
             value,
@@ -238,7 +237,7 @@ class ErrorWithMembersAwsJson11Serializer
         ..add('ComplexData')
         ..add(serializers.serialize(
           complexData,
-          specifiedType: const FullType(_i3.KitchenSink),
+          specifiedType: const FullType(KitchenSink),
         ));
     }
     if (integerField != null) {
@@ -255,7 +254,7 @@ class ErrorWithMembersAwsJson11Serializer
         ..add(serializers.serialize(
           listField,
           specifiedType: const FullType(
-            _i4.BuiltList,
+            _i3.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -266,7 +265,7 @@ class ErrorWithMembersAwsJson11Serializer
         ..add(serializers.serialize(
           mapField,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType(String),

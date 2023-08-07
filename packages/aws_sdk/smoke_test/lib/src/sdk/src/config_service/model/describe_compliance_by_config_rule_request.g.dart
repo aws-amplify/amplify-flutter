@@ -9,9 +9,9 @@ part of 'describe_compliance_by_config_rule_request.dart';
 class _$DescribeComplianceByConfigRuleRequest
     extends DescribeComplianceByConfigRuleRequest {
   @override
-  final _i4.BuiltList<String>? configRuleNames;
+  final _i3.BuiltList<String>? configRuleNames;
   @override
-  final _i4.BuiltList<_i3.ComplianceType>? complianceTypes;
+  final _i3.BuiltList<ComplianceType>? complianceTypes;
   @override
   final String? nextToken;
 
@@ -61,16 +61,16 @@ class DescribeComplianceByConfigRuleRequestBuilder
             DescribeComplianceByConfigRuleRequestBuilder> {
   _$DescribeComplianceByConfigRuleRequest? _$v;
 
-  _i4.ListBuilder<String>? _configRuleNames;
-  _i4.ListBuilder<String> get configRuleNames =>
-      _$this._configRuleNames ??= new _i4.ListBuilder<String>();
-  set configRuleNames(_i4.ListBuilder<String>? configRuleNames) =>
+  _i3.ListBuilder<String>? _configRuleNames;
+  _i3.ListBuilder<String> get configRuleNames =>
+      _$this._configRuleNames ??= new _i3.ListBuilder<String>();
+  set configRuleNames(_i3.ListBuilder<String>? configRuleNames) =>
       _$this._configRuleNames = configRuleNames;
 
-  _i4.ListBuilder<_i3.ComplianceType>? _complianceTypes;
-  _i4.ListBuilder<_i3.ComplianceType> get complianceTypes =>
-      _$this._complianceTypes ??= new _i4.ListBuilder<_i3.ComplianceType>();
-  set complianceTypes(_i4.ListBuilder<_i3.ComplianceType>? complianceTypes) =>
+  _i3.ListBuilder<ComplianceType>? _complianceTypes;
+  _i3.ListBuilder<ComplianceType> get complianceTypes =>
+      _$this._complianceTypes ??= new _i3.ListBuilder<ComplianceType>();
+  set complianceTypes(_i3.ListBuilder<ComplianceType>? complianceTypes) =>
       _$this._complianceTypes = complianceTypes;
 
   String? _nextToken;

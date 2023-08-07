@@ -4,14 +4,12 @@
 library smoke_test.cloud_formation.model.validate_template_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/capability.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/template_parameter.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/capability.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/template_parameter.dart';
 
 part 'validate_template_output.g.dart';
 
@@ -21,19 +19,19 @@ abstract class ValidateTemplateOutput
     implements Built<ValidateTemplateOutput, ValidateTemplateOutputBuilder> {
   /// The output for ValidateTemplate action.
   factory ValidateTemplateOutput({
-    List<_i2.TemplateParameter>? parameters,
+    List<TemplateParameter>? parameters,
     String? description,
-    List<_i3.Capability>? capabilities,
+    List<Capability>? capabilities,
     String? capabilitiesReason,
     List<String>? declaredTransforms,
   }) {
     return _$ValidateTemplateOutput._(
-      parameters: parameters == null ? null : _i4.BuiltList(parameters),
+      parameters: parameters == null ? null : _i2.BuiltList(parameters),
       description: description,
-      capabilities: capabilities == null ? null : _i4.BuiltList(capabilities),
+      capabilities: capabilities == null ? null : _i2.BuiltList(capabilities),
       capabilitiesReason: capabilitiesReason,
       declaredTransforms:
-          declaredTransforms == null ? null : _i4.BuiltList(declaredTransforms),
+          declaredTransforms == null ? null : _i2.BuiltList(declaredTransforms),
     );
   }
 
@@ -51,11 +49,11 @@ abstract class ValidateTemplateOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer<ValidateTemplateOutput>> serializers =
+  static const List<_i3.SmithySerializer<ValidateTemplateOutput>> serializers =
       [ValidateTemplateOutputAwsQuerySerializer()];
 
   /// A list of `TemplateParameter` structures.
-  _i4.BuiltList<_i2.TemplateParameter>? get parameters;
+  _i2.BuiltList<TemplateParameter>? get parameters;
 
   /// The description found within the template.
   String? get description;
@@ -63,13 +61,13 @@ abstract class ValidateTemplateOutput
   /// The capabilities found within the template. If your template contains IAM resources, you must specify the CAPABILITY\_IAM or CAPABILITY\_NAMED_IAM value for this parameter when you use the CreateStack or UpdateStack actions with your template; otherwise, those actions return an InsufficientCapabilities error.
   ///
   /// For more information, see [Acknowledging IAM Resources in CloudFormation Templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities).
-  _i4.BuiltList<_i3.Capability>? get capabilities;
+  _i2.BuiltList<Capability>? get capabilities;
 
   /// The list of resources that generated the values in the `Capabilities` response element.
   String? get capabilitiesReason;
 
   /// A list of the transforms that are declared in the template.
-  _i4.BuiltList<String>? get declaredTransforms;
+  _i2.BuiltList<String>? get declaredTransforms;
   @override
   List<Object?> get props => [
         parameters,
@@ -106,7 +104,7 @@ abstract class ValidateTemplateOutput
 }
 
 class ValidateTemplateOutputAwsQuerySerializer
-    extends _i5.StructuredSmithySerializer<ValidateTemplateOutput> {
+    extends _i3.StructuredSmithySerializer<ValidateTemplateOutput> {
   const ValidateTemplateOutputAwsQuerySerializer()
       : super('ValidateTemplateOutput');
 
@@ -116,8 +114,8 @@ class ValidateTemplateOutputAwsQuerySerializer
         _$ValidateTemplateOutput,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -139,48 +137,48 @@ class ValidateTemplateOutputAwsQuerySerializer
       }
       switch (key) {
         case 'Parameters':
-          result.parameters.replace((const _i5.XmlBuiltListSerializer(
-                  indexer: _i5.XmlIndexer.awsQueryList)
+          result.parameters.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i2.TemplateParameter)],
+              _i2.BuiltList,
+              [FullType(TemplateParameter)],
             ),
-          ) as _i4.BuiltList<_i2.TemplateParameter>));
+          ) as _i2.BuiltList<TemplateParameter>));
         case 'Description':
           result.description = (serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String);
         case 'Capabilities':
-          result.capabilities.replace((const _i5.XmlBuiltListSerializer(
-                  indexer: _i5.XmlIndexer.awsQueryList)
+          result.capabilities.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.Capability)],
+              _i2.BuiltList,
+              [FullType(Capability)],
             ),
-          ) as _i4.BuiltList<_i3.Capability>));
+          ) as _i2.BuiltList<Capability>));
         case 'CapabilitiesReason':
           result.capabilitiesReason = (serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String);
         case 'DeclaredTransforms':
-          result.declaredTransforms.replace((const _i5.XmlBuiltListSerializer(
-                  indexer: _i5.XmlIndexer.awsQueryList)
+          result.declaredTransforms.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i4.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
       }
     }
 
@@ -194,9 +192,9 @@ class ValidateTemplateOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i5.XmlElementName(
+      const _i3.XmlElementName(
         'ValidateTemplateOutputResponse',
-        _i5.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final ValidateTemplateOutput(
@@ -208,21 +206,21 @@ class ValidateTemplateOutputAwsQuerySerializer
     ) = object;
     if (parameters != null) {
       result$
-        ..add(const _i5.XmlElementName('Parameters'))
-        ..add(const _i5.XmlBuiltListSerializer(
-                indexer: _i5.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('Parameters'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           parameters,
           specifiedType: const FullType.nullable(
-            _i4.BuiltList,
-            [FullType(_i2.TemplateParameter)],
+            _i2.BuiltList,
+            [FullType(TemplateParameter)],
           ),
         ));
     }
     if (description != null) {
       result$
-        ..add(const _i5.XmlElementName('Description'))
+        ..add(const _i3.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
           specifiedType: const FullType(String),
@@ -230,21 +228,21 @@ class ValidateTemplateOutputAwsQuerySerializer
     }
     if (capabilities != null) {
       result$
-        ..add(const _i5.XmlElementName('Capabilities'))
-        ..add(const _i5.XmlBuiltListSerializer(
-                indexer: _i5.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('Capabilities'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           capabilities,
           specifiedType: const FullType.nullable(
-            _i4.BuiltList,
-            [FullType(_i3.Capability)],
+            _i2.BuiltList,
+            [FullType(Capability)],
           ),
         ));
     }
     if (capabilitiesReason != null) {
       result$
-        ..add(const _i5.XmlElementName('CapabilitiesReason'))
+        ..add(const _i3.XmlElementName('CapabilitiesReason'))
         ..add(serializers.serialize(
           capabilitiesReason,
           specifiedType: const FullType(String),
@@ -252,14 +250,14 @@ class ValidateTemplateOutputAwsQuerySerializer
     }
     if (declaredTransforms != null) {
       result$
-        ..add(const _i5.XmlElementName('DeclaredTransforms'))
-        ..add(const _i5.XmlBuiltListSerializer(
-                indexer: _i5.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('DeclaredTransforms'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           declaredTransforms,
           specifiedType: const FullType.nullable(
-            _i4.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));

@@ -8,11 +8,11 @@ part of 'remediation_execution_status.dart';
 
 class _$RemediationExecutionStatus extends RemediationExecutionStatus {
   @override
-  final _i2.ResourceKey? resourceKey;
+  final ResourceKey? resourceKey;
   @override
-  final _i3.RemediationExecutionState? state;
+  final RemediationExecutionState? state;
   @override
-  final _i5.BuiltList<_i4.RemediationExecutionStep>? stepDetails;
+  final _i2.BuiltList<RemediationExecutionStep>? stepDetails;
   @override
   final DateTime? invocationTime;
   @override
@@ -68,21 +68,20 @@ class RemediationExecutionStatusBuilder
         Builder<RemediationExecutionStatus, RemediationExecutionStatusBuilder> {
   _$RemediationExecutionStatus? _$v;
 
-  _i2.ResourceKeyBuilder? _resourceKey;
-  _i2.ResourceKeyBuilder get resourceKey =>
-      _$this._resourceKey ??= new _i2.ResourceKeyBuilder();
-  set resourceKey(_i2.ResourceKeyBuilder? resourceKey) =>
+  ResourceKeyBuilder? _resourceKey;
+  ResourceKeyBuilder get resourceKey =>
+      _$this._resourceKey ??= new ResourceKeyBuilder();
+  set resourceKey(ResourceKeyBuilder? resourceKey) =>
       _$this._resourceKey = resourceKey;
 
-  _i3.RemediationExecutionState? _state;
-  _i3.RemediationExecutionState? get state => _$this._state;
-  set state(_i3.RemediationExecutionState? state) => _$this._state = state;
+  RemediationExecutionState? _state;
+  RemediationExecutionState? get state => _$this._state;
+  set state(RemediationExecutionState? state) => _$this._state = state;
 
-  _i5.ListBuilder<_i4.RemediationExecutionStep>? _stepDetails;
-  _i5.ListBuilder<_i4.RemediationExecutionStep> get stepDetails =>
-      _$this._stepDetails ??=
-          new _i5.ListBuilder<_i4.RemediationExecutionStep>();
-  set stepDetails(_i5.ListBuilder<_i4.RemediationExecutionStep>? stepDetails) =>
+  _i2.ListBuilder<RemediationExecutionStep>? _stepDetails;
+  _i2.ListBuilder<RemediationExecutionStep> get stepDetails =>
+      _$this._stepDetails ??= new _i2.ListBuilder<RemediationExecutionStep>();
+  set stepDetails(_i2.ListBuilder<RemediationExecutionStep>? stepDetails) =>
       _$this._stepDetails = stepDetails;
 
   DateTime? _invocationTime;

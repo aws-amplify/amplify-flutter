@@ -8,13 +8,13 @@ part of 'list_policies_request.dart';
 
 class _$ListPoliciesRequest extends ListPoliciesRequest {
   @override
-  final _i3.PolicyScopeType? scope;
+  final PolicyScopeType? scope;
   @override
   final bool onlyAttached;
   @override
   final String? pathPrefix;
   @override
-  final _i4.PolicyUsageType? policyUsageFilter;
+  final PolicyUsageType? policyUsageFilter;
   @override
   final String? marker;
   @override
@@ -75,9 +75,9 @@ class ListPoliciesRequestBuilder
     implements Builder<ListPoliciesRequest, ListPoliciesRequestBuilder> {
   _$ListPoliciesRequest? _$v;
 
-  _i3.PolicyScopeType? _scope;
-  _i3.PolicyScopeType? get scope => _$this._scope;
-  set scope(_i3.PolicyScopeType? scope) => _$this._scope = scope;
+  PolicyScopeType? _scope;
+  PolicyScopeType? get scope => _$this._scope;
+  set scope(PolicyScopeType? scope) => _$this._scope = scope;
 
   bool? _onlyAttached;
   bool? get onlyAttached => _$this._onlyAttached;
@@ -87,9 +87,9 @@ class ListPoliciesRequestBuilder
   String? get pathPrefix => _$this._pathPrefix;
   set pathPrefix(String? pathPrefix) => _$this._pathPrefix = pathPrefix;
 
-  _i4.PolicyUsageType? _policyUsageFilter;
-  _i4.PolicyUsageType? get policyUsageFilter => _$this._policyUsageFilter;
-  set policyUsageFilter(_i4.PolicyUsageType? policyUsageFilter) =>
+  PolicyUsageType? _policyUsageFilter;
+  PolicyUsageType? get policyUsageFilter => _$this._policyUsageFilter;
+  set policyUsageFilter(PolicyUsageType? policyUsageFilter) =>
       _$this._policyUsageFilter = policyUsageFilter;
 
   String? _marker;

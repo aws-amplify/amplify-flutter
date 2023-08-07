@@ -7,7 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/iam/model/status_type.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/status_type.dart';
 
 part 'update_service_specific_credential_request.g.dart';
 
@@ -21,7 +21,7 @@ abstract class UpdateServiceSpecificCredentialRequest
   factory UpdateServiceSpecificCredentialRequest({
     String? userName,
     required String serviceSpecificCredentialId,
-    required _i3.StatusType status,
+    required StatusType status,
   }) {
     return _$UpdateServiceSpecificCredentialRequest._(
       userName: userName,
@@ -60,7 +60,7 @@ abstract class UpdateServiceSpecificCredentialRequest
   String get serviceSpecificCredentialId;
 
   /// The status to be assigned to the service-specific credential.
-  _i3.StatusType get status;
+  StatusType get status;
   @override
   UpdateServiceSpecificCredentialRequest getPayload() => this;
   @override
@@ -135,8 +135,8 @@ class UpdateServiceSpecificCredentialRequestAwsQuerySerializer extends _i1
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.StatusType),
-          ) as _i3.StatusType);
+            specifiedType: const FullType(StatusType),
+          ) as StatusType);
       }
     }
 
@@ -178,7 +178,7 @@ class UpdateServiceSpecificCredentialRequestAwsQuerySerializer extends _i1
       ..add(const _i1.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(_i3.StatusType),
+        specifiedType: const FullType.nullable(StatusType),
       ));
     return result$;
   }

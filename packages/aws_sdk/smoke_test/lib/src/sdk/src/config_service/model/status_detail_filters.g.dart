@@ -10,7 +10,7 @@ class _$StatusDetailFilters extends StatusDetailFilters {
   @override
   final String? accountId;
   @override
-  final _i2.MemberAccountRuleStatus? memberAccountRuleStatus;
+  final MemberAccountRuleStatus? memberAccountRuleStatus;
 
   factory _$StatusDetailFilters(
           [void Function(StatusDetailFiltersBuilder)? updates]) =>
@@ -54,11 +54,11 @@ class StatusDetailFiltersBuilder
   String? get accountId => _$this._accountId;
   set accountId(String? accountId) => _$this._accountId = accountId;
 
-  _i2.MemberAccountRuleStatus? _memberAccountRuleStatus;
-  _i2.MemberAccountRuleStatus? get memberAccountRuleStatus =>
+  MemberAccountRuleStatus? _memberAccountRuleStatus;
+  MemberAccountRuleStatus? get memberAccountRuleStatus =>
       _$this._memberAccountRuleStatus;
   set memberAccountRuleStatus(
-          _i2.MemberAccountRuleStatus? memberAccountRuleStatus) =>
+          MemberAccountRuleStatus? memberAccountRuleStatus) =>
       _$this._memberAccountRuleStatus = memberAccountRuleStatus;
 
   StatusDetailFiltersBuilder();

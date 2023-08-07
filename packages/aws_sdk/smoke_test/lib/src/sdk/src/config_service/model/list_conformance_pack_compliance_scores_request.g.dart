@@ -9,11 +9,11 @@ part of 'list_conformance_pack_compliance_scores_request.dart';
 class _$ListConformancePackComplianceScoresRequest
     extends ListConformancePackComplianceScoresRequest {
   @override
-  final _i3.ConformancePackComplianceScoresFilters? filters;
+  final ConformancePackComplianceScoresFilters? filters;
   @override
-  final _i4.SortOrder? sortOrder;
+  final SortOrder? sortOrder;
   @override
-  final _i5.SortBy? sortBy;
+  final SortBy? sortBy;
   @override
   final int limit;
   @override
@@ -76,20 +76,19 @@ class ListConformancePackComplianceScoresRequestBuilder
             ListConformancePackComplianceScoresRequestBuilder> {
   _$ListConformancePackComplianceScoresRequest? _$v;
 
-  _i3.ConformancePackComplianceScoresFiltersBuilder? _filters;
-  _i3.ConformancePackComplianceScoresFiltersBuilder get filters =>
-      _$this._filters ??=
-          new _i3.ConformancePackComplianceScoresFiltersBuilder();
-  set filters(_i3.ConformancePackComplianceScoresFiltersBuilder? filters) =>
+  ConformancePackComplianceScoresFiltersBuilder? _filters;
+  ConformancePackComplianceScoresFiltersBuilder get filters =>
+      _$this._filters ??= new ConformancePackComplianceScoresFiltersBuilder();
+  set filters(ConformancePackComplianceScoresFiltersBuilder? filters) =>
       _$this._filters = filters;
 
-  _i4.SortOrder? _sortOrder;
-  _i4.SortOrder? get sortOrder => _$this._sortOrder;
-  set sortOrder(_i4.SortOrder? sortOrder) => _$this._sortOrder = sortOrder;
+  SortOrder? _sortOrder;
+  SortOrder? get sortOrder => _$this._sortOrder;
+  set sortOrder(SortOrder? sortOrder) => _$this._sortOrder = sortOrder;
 
-  _i5.SortBy? _sortBy;
-  _i5.SortBy? get sortBy => _$this._sortBy;
-  set sortBy(_i5.SortBy? sortBy) => _$this._sortBy = sortBy;
+  SortBy? _sortBy;
+  SortBy? get sortBy => _$this._sortBy;
+  set sortBy(SortBy? sortBy) => _$this._sortBy = sortBy;
 
   int? _limit;
   int? get limit => _$this._limit;

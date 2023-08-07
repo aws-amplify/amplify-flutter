@@ -10,7 +10,7 @@ class _$UpdateEndpointsBatchRequest extends UpdateEndpointsBatchRequest {
   @override
   final String applicationId;
   @override
-  final _i2.EndpointBatchRequest endpointBatchRequest;
+  final EndpointBatchRequest endpointBatchRequest;
 
   factory _$UpdateEndpointsBatchRequest(
           [void Function(UpdateEndpointsBatchRequestBuilder)? updates]) =>
@@ -63,11 +63,10 @@ class UpdateEndpointsBatchRequestBuilder
   set applicationId(String? applicationId) =>
       _$this._applicationId = applicationId;
 
-  _i2.EndpointBatchRequestBuilder? _endpointBatchRequest;
-  _i2.EndpointBatchRequestBuilder get endpointBatchRequest =>
-      _$this._endpointBatchRequest ??= new _i2.EndpointBatchRequestBuilder();
-  set endpointBatchRequest(
-          _i2.EndpointBatchRequestBuilder? endpointBatchRequest) =>
+  EndpointBatchRequestBuilder? _endpointBatchRequest;
+  EndpointBatchRequestBuilder get endpointBatchRequest =>
+      _$this._endpointBatchRequest ??= new EndpointBatchRequestBuilder();
+  set endpointBatchRequest(EndpointBatchRequestBuilder? endpointBatchRequest) =>
       _$this._endpointBatchRequest = endpointBatchRequest;
 
   UpdateEndpointsBatchRequestBuilder();

@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/organization_resource_detailed_status_filters.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/organization_resource_detailed_status_filters.dart';
 
 part 'get_organization_conformance_pack_detailed_status_request.g.dart';
 
@@ -21,7 +20,7 @@ abstract class GetOrganizationConformancePackDetailedStatusRequest
             GetOrganizationConformancePackDetailedStatusRequestBuilder> {
   factory GetOrganizationConformancePackDetailedStatusRequest({
     required String organizationConformancePackName,
-    _i3.OrganizationResourceDetailedStatusFilters? filters,
+    OrganizationResourceDetailedStatusFilters? filters,
     int? limit,
     String? nextToken,
   }) {
@@ -63,7 +62,7 @@ abstract class GetOrganizationConformancePackDetailedStatusRequest
   String get organizationConformancePackName;
 
   /// An `OrganizationResourceDetailedStatusFilters` object.
-  _i3.OrganizationResourceDetailedStatusFilters? get filters;
+  OrganizationResourceDetailedStatusFilters? get filters;
 
   /// The maximum number of `OrganizationConformancePackDetailedStatuses` returned on each page. If you do not specify a number, Config uses the default. The default is 100.
   int get limit;
@@ -146,8 +145,8 @@ class GetOrganizationConformancePackDetailedStatusRequestAwsJson11Serializer
           result.filters.replace((serializers.deserialize(
             value,
             specifiedType:
-                const FullType(_i3.OrganizationResourceDetailedStatusFilters),
-          ) as _i3.OrganizationResourceDetailedStatusFilters));
+                const FullType(OrganizationResourceDetailedStatusFilters),
+          ) as OrganizationResourceDetailedStatusFilters));
         case 'Limit':
           result.limit = (serializers.deserialize(
             value,
@@ -195,7 +194,7 @@ class GetOrganizationConformancePackDetailedStatusRequestAwsJson11Serializer
         ..add(serializers.serialize(
           filters,
           specifiedType:
-              const FullType(_i3.OrganizationResourceDetailedStatusFilters),
+              const FullType(OrganizationResourceDetailedStatusFilters),
         ));
     }
     if (nextToken != null) {

@@ -13,7 +13,7 @@ class _$GlobalTableGlobalSecondaryIndexSettingsUpdate
   @override
   final _i2.Int64? provisionedWriteCapacityUnits;
   @override
-  final _i3.AutoScalingSettingsUpdate?
+  final AutoScalingSettingsUpdate?
       provisionedWriteCapacityAutoScalingSettingsUpdate;
 
   factory _$GlobalTableGlobalSecondaryIndexSettingsUpdate(
@@ -80,14 +80,14 @@ class GlobalTableGlobalSecondaryIndexSettingsUpdateBuilder
   set provisionedWriteCapacityUnits(_i2.Int64? provisionedWriteCapacityUnits) =>
       _$this._provisionedWriteCapacityUnits = provisionedWriteCapacityUnits;
 
-  _i3.AutoScalingSettingsUpdateBuilder?
+  AutoScalingSettingsUpdateBuilder?
       _provisionedWriteCapacityAutoScalingSettingsUpdate;
-  _i3.AutoScalingSettingsUpdateBuilder
+  AutoScalingSettingsUpdateBuilder
       get provisionedWriteCapacityAutoScalingSettingsUpdate =>
           _$this._provisionedWriteCapacityAutoScalingSettingsUpdate ??=
-              new _i3.AutoScalingSettingsUpdateBuilder();
+              new AutoScalingSettingsUpdateBuilder();
   set provisionedWriteCapacityAutoScalingSettingsUpdate(
-          _i3.AutoScalingSettingsUpdateBuilder?
+          AutoScalingSettingsUpdateBuilder?
               provisionedWriteCapacityAutoScalingSettingsUpdate) =>
       _$this._provisionedWriteCapacityAutoScalingSettingsUpdate =
           provisionedWriteCapacityAutoScalingSettingsUpdate;

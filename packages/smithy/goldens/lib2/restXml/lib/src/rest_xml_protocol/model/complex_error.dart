@@ -6,9 +6,8 @@ library rest_xml_v2.rest_xml_protocol.model.complex_error; // ignore_for_file: n
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i4;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/complex_nested_error_data.dart'
-    as _i3;
+import 'package:meta/meta.dart' as _i3;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/complex_nested_error_data.dart';
 import 'package:smithy/smithy.dart' as _i2;
 
 part 'complex_error.g.dart';
@@ -24,7 +23,7 @@ abstract class ComplexError
   factory ComplexError({
     String? header,
     String? topLevel,
-    _i3.ComplexNestedErrorData? nested,
+    ComplexNestedErrorData? nested,
   }) {
     return _$ComplexError._(
       header: header,
@@ -61,7 +60,7 @@ abstract class ComplexError
 
   String? get header;
   String? get topLevel;
-  _i3.ComplexNestedErrorData? get nested;
+  ComplexNestedErrorData? get nested;
   @override
   ComplexErrorPayload getPayload() => ComplexErrorPayload((b) {
         if (nested != null) {
@@ -111,7 +110,7 @@ abstract class ComplexError
   }
 }
 
-@_i4.internal
+@_i3.internal
 abstract class ComplexErrorPayload
     with _i1.AWSEquatable<ComplexErrorPayload>
     implements Built<ComplexErrorPayload, ComplexErrorPayloadBuilder> {
@@ -121,7 +120,7 @@ abstract class ComplexErrorPayload
 
   const ComplexErrorPayload._();
 
-  _i3.ComplexNestedErrorData? get nested;
+  ComplexNestedErrorData? get nested;
   String? get topLevel;
   @override
   List<Object?> get props => [
@@ -188,8 +187,8 @@ class ComplexErrorRestXmlSerializer
         case 'Nested':
           result.nested.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ComplexNestedErrorData),
-          ) as _i3.ComplexNestedErrorData));
+            specifiedType: const FullType(ComplexNestedErrorData),
+          ) as ComplexNestedErrorData));
         case 'TopLevel':
           result.topLevel = (serializers.deserialize(
             value,
@@ -214,7 +213,7 @@ class ComplexErrorRestXmlSerializer
         ..add(const _i2.XmlElementName('Nested'))
         ..add(serializers.serialize(
           nested,
-          specifiedType: const FullType(_i3.ComplexNestedErrorData),
+          specifiedType: const FullType(ComplexNestedErrorData),
         ));
     }
     if (topLevel != null) {

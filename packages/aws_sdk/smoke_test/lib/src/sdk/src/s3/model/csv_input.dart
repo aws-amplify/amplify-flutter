@@ -6,8 +6,8 @@ library smoke_test.s3.model.csv_input; // ignore_for_file: no_leading_underscore
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/file_header_info.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/file_header_info.dart';
 
 part 'csv_input.g.dart';
 
@@ -17,7 +17,7 @@ abstract class CsvInput
     implements Built<CsvInput, CsvInputBuilder> {
   /// Describes how an uncompressed comma-separated values (CSV)-formatted input object is formatted.
   factory CsvInput({
-    _i2.FileHeaderInfo? fileHeaderInfo,
+    FileHeaderInfo? fileHeaderInfo,
     String? comments,
     String? quoteEscapeCharacter,
     String? recordDelimiter,
@@ -41,7 +41,7 @@ abstract class CsvInput
 
   const CsvInput._();
 
-  static const List<_i3.SmithySerializer<CsvInput>> serializers = [
+  static const List<_i2.SmithySerializer<CsvInput>> serializers = [
     CsvInputRestXmlSerializer()
   ];
 
@@ -52,7 +52,7 @@ abstract class CsvInput
   /// *   `IGNORE`: First line is a header, but you can't use the header values to indicate the column in an expression. You can use column position (such as \_1, \_2, …) to indicate the column (`SELECT s._1 FROM OBJECT s`).
   ///
   /// *   `Use`: First line is a header, and you can use the header value to identify a column in an expression (`SELECT "name" FROM OBJECT`).
-  _i2.FileHeaderInfo? get fileHeaderInfo;
+  FileHeaderInfo? get fileHeaderInfo;
 
   /// A single character used to indicate that a row should be ignored when the character is present at the start of that row. You can specify any character to indicate a comment line. The default character is `#`.
   ///
@@ -125,7 +125,7 @@ abstract class CsvInput
 }
 
 class CsvInputRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<CsvInput> {
+    extends _i2.StructuredSmithySerializer<CsvInput> {
   const CsvInputRestXmlSerializer() : super('CsvInput');
 
   @override
@@ -134,8 +134,8 @@ class CsvInputRestXmlSerializer
         _$CsvInput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -174,8 +174,8 @@ class CsvInputRestXmlSerializer
         case 'FileHeaderInfo':
           result.fileHeaderInfo = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.FileHeaderInfo),
-          ) as _i2.FileHeaderInfo);
+            specifiedType: const FullType(FileHeaderInfo),
+          ) as FileHeaderInfo);
         case 'QuoteCharacter':
           result.quoteCharacter = (serializers.deserialize(
             value,
@@ -204,9 +204,9 @@ class CsvInputRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'CsvInput',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final CsvInput(
@@ -220,7 +220,7 @@ class CsvInputRestXmlSerializer
     ) = object;
     if (allowQuotedRecordDelimiter != null) {
       result$
-        ..add(const _i3.XmlElementName('AllowQuotedRecordDelimiter'))
+        ..add(const _i2.XmlElementName('AllowQuotedRecordDelimiter'))
         ..add(serializers.serialize(
           allowQuotedRecordDelimiter,
           specifiedType: const FullType.nullable(bool),
@@ -228,7 +228,7 @@ class CsvInputRestXmlSerializer
     }
     if (comments != null) {
       result$
-        ..add(const _i3.XmlElementName('Comments'))
+        ..add(const _i2.XmlElementName('Comments'))
         ..add(serializers.serialize(
           comments,
           specifiedType: const FullType(String),
@@ -236,7 +236,7 @@ class CsvInputRestXmlSerializer
     }
     if (fieldDelimiter != null) {
       result$
-        ..add(const _i3.XmlElementName('FieldDelimiter'))
+        ..add(const _i2.XmlElementName('FieldDelimiter'))
         ..add(serializers.serialize(
           fieldDelimiter,
           specifiedType: const FullType(String),
@@ -244,15 +244,15 @@ class CsvInputRestXmlSerializer
     }
     if (fileHeaderInfo != null) {
       result$
-        ..add(const _i3.XmlElementName('FileHeaderInfo'))
+        ..add(const _i2.XmlElementName('FileHeaderInfo'))
         ..add(serializers.serialize(
           fileHeaderInfo,
-          specifiedType: const FullType.nullable(_i2.FileHeaderInfo),
+          specifiedType: const FullType.nullable(FileHeaderInfo),
         ));
     }
     if (quoteCharacter != null) {
       result$
-        ..add(const _i3.XmlElementName('QuoteCharacter'))
+        ..add(const _i2.XmlElementName('QuoteCharacter'))
         ..add(serializers.serialize(
           quoteCharacter,
           specifiedType: const FullType(String),
@@ -260,7 +260,7 @@ class CsvInputRestXmlSerializer
     }
     if (quoteEscapeCharacter != null) {
       result$
-        ..add(const _i3.XmlElementName('QuoteEscapeCharacter'))
+        ..add(const _i2.XmlElementName('QuoteEscapeCharacter'))
         ..add(serializers.serialize(
           quoteEscapeCharacter,
           specifiedType: const FullType(String),
@@ -268,7 +268,7 @@ class CsvInputRestXmlSerializer
     }
     if (recordDelimiter != null) {
       result$
-        ..add(const _i3.XmlElementName('RecordDelimiter'))
+        ..add(const _i2.XmlElementName('RecordDelimiter'))
         ..add(serializers.serialize(
           recordDelimiter,
           specifiedType: const FullType(String),

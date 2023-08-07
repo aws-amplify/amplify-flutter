@@ -9,7 +9,7 @@ part of 'describe_remediation_exceptions_response.dart';
 class _$DescribeRemediationExceptionsResponse
     extends DescribeRemediationExceptionsResponse {
   @override
-  final _i3.BuiltList<_i2.RemediationException>? remediationExceptions;
+  final _i2.BuiltList<RemediationException>? remediationExceptions;
   @override
   final String? nextToken;
 
@@ -57,12 +57,12 @@ class DescribeRemediationExceptionsResponseBuilder
             DescribeRemediationExceptionsResponseBuilder> {
   _$DescribeRemediationExceptionsResponse? _$v;
 
-  _i3.ListBuilder<_i2.RemediationException>? _remediationExceptions;
-  _i3.ListBuilder<_i2.RemediationException> get remediationExceptions =>
+  _i2.ListBuilder<RemediationException>? _remediationExceptions;
+  _i2.ListBuilder<RemediationException> get remediationExceptions =>
       _$this._remediationExceptions ??=
-          new _i3.ListBuilder<_i2.RemediationException>();
+          new _i2.ListBuilder<RemediationException>();
   set remediationExceptions(
-          _i3.ListBuilder<_i2.RemediationException>? remediationExceptions) =>
+          _i2.ListBuilder<RemediationException>? remediationExceptions) =>
       _$this._remediationExceptions = remediationExceptions;
 
   String? _nextToken;

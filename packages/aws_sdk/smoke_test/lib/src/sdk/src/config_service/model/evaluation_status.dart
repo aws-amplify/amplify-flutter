@@ -6,9 +6,8 @@ library smoke_test.config_service.model.evaluation_status; // ignore_for_file: n
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_evaluation_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_evaluation_status.dart';
 
 part 'evaluation_status.g.dart';
 
@@ -18,7 +17,7 @@ abstract class EvaluationStatus
     implements Built<EvaluationStatus, EvaluationStatusBuilder> {
   /// Returns status details of an evaluation.
   factory EvaluationStatus({
-    required _i2.ResourceEvaluationStatus status,
+    required ResourceEvaluationStatus status,
     String? failureReason,
   }) {
     return _$EvaluationStatus._(
@@ -33,12 +32,12 @@ abstract class EvaluationStatus
 
   const EvaluationStatus._();
 
-  static const List<_i3.SmithySerializer<EvaluationStatus>> serializers = [
+  static const List<_i2.SmithySerializer<EvaluationStatus>> serializers = [
     EvaluationStatusAwsJson11Serializer()
   ];
 
   /// The status of an execution. The valid values are In_Progress, Succeeded or Failed.
-  _i2.ResourceEvaluationStatus get status;
+  ResourceEvaluationStatus get status;
 
   /// An explanation for failed execution status.
   String? get failureReason;
@@ -63,7 +62,7 @@ abstract class EvaluationStatus
 }
 
 class EvaluationStatusAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<EvaluationStatus> {
+    extends _i2.StructuredSmithySerializer<EvaluationStatus> {
   const EvaluationStatusAwsJson11Serializer() : super('EvaluationStatus');
 
   @override
@@ -72,8 +71,8 @@ class EvaluationStatusAwsJson11Serializer
         _$EvaluationStatus,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -97,8 +96,8 @@ class EvaluationStatusAwsJson11Serializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ResourceEvaluationStatus),
-          ) as _i2.ResourceEvaluationStatus);
+            specifiedType: const FullType(ResourceEvaluationStatus),
+          ) as ResourceEvaluationStatus);
         case 'FailureReason':
           result.failureReason = (serializers.deserialize(
             value,
@@ -122,7 +121,7 @@ class EvaluationStatusAwsJson11Serializer
       'Status',
       serializers.serialize(
         status,
-        specifiedType: const FullType(_i2.ResourceEvaluationStatus),
+        specifiedType: const FullType(ResourceEvaluationStatus),
       ),
     ]);
     if (failureReason != null) {

@@ -14,7 +14,7 @@ class _$SignalResourceInput extends SignalResourceInput {
   @override
   final String uniqueId;
   @override
-  final _i3.ResourceSignalStatus status;
+  final ResourceSignalStatus status;
 
   factory _$SignalResourceInput(
           [void Function(SignalResourceInputBuilder)? updates]) =>
@@ -84,9 +84,9 @@ class SignalResourceInputBuilder
   String? get uniqueId => _$this._uniqueId;
   set uniqueId(String? uniqueId) => _$this._uniqueId = uniqueId;
 
-  _i3.ResourceSignalStatus? _status;
-  _i3.ResourceSignalStatus? get status => _$this._status;
-  set status(_i3.ResourceSignalStatus? status) => _$this._status = status;
+  ResourceSignalStatus? _status;
+  ResourceSignalStatus? get status => _$this._status;
+  set status(ResourceSignalStatus? status) => _$this._status = status;
 
   SignalResourceInputBuilder();
 

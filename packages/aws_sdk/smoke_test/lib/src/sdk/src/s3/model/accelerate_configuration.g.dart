@@ -8,7 +8,7 @@ part of 'accelerate_configuration.dart';
 
 class _$AccelerateConfiguration extends AccelerateConfiguration {
   @override
-  final _i2.BucketAccelerateStatus? status;
+  final BucketAccelerateStatus? status;
 
   factory _$AccelerateConfiguration(
           [void Function(AccelerateConfigurationBuilder)? updates]) =>
@@ -45,9 +45,9 @@ class AccelerateConfigurationBuilder
         Builder<AccelerateConfiguration, AccelerateConfigurationBuilder> {
   _$AccelerateConfiguration? _$v;
 
-  _i2.BucketAccelerateStatus? _status;
-  _i2.BucketAccelerateStatus? get status => _$this._status;
-  set status(_i2.BucketAccelerateStatus? status) => _$this._status = status;
+  BucketAccelerateStatus? _status;
+  BucketAccelerateStatus? get status => _$this._status;
+  set status(BucketAccelerateStatus? status) => _$this._status = status;
 
   AccelerateConfigurationBuilder();
 

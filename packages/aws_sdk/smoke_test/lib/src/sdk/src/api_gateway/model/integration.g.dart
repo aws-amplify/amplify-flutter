@@ -8,35 +8,35 @@ part of 'integration.dart';
 
 class _$Integration extends Integration {
   @override
-  final _i2.IntegrationType? type;
+  final IntegrationType? type;
   @override
   final String? httpMethod;
   @override
   final String? uri;
   @override
-  final _i3.ConnectionType? connectionType;
+  final ConnectionType? connectionType;
   @override
   final String? connectionId;
   @override
   final String? credentials;
   @override
-  final _i7.BuiltMap<String, String>? requestParameters;
+  final _i2.BuiltMap<String, String>? requestParameters;
   @override
-  final _i7.BuiltMap<String, String>? requestTemplates;
+  final _i2.BuiltMap<String, String>? requestTemplates;
   @override
   final String? passthroughBehavior;
   @override
-  final _i4.ContentHandlingStrategy? contentHandling;
+  final ContentHandlingStrategy? contentHandling;
   @override
   final int timeoutInMillis;
   @override
   final String? cacheNamespace;
   @override
-  final _i7.BuiltList<String>? cacheKeyParameters;
+  final _i2.BuiltList<String>? cacheKeyParameters;
   @override
-  final _i7.BuiltMap<String, _i5.IntegrationResponse>? integrationResponses;
+  final _i2.BuiltMap<String, IntegrationResponse>? integrationResponses;
   @override
-  final _i6.TlsConfig? tlsConfig;
+  final TlsConfig? tlsConfig;
 
   factory _$Integration([void Function(IntegrationBuilder)? updates]) =>
       (new IntegrationBuilder()..update(updates))._build();
@@ -116,9 +116,9 @@ class _$Integration extends Integration {
 class IntegrationBuilder implements Builder<Integration, IntegrationBuilder> {
   _$Integration? _$v;
 
-  _i2.IntegrationType? _type;
-  _i2.IntegrationType? get type => _$this._type;
-  set type(_i2.IntegrationType? type) => _$this._type = type;
+  IntegrationType? _type;
+  IntegrationType? get type => _$this._type;
+  set type(IntegrationType? type) => _$this._type = type;
 
   String? _httpMethod;
   String? get httpMethod => _$this._httpMethod;
@@ -128,9 +128,9 @@ class IntegrationBuilder implements Builder<Integration, IntegrationBuilder> {
   String? get uri => _$this._uri;
   set uri(String? uri) => _$this._uri = uri;
 
-  _i3.ConnectionType? _connectionType;
-  _i3.ConnectionType? get connectionType => _$this._connectionType;
-  set connectionType(_i3.ConnectionType? connectionType) =>
+  ConnectionType? _connectionType;
+  ConnectionType? get connectionType => _$this._connectionType;
+  set connectionType(ConnectionType? connectionType) =>
       _$this._connectionType = connectionType;
 
   String? _connectionId;
@@ -141,16 +141,16 @@ class IntegrationBuilder implements Builder<Integration, IntegrationBuilder> {
   String? get credentials => _$this._credentials;
   set credentials(String? credentials) => _$this._credentials = credentials;
 
-  _i7.MapBuilder<String, String>? _requestParameters;
-  _i7.MapBuilder<String, String> get requestParameters =>
-      _$this._requestParameters ??= new _i7.MapBuilder<String, String>();
-  set requestParameters(_i7.MapBuilder<String, String>? requestParameters) =>
+  _i2.MapBuilder<String, String>? _requestParameters;
+  _i2.MapBuilder<String, String> get requestParameters =>
+      _$this._requestParameters ??= new _i2.MapBuilder<String, String>();
+  set requestParameters(_i2.MapBuilder<String, String>? requestParameters) =>
       _$this._requestParameters = requestParameters;
 
-  _i7.MapBuilder<String, String>? _requestTemplates;
-  _i7.MapBuilder<String, String> get requestTemplates =>
-      _$this._requestTemplates ??= new _i7.MapBuilder<String, String>();
-  set requestTemplates(_i7.MapBuilder<String, String>? requestTemplates) =>
+  _i2.MapBuilder<String, String>? _requestTemplates;
+  _i2.MapBuilder<String, String> get requestTemplates =>
+      _$this._requestTemplates ??= new _i2.MapBuilder<String, String>();
+  set requestTemplates(_i2.MapBuilder<String, String>? requestTemplates) =>
       _$this._requestTemplates = requestTemplates;
 
   String? _passthroughBehavior;
@@ -158,9 +158,9 @@ class IntegrationBuilder implements Builder<Integration, IntegrationBuilder> {
   set passthroughBehavior(String? passthroughBehavior) =>
       _$this._passthroughBehavior = passthroughBehavior;
 
-  _i4.ContentHandlingStrategy? _contentHandling;
-  _i4.ContentHandlingStrategy? get contentHandling => _$this._contentHandling;
-  set contentHandling(_i4.ContentHandlingStrategy? contentHandling) =>
+  ContentHandlingStrategy? _contentHandling;
+  ContentHandlingStrategy? get contentHandling => _$this._contentHandling;
+  set contentHandling(ContentHandlingStrategy? contentHandling) =>
       _$this._contentHandling = contentHandling;
 
   int? _timeoutInMillis;
@@ -173,26 +173,24 @@ class IntegrationBuilder implements Builder<Integration, IntegrationBuilder> {
   set cacheNamespace(String? cacheNamespace) =>
       _$this._cacheNamespace = cacheNamespace;
 
-  _i7.ListBuilder<String>? _cacheKeyParameters;
-  _i7.ListBuilder<String> get cacheKeyParameters =>
-      _$this._cacheKeyParameters ??= new _i7.ListBuilder<String>();
-  set cacheKeyParameters(_i7.ListBuilder<String>? cacheKeyParameters) =>
+  _i2.ListBuilder<String>? _cacheKeyParameters;
+  _i2.ListBuilder<String> get cacheKeyParameters =>
+      _$this._cacheKeyParameters ??= new _i2.ListBuilder<String>();
+  set cacheKeyParameters(_i2.ListBuilder<String>? cacheKeyParameters) =>
       _$this._cacheKeyParameters = cacheKeyParameters;
 
-  _i7.MapBuilder<String, _i5.IntegrationResponse>? _integrationResponses;
-  _i7.MapBuilder<String, _i5.IntegrationResponse> get integrationResponses =>
+  _i2.MapBuilder<String, IntegrationResponse>? _integrationResponses;
+  _i2.MapBuilder<String, IntegrationResponse> get integrationResponses =>
       _$this._integrationResponses ??=
-          new _i7.MapBuilder<String, _i5.IntegrationResponse>();
+          new _i2.MapBuilder<String, IntegrationResponse>();
   set integrationResponses(
-          _i7.MapBuilder<String, _i5.IntegrationResponse>?
-              integrationResponses) =>
+          _i2.MapBuilder<String, IntegrationResponse>? integrationResponses) =>
       _$this._integrationResponses = integrationResponses;
 
-  _i6.TlsConfigBuilder? _tlsConfig;
-  _i6.TlsConfigBuilder get tlsConfig =>
-      _$this._tlsConfig ??= new _i6.TlsConfigBuilder();
-  set tlsConfig(_i6.TlsConfigBuilder? tlsConfig) =>
-      _$this._tlsConfig = tlsConfig;
+  TlsConfigBuilder? _tlsConfig;
+  TlsConfigBuilder get tlsConfig =>
+      _$this._tlsConfig ??= new TlsConfigBuilder();
+  set tlsConfig(TlsConfigBuilder? tlsConfig) => _$this._tlsConfig = tlsConfig;
 
   IntegrationBuilder() {
     Integration._init(this);

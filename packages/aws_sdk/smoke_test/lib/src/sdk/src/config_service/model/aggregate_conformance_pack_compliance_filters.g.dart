@@ -11,7 +11,7 @@ class _$AggregateConformancePackComplianceFilters
   @override
   final String? conformancePackName;
   @override
-  final _i2.ConformancePackComplianceType? complianceType;
+  final ConformancePackComplianceType? complianceType;
   @override
   final String? accountId;
   @override
@@ -73,10 +73,9 @@ class AggregateConformancePackComplianceFiltersBuilder
   set conformancePackName(String? conformancePackName) =>
       _$this._conformancePackName = conformancePackName;
 
-  _i2.ConformancePackComplianceType? _complianceType;
-  _i2.ConformancePackComplianceType? get complianceType =>
-      _$this._complianceType;
-  set complianceType(_i2.ConformancePackComplianceType? complianceType) =>
+  ConformancePackComplianceType? _complianceType;
+  ConformancePackComplianceType? get complianceType => _$this._complianceType;
+  set complianceType(ConformancePackComplianceType? complianceType) =>
       _$this._complianceType = complianceType;
 
   String? _accountId;

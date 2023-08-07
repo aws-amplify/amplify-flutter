@@ -8,13 +8,13 @@ part of 'deployment_targets.dart';
 
 class _$DeploymentTargets extends DeploymentTargets {
   @override
-  final _i3.BuiltList<String>? accounts;
+  final _i2.BuiltList<String>? accounts;
   @override
   final String? accountsUrl;
   @override
-  final _i3.BuiltList<String>? organizationalUnitIds;
+  final _i2.BuiltList<String>? organizationalUnitIds;
   @override
-  final _i2.AccountFilterType? accountFilterType;
+  final AccountFilterType? accountFilterType;
 
   factory _$DeploymentTargets(
           [void Function(DeploymentTargetsBuilder)? updates]) =>
@@ -61,25 +61,25 @@ class DeploymentTargetsBuilder
     implements Builder<DeploymentTargets, DeploymentTargetsBuilder> {
   _$DeploymentTargets? _$v;
 
-  _i3.ListBuilder<String>? _accounts;
-  _i3.ListBuilder<String> get accounts =>
-      _$this._accounts ??= new _i3.ListBuilder<String>();
-  set accounts(_i3.ListBuilder<String>? accounts) =>
+  _i2.ListBuilder<String>? _accounts;
+  _i2.ListBuilder<String> get accounts =>
+      _$this._accounts ??= new _i2.ListBuilder<String>();
+  set accounts(_i2.ListBuilder<String>? accounts) =>
       _$this._accounts = accounts;
 
   String? _accountsUrl;
   String? get accountsUrl => _$this._accountsUrl;
   set accountsUrl(String? accountsUrl) => _$this._accountsUrl = accountsUrl;
 
-  _i3.ListBuilder<String>? _organizationalUnitIds;
-  _i3.ListBuilder<String> get organizationalUnitIds =>
-      _$this._organizationalUnitIds ??= new _i3.ListBuilder<String>();
-  set organizationalUnitIds(_i3.ListBuilder<String>? organizationalUnitIds) =>
+  _i2.ListBuilder<String>? _organizationalUnitIds;
+  _i2.ListBuilder<String> get organizationalUnitIds =>
+      _$this._organizationalUnitIds ??= new _i2.ListBuilder<String>();
+  set organizationalUnitIds(_i2.ListBuilder<String>? organizationalUnitIds) =>
       _$this._organizationalUnitIds = organizationalUnitIds;
 
-  _i2.AccountFilterType? _accountFilterType;
-  _i2.AccountFilterType? get accountFilterType => _$this._accountFilterType;
-  set accountFilterType(_i2.AccountFilterType? accountFilterType) =>
+  AccountFilterType? _accountFilterType;
+  AccountFilterType? get accountFilterType => _$this._accountFilterType;
+  set accountFilterType(AccountFilterType? accountFilterType) =>
       _$this._accountFilterType = accountFilterType;
 
   DeploymentTargetsBuilder();

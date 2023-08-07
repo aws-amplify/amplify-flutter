@@ -7,7 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/iam/model/encoding_type.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/encoding_type.dart';
 
 part 'get_ssh_public_key_request.g.dart';
 
@@ -19,7 +19,7 @@ abstract class GetSshPublicKeyRequest
   factory GetSshPublicKeyRequest({
     required String userName,
     required String sshPublicKeyId,
-    required _i3.EncodingType encoding,
+    required EncodingType encoding,
   }) {
     return _$GetSshPublicKeyRequest._(
       userName: userName,
@@ -55,7 +55,7 @@ abstract class GetSshPublicKeyRequest
   String get sshPublicKeyId;
 
   /// Specifies the public key encoding format to use in the response. To retrieve the public key in ssh-rsa format, use `SSH`. To retrieve the public key in PEM format, use `PEM`.
-  _i3.EncodingType get encoding;
+  EncodingType get encoding;
   @override
   GetSshPublicKeyRequest getPayload() => this;
   @override
@@ -129,8 +129,8 @@ class GetSshPublicKeyRequestAwsQuerySerializer
         case 'Encoding':
           result.encoding = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.EncodingType),
-          ) as _i3.EncodingType);
+            specifiedType: const FullType(EncodingType),
+          ) as EncodingType);
       }
     }
 
@@ -167,7 +167,7 @@ class GetSshPublicKeyRequestAwsQuerySerializer
       ..add(const _i1.XmlElementName('Encoding'))
       ..add(serializers.serialize(
         encoding,
-        specifiedType: const FullType.nullable(_i3.EncodingType),
+        specifiedType: const FullType.nullable(EncodingType),
       ));
     return result$;
   }

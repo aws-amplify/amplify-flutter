@@ -12,7 +12,7 @@ class _$UpdateDeviceStatusRequest extends UpdateDeviceStatusRequest {
   @override
   final String deviceKey;
   @override
-  final _i3.DeviceRememberedStatusType? deviceRememberedStatus;
+  final DeviceRememberedStatusType? deviceRememberedStatus;
 
   factory _$UpdateDeviceStatusRequest(
           [void Function(UpdateDeviceStatusRequestBuilder)? updates]) =>
@@ -71,11 +71,11 @@ class UpdateDeviceStatusRequestBuilder
   String? get deviceKey => _$this._deviceKey;
   set deviceKey(String? deviceKey) => _$this._deviceKey = deviceKey;
 
-  _i3.DeviceRememberedStatusType? _deviceRememberedStatus;
-  _i3.DeviceRememberedStatusType? get deviceRememberedStatus =>
+  DeviceRememberedStatusType? _deviceRememberedStatus;
+  DeviceRememberedStatusType? get deviceRememberedStatus =>
       _$this._deviceRememberedStatus;
   set deviceRememberedStatus(
-          _i3.DeviceRememberedStatusType? deviceRememberedStatus) =>
+          DeviceRememberedStatusType? deviceRememberedStatus) =>
       _$this._deviceRememberedStatus = deviceRememberedStatus;
 
   UpdateDeviceStatusRequestBuilder();

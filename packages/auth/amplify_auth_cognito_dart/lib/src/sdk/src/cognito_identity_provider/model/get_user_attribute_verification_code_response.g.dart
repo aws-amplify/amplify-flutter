@@ -9,7 +9,7 @@ part of 'get_user_attribute_verification_code_response.dart';
 class _$GetUserAttributeVerificationCodeResponse
     extends GetUserAttributeVerificationCodeResponse {
   @override
-  final _i2.CodeDeliveryDetailsType? codeDeliveryDetails;
+  final CodeDeliveryDetailsType? codeDeliveryDetails;
 
   factory _$GetUserAttributeVerificationCodeResponse(
           [void Function(GetUserAttributeVerificationCodeResponseBuilder)?
@@ -52,11 +52,11 @@ class GetUserAttributeVerificationCodeResponseBuilder
             GetUserAttributeVerificationCodeResponseBuilder> {
   _$GetUserAttributeVerificationCodeResponse? _$v;
 
-  _i2.CodeDeliveryDetailsTypeBuilder? _codeDeliveryDetails;
-  _i2.CodeDeliveryDetailsTypeBuilder get codeDeliveryDetails =>
-      _$this._codeDeliveryDetails ??= new _i2.CodeDeliveryDetailsTypeBuilder();
+  CodeDeliveryDetailsTypeBuilder? _codeDeliveryDetails;
+  CodeDeliveryDetailsTypeBuilder get codeDeliveryDetails =>
+      _$this._codeDeliveryDetails ??= new CodeDeliveryDetailsTypeBuilder();
   set codeDeliveryDetails(
-          _i2.CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails) =>
+          CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails) =>
       _$this._codeDeliveryDetails = codeDeliveryDetails;
 
   GetUserAttributeVerificationCodeResponseBuilder();

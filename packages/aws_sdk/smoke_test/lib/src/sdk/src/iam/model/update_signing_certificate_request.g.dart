@@ -13,7 +13,7 @@ class _$UpdateSigningCertificateRequest
   @override
   final String certificateId;
   @override
-  final _i3.StatusType status;
+  final StatusType status;
 
   factory _$UpdateSigningCertificateRequest(
           [void Function(UpdateSigningCertificateRequestBuilder)? updates]) =>
@@ -72,9 +72,9 @@ class UpdateSigningCertificateRequestBuilder
   set certificateId(String? certificateId) =>
       _$this._certificateId = certificateId;
 
-  _i3.StatusType? _status;
-  _i3.StatusType? get status => _$this._status;
-  set status(_i3.StatusType? status) => _$this._status = status;
+  StatusType? _status;
+  StatusType? get status => _$this._status;
+  set status(StatusType? status) => _$this._status = status;
 
   UpdateSigningCertificateRequestBuilder();
 

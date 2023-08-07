@@ -3,21 +3,18 @@
 
 library rest_json1_v1.rest_json_protocol.operation.malformed_accept_with_payload_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i8;
+import 'dart:async' as _i5;
 import 'dart:typed_data' as _i2;
 
-import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:rest_json1_v1/src/rest_json_protocol/common/endpoint_resolver.dart'
-    as _i6;
-import 'package:rest_json1_v1/src/rest_json_protocol/common/serializers.dart'
-    as _i5;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_accept_with_payload_output.dart'
-    as _i3;
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:rest_json1_v1/src/rest_json_protocol/common/endpoint_resolver.dart';
+import 'package:rest_json1_v1/src/rest_json_protocol/common/serializers.dart';
+import 'package:rest_json1_v1/src/rest_json_protocol/model/malformed_accept_with_payload_output.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i4;
+import 'package:smithy_aws/smithy_aws.dart' as _i3;
 
 class MalformedAcceptWithPayloadOperation extends _i1.HttpOperation<_i1.Unit,
-    _i1.Unit, _i2.Uint8List, _i3.MalformedAcceptWithPayloadOutput> {
+    _i1.Unit, _i2.Uint8List, MalformedAcceptWithPayloadOutput> {
   MalformedAcceptWithPayloadOperation({
     required String region,
     Uri? baseUri,
@@ -31,17 +28,17 @@ class MalformedAcceptWithPayloadOperation extends _i1.HttpOperation<_i1.Unit,
   @override
   late final List<
       _i1.HttpProtocol<_i1.Unit, _i1.Unit, _i2.Uint8List,
-          _i3.MalformedAcceptWithPayloadOutput>> protocols = [
-    _i4.RestJson1Protocol(
-      serializers: _i5.serializers,
-      builderFactories: _i5.builderFactories,
+          MalformedAcceptWithPayloadOutput>> protocols = [
+    _i3.RestJson1Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithNoHeader('Content-Length'),
             const _i1.WithNoHeader('Content-Type'),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i4.WithSdkInvocationId(),
-            const _i4.WithSdkRequest(),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -49,8 +46,8 @@ class MalformedAcceptWithPayloadOperation extends _i1.HttpOperation<_i1.Unit,
     )
   ];
 
-  late final _i4.AWSEndpoint _awsEndpoint = _i6.endpointResolver.resolve(
-    _i6.sdkId,
+  late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -68,13 +65,13 @@ class MalformedAcceptWithPayloadOperation extends _i1.HttpOperation<_i1.Unit,
         b.path = r'/MalformedAcceptWithPayload';
       });
   @override
-  int successCode([_i3.MalformedAcceptWithPayloadOutput? output]) => 200;
+  int successCode([MalformedAcceptWithPayloadOutput? output]) => 200;
   @override
-  _i3.MalformedAcceptWithPayloadOutput buildOutput(
+  MalformedAcceptWithPayloadOutput buildOutput(
     _i2.Uint8List? payload,
-    _i7.AWSBaseHttpResponse response,
+    _i4.AWSBaseHttpResponse response,
   ) =>
-      _i3.MalformedAcceptWithPayloadOutput.fromResponse(
+      MalformedAcceptWithPayloadOutput.fromResponse(
         payload,
         response,
       );
@@ -83,18 +80,18 @@ class MalformedAcceptWithPayloadOperation extends _i1.HttpOperation<_i1.Unit,
   @override
   String get runtimeTypeName => 'MalformedAcceptWithPayload';
   @override
-  _i4.AWSRetryer get retryer => _i4.AWSRetryer();
+  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.MalformedAcceptWithPayloadOutput> run(
+  _i1.SmithyOperation<MalformedAcceptWithPayloadOutput> run(
     _i1.Unit input, {
-    _i7.AWSHttpClient? client,
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i8.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -102,7 +99,7 @@ class MalformedAcceptWithPayloadOperation extends _i1.HttpOperation<_i1.Unit,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

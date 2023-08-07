@@ -8,9 +8,9 @@ part of 'batch_execute_statement_input.dart';
 
 class _$BatchExecuteStatementInput extends BatchExecuteStatementInput {
   @override
-  final _i5.BuiltList<_i3.BatchStatementRequest> statements;
+  final _i3.BuiltList<BatchStatementRequest> statements;
   @override
-  final _i4.ReturnConsumedCapacity? returnConsumedCapacity;
+  final ReturnConsumedCapacity? returnConsumedCapacity;
 
   factory _$BatchExecuteStatementInput(
           [void Function(BatchExecuteStatementInputBuilder)? updates]) =>
@@ -55,17 +55,16 @@ class BatchExecuteStatementInputBuilder
         Builder<BatchExecuteStatementInput, BatchExecuteStatementInputBuilder> {
   _$BatchExecuteStatementInput? _$v;
 
-  _i5.ListBuilder<_i3.BatchStatementRequest>? _statements;
-  _i5.ListBuilder<_i3.BatchStatementRequest> get statements =>
-      _$this._statements ??= new _i5.ListBuilder<_i3.BatchStatementRequest>();
-  set statements(_i5.ListBuilder<_i3.BatchStatementRequest>? statements) =>
+  _i3.ListBuilder<BatchStatementRequest>? _statements;
+  _i3.ListBuilder<BatchStatementRequest> get statements =>
+      _$this._statements ??= new _i3.ListBuilder<BatchStatementRequest>();
+  set statements(_i3.ListBuilder<BatchStatementRequest>? statements) =>
       _$this._statements = statements;
 
-  _i4.ReturnConsumedCapacity? _returnConsumedCapacity;
-  _i4.ReturnConsumedCapacity? get returnConsumedCapacity =>
+  ReturnConsumedCapacity? _returnConsumedCapacity;
+  ReturnConsumedCapacity? get returnConsumedCapacity =>
       _$this._returnConsumedCapacity;
-  set returnConsumedCapacity(
-          _i4.ReturnConsumedCapacity? returnConsumedCapacity) =>
+  set returnConsumedCapacity(ReturnConsumedCapacity? returnConsumedCapacity) =>
       _$this._returnConsumedCapacity = returnConsumedCapacity;
 
   BatchExecuteStatementInputBuilder();

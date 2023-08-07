@@ -6,8 +6,8 @@ library smoke_test.s3.model.redirect; // ignore_for_file: no_leading_underscores
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/protocol.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/protocol.dart';
 
 part 'redirect.g.dart';
 
@@ -19,7 +19,7 @@ abstract class Redirect
   factory Redirect({
     String? hostName,
     String? httpRedirectCode,
-    _i2.Protocol? protocol,
+    Protocol? protocol,
     String? replaceKeyPrefixWith,
     String? replaceKeyWith,
   }) {
@@ -37,7 +37,7 @@ abstract class Redirect
 
   const Redirect._();
 
-  static const List<_i3.SmithySerializer<Redirect>> serializers = [
+  static const List<_i2.SmithySerializer<Redirect>> serializers = [
     RedirectRestXmlSerializer()
   ];
 
@@ -48,7 +48,7 @@ abstract class Redirect
   String? get httpRedirectCode;
 
   /// Protocol to use when redirecting requests. The default is the protocol that is used in the original request.
-  _i2.Protocol? get protocol;
+  Protocol? get protocol;
 
   /// The object key prefix to use in the redirect request. For example, to redirect requests for all pages with prefix `docs/` (objects in the `docs/` folder) to `documents/`, you can set a condition block with `KeyPrefixEquals` set to `docs/` and in the Redirect set `ReplaceKeyPrefixWith` to `/documents`. Not required if one of the siblings is present. Can be present only if `ReplaceKeyWith` is not provided.
   ///
@@ -95,7 +95,7 @@ abstract class Redirect
 }
 
 class RedirectRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<Redirect> {
+    extends _i2.StructuredSmithySerializer<Redirect> {
   const RedirectRestXmlSerializer() : super('Redirect');
 
   @override
@@ -104,8 +104,8 @@ class RedirectRestXmlSerializer
         _$Redirect,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -139,8 +139,8 @@ class RedirectRestXmlSerializer
         case 'Protocol':
           result.protocol = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Protocol),
-          ) as _i2.Protocol);
+            specifiedType: const FullType(Protocol),
+          ) as Protocol);
         case 'ReplaceKeyPrefixWith':
           result.replaceKeyPrefixWith = (serializers.deserialize(
             value,
@@ -164,9 +164,9 @@ class RedirectRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'Redirect',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final Redirect(
@@ -178,7 +178,7 @@ class RedirectRestXmlSerializer
     ) = object;
     if (hostName != null) {
       result$
-        ..add(const _i3.XmlElementName('HostName'))
+        ..add(const _i2.XmlElementName('HostName'))
         ..add(serializers.serialize(
           hostName,
           specifiedType: const FullType(String),
@@ -186,7 +186,7 @@ class RedirectRestXmlSerializer
     }
     if (httpRedirectCode != null) {
       result$
-        ..add(const _i3.XmlElementName('HttpRedirectCode'))
+        ..add(const _i2.XmlElementName('HttpRedirectCode'))
         ..add(serializers.serialize(
           httpRedirectCode,
           specifiedType: const FullType(String),
@@ -194,15 +194,15 @@ class RedirectRestXmlSerializer
     }
     if (protocol != null) {
       result$
-        ..add(const _i3.XmlElementName('Protocol'))
+        ..add(const _i2.XmlElementName('Protocol'))
         ..add(serializers.serialize(
           protocol,
-          specifiedType: const FullType.nullable(_i2.Protocol),
+          specifiedType: const FullType.nullable(Protocol),
         ));
     }
     if (replaceKeyPrefixWith != null) {
       result$
-        ..add(const _i3.XmlElementName('ReplaceKeyPrefixWith'))
+        ..add(const _i2.XmlElementName('ReplaceKeyPrefixWith'))
         ..add(serializers.serialize(
           replaceKeyPrefixWith,
           specifiedType: const FullType(String),
@@ -210,7 +210,7 @@ class RedirectRestXmlSerializer
     }
     if (replaceKeyWith != null) {
       result$
-        ..add(const _i3.XmlElementName('ReplaceKeyWith'))
+        ..add(const _i2.XmlElementName('ReplaceKeyWith'))
         ..add(serializers.serialize(
           replaceKeyWith,
           specifiedType: const FullType(String),

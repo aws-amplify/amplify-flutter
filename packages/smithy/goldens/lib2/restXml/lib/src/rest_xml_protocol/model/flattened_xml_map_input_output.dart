@@ -4,10 +4,10 @@
 library rest_xml_v2.rest_xml_protocol.model.flattened_xml_map_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/foo_enum.dart' as _i3;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/foo_enum.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'flattened_xml_map_input_output.g.dart';
@@ -18,9 +18,9 @@ abstract class FlattenedXmlMapInputOutput
         _i2.AWSEquatable<FlattenedXmlMapInputOutput>
     implements
         Built<FlattenedXmlMapInputOutput, FlattenedXmlMapInputOutputBuilder> {
-  factory FlattenedXmlMapInputOutput({Map<String, _i3.FooEnum>? myMap}) {
+  factory FlattenedXmlMapInputOutput({Map<String, FooEnum>? myMap}) {
     return _$FlattenedXmlMapInputOutput._(
-        myMap: myMap == null ? null : _i4.BuiltMap(myMap));
+        myMap: myMap == null ? null : _i3.BuiltMap(myMap));
   }
 
   factory FlattenedXmlMapInputOutput.build(
@@ -46,7 +46,7 @@ abstract class FlattenedXmlMapInputOutput
   static const List<_i1.SmithySerializer<FlattenedXmlMapInputOutput>>
       serializers = [FlattenedXmlMapInputOutputRestXmlSerializer()];
 
-  _i4.BuiltMap<String, _i3.FooEnum>? get myMap;
+  _i3.BuiltMap<String, FooEnum>? get myMap;
   @override
   FlattenedXmlMapInputOutput getPayload() => this;
   @override
@@ -102,10 +102,10 @@ class FlattenedXmlMapInputOutputRestXmlSerializer
                     serializers,
                     value is String ? const [] : (value as Iterable<Object?>),
                     specifiedType: const FullType(
-                      _i4.BuiltMap,
+                      _i3.BuiltMap,
                       [
                         FullType(String),
-                        FullType(_i3.FooEnum),
+                        FullType(FooEnum),
                       ],
                     ),
                   )
@@ -133,10 +133,10 @@ class FlattenedXmlMapInputOutputRestXmlSerializer
         serializers,
         myMap,
         specifiedType: const FullType.nullable(
-          _i4.BuiltMap,
+          _i3.BuiltMap,
           [
             FullType(String),
-            FullType(_i3.FooEnum),
+            FullType(FooEnum),
           ],
         ),
       ));

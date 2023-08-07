@@ -10,7 +10,7 @@ class _$AggregateComplianceCount extends AggregateComplianceCount {
   @override
   final String? groupName;
   @override
-  final _i2.ComplianceSummary? complianceSummary;
+  final ComplianceSummary? complianceSummary;
 
   factory _$AggregateComplianceCount(
           [void Function(AggregateComplianceCountBuilder)? updates]) =>
@@ -55,10 +55,10 @@ class AggregateComplianceCountBuilder
   String? get groupName => _$this._groupName;
   set groupName(String? groupName) => _$this._groupName = groupName;
 
-  _i2.ComplianceSummaryBuilder? _complianceSummary;
-  _i2.ComplianceSummaryBuilder get complianceSummary =>
-      _$this._complianceSummary ??= new _i2.ComplianceSummaryBuilder();
-  set complianceSummary(_i2.ComplianceSummaryBuilder? complianceSummary) =>
+  ComplianceSummaryBuilder? _complianceSummary;
+  ComplianceSummaryBuilder get complianceSummary =>
+      _$this._complianceSummary ??= new ComplianceSummaryBuilder();
+  set complianceSummary(ComplianceSummaryBuilder? complianceSummary) =>
       _$this._complianceSummary = complianceSummary;
 
   AggregateComplianceCountBuilder();

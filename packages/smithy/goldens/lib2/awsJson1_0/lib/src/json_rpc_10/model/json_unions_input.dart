@@ -4,7 +4,7 @@
 library aws_json1_0_v2.json_rpc_10.model.json_unions_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:aws_json1_0_v2/src/json_rpc_10/model/my_union.dart' as _i3;
+import 'package:aws_json1_0_v2/src/json_rpc_10/model/my_union.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
@@ -14,7 +14,7 @@ part 'json_unions_input.g.dart';
 abstract class JsonUnionsInput
     with _i1.HttpInput<JsonUnionsInput>, _i2.AWSEquatable<JsonUnionsInput>
     implements Built<JsonUnionsInput, JsonUnionsInputBuilder> {
-  factory JsonUnionsInput({_i3.MyUnion? contents}) {
+  factory JsonUnionsInput({MyUnion? contents}) {
     return _$JsonUnionsInput._(contents: contents);
   }
 
@@ -35,7 +35,7 @@ abstract class JsonUnionsInput
   ];
 
   /// A union with a representative set of types for members.
-  _i3.MyUnion? get contents;
+  MyUnion? get contents;
   @override
   JsonUnionsInput getPayload() => this;
   @override
@@ -86,8 +86,8 @@ class JsonUnionsInputAwsJson10Serializer
         case 'contents':
           result.contents = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.MyUnion),
-          ) as _i3.MyUnion);
+            specifiedType: const FullType(MyUnion),
+          ) as MyUnion);
       }
     }
 
@@ -107,7 +107,7 @@ class JsonUnionsInputAwsJson10Serializer
         ..add('contents')
         ..add(serializers.serialize(
           contents,
-          specifiedType: const FullType(_i3.MyUnion),
+          specifiedType: const FullType(MyUnion),
         ));
     }
     return result$;

@@ -4,12 +4,11 @@
 library smoke_test.api_gateway.model.account; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/throttle_settings.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/throttle_settings.dart';
 
 part 'account.g.dart';
 
@@ -20,14 +19,14 @@ abstract class Account
   /// Represents an AWS account that is associated with API Gateway.
   factory Account({
     String? cloudwatchRoleArn,
-    _i2.ThrottleSettings? throttleSettings,
+    ThrottleSettings? throttleSettings,
     List<String>? features,
     String? apiKeyVersion,
   }) {
     return _$Account._(
       cloudwatchRoleArn: cloudwatchRoleArn,
       throttleSettings: throttleSettings,
-      features: features == null ? null : _i3.BuiltList(features),
+      features: features == null ? null : _i2.BuiltList(features),
       apiKeyVersion: apiKeyVersion,
     );
   }
@@ -44,7 +43,7 @@ abstract class Account
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<Account>> serializers = [
+  static const List<_i3.SmithySerializer<Account>> serializers = [
     AccountRestJson1Serializer()
   ];
 
@@ -52,10 +51,10 @@ abstract class Account
   String? get cloudwatchRoleArn;
 
   /// Specifies the API request limits configured for the current Account.
-  _i2.ThrottleSettings? get throttleSettings;
+  ThrottleSettings? get throttleSettings;
 
   /// A list of features supported for the account. When usage plans are enabled, the features list will include an entry of `"UsagePlans"`.
-  _i3.BuiltList<String>? get features;
+  _i2.BuiltList<String>? get features;
 
   /// The version of the API keys used for the account.
   String? get apiKeyVersion;
@@ -90,7 +89,7 @@ abstract class Account
 }
 
 class AccountRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<Account> {
+    extends _i3.StructuredSmithySerializer<Account> {
   const AccountRestJson1Serializer() : super('Account');
 
   @override
@@ -99,8 +98,8 @@ class AccountRestJson1Serializer
         _$Account,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -135,15 +134,15 @@ class AccountRestJson1Serializer
           result.features.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i3.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
         case 'throttleSettings':
           result.throttleSettings.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ThrottleSettings),
-          ) as _i2.ThrottleSettings));
+            specifiedType: const FullType(ThrottleSettings),
+          ) as ThrottleSettings));
       }
     }
 
@@ -185,7 +184,7 @@ class AccountRestJson1Serializer
         ..add(serializers.serialize(
           features,
           specifiedType: const FullType(
-            _i3.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -195,7 +194,7 @@ class AccountRestJson1Serializer
         ..add('throttleSettings')
         ..add(serializers.serialize(
           throttleSettings,
-          specifiedType: const FullType(_i2.ThrottleSettings),
+          specifiedType: const FullType(ThrottleSettings),
         ));
     }
     return result$;

@@ -5,12 +5,12 @@ library custom_v2.s3.s3_client; // ignore_for_file: no_leading_underscores_for_l
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
-import 'package:custom_v2/src/s3/model/copy_object_output.dart' as _i5;
-import 'package:custom_v2/src/s3/model/copy_object_request.dart' as _i6;
-import 'package:custom_v2/src/s3/model/get_object_output.dart' as _i8;
-import 'package:custom_v2/src/s3/model/get_object_request.dart' as _i9;
-import 'package:custom_v2/src/s3/operation/copy_object_operation.dart' as _i7;
-import 'package:custom_v2/src/s3/operation/get_object_operation.dart' as _i10;
+import 'package:custom_v2/src/s3/model/copy_object_output.dart';
+import 'package:custom_v2/src/s3/model/copy_object_request.dart';
+import 'package:custom_v2/src/s3/model/get_object_output.dart';
+import 'package:custom_v2/src/s3/model/get_object_request.dart';
+import 'package:custom_v2/src/s3/operation/copy_object_operation.dart';
+import 'package:custom_v2/src/s3/operation/get_object_operation.dart';
 import 'package:smithy/smithy.dart' as _i4;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
@@ -46,13 +46,13 @@ class S3Client {
 
   final List<_i4.HttpResponseInterceptor> _responseInterceptors;
 
-  _i4.SmithyOperation<_i5.CopyObjectOutput> copyObject(
-    _i6.CopyObjectRequest input, {
+  _i4.SmithyOperation<CopyObjectOutput> copyObject(
+    CopyObjectRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i7.CopyObjectOperation(
+    return CopyObjectOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -65,13 +65,13 @@ class S3Client {
     );
   }
 
-  _i4.SmithyOperation<_i8.GetObjectOutput> getObject(
-    _i9.GetObjectRequest input, {
+  _i4.SmithyOperation<GetObjectOutput> getObject(
+    GetObjectRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i10.GetObjectOperation(
+    return GetObjectOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,

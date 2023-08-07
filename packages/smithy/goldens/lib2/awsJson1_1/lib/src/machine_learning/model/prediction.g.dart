@@ -12,9 +12,9 @@ class _$Prediction extends Prediction {
   @override
   final double? predictedValue;
   @override
-  final _i3.BuiltMap<String, double>? predictedScores;
+  final _i2.BuiltMap<String, double>? predictedScores;
   @override
-  final _i3.BuiltMap<_i2.DetailsAttributes, String>? details;
+  final _i2.BuiltMap<DetailsAttributes, String>? details;
 
   factory _$Prediction([void Function(PredictionBuilder)? updates]) =>
       (new PredictionBuilder()..update(updates))._build();
@@ -68,16 +68,16 @@ class PredictionBuilder implements Builder<Prediction, PredictionBuilder> {
   set predictedValue(double? predictedValue) =>
       _$this._predictedValue = predictedValue;
 
-  _i3.MapBuilder<String, double>? _predictedScores;
-  _i3.MapBuilder<String, double> get predictedScores =>
-      _$this._predictedScores ??= new _i3.MapBuilder<String, double>();
-  set predictedScores(_i3.MapBuilder<String, double>? predictedScores) =>
+  _i2.MapBuilder<String, double>? _predictedScores;
+  _i2.MapBuilder<String, double> get predictedScores =>
+      _$this._predictedScores ??= new _i2.MapBuilder<String, double>();
+  set predictedScores(_i2.MapBuilder<String, double>? predictedScores) =>
       _$this._predictedScores = predictedScores;
 
-  _i3.MapBuilder<_i2.DetailsAttributes, String>? _details;
-  _i3.MapBuilder<_i2.DetailsAttributes, String> get details =>
-      _$this._details ??= new _i3.MapBuilder<_i2.DetailsAttributes, String>();
-  set details(_i3.MapBuilder<_i2.DetailsAttributes, String>? details) =>
+  _i2.MapBuilder<DetailsAttributes, String>? _details;
+  _i2.MapBuilder<DetailsAttributes, String> get details =>
+      _$this._details ??= new _i2.MapBuilder<DetailsAttributes, String>();
+  set details(_i2.MapBuilder<DetailsAttributes, String>? details) =>
       _$this._details = details;
 
   PredictionBuilder();

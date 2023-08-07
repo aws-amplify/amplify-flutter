@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.get_conformance_pack_compliance_details_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_evaluation_result.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_evaluation_result.dart';
 
 part 'get_conformance_pack_compliance_details_response.g.dart';
 
@@ -21,8 +20,7 @@ abstract class GetConformancePackComplianceDetailsResponse
             GetConformancePackComplianceDetailsResponseBuilder> {
   factory GetConformancePackComplianceDetailsResponse({
     required String conformancePackName,
-    List<_i2.ConformancePackEvaluationResult>?
-        conformancePackRuleEvaluationResults,
+    List<ConformancePackEvaluationResult>? conformancePackRuleEvaluationResults,
     String? nextToken,
   }) {
     return _$GetConformancePackComplianceDetailsResponse._(
@@ -30,7 +28,7 @@ abstract class GetConformancePackComplianceDetailsResponse
       conformancePackRuleEvaluationResults:
           conformancePackRuleEvaluationResults == null
               ? null
-              : _i3.BuiltList(conformancePackRuleEvaluationResults),
+              : _i2.BuiltList(conformancePackRuleEvaluationResults),
       nextToken: nextToken,
     );
   }
@@ -49,7 +47,7 @@ abstract class GetConformancePackComplianceDetailsResponse
       payload;
 
   static const List<
-          _i4.SmithySerializer<GetConformancePackComplianceDetailsResponse>>
+          _i3.SmithySerializer<GetConformancePackComplianceDetailsResponse>>
       serializers = [
     GetConformancePackComplianceDetailsResponseAwsJson11Serializer()
   ];
@@ -58,7 +56,7 @@ abstract class GetConformancePackComplianceDetailsResponse
   String get conformancePackName;
 
   /// Returns a list of `ConformancePackEvaluationResult` objects.
-  _i3.BuiltList<_i2.ConformancePackEvaluationResult>?
+  _i2.BuiltList<ConformancePackEvaluationResult>?
       get conformancePackRuleEvaluationResults;
 
   /// The `nextToken` string returned in a previous request that you use to request the next page of results in a paginated response.
@@ -89,7 +87,7 @@ abstract class GetConformancePackComplianceDetailsResponse
   }
 }
 
-class GetConformancePackComplianceDetailsResponseAwsJson11Serializer extends _i4
+class GetConformancePackComplianceDetailsResponseAwsJson11Serializer extends _i3
     .StructuredSmithySerializer<GetConformancePackComplianceDetailsResponse> {
   const GetConformancePackComplianceDetailsResponseAwsJson11Serializer()
       : super('GetConformancePackComplianceDetailsResponse');
@@ -100,8 +98,8 @@ class GetConformancePackComplianceDetailsResponseAwsJson11Serializer extends _i4
         _$GetConformancePackComplianceDetailsResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -132,10 +130,10 @@ class GetConformancePackComplianceDetailsResponseAwsJson11Serializer extends _i4
               .replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.ConformancePackEvaluationResult)],
+              _i2.BuiltList,
+              [FullType(ConformancePackEvaluationResult)],
             ),
-          ) as _i3.BuiltList<_i2.ConformancePackEvaluationResult>));
+          ) as _i2.BuiltList<ConformancePackEvaluationResult>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -172,8 +170,8 @@ class GetConformancePackComplianceDetailsResponseAwsJson11Serializer extends _i4
         ..add(serializers.serialize(
           conformancePackRuleEvaluationResults,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.ConformancePackEvaluationResult)],
+            _i2.BuiltList,
+            [FullType(ConformancePackEvaluationResult)],
           ),
         ));
     }

@@ -3,31 +3,29 @@
 
 library smoke_test.s3.model.put_bucket_accelerate_configuration_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_common/aws_common.dart' as _i3;
+import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/accelerate_configuration.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/bucket_accelerate_status.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/accelerate_configuration.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/bucket_accelerate_status.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart';
 
 part 'put_bucket_accelerate_configuration_request.g.dart';
 
 abstract class PutBucketAccelerateConfigurationRequest
     with
-        _i1.HttpInput<_i2.AccelerateConfiguration>,
-        _i3.AWSEquatable<PutBucketAccelerateConfigurationRequest>
+        _i1.HttpInput<AccelerateConfiguration>,
+        _i2.AWSEquatable<PutBucketAccelerateConfigurationRequest>
     implements
         Built<PutBucketAccelerateConfigurationRequest,
             PutBucketAccelerateConfigurationRequestBuilder>,
-        _i1.HasPayload<_i2.AccelerateConfiguration> {
+        _i1.HasPayload<AccelerateConfiguration> {
   factory PutBucketAccelerateConfigurationRequest({
     required String bucket,
-    required _i2.AccelerateConfiguration accelerateConfiguration,
+    required AccelerateConfiguration accelerateConfiguration,
     String? expectedBucketOwner,
-    _i4.ChecksumAlgorithm? checksumAlgorithm,
+    ChecksumAlgorithm? checksumAlgorithm,
   }) {
     return _$PutBucketAccelerateConfigurationRequest._(
       bucket: bucket,
@@ -44,8 +42,8 @@ abstract class PutBucketAccelerateConfigurationRequest
   const PutBucketAccelerateConfigurationRequest._();
 
   factory PutBucketAccelerateConfigurationRequest.fromRequest(
-    _i2.AccelerateConfiguration payload,
-    _i3.AWSBaseHttpRequest request, {
+    AccelerateConfiguration payload,
+    _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
       PutBucketAccelerateConfigurationRequest.build((b) {
@@ -55,7 +53,7 @@ abstract class PutBucketAccelerateConfigurationRequest
               request.headers['x-amz-expected-bucket-owner']!;
         }
         if (request.headers['x-amz-sdk-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = _i4.ChecksumAlgorithm.values
+          b.checksumAlgorithm = ChecksumAlgorithm.values
               .byValue(request.headers['x-amz-sdk-checksum-algorithm']!);
         }
         if (labels['bucket'] != null) {
@@ -63,16 +61,14 @@ abstract class PutBucketAccelerateConfigurationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.AccelerateConfiguration>>
-      serializers = [
-    PutBucketAccelerateConfigurationRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<AccelerateConfiguration>> serializers =
+      [PutBucketAccelerateConfigurationRequestRestXmlSerializer()];
 
   /// The name of the bucket for which the accelerate configuration is set.
   String get bucket;
 
   /// Container for setting the transfer acceleration state.
-  _i2.AccelerateConfiguration get accelerateConfiguration;
+  AccelerateConfiguration get accelerateConfiguration;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
@@ -80,7 +76,7 @@ abstract class PutBucketAccelerateConfigurationRequest
   /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
   ///
   /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
-  _i4.ChecksumAlgorithm? get checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -94,7 +90,7 @@ abstract class PutBucketAccelerateConfigurationRequest
   }
 
   @override
-  _i2.AccelerateConfiguration getPayload() => accelerateConfiguration;
+  AccelerateConfiguration getPayload() => accelerateConfiguration;
   @override
   List<Object?> get props => [
         bucket,
@@ -127,7 +123,7 @@ abstract class PutBucketAccelerateConfigurationRequest
 }
 
 class PutBucketAccelerateConfigurationRequestRestXmlSerializer
-    extends _i1.StructuredSmithySerializer<_i2.AccelerateConfiguration> {
+    extends _i1.StructuredSmithySerializer<AccelerateConfiguration> {
   const PutBucketAccelerateConfigurationRequestRestXmlSerializer()
       : super('PutBucketAccelerateConfigurationRequest');
 
@@ -144,12 +140,12 @@ class PutBucketAccelerateConfigurationRequestRestXmlSerializer
         )
       ];
   @override
-  _i2.AccelerateConfiguration deserialize(
+  AccelerateConfiguration deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i2.AccelerateConfigurationBuilder();
+    final result = AccelerateConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -162,8 +158,8 @@ class PutBucketAccelerateConfigurationRequestRestXmlSerializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.BucketAccelerateStatus),
-          ) as _i5.BucketAccelerateStatus);
+            specifiedType: const FullType(BucketAccelerateStatus),
+          ) as BucketAccelerateStatus);
       }
     }
 
@@ -173,7 +169,7 @@ class PutBucketAccelerateConfigurationRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i2.AccelerateConfiguration object, {
+    AccelerateConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -182,13 +178,13 @@ class PutBucketAccelerateConfigurationRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i2.AccelerateConfiguration(:status) = object;
+    final AccelerateConfiguration(:status) = object;
     if (status != null) {
       result$
         ..add(const _i1.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(_i5.BucketAccelerateStatus),
+          specifiedType: const FullType.nullable(BucketAccelerateStatus),
         ));
     }
     return result$;

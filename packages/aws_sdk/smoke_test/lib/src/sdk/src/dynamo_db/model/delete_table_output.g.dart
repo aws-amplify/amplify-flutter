@@ -8,7 +8,7 @@ part of 'delete_table_output.dart';
 
 class _$DeleteTableOutput extends DeleteTableOutput {
   @override
-  final _i2.TableDescription? tableDescription;
+  final TableDescription? tableDescription;
 
   factory _$DeleteTableOutput(
           [void Function(DeleteTableOutputBuilder)? updates]) =>
@@ -44,10 +44,10 @@ class DeleteTableOutputBuilder
     implements Builder<DeleteTableOutput, DeleteTableOutputBuilder> {
   _$DeleteTableOutput? _$v;
 
-  _i2.TableDescriptionBuilder? _tableDescription;
-  _i2.TableDescriptionBuilder get tableDescription =>
-      _$this._tableDescription ??= new _i2.TableDescriptionBuilder();
-  set tableDescription(_i2.TableDescriptionBuilder? tableDescription) =>
+  TableDescriptionBuilder? _tableDescription;
+  TableDescriptionBuilder get tableDescription =>
+      _$this._tableDescription ??= new TableDescriptionBuilder();
+  set tableDescription(TableDescriptionBuilder? tableDescription) =>
       _$this._tableDescription = tableDescription;
 
   DeleteTableOutputBuilder();

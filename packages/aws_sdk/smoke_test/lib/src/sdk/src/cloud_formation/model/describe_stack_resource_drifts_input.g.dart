@@ -11,7 +11,7 @@ class _$DescribeStackResourceDriftsInput
   @override
   final String stackName;
   @override
-  final _i4.BuiltList<_i3.StackResourceDriftStatus>?
+  final _i3.BuiltList<StackResourceDriftStatus>?
       stackResourceDriftStatusFilters;
   @override
   final String? nextToken;
@@ -74,14 +74,13 @@ class DescribeStackResourceDriftsInputBuilder
   String? get stackName => _$this._stackName;
   set stackName(String? stackName) => _$this._stackName = stackName;
 
-  _i4.ListBuilder<_i3.StackResourceDriftStatus>?
-      _stackResourceDriftStatusFilters;
-  _i4.ListBuilder<_i3.StackResourceDriftStatus>
+  _i3.ListBuilder<StackResourceDriftStatus>? _stackResourceDriftStatusFilters;
+  _i3.ListBuilder<StackResourceDriftStatus>
       get stackResourceDriftStatusFilters =>
           _$this._stackResourceDriftStatusFilters ??=
-              new _i4.ListBuilder<_i3.StackResourceDriftStatus>();
+              new _i3.ListBuilder<StackResourceDriftStatus>();
   set stackResourceDriftStatusFilters(
-          _i4.ListBuilder<_i3.StackResourceDriftStatus>?
+          _i3.ListBuilder<StackResourceDriftStatus>?
               stackResourceDriftStatusFilters) =>
       _$this._stackResourceDriftStatusFilters = stackResourceDriftStatusFilters;
 

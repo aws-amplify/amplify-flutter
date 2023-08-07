@@ -3,26 +3,21 @@
 
 library aws_query_v2.query_protocol.operation.greeting_with_errors_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i10;
+import 'dart:async' as _i4;
 
-import 'package:aws_common/aws_common.dart' as _i6;
-import 'package:aws_query_v2/src/query_protocol/common/endpoint_resolver.dart'
-    as _i5;
-import 'package:aws_query_v2/src/query_protocol/common/serializers.dart' as _i4;
-import 'package:aws_query_v2/src/query_protocol/model/complex_error.dart'
-    as _i7;
-import 'package:aws_query_v2/src/query_protocol/model/custom_code_error.dart'
-    as _i8;
-import 'package:aws_query_v2/src/query_protocol/model/greeting_with_errors_output.dart'
-    as _i2;
-import 'package:aws_query_v2/src/query_protocol/model/invalid_greeting.dart'
-    as _i9;
+import 'package:aws_common/aws_common.dart' as _i3;
+import 'package:aws_query_v2/src/query_protocol/common/endpoint_resolver.dart';
+import 'package:aws_query_v2/src/query_protocol/common/serializers.dart';
+import 'package:aws_query_v2/src/query_protocol/model/complex_error.dart';
+import 'package:aws_query_v2/src/query_protocol/model/custom_code_error.dart';
+import 'package:aws_query_v2/src/query_protocol/model/greeting_with_errors_output.dart';
+import 'package:aws_query_v2/src/query_protocol/model/invalid_greeting.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 /// This operation has three possible return values: 1. A successful response in the form of GreetingWithErrorsOutput 2. An InvalidGreeting error. 3. A BadRequest error.
 class GreetingWithErrorsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
-    _i2.GreetingWithErrorsOutput, _i2.GreetingWithErrorsOutput> {
+    GreetingWithErrorsOutput, GreetingWithErrorsOutput> {
   /// This operation has three possible return values: 1. A successful response in the form of GreetingWithErrorsOutput 2. An InvalidGreeting error. 3. A BadRequest error.
   GreetingWithErrorsOperation({
     required String region,
@@ -36,16 +31,16 @@ class GreetingWithErrorsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
 
   @override
   late final List<
-      _i1.HttpProtocol<_i1.Unit, _i1.Unit, _i2.GreetingWithErrorsOutput,
-          _i2.GreetingWithErrorsOutput>> protocols = [
-    _i3.AwsQueryProtocol(
-      serializers: _i4.serializers,
-      builderFactories: _i4.builderFactories,
+      _i1.HttpProtocol<_i1.Unit, _i1.Unit, GreetingWithErrorsOutput,
+          GreetingWithErrorsOutput>> protocols = [
+    _i2.AwsQueryProtocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i3.WithSdkInvocationId(),
-            const _i3.WithSdkRequest(),
+            const _i2.WithSdkInvocationId(),
+            const _i2.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -53,7 +48,7 @@ class GreetingWithErrorsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
       action: 'GreetingWithErrors',
       version: '2020-01-08',
       awsQueryErrors: const [
-        _i3.AwsQueryError(
+        _i2.AwsQueryError(
           shape: 'CustomCodeError',
           code: 'Customized',
           httpResponseCode: 402,
@@ -62,8 +57,8 @@ class GreetingWithErrorsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
     )
   ];
 
-  late final _i3.AWSEndpoint _awsEndpoint = _i5.endpointResolver.resolve(
-    _i5.sdkId,
+  late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -81,61 +76,61 @@ class GreetingWithErrorsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
         b.path = r'/';
       });
   @override
-  int successCode([_i2.GreetingWithErrorsOutput? output]) => 200;
+  int successCode([GreetingWithErrorsOutput? output]) => 200;
   @override
-  _i2.GreetingWithErrorsOutput buildOutput(
-    _i2.GreetingWithErrorsOutput payload,
-    _i6.AWSBaseHttpResponse response,
+  GreetingWithErrorsOutput buildOutput(
+    GreetingWithErrorsOutput payload,
+    _i3.AWSBaseHttpResponse response,
   ) =>
-      _i2.GreetingWithErrorsOutput.fromResponse(
+      GreetingWithErrorsOutput.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i7.ComplexError, _i7.ComplexError>(
+        _i1.SmithyError<ComplexError, ComplexError>(
           _i1.ShapeId(
             namespace: 'aws.protocoltests.query',
             shape: 'ComplexError',
           ),
           _i1.ErrorKind.client,
-          _i7.ComplexError,
-          builder: _i7.ComplexError.fromResponse,
+          ComplexError,
+          builder: ComplexError.fromResponse,
         ),
-        _i1.SmithyError<_i8.CustomCodeError, _i8.CustomCodeError>(
+        _i1.SmithyError<CustomCodeError, CustomCodeError>(
           _i1.ShapeId(
             namespace: 'aws.protocoltests.query',
             shape: 'CustomCodeError',
           ),
           _i1.ErrorKind.client,
-          _i8.CustomCodeError,
-          builder: _i8.CustomCodeError.fromResponse,
+          CustomCodeError,
+          builder: CustomCodeError.fromResponse,
         ),
-        _i1.SmithyError<_i9.InvalidGreeting, _i9.InvalidGreeting>(
+        _i1.SmithyError<InvalidGreeting, InvalidGreeting>(
           _i1.ShapeId(
             namespace: 'aws.protocoltests.query',
             shape: 'InvalidGreeting',
           ),
           _i1.ErrorKind.client,
-          _i9.InvalidGreeting,
-          builder: _i9.InvalidGreeting.fromResponse,
+          InvalidGreeting,
+          builder: InvalidGreeting.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'GreetingWithErrors';
   @override
-  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+  _i2.AWSRetryer get retryer => _i2.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i2.GreetingWithErrorsOutput> run(
+  _i1.SmithyOperation<GreetingWithErrorsOutput> run(
     _i1.Unit input, {
-    _i6.AWSHttpClient? client,
+    _i3.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i10.runZoned(
+    return _i4.runZoned(
       () => super.run(
         input,
         client: client,
@@ -143,7 +138,7 @@ class GreetingWithErrorsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
+        ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},
       },
     );
   }

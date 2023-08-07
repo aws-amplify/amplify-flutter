@@ -9,7 +9,7 @@ part of 'generate_credential_report_response.dart';
 class _$GenerateCredentialReportResponse
     extends GenerateCredentialReportResponse {
   @override
-  final _i2.ReportStateType? state;
+  final ReportStateType? state;
   @override
   final String? description;
 
@@ -53,9 +53,9 @@ class GenerateCredentialReportResponseBuilder
             GenerateCredentialReportResponseBuilder> {
   _$GenerateCredentialReportResponse? _$v;
 
-  _i2.ReportStateType? _state;
-  _i2.ReportStateType? get state => _$this._state;
-  set state(_i2.ReportStateType? state) => _$this._state = state;
+  ReportStateType? _state;
+  ReportStateType? get state => _$this._state;
+  set state(ReportStateType? state) => _$this._state = state;
 
   String? _description;
   String? get description => _$this._description;

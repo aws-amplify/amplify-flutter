@@ -3,32 +3,22 @@
 
 library smoke_test.config_service.operation.put_configuration_aggregator_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i15;
+import 'dart:async' as _i5;
 
-import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/config_service/common/endpoint_resolver.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/config_service/common/serializers.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/config_service/model/invalid_parameter_value_exception.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/config_service/model/invalid_role_exception.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/config_service/model/limit_exceeded_exception.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/config_service/model/no_available_organization_exception.dart'
-    as _i12;
-import 'package:smoke_test/src/sdk/src/config_service/model/organization_access_denied_exception.dart'
-    as _i13;
-import 'package:smoke_test/src/sdk/src/config_service/model/organization_all_features_not_enabled_exception.dart'
-    as _i14;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_configuration_aggregator_request.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_configuration_aggregator_response.dart'
-    as _i3;
+import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/config_service/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/invalid_parameter_value_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/invalid_role_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/limit_exceeded_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/no_available_organization_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/organization_access_denied_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/organization_all_features_not_enabled_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_configuration_aggregator_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_configuration_aggregator_response.dart';
 
 /// Creates and updates the configuration aggregator with the selected source accounts and regions. The source account can be individual account(s) or an organization.
 ///
@@ -42,10 +32,10 @@ import 'package:smoke_test/src/sdk/src/config_service/model/put_configuration_ag
 ///
 /// `PutConfigurationAggregator` is an idempotent API. Subsequent requests won’t create a duplicate resource if one was already created. If a following request has different `tags` values, Config will ignore these differences and treat it as an idempotent request of the previous. In this case, `tags` will not be updated, even if they are different.
 class PutConfigurationAggregatorOperation extends _i1.HttpOperation<
-    _i2.PutConfigurationAggregatorRequest,
-    _i2.PutConfigurationAggregatorRequest,
-    _i3.PutConfigurationAggregatorResponse,
-    _i3.PutConfigurationAggregatorResponse> {
+    PutConfigurationAggregatorRequest,
+    PutConfigurationAggregatorRequest,
+    PutConfigurationAggregatorResponse,
+    PutConfigurationAggregatorResponse> {
   /// Creates and updates the configuration aggregator with the selected source accounts and regions. The source account can be individual account(s) or an organization.
   ///
   /// `accountIds` that are passed will be replaced with existing accounts. If you want to add additional accounts into the aggregator, call `DescribeConfigurationAggregators` to get the previous accounts and then append new ones.
@@ -60,8 +50,8 @@ class PutConfigurationAggregatorOperation extends _i1.HttpOperation<
   PutConfigurationAggregatorOperation({
     required String region,
     Uri? baseUri,
-    _i4.AWSCredentialsProvider credentialsProvider =
-        const _i4.AWSCredentialsProvider.environment(),
+    _i2.AWSCredentialsProvider credentialsProvider =
+        const _i2.AWSCredentialsProvider.environment(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -73,13 +63,13 @@ class PutConfigurationAggregatorOperation extends _i1.HttpOperation<
   @override
   late final List<
       _i1.HttpProtocol<
-          _i2.PutConfigurationAggregatorRequest,
-          _i2.PutConfigurationAggregatorRequest,
-          _i3.PutConfigurationAggregatorResponse,
-          _i3.PutConfigurationAggregatorResponse>> protocols = [
-    _i5.AwsJson1_1Protocol(
-      serializers: _i6.serializers,
-      builderFactories: _i6.builderFactories,
+          PutConfigurationAggregatorRequest,
+          PutConfigurationAggregatorRequest,
+          PutConfigurationAggregatorResponse,
+          PutConfigurationAggregatorResponse>> protocols = [
+    _i3.AwsJson1_1Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
@@ -87,14 +77,14 @@ class PutConfigurationAggregatorOperation extends _i1.HttpOperation<
               'X-Amz-Target',
               'StarlingDoveService.PutConfigurationAggregator',
             ),
-            _i5.WithSigV4(
+            _i3.WithSigV4(
               region: _region,
-              service: _i7.AWSService.configService,
+              service: _i4.AWSService.configService,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i5.WithSdkInvocationId(),
-            const _i5.WithSdkRequest(),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -102,8 +92,8 @@ class PutConfigurationAggregatorOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i5.AWSEndpoint _awsEndpoint = _i8.endpointResolver.resolve(
-    _i8.sdkId,
+  late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -111,106 +101,105 @@ class PutConfigurationAggregatorOperation extends _i1.HttpOperation<
 
   final Uri? _baseUri;
 
-  final _i4.AWSCredentialsProvider _credentialsProvider;
+  final _i2.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.PutConfigurationAggregatorRequest input) =>
+  _i1.HttpRequest buildRequest(PutConfigurationAggregatorRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
       });
   @override
-  int successCode([_i3.PutConfigurationAggregatorResponse? output]) => 200;
+  int successCode([PutConfigurationAggregatorResponse? output]) => 200;
   @override
-  _i3.PutConfigurationAggregatorResponse buildOutput(
-    _i3.PutConfigurationAggregatorResponse payload,
-    _i7.AWSBaseHttpResponse response,
+  PutConfigurationAggregatorResponse buildOutput(
+    PutConfigurationAggregatorResponse payload,
+    _i4.AWSBaseHttpResponse response,
   ) =>
-      _i3.PutConfigurationAggregatorResponse.fromResponse(
+      PutConfigurationAggregatorResponse.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i9.InvalidParameterValueException,
-            _i9.InvalidParameterValueException>(
+        _i1.SmithyError<InvalidParameterValueException,
+            InvalidParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidParameterValueException',
           ),
           _i1.ErrorKind.client,
-          _i9.InvalidParameterValueException,
-          builder: _i9.InvalidParameterValueException.fromResponse,
+          InvalidParameterValueException,
+          builder: InvalidParameterValueException.fromResponse,
         ),
-        _i1.SmithyError<_i10.InvalidRoleException, _i10.InvalidRoleException>(
+        _i1.SmithyError<InvalidRoleException, InvalidRoleException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidRoleException',
           ),
           _i1.ErrorKind.client,
-          _i10.InvalidRoleException,
-          builder: _i10.InvalidRoleException.fromResponse,
+          InvalidRoleException,
+          builder: InvalidRoleException.fromResponse,
         ),
-        _i1.SmithyError<_i11.LimitExceededException,
-            _i11.LimitExceededException>(
+        _i1.SmithyError<LimitExceededException, LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'LimitExceededException',
           ),
           _i1.ErrorKind.client,
-          _i11.LimitExceededException,
-          builder: _i11.LimitExceededException.fromResponse,
+          LimitExceededException,
+          builder: LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError<_i12.NoAvailableOrganizationException,
-            _i12.NoAvailableOrganizationException>(
+        _i1.SmithyError<NoAvailableOrganizationException,
+            NoAvailableOrganizationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoAvailableOrganizationException',
           ),
           _i1.ErrorKind.client,
-          _i12.NoAvailableOrganizationException,
-          builder: _i12.NoAvailableOrganizationException.fromResponse,
+          NoAvailableOrganizationException,
+          builder: NoAvailableOrganizationException.fromResponse,
         ),
-        _i1.SmithyError<_i13.OrganizationAccessDeniedException,
-            _i13.OrganizationAccessDeniedException>(
+        _i1.SmithyError<OrganizationAccessDeniedException,
+            OrganizationAccessDeniedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'OrganizationAccessDeniedException',
           ),
           _i1.ErrorKind.client,
-          _i13.OrganizationAccessDeniedException,
-          builder: _i13.OrganizationAccessDeniedException.fromResponse,
+          OrganizationAccessDeniedException,
+          builder: OrganizationAccessDeniedException.fromResponse,
         ),
-        _i1.SmithyError<_i14.OrganizationAllFeaturesNotEnabledException,
-            _i14.OrganizationAllFeaturesNotEnabledException>(
+        _i1.SmithyError<OrganizationAllFeaturesNotEnabledException,
+            OrganizationAllFeaturesNotEnabledException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'OrganizationAllFeaturesNotEnabledException',
           ),
           _i1.ErrorKind.client,
-          _i14.OrganizationAllFeaturesNotEnabledException,
-          builder: _i14.OrganizationAllFeaturesNotEnabledException.fromResponse,
+          OrganizationAllFeaturesNotEnabledException,
+          builder: OrganizationAllFeaturesNotEnabledException.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'PutConfigurationAggregator';
   @override
-  _i5.AWSRetryer get retryer => _i5.AWSRetryer();
+  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.PutConfigurationAggregatorResponse> run(
-    _i2.PutConfigurationAggregatorRequest input, {
-    _i7.AWSHttpClient? client,
+  _i1.SmithyOperation<PutConfigurationAggregatorResponse> run(
+    PutConfigurationAggregatorRequest input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i15.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -218,7 +207,7 @@ class PutConfigurationAggregatorOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

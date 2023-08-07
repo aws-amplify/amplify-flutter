@@ -4,11 +4,11 @@
 library smoke_test.s3.model.logging_enabled; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/target_grant.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/target_grant.dart';
 
 part 'logging_enabled.g.dart';
 
@@ -19,12 +19,12 @@ abstract class LoggingEnabled
   /// Describes where logs are stored and the prefix that Amazon S3 assigns to all log object keys for a bucket. For more information, see [PUT Bucket logging](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTlogging.html) in the _Amazon S3 API Reference_.
   factory LoggingEnabled({
     required String targetBucket,
-    List<_i2.TargetGrant>? targetGrants,
+    List<TargetGrant>? targetGrants,
     required String targetPrefix,
   }) {
     return _$LoggingEnabled._(
       targetBucket: targetBucket,
-      targetGrants: targetGrants == null ? null : _i3.BuiltList(targetGrants),
+      targetGrants: targetGrants == null ? null : _i2.BuiltList(targetGrants),
       targetPrefix: targetPrefix,
     );
   }
@@ -35,7 +35,7 @@ abstract class LoggingEnabled
 
   const LoggingEnabled._();
 
-  static const List<_i4.SmithySerializer<LoggingEnabled>> serializers = [
+  static const List<_i3.SmithySerializer<LoggingEnabled>> serializers = [
     LoggingEnabledRestXmlSerializer()
   ];
 
@@ -45,7 +45,7 @@ abstract class LoggingEnabled
   /// Container for granting information.
   ///
   /// Buckets that use the bucket owner enforced setting for Object Ownership don't support target grants. For more information, see [Permissions for server access log delivery](https://docs.aws.amazon.com/AmazonS3/latest/userguide/enable-server-access-logging.html#grant-log-delivery-permissions-general) in the _Amazon S3 User Guide_.
-  _i3.BuiltList<_i2.TargetGrant>? get targetGrants;
+  _i2.BuiltList<TargetGrant>? get targetGrants;
 
   /// A prefix for all log object keys. If you store log files from multiple Amazon S3 buckets in a single bucket, you can use a prefix to distinguish which log files came from which bucket.
   String get targetPrefix;
@@ -75,7 +75,7 @@ abstract class LoggingEnabled
 }
 
 class LoggingEnabledRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<LoggingEnabled> {
+    extends _i3.StructuredSmithySerializer<LoggingEnabled> {
   const LoggingEnabledRestXmlSerializer() : super('LoggingEnabled');
 
   @override
@@ -84,8 +84,8 @@ class LoggingEnabledRestXmlSerializer
         _$LoggingEnabled,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -113,15 +113,15 @@ class LoggingEnabledRestXmlSerializer
           ) as String);
         case 'TargetGrants':
           result.targetGrants.replace(
-              (const _i4.XmlBuiltListSerializer(memberName: 'Grant')
+              (const _i3.XmlBuiltListSerializer(memberName: 'Grant')
                   .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.TargetGrant)],
+              _i2.BuiltList,
+              [FullType(TargetGrant)],
             ),
-          ) as _i3.BuiltList<_i2.TargetGrant>));
+          ) as _i2.BuiltList<TargetGrant>));
         case 'TargetPrefix':
           result.targetPrefix = (serializers.deserialize(
             value,
@@ -140,32 +140,32 @@ class LoggingEnabledRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'LoggingEnabled',
-        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final LoggingEnabled(:targetBucket, :targetGrants, :targetPrefix) = object;
     result$
-      ..add(const _i4.XmlElementName('TargetBucket'))
+      ..add(const _i3.XmlElementName('TargetBucket'))
       ..add(serializers.serialize(
         targetBucket,
         specifiedType: const FullType(String),
       ));
     if (targetGrants != null) {
       result$
-        ..add(const _i4.XmlElementName('TargetGrants'))
-        ..add(const _i4.XmlBuiltListSerializer(memberName: 'Grant').serialize(
+        ..add(const _i3.XmlElementName('TargetGrants'))
+        ..add(const _i3.XmlBuiltListSerializer(memberName: 'Grant').serialize(
           serializers,
           targetGrants,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
-            [FullType(_i2.TargetGrant)],
+            _i2.BuiltList,
+            [FullType(TargetGrant)],
           ),
         ));
     }
     result$
-      ..add(const _i4.XmlElementName('TargetPrefix'))
+      ..add(const _i3.XmlElementName('TargetPrefix'))
       ..add(serializers.serialize(
         targetPrefix,
         specifiedType: const FullType(String),

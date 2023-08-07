@@ -8,7 +8,7 @@ part of 'documentation_parts.dart';
 
 class _$DocumentationParts extends DocumentationParts {
   @override
-  final _i3.BuiltList<_i2.DocumentationPart>? items;
+  final _i2.BuiltList<DocumentationPart>? items;
   @override
   final String? position;
 
@@ -49,11 +49,10 @@ class DocumentationPartsBuilder
     implements Builder<DocumentationParts, DocumentationPartsBuilder> {
   _$DocumentationParts? _$v;
 
-  _i3.ListBuilder<_i2.DocumentationPart>? _items;
-  _i3.ListBuilder<_i2.DocumentationPart> get items =>
-      _$this._items ??= new _i3.ListBuilder<_i2.DocumentationPart>();
-  set items(_i3.ListBuilder<_i2.DocumentationPart>? items) =>
-      _$this._items = items;
+  _i2.ListBuilder<DocumentationPart>? _items;
+  _i2.ListBuilder<DocumentationPart> get items =>
+      _$this._items ??= new _i2.ListBuilder<DocumentationPart>();
+  set items(_i2.ListBuilder<DocumentationPart>? items) => _$this._items = items;
 
   String? _position;
   String? get position => _$this._position;

@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.describe_aggregation_authorizations_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/aggregation_authorization.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/aggregation_authorization.dart';
 
 part 'describe_aggregation_authorizations_response.g.dart';
 
@@ -20,13 +19,13 @@ abstract class DescribeAggregationAuthorizationsResponse
         Built<DescribeAggregationAuthorizationsResponse,
             DescribeAggregationAuthorizationsResponseBuilder> {
   factory DescribeAggregationAuthorizationsResponse({
-    List<_i2.AggregationAuthorization>? aggregationAuthorizations,
+    List<AggregationAuthorization>? aggregationAuthorizations,
     String? nextToken,
   }) {
     return _$DescribeAggregationAuthorizationsResponse._(
       aggregationAuthorizations: aggregationAuthorizations == null
           ? null
-          : _i3.BuiltList(aggregationAuthorizations),
+          : _i2.BuiltList(aggregationAuthorizations),
       nextToken: nextToken,
     );
   }
@@ -45,13 +44,13 @@ abstract class DescribeAggregationAuthorizationsResponse
       payload;
 
   static const List<
-          _i4.SmithySerializer<DescribeAggregationAuthorizationsResponse>>
+          _i3.SmithySerializer<DescribeAggregationAuthorizationsResponse>>
       serializers = [
     DescribeAggregationAuthorizationsResponseAwsJson11Serializer()
   ];
 
   /// Returns a list of authorizations granted to various aggregator accounts and regions.
-  _i3.BuiltList<_i2.AggregationAuthorization>? get aggregationAuthorizations;
+  _i2.BuiltList<AggregationAuthorization>? get aggregationAuthorizations;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -76,7 +75,7 @@ abstract class DescribeAggregationAuthorizationsResponse
   }
 }
 
-class DescribeAggregationAuthorizationsResponseAwsJson11Serializer extends _i4
+class DescribeAggregationAuthorizationsResponseAwsJson11Serializer extends _i3
     .StructuredSmithySerializer<DescribeAggregationAuthorizationsResponse> {
   const DescribeAggregationAuthorizationsResponseAwsJson11Serializer()
       : super('DescribeAggregationAuthorizationsResponse');
@@ -87,8 +86,8 @@ class DescribeAggregationAuthorizationsResponseAwsJson11Serializer extends _i4
         _$DescribeAggregationAuthorizationsResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -113,10 +112,10 @@ class DescribeAggregationAuthorizationsResponseAwsJson11Serializer extends _i4
           result.aggregationAuthorizations.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.AggregationAuthorization)],
+              _i2.BuiltList,
+              [FullType(AggregationAuthorization)],
             ),
-          ) as _i3.BuiltList<_i2.AggregationAuthorization>));
+          ) as _i2.BuiltList<AggregationAuthorization>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -145,8 +144,8 @@ class DescribeAggregationAuthorizationsResponseAwsJson11Serializer extends _i4
         ..add(serializers.serialize(
           aggregationAuthorizations,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.AggregationAuthorization)],
+            _i2.BuiltList,
+            [FullType(AggregationAuthorization)],
           ),
         ));
     }

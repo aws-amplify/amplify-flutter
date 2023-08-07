@@ -8,9 +8,9 @@ part of 'inventory_encryption.dart';
 
 class _$InventoryEncryption extends InventoryEncryption {
   @override
-  final _i2.Sses3? sses3;
+  final Sses3? sses3;
   @override
-  final _i3.Ssekms? ssekms;
+  final Ssekms? ssekms;
 
   factory _$InventoryEncryption(
           [void Function(InventoryEncryptionBuilder)? updates]) =>
@@ -49,13 +49,13 @@ class InventoryEncryptionBuilder
     implements Builder<InventoryEncryption, InventoryEncryptionBuilder> {
   _$InventoryEncryption? _$v;
 
-  _i2.Sses3Builder? _sses3;
-  _i2.Sses3Builder get sses3 => _$this._sses3 ??= new _i2.Sses3Builder();
-  set sses3(_i2.Sses3Builder? sses3) => _$this._sses3 = sses3;
+  Sses3Builder? _sses3;
+  Sses3Builder get sses3 => _$this._sses3 ??= new Sses3Builder();
+  set sses3(Sses3Builder? sses3) => _$this._sses3 = sses3;
 
-  _i3.SsekmsBuilder? _ssekms;
-  _i3.SsekmsBuilder get ssekms => _$this._ssekms ??= new _i3.SsekmsBuilder();
-  set ssekms(_i3.SsekmsBuilder? ssekms) => _$this._ssekms = ssekms;
+  SsekmsBuilder? _ssekms;
+  SsekmsBuilder get ssekms => _$this._ssekms ??= new SsekmsBuilder();
+  set ssekms(SsekmsBuilder? ssekms) => _$this._ssekms = ssekms;
 
   InventoryEncryptionBuilder();
 

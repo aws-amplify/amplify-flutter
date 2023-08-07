@@ -11,11 +11,11 @@ class _$PutBucketAccelerateConfigurationRequest
   @override
   final String bucket;
   @override
-  final _i2.AccelerateConfiguration accelerateConfiguration;
+  final AccelerateConfiguration accelerateConfiguration;
   @override
   final String? expectedBucketOwner;
   @override
-  final _i4.ChecksumAlgorithm? checksumAlgorithm;
+  final ChecksumAlgorithm? checksumAlgorithm;
 
   factory _$PutBucketAccelerateConfigurationRequest(
           [void Function(PutBucketAccelerateConfigurationRequestBuilder)?
@@ -77,12 +77,11 @@ class PutBucketAccelerateConfigurationRequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  _i2.AccelerateConfigurationBuilder? _accelerateConfiguration;
-  _i2.AccelerateConfigurationBuilder get accelerateConfiguration =>
-      _$this._accelerateConfiguration ??=
-          new _i2.AccelerateConfigurationBuilder();
+  AccelerateConfigurationBuilder? _accelerateConfiguration;
+  AccelerateConfigurationBuilder get accelerateConfiguration =>
+      _$this._accelerateConfiguration ??= new AccelerateConfigurationBuilder();
   set accelerateConfiguration(
-          _i2.AccelerateConfigurationBuilder? accelerateConfiguration) =>
+          AccelerateConfigurationBuilder? accelerateConfiguration) =>
       _$this._accelerateConfiguration = accelerateConfiguration;
 
   String? _expectedBucketOwner;
@@ -90,9 +89,9 @@ class PutBucketAccelerateConfigurationRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  _i4.ChecksumAlgorithm? _checksumAlgorithm;
-  _i4.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
+  ChecksumAlgorithm? _checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
   PutBucketAccelerateConfigurationRequestBuilder();

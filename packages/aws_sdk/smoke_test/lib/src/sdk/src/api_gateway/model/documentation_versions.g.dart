@@ -8,7 +8,7 @@ part of 'documentation_versions.dart';
 
 class _$DocumentationVersions extends DocumentationVersions {
   @override
-  final _i3.BuiltList<_i2.DocumentationVersion>? items;
+  final _i2.BuiltList<DocumentationVersion>? items;
   @override
   final String? position;
 
@@ -49,10 +49,10 @@ class DocumentationVersionsBuilder
     implements Builder<DocumentationVersions, DocumentationVersionsBuilder> {
   _$DocumentationVersions? _$v;
 
-  _i3.ListBuilder<_i2.DocumentationVersion>? _items;
-  _i3.ListBuilder<_i2.DocumentationVersion> get items =>
-      _$this._items ??= new _i3.ListBuilder<_i2.DocumentationVersion>();
-  set items(_i3.ListBuilder<_i2.DocumentationVersion>? items) =>
+  _i2.ListBuilder<DocumentationVersion>? _items;
+  _i2.ListBuilder<DocumentationVersion> get items =>
+      _$this._items ??= new _i2.ListBuilder<DocumentationVersion>();
+  set items(_i2.ListBuilder<DocumentationVersion>? items) =>
       _$this._items = items;
 
   String? _position;

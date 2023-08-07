@@ -8,7 +8,7 @@ part of 'list_types_output.dart';
 
 class _$ListTypesOutput extends ListTypesOutput {
   @override
-  final _i3.BuiltList<_i2.TypeSummary>? typeSummaries;
+  final _i2.BuiltList<TypeSummary>? typeSummaries;
   @override
   final String? nextToken;
 
@@ -47,10 +47,10 @@ class ListTypesOutputBuilder
     implements Builder<ListTypesOutput, ListTypesOutputBuilder> {
   _$ListTypesOutput? _$v;
 
-  _i3.ListBuilder<_i2.TypeSummary>? _typeSummaries;
-  _i3.ListBuilder<_i2.TypeSummary> get typeSummaries =>
-      _$this._typeSummaries ??= new _i3.ListBuilder<_i2.TypeSummary>();
-  set typeSummaries(_i3.ListBuilder<_i2.TypeSummary>? typeSummaries) =>
+  _i2.ListBuilder<TypeSummary>? _typeSummaries;
+  _i2.ListBuilder<TypeSummary> get typeSummaries =>
+      _$this._typeSummaries ??= new _i2.ListBuilder<TypeSummary>();
+  set typeSummaries(_i2.ListBuilder<TypeSummary>? typeSummaries) =>
       _$this._typeSummaries = typeSummaries;
 
   String? _nextToken;

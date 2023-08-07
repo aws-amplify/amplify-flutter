@@ -3,35 +3,30 @@
 
 library smoke_test.s3.model.put_bucket_notification_configuration_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_common/aws_common.dart' as _i3;
-import 'package:built_collection/built_collection.dart' as _i8;
+import 'package:aws_common/aws_common.dart' as _i2;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/event_bridge_configuration.dart'
-    as _i7;
-import 'package:smoke_test/src/sdk/src/s3/model/lambda_function_configuration.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/s3/model/notification_configuration.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/queue_configuration.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/topic_configuration.dart'
-    as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/event_bridge_configuration.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/lambda_function_configuration.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/notification_configuration.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/queue_configuration.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/topic_configuration.dart';
 
 part 'put_bucket_notification_configuration_request.g.dart';
 
 abstract class PutBucketNotificationConfigurationRequest
     with
-        _i1.HttpInput<_i2.NotificationConfiguration>,
-        _i3.AWSEquatable<PutBucketNotificationConfigurationRequest>
+        _i1.HttpInput<NotificationConfiguration>,
+        _i2.AWSEquatable<PutBucketNotificationConfigurationRequest>
     implements
         Built<PutBucketNotificationConfigurationRequest,
             PutBucketNotificationConfigurationRequestBuilder>,
-        _i1.HasPayload<_i2.NotificationConfiguration> {
+        _i1.HasPayload<NotificationConfiguration> {
   factory PutBucketNotificationConfigurationRequest({
     required String bucket,
-    required _i2.NotificationConfiguration notificationConfiguration,
+    required NotificationConfiguration notificationConfiguration,
     String? expectedBucketOwner,
     bool? skipDestinationValidation,
   }) {
@@ -50,8 +45,8 @@ abstract class PutBucketNotificationConfigurationRequest
   const PutBucketNotificationConfigurationRequest._();
 
   factory PutBucketNotificationConfigurationRequest.fromRequest(
-    _i2.NotificationConfiguration payload,
-    _i3.AWSBaseHttpRequest request, {
+    NotificationConfiguration payload,
+    _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
       PutBucketNotificationConfigurationRequest.build((b) {
@@ -69,7 +64,7 @@ abstract class PutBucketNotificationConfigurationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.NotificationConfiguration>>
+  static const List<_i1.SmithySerializer<NotificationConfiguration>>
       serializers = [
     PutBucketNotificationConfigurationRequestRestXmlSerializer()
   ];
@@ -78,7 +73,7 @@ abstract class PutBucketNotificationConfigurationRequest
   String get bucket;
 
   /// A container for specifying the notification configuration of the bucket. If this element is empty, notifications are turned off for the bucket.
-  _i2.NotificationConfiguration get notificationConfiguration;
+  NotificationConfiguration get notificationConfiguration;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
@@ -98,7 +93,7 @@ abstract class PutBucketNotificationConfigurationRequest
   }
 
   @override
-  _i2.NotificationConfiguration getPayload() => notificationConfiguration;
+  NotificationConfiguration getPayload() => notificationConfiguration;
   @override
   List<Object?> get props => [
         bucket,
@@ -131,7 +126,7 @@ abstract class PutBucketNotificationConfigurationRequest
 }
 
 class PutBucketNotificationConfigurationRequestRestXmlSerializer
-    extends _i1.StructuredSmithySerializer<_i2.NotificationConfiguration> {
+    extends _i1.StructuredSmithySerializer<NotificationConfiguration> {
   const PutBucketNotificationConfigurationRequestRestXmlSerializer()
       : super('PutBucketNotificationConfigurationRequest');
 
@@ -148,12 +143,12 @@ class PutBucketNotificationConfigurationRequestRestXmlSerializer
         )
       ];
   @override
-  _i2.NotificationConfiguration deserialize(
+  NotificationConfiguration deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i2.NotificationConfigurationBuilder();
+    final result = NotificationConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -166,23 +161,23 @@ class PutBucketNotificationConfigurationRequestRestXmlSerializer
         case 'TopicConfiguration':
           result.topicConfigurations.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.TopicConfiguration),
-          ) as _i4.TopicConfiguration));
+            specifiedType: const FullType(TopicConfiguration),
+          ) as TopicConfiguration));
         case 'QueueConfiguration':
           result.queueConfigurations.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.QueueConfiguration),
-          ) as _i5.QueueConfiguration));
+            specifiedType: const FullType(QueueConfiguration),
+          ) as QueueConfiguration));
         case 'CloudFunctionConfiguration':
           result.lambdaFunctionConfigurations.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.LambdaFunctionConfiguration),
-          ) as _i6.LambdaFunctionConfiguration));
+            specifiedType: const FullType(LambdaFunctionConfiguration),
+          ) as LambdaFunctionConfiguration));
         case 'EventBridgeConfiguration':
           result.eventBridgeConfiguration.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i7.EventBridgeConfiguration),
-          ) as _i7.EventBridgeConfiguration));
+            specifiedType: const FullType(EventBridgeConfiguration),
+          ) as EventBridgeConfiguration));
       }
     }
 
@@ -192,7 +187,7 @@ class PutBucketNotificationConfigurationRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i2.NotificationConfiguration object, {
+    NotificationConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -201,7 +196,7 @@ class PutBucketNotificationConfigurationRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i2.NotificationConfiguration(
+    final NotificationConfiguration(
       :topicConfigurations,
       :queueConfigurations,
       :lambdaFunctionConfigurations,
@@ -214,8 +209,8 @@ class PutBucketNotificationConfigurationRequestRestXmlSerializer
         serializers,
         topicConfigurations,
         specifiedType: const FullType.nullable(
-          _i8.BuiltList,
-          [FullType(_i4.TopicConfiguration)],
+          _i3.BuiltList,
+          [FullType(TopicConfiguration)],
         ),
       ));
     }
@@ -226,8 +221,8 @@ class PutBucketNotificationConfigurationRequestRestXmlSerializer
         serializers,
         queueConfigurations,
         specifiedType: const FullType.nullable(
-          _i8.BuiltList,
-          [FullType(_i5.QueueConfiguration)],
+          _i3.BuiltList,
+          [FullType(QueueConfiguration)],
         ),
       ));
     }
@@ -238,8 +233,8 @@ class PutBucketNotificationConfigurationRequestRestXmlSerializer
         serializers,
         lambdaFunctionConfigurations,
         specifiedType: const FullType.nullable(
-          _i8.BuiltList,
-          [FullType(_i6.LambdaFunctionConfiguration)],
+          _i3.BuiltList,
+          [FullType(LambdaFunctionConfiguration)],
         ),
       ));
     }
@@ -248,7 +243,7 @@ class PutBucketNotificationConfigurationRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('EventBridgeConfiguration'))
         ..add(serializers.serialize(
           eventBridgeConfiguration,
-          specifiedType: const FullType(_i7.EventBridgeConfiguration),
+          specifiedType: const FullType(EventBridgeConfiguration),
         ));
     }
     return result$;

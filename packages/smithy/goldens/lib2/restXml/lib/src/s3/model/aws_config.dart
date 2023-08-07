@@ -6,8 +6,8 @@ library rest_xml_v2.s3.model.aws_config; // ignore_for_file: no_leading_undersco
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v2/src/s3/model/scoped_config.dart' as _i2;
-import 'package:smithy/smithy.dart' as _i3;
+import 'package:rest_xml_v2/src/s3/model/scoped_config.dart';
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'aws_config.g.dart';
 
@@ -16,7 +16,7 @@ abstract class AwsConfig
     implements Built<AwsConfig, AwsConfigBuilder> {
   factory AwsConfig({
     DateTime? clockTime,
-    _i2.ScopedConfig? scopedConfig,
+    ScopedConfig? scopedConfig,
   }) {
     return _$AwsConfig._(
       clockTime: clockTime,
@@ -29,7 +29,7 @@ abstract class AwsConfig
 
   const AwsConfig._();
 
-  static const List<_i3.SmithySerializer<AwsConfig>> serializers = [
+  static const List<_i2.SmithySerializer<AwsConfig>> serializers = [
     AwsConfigRestXmlSerializer()
   ];
 
@@ -37,7 +37,7 @@ abstract class AwsConfig
   DateTime? get clockTime;
 
   /// Config settings that are scoped to different sources, such as environment variables or the AWS config file.
-  _i2.ScopedConfig? get scopedConfig;
+  ScopedConfig? get scopedConfig;
   @override
   List<Object?> get props => [
         clockTime,
@@ -59,7 +59,7 @@ abstract class AwsConfig
 }
 
 class AwsConfigRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<AwsConfig> {
+    extends _i2.StructuredSmithySerializer<AwsConfig> {
   const AwsConfigRestXmlSerializer() : super('AwsConfig');
 
   @override
@@ -68,8 +68,8 @@ class AwsConfigRestXmlSerializer
         _$AwsConfig,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -98,8 +98,8 @@ class AwsConfigRestXmlSerializer
         case 'scopedConfig':
           result.scopedConfig.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ScopedConfig),
-          ) as _i2.ScopedConfig));
+            specifiedType: const FullType(ScopedConfig),
+          ) as ScopedConfig));
       }
     }
 
@@ -113,15 +113,15 @@ class AwsConfigRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'AwsConfig',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final AwsConfig(:clockTime, :scopedConfig) = object;
     if (clockTime != null) {
       result$
-        ..add(const _i3.XmlElementName('clockTime'))
+        ..add(const _i2.XmlElementName('clockTime'))
         ..add(serializers.serialize(
           clockTime,
           specifiedType: const FullType.nullable(DateTime),
@@ -129,10 +129,10 @@ class AwsConfigRestXmlSerializer
     }
     if (scopedConfig != null) {
       result$
-        ..add(const _i3.XmlElementName('scopedConfig'))
+        ..add(const _i2.XmlElementName('scopedConfig'))
         ..add(serializers.serialize(
           scopedConfig,
-          specifiedType: const FullType(_i2.ScopedConfig),
+          specifiedType: const FullType(ScopedConfig),
         ));
     }
     return result$;

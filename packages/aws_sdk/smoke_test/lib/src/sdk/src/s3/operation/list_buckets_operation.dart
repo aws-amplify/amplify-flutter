@@ -3,31 +3,30 @@
 
 library smoke_test.s3.operation.list_buckets_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i8;
+import 'dart:async' as _i5;
 
-import 'package:aws_common/aws_common.dart' as _i6;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/common/endpoint_resolver.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/s3/common/serializers.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/list_buckets_output.dart'
-    as _i2;
+import 'package:smithy_aws/smithy_aws.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/s3/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/list_buckets_output.dart';
 
 /// Returns a list of all buckets owned by the authenticated sender of the request. To use this operation, you must have the `s3:ListAllMyBuckets` permission.
 ///
 /// For information about Amazon S3 buckets, see [Creating, configuring, and working with Amazon S3 buckets](https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-buckets-s3.html).
-class ListBucketsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
-    _i2.ListBucketsOutput, _i2.ListBucketsOutput> {
+class ListBucketsOperation extends _i1
+    .HttpOperation<_i1.Unit, _i1.Unit, ListBucketsOutput, ListBucketsOutput> {
   /// Returns a list of all buckets owned by the authenticated sender of the request. To use this operation, you must have the `s3:ListAllMyBuckets` permission.
   ///
   /// For information about Amazon S3 buckets, see [Creating, configuring, and working with Amazon S3 buckets](https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-buckets-s3.html).
   ListBucketsOperation({
     required String region,
     Uri? baseUri,
-    _i3.S3ClientConfig s3ClientConfig = const _i3.S3ClientConfig(),
-    _i4.AWSCredentialsProvider credentialsProvider =
-        const _i4.AWSCredentialsProvider.environment(),
+    _i2.S3ClientConfig s3ClientConfig = const _i2.S3ClientConfig(),
+    _i3.AWSCredentialsProvider credentialsProvider =
+        const _i3.AWSCredentialsProvider.environment(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -39,23 +38,23 @@ class ListBucketsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
 
   @override
   late final List<
-      _i1.HttpProtocol<_i1.Unit, _i1.Unit, _i2.ListBucketsOutput,
-          _i2.ListBucketsOutput>> protocols = [
-    _i3.RestXmlProtocol(
-      serializers: _i5.serializers,
-      builderFactories: _i5.builderFactories,
+      _i1.HttpProtocol<_i1.Unit, _i1.Unit, ListBucketsOutput,
+          ListBucketsOutput>> protocols = [
+    _i2.RestXmlProtocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
-            _i3.WithSigV4(
+            _i2.WithSigV4(
               region: _region,
-              service: _i6.AWSService.s3,
+              service: _i4.AWSService.s3,
               credentialsProvider: _credentialsProvider,
               serviceConfiguration: _s3ClientConfig.signerConfiguration ??
-                  _i4.S3ServiceConfiguration(),
+                  _i3.S3ServiceConfiguration(),
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i3.WithSdkInvocationId(),
-            const _i3.WithSdkRequest(),
+            const _i2.WithSdkInvocationId(),
+            const _i2.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -64,8 +63,8 @@ class ListBucketsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
     )
   ];
 
-  late final _i3.AWSEndpoint _awsEndpoint = _i7.endpointResolver.resolve(
-    _i7.sdkId,
+  late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -73,9 +72,9 @@ class ListBucketsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
 
   final Uri? _baseUri;
 
-  final _i3.S3ClientConfig _s3ClientConfig;
+  final _i2.S3ClientConfig _s3ClientConfig;
 
-  final _i4.AWSCredentialsProvider _credentialsProvider;
+  final _i3.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
@@ -87,13 +86,13 @@ class ListBucketsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
         b.path = r'/';
       });
   @override
-  int successCode([_i2.ListBucketsOutput? output]) => 200;
+  int successCode([ListBucketsOutput? output]) => 200;
   @override
-  _i2.ListBucketsOutput buildOutput(
-    _i2.ListBucketsOutput payload,
-    _i6.AWSBaseHttpResponse response,
+  ListBucketsOutput buildOutput(
+    ListBucketsOutput payload,
+    _i4.AWSBaseHttpResponse response,
   ) =>
-      _i2.ListBucketsOutput.fromResponse(
+      ListBucketsOutput.fromResponse(
         payload,
         response,
       );
@@ -102,7 +101,7 @@ class ListBucketsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
   @override
   String get runtimeTypeName => 'ListBuckets';
   @override
-  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+  _i2.AWSRetryer get retryer => _i2.AWSRetryer();
   @override
   Uri get baseUri {
     var baseUri = _baseUri ?? endpoint.uri;
@@ -124,12 +123,12 @@ class ListBucketsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i2.ListBucketsOutput> run(
+  _i1.SmithyOperation<ListBucketsOutput> run(
     _i1.Unit input, {
-    _i6.AWSHttpClient? client,
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i8.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -137,7 +136,7 @@ class ListBucketsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

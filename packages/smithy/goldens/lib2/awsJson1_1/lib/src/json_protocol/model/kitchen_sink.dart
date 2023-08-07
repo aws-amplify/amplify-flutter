@@ -6,17 +6,14 @@ library aws_json1_1_v2.json_protocol.model.kitchen_sink; // ignore_for_file: no_
 import 'dart:typed_data' as _i3;
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:aws_json1_1_v2/src/json_protocol/model/empty_struct.dart'
-    as _i4;
-import 'package:aws_json1_1_v2/src/json_protocol/model/simple_struct.dart'
-    as _i5;
-import 'package:aws_json1_1_v2/src/json_protocol/model/struct_with_json_name.dart'
-    as _i7;
-import 'package:built_collection/built_collection.dart' as _i9;
+import 'package:aws_json1_1_v2/src/json_protocol/model/empty_struct.dart';
+import 'package:aws_json1_1_v2/src/json_protocol/model/simple_struct.dart';
+import 'package:aws_json1_1_v2/src/json_protocol/model/struct_with_json_name.dart';
+import 'package:built_collection/built_collection.dart' as _i6;
 import 'package:built_value/built_value.dart';
-import 'package:built_value/json_object.dart' as _i8;
+import 'package:built_value/json_object.dart' as _i5;
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i6;
+import 'package:fixnum/fixnum.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'kitchen_sink.g.dart';
@@ -28,7 +25,7 @@ abstract class KitchenSink
     _i3.Uint8List? blob,
     bool? boolean,
     double? double_,
-    _i4.EmptyStruct? emptyStruct,
+    EmptyStruct? emptyStruct,
     double? float,
     DateTime? httpdateTimestamp,
     int? integer,
@@ -37,18 +34,18 @@ abstract class KitchenSink
     List<List<String>>? listOfLists,
     List<Map<String, String>>? listOfMapsOfStrings,
     List<String>? listOfStrings,
-    List<_i5.SimpleStruct>? listOfStructs,
-    _i6.Int64? long,
+    List<SimpleStruct>? listOfStructs,
+    _i4.Int64? long,
     Map<String, List<String>>? mapOfListsOfStrings,
     Map<String, Map<String, String>>? mapOfMaps,
     Map<String, String>? mapOfStrings,
-    Map<String, _i5.SimpleStruct>? mapOfStructs,
+    Map<String, SimpleStruct>? mapOfStructs,
     List<KitchenSink>? recursiveList,
     Map<String, KitchenSink>? recursiveMap,
     KitchenSink? recursiveStruct,
-    _i5.SimpleStruct? simpleStruct,
+    SimpleStruct? simpleStruct,
     String? string,
-    _i7.StructWithJsonName? structWithJsonName,
+    StructWithJsonName? structWithJsonName,
     DateTime? timestamp,
     DateTime? unixTimestamp,
   }) {
@@ -61,36 +58,36 @@ abstract class KitchenSink
       httpdateTimestamp: httpdateTimestamp,
       integer: integer,
       iso8601Timestamp: iso8601Timestamp,
-      jsonValue: jsonValue == null ? null : _i8.JsonObject(jsonValue),
+      jsonValue: jsonValue == null ? null : _i5.JsonObject(jsonValue),
       listOfLists: listOfLists == null
           ? null
-          : _i9.BuiltList(listOfLists.map((el) => _i9.BuiltList(el))),
+          : _i6.BuiltList(listOfLists.map((el) => _i6.BuiltList(el))),
       listOfMapsOfStrings: listOfMapsOfStrings == null
           ? null
-          : _i9.BuiltList(listOfMapsOfStrings.map((el) => _i9.BuiltMap(el))),
+          : _i6.BuiltList(listOfMapsOfStrings.map((el) => _i6.BuiltMap(el))),
       listOfStrings:
-          listOfStrings == null ? null : _i9.BuiltList(listOfStrings),
+          listOfStrings == null ? null : _i6.BuiltList(listOfStrings),
       listOfStructs:
-          listOfStructs == null ? null : _i9.BuiltList(listOfStructs),
+          listOfStructs == null ? null : _i6.BuiltList(listOfStructs),
       long: long,
       mapOfListsOfStrings: mapOfListsOfStrings == null
           ? null
-          : _i9.BuiltListMultimap(mapOfListsOfStrings),
+          : _i6.BuiltListMultimap(mapOfListsOfStrings),
       mapOfMaps: mapOfMaps == null
           ? null
-          : _i9.BuiltMap(mapOfMaps.map((
+          : _i6.BuiltMap(mapOfMaps.map((
               key,
               value,
             ) =>
               MapEntry(
                 key,
-                _i9.BuiltMap(value),
+                _i6.BuiltMap(value),
               ))),
-      mapOfStrings: mapOfStrings == null ? null : _i9.BuiltMap(mapOfStrings),
-      mapOfStructs: mapOfStructs == null ? null : _i9.BuiltMap(mapOfStructs),
+      mapOfStrings: mapOfStrings == null ? null : _i6.BuiltMap(mapOfStrings),
+      mapOfStructs: mapOfStructs == null ? null : _i6.BuiltMap(mapOfStructs),
       recursiveList:
-          recursiveList == null ? null : _i9.BuiltList(recursiveList),
-      recursiveMap: recursiveMap == null ? null : _i9.BuiltMap(recursiveMap),
+          recursiveList == null ? null : _i6.BuiltList(recursiveList),
+      recursiveMap: recursiveMap == null ? null : _i6.BuiltMap(recursiveMap),
       recursiveStruct: recursiveStruct,
       simpleStruct: simpleStruct,
       string: string,
@@ -126,27 +123,27 @@ abstract class KitchenSink
   _i3.Uint8List? get blob;
   bool? get boolean;
   double? get double_;
-  _i4.EmptyStruct? get emptyStruct;
+  EmptyStruct? get emptyStruct;
   double? get float;
   DateTime? get httpdateTimestamp;
   int? get integer;
   DateTime? get iso8601Timestamp;
-  _i8.JsonObject? get jsonValue;
-  _i9.BuiltList<_i9.BuiltList<String>>? get listOfLists;
-  _i9.BuiltList<_i9.BuiltMap<String, String>>? get listOfMapsOfStrings;
-  _i9.BuiltList<String>? get listOfStrings;
-  _i9.BuiltList<_i5.SimpleStruct>? get listOfStructs;
-  _i6.Int64? get long;
-  _i9.BuiltListMultimap<String, String>? get mapOfListsOfStrings;
-  _i9.BuiltMap<String, _i9.BuiltMap<String, String>>? get mapOfMaps;
-  _i9.BuiltMap<String, String>? get mapOfStrings;
-  _i9.BuiltMap<String, _i5.SimpleStruct>? get mapOfStructs;
-  _i9.BuiltList<KitchenSink>? get recursiveList;
-  _i9.BuiltMap<String, KitchenSink>? get recursiveMap;
+  _i5.JsonObject? get jsonValue;
+  _i6.BuiltList<_i6.BuiltList<String>>? get listOfLists;
+  _i6.BuiltList<_i6.BuiltMap<String, String>>? get listOfMapsOfStrings;
+  _i6.BuiltList<String>? get listOfStrings;
+  _i6.BuiltList<SimpleStruct>? get listOfStructs;
+  _i4.Int64? get long;
+  _i6.BuiltListMultimap<String, String>? get mapOfListsOfStrings;
+  _i6.BuiltMap<String, _i6.BuiltMap<String, String>>? get mapOfMaps;
+  _i6.BuiltMap<String, String>? get mapOfStrings;
+  _i6.BuiltMap<String, SimpleStruct>? get mapOfStructs;
+  _i6.BuiltList<KitchenSink>? get recursiveList;
+  _i6.BuiltMap<String, KitchenSink>? get recursiveMap;
   KitchenSink? get recursiveStruct;
-  _i5.SimpleStruct? get simpleStruct;
+  SimpleStruct? get simpleStruct;
   String? get string;
-  _i7.StructWithJsonName? get structWithJsonName;
+  StructWithJsonName? get structWithJsonName;
   DateTime? get timestamp;
   DateTime? get unixTimestamp;
   @override
@@ -341,8 +338,8 @@ class KitchenSinkAwsJson11Serializer
         case 'EmptyStruct':
           result.emptyStruct.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.EmptyStruct),
-          ) as _i4.EmptyStruct));
+            specifiedType: const FullType(EmptyStruct),
+          ) as EmptyStruct));
         case 'Float':
           result.float = (serializers.deserialize(
             value,
@@ -368,29 +365,29 @@ class KitchenSinkAwsJson11Serializer
         case 'JsonValue':
           result.jsonValue = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i8.JsonObject),
-          ) as _i8.JsonObject);
+            specifiedType: const FullType(_i5.JsonObject),
+          ) as _i5.JsonObject);
         case 'ListOfLists':
           result.listOfLists.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i9.BuiltList,
+              _i6.BuiltList,
               [
                 FullType(
-                  _i9.BuiltList,
+                  _i6.BuiltList,
                   [FullType(String)],
                 )
               ],
             ),
-          ) as _i9.BuiltList<_i9.BuiltList<String>>));
+          ) as _i6.BuiltList<_i6.BuiltList<String>>));
         case 'ListOfMapsOfStrings':
           result.listOfMapsOfStrings.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i9.BuiltList,
+              _i6.BuiltList,
               [
                 FullType(
-                  _i9.BuiltMap,
+                  _i6.BuiltMap,
                   [
                     FullType(String),
                     FullType(String),
@@ -398,48 +395,48 @@ class KitchenSinkAwsJson11Serializer
                 )
               ],
             ),
-          ) as _i9.BuiltList<_i9.BuiltMap<String, String>>));
+          ) as _i6.BuiltList<_i6.BuiltMap<String, String>>));
         case 'ListOfStrings':
           result.listOfStrings.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i9.BuiltList,
+              _i6.BuiltList,
               [FullType(String)],
             ),
-          ) as _i9.BuiltList<String>));
+          ) as _i6.BuiltList<String>));
         case 'ListOfStructs':
           result.listOfStructs.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i9.BuiltList,
-              [FullType(_i5.SimpleStruct)],
+              _i6.BuiltList,
+              [FullType(SimpleStruct)],
             ),
-          ) as _i9.BuiltList<_i5.SimpleStruct>));
+          ) as _i6.BuiltList<SimpleStruct>));
         case 'Long':
           result.long = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.Int64),
-          ) as _i6.Int64);
+            specifiedType: const FullType(_i4.Int64),
+          ) as _i4.Int64);
         case 'MapOfListsOfStrings':
           result.mapOfListsOfStrings.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i9.BuiltListMultimap,
+              _i6.BuiltListMultimap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i9.BuiltListMultimap<String, String>));
+          ) as _i6.BuiltListMultimap<String, String>));
         case 'MapOfMaps':
           result.mapOfMaps.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i9.BuiltMap,
+              _i6.BuiltMap,
               [
                 FullType(String),
                 FullType(
-                  _i9.BuiltMap,
+                  _i6.BuiltMap,
                   [
                     FullType(String),
                     FullType(String),
@@ -447,48 +444,48 @@ class KitchenSinkAwsJson11Serializer
                 ),
               ],
             ),
-          ) as _i9.BuiltMap<String, _i9.BuiltMap<String, String>>));
+          ) as _i6.BuiltMap<String, _i6.BuiltMap<String, String>>));
         case 'MapOfStrings':
           result.mapOfStrings.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i9.BuiltMap,
+              _i6.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i9.BuiltMap<String, String>));
+          ) as _i6.BuiltMap<String, String>));
         case 'MapOfStructs':
           result.mapOfStructs.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i9.BuiltMap,
+              _i6.BuiltMap,
               [
                 FullType(String),
-                FullType(_i5.SimpleStruct),
+                FullType(SimpleStruct),
               ],
             ),
-          ) as _i9.BuiltMap<String, _i5.SimpleStruct>));
+          ) as _i6.BuiltMap<String, SimpleStruct>));
         case 'RecursiveList':
           result.recursiveList.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i9.BuiltList,
+              _i6.BuiltList,
               [FullType(KitchenSink)],
             ),
-          ) as _i9.BuiltList<KitchenSink>));
+          ) as _i6.BuiltList<KitchenSink>));
         case 'RecursiveMap':
           result.recursiveMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i9.BuiltMap,
+              _i6.BuiltMap,
               [
                 FullType(String),
                 FullType(KitchenSink),
               ],
             ),
-          ) as _i9.BuiltMap<String, KitchenSink>));
+          ) as _i6.BuiltMap<String, KitchenSink>));
         case 'RecursiveStruct':
           result.recursiveStruct.replace((serializers.deserialize(
             value,
@@ -497,8 +494,8 @@ class KitchenSinkAwsJson11Serializer
         case 'SimpleStruct':
           result.simpleStruct.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.SimpleStruct),
-          ) as _i5.SimpleStruct));
+            specifiedType: const FullType(SimpleStruct),
+          ) as SimpleStruct));
         case 'String':
           result.string = (serializers.deserialize(
             value,
@@ -507,8 +504,8 @@ class KitchenSinkAwsJson11Serializer
         case 'StructWithJsonName':
           result.structWithJsonName.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i7.StructWithJsonName),
-          ) as _i7.StructWithJsonName));
+            specifiedType: const FullType(StructWithJsonName),
+          ) as StructWithJsonName));
         case 'Timestamp':
           result.timestamp = (serializers.deserialize(
             value,
@@ -590,7 +587,7 @@ class KitchenSinkAwsJson11Serializer
         ..add('EmptyStruct')
         ..add(serializers.serialize(
           emptyStruct,
-          specifiedType: const FullType(_i4.EmptyStruct),
+          specifiedType: const FullType(EmptyStruct),
         ));
     }
     if (float != null) {
@@ -630,7 +627,7 @@ class KitchenSinkAwsJson11Serializer
         ..add('JsonValue')
         ..add(serializers.serialize(
           jsonValue,
-          specifiedType: const FullType(_i8.JsonObject),
+          specifiedType: const FullType(_i5.JsonObject),
         ));
     }
     if (listOfLists != null) {
@@ -639,10 +636,10 @@ class KitchenSinkAwsJson11Serializer
         ..add(serializers.serialize(
           listOfLists,
           specifiedType: const FullType(
-            _i9.BuiltList,
+            _i6.BuiltList,
             [
               FullType(
-                _i9.BuiltList,
+                _i6.BuiltList,
                 [FullType(String)],
               )
             ],
@@ -655,10 +652,10 @@ class KitchenSinkAwsJson11Serializer
         ..add(serializers.serialize(
           listOfMapsOfStrings,
           specifiedType: const FullType(
-            _i9.BuiltList,
+            _i6.BuiltList,
             [
               FullType(
-                _i9.BuiltMap,
+                _i6.BuiltMap,
                 [
                   FullType(String),
                   FullType(String),
@@ -674,7 +671,7 @@ class KitchenSinkAwsJson11Serializer
         ..add(serializers.serialize(
           listOfStrings,
           specifiedType: const FullType(
-            _i9.BuiltList,
+            _i6.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -685,8 +682,8 @@ class KitchenSinkAwsJson11Serializer
         ..add(serializers.serialize(
           listOfStructs,
           specifiedType: const FullType(
-            _i9.BuiltList,
-            [FullType(_i5.SimpleStruct)],
+            _i6.BuiltList,
+            [FullType(SimpleStruct)],
           ),
         ));
     }
@@ -695,7 +692,7 @@ class KitchenSinkAwsJson11Serializer
         ..add('Long')
         ..add(serializers.serialize(
           long,
-          specifiedType: const FullType(_i6.Int64),
+          specifiedType: const FullType(_i4.Int64),
         ));
     }
     if (mapOfListsOfStrings != null) {
@@ -704,7 +701,7 @@ class KitchenSinkAwsJson11Serializer
         ..add(serializers.serialize(
           mapOfListsOfStrings,
           specifiedType: const FullType(
-            _i9.BuiltListMultimap,
+            _i6.BuiltListMultimap,
             [
               FullType(String),
               FullType(String),
@@ -718,11 +715,11 @@ class KitchenSinkAwsJson11Serializer
         ..add(serializers.serialize(
           mapOfMaps,
           specifiedType: const FullType(
-            _i9.BuiltMap,
+            _i6.BuiltMap,
             [
               FullType(String),
               FullType(
-                _i9.BuiltMap,
+                _i6.BuiltMap,
                 [
                   FullType(String),
                   FullType(String),
@@ -738,7 +735,7 @@ class KitchenSinkAwsJson11Serializer
         ..add(serializers.serialize(
           mapOfStrings,
           specifiedType: const FullType(
-            _i9.BuiltMap,
+            _i6.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -752,10 +749,10 @@ class KitchenSinkAwsJson11Serializer
         ..add(serializers.serialize(
           mapOfStructs,
           specifiedType: const FullType(
-            _i9.BuiltMap,
+            _i6.BuiltMap,
             [
               FullType(String),
-              FullType(_i5.SimpleStruct),
+              FullType(SimpleStruct),
             ],
           ),
         ));
@@ -766,7 +763,7 @@ class KitchenSinkAwsJson11Serializer
         ..add(serializers.serialize(
           recursiveList,
           specifiedType: const FullType(
-            _i9.BuiltList,
+            _i6.BuiltList,
             [FullType(KitchenSink)],
           ),
         ));
@@ -777,7 +774,7 @@ class KitchenSinkAwsJson11Serializer
         ..add(serializers.serialize(
           recursiveMap,
           specifiedType: const FullType(
-            _i9.BuiltMap,
+            _i6.BuiltMap,
             [
               FullType(String),
               FullType(KitchenSink),
@@ -798,7 +795,7 @@ class KitchenSinkAwsJson11Serializer
         ..add('SimpleStruct')
         ..add(serializers.serialize(
           simpleStruct,
-          specifiedType: const FullType(_i5.SimpleStruct),
+          specifiedType: const FullType(SimpleStruct),
         ));
     }
     if (string != null) {
@@ -814,7 +811,7 @@ class KitchenSinkAwsJson11Serializer
         ..add('StructWithJsonName')
         ..add(serializers.serialize(
           structWithJsonName,
-          specifiedType: const FullType(_i7.StructWithJsonName),
+          specifiedType: const FullType(StructWithJsonName),
         ));
     }
     if (timestamp != null) {

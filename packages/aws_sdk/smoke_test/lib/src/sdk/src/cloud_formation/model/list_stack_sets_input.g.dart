@@ -12,9 +12,9 @@ class _$ListStackSetsInput extends ListStackSetsInput {
   @override
   final int? maxResults;
   @override
-  final _i3.StackSetStatus? status;
+  final StackSetStatus? status;
   @override
-  final _i4.CallAs? callAs;
+  final CallAs? callAs;
 
   factory _$ListStackSetsInput(
           [void Function(ListStackSetsInputBuilder)? updates]) =>
@@ -67,13 +67,13 @@ class ListStackSetsInputBuilder
   int? get maxResults => _$this._maxResults;
   set maxResults(int? maxResults) => _$this._maxResults = maxResults;
 
-  _i3.StackSetStatus? _status;
-  _i3.StackSetStatus? get status => _$this._status;
-  set status(_i3.StackSetStatus? status) => _$this._status = status;
+  StackSetStatus? _status;
+  StackSetStatus? get status => _$this._status;
+  set status(StackSetStatus? status) => _$this._status = status;
 
-  _i4.CallAs? _callAs;
-  _i4.CallAs? get callAs => _$this._callAs;
-  set callAs(_i4.CallAs? callAs) => _$this._callAs = callAs;
+  CallAs? _callAs;
+  CallAs? get callAs => _$this._callAs;
+  set callAs(CallAs? callAs) => _$this._callAs = callAs;
 
   ListStackSetsInputBuilder();
 

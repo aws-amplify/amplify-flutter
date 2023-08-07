@@ -8,7 +8,7 @@ part of 'list_saml_providers_response.dart';
 
 class _$ListSamlProvidersResponse extends ListSamlProvidersResponse {
   @override
-  final _i3.BuiltList<_i2.SamlProviderListEntry>? samlProviderList;
+  final _i2.BuiltList<SamlProviderListEntry>? samlProviderList;
 
   factory _$ListSamlProvidersResponse(
           [void Function(ListSamlProvidersResponseBuilder)? updates]) =>
@@ -46,12 +46,11 @@ class ListSamlProvidersResponseBuilder
         Builder<ListSamlProvidersResponse, ListSamlProvidersResponseBuilder> {
   _$ListSamlProvidersResponse? _$v;
 
-  _i3.ListBuilder<_i2.SamlProviderListEntry>? _samlProviderList;
-  _i3.ListBuilder<_i2.SamlProviderListEntry> get samlProviderList =>
-      _$this._samlProviderList ??=
-          new _i3.ListBuilder<_i2.SamlProviderListEntry>();
+  _i2.ListBuilder<SamlProviderListEntry>? _samlProviderList;
+  _i2.ListBuilder<SamlProviderListEntry> get samlProviderList =>
+      _$this._samlProviderList ??= new _i2.ListBuilder<SamlProviderListEntry>();
   set samlProviderList(
-          _i3.ListBuilder<_i2.SamlProviderListEntry>? samlProviderList) =>
+          _i2.ListBuilder<SamlProviderListEntry>? samlProviderList) =>
       _$this._samlProviderList = samlProviderList;
 
   ListSamlProvidersResponseBuilder();

@@ -3,12 +3,11 @@
 
 library amplify_auth_cognito_dart.cognito_identity.model.get_credentials_for_identity_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity/model/credentials.dart'
-    as _i2;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity/model/credentials.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'get_credentials_for_identity_response.g.dart';
 
@@ -22,7 +21,7 @@ abstract class GetCredentialsForIdentityResponse
   /// Returned in response to a successful `GetCredentialsForIdentity` operation.
   factory GetCredentialsForIdentityResponse({
     String? identityId,
-    _i2.Credentials? credentials,
+    Credentials? credentials,
   }) {
     return _$GetCredentialsForIdentityResponse._(
       identityId: identityId,
@@ -44,14 +43,14 @@ abstract class GetCredentialsForIdentityResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<GetCredentialsForIdentityResponse>>
+  static const List<_i2.SmithySerializer<GetCredentialsForIdentityResponse>>
       serializers = [GetCredentialsForIdentityResponseAwsJson11Serializer()];
 
   /// A unique identifier in the format REGION:GUID.
   String? get identityId;
 
   /// Credentials for the provided identity ID.
-  _i2.Credentials? get credentials;
+  Credentials? get credentials;
   @override
   List<Object?> get props => [
         identityId,
@@ -74,7 +73,7 @@ abstract class GetCredentialsForIdentityResponse
 }
 
 class GetCredentialsForIdentityResponseAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<GetCredentialsForIdentityResponse> {
+    extends _i2.StructuredSmithySerializer<GetCredentialsForIdentityResponse> {
   const GetCredentialsForIdentityResponseAwsJson11Serializer()
       : super('GetCredentialsForIdentityResponse');
 
@@ -84,8 +83,8 @@ class GetCredentialsForIdentityResponseAwsJson11Serializer
         _$GetCredentialsForIdentityResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -114,8 +113,8 @@ class GetCredentialsForIdentityResponseAwsJson11Serializer
         case 'Credentials':
           result.credentials.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Credentials),
-          ) as _i2.Credentials));
+            specifiedType: const FullType(Credentials),
+          ) as Credentials));
       }
     }
 
@@ -143,7 +142,7 @@ class GetCredentialsForIdentityResponseAwsJson11Serializer
         ..add('Credentials')
         ..add(serializers.serialize(
           credentials,
-          specifiedType: const FullType(_i2.Credentials),
+          specifiedType: const FullType(Credentials),
         ));
     }
     return result$;
