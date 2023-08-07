@@ -52,9 +52,7 @@ class ForgotPasswordResponseBuilder
           _i2.CodeDeliveryDetailsTypeBuilder? codeDeliveryDetails) =>
       _$this._codeDeliveryDetails = codeDeliveryDetails;
 
-  ForgotPasswordResponseBuilder() {
-    ForgotPasswordResponse._init(this);
-  }
+  ForgotPasswordResponseBuilder();
 
   ForgotPasswordResponseBuilder get _$this {
     final $v = _$v;

@@ -70,9 +70,7 @@ class CodeDeliveryDetailsTypeBuilder
   set attributeName(String? attributeName) =>
       _$this._attributeName = attributeName;
 
-  CodeDeliveryDetailsTypeBuilder() {
-    CodeDeliveryDetailsType._init(this);
-  }
+  CodeDeliveryDetailsTypeBuilder();
 
   CodeDeliveryDetailsTypeBuilder get _$this {
     final $v = _$v;

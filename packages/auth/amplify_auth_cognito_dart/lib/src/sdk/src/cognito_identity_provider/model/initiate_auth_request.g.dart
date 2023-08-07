@@ -109,9 +109,7 @@ class InitiateAuthRequestBuilder
   set userContextData(_i5.UserContextDataTypeBuilder? userContextData) =>
       _$this._userContextData = userContextData;
 
-  InitiateAuthRequestBuilder() {
-    InitiateAuthRequest._init(this);
-  }
+  InitiateAuthRequestBuilder();
 
   InitiateAuthRequestBuilder get _$this {
     final $v = _$v;

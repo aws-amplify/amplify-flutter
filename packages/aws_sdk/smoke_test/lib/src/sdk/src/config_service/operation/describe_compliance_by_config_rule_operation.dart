@@ -38,8 +38,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/no_such_config_rule_
 /// *   The rule's Lambda function is failing to send evaluation results to Config. Verify that the role you assigned to your configuration recorder includes the `config:PutEvaluations` permission. If the rule is a custom rule, verify that the Lambda execution role includes the `config:PutEvaluations` permission.
 ///
 /// *   The rule's Lambda function has returned `NOT_APPLICABLE` for all evaluation results. This can occur if the resources were deleted or removed from the rule's scope.
-class DescribeComplianceByConfigRuleOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeComplianceByConfigRuleOperation extends _i1
+    .PaginatedHttpOperation<
         _i2.DescribeComplianceByConfigRuleRequest,
         _i2.DescribeComplianceByConfigRuleRequest,
         _i3.DescribeComplianceByConfigRuleResponse,

@@ -29,8 +29,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/validation_exception
 /// Returns the resource counts across accounts and regions that are present in your Config aggregator. You can request the resource counts by providing filters and GroupByKey.
 ///
 /// For example, if the input contains accountID 12345678910 and region us-east-1 in filters, the API returns the count of resources in account ID 12345678910 and region us-east-1. If the input contains ACCOUNT_ID as a GroupByKey, the API returns resource counts for all source accounts that are present in your aggregator.
-class GetAggregateDiscoveredResourceCountsOperation
-    extends _i1.PaginatedHttpOperation<
+class GetAggregateDiscoveredResourceCountsOperation extends _i1
+    .PaginatedHttpOperation<
         _i2.GetAggregateDiscoveredResourceCountsRequest,
         _i2.GetAggregateDiscoveredResourceCountsRequest,
         _i3.GetAggregateDiscoveredResourceCountsResponse,

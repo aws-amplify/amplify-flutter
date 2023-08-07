@@ -78,9 +78,7 @@ class UpdateDeviceStatusRequestBuilder
           _i3.DeviceRememberedStatusType? deviceRememberedStatus) =>
       _$this._deviceRememberedStatus = deviceRememberedStatus;
 
-  UpdateDeviceStatusRequestBuilder() {
-    UpdateDeviceStatusRequest._init(this);
-  }
+  UpdateDeviceStatusRequestBuilder();
 
   UpdateDeviceStatusRequestBuilder get _$this {
     final $v = _$v;

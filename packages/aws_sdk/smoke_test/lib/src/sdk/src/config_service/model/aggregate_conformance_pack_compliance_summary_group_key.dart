@@ -36,8 +36,9 @@ class AggregateConformancePackComplianceSummaryGroupKey
   ];
 
   static const List<
-      _i1.SmithySerializer<
-          AggregateConformancePackComplianceSummaryGroupKey>> serializers = [
+          _i1
+          .SmithySerializer<AggregateConformancePackComplianceSummaryGroupKey>>
+      serializers = [
     _i1.SmithyEnumSerializer(
       'AggregateConformancePackComplianceSummaryGroupKey',
       values: values,

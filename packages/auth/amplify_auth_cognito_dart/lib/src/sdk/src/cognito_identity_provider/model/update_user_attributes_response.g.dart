@@ -56,9 +56,7 @@ class UpdateUserAttributesResponseBuilder
               codeDeliveryDetailsList) =>
       _$this._codeDeliveryDetailsList = codeDeliveryDetailsList;
 
-  UpdateUserAttributesResponseBuilder() {
-    UpdateUserAttributesResponse._init(this);
-  }
+  UpdateUserAttributesResponseBuilder();
 
   UpdateUserAttributesResponseBuilder get _$this {
     final $v = _$v;

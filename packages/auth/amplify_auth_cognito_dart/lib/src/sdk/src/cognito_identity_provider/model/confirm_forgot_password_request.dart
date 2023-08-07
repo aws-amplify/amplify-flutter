@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.confirm_forgot_password_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -64,13 +64,10 @@ abstract class ConfirmForgotPasswordRequest
   static const List<_i1.SmithySerializer<ConfirmForgotPasswordRequest>>
       serializers = [ConfirmForgotPasswordRequestAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConfirmForgotPasswordRequestBuilder b) {}
-
   /// The app client ID of the app associated with the user pool.
   String get clientId;
 
-  /// A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and username plus the client ID in the message.
+  /// A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and username plus the client ID in the message. For more information about `SecretHash`, see [Computing secret hash values](https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash).
   String? get secretHash;
 
   /// The user name of the user for whom you want to enter a code to retrieve a forgotten password.

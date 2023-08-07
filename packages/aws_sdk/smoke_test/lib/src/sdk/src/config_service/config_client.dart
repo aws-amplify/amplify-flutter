@@ -1594,8 +1594,9 @@ class ConfigClient {
 
   /// Returns the evaluation results for the specified Config rule. The results indicate which Amazon Web Services resources were evaluated by the rule, when each resource was last evaluated, and whether each resource complies with the rule.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i138.EvaluationResult>, int,
-          String>> getComplianceDetailsByConfigRule(
+          _i3
+          .PaginatedResult<_i50.BuiltList<_i138.EvaluationResult>, int, String>>
+      getComplianceDetailsByConfigRule(
     _i139.GetComplianceDetailsByConfigRuleRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,

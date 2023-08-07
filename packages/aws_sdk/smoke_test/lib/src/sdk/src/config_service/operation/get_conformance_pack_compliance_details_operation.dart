@@ -29,8 +29,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/no_such_conformance_
     as _i13;
 
 /// Returns compliance details of a conformance pack for all Amazon Web Services resources that are monitered by conformance pack.
-class GetConformancePackComplianceDetailsOperation
-    extends _i1.PaginatedHttpOperation<
+class GetConformancePackComplianceDetailsOperation extends _i1
+    .PaginatedHttpOperation<
         _i2.GetConformancePackComplianceDetailsRequest,
         _i2.GetConformancePackComplianceDetailsRequest,
         _i3.GetConformancePackComplianceDetailsResponse,

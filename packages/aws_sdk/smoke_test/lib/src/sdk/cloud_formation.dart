@@ -142,6 +142,8 @@ export 'package:smoke_test/src/sdk/src/cloud_formation/model/list_exports_input.
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/list_exports_output.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/list_imports_input.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/list_imports_output.dart';
+export 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_instance_resource_drifts_input.dart';
+export 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_instance_resource_drifts_output.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_instances_input.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_instances_output.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_resources_input.dart';
@@ -227,6 +229,7 @@ export 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_deta
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_filter.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_filter_name.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_not_found_exception.dart';
+export 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_resource_drifts_summary.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_status.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_summary.dart';
 export 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_not_found_exception.dart';

@@ -80,9 +80,7 @@ class UpdateUserAttributesRequestBuilder
   set clientMetadata(_i4.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
-  UpdateUserAttributesRequestBuilder() {
-    UpdateUserAttributesRequest._init(this);
-  }
+  UpdateUserAttributesRequestBuilder();
 
   UpdateUserAttributesRequestBuilder get _$this {
     final $v = _$v;

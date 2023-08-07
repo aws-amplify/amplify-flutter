@@ -30,8 +30,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/no_such_configuratio
     as _i14;
 
 /// Returns the details of one or more configuration aggregators. If the configuration aggregator is not specified, this action returns the details for all the configuration aggregators associated with the account.
-class DescribeConfigurationAggregatorsOperation
-    extends _i1.PaginatedHttpOperation<
+class DescribeConfigurationAggregatorsOperation extends _i1
+    .PaginatedHttpOperation<
         _i2.DescribeConfigurationAggregatorsRequest,
         _i2.DescribeConfigurationAggregatorsRequest,
         _i3.DescribeConfigurationAggregatorsResponse,

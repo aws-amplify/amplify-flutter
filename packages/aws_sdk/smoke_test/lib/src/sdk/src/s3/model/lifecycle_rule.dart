@@ -35,8 +35,9 @@ abstract class LifecycleRule
   factory LifecycleRule({
     _i2.LifecycleExpiration? expiration,
     String? id,
-    @Deprecated('No longer recommended for use. See API documentation for more details.')
-        String? prefix,
+    @Deprecated(
+        'No longer recommended for use. See API documentation for more details.')
+    String? prefix,
     _i3.LifecycleRuleFilter? filter,
     required _i4.ExpirationStatus status,
     List<_i5.Transition>? transitions,

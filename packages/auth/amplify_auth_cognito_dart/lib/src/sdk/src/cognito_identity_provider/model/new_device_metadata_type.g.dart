@@ -58,9 +58,7 @@ class NewDeviceMetadataTypeBuilder
   set deviceGroupKey(String? deviceGroupKey) =>
       _$this._deviceGroupKey = deviceGroupKey;
 
-  NewDeviceMetadataTypeBuilder() {
-    NewDeviceMetadataType._init(this);
-  }
+  NewDeviceMetadataTypeBuilder();
 
   NewDeviceMetadataTypeBuilder get _$this {
     final $v = _$v;

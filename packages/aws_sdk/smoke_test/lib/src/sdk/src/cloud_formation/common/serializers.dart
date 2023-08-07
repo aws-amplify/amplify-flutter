@@ -3,15 +3,15 @@
 
 library smoke_test.cloud_formation.common.serializers; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:built_collection/built_collection.dart' as _i274;
+import 'package:built_collection/built_collection.dart' as _i277;
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/account_filter_type.dart'
     as _i39;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/account_gate_result.dart'
-    as _i215;
+    as _i218;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/account_gate_status.dart'
-    as _i214;
+    as _i217;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/account_limit.dart'
     as _i74;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/activate_organizations_access_input.dart'
@@ -39,7 +39,7 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/cancel_update_stack
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/capability.dart'
     as _i24;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/category.dart'
-    as _i233;
+    as _i236;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/cfn_registry_exception.dart'
     as _i11;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/change.dart'
@@ -223,7 +223,7 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/get_template_summar
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/get_template_summary_output.dart'
     as _i189;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/handler_error_code.dart'
-    as _i241;
+    as _i244;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/hook_failure_mode.dart'
     as _i95;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/hook_invocation_point.dart'
@@ -245,7 +245,7 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/invalid_change_set_
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/invalid_operation_exception.dart'
     as _i4;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/invalid_state_transition_exception.dart'
-    as _i244;
+    as _i247;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/limit_exceeded_exception.dart'
     as _i35;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_change_sets_input.dart'
@@ -260,42 +260,46 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_imports_input.
     as _i199;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_imports_output.dart'
     as _i200;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_instances_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_instance_resource_drifts_input.dart'
+    as _i201;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_instance_resource_drifts_output.dart'
     as _i203;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_instances_output.dart'
-    as _i205;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_resources_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_instances_input.dart'
     as _i206;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_resources_output.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_instances_output.dart'
+    as _i208;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_resources_input.dart'
     as _i209;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_set_operation_results_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_resources_output.dart'
     as _i212;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_set_operation_results_input.dart'
+    as _i215;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_set_operation_results_output.dart'
-    as _i217;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_set_operations_input.dart'
-    as _i218;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_set_operations_output.dart'
     as _i220;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_sets_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_set_operations_input.dart'
     as _i221;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_sets_output.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_set_operations_output.dart'
     as _i223;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stacks_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_sets_input.dart'
     as _i224;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stacks_output.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stack_sets_output.dart'
+    as _i226;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stacks_input.dart'
     as _i227;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_type_registrations_input.dart'
-    as _i228;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_type_registrations_output.dart'
-    as _i229;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_type_versions_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_stacks_output.dart'
     as _i230;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_type_versions_output.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_type_registrations_input.dart'
+    as _i231;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_type_registrations_output.dart'
     as _i232;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_types_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_type_versions_input.dart'
+    as _i233;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_type_versions_output.dart'
     as _i235;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_types_input.dart'
+    as _i238;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_types_output.dart'
-    as _i237;
+    as _i240;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/logging_config.dart'
     as _i7;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/managed_execution.dart'
@@ -315,13 +319,13 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/operation_in_progre
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/operation_not_found_exception.dart'
     as _i5;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/operation_result_filter.dart'
-    as _i211;
+    as _i214;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/operation_result_filter_name.dart'
-    as _i210;
+    as _i213;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/operation_status.dart'
-    as _i240;
+    as _i243;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/operation_status_check_failed_exception.dart'
-    as _i245;
+    as _i248;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/organization_status.dart'
     as _i103;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/output.dart'
@@ -341,25 +345,25 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/property_difference
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/provisioning_type.dart'
     as _i160;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/publish_type_input.dart'
-    as _i238;
+    as _i241;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/publish_type_output.dart'
-    as _i239;
+    as _i242;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/publisher_status.dart'
     as _i106;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/record_handler_progress_input.dart'
-    as _i242;
+    as _i245;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/record_handler_progress_output.dart'
-    as _i243;
+    as _i246;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/region_concurrency_type.dart'
     as _i41;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/register_publisher_input.dart'
-    as _i246;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/register_publisher_output.dart'
-    as _i247;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/register_type_input.dart'
-    as _i248;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/register_type_output.dart'
     as _i249;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/register_publisher_output.dart'
+    as _i250;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/register_type_input.dart'
+    as _i251;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/register_type_output.dart'
+    as _i252;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/registration_status.dart'
     as _i166;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/registry_type.dart'
@@ -379,7 +383,7 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/resource_change_det
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/resource_identifier_summary.dart'
     as _i187;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/resource_signal_status.dart'
-    as _i257;
+    as _i260;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/resource_status.dart'
     as _i114;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/resource_target_definition.dart'
@@ -389,23 +393,23 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/resource_to_import.
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/rollback_configuration.dart'
     as _i26;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/rollback_stack_input.dart'
-    as _i250;
+    as _i253;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/rollback_stack_output.dart'
-    as _i251;
+    as _i254;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/rollback_trigger.dart'
     as _i25;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/set_stack_policy_input.dart'
-    as _i252;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/set_type_configuration_input.dart'
-    as _i253;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/set_type_configuration_output.dart'
-    as _i254;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/set_type_default_version_input.dart'
     as _i255;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/set_type_default_version_output.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/set_type_configuration_input.dart'
     as _i256;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/signal_resource_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/set_type_configuration_output.dart'
+    as _i257;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/set_type_default_version_input.dart'
     as _i258;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/set_type_default_version_output.dart'
+    as _i259;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/signal_resource_input.dart'
+    as _i261;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack.dart'
     as _i156;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_drift_detection_status.dart'
@@ -413,7 +417,7 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_drift_detecti
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_drift_information.dart'
     as _i155;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_drift_information_summary.dart'
-    as _i225;
+    as _i228;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_drift_status.dart'
     as _i110;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_event.dart'
@@ -425,15 +429,17 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_comp
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_detailed_status.dart'
     as _i120;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_filter.dart'
-    as _i202;
+    as _i205;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_filter_name.dart'
-    as _i201;
+    as _i204;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_not_found_exception.dart'
     as _i124;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_resource_drifts_summary.dart'
+    as _i202;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_status.dart'
     as _i119;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_summary.dart'
-    as _i204;
+    as _i207;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_not_found_exception.dart'
     as _i192;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_resource.dart'
@@ -445,11 +451,11 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_resource_drif
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_resource_drift_information.dart'
     as _i127;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_resource_drift_information_summary.dart'
-    as _i207;
+    as _i210;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_resource_drift_status.dart'
     as _i126;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_resource_summary.dart'
-    as _i208;
+    as _i211;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set.dart'
     as _i144;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_drift_detection_details.dart'
@@ -469,40 +475,40 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_preferences.dart'
     as _i42;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_result_status.dart'
-    as _i213;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_result_summary.dart'
     as _i216;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_result_summary.dart'
+    as _i219;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_status.dart'
     as _i148;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_status_details.dart'
     as _i149;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_summary.dart'
-    as _i219;
+    as _i222;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_status.dart'
     as _i140;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_summary.dart'
-    as _i222;
+    as _i225;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_status.dart'
     as _i153;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_summary.dart'
-    as _i226;
+    as _i229;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stale_request_exception.dart'
     as _i49;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stop_stack_set_operation_input.dart'
-    as _i259;
+    as _i262;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/stop_stack_set_operation_output.dart'
-    as _i260;
+    as _i263;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/tag.dart' as _i27;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/template_parameter.dart'
-    as _i272;
+    as _i275;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/template_stage.dart'
     as _i180;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/template_summary_config.dart'
     as _i183;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/test_type_input.dart'
-    as _i261;
+    as _i264;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/test_type_output.dart'
-    as _i262;
+    as _i265;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/third_party_type.dart'
     as _i6;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/token_already_exists_exception.dart'
@@ -514,35 +520,35 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/type_configuration_
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/type_configuration_not_found_exception.dart'
     as _i18;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/type_filters.dart'
-    as _i234;
+    as _i237;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/type_not_found_exception.dart'
     as _i12;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/type_summary.dart'
-    as _i236;
+    as _i239;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/type_tests_status.dart'
     as _i159;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/type_version_summary.dart'
-    as _i231;
+    as _i234;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_stack_input.dart'
-    as _i263;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_stack_instances_input.dart'
-    as _i265;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_stack_instances_output.dart'
     as _i266;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_stack_output.dart'
-    as _i264;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_stack_set_input.dart'
-    as _i267;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_stack_set_output.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_stack_instances_input.dart'
     as _i268;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_termination_protection_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_stack_instances_output.dart'
     as _i269;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_termination_protection_output.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_stack_output.dart'
+    as _i267;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_stack_set_input.dart'
     as _i270;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/validate_template_input.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_stack_set_output.dart'
     as _i271;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/validate_template_output.dart'
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_termination_protection_input.dart'
+    as _i272;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/update_termination_protection_output.dart'
     as _i273;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/validate_template_input.dart'
+    as _i274;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/validate_template_output.dart'
+    as _i276;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/version_bump.dart'
     as _i8;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/visibility.dart'
@@ -750,250 +756,257 @@ const List<_i1.SmithySerializer> serializers = [
   ..._i198.ListExportsOutput.serializers,
   ..._i199.ListImportsInput.serializers,
   ..._i200.ListImportsOutput.serializers,
-  ..._i201.StackInstanceFilterName.serializers,
-  ..._i202.StackInstanceFilter.serializers,
-  ..._i203.ListStackInstancesInput.serializers,
-  ..._i204.StackInstanceSummary.serializers,
-  ..._i205.ListStackInstancesOutput.serializers,
-  ..._i206.ListStackResourcesInput.serializers,
-  ..._i207.StackResourceDriftInformationSummary.serializers,
-  ..._i208.StackResourceSummary.serializers,
-  ..._i209.ListStackResourcesOutput.serializers,
-  ..._i210.OperationResultFilterName.serializers,
-  ..._i211.OperationResultFilter.serializers,
-  ..._i212.ListStackSetOperationResultsInput.serializers,
-  ..._i213.StackSetOperationResultStatus.serializers,
-  ..._i214.AccountGateStatus.serializers,
-  ..._i215.AccountGateResult.serializers,
-  ..._i216.StackSetOperationResultSummary.serializers,
-  ..._i217.ListStackSetOperationResultsOutput.serializers,
-  ..._i218.ListStackSetOperationsInput.serializers,
-  ..._i219.StackSetOperationSummary.serializers,
-  ..._i220.ListStackSetOperationsOutput.serializers,
-  ..._i221.ListStackSetsInput.serializers,
-  ..._i222.StackSetSummary.serializers,
-  ..._i223.ListStackSetsOutput.serializers,
-  ..._i224.ListStacksInput.serializers,
-  ..._i225.StackDriftInformationSummary.serializers,
-  ..._i226.StackSummary.serializers,
-  ..._i227.ListStacksOutput.serializers,
-  ..._i228.ListTypeRegistrationsInput.serializers,
-  ..._i229.ListTypeRegistrationsOutput.serializers,
-  ..._i230.ListTypeVersionsInput.serializers,
-  ..._i231.TypeVersionSummary.serializers,
-  ..._i232.ListTypeVersionsOutput.serializers,
-  ..._i233.Category.serializers,
-  ..._i234.TypeFilters.serializers,
-  ..._i235.ListTypesInput.serializers,
-  ..._i236.TypeSummary.serializers,
-  ..._i237.ListTypesOutput.serializers,
-  ..._i238.PublishTypeInput.serializers,
-  ..._i239.PublishTypeOutput.serializers,
-  ..._i240.OperationStatus.serializers,
-  ..._i241.HandlerErrorCode.serializers,
-  ..._i242.RecordHandlerProgressInput.serializers,
-  ..._i243.RecordHandlerProgressOutput.serializers,
-  ..._i244.InvalidStateTransitionException.serializers,
-  ..._i245.OperationStatusCheckFailedException.serializers,
-  ..._i246.RegisterPublisherInput.serializers,
-  ..._i247.RegisterPublisherOutput.serializers,
-  ..._i248.RegisterTypeInput.serializers,
-  ..._i249.RegisterTypeOutput.serializers,
-  ..._i250.RollbackStackInput.serializers,
-  ..._i251.RollbackStackOutput.serializers,
-  ..._i252.SetStackPolicyInput.serializers,
-  ..._i253.SetTypeConfigurationInput.serializers,
-  ..._i254.SetTypeConfigurationOutput.serializers,
-  ..._i255.SetTypeDefaultVersionInput.serializers,
-  ..._i256.SetTypeDefaultVersionOutput.serializers,
-  ..._i257.ResourceSignalStatus.serializers,
-  ..._i258.SignalResourceInput.serializers,
-  ..._i259.StopStackSetOperationInput.serializers,
-  ..._i260.StopStackSetOperationOutput.serializers,
-  ..._i261.TestTypeInput.serializers,
-  ..._i262.TestTypeOutput.serializers,
-  ..._i263.UpdateStackInput.serializers,
-  ..._i264.UpdateStackOutput.serializers,
-  ..._i265.UpdateStackInstancesInput.serializers,
-  ..._i266.UpdateStackInstancesOutput.serializers,
-  ..._i267.UpdateStackSetInput.serializers,
-  ..._i268.UpdateStackSetOutput.serializers,
-  ..._i269.UpdateTerminationProtectionInput.serializers,
-  ..._i270.UpdateTerminationProtectionOutput.serializers,
-  ..._i271.ValidateTemplateInput.serializers,
-  ..._i272.TemplateParameter.serializers,
-  ..._i273.ValidateTemplateOutput.serializers,
+  ..._i201.ListStackInstanceResourceDriftsInput.serializers,
+  ..._i202.StackInstanceResourceDriftsSummary.serializers,
+  ..._i203.ListStackInstanceResourceDriftsOutput.serializers,
+  ..._i204.StackInstanceFilterName.serializers,
+  ..._i205.StackInstanceFilter.serializers,
+  ..._i206.ListStackInstancesInput.serializers,
+  ..._i207.StackInstanceSummary.serializers,
+  ..._i208.ListStackInstancesOutput.serializers,
+  ..._i209.ListStackResourcesInput.serializers,
+  ..._i210.StackResourceDriftInformationSummary.serializers,
+  ..._i211.StackResourceSummary.serializers,
+  ..._i212.ListStackResourcesOutput.serializers,
+  ..._i213.OperationResultFilterName.serializers,
+  ..._i214.OperationResultFilter.serializers,
+  ..._i215.ListStackSetOperationResultsInput.serializers,
+  ..._i216.StackSetOperationResultStatus.serializers,
+  ..._i217.AccountGateStatus.serializers,
+  ..._i218.AccountGateResult.serializers,
+  ..._i219.StackSetOperationResultSummary.serializers,
+  ..._i220.ListStackSetOperationResultsOutput.serializers,
+  ..._i221.ListStackSetOperationsInput.serializers,
+  ..._i222.StackSetOperationSummary.serializers,
+  ..._i223.ListStackSetOperationsOutput.serializers,
+  ..._i224.ListStackSetsInput.serializers,
+  ..._i225.StackSetSummary.serializers,
+  ..._i226.ListStackSetsOutput.serializers,
+  ..._i227.ListStacksInput.serializers,
+  ..._i228.StackDriftInformationSummary.serializers,
+  ..._i229.StackSummary.serializers,
+  ..._i230.ListStacksOutput.serializers,
+  ..._i231.ListTypeRegistrationsInput.serializers,
+  ..._i232.ListTypeRegistrationsOutput.serializers,
+  ..._i233.ListTypeVersionsInput.serializers,
+  ..._i234.TypeVersionSummary.serializers,
+  ..._i235.ListTypeVersionsOutput.serializers,
+  ..._i236.Category.serializers,
+  ..._i237.TypeFilters.serializers,
+  ..._i238.ListTypesInput.serializers,
+  ..._i239.TypeSummary.serializers,
+  ..._i240.ListTypesOutput.serializers,
+  ..._i241.PublishTypeInput.serializers,
+  ..._i242.PublishTypeOutput.serializers,
+  ..._i243.OperationStatus.serializers,
+  ..._i244.HandlerErrorCode.serializers,
+  ..._i245.RecordHandlerProgressInput.serializers,
+  ..._i246.RecordHandlerProgressOutput.serializers,
+  ..._i247.InvalidStateTransitionException.serializers,
+  ..._i248.OperationStatusCheckFailedException.serializers,
+  ..._i249.RegisterPublisherInput.serializers,
+  ..._i250.RegisterPublisherOutput.serializers,
+  ..._i251.RegisterTypeInput.serializers,
+  ..._i252.RegisterTypeOutput.serializers,
+  ..._i253.RollbackStackInput.serializers,
+  ..._i254.RollbackStackOutput.serializers,
+  ..._i255.SetStackPolicyInput.serializers,
+  ..._i256.SetTypeConfigurationInput.serializers,
+  ..._i257.SetTypeConfigurationOutput.serializers,
+  ..._i258.SetTypeDefaultVersionInput.serializers,
+  ..._i259.SetTypeDefaultVersionOutput.serializers,
+  ..._i260.ResourceSignalStatus.serializers,
+  ..._i261.SignalResourceInput.serializers,
+  ..._i262.StopStackSetOperationInput.serializers,
+  ..._i263.StopStackSetOperationOutput.serializers,
+  ..._i264.TestTypeInput.serializers,
+  ..._i265.TestTypeOutput.serializers,
+  ..._i266.UpdateStackInput.serializers,
+  ..._i267.UpdateStackOutput.serializers,
+  ..._i268.UpdateStackInstancesInput.serializers,
+  ..._i269.UpdateStackInstancesOutput.serializers,
+  ..._i270.UpdateStackSetInput.serializers,
+  ..._i271.UpdateStackSetOutput.serializers,
+  ..._i272.UpdateTerminationProtectionInput.serializers,
+  ..._i273.UpdateTerminationProtectionOutput.serializers,
+  ..._i274.ValidateTemplateInput.serializers,
+  ..._i275.TemplateParameter.serializers,
+  ..._i276.ValidateTemplateOutput.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i13.TypeConfigurationIdentifier)],
-  ): _i274.ListBuilder<_i13.TypeConfigurationIdentifier>.new,
+  ): _i277.ListBuilder<_i13.TypeConfigurationIdentifier>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i15.BatchDescribeTypeConfigurationsError)],
-  ): _i274.ListBuilder<_i15.BatchDescribeTypeConfigurationsError>.new,
+  ): _i277.ListBuilder<_i15.BatchDescribeTypeConfigurationsError>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i16.TypeConfigurationDetails)],
-  ): _i274.ListBuilder<_i16.TypeConfigurationDetails>.new,
+  ): _i277.ListBuilder<_i16.TypeConfigurationDetails>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(String)],
-  ): _i274.ListBuilder<String>.new,
+  ): _i277.ListBuilder<String>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i25.RollbackTrigger)],
-  ): _i274.ListBuilder<_i25.RollbackTrigger>.new,
+  ): _i277.ListBuilder<_i25.RollbackTrigger>.new,
   const FullType(
-    _i274.BuiltMap,
+    _i277.BuiltMap,
     [
       FullType(String),
       FullType(String),
     ],
-  ): _i274.MapBuilder<String, String>.new,
+  ): _i277.MapBuilder<String, String>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i24.Capability)],
-  ): _i274.ListBuilder<_i24.Capability>.new,
+  ): _i277.ListBuilder<_i24.Capability>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i23.Parameter)],
-  ): _i274.ListBuilder<_i23.Parameter>.new,
+  ): _i277.ListBuilder<_i23.Parameter>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i29.ResourceToImport)],
-  ): _i274.ListBuilder<_i29.ResourceToImport>.new,
+  ): _i277.ListBuilder<_i29.ResourceToImport>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i27.Tag)],
-  ): _i274.ListBuilder<_i27.Tag>.new,
+  ): _i277.ListBuilder<_i27.Tag>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i74.AccountLimit)],
-  ): _i274.ListBuilder<_i74.AccountLimit>.new,
+  ): _i277.ListBuilder<_i74.AccountLimit>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i87.ResourceChangeDetail)],
-  ): _i274.ListBuilder<_i87.ResourceChangeDetail>.new,
+  ): _i277.ListBuilder<_i87.ResourceChangeDetail>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i82.ResourceAttribute)],
-  ): _i274.ListBuilder<_i82.ResourceAttribute>.new,
+  ): _i277.ListBuilder<_i82.ResourceAttribute>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i90.Change)],
-  ): _i274.ListBuilder<_i90.Change>.new,
+  ): _i277.ListBuilder<_i90.Change>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i99.ChangeSetHook)],
-  ): _i274.ListBuilder<_i99.ChangeSetHook>.new,
+  ): _i277.ListBuilder<_i99.ChangeSetHook>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i116.StackEvent)],
-  ): _i274.ListBuilder<_i116.StackEvent>.new,
+  ): _i277.ListBuilder<_i116.StackEvent>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i126.StackResourceDriftStatus)],
-  ): _i274.ListBuilder<_i126.StackResourceDriftStatus>.new,
+  ): _i277.ListBuilder<_i126.StackResourceDriftStatus>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i131.PhysicalResourceIdContextKeyValuePair)],
-  ): _i274.ListBuilder<_i131.PhysicalResourceIdContextKeyValuePair>.new,
+  ): _i277.ListBuilder<_i131.PhysicalResourceIdContextKeyValuePair>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i133.PropertyDifference)],
-  ): _i274.ListBuilder<_i133.PropertyDifference>.new,
+  ): _i277.ListBuilder<_i133.PropertyDifference>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i134.StackResourceDrift)],
-  ): _i274.ListBuilder<_i134.StackResourceDrift>.new,
+  ): _i277.ListBuilder<_i134.StackResourceDrift>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i137.StackResource)],
-  ): _i274.ListBuilder<_i137.StackResource>.new,
+  ): _i277.ListBuilder<_i137.StackResource>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i156.Stack)],
-  ): _i274.ListBuilder<_i156.Stack>.new,
+  ): _i277.ListBuilder<_i156.Stack>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i154.Output)],
-  ): _i274.ListBuilder<_i154.Output>.new,
+  ): _i277.ListBuilder<_i154.Output>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(int)],
-  ): _i274.ListBuilder<int>.new,
+  ): _i277.ListBuilder<int>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i162.RequiredActivatedType)],
-  ): _i274.ListBuilder<_i162.RequiredActivatedType>.new,
+  ): _i277.ListBuilder<_i162.RequiredActivatedType>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i180.TemplateStage)],
-  ): _i274.ListBuilder<_i180.TemplateStage>.new,
+  ): _i277.ListBuilder<_i180.TemplateStage>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i186.ParameterDeclaration)],
-  ): _i274.ListBuilder<_i186.ParameterDeclaration>.new,
+  ): _i277.ListBuilder<_i186.ParameterDeclaration>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i187.ResourceIdentifierSummary)],
-  ): _i274.ListBuilder<_i187.ResourceIdentifierSummary>.new,
+  ): _i277.ListBuilder<_i187.ResourceIdentifierSummary>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i194.ChangeSetSummary)],
-  ): _i274.ListBuilder<_i194.ChangeSetSummary>.new,
+  ): _i277.ListBuilder<_i194.ChangeSetSummary>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
     [FullType(_i197.Export)],
-  ): _i274.ListBuilder<_i197.Export>.new,
+  ): _i277.ListBuilder<_i197.Export>.new,
   const FullType(
-    _i274.BuiltList,
-    [FullType(_i204.StackInstanceSummary)],
-  ): _i274.ListBuilder<_i204.StackInstanceSummary>.new,
+    _i277.BuiltList,
+    [FullType(_i202.StackInstanceResourceDriftsSummary)],
+  ): _i277.ListBuilder<_i202.StackInstanceResourceDriftsSummary>.new,
   const FullType(
-    _i274.BuiltList,
-    [FullType(_i202.StackInstanceFilter)],
-  ): _i274.ListBuilder<_i202.StackInstanceFilter>.new,
+    _i277.BuiltList,
+    [FullType(_i207.StackInstanceSummary)],
+  ): _i277.ListBuilder<_i207.StackInstanceSummary>.new,
   const FullType(
-    _i274.BuiltList,
-    [FullType(_i208.StackResourceSummary)],
-  ): _i274.ListBuilder<_i208.StackResourceSummary>.new,
+    _i277.BuiltList,
+    [FullType(_i205.StackInstanceFilter)],
+  ): _i277.ListBuilder<_i205.StackInstanceFilter>.new,
   const FullType(
-    _i274.BuiltList,
-    [FullType(_i216.StackSetOperationResultSummary)],
-  ): _i274.ListBuilder<_i216.StackSetOperationResultSummary>.new,
+    _i277.BuiltList,
+    [FullType(_i211.StackResourceSummary)],
+  ): _i277.ListBuilder<_i211.StackResourceSummary>.new,
   const FullType(
-    _i274.BuiltList,
-    [FullType(_i211.OperationResultFilter)],
-  ): _i274.ListBuilder<_i211.OperationResultFilter>.new,
+    _i277.BuiltList,
+    [FullType(_i219.StackSetOperationResultSummary)],
+  ): _i277.ListBuilder<_i219.StackSetOperationResultSummary>.new,
   const FullType(
-    _i274.BuiltList,
-    [FullType(_i219.StackSetOperationSummary)],
-  ): _i274.ListBuilder<_i219.StackSetOperationSummary>.new,
+    _i277.BuiltList,
+    [FullType(_i214.OperationResultFilter)],
+  ): _i277.ListBuilder<_i214.OperationResultFilter>.new,
   const FullType(
-    _i274.BuiltList,
-    [FullType(_i222.StackSetSummary)],
-  ): _i274.ListBuilder<_i222.StackSetSummary>.new,
+    _i277.BuiltList,
+    [FullType(_i222.StackSetOperationSummary)],
+  ): _i277.ListBuilder<_i222.StackSetOperationSummary>.new,
   const FullType(
-    _i274.BuiltList,
-    [FullType(_i226.StackSummary)],
-  ): _i274.ListBuilder<_i226.StackSummary>.new,
+    _i277.BuiltList,
+    [FullType(_i225.StackSetSummary)],
+  ): _i277.ListBuilder<_i225.StackSetSummary>.new,
   const FullType(
-    _i274.BuiltList,
+    _i277.BuiltList,
+    [FullType(_i229.StackSummary)],
+  ): _i277.ListBuilder<_i229.StackSummary>.new,
+  const FullType(
+    _i277.BuiltList,
     [FullType(_i153.StackStatus)],
-  ): _i274.ListBuilder<_i153.StackStatus>.new,
+  ): _i277.ListBuilder<_i153.StackStatus>.new,
   const FullType(
-    _i274.BuiltList,
-    [FullType(_i231.TypeVersionSummary)],
-  ): _i274.ListBuilder<_i231.TypeVersionSummary>.new,
+    _i277.BuiltList,
+    [FullType(_i234.TypeVersionSummary)],
+  ): _i277.ListBuilder<_i234.TypeVersionSummary>.new,
   const FullType(
-    _i274.BuiltList,
-    [FullType(_i236.TypeSummary)],
-  ): _i274.ListBuilder<_i236.TypeSummary>.new,
+    _i277.BuiltList,
+    [FullType(_i239.TypeSummary)],
+  ): _i277.ListBuilder<_i239.TypeSummary>.new,
   const FullType(
-    _i274.BuiltList,
-    [FullType(_i272.TemplateParameter)],
-  ): _i274.ListBuilder<_i272.TemplateParameter>.new,
+    _i277.BuiltList,
+    [FullType(_i275.TemplateParameter)],
+  ): _i277.ListBuilder<_i275.TemplateParameter>.new,
 };

@@ -108,7 +108,7 @@ class AutoScalingPolicyDescriptionAwsJson10Serializer
           ) as String);
         case 'TargetTrackingScalingPolicyConfiguration':
           result.targetTrackingScalingPolicyConfiguration.replace((serializers
-              .deserialize(
+                  .deserialize(
             value,
             specifiedType: const FullType(_i2
                 .AutoScalingTargetTrackingScalingPolicyConfigurationDescription),

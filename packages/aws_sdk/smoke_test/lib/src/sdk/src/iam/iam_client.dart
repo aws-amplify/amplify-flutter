@@ -2617,8 +2617,9 @@ class IamClient {
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters. You can use the `PathPrefix` parameter to limit the list of policies to only those matching the specified path prefix. If there are no policies attached to the specified group (or none that match the specified path prefix), the operation returns an empty list.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i140.BuiltList<_i203.AttachedPolicy>, int,
-          String>> listAttachedGroupPolicies(
+          _i3
+          .PaginatedResult<_i140.BuiltList<_i203.AttachedPolicy>, int, String>>
+      listAttachedGroupPolicies(
     _i204.ListAttachedGroupPoliciesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -2641,8 +2642,9 @@ class IamClient {
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters. You can use the `PathPrefix` parameter to limit the list of policies to only those matching the specified path prefix. If there are no policies attached to the specified role (or none that match the specified path prefix), the operation returns an empty list.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i140.BuiltList<_i203.AttachedPolicy>, int,
-          String>> listAttachedRolePolicies(
+          _i3
+          .PaginatedResult<_i140.BuiltList<_i203.AttachedPolicy>, int, String>>
+      listAttachedRolePolicies(
     _i206.ListAttachedRolePoliciesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -2665,8 +2667,9 @@ class IamClient {
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters. You can use the `PathPrefix` parameter to limit the list of policies to only those matching the specified path prefix. If there are no policies attached to the specified group (or none that match the specified path prefix), the operation returns an empty list.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i140.BuiltList<_i203.AttachedPolicy>, int,
-          String>> listAttachedUserPolicies(
+          _i3
+          .PaginatedResult<_i140.BuiltList<_i203.AttachedPolicy>, int, String>>
+      listAttachedUserPolicies(
     _i208.ListAttachedUserPoliciesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -2800,8 +2803,9 @@ class IamClient {
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i140.BuiltList<_i223.InstanceProfile>, int,
-          String>> listInstanceProfiles(
+          _i3
+          .PaginatedResult<_i140.BuiltList<_i223.InstanceProfile>, int, String>>
+      listInstanceProfiles(
     _i224.ListInstanceProfilesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -2822,8 +2826,9 @@ class IamClient {
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i140.BuiltList<_i223.InstanceProfile>, int,
-          String>> listInstanceProfilesForRole(
+          _i3
+          .PaginatedResult<_i140.BuiltList<_i223.InstanceProfile>, int, String>>
+      listInstanceProfilesForRole(
     _i226.ListInstanceProfilesForRoleRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
@@ -3011,8 +3016,9 @@ class IamClient {
   ///
   /// For more information about managed policies, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i140.BuiltList<_i246.PolicyVersion>, int,
-          String>> listPolicyVersions(
+          _i3
+          .PaginatedResult<_i140.BuiltList<_i246.PolicyVersion>, int, String>>
+      listPolicyVersions(
     _i247.ListPolicyVersionsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,

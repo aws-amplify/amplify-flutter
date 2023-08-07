@@ -51,9 +51,7 @@ class GetDeviceResponseBuilder
       _$this._device ??= new _i2.DeviceTypeBuilder();
   set device(_i2.DeviceTypeBuilder? device) => _$this._device = device;
 
-  GetDeviceResponseBuilder() {
-    GetDeviceResponse._init(this);
-  }
+  GetDeviceResponseBuilder();
 
   GetDeviceResponseBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.too_many_failed_attempts_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,9 +41,6 @@ abstract class TooManyFailedAttemptsException
 
   static const List<_i2.SmithySerializer<TooManyFailedAttemptsException>>
       serializers = [TooManyFailedAttemptsExceptionAwsJson11Serializer()];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TooManyFailedAttemptsExceptionBuilder b) {}
 
   /// The message returned when Amazon Cognito returns a `TooManyFailedAttempts` exception.
   @override

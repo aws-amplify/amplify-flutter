@@ -33,8 +33,8 @@ import 'package:smoke_test/src/sdk/src/iam/model/no_such_entity_exception.dart'
 /// If the operation fails, the `GetServiceLastAccessedDetailsWithEntities` operation returns the reason that it failed.
 ///
 /// By default, the list of associated entities is sorted by date, with the most recent access listed first.
-class GetServiceLastAccessedDetailsWithEntitiesOperation
-    extends _i1.HttpOperation<
+class GetServiceLastAccessedDetailsWithEntitiesOperation extends _i1
+    .HttpOperation<
         _i2.GetServiceLastAccessedDetailsWithEntitiesRequest,
         _i2.GetServiceLastAccessedDetailsWithEntitiesRequest,
         _i3.GetServiceLastAccessedDetailsWithEntitiesResponse,

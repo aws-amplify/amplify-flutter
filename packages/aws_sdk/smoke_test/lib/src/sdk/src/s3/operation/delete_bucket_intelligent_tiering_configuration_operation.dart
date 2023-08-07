@@ -29,8 +29,8 @@ import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_intelligent_tierin
 /// *   [PutBucketIntelligentTieringConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketIntelligentTieringConfiguration.html)
 ///
 /// *   [ListBucketIntelligentTieringConfigurations](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketIntelligentTieringConfigurations.html)
-class DeleteBucketIntelligentTieringConfigurationOperation
-    extends _i1.HttpOperation<
+class DeleteBucketIntelligentTieringConfigurationOperation extends _i1
+    .HttpOperation<
         _i2.DeleteBucketIntelligentTieringConfigurationRequestPayload,
         _i2.DeleteBucketIntelligentTieringConfigurationRequest,
         _i1.Unit,

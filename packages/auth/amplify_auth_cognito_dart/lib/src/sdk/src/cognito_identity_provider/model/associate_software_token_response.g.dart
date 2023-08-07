@@ -60,9 +60,7 @@ class AssociateSoftwareTokenResponseBuilder
   String? get session => _$this._session;
   set session(String? session) => _$this._session = session;
 
-  AssociateSoftwareTokenResponseBuilder() {
-    AssociateSoftwareTokenResponse._init(this);
-  }
+  AssociateSoftwareTokenResponseBuilder();
 
   AssociateSoftwareTokenResponseBuilder get _$this {
     final $v = _$v;

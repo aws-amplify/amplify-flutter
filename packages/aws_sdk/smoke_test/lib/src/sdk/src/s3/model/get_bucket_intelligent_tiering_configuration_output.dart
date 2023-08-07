@@ -74,7 +74,7 @@ abstract class GetBucketIntelligentTieringConfigurationOutput
 
 class GetBucketIntelligentTieringConfigurationOutputRestXmlSerializer
     extends _i2
-        .StructuredSmithySerializer<_i3.IntelligentTieringConfiguration> {
+    .StructuredSmithySerializer<_i3.IntelligentTieringConfiguration> {
   const GetBucketIntelligentTieringConfigurationOutputRestXmlSerializer()
       : super('GetBucketIntelligentTieringConfigurationOutput');
 

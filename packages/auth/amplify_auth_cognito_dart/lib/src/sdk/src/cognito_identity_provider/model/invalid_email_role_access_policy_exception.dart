@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.invalid_email_role_access_policy_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,9 +43,6 @@ abstract class InvalidEmailRoleAccessPolicyException
       serializers = [
     InvalidEmailRoleAccessPolicyExceptionAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidEmailRoleAccessPolicyExceptionBuilder b) {}
 
   /// The message returned when you have an unverified email address or the identity policy isn't set on an email address that Amazon Cognito can access.
   @override

@@ -59,8 +59,9 @@ class PutBucketPolicyOperation extends _i1
 
   @override
   late final List<
-      _i1.HttpProtocol<String, _i2.PutBucketPolicyRequest, _i1.Unit,
-          _i1.Unit>> protocols = [
+          _i1
+          .HttpProtocol<String, _i2.PutBucketPolicyRequest, _i1.Unit, _i1.Unit>>
+      protocols = [
     _i3.RestXmlProtocol(
       serializers: _i5.serializers,
       builderFactories: _i5.builderFactories,

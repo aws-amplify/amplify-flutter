@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.initiate_auth_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -62,9 +62,6 @@ abstract class InitiateAuthRequest
     InitiateAuthRequestAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InitiateAuthRequestBuilder b) {}
-
   /// The authentication flow for this call to run. The API action will depend on this value. For example:
   ///
   /// *   `REFRESH\_TOKEN\_AUTH` takes in a valid refresh token and returns new tokens.
@@ -92,9 +89,14 @@ abstract class InitiateAuthRequest
   ///
   /// *   For `USER\_SRP\_AUTH`: `USERNAME` (required), `SRP_A` (required), `SECRET_HASH` (required if the app client is configured with a client secret), `DEVICE_KEY`.
   ///
+  /// *   For `USER\_PASSWORD\_AUTH`: `USERNAME` (required), `PASSWORD` (required), `SECRET_HASH` (required if the app client is configured with a client secret), `DEVICE_KEY`.
+  ///
   /// *   For `REFRESH\_TOKEN\_AUTH/REFRESH_TOKEN`: `REFRESH_TOKEN` (required), `SECRET_HASH` (required if the app client is configured with a client secret), `DEVICE_KEY`.
   ///
   /// *   For `CUSTOM_AUTH`: `USERNAME` (required), `SECRET_HASH` (if app client is configured with client secret), `DEVICE_KEY`. To start the authentication flow with password verification, include `ChallengeName: SRP_A` and `SRP\_A: (The SRP\_A Value)`.
+  ///
+  ///
+  /// For more information about `SECRET_HASH`, see [Computing secret hash values](https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash). For information about `DEVICE_KEY`, see [Working with user devices in your user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html).
   _i6.BuiltMap<String, String>? get authParameters;
 
   /// A map of custom key-value pairs that you can provide as input for certain custom workflows that this action triggers.

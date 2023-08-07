@@ -22,12 +22,14 @@ abstract class ExecuteChangeSetInput
     String? stackName,
     String? clientRequestToken,
     bool? disableRollback,
+    bool? retainExceptOnCreate,
   }) {
     return _$ExecuteChangeSetInput._(
       changeSetName: changeSetName,
       stackName: stackName,
       clientRequestToken: clientRequestToken,
       disableRollback: disableRollback,
+      retainExceptOnCreate: retainExceptOnCreate,
     );
   }
 
@@ -67,6 +69,9 @@ abstract class ExecuteChangeSetInput
   ///
   /// Default: `True`
   bool? get disableRollback;
+
+  /// This deletion policy deletes newly created resources, but retains existing resources, when a stack operation is rolled back. This ensures new, empty, and unused resources are deleted, while critical resources and their data are retained. `RetainExceptOnCreate` can be specified for any resource that supports the [DeletionPolicy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html) attribute.
+  bool? get retainExceptOnCreate;
   @override
   ExecuteChangeSetInput getPayload() => this;
   @override
@@ -75,6 +80,7 @@ abstract class ExecuteChangeSetInput
         stackName,
         clientRequestToken,
         disableRollback,
+        retainExceptOnCreate,
       ];
   @override
   String toString() {
@@ -94,6 +100,10 @@ abstract class ExecuteChangeSetInput
       ..add(
         'disableRollback',
         disableRollback,
+      )
+      ..add(
+        'retainExceptOnCreate',
+        retainExceptOnCreate,
       );
     return helper.toString();
   }
@@ -152,6 +162,11 @@ class ExecuteChangeSetInputAwsQuerySerializer
             value,
             specifiedType: const FullType(bool),
           ) as bool);
+        case 'RetainExceptOnCreate':
+          result.retainExceptOnCreate = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -174,7 +189,8 @@ class ExecuteChangeSetInputAwsQuerySerializer
       :changeSetName,
       :stackName,
       :clientRequestToken,
-      :disableRollback
+      :disableRollback,
+      :retainExceptOnCreate
     ) = object;
     result$
       ..add(const _i1.XmlElementName('ChangeSetName'))
@@ -203,6 +219,14 @@ class ExecuteChangeSetInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('DisableRollback'))
         ..add(serializers.serialize(
           disableRollback,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
+    if (retainExceptOnCreate != null) {
+      result$
+        ..add(const _i1.XmlElementName('RetainExceptOnCreate'))
+        ..add(serializers.serialize(
+          retainExceptOnCreate,
           specifiedType: const FullType.nullable(bool),
         ));
     }
