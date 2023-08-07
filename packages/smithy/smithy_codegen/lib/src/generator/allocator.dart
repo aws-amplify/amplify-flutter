@@ -5,6 +5,23 @@ import 'package:code_builder/code_builder.dart';
 import 'package:smithy_codegen/smithy_codegen.dart';
 import 'package:smithy_codegen/src/generator/types.dart';
 
+/// The strategy for prefixing library imports.
+enum PrefixStrategy {
+  /// Always prefix imports using standard `_i{index}` prefixes.
+  always,
+
+  /// Never prefix imports.
+  ///
+  /// **NOTE**: This may cause conflicts with runtime types.
+  never,
+
+  /// Only prefix runtime libraries.
+  ///
+  /// This is the default strategy as it protects the clients from
+  /// conflicting with the vended runtime types.
+  runtimeOnly,
+}
+
 /// Operates similar to [Allocator.simplePrefixing], prefixing symbols using
 /// a simple incrementor.
 ///
@@ -14,10 +31,10 @@ class SmithyAllocator implements Allocator {
   SmithyAllocator(
     this.library,
     this.smithyLibrary, {
-    this.withPrefixing = true,
+    required this.withPrefixing,
   });
 
-  final bool withPrefixing;
+  final PrefixStrategy withPrefixing;
 
   /// Prefixing core makes things messy, although it does require escaping all
   /// core names.
@@ -72,14 +89,21 @@ class SmithyAllocator implements Allocator {
       }
     }
 
-    if (!withPrefixing || _doNotPrefix.contains(url)) {
-      _imports[url] = -1;
-      return symbol!;
+    if (shouldPrefix(url)) {
+      return '_i${_imports.putIfAbsent(url, _nextKey)}.$symbol';
     }
-    // if (url == 'dart:core') {
-    //   return '_i${_imports[url] = 0}.$symbol';
-    // }
-    return '_i${_imports.putIfAbsent(url, _nextKey)}.$symbol';
+    _imports[url] = -1;
+    return symbol!;
+  }
+
+  bool shouldPrefix(String url) {
+    return !_doNotPrefix.contains(url) &&
+        switch (withPrefixing) {
+          PrefixStrategy.always => true,
+          PrefixStrategy.never => false,
+          PrefixStrategy.runtimeOnly =>
+            !url.startsWith('package:${smithyLibrary.packageName}'),
+        };
   }
 
   int _nextKey() => _keys++;
@@ -89,9 +113,7 @@ class SmithyAllocator implements Allocator {
       _imports.keys.where((key) => key != 'dart:core').map(
             (u) => Directive.import(
               u,
-              as: !withPrefixing || _doNotPrefix.contains(u)
-                  ? null
-                  : '_i${_imports[u]}',
+              as: shouldPrefix(u) ? '_i${_imports[u]}' : null,
             ),
           );
 }
