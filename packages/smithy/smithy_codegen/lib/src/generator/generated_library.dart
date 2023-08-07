@@ -21,9 +21,14 @@ class GeneratedLibrary with AWSEquatable<GeneratedLibrary> {
   /// via code_builder).
   final String? libraryDocs;
 
-  String emit({bool withPrefixing = true}) {
-    final allocator =
-        SmithyAllocator(library, smithyLibrary, withPrefixing: withPrefixing);
+  String emit({
+    PrefixStrategy withPrefixing = PrefixStrategy.runtimeOnly,
+  }) {
+    final allocator = SmithyAllocator(
+      library,
+      smithyLibrary,
+      withPrefixing: withPrefixing,
+    );
     final output = StringBuffer()
       ..write(header)
       ..writeln()
