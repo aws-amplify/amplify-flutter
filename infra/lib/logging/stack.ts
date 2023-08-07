@@ -12,6 +12,7 @@ import { BucketDeployment, Source } from "aws-cdk-lib/aws-s3-deployment";
 
 import * as s3 from "aws-cdk-lib/aws-s3"
 import * as lambda from "aws-cdk-lib/aws-lambda"
+import * as lambda_node from "aws-cdk-lib/aws-lambda-nodejs"
 import * as api_gateway from "aws-cdk-lib/aws-apigateway"
 
 export class LoggingIntegrationTestStack extends IntegrationTestStack<LoggingIntegrationTestStackEnvironmentProps, LoggingIntegrationTestStackEnvironment> {
@@ -50,6 +51,7 @@ export class LoggingIntegrationTestStackEnvironment extends IntegrationTestStack
 
         const region = cdk.Stack.of(this).region;
         const account = cdk.Stack.of(this).account;
+        const bucketName = randomBucketName({ prefix: 'amplify-logging-test-bucket', stack: this });
 
         const logGroup = new logs.LogGroup(this, 'Log Group', {
                 retention: logs.RetentionDays.INFINITE
@@ -103,6 +105,7 @@ export class LoggingIntegrationTestStackEnvironment extends IntegrationTestStack
                 code: lambda.Code.fromAsset(path.dirname(lambdaConfig)),
                 handler: 'remotelogging.main',
                 environment: {
+                    BUCKET: bucketName,
                     KEY: configFileName,
                 }
             });
