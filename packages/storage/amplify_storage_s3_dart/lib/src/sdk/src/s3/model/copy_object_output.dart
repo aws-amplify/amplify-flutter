@@ -3,12 +3,9 @@
 
 library amplify_storage_s3_dart.s3.model.copy_object_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/copy_object_result.dart'
-    as _i3;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_charged.dart'
-    as _i5;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/server_side_encryption.dart'
-    as _i4;
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/copy_object_result.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_charged.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/server_side_encryption.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -20,19 +17,19 @@ abstract class CopyObjectOutput
     with _i1.AWSEquatable<CopyObjectOutput>
     implements
         Built<CopyObjectOutput, CopyObjectOutputBuilder>,
-        _i2.HasPayload<_i3.CopyObjectResult> {
+        _i2.HasPayload<CopyObjectResult> {
   factory CopyObjectOutput({
-    _i3.CopyObjectResult? copyObjectResult,
+    CopyObjectResult? copyObjectResult,
     String? expiration,
     String? copySourceVersionId,
     String? versionId,
-    _i4.ServerSideEncryption? serverSideEncryption,
+    ServerSideEncryption? serverSideEncryption,
     String? sseCustomerAlgorithm,
     String? sseCustomerKeyMd5,
     String? ssekmsKeyId,
     String? ssekmsEncryptionContext,
     bool? bucketKeyEnabled,
-    _i5.RequestCharged? requestCharged,
+    RequestCharged? requestCharged,
   }) {
     return _$CopyObjectOutput._(
       copyObjectResult: copyObjectResult,
@@ -56,7 +53,7 @@ abstract class CopyObjectOutput
 
   /// Constructs a [CopyObjectOutput] from a [payload] and [response].
   factory CopyObjectOutput.fromResponse(
-    _i3.CopyObjectResult? payload,
+    CopyObjectResult? payload,
     _i1.AWSBaseHttpResponse response,
   ) =>
       CopyObjectOutput.build((b) {
@@ -74,7 +71,7 @@ abstract class CopyObjectOutput
           b.versionId = response.headers['x-amz-version-id']!;
         }
         if (response.headers['x-amz-server-side-encryption'] != null) {
-          b.serverSideEncryption = _i4.ServerSideEncryption.values
+          b.serverSideEncryption = ServerSideEncryption.values
               .byValue(response.headers['x-amz-server-side-encryption']!);
         }
         if (response
@@ -105,17 +102,17 @@ abstract class CopyObjectOutput
               'true';
         }
         if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = _i5.RequestCharged.values
+          b.requestCharged = RequestCharged.values
               .byValue(response.headers['x-amz-request-charged']!);
         }
       });
 
-  static const List<_i2.SmithySerializer<_i3.CopyObjectResult?>> serializers = [
+  static const List<_i2.SmithySerializer<CopyObjectResult?>> serializers = [
     CopyObjectOutputRestXmlSerializer()
   ];
 
   /// Container for all response elements.
-  _i3.CopyObjectResult? get copyObjectResult;
+  CopyObjectResult? get copyObjectResult;
 
   /// If the object expiration is configured, the response includes this header.
   String? get expiration;
@@ -127,7 +124,7 @@ abstract class CopyObjectOutput
   String? get versionId;
 
   /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`, `aws:kms:dsse`).
-  _i4.ServerSideEncryption? get serverSideEncryption;
+  ServerSideEncryption? get serverSideEncryption;
 
   /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header confirming the encryption algorithm used.
   String? get sseCustomerAlgorithm;
@@ -145,10 +142,9 @@ abstract class CopyObjectOutput
   bool? get bucketKeyEnabled;
 
   /// If present, indicates that the requester was successfully charged for the request.
-  _i5.RequestCharged? get requestCharged;
+  RequestCharged? get requestCharged;
   @override
-  _i3.CopyObjectResult? getPayload() =>
-      copyObjectResult ?? _i3.CopyObjectResult();
+  CopyObjectResult? getPayload() => copyObjectResult ?? CopyObjectResult();
   @override
   List<Object?> get props => [
         copyObjectResult,
@@ -215,7 +211,7 @@ abstract class CopyObjectOutput
 }
 
 class CopyObjectOutputRestXmlSerializer
-    extends _i2.StructuredSmithySerializer<_i3.CopyObjectResult> {
+    extends _i2.StructuredSmithySerializer<CopyObjectResult> {
   const CopyObjectOutputRestXmlSerializer() : super('CopyObjectOutput');
 
   @override
@@ -231,12 +227,12 @@ class CopyObjectOutputRestXmlSerializer
         )
       ];
   @override
-  _i3.CopyObjectResult deserialize(
+  CopyObjectResult deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i3.CopyObjectResultBuilder();
+    final result = CopyObjectResultBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -285,7 +281,7 @@ class CopyObjectOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i3.CopyObjectResult object, {
+    CopyObjectResult object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -294,7 +290,7 @@ class CopyObjectOutputRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i3.CopyObjectResult(
+    final CopyObjectResult(
       :eTag,
       :lastModified,
       :checksumCrc32,

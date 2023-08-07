@@ -6,9 +6,8 @@ library smoke_test.config_service.model.resource_count_filters; // ignore_for_fi
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart';
 
 part 'resource_count_filters.g.dart';
 
@@ -18,7 +17,7 @@ abstract class ResourceCountFilters
     implements Built<ResourceCountFilters, ResourceCountFiltersBuilder> {
   /// Filters the resource count based on account ID, region, and resource type.
   factory ResourceCountFilters({
-    _i2.ResourceType? resourceType,
+    ResourceType? resourceType,
     String? accountId,
     String? region,
   }) {
@@ -36,12 +35,12 @@ abstract class ResourceCountFilters
 
   const ResourceCountFilters._();
 
-  static const List<_i3.SmithySerializer<ResourceCountFilters>> serializers = [
+  static const List<_i2.SmithySerializer<ResourceCountFilters>> serializers = [
     ResourceCountFiltersAwsJson11Serializer()
   ];
 
   /// The type of the Amazon Web Services resource.
-  _i2.ResourceType? get resourceType;
+  ResourceType? get resourceType;
 
   /// The 12-digit ID of the account.
   String? get accountId;
@@ -74,7 +73,7 @@ abstract class ResourceCountFilters
 }
 
 class ResourceCountFiltersAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<ResourceCountFilters> {
+    extends _i2.StructuredSmithySerializer<ResourceCountFilters> {
   const ResourceCountFiltersAwsJson11Serializer()
       : super('ResourceCountFilters');
 
@@ -84,8 +83,8 @@ class ResourceCountFiltersAwsJson11Serializer
         _$ResourceCountFilters,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -109,8 +108,8 @@ class ResourceCountFiltersAwsJson11Serializer
         case 'ResourceType':
           result.resourceType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ResourceType),
-          ) as _i2.ResourceType);
+            specifiedType: const FullType(ResourceType),
+          ) as ResourceType);
         case 'AccountId':
           result.accountId = (serializers.deserialize(
             value,
@@ -140,7 +139,7 @@ class ResourceCountFiltersAwsJson11Serializer
         ..add('ResourceType')
         ..add(serializers.serialize(
           resourceType,
-          specifiedType: const FullType(_i2.ResourceType),
+          specifiedType: const FullType(ResourceType),
         ));
     }
     if (accountId != null) {

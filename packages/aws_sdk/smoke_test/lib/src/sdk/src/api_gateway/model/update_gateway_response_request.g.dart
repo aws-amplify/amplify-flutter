@@ -10,9 +10,9 @@ class _$UpdateGatewayResponseRequest extends UpdateGatewayResponseRequest {
   @override
   final String restApiId;
   @override
-  final _i3.GatewayResponseType responseType;
+  final GatewayResponseType responseType;
   @override
-  final _i5.BuiltList<_i4.PatchOperation>? patchOperations;
+  final _i3.BuiltList<PatchOperation>? patchOperations;
 
   factory _$UpdateGatewayResponseRequest(
           [void Function(UpdateGatewayResponseRequestBuilder)? updates]) =>
@@ -68,15 +68,15 @@ class UpdateGatewayResponseRequestBuilder
   String? get restApiId => _$this._restApiId;
   set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
-  _i3.GatewayResponseType? _responseType;
-  _i3.GatewayResponseType? get responseType => _$this._responseType;
-  set responseType(_i3.GatewayResponseType? responseType) =>
+  GatewayResponseType? _responseType;
+  GatewayResponseType? get responseType => _$this._responseType;
+  set responseType(GatewayResponseType? responseType) =>
       _$this._responseType = responseType;
 
-  _i5.ListBuilder<_i4.PatchOperation>? _patchOperations;
-  _i5.ListBuilder<_i4.PatchOperation> get patchOperations =>
-      _$this._patchOperations ??= new _i5.ListBuilder<_i4.PatchOperation>();
-  set patchOperations(_i5.ListBuilder<_i4.PatchOperation>? patchOperations) =>
+  _i3.ListBuilder<PatchOperation>? _patchOperations;
+  _i3.ListBuilder<PatchOperation> get patchOperations =>
+      _$this._patchOperations ??= new _i3.ListBuilder<PatchOperation>();
+  set patchOperations(_i3.ListBuilder<PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
   UpdateGatewayResponseRequestBuilder();
@@ -135,7 +135,7 @@ class UpdateGatewayResponseRequestBuilder
 class _$UpdateGatewayResponseRequestPayload
     extends UpdateGatewayResponseRequestPayload {
   @override
-  final _i5.BuiltList<_i4.PatchOperation>? patchOperations;
+  final _i3.BuiltList<PatchOperation>? patchOperations;
 
   factory _$UpdateGatewayResponseRequestPayload(
           [void Function(UpdateGatewayResponseRequestPayloadBuilder)?
@@ -176,10 +176,10 @@ class UpdateGatewayResponseRequestPayloadBuilder
             UpdateGatewayResponseRequestPayloadBuilder> {
   _$UpdateGatewayResponseRequestPayload? _$v;
 
-  _i5.ListBuilder<_i4.PatchOperation>? _patchOperations;
-  _i5.ListBuilder<_i4.PatchOperation> get patchOperations =>
-      _$this._patchOperations ??= new _i5.ListBuilder<_i4.PatchOperation>();
-  set patchOperations(_i5.ListBuilder<_i4.PatchOperation>? patchOperations) =>
+  _i3.ListBuilder<PatchOperation>? _patchOperations;
+  _i3.ListBuilder<PatchOperation> get patchOperations =>
+      _$this._patchOperations ??= new _i3.ListBuilder<PatchOperation>();
+  set patchOperations(_i3.ListBuilder<PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
   UpdateGatewayResponseRequestPayloadBuilder();

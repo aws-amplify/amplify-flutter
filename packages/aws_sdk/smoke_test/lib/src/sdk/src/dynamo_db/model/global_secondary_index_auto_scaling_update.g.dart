@@ -11,8 +11,7 @@ class _$GlobalSecondaryIndexAutoScalingUpdate
   @override
   final String? indexName;
   @override
-  final _i2.AutoScalingSettingsUpdate?
-      provisionedWriteCapacityAutoScalingUpdate;
+  final AutoScalingSettingsUpdate? provisionedWriteCapacityAutoScalingUpdate;
 
   factory _$GlobalSecondaryIndexAutoScalingUpdate(
           [void Function(GlobalSecondaryIndexAutoScalingUpdateBuilder)?
@@ -63,14 +62,13 @@ class GlobalSecondaryIndexAutoScalingUpdateBuilder
   String? get indexName => _$this._indexName;
   set indexName(String? indexName) => _$this._indexName = indexName;
 
-  _i2.AutoScalingSettingsUpdateBuilder?
-      _provisionedWriteCapacityAutoScalingUpdate;
-  _i2.AutoScalingSettingsUpdateBuilder
+  AutoScalingSettingsUpdateBuilder? _provisionedWriteCapacityAutoScalingUpdate;
+  AutoScalingSettingsUpdateBuilder
       get provisionedWriteCapacityAutoScalingUpdate =>
           _$this._provisionedWriteCapacityAutoScalingUpdate ??=
-              new _i2.AutoScalingSettingsUpdateBuilder();
+              new AutoScalingSettingsUpdateBuilder();
   set provisionedWriteCapacityAutoScalingUpdate(
-          _i2.AutoScalingSettingsUpdateBuilder?
+          AutoScalingSettingsUpdateBuilder?
               provisionedWriteCapacityAutoScalingUpdate) =>
       _$this._provisionedWriteCapacityAutoScalingUpdate =
           provisionedWriteCapacityAutoScalingUpdate;

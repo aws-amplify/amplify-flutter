@@ -8,15 +8,15 @@ part of 'query_output.dart';
 
 class _$QueryOutput extends QueryOutput {
   @override
-  final _i4.BuiltList<_i4.BuiltMap<String, _i2.AttributeValue>>? items;
+  final _i2.BuiltList<_i2.BuiltMap<String, AttributeValue>>? items;
   @override
   final int count;
   @override
   final int scannedCount;
   @override
-  final _i4.BuiltMap<String, _i2.AttributeValue>? lastEvaluatedKey;
+  final _i2.BuiltMap<String, AttributeValue>? lastEvaluatedKey;
   @override
-  final _i3.ConsumedCapacity? consumedCapacity;
+  final ConsumedCapacity? consumedCapacity;
 
   factory _$QueryOutput([void Function(QueryOutputBuilder)? updates]) =>
       (new QueryOutputBuilder()..update(updates))._build();
@@ -67,11 +67,11 @@ class _$QueryOutput extends QueryOutput {
 class QueryOutputBuilder implements Builder<QueryOutput, QueryOutputBuilder> {
   _$QueryOutput? _$v;
 
-  _i4.ListBuilder<_i4.BuiltMap<String, _i2.AttributeValue>>? _items;
-  _i4.ListBuilder<_i4.BuiltMap<String, _i2.AttributeValue>> get items =>
+  _i2.ListBuilder<_i2.BuiltMap<String, AttributeValue>>? _items;
+  _i2.ListBuilder<_i2.BuiltMap<String, AttributeValue>> get items =>
       _$this._items ??=
-          new _i4.ListBuilder<_i4.BuiltMap<String, _i2.AttributeValue>>();
-  set items(_i4.ListBuilder<_i4.BuiltMap<String, _i2.AttributeValue>>? items) =>
+          new _i2.ListBuilder<_i2.BuiltMap<String, AttributeValue>>();
+  set items(_i2.ListBuilder<_i2.BuiltMap<String, AttributeValue>>? items) =>
       _$this._items = items;
 
   int? _count;
@@ -82,18 +82,17 @@ class QueryOutputBuilder implements Builder<QueryOutput, QueryOutputBuilder> {
   int? get scannedCount => _$this._scannedCount;
   set scannedCount(int? scannedCount) => _$this._scannedCount = scannedCount;
 
-  _i4.MapBuilder<String, _i2.AttributeValue>? _lastEvaluatedKey;
-  _i4.MapBuilder<String, _i2.AttributeValue> get lastEvaluatedKey =>
-      _$this._lastEvaluatedKey ??=
-          new _i4.MapBuilder<String, _i2.AttributeValue>();
+  _i2.MapBuilder<String, AttributeValue>? _lastEvaluatedKey;
+  _i2.MapBuilder<String, AttributeValue> get lastEvaluatedKey =>
+      _$this._lastEvaluatedKey ??= new _i2.MapBuilder<String, AttributeValue>();
   set lastEvaluatedKey(
-          _i4.MapBuilder<String, _i2.AttributeValue>? lastEvaluatedKey) =>
+          _i2.MapBuilder<String, AttributeValue>? lastEvaluatedKey) =>
       _$this._lastEvaluatedKey = lastEvaluatedKey;
 
-  _i3.ConsumedCapacityBuilder? _consumedCapacity;
-  _i3.ConsumedCapacityBuilder get consumedCapacity =>
-      _$this._consumedCapacity ??= new _i3.ConsumedCapacityBuilder();
-  set consumedCapacity(_i3.ConsumedCapacityBuilder? consumedCapacity) =>
+  ConsumedCapacityBuilder? _consumedCapacity;
+  ConsumedCapacityBuilder get consumedCapacity =>
+      _$this._consumedCapacity ??= new ConsumedCapacityBuilder();
+  set consumedCapacity(ConsumedCapacityBuilder? consumedCapacity) =>
       _$this._consumedCapacity = consumedCapacity;
 
   QueryOutputBuilder() {

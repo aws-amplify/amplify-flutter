@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart';
 
 part 'delete_stack_set_input.g.dart';
 
@@ -19,7 +18,7 @@ abstract class DeleteStackSetInput
     implements Built<DeleteStackSetInput, DeleteStackSetInputBuilder> {
   factory DeleteStackSetInput({
     required String stackSetName,
-    _i3.CallAs? callAs,
+    CallAs? callAs,
   }) {
     return _$DeleteStackSetInput._(
       stackSetName: stackSetName,
@@ -56,7 +55,7 @@ abstract class DeleteStackSetInput
   /// *   If you are signed in to a delegated administrator account, specify `DELEGATED_ADMIN`.
   ///
   ///     Your Amazon Web Services account must be registered as a delegated administrator in the management account. For more information, see [Register a delegated administrator](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html) in the _CloudFormation User Guide_.
-  _i3.CallAs? get callAs;
+  CallAs? get callAs;
   @override
   DeleteStackSetInput getPayload() => this;
   @override
@@ -119,8 +118,8 @@ class DeleteStackSetInputAwsQuerySerializer
         case 'CallAs':
           result.callAs = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.CallAs),
-          ) as _i3.CallAs);
+            specifiedType: const FullType(CallAs),
+          ) as CallAs);
       }
     }
 
@@ -151,7 +150,7 @@ class DeleteStackSetInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
           callAs,
-          specifiedType: const FullType.nullable(_i3.CallAs),
+          specifiedType: const FullType.nullable(CallAs),
         ));
     }
     return result$;

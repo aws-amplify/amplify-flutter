@@ -4,14 +4,12 @@
 library smoke_test.dynamo_db.model.execute_transaction_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/consumed_capacity.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/item_response.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/consumed_capacity.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/item_response.dart';
 
 part 'execute_transaction_output.g.dart';
 
@@ -20,13 +18,13 @@ abstract class ExecuteTransactionOutput
     implements
         Built<ExecuteTransactionOutput, ExecuteTransactionOutputBuilder> {
   factory ExecuteTransactionOutput({
-    List<_i2.ItemResponse>? responses,
-    List<_i3.ConsumedCapacity>? consumedCapacity,
+    List<ItemResponse>? responses,
+    List<ConsumedCapacity>? consumedCapacity,
   }) {
     return _$ExecuteTransactionOutput._(
-      responses: responses == null ? null : _i4.BuiltList(responses),
+      responses: responses == null ? null : _i2.BuiltList(responses),
       consumedCapacity:
-          consumedCapacity == null ? null : _i4.BuiltList(consumedCapacity),
+          consumedCapacity == null ? null : _i2.BuiltList(consumedCapacity),
     );
   }
 
@@ -43,14 +41,14 @@ abstract class ExecuteTransactionOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer<ExecuteTransactionOutput>>
+  static const List<_i3.SmithySerializer<ExecuteTransactionOutput>>
       serializers = [ExecuteTransactionOutputAwsJson10Serializer()];
 
   /// The response to a PartiQL transaction.
-  _i4.BuiltList<_i2.ItemResponse>? get responses;
+  _i2.BuiltList<ItemResponse>? get responses;
 
   /// The capacity units consumed by the entire operation. The values of the list are ordered according to the ordering of the statements.
-  _i4.BuiltList<_i3.ConsumedCapacity>? get consumedCapacity;
+  _i2.BuiltList<ConsumedCapacity>? get consumedCapacity;
   @override
   List<Object?> get props => [
         responses,
@@ -72,7 +70,7 @@ abstract class ExecuteTransactionOutput
 }
 
 class ExecuteTransactionOutputAwsJson10Serializer
-    extends _i5.StructuredSmithySerializer<ExecuteTransactionOutput> {
+    extends _i3.StructuredSmithySerializer<ExecuteTransactionOutput> {
   const ExecuteTransactionOutputAwsJson10Serializer()
       : super('ExecuteTransactionOutput');
 
@@ -82,8 +80,8 @@ class ExecuteTransactionOutputAwsJson10Serializer
         _$ExecuteTransactionOutput,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -108,18 +106,18 @@ class ExecuteTransactionOutputAwsJson10Serializer
           result.responses.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i2.ItemResponse)],
+              _i2.BuiltList,
+              [FullType(ItemResponse)],
             ),
-          ) as _i4.BuiltList<_i2.ItemResponse>));
+          ) as _i2.BuiltList<ItemResponse>));
         case 'ConsumedCapacity':
           result.consumedCapacity.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.ConsumedCapacity)],
+              _i2.BuiltList,
+              [FullType(ConsumedCapacity)],
             ),
-          ) as _i4.BuiltList<_i3.ConsumedCapacity>));
+          ) as _i2.BuiltList<ConsumedCapacity>));
       }
     }
 
@@ -140,8 +138,8 @@ class ExecuteTransactionOutputAwsJson10Serializer
         ..add(serializers.serialize(
           responses,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i2.ItemResponse)],
+            _i2.BuiltList,
+            [FullType(ItemResponse)],
           ),
         ));
     }
@@ -151,8 +149,8 @@ class ExecuteTransactionOutputAwsJson10Serializer
         ..add(serializers.serialize(
           consumedCapacity,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i3.ConsumedCapacity)],
+            _i2.BuiltList,
+            [FullType(ConsumedCapacity)],
           ),
         ));
     }

@@ -6,8 +6,7 @@ library rest_xml_v2.rest_xml_protocol.model.recursive_shapes_input_output; // ig
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/recursive_shapes_input_output_nested1.dart'
-    as _i3;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/recursive_shapes_input_output_nested1.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'recursive_shapes_input_output.g.dart';
@@ -19,7 +18,7 @@ abstract class RecursiveShapesInputOutput
     implements
         Built<RecursiveShapesInputOutput, RecursiveShapesInputOutputBuilder> {
   factory RecursiveShapesInputOutput(
-      {_i3.RecursiveShapesInputOutputNested1? nested}) {
+      {RecursiveShapesInputOutputNested1? nested}) {
     return _$RecursiveShapesInputOutput._(nested: nested);
   }
 
@@ -46,7 +45,7 @@ abstract class RecursiveShapesInputOutput
   static const List<_i1.SmithySerializer<RecursiveShapesInputOutput>>
       serializers = [RecursiveShapesInputOutputRestXmlSerializer()];
 
-  _i3.RecursiveShapesInputOutputNested1? get nested;
+  RecursiveShapesInputOutputNested1? get nested;
   @override
   RecursiveShapesInputOutput getPayload() => this;
   @override
@@ -98,9 +97,8 @@ class RecursiveShapesInputOutputRestXmlSerializer
         case 'nested':
           result.nested.replace((serializers.deserialize(
             value,
-            specifiedType:
-                const FullType(_i3.RecursiveShapesInputOutputNested1),
-          ) as _i3.RecursiveShapesInputOutputNested1));
+            specifiedType: const FullType(RecursiveShapesInputOutputNested1),
+          ) as RecursiveShapesInputOutputNested1));
       }
     }
 
@@ -122,7 +120,7 @@ class RecursiveShapesInputOutputRestXmlSerializer
         ..add(const _i1.XmlElementName('nested'))
         ..add(serializers.serialize(
           nested,
-          specifiedType: const FullType(_i3.RecursiveShapesInputOutputNested1),
+          specifiedType: const FullType(RecursiveShapesInputOutputNested1),
         ));
     }
     return result$;

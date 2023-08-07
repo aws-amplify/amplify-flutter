@@ -6,9 +6,8 @@ library smoke_test.s3.model.default_retention; // ignore_for_file: no_leading_un
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/object_lock_retention_mode.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/object_lock_retention_mode.dart';
 
 part 'default_retention.g.dart';
 
@@ -26,7 +25,7 @@ abstract class DefaultRetention
   ///
   /// *   The `DefaultRetention` period can be either `Days` or `Years` but you must select one. You cannot specify `Days` and `Years` at the same time.
   factory DefaultRetention({
-    _i2.ObjectLockRetentionMode? mode,
+    ObjectLockRetentionMode? mode,
     int? days,
     int? years,
   }) {
@@ -47,12 +46,12 @@ abstract class DefaultRetention
 
   const DefaultRetention._();
 
-  static const List<_i3.SmithySerializer<DefaultRetention>> serializers = [
+  static const List<_i2.SmithySerializer<DefaultRetention>> serializers = [
     DefaultRetentionRestXmlSerializer()
   ];
 
   /// The default Object Lock retention mode you want to apply to new objects placed in the specified bucket. Must be used with either `Days` or `Years`.
-  _i2.ObjectLockRetentionMode? get mode;
+  ObjectLockRetentionMode? get mode;
 
   /// The number of days that you want to specify for the default retention period. Must be used with `Mode`.
   int? get days;
@@ -85,7 +84,7 @@ abstract class DefaultRetention
 }
 
 class DefaultRetentionRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<DefaultRetention> {
+    extends _i2.StructuredSmithySerializer<DefaultRetention> {
   const DefaultRetentionRestXmlSerializer() : super('DefaultRetention');
 
   @override
@@ -94,8 +93,8 @@ class DefaultRetentionRestXmlSerializer
         _$DefaultRetention,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -124,8 +123,8 @@ class DefaultRetentionRestXmlSerializer
         case 'Mode':
           result.mode = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ObjectLockRetentionMode),
-          ) as _i2.ObjectLockRetentionMode);
+            specifiedType: const FullType(ObjectLockRetentionMode),
+          ) as ObjectLockRetentionMode);
         case 'Years':
           result.years = (serializers.deserialize(
             value,
@@ -144,15 +143,15 @@ class DefaultRetentionRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'DefaultRetention',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final DefaultRetention(:days, :mode, :years) = object;
     if (days != null) {
       result$
-        ..add(const _i3.XmlElementName('Days'))
+        ..add(const _i2.XmlElementName('Days'))
         ..add(serializers.serialize(
           days,
           specifiedType: const FullType.nullable(int),
@@ -160,15 +159,15 @@ class DefaultRetentionRestXmlSerializer
     }
     if (mode != null) {
       result$
-        ..add(const _i3.XmlElementName('Mode'))
+        ..add(const _i2.XmlElementName('Mode'))
         ..add(serializers.serialize(
           mode,
-          specifiedType: const FullType.nullable(_i2.ObjectLockRetentionMode),
+          specifiedType: const FullType.nullable(ObjectLockRetentionMode),
         ));
     }
     if (years != null) {
       result$
-        ..add(const _i3.XmlElementName('Years'))
+        ..add(const _i2.XmlElementName('Years'))
         ..add(serializers.serialize(
           years,
           specifiedType: const FullType.nullable(int),

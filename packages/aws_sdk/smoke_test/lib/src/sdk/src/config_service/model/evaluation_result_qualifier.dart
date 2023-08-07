@@ -6,9 +6,8 @@ library smoke_test.config_service.model.evaluation_result_qualifier; // ignore_f
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_mode.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_mode.dart';
 
 part 'evaluation_result_qualifier.g.dart';
 
@@ -22,7 +21,7 @@ abstract class EvaluationResultQualifier
     String? configRuleName,
     String? resourceType,
     String? resourceId,
-    _i2.EvaluationMode? evaluationMode,
+    EvaluationMode? evaluationMode,
   }) {
     return _$EvaluationResultQualifier._(
       configRuleName: configRuleName,
@@ -39,7 +38,7 @@ abstract class EvaluationResultQualifier
 
   const EvaluationResultQualifier._();
 
-  static const List<_i3.SmithySerializer<EvaluationResultQualifier>>
+  static const List<_i2.SmithySerializer<EvaluationResultQualifier>>
       serializers = [EvaluationResultQualifierAwsJson11Serializer()];
 
   /// The name of the Config rule that was used in the evaluation.
@@ -52,7 +51,7 @@ abstract class EvaluationResultQualifier
   String? get resourceId;
 
   /// The mode of an evaluation. The valid values are Detective or Proactive.
-  _i2.EvaluationMode? get evaluationMode;
+  EvaluationMode? get evaluationMode;
   @override
   List<Object?> get props => [
         configRuleName,
@@ -84,7 +83,7 @@ abstract class EvaluationResultQualifier
 }
 
 class EvaluationResultQualifierAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<EvaluationResultQualifier> {
+    extends _i2.StructuredSmithySerializer<EvaluationResultQualifier> {
   const EvaluationResultQualifierAwsJson11Serializer()
       : super('EvaluationResultQualifier');
 
@@ -94,8 +93,8 @@ class EvaluationResultQualifierAwsJson11Serializer
         _$EvaluationResultQualifier,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -134,8 +133,8 @@ class EvaluationResultQualifierAwsJson11Serializer
         case 'EvaluationMode':
           result.evaluationMode = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.EvaluationMode),
-          ) as _i2.EvaluationMode);
+            specifiedType: const FullType(EvaluationMode),
+          ) as EvaluationMode);
       }
     }
 
@@ -184,7 +183,7 @@ class EvaluationResultQualifierAwsJson11Serializer
         ..add('EvaluationMode')
         ..add(serializers.serialize(
           evaluationMode,
-          specifiedType: const FullType(_i2.EvaluationMode),
+          specifiedType: const FullType(EvaluationMode),
         ));
     }
     return result$;

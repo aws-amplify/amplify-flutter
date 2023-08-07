@@ -8,9 +8,9 @@ part of 'batch_get_item_input.dart';
 
 class _$BatchGetItemInput extends BatchGetItemInput {
   @override
-  final _i5.BuiltMap<String, _i3.KeysAndAttributes> requestItems;
+  final _i3.BuiltMap<String, KeysAndAttributes> requestItems;
   @override
-  final _i4.ReturnConsumedCapacity? returnConsumedCapacity;
+  final ReturnConsumedCapacity? returnConsumedCapacity;
 
   factory _$BatchGetItemInput(
           [void Function(BatchGetItemInputBuilder)? updates]) =>
@@ -53,19 +53,16 @@ class BatchGetItemInputBuilder
     implements Builder<BatchGetItemInput, BatchGetItemInputBuilder> {
   _$BatchGetItemInput? _$v;
 
-  _i5.MapBuilder<String, _i3.KeysAndAttributes>? _requestItems;
-  _i5.MapBuilder<String, _i3.KeysAndAttributes> get requestItems =>
-      _$this._requestItems ??=
-          new _i5.MapBuilder<String, _i3.KeysAndAttributes>();
-  set requestItems(
-          _i5.MapBuilder<String, _i3.KeysAndAttributes>? requestItems) =>
+  _i3.MapBuilder<String, KeysAndAttributes>? _requestItems;
+  _i3.MapBuilder<String, KeysAndAttributes> get requestItems =>
+      _$this._requestItems ??= new _i3.MapBuilder<String, KeysAndAttributes>();
+  set requestItems(_i3.MapBuilder<String, KeysAndAttributes>? requestItems) =>
       _$this._requestItems = requestItems;
 
-  _i4.ReturnConsumedCapacity? _returnConsumedCapacity;
-  _i4.ReturnConsumedCapacity? get returnConsumedCapacity =>
+  ReturnConsumedCapacity? _returnConsumedCapacity;
+  ReturnConsumedCapacity? get returnConsumedCapacity =>
       _$this._returnConsumedCapacity;
-  set returnConsumedCapacity(
-          _i4.ReturnConsumedCapacity? returnConsumedCapacity) =>
+  set returnConsumedCapacity(ReturnConsumedCapacity? returnConsumedCapacity) =>
       _$this._returnConsumedCapacity = returnConsumedCapacity;
 
   BatchGetItemInputBuilder();

@@ -10,11 +10,11 @@ class _$PutRestApiRequest extends PutRestApiRequest {
   @override
   final String restApiId;
   @override
-  final _i4.PutMode? mode;
+  final PutMode? mode;
   @override
   final bool failOnWarnings;
   @override
-  final _i5.BuiltMap<String, String>? parameters;
+  final _i4.BuiltMap<String, String>? parameters;
   @override
   final _i2.Uint8List body;
 
@@ -76,19 +76,19 @@ class PutRestApiRequestBuilder
   String? get restApiId => _$this._restApiId;
   set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
-  _i4.PutMode? _mode;
-  _i4.PutMode? get mode => _$this._mode;
-  set mode(_i4.PutMode? mode) => _$this._mode = mode;
+  PutMode? _mode;
+  PutMode? get mode => _$this._mode;
+  set mode(PutMode? mode) => _$this._mode = mode;
 
   bool? _failOnWarnings;
   bool? get failOnWarnings => _$this._failOnWarnings;
   set failOnWarnings(bool? failOnWarnings) =>
       _$this._failOnWarnings = failOnWarnings;
 
-  _i5.MapBuilder<String, String>? _parameters;
-  _i5.MapBuilder<String, String> get parameters =>
-      _$this._parameters ??= new _i5.MapBuilder<String, String>();
-  set parameters(_i5.MapBuilder<String, String>? parameters) =>
+  _i4.MapBuilder<String, String>? _parameters;
+  _i4.MapBuilder<String, String> get parameters =>
+      _$this._parameters ??= new _i4.MapBuilder<String, String>();
+  set parameters(_i4.MapBuilder<String, String>? parameters) =>
       _$this._parameters = parameters;
 
   _i2.Uint8List? _body;

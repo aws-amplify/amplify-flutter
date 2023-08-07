@@ -8,7 +8,7 @@ part of 'put_object_acl_output.dart';
 
 class _$PutObjectAclOutput extends PutObjectAclOutput {
   @override
-  final _i3.RequestCharged? requestCharged;
+  final RequestCharged? requestCharged;
 
   factory _$PutObjectAclOutput(
           [void Function(PutObjectAclOutputBuilder)? updates]) =>
@@ -45,9 +45,9 @@ class PutObjectAclOutputBuilder
     implements Builder<PutObjectAclOutput, PutObjectAclOutputBuilder> {
   _$PutObjectAclOutput? _$v;
 
-  _i3.RequestCharged? _requestCharged;
-  _i3.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i3.RequestCharged? requestCharged) =>
+  RequestCharged? _requestCharged;
+  RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
   PutObjectAclOutputBuilder();

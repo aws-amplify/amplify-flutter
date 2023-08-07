@@ -9,7 +9,7 @@ part of 'describe_configuration_aggregator_sources_status_response.dart';
 class _$DescribeConfigurationAggregatorSourcesStatusResponse
     extends DescribeConfigurationAggregatorSourcesStatusResponse {
   @override
-  final _i3.BuiltList<_i2.AggregatedSourceStatus>? aggregatedSourceStatusList;
+  final _i2.BuiltList<AggregatedSourceStatus>? aggregatedSourceStatusList;
   @override
   final String? nextToken;
 
@@ -61,12 +61,12 @@ class DescribeConfigurationAggregatorSourcesStatusResponseBuilder
             DescribeConfigurationAggregatorSourcesStatusResponseBuilder> {
   _$DescribeConfigurationAggregatorSourcesStatusResponse? _$v;
 
-  _i3.ListBuilder<_i2.AggregatedSourceStatus>? _aggregatedSourceStatusList;
-  _i3.ListBuilder<_i2.AggregatedSourceStatus> get aggregatedSourceStatusList =>
+  _i2.ListBuilder<AggregatedSourceStatus>? _aggregatedSourceStatusList;
+  _i2.ListBuilder<AggregatedSourceStatus> get aggregatedSourceStatusList =>
       _$this._aggregatedSourceStatusList ??=
-          new _i3.ListBuilder<_i2.AggregatedSourceStatus>();
+          new _i2.ListBuilder<AggregatedSourceStatus>();
   set aggregatedSourceStatusList(
-          _i3.ListBuilder<_i2.AggregatedSourceStatus>?
+          _i2.ListBuilder<AggregatedSourceStatus>?
               aggregatedSourceStatusList) =>
       _$this._aggregatedSourceStatusList = aggregatedSourceStatusList;
 

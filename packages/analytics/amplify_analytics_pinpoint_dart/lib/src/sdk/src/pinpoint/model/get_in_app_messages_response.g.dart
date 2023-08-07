@@ -8,7 +8,7 @@ part of 'get_in_app_messages_response.dart';
 
 class _$GetInAppMessagesResponse extends GetInAppMessagesResponse {
   @override
-  final _i3.InAppMessagesResponse inAppMessagesResponse;
+  final InAppMessagesResponse inAppMessagesResponse;
 
   factory _$GetInAppMessagesResponse(
           [void Function(GetInAppMessagesResponseBuilder)? updates]) =>
@@ -50,11 +50,11 @@ class GetInAppMessagesResponseBuilder
         Builder<GetInAppMessagesResponse, GetInAppMessagesResponseBuilder> {
   _$GetInAppMessagesResponse? _$v;
 
-  _i3.InAppMessagesResponseBuilder? _inAppMessagesResponse;
-  _i3.InAppMessagesResponseBuilder get inAppMessagesResponse =>
-      _$this._inAppMessagesResponse ??= new _i3.InAppMessagesResponseBuilder();
+  InAppMessagesResponseBuilder? _inAppMessagesResponse;
+  InAppMessagesResponseBuilder get inAppMessagesResponse =>
+      _$this._inAppMessagesResponse ??= new InAppMessagesResponseBuilder();
   set inAppMessagesResponse(
-          _i3.InAppMessagesResponseBuilder? inAppMessagesResponse) =>
+          InAppMessagesResponseBuilder? inAppMessagesResponse) =>
       _$this._inAppMessagesResponse = inAppMessagesResponse;
 
   GetInAppMessagesResponseBuilder();

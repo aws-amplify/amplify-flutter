@@ -10,7 +10,7 @@ class _$ValidationException extends ValidationException {
   @override
   final String message;
   @override
-  final _i4.BuiltList<_i3.ValidationExceptionField>? fieldList;
+  final _i3.BuiltList<ValidationExceptionField>? fieldList;
   @override
   final int? statusCode;
   @override
@@ -62,10 +62,10 @@ class ValidationExceptionBuilder
   String? get message => _$this._message;
   set message(String? message) => _$this._message = message;
 
-  _i4.ListBuilder<_i3.ValidationExceptionField>? _fieldList;
-  _i4.ListBuilder<_i3.ValidationExceptionField> get fieldList =>
-      _$this._fieldList ??= new _i4.ListBuilder<_i3.ValidationExceptionField>();
-  set fieldList(_i4.ListBuilder<_i3.ValidationExceptionField>? fieldList) =>
+  _i3.ListBuilder<ValidationExceptionField>? _fieldList;
+  _i3.ListBuilder<ValidationExceptionField> get fieldList =>
+      _$this._fieldList ??= new _i3.ListBuilder<ValidationExceptionField>();
+  set fieldList(_i3.ListBuilder<ValidationExceptionField>? fieldList) =>
       _$this._fieldList = fieldList;
 
   int? _statusCode;

@@ -9,8 +9,7 @@ part of 'describe_remediation_execution_status_response.dart';
 class _$DescribeRemediationExecutionStatusResponse
     extends DescribeRemediationExecutionStatusResponse {
   @override
-  final _i3.BuiltList<_i2.RemediationExecutionStatus>?
-      remediationExecutionStatuses;
+  final _i2.BuiltList<RemediationExecutionStatus>? remediationExecutionStatuses;
   @override
   final String? nextToken;
 
@@ -58,14 +57,13 @@ class DescribeRemediationExecutionStatusResponseBuilder
             DescribeRemediationExecutionStatusResponseBuilder> {
   _$DescribeRemediationExecutionStatusResponse? _$v;
 
-  _i3.ListBuilder<_i2.RemediationExecutionStatus>?
-      _remediationExecutionStatuses;
-  _i3.ListBuilder<_i2.RemediationExecutionStatus>
+  _i2.ListBuilder<RemediationExecutionStatus>? _remediationExecutionStatuses;
+  _i2.ListBuilder<RemediationExecutionStatus>
       get remediationExecutionStatuses =>
           _$this._remediationExecutionStatuses ??=
-              new _i3.ListBuilder<_i2.RemediationExecutionStatus>();
+              new _i2.ListBuilder<RemediationExecutionStatus>();
   set remediationExecutionStatuses(
-          _i3.ListBuilder<_i2.RemediationExecutionStatus>?
+          _i2.ListBuilder<RemediationExecutionStatus>?
               remediationExecutionStatuses) =>
       _$this._remediationExecutionStatuses = remediationExecutionStatuses;
 

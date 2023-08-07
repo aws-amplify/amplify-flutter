@@ -4,13 +4,12 @@
 library smoke_test.api_gateway.model.create_authorizer_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i5;
+import 'package:meta/meta.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/authorizer_type.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/authorizer_type.dart';
 
 part 'create_authorizer_request.g.dart';
 
@@ -26,7 +25,7 @@ abstract class CreateAuthorizerRequest
   factory CreateAuthorizerRequest({
     required String restApiId,
     required String name,
-    required _i3.AuthorizerType type,
+    required AuthorizerType type,
     List<String>? providerArNs,
     String? authType,
     String? authorizerUri,
@@ -39,7 +38,7 @@ abstract class CreateAuthorizerRequest
       restApiId: restApiId,
       name: name,
       type: type,
-      providerArNs: providerArNs == null ? null : _i4.BuiltList(providerArNs),
+      providerArNs: providerArNs == null ? null : _i3.BuiltList(providerArNs),
       authType: authType,
       authorizerUri: authorizerUri,
       authorizerCredentials: authorizerCredentials,
@@ -88,10 +87,10 @@ abstract class CreateAuthorizerRequest
   String get name;
 
   /// The authorizer type. Valid values are `TOKEN` for a Lambda function using a single authorization token submitted in a custom header, `REQUEST` for a Lambda function using incoming request parameters, and `COGNITO\_USER\_POOLS` for using an Amazon Cognito user pool.
-  _i3.AuthorizerType get type;
+  AuthorizerType get type;
 
   /// A list of the Amazon Cognito user pool ARNs for the `COGNITO\_USER\_POOLS` authorizer. Each element is of this format: `arn:aws:cognito-idp:{region}:{account\_id}:userpool/{user\_pool_id}`. For a `TOKEN` or `REQUEST` authorizer, this is not defined.
-  _i4.BuiltList<String>? get providerArNs;
+  _i3.BuiltList<String>? get providerArNs;
 
   /// Optional customer-defined field, used in OpenAPI imports and exports without functional impact.
   String? get authType;
@@ -197,7 +196,7 @@ abstract class CreateAuthorizerRequest
   }
 }
 
-@_i5.internal
+@_i4.internal
 abstract class CreateAuthorizerRequestPayload
     with
         _i2.AWSEquatable<CreateAuthorizerRequestPayload>
@@ -232,10 +231,10 @@ abstract class CreateAuthorizerRequestPayload
   String get name;
 
   /// A list of the Amazon Cognito user pool ARNs for the `COGNITO\_USER\_POOLS` authorizer. Each element is of this format: `arn:aws:cognito-idp:{region}:{account\_id}:userpool/{user\_pool_id}`. For a `TOKEN` or `REQUEST` authorizer, this is not defined.
-  _i4.BuiltList<String>? get providerArNs;
+  _i3.BuiltList<String>? get providerArNs;
 
   /// The authorizer type. Valid values are `TOKEN` for a Lambda function using a single authorization token submitted in a custom header, `REQUEST` for a Lambda function using incoming request parameters, and `COGNITO\_USER\_POOLS` for using an Amazon Cognito user pool.
-  _i3.AuthorizerType get type;
+  AuthorizerType get type;
   @override
   List<Object?> get props => [
         authType,
@@ -365,15 +364,15 @@ class CreateAuthorizerRequestRestJson1Serializer
           result.providerArNs.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i4.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'type':
           result.type = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.AuthorizerType),
-          ) as _i3.AuthorizerType);
+            specifiedType: const FullType(AuthorizerType),
+          ) as AuthorizerType);
       }
     }
 
@@ -407,7 +406,7 @@ class CreateAuthorizerRequestRestJson1Serializer
       'type',
       serializers.serialize(
         type,
-        specifiedType: const FullType(_i3.AuthorizerType),
+        specifiedType: const FullType(AuthorizerType),
       ),
     ]);
     if (authType != null) {
@@ -464,7 +463,7 @@ class CreateAuthorizerRequestRestJson1Serializer
         ..add(serializers.serialize(
           providerArNs,
           specifiedType: const FullType(
-            _i4.BuiltList,
+            _i3.BuiltList,
             [FullType(String)],
           ),
         ));

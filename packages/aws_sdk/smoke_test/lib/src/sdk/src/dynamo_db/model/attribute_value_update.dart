@@ -6,11 +6,9 @@ library smoke_test.dynamo_db.model.attribute_value_update; // ignore_for_file: n
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_action.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_action.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart';
 
 part 'attribute_value_update.g.dart';
 
@@ -28,8 +26,8 @@ abstract class AttributeValueUpdate
   ///
   /// Attribute values cannot be null; string and binary type attributes must have lengths greater than zero; and set type attributes must not be empty. Requests with empty values will be rejected with a `ValidationException` exception.
   factory AttributeValueUpdate({
-    _i2.AttributeValue? value,
-    _i3.AttributeAction? action,
+    AttributeValue? value,
+    AttributeAction? action,
   }) {
     return _$AttributeValueUpdate._(
       value: value,
@@ -48,7 +46,7 @@ abstract class AttributeValueUpdate
 
   const AttributeValueUpdate._();
 
-  static const List<_i4.SmithySerializer<AttributeValueUpdate>> serializers = [
+  static const List<_i2.SmithySerializer<AttributeValueUpdate>> serializers = [
     AttributeValueUpdateAwsJson10Serializer()
   ];
 
@@ -57,7 +55,7 @@ abstract class AttributeValueUpdate
   /// Each attribute value is described as a name-value pair. The name is the data type, and the value is the data itself.
   ///
   /// For more information, see [Data Types](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes) in the _Amazon DynamoDB Developer Guide_.
-  _i2.AttributeValue? get value;
+  AttributeValue? get value;
 
   /// Specifies how to perform the update. Valid values are `PUT` (default), `DELETE`, and `ADD`. The behavior depends on whether the specified primary key already exists in the table.
   ///
@@ -92,7 +90,7 @@ abstract class AttributeValueUpdate
   /// *   `DELETE` \- Nothing happens; there is no attribute to delete.
   ///
   /// *   `ADD` \- DynamoDB creates a new item with the supplied primary key and number (or set) for the attribute value. The only data types allowed are number, number set, string set or binary set.
-  _i3.AttributeAction? get action;
+  AttributeAction? get action;
   @override
   List<Object?> get props => [
         value,
@@ -114,7 +112,7 @@ abstract class AttributeValueUpdate
 }
 
 class AttributeValueUpdateAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<AttributeValueUpdate> {
+    extends _i2.StructuredSmithySerializer<AttributeValueUpdate> {
   const AttributeValueUpdateAwsJson10Serializer()
       : super('AttributeValueUpdate');
 
@@ -124,8 +122,8 @@ class AttributeValueUpdateAwsJson10Serializer
         _$AttributeValueUpdate,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -149,13 +147,13 @@ class AttributeValueUpdateAwsJson10Serializer
         case 'Value':
           result.value = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.AttributeValue),
-          ) as _i2.AttributeValue);
+            specifiedType: const FullType(AttributeValue),
+          ) as AttributeValue);
         case 'Action':
           result.action = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.AttributeAction),
-          ) as _i3.AttributeAction);
+            specifiedType: const FullType(AttributeAction),
+          ) as AttributeAction);
       }
     }
 
@@ -175,7 +173,7 @@ class AttributeValueUpdateAwsJson10Serializer
         ..add('Value')
         ..add(serializers.serialize(
           value,
-          specifiedType: const FullType(_i2.AttributeValue),
+          specifiedType: const FullType(AttributeValue),
         ));
     }
     if (action != null) {
@@ -183,7 +181,7 @@ class AttributeValueUpdateAwsJson10Serializer
         ..add('Action')
         ..add(serializers.serialize(
           action,
-          specifiedType: const FullType(_i3.AttributeAction),
+          specifiedType: const FullType(AttributeAction),
         ));
     }
     return result$;

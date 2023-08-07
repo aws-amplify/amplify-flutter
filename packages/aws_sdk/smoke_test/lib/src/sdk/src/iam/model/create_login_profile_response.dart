@@ -6,8 +6,8 @@ library smoke_test.iam.model.create_login_profile_response; // ignore_for_file: 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/login_profile.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/login_profile.dart';
 
 part 'create_login_profile_response.g.dart';
 
@@ -17,7 +17,7 @@ abstract class CreateLoginProfileResponse
     implements
         Built<CreateLoginProfileResponse, CreateLoginProfileResponseBuilder> {
   /// Contains the response to a successful CreateLoginProfile request.
-  factory CreateLoginProfileResponse({required _i2.LoginProfile loginProfile}) {
+  factory CreateLoginProfileResponse({required LoginProfile loginProfile}) {
     return _$CreateLoginProfileResponse._(loginProfile: loginProfile);
   }
 
@@ -35,11 +35,11 @@ abstract class CreateLoginProfileResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<CreateLoginProfileResponse>>
+  static const List<_i2.SmithySerializer<CreateLoginProfileResponse>>
       serializers = [CreateLoginProfileResponseAwsQuerySerializer()];
 
   /// A structure containing the user name and password create date.
-  _i2.LoginProfile get loginProfile;
+  LoginProfile get loginProfile;
   @override
   List<Object?> get props => [loginProfile];
   @override
@@ -54,7 +54,7 @@ abstract class CreateLoginProfileResponse
 }
 
 class CreateLoginProfileResponseAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<CreateLoginProfileResponse> {
+    extends _i2.StructuredSmithySerializer<CreateLoginProfileResponse> {
   const CreateLoginProfileResponseAwsQuerySerializer()
       : super('CreateLoginProfileResponse');
 
@@ -64,8 +64,8 @@ class CreateLoginProfileResponseAwsQuerySerializer
         _$CreateLoginProfileResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -89,8 +89,8 @@ class CreateLoginProfileResponseAwsQuerySerializer
         case 'LoginProfile':
           result.loginProfile.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.LoginProfile),
-          ) as _i2.LoginProfile));
+            specifiedType: const FullType(LoginProfile),
+          ) as LoginProfile));
       }
     }
 
@@ -104,17 +104,17 @@ class CreateLoginProfileResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'CreateLoginProfileResponseResponse',
-        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final CreateLoginProfileResponse(:loginProfile) = object;
     result$
-      ..add(const _i3.XmlElementName('LoginProfile'))
+      ..add(const _i2.XmlElementName('LoginProfile'))
       ..add(serializers.serialize(
         loginProfile,
-        specifiedType: const FullType(_i2.LoginProfile),
+        specifiedType: const FullType(LoginProfile),
       ));
     return result$;
   }

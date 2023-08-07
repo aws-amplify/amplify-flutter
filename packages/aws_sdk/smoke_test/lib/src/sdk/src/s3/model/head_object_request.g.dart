@@ -30,13 +30,13 @@ class _$HeadObjectRequest extends HeadObjectRequest {
   @override
   final String? sseCustomerKeyMd5;
   @override
-  final _i3.RequestPayer? requestPayer;
+  final RequestPayer? requestPayer;
   @override
   final int? partNumber;
   @override
   final String? expectedBucketOwner;
   @override
-  final _i4.ChecksumMode? checksumMode;
+  final ChecksumMode? checksumMode;
 
   factory _$HeadObjectRequest(
           [void Function(HeadObjectRequestBuilder)? updates]) =>
@@ -169,9 +169,9 @@ class HeadObjectRequestBuilder
   set sseCustomerKeyMd5(String? sseCustomerKeyMd5) =>
       _$this._sseCustomerKeyMd5 = sseCustomerKeyMd5;
 
-  _i3.RequestPayer? _requestPayer;
-  _i3.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i3.RequestPayer? requestPayer) =>
+  RequestPayer? _requestPayer;
+  RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
   int? _partNumber;
@@ -183,9 +183,9 @@ class HeadObjectRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  _i4.ChecksumMode? _checksumMode;
-  _i4.ChecksumMode? get checksumMode => _$this._checksumMode;
-  set checksumMode(_i4.ChecksumMode? checksumMode) =>
+  ChecksumMode? _checksumMode;
+  ChecksumMode? get checksumMode => _$this._checksumMode;
+  set checksumMode(ChecksumMode? checksumMode) =>
       _$this._checksumMode = checksumMode;
 
   HeadObjectRequestBuilder();

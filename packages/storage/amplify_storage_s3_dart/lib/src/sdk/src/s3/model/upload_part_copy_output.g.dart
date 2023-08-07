@@ -10,9 +10,9 @@ class _$UploadPartCopyOutput extends UploadPartCopyOutput {
   @override
   final String? copySourceVersionId;
   @override
-  final _i3.CopyPartResult? copyPartResult;
+  final CopyPartResult? copyPartResult;
   @override
-  final _i4.ServerSideEncryption? serverSideEncryption;
+  final ServerSideEncryption? serverSideEncryption;
   @override
   final String? sseCustomerAlgorithm;
   @override
@@ -22,7 +22,7 @@ class _$UploadPartCopyOutput extends UploadPartCopyOutput {
   @override
   final bool? bucketKeyEnabled;
   @override
-  final _i5.RequestCharged? requestCharged;
+  final RequestCharged? requestCharged;
 
   factory _$UploadPartCopyOutput(
           [void Function(UploadPartCopyOutputBuilder)? updates]) =>
@@ -87,16 +87,16 @@ class UploadPartCopyOutputBuilder
   set copySourceVersionId(String? copySourceVersionId) =>
       _$this._copySourceVersionId = copySourceVersionId;
 
-  _i3.CopyPartResultBuilder? _copyPartResult;
-  _i3.CopyPartResultBuilder get copyPartResult =>
-      _$this._copyPartResult ??= new _i3.CopyPartResultBuilder();
-  set copyPartResult(_i3.CopyPartResultBuilder? copyPartResult) =>
+  CopyPartResultBuilder? _copyPartResult;
+  CopyPartResultBuilder get copyPartResult =>
+      _$this._copyPartResult ??= new CopyPartResultBuilder();
+  set copyPartResult(CopyPartResultBuilder? copyPartResult) =>
       _$this._copyPartResult = copyPartResult;
 
-  _i4.ServerSideEncryption? _serverSideEncryption;
-  _i4.ServerSideEncryption? get serverSideEncryption =>
+  ServerSideEncryption? _serverSideEncryption;
+  ServerSideEncryption? get serverSideEncryption =>
       _$this._serverSideEncryption;
-  set serverSideEncryption(_i4.ServerSideEncryption? serverSideEncryption) =>
+  set serverSideEncryption(ServerSideEncryption? serverSideEncryption) =>
       _$this._serverSideEncryption = serverSideEncryption;
 
   String? _sseCustomerAlgorithm;
@@ -118,9 +118,9 @@ class UploadPartCopyOutputBuilder
   set bucketKeyEnabled(bool? bucketKeyEnabled) =>
       _$this._bucketKeyEnabled = bucketKeyEnabled;
 
-  _i5.RequestCharged? _requestCharged;
-  _i5.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i5.RequestCharged? requestCharged) =>
+  RequestCharged? _requestCharged;
+  RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
   UploadPartCopyOutputBuilder();

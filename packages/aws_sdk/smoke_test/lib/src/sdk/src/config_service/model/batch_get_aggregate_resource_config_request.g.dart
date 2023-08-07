@@ -11,7 +11,7 @@ class _$BatchGetAggregateResourceConfigRequest
   @override
   final String configurationAggregatorName;
   @override
-  final _i4.BuiltList<_i3.AggregateResourceIdentifier> resourceIdentifiers;
+  final _i3.BuiltList<AggregateResourceIdentifier> resourceIdentifiers;
 
   factory _$BatchGetAggregateResourceConfigRequest(
           [void Function(BatchGetAggregateResourceConfigRequestBuilder)?
@@ -71,13 +71,12 @@ class BatchGetAggregateResourceConfigRequestBuilder
   set configurationAggregatorName(String? configurationAggregatorName) =>
       _$this._configurationAggregatorName = configurationAggregatorName;
 
-  _i4.ListBuilder<_i3.AggregateResourceIdentifier>? _resourceIdentifiers;
-  _i4.ListBuilder<_i3.AggregateResourceIdentifier> get resourceIdentifiers =>
+  _i3.ListBuilder<AggregateResourceIdentifier>? _resourceIdentifiers;
+  _i3.ListBuilder<AggregateResourceIdentifier> get resourceIdentifiers =>
       _$this._resourceIdentifiers ??=
-          new _i4.ListBuilder<_i3.AggregateResourceIdentifier>();
+          new _i3.ListBuilder<AggregateResourceIdentifier>();
   set resourceIdentifiers(
-          _i4.ListBuilder<_i3.AggregateResourceIdentifier>?
-              resourceIdentifiers) =>
+          _i3.ListBuilder<AggregateResourceIdentifier>? resourceIdentifiers) =>
       _$this._resourceIdentifiers = resourceIdentifiers;
 
   BatchGetAggregateResourceConfigRequestBuilder();

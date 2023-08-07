@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.get_compliance_details_by_config_rule_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/compliance_type.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/compliance_type.dart';
 
 part 'get_compliance_details_by_config_rule_request.g.dart';
 
@@ -22,7 +21,7 @@ abstract class GetComplianceDetailsByConfigRuleRequest
             GetComplianceDetailsByConfigRuleRequestBuilder> {
   factory GetComplianceDetailsByConfigRuleRequest({
     required String configRuleName,
-    List<_i3.ComplianceType>? complianceTypes,
+    List<ComplianceType>? complianceTypes,
     int? limit,
     String? nextToken,
   }) {
@@ -30,7 +29,7 @@ abstract class GetComplianceDetailsByConfigRuleRequest
     return _$GetComplianceDetailsByConfigRuleRequest._(
       configRuleName: configRuleName,
       complianceTypes:
-          complianceTypes == null ? null : _i4.BuiltList(complianceTypes),
+          complianceTypes == null ? null : _i3.BuiltList(complianceTypes),
       limit: limit,
       nextToken: nextToken,
     );
@@ -66,7 +65,7 @@ abstract class GetComplianceDetailsByConfigRuleRequest
   /// Filters the results by compliance.
   ///
   /// `INSUFFICIENT_DATA` is a valid `ComplianceType` that is returned when an Config rule cannot be evaluated. However, `INSUFFICIENT_DATA` cannot be used as a `ComplianceType` for filtering results.
-  _i4.BuiltList<_i3.ComplianceType>? get complianceTypes;
+  _i3.BuiltList<ComplianceType>? get complianceTypes;
 
   /// The maximum number of evaluation results returned on each page. The default is 10. You cannot specify a number greater than 100. If you specify 0, Config uses the default.
   int get limit;
@@ -148,10 +147,10 @@ class GetComplianceDetailsByConfigRuleRequestAwsJson11Serializer extends _i1
           result.complianceTypes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.ComplianceType)],
+              _i3.BuiltList,
+              [FullType(ComplianceType)],
             ),
-          ) as _i4.BuiltList<_i3.ComplianceType>));
+          ) as _i3.BuiltList<ComplianceType>));
         case 'Limit':
           result.limit = (serializers.deserialize(
             value,
@@ -199,8 +198,8 @@ class GetComplianceDetailsByConfigRuleRequestAwsJson11Serializer extends _i1
         ..add(serializers.serialize(
           complianceTypes,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i3.ComplianceType)],
+            _i3.BuiltList,
+            [FullType(ComplianceType)],
           ),
         ));
     }

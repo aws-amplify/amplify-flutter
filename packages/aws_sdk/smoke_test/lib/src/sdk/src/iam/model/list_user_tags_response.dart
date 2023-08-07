@@ -4,11 +4,11 @@
 library smoke_test.iam.model.list_user_tags_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/tag.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/tag.dart';
 
 part 'list_user_tags_response.g.dart';
 
@@ -16,13 +16,13 @@ abstract class ListUserTagsResponse
     with _i1.AWSEquatable<ListUserTagsResponse>
     implements Built<ListUserTagsResponse, ListUserTagsResponseBuilder> {
   factory ListUserTagsResponse({
-    required List<_i2.Tag> tags,
+    required List<Tag> tags,
     bool? isTruncated,
     String? marker,
   }) {
     isTruncated ??= false;
     return _$ListUserTagsResponse._(
-      tags: _i3.BuiltList(tags),
+      tags: _i2.BuiltList(tags),
       isTruncated: isTruncated,
       marker: marker,
     );
@@ -41,7 +41,7 @@ abstract class ListUserTagsResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<ListUserTagsResponse>> serializers = [
+  static const List<_i3.SmithySerializer<ListUserTagsResponse>> serializers = [
     ListUserTagsResponseAwsQuerySerializer()
   ];
 
@@ -51,7 +51,7 @@ abstract class ListUserTagsResponse
   }
 
   /// The list of tags that are currently attached to the user. Each tag consists of a key name and an associated value. If no tags are attached to the specified resource, the response contains an empty list.
-  _i3.BuiltList<_i2.Tag> get tags;
+  _i2.BuiltList<Tag> get tags;
 
   /// A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the `Marker` request parameter to retrieve more items. Note that IAM might return fewer than the `MaxItems` number of results even when there are more results available. We recommend that you check `IsTruncated` after every call to ensure that you receive all your results.
   bool get isTruncated;
@@ -84,7 +84,7 @@ abstract class ListUserTagsResponse
 }
 
 class ListUserTagsResponseAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<ListUserTagsResponse> {
+    extends _i3.StructuredSmithySerializer<ListUserTagsResponse> {
   const ListUserTagsResponseAwsQuerySerializer()
       : super('ListUserTagsResponse');
 
@@ -94,8 +94,8 @@ class ListUserTagsResponseAwsQuerySerializer
         _$ListUserTagsResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -117,16 +117,16 @@ class ListUserTagsResponseAwsQuerySerializer
       }
       switch (key) {
         case 'Tags':
-          result.tags.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.tags.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.Tag)],
+              _i2.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i3.BuiltList<_i2.Tag>));
+          ) as _i2.BuiltList<Tag>));
         case 'IsTruncated':
           result.isTruncated = (serializers.deserialize(
             value,
@@ -150,33 +150,33 @@ class ListUserTagsResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'ListUserTagsResponseResponse',
-        _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final ListUserTagsResponse(:tags, :isTruncated, :marker) = object;
     result$
-      ..add(const _i4.XmlElementName('Tags'))
+      ..add(const _i3.XmlElementName('Tags'))
       ..add(
-          const _i4.XmlBuiltListSerializer(indexer: _i4.XmlIndexer.awsQueryList)
+          const _i3.XmlBuiltListSerializer(indexer: _i3.XmlIndexer.awsQueryList)
               .serialize(
         serializers,
         tags,
         specifiedType: const FullType.nullable(
-          _i3.BuiltList,
-          [FullType(_i2.Tag)],
+          _i2.BuiltList,
+          [FullType(Tag)],
         ),
       ));
     result$
-      ..add(const _i4.XmlElementName('IsTruncated'))
+      ..add(const _i3.XmlElementName('IsTruncated'))
       ..add(serializers.serialize(
         isTruncated,
         specifiedType: const FullType(bool),
       ));
     if (marker != null) {
       result$
-        ..add(const _i4.XmlElementName('Marker'))
+        ..add(const _i3.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
           specifiedType: const FullType(String),

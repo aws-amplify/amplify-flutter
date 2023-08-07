@@ -8,7 +8,7 @@ part of 'operation_result_filter.dart';
 
 class _$OperationResultFilter extends OperationResultFilter {
   @override
-  final _i2.OperationResultFilterName? name;
+  final OperationResultFilterName? name;
   @override
   final String? values;
 
@@ -49,9 +49,9 @@ class OperationResultFilterBuilder
     implements Builder<OperationResultFilter, OperationResultFilterBuilder> {
   _$OperationResultFilter? _$v;
 
-  _i2.OperationResultFilterName? _name;
-  _i2.OperationResultFilterName? get name => _$this._name;
-  set name(_i2.OperationResultFilterName? name) => _$this._name = name;
+  OperationResultFilterName? _name;
+  OperationResultFilterName? get name => _$this._name;
+  set name(OperationResultFilterName? name) => _$this._name = name;
 
   String? _values;
   String? get values => _$this._values;

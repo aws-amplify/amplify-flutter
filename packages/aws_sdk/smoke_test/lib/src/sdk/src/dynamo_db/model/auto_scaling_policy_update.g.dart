@@ -10,7 +10,7 @@ class _$AutoScalingPolicyUpdate extends AutoScalingPolicyUpdate {
   @override
   final String? policyName;
   @override
-  final _i2.AutoScalingTargetTrackingScalingPolicyConfigurationUpdate
+  final AutoScalingTargetTrackingScalingPolicyConfigurationUpdate
       targetTrackingScalingPolicyConfiguration;
 
   factory _$AutoScalingPolicyUpdate(
@@ -63,14 +63,14 @@ class AutoScalingPolicyUpdateBuilder
   String? get policyName => _$this._policyName;
   set policyName(String? policyName) => _$this._policyName = policyName;
 
-  _i2.AutoScalingTargetTrackingScalingPolicyConfigurationUpdateBuilder?
+  AutoScalingTargetTrackingScalingPolicyConfigurationUpdateBuilder?
       _targetTrackingScalingPolicyConfiguration;
-  _i2.AutoScalingTargetTrackingScalingPolicyConfigurationUpdateBuilder
-      get targetTrackingScalingPolicyConfiguration =>
-          _$this._targetTrackingScalingPolicyConfiguration ??= new _i2
-              .AutoScalingTargetTrackingScalingPolicyConfigurationUpdateBuilder();
+  AutoScalingTargetTrackingScalingPolicyConfigurationUpdateBuilder
+      get targetTrackingScalingPolicyConfiguration => _$this
+              ._targetTrackingScalingPolicyConfiguration ??=
+          new AutoScalingTargetTrackingScalingPolicyConfigurationUpdateBuilder();
   set targetTrackingScalingPolicyConfiguration(
-          _i2.AutoScalingTargetTrackingScalingPolicyConfigurationUpdateBuilder?
+          AutoScalingTargetTrackingScalingPolicyConfigurationUpdateBuilder?
               targetTrackingScalingPolicyConfiguration) =>
       _$this._targetTrackingScalingPolicyConfiguration =
           targetTrackingScalingPolicyConfiguration;

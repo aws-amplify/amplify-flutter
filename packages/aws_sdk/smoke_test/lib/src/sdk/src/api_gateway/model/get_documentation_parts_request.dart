@@ -6,12 +6,10 @@ library smoke_test.api_gateway.model.get_documentation_parts_request; // ignore_
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i5;
+import 'package:meta/meta.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/documentation_part_type.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/location_status_type.dart'
-    as _i4;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/documentation_part_type.dart';
+import 'package:smoke_test/src/sdk/src/api_gateway/model/location_status_type.dart';
 
 part 'get_documentation_parts_request.g.dart';
 
@@ -28,12 +26,12 @@ abstract class GetDocumentationPartsRequest
   /// Gets the documentation parts of an API. The result may be filtered by the type, name, or path of API entities (targets).
   factory GetDocumentationPartsRequest({
     required String restApiId,
-    _i3.DocumentationPartType? type,
+    DocumentationPartType? type,
     String? nameQuery,
     String? path,
     String? position,
     int? limit,
-    _i4.LocationStatusType? locationStatus,
+    LocationStatusType? locationStatus,
   }) {
     return _$GetDocumentationPartsRequest._(
       restApiId: restApiId,
@@ -60,7 +58,7 @@ abstract class GetDocumentationPartsRequest
   }) =>
       GetDocumentationPartsRequest.build((b) {
         if (request.queryParameters['type'] != null) {
-          b.type = _i3.DocumentationPartType.values
+          b.type = DocumentationPartType.values
               .byValue(request.queryParameters['type']!);
         }
         if (request.queryParameters['name'] != null) {
@@ -76,7 +74,7 @@ abstract class GetDocumentationPartsRequest
           b.limit = int.parse(request.queryParameters['limit']!);
         }
         if (request.queryParameters['locationStatus'] != null) {
-          b.locationStatus = _i4.LocationStatusType.values
+          b.locationStatus = LocationStatusType.values
               .byValue(request.queryParameters['locationStatus']!);
         }
         if (labels['restApiId'] != null) {
@@ -91,7 +89,7 @@ abstract class GetDocumentationPartsRequest
   String get restApiId;
 
   /// The type of API entities of the to-be-retrieved documentation parts.
-  _i3.DocumentationPartType? get type;
+  DocumentationPartType? get type;
 
   /// The name of API entities of the to-be-retrieved documentation parts.
   String? get nameQuery;
@@ -106,7 +104,7 @@ abstract class GetDocumentationPartsRequest
   int? get limit;
 
   /// The status of the API documentation parts to retrieve. Valid values are `DOCUMENTED` for retrieving DocumentationPart resources with content and `UNDOCUMENTED` for DocumentationPart resources without content.
-  _i4.LocationStatusType? get locationStatus;
+  LocationStatusType? get locationStatus;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -167,7 +165,7 @@ abstract class GetDocumentationPartsRequest
   }
 }
 
-@_i5.internal
+@_i3.internal
 abstract class GetDocumentationPartsRequestPayload
     with
         _i2.AWSEquatable<GetDocumentationPartsRequestPayload>

@@ -5,11 +5,9 @@
 library rest_xml_v2.rest_xml_protocol.test.fractional_seconds_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/fractional_seconds_output.dart'
-    as _i5;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/fractional_seconds_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/fractional_seconds_output.dart';
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/fractional_seconds_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -18,7 +16,7 @@ void main() {
     'RestXmlDateTimeWithFractionalSeconds (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.FractionalSecondsOperation(
+        operation: FractionalSecondsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -26,7 +24,7 @@ void main() {
           id: 'RestXmlDateTimeWithFractionalSeconds',
           documentation:
               'Ensures that clients can correctly parse datetime timestamps with fractional seconds',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -51,26 +49,26 @@ void main() {
 }
 
 class FractionalSecondsOutputRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<_i5.FractionalSecondsOutput> {
+    extends _i3.StructuredSmithySerializer<FractionalSecondsOutput> {
   const FractionalSecondsOutputRestXmlSerializer()
       : super('FractionalSecondsOutput');
 
   @override
-  Iterable<Type> get types => const [_i5.FractionalSecondsOutput];
+  Iterable<Type> get types => const [FractionalSecondsOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
       ];
   @override
-  _i5.FractionalSecondsOutput deserialize(
+  FractionalSecondsOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.FractionalSecondsOutputBuilder();
+    final result = FractionalSecondsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -81,7 +79,7 @@ class FractionalSecondsOutputRestXmlSerializer
       }
       switch (key) {
         case 'datetime':
-          result.datetime = _i4.TimestampSerializer.epochSeconds.deserialize(
+          result.datetime = _i3.TimestampSerializer.epochSeconds.deserialize(
             serializers,
             value,
           );
@@ -94,7 +92,7 @@ class FractionalSecondsOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.FractionalSecondsOutput object, {
+    FractionalSecondsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

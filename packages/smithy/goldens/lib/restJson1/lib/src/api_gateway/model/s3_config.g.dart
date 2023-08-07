@@ -8,7 +8,7 @@ part of 's3_config.dart';
 
 class _$S3Config extends S3Config {
   @override
-  final _i2.S3AddressingStyle? addressingStyle;
+  final S3AddressingStyle? addressingStyle;
   @override
   final bool? useAccelerateEndpoint;
   @override
@@ -53,9 +53,9 @@ class _$S3Config extends S3Config {
 class S3ConfigBuilder implements Builder<S3Config, S3ConfigBuilder> {
   _$S3Config? _$v;
 
-  _i2.S3AddressingStyle? _addressingStyle;
-  _i2.S3AddressingStyle? get addressingStyle => _$this._addressingStyle;
-  set addressingStyle(_i2.S3AddressingStyle? addressingStyle) =>
+  S3AddressingStyle? _addressingStyle;
+  S3AddressingStyle? get addressingStyle => _$this._addressingStyle;
+  set addressingStyle(S3AddressingStyle? addressingStyle) =>
       _$this._addressingStyle = addressingStyle;
 
   bool? _useAccelerateEndpoint;

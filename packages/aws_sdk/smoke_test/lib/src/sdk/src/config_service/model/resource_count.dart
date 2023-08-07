@@ -6,10 +6,9 @@ library smoke_test.config_service.model.resource_count; // ignore_for_file: no_l
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i3;
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart'
-    as _i2;
+import 'package:fixnum/fixnum.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart';
 
 part 'resource_count.g.dart';
 
@@ -19,10 +18,10 @@ abstract class ResourceCount
     implements Built<ResourceCount, ResourceCountBuilder> {
   /// An object that contains the resource type and the number of resources.
   factory ResourceCount({
-    _i2.ResourceType? resourceType,
-    _i3.Int64? count,
+    ResourceType? resourceType,
+    _i2.Int64? count,
   }) {
-    count ??= _i3.Int64.ZERO;
+    count ??= _i2.Int64.ZERO;
     return _$ResourceCount._(
       resourceType: resourceType,
       count: count,
@@ -35,20 +34,20 @@ abstract class ResourceCount
 
   const ResourceCount._();
 
-  static const List<_i4.SmithySerializer<ResourceCount>> serializers = [
+  static const List<_i3.SmithySerializer<ResourceCount>> serializers = [
     ResourceCountAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ResourceCountBuilder b) {
-    b.count = _i3.Int64.ZERO;
+    b.count = _i2.Int64.ZERO;
   }
 
   /// The resource type (for example, `"AWS::EC2::Instance"`).
-  _i2.ResourceType? get resourceType;
+  ResourceType? get resourceType;
 
   /// The number of resources.
-  _i3.Int64 get count;
+  _i2.Int64 get count;
   @override
   List<Object?> get props => [
         resourceType,
@@ -70,7 +69,7 @@ abstract class ResourceCount
 }
 
 class ResourceCountAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<ResourceCount> {
+    extends _i3.StructuredSmithySerializer<ResourceCount> {
   const ResourceCountAwsJson11Serializer() : super('ResourceCount');
 
   @override
@@ -79,8 +78,8 @@ class ResourceCountAwsJson11Serializer
         _$ResourceCount,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -104,13 +103,13 @@ class ResourceCountAwsJson11Serializer
         case 'resourceType':
           result.resourceType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ResourceType),
-          ) as _i2.ResourceType);
+            specifiedType: const FullType(ResourceType),
+          ) as ResourceType);
         case 'count':
           result.count = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.Int64),
-          ) as _i3.Int64);
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
       }
     }
 
@@ -129,7 +128,7 @@ class ResourceCountAwsJson11Serializer
       'count',
       serializers.serialize(
         count,
-        specifiedType: const FullType(_i3.Int64),
+        specifiedType: const FullType(_i2.Int64),
       ),
     ]);
     if (resourceType != null) {
@@ -137,7 +136,7 @@ class ResourceCountAwsJson11Serializer
         ..add('resourceType')
         ..add(serializers.serialize(
           resourceType,
-          specifiedType: const FullType(_i2.ResourceType),
+          specifiedType: const FullType(ResourceType),
         ));
     }
     return result$;

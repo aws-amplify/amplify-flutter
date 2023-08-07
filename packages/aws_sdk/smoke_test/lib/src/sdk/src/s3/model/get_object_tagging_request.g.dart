@@ -16,7 +16,7 @@ class _$GetObjectTaggingRequest extends GetObjectTaggingRequest {
   @override
   final String? expectedBucketOwner;
   @override
-  final _i3.RequestPayer? requestPayer;
+  final RequestPayer? requestPayer;
 
   factory _$GetObjectTaggingRequest(
           [void Function(GetObjectTaggingRequestBuilder)? updates]) =>
@@ -90,9 +90,9 @@ class GetObjectTaggingRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  _i3.RequestPayer? _requestPayer;
-  _i3.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i3.RequestPayer? requestPayer) =>
+  RequestPayer? _requestPayer;
+  RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
   GetObjectTaggingRequestBuilder();

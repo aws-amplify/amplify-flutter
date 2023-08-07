@@ -10,15 +10,15 @@ class _$InAppMessageContent extends InAppMessageContent {
   @override
   final String? backgroundColor;
   @override
-  final _i2.InAppMessageBodyConfig? bodyConfig;
+  final InAppMessageBodyConfig? bodyConfig;
   @override
-  final _i3.InAppMessageHeaderConfig? headerConfig;
+  final InAppMessageHeaderConfig? headerConfig;
   @override
   final String? imageUrl;
   @override
-  final _i4.InAppMessageButton? primaryBtn;
+  final InAppMessageButton? primaryBtn;
   @override
-  final _i4.InAppMessageButton? secondaryBtn;
+  final InAppMessageButton? secondaryBtn;
 
   factory _$InAppMessageContent(
           [void Function(InAppMessageContentBuilder)? updates]) =>
@@ -77,32 +77,32 @@ class InAppMessageContentBuilder
   set backgroundColor(String? backgroundColor) =>
       _$this._backgroundColor = backgroundColor;
 
-  _i2.InAppMessageBodyConfigBuilder? _bodyConfig;
-  _i2.InAppMessageBodyConfigBuilder get bodyConfig =>
-      _$this._bodyConfig ??= new _i2.InAppMessageBodyConfigBuilder();
-  set bodyConfig(_i2.InAppMessageBodyConfigBuilder? bodyConfig) =>
+  InAppMessageBodyConfigBuilder? _bodyConfig;
+  InAppMessageBodyConfigBuilder get bodyConfig =>
+      _$this._bodyConfig ??= new InAppMessageBodyConfigBuilder();
+  set bodyConfig(InAppMessageBodyConfigBuilder? bodyConfig) =>
       _$this._bodyConfig = bodyConfig;
 
-  _i3.InAppMessageHeaderConfigBuilder? _headerConfig;
-  _i3.InAppMessageHeaderConfigBuilder get headerConfig =>
-      _$this._headerConfig ??= new _i3.InAppMessageHeaderConfigBuilder();
-  set headerConfig(_i3.InAppMessageHeaderConfigBuilder? headerConfig) =>
+  InAppMessageHeaderConfigBuilder? _headerConfig;
+  InAppMessageHeaderConfigBuilder get headerConfig =>
+      _$this._headerConfig ??= new InAppMessageHeaderConfigBuilder();
+  set headerConfig(InAppMessageHeaderConfigBuilder? headerConfig) =>
       _$this._headerConfig = headerConfig;
 
   String? _imageUrl;
   String? get imageUrl => _$this._imageUrl;
   set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
 
-  _i4.InAppMessageButtonBuilder? _primaryBtn;
-  _i4.InAppMessageButtonBuilder get primaryBtn =>
-      _$this._primaryBtn ??= new _i4.InAppMessageButtonBuilder();
-  set primaryBtn(_i4.InAppMessageButtonBuilder? primaryBtn) =>
+  InAppMessageButtonBuilder? _primaryBtn;
+  InAppMessageButtonBuilder get primaryBtn =>
+      _$this._primaryBtn ??= new InAppMessageButtonBuilder();
+  set primaryBtn(InAppMessageButtonBuilder? primaryBtn) =>
       _$this._primaryBtn = primaryBtn;
 
-  _i4.InAppMessageButtonBuilder? _secondaryBtn;
-  _i4.InAppMessageButtonBuilder get secondaryBtn =>
-      _$this._secondaryBtn ??= new _i4.InAppMessageButtonBuilder();
-  set secondaryBtn(_i4.InAppMessageButtonBuilder? secondaryBtn) =>
+  InAppMessageButtonBuilder? _secondaryBtn;
+  InAppMessageButtonBuilder get secondaryBtn =>
+      _$this._secondaryBtn ??= new InAppMessageButtonBuilder();
+  set secondaryBtn(InAppMessageButtonBuilder? secondaryBtn) =>
       _$this._secondaryBtn = secondaryBtn;
 
   InAppMessageContentBuilder();

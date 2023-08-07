@@ -8,7 +8,7 @@ part of 'get_bucket_replication_output.dart';
 
 class _$GetBucketReplicationOutput extends GetBucketReplicationOutput {
   @override
-  final _i3.ReplicationConfiguration? replicationConfiguration;
+  final ReplicationConfiguration? replicationConfiguration;
 
   factory _$GetBucketReplicationOutput(
           [void Function(GetBucketReplicationOutputBuilder)? updates]) =>
@@ -46,12 +46,12 @@ class GetBucketReplicationOutputBuilder
         Builder<GetBucketReplicationOutput, GetBucketReplicationOutputBuilder> {
   _$GetBucketReplicationOutput? _$v;
 
-  _i3.ReplicationConfigurationBuilder? _replicationConfiguration;
-  _i3.ReplicationConfigurationBuilder get replicationConfiguration =>
+  ReplicationConfigurationBuilder? _replicationConfiguration;
+  ReplicationConfigurationBuilder get replicationConfiguration =>
       _$this._replicationConfiguration ??=
-          new _i3.ReplicationConfigurationBuilder();
+          new ReplicationConfigurationBuilder();
   set replicationConfiguration(
-          _i3.ReplicationConfigurationBuilder? replicationConfiguration) =>
+          ReplicationConfigurationBuilder? replicationConfiguration) =>
       _$this._replicationConfiguration = replicationConfiguration;
 
   GetBucketReplicationOutputBuilder();

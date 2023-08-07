@@ -11,7 +11,7 @@ class _$AggregateComplianceByConformancePack
   @override
   final String? conformancePackName;
   @override
-  final _i2.AggregateConformancePackCompliance? compliance;
+  final AggregateConformancePackCompliance? compliance;
   @override
   final String? accountId;
   @override
@@ -72,11 +72,10 @@ class AggregateComplianceByConformancePackBuilder
   set conformancePackName(String? conformancePackName) =>
       _$this._conformancePackName = conformancePackName;
 
-  _i2.AggregateConformancePackComplianceBuilder? _compliance;
-  _i2.AggregateConformancePackComplianceBuilder get compliance =>
-      _$this._compliance ??=
-          new _i2.AggregateConformancePackComplianceBuilder();
-  set compliance(_i2.AggregateConformancePackComplianceBuilder? compliance) =>
+  AggregateConformancePackComplianceBuilder? _compliance;
+  AggregateConformancePackComplianceBuilder get compliance =>
+      _$this._compliance ??= new AggregateConformancePackComplianceBuilder();
+  set compliance(AggregateConformancePackComplianceBuilder? compliance) =>
       _$this._compliance = compliance;
 
   String? _accountId;

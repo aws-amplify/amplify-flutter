@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.describe_compliance_by_config_rule_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/compliance_by_config_rule.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/compliance_by_config_rule.dart';
 
 part 'describe_compliance_by_config_rule_response.g.dart';
 
@@ -20,13 +19,13 @@ abstract class DescribeComplianceByConfigRuleResponse
         Built<DescribeComplianceByConfigRuleResponse,
             DescribeComplianceByConfigRuleResponseBuilder> {
   factory DescribeComplianceByConfigRuleResponse({
-    List<_i2.ComplianceByConfigRule>? complianceByConfigRules,
+    List<ComplianceByConfigRule>? complianceByConfigRules,
     String? nextToken,
   }) {
     return _$DescribeComplianceByConfigRuleResponse._(
       complianceByConfigRules: complianceByConfigRules == null
           ? null
-          : _i3.BuiltList(complianceByConfigRules),
+          : _i2.BuiltList(complianceByConfigRules),
       nextToken: nextToken,
     );
   }
@@ -45,13 +44,13 @@ abstract class DescribeComplianceByConfigRuleResponse
       payload;
 
   static const List<
-          _i4.SmithySerializer<DescribeComplianceByConfigRuleResponse>>
+          _i3.SmithySerializer<DescribeComplianceByConfigRuleResponse>>
       serializers = [
     DescribeComplianceByConfigRuleResponseAwsJson11Serializer()
   ];
 
   /// Indicates whether each of the specified Config rules is compliant.
-  _i3.BuiltList<_i2.ComplianceByConfigRule>? get complianceByConfigRules;
+  _i2.BuiltList<ComplianceByConfigRule>? get complianceByConfigRules;
 
   /// The string that you use in a subsequent request to get the next page of results in a paginated response.
   String? get nextToken;
@@ -76,7 +75,7 @@ abstract class DescribeComplianceByConfigRuleResponse
   }
 }
 
-class DescribeComplianceByConfigRuleResponseAwsJson11Serializer extends _i4
+class DescribeComplianceByConfigRuleResponseAwsJson11Serializer extends _i3
     .StructuredSmithySerializer<DescribeComplianceByConfigRuleResponse> {
   const DescribeComplianceByConfigRuleResponseAwsJson11Serializer()
       : super('DescribeComplianceByConfigRuleResponse');
@@ -87,8 +86,8 @@ class DescribeComplianceByConfigRuleResponseAwsJson11Serializer extends _i4
         _$DescribeComplianceByConfigRuleResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -113,10 +112,10 @@ class DescribeComplianceByConfigRuleResponseAwsJson11Serializer extends _i4
           result.complianceByConfigRules.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.ComplianceByConfigRule)],
+              _i2.BuiltList,
+              [FullType(ComplianceByConfigRule)],
             ),
-          ) as _i3.BuiltList<_i2.ComplianceByConfigRule>));
+          ) as _i2.BuiltList<ComplianceByConfigRule>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -145,8 +144,8 @@ class DescribeComplianceByConfigRuleResponseAwsJson11Serializer extends _i4
         ..add(serializers.serialize(
           complianceByConfigRules,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.ComplianceByConfigRule)],
+            _i2.BuiltList,
+            [FullType(ComplianceByConfigRule)],
           ),
         ));
     }

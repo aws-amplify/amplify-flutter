@@ -14,15 +14,15 @@ class _$UsagePlan extends UsagePlan {
   @override
   final String? description;
   @override
-  final _i5.BuiltList<_i2.ApiStage>? apiStages;
+  final _i2.BuiltList<ApiStage>? apiStages;
   @override
-  final _i3.ThrottleSettings? throttle;
+  final ThrottleSettings? throttle;
   @override
-  final _i4.QuotaSettings? quota;
+  final QuotaSettings? quota;
   @override
   final String? productCode;
   @override
-  final _i5.BuiltMap<String, String>? tags;
+  final _i2.BuiltMap<String, String>? tags;
 
   factory _$UsagePlan([void Function(UsagePlanBuilder)? updates]) =>
       (new UsagePlanBuilder()..update(updates))._build();
@@ -90,31 +90,31 @@ class UsagePlanBuilder implements Builder<UsagePlan, UsagePlanBuilder> {
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  _i5.ListBuilder<_i2.ApiStage>? _apiStages;
-  _i5.ListBuilder<_i2.ApiStage> get apiStages =>
-      _$this._apiStages ??= new _i5.ListBuilder<_i2.ApiStage>();
-  set apiStages(_i5.ListBuilder<_i2.ApiStage>? apiStages) =>
+  _i2.ListBuilder<ApiStage>? _apiStages;
+  _i2.ListBuilder<ApiStage> get apiStages =>
+      _$this._apiStages ??= new _i2.ListBuilder<ApiStage>();
+  set apiStages(_i2.ListBuilder<ApiStage>? apiStages) =>
       _$this._apiStages = apiStages;
 
-  _i3.ThrottleSettingsBuilder? _throttle;
-  _i3.ThrottleSettingsBuilder get throttle =>
-      _$this._throttle ??= new _i3.ThrottleSettingsBuilder();
-  set throttle(_i3.ThrottleSettingsBuilder? throttle) =>
+  ThrottleSettingsBuilder? _throttle;
+  ThrottleSettingsBuilder get throttle =>
+      _$this._throttle ??= new ThrottleSettingsBuilder();
+  set throttle(ThrottleSettingsBuilder? throttle) =>
       _$this._throttle = throttle;
 
-  _i4.QuotaSettingsBuilder? _quota;
-  _i4.QuotaSettingsBuilder get quota =>
-      _$this._quota ??= new _i4.QuotaSettingsBuilder();
-  set quota(_i4.QuotaSettingsBuilder? quota) => _$this._quota = quota;
+  QuotaSettingsBuilder? _quota;
+  QuotaSettingsBuilder get quota =>
+      _$this._quota ??= new QuotaSettingsBuilder();
+  set quota(QuotaSettingsBuilder? quota) => _$this._quota = quota;
 
   String? _productCode;
   String? get productCode => _$this._productCode;
   set productCode(String? productCode) => _$this._productCode = productCode;
 
-  _i5.MapBuilder<String, String>? _tags;
-  _i5.MapBuilder<String, String> get tags =>
-      _$this._tags ??= new _i5.MapBuilder<String, String>();
-  set tags(_i5.MapBuilder<String, String>? tags) => _$this._tags = tags;
+  _i2.MapBuilder<String, String>? _tags;
+  _i2.MapBuilder<String, String> get tags =>
+      _$this._tags ??= new _i2.MapBuilder<String, String>();
+  set tags(_i2.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
   UsagePlanBuilder();
 

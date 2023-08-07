@@ -6,9 +6,8 @@ library smoke_test.dynamo_db.model.update_time_to_live_output; // ignore_for_fil
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/time_to_live_specification.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/time_to_live_specification.dart';
 
 part 'update_time_to_live_output.g.dart';
 
@@ -16,7 +15,7 @@ abstract class UpdateTimeToLiveOutput
     with _i1.AWSEquatable<UpdateTimeToLiveOutput>
     implements Built<UpdateTimeToLiveOutput, UpdateTimeToLiveOutputBuilder> {
   factory UpdateTimeToLiveOutput(
-      {_i2.TimeToLiveSpecification? timeToLiveSpecification}) {
+      {TimeToLiveSpecification? timeToLiveSpecification}) {
     return _$UpdateTimeToLiveOutput._(
         timeToLiveSpecification: timeToLiveSpecification);
   }
@@ -34,11 +33,11 @@ abstract class UpdateTimeToLiveOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<UpdateTimeToLiveOutput>> serializers =
+  static const List<_i2.SmithySerializer<UpdateTimeToLiveOutput>> serializers =
       [UpdateTimeToLiveOutputAwsJson10Serializer()];
 
   /// Represents the output of an `UpdateTimeToLive` operation.
-  _i2.TimeToLiveSpecification? get timeToLiveSpecification;
+  TimeToLiveSpecification? get timeToLiveSpecification;
   @override
   List<Object?> get props => [timeToLiveSpecification];
   @override
@@ -53,7 +52,7 @@ abstract class UpdateTimeToLiveOutput
 }
 
 class UpdateTimeToLiveOutputAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<UpdateTimeToLiveOutput> {
+    extends _i2.StructuredSmithySerializer<UpdateTimeToLiveOutput> {
   const UpdateTimeToLiveOutputAwsJson10Serializer()
       : super('UpdateTimeToLiveOutput');
 
@@ -63,8 +62,8 @@ class UpdateTimeToLiveOutputAwsJson10Serializer
         _$UpdateTimeToLiveOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -88,8 +87,8 @@ class UpdateTimeToLiveOutputAwsJson10Serializer
         case 'TimeToLiveSpecification':
           result.timeToLiveSpecification.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.TimeToLiveSpecification),
-          ) as _i2.TimeToLiveSpecification));
+            specifiedType: const FullType(TimeToLiveSpecification),
+          ) as TimeToLiveSpecification));
       }
     }
 
@@ -109,7 +108,7 @@ class UpdateTimeToLiveOutputAwsJson10Serializer
         ..add('TimeToLiveSpecification')
         ..add(serializers.serialize(
           timeToLiveSpecification,
-          specifiedType: const FullType(_i2.TimeToLiveSpecification),
+          specifiedType: const FullType(TimeToLiveSpecification),
         ));
     }
     return result$;

@@ -4,9 +4,8 @@
 // ignore_for_file: unused_element
 library rest_json1_v1.rest_json_protocol.test.unit_input_and_output_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:rest_json1_v1/src/rest_json_protocol/operation/unit_input_and_output_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:rest_json1_v1/src/rest_json_protocol/operation/unit_input_and_output_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -15,7 +14,7 @@ void main() {
     'RestJsonUnitInputAndOutput (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.UnitInputAndOutputOperation(
+        operation: UnitInputAndOutputOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -23,7 +22,7 @@ void main() {
           id: 'RestJsonUnitInputAndOutput',
           documentation:
               'A unit type input serializes no payload. When clients do not\nneed to serialize any data in the payload, they should omit\na payload altogether.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -54,7 +53,7 @@ void main() {
     'RestJsonUnitInputAndOutputNoOutput (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.UnitInputAndOutputOperation(
+        operation: UnitInputAndOutputOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -62,7 +61,7 @@ void main() {
           id: 'RestJsonUnitInputAndOutputNoOutput',
           documentation:
               'When an operation defines Unit output, the service will respond\nwith an empty payload, and may optionally include the content-type\nheader.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),

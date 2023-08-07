@@ -10,15 +10,15 @@ class _$ImportSummary extends ImportSummary {
   @override
   final String? importArn;
   @override
-  final _i2.ImportStatus? importStatus;
+  final ImportStatus? importStatus;
   @override
   final String? tableArn;
   @override
-  final _i3.S3BucketSource? s3BucketSource;
+  final S3BucketSource? s3BucketSource;
   @override
   final String? cloudWatchLogGroupArn;
   @override
-  final _i4.InputFormat? inputFormat;
+  final InputFormat? inputFormat;
   @override
   final DateTime? startTime;
   @override
@@ -83,19 +83,19 @@ class ImportSummaryBuilder
   String? get importArn => _$this._importArn;
   set importArn(String? importArn) => _$this._importArn = importArn;
 
-  _i2.ImportStatus? _importStatus;
-  _i2.ImportStatus? get importStatus => _$this._importStatus;
-  set importStatus(_i2.ImportStatus? importStatus) =>
+  ImportStatus? _importStatus;
+  ImportStatus? get importStatus => _$this._importStatus;
+  set importStatus(ImportStatus? importStatus) =>
       _$this._importStatus = importStatus;
 
   String? _tableArn;
   String? get tableArn => _$this._tableArn;
   set tableArn(String? tableArn) => _$this._tableArn = tableArn;
 
-  _i3.S3BucketSourceBuilder? _s3BucketSource;
-  _i3.S3BucketSourceBuilder get s3BucketSource =>
-      _$this._s3BucketSource ??= new _i3.S3BucketSourceBuilder();
-  set s3BucketSource(_i3.S3BucketSourceBuilder? s3BucketSource) =>
+  S3BucketSourceBuilder? _s3BucketSource;
+  S3BucketSourceBuilder get s3BucketSource =>
+      _$this._s3BucketSource ??= new S3BucketSourceBuilder();
+  set s3BucketSource(S3BucketSourceBuilder? s3BucketSource) =>
       _$this._s3BucketSource = s3BucketSource;
 
   String? _cloudWatchLogGroupArn;
@@ -103,9 +103,9 @@ class ImportSummaryBuilder
   set cloudWatchLogGroupArn(String? cloudWatchLogGroupArn) =>
       _$this._cloudWatchLogGroupArn = cloudWatchLogGroupArn;
 
-  _i4.InputFormat? _inputFormat;
-  _i4.InputFormat? get inputFormat => _$this._inputFormat;
-  set inputFormat(_i4.InputFormat? inputFormat) =>
+  InputFormat? _inputFormat;
+  InputFormat? get inputFormat => _$this._inputFormat;
+  set inputFormat(InputFormat? inputFormat) =>
       _$this._inputFormat = inputFormat;
 
   DateTime? _startTime;

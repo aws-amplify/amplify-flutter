@@ -3,26 +3,20 @@
 
 library smoke_test.iam.operation.list_access_keys_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i13;
+import 'dart:async' as _i6;
 
-import 'package:aws_common/aws_common.dart' as _i9;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i6;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:aws_common/aws_common.dart' as _i5;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/iam/common/endpoint_resolver.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/iam/common/serializers.dart' as _i8;
-import 'package:smoke_test/src/sdk/src/iam/model/access_key_metadata.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/iam/model/list_access_keys_request.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/iam/model/list_access_keys_response.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/no_such_entity_exception.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
-    as _i12;
+import 'package:smithy_aws/smithy_aws.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/iam/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/iam/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/access_key_metadata.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_access_keys_request.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/list_access_keys_response.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/no_such_entity_exception.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart';
 
 /// Returns information about the access key IDs associated with the specified IAM user. If there is none, the operation returns an empty list.
 ///
@@ -32,13 +26,13 @@ import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
 ///
 /// To ensure the security of your Amazon Web Services account, the secret access key is accessible only during key and user creation.
 class ListAccessKeysOperation extends _i1.PaginatedHttpOperation<
-    _i2.ListAccessKeysRequest,
-    _i2.ListAccessKeysRequest,
-    _i3.ListAccessKeysResponse,
-    _i3.ListAccessKeysResponse,
+    ListAccessKeysRequest,
+    ListAccessKeysRequest,
+    ListAccessKeysResponse,
+    ListAccessKeysResponse,
     String,
     int,
-    _i4.BuiltList<_i5.AccessKeyMetadata>> {
+    _i2.BuiltList<AccessKeyMetadata>> {
   /// Returns information about the access key IDs associated with the specified IAM user. If there is none, the operation returns an empty list.
   ///
   /// Although each user is limited to a small number of keys, you can still paginate the results using the `MaxItems` and `Marker` parameters.
@@ -49,8 +43,8 @@ class ListAccessKeysOperation extends _i1.PaginatedHttpOperation<
   ListAccessKeysOperation({
     required String region,
     Uri? baseUri,
-    _i6.AWSCredentialsProvider credentialsProvider =
-        const _i6.AWSCredentialsProvider.environment(),
+    _i3.AWSCredentialsProvider credentialsProvider =
+        const _i3.AWSCredentialsProvider.environment(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -61,22 +55,22 @@ class ListAccessKeysOperation extends _i1.PaginatedHttpOperation<
 
   @override
   late final List<
-      _i1.HttpProtocol<_i2.ListAccessKeysRequest, _i2.ListAccessKeysRequest,
-          _i3.ListAccessKeysResponse, _i3.ListAccessKeysResponse>> protocols = [
-    _i7.AwsQueryProtocol(
-      serializers: _i8.serializers,
-      builderFactories: _i8.builderFactories,
+      _i1.HttpProtocol<ListAccessKeysRequest, ListAccessKeysRequest,
+          ListAccessKeysResponse, ListAccessKeysResponse>> protocols = [
+    _i4.AwsQueryProtocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
-            _i7.WithSigV4(
+            _i4.WithSigV4(
               region: _region,
-              service: _i9.AWSService.iam,
+              service: _i5.AWSService.iam,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i7.WithSdkInvocationId(),
-            const _i7.WithSdkRequest(),
+            const _i4.WithSdkInvocationId(),
+            const _i4.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -84,12 +78,12 @@ class ListAccessKeysOperation extends _i1.PaginatedHttpOperation<
       action: 'ListAccessKeys',
       version: '2010-05-08',
       awsQueryErrors: const [
-        _i7.AwsQueryError(
+        _i4.AwsQueryError(
           shape: 'NoSuchEntityException',
           code: 'NoSuchEntity',
           httpResponseCode: 404,
         ),
-        _i7.AwsQueryError(
+        _i4.AwsQueryError(
           shape: 'ServiceFailureException',
           code: 'ServiceFailure',
           httpResponseCode: 500,
@@ -98,8 +92,8 @@ class ListAccessKeysOperation extends _i1.PaginatedHttpOperation<
     )
   ];
 
-  late final _i7.AWSEndpoint _awsEndpoint = _i10.endpointResolver.resolve(
-    _i10.sdkId,
+  late final _i4.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -107,68 +101,67 @@ class ListAccessKeysOperation extends _i1.PaginatedHttpOperation<
 
   final Uri? _baseUri;
 
-  final _i6.AWSCredentialsProvider _credentialsProvider;
+  final _i3.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.ListAccessKeysRequest input) =>
+  _i1.HttpRequest buildRequest(ListAccessKeysRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
       });
   @override
-  int successCode([_i3.ListAccessKeysResponse? output]) => 200;
+  int successCode([ListAccessKeysResponse? output]) => 200;
   @override
-  _i3.ListAccessKeysResponse buildOutput(
-    _i3.ListAccessKeysResponse payload,
-    _i9.AWSBaseHttpResponse response,
+  ListAccessKeysResponse buildOutput(
+    ListAccessKeysResponse payload,
+    _i5.AWSBaseHttpResponse response,
   ) =>
-      _i3.ListAccessKeysResponse.fromResponse(
+      ListAccessKeysResponse.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i11.NoSuchEntityException, _i11.NoSuchEntityException>(
+        _i1.SmithyError<NoSuchEntityException, NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
           ),
           _i1.ErrorKind.client,
-          _i11.NoSuchEntityException,
+          NoSuchEntityException,
           statusCode: 404,
-          builder: _i11.NoSuchEntityException.fromResponse,
+          builder: NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError<_i12.ServiceFailureException,
-            _i12.ServiceFailureException>(
+        _i1.SmithyError<ServiceFailureException, ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',
           ),
           _i1.ErrorKind.server,
-          _i12.ServiceFailureException,
+          ServiceFailureException,
           statusCode: 500,
-          builder: _i12.ServiceFailureException.fromResponse,
+          builder: ServiceFailureException.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'ListAccessKeys';
   @override
-  _i7.AWSRetryer get retryer => _i7.AWSRetryer();
+  _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.ListAccessKeysResponse> run(
-    _i2.ListAccessKeysRequest input, {
-    _i9.AWSHttpClient? client,
+  _i1.SmithyOperation<ListAccessKeysResponse> run(
+    ListAccessKeysRequest input, {
+    _i5.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i13.runZoned(
+    return _i6.runZoned(
       () => super.run(
         input,
         client: client,
@@ -176,20 +169,19 @@ class ListAccessKeysOperation extends _i1.PaginatedHttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)},
+        ...{_i5.AWSHeaders.sdkInvocationId: _i5.uuid(secure: true)},
       },
     );
   }
 
   @override
-  String? getToken(_i3.ListAccessKeysResponse output) => output.marker;
+  String? getToken(ListAccessKeysResponse output) => output.marker;
   @override
-  _i4.BuiltList<_i5.AccessKeyMetadata> getItems(
-          _i3.ListAccessKeysResponse output) =>
+  _i2.BuiltList<AccessKeyMetadata> getItems(ListAccessKeysResponse output) =>
       output.accessKeyMetadata;
   @override
-  _i2.ListAccessKeysRequest rebuildInput(
-    _i2.ListAccessKeysRequest input,
+  ListAccessKeysRequest rebuildInput(
+    ListAccessKeysRequest input,
     String token,
     int? pageSize,
   ) =>

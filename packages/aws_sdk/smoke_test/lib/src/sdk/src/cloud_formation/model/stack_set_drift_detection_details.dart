@@ -6,11 +6,9 @@ library smoke_test.cloud_formation.model.stack_set_drift_detection_details; // i
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_drift_detection_status.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_drift_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_drift_detection_status.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_drift_status.dart';
 
 part 'stack_set_drift_detection_details.g.dart';
 
@@ -35,8 +33,8 @@ abstract class StackSetDriftDetectionDetails
   ///
   /// For more information, see [Detecting unmanaged changes in stack sets](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-drift.html) in the _CloudFormation User Guide_.
   factory StackSetDriftDetectionDetails({
-    _i2.StackSetDriftStatus? driftStatus,
-    _i3.StackSetDriftDetectionStatus? driftDetectionStatus,
+    StackSetDriftStatus? driftStatus,
+    StackSetDriftDetectionStatus? driftDetectionStatus,
     DateTime? lastDriftCheckTimestamp,
     int? totalStackInstancesCount,
     int? driftedStackInstancesCount,
@@ -74,7 +72,7 @@ abstract class StackSetDriftDetectionDetails
 
   const StackSetDriftDetectionDetails._();
 
-  static const List<_i4.SmithySerializer<StackSetDriftDetectionDetails>>
+  static const List<_i2.SmithySerializer<StackSetDriftDetectionDetails>>
       serializers = [StackSetDriftDetectionDetailsAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -94,7 +92,7 @@ abstract class StackSetDriftDetectionDetails
   /// *   `NOT_CHECKED`: CloudFormation hasn't checked the stack set for drift.
   ///
   /// *   `IN_SYNC`: All of the stack instances belonging to the stack set stack match from the expected template and parameter configuration.
-  _i2.StackSetDriftStatus? get driftStatus;
+  StackSetDriftStatus? get driftStatus;
 
   /// The status of the stack set drift detection operation.
   ///
@@ -107,7 +105,7 @@ abstract class StackSetDriftDetectionDetails
   /// *   `IN_PROGRESS`: The drift detection operation is currently being performed.
   ///
   /// *   `STOPPED`: The user has canceled the drift detection operation.
-  _i3.StackSetDriftDetectionStatus? get driftDetectionStatus;
+  StackSetDriftDetectionStatus? get driftDetectionStatus;
 
   /// Most recent time when CloudFormation performed a drift detection operation on the stack set. This value will be `NULL` for any stack set on which drift detection hasn't yet been performed.
   DateTime? get lastDriftCheckTimestamp;
@@ -187,7 +185,7 @@ abstract class StackSetDriftDetectionDetails
 }
 
 class StackSetDriftDetectionDetailsAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<StackSetDriftDetectionDetails> {
+    extends _i2.StructuredSmithySerializer<StackSetDriftDetectionDetails> {
   const StackSetDriftDetectionDetailsAwsQuerySerializer()
       : super('StackSetDriftDetectionDetails');
 
@@ -197,8 +195,8 @@ class StackSetDriftDetectionDetailsAwsQuerySerializer
         _$StackSetDriftDetectionDetails,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -222,13 +220,13 @@ class StackSetDriftDetectionDetailsAwsQuerySerializer
         case 'DriftStatus':
           result.driftStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.StackSetDriftStatus),
-          ) as _i2.StackSetDriftStatus);
+            specifiedType: const FullType(StackSetDriftStatus),
+          ) as StackSetDriftStatus);
         case 'DriftDetectionStatus':
           result.driftDetectionStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.StackSetDriftDetectionStatus),
-          ) as _i3.StackSetDriftDetectionStatus);
+            specifiedType: const FullType(StackSetDriftDetectionStatus),
+          ) as StackSetDriftDetectionStatus);
         case 'LastDriftCheckTimestamp':
           result.lastDriftCheckTimestamp = (serializers.deserialize(
             value,
@@ -272,9 +270,9 @@ class StackSetDriftDetectionDetailsAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'StackSetDriftDetectionDetailsResponse',
-        _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final StackSetDriftDetectionDetails(
@@ -289,55 +287,54 @@ class StackSetDriftDetectionDetailsAwsQuerySerializer
     ) = object;
     if (driftStatus != null) {
       result$
-        ..add(const _i4.XmlElementName('DriftStatus'))
+        ..add(const _i2.XmlElementName('DriftStatus'))
         ..add(serializers.serialize(
           driftStatus,
-          specifiedType: const FullType.nullable(_i2.StackSetDriftStatus),
+          specifiedType: const FullType.nullable(StackSetDriftStatus),
         ));
     }
     if (driftDetectionStatus != null) {
       result$
-        ..add(const _i4.XmlElementName('DriftDetectionStatus'))
+        ..add(const _i2.XmlElementName('DriftDetectionStatus'))
         ..add(serializers.serialize(
           driftDetectionStatus,
-          specifiedType:
-              const FullType.nullable(_i3.StackSetDriftDetectionStatus),
+          specifiedType: const FullType.nullable(StackSetDriftDetectionStatus),
         ));
     }
     if (lastDriftCheckTimestamp != null) {
       result$
-        ..add(const _i4.XmlElementName('LastDriftCheckTimestamp'))
+        ..add(const _i2.XmlElementName('LastDriftCheckTimestamp'))
         ..add(serializers.serialize(
           lastDriftCheckTimestamp,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
     result$
-      ..add(const _i4.XmlElementName('TotalStackInstancesCount'))
+      ..add(const _i2.XmlElementName('TotalStackInstancesCount'))
       ..add(serializers.serialize(
         totalStackInstancesCount,
         specifiedType: const FullType(int),
       ));
     result$
-      ..add(const _i4.XmlElementName('DriftedStackInstancesCount'))
+      ..add(const _i2.XmlElementName('DriftedStackInstancesCount'))
       ..add(serializers.serialize(
         driftedStackInstancesCount,
         specifiedType: const FullType(int),
       ));
     result$
-      ..add(const _i4.XmlElementName('InSyncStackInstancesCount'))
+      ..add(const _i2.XmlElementName('InSyncStackInstancesCount'))
       ..add(serializers.serialize(
         inSyncStackInstancesCount,
         specifiedType: const FullType(int),
       ));
     result$
-      ..add(const _i4.XmlElementName('InProgressStackInstancesCount'))
+      ..add(const _i2.XmlElementName('InProgressStackInstancesCount'))
       ..add(serializers.serialize(
         inProgressStackInstancesCount,
         specifiedType: const FullType(int),
       ));
     result$
-      ..add(const _i4.XmlElementName('FailedStackInstancesCount'))
+      ..add(const _i2.XmlElementName('FailedStackInstancesCount'))
       ..add(serializers.serialize(
         failedStackInstancesCount,
         specifiedType: const FullType(int),

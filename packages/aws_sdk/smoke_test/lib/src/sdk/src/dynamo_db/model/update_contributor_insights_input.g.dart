@@ -12,7 +12,7 @@ class _$UpdateContributorInsightsInput extends UpdateContributorInsightsInput {
   @override
   final String? indexName;
   @override
-  final _i3.ContributorInsightsAction contributorInsightsAction;
+  final ContributorInsightsAction contributorInsightsAction;
 
   factory _$UpdateContributorInsightsInput(
           [void Function(UpdateContributorInsightsInputBuilder)? updates]) =>
@@ -72,11 +72,11 @@ class UpdateContributorInsightsInputBuilder
   String? get indexName => _$this._indexName;
   set indexName(String? indexName) => _$this._indexName = indexName;
 
-  _i3.ContributorInsightsAction? _contributorInsightsAction;
-  _i3.ContributorInsightsAction? get contributorInsightsAction =>
+  ContributorInsightsAction? _contributorInsightsAction;
+  ContributorInsightsAction? get contributorInsightsAction =>
       _$this._contributorInsightsAction;
   set contributorInsightsAction(
-          _i3.ContributorInsightsAction? contributorInsightsAction) =>
+          ContributorInsightsAction? contributorInsightsAction) =>
       _$this._contributorInsightsAction = contributorInsightsAction;
 
   UpdateContributorInsightsInputBuilder();

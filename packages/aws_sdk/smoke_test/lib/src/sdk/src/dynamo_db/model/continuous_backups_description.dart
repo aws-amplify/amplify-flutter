@@ -6,11 +6,9 @@ library smoke_test.dynamo_db.model.continuous_backups_description; // ignore_for
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/continuous_backups_status.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/point_in_time_recovery_description.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/continuous_backups_status.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/point_in_time_recovery_description.dart';
 
 part 'continuous_backups_description.g.dart';
 
@@ -23,8 +21,8 @@ abstract class ContinuousBackupsDescription
             ContinuousBackupsDescriptionBuilder> {
   /// Represents the continuous backups and point in time recovery settings on the table.
   factory ContinuousBackupsDescription({
-    required _i2.ContinuousBackupsStatus continuousBackupsStatus,
-    _i3.PointInTimeRecoveryDescription? pointInTimeRecoveryDescription,
+    required ContinuousBackupsStatus continuousBackupsStatus,
+    PointInTimeRecoveryDescription? pointInTimeRecoveryDescription,
   }) {
     return _$ContinuousBackupsDescription._(
       continuousBackupsStatus: continuousBackupsStatus,
@@ -39,14 +37,14 @@ abstract class ContinuousBackupsDescription
 
   const ContinuousBackupsDescription._();
 
-  static const List<_i4.SmithySerializer<ContinuousBackupsDescription>>
+  static const List<_i2.SmithySerializer<ContinuousBackupsDescription>>
       serializers = [ContinuousBackupsDescriptionAwsJson10Serializer()];
 
   /// `ContinuousBackupsStatus` can be one of the following states: ENABLED, DISABLED
-  _i2.ContinuousBackupsStatus get continuousBackupsStatus;
+  ContinuousBackupsStatus get continuousBackupsStatus;
 
   /// The description of the point in time recovery settings applied to the table.
-  _i3.PointInTimeRecoveryDescription? get pointInTimeRecoveryDescription;
+  PointInTimeRecoveryDescription? get pointInTimeRecoveryDescription;
   @override
   List<Object?> get props => [
         continuousBackupsStatus,
@@ -68,7 +66,7 @@ abstract class ContinuousBackupsDescription
 }
 
 class ContinuousBackupsDescriptionAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<ContinuousBackupsDescription> {
+    extends _i2.StructuredSmithySerializer<ContinuousBackupsDescription> {
   const ContinuousBackupsDescriptionAwsJson10Serializer()
       : super('ContinuousBackupsDescription');
 
@@ -78,8 +76,8 @@ class ContinuousBackupsDescriptionAwsJson10Serializer
         _$ContinuousBackupsDescription,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -103,14 +101,14 @@ class ContinuousBackupsDescriptionAwsJson10Serializer
         case 'ContinuousBackupsStatus':
           result.continuousBackupsStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ContinuousBackupsStatus),
-          ) as _i2.ContinuousBackupsStatus);
+            specifiedType: const FullType(ContinuousBackupsStatus),
+          ) as ContinuousBackupsStatus);
         case 'PointInTimeRecoveryDescription':
           result.pointInTimeRecoveryDescription
               .replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.PointInTimeRecoveryDescription),
-          ) as _i3.PointInTimeRecoveryDescription));
+            specifiedType: const FullType(PointInTimeRecoveryDescription),
+          ) as PointInTimeRecoveryDescription));
       }
     }
 
@@ -132,7 +130,7 @@ class ContinuousBackupsDescriptionAwsJson10Serializer
       'ContinuousBackupsStatus',
       serializers.serialize(
         continuousBackupsStatus,
-        specifiedType: const FullType(_i2.ContinuousBackupsStatus),
+        specifiedType: const FullType(ContinuousBackupsStatus),
       ),
     ]);
     if (pointInTimeRecoveryDescription != null) {
@@ -140,7 +138,7 @@ class ContinuousBackupsDescriptionAwsJson10Serializer
         ..add('PointInTimeRecoveryDescription')
         ..add(serializers.serialize(
           pointInTimeRecoveryDescription,
-          specifiedType: const FullType(_i3.PointInTimeRecoveryDescription),
+          specifiedType: const FullType(PointInTimeRecoveryDescription),
         ));
     }
     return result$;

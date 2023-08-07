@@ -24,13 +24,13 @@ class _$CreateDomainNameRequest extends CreateDomainNameRequest {
   @override
   final String? regionalCertificateArn;
   @override
-  final _i3.EndpointConfiguration? endpointConfiguration;
+  final EndpointConfiguration? endpointConfiguration;
   @override
-  final _i6.BuiltMap<String, String>? tags;
+  final _i3.BuiltMap<String, String>? tags;
   @override
-  final _i4.SecurityPolicy? securityPolicy;
+  final SecurityPolicy? securityPolicy;
   @override
-  final _i5.MutualTlsAuthenticationInput? mutualTlsAuthentication;
+  final MutualTlsAuthenticationInput? mutualTlsAuthentication;
   @override
   final String? ownershipVerificationCertificateArn;
 
@@ -151,29 +151,29 @@ class CreateDomainNameRequestBuilder
   set regionalCertificateArn(String? regionalCertificateArn) =>
       _$this._regionalCertificateArn = regionalCertificateArn;
 
-  _i3.EndpointConfigurationBuilder? _endpointConfiguration;
-  _i3.EndpointConfigurationBuilder get endpointConfiguration =>
-      _$this._endpointConfiguration ??= new _i3.EndpointConfigurationBuilder();
+  EndpointConfigurationBuilder? _endpointConfiguration;
+  EndpointConfigurationBuilder get endpointConfiguration =>
+      _$this._endpointConfiguration ??= new EndpointConfigurationBuilder();
   set endpointConfiguration(
-          _i3.EndpointConfigurationBuilder? endpointConfiguration) =>
+          EndpointConfigurationBuilder? endpointConfiguration) =>
       _$this._endpointConfiguration = endpointConfiguration;
 
-  _i6.MapBuilder<String, String>? _tags;
-  _i6.MapBuilder<String, String> get tags =>
-      _$this._tags ??= new _i6.MapBuilder<String, String>();
-  set tags(_i6.MapBuilder<String, String>? tags) => _$this._tags = tags;
+  _i3.MapBuilder<String, String>? _tags;
+  _i3.MapBuilder<String, String> get tags =>
+      _$this._tags ??= new _i3.MapBuilder<String, String>();
+  set tags(_i3.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
-  _i4.SecurityPolicy? _securityPolicy;
-  _i4.SecurityPolicy? get securityPolicy => _$this._securityPolicy;
-  set securityPolicy(_i4.SecurityPolicy? securityPolicy) =>
+  SecurityPolicy? _securityPolicy;
+  SecurityPolicy? get securityPolicy => _$this._securityPolicy;
+  set securityPolicy(SecurityPolicy? securityPolicy) =>
       _$this._securityPolicy = securityPolicy;
 
-  _i5.MutualTlsAuthenticationInputBuilder? _mutualTlsAuthentication;
-  _i5.MutualTlsAuthenticationInputBuilder get mutualTlsAuthentication =>
+  MutualTlsAuthenticationInputBuilder? _mutualTlsAuthentication;
+  MutualTlsAuthenticationInputBuilder get mutualTlsAuthentication =>
       _$this._mutualTlsAuthentication ??=
-          new _i5.MutualTlsAuthenticationInputBuilder();
+          new MutualTlsAuthenticationInputBuilder();
   set mutualTlsAuthentication(
-          _i5.MutualTlsAuthenticationInputBuilder? mutualTlsAuthentication) =>
+          MutualTlsAuthenticationInputBuilder? mutualTlsAuthentication) =>
       _$this._mutualTlsAuthentication = mutualTlsAuthentication;
 
   String? _ownershipVerificationCertificateArn;

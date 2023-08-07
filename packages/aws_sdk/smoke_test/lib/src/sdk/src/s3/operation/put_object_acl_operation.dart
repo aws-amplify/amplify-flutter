@@ -3,21 +3,18 @@
 
 library smoke_test.s3.operation.put_object_acl_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i11;
+import 'dart:async' as _i5;
 
-import 'package:aws_common/aws_common.dart' as _i8;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i6;
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/common/endpoint_resolver.dart' as _i9;
-import 'package:smoke_test/src/sdk/src/s3/common/serializers.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/s3/model/access_control_policy.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/no_such_key.dart' as _i10;
-import 'package:smoke_test/src/sdk/src/s3/model/put_object_acl_output.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/put_object_acl_request.dart'
-    as _i3;
+import 'package:smithy_aws/smithy_aws.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/s3/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/access_control_policy.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/no_such_key.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_object_acl_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_object_acl_request.dart';
 
 /// Uses the `acl` subresource to set the access control list (ACL) permissions for a new or existing object in an S3 bucket. You must have `WRITE_ACP` permission to set the ACL of an object. For more information, see [What permissions can I grant?](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#permissions) in the _Amazon S3 User Guide_.
 ///
@@ -123,11 +120,8 @@ import 'package:smoke_test/src/sdk/src/s3/model/put_object_acl_request.dart'
 /// *   [CopyObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html)
 ///
 /// *   [GetObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html)
-class PutObjectAclOperation extends _i1.HttpOperation<
-    _i2.AccessControlPolicy,
-    _i3.PutObjectAclRequest,
-    _i4.PutObjectAclOutputPayload,
-    _i4.PutObjectAclOutput> {
+class PutObjectAclOperation extends _i1.HttpOperation<AccessControlPolicy,
+    PutObjectAclRequest, PutObjectAclOutputPayload, PutObjectAclOutput> {
   /// Uses the `acl` subresource to set the access control list (ACL) permissions for a new or existing object in an S3 bucket. You must have `WRITE_ACP` permission to set the ACL of an object. For more information, see [What permissions can I grant?](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#permissions) in the _Amazon S3 User Guide_.
   ///
   /// This action is not supported by Amazon S3 on Outposts.
@@ -235,9 +229,9 @@ class PutObjectAclOperation extends _i1.HttpOperation<
   PutObjectAclOperation({
     required String region,
     Uri? baseUri,
-    _i5.S3ClientConfig s3ClientConfig = const _i5.S3ClientConfig(),
-    _i6.AWSCredentialsProvider credentialsProvider =
-        const _i6.AWSCredentialsProvider.environment(),
+    _i2.S3ClientConfig s3ClientConfig = const _i2.S3ClientConfig(),
+    _i3.AWSCredentialsProvider credentialsProvider =
+        const _i3.AWSCredentialsProvider.environment(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -249,24 +243,24 @@ class PutObjectAclOperation extends _i1.HttpOperation<
 
   @override
   late final List<
-      _i1.HttpProtocol<_i2.AccessControlPolicy, _i3.PutObjectAclRequest,
-          _i4.PutObjectAclOutputPayload, _i4.PutObjectAclOutput>> protocols = [
-    _i5.RestXmlProtocol(
-      serializers: _i7.serializers,
-      builderFactories: _i7.builderFactories,
+      _i1.HttpProtocol<AccessControlPolicy, PutObjectAclRequest,
+          PutObjectAclOutputPayload, PutObjectAclOutput>> protocols = [
+    _i2.RestXmlProtocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
-            _i5.WithSigV4(
+            _i2.WithSigV4(
               region: _region,
-              service: _i8.AWSService.s3,
+              service: _i4.AWSService.s3,
               credentialsProvider: _credentialsProvider,
               serviceConfiguration: _s3ClientConfig.signerConfiguration ??
-                  _i6.S3ServiceConfiguration(),
+                  _i3.S3ServiceConfiguration(),
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i5.WithSdkInvocationId(),
-            const _i5.WithSdkRequest(),
+            const _i2.WithSdkInvocationId(),
+            const _i2.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -275,8 +269,8 @@ class PutObjectAclOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i5.AWSEndpoint _awsEndpoint = _i9.endpointResolver.resolve(
-    _i9.sdkId,
+  late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -284,16 +278,16 @@ class PutObjectAclOperation extends _i1.HttpOperation<
 
   final Uri? _baseUri;
 
-  final _i5.S3ClientConfig _s3ClientConfig;
+  final _i2.S3ClientConfig _s3ClientConfig;
 
-  final _i6.AWSCredentialsProvider _credentialsProvider;
+  final _i3.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i3.PutObjectAclRequest input) =>
+  _i1.HttpRequest buildRequest(PutObjectAclRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'PUT';
         b.path = _s3ClientConfig.usePathStyle
@@ -353,35 +347,35 @@ class PutObjectAclOperation extends _i1.HttpOperation<
           );
         }
         b.requestInterceptors
-            .add(_i5.WithChecksum(input.checksumAlgorithm?.value));
+            .add(_i2.WithChecksum(input.checksumAlgorithm?.value));
       });
   @override
-  int successCode([_i4.PutObjectAclOutput? output]) => 200;
+  int successCode([PutObjectAclOutput? output]) => 200;
   @override
-  _i4.PutObjectAclOutput buildOutput(
-    _i4.PutObjectAclOutputPayload payload,
-    _i8.AWSBaseHttpResponse response,
+  PutObjectAclOutput buildOutput(
+    PutObjectAclOutputPayload payload,
+    _i4.AWSBaseHttpResponse response,
   ) =>
-      _i4.PutObjectAclOutput.fromResponse(
+      PutObjectAclOutput.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i10.NoSuchKey, _i10.NoSuchKey>(
+        _i1.SmithyError<NoSuchKey, NoSuchKey>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.s3',
             shape: 'NoSuchKey',
           ),
           _i1.ErrorKind.client,
-          _i10.NoSuchKey,
-          builder: _i10.NoSuchKey.fromResponse,
+          NoSuchKey,
+          builder: NoSuchKey.fromResponse,
         )
       ];
   @override
   String get runtimeTypeName => 'PutObjectAcl';
   @override
-  _i5.AWSRetryer get retryer => _i5.AWSRetryer();
+  _i2.AWSRetryer get retryer => _i2.AWSRetryer();
   @override
   Uri get baseUri {
     var baseUri = _baseUri ?? endpoint.uri;
@@ -403,12 +397,12 @@ class PutObjectAclOperation extends _i1.HttpOperation<
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i4.PutObjectAclOutput> run(
-    _i3.PutObjectAclRequest input, {
-    _i8.AWSHttpClient? client,
+  _i1.SmithyOperation<PutObjectAclOutput> run(
+    PutObjectAclRequest input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i11.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -416,7 +410,7 @@ class PutObjectAclOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

@@ -6,14 +6,11 @@ library smoke_test.cloud_formation.model.activate_type_input; // ignore_for_file
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i6;
+import 'package:fixnum/fixnum.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/logging_config.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/third_party_type.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/version_bump.dart'
-    as _i5;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/logging_config.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/third_party_type.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/version_bump.dart';
 
 part 'activate_type_input.g.dart';
 
@@ -21,16 +18,16 @@ abstract class ActivateTypeInput
     with _i1.HttpInput<ActivateTypeInput>, _i2.AWSEquatable<ActivateTypeInput>
     implements Built<ActivateTypeInput, ActivateTypeInputBuilder> {
   factory ActivateTypeInput({
-    _i3.ThirdPartyType? type,
+    ThirdPartyType? type,
     String? publicTypeArn,
     String? publisherId,
     String? typeName,
     String? typeNameAlias,
     bool? autoUpdate,
-    _i4.LoggingConfig? loggingConfig,
+    LoggingConfig? loggingConfig,
     String? executionRoleArn,
-    _i5.VersionBump? versionBump,
-    _i6.Int64? majorVersion,
+    VersionBump? versionBump,
+    _i3.Int64? majorVersion,
   }) {
     return _$ActivateTypeInput._(
       type: type,
@@ -65,7 +62,7 @@ abstract class ActivateTypeInput
   /// The extension type.
   ///
   /// Conditional: You must specify `PublicTypeArn`, or `TypeName`, `Type`, and `PublisherId`.
-  _i3.ThirdPartyType? get type;
+  ThirdPartyType? get type;
 
   /// The Amazon Resource Name (ARN) of the public extension.
   ///
@@ -93,7 +90,7 @@ abstract class ActivateTypeInput
   bool? get autoUpdate;
 
   /// Contains logging configuration information for an extension.
-  _i4.LoggingConfig? get loggingConfig;
+  LoggingConfig? get loggingConfig;
 
   /// The name of the IAM execution role to use to activate the extension.
   String? get executionRoleArn;
@@ -103,12 +100,12 @@ abstract class ActivateTypeInput
   /// *   `MAJOR`: CloudFormation updates the extension to the newest major version, if one is available.
   ///
   /// *   `MINOR`: CloudFormation updates the extension to the newest minor version, if one is available.
-  _i5.VersionBump? get versionBump;
+  VersionBump? get versionBump;
 
   /// The major version of this extension you want to activate, if multiple major versions are available. The default is the latest major version. CloudFormation uses the latest available _minor_ version of the major version selected.
   ///
   /// You can specify `MajorVersion` or `VersionBump`, but not both.
-  _i6.Int64? get majorVersion;
+  _i3.Int64? get majorVersion;
   @override
   ActivateTypeInput getPayload() => this;
   @override
@@ -206,8 +203,8 @@ class ActivateTypeInputAwsQuerySerializer
         case 'Type':
           result.type = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ThirdPartyType),
-          ) as _i3.ThirdPartyType);
+            specifiedType: const FullType(ThirdPartyType),
+          ) as ThirdPartyType);
         case 'PublicTypeArn':
           result.publicTypeArn = (serializers.deserialize(
             value,
@@ -236,8 +233,8 @@ class ActivateTypeInputAwsQuerySerializer
         case 'LoggingConfig':
           result.loggingConfig.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.LoggingConfig),
-          ) as _i4.LoggingConfig));
+            specifiedType: const FullType(LoggingConfig),
+          ) as LoggingConfig));
         case 'ExecutionRoleArn':
           result.executionRoleArn = (serializers.deserialize(
             value,
@@ -246,13 +243,13 @@ class ActivateTypeInputAwsQuerySerializer
         case 'VersionBump':
           result.versionBump = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.VersionBump),
-          ) as _i5.VersionBump);
+            specifiedType: const FullType(VersionBump),
+          ) as VersionBump);
         case 'MajorVersion':
           result.majorVersion = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.Int64),
-          ) as _i6.Int64);
+            specifiedType: const FullType(_i3.Int64),
+          ) as _i3.Int64);
       }
     }
 
@@ -288,7 +285,7 @@ class ActivateTypeInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(_i3.ThirdPartyType),
+          specifiedType: const FullType.nullable(ThirdPartyType),
         ));
     }
     if (publicTypeArn != null) {
@@ -336,7 +333,7 @@ class ActivateTypeInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('LoggingConfig'))
         ..add(serializers.serialize(
           loggingConfig,
-          specifiedType: const FullType(_i4.LoggingConfig),
+          specifiedType: const FullType(LoggingConfig),
         ));
     }
     if (executionRoleArn != null) {
@@ -352,7 +349,7 @@ class ActivateTypeInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('VersionBump'))
         ..add(serializers.serialize(
           versionBump,
-          specifiedType: const FullType.nullable(_i5.VersionBump),
+          specifiedType: const FullType.nullable(VersionBump),
         ));
     }
     if (majorVersion != null) {
@@ -360,7 +357,7 @@ class ActivateTypeInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('MajorVersion'))
         ..add(serializers.serialize(
           majorVersion,
-          specifiedType: const FullType.nullable(_i6.Int64),
+          specifiedType: const FullType.nullable(_i3.Int64),
         ));
     }
     return result$;

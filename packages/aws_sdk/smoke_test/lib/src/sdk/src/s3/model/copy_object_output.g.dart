@@ -8,7 +8,7 @@ part of 'copy_object_output.dart';
 
 class _$CopyObjectOutput extends CopyObjectOutput {
   @override
-  final _i3.CopyObjectResult? copyObjectResult;
+  final CopyObjectResult? copyObjectResult;
   @override
   final String? expiration;
   @override
@@ -16,7 +16,7 @@ class _$CopyObjectOutput extends CopyObjectOutput {
   @override
   final String? versionId;
   @override
-  final _i4.ServerSideEncryption? serverSideEncryption;
+  final ServerSideEncryption? serverSideEncryption;
   @override
   final String? sseCustomerAlgorithm;
   @override
@@ -28,7 +28,7 @@ class _$CopyObjectOutput extends CopyObjectOutput {
   @override
   final bool? bucketKeyEnabled;
   @override
-  final _i5.RequestCharged? requestCharged;
+  final RequestCharged? requestCharged;
 
   factory _$CopyObjectOutput(
           [void Function(CopyObjectOutputBuilder)? updates]) =>
@@ -96,10 +96,10 @@ class CopyObjectOutputBuilder
     implements Builder<CopyObjectOutput, CopyObjectOutputBuilder> {
   _$CopyObjectOutput? _$v;
 
-  _i3.CopyObjectResultBuilder? _copyObjectResult;
-  _i3.CopyObjectResultBuilder get copyObjectResult =>
-      _$this._copyObjectResult ??= new _i3.CopyObjectResultBuilder();
-  set copyObjectResult(_i3.CopyObjectResultBuilder? copyObjectResult) =>
+  CopyObjectResultBuilder? _copyObjectResult;
+  CopyObjectResultBuilder get copyObjectResult =>
+      _$this._copyObjectResult ??= new CopyObjectResultBuilder();
+  set copyObjectResult(CopyObjectResultBuilder? copyObjectResult) =>
       _$this._copyObjectResult = copyObjectResult;
 
   String? _expiration;
@@ -115,10 +115,10 @@ class CopyObjectOutputBuilder
   String? get versionId => _$this._versionId;
   set versionId(String? versionId) => _$this._versionId = versionId;
 
-  _i4.ServerSideEncryption? _serverSideEncryption;
-  _i4.ServerSideEncryption? get serverSideEncryption =>
+  ServerSideEncryption? _serverSideEncryption;
+  ServerSideEncryption? get serverSideEncryption =>
       _$this._serverSideEncryption;
-  set serverSideEncryption(_i4.ServerSideEncryption? serverSideEncryption) =>
+  set serverSideEncryption(ServerSideEncryption? serverSideEncryption) =>
       _$this._serverSideEncryption = serverSideEncryption;
 
   String? _sseCustomerAlgorithm;
@@ -145,9 +145,9 @@ class CopyObjectOutputBuilder
   set bucketKeyEnabled(bool? bucketKeyEnabled) =>
       _$this._bucketKeyEnabled = bucketKeyEnabled;
 
-  _i5.RequestCharged? _requestCharged;
-  _i5.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i5.RequestCharged? requestCharged) =>
+  RequestCharged? _requestCharged;
+  RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
   CopyObjectOutputBuilder();

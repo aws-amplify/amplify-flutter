@@ -8,7 +8,7 @@ part of 'exclusion_by_resource_types.dart';
 
 class _$ExclusionByResourceTypes extends ExclusionByResourceTypes {
   @override
-  final _i3.BuiltList<_i2.ResourceType>? resourceTypes;
+  final _i2.BuiltList<ResourceType>? resourceTypes;
 
   factory _$ExclusionByResourceTypes(
           [void Function(ExclusionByResourceTypesBuilder)? updates]) =>
@@ -46,10 +46,10 @@ class ExclusionByResourceTypesBuilder
         Builder<ExclusionByResourceTypes, ExclusionByResourceTypesBuilder> {
   _$ExclusionByResourceTypes? _$v;
 
-  _i3.ListBuilder<_i2.ResourceType>? _resourceTypes;
-  _i3.ListBuilder<_i2.ResourceType> get resourceTypes =>
-      _$this._resourceTypes ??= new _i3.ListBuilder<_i2.ResourceType>();
-  set resourceTypes(_i3.ListBuilder<_i2.ResourceType>? resourceTypes) =>
+  _i2.ListBuilder<ResourceType>? _resourceTypes;
+  _i2.ListBuilder<ResourceType> get resourceTypes =>
+      _$this._resourceTypes ??= new _i2.ListBuilder<ResourceType>();
+  set resourceTypes(_i2.ListBuilder<ResourceType>? resourceTypes) =>
       _$this._resourceTypes = resourceTypes;
 
   ExclusionByResourceTypesBuilder();

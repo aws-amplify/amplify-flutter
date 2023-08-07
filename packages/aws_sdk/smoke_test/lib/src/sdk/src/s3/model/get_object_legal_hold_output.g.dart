@@ -8,7 +8,7 @@ part of 'get_object_legal_hold_output.dart';
 
 class _$GetObjectLegalHoldOutput extends GetObjectLegalHoldOutput {
   @override
-  final _i3.ObjectLockLegalHold? legalHold;
+  final ObjectLockLegalHold? legalHold;
 
   factory _$GetObjectLegalHoldOutput(
           [void Function(GetObjectLegalHoldOutputBuilder)? updates]) =>
@@ -45,10 +45,10 @@ class GetObjectLegalHoldOutputBuilder
         Builder<GetObjectLegalHoldOutput, GetObjectLegalHoldOutputBuilder> {
   _$GetObjectLegalHoldOutput? _$v;
 
-  _i3.ObjectLockLegalHoldBuilder? _legalHold;
-  _i3.ObjectLockLegalHoldBuilder get legalHold =>
-      _$this._legalHold ??= new _i3.ObjectLockLegalHoldBuilder();
-  set legalHold(_i3.ObjectLockLegalHoldBuilder? legalHold) =>
+  ObjectLockLegalHoldBuilder? _legalHold;
+  ObjectLockLegalHoldBuilder get legalHold =>
+      _$this._legalHold ??= new ObjectLockLegalHoldBuilder();
+  set legalHold(ObjectLockLegalHoldBuilder? legalHold) =>
       _$this._legalHold = legalHold;
 
   GetObjectLegalHoldOutputBuilder();

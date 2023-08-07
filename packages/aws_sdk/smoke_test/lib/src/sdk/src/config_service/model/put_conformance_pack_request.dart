@@ -4,14 +4,12 @@
 library smoke_test.config_service.model.put_conformance_pack_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_input_parameter.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/template_ssm_document_details.dart'
-    as _i4;
+import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_input_parameter.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/template_ssm_document_details.dart';
 
 part 'put_conformance_pack_request.g.dart';
 
@@ -27,8 +25,8 @@ abstract class PutConformancePackRequest
     String? templateBody,
     String? deliveryS3Bucket,
     String? deliveryS3KeyPrefix,
-    List<_i3.ConformancePackInputParameter>? conformancePackInputParameters,
-    _i4.TemplateSsmDocumentDetails? templateSsmDocumentDetails,
+    List<ConformancePackInputParameter>? conformancePackInputParameters,
+    TemplateSsmDocumentDetails? templateSsmDocumentDetails,
   }) {
     return _$PutConformancePackRequest._(
       conformancePackName: conformancePackName,
@@ -38,7 +36,7 @@ abstract class PutConformancePackRequest
       deliveryS3KeyPrefix: deliveryS3KeyPrefix,
       conformancePackInputParameters: conformancePackInputParameters == null
           ? null
-          : _i5.BuiltList(conformancePackInputParameters),
+          : _i3.BuiltList(conformancePackInputParameters),
       templateSsmDocumentDetails: templateSsmDocumentDetails,
     );
   }
@@ -83,11 +81,11 @@ abstract class PutConformancePackRequest
   String? get deliveryS3KeyPrefix;
 
   /// A list of `ConformancePackInputParameter` objects.
-  _i5.BuiltList<_i3.ConformancePackInputParameter>?
+  _i3.BuiltList<ConformancePackInputParameter>?
       get conformancePackInputParameters;
 
   /// An object of type `TemplateSSMDocumentDetails`, which contains the name or the Amazon Resource Name (ARN) of the Amazon Web Services Systems Manager document (SSM document) and the version of the SSM document that is used to create a conformance pack.
-  _i4.TemplateSsmDocumentDetails? get templateSsmDocumentDetails;
+  TemplateSsmDocumentDetails? get templateSsmDocumentDetails;
   @override
   PutConformancePackRequest getPayload() => this;
   @override
@@ -198,15 +196,15 @@ class PutConformancePackRequestAwsJson11Serializer
               .replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(_i3.ConformancePackInputParameter)],
+              _i3.BuiltList,
+              [FullType(ConformancePackInputParameter)],
             ),
-          ) as _i5.BuiltList<_i3.ConformancePackInputParameter>));
+          ) as _i3.BuiltList<ConformancePackInputParameter>));
         case 'TemplateSSMDocumentDetails':
           result.templateSsmDocumentDetails.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.TemplateSsmDocumentDetails),
-          ) as _i4.TemplateSsmDocumentDetails));
+            specifiedType: const FullType(TemplateSsmDocumentDetails),
+          ) as TemplateSsmDocumentDetails));
       }
     }
 
@@ -274,8 +272,8 @@ class PutConformancePackRequestAwsJson11Serializer
         ..add(serializers.serialize(
           conformancePackInputParameters,
           specifiedType: const FullType(
-            _i5.BuiltList,
-            [FullType(_i3.ConformancePackInputParameter)],
+            _i3.BuiltList,
+            [FullType(ConformancePackInputParameter)],
           ),
         ));
     }
@@ -284,7 +282,7 @@ class PutConformancePackRequestAwsJson11Serializer
         ..add('TemplateSSMDocumentDetails')
         ..add(serializers.serialize(
           templateSsmDocumentDetails,
-          specifiedType: const FullType(_i4.TemplateSsmDocumentDetails),
+          specifiedType: const FullType(TemplateSsmDocumentDetails),
         ));
     }
     return result$;

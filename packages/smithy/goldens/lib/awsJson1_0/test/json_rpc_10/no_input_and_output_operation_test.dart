@@ -4,12 +4,10 @@
 // ignore_for_file: unused_element
 library aws_json1_0_v1.json_rpc_10.test.no_input_and_output_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/no_input_and_output_output.dart'
-    as _i5;
-import 'package:aws_json1_0_v1/src/json_rpc_10/operation/no_input_and_output_operation.dart'
-    as _i3;
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/no_input_and_output_output.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/operation/no_input_and_output_operation.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -18,7 +16,7 @@ void main() {
     'AwsJson10NoInputAndOutput (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.NoInputAndOutputOperation(
+        operation: NoInputAndOutputOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -26,7 +24,7 @@ void main() {
           id: 'AwsJson10NoInputAndOutput',
           documentation:
               'A client should always send and empty JSON object payload.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsJson1_0',
           ),
@@ -60,7 +58,7 @@ void main() {
     'AwsJson10NoInputAndOutput (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.NoInputAndOutputOperation(
+        operation: NoInputAndOutputOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -68,7 +66,7 @@ void main() {
           id: 'AwsJson10NoInputAndOutput',
           documentation:
               'Empty output always serializes an empty object payload.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsJson1_0',
           ),
@@ -92,32 +90,32 @@ void main() {
 }
 
 class NoInputAndOutputOutputAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<_i5.NoInputAndOutputOutput> {
+    extends _i3.StructuredSmithySerializer<NoInputAndOutputOutput> {
   const NoInputAndOutputOutputAwsJson10Serializer()
       : super('NoInputAndOutputOutput');
 
   @override
-  Iterable<Type> get types => const [_i5.NoInputAndOutputOutput];
+  Iterable<Type> get types => const [NoInputAndOutputOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
       ];
   @override
-  _i5.NoInputAndOutputOutput deserialize(
+  NoInputAndOutputOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _i5.NoInputAndOutputOutputBuilder().build();
+    return NoInputAndOutputOutputBuilder().build();
   }
 
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.NoInputAndOutputOutput object, {
+    NoInputAndOutputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

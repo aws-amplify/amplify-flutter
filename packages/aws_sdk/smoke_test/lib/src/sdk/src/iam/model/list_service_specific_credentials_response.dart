@@ -4,12 +4,11 @@
 library smoke_test.iam.model.list_service_specific_credentials_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/service_specific_credential_metadata.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/service_specific_credential_metadata.dart';
 
 part 'list_service_specific_credentials_response.g.dart';
 
@@ -20,12 +19,11 @@ abstract class ListServiceSpecificCredentialsResponse
         Built<ListServiceSpecificCredentialsResponse,
             ListServiceSpecificCredentialsResponseBuilder> {
   factory ListServiceSpecificCredentialsResponse(
-      {List<_i2.ServiceSpecificCredentialMetadata>?
-          serviceSpecificCredentials}) {
+      {List<ServiceSpecificCredentialMetadata>? serviceSpecificCredentials}) {
     return _$ListServiceSpecificCredentialsResponse._(
         serviceSpecificCredentials: serviceSpecificCredentials == null
             ? null
-            : _i3.BuiltList(serviceSpecificCredentials));
+            : _i2.BuiltList(serviceSpecificCredentials));
   }
 
   factory ListServiceSpecificCredentialsResponse.build(
@@ -42,13 +40,13 @@ abstract class ListServiceSpecificCredentialsResponse
       payload;
 
   static const List<
-          _i4.SmithySerializer<ListServiceSpecificCredentialsResponse>>
+          _i3.SmithySerializer<ListServiceSpecificCredentialsResponse>>
       serializers = [
     ListServiceSpecificCredentialsResponseAwsQuerySerializer()
   ];
 
   /// A list of structures that each contain details about a service-specific credential.
-  _i3.BuiltList<_i2.ServiceSpecificCredentialMetadata>?
+  _i2.BuiltList<ServiceSpecificCredentialMetadata>?
       get serviceSpecificCredentials;
   @override
   List<Object?> get props => [serviceSpecificCredentials];
@@ -64,7 +62,7 @@ abstract class ListServiceSpecificCredentialsResponse
   }
 }
 
-class ListServiceSpecificCredentialsResponseAwsQuerySerializer extends _i4
+class ListServiceSpecificCredentialsResponseAwsQuerySerializer extends _i3
     .StructuredSmithySerializer<ListServiceSpecificCredentialsResponse> {
   const ListServiceSpecificCredentialsResponseAwsQuerySerializer()
       : super('ListServiceSpecificCredentialsResponse');
@@ -75,8 +73,8 @@ class ListServiceSpecificCredentialsResponseAwsQuerySerializer extends _i4
         _$ListServiceSpecificCredentialsResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -99,16 +97,16 @@ class ListServiceSpecificCredentialsResponseAwsQuerySerializer extends _i4
       switch (key) {
         case 'ServiceSpecificCredentials':
           result.serviceSpecificCredentials.replace(
-              (const _i4.XmlBuiltListSerializer(
-                      indexer: _i4.XmlIndexer.awsQueryList)
+              (const _i3.XmlBuiltListSerializer(
+                      indexer: _i3.XmlIndexer.awsQueryList)
                   .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.ServiceSpecificCredentialMetadata)],
+              _i2.BuiltList,
+              [FullType(ServiceSpecificCredentialMetadata)],
             ),
-          ) as _i3.BuiltList<_i2.ServiceSpecificCredentialMetadata>));
+          ) as _i2.BuiltList<ServiceSpecificCredentialMetadata>));
       }
     }
 
@@ -122,24 +120,24 @@ class ListServiceSpecificCredentialsResponseAwsQuerySerializer extends _i4
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'ListServiceSpecificCredentialsResponseResponse',
-        _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final ListServiceSpecificCredentialsResponse(:serviceSpecificCredentials) =
         object;
     if (serviceSpecificCredentials != null) {
       result$
-        ..add(const _i4.XmlElementName('ServiceSpecificCredentials'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('ServiceSpecificCredentials'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           serviceSpecificCredentials,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
-            [FullType(_i2.ServiceSpecificCredentialMetadata)],
+            _i2.BuiltList,
+            [FullType(ServiceSpecificCredentialMetadata)],
           ),
         ));
     }

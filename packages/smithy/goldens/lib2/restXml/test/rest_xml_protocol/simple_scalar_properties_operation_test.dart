@@ -5,12 +5,10 @@
 library rest_xml_v2.rest_xml_protocol.test.simple_scalar_properties_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i6;
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/simple_scalar_properties_input_output.dart'
-    as _i5;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/simple_scalar_properties_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:fixnum/fixnum.dart' as _i4;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/simple_scalar_properties_input_output.dart';
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/simple_scalar_properties_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -19,14 +17,14 @@ void main() {
     'SimpleScalarProperties (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'SimpleScalarProperties',
           documentation: 'Serializes simple scalar properties',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -74,14 +72,14 @@ void main() {
     'SimpleScalarPropertiesWithEscapedCharacter (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'SimpleScalarPropertiesWithEscapedCharacter',
           documentation: 'Serializes string with escaping',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -121,14 +119,14 @@ void main() {
     'SimpleScalarPropertiesWithWhiteSpace (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'SimpleScalarPropertiesWithWhiteSpace',
           documentation: 'Serializes string containing white space',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -168,14 +166,14 @@ void main() {
     'SimpleScalarPropertiesPureWhiteSpace (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'SimpleScalarPropertiesPureWhiteSpace',
           documentation: 'Serializes string containing exclusively whitespace',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -215,14 +213,14 @@ void main() {
     'RestXmlSupportsNaNFloatInputs (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'RestXmlSupportsNaNFloatInputs',
           documentation: 'Supports handling NaN float values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -259,14 +257,14 @@ void main() {
     'RestXmlSupportsInfinityFloatInputs (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'RestXmlSupportsInfinityFloatInputs',
           documentation: 'Supports handling Infinity float values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -303,14 +301,14 @@ void main() {
     'RestXmlSupportsNegativeInfinityFloatInputs (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'RestXmlSupportsNegativeInfinityFloatInputs',
           documentation: 'Supports handling -Infinity float values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -347,14 +345,14 @@ void main() {
     'SimpleScalarProperties (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'SimpleScalarProperties',
           documentation: 'Serializes simple scalar properties',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -396,7 +394,7 @@ void main() {
     'SimpleScalarPropertiesComplexEscapes (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -404,7 +402,7 @@ void main() {
           id: 'SimpleScalarPropertiesComplexEscapes',
           documentation:
               'Serializes string with escaping.\n\nThis validates the three escape types: literal, decimal and hexadecimal. It also validates that unescaping properly\nhandles the case where unescaping an & produces a newly formed escape sequence (this should not be re-unescaped).\n\nServers may produce different output, this test is designed different unescapes clients must handle\n',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -438,14 +436,14 @@ void main() {
     'SimpleScalarPropertiesWithEscapedCharacter (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'SimpleScalarPropertiesWithEscapedCharacter',
           documentation: 'Serializes string with escaping',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -479,7 +477,7 @@ void main() {
     'SimpleScalarPropertiesWithXMLPreamble (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -487,7 +485,7 @@ void main() {
           id: 'SimpleScalarPropertiesWithXMLPreamble',
           documentation:
               'Serializes simple scalar properties with xml preamble, comments and CDATA',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -521,14 +519,14 @@ void main() {
     'SimpleScalarPropertiesWithWhiteSpace (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'SimpleScalarPropertiesWithWhiteSpace',
           documentation: 'Serializes string containing white space',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -562,14 +560,14 @@ void main() {
     'SimpleScalarPropertiesPureWhiteSpace (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'SimpleScalarPropertiesPureWhiteSpace',
           documentation: 'Serializes string containing white space',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -603,14 +601,14 @@ void main() {
     'RestXmlSupportsNaNFloatOutputs (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'RestXmlSupportsNaNFloatOutputs',
           documentation: 'Supports handling NaN float values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -641,14 +639,14 @@ void main() {
     'RestXmlSupportsInfinityFloatOutputs (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'RestXmlSupportsInfinityFloatOutputs',
           documentation: 'Supports handling Infinity float values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -679,14 +677,14 @@ void main() {
     'RestXmlSupportsNegativeInfinityFloatOutputs (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'RestXmlSupportsNegativeInfinityFloatOutputs',
           documentation: 'Supports handling -Infinity float values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -715,27 +713,27 @@ void main() {
   );
 }
 
-class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i4
-    .StructuredSmithySerializer<_i5.SimpleScalarPropertiesInputOutput> {
+class SimpleScalarPropertiesInputOutputRestXmlSerializer
+    extends _i3.StructuredSmithySerializer<SimpleScalarPropertiesInputOutput> {
   const SimpleScalarPropertiesInputOutputRestXmlSerializer()
       : super('SimpleScalarPropertiesInputOutput');
 
   @override
-  Iterable<Type> get types => const [_i5.SimpleScalarPropertiesInputOutput];
+  Iterable<Type> get types => const [SimpleScalarPropertiesInputOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
       ];
   @override
-  _i5.SimpleScalarPropertiesInputOutput deserialize(
+  SimpleScalarPropertiesInputOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.SimpleScalarPropertiesInputOutputBuilder();
+    final result = SimpleScalarPropertiesInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -783,8 +781,8 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i4
         case 'longValue':
           result.longValue = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.Int64),
-          ) as _i6.Int64);
+            specifiedType: const FullType(_i4.Int64),
+          ) as _i4.Int64);
         case 'floatValue':
           result.floatValue = (serializers.deserialize(
             value,
@@ -804,7 +802,7 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.SimpleScalarPropertiesInputOutput object, {
+    SimpleScalarPropertiesInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

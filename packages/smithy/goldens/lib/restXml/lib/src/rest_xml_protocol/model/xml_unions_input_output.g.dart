@@ -8,7 +8,7 @@ part of 'xml_unions_input_output.dart';
 
 class _$XmlUnionsInputOutput extends XmlUnionsInputOutput {
   @override
-  final _i3.XmlUnionShape? unionValue;
+  final XmlUnionShape? unionValue;
 
   factory _$XmlUnionsInputOutput(
           [void Function(XmlUnionsInputOutputBuilder)? updates]) =>
@@ -44,10 +44,9 @@ class XmlUnionsInputOutputBuilder
     implements Builder<XmlUnionsInputOutput, XmlUnionsInputOutputBuilder> {
   _$XmlUnionsInputOutput? _$v;
 
-  _i3.XmlUnionShape? _unionValue;
-  _i3.XmlUnionShape? get unionValue => _$this._unionValue;
-  set unionValue(_i3.XmlUnionShape? unionValue) =>
-      _$this._unionValue = unionValue;
+  XmlUnionShape? _unionValue;
+  XmlUnionShape? get unionValue => _$this._unionValue;
+  set unionValue(XmlUnionShape? unionValue) => _$this._unionValue = unionValue;
 
   XmlUnionsInputOutputBuilder();
 

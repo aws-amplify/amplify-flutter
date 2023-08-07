@@ -10,7 +10,7 @@ class _$ListStacksInput extends ListStacksInput {
   @override
   final String? nextToken;
   @override
-  final _i4.BuiltList<_i3.StackStatus>? stackStatusFilter;
+  final _i3.BuiltList<StackStatus>? stackStatusFilter;
 
   factory _$ListStacksInput([void Function(ListStacksInputBuilder)? updates]) =>
       (new ListStacksInputBuilder()..update(updates))._build();
@@ -51,10 +51,10 @@ class ListStacksInputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  _i4.ListBuilder<_i3.StackStatus>? _stackStatusFilter;
-  _i4.ListBuilder<_i3.StackStatus> get stackStatusFilter =>
-      _$this._stackStatusFilter ??= new _i4.ListBuilder<_i3.StackStatus>();
-  set stackStatusFilter(_i4.ListBuilder<_i3.StackStatus>? stackStatusFilter) =>
+  _i3.ListBuilder<StackStatus>? _stackStatusFilter;
+  _i3.ListBuilder<StackStatus> get stackStatusFilter =>
+      _$this._stackStatusFilter ??= new _i3.ListBuilder<StackStatus>();
+  set stackStatusFilter(_i3.ListBuilder<StackStatus>? stackStatusFilter) =>
       _$this._stackStatusFilter = stackStatusFilter;
 
   ListStacksInputBuilder();

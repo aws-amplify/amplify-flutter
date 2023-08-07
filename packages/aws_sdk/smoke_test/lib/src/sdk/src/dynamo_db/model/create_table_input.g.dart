@@ -8,27 +8,27 @@ part of 'create_table_input.dart';
 
 class _$CreateTableInput extends CreateTableInput {
   @override
-  final _i13.BuiltList<_i3.AttributeDefinition> attributeDefinitions;
+  final _i3.BuiltList<AttributeDefinition> attributeDefinitions;
   @override
   final String tableName;
   @override
-  final _i13.BuiltList<_i4.KeySchemaElement> keySchema;
+  final _i3.BuiltList<KeySchemaElement> keySchema;
   @override
-  final _i13.BuiltList<_i5.LocalSecondaryIndex>? localSecondaryIndexes;
+  final _i3.BuiltList<LocalSecondaryIndex>? localSecondaryIndexes;
   @override
-  final _i13.BuiltList<_i6.GlobalSecondaryIndex>? globalSecondaryIndexes;
+  final _i3.BuiltList<GlobalSecondaryIndex>? globalSecondaryIndexes;
   @override
-  final _i7.BillingMode? billingMode;
+  final BillingMode? billingMode;
   @override
-  final _i8.ProvisionedThroughput? provisionedThroughput;
+  final ProvisionedThroughput? provisionedThroughput;
   @override
-  final _i9.StreamSpecification? streamSpecification;
+  final StreamSpecification? streamSpecification;
   @override
-  final _i10.SseSpecification? sseSpecification;
+  final SseSpecification? sseSpecification;
   @override
-  final _i13.BuiltList<_i11.Tag>? tags;
+  final _i3.BuiltList<Tag>? tags;
   @override
-  final _i12.TableClass? tableClass;
+  final TableClass? tableClass;
   @override
   final bool? deletionProtectionEnabled;
 
@@ -108,74 +108,71 @@ class CreateTableInputBuilder
     implements Builder<CreateTableInput, CreateTableInputBuilder> {
   _$CreateTableInput? _$v;
 
-  _i13.ListBuilder<_i3.AttributeDefinition>? _attributeDefinitions;
-  _i13.ListBuilder<_i3.AttributeDefinition> get attributeDefinitions =>
+  _i3.ListBuilder<AttributeDefinition>? _attributeDefinitions;
+  _i3.ListBuilder<AttributeDefinition> get attributeDefinitions =>
       _$this._attributeDefinitions ??=
-          new _i13.ListBuilder<_i3.AttributeDefinition>();
+          new _i3.ListBuilder<AttributeDefinition>();
   set attributeDefinitions(
-          _i13.ListBuilder<_i3.AttributeDefinition>? attributeDefinitions) =>
+          _i3.ListBuilder<AttributeDefinition>? attributeDefinitions) =>
       _$this._attributeDefinitions = attributeDefinitions;
 
   String? _tableName;
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
 
-  _i13.ListBuilder<_i4.KeySchemaElement>? _keySchema;
-  _i13.ListBuilder<_i4.KeySchemaElement> get keySchema =>
-      _$this._keySchema ??= new _i13.ListBuilder<_i4.KeySchemaElement>();
-  set keySchema(_i13.ListBuilder<_i4.KeySchemaElement>? keySchema) =>
+  _i3.ListBuilder<KeySchemaElement>? _keySchema;
+  _i3.ListBuilder<KeySchemaElement> get keySchema =>
+      _$this._keySchema ??= new _i3.ListBuilder<KeySchemaElement>();
+  set keySchema(_i3.ListBuilder<KeySchemaElement>? keySchema) =>
       _$this._keySchema = keySchema;
 
-  _i13.ListBuilder<_i5.LocalSecondaryIndex>? _localSecondaryIndexes;
-  _i13.ListBuilder<_i5.LocalSecondaryIndex> get localSecondaryIndexes =>
+  _i3.ListBuilder<LocalSecondaryIndex>? _localSecondaryIndexes;
+  _i3.ListBuilder<LocalSecondaryIndex> get localSecondaryIndexes =>
       _$this._localSecondaryIndexes ??=
-          new _i13.ListBuilder<_i5.LocalSecondaryIndex>();
+          new _i3.ListBuilder<LocalSecondaryIndex>();
   set localSecondaryIndexes(
-          _i13.ListBuilder<_i5.LocalSecondaryIndex>? localSecondaryIndexes) =>
+          _i3.ListBuilder<LocalSecondaryIndex>? localSecondaryIndexes) =>
       _$this._localSecondaryIndexes = localSecondaryIndexes;
 
-  _i13.ListBuilder<_i6.GlobalSecondaryIndex>? _globalSecondaryIndexes;
-  _i13.ListBuilder<_i6.GlobalSecondaryIndex> get globalSecondaryIndexes =>
+  _i3.ListBuilder<GlobalSecondaryIndex>? _globalSecondaryIndexes;
+  _i3.ListBuilder<GlobalSecondaryIndex> get globalSecondaryIndexes =>
       _$this._globalSecondaryIndexes ??=
-          new _i13.ListBuilder<_i6.GlobalSecondaryIndex>();
+          new _i3.ListBuilder<GlobalSecondaryIndex>();
   set globalSecondaryIndexes(
-          _i13.ListBuilder<_i6.GlobalSecondaryIndex>? globalSecondaryIndexes) =>
+          _i3.ListBuilder<GlobalSecondaryIndex>? globalSecondaryIndexes) =>
       _$this._globalSecondaryIndexes = globalSecondaryIndexes;
 
-  _i7.BillingMode? _billingMode;
-  _i7.BillingMode? get billingMode => _$this._billingMode;
-  set billingMode(_i7.BillingMode? billingMode) =>
+  BillingMode? _billingMode;
+  BillingMode? get billingMode => _$this._billingMode;
+  set billingMode(BillingMode? billingMode) =>
       _$this._billingMode = billingMode;
 
-  _i8.ProvisionedThroughputBuilder? _provisionedThroughput;
-  _i8.ProvisionedThroughputBuilder get provisionedThroughput =>
-      _$this._provisionedThroughput ??= new _i8.ProvisionedThroughputBuilder();
+  ProvisionedThroughputBuilder? _provisionedThroughput;
+  ProvisionedThroughputBuilder get provisionedThroughput =>
+      _$this._provisionedThroughput ??= new ProvisionedThroughputBuilder();
   set provisionedThroughput(
-          _i8.ProvisionedThroughputBuilder? provisionedThroughput) =>
+          ProvisionedThroughputBuilder? provisionedThroughput) =>
       _$this._provisionedThroughput = provisionedThroughput;
 
-  _i9.StreamSpecificationBuilder? _streamSpecification;
-  _i9.StreamSpecificationBuilder get streamSpecification =>
-      _$this._streamSpecification ??= new _i9.StreamSpecificationBuilder();
-  set streamSpecification(
-          _i9.StreamSpecificationBuilder? streamSpecification) =>
+  StreamSpecificationBuilder? _streamSpecification;
+  StreamSpecificationBuilder get streamSpecification =>
+      _$this._streamSpecification ??= new StreamSpecificationBuilder();
+  set streamSpecification(StreamSpecificationBuilder? streamSpecification) =>
       _$this._streamSpecification = streamSpecification;
 
-  _i10.SseSpecificationBuilder? _sseSpecification;
-  _i10.SseSpecificationBuilder get sseSpecification =>
-      _$this._sseSpecification ??= new _i10.SseSpecificationBuilder();
-  set sseSpecification(_i10.SseSpecificationBuilder? sseSpecification) =>
+  SseSpecificationBuilder? _sseSpecification;
+  SseSpecificationBuilder get sseSpecification =>
+      _$this._sseSpecification ??= new SseSpecificationBuilder();
+  set sseSpecification(SseSpecificationBuilder? sseSpecification) =>
       _$this._sseSpecification = sseSpecification;
 
-  _i13.ListBuilder<_i11.Tag>? _tags;
-  _i13.ListBuilder<_i11.Tag> get tags =>
-      _$this._tags ??= new _i13.ListBuilder<_i11.Tag>();
-  set tags(_i13.ListBuilder<_i11.Tag>? tags) => _$this._tags = tags;
+  _i3.ListBuilder<Tag>? _tags;
+  _i3.ListBuilder<Tag> get tags => _$this._tags ??= new _i3.ListBuilder<Tag>();
+  set tags(_i3.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
-  _i12.TableClass? _tableClass;
-  _i12.TableClass? get tableClass => _$this._tableClass;
-  set tableClass(_i12.TableClass? tableClass) =>
-      _$this._tableClass = tableClass;
+  TableClass? _tableClass;
+  TableClass? get tableClass => _$this._tableClass;
+  set tableClass(TableClass? tableClass) => _$this._tableClass = tableClass;
 
   bool? _deletionProtectionEnabled;
   bool? get deletionProtectionEnabled => _$this._deletionProtectionEnabled;

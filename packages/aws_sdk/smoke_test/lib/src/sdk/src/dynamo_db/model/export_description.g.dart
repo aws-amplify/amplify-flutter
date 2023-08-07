@@ -10,7 +10,7 @@ class _$ExportDescription extends ExportDescription {
   @override
   final String? exportArn;
   @override
-  final _i2.ExportStatus? exportStatus;
+  final ExportStatus? exportStatus;
   @override
   final DateTime? startTime;
   @override
@@ -32,7 +32,7 @@ class _$ExportDescription extends ExportDescription {
   @override
   final String? s3Prefix;
   @override
-  final _i3.S3SseAlgorithm? s3SseAlgorithm;
+  final S3SseAlgorithm? s3SseAlgorithm;
   @override
   final String? s3SseKmsKeyId;
   @override
@@ -40,11 +40,11 @@ class _$ExportDescription extends ExportDescription {
   @override
   final String? failureMessage;
   @override
-  final _i4.ExportFormat? exportFormat;
+  final ExportFormat? exportFormat;
   @override
-  final _i5.Int64? billedSizeBytes;
+  final _i2.Int64? billedSizeBytes;
   @override
-  final _i5.Int64? itemCount;
+  final _i2.Int64? itemCount;
 
   factory _$ExportDescription(
           [void Function(ExportDescriptionBuilder)? updates]) =>
@@ -140,9 +140,9 @@ class ExportDescriptionBuilder
   String? get exportArn => _$this._exportArn;
   set exportArn(String? exportArn) => _$this._exportArn = exportArn;
 
-  _i2.ExportStatus? _exportStatus;
-  _i2.ExportStatus? get exportStatus => _$this._exportStatus;
-  set exportStatus(_i2.ExportStatus? exportStatus) =>
+  ExportStatus? _exportStatus;
+  ExportStatus? get exportStatus => _$this._exportStatus;
+  set exportStatus(ExportStatus? exportStatus) =>
       _$this._exportStatus = exportStatus;
 
   DateTime? _startTime;
@@ -187,9 +187,9 @@ class ExportDescriptionBuilder
   String? get s3Prefix => _$this._s3Prefix;
   set s3Prefix(String? s3Prefix) => _$this._s3Prefix = s3Prefix;
 
-  _i3.S3SseAlgorithm? _s3SseAlgorithm;
-  _i3.S3SseAlgorithm? get s3SseAlgorithm => _$this._s3SseAlgorithm;
-  set s3SseAlgorithm(_i3.S3SseAlgorithm? s3SseAlgorithm) =>
+  S3SseAlgorithm? _s3SseAlgorithm;
+  S3SseAlgorithm? get s3SseAlgorithm => _$this._s3SseAlgorithm;
+  set s3SseAlgorithm(S3SseAlgorithm? s3SseAlgorithm) =>
       _$this._s3SseAlgorithm = s3SseAlgorithm;
 
   String? _s3SseKmsKeyId;
@@ -206,19 +206,19 @@ class ExportDescriptionBuilder
   set failureMessage(String? failureMessage) =>
       _$this._failureMessage = failureMessage;
 
-  _i4.ExportFormat? _exportFormat;
-  _i4.ExportFormat? get exportFormat => _$this._exportFormat;
-  set exportFormat(_i4.ExportFormat? exportFormat) =>
+  ExportFormat? _exportFormat;
+  ExportFormat? get exportFormat => _$this._exportFormat;
+  set exportFormat(ExportFormat? exportFormat) =>
       _$this._exportFormat = exportFormat;
 
-  _i5.Int64? _billedSizeBytes;
-  _i5.Int64? get billedSizeBytes => _$this._billedSizeBytes;
-  set billedSizeBytes(_i5.Int64? billedSizeBytes) =>
+  _i2.Int64? _billedSizeBytes;
+  _i2.Int64? get billedSizeBytes => _$this._billedSizeBytes;
+  set billedSizeBytes(_i2.Int64? billedSizeBytes) =>
       _$this._billedSizeBytes = billedSizeBytes;
 
-  _i5.Int64? _itemCount;
-  _i5.Int64? get itemCount => _$this._itemCount;
-  set itemCount(_i5.Int64? itemCount) => _$this._itemCount = itemCount;
+  _i2.Int64? _itemCount;
+  _i2.Int64? get itemCount => _$this._itemCount;
+  set itemCount(_i2.Int64? itemCount) => _$this._itemCount = itemCount;
 
   ExportDescriptionBuilder();
 

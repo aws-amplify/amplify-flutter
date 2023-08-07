@@ -6,16 +6,15 @@ library smoke_test.cloud_formation.model.describe_stack_set_output; // ignore_fo
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set.dart';
 
 part 'describe_stack_set_output.g.dart';
 
 abstract class DescribeStackSetOutput
     with _i1.AWSEquatable<DescribeStackSetOutput>
     implements Built<DescribeStackSetOutput, DescribeStackSetOutputBuilder> {
-  factory DescribeStackSetOutput({_i2.StackSet? stackSet}) {
+  factory DescribeStackSetOutput({StackSet? stackSet}) {
     return _$DescribeStackSetOutput._(stackSet: stackSet);
   }
 
@@ -32,11 +31,11 @@ abstract class DescribeStackSetOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<DescribeStackSetOutput>> serializers =
+  static const List<_i2.SmithySerializer<DescribeStackSetOutput>> serializers =
       [DescribeStackSetOutputAwsQuerySerializer()];
 
   /// The specified stack set.
-  _i2.StackSet? get stackSet;
+  StackSet? get stackSet;
   @override
   List<Object?> get props => [stackSet];
   @override
@@ -51,7 +50,7 @@ abstract class DescribeStackSetOutput
 }
 
 class DescribeStackSetOutputAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<DescribeStackSetOutput> {
+    extends _i2.StructuredSmithySerializer<DescribeStackSetOutput> {
   const DescribeStackSetOutputAwsQuerySerializer()
       : super('DescribeStackSetOutput');
 
@@ -61,8 +60,8 @@ class DescribeStackSetOutputAwsQuerySerializer
         _$DescribeStackSetOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -86,8 +85,8 @@ class DescribeStackSetOutputAwsQuerySerializer
         case 'StackSet':
           result.stackSet.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.StackSet),
-          ) as _i2.StackSet));
+            specifiedType: const FullType(StackSet),
+          ) as StackSet));
       }
     }
 
@@ -101,18 +100,18 @@ class DescribeStackSetOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'DescribeStackSetOutputResponse',
-        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final DescribeStackSetOutput(:stackSet) = object;
     if (stackSet != null) {
       result$
-        ..add(const _i3.XmlElementName('StackSet'))
+        ..add(const _i2.XmlElementName('StackSet'))
         ..add(serializers.serialize(
           stackSet,
-          specifiedType: const FullType(_i2.StackSet),
+          specifiedType: const FullType(StackSet),
         ));
     }
     return result$;

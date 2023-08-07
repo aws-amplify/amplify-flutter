@@ -3,41 +3,40 @@
 
 library smoke_test.s3.model.put_object_acl_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_common/aws_common.dart' as _i3;
-import 'package:built_collection/built_collection.dart' as _i7;
+import 'package:aws_common/aws_common.dart' as _i2;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/access_control_policy.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/grant.dart' as _i8;
-import 'package:smoke_test/src/sdk/src/s3/model/object_canned_acl.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/owner.dart' as _i9;
-import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart' as _i6;
+import 'package:smoke_test/src/sdk/src/s3/model/access_control_policy.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/grant.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/object_canned_acl.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/owner.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart';
 
 part 'put_object_acl_request.g.dart';
 
 abstract class PutObjectAclRequest
     with
-        _i1.HttpInput<_i2.AccessControlPolicy>,
-        _i3.AWSEquatable<PutObjectAclRequest>
+        _i1.HttpInput<AccessControlPolicy>,
+        _i2.AWSEquatable<PutObjectAclRequest>
     implements
         Built<PutObjectAclRequest, PutObjectAclRequestBuilder>,
-        _i1.HasPayload<_i2.AccessControlPolicy> {
+        _i1.HasPayload<AccessControlPolicy> {
   factory PutObjectAclRequest({
-    _i4.ObjectCannedAcl? acl,
-    _i2.AccessControlPolicy? accessControlPolicy,
+    ObjectCannedAcl? acl,
+    AccessControlPolicy? accessControlPolicy,
     required String bucket,
     String? contentMd5,
-    _i5.ChecksumAlgorithm? checksumAlgorithm,
+    ChecksumAlgorithm? checksumAlgorithm,
     String? grantFullControl,
     String? grantRead,
     String? grantReadAcp,
     String? grantWrite,
     String? grantWriteAcp,
     required String key,
-    _i6.RequestPayer? requestPayer,
+    RequestPayer? requestPayer,
     String? versionId,
     String? expectedBucketOwner,
   }) {
@@ -66,8 +65,8 @@ abstract class PutObjectAclRequest
   const PutObjectAclRequest._();
 
   factory PutObjectAclRequest.fromRequest(
-    _i2.AccessControlPolicy? payload,
-    _i3.AWSBaseHttpRequest request, {
+    AccessControlPolicy? payload,
+    _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
       PutObjectAclRequest.build((b) {
@@ -75,14 +74,13 @@ abstract class PutObjectAclRequest
           b.accessControlPolicy.replace(payload);
         }
         if (request.headers['x-amz-acl'] != null) {
-          b.acl =
-              _i4.ObjectCannedAcl.values.byValue(request.headers['x-amz-acl']!);
+          b.acl = ObjectCannedAcl.values.byValue(request.headers['x-amz-acl']!);
         }
         if (request.headers['Content-MD5'] != null) {
           b.contentMd5 = request.headers['Content-MD5']!;
         }
         if (request.headers['x-amz-sdk-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = _i5.ChecksumAlgorithm.values
+          b.checksumAlgorithm = ChecksumAlgorithm.values
               .byValue(request.headers['x-amz-sdk-checksum-algorithm']!);
         }
         if (request.headers['x-amz-grant-full-control'] != null) {
@@ -101,7 +99,7 @@ abstract class PutObjectAclRequest
           b.grantWriteAcp = request.headers['x-amz-grant-write-acp']!;
         }
         if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = _i6.RequestPayer.values
+          b.requestPayer = RequestPayer.values
               .byValue(request.headers['x-amz-request-payer']!);
         }
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
@@ -119,14 +117,15 @@ abstract class PutObjectAclRequest
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.AccessControlPolicy?>>
-      serializers = [PutObjectAclRequestRestXmlSerializer()];
+  static const List<_i1.SmithySerializer<AccessControlPolicy?>> serializers = [
+    PutObjectAclRequestRestXmlSerializer()
+  ];
 
   /// The canned ACL to apply to the object. For more information, see [Canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL).
-  _i4.ObjectCannedAcl? get acl;
+  ObjectCannedAcl? get acl;
 
   /// Contains the elements that set the ACL permissions for an object per grantee.
-  _i2.AccessControlPolicy? get accessControlPolicy;
+  AccessControlPolicy? get accessControlPolicy;
 
   /// The bucket name that contains the object to which you want to attach the ACL.
   ///
@@ -141,7 +140,7 @@ abstract class PutObjectAclRequest
   /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
   ///
   /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
-  _i5.ChecksumAlgorithm? get checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm;
 
   /// Allows grantee the read, write, read ACP, and write ACP permissions on the bucket.
   ///
@@ -176,7 +175,7 @@ abstract class PutObjectAclRequest
   String get key;
 
   /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
-  _i6.RequestPayer? get requestPayer;
+  RequestPayer? get requestPayer;
 
   /// VersionId used to reference a specific version of the object.
   String? get versionId;
@@ -198,8 +197,8 @@ abstract class PutObjectAclRequest
   }
 
   @override
-  _i2.AccessControlPolicy? getPayload() =>
-      accessControlPolicy ?? _i2.AccessControlPolicy();
+  AccessControlPolicy? getPayload() =>
+      accessControlPolicy ?? AccessControlPolicy();
   @override
   List<Object?> get props => [
         acl,
@@ -281,7 +280,7 @@ abstract class PutObjectAclRequest
 }
 
 class PutObjectAclRequestRestXmlSerializer
-    extends _i1.StructuredSmithySerializer<_i2.AccessControlPolicy> {
+    extends _i1.StructuredSmithySerializer<AccessControlPolicy> {
   const PutObjectAclRequestRestXmlSerializer() : super('PutObjectAclRequest');
 
   @override
@@ -297,12 +296,12 @@ class PutObjectAclRequestRestXmlSerializer
         )
       ];
   @override
-  _i2.AccessControlPolicy deserialize(
+  AccessControlPolicy deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i2.AccessControlPolicyBuilder();
+    final result = AccessControlPolicyBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -319,15 +318,15 @@ class PutObjectAclRequestRestXmlSerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i7.BuiltList,
-              [FullType(_i8.Grant)],
+              _i3.BuiltList,
+              [FullType(Grant)],
             ),
-          ) as _i7.BuiltList<_i8.Grant>));
+          ) as _i3.BuiltList<Grant>));
         case 'Owner':
           result.owner.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i9.Owner),
-          ) as _i9.Owner));
+            specifiedType: const FullType(Owner),
+          ) as Owner));
       }
     }
 
@@ -337,7 +336,7 @@ class PutObjectAclRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i2.AccessControlPolicy object, {
+    AccessControlPolicy object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -346,7 +345,7 @@ class PutObjectAclRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i2.AccessControlPolicy(:grants, :owner) = object;
+    final AccessControlPolicy(:grants, :owner) = object;
     if (grants != null) {
       result$
         ..add(const _i1.XmlElementName('AccessControlList'))
@@ -354,8 +353,8 @@ class PutObjectAclRequestRestXmlSerializer
           serializers,
           grants,
           specifiedType: const FullType.nullable(
-            _i7.BuiltList,
-            [FullType(_i8.Grant)],
+            _i3.BuiltList,
+            [FullType(Grant)],
           ),
         ));
     }
@@ -364,7 +363,7 @@ class PutObjectAclRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('Owner'))
         ..add(serializers.serialize(
           owner,
-          specifiedType: const FullType(_i9.Owner),
+          specifiedType: const FullType(Owner),
         ));
     }
     return result$;

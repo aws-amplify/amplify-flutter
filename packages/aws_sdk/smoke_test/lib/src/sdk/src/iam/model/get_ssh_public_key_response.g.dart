@@ -8,7 +8,7 @@ part of 'get_ssh_public_key_response.dart';
 
 class _$GetSshPublicKeyResponse extends GetSshPublicKeyResponse {
   @override
-  final _i2.SshPublicKey? sshPublicKey;
+  final SshPublicKey? sshPublicKey;
 
   factory _$GetSshPublicKeyResponse(
           [void Function(GetSshPublicKeyResponseBuilder)? updates]) =>
@@ -46,10 +46,10 @@ class GetSshPublicKeyResponseBuilder
         Builder<GetSshPublicKeyResponse, GetSshPublicKeyResponseBuilder> {
   _$GetSshPublicKeyResponse? _$v;
 
-  _i2.SshPublicKeyBuilder? _sshPublicKey;
-  _i2.SshPublicKeyBuilder get sshPublicKey =>
-      _$this._sshPublicKey ??= new _i2.SshPublicKeyBuilder();
-  set sshPublicKey(_i2.SshPublicKeyBuilder? sshPublicKey) =>
+  SshPublicKeyBuilder? _sshPublicKey;
+  SshPublicKeyBuilder get sshPublicKey =>
+      _$this._sshPublicKey ??= new SshPublicKeyBuilder();
+  set sshPublicKey(SshPublicKeyBuilder? sshPublicKey) =>
       _$this._sshPublicKey = sshPublicKey;
 
   GetSshPublicKeyResponseBuilder();

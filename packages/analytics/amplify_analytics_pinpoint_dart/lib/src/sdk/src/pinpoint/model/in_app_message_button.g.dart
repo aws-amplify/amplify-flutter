@@ -8,13 +8,13 @@ part of 'in_app_message_button.dart';
 
 class _$InAppMessageButton extends InAppMessageButton {
   @override
-  final _i2.OverrideButtonConfiguration? android;
+  final OverrideButtonConfiguration? android;
   @override
-  final _i3.DefaultButtonConfiguration? defaultConfig;
+  final DefaultButtonConfiguration? defaultConfig;
   @override
-  final _i2.OverrideButtonConfiguration? ios;
+  final OverrideButtonConfiguration? ios;
   @override
-  final _i2.OverrideButtonConfiguration? web;
+  final OverrideButtonConfiguration? web;
 
   factory _$InAppMessageButton(
           [void Function(InAppMessageButtonBuilder)? updates]) =>
@@ -58,27 +58,27 @@ class InAppMessageButtonBuilder
     implements Builder<InAppMessageButton, InAppMessageButtonBuilder> {
   _$InAppMessageButton? _$v;
 
-  _i2.OverrideButtonConfigurationBuilder? _android;
-  _i2.OverrideButtonConfigurationBuilder get android =>
-      _$this._android ??= new _i2.OverrideButtonConfigurationBuilder();
-  set android(_i2.OverrideButtonConfigurationBuilder? android) =>
+  OverrideButtonConfigurationBuilder? _android;
+  OverrideButtonConfigurationBuilder get android =>
+      _$this._android ??= new OverrideButtonConfigurationBuilder();
+  set android(OverrideButtonConfigurationBuilder? android) =>
       _$this._android = android;
 
-  _i3.DefaultButtonConfigurationBuilder? _defaultConfig;
-  _i3.DefaultButtonConfigurationBuilder get defaultConfig =>
-      _$this._defaultConfig ??= new _i3.DefaultButtonConfigurationBuilder();
-  set defaultConfig(_i3.DefaultButtonConfigurationBuilder? defaultConfig) =>
+  DefaultButtonConfigurationBuilder? _defaultConfig;
+  DefaultButtonConfigurationBuilder get defaultConfig =>
+      _$this._defaultConfig ??= new DefaultButtonConfigurationBuilder();
+  set defaultConfig(DefaultButtonConfigurationBuilder? defaultConfig) =>
       _$this._defaultConfig = defaultConfig;
 
-  _i2.OverrideButtonConfigurationBuilder? _ios;
-  _i2.OverrideButtonConfigurationBuilder get ios =>
-      _$this._ios ??= new _i2.OverrideButtonConfigurationBuilder();
-  set ios(_i2.OverrideButtonConfigurationBuilder? ios) => _$this._ios = ios;
+  OverrideButtonConfigurationBuilder? _ios;
+  OverrideButtonConfigurationBuilder get ios =>
+      _$this._ios ??= new OverrideButtonConfigurationBuilder();
+  set ios(OverrideButtonConfigurationBuilder? ios) => _$this._ios = ios;
 
-  _i2.OverrideButtonConfigurationBuilder? _web;
-  _i2.OverrideButtonConfigurationBuilder get web =>
-      _$this._web ??= new _i2.OverrideButtonConfigurationBuilder();
-  set web(_i2.OverrideButtonConfigurationBuilder? web) => _$this._web = web;
+  OverrideButtonConfigurationBuilder? _web;
+  OverrideButtonConfigurationBuilder get web =>
+      _$this._web ??= new OverrideButtonConfigurationBuilder();
+  set web(OverrideButtonConfigurationBuilder? web) => _$this._web = web;
 
   InAppMessageButtonBuilder();
 

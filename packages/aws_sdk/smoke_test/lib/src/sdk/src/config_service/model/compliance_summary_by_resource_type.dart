@@ -6,9 +6,8 @@ library smoke_test.config_service.model.compliance_summary_by_resource_type; // 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/compliance_summary.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/compliance_summary.dart';
 
 part 'compliance_summary_by_resource_type.g.dart';
 
@@ -22,7 +21,7 @@ abstract class ComplianceSummaryByResourceType
   /// The number of Amazon Web Services resources of a specific type that are compliant or noncompliant, up to a maximum of 100 for each.
   factory ComplianceSummaryByResourceType({
     String? resourceType,
-    _i2.ComplianceSummary? complianceSummary,
+    ComplianceSummary? complianceSummary,
   }) {
     return _$ComplianceSummaryByResourceType._(
       resourceType: resourceType,
@@ -37,14 +36,14 @@ abstract class ComplianceSummaryByResourceType
 
   const ComplianceSummaryByResourceType._();
 
-  static const List<_i3.SmithySerializer<ComplianceSummaryByResourceType>>
+  static const List<_i2.SmithySerializer<ComplianceSummaryByResourceType>>
       serializers = [ComplianceSummaryByResourceTypeAwsJson11Serializer()];
 
   /// The type of Amazon Web Services resource.
   String? get resourceType;
 
   /// The number of Amazon Web Services resources that are compliant or noncompliant, up to a maximum of 100 for each.
-  _i2.ComplianceSummary? get complianceSummary;
+  ComplianceSummary? get complianceSummary;
   @override
   List<Object?> get props => [
         resourceType,
@@ -67,7 +66,7 @@ abstract class ComplianceSummaryByResourceType
 }
 
 class ComplianceSummaryByResourceTypeAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<ComplianceSummaryByResourceType> {
+    extends _i2.StructuredSmithySerializer<ComplianceSummaryByResourceType> {
   const ComplianceSummaryByResourceTypeAwsJson11Serializer()
       : super('ComplianceSummaryByResourceType');
 
@@ -77,8 +76,8 @@ class ComplianceSummaryByResourceTypeAwsJson11Serializer
         _$ComplianceSummaryByResourceType,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -107,8 +106,8 @@ class ComplianceSummaryByResourceTypeAwsJson11Serializer
         case 'ComplianceSummary':
           result.complianceSummary.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ComplianceSummary),
-          ) as _i2.ComplianceSummary));
+            specifiedType: const FullType(ComplianceSummary),
+          ) as ComplianceSummary));
       }
     }
 
@@ -137,7 +136,7 @@ class ComplianceSummaryByResourceTypeAwsJson11Serializer
         ..add('ComplianceSummary')
         ..add(serializers.serialize(
           complianceSummary,
-          specifiedType: const FullType(_i2.ComplianceSummary),
+          specifiedType: const FullType(ComplianceSummary),
         ));
     }
     return result$;

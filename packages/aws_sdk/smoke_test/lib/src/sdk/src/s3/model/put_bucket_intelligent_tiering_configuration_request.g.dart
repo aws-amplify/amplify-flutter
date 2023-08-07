@@ -13,7 +13,7 @@ class _$PutBucketIntelligentTieringConfigurationRequest
   @override
   final String id;
   @override
-  final _i2.IntelligentTieringConfiguration intelligentTieringConfiguration;
+  final IntelligentTieringConfiguration intelligentTieringConfiguration;
 
   factory _$PutBucketIntelligentTieringConfigurationRequest(
           [void Function(
@@ -84,13 +84,12 @@ class PutBucketIntelligentTieringConfigurationRequestBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  _i2.IntelligentTieringConfigurationBuilder? _intelligentTieringConfiguration;
-  _i2.IntelligentTieringConfigurationBuilder
-      get intelligentTieringConfiguration =>
-          _$this._intelligentTieringConfiguration ??=
-              new _i2.IntelligentTieringConfigurationBuilder();
+  IntelligentTieringConfigurationBuilder? _intelligentTieringConfiguration;
+  IntelligentTieringConfigurationBuilder get intelligentTieringConfiguration =>
+      _$this._intelligentTieringConfiguration ??=
+          new IntelligentTieringConfigurationBuilder();
   set intelligentTieringConfiguration(
-          _i2.IntelligentTieringConfigurationBuilder?
+          IntelligentTieringConfigurationBuilder?
               intelligentTieringConfiguration) =>
       _$this._intelligentTieringConfiguration = intelligentTieringConfiguration;
 

@@ -4,14 +4,12 @@
 library smoke_test.dynamo_db.model.batch_statement_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/batch_statement_error.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/batch_statement_error.dart';
 
 part 'batch_statement_response.g.dart';
 
@@ -21,14 +19,14 @@ abstract class BatchStatementResponse
     implements Built<BatchStatementResponse, BatchStatementResponseBuilder> {
   /// A PartiQL batch statement response..
   factory BatchStatementResponse({
-    _i2.BatchStatementError? error,
+    BatchStatementError? error,
     String? tableName,
-    Map<String, _i3.AttributeValue>? item,
+    Map<String, AttributeValue>? item,
   }) {
     return _$BatchStatementResponse._(
       error: error,
       tableName: tableName,
-      item: item == null ? null : _i4.BuiltMap(item),
+      item: item == null ? null : _i2.BuiltMap(item),
     );
   }
 
@@ -39,17 +37,17 @@ abstract class BatchStatementResponse
 
   const BatchStatementResponse._();
 
-  static const List<_i5.SmithySerializer<BatchStatementResponse>> serializers =
+  static const List<_i3.SmithySerializer<BatchStatementResponse>> serializers =
       [BatchStatementResponseAwsJson10Serializer()];
 
   /// The error associated with a failed PartiQL batch statement.
-  _i2.BatchStatementError? get error;
+  BatchStatementError? get error;
 
   /// The table name associated with a failed PartiQL batch statement.
   String? get tableName;
 
   /// A DynamoDB item associated with a BatchStatementResponse
-  _i4.BuiltMap<String, _i3.AttributeValue>? get item;
+  _i2.BuiltMap<String, AttributeValue>? get item;
   @override
   List<Object?> get props => [
         error,
@@ -76,7 +74,7 @@ abstract class BatchStatementResponse
 }
 
 class BatchStatementResponseAwsJson10Serializer
-    extends _i5.StructuredSmithySerializer<BatchStatementResponse> {
+    extends _i3.StructuredSmithySerializer<BatchStatementResponse> {
   const BatchStatementResponseAwsJson10Serializer()
       : super('BatchStatementResponse');
 
@@ -86,8 +84,8 @@ class BatchStatementResponseAwsJson10Serializer
         _$BatchStatementResponse,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -111,8 +109,8 @@ class BatchStatementResponseAwsJson10Serializer
         case 'Error':
           result.error.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.BatchStatementError),
-          ) as _i2.BatchStatementError));
+            specifiedType: const FullType(BatchStatementError),
+          ) as BatchStatementError));
         case 'TableName':
           result.tableName = (serializers.deserialize(
             value,
@@ -122,13 +120,13 @@ class BatchStatementResponseAwsJson10Serializer
           result.item.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i3.AttributeValue),
+                FullType(AttributeValue),
               ],
             ),
-          ) as _i4.BuiltMap<String, _i3.AttributeValue>));
+          ) as _i2.BuiltMap<String, AttributeValue>));
       }
     }
 
@@ -148,7 +146,7 @@ class BatchStatementResponseAwsJson10Serializer
         ..add('Error')
         ..add(serializers.serialize(
           error,
-          specifiedType: const FullType(_i2.BatchStatementError),
+          specifiedType: const FullType(BatchStatementError),
         ));
     }
     if (tableName != null) {
@@ -165,10 +163,10 @@ class BatchStatementResponseAwsJson10Serializer
         ..add(serializers.serialize(
           item,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
-              FullType(_i3.AttributeValue),
+              FullType(AttributeValue),
             ],
           ),
         ));

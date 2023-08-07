@@ -9,13 +9,13 @@ part of 'conformance_pack_evaluation_filters.dart';
 class _$ConformancePackEvaluationFilters
     extends ConformancePackEvaluationFilters {
   @override
-  final _i3.BuiltList<String>? configRuleNames;
+  final _i2.BuiltList<String>? configRuleNames;
   @override
-  final _i2.ConformancePackComplianceType? complianceType;
+  final ConformancePackComplianceType? complianceType;
   @override
   final String? resourceType;
   @override
-  final _i3.BuiltList<String>? resourceIds;
+  final _i2.BuiltList<String>? resourceIds;
 
   factory _$ConformancePackEvaluationFilters(
           [void Function(ConformancePackEvaluationFiltersBuilder)? updates]) =>
@@ -65,26 +65,25 @@ class ConformancePackEvaluationFiltersBuilder
             ConformancePackEvaluationFiltersBuilder> {
   _$ConformancePackEvaluationFilters? _$v;
 
-  _i3.ListBuilder<String>? _configRuleNames;
-  _i3.ListBuilder<String> get configRuleNames =>
-      _$this._configRuleNames ??= new _i3.ListBuilder<String>();
-  set configRuleNames(_i3.ListBuilder<String>? configRuleNames) =>
+  _i2.ListBuilder<String>? _configRuleNames;
+  _i2.ListBuilder<String> get configRuleNames =>
+      _$this._configRuleNames ??= new _i2.ListBuilder<String>();
+  set configRuleNames(_i2.ListBuilder<String>? configRuleNames) =>
       _$this._configRuleNames = configRuleNames;
 
-  _i2.ConformancePackComplianceType? _complianceType;
-  _i2.ConformancePackComplianceType? get complianceType =>
-      _$this._complianceType;
-  set complianceType(_i2.ConformancePackComplianceType? complianceType) =>
+  ConformancePackComplianceType? _complianceType;
+  ConformancePackComplianceType? get complianceType => _$this._complianceType;
+  set complianceType(ConformancePackComplianceType? complianceType) =>
       _$this._complianceType = complianceType;
 
   String? _resourceType;
   String? get resourceType => _$this._resourceType;
   set resourceType(String? resourceType) => _$this._resourceType = resourceType;
 
-  _i3.ListBuilder<String>? _resourceIds;
-  _i3.ListBuilder<String> get resourceIds =>
-      _$this._resourceIds ??= new _i3.ListBuilder<String>();
-  set resourceIds(_i3.ListBuilder<String>? resourceIds) =>
+  _i2.ListBuilder<String>? _resourceIds;
+  _i2.ListBuilder<String> get resourceIds =>
+      _$this._resourceIds ??= new _i2.ListBuilder<String>();
+  set resourceIds(_i2.ListBuilder<String>? resourceIds) =>
       _$this._resourceIds = resourceIds;
 
   ConformancePackEvaluationFiltersBuilder();

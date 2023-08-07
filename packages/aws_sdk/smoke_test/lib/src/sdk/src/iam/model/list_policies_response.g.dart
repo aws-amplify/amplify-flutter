@@ -8,7 +8,7 @@ part of 'list_policies_response.dart';
 
 class _$ListPoliciesResponse extends ListPoliciesResponse {
   @override
-  final _i3.BuiltList<_i2.Policy>? policies;
+  final _i2.BuiltList<Policy>? policies;
   @override
   final bool isTruncated;
   @override
@@ -58,10 +58,10 @@ class ListPoliciesResponseBuilder
     implements Builder<ListPoliciesResponse, ListPoliciesResponseBuilder> {
   _$ListPoliciesResponse? _$v;
 
-  _i3.ListBuilder<_i2.Policy>? _policies;
-  _i3.ListBuilder<_i2.Policy> get policies =>
-      _$this._policies ??= new _i3.ListBuilder<_i2.Policy>();
-  set policies(_i3.ListBuilder<_i2.Policy>? policies) =>
+  _i2.ListBuilder<Policy>? _policies;
+  _i2.ListBuilder<Policy> get policies =>
+      _$this._policies ??= new _i2.ListBuilder<Policy>();
+  set policies(_i2.ListBuilder<Policy>? policies) =>
       _$this._policies = policies;
 
   bool? _isTruncated;

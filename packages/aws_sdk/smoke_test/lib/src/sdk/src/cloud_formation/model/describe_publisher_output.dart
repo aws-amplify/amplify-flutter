@@ -6,11 +6,9 @@ library smoke_test.cloud_formation.model.describe_publisher_output; // ignore_fo
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/identity_provider.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/publisher_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/identity_provider.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/publisher_status.dart';
 
 part 'describe_publisher_output.g.dart';
 
@@ -19,8 +17,8 @@ abstract class DescribePublisherOutput
     implements Built<DescribePublisherOutput, DescribePublisherOutputBuilder> {
   factory DescribePublisherOutput({
     String? publisherId,
-    _i2.PublisherStatus? publisherStatus,
-    _i3.IdentityProvider? identityProvider,
+    PublisherStatus? publisherStatus,
+    IdentityProvider? identityProvider,
     String? publisherProfile,
   }) {
     return _$DescribePublisherOutput._(
@@ -44,17 +42,17 @@ abstract class DescribePublisherOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<DescribePublisherOutput>> serializers =
+  static const List<_i2.SmithySerializer<DescribePublisherOutput>> serializers =
       [DescribePublisherOutputAwsQuerySerializer()];
 
   /// The ID of the extension publisher.
   String? get publisherId;
 
   /// Whether the publisher is verified. Currently, all registered publishers are verified.
-  _i2.PublisherStatus? get publisherStatus;
+  PublisherStatus? get publisherStatus;
 
   /// The type of account used as the identity provider when registering this publisher with CloudFormation.
-  _i3.IdentityProvider? get identityProvider;
+  IdentityProvider? get identityProvider;
 
   /// The URL to the publisher's profile with the identity provider.
   String? get publisherProfile;
@@ -89,7 +87,7 @@ abstract class DescribePublisherOutput
 }
 
 class DescribePublisherOutputAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<DescribePublisherOutput> {
+    extends _i2.StructuredSmithySerializer<DescribePublisherOutput> {
   const DescribePublisherOutputAwsQuerySerializer()
       : super('DescribePublisherOutput');
 
@@ -99,8 +97,8 @@ class DescribePublisherOutputAwsQuerySerializer
         _$DescribePublisherOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -129,13 +127,13 @@ class DescribePublisherOutputAwsQuerySerializer
         case 'PublisherStatus':
           result.publisherStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.PublisherStatus),
-          ) as _i2.PublisherStatus);
+            specifiedType: const FullType(PublisherStatus),
+          ) as PublisherStatus);
         case 'IdentityProvider':
           result.identityProvider = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.IdentityProvider),
-          ) as _i3.IdentityProvider);
+            specifiedType: const FullType(IdentityProvider),
+          ) as IdentityProvider);
         case 'PublisherProfile':
           result.publisherProfile = (serializers.deserialize(
             value,
@@ -154,9 +152,9 @@ class DescribePublisherOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'DescribePublisherOutputResponse',
-        _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final DescribePublisherOutput(
@@ -167,7 +165,7 @@ class DescribePublisherOutputAwsQuerySerializer
     ) = object;
     if (publisherId != null) {
       result$
-        ..add(const _i4.XmlElementName('PublisherId'))
+        ..add(const _i2.XmlElementName('PublisherId'))
         ..add(serializers.serialize(
           publisherId,
           specifiedType: const FullType(String),
@@ -175,23 +173,23 @@ class DescribePublisherOutputAwsQuerySerializer
     }
     if (publisherStatus != null) {
       result$
-        ..add(const _i4.XmlElementName('PublisherStatus'))
+        ..add(const _i2.XmlElementName('PublisherStatus'))
         ..add(serializers.serialize(
           publisherStatus,
-          specifiedType: const FullType.nullable(_i2.PublisherStatus),
+          specifiedType: const FullType.nullable(PublisherStatus),
         ));
     }
     if (identityProvider != null) {
       result$
-        ..add(const _i4.XmlElementName('IdentityProvider'))
+        ..add(const _i2.XmlElementName('IdentityProvider'))
         ..add(serializers.serialize(
           identityProvider,
-          specifiedType: const FullType.nullable(_i3.IdentityProvider),
+          specifiedType: const FullType.nullable(IdentityProvider),
         ));
     }
     if (publisherProfile != null) {
       result$
-        ..add(const _i4.XmlElementName('PublisherProfile'))
+        ..add(const _i2.XmlElementName('PublisherProfile'))
         ..add(serializers.serialize(
           publisherProfile,
           specifiedType: const FullType(String),

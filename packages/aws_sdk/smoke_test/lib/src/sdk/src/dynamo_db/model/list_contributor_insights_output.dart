@@ -4,12 +4,11 @@
 library smoke_test.dynamo_db.model.list_contributor_insights_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/contributor_insights_summary.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/contributor_insights_summary.dart';
 
 part 'list_contributor_insights_output.g.dart';
 
@@ -20,13 +19,13 @@ abstract class ListContributorInsightsOutput
         Built<ListContributorInsightsOutput,
             ListContributorInsightsOutputBuilder> {
   factory ListContributorInsightsOutput({
-    List<_i2.ContributorInsightsSummary>? contributorInsightsSummaries,
+    List<ContributorInsightsSummary>? contributorInsightsSummaries,
     String? nextToken,
   }) {
     return _$ListContributorInsightsOutput._(
       contributorInsightsSummaries: contributorInsightsSummaries == null
           ? null
-          : _i3.BuiltList(contributorInsightsSummaries),
+          : _i2.BuiltList(contributorInsightsSummaries),
       nextToken: nextToken,
     );
   }
@@ -44,12 +43,11 @@ abstract class ListContributorInsightsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<ListContributorInsightsOutput>>
+  static const List<_i3.SmithySerializer<ListContributorInsightsOutput>>
       serializers = [ListContributorInsightsOutputAwsJson10Serializer()];
 
   /// A list of ContributorInsightsSummary.
-  _i3.BuiltList<_i2.ContributorInsightsSummary>?
-      get contributorInsightsSummaries;
+  _i2.BuiltList<ContributorInsightsSummary>? get contributorInsightsSummaries;
 
   /// A token to go to the next page if there is one.
   String? get nextToken;
@@ -74,7 +72,7 @@ abstract class ListContributorInsightsOutput
 }
 
 class ListContributorInsightsOutputAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<ListContributorInsightsOutput> {
+    extends _i3.StructuredSmithySerializer<ListContributorInsightsOutput> {
   const ListContributorInsightsOutputAwsJson10Serializer()
       : super('ListContributorInsightsOutput');
 
@@ -84,8 +82,8 @@ class ListContributorInsightsOutputAwsJson10Serializer
         _$ListContributorInsightsOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -110,10 +108,10 @@ class ListContributorInsightsOutputAwsJson10Serializer
           result.contributorInsightsSummaries.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.ContributorInsightsSummary)],
+              _i2.BuiltList,
+              [FullType(ContributorInsightsSummary)],
             ),
-          ) as _i3.BuiltList<_i2.ContributorInsightsSummary>));
+          ) as _i2.BuiltList<ContributorInsightsSummary>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -142,8 +140,8 @@ class ListContributorInsightsOutputAwsJson10Serializer
         ..add(serializers.serialize(
           contributorInsightsSummaries,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.ContributorInsightsSummary)],
+            _i2.BuiltList,
+            [FullType(ContributorInsightsSummary)],
           ),
         ));
     }

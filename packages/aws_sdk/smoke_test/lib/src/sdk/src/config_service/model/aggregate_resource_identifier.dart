@@ -6,9 +6,8 @@ library smoke_test.config_service.model.aggregate_resource_identifier; // ignore
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart';
 
 part 'aggregate_resource_identifier.g.dart';
 
@@ -22,7 +21,7 @@ abstract class AggregateResourceIdentifier
     required String sourceAccountId,
     required String sourceRegion,
     required String resourceId,
-    required _i2.ResourceType resourceType,
+    required ResourceType resourceType,
     String? resourceName,
   }) {
     return _$AggregateResourceIdentifier._(
@@ -41,7 +40,7 @@ abstract class AggregateResourceIdentifier
 
   const AggregateResourceIdentifier._();
 
-  static const List<_i3.SmithySerializer<AggregateResourceIdentifier>>
+  static const List<_i2.SmithySerializer<AggregateResourceIdentifier>>
       serializers = [AggregateResourceIdentifierAwsJson11Serializer()];
 
   /// The 12-digit account ID of the source account.
@@ -54,7 +53,7 @@ abstract class AggregateResourceIdentifier
   String get resourceId;
 
   /// The type of the Amazon Web Services resource.
-  _i2.ResourceType get resourceType;
+  ResourceType get resourceType;
 
   /// The name of the Amazon Web Services resource.
   String? get resourceName;
@@ -94,7 +93,7 @@ abstract class AggregateResourceIdentifier
 }
 
 class AggregateResourceIdentifierAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<AggregateResourceIdentifier> {
+    extends _i2.StructuredSmithySerializer<AggregateResourceIdentifier> {
   const AggregateResourceIdentifierAwsJson11Serializer()
       : super('AggregateResourceIdentifier');
 
@@ -104,8 +103,8 @@ class AggregateResourceIdentifierAwsJson11Serializer
         _$AggregateResourceIdentifier,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -144,8 +143,8 @@ class AggregateResourceIdentifierAwsJson11Serializer
         case 'ResourceType':
           result.resourceType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ResourceType),
-          ) as _i2.ResourceType);
+            specifiedType: const FullType(ResourceType),
+          ) as ResourceType);
         case 'ResourceName':
           result.resourceName = (serializers.deserialize(
             value,
@@ -190,7 +189,7 @@ class AggregateResourceIdentifierAwsJson11Serializer
       'ResourceType',
       serializers.serialize(
         resourceType,
-        specifiedType: const FullType(_i2.ResourceType),
+        specifiedType: const FullType(ResourceType),
       ),
     ]);
     if (resourceName != null) {

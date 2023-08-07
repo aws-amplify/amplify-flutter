@@ -11,7 +11,7 @@ class _$DescribeConformancePackComplianceRequest
   @override
   final String conformancePackName;
   @override
-  final _i3.ConformancePackComplianceFilters? filters;
+  final ConformancePackComplianceFilters? filters;
   @override
   final int limit;
   @override
@@ -78,10 +78,10 @@ class DescribeConformancePackComplianceRequestBuilder
   set conformancePackName(String? conformancePackName) =>
       _$this._conformancePackName = conformancePackName;
 
-  _i3.ConformancePackComplianceFiltersBuilder? _filters;
-  _i3.ConformancePackComplianceFiltersBuilder get filters =>
-      _$this._filters ??= new _i3.ConformancePackComplianceFiltersBuilder();
-  set filters(_i3.ConformancePackComplianceFiltersBuilder? filters) =>
+  ConformancePackComplianceFiltersBuilder? _filters;
+  ConformancePackComplianceFiltersBuilder get filters =>
+      _$this._filters ??= new ConformancePackComplianceFiltersBuilder();
+  set filters(ConformancePackComplianceFiltersBuilder? filters) =>
       _$this._filters = filters;
 
   int? _limit;

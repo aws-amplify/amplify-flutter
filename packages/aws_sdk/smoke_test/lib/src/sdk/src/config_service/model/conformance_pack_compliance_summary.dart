@@ -6,9 +6,8 @@ library smoke_test.config_service.model.conformance_pack_compliance_summary; // 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_compliance_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_compliance_type.dart';
 
 part 'conformance_pack_compliance_summary.g.dart';
 
@@ -22,7 +21,7 @@ abstract class ConformancePackComplianceSummary
   /// Summary includes the name and status of the conformance pack.
   factory ConformancePackComplianceSummary({
     required String conformancePackName,
-    required _i2.ConformancePackComplianceType conformancePackComplianceStatus,
+    required ConformancePackComplianceType conformancePackComplianceStatus,
   }) {
     return _$ConformancePackComplianceSummary._(
       conformancePackName: conformancePackName,
@@ -37,14 +36,14 @@ abstract class ConformancePackComplianceSummary
 
   const ConformancePackComplianceSummary._();
 
-  static const List<_i3.SmithySerializer<ConformancePackComplianceSummary>>
+  static const List<_i2.SmithySerializer<ConformancePackComplianceSummary>>
       serializers = [ConformancePackComplianceSummaryAwsJson11Serializer()];
 
   /// The name of the conformance pack name.
   String get conformancePackName;
 
   /// The status of the conformance pack.
-  _i2.ConformancePackComplianceType get conformancePackComplianceStatus;
+  ConformancePackComplianceType get conformancePackComplianceStatus;
   @override
   List<Object?> get props => [
         conformancePackName,
@@ -67,7 +66,7 @@ abstract class ConformancePackComplianceSummary
 }
 
 class ConformancePackComplianceSummaryAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<ConformancePackComplianceSummary> {
+    extends _i2.StructuredSmithySerializer<ConformancePackComplianceSummary> {
   const ConformancePackComplianceSummaryAwsJson11Serializer()
       : super('ConformancePackComplianceSummary');
 
@@ -77,8 +76,8 @@ class ConformancePackComplianceSummaryAwsJson11Serializer
         _$ConformancePackComplianceSummary,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -107,8 +106,8 @@ class ConformancePackComplianceSummaryAwsJson11Serializer
         case 'ConformancePackComplianceStatus':
           result.conformancePackComplianceStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ConformancePackComplianceType),
-          ) as _i2.ConformancePackComplianceType);
+            specifiedType: const FullType(ConformancePackComplianceType),
+          ) as ConformancePackComplianceType);
       }
     }
 
@@ -135,7 +134,7 @@ class ConformancePackComplianceSummaryAwsJson11Serializer
       'ConformancePackComplianceStatus',
       serializers.serialize(
         conformancePackComplianceStatus,
-        specifiedType: const FullType(_i2.ConformancePackComplianceType),
+        specifiedType: const FullType(ConformancePackComplianceType),
       ),
     ]);
     return result$;

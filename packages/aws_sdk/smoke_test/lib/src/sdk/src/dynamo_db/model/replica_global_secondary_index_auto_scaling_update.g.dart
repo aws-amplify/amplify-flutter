@@ -11,7 +11,7 @@ class _$ReplicaGlobalSecondaryIndexAutoScalingUpdate
   @override
   final String? indexName;
   @override
-  final _i2.AutoScalingSettingsUpdate? provisionedReadCapacityAutoScalingUpdate;
+  final AutoScalingSettingsUpdate? provisionedReadCapacityAutoScalingUpdate;
 
   factory _$ReplicaGlobalSecondaryIndexAutoScalingUpdate(
           [void Function(ReplicaGlobalSecondaryIndexAutoScalingUpdateBuilder)?
@@ -63,14 +63,13 @@ class ReplicaGlobalSecondaryIndexAutoScalingUpdateBuilder
   String? get indexName => _$this._indexName;
   set indexName(String? indexName) => _$this._indexName = indexName;
 
-  _i2.AutoScalingSettingsUpdateBuilder?
-      _provisionedReadCapacityAutoScalingUpdate;
-  _i2.AutoScalingSettingsUpdateBuilder
+  AutoScalingSettingsUpdateBuilder? _provisionedReadCapacityAutoScalingUpdate;
+  AutoScalingSettingsUpdateBuilder
       get provisionedReadCapacityAutoScalingUpdate =>
           _$this._provisionedReadCapacityAutoScalingUpdate ??=
-              new _i2.AutoScalingSettingsUpdateBuilder();
+              new AutoScalingSettingsUpdateBuilder();
   set provisionedReadCapacityAutoScalingUpdate(
-          _i2.AutoScalingSettingsUpdateBuilder?
+          AutoScalingSettingsUpdateBuilder?
               provisionedReadCapacityAutoScalingUpdate) =>
       _$this._provisionedReadCapacityAutoScalingUpdate =
           provisionedReadCapacityAutoScalingUpdate;

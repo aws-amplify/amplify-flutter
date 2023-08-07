@@ -14,33 +14,33 @@ class _$PutIntegrationRequest extends PutIntegrationRequest {
   @override
   final String httpMethod;
   @override
-  final _i3.IntegrationType type;
+  final IntegrationType type;
   @override
   final String? integrationHttpMethod;
   @override
   final String? uri;
   @override
-  final _i4.ConnectionType? connectionType;
+  final ConnectionType? connectionType;
   @override
   final String? connectionId;
   @override
   final String? credentials;
   @override
-  final _i7.BuiltMap<String, String>? requestParameters;
+  final _i3.BuiltMap<String, String>? requestParameters;
   @override
-  final _i7.BuiltMap<String, String>? requestTemplates;
+  final _i3.BuiltMap<String, String>? requestTemplates;
   @override
   final String? passthroughBehavior;
   @override
   final String? cacheNamespace;
   @override
-  final _i7.BuiltList<String>? cacheKeyParameters;
+  final _i3.BuiltList<String>? cacheKeyParameters;
   @override
-  final _i5.ContentHandlingStrategy? contentHandling;
+  final ContentHandlingStrategy? contentHandling;
   @override
   final int? timeoutInMillis;
   @override
-  final _i6.TlsConfig? tlsConfig;
+  final TlsConfig? tlsConfig;
 
   factory _$PutIntegrationRequest(
           [void Function(PutIntegrationRequestBuilder)? updates]) =>
@@ -148,9 +148,9 @@ class PutIntegrationRequestBuilder
   String? get httpMethod => _$this._httpMethod;
   set httpMethod(String? httpMethod) => _$this._httpMethod = httpMethod;
 
-  _i3.IntegrationType? _type;
-  _i3.IntegrationType? get type => _$this._type;
-  set type(_i3.IntegrationType? type) => _$this._type = type;
+  IntegrationType? _type;
+  IntegrationType? get type => _$this._type;
+  set type(IntegrationType? type) => _$this._type = type;
 
   String? _integrationHttpMethod;
   String? get integrationHttpMethod => _$this._integrationHttpMethod;
@@ -161,9 +161,9 @@ class PutIntegrationRequestBuilder
   String? get uri => _$this._uri;
   set uri(String? uri) => _$this._uri = uri;
 
-  _i4.ConnectionType? _connectionType;
-  _i4.ConnectionType? get connectionType => _$this._connectionType;
-  set connectionType(_i4.ConnectionType? connectionType) =>
+  ConnectionType? _connectionType;
+  ConnectionType? get connectionType => _$this._connectionType;
+  set connectionType(ConnectionType? connectionType) =>
       _$this._connectionType = connectionType;
 
   String? _connectionId;
@@ -174,16 +174,16 @@ class PutIntegrationRequestBuilder
   String? get credentials => _$this._credentials;
   set credentials(String? credentials) => _$this._credentials = credentials;
 
-  _i7.MapBuilder<String, String>? _requestParameters;
-  _i7.MapBuilder<String, String> get requestParameters =>
-      _$this._requestParameters ??= new _i7.MapBuilder<String, String>();
-  set requestParameters(_i7.MapBuilder<String, String>? requestParameters) =>
+  _i3.MapBuilder<String, String>? _requestParameters;
+  _i3.MapBuilder<String, String> get requestParameters =>
+      _$this._requestParameters ??= new _i3.MapBuilder<String, String>();
+  set requestParameters(_i3.MapBuilder<String, String>? requestParameters) =>
       _$this._requestParameters = requestParameters;
 
-  _i7.MapBuilder<String, String>? _requestTemplates;
-  _i7.MapBuilder<String, String> get requestTemplates =>
-      _$this._requestTemplates ??= new _i7.MapBuilder<String, String>();
-  set requestTemplates(_i7.MapBuilder<String, String>? requestTemplates) =>
+  _i3.MapBuilder<String, String>? _requestTemplates;
+  _i3.MapBuilder<String, String> get requestTemplates =>
+      _$this._requestTemplates ??= new _i3.MapBuilder<String, String>();
+  set requestTemplates(_i3.MapBuilder<String, String>? requestTemplates) =>
       _$this._requestTemplates = requestTemplates;
 
   String? _passthroughBehavior;
@@ -196,15 +196,15 @@ class PutIntegrationRequestBuilder
   set cacheNamespace(String? cacheNamespace) =>
       _$this._cacheNamespace = cacheNamespace;
 
-  _i7.ListBuilder<String>? _cacheKeyParameters;
-  _i7.ListBuilder<String> get cacheKeyParameters =>
-      _$this._cacheKeyParameters ??= new _i7.ListBuilder<String>();
-  set cacheKeyParameters(_i7.ListBuilder<String>? cacheKeyParameters) =>
+  _i3.ListBuilder<String>? _cacheKeyParameters;
+  _i3.ListBuilder<String> get cacheKeyParameters =>
+      _$this._cacheKeyParameters ??= new _i3.ListBuilder<String>();
+  set cacheKeyParameters(_i3.ListBuilder<String>? cacheKeyParameters) =>
       _$this._cacheKeyParameters = cacheKeyParameters;
 
-  _i5.ContentHandlingStrategy? _contentHandling;
-  _i5.ContentHandlingStrategy? get contentHandling => _$this._contentHandling;
-  set contentHandling(_i5.ContentHandlingStrategy? contentHandling) =>
+  ContentHandlingStrategy? _contentHandling;
+  ContentHandlingStrategy? get contentHandling => _$this._contentHandling;
+  set contentHandling(ContentHandlingStrategy? contentHandling) =>
       _$this._contentHandling = contentHandling;
 
   int? _timeoutInMillis;
@@ -212,11 +212,10 @@ class PutIntegrationRequestBuilder
   set timeoutInMillis(int? timeoutInMillis) =>
       _$this._timeoutInMillis = timeoutInMillis;
 
-  _i6.TlsConfigBuilder? _tlsConfig;
-  _i6.TlsConfigBuilder get tlsConfig =>
-      _$this._tlsConfig ??= new _i6.TlsConfigBuilder();
-  set tlsConfig(_i6.TlsConfigBuilder? tlsConfig) =>
-      _$this._tlsConfig = tlsConfig;
+  TlsConfigBuilder? _tlsConfig;
+  TlsConfigBuilder get tlsConfig =>
+      _$this._tlsConfig ??= new TlsConfigBuilder();
+  set tlsConfig(TlsConfigBuilder? tlsConfig) => _$this._tlsConfig = tlsConfig;
 
   PutIntegrationRequestBuilder();
 
@@ -311,15 +310,15 @@ class PutIntegrationRequestBuilder
 
 class _$PutIntegrationRequestPayload extends PutIntegrationRequestPayload {
   @override
-  final _i7.BuiltList<String>? cacheKeyParameters;
+  final _i3.BuiltList<String>? cacheKeyParameters;
   @override
   final String? cacheNamespace;
   @override
   final String? connectionId;
   @override
-  final _i4.ConnectionType? connectionType;
+  final ConnectionType? connectionType;
   @override
-  final _i5.ContentHandlingStrategy? contentHandling;
+  final ContentHandlingStrategy? contentHandling;
   @override
   final String? credentials;
   @override
@@ -327,15 +326,15 @@ class _$PutIntegrationRequestPayload extends PutIntegrationRequestPayload {
   @override
   final String? passthroughBehavior;
   @override
-  final _i7.BuiltMap<String, String>? requestParameters;
+  final _i3.BuiltMap<String, String>? requestParameters;
   @override
-  final _i7.BuiltMap<String, String>? requestTemplates;
+  final _i3.BuiltMap<String, String>? requestTemplates;
   @override
   final int? timeoutInMillis;
   @override
-  final _i6.TlsConfig? tlsConfig;
+  final TlsConfig? tlsConfig;
   @override
-  final _i3.IntegrationType type;
+  final IntegrationType type;
   @override
   final String? uri;
 
@@ -420,10 +419,10 @@ class PutIntegrationRequestPayloadBuilder
             PutIntegrationRequestPayloadBuilder> {
   _$PutIntegrationRequestPayload? _$v;
 
-  _i7.ListBuilder<String>? _cacheKeyParameters;
-  _i7.ListBuilder<String> get cacheKeyParameters =>
-      _$this._cacheKeyParameters ??= new _i7.ListBuilder<String>();
-  set cacheKeyParameters(_i7.ListBuilder<String>? cacheKeyParameters) =>
+  _i3.ListBuilder<String>? _cacheKeyParameters;
+  _i3.ListBuilder<String> get cacheKeyParameters =>
+      _$this._cacheKeyParameters ??= new _i3.ListBuilder<String>();
+  set cacheKeyParameters(_i3.ListBuilder<String>? cacheKeyParameters) =>
       _$this._cacheKeyParameters = cacheKeyParameters;
 
   String? _cacheNamespace;
@@ -435,14 +434,14 @@ class PutIntegrationRequestPayloadBuilder
   String? get connectionId => _$this._connectionId;
   set connectionId(String? connectionId) => _$this._connectionId = connectionId;
 
-  _i4.ConnectionType? _connectionType;
-  _i4.ConnectionType? get connectionType => _$this._connectionType;
-  set connectionType(_i4.ConnectionType? connectionType) =>
+  ConnectionType? _connectionType;
+  ConnectionType? get connectionType => _$this._connectionType;
+  set connectionType(ConnectionType? connectionType) =>
       _$this._connectionType = connectionType;
 
-  _i5.ContentHandlingStrategy? _contentHandling;
-  _i5.ContentHandlingStrategy? get contentHandling => _$this._contentHandling;
-  set contentHandling(_i5.ContentHandlingStrategy? contentHandling) =>
+  ContentHandlingStrategy? _contentHandling;
+  ContentHandlingStrategy? get contentHandling => _$this._contentHandling;
+  set contentHandling(ContentHandlingStrategy? contentHandling) =>
       _$this._contentHandling = contentHandling;
 
   String? _credentials;
@@ -459,16 +458,16 @@ class PutIntegrationRequestPayloadBuilder
   set passthroughBehavior(String? passthroughBehavior) =>
       _$this._passthroughBehavior = passthroughBehavior;
 
-  _i7.MapBuilder<String, String>? _requestParameters;
-  _i7.MapBuilder<String, String> get requestParameters =>
-      _$this._requestParameters ??= new _i7.MapBuilder<String, String>();
-  set requestParameters(_i7.MapBuilder<String, String>? requestParameters) =>
+  _i3.MapBuilder<String, String>? _requestParameters;
+  _i3.MapBuilder<String, String> get requestParameters =>
+      _$this._requestParameters ??= new _i3.MapBuilder<String, String>();
+  set requestParameters(_i3.MapBuilder<String, String>? requestParameters) =>
       _$this._requestParameters = requestParameters;
 
-  _i7.MapBuilder<String, String>? _requestTemplates;
-  _i7.MapBuilder<String, String> get requestTemplates =>
-      _$this._requestTemplates ??= new _i7.MapBuilder<String, String>();
-  set requestTemplates(_i7.MapBuilder<String, String>? requestTemplates) =>
+  _i3.MapBuilder<String, String>? _requestTemplates;
+  _i3.MapBuilder<String, String> get requestTemplates =>
+      _$this._requestTemplates ??= new _i3.MapBuilder<String, String>();
+  set requestTemplates(_i3.MapBuilder<String, String>? requestTemplates) =>
       _$this._requestTemplates = requestTemplates;
 
   int? _timeoutInMillis;
@@ -476,15 +475,14 @@ class PutIntegrationRequestPayloadBuilder
   set timeoutInMillis(int? timeoutInMillis) =>
       _$this._timeoutInMillis = timeoutInMillis;
 
-  _i6.TlsConfigBuilder? _tlsConfig;
-  _i6.TlsConfigBuilder get tlsConfig =>
-      _$this._tlsConfig ??= new _i6.TlsConfigBuilder();
-  set tlsConfig(_i6.TlsConfigBuilder? tlsConfig) =>
-      _$this._tlsConfig = tlsConfig;
+  TlsConfigBuilder? _tlsConfig;
+  TlsConfigBuilder get tlsConfig =>
+      _$this._tlsConfig ??= new TlsConfigBuilder();
+  set tlsConfig(TlsConfigBuilder? tlsConfig) => _$this._tlsConfig = tlsConfig;
 
-  _i3.IntegrationType? _type;
-  _i3.IntegrationType? get type => _$this._type;
-  set type(_i3.IntegrationType? type) => _$this._type = type;
+  IntegrationType? _type;
+  IntegrationType? get type => _$this._type;
+  set type(IntegrationType? type) => _$this._type = type;
 
   String? _uri;
   String? get uri => _$this._uri;

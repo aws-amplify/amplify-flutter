@@ -4,12 +4,12 @@
 library smoke_test.s3.model.lifecycle_rule_and_operator; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i3;
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/tag.dart' as _i2;
+import 'package:fixnum/fixnum.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/tag.dart';
 
 part 'lifecycle_rule_and_operator.g.dart';
 
@@ -21,13 +21,13 @@ abstract class LifecycleRuleAndOperator
   /// This is used in a Lifecycle Rule Filter to apply a logical AND to two or more predicates. The Lifecycle Rule will apply to any object matching all of the predicates configured inside the And operator.
   factory LifecycleRuleAndOperator({
     String? prefix,
-    List<_i2.Tag>? tags,
-    _i3.Int64? objectSizeGreaterThan,
-    _i3.Int64? objectSizeLessThan,
+    List<Tag>? tags,
+    _i2.Int64? objectSizeGreaterThan,
+    _i2.Int64? objectSizeLessThan,
   }) {
     return _$LifecycleRuleAndOperator._(
       prefix: prefix,
-      tags: tags == null ? null : _i4.BuiltList(tags),
+      tags: tags == null ? null : _i3.BuiltList(tags),
       objectSizeGreaterThan: objectSizeGreaterThan,
       objectSizeLessThan: objectSizeLessThan,
     );
@@ -40,20 +40,20 @@ abstract class LifecycleRuleAndOperator
 
   const LifecycleRuleAndOperator._();
 
-  static const List<_i5.SmithySerializer<LifecycleRuleAndOperator>>
+  static const List<_i4.SmithySerializer<LifecycleRuleAndOperator>>
       serializers = [LifecycleRuleAndOperatorRestXmlSerializer()];
 
   /// Prefix identifying one or more objects to which the rule applies.
   String? get prefix;
 
   /// All of these tags must exist in the object's tag set in order for the rule to apply.
-  _i4.BuiltList<_i2.Tag>? get tags;
+  _i3.BuiltList<Tag>? get tags;
 
   /// Minimum object size to which the rule applies.
-  _i3.Int64? get objectSizeGreaterThan;
+  _i2.Int64? get objectSizeGreaterThan;
 
   /// Maximum object size to which the rule applies.
-  _i3.Int64? get objectSizeLessThan;
+  _i2.Int64? get objectSizeLessThan;
   @override
   List<Object?> get props => [
         prefix,
@@ -85,7 +85,7 @@ abstract class LifecycleRuleAndOperator
 }
 
 class LifecycleRuleAndOperatorRestXmlSerializer
-    extends _i5.StructuredSmithySerializer<LifecycleRuleAndOperator> {
+    extends _i4.StructuredSmithySerializer<LifecycleRuleAndOperator> {
   const LifecycleRuleAndOperatorRestXmlSerializer()
       : super('LifecycleRuleAndOperator');
 
@@ -95,8 +95,8 @@ class LifecycleRuleAndOperatorRestXmlSerializer
         _$LifecycleRuleAndOperator,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -120,13 +120,13 @@ class LifecycleRuleAndOperatorRestXmlSerializer
         case 'ObjectSizeGreaterThan':
           result.objectSizeGreaterThan = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.Int64),
-          ) as _i3.Int64);
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'ObjectSizeLessThan':
           result.objectSizeLessThan = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.Int64),
-          ) as _i3.Int64);
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'Prefix':
           result.prefix = (serializers.deserialize(
             value,
@@ -135,8 +135,8 @@ class LifecycleRuleAndOperatorRestXmlSerializer
         case 'Tag':
           result.tags.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Tag),
-          ) as _i2.Tag));
+            specifiedType: const FullType(Tag),
+          ) as Tag));
       }
     }
 
@@ -150,9 +150,9 @@ class LifecycleRuleAndOperatorRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i5.XmlElementName(
+      const _i4.XmlElementName(
         'LifecycleRuleAndOperator',
-        _i5.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final LifecycleRuleAndOperator(
@@ -163,23 +163,23 @@ class LifecycleRuleAndOperatorRestXmlSerializer
     ) = object;
     if (objectSizeGreaterThan != null) {
       result$
-        ..add(const _i5.XmlElementName('ObjectSizeGreaterThan'))
+        ..add(const _i4.XmlElementName('ObjectSizeGreaterThan'))
         ..add(serializers.serialize(
           objectSizeGreaterThan,
-          specifiedType: const FullType.nullable(_i3.Int64),
+          specifiedType: const FullType.nullable(_i2.Int64),
         ));
     }
     if (objectSizeLessThan != null) {
       result$
-        ..add(const _i5.XmlElementName('ObjectSizeLessThan'))
+        ..add(const _i4.XmlElementName('ObjectSizeLessThan'))
         ..add(serializers.serialize(
           objectSizeLessThan,
-          specifiedType: const FullType.nullable(_i3.Int64),
+          specifiedType: const FullType.nullable(_i2.Int64),
         ));
     }
     if (prefix != null) {
       result$
-        ..add(const _i5.XmlElementName('Prefix'))
+        ..add(const _i4.XmlElementName('Prefix'))
         ..add(serializers.serialize(
           prefix,
           specifiedType: const FullType(String),
@@ -187,12 +187,12 @@ class LifecycleRuleAndOperatorRestXmlSerializer
     }
     if (tags != null) {
       result$
-          .addAll(const _i5.XmlBuiltListSerializer(memberName: 'Tag').serialize(
+          .addAll(const _i4.XmlBuiltListSerializer(memberName: 'Tag').serialize(
         serializers,
         tags,
         specifiedType: const FullType.nullable(
-          _i4.BuiltList,
-          [FullType(_i2.Tag)],
+          _i3.BuiltList,
+          [FullType(Tag)],
         ),
       ));
     }

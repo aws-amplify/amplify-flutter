@@ -12,9 +12,9 @@ class _$PutPublicAccessBlockRequest extends PutPublicAccessBlockRequest {
   @override
   final String? contentMd5;
   @override
-  final _i4.ChecksumAlgorithm? checksumAlgorithm;
+  final ChecksumAlgorithm? checksumAlgorithm;
   @override
-  final _i2.PublicAccessBlockConfiguration publicAccessBlockConfiguration;
+  final PublicAccessBlockConfiguration publicAccessBlockConfiguration;
   @override
   final String? expectedBucketOwner;
 
@@ -83,18 +83,17 @@ class PutPublicAccessBlockRequestBuilder
   String? get contentMd5 => _$this._contentMd5;
   set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
 
-  _i4.ChecksumAlgorithm? _checksumAlgorithm;
-  _i4.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
+  ChecksumAlgorithm? _checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
-  _i2.PublicAccessBlockConfigurationBuilder? _publicAccessBlockConfiguration;
-  _i2.PublicAccessBlockConfigurationBuilder
-      get publicAccessBlockConfiguration =>
-          _$this._publicAccessBlockConfiguration ??=
-              new _i2.PublicAccessBlockConfigurationBuilder();
+  PublicAccessBlockConfigurationBuilder? _publicAccessBlockConfiguration;
+  PublicAccessBlockConfigurationBuilder get publicAccessBlockConfiguration =>
+      _$this._publicAccessBlockConfiguration ??=
+          new PublicAccessBlockConfigurationBuilder();
   set publicAccessBlockConfiguration(
-          _i2.PublicAccessBlockConfigurationBuilder?
+          PublicAccessBlockConfigurationBuilder?
               publicAccessBlockConfiguration) =>
       _$this._publicAccessBlockConfiguration = publicAccessBlockConfiguration;
 

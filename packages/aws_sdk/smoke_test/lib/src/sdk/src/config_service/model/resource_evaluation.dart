@@ -6,9 +6,8 @@ library smoke_test.config_service.model.resource_evaluation; // ignore_for_file:
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_mode.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_mode.dart';
 
 part 'resource_evaluation.g.dart';
 
@@ -19,7 +18,7 @@ abstract class ResourceEvaluation
   /// Returns details of a resource evaluation.
   factory ResourceEvaluation({
     String? resourceEvaluationId,
-    _i2.EvaluationMode? evaluationMode,
+    EvaluationMode? evaluationMode,
     DateTime? evaluationStartTimestamp,
   }) {
     return _$ResourceEvaluation._(
@@ -36,7 +35,7 @@ abstract class ResourceEvaluation
 
   const ResourceEvaluation._();
 
-  static const List<_i3.SmithySerializer<ResourceEvaluation>> serializers = [
+  static const List<_i2.SmithySerializer<ResourceEvaluation>> serializers = [
     ResourceEvaluationAwsJson11Serializer()
   ];
 
@@ -44,7 +43,7 @@ abstract class ResourceEvaluation
   String? get resourceEvaluationId;
 
   /// The mode of an evaluation. The valid values are Detective or Proactive.
-  _i2.EvaluationMode? get evaluationMode;
+  EvaluationMode? get evaluationMode;
 
   /// The starting time of an execution.
   DateTime? get evaluationStartTimestamp;
@@ -74,7 +73,7 @@ abstract class ResourceEvaluation
 }
 
 class ResourceEvaluationAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<ResourceEvaluation> {
+    extends _i2.StructuredSmithySerializer<ResourceEvaluation> {
   const ResourceEvaluationAwsJson11Serializer() : super('ResourceEvaluation');
 
   @override
@@ -83,8 +82,8 @@ class ResourceEvaluationAwsJson11Serializer
         _$ResourceEvaluation,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -113,8 +112,8 @@ class ResourceEvaluationAwsJson11Serializer
         case 'EvaluationMode':
           result.evaluationMode = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.EvaluationMode),
-          ) as _i2.EvaluationMode);
+            specifiedType: const FullType(EvaluationMode),
+          ) as EvaluationMode);
         case 'EvaluationStartTimestamp':
           result.evaluationStartTimestamp = (serializers.deserialize(
             value,
@@ -151,7 +150,7 @@ class ResourceEvaluationAwsJson11Serializer
         ..add('EvaluationMode')
         ..add(serializers.serialize(
           evaluationMode,
-          specifiedType: const FullType(_i2.EvaluationMode),
+          specifiedType: const FullType(EvaluationMode),
         ));
     }
     if (evaluationStartTimestamp != null) {

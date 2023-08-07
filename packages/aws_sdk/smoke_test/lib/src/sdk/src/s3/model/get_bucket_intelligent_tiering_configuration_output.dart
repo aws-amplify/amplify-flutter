@@ -4,17 +4,14 @@
 library smoke_test.s3.model.get_bucket_intelligent_tiering_configuration_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i7;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/intelligent_tiering_configuration.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/intelligent_tiering_filter.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/intelligent_tiering_status.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/tiering.dart' as _i6;
+import 'package:smoke_test/src/sdk/src/s3/model/intelligent_tiering_configuration.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/intelligent_tiering_filter.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/intelligent_tiering_status.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/tiering.dart';
 
 part 'get_bucket_intelligent_tiering_configuration_output.g.dart';
 
@@ -24,9 +21,9 @@ abstract class GetBucketIntelligentTieringConfigurationOutput
     implements
         Built<GetBucketIntelligentTieringConfigurationOutput,
             GetBucketIntelligentTieringConfigurationOutputBuilder>,
-        _i2.HasPayload<_i3.IntelligentTieringConfiguration> {
+        _i2.HasPayload<IntelligentTieringConfiguration> {
   factory GetBucketIntelligentTieringConfigurationOutput(
-      {_i3.IntelligentTieringConfiguration? intelligentTieringConfiguration}) {
+      {IntelligentTieringConfiguration? intelligentTieringConfiguration}) {
     return _$GetBucketIntelligentTieringConfigurationOutput._(
         intelligentTieringConfiguration: intelligentTieringConfiguration);
   }
@@ -39,7 +36,7 @@ abstract class GetBucketIntelligentTieringConfigurationOutput
 
   /// Constructs a [GetBucketIntelligentTieringConfigurationOutput] from a [payload] and [response].
   factory GetBucketIntelligentTieringConfigurationOutput.fromResponse(
-    _i3.IntelligentTieringConfiguration? payload,
+    IntelligentTieringConfiguration? payload,
     _i1.AWSBaseHttpResponse response,
   ) =>
       GetBucketIntelligentTieringConfigurationOutput.build((b) {
@@ -48,15 +45,15 @@ abstract class GetBucketIntelligentTieringConfigurationOutput
         }
       });
 
-  static const List<_i2.SmithySerializer<_i3.IntelligentTieringConfiguration?>>
+  static const List<_i2.SmithySerializer<IntelligentTieringConfiguration?>>
       serializers = [
     GetBucketIntelligentTieringConfigurationOutputRestXmlSerializer()
   ];
 
   /// Container for S3 Intelligent-Tiering configuration.
-  _i3.IntelligentTieringConfiguration? get intelligentTieringConfiguration;
+  IntelligentTieringConfiguration? get intelligentTieringConfiguration;
   @override
-  _i3.IntelligentTieringConfiguration? getPayload() =>
+  IntelligentTieringConfiguration? getPayload() =>
       intelligentTieringConfiguration;
   @override
   List<Object?> get props => [intelligentTieringConfiguration];
@@ -73,8 +70,7 @@ abstract class GetBucketIntelligentTieringConfigurationOutput
 }
 
 class GetBucketIntelligentTieringConfigurationOutputRestXmlSerializer
-    extends _i2
-    .StructuredSmithySerializer<_i3.IntelligentTieringConfiguration> {
+    extends _i2.StructuredSmithySerializer<IntelligentTieringConfiguration> {
   const GetBucketIntelligentTieringConfigurationOutputRestXmlSerializer()
       : super('GetBucketIntelligentTieringConfigurationOutput');
 
@@ -91,12 +87,12 @@ class GetBucketIntelligentTieringConfigurationOutputRestXmlSerializer
         )
       ];
   @override
-  _i3.IntelligentTieringConfiguration deserialize(
+  IntelligentTieringConfiguration deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i3.IntelligentTieringConfigurationBuilder();
+    final result = IntelligentTieringConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -114,18 +110,18 @@ class GetBucketIntelligentTieringConfigurationOutputRestXmlSerializer
         case 'Filter':
           result.filter.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.IntelligentTieringFilter),
-          ) as _i4.IntelligentTieringFilter));
+            specifiedType: const FullType(IntelligentTieringFilter),
+          ) as IntelligentTieringFilter));
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.IntelligentTieringStatus),
-          ) as _i5.IntelligentTieringStatus);
+            specifiedType: const FullType(IntelligentTieringStatus),
+          ) as IntelligentTieringStatus);
         case 'Tiering':
           result.tierings.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.Tiering),
-          ) as _i6.Tiering));
+            specifiedType: const FullType(Tiering),
+          ) as Tiering));
       }
     }
 
@@ -135,7 +131,7 @@ class GetBucketIntelligentTieringConfigurationOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i3.IntelligentTieringConfiguration object, {
+    IntelligentTieringConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -144,12 +140,8 @@ class GetBucketIntelligentTieringConfigurationOutputRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i3.IntelligentTieringConfiguration(
-      :id,
-      :filter,
-      :status,
-      :tierings
-    ) = object;
+    final IntelligentTieringConfiguration(:id, :filter, :status, :tierings) =
+        object;
     result$
       ..add(const _i2.XmlElementName('Id'))
       ..add(serializers.serialize(
@@ -161,22 +153,22 @@ class GetBucketIntelligentTieringConfigurationOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('Filter'))
         ..add(serializers.serialize(
           filter,
-          specifiedType: const FullType(_i4.IntelligentTieringFilter),
+          specifiedType: const FullType(IntelligentTieringFilter),
         ));
     }
     result$
       ..add(const _i2.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(_i5.IntelligentTieringStatus),
+        specifiedType: const FullType.nullable(IntelligentTieringStatus),
       ));
     result$.addAll(
         const _i2.XmlBuiltListSerializer(memberName: 'Tiering').serialize(
       serializers,
       tierings,
       specifiedType: const FullType.nullable(
-        _i7.BuiltList,
-        [FullType(_i6.Tiering)],
+        _i3.BuiltList,
+        [FullType(Tiering)],
       ),
     ));
     return result$;

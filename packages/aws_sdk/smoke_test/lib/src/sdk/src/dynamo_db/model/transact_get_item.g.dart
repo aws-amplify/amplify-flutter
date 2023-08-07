@@ -8,7 +8,7 @@ part of 'transact_get_item.dart';
 
 class _$TransactGetItem extends TransactGetItem {
   @override
-  final _i2.Get get;
+  final Get get;
 
   factory _$TransactGetItem([void Function(TransactGetItemBuilder)? updates]) =>
       (new TransactGetItemBuilder()..update(updates))._build();
@@ -44,9 +44,9 @@ class TransactGetItemBuilder
     implements Builder<TransactGetItem, TransactGetItemBuilder> {
   _$TransactGetItem? _$v;
 
-  _i2.GetBuilder? _get;
-  _i2.GetBuilder get get => _$this._get ??= new _i2.GetBuilder();
-  set get(_i2.GetBuilder? get) => _$this._get = get;
+  GetBuilder? _get;
+  GetBuilder get get => _$this._get ??= new GetBuilder();
+  set get(GetBuilder? get) => _$this._get = get;
 
   TransactGetItemBuilder();
 

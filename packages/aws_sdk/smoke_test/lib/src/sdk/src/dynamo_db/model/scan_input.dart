@@ -4,18 +4,15 @@
 library smoke_test.dynamo_db.model.scan_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i8;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/condition.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/conditional_operator.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_consumed_capacity.dart'
-    as _i7;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/select.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/condition.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/conditional_operator.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_consumed_capacity.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/select.dart';
 
 part 'scan_input.g.dart';
 
@@ -29,30 +26,30 @@ abstract class ScanInput
     String? indexName,
     List<String>? attributesToGet,
     int? limit,
-    _i3.Select? select,
-    Map<String, _i4.Condition>? scanFilter,
-    _i5.ConditionalOperator? conditionalOperator,
-    Map<String, _i6.AttributeValue>? exclusiveStartKey,
-    _i7.ReturnConsumedCapacity? returnConsumedCapacity,
+    Select? select,
+    Map<String, Condition>? scanFilter,
+    ConditionalOperator? conditionalOperator,
+    Map<String, AttributeValue>? exclusiveStartKey,
+    ReturnConsumedCapacity? returnConsumedCapacity,
     int? totalSegments,
     int? segment,
     String? projectionExpression,
     String? filterExpression,
     Map<String, String>? expressionAttributeNames,
-    Map<String, _i6.AttributeValue>? expressionAttributeValues,
+    Map<String, AttributeValue>? expressionAttributeValues,
     bool? consistentRead,
   }) {
     return _$ScanInput._(
       tableName: tableName,
       indexName: indexName,
       attributesToGet:
-          attributesToGet == null ? null : _i8.BuiltList(attributesToGet),
+          attributesToGet == null ? null : _i3.BuiltList(attributesToGet),
       limit: limit,
       select: select,
-      scanFilter: scanFilter == null ? null : _i8.BuiltMap(scanFilter),
+      scanFilter: scanFilter == null ? null : _i3.BuiltMap(scanFilter),
       conditionalOperator: conditionalOperator,
       exclusiveStartKey:
-          exclusiveStartKey == null ? null : _i8.BuiltMap(exclusiveStartKey),
+          exclusiveStartKey == null ? null : _i3.BuiltMap(exclusiveStartKey),
       returnConsumedCapacity: returnConsumedCapacity,
       totalSegments: totalSegments,
       segment: segment,
@@ -60,10 +57,10 @@ abstract class ScanInput
       filterExpression: filterExpression,
       expressionAttributeNames: expressionAttributeNames == null
           ? null
-          : _i8.BuiltMap(expressionAttributeNames),
+          : _i3.BuiltMap(expressionAttributeNames),
       expressionAttributeValues: expressionAttributeValues == null
           ? null
-          : _i8.BuiltMap(expressionAttributeValues),
+          : _i3.BuiltMap(expressionAttributeValues),
       consistentRead: consistentRead,
     );
   }
@@ -92,7 +89,7 @@ abstract class ScanInput
   String? get indexName;
 
   /// This is a legacy parameter. Use `ProjectionExpression` instead. For more information, see [AttributesToGet](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html) in the _Amazon DynamoDB Developer Guide_.
-  _i8.BuiltList<String>? get attributesToGet;
+  _i3.BuiltList<String>? get attributesToGet;
 
   /// The maximum number of items to evaluate (not necessarily the number of matching items). If DynamoDB processes the number of items up to the limit while processing the results, it stops the operation and returns the matching values up to that point, and a key in `LastEvaluatedKey` to apply in a subsequent operation, so that you can pick up where you left off. Also, if the processed dataset size exceeds 1 MB before DynamoDB reaches this limit, it stops the operation and returns the matching values up to the limit, and a key in `LastEvaluatedKey` to apply in a subsequent operation to continue the operation. For more information, see [Working with Queries](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html) in the _Amazon DynamoDB Developer Guide_.
   int? get limit;
@@ -115,20 +112,20 @@ abstract class ScanInput
   /// If neither `Select` nor `ProjectionExpression` are specified, DynamoDB defaults to `ALL_ATTRIBUTES` when accessing a table, and `ALL\_PROJECTED\_ATTRIBUTES` when accessing an index. You cannot use both `Select` and `ProjectionExpression` together in a single request, unless the value for `Select` is `SPECIFIC_ATTRIBUTES`. (This usage is equivalent to specifying `ProjectionExpression` without any value for `Select`.)
   ///
   /// If you use the `ProjectionExpression` parameter, then the value for `Select` can only be `SPECIFIC_ATTRIBUTES`. Any other value for `Select` will return an error.
-  _i3.Select? get select;
+  Select? get select;
 
   /// This is a legacy parameter. Use `FilterExpression` instead. For more information, see [ScanFilter](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ScanFilter.html) in the _Amazon DynamoDB Developer Guide_.
-  _i8.BuiltMap<String, _i4.Condition>? get scanFilter;
+  _i3.BuiltMap<String, Condition>? get scanFilter;
 
   /// This is a legacy parameter. Use `FilterExpression` instead. For more information, see [ConditionalOperator](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html) in the _Amazon DynamoDB Developer Guide_.
-  _i5.ConditionalOperator? get conditionalOperator;
+  ConditionalOperator? get conditionalOperator;
 
   /// The primary key of the first item that this operation will evaluate. Use the value that was returned for `LastEvaluatedKey` in the previous operation.
   ///
   /// The data type for `ExclusiveStartKey` must be String, Number or Binary. No set data types are allowed.
   ///
   /// In a parallel scan, a `Scan` request that includes `ExclusiveStartKey` must specify the same segment whose previous `Scan` returned the corresponding value of `LastEvaluatedKey`.
-  _i8.BuiltMap<String, _i6.AttributeValue>? get exclusiveStartKey;
+  _i3.BuiltMap<String, AttributeValue>? get exclusiveStartKey;
 
   /// Determines the level of detail about either provisioned or on-demand throughput consumption that is returned in the response:
   ///
@@ -139,7 +136,7 @@ abstract class ScanInput
   /// *   `TOTAL` \- The response includes only the aggregate `ConsumedCapacity` for the operation.
   ///
   /// *   `NONE` \- No `ConsumedCapacity` details are included in the response.
-  _i7.ReturnConsumedCapacity? get returnConsumedCapacity;
+  ReturnConsumedCapacity? get returnConsumedCapacity;
 
   /// For a parallel `Scan` request, `TotalSegments` represents the total number of segments into which the `Scan` operation will be divided. The value of `TotalSegments` corresponds to the number of application workers that will perform the parallel scan. For example, if you want to use four application threads to scan a table or an index, specify a `TotalSegments` value of 4.
   ///
@@ -200,7 +197,7 @@ abstract class ScanInput
   /// Tokens that begin with the **:** character are _expression attribute values_, which are placeholders for the actual value at runtime.
   ///
   /// For more information on expression attribute names, see [Specifying Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html) in the _Amazon DynamoDB Developer Guide_.
-  _i8.BuiltMap<String, String>? get expressionAttributeNames;
+  _i3.BuiltMap<String, String>? get expressionAttributeNames;
 
   /// One or more values that can be substituted in an expression.
   ///
@@ -217,7 +214,7 @@ abstract class ScanInput
   /// `ProductStatus IN (:avail, :back, :disc)`
   ///
   /// For more information on expression attribute values, see [Condition Expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html) in the _Amazon DynamoDB Developer Guide_.
-  _i8.BuiltMap<String, _i6.AttributeValue>? get expressionAttributeValues;
+  _i3.BuiltMap<String, AttributeValue>? get expressionAttributeValues;
 
   /// A Boolean value that determines the read consistency model during the scan:
   ///
@@ -368,10 +365,10 @@ class ScanInputAwsJson10Serializer
           result.attributesToGet.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i8.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i8.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'Limit':
           result.limit = (serializers.deserialize(
             value,
@@ -380,40 +377,40 @@ class ScanInputAwsJson10Serializer
         case 'Select':
           result.select = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.Select),
-          ) as _i3.Select);
+            specifiedType: const FullType(Select),
+          ) as Select);
         case 'ScanFilter':
           result.scanFilter.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i8.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
-                FullType(_i4.Condition),
+                FullType(Condition),
               ],
             ),
-          ) as _i8.BuiltMap<String, _i4.Condition>));
+          ) as _i3.BuiltMap<String, Condition>));
         case 'ConditionalOperator':
           result.conditionalOperator = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.ConditionalOperator),
-          ) as _i5.ConditionalOperator);
+            specifiedType: const FullType(ConditionalOperator),
+          ) as ConditionalOperator);
         case 'ExclusiveStartKey':
           result.exclusiveStartKey.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i8.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
-                FullType(_i6.AttributeValue),
+                FullType(AttributeValue),
               ],
             ),
-          ) as _i8.BuiltMap<String, _i6.AttributeValue>));
+          ) as _i3.BuiltMap<String, AttributeValue>));
         case 'ReturnConsumedCapacity':
           result.returnConsumedCapacity = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i7.ReturnConsumedCapacity),
-          ) as _i7.ReturnConsumedCapacity);
+            specifiedType: const FullType(ReturnConsumedCapacity),
+          ) as ReturnConsumedCapacity);
         case 'TotalSegments':
           result.totalSegments = (serializers.deserialize(
             value,
@@ -438,24 +435,24 @@ class ScanInputAwsJson10Serializer
           result.expressionAttributeNames.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i8.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i8.BuiltMap<String, String>));
+          ) as _i3.BuiltMap<String, String>));
         case 'ExpressionAttributeValues':
           result.expressionAttributeValues.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i8.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
-                FullType(_i6.AttributeValue),
+                FullType(AttributeValue),
               ],
             ),
-          ) as _i8.BuiltMap<String, _i6.AttributeValue>));
+          ) as _i3.BuiltMap<String, AttributeValue>));
         case 'ConsistentRead':
           result.consistentRead = (serializers.deserialize(
             value,
@@ -513,7 +510,7 @@ class ScanInputAwsJson10Serializer
         ..add(serializers.serialize(
           attributesToGet,
           specifiedType: const FullType(
-            _i8.BuiltList,
+            _i3.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -531,7 +528,7 @@ class ScanInputAwsJson10Serializer
         ..add('Select')
         ..add(serializers.serialize(
           select,
-          specifiedType: const FullType(_i3.Select),
+          specifiedType: const FullType(Select),
         ));
     }
     if (scanFilter != null) {
@@ -540,10 +537,10 @@ class ScanInputAwsJson10Serializer
         ..add(serializers.serialize(
           scanFilter,
           specifiedType: const FullType(
-            _i8.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
-              FullType(_i4.Condition),
+              FullType(Condition),
             ],
           ),
         ));
@@ -553,7 +550,7 @@ class ScanInputAwsJson10Serializer
         ..add('ConditionalOperator')
         ..add(serializers.serialize(
           conditionalOperator,
-          specifiedType: const FullType(_i5.ConditionalOperator),
+          specifiedType: const FullType(ConditionalOperator),
         ));
     }
     if (exclusiveStartKey != null) {
@@ -562,10 +559,10 @@ class ScanInputAwsJson10Serializer
         ..add(serializers.serialize(
           exclusiveStartKey,
           specifiedType: const FullType(
-            _i8.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
-              FullType(_i6.AttributeValue),
+              FullType(AttributeValue),
             ],
           ),
         ));
@@ -575,7 +572,7 @@ class ScanInputAwsJson10Serializer
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
           returnConsumedCapacity,
-          specifiedType: const FullType(_i7.ReturnConsumedCapacity),
+          specifiedType: const FullType(ReturnConsumedCapacity),
         ));
     }
     if (totalSegments != null) {
@@ -616,7 +613,7 @@ class ScanInputAwsJson10Serializer
         ..add(serializers.serialize(
           expressionAttributeNames,
           specifiedType: const FullType(
-            _i8.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -630,10 +627,10 @@ class ScanInputAwsJson10Serializer
         ..add(serializers.serialize(
           expressionAttributeValues,
           specifiedType: const FullType(
-            _i8.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
-              FullType(_i6.AttributeValue),
+              FullType(AttributeValue),
             ],
           ),
         ));

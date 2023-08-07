@@ -9,7 +9,7 @@ part of 'get_object_lock_configuration_output.dart';
 class _$GetObjectLockConfigurationOutput
     extends GetObjectLockConfigurationOutput {
   @override
-  final _i3.ObjectLockConfiguration? objectLockConfiguration;
+  final ObjectLockConfiguration? objectLockConfiguration;
 
   factory _$GetObjectLockConfigurationOutput(
           [void Function(GetObjectLockConfigurationOutputBuilder)? updates]) =>
@@ -49,12 +49,11 @@ class GetObjectLockConfigurationOutputBuilder
             GetObjectLockConfigurationOutputBuilder> {
   _$GetObjectLockConfigurationOutput? _$v;
 
-  _i3.ObjectLockConfigurationBuilder? _objectLockConfiguration;
-  _i3.ObjectLockConfigurationBuilder get objectLockConfiguration =>
-      _$this._objectLockConfiguration ??=
-          new _i3.ObjectLockConfigurationBuilder();
+  ObjectLockConfigurationBuilder? _objectLockConfiguration;
+  ObjectLockConfigurationBuilder get objectLockConfiguration =>
+      _$this._objectLockConfiguration ??= new ObjectLockConfigurationBuilder();
   set objectLockConfiguration(
-          _i3.ObjectLockConfigurationBuilder? objectLockConfiguration) =>
+          ObjectLockConfigurationBuilder? objectLockConfiguration) =>
       _$this._objectLockConfiguration = objectLockConfiguration;
 
   GetObjectLockConfigurationOutputBuilder();

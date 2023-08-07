@@ -12,17 +12,17 @@ class _$StreamDescription extends StreamDescription {
   @override
   final String? streamLabel;
   @override
-  final _i2.StreamStatus? streamStatus;
+  final StreamStatus? streamStatus;
   @override
-  final _i3.StreamViewType? streamViewType;
+  final StreamViewType? streamViewType;
   @override
   final DateTime? creationRequestDateTime;
   @override
   final String? tableName;
   @override
-  final _i6.BuiltList<_i4.KeySchemaElement>? keySchema;
+  final _i2.BuiltList<KeySchemaElement>? keySchema;
   @override
-  final _i6.BuiltList<_i5.Shard>? shards;
+  final _i2.BuiltList<Shard>? shards;
   @override
   final String? lastEvaluatedShardId;
 
@@ -94,14 +94,14 @@ class StreamDescriptionBuilder
   String? get streamLabel => _$this._streamLabel;
   set streamLabel(String? streamLabel) => _$this._streamLabel = streamLabel;
 
-  _i2.StreamStatus? _streamStatus;
-  _i2.StreamStatus? get streamStatus => _$this._streamStatus;
-  set streamStatus(_i2.StreamStatus? streamStatus) =>
+  StreamStatus? _streamStatus;
+  StreamStatus? get streamStatus => _$this._streamStatus;
+  set streamStatus(StreamStatus? streamStatus) =>
       _$this._streamStatus = streamStatus;
 
-  _i3.StreamViewType? _streamViewType;
-  _i3.StreamViewType? get streamViewType => _$this._streamViewType;
-  set streamViewType(_i3.StreamViewType? streamViewType) =>
+  StreamViewType? _streamViewType;
+  StreamViewType? get streamViewType => _$this._streamViewType;
+  set streamViewType(StreamViewType? streamViewType) =>
       _$this._streamViewType = streamViewType;
 
   DateTime? _creationRequestDateTime;
@@ -113,16 +113,16 @@ class StreamDescriptionBuilder
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
 
-  _i6.ListBuilder<_i4.KeySchemaElement>? _keySchema;
-  _i6.ListBuilder<_i4.KeySchemaElement> get keySchema =>
-      _$this._keySchema ??= new _i6.ListBuilder<_i4.KeySchemaElement>();
-  set keySchema(_i6.ListBuilder<_i4.KeySchemaElement>? keySchema) =>
+  _i2.ListBuilder<KeySchemaElement>? _keySchema;
+  _i2.ListBuilder<KeySchemaElement> get keySchema =>
+      _$this._keySchema ??= new _i2.ListBuilder<KeySchemaElement>();
+  set keySchema(_i2.ListBuilder<KeySchemaElement>? keySchema) =>
       _$this._keySchema = keySchema;
 
-  _i6.ListBuilder<_i5.Shard>? _shards;
-  _i6.ListBuilder<_i5.Shard> get shards =>
-      _$this._shards ??= new _i6.ListBuilder<_i5.Shard>();
-  set shards(_i6.ListBuilder<_i5.Shard>? shards) => _$this._shards = shards;
+  _i2.ListBuilder<Shard>? _shards;
+  _i2.ListBuilder<Shard> get shards =>
+      _$this._shards ??= new _i2.ListBuilder<Shard>();
+  set shards(_i2.ListBuilder<Shard>? shards) => _$this._shards = shards;
 
   String? _lastEvaluatedShardId;
   String? get lastEvaluatedShardId => _$this._lastEvaluatedShardId;

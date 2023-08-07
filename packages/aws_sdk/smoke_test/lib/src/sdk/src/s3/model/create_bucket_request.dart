@@ -3,37 +3,35 @@
 
 library smoke_test.s3.model.create_bucket_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_common/aws_common.dart' as _i3;
+import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/bucket_canned_acl.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/bucket_location_constraint.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/s3/model/create_bucket_configuration.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/object_ownership.dart' as _i5;
+import 'package:smoke_test/src/sdk/src/s3/model/bucket_canned_acl.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/bucket_location_constraint.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/create_bucket_configuration.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/object_ownership.dart';
 
 part 'create_bucket_request.g.dart';
 
 abstract class CreateBucketRequest
     with
-        _i1.HttpInput<_i2.CreateBucketConfiguration>,
-        _i3.AWSEquatable<CreateBucketRequest>
+        _i1.HttpInput<CreateBucketConfiguration>,
+        _i2.AWSEquatable<CreateBucketRequest>
     implements
         Built<CreateBucketRequest, CreateBucketRequestBuilder>,
-        _i1.HasPayload<_i2.CreateBucketConfiguration> {
+        _i1.HasPayload<CreateBucketConfiguration> {
   factory CreateBucketRequest({
-    _i4.BucketCannedAcl? acl,
+    BucketCannedAcl? acl,
     required String bucket,
-    _i2.CreateBucketConfiguration? createBucketConfiguration,
+    CreateBucketConfiguration? createBucketConfiguration,
     String? grantFullControl,
     String? grantRead,
     String? grantReadAcp,
     String? grantWrite,
     String? grantWriteAcp,
     bool? objectLockEnabledForBucket,
-    _i5.ObjectOwnership? objectOwnership,
+    ObjectOwnership? objectOwnership,
   }) {
     return _$CreateBucketRequest._(
       acl: acl,
@@ -56,8 +54,8 @@ abstract class CreateBucketRequest
   const CreateBucketRequest._();
 
   factory CreateBucketRequest.fromRequest(
-    _i2.CreateBucketConfiguration? payload,
-    _i3.AWSBaseHttpRequest request, {
+    CreateBucketConfiguration? payload,
+    _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
       CreateBucketRequest.build((b) {
@@ -65,8 +63,7 @@ abstract class CreateBucketRequest
           b.createBucketConfiguration.replace(payload);
         }
         if (request.headers['x-amz-acl'] != null) {
-          b.acl =
-              _i4.BucketCannedAcl.values.byValue(request.headers['x-amz-acl']!);
+          b.acl = BucketCannedAcl.values.byValue(request.headers['x-amz-acl']!);
         }
         if (request.headers['x-amz-grant-full-control'] != null) {
           b.grantFullControl = request.headers['x-amz-grant-full-control']!;
@@ -88,7 +85,7 @@ abstract class CreateBucketRequest
               request.headers['x-amz-bucket-object-lock-enabled']! == 'true';
         }
         if (request.headers['x-amz-object-ownership'] != null) {
-          b.objectOwnership = _i5.ObjectOwnership.values
+          b.objectOwnership = ObjectOwnership.values
               .byValue(request.headers['x-amz-object-ownership']!);
         }
         if (labels['bucket'] != null) {
@@ -96,17 +93,17 @@ abstract class CreateBucketRequest
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.CreateBucketConfiguration?>>
+  static const List<_i1.SmithySerializer<CreateBucketConfiguration?>>
       serializers = [CreateBucketRequestRestXmlSerializer()];
 
   /// The canned ACL to apply to the bucket.
-  _i4.BucketCannedAcl? get acl;
+  BucketCannedAcl? get acl;
 
   /// The name of the bucket to create.
   String get bucket;
 
   /// The configuration information for the bucket.
-  _i2.CreateBucketConfiguration? get createBucketConfiguration;
+  CreateBucketConfiguration? get createBucketConfiguration;
 
   /// Allows grantee the read, write, read ACP, and write ACP permissions on the bucket.
   String? get grantFullControl;
@@ -135,7 +132,7 @@ abstract class CreateBucketRequest
   /// ObjectWriter - The uploading account will own the object if the object is uploaded with the `bucket-owner-full-control` canned ACL.
   ///
   /// BucketOwnerEnforced - Access control lists (ACLs) are disabled and no longer affect permissions. The bucket owner automatically owns and has full control over every object in the bucket. The bucket only accepts PUT requests that don't specify an ACL or bucket owner full control ACLs, such as the `bucket-owner-full-control` canned ACL or an equivalent form of this ACL expressed in the XML format.
-  _i5.ObjectOwnership? get objectOwnership;
+  ObjectOwnership? get objectOwnership;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -149,8 +146,8 @@ abstract class CreateBucketRequest
   }
 
   @override
-  _i2.CreateBucketConfiguration? getPayload() =>
-      createBucketConfiguration ?? _i2.CreateBucketConfiguration();
+  CreateBucketConfiguration? getPayload() =>
+      createBucketConfiguration ?? CreateBucketConfiguration();
   @override
   List<Object?> get props => [
         acl,
@@ -212,7 +209,7 @@ abstract class CreateBucketRequest
 }
 
 class CreateBucketRequestRestXmlSerializer
-    extends _i1.StructuredSmithySerializer<_i2.CreateBucketConfiguration> {
+    extends _i1.StructuredSmithySerializer<CreateBucketConfiguration> {
   const CreateBucketRequestRestXmlSerializer() : super('CreateBucketRequest');
 
   @override
@@ -228,12 +225,12 @@ class CreateBucketRequestRestXmlSerializer
         )
       ];
   @override
-  _i2.CreateBucketConfiguration deserialize(
+  CreateBucketConfiguration deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i2.CreateBucketConfigurationBuilder();
+    final result = CreateBucketConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -246,8 +243,8 @@ class CreateBucketRequestRestXmlSerializer
         case 'LocationConstraint':
           result.locationConstraint = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.BucketLocationConstraint),
-          ) as _i6.BucketLocationConstraint);
+            specifiedType: const FullType(BucketLocationConstraint),
+          ) as BucketLocationConstraint);
       }
     }
 
@@ -257,7 +254,7 @@ class CreateBucketRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i2.CreateBucketConfiguration object, {
+    CreateBucketConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -266,13 +263,13 @@ class CreateBucketRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i2.CreateBucketConfiguration(:locationConstraint) = object;
+    final CreateBucketConfiguration(:locationConstraint) = object;
     if (locationConstraint != null) {
       result$
         ..add(const _i1.XmlElementName('LocationConstraint'))
         ..add(serializers.serialize(
           locationConstraint,
-          specifiedType: const FullType.nullable(_i6.BucketLocationConstraint),
+          specifiedType: const FullType.nullable(BucketLocationConstraint),
         ));
     }
     return result$;

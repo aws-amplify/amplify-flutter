@@ -7,12 +7,9 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_context.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_mode.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_details.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_context.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_mode.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_details.dart';
 
 part 'start_resource_evaluation_request.g.dart';
 
@@ -24,9 +21,9 @@ abstract class StartResourceEvaluationRequest
         Built<StartResourceEvaluationRequest,
             StartResourceEvaluationRequestBuilder> {
   factory StartResourceEvaluationRequest({
-    required _i3.ResourceDetails resourceDetails,
-    _i4.EvaluationContext? evaluationContext,
-    required _i5.EvaluationMode evaluationMode,
+    required ResourceDetails resourceDetails,
+    EvaluationContext? evaluationContext,
+    required EvaluationMode evaluationMode,
     int? evaluationTimeout,
     String? clientToken,
   }) {
@@ -62,13 +59,13 @@ abstract class StartResourceEvaluationRequest
   }
 
   /// Returns a `ResourceDetails` object.
-  _i3.ResourceDetails get resourceDetails;
+  ResourceDetails get resourceDetails;
 
   /// Returns an `EvaluationContext` object.
-  _i4.EvaluationContext? get evaluationContext;
+  EvaluationContext? get evaluationContext;
 
   /// The mode of an evaluation. The valid values for this API are `DETECTIVE` and `PROACTIVE`.
-  _i5.EvaluationMode get evaluationMode;
+  EvaluationMode get evaluationMode;
 
   /// The timeout for an evaluation. The default is 900 seconds. You cannot specify a number greater than 3600. If you specify 0, Config uses the default.
   int get evaluationTimeout;
@@ -150,18 +147,18 @@ class StartResourceEvaluationRequestAwsJson11Serializer
         case 'ResourceDetails':
           result.resourceDetails.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ResourceDetails),
-          ) as _i3.ResourceDetails));
+            specifiedType: const FullType(ResourceDetails),
+          ) as ResourceDetails));
         case 'EvaluationContext':
           result.evaluationContext.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.EvaluationContext),
-          ) as _i4.EvaluationContext));
+            specifiedType: const FullType(EvaluationContext),
+          ) as EvaluationContext));
         case 'EvaluationMode':
           result.evaluationMode = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.EvaluationMode),
-          ) as _i5.EvaluationMode);
+            specifiedType: const FullType(EvaluationMode),
+          ) as EvaluationMode);
         case 'EvaluationTimeout':
           result.evaluationTimeout = (serializers.deserialize(
             value,
@@ -196,12 +193,12 @@ class StartResourceEvaluationRequestAwsJson11Serializer
       'ResourceDetails',
       serializers.serialize(
         resourceDetails,
-        specifiedType: const FullType(_i3.ResourceDetails),
+        specifiedType: const FullType(ResourceDetails),
       ),
       'EvaluationMode',
       serializers.serialize(
         evaluationMode,
-        specifiedType: const FullType(_i5.EvaluationMode),
+        specifiedType: const FullType(EvaluationMode),
       ),
       'EvaluationTimeout',
       serializers.serialize(
@@ -214,7 +211,7 @@ class StartResourceEvaluationRequestAwsJson11Serializer
         ..add('EvaluationContext')
         ..add(serializers.serialize(
           evaluationContext,
-          specifiedType: const FullType(_i4.EvaluationContext),
+          specifiedType: const FullType(EvaluationContext),
         ));
     }
     if (clientToken != null) {

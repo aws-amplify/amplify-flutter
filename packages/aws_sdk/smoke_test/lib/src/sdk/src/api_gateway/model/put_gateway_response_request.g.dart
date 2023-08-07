@@ -10,13 +10,13 @@ class _$PutGatewayResponseRequest extends PutGatewayResponseRequest {
   @override
   final String restApiId;
   @override
-  final _i3.GatewayResponseType responseType;
+  final GatewayResponseType responseType;
   @override
   final String? statusCode;
   @override
-  final _i4.BuiltMap<String, String>? responseParameters;
+  final _i3.BuiltMap<String, String>? responseParameters;
   @override
-  final _i4.BuiltMap<String, String>? responseTemplates;
+  final _i3.BuiltMap<String, String>? responseTemplates;
 
   factory _$PutGatewayResponseRequest(
           [void Function(PutGatewayResponseRequestBuilder)? updates]) =>
@@ -77,25 +77,25 @@ class PutGatewayResponseRequestBuilder
   String? get restApiId => _$this._restApiId;
   set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
-  _i3.GatewayResponseType? _responseType;
-  _i3.GatewayResponseType? get responseType => _$this._responseType;
-  set responseType(_i3.GatewayResponseType? responseType) =>
+  GatewayResponseType? _responseType;
+  GatewayResponseType? get responseType => _$this._responseType;
+  set responseType(GatewayResponseType? responseType) =>
       _$this._responseType = responseType;
 
   String? _statusCode;
   String? get statusCode => _$this._statusCode;
   set statusCode(String? statusCode) => _$this._statusCode = statusCode;
 
-  _i4.MapBuilder<String, String>? _responseParameters;
-  _i4.MapBuilder<String, String> get responseParameters =>
-      _$this._responseParameters ??= new _i4.MapBuilder<String, String>();
-  set responseParameters(_i4.MapBuilder<String, String>? responseParameters) =>
+  _i3.MapBuilder<String, String>? _responseParameters;
+  _i3.MapBuilder<String, String> get responseParameters =>
+      _$this._responseParameters ??= new _i3.MapBuilder<String, String>();
+  set responseParameters(_i3.MapBuilder<String, String>? responseParameters) =>
       _$this._responseParameters = responseParameters;
 
-  _i4.MapBuilder<String, String>? _responseTemplates;
-  _i4.MapBuilder<String, String> get responseTemplates =>
-      _$this._responseTemplates ??= new _i4.MapBuilder<String, String>();
-  set responseTemplates(_i4.MapBuilder<String, String>? responseTemplates) =>
+  _i3.MapBuilder<String, String>? _responseTemplates;
+  _i3.MapBuilder<String, String> get responseTemplates =>
+      _$this._responseTemplates ??= new _i3.MapBuilder<String, String>();
+  set responseTemplates(_i3.MapBuilder<String, String>? responseTemplates) =>
       _$this._responseTemplates = responseTemplates;
 
   PutGatewayResponseRequestBuilder();
@@ -160,9 +160,9 @@ class PutGatewayResponseRequestBuilder
 class _$PutGatewayResponseRequestPayload
     extends PutGatewayResponseRequestPayload {
   @override
-  final _i4.BuiltMap<String, String>? responseParameters;
+  final _i3.BuiltMap<String, String>? responseParameters;
   @override
-  final _i4.BuiltMap<String, String>? responseTemplates;
+  final _i3.BuiltMap<String, String>? responseTemplates;
   @override
   final String? statusCode;
 
@@ -209,16 +209,16 @@ class PutGatewayResponseRequestPayloadBuilder
             PutGatewayResponseRequestPayloadBuilder> {
   _$PutGatewayResponseRequestPayload? _$v;
 
-  _i4.MapBuilder<String, String>? _responseParameters;
-  _i4.MapBuilder<String, String> get responseParameters =>
-      _$this._responseParameters ??= new _i4.MapBuilder<String, String>();
-  set responseParameters(_i4.MapBuilder<String, String>? responseParameters) =>
+  _i3.MapBuilder<String, String>? _responseParameters;
+  _i3.MapBuilder<String, String> get responseParameters =>
+      _$this._responseParameters ??= new _i3.MapBuilder<String, String>();
+  set responseParameters(_i3.MapBuilder<String, String>? responseParameters) =>
       _$this._responseParameters = responseParameters;
 
-  _i4.MapBuilder<String, String>? _responseTemplates;
-  _i4.MapBuilder<String, String> get responseTemplates =>
-      _$this._responseTemplates ??= new _i4.MapBuilder<String, String>();
-  set responseTemplates(_i4.MapBuilder<String, String>? responseTemplates) =>
+  _i3.MapBuilder<String, String>? _responseTemplates;
+  _i3.MapBuilder<String, String> get responseTemplates =>
+      _$this._responseTemplates ??= new _i3.MapBuilder<String, String>();
+  set responseTemplates(_i3.MapBuilder<String, String>? responseTemplates) =>
       _$this._responseTemplates = responseTemplates;
 
   String? _statusCode;

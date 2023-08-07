@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/resource_signal_status.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/resource_signal_status.dart';
 
 part 'signal_resource_input.g.dart';
 
@@ -23,7 +22,7 @@ abstract class SignalResourceInput
     required String stackName,
     required String logicalResourceId,
     required String uniqueId,
-    required _i3.ResourceSignalStatus status,
+    required ResourceSignalStatus status,
   }) {
     return _$SignalResourceInput._(
       stackName: stackName,
@@ -61,7 +60,7 @@ abstract class SignalResourceInput
   String get uniqueId;
 
   /// The status of the signal, which is either success or failure. A failure signal causes CloudFormation to immediately fail the stack creation or update.
-  _i3.ResourceSignalStatus get status;
+  ResourceSignalStatus get status;
   @override
   SignalResourceInput getPayload() => this;
   @override
@@ -144,8 +143,8 @@ class SignalResourceInputAwsQuerySerializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ResourceSignalStatus),
-          ) as _i3.ResourceSignalStatus);
+            specifiedType: const FullType(ResourceSignalStatus),
+          ) as ResourceSignalStatus);
       }
     }
 
@@ -192,7 +191,7 @@ class SignalResourceInputAwsQuerySerializer
       ..add(const _i1.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(_i3.ResourceSignalStatus),
+        specifiedType: const FullType.nullable(ResourceSignalStatus),
       ));
     return result$;
   }

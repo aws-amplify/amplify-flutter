@@ -3,24 +3,21 @@
 
 library rest_xml_v1.rest_xml_protocol.operation.input_and_output_with_headers_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i7;
+import 'dart:async' as _i4;
 
-import 'package:aws_common/aws_common.dart' as _i6;
-import 'package:rest_xml_v1/src/rest_xml_protocol/common/endpoint_resolver.dart'
-    as _i5;
-import 'package:rest_xml_v1/src/rest_xml_protocol/common/serializers.dart'
-    as _i4;
-import 'package:rest_xml_v1/src/rest_xml_protocol/model/input_and_output_with_headers_io.dart'
-    as _i2;
+import 'package:aws_common/aws_common.dart' as _i3;
+import 'package:rest_xml_v1/src/rest_xml_protocol/common/endpoint_resolver.dart';
+import 'package:rest_xml_v1/src/rest_xml_protocol/common/serializers.dart';
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/input_and_output_with_headers_io.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 /// The example tests how requests and responses are serialized when there is no input or output payload but there are HTTP header bindings.
 class InputAndOutputWithHeadersOperation extends _i1.HttpOperation<
-    _i2.InputAndOutputWithHeadersIoPayload,
-    _i2.InputAndOutputWithHeadersIo,
-    _i2.InputAndOutputWithHeadersIoPayload,
-    _i2.InputAndOutputWithHeadersIo> {
+    InputAndOutputWithHeadersIoPayload,
+    InputAndOutputWithHeadersIo,
+    InputAndOutputWithHeadersIoPayload,
+    InputAndOutputWithHeadersIo> {
   /// The example tests how requests and responses are serialized when there is no input or output payload but there are HTTP header bindings.
   InputAndOutputWithHeadersOperation({
     required String region,
@@ -35,18 +32,18 @@ class InputAndOutputWithHeadersOperation extends _i1.HttpOperation<
   @override
   late final List<
       _i1.HttpProtocol<
-          _i2.InputAndOutputWithHeadersIoPayload,
-          _i2.InputAndOutputWithHeadersIo,
-          _i2.InputAndOutputWithHeadersIoPayload,
-          _i2.InputAndOutputWithHeadersIo>> protocols = [
-    _i3.RestXmlProtocol(
-      serializers: _i4.serializers,
-      builderFactories: _i4.builderFactories,
+          InputAndOutputWithHeadersIoPayload,
+          InputAndOutputWithHeadersIo,
+          InputAndOutputWithHeadersIoPayload,
+          InputAndOutputWithHeadersIo>> protocols = [
+    _i2.RestXmlProtocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i3.WithSdkInvocationId(),
-            const _i3.WithSdkRequest(),
+            const _i2.WithSdkInvocationId(),
+            const _i2.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -55,8 +52,8 @@ class InputAndOutputWithHeadersOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i3.AWSEndpoint _awsEndpoint = _i5.endpointResolver.resolve(
-    _i5.sdkId,
+  late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -69,7 +66,7 @@ class InputAndOutputWithHeadersOperation extends _i1.HttpOperation<
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.InputAndOutputWithHeadersIo input) =>
+  _i1.HttpRequest buildRequest(InputAndOutputWithHeadersIo input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/InputAndOutputWithHeaders';
@@ -158,13 +155,13 @@ class InputAndOutputWithHeadersOperation extends _i1.HttpOperation<
         }
       });
   @override
-  int successCode([_i2.InputAndOutputWithHeadersIo? output]) => 200;
+  int successCode([InputAndOutputWithHeadersIo? output]) => 200;
   @override
-  _i2.InputAndOutputWithHeadersIo buildOutput(
-    _i2.InputAndOutputWithHeadersIoPayload payload,
-    _i6.AWSBaseHttpResponse response,
+  InputAndOutputWithHeadersIo buildOutput(
+    InputAndOutputWithHeadersIoPayload payload,
+    _i3.AWSBaseHttpResponse response,
   ) =>
-      _i2.InputAndOutputWithHeadersIo.fromResponse(
+      InputAndOutputWithHeadersIo.fromResponse(
         payload,
         response,
       );
@@ -173,18 +170,18 @@ class InputAndOutputWithHeadersOperation extends _i1.HttpOperation<
   @override
   String get runtimeTypeName => 'InputAndOutputWithHeaders';
   @override
-  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+  _i2.AWSRetryer get retryer => _i2.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i2.InputAndOutputWithHeadersIo> run(
-    _i2.InputAndOutputWithHeadersIo input, {
-    _i6.AWSHttpClient? client,
+  _i1.SmithyOperation<InputAndOutputWithHeadersIo> run(
+    InputAndOutputWithHeadersIo input, {
+    _i3.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i7.runZoned(
+    return _i4.runZoned(
       () => super.run(
         input,
         client: client,
@@ -192,7 +189,7 @@ class InputAndOutputWithHeadersOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
+        ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},
       },
     );
   }

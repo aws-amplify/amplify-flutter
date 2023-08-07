@@ -4,12 +4,11 @@
 library smoke_test.iam.model.list_policies_granting_service_access_entry; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/policy_granting_service_access.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/policy_granting_service_access.dart';
 
 part 'list_policies_granting_service_access_entry.g.dart';
 
@@ -27,11 +26,11 @@ abstract class ListPoliciesGrantingServiceAccessEntry
   /// This data type is used as a response element in the ListPoliciesGrantingServiceAccess operation.
   factory ListPoliciesGrantingServiceAccessEntry({
     String? serviceNamespace,
-    List<_i2.PolicyGrantingServiceAccess>? policies,
+    List<PolicyGrantingServiceAccess>? policies,
   }) {
     return _$ListPoliciesGrantingServiceAccessEntry._(
       serviceNamespace: serviceNamespace,
-      policies: policies == null ? null : _i3.BuiltList(policies),
+      policies: policies == null ? null : _i2.BuiltList(policies),
     );
   }
 
@@ -45,7 +44,7 @@ abstract class ListPoliciesGrantingServiceAccessEntry
   const ListPoliciesGrantingServiceAccessEntry._();
 
   static const List<
-          _i4.SmithySerializer<ListPoliciesGrantingServiceAccessEntry>>
+          _i3.SmithySerializer<ListPoliciesGrantingServiceAccessEntry>>
       serializers = [
     ListPoliciesGrantingServiceAccessEntryAwsQuerySerializer()
   ];
@@ -56,7 +55,7 @@ abstract class ListPoliciesGrantingServiceAccessEntry
   String? get serviceNamespace;
 
   /// The `PoliciesGrantingServiceAccess` object that contains details about the policy.
-  _i3.BuiltList<_i2.PolicyGrantingServiceAccess>? get policies;
+  _i2.BuiltList<PolicyGrantingServiceAccess>? get policies;
   @override
   List<Object?> get props => [
         serviceNamespace,
@@ -78,7 +77,7 @@ abstract class ListPoliciesGrantingServiceAccessEntry
   }
 }
 
-class ListPoliciesGrantingServiceAccessEntryAwsQuerySerializer extends _i4
+class ListPoliciesGrantingServiceAccessEntryAwsQuerySerializer extends _i3
     .StructuredSmithySerializer<ListPoliciesGrantingServiceAccessEntry> {
   const ListPoliciesGrantingServiceAccessEntryAwsQuerySerializer()
       : super('ListPoliciesGrantingServiceAccessEntry');
@@ -89,8 +88,8 @@ class ListPoliciesGrantingServiceAccessEntryAwsQuerySerializer extends _i4
         _$ListPoliciesGrantingServiceAccessEntry,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -117,16 +116,16 @@ class ListPoliciesGrantingServiceAccessEntryAwsQuerySerializer extends _i4
             specifiedType: const FullType(String),
           ) as String);
         case 'Policies':
-          result.policies.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.policies.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.PolicyGrantingServiceAccess)],
+              _i2.BuiltList,
+              [FullType(PolicyGrantingServiceAccess)],
             ),
-          ) as _i3.BuiltList<_i2.PolicyGrantingServiceAccess>));
+          ) as _i2.BuiltList<PolicyGrantingServiceAccess>));
       }
     }
 
@@ -140,16 +139,16 @@ class ListPoliciesGrantingServiceAccessEntryAwsQuerySerializer extends _i4
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'ListPoliciesGrantingServiceAccessEntryResponse',
-        _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final ListPoliciesGrantingServiceAccessEntry(:serviceNamespace, :policies) =
         object;
     if (serviceNamespace != null) {
       result$
-        ..add(const _i4.XmlElementName('ServiceNamespace'))
+        ..add(const _i3.XmlElementName('ServiceNamespace'))
         ..add(serializers.serialize(
           serviceNamespace,
           specifiedType: const FullType(String),
@@ -157,15 +156,15 @@ class ListPoliciesGrantingServiceAccessEntryAwsQuerySerializer extends _i4
     }
     if (policies != null) {
       result$
-        ..add(const _i4.XmlElementName('Policies'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('Policies'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           policies,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
-            [FullType(_i2.PolicyGrantingServiceAccess)],
+            _i2.BuiltList,
+            [FullType(PolicyGrantingServiceAccess)],
           ),
         ));
     }

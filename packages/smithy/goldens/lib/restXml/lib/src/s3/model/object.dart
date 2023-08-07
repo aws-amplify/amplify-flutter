@@ -6,9 +6,9 @@ library rest_xml_v1.s3.model.object; // ignore_for_file: no_leading_underscores_
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v1/src/s3/model/object_storage_class.dart' as _i2;
-import 'package:rest_xml_v1/src/s3/model/owner.dart' as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:rest_xml_v1/src/s3/model/object_storage_class.dart';
+import 'package:rest_xml_v1/src/s3/model/owner.dart';
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'object.g.dart';
 
@@ -20,8 +20,8 @@ abstract class S3Object
     DateTime? lastModified,
     String? eTag,
     int? size,
-    _i2.ObjectStorageClass? storageClass,
-    _i3.Owner? owner,
+    ObjectStorageClass? storageClass,
+    Owner? owner,
   }) {
     return _$S3Object._(
       key: key,
@@ -37,7 +37,7 @@ abstract class S3Object
 
   const S3Object._();
 
-  static const List<_i4.SmithySerializer<S3Object>> serializers = [
+  static const List<_i2.SmithySerializer<S3Object>> serializers = [
     ObjectRestXmlSerializer()
   ];
 
@@ -45,8 +45,8 @@ abstract class S3Object
   DateTime? get lastModified;
   String? get eTag;
   int? get size;
-  _i2.ObjectStorageClass? get storageClass;
-  _i3.Owner? get owner;
+  ObjectStorageClass? get storageClass;
+  Owner? get owner;
   @override
   List<Object?> get props => [
         key,
@@ -87,7 +87,7 @@ abstract class S3Object
   }
 }
 
-class ObjectRestXmlSerializer extends _i4.StructuredSmithySerializer<S3Object> {
+class ObjectRestXmlSerializer extends _i2.StructuredSmithySerializer<S3Object> {
   const ObjectRestXmlSerializer() : super('Object');
 
   @override
@@ -96,8 +96,8 @@ class ObjectRestXmlSerializer extends _i4.StructuredSmithySerializer<S3Object> {
         _$S3Object,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -136,8 +136,8 @@ class ObjectRestXmlSerializer extends _i4.StructuredSmithySerializer<S3Object> {
         case 'Owner':
           result.owner.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.Owner),
-          ) as _i3.Owner));
+            specifiedType: const FullType(Owner),
+          ) as Owner));
         case 'Size':
           result.size = (serializers.deserialize(
             value,
@@ -146,8 +146,8 @@ class ObjectRestXmlSerializer extends _i4.StructuredSmithySerializer<S3Object> {
         case 'StorageClass':
           result.storageClass = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ObjectStorageClass),
-          ) as _i2.ObjectStorageClass);
+            specifiedType: const FullType(ObjectStorageClass),
+          ) as ObjectStorageClass);
       }
     }
 
@@ -161,16 +161,16 @@ class ObjectRestXmlSerializer extends _i4.StructuredSmithySerializer<S3Object> {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'Object',
-        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final S3Object(:eTag, :key, :lastModified, :owner, :size, :storageClass) =
         object;
     if (eTag != null) {
       result$
-        ..add(const _i4.XmlElementName('ETag'))
+        ..add(const _i2.XmlElementName('ETag'))
         ..add(serializers.serialize(
           eTag,
           specifiedType: const FullType(String),
@@ -178,7 +178,7 @@ class ObjectRestXmlSerializer extends _i4.StructuredSmithySerializer<S3Object> {
     }
     if (key != null) {
       result$
-        ..add(const _i4.XmlElementName('Key'))
+        ..add(const _i2.XmlElementName('Key'))
         ..add(serializers.serialize(
           key,
           specifiedType: const FullType(String),
@@ -186,7 +186,7 @@ class ObjectRestXmlSerializer extends _i4.StructuredSmithySerializer<S3Object> {
     }
     if (lastModified != null) {
       result$
-        ..add(const _i4.XmlElementName('LastModified'))
+        ..add(const _i2.XmlElementName('LastModified'))
         ..add(serializers.serialize(
           lastModified,
           specifiedType: const FullType.nullable(DateTime),
@@ -194,15 +194,15 @@ class ObjectRestXmlSerializer extends _i4.StructuredSmithySerializer<S3Object> {
     }
     if (owner != null) {
       result$
-        ..add(const _i4.XmlElementName('Owner'))
+        ..add(const _i2.XmlElementName('Owner'))
         ..add(serializers.serialize(
           owner,
-          specifiedType: const FullType(_i3.Owner),
+          specifiedType: const FullType(Owner),
         ));
     }
     if (size != null) {
       result$
-        ..add(const _i4.XmlElementName('Size'))
+        ..add(const _i2.XmlElementName('Size'))
         ..add(serializers.serialize(
           size,
           specifiedType: const FullType.nullable(int),
@@ -210,10 +210,10 @@ class ObjectRestXmlSerializer extends _i4.StructuredSmithySerializer<S3Object> {
     }
     if (storageClass != null) {
       result$
-        ..add(const _i4.XmlElementName('StorageClass'))
+        ..add(const _i2.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           storageClass,
-          specifiedType: const FullType.nullable(_i2.ObjectStorageClass),
+          specifiedType: const FullType.nullable(ObjectStorageClass),
         ));
     }
     return result$;

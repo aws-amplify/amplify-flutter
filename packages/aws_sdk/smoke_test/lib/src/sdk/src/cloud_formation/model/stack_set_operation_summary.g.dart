@@ -10,9 +10,9 @@ class _$StackSetOperationSummary extends StackSetOperationSummary {
   @override
   final String? operationId;
   @override
-  final _i2.StackSetOperationAction? action;
+  final StackSetOperationAction? action;
   @override
-  final _i3.StackSetOperationStatus? status;
+  final StackSetOperationStatus? status;
   @override
   final DateTime? creationTimestamp;
   @override
@@ -20,9 +20,9 @@ class _$StackSetOperationSummary extends StackSetOperationSummary {
   @override
   final String? statusReason;
   @override
-  final _i4.StackSetOperationStatusDetails? statusDetails;
+  final StackSetOperationStatusDetails? statusDetails;
   @override
-  final _i5.StackSetOperationPreferences? operationPreferences;
+  final StackSetOperationPreferences? operationPreferences;
 
   factory _$StackSetOperationSummary(
           [void Function(StackSetOperationSummaryBuilder)? updates]) =>
@@ -87,13 +87,13 @@ class StackSetOperationSummaryBuilder
   String? get operationId => _$this._operationId;
   set operationId(String? operationId) => _$this._operationId = operationId;
 
-  _i2.StackSetOperationAction? _action;
-  _i2.StackSetOperationAction? get action => _$this._action;
-  set action(_i2.StackSetOperationAction? action) => _$this._action = action;
+  StackSetOperationAction? _action;
+  StackSetOperationAction? get action => _$this._action;
+  set action(StackSetOperationAction? action) => _$this._action = action;
 
-  _i3.StackSetOperationStatus? _status;
-  _i3.StackSetOperationStatus? get status => _$this._status;
-  set status(_i3.StackSetOperationStatus? status) => _$this._status = status;
+  StackSetOperationStatus? _status;
+  StackSetOperationStatus? get status => _$this._status;
+  set status(StackSetOperationStatus? status) => _$this._status = status;
 
   DateTime? _creationTimestamp;
   DateTime? get creationTimestamp => _$this._creationTimestamp;
@@ -109,18 +109,18 @@ class StackSetOperationSummaryBuilder
   String? get statusReason => _$this._statusReason;
   set statusReason(String? statusReason) => _$this._statusReason = statusReason;
 
-  _i4.StackSetOperationStatusDetailsBuilder? _statusDetails;
-  _i4.StackSetOperationStatusDetailsBuilder get statusDetails =>
-      _$this._statusDetails ??= new _i4.StackSetOperationStatusDetailsBuilder();
-  set statusDetails(_i4.StackSetOperationStatusDetailsBuilder? statusDetails) =>
+  StackSetOperationStatusDetailsBuilder? _statusDetails;
+  StackSetOperationStatusDetailsBuilder get statusDetails =>
+      _$this._statusDetails ??= new StackSetOperationStatusDetailsBuilder();
+  set statusDetails(StackSetOperationStatusDetailsBuilder? statusDetails) =>
       _$this._statusDetails = statusDetails;
 
-  _i5.StackSetOperationPreferencesBuilder? _operationPreferences;
-  _i5.StackSetOperationPreferencesBuilder get operationPreferences =>
+  StackSetOperationPreferencesBuilder? _operationPreferences;
+  StackSetOperationPreferencesBuilder get operationPreferences =>
       _$this._operationPreferences ??=
-          new _i5.StackSetOperationPreferencesBuilder();
+          new StackSetOperationPreferencesBuilder();
   set operationPreferences(
-          _i5.StackSetOperationPreferencesBuilder? operationPreferences) =>
+          StackSetOperationPreferencesBuilder? operationPreferences) =>
       _$this._operationPreferences = operationPreferences;
 
   StackSetOperationSummaryBuilder();

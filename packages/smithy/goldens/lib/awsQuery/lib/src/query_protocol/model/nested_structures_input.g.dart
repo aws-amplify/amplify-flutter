@@ -8,7 +8,7 @@ part of 'nested_structures_input.dart';
 
 class _$NestedStructuresInput extends NestedStructuresInput {
   @override
-  final _i3.StructArg? nested;
+  final StructArg? nested;
 
   factory _$NestedStructuresInput(
           [void Function(NestedStructuresInputBuilder)? updates]) =>
@@ -44,10 +44,9 @@ class NestedStructuresInputBuilder
     implements Builder<NestedStructuresInput, NestedStructuresInputBuilder> {
   _$NestedStructuresInput? _$v;
 
-  _i3.StructArgBuilder? _nested;
-  _i3.StructArgBuilder get nested =>
-      _$this._nested ??= new _i3.StructArgBuilder();
-  set nested(_i3.StructArgBuilder? nested) => _$this._nested = nested;
+  StructArgBuilder? _nested;
+  StructArgBuilder get nested => _$this._nested ??= new StructArgBuilder();
+  set nested(StructArgBuilder? nested) => _$this._nested = nested;
 
   NestedStructuresInputBuilder();
 

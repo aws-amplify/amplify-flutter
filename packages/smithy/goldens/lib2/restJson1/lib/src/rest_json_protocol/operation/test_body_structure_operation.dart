@@ -3,24 +3,21 @@
 
 library rest_json1_v2.rest_json_protocol.operation.test_body_structure_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i7;
+import 'dart:async' as _i4;
 
-import 'package:aws_common/aws_common.dart' as _i6;
-import 'package:rest_json1_v2/src/rest_json_protocol/common/endpoint_resolver.dart'
-    as _i5;
-import 'package:rest_json1_v2/src/rest_json_protocol/common/serializers.dart'
-    as _i4;
-import 'package:rest_json1_v2/src/rest_json_protocol/model/test_body_structure_input_output.dart'
-    as _i2;
+import 'package:aws_common/aws_common.dart' as _i3;
+import 'package:rest_json1_v2/src/rest_json_protocol/common/endpoint_resolver.dart';
+import 'package:rest_json1_v2/src/rest_json_protocol/common/serializers.dart';
+import 'package:rest_json1_v2/src/rest_json_protocol/model/test_body_structure_input_output.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 /// This example operation serializes a structure in the HTTP body. It should ensure Content-Type: application/json is used in all requests and that an "empty" body is an empty JSON document ({}).
 class TestBodyStructureOperation extends _i1.HttpOperation<
-    _i2.TestBodyStructureInputOutputPayload,
-    _i2.TestBodyStructureInputOutput,
-    _i2.TestBodyStructureInputOutputPayload,
-    _i2.TestBodyStructureInputOutput> {
+    TestBodyStructureInputOutputPayload,
+    TestBodyStructureInputOutput,
+    TestBodyStructureInputOutputPayload,
+    TestBodyStructureInputOutput> {
   /// This example operation serializes a structure in the HTTP body. It should ensure Content-Type: application/json is used in all requests and that an "empty" body is an empty JSON document ({}).
   TestBodyStructureOperation({
     required String region,
@@ -35,19 +32,19 @@ class TestBodyStructureOperation extends _i1.HttpOperation<
   @override
   late final List<
       _i1.HttpProtocol<
-          _i2.TestBodyStructureInputOutputPayload,
-          _i2.TestBodyStructureInputOutput,
-          _i2.TestBodyStructureInputOutputPayload,
-          _i2.TestBodyStructureInputOutput>> protocols = [
-    _i3.RestJson1Protocol(
-      serializers: _i4.serializers,
-      builderFactories: _i4.builderFactories,
+          TestBodyStructureInputOutputPayload,
+          TestBodyStructureInputOutput,
+          TestBodyStructureInputOutputPayload,
+          TestBodyStructureInputOutput>> protocols = [
+    _i2.RestJson1Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i3.WithSdkInvocationId(),
-            const _i3.WithSdkRequest(),
+            const _i2.WithSdkInvocationId(),
+            const _i2.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -55,8 +52,8 @@ class TestBodyStructureOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i3.AWSEndpoint _awsEndpoint = _i5.endpointResolver.resolve(
-    _i5.sdkId,
+  late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -69,7 +66,7 @@ class TestBodyStructureOperation extends _i1.HttpOperation<
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.TestBodyStructureInputOutput input) =>
+  _i1.HttpRequest buildRequest(TestBodyStructureInputOutput input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/body';
@@ -80,13 +77,13 @@ class TestBodyStructureOperation extends _i1.HttpOperation<
         }
       });
   @override
-  int successCode([_i2.TestBodyStructureInputOutput? output]) => 200;
+  int successCode([TestBodyStructureInputOutput? output]) => 200;
   @override
-  _i2.TestBodyStructureInputOutput buildOutput(
-    _i2.TestBodyStructureInputOutputPayload payload,
-    _i6.AWSBaseHttpResponse response,
+  TestBodyStructureInputOutput buildOutput(
+    TestBodyStructureInputOutputPayload payload,
+    _i3.AWSBaseHttpResponse response,
   ) =>
-      _i2.TestBodyStructureInputOutput.fromResponse(
+      TestBodyStructureInputOutput.fromResponse(
         payload,
         response,
       );
@@ -95,18 +92,18 @@ class TestBodyStructureOperation extends _i1.HttpOperation<
   @override
   String get runtimeTypeName => 'TestBodyStructure';
   @override
-  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+  _i2.AWSRetryer get retryer => _i2.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i2.TestBodyStructureInputOutput> run(
-    _i2.TestBodyStructureInputOutput input, {
-    _i6.AWSHttpClient? client,
+  _i1.SmithyOperation<TestBodyStructureInputOutput> run(
+    TestBodyStructureInputOutput input, {
+    _i3.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i7.runZoned(
+    return _i4.runZoned(
       () => super.run(
         input,
         client: client,
@@ -114,7 +111,7 @@ class TestBodyStructureOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
+        ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},
       },
     );
   }

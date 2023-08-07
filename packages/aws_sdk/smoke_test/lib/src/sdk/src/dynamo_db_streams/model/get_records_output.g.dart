@@ -8,7 +8,7 @@ part of 'get_records_output.dart';
 
 class _$GetRecordsOutput extends GetRecordsOutput {
   @override
-  final _i3.BuiltList<_i2.Record>? records;
+  final _i2.BuiltList<Record>? records;
   @override
   final String? nextShardIterator;
 
@@ -48,11 +48,10 @@ class GetRecordsOutputBuilder
     implements Builder<GetRecordsOutput, GetRecordsOutputBuilder> {
   _$GetRecordsOutput? _$v;
 
-  _i3.ListBuilder<_i2.Record>? _records;
-  _i3.ListBuilder<_i2.Record> get records =>
-      _$this._records ??= new _i3.ListBuilder<_i2.Record>();
-  set records(_i3.ListBuilder<_i2.Record>? records) =>
-      _$this._records = records;
+  _i2.ListBuilder<Record>? _records;
+  _i2.ListBuilder<Record> get records =>
+      _$this._records ??= new _i2.ListBuilder<Record>();
+  set records(_i2.ListBuilder<Record>? records) => _$this._records = records;
 
   String? _nextShardIterator;
   String? get nextShardIterator => _$this._nextShardIterator;

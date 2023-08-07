@@ -10,7 +10,7 @@ class _$TagPolicyRequest extends TagPolicyRequest {
   @override
   final String policyArn;
   @override
-  final _i4.BuiltList<_i3.Tag> tags;
+  final _i3.BuiltList<Tag> tags;
 
   factory _$TagPolicyRequest(
           [void Function(TagPolicyRequestBuilder)? updates]) =>
@@ -57,10 +57,9 @@ class TagPolicyRequestBuilder
   String? get policyArn => _$this._policyArn;
   set policyArn(String? policyArn) => _$this._policyArn = policyArn;
 
-  _i4.ListBuilder<_i3.Tag>? _tags;
-  _i4.ListBuilder<_i3.Tag> get tags =>
-      _$this._tags ??= new _i4.ListBuilder<_i3.Tag>();
-  set tags(_i4.ListBuilder<_i3.Tag>? tags) => _$this._tags = tags;
+  _i3.ListBuilder<Tag>? _tags;
+  _i3.ListBuilder<Tag> get tags => _$this._tags ??= new _i3.ListBuilder<Tag>();
+  set tags(_i3.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   TagPolicyRequestBuilder();
 

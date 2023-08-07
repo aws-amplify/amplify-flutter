@@ -10,7 +10,7 @@ class _$CreateDocumentationPartRequest extends CreateDocumentationPartRequest {
   @override
   final String restApiId;
   @override
-  final _i3.DocumentationPartLocation location;
+  final DocumentationPartLocation location;
   @override
   final String properties;
 
@@ -70,10 +70,10 @@ class CreateDocumentationPartRequestBuilder
   String? get restApiId => _$this._restApiId;
   set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
-  _i3.DocumentationPartLocationBuilder? _location;
-  _i3.DocumentationPartLocationBuilder get location =>
-      _$this._location ??= new _i3.DocumentationPartLocationBuilder();
-  set location(_i3.DocumentationPartLocationBuilder? location) =>
+  DocumentationPartLocationBuilder? _location;
+  DocumentationPartLocationBuilder get location =>
+      _$this._location ??= new DocumentationPartLocationBuilder();
+  set location(DocumentationPartLocationBuilder? location) =>
       _$this._location = location;
 
   String? _properties;
@@ -136,7 +136,7 @@ class CreateDocumentationPartRequestBuilder
 class _$CreateDocumentationPartRequestPayload
     extends CreateDocumentationPartRequestPayload {
   @override
-  final _i3.DocumentationPartLocation location;
+  final DocumentationPartLocation location;
   @override
   final String properties;
 
@@ -189,10 +189,10 @@ class CreateDocumentationPartRequestPayloadBuilder
             CreateDocumentationPartRequestPayloadBuilder> {
   _$CreateDocumentationPartRequestPayload? _$v;
 
-  _i3.DocumentationPartLocationBuilder? _location;
-  _i3.DocumentationPartLocationBuilder get location =>
-      _$this._location ??= new _i3.DocumentationPartLocationBuilder();
-  set location(_i3.DocumentationPartLocationBuilder? location) =>
+  DocumentationPartLocationBuilder? _location;
+  DocumentationPartLocationBuilder get location =>
+      _$this._location ??= new DocumentationPartLocationBuilder();
+  set location(DocumentationPartLocationBuilder? location) =>
       _$this._location = location;
 
   String? _properties;

@@ -11,7 +11,7 @@ class _$UpdateGlobalTableSettingsOutput
   @override
   final String? globalTableName;
   @override
-  final _i3.BuiltList<_i2.ReplicaSettingsDescription>? replicaSettings;
+  final _i2.BuiltList<ReplicaSettingsDescription>? replicaSettings;
 
   factory _$UpdateGlobalTableSettingsOutput(
           [void Function(UpdateGlobalTableSettingsOutputBuilder)? updates]) =>
@@ -59,12 +59,12 @@ class UpdateGlobalTableSettingsOutputBuilder
   set globalTableName(String? globalTableName) =>
       _$this._globalTableName = globalTableName;
 
-  _i3.ListBuilder<_i2.ReplicaSettingsDescription>? _replicaSettings;
-  _i3.ListBuilder<_i2.ReplicaSettingsDescription> get replicaSettings =>
+  _i2.ListBuilder<ReplicaSettingsDescription>? _replicaSettings;
+  _i2.ListBuilder<ReplicaSettingsDescription> get replicaSettings =>
       _$this._replicaSettings ??=
-          new _i3.ListBuilder<_i2.ReplicaSettingsDescription>();
+          new _i2.ListBuilder<ReplicaSettingsDescription>();
   set replicaSettings(
-          _i3.ListBuilder<_i2.ReplicaSettingsDescription>? replicaSettings) =>
+          _i2.ListBuilder<ReplicaSettingsDescription>? replicaSettings) =>
       _$this._replicaSettings = replicaSettings;
 
   UpdateGlobalTableSettingsOutputBuilder();

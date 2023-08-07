@@ -14,11 +14,11 @@ class _$VirtualMfaDevice extends VirtualMfaDevice {
   @override
   final _i2.Uint8List? qrCodePng;
   @override
-  final _i3.User? user;
+  final User? user;
   @override
   final DateTime? enableDate;
   @override
-  final _i5.BuiltList<_i4.Tag>? tags;
+  final _i3.BuiltList<Tag>? tags;
 
   factory _$VirtualMfaDevice(
           [void Function(VirtualMfaDeviceBuilder)? updates]) =>
@@ -87,18 +87,17 @@ class VirtualMfaDeviceBuilder
   _i2.Uint8List? get qrCodePng => _$this._qrCodePng;
   set qrCodePng(_i2.Uint8List? qrCodePng) => _$this._qrCodePng = qrCodePng;
 
-  _i3.UserBuilder? _user;
-  _i3.UserBuilder get user => _$this._user ??= new _i3.UserBuilder();
-  set user(_i3.UserBuilder? user) => _$this._user = user;
+  UserBuilder? _user;
+  UserBuilder get user => _$this._user ??= new UserBuilder();
+  set user(UserBuilder? user) => _$this._user = user;
 
   DateTime? _enableDate;
   DateTime? get enableDate => _$this._enableDate;
   set enableDate(DateTime? enableDate) => _$this._enableDate = enableDate;
 
-  _i5.ListBuilder<_i4.Tag>? _tags;
-  _i5.ListBuilder<_i4.Tag> get tags =>
-      _$this._tags ??= new _i5.ListBuilder<_i4.Tag>();
-  set tags(_i5.ListBuilder<_i4.Tag>? tags) => _$this._tags = tags;
+  _i3.ListBuilder<Tag>? _tags;
+  _i3.ListBuilder<Tag> get tags => _$this._tags ??= new _i3.ListBuilder<Tag>();
+  set tags(_i3.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   VirtualMfaDeviceBuilder();
 

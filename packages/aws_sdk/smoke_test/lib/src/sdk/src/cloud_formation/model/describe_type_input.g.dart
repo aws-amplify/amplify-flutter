@@ -8,7 +8,7 @@ part of 'describe_type_input.dart';
 
 class _$DescribeTypeInput extends DescribeTypeInput {
   @override
-  final _i3.RegistryType? type;
+  final RegistryType? type;
   @override
   final String? typeName;
   @override
@@ -71,9 +71,9 @@ class DescribeTypeInputBuilder
     implements Builder<DescribeTypeInput, DescribeTypeInputBuilder> {
   _$DescribeTypeInput? _$v;
 
-  _i3.RegistryType? _type;
-  _i3.RegistryType? get type => _$this._type;
-  set type(_i3.RegistryType? type) => _$this._type = type;
+  RegistryType? _type;
+  RegistryType? get type => _$this._type;
+  set type(RegistryType? type) => _$this._type = type;
 
   String? _typeName;
   String? get typeName => _$this._typeName;

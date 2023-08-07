@@ -4,11 +4,11 @@
 library smoke_test.iam.model.list_instance_profiles_for_role_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/instance_profile.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/instance_profile.dart';
 
 part 'list_instance_profiles_for_role_response.g.dart';
 
@@ -21,13 +21,13 @@ abstract class ListInstanceProfilesForRoleResponse
             ListInstanceProfilesForRoleResponseBuilder> {
   /// Contains the response to a successful ListInstanceProfilesForRole request.
   factory ListInstanceProfilesForRoleResponse({
-    required List<_i2.InstanceProfile> instanceProfiles,
+    required List<InstanceProfile> instanceProfiles,
     bool? isTruncated,
     String? marker,
   }) {
     isTruncated ??= false;
     return _$ListInstanceProfilesForRoleResponse._(
-      instanceProfiles: _i3.BuiltList(instanceProfiles),
+      instanceProfiles: _i2.BuiltList(instanceProfiles),
       isTruncated: isTruncated,
       marker: marker,
     );
@@ -47,7 +47,7 @@ abstract class ListInstanceProfilesForRoleResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<ListInstanceProfilesForRoleResponse>>
+  static const List<_i3.SmithySerializer<ListInstanceProfilesForRoleResponse>>
       serializers = [ListInstanceProfilesForRoleResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -56,7 +56,7 @@ abstract class ListInstanceProfilesForRoleResponse
   }
 
   /// A list of instance profiles.
-  _i3.BuiltList<_i2.InstanceProfile> get instanceProfiles;
+  _i2.BuiltList<InstanceProfile> get instanceProfiles;
 
   /// A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the `Marker` request parameter to retrieve more items. Note that IAM might return fewer than the `MaxItems` number of results even when there are more results available. We recommend that you check `IsTruncated` after every call to ensure that you receive all your results.
   bool get isTruncated;
@@ -89,7 +89,7 @@ abstract class ListInstanceProfilesForRoleResponse
   }
 }
 
-class ListInstanceProfilesForRoleResponseAwsQuerySerializer extends _i4
+class ListInstanceProfilesForRoleResponseAwsQuerySerializer extends _i3
     .StructuredSmithySerializer<ListInstanceProfilesForRoleResponse> {
   const ListInstanceProfilesForRoleResponseAwsQuerySerializer()
       : super('ListInstanceProfilesForRoleResponse');
@@ -100,8 +100,8 @@ class ListInstanceProfilesForRoleResponseAwsQuerySerializer extends _i4
         _$ListInstanceProfilesForRoleResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -123,16 +123,16 @@ class ListInstanceProfilesForRoleResponseAwsQuerySerializer extends _i4
       }
       switch (key) {
         case 'InstanceProfiles':
-          result.instanceProfiles.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.instanceProfiles.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.InstanceProfile)],
+              _i2.BuiltList,
+              [FullType(InstanceProfile)],
             ),
-          ) as _i3.BuiltList<_i2.InstanceProfile>));
+          ) as _i2.BuiltList<InstanceProfile>));
         case 'IsTruncated':
           result.isTruncated = (serializers.deserialize(
             value,
@@ -156,9 +156,9 @@ class ListInstanceProfilesForRoleResponseAwsQuerySerializer extends _i4
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'ListInstanceProfilesForRoleResponseResponse',
-        _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final ListInstanceProfilesForRoleResponse(
@@ -167,26 +167,26 @@ class ListInstanceProfilesForRoleResponseAwsQuerySerializer extends _i4
       :marker
     ) = object;
     result$
-      ..add(const _i4.XmlElementName('InstanceProfiles'))
+      ..add(const _i3.XmlElementName('InstanceProfiles'))
       ..add(
-          const _i4.XmlBuiltListSerializer(indexer: _i4.XmlIndexer.awsQueryList)
+          const _i3.XmlBuiltListSerializer(indexer: _i3.XmlIndexer.awsQueryList)
               .serialize(
         serializers,
         instanceProfiles,
         specifiedType: const FullType.nullable(
-          _i3.BuiltList,
-          [FullType(_i2.InstanceProfile)],
+          _i2.BuiltList,
+          [FullType(InstanceProfile)],
         ),
       ));
     result$
-      ..add(const _i4.XmlElementName('IsTruncated'))
+      ..add(const _i3.XmlElementName('IsTruncated'))
       ..add(serializers.serialize(
         isTruncated,
         specifiedType: const FullType(bool),
       ));
     if (marker != null) {
       result$
-        ..add(const _i4.XmlElementName('Marker'))
+        ..add(const _i3.XmlElementName('Marker'))
         ..add(serializers.serialize(
           marker,
           specifiedType: const FullType(String),

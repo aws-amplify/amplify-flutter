@@ -3,20 +3,18 @@
 
 library aws_json1_0_v2.json_rpc_10.operation.put_with_content_encoding_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i7;
+import 'dart:async' as _i4;
 
-import 'package:aws_common/aws_common.dart' as _i6;
-import 'package:aws_json1_0_v2/src/json_rpc_10/common/endpoint_resolver.dart'
-    as _i5;
-import 'package:aws_json1_0_v2/src/json_rpc_10/common/serializers.dart' as _i4;
-import 'package:aws_json1_0_v2/src/json_rpc_10/model/put_with_content_encoding_input.dart'
-    as _i2;
+import 'package:aws_common/aws_common.dart' as _i3;
+import 'package:aws_json1_0_v2/src/json_rpc_10/common/endpoint_resolver.dart';
+import 'package:aws_json1_0_v2/src/json_rpc_10/common/serializers.dart';
+import 'package:aws_json1_0_v2/src/json_rpc_10/model/put_with_content_encoding_input.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 class PutWithContentEncodingOperation extends _i1.HttpOperation<
-    _i2.PutWithContentEncodingInput,
-    _i2.PutWithContentEncodingInput,
+    PutWithContentEncodingInput,
+    PutWithContentEncodingInput,
     _i1.Unit,
     _i1.Unit> {
   PutWithContentEncodingOperation({
@@ -31,11 +29,11 @@ class PutWithContentEncodingOperation extends _i1.HttpOperation<
 
   @override
   late final List<
-      _i1.HttpProtocol<_i2.PutWithContentEncodingInput,
-          _i2.PutWithContentEncodingInput, _i1.Unit, _i1.Unit>> protocols = [
-    _i3.AwsJson1_0Protocol(
-      serializers: _i4.serializers,
-      builderFactories: _i4.builderFactories,
+      _i1.HttpProtocol<PutWithContentEncodingInput, PutWithContentEncodingInput,
+          _i1.Unit, _i1.Unit>> protocols = [
+    _i2.AwsJson1_0Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
@@ -44,8 +42,8 @@ class PutWithContentEncodingOperation extends _i1.HttpOperation<
               'JsonRpc10.PutWithContentEncoding',
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i3.WithSdkInvocationId(),
-            const _i3.WithSdkRequest(),
+            const _i2.WithSdkInvocationId(),
+            const _i2.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -53,8 +51,8 @@ class PutWithContentEncodingOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i3.AWSEndpoint _awsEndpoint = _i5.endpointResolver.resolve(
-    _i5.sdkId,
+  late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -67,7 +65,7 @@ class PutWithContentEncodingOperation extends _i1.HttpOperation<
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.PutWithContentEncodingInput input) =>
+  _i1.HttpRequest buildRequest(PutWithContentEncodingInput input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
@@ -82,7 +80,7 @@ class PutWithContentEncodingOperation extends _i1.HttpOperation<
   @override
   _i1.Unit buildOutput(
     _i1.Unit payload,
-    _i6.AWSBaseHttpResponse response,
+    _i3.AWSBaseHttpResponse response,
   ) =>
       payload;
   @override
@@ -90,18 +88,18 @@ class PutWithContentEncodingOperation extends _i1.HttpOperation<
   @override
   String get runtimeTypeName => 'PutWithContentEncoding';
   @override
-  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+  _i2.AWSRetryer get retryer => _i2.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
   _i1.SmithyOperation<_i1.Unit> run(
-    _i2.PutWithContentEncodingInput input, {
-    _i6.AWSHttpClient? client,
+    PutWithContentEncodingInput input, {
+    _i3.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i7.runZoned(
+    return _i4.runZoned(
       () => super.run(
         input,
         client: client,
@@ -109,7 +107,7 @@ class PutWithContentEncodingOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
+        ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},
       },
     );
   }

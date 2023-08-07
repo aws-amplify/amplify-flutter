@@ -19,10 +19,10 @@ class _$PutOrganizationConformancePackRequest
   @override
   final String? deliveryS3KeyPrefix;
   @override
-  final _i4.BuiltList<_i3.ConformancePackInputParameter>?
+  final _i3.BuiltList<ConformancePackInputParameter>?
       conformancePackInputParameters;
   @override
-  final _i4.BuiltList<String>? excludedAccounts;
+  final _i3.BuiltList<String>? excludedAccounts;
 
   factory _$PutOrganizationConformancePackRequest(
           [void Function(PutOrganizationConformancePackRequestBuilder)?
@@ -117,21 +117,21 @@ class PutOrganizationConformancePackRequestBuilder
   set deliveryS3KeyPrefix(String? deliveryS3KeyPrefix) =>
       _$this._deliveryS3KeyPrefix = deliveryS3KeyPrefix;
 
-  _i4.ListBuilder<_i3.ConformancePackInputParameter>?
+  _i3.ListBuilder<ConformancePackInputParameter>?
       _conformancePackInputParameters;
-  _i4.ListBuilder<_i3.ConformancePackInputParameter>
+  _i3.ListBuilder<ConformancePackInputParameter>
       get conformancePackInputParameters =>
           _$this._conformancePackInputParameters ??=
-              new _i4.ListBuilder<_i3.ConformancePackInputParameter>();
+              new _i3.ListBuilder<ConformancePackInputParameter>();
   set conformancePackInputParameters(
-          _i4.ListBuilder<_i3.ConformancePackInputParameter>?
+          _i3.ListBuilder<ConformancePackInputParameter>?
               conformancePackInputParameters) =>
       _$this._conformancePackInputParameters = conformancePackInputParameters;
 
-  _i4.ListBuilder<String>? _excludedAccounts;
-  _i4.ListBuilder<String> get excludedAccounts =>
-      _$this._excludedAccounts ??= new _i4.ListBuilder<String>();
-  set excludedAccounts(_i4.ListBuilder<String>? excludedAccounts) =>
+  _i3.ListBuilder<String>? _excludedAccounts;
+  _i3.ListBuilder<String> get excludedAccounts =>
+      _$this._excludedAccounts ??= new _i3.ListBuilder<String>();
+  set excludedAccounts(_i3.ListBuilder<String>? excludedAccounts) =>
       _$this._excludedAccounts = excludedAccounts;
 
   PutOrganizationConformancePackRequestBuilder();

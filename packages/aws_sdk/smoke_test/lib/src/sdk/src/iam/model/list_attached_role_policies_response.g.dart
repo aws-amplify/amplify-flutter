@@ -9,7 +9,7 @@ part of 'list_attached_role_policies_response.dart';
 class _$ListAttachedRolePoliciesResponse
     extends ListAttachedRolePoliciesResponse {
   @override
-  final _i3.BuiltList<_i2.AttachedPolicy>? attachedPolicies;
+  final _i2.BuiltList<AttachedPolicy>? attachedPolicies;
   @override
   final bool isTruncated;
   @override
@@ -61,10 +61,10 @@ class ListAttachedRolePoliciesResponseBuilder
             ListAttachedRolePoliciesResponseBuilder> {
   _$ListAttachedRolePoliciesResponse? _$v;
 
-  _i3.ListBuilder<_i2.AttachedPolicy>? _attachedPolicies;
-  _i3.ListBuilder<_i2.AttachedPolicy> get attachedPolicies =>
-      _$this._attachedPolicies ??= new _i3.ListBuilder<_i2.AttachedPolicy>();
-  set attachedPolicies(_i3.ListBuilder<_i2.AttachedPolicy>? attachedPolicies) =>
+  _i2.ListBuilder<AttachedPolicy>? _attachedPolicies;
+  _i2.ListBuilder<AttachedPolicy> get attachedPolicies =>
+      _$this._attachedPolicies ??= new _i2.ListBuilder<AttachedPolicy>();
+  set attachedPolicies(_i2.ListBuilder<AttachedPolicy>? attachedPolicies) =>
       _$this._attachedPolicies = attachedPolicies;
 
   bool? _isTruncated;

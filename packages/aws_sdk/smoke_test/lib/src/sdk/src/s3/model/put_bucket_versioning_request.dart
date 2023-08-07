@@ -3,32 +3,30 @@
 
 library smoke_test.s3.model.put_bucket_versioning_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_common/aws_common.dart' as _i3;
+import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/bucket_versioning_status.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/mfa_delete.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/versioning_configuration.dart'
-    as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/bucket_versioning_status.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/mfa_delete.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/versioning_configuration.dart';
 
 part 'put_bucket_versioning_request.g.dart';
 
 abstract class PutBucketVersioningRequest
     with
-        _i1.HttpInput<_i2.VersioningConfiguration>,
-        _i3.AWSEquatable<PutBucketVersioningRequest>
+        _i1.HttpInput<VersioningConfiguration>,
+        _i2.AWSEquatable<PutBucketVersioningRequest>
     implements
         Built<PutBucketVersioningRequest, PutBucketVersioningRequestBuilder>,
-        _i1.HasPayload<_i2.VersioningConfiguration> {
+        _i1.HasPayload<VersioningConfiguration> {
   factory PutBucketVersioningRequest({
     required String bucket,
     String? contentMd5,
-    _i4.ChecksumAlgorithm? checksumAlgorithm,
+    ChecksumAlgorithm? checksumAlgorithm,
     String? mfa,
-    required _i2.VersioningConfiguration versioningConfiguration,
+    required VersioningConfiguration versioningConfiguration,
     String? expectedBucketOwner,
   }) {
     return _$PutBucketVersioningRequest._(
@@ -48,8 +46,8 @@ abstract class PutBucketVersioningRequest
   const PutBucketVersioningRequest._();
 
   factory PutBucketVersioningRequest.fromRequest(
-    _i2.VersioningConfiguration payload,
-    _i3.AWSBaseHttpRequest request, {
+    VersioningConfiguration payload,
+    _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
       PutBucketVersioningRequest.build((b) {
@@ -58,7 +56,7 @@ abstract class PutBucketVersioningRequest
           b.contentMd5 = request.headers['Content-MD5']!;
         }
         if (request.headers['x-amz-sdk-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = _i4.ChecksumAlgorithm.values
+          b.checksumAlgorithm = ChecksumAlgorithm.values
               .byValue(request.headers['x-amz-sdk-checksum-algorithm']!);
         }
         if (request.headers['x-amz-mfa'] != null) {
@@ -73,8 +71,8 @@ abstract class PutBucketVersioningRequest
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.VersioningConfiguration>>
-      serializers = [PutBucketVersioningRequestRestXmlSerializer()];
+  static const List<_i1.SmithySerializer<VersioningConfiguration>> serializers =
+      [PutBucketVersioningRequestRestXmlSerializer()];
 
   /// The bucket name.
   String get bucket;
@@ -87,13 +85,13 @@ abstract class PutBucketVersioningRequest
   /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
   ///
   /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
-  _i4.ChecksumAlgorithm? get checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm;
 
   /// The concatenation of the authentication device's serial number, a space, and the value that is displayed on your authentication device.
   String? get mfa;
 
   /// Container for setting the versioning state.
-  _i2.VersioningConfiguration get versioningConfiguration;
+  VersioningConfiguration get versioningConfiguration;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
@@ -110,7 +108,7 @@ abstract class PutBucketVersioningRequest
   }
 
   @override
-  _i2.VersioningConfiguration getPayload() => versioningConfiguration;
+  VersioningConfiguration getPayload() => versioningConfiguration;
   @override
   List<Object?> get props => [
         bucket,
@@ -152,7 +150,7 @@ abstract class PutBucketVersioningRequest
 }
 
 class PutBucketVersioningRequestRestXmlSerializer
-    extends _i1.StructuredSmithySerializer<_i2.VersioningConfiguration> {
+    extends _i1.StructuredSmithySerializer<VersioningConfiguration> {
   const PutBucketVersioningRequestRestXmlSerializer()
       : super('PutBucketVersioningRequest');
 
@@ -169,12 +167,12 @@ class PutBucketVersioningRequestRestXmlSerializer
         )
       ];
   @override
-  _i2.VersioningConfiguration deserialize(
+  VersioningConfiguration deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i2.VersioningConfigurationBuilder();
+    final result = VersioningConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -187,13 +185,13 @@ class PutBucketVersioningRequestRestXmlSerializer
         case 'MfaDelete':
           result.mfaDelete = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.MfaDelete),
-          ) as _i5.MfaDelete);
+            specifiedType: const FullType(MfaDelete),
+          ) as MfaDelete);
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.BucketVersioningStatus),
-          ) as _i6.BucketVersioningStatus);
+            specifiedType: const FullType(BucketVersioningStatus),
+          ) as BucketVersioningStatus);
       }
     }
 
@@ -203,7 +201,7 @@ class PutBucketVersioningRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i2.VersioningConfiguration object, {
+    VersioningConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -212,13 +210,13 @@ class PutBucketVersioningRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i2.VersioningConfiguration(:mfaDelete, :status) = object;
+    final VersioningConfiguration(:mfaDelete, :status) = object;
     if (mfaDelete != null) {
       result$
         ..add(const _i1.XmlElementName('MfaDelete'))
         ..add(serializers.serialize(
           mfaDelete,
-          specifiedType: const FullType.nullable(_i5.MfaDelete),
+          specifiedType: const FullType.nullable(MfaDelete),
         ));
     }
     if (status != null) {
@@ -226,7 +224,7 @@ class PutBucketVersioningRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(_i6.BucketVersioningStatus),
+          specifiedType: const FullType.nullable(BucketVersioningStatus),
         ));
     }
     return result$;

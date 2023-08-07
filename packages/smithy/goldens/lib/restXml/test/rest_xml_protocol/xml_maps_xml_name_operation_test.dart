@@ -4,15 +4,12 @@
 // ignore_for_file: unused_element
 library rest_xml_v1.rest_xml_protocol.test.xml_maps_xml_name_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v1/src/rest_xml_protocol/model/greeting_struct.dart'
-    as _i7;
-import 'package:rest_xml_v1/src/rest_xml_protocol/model/xml_maps_xml_name_input_output.dart'
-    as _i5;
-import 'package:rest_xml_v1/src/rest_xml_protocol/operation/xml_maps_xml_name_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/greeting_struct.dart';
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/xml_maps_xml_name_input_output.dart';
+import 'package:rest_xml_v1/src/rest_xml_protocol/operation/xml_maps_xml_name_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -21,14 +18,14 @@ void main() {
     'XmlMapsXmlName (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.XmlMapsXmlNameOperation(
+        operation: XmlMapsXmlNameOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'XmlMapsXmlName',
           documentation: 'Serializes XML maps that have xmlName on members',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -68,14 +65,14 @@ void main() {
     'XmlMapsXmlName (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.XmlMapsXmlNameOperation(
+        operation: XmlMapsXmlNameOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'XmlMapsXmlName',
           documentation: 'Serializes XML lists',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -108,26 +105,26 @@ void main() {
 }
 
 class XmlMapsXmlNameInputOutputRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<_i5.XmlMapsXmlNameInputOutput> {
+    extends _i3.StructuredSmithySerializer<XmlMapsXmlNameInputOutput> {
   const XmlMapsXmlNameInputOutputRestXmlSerializer()
       : super('XmlMapsXmlNameInputOutput');
 
   @override
-  Iterable<Type> get types => const [_i5.XmlMapsXmlNameInputOutput];
+  Iterable<Type> get types => const [XmlMapsXmlNameInputOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
       ];
   @override
-  _i5.XmlMapsXmlNameInputOutput deserialize(
+  XmlMapsXmlNameInputOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.XmlMapsXmlNameInputOutputBuilder();
+    final result = XmlMapsXmlNameInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -141,13 +138,13 @@ class XmlMapsXmlNameInputOutputRestXmlSerializer
           result.myMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltMap,
+              _i4.BuiltMap,
               [
                 FullType(String),
-                FullType(_i7.GreetingStruct),
+                FullType(GreetingStruct),
               ],
             ),
-          ) as _i6.BuiltMap<String, _i7.GreetingStruct>));
+          ) as _i4.BuiltMap<String, GreetingStruct>));
       }
     }
 
@@ -157,7 +154,7 @@ class XmlMapsXmlNameInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.XmlMapsXmlNameInputOutput object, {
+    XmlMapsXmlNameInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -165,25 +162,25 @@ class XmlMapsXmlNameInputOutputRestXmlSerializer
 }
 
 class GreetingStructRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<_i7.GreetingStruct> {
+    extends _i3.StructuredSmithySerializer<GreetingStruct> {
   const GreetingStructRestXmlSerializer() : super('GreetingStruct');
 
   @override
-  Iterable<Type> get types => const [_i7.GreetingStruct];
+  Iterable<Type> get types => const [GreetingStruct];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
       ];
   @override
-  _i7.GreetingStruct deserialize(
+  GreetingStruct deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i7.GreetingStructBuilder();
+    final result = GreetingStructBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -207,7 +204,7 @@ class GreetingStructRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i7.GreetingStruct object, {
+    GreetingStruct object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

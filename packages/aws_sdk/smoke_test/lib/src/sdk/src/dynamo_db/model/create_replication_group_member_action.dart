@@ -4,15 +4,13 @@
 library smoke_test.dynamo_db.model.create_replication_group_member_action; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput_override.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_global_secondary_index.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_class.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput_override.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_global_secondary_index.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_class.dart';
 
 part 'create_replication_group_member_action.g.dart';
 
@@ -27,9 +25,9 @@ abstract class CreateReplicationGroupMemberAction
   factory CreateReplicationGroupMemberAction({
     required String regionName,
     String? kmsMasterKeyId,
-    _i2.ProvisionedThroughputOverride? provisionedThroughputOverride,
-    List<_i3.ReplicaGlobalSecondaryIndex>? globalSecondaryIndexes,
-    _i4.TableClass? tableClassOverride,
+    ProvisionedThroughputOverride? provisionedThroughputOverride,
+    List<ReplicaGlobalSecondaryIndex>? globalSecondaryIndexes,
+    TableClass? tableClassOverride,
   }) {
     return _$CreateReplicationGroupMemberAction._(
       regionName: regionName,
@@ -37,7 +35,7 @@ abstract class CreateReplicationGroupMemberAction
       provisionedThroughputOverride: provisionedThroughputOverride,
       globalSecondaryIndexes: globalSecondaryIndexes == null
           ? null
-          : _i5.BuiltList(globalSecondaryIndexes),
+          : _i2.BuiltList(globalSecondaryIndexes),
       tableClassOverride: tableClassOverride,
     );
   }
@@ -49,7 +47,7 @@ abstract class CreateReplicationGroupMemberAction
 
   const CreateReplicationGroupMemberAction._();
 
-  static const List<_i6.SmithySerializer<CreateReplicationGroupMemberAction>>
+  static const List<_i3.SmithySerializer<CreateReplicationGroupMemberAction>>
       serializers = [CreateReplicationGroupMemberActionAwsJson10Serializer()];
 
   /// The Region where the new replica will be created.
@@ -59,13 +57,13 @@ abstract class CreateReplicationGroupMemberAction
   String? get kmsMasterKeyId;
 
   /// Replica-specific provisioned throughput. If not specified, uses the source table's provisioned throughput settings.
-  _i2.ProvisionedThroughputOverride? get provisionedThroughputOverride;
+  ProvisionedThroughputOverride? get provisionedThroughputOverride;
 
   /// Replica-specific global secondary index settings.
-  _i5.BuiltList<_i3.ReplicaGlobalSecondaryIndex>? get globalSecondaryIndexes;
+  _i2.BuiltList<ReplicaGlobalSecondaryIndex>? get globalSecondaryIndexes;
 
   /// Replica-specific table class. If not specified, uses the source table's table class.
-  _i4.TableClass? get tableClassOverride;
+  TableClass? get tableClassOverride;
   @override
   List<Object?> get props => [
         regionName,
@@ -103,7 +101,7 @@ abstract class CreateReplicationGroupMemberAction
 }
 
 class CreateReplicationGroupMemberActionAwsJson10Serializer
-    extends _i6.StructuredSmithySerializer<CreateReplicationGroupMemberAction> {
+    extends _i3.StructuredSmithySerializer<CreateReplicationGroupMemberAction> {
   const CreateReplicationGroupMemberActionAwsJson10Serializer()
       : super('CreateReplicationGroupMemberAction');
 
@@ -113,8 +111,8 @@ class CreateReplicationGroupMemberActionAwsJson10Serializer
         _$CreateReplicationGroupMemberAction,
       ];
   @override
-  Iterable<_i6.ShapeId> get supportedProtocols => const [
-        _i6.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -148,21 +146,21 @@ class CreateReplicationGroupMemberActionAwsJson10Serializer
         case 'ProvisionedThroughputOverride':
           result.provisionedThroughputOverride.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ProvisionedThroughputOverride),
-          ) as _i2.ProvisionedThroughputOverride));
+            specifiedType: const FullType(ProvisionedThroughputOverride),
+          ) as ProvisionedThroughputOverride));
         case 'GlobalSecondaryIndexes':
           result.globalSecondaryIndexes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(_i3.ReplicaGlobalSecondaryIndex)],
+              _i2.BuiltList,
+              [FullType(ReplicaGlobalSecondaryIndex)],
             ),
-          ) as _i5.BuiltList<_i3.ReplicaGlobalSecondaryIndex>));
+          ) as _i2.BuiltList<ReplicaGlobalSecondaryIndex>));
         case 'TableClassOverride':
           result.tableClassOverride = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.TableClass),
-          ) as _i4.TableClass);
+            specifiedType: const FullType(TableClass),
+          ) as TableClass);
       }
     }
 
@@ -203,7 +201,7 @@ class CreateReplicationGroupMemberActionAwsJson10Serializer
         ..add('ProvisionedThroughputOverride')
         ..add(serializers.serialize(
           provisionedThroughputOverride,
-          specifiedType: const FullType(_i2.ProvisionedThroughputOverride),
+          specifiedType: const FullType(ProvisionedThroughputOverride),
         ));
     }
     if (globalSecondaryIndexes != null) {
@@ -212,8 +210,8 @@ class CreateReplicationGroupMemberActionAwsJson10Serializer
         ..add(serializers.serialize(
           globalSecondaryIndexes,
           specifiedType: const FullType(
-            _i5.BuiltList,
-            [FullType(_i3.ReplicaGlobalSecondaryIndex)],
+            _i2.BuiltList,
+            [FullType(ReplicaGlobalSecondaryIndex)],
           ),
         ));
     }
@@ -222,7 +220,7 @@ class CreateReplicationGroupMemberActionAwsJson10Serializer
         ..add('TableClassOverride')
         ..add(serializers.serialize(
           tableClassOverride,
-          specifiedType: const FullType(_i4.TableClass),
+          specifiedType: const FullType(TableClass),
         ));
     }
     return result$;

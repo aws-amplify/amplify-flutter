@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.describe_remediation_execution_status_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/remediation_execution_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/remediation_execution_status.dart';
 
 part 'describe_remediation_execution_status_response.g.dart';
 
@@ -20,13 +19,13 @@ abstract class DescribeRemediationExecutionStatusResponse
         Built<DescribeRemediationExecutionStatusResponse,
             DescribeRemediationExecutionStatusResponseBuilder> {
   factory DescribeRemediationExecutionStatusResponse({
-    List<_i2.RemediationExecutionStatus>? remediationExecutionStatuses,
+    List<RemediationExecutionStatus>? remediationExecutionStatuses,
     String? nextToken,
   }) {
     return _$DescribeRemediationExecutionStatusResponse._(
       remediationExecutionStatuses: remediationExecutionStatuses == null
           ? null
-          : _i3.BuiltList(remediationExecutionStatuses),
+          : _i2.BuiltList(remediationExecutionStatuses),
       nextToken: nextToken,
     );
   }
@@ -45,14 +44,13 @@ abstract class DescribeRemediationExecutionStatusResponse
       payload;
 
   static const List<
-          _i4.SmithySerializer<DescribeRemediationExecutionStatusResponse>>
+          _i3.SmithySerializer<DescribeRemediationExecutionStatusResponse>>
       serializers = [
     DescribeRemediationExecutionStatusResponseAwsJson11Serializer()
   ];
 
   /// Returns a list of remediation execution statuses objects.
-  _i3.BuiltList<_i2.RemediationExecutionStatus>?
-      get remediationExecutionStatuses;
+  _i2.BuiltList<RemediationExecutionStatus>? get remediationExecutionStatuses;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -77,7 +75,7 @@ abstract class DescribeRemediationExecutionStatusResponse
   }
 }
 
-class DescribeRemediationExecutionStatusResponseAwsJson11Serializer extends _i4
+class DescribeRemediationExecutionStatusResponseAwsJson11Serializer extends _i3
     .StructuredSmithySerializer<DescribeRemediationExecutionStatusResponse> {
   const DescribeRemediationExecutionStatusResponseAwsJson11Serializer()
       : super('DescribeRemediationExecutionStatusResponse');
@@ -88,8 +86,8 @@ class DescribeRemediationExecutionStatusResponseAwsJson11Serializer extends _i4
         _$DescribeRemediationExecutionStatusResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -114,10 +112,10 @@ class DescribeRemediationExecutionStatusResponseAwsJson11Serializer extends _i4
           result.remediationExecutionStatuses.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.RemediationExecutionStatus)],
+              _i2.BuiltList,
+              [FullType(RemediationExecutionStatus)],
             ),
-          ) as _i3.BuiltList<_i2.RemediationExecutionStatus>));
+          ) as _i2.BuiltList<RemediationExecutionStatus>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -146,8 +144,8 @@ class DescribeRemediationExecutionStatusResponseAwsJson11Serializer extends _i4
         ..add(serializers.serialize(
           remediationExecutionStatuses,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.RemediationExecutionStatus)],
+            _i2.BuiltList,
+            [FullType(RemediationExecutionStatus)],
           ),
         ));
     }

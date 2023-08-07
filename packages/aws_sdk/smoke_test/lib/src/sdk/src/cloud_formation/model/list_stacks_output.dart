@@ -4,12 +4,11 @@
 library smoke_test.cloud_formation.model.list_stacks_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_summary.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_summary.dart';
 
 part 'list_stacks_output.g.dart';
 
@@ -19,12 +18,12 @@ abstract class ListStacksOutput
     implements Built<ListStacksOutput, ListStacksOutputBuilder> {
   /// The output for ListStacks action.
   factory ListStacksOutput({
-    List<_i2.StackSummary>? stackSummaries,
+    List<StackSummary>? stackSummaries,
     String? nextToken,
   }) {
     return _$ListStacksOutput._(
       stackSummaries:
-          stackSummaries == null ? null : _i3.BuiltList(stackSummaries),
+          stackSummaries == null ? null : _i2.BuiltList(stackSummaries),
       nextToken: nextToken,
     );
   }
@@ -42,12 +41,12 @@ abstract class ListStacksOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<ListStacksOutput>> serializers = [
+  static const List<_i3.SmithySerializer<ListStacksOutput>> serializers = [
     ListStacksOutputAwsQuerySerializer()
   ];
 
   /// A list of `StackSummary` structures containing information about the specified stacks.
-  _i3.BuiltList<_i2.StackSummary>? get stackSummaries;
+  _i2.BuiltList<StackSummary>? get stackSummaries;
 
   /// If the output exceeds 1 MB in size, a string that identifies the next page of stacks. If no additional page exists, this value is null.
   String? get nextToken;
@@ -72,7 +71,7 @@ abstract class ListStacksOutput
 }
 
 class ListStacksOutputAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<ListStacksOutput> {
+    extends _i3.StructuredSmithySerializer<ListStacksOutput> {
   const ListStacksOutputAwsQuerySerializer() : super('ListStacksOutput');
 
   @override
@@ -81,8 +80,8 @@ class ListStacksOutputAwsQuerySerializer
         _$ListStacksOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -104,16 +103,16 @@ class ListStacksOutputAwsQuerySerializer
       }
       switch (key) {
         case 'StackSummaries':
-          result.stackSummaries.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.stackSummaries.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.StackSummary)],
+              _i2.BuiltList,
+              [FullType(StackSummary)],
             ),
-          ) as _i3.BuiltList<_i2.StackSummary>));
+          ) as _i2.BuiltList<StackSummary>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -132,29 +131,29 @@ class ListStacksOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'ListStacksOutputResponse',
-        _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final ListStacksOutput(:stackSummaries, :nextToken) = object;
     if (stackSummaries != null) {
       result$
-        ..add(const _i4.XmlElementName('StackSummaries'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('StackSummaries'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           stackSummaries,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
-            [FullType(_i2.StackSummary)],
+            _i2.BuiltList,
+            [FullType(StackSummary)],
           ),
         ));
     }
     if (nextToken != null) {
       result$
-        ..add(const _i4.XmlElementName('NextToken'))
+        ..add(const _i3.XmlElementName('NextToken'))
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),

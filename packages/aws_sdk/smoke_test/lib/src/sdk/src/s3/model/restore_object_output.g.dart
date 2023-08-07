@@ -8,7 +8,7 @@ part of 'restore_object_output.dart';
 
 class _$RestoreObjectOutput extends RestoreObjectOutput {
   @override
-  final _i3.RequestCharged? requestCharged;
+  final RequestCharged? requestCharged;
   @override
   final String? restoreOutputPath;
 
@@ -50,9 +50,9 @@ class RestoreObjectOutputBuilder
     implements Builder<RestoreObjectOutput, RestoreObjectOutputBuilder> {
   _$RestoreObjectOutput? _$v;
 
-  _i3.RequestCharged? _requestCharged;
-  _i3.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i3.RequestCharged? requestCharged) =>
+  RequestCharged? _requestCharged;
+  RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
   String? _restoreOutputPath;

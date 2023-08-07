@@ -16,7 +16,7 @@ class _$Resource extends Resource {
   @override
   final String? path;
   @override
-  final _i3.BuiltMap<String, _i2.Method>? resourceMethods;
+  final _i2.BuiltMap<String, Method>? resourceMethods;
 
   factory _$Resource([void Function(ResourceBuilder)? updates]) =>
       (new ResourceBuilder()..update(updates))._build();
@@ -75,10 +75,10 @@ class ResourceBuilder implements Builder<Resource, ResourceBuilder> {
   String? get path => _$this._path;
   set path(String? path) => _$this._path = path;
 
-  _i3.MapBuilder<String, _i2.Method>? _resourceMethods;
-  _i3.MapBuilder<String, _i2.Method> get resourceMethods =>
-      _$this._resourceMethods ??= new _i3.MapBuilder<String, _i2.Method>();
-  set resourceMethods(_i3.MapBuilder<String, _i2.Method>? resourceMethods) =>
+  _i2.MapBuilder<String, Method>? _resourceMethods;
+  _i2.MapBuilder<String, Method> get resourceMethods =>
+      _$this._resourceMethods ??= new _i2.MapBuilder<String, Method>();
+  set resourceMethods(_i2.MapBuilder<String, Method>? resourceMethods) =>
       _$this._resourceMethods = resourceMethods;
 
   ResourceBuilder();

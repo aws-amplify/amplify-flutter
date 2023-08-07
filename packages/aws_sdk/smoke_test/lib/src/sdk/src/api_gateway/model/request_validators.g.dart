@@ -8,7 +8,7 @@ part of 'request_validators.dart';
 
 class _$RequestValidators extends RequestValidators {
   @override
-  final _i3.BuiltList<_i2.RequestValidator>? items;
+  final _i2.BuiltList<RequestValidator>? items;
   @override
   final String? position;
 
@@ -48,11 +48,10 @@ class RequestValidatorsBuilder
     implements Builder<RequestValidators, RequestValidatorsBuilder> {
   _$RequestValidators? _$v;
 
-  _i3.ListBuilder<_i2.RequestValidator>? _items;
-  _i3.ListBuilder<_i2.RequestValidator> get items =>
-      _$this._items ??= new _i3.ListBuilder<_i2.RequestValidator>();
-  set items(_i3.ListBuilder<_i2.RequestValidator>? items) =>
-      _$this._items = items;
+  _i2.ListBuilder<RequestValidator>? _items;
+  _i2.ListBuilder<RequestValidator> get items =>
+      _$this._items ??= new _i2.ListBuilder<RequestValidator>();
+  set items(_i2.ListBuilder<RequestValidator>? items) => _$this._items = items;
 
   String? _position;
   String? get position => _$this._position;

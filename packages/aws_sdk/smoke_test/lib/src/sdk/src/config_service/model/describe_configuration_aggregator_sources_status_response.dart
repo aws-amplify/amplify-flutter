@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.describe_configuration_aggregator_sources_status_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/aggregated_source_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/aggregated_source_status.dart';
 
 part 'describe_configuration_aggregator_sources_status_response.g.dart';
 
@@ -20,13 +19,13 @@ abstract class DescribeConfigurationAggregatorSourcesStatusResponse
         Built<DescribeConfigurationAggregatorSourcesStatusResponse,
             DescribeConfigurationAggregatorSourcesStatusResponseBuilder> {
   factory DescribeConfigurationAggregatorSourcesStatusResponse({
-    List<_i2.AggregatedSourceStatus>? aggregatedSourceStatusList,
+    List<AggregatedSourceStatus>? aggregatedSourceStatusList,
     String? nextToken,
   }) {
     return _$DescribeConfigurationAggregatorSourcesStatusResponse._(
       aggregatedSourceStatusList: aggregatedSourceStatusList == null
           ? null
-          : _i3.BuiltList(aggregatedSourceStatusList),
+          : _i2.BuiltList(aggregatedSourceStatusList),
       nextToken: nextToken,
     );
   }
@@ -46,13 +45,13 @@ abstract class DescribeConfigurationAggregatorSourcesStatusResponse
       payload;
 
   static const List<
-      _i4.SmithySerializer<
+      _i3.SmithySerializer<
           DescribeConfigurationAggregatorSourcesStatusResponse>> serializers = [
     DescribeConfigurationAggregatorSourcesStatusResponseAwsJson11Serializer()
   ];
 
   /// Returns an AggregatedSourceStatus object.
-  _i3.BuiltList<_i2.AggregatedSourceStatus>? get aggregatedSourceStatusList;
+  _i2.BuiltList<AggregatedSourceStatus>? get aggregatedSourceStatusList;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -78,7 +77,7 @@ abstract class DescribeConfigurationAggregatorSourcesStatusResponse
 }
 
 class DescribeConfigurationAggregatorSourcesStatusResponseAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<
+    extends _i3.StructuredSmithySerializer<
         DescribeConfigurationAggregatorSourcesStatusResponse> {
   const DescribeConfigurationAggregatorSourcesStatusResponseAwsJson11Serializer()
       : super('DescribeConfigurationAggregatorSourcesStatusResponse');
@@ -89,8 +88,8 @@ class DescribeConfigurationAggregatorSourcesStatusResponseAwsJson11Serializer
         _$DescribeConfigurationAggregatorSourcesStatusResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -116,10 +115,10 @@ class DescribeConfigurationAggregatorSourcesStatusResponseAwsJson11Serializer
           result.aggregatedSourceStatusList.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.AggregatedSourceStatus)],
+              _i2.BuiltList,
+              [FullType(AggregatedSourceStatus)],
             ),
-          ) as _i3.BuiltList<_i2.AggregatedSourceStatus>));
+          ) as _i2.BuiltList<AggregatedSourceStatus>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -148,8 +147,8 @@ class DescribeConfigurationAggregatorSourcesStatusResponseAwsJson11Serializer
         ..add(serializers.serialize(
           aggregatedSourceStatusList,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.AggregatedSourceStatus)],
+            _i2.BuiltList,
+            [FullType(AggregatedSourceStatus)],
           ),
         ));
     }

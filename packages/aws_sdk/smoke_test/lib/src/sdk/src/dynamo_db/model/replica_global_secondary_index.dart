@@ -6,9 +6,8 @@ library smoke_test.dynamo_db.model.replica_global_secondary_index; // ignore_for
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput_override.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput_override.dart';
 
 part 'replica_global_secondary_index.g.dart';
 
@@ -20,7 +19,7 @@ abstract class ReplicaGlobalSecondaryIndex
   /// Represents the properties of a replica global secondary index.
   factory ReplicaGlobalSecondaryIndex({
     required String indexName,
-    _i2.ProvisionedThroughputOverride? provisionedThroughputOverride,
+    ProvisionedThroughputOverride? provisionedThroughputOverride,
   }) {
     return _$ReplicaGlobalSecondaryIndex._(
       indexName: indexName,
@@ -35,14 +34,14 @@ abstract class ReplicaGlobalSecondaryIndex
 
   const ReplicaGlobalSecondaryIndex._();
 
-  static const List<_i3.SmithySerializer<ReplicaGlobalSecondaryIndex>>
+  static const List<_i2.SmithySerializer<ReplicaGlobalSecondaryIndex>>
       serializers = [ReplicaGlobalSecondaryIndexAwsJson10Serializer()];
 
   /// The name of the global secondary index.
   String get indexName;
 
   /// Replica table GSI-specific provisioned throughput. If not specified, uses the source table GSI's read capacity settings.
-  _i2.ProvisionedThroughputOverride? get provisionedThroughputOverride;
+  ProvisionedThroughputOverride? get provisionedThroughputOverride;
   @override
   List<Object?> get props => [
         indexName,
@@ -64,7 +63,7 @@ abstract class ReplicaGlobalSecondaryIndex
 }
 
 class ReplicaGlobalSecondaryIndexAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<ReplicaGlobalSecondaryIndex> {
+    extends _i2.StructuredSmithySerializer<ReplicaGlobalSecondaryIndex> {
   const ReplicaGlobalSecondaryIndexAwsJson10Serializer()
       : super('ReplicaGlobalSecondaryIndex');
 
@@ -74,8 +73,8 @@ class ReplicaGlobalSecondaryIndexAwsJson10Serializer
         _$ReplicaGlobalSecondaryIndex,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -104,8 +103,8 @@ class ReplicaGlobalSecondaryIndexAwsJson10Serializer
         case 'ProvisionedThroughputOverride':
           result.provisionedThroughputOverride.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ProvisionedThroughputOverride),
-          ) as _i2.ProvisionedThroughputOverride));
+            specifiedType: const FullType(ProvisionedThroughputOverride),
+          ) as ProvisionedThroughputOverride));
       }
     }
 
@@ -135,7 +134,7 @@ class ReplicaGlobalSecondaryIndexAwsJson10Serializer
         ..add('ProvisionedThroughputOverride')
         ..add(serializers.serialize(
           provisionedThroughputOverride,
-          specifiedType: const FullType(_i2.ProvisionedThroughputOverride),
+          specifiedType: const FullType(ProvisionedThroughputOverride),
         ));
     }
     return result$;

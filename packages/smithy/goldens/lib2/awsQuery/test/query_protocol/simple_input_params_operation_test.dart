@@ -4,16 +4,14 @@
 // ignore_for_file: unused_element
 library aws_query_v2.query_protocol.test.simple_input_params_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:typed_data' as _i6;
+import 'dart:typed_data' as _i4;
 
-import 'package:aws_query_v2/src/query_protocol/model/foo_enum.dart' as _i7;
-import 'package:aws_query_v2/src/query_protocol/model/integer_enum.dart' as _i8;
-import 'package:aws_query_v2/src/query_protocol/model/simple_input_params_input.dart'
-    as _i5;
-import 'package:aws_query_v2/src/query_protocol/operation/simple_input_params_operation.dart'
-    as _i3;
+import 'package:aws_query_v2/src/query_protocol/model/foo_enum.dart';
+import 'package:aws_query_v2/src/query_protocol/model/integer_enum.dart';
+import 'package:aws_query_v2/src/query_protocol/model/simple_input_params_input.dart';
+import 'package:aws_query_v2/src/query_protocol/operation/simple_input_params_operation.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -22,14 +20,14 @@ void main() {
     'QuerySimpleInputParamsStrings (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleInputParamsOperation(
+        operation: SimpleInputParamsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'QuerySimpleInputParamsStrings',
           documentation: 'Serializes strings',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -63,14 +61,14 @@ void main() {
     'QuerySimpleInputParamsStringAndBooleanTrue (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleInputParamsOperation(
+        operation: SimpleInputParamsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'QuerySimpleInputParamsStringAndBooleanTrue',
           documentation: 'Serializes booleans that are true',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -104,14 +102,14 @@ void main() {
     'QuerySimpleInputParamsStringsAndBooleanFalse (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleInputParamsOperation(
+        operation: SimpleInputParamsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'QuerySimpleInputParamsStringsAndBooleanFalse',
           documentation: 'Serializes booleans that are false',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -142,14 +140,14 @@ void main() {
     'QuerySimpleInputParamsInteger (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleInputParamsOperation(
+        operation: SimpleInputParamsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'QuerySimpleInputParamsInteger',
           documentation: 'Serializes integers',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -180,14 +178,14 @@ void main() {
     'QuerySimpleInputParamsFloat (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleInputParamsOperation(
+        operation: SimpleInputParamsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'QuerySimpleInputParamsFloat',
           documentation: 'Serializes floats',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -218,14 +216,14 @@ void main() {
     'QuerySimpleInputParamsBlob (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleInputParamsOperation(
+        operation: SimpleInputParamsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'QuerySimpleInputParamsBlob',
           documentation: 'Blobs are base64 encoded in the query string',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -256,14 +254,14 @@ void main() {
     'QueryEnums (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleInputParamsOperation(
+        operation: SimpleInputParamsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'QueryEnums',
           documentation: 'Serializes enums in the query string',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -294,14 +292,14 @@ void main() {
     'QueryIntEnums (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleInputParamsOperation(
+        operation: SimpleInputParamsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'QueryIntEnums',
           documentation: 'Serializes intEnums in the query string',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -332,14 +330,14 @@ void main() {
     'AwsQuerySupportsNaNFloatInputs (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleInputParamsOperation(
+        operation: SimpleInputParamsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'AwsQuerySupportsNaNFloatInputs',
           documentation: 'Supports handling NaN float values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -374,14 +372,14 @@ void main() {
     'AwsQuerySupportsInfinityFloatInputs (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleInputParamsOperation(
+        operation: SimpleInputParamsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'AwsQuerySupportsInfinityFloatInputs',
           documentation: 'Supports handling Infinity float values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -416,14 +414,14 @@ void main() {
     'AwsQuerySupportsNegativeInfinityFloatInputs (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleInputParamsOperation(
+        operation: SimpleInputParamsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'AwsQuerySupportsNegativeInfinityFloatInputs',
           documentation: 'Supports handling -Infinity float values.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -457,26 +455,26 @@ void main() {
 }
 
 class SimpleInputParamsInputAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<_i5.SimpleInputParamsInput> {
+    extends _i3.StructuredSmithySerializer<SimpleInputParamsInput> {
   const SimpleInputParamsInputAwsQuerySerializer()
       : super('SimpleInputParamsInput');
 
   @override
-  Iterable<Type> get types => const [_i5.SimpleInputParamsInput];
+  Iterable<Type> get types => const [SimpleInputParamsInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
       ];
   @override
-  _i5.SimpleInputParamsInput deserialize(
+  SimpleInputParamsInput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.SimpleInputParamsInputBuilder();
+    final result = SimpleInputParamsInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -519,18 +517,18 @@ class SimpleInputParamsInputAwsQuerySerializer
         case 'Qux':
           result.qux = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.Uint8List),
-          ) as _i6.Uint8List);
+            specifiedType: const FullType(_i4.Uint8List),
+          ) as _i4.Uint8List);
         case 'FooEnum':
           result.fooEnum = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i7.FooEnum),
-          ) as _i7.FooEnum);
+            specifiedType: const FullType(FooEnum),
+          ) as FooEnum);
         case 'IntegerEnum':
           result.integerEnum = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i8.IntegerEnum),
-          ) as _i8.IntegerEnum);
+            specifiedType: const FullType(IntegerEnum),
+          ) as IntegerEnum);
       }
     }
 
@@ -540,7 +538,7 @@ class SimpleInputParamsInputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.SimpleInputParamsInput object, {
+    SimpleInputParamsInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

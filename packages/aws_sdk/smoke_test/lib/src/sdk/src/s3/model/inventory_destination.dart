@@ -6,9 +6,8 @@ library smoke_test.s3.model.inventory_destination; // ignore_for_file: no_leadin
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/inventory_s3_bucket_destination.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/inventory_s3_bucket_destination.dart';
 
 part 'inventory_destination.g.dart';
 
@@ -18,7 +17,7 @@ abstract class InventoryDestination
     implements Built<InventoryDestination, InventoryDestinationBuilder> {
   /// Specifies the inventory configuration for an Amazon S3 bucket.
   factory InventoryDestination(
-      {required _i2.InventoryS3BucketDestination s3BucketDestination}) {
+      {required InventoryS3BucketDestination s3BucketDestination}) {
     return _$InventoryDestination._(s3BucketDestination: s3BucketDestination);
   }
 
@@ -29,12 +28,12 @@ abstract class InventoryDestination
 
   const InventoryDestination._();
 
-  static const List<_i3.SmithySerializer<InventoryDestination>> serializers = [
+  static const List<_i2.SmithySerializer<InventoryDestination>> serializers = [
     InventoryDestinationRestXmlSerializer()
   ];
 
   /// Contains the bucket name, file format, bucket owner (optional), and prefix (optional) where inventory results are published.
-  _i2.InventoryS3BucketDestination get s3BucketDestination;
+  InventoryS3BucketDestination get s3BucketDestination;
   @override
   List<Object?> get props => [s3BucketDestination];
   @override
@@ -49,7 +48,7 @@ abstract class InventoryDestination
 }
 
 class InventoryDestinationRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<InventoryDestination> {
+    extends _i2.StructuredSmithySerializer<InventoryDestination> {
   const InventoryDestinationRestXmlSerializer() : super('InventoryDestination');
 
   @override
@@ -58,8 +57,8 @@ class InventoryDestinationRestXmlSerializer
         _$InventoryDestination,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -83,8 +82,8 @@ class InventoryDestinationRestXmlSerializer
         case 'S3BucketDestination':
           result.s3BucketDestination.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.InventoryS3BucketDestination),
-          ) as _i2.InventoryS3BucketDestination));
+            specifiedType: const FullType(InventoryS3BucketDestination),
+          ) as InventoryS3BucketDestination));
       }
     }
 
@@ -98,17 +97,17 @@ class InventoryDestinationRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'InventoryDestination',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final InventoryDestination(:s3BucketDestination) = object;
     result$
-      ..add(const _i3.XmlElementName('S3BucketDestination'))
+      ..add(const _i2.XmlElementName('S3BucketDestination'))
       ..add(serializers.serialize(
         s3BucketDestination,
-        specifiedType: const FullType(_i2.InventoryS3BucketDestination),
+        specifiedType: const FullType(InventoryS3BucketDestination),
       ));
     return result$;
   }

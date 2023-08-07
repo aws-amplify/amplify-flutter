@@ -7,9 +7,8 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:fixnum/fixnum.dart' as _i2;
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/auto_scaling_settings_update.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/auto_scaling_settings_update.dart';
 
 part 'replica_global_secondary_index_settings_update.g.dart';
 
@@ -24,8 +23,7 @@ abstract class ReplicaGlobalSecondaryIndexSettingsUpdate
   factory ReplicaGlobalSecondaryIndexSettingsUpdate({
     required String indexName,
     _i2.Int64? provisionedReadCapacityUnits,
-    _i3.AutoScalingSettingsUpdate?
-        provisionedReadCapacityAutoScalingSettingsUpdate,
+    AutoScalingSettingsUpdate? provisionedReadCapacityAutoScalingSettingsUpdate,
   }) {
     return _$ReplicaGlobalSecondaryIndexSettingsUpdate._(
       indexName: indexName,
@@ -43,7 +41,7 @@ abstract class ReplicaGlobalSecondaryIndexSettingsUpdate
   const ReplicaGlobalSecondaryIndexSettingsUpdate._();
 
   static const List<
-          _i4.SmithySerializer<ReplicaGlobalSecondaryIndexSettingsUpdate>>
+          _i3.SmithySerializer<ReplicaGlobalSecondaryIndexSettingsUpdate>>
       serializers = [
     ReplicaGlobalSecondaryIndexSettingsUpdateAwsJson10Serializer()
   ];
@@ -55,7 +53,7 @@ abstract class ReplicaGlobalSecondaryIndexSettingsUpdate
   _i2.Int64? get provisionedReadCapacityUnits;
 
   /// Auto scaling settings for managing a global secondary index replica's read capacity units.
-  _i3.AutoScalingSettingsUpdate?
+  AutoScalingSettingsUpdate?
       get provisionedReadCapacityAutoScalingSettingsUpdate;
   @override
   List<Object?> get props => [
@@ -83,7 +81,7 @@ abstract class ReplicaGlobalSecondaryIndexSettingsUpdate
   }
 }
 
-class ReplicaGlobalSecondaryIndexSettingsUpdateAwsJson10Serializer extends _i4
+class ReplicaGlobalSecondaryIndexSettingsUpdateAwsJson10Serializer extends _i3
     .StructuredSmithySerializer<ReplicaGlobalSecondaryIndexSettingsUpdate> {
   const ReplicaGlobalSecondaryIndexSettingsUpdateAwsJson10Serializer()
       : super('ReplicaGlobalSecondaryIndexSettingsUpdate');
@@ -94,8 +92,8 @@ class ReplicaGlobalSecondaryIndexSettingsUpdateAwsJson10Serializer extends _i4
         _$ReplicaGlobalSecondaryIndexSettingsUpdate,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -130,8 +128,8 @@ class ReplicaGlobalSecondaryIndexSettingsUpdateAwsJson10Serializer extends _i4
           result.provisionedReadCapacityAutoScalingSettingsUpdate
               .replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.AutoScalingSettingsUpdate),
-          ) as _i3.AutoScalingSettingsUpdate));
+            specifiedType: const FullType(AutoScalingSettingsUpdate),
+          ) as AutoScalingSettingsUpdate));
       }
     }
 
@@ -170,7 +168,7 @@ class ReplicaGlobalSecondaryIndexSettingsUpdateAwsJson10Serializer extends _i4
         ..add('ProvisionedReadCapacityAutoScalingSettingsUpdate')
         ..add(serializers.serialize(
           provisionedReadCapacityAutoScalingSettingsUpdate,
-          specifiedType: const FullType(_i3.AutoScalingSettingsUpdate),
+          specifiedType: const FullType(AutoScalingSettingsUpdate),
         ));
     }
     return result$;

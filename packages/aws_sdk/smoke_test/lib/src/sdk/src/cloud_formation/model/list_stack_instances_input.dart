@@ -4,14 +4,12 @@
 library smoke_test.cloud_formation.model.list_stack_instances_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_filter.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_filter.dart';
 
 part 'list_stack_instances_input.g.dart';
 
@@ -24,16 +22,16 @@ abstract class ListStackInstancesInput
     required String stackSetName,
     String? nextToken,
     int? maxResults,
-    List<_i3.StackInstanceFilter>? filters,
+    List<StackInstanceFilter>? filters,
     String? stackInstanceAccount,
     String? stackInstanceRegion,
-    _i4.CallAs? callAs,
+    CallAs? callAs,
   }) {
     return _$ListStackInstancesInput._(
       stackSetName: stackSetName,
       nextToken: nextToken,
       maxResults: maxResults,
-      filters: filters == null ? null : _i5.BuiltList(filters),
+      filters: filters == null ? null : _i3.BuiltList(filters),
       stackInstanceAccount: stackInstanceAccount,
       stackInstanceRegion: stackInstanceRegion,
       callAs: callAs,
@@ -66,7 +64,7 @@ abstract class ListStackInstancesInput
   int? get maxResults;
 
   /// The filter to apply to stack instances
-  _i5.BuiltList<_i3.StackInstanceFilter>? get filters;
+  _i3.BuiltList<StackInstanceFilter>? get filters;
 
   /// The name of the Amazon Web Services account that you want to list stack instances for.
   String? get stackInstanceAccount;
@@ -83,7 +81,7 @@ abstract class ListStackInstancesInput
   /// *   If you are signed in to a delegated administrator account, specify `DELEGATED_ADMIN`.
   ///
   ///     Your Amazon Web Services account must be registered as a delegated administrator in the management account. For more information, see [Register a delegated administrator](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html) in the _CloudFormation User Guide_.
-  _i4.CallAs? get callAs;
+  CallAs? get callAs;
   @override
   ListStackInstancesInput getPayload() => this;
   @override
@@ -186,10 +184,10 @@ class ListStackInstancesInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(_i3.StackInstanceFilter)],
+              _i3.BuiltList,
+              [FullType(StackInstanceFilter)],
             ),
-          ) as _i5.BuiltList<_i3.StackInstanceFilter>));
+          ) as _i3.BuiltList<StackInstanceFilter>));
         case 'StackInstanceAccount':
           result.stackInstanceAccount = (serializers.deserialize(
             value,
@@ -203,8 +201,8 @@ class ListStackInstancesInputAwsQuerySerializer
         case 'CallAs':
           result.callAs = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.CallAs),
-          ) as _i4.CallAs);
+            specifiedType: const FullType(CallAs),
+          ) as CallAs);
       }
     }
 
@@ -263,8 +261,8 @@ class ListStackInstancesInputAwsQuerySerializer
           serializers,
           filters,
           specifiedType: const FullType.nullable(
-            _i5.BuiltList,
-            [FullType(_i3.StackInstanceFilter)],
+            _i3.BuiltList,
+            [FullType(StackInstanceFilter)],
           ),
         ));
     }
@@ -289,7 +287,7 @@ class ListStackInstancesInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
           callAs,
-          specifiedType: const FullType.nullable(_i4.CallAs),
+          specifiedType: const FullType.nullable(CallAs),
         ));
     }
     return result$;

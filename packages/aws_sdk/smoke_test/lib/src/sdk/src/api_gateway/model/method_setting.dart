@@ -6,9 +6,8 @@ library smoke_test.api_gateway.model.method_setting; // ignore_for_file: no_lead
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/unauthorized_cache_control_header_strategy.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/unauthorized_cache_control_header_strategy.dart';
 
 part 'method_setting.g.dart';
 
@@ -27,7 +26,7 @@ abstract class MethodSetting
     int? cacheTtlInSeconds,
     bool? cacheDataEncrypted,
     bool? requireAuthorizationForCacheControl,
-    _i2.UnauthorizedCacheControlHeaderStrategy?
+    UnauthorizedCacheControlHeaderStrategy?
         unauthorizedCacheControlHeaderStrategy,
   }) {
     metricsEnabled ??= false;
@@ -59,7 +58,7 @@ abstract class MethodSetting
 
   const MethodSetting._();
 
-  static const List<_i3.SmithySerializer<MethodSetting>> serializers = [
+  static const List<_i2.SmithySerializer<MethodSetting>> serializers = [
     MethodSettingRestJson1Serializer()
   ];
 
@@ -104,7 +103,7 @@ abstract class MethodSetting
   bool get requireAuthorizationForCacheControl;
 
   /// Specifies how to handle unauthorized requests for cache invalidation. The PATCH path for this setting is `/{method\_setting\_key}/caching/unauthorizedCacheControlHeaderStrategy`, and the available values are `FAIL\_WITH\_403`, `SUCCEED\_WITH\_RESPONSE_HEADER`, `SUCCEED\_WITHOUT\_RESPONSE_HEADER`.
-  _i2.UnauthorizedCacheControlHeaderStrategy?
+  UnauthorizedCacheControlHeaderStrategy?
       get unauthorizedCacheControlHeaderStrategy;
   @override
   List<Object?> get props => [
@@ -167,7 +166,7 @@ abstract class MethodSetting
 }
 
 class MethodSettingRestJson1Serializer
-    extends _i3.StructuredSmithySerializer<MethodSetting> {
+    extends _i2.StructuredSmithySerializer<MethodSetting> {
   const MethodSettingRestJson1Serializer() : super('MethodSetting');
 
   @override
@@ -176,8 +175,8 @@ class MethodSettingRestJson1Serializer
         _$MethodSetting,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -248,8 +247,8 @@ class MethodSettingRestJson1Serializer
               (serializers.deserialize(
             value,
             specifiedType:
-                const FullType(_i2.UnauthorizedCacheControlHeaderStrategy),
-          ) as _i2.UnauthorizedCacheControlHeaderStrategy);
+                const FullType(UnauthorizedCacheControlHeaderStrategy),
+          ) as UnauthorizedCacheControlHeaderStrategy);
       }
     }
 
@@ -330,8 +329,7 @@ class MethodSettingRestJson1Serializer
         ..add('unauthorizedCacheControlHeaderStrategy')
         ..add(serializers.serialize(
           unauthorizedCacheControlHeaderStrategy,
-          specifiedType:
-              const FullType(_i2.UnauthorizedCacheControlHeaderStrategy),
+          specifiedType: const FullType(UnauthorizedCacheControlHeaderStrategy),
         ));
     }
     return result$;

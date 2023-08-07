@@ -6,12 +6,11 @@ library smoke_test.dynamo_db.model.transact_write_item; // ignore_for_file: no_l
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/condition_check.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/put.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/update.dart' as _i5;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/condition_check.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/put.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/update.dart';
 
 part 'transact_write_item.g.dart';
 
@@ -21,10 +20,10 @@ abstract class TransactWriteItem
     implements Built<TransactWriteItem, TransactWriteItemBuilder> {
   /// A list of requests that can perform update, put, delete, or check operations on multiple items in one or more tables atomically.
   factory TransactWriteItem({
-    _i2.ConditionCheck? conditionCheck,
-    _i3.Put? put,
-    _i4.Delete? delete,
-    _i5.Update? update_,
+    ConditionCheck? conditionCheck,
+    Put? put,
+    Delete? delete,
+    Update? update_,
   }) {
     return _$TransactWriteItem._(
       conditionCheck: conditionCheck,
@@ -40,21 +39,21 @@ abstract class TransactWriteItem
 
   const TransactWriteItem._();
 
-  static const List<_i6.SmithySerializer<TransactWriteItem>> serializers = [
+  static const List<_i2.SmithySerializer<TransactWriteItem>> serializers = [
     TransactWriteItemAwsJson10Serializer()
   ];
 
   /// A request to perform a check item operation.
-  _i2.ConditionCheck? get conditionCheck;
+  ConditionCheck? get conditionCheck;
 
   /// A request to perform a `PutItem` operation.
-  _i3.Put? get put;
+  Put? get put;
 
   /// A request to perform a `DeleteItem` operation.
-  _i4.Delete? get delete;
+  Delete? get delete;
 
   /// A request to perform an `UpdateItem` operation.
-  _i5.Update? get update_;
+  Update? get update_;
   @override
   List<Object?> get props => [
         conditionCheck,
@@ -86,7 +85,7 @@ abstract class TransactWriteItem
 }
 
 class TransactWriteItemAwsJson10Serializer
-    extends _i6.StructuredSmithySerializer<TransactWriteItem> {
+    extends _i2.StructuredSmithySerializer<TransactWriteItem> {
   const TransactWriteItemAwsJson10Serializer() : super('TransactWriteItem');
 
   @override
@@ -95,8 +94,8 @@ class TransactWriteItemAwsJson10Serializer
         _$TransactWriteItem,
       ];
   @override
-  Iterable<_i6.ShapeId> get supportedProtocols => const [
-        _i6.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -120,23 +119,23 @@ class TransactWriteItemAwsJson10Serializer
         case 'ConditionCheck':
           result.conditionCheck.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ConditionCheck),
-          ) as _i2.ConditionCheck));
+            specifiedType: const FullType(ConditionCheck),
+          ) as ConditionCheck));
         case 'Put':
           result.put.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.Put),
-          ) as _i3.Put));
+            specifiedType: const FullType(Put),
+          ) as Put));
         case 'Delete':
           result.delete.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.Delete),
-          ) as _i4.Delete));
+            specifiedType: const FullType(Delete),
+          ) as Delete));
         case 'Update':
           result.update_.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.Update),
-          ) as _i5.Update));
+            specifiedType: const FullType(Update),
+          ) as Update));
       }
     }
 
@@ -156,7 +155,7 @@ class TransactWriteItemAwsJson10Serializer
         ..add('ConditionCheck')
         ..add(serializers.serialize(
           conditionCheck,
-          specifiedType: const FullType(_i2.ConditionCheck),
+          specifiedType: const FullType(ConditionCheck),
         ));
     }
     if (put != null) {
@@ -164,7 +163,7 @@ class TransactWriteItemAwsJson10Serializer
         ..add('Put')
         ..add(serializers.serialize(
           put,
-          specifiedType: const FullType(_i3.Put),
+          specifiedType: const FullType(Put),
         ));
     }
     if (delete != null) {
@@ -172,7 +171,7 @@ class TransactWriteItemAwsJson10Serializer
         ..add('Delete')
         ..add(serializers.serialize(
           delete,
-          specifiedType: const FullType(_i4.Delete),
+          specifiedType: const FullType(Delete),
         ));
     }
     if (update_ != null) {
@@ -180,7 +179,7 @@ class TransactWriteItemAwsJson10Serializer
         ..add('Update')
         ..add(serializers.serialize(
           update_,
-          specifiedType: const FullType(_i5.Update),
+          specifiedType: const FullType(Update),
         ));
     }
     return result$;

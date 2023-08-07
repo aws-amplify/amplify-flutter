@@ -4,13 +4,13 @@
 library smoke_test.s3.model.get_object_attributes_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i6;
+import 'package:meta/meta.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/object_attributes.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/object_attributes.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart';
 
 part 'get_object_attributes_request.g.dart';
 
@@ -31,9 +31,9 @@ abstract class GetObjectAttributesRequest
     String? sseCustomerAlgorithm,
     String? sseCustomerKey,
     String? sseCustomerKeyMd5,
-    _i3.RequestPayer? requestPayer,
+    RequestPayer? requestPayer,
     String? expectedBucketOwner,
-    required List<_i4.ObjectAttributes> objectAttributes,
+    required List<ObjectAttributes> objectAttributes,
   }) {
     return _$GetObjectAttributesRequest._(
       bucket: bucket,
@@ -46,7 +46,7 @@ abstract class GetObjectAttributesRequest
       sseCustomerKeyMd5: sseCustomerKeyMd5,
       requestPayer: requestPayer,
       expectedBucketOwner: expectedBucketOwner,
-      objectAttributes: _i5.BuiltList(objectAttributes),
+      objectAttributes: _i3.BuiltList(objectAttributes),
     );
   }
 
@@ -85,7 +85,7 @@ abstract class GetObjectAttributesRequest
               request.headers['x-amz-server-side-encryption-customer-key-MD5']!;
         }
         if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = _i3.RequestPayer.values
+          b.requestPayer = RequestPayer.values
               .byValue(request.headers['x-amz-request-payer']!);
         }
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
@@ -95,7 +95,7 @@ abstract class GetObjectAttributesRequest
         if (request.headers['x-amz-object-attributes'] != null) {
           b.objectAttributes.addAll(_i1
               .parseHeader(request.headers['x-amz-object-attributes']!)
-              .map((el) => _i4.ObjectAttributes.values.byValue(el.trim())));
+              .map((el) => ObjectAttributes.values.byValue(el.trim())));
         }
         if (request.queryParameters['versionId'] != null) {
           b.versionId = request.queryParameters['versionId']!;
@@ -140,13 +140,13 @@ abstract class GetObjectAttributesRequest
   String? get sseCustomerKeyMd5;
 
   /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
-  _i3.RequestPayer? get requestPayer;
+  RequestPayer? get requestPayer;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
 
   /// Specifies the fields at the root level that you want returned in the response. Fields that you do not specify are not returned.
-  _i5.BuiltList<_i4.ObjectAttributes> get objectAttributes;
+  _i3.BuiltList<ObjectAttributes> get objectAttributes;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -229,7 +229,7 @@ abstract class GetObjectAttributesRequest
   }
 }
 
-@_i6.internal
+@_i4.internal
 abstract class GetObjectAttributesRequestPayload
     with
         _i2.AWSEquatable<GetObjectAttributesRequestPayload>

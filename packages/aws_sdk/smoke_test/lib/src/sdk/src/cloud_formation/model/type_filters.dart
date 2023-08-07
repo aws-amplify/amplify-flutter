@@ -6,9 +6,8 @@ library smoke_test.cloud_formation.model.type_filters; // ignore_for_file: no_le
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/category.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/category.dart';
 
 part 'type_filters.g.dart';
 
@@ -18,7 +17,7 @@ abstract class TypeFilters
     implements Built<TypeFilters, TypeFiltersBuilder> {
   /// Filter criteria to use in determining which extensions to return.
   factory TypeFilters({
-    _i2.Category? category,
+    Category? category,
     String? publisherId,
     String? typeNamePrefix,
   }) {
@@ -35,7 +34,7 @@ abstract class TypeFilters
 
   const TypeFilters._();
 
-  static const List<_i3.SmithySerializer<TypeFilters>> serializers = [
+  static const List<_i2.SmithySerializer<TypeFilters>> serializers = [
     TypeFiltersAwsQuerySerializer()
   ];
 
@@ -52,7 +51,7 @@ abstract class TypeFilters
   ///     *   Public extensions from publishers other than Amazon, whether activated or not.
   ///
   /// *   `AWS_TYPES`: Extensions available for use from Amazon.
-  _i2.Category? get category;
+  Category? get category;
 
   /// The id of the publisher of the extension.
   ///
@@ -87,7 +86,7 @@ abstract class TypeFilters
 }
 
 class TypeFiltersAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<TypeFilters> {
+    extends _i2.StructuredSmithySerializer<TypeFilters> {
   const TypeFiltersAwsQuerySerializer() : super('TypeFilters');
 
   @override
@@ -96,8 +95,8 @@ class TypeFiltersAwsQuerySerializer
         _$TypeFilters,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -121,8 +120,8 @@ class TypeFiltersAwsQuerySerializer
         case 'Category':
           result.category = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Category),
-          ) as _i2.Category);
+            specifiedType: const FullType(Category),
+          ) as Category);
         case 'PublisherId':
           result.publisherId = (serializers.deserialize(
             value,
@@ -146,23 +145,23 @@ class TypeFiltersAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'TypeFiltersResponse',
-        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final TypeFilters(:category, :publisherId, :typeNamePrefix) = object;
     if (category != null) {
       result$
-        ..add(const _i3.XmlElementName('Category'))
+        ..add(const _i2.XmlElementName('Category'))
         ..add(serializers.serialize(
           category,
-          specifiedType: const FullType.nullable(_i2.Category),
+          specifiedType: const FullType.nullable(Category),
         ));
     }
     if (publisherId != null) {
       result$
-        ..add(const _i3.XmlElementName('PublisherId'))
+        ..add(const _i2.XmlElementName('PublisherId'))
         ..add(serializers.serialize(
           publisherId,
           specifiedType: const FullType(String),
@@ -170,7 +169,7 @@ class TypeFiltersAwsQuerySerializer
     }
     if (typeNamePrefix != null) {
       result$
-        ..add(const _i3.XmlElementName('TypeNamePrefix'))
+        ..add(const _i2.XmlElementName('TypeNamePrefix'))
         ..add(serializers.serialize(
           typeNamePrefix,
           specifiedType: const FullType(String),

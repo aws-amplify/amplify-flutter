@@ -6,10 +6,9 @@ library smoke_test.dynamo_db.model.write_request; // ignore_for_file: no_leading
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete_request.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/put_request.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/delete_request.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/put_request.dart';
 
 part 'write_request.g.dart';
 
@@ -19,8 +18,8 @@ abstract class WriteRequest
     implements Built<WriteRequest, WriteRequestBuilder> {
   /// Represents an operation to perform - either `DeleteItem` or `PutItem`. You can only request one of these operations, not both, in a single `WriteRequest`. If you do need to perform both of these operations, you need to provide two separate `WriteRequest` objects.
   factory WriteRequest({
-    _i2.PutRequest? putRequest,
-    _i3.DeleteRequest? deleteRequest,
+    PutRequest? putRequest,
+    DeleteRequest? deleteRequest,
   }) {
     return _$WriteRequest._(
       putRequest: putRequest,
@@ -34,15 +33,15 @@ abstract class WriteRequest
 
   const WriteRequest._();
 
-  static const List<_i4.SmithySerializer<WriteRequest>> serializers = [
+  static const List<_i2.SmithySerializer<WriteRequest>> serializers = [
     WriteRequestAwsJson10Serializer()
   ];
 
   /// A request to perform a `PutItem` operation.
-  _i2.PutRequest? get putRequest;
+  PutRequest? get putRequest;
 
   /// A request to perform a `DeleteItem` operation.
-  _i3.DeleteRequest? get deleteRequest;
+  DeleteRequest? get deleteRequest;
   @override
   List<Object?> get props => [
         putRequest,
@@ -64,7 +63,7 @@ abstract class WriteRequest
 }
 
 class WriteRequestAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<WriteRequest> {
+    extends _i2.StructuredSmithySerializer<WriteRequest> {
   const WriteRequestAwsJson10Serializer() : super('WriteRequest');
 
   @override
@@ -73,8 +72,8 @@ class WriteRequestAwsJson10Serializer
         _$WriteRequest,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -98,13 +97,13 @@ class WriteRequestAwsJson10Serializer
         case 'PutRequest':
           result.putRequest.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.PutRequest),
-          ) as _i2.PutRequest));
+            specifiedType: const FullType(PutRequest),
+          ) as PutRequest));
         case 'DeleteRequest':
           result.deleteRequest.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.DeleteRequest),
-          ) as _i3.DeleteRequest));
+            specifiedType: const FullType(DeleteRequest),
+          ) as DeleteRequest));
       }
     }
 
@@ -124,7 +123,7 @@ class WriteRequestAwsJson10Serializer
         ..add('PutRequest')
         ..add(serializers.serialize(
           putRequest,
-          specifiedType: const FullType(_i2.PutRequest),
+          specifiedType: const FullType(PutRequest),
         ));
     }
     if (deleteRequest != null) {
@@ -132,7 +131,7 @@ class WriteRequestAwsJson10Serializer
         ..add('DeleteRequest')
         ..add(serializers.serialize(
           deleteRequest,
-          specifiedType: const FullType(_i3.DeleteRequest),
+          specifiedType: const FullType(DeleteRequest),
         ));
     }
     return result$;

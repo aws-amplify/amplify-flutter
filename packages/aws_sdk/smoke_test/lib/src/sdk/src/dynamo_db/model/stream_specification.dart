@@ -6,9 +6,8 @@ library smoke_test.dynamo_db.model.stream_specification; // ignore_for_file: no_
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/stream_view_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/stream_view_type.dart';
 
 part 'stream_specification.g.dart';
 
@@ -19,7 +18,7 @@ abstract class StreamSpecification
   /// Represents the DynamoDB Streams configuration for a table in DynamoDB.
   factory StreamSpecification({
     required bool streamEnabled,
-    _i2.StreamViewType? streamViewType,
+    StreamViewType? streamViewType,
   }) {
     return _$StreamSpecification._(
       streamEnabled: streamEnabled,
@@ -34,7 +33,7 @@ abstract class StreamSpecification
 
   const StreamSpecification._();
 
-  static const List<_i3.SmithySerializer<StreamSpecification>> serializers = [
+  static const List<_i2.SmithySerializer<StreamSpecification>> serializers = [
     StreamSpecificationAwsJson10Serializer()
   ];
 
@@ -50,7 +49,7 @@ abstract class StreamSpecification
   /// *   `OLD_IMAGE` \- The entire item, as it appeared before it was modified, is written to the stream.
   ///
   /// *   `NEW\_AND\_OLD_IMAGES` \- Both the new and the old item images of the item are written to the stream.
-  _i2.StreamViewType? get streamViewType;
+  StreamViewType? get streamViewType;
   @override
   List<Object?> get props => [
         streamEnabled,
@@ -72,7 +71,7 @@ abstract class StreamSpecification
 }
 
 class StreamSpecificationAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<StreamSpecification> {
+    extends _i2.StructuredSmithySerializer<StreamSpecification> {
   const StreamSpecificationAwsJson10Serializer() : super('StreamSpecification');
 
   @override
@@ -81,8 +80,8 @@ class StreamSpecificationAwsJson10Serializer
         _$StreamSpecification,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -111,8 +110,8 @@ class StreamSpecificationAwsJson10Serializer
         case 'StreamViewType':
           result.streamViewType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.StreamViewType),
-          ) as _i2.StreamViewType);
+            specifiedType: const FullType(StreamViewType),
+          ) as StreamViewType);
       }
     }
 
@@ -139,7 +138,7 @@ class StreamSpecificationAwsJson10Serializer
         ..add('StreamViewType')
         ..add(serializers.serialize(
           streamViewType,
-          specifiedType: const FullType(_i2.StreamViewType),
+          specifiedType: const FullType(StreamViewType),
         ));
     }
     return result$;

@@ -8,7 +8,7 @@ part of 'tagging.dart';
 
 class _$Tagging extends Tagging {
   @override
-  final _i3.BuiltList<_i2.Tag> tagSet;
+  final _i2.BuiltList<Tag> tagSet;
 
   factory _$Tagging([void Function(TaggingBuilder)? updates]) =>
       (new TaggingBuilder()..update(updates))._build();
@@ -42,10 +42,10 @@ class _$Tagging extends Tagging {
 class TaggingBuilder implements Builder<Tagging, TaggingBuilder> {
   _$Tagging? _$v;
 
-  _i3.ListBuilder<_i2.Tag>? _tagSet;
-  _i3.ListBuilder<_i2.Tag> get tagSet =>
-      _$this._tagSet ??= new _i3.ListBuilder<_i2.Tag>();
-  set tagSet(_i3.ListBuilder<_i2.Tag>? tagSet) => _$this._tagSet = tagSet;
+  _i2.ListBuilder<Tag>? _tagSet;
+  _i2.ListBuilder<Tag> get tagSet =>
+      _$this._tagSet ??= new _i2.ListBuilder<Tag>();
+  set tagSet(_i2.ListBuilder<Tag>? tagSet) => _$this._tagSet = tagSet;
 
   TaggingBuilder();
 

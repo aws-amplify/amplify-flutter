@@ -18,25 +18,25 @@ class _$Stage extends Stage {
   @override
   final bool cacheClusterEnabled;
   @override
-  final _i2.CacheClusterSize? cacheClusterSize;
+  final CacheClusterSize? cacheClusterSize;
   @override
-  final _i3.CacheClusterStatus? cacheClusterStatus;
+  final CacheClusterStatus? cacheClusterStatus;
   @override
-  final _i7.BuiltMap<String, _i4.MethodSetting>? methodSettings;
+  final _i2.BuiltMap<String, MethodSetting>? methodSettings;
   @override
-  final _i7.BuiltMap<String, String>? variables;
+  final _i2.BuiltMap<String, String>? variables;
   @override
   final String? documentationVersion;
   @override
-  final _i5.AccessLogSettings? accessLogSettings;
+  final AccessLogSettings? accessLogSettings;
   @override
-  final _i6.CanarySettings? canarySettings;
+  final CanarySettings? canarySettings;
   @override
   final bool tracingEnabled;
   @override
   final String? webAclArn;
   @override
-  final _i7.BuiltMap<String, String>? tags;
+  final _i2.BuiltMap<String, String>? tags;
   @override
   final DateTime? createdDate;
   @override
@@ -150,28 +150,26 @@ class StageBuilder implements Builder<Stage, StageBuilder> {
   set cacheClusterEnabled(bool? cacheClusterEnabled) =>
       _$this._cacheClusterEnabled = cacheClusterEnabled;
 
-  _i2.CacheClusterSize? _cacheClusterSize;
-  _i2.CacheClusterSize? get cacheClusterSize => _$this._cacheClusterSize;
-  set cacheClusterSize(_i2.CacheClusterSize? cacheClusterSize) =>
+  CacheClusterSize? _cacheClusterSize;
+  CacheClusterSize? get cacheClusterSize => _$this._cacheClusterSize;
+  set cacheClusterSize(CacheClusterSize? cacheClusterSize) =>
       _$this._cacheClusterSize = cacheClusterSize;
 
-  _i3.CacheClusterStatus? _cacheClusterStatus;
-  _i3.CacheClusterStatus? get cacheClusterStatus => _$this._cacheClusterStatus;
-  set cacheClusterStatus(_i3.CacheClusterStatus? cacheClusterStatus) =>
+  CacheClusterStatus? _cacheClusterStatus;
+  CacheClusterStatus? get cacheClusterStatus => _$this._cacheClusterStatus;
+  set cacheClusterStatus(CacheClusterStatus? cacheClusterStatus) =>
       _$this._cacheClusterStatus = cacheClusterStatus;
 
-  _i7.MapBuilder<String, _i4.MethodSetting>? _methodSettings;
-  _i7.MapBuilder<String, _i4.MethodSetting> get methodSettings =>
-      _$this._methodSettings ??=
-          new _i7.MapBuilder<String, _i4.MethodSetting>();
-  set methodSettings(
-          _i7.MapBuilder<String, _i4.MethodSetting>? methodSettings) =>
+  _i2.MapBuilder<String, MethodSetting>? _methodSettings;
+  _i2.MapBuilder<String, MethodSetting> get methodSettings =>
+      _$this._methodSettings ??= new _i2.MapBuilder<String, MethodSetting>();
+  set methodSettings(_i2.MapBuilder<String, MethodSetting>? methodSettings) =>
       _$this._methodSettings = methodSettings;
 
-  _i7.MapBuilder<String, String>? _variables;
-  _i7.MapBuilder<String, String> get variables =>
-      _$this._variables ??= new _i7.MapBuilder<String, String>();
-  set variables(_i7.MapBuilder<String, String>? variables) =>
+  _i2.MapBuilder<String, String>? _variables;
+  _i2.MapBuilder<String, String> get variables =>
+      _$this._variables ??= new _i2.MapBuilder<String, String>();
+  set variables(_i2.MapBuilder<String, String>? variables) =>
       _$this._variables = variables;
 
   String? _documentationVersion;
@@ -179,16 +177,16 @@ class StageBuilder implements Builder<Stage, StageBuilder> {
   set documentationVersion(String? documentationVersion) =>
       _$this._documentationVersion = documentationVersion;
 
-  _i5.AccessLogSettingsBuilder? _accessLogSettings;
-  _i5.AccessLogSettingsBuilder get accessLogSettings =>
-      _$this._accessLogSettings ??= new _i5.AccessLogSettingsBuilder();
-  set accessLogSettings(_i5.AccessLogSettingsBuilder? accessLogSettings) =>
+  AccessLogSettingsBuilder? _accessLogSettings;
+  AccessLogSettingsBuilder get accessLogSettings =>
+      _$this._accessLogSettings ??= new AccessLogSettingsBuilder();
+  set accessLogSettings(AccessLogSettingsBuilder? accessLogSettings) =>
       _$this._accessLogSettings = accessLogSettings;
 
-  _i6.CanarySettingsBuilder? _canarySettings;
-  _i6.CanarySettingsBuilder get canarySettings =>
-      _$this._canarySettings ??= new _i6.CanarySettingsBuilder();
-  set canarySettings(_i6.CanarySettingsBuilder? canarySettings) =>
+  CanarySettingsBuilder? _canarySettings;
+  CanarySettingsBuilder get canarySettings =>
+      _$this._canarySettings ??= new CanarySettingsBuilder();
+  set canarySettings(CanarySettingsBuilder? canarySettings) =>
       _$this._canarySettings = canarySettings;
 
   bool? _tracingEnabled;
@@ -200,10 +198,10 @@ class StageBuilder implements Builder<Stage, StageBuilder> {
   String? get webAclArn => _$this._webAclArn;
   set webAclArn(String? webAclArn) => _$this._webAclArn = webAclArn;
 
-  _i7.MapBuilder<String, String>? _tags;
-  _i7.MapBuilder<String, String> get tags =>
-      _$this._tags ??= new _i7.MapBuilder<String, String>();
-  set tags(_i7.MapBuilder<String, String>? tags) => _$this._tags = tags;
+  _i2.MapBuilder<String, String>? _tags;
+  _i2.MapBuilder<String, String> get tags =>
+      _$this._tags ??= new _i2.MapBuilder<String, String>();
+  set tags(_i2.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
   DateTime? _createdDate;
   DateTime? get createdDate => _$this._createdDate;

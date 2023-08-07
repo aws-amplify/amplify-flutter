@@ -7,10 +7,8 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_conformance_pack_compliance_summary_filters.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_conformance_pack_compliance_summary_group_key.dart'
-    as _i4;
+import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_conformance_pack_compliance_summary_filters.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_conformance_pack_compliance_summary_group_key.dart';
 
 part 'get_aggregate_conformance_pack_compliance_summary_request.g.dart';
 
@@ -23,8 +21,8 @@ abstract class GetAggregateConformancePackComplianceSummaryRequest
             GetAggregateConformancePackComplianceSummaryRequestBuilder> {
   factory GetAggregateConformancePackComplianceSummaryRequest({
     required String configurationAggregatorName,
-    _i3.AggregateConformancePackComplianceSummaryFilters? filters,
-    _i4.AggregateConformancePackComplianceSummaryGroupKey? groupByKey,
+    AggregateConformancePackComplianceSummaryFilters? filters,
+    AggregateConformancePackComplianceSummaryGroupKey? groupByKey,
     int? limit,
     String? nextToken,
   }) {
@@ -67,10 +65,10 @@ abstract class GetAggregateConformancePackComplianceSummaryRequest
   String get configurationAggregatorName;
 
   /// Filters the results based on the `AggregateConformancePackComplianceSummaryFilters` object.
-  _i3.AggregateConformancePackComplianceSummaryFilters? get filters;
+  AggregateConformancePackComplianceSummaryFilters? get filters;
 
   /// Groups the result based on Amazon Web Services account ID or Amazon Web Services Region.
-  _i4.AggregateConformancePackComplianceSummaryGroupKey? get groupByKey;
+  AggregateConformancePackComplianceSummaryGroupKey? get groupByKey;
 
   /// The maximum number of results returned on each page. The default is maximum. If you specify 0, Config uses the default.
   int get limit;
@@ -158,14 +156,14 @@ class GetAggregateConformancePackComplianceSummaryRequestAwsJson11Serializer
           result.filters.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-                _i3.AggregateConformancePackComplianceSummaryFilters),
-          ) as _i3.AggregateConformancePackComplianceSummaryFilters));
+                AggregateConformancePackComplianceSummaryFilters),
+          ) as AggregateConformancePackComplianceSummaryFilters));
         case 'GroupByKey':
           result.groupByKey = (serializers.deserialize(
             value,
             specifiedType: const FullType(
-                _i4.AggregateConformancePackComplianceSummaryGroupKey),
-          ) as _i4.AggregateConformancePackComplianceSummaryGroupKey);
+                AggregateConformancePackComplianceSummaryGroupKey),
+          ) as AggregateConformancePackComplianceSummaryGroupKey);
         case 'Limit':
           result.limit = (serializers.deserialize(
             value,
@@ -213,8 +211,8 @@ class GetAggregateConformancePackComplianceSummaryRequestAwsJson11Serializer
         ..add('Filters')
         ..add(serializers.serialize(
           filters,
-          specifiedType: const FullType(
-              _i3.AggregateConformancePackComplianceSummaryFilters),
+          specifiedType:
+              const FullType(AggregateConformancePackComplianceSummaryFilters),
         ));
     }
     if (groupByKey != null) {
@@ -222,8 +220,8 @@ class GetAggregateConformancePackComplianceSummaryRequestAwsJson11Serializer
         ..add('GroupByKey')
         ..add(serializers.serialize(
           groupByKey,
-          specifiedType: const FullType(
-              _i4.AggregateConformancePackComplianceSummaryGroupKey),
+          specifiedType:
+              const FullType(AggregateConformancePackComplianceSummaryGroupKey),
         ));
     }
     if (nextToken != null) {

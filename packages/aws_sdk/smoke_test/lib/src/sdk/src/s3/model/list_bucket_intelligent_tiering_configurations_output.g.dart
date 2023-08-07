@@ -15,7 +15,7 @@ class _$ListBucketIntelligentTieringConfigurationsOutput
   @override
   final String? nextContinuationToken;
   @override
-  final _i3.BuiltList<_i2.IntelligentTieringConfiguration>?
+  final _i2.BuiltList<IntelligentTieringConfiguration>?
       intelligentTieringConfigurationList;
 
   factory _$ListBucketIntelligentTieringConfigurationsOutput(
@@ -87,14 +87,14 @@ class ListBucketIntelligentTieringConfigurationsOutputBuilder
   set nextContinuationToken(String? nextContinuationToken) =>
       _$this._nextContinuationToken = nextContinuationToken;
 
-  _i3.ListBuilder<_i2.IntelligentTieringConfiguration>?
+  _i2.ListBuilder<IntelligentTieringConfiguration>?
       _intelligentTieringConfigurationList;
-  _i3.ListBuilder<_i2.IntelligentTieringConfiguration>
+  _i2.ListBuilder<IntelligentTieringConfiguration>
       get intelligentTieringConfigurationList =>
           _$this._intelligentTieringConfigurationList ??=
-              new _i3.ListBuilder<_i2.IntelligentTieringConfiguration>();
+              new _i2.ListBuilder<IntelligentTieringConfiguration>();
   set intelligentTieringConfigurationList(
-          _i3.ListBuilder<_i2.IntelligentTieringConfiguration>?
+          _i2.ListBuilder<IntelligentTieringConfiguration>?
               intelligentTieringConfigurationList) =>
       _$this._intelligentTieringConfigurationList =
           intelligentTieringConfigurationList;

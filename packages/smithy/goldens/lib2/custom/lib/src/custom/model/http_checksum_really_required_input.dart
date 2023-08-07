@@ -8,7 +8,7 @@ import 'dart:typed_data' as _i2;
 import 'package:aws_common/aws_common.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:custom_v2/src/custom/model/checksum_algorithm.dart' as _i4;
+import 'package:custom_v2/src/custom/model/checksum_algorithm.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'http_checksum_really_required_input.g.dart';
@@ -22,7 +22,7 @@ abstract class HttpChecksumReallyRequiredInput
             HttpChecksumReallyRequiredInputBuilder>,
         _i1.HasPayload<_i2.Uint8List> {
   factory HttpChecksumReallyRequiredInput({
-    _i4.ChecksumAlgorithm? checksumAlgorithm,
+    ChecksumAlgorithm? checksumAlgorithm,
     _i2.Uint8List? content,
   }) {
     return _$HttpChecksumReallyRequiredInput._(
@@ -45,7 +45,7 @@ abstract class HttpChecksumReallyRequiredInput
       HttpChecksumReallyRequiredInput.build((b) {
         b.content = payload;
         if (request.headers['x-amz-request-algorithm'] != null) {
-          b.checksumAlgorithm = _i4.ChecksumAlgorithm.values
+          b.checksumAlgorithm = ChecksumAlgorithm.values
               .byValue(request.headers['x-amz-request-algorithm']!);
         }
       });
@@ -54,7 +54,7 @@ abstract class HttpChecksumReallyRequiredInput
     HttpChecksumReallyRequiredInputRestJson1Serializer()
   ];
 
-  _i4.ChecksumAlgorithm? get checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm;
   _i2.Uint8List? get content;
   @override
   _i2.Uint8List? getPayload() => content;

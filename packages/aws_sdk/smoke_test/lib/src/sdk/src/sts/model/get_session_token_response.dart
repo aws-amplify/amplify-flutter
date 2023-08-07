@@ -6,8 +6,8 @@ library smoke_test.sts.model.get_session_token_response; // ignore_for_file: no_
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/sts/model/credentials.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/sts/model/credentials.dart';
 
 part 'get_session_token_response.g.dart';
 
@@ -16,7 +16,7 @@ abstract class GetSessionTokenResponse
     with _i1.AWSEquatable<GetSessionTokenResponse>
     implements Built<GetSessionTokenResponse, GetSessionTokenResponseBuilder> {
   /// Contains the response to a successful GetSessionToken request, including temporary Amazon Web Services credentials that can be used to make Amazon Web Services requests.
-  factory GetSessionTokenResponse({_i2.Credentials? credentials}) {
+  factory GetSessionTokenResponse({Credentials? credentials}) {
     return _$GetSessionTokenResponse._(credentials: credentials);
   }
 
@@ -34,13 +34,13 @@ abstract class GetSessionTokenResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<GetSessionTokenResponse>> serializers =
+  static const List<_i2.SmithySerializer<GetSessionTokenResponse>> serializers =
       [GetSessionTokenResponseAwsQuerySerializer()];
 
   /// The temporary security credentials, which include an access key ID, a secret access key, and a security (or session) token.
   ///
   /// The size of the security token that STS API operations return is not fixed. We strongly recommend that you make no assumptions about the maximum size.
-  _i2.Credentials? get credentials;
+  Credentials? get credentials;
   @override
   List<Object?> get props => [credentials];
   @override
@@ -55,7 +55,7 @@ abstract class GetSessionTokenResponse
 }
 
 class GetSessionTokenResponseAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<GetSessionTokenResponse> {
+    extends _i2.StructuredSmithySerializer<GetSessionTokenResponse> {
   const GetSessionTokenResponseAwsQuerySerializer()
       : super('GetSessionTokenResponse');
 
@@ -65,8 +65,8 @@ class GetSessionTokenResponseAwsQuerySerializer
         _$GetSessionTokenResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -90,8 +90,8 @@ class GetSessionTokenResponseAwsQuerySerializer
         case 'Credentials':
           result.credentials.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Credentials),
-          ) as _i2.Credentials));
+            specifiedType: const FullType(Credentials),
+          ) as Credentials));
       }
     }
 
@@ -105,18 +105,18 @@ class GetSessionTokenResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'GetSessionTokenResponseResponse',
-        _i3.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
+        _i2.XmlNamespace('https://sts.amazonaws.com/doc/2011-06-15/'),
       )
     ];
     final GetSessionTokenResponse(:credentials) = object;
     if (credentials != null) {
       result$
-        ..add(const _i3.XmlElementName('Credentials'))
+        ..add(const _i2.XmlElementName('Credentials'))
         ..add(serializers.serialize(
           credentials,
-          specifiedType: const FullType(_i2.Credentials),
+          specifiedType: const FullType(Credentials),
         ));
     }
     return result$;

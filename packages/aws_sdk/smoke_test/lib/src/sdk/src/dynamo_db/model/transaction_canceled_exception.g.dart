@@ -10,7 +10,7 @@ class _$TransactionCanceledException extends TransactionCanceledException {
   @override
   final String? message;
   @override
-  final _i4.BuiltList<_i3.CancellationReason>? cancellationReasons;
+  final _i3.BuiltList<CancellationReason>? cancellationReasons;
   @override
   final int? statusCode;
   @override
@@ -61,12 +61,11 @@ class TransactionCanceledExceptionBuilder
   String? get message => _$this._message;
   set message(String? message) => _$this._message = message;
 
-  _i4.ListBuilder<_i3.CancellationReason>? _cancellationReasons;
-  _i4.ListBuilder<_i3.CancellationReason> get cancellationReasons =>
-      _$this._cancellationReasons ??=
-          new _i4.ListBuilder<_i3.CancellationReason>();
+  _i3.ListBuilder<CancellationReason>? _cancellationReasons;
+  _i3.ListBuilder<CancellationReason> get cancellationReasons =>
+      _$this._cancellationReasons ??= new _i3.ListBuilder<CancellationReason>();
   set cancellationReasons(
-          _i4.ListBuilder<_i3.CancellationReason>? cancellationReasons) =>
+          _i3.ListBuilder<CancellationReason>? cancellationReasons) =>
       _$this._cancellationReasons = cancellationReasons;
 
   int? _statusCode;

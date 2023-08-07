@@ -6,9 +6,8 @@ library smoke_test.dynamo_db.model.describe_table_output; // ignore_for_file: no
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_description.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_description.dart';
 
 part 'describe_table_output.g.dart';
 
@@ -17,7 +16,7 @@ abstract class DescribeTableOutput
     with _i1.AWSEquatable<DescribeTableOutput>
     implements Built<DescribeTableOutput, DescribeTableOutputBuilder> {
   /// Represents the output of a `DescribeTable` operation.
-  factory DescribeTableOutput({_i2.TableDescription? table}) {
+  factory DescribeTableOutput({TableDescription? table}) {
     return _$DescribeTableOutput._(table: table);
   }
 
@@ -35,12 +34,12 @@ abstract class DescribeTableOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<DescribeTableOutput>> serializers = [
+  static const List<_i2.SmithySerializer<DescribeTableOutput>> serializers = [
     DescribeTableOutputAwsJson10Serializer()
   ];
 
   /// The properties of the table.
-  _i2.TableDescription? get table;
+  TableDescription? get table;
   @override
   List<Object?> get props => [table];
   @override
@@ -55,7 +54,7 @@ abstract class DescribeTableOutput
 }
 
 class DescribeTableOutputAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<DescribeTableOutput> {
+    extends _i2.StructuredSmithySerializer<DescribeTableOutput> {
   const DescribeTableOutputAwsJson10Serializer() : super('DescribeTableOutput');
 
   @override
@@ -64,8 +63,8 @@ class DescribeTableOutputAwsJson10Serializer
         _$DescribeTableOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -89,8 +88,8 @@ class DescribeTableOutputAwsJson10Serializer
         case 'Table':
           result.table.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.TableDescription),
-          ) as _i2.TableDescription));
+            specifiedType: const FullType(TableDescription),
+          ) as TableDescription));
       }
     }
 
@@ -110,7 +109,7 @@ class DescribeTableOutputAwsJson10Serializer
         ..add('Table')
         ..add(serializers.serialize(
           table,
-          specifiedType: const FullType(_i2.TableDescription),
+          specifiedType: const FullType(TableDescription),
         ));
     }
     return result$;

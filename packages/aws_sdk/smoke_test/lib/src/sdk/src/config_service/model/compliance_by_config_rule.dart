@@ -6,9 +6,8 @@ library smoke_test.config_service.model.compliance_by_config_rule; // ignore_for
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/compliance.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/compliance.dart';
 
 part 'compliance_by_config_rule.g.dart';
 
@@ -19,7 +18,7 @@ abstract class ComplianceByConfigRule
   /// Indicates whether an Config rule is compliant. A rule is compliant if all of the resources that the rule evaluated comply with it. A rule is noncompliant if any of these resources do not comply.
   factory ComplianceByConfigRule({
     String? configRuleName,
-    _i2.Compliance? compliance,
+    Compliance? compliance,
   }) {
     return _$ComplianceByConfigRule._(
       configRuleName: configRuleName,
@@ -34,14 +33,14 @@ abstract class ComplianceByConfigRule
 
   const ComplianceByConfigRule._();
 
-  static const List<_i3.SmithySerializer<ComplianceByConfigRule>> serializers =
+  static const List<_i2.SmithySerializer<ComplianceByConfigRule>> serializers =
       [ComplianceByConfigRuleAwsJson11Serializer()];
 
   /// The name of the Config rule.
   String? get configRuleName;
 
   /// Indicates whether the Config rule is compliant.
-  _i2.Compliance? get compliance;
+  Compliance? get compliance;
   @override
   List<Object?> get props => [
         configRuleName,
@@ -63,7 +62,7 @@ abstract class ComplianceByConfigRule
 }
 
 class ComplianceByConfigRuleAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<ComplianceByConfigRule> {
+    extends _i2.StructuredSmithySerializer<ComplianceByConfigRule> {
   const ComplianceByConfigRuleAwsJson11Serializer()
       : super('ComplianceByConfigRule');
 
@@ -73,8 +72,8 @@ class ComplianceByConfigRuleAwsJson11Serializer
         _$ComplianceByConfigRule,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -103,8 +102,8 @@ class ComplianceByConfigRuleAwsJson11Serializer
         case 'Compliance':
           result.compliance.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Compliance),
-          ) as _i2.Compliance));
+            specifiedType: const FullType(Compliance),
+          ) as Compliance));
       }
     }
 
@@ -132,7 +131,7 @@ class ComplianceByConfigRuleAwsJson11Serializer
         ..add('Compliance')
         ..add(serializers.serialize(
           compliance,
-          specifiedType: const FullType(_i2.Compliance),
+          specifiedType: const FullType(Compliance),
         ));
     }
     return result$;

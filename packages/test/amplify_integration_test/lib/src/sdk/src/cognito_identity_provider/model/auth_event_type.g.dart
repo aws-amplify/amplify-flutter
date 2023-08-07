@@ -10,19 +10,19 @@ class _$AuthEventType extends AuthEventType {
   @override
   final String? eventId;
   @override
-  final _i2.EventType? eventType;
+  final EventType? eventType;
   @override
   final DateTime? creationDate;
   @override
-  final _i3.EventResponseType? eventResponse;
+  final EventResponseType? eventResponse;
   @override
-  final _i4.EventRiskType? eventRisk;
+  final EventRiskType? eventRisk;
   @override
-  final _i8.BuiltList<_i5.ChallengeResponseType>? challengeResponses;
+  final _i2.BuiltList<ChallengeResponseType>? challengeResponses;
   @override
-  final _i6.EventContextDataType? eventContextData;
+  final EventContextDataType? eventContextData;
   @override
-  final _i7.EventFeedbackType? eventFeedback;
+  final EventFeedbackType? eventFeedback;
 
   factory _$AuthEventType([void Function(AuthEventTypeBuilder)? updates]) =>
       (new AuthEventTypeBuilder()..update(updates))._build();
@@ -83,44 +83,44 @@ class AuthEventTypeBuilder
   String? get eventId => _$this._eventId;
   set eventId(String? eventId) => _$this._eventId = eventId;
 
-  _i2.EventType? _eventType;
-  _i2.EventType? get eventType => _$this._eventType;
-  set eventType(_i2.EventType? eventType) => _$this._eventType = eventType;
+  EventType? _eventType;
+  EventType? get eventType => _$this._eventType;
+  set eventType(EventType? eventType) => _$this._eventType = eventType;
 
   DateTime? _creationDate;
   DateTime? get creationDate => _$this._creationDate;
   set creationDate(DateTime? creationDate) =>
       _$this._creationDate = creationDate;
 
-  _i3.EventResponseType? _eventResponse;
-  _i3.EventResponseType? get eventResponse => _$this._eventResponse;
-  set eventResponse(_i3.EventResponseType? eventResponse) =>
+  EventResponseType? _eventResponse;
+  EventResponseType? get eventResponse => _$this._eventResponse;
+  set eventResponse(EventResponseType? eventResponse) =>
       _$this._eventResponse = eventResponse;
 
-  _i4.EventRiskTypeBuilder? _eventRisk;
-  _i4.EventRiskTypeBuilder get eventRisk =>
-      _$this._eventRisk ??= new _i4.EventRiskTypeBuilder();
-  set eventRisk(_i4.EventRiskTypeBuilder? eventRisk) =>
+  EventRiskTypeBuilder? _eventRisk;
+  EventRiskTypeBuilder get eventRisk =>
+      _$this._eventRisk ??= new EventRiskTypeBuilder();
+  set eventRisk(EventRiskTypeBuilder? eventRisk) =>
       _$this._eventRisk = eventRisk;
 
-  _i8.ListBuilder<_i5.ChallengeResponseType>? _challengeResponses;
-  _i8.ListBuilder<_i5.ChallengeResponseType> get challengeResponses =>
+  _i2.ListBuilder<ChallengeResponseType>? _challengeResponses;
+  _i2.ListBuilder<ChallengeResponseType> get challengeResponses =>
       _$this._challengeResponses ??=
-          new _i8.ListBuilder<_i5.ChallengeResponseType>();
+          new _i2.ListBuilder<ChallengeResponseType>();
   set challengeResponses(
-          _i8.ListBuilder<_i5.ChallengeResponseType>? challengeResponses) =>
+          _i2.ListBuilder<ChallengeResponseType>? challengeResponses) =>
       _$this._challengeResponses = challengeResponses;
 
-  _i6.EventContextDataTypeBuilder? _eventContextData;
-  _i6.EventContextDataTypeBuilder get eventContextData =>
-      _$this._eventContextData ??= new _i6.EventContextDataTypeBuilder();
-  set eventContextData(_i6.EventContextDataTypeBuilder? eventContextData) =>
+  EventContextDataTypeBuilder? _eventContextData;
+  EventContextDataTypeBuilder get eventContextData =>
+      _$this._eventContextData ??= new EventContextDataTypeBuilder();
+  set eventContextData(EventContextDataTypeBuilder? eventContextData) =>
       _$this._eventContextData = eventContextData;
 
-  _i7.EventFeedbackTypeBuilder? _eventFeedback;
-  _i7.EventFeedbackTypeBuilder get eventFeedback =>
-      _$this._eventFeedback ??= new _i7.EventFeedbackTypeBuilder();
-  set eventFeedback(_i7.EventFeedbackTypeBuilder? eventFeedback) =>
+  EventFeedbackTypeBuilder? _eventFeedback;
+  EventFeedbackTypeBuilder get eventFeedback =>
+      _$this._eventFeedback ??= new EventFeedbackTypeBuilder();
+  set eventFeedback(EventFeedbackTypeBuilder? eventFeedback) =>
       _$this._eventFeedback = eventFeedback;
 
   AuthEventTypeBuilder();

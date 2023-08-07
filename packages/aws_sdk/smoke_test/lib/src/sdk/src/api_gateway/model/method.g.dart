@@ -20,15 +20,15 @@ class _$Method extends Method {
   @override
   final String? operationName;
   @override
-  final _i4.BuiltMap<String, bool>? requestParameters;
+  final _i2.BuiltMap<String, bool>? requestParameters;
   @override
-  final _i4.BuiltMap<String, String>? requestModels;
+  final _i2.BuiltMap<String, String>? requestModels;
   @override
-  final _i4.BuiltMap<String, _i2.MethodResponse>? methodResponses;
+  final _i2.BuiltMap<String, MethodResponse>? methodResponses;
   @override
-  final _i3.Integration? methodIntegration;
+  final Integration? methodIntegration;
   @override
-  final _i4.BuiltList<String>? authorizationScopes;
+  final _i2.BuiltList<String>? authorizationScopes;
 
   factory _$Method([void Function(MethodBuilder)? updates]) =>
       (new MethodBuilder()..update(updates))._build();
@@ -121,36 +121,35 @@ class MethodBuilder implements Builder<Method, MethodBuilder> {
   set operationName(String? operationName) =>
       _$this._operationName = operationName;
 
-  _i4.MapBuilder<String, bool>? _requestParameters;
-  _i4.MapBuilder<String, bool> get requestParameters =>
-      _$this._requestParameters ??= new _i4.MapBuilder<String, bool>();
-  set requestParameters(_i4.MapBuilder<String, bool>? requestParameters) =>
+  _i2.MapBuilder<String, bool>? _requestParameters;
+  _i2.MapBuilder<String, bool> get requestParameters =>
+      _$this._requestParameters ??= new _i2.MapBuilder<String, bool>();
+  set requestParameters(_i2.MapBuilder<String, bool>? requestParameters) =>
       _$this._requestParameters = requestParameters;
 
-  _i4.MapBuilder<String, String>? _requestModels;
-  _i4.MapBuilder<String, String> get requestModels =>
-      _$this._requestModels ??= new _i4.MapBuilder<String, String>();
-  set requestModels(_i4.MapBuilder<String, String>? requestModels) =>
+  _i2.MapBuilder<String, String>? _requestModels;
+  _i2.MapBuilder<String, String> get requestModels =>
+      _$this._requestModels ??= new _i2.MapBuilder<String, String>();
+  set requestModels(_i2.MapBuilder<String, String>? requestModels) =>
       _$this._requestModels = requestModels;
 
-  _i4.MapBuilder<String, _i2.MethodResponse>? _methodResponses;
-  _i4.MapBuilder<String, _i2.MethodResponse> get methodResponses =>
-      _$this._methodResponses ??=
-          new _i4.MapBuilder<String, _i2.MethodResponse>();
+  _i2.MapBuilder<String, MethodResponse>? _methodResponses;
+  _i2.MapBuilder<String, MethodResponse> get methodResponses =>
+      _$this._methodResponses ??= new _i2.MapBuilder<String, MethodResponse>();
   set methodResponses(
-          _i4.MapBuilder<String, _i2.MethodResponse>? methodResponses) =>
+          _i2.MapBuilder<String, MethodResponse>? methodResponses) =>
       _$this._methodResponses = methodResponses;
 
-  _i3.IntegrationBuilder? _methodIntegration;
-  _i3.IntegrationBuilder get methodIntegration =>
-      _$this._methodIntegration ??= new _i3.IntegrationBuilder();
-  set methodIntegration(_i3.IntegrationBuilder? methodIntegration) =>
+  IntegrationBuilder? _methodIntegration;
+  IntegrationBuilder get methodIntegration =>
+      _$this._methodIntegration ??= new IntegrationBuilder();
+  set methodIntegration(IntegrationBuilder? methodIntegration) =>
       _$this._methodIntegration = methodIntegration;
 
-  _i4.ListBuilder<String>? _authorizationScopes;
-  _i4.ListBuilder<String> get authorizationScopes =>
-      _$this._authorizationScopes ??= new _i4.ListBuilder<String>();
-  set authorizationScopes(_i4.ListBuilder<String>? authorizationScopes) =>
+  _i2.ListBuilder<String>? _authorizationScopes;
+  _i2.ListBuilder<String> get authorizationScopes =>
+      _$this._authorizationScopes ??= new _i2.ListBuilder<String>();
+  set authorizationScopes(_i2.ListBuilder<String>? authorizationScopes) =>
       _$this._authorizationScopes = authorizationScopes;
 
   MethodBuilder();

@@ -8,7 +8,7 @@ part of 'get_account_summary_response.dart';
 
 class _$GetAccountSummaryResponse extends GetAccountSummaryResponse {
   @override
-  final _i3.BuiltMap<_i2.SummaryKeyType, int>? summaryMap;
+  final _i2.BuiltMap<SummaryKeyType, int>? summaryMap;
 
   factory _$GetAccountSummaryResponse(
           [void Function(GetAccountSummaryResponseBuilder)? updates]) =>
@@ -45,10 +45,10 @@ class GetAccountSummaryResponseBuilder
         Builder<GetAccountSummaryResponse, GetAccountSummaryResponseBuilder> {
   _$GetAccountSummaryResponse? _$v;
 
-  _i3.MapBuilder<_i2.SummaryKeyType, int>? _summaryMap;
-  _i3.MapBuilder<_i2.SummaryKeyType, int> get summaryMap =>
-      _$this._summaryMap ??= new _i3.MapBuilder<_i2.SummaryKeyType, int>();
-  set summaryMap(_i3.MapBuilder<_i2.SummaryKeyType, int>? summaryMap) =>
+  _i2.MapBuilder<SummaryKeyType, int>? _summaryMap;
+  _i2.MapBuilder<SummaryKeyType, int> get summaryMap =>
+      _$this._summaryMap ??= new _i2.MapBuilder<SummaryKeyType, int>();
+  set summaryMap(_i2.MapBuilder<SummaryKeyType, int>? summaryMap) =>
       _$this._summaryMap = summaryMap;
 
   GetAccountSummaryResponseBuilder();

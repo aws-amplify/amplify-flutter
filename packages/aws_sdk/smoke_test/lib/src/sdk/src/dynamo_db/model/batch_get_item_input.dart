@@ -4,14 +4,12 @@
 library smoke_test.dynamo_db.model.batch_get_item_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/keys_and_attributes.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_consumed_capacity.dart'
-    as _i4;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/keys_and_attributes.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_consumed_capacity.dart';
 
 part 'batch_get_item_input.g.dart';
 
@@ -21,11 +19,11 @@ abstract class BatchGetItemInput
     implements Built<BatchGetItemInput, BatchGetItemInputBuilder> {
   /// Represents the input of a `BatchGetItem` operation.
   factory BatchGetItemInput({
-    required Map<String, _i3.KeysAndAttributes> requestItems,
-    _i4.ReturnConsumedCapacity? returnConsumedCapacity,
+    required Map<String, KeysAndAttributes> requestItems,
+    ReturnConsumedCapacity? returnConsumedCapacity,
   }) {
     return _$BatchGetItemInput._(
-      requestItems: _i5.BuiltMap(requestItems),
+      requestItems: _i3.BuiltMap(requestItems),
       returnConsumedCapacity: returnConsumedCapacity,
     );
   }
@@ -90,7 +88,7 @@ abstract class BatchGetItemInput
   ///     For more information, see [Accessing Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html) in the _Amazon DynamoDB Developer Guide_.
   ///
   /// *   `AttributesToGet` \- This is a legacy parameter. Use `ProjectionExpression` instead. For more information, see [AttributesToGet](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html) in the _Amazon DynamoDB Developer Guide_.
-  _i5.BuiltMap<String, _i3.KeysAndAttributes> get requestItems;
+  _i3.BuiltMap<String, KeysAndAttributes> get requestItems;
 
   /// Determines the level of detail about either provisioned or on-demand throughput consumption that is returned in the response:
   ///
@@ -101,7 +99,7 @@ abstract class BatchGetItemInput
   /// *   `TOTAL` \- The response includes only the aggregate `ConsumedCapacity` for the operation.
   ///
   /// *   `NONE` \- No `ConsumedCapacity` details are included in the response.
-  _i4.ReturnConsumedCapacity? get returnConsumedCapacity;
+  ReturnConsumedCapacity? get returnConsumedCapacity;
   @override
   BatchGetItemInput getPayload() => this;
   @override
@@ -160,18 +158,18 @@ class BatchGetItemInputAwsJson10Serializer
           result.requestItems.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
-                FullType(_i3.KeysAndAttributes),
+                FullType(KeysAndAttributes),
               ],
             ),
-          ) as _i5.BuiltMap<String, _i3.KeysAndAttributes>));
+          ) as _i3.BuiltMap<String, KeysAndAttributes>));
         case 'ReturnConsumedCapacity':
           result.returnConsumedCapacity = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ReturnConsumedCapacity),
-          ) as _i4.ReturnConsumedCapacity);
+            specifiedType: const FullType(ReturnConsumedCapacity),
+          ) as ReturnConsumedCapacity);
       }
     }
 
@@ -191,10 +189,10 @@ class BatchGetItemInputAwsJson10Serializer
       serializers.serialize(
         requestItems,
         specifiedType: const FullType(
-          _i5.BuiltMap,
+          _i3.BuiltMap,
           [
             FullType(String),
-            FullType(_i3.KeysAndAttributes),
+            FullType(KeysAndAttributes),
           ],
         ),
       ),
@@ -204,7 +202,7 @@ class BatchGetItemInputAwsJson10Serializer
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
           returnConsumedCapacity,
-          specifiedType: const FullType(_i4.ReturnConsumedCapacity),
+          specifiedType: const FullType(ReturnConsumedCapacity),
         ));
     }
     return result$;

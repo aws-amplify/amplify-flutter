@@ -5,14 +5,11 @@
 library rest_xml_with_namespace_v2.rest_xml_protocol_namespace.test.simple_scalar_properties_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i6;
-import 'package:rest_xml_with_namespace_v2/src/rest_xml_protocol_namespace/model/nested_with_namespace.dart'
-    as _i7;
-import 'package:rest_xml_with_namespace_v2/src/rest_xml_protocol_namespace/model/simple_scalar_properties_input_output.dart'
-    as _i5;
-import 'package:rest_xml_with_namespace_v2/src/rest_xml_protocol_namespace/operation/simple_scalar_properties_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:fixnum/fixnum.dart' as _i4;
+import 'package:rest_xml_with_namespace_v2/src/rest_xml_protocol_namespace/model/nested_with_namespace.dart';
+import 'package:rest_xml_with_namespace_v2/src/rest_xml_protocol_namespace/model/simple_scalar_properties_input_output.dart';
+import 'package:rest_xml_with_namespace_v2/src/rest_xml_protocol_namespace/operation/simple_scalar_properties_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -21,14 +18,14 @@ void main() {
     'XmlNamespaceSimpleScalarProperties (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'XmlNamespaceSimpleScalarProperties',
           documentation: 'Serializes simple scalar properties',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -78,14 +75,14 @@ void main() {
     'XmlNamespaceSimpleScalarProperties (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.SimpleScalarPropertiesOperation(
+        operation: SimpleScalarPropertiesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'XmlNamespaceSimpleScalarProperties',
           documentation: 'Serializes simple scalar properties',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -127,27 +124,27 @@ void main() {
   );
 }
 
-class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i4
-    .StructuredSmithySerializer<_i5.SimpleScalarPropertiesInputOutput> {
+class SimpleScalarPropertiesInputOutputRestXmlSerializer
+    extends _i3.StructuredSmithySerializer<SimpleScalarPropertiesInputOutput> {
   const SimpleScalarPropertiesInputOutputRestXmlSerializer()
       : super('SimpleScalarPropertiesInputOutput');
 
   @override
-  Iterable<Type> get types => const [_i5.SimpleScalarPropertiesInputOutput];
+  Iterable<Type> get types => const [SimpleScalarPropertiesInputOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
       ];
   @override
-  _i5.SimpleScalarPropertiesInputOutput deserialize(
+  SimpleScalarPropertiesInputOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.SimpleScalarPropertiesInputOutputBuilder();
+    final result = SimpleScalarPropertiesInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -195,8 +192,8 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i4
         case 'longValue':
           result.longValue = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.Int64),
-          ) as _i6.Int64);
+            specifiedType: const FullType(_i4.Int64),
+          ) as _i4.Int64);
         case 'floatValue':
           result.floatValue = (serializers.deserialize(
             value,
@@ -205,8 +202,8 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i4
         case 'Nested':
           result.nested.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i7.NestedWithNamespace),
-          ) as _i7.NestedWithNamespace));
+            specifiedType: const FullType(NestedWithNamespace),
+          ) as NestedWithNamespace));
         case 'doubleValue':
           result.doubleValue = (serializers.deserialize(
             value,
@@ -221,7 +218,7 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.SimpleScalarPropertiesInputOutput object, {
+    SimpleScalarPropertiesInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -229,25 +226,25 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i4
 }
 
 class NestedWithNamespaceRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<_i7.NestedWithNamespace> {
+    extends _i3.StructuredSmithySerializer<NestedWithNamespace> {
   const NestedWithNamespaceRestXmlSerializer() : super('NestedWithNamespace');
 
   @override
-  Iterable<Type> get types => const [_i7.NestedWithNamespace];
+  Iterable<Type> get types => const [NestedWithNamespace];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
       ];
   @override
-  _i7.NestedWithNamespace deserialize(
+  NestedWithNamespace deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i7.NestedWithNamespaceBuilder();
+    final result = NestedWithNamespaceBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -271,7 +268,7 @@ class NestedWithNamespaceRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i7.NestedWithNamespace object, {
+    NestedWithNamespace object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

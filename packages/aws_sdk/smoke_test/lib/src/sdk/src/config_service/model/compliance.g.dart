@@ -8,9 +8,9 @@ part of 'compliance.dart';
 
 class _$Compliance extends Compliance {
   @override
-  final _i2.ComplianceType? complianceType;
+  final ComplianceType? complianceType;
   @override
-  final _i3.ComplianceContributorCount? complianceContributorCount;
+  final ComplianceContributorCount? complianceContributorCount;
 
   factory _$Compliance([void Function(ComplianceBuilder)? updates]) =>
       (new ComplianceBuilder()..update(updates))._build();
@@ -46,17 +46,17 @@ class _$Compliance extends Compliance {
 class ComplianceBuilder implements Builder<Compliance, ComplianceBuilder> {
   _$Compliance? _$v;
 
-  _i2.ComplianceType? _complianceType;
-  _i2.ComplianceType? get complianceType => _$this._complianceType;
-  set complianceType(_i2.ComplianceType? complianceType) =>
+  ComplianceType? _complianceType;
+  ComplianceType? get complianceType => _$this._complianceType;
+  set complianceType(ComplianceType? complianceType) =>
       _$this._complianceType = complianceType;
 
-  _i3.ComplianceContributorCountBuilder? _complianceContributorCount;
-  _i3.ComplianceContributorCountBuilder get complianceContributorCount =>
+  ComplianceContributorCountBuilder? _complianceContributorCount;
+  ComplianceContributorCountBuilder get complianceContributorCount =>
       _$this._complianceContributorCount ??=
-          new _i3.ComplianceContributorCountBuilder();
+          new ComplianceContributorCountBuilder();
   set complianceContributorCount(
-          _i3.ComplianceContributorCountBuilder? complianceContributorCount) =>
+          ComplianceContributorCountBuilder? complianceContributorCount) =>
       _$this._complianceContributorCount = complianceContributorCount;
 
   ComplianceBuilder();

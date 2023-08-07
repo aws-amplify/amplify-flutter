@@ -10,7 +10,7 @@ class _$DeletionTaskFailureReasonType extends DeletionTaskFailureReasonType {
   @override
   final String? reason;
   @override
-  final _i3.BuiltList<_i2.RoleUsageType>? roleUsageList;
+  final _i2.BuiltList<RoleUsageType>? roleUsageList;
 
   factory _$DeletionTaskFailureReasonType(
           [void Function(DeletionTaskFailureReasonTypeBuilder)? updates]) =>
@@ -56,10 +56,10 @@ class DeletionTaskFailureReasonTypeBuilder
   String? get reason => _$this._reason;
   set reason(String? reason) => _$this._reason = reason;
 
-  _i3.ListBuilder<_i2.RoleUsageType>? _roleUsageList;
-  _i3.ListBuilder<_i2.RoleUsageType> get roleUsageList =>
-      _$this._roleUsageList ??= new _i3.ListBuilder<_i2.RoleUsageType>();
-  set roleUsageList(_i3.ListBuilder<_i2.RoleUsageType>? roleUsageList) =>
+  _i2.ListBuilder<RoleUsageType>? _roleUsageList;
+  _i2.ListBuilder<RoleUsageType> get roleUsageList =>
+      _$this._roleUsageList ??= new _i2.ListBuilder<RoleUsageType>();
+  set roleUsageList(_i2.ListBuilder<RoleUsageType>? roleUsageList) =>
       _$this._roleUsageList = roleUsageList;
 
   DeletionTaskFailureReasonTypeBuilder();

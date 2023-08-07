@@ -6,13 +6,10 @@ library smoke_test.dynamo_db.model.import_summary; // ignore_for_file: no_leadin
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/import_status.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/input_format.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/s3_bucket_source.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/import_status.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/input_format.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/s3_bucket_source.dart';
 
 part 'import_summary.g.dart';
 
@@ -23,11 +20,11 @@ abstract class ImportSummary
   /// Summary information about the source file for the import.
   factory ImportSummary({
     String? importArn,
-    _i2.ImportStatus? importStatus,
+    ImportStatus? importStatus,
     String? tableArn,
-    _i3.S3BucketSource? s3BucketSource,
+    S3BucketSource? s3BucketSource,
     String? cloudWatchLogGroupArn,
-    _i4.InputFormat? inputFormat,
+    InputFormat? inputFormat,
     DateTime? startTime,
     DateTime? endTime,
   }) {
@@ -49,7 +46,7 @@ abstract class ImportSummary
 
   const ImportSummary._();
 
-  static const List<_i5.SmithySerializer<ImportSummary>> serializers = [
+  static const List<_i2.SmithySerializer<ImportSummary>> serializers = [
     ImportSummaryAwsJson10Serializer()
   ];
 
@@ -57,19 +54,19 @@ abstract class ImportSummary
   String? get importArn;
 
   /// The status of the import operation.
-  _i2.ImportStatus? get importStatus;
+  ImportStatus? get importStatus;
 
   /// The Amazon Resource Number (ARN) of the table being imported into.
   String? get tableArn;
 
   /// The path and S3 bucket of the source file that is being imported. This includes the S3Bucket (required), S3KeyPrefix (optional) and S3BucketOwner (optional if the bucket is owned by the requester).
-  _i3.S3BucketSource? get s3BucketSource;
+  S3BucketSource? get s3BucketSource;
 
   /// The Amazon Resource Number (ARN) of the Cloudwatch Log Group associated with this import task.
   String? get cloudWatchLogGroupArn;
 
   /// The format of the source data. Valid values are `CSV`, `DYNAMODB_JSON` or `ION`.
-  _i4.InputFormat? get inputFormat;
+  InputFormat? get inputFormat;
 
   /// The time at which this import task began.
   DateTime? get startTime;
@@ -127,7 +124,7 @@ abstract class ImportSummary
 }
 
 class ImportSummaryAwsJson10Serializer
-    extends _i5.StructuredSmithySerializer<ImportSummary> {
+    extends _i2.StructuredSmithySerializer<ImportSummary> {
   const ImportSummaryAwsJson10Serializer() : super('ImportSummary');
 
   @override
@@ -136,8 +133,8 @@ class ImportSummaryAwsJson10Serializer
         _$ImportSummary,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -166,8 +163,8 @@ class ImportSummaryAwsJson10Serializer
         case 'ImportStatus':
           result.importStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ImportStatus),
-          ) as _i2.ImportStatus);
+            specifiedType: const FullType(ImportStatus),
+          ) as ImportStatus);
         case 'TableArn':
           result.tableArn = (serializers.deserialize(
             value,
@@ -176,8 +173,8 @@ class ImportSummaryAwsJson10Serializer
         case 'S3BucketSource':
           result.s3BucketSource.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.S3BucketSource),
-          ) as _i3.S3BucketSource));
+            specifiedType: const FullType(S3BucketSource),
+          ) as S3BucketSource));
         case 'CloudWatchLogGroupArn':
           result.cloudWatchLogGroupArn = (serializers.deserialize(
             value,
@@ -186,8 +183,8 @@ class ImportSummaryAwsJson10Serializer
         case 'InputFormat':
           result.inputFormat = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.InputFormat),
-          ) as _i4.InputFormat);
+            specifiedType: const FullType(InputFormat),
+          ) as InputFormat);
         case 'StartTime':
           result.startTime = (serializers.deserialize(
             value,
@@ -234,7 +231,7 @@ class ImportSummaryAwsJson10Serializer
         ..add('ImportStatus')
         ..add(serializers.serialize(
           importStatus,
-          specifiedType: const FullType(_i2.ImportStatus),
+          specifiedType: const FullType(ImportStatus),
         ));
     }
     if (tableArn != null) {
@@ -250,7 +247,7 @@ class ImportSummaryAwsJson10Serializer
         ..add('S3BucketSource')
         ..add(serializers.serialize(
           s3BucketSource,
-          specifiedType: const FullType(_i3.S3BucketSource),
+          specifiedType: const FullType(S3BucketSource),
         ));
     }
     if (cloudWatchLogGroupArn != null) {
@@ -266,7 +263,7 @@ class ImportSummaryAwsJson10Serializer
         ..add('InputFormat')
         ..add(serializers.serialize(
           inputFormat,
-          specifiedType: const FullType(_i4.InputFormat),
+          specifiedType: const FullType(InputFormat),
         ));
     }
     if (startTime != null) {

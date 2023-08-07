@@ -16,17 +16,17 @@ class _$CreateRestApiRequest extends CreateRestApiRequest {
   @override
   final String? cloneFrom;
   @override
-  final _i5.BuiltList<String>? binaryMediaTypes;
+  final _i3.BuiltList<String>? binaryMediaTypes;
   @override
   final int? minimumCompressionSize;
   @override
-  final _i3.ApiKeySourceType? apiKeySource;
+  final ApiKeySourceType? apiKeySource;
   @override
-  final _i4.EndpointConfiguration? endpointConfiguration;
+  final EndpointConfiguration? endpointConfiguration;
   @override
   final String? policy;
   @override
-  final _i5.BuiltMap<String, String>? tags;
+  final _i3.BuiltMap<String, String>? tags;
   @override
   final bool disableExecuteApiEndpoint;
 
@@ -118,10 +118,10 @@ class CreateRestApiRequestBuilder
   String? get cloneFrom => _$this._cloneFrom;
   set cloneFrom(String? cloneFrom) => _$this._cloneFrom = cloneFrom;
 
-  _i5.ListBuilder<String>? _binaryMediaTypes;
-  _i5.ListBuilder<String> get binaryMediaTypes =>
-      _$this._binaryMediaTypes ??= new _i5.ListBuilder<String>();
-  set binaryMediaTypes(_i5.ListBuilder<String>? binaryMediaTypes) =>
+  _i3.ListBuilder<String>? _binaryMediaTypes;
+  _i3.ListBuilder<String> get binaryMediaTypes =>
+      _$this._binaryMediaTypes ??= new _i3.ListBuilder<String>();
+  set binaryMediaTypes(_i3.ListBuilder<String>? binaryMediaTypes) =>
       _$this._binaryMediaTypes = binaryMediaTypes;
 
   int? _minimumCompressionSize;
@@ -129,26 +129,26 @@ class CreateRestApiRequestBuilder
   set minimumCompressionSize(int? minimumCompressionSize) =>
       _$this._minimumCompressionSize = minimumCompressionSize;
 
-  _i3.ApiKeySourceType? _apiKeySource;
-  _i3.ApiKeySourceType? get apiKeySource => _$this._apiKeySource;
-  set apiKeySource(_i3.ApiKeySourceType? apiKeySource) =>
+  ApiKeySourceType? _apiKeySource;
+  ApiKeySourceType? get apiKeySource => _$this._apiKeySource;
+  set apiKeySource(ApiKeySourceType? apiKeySource) =>
       _$this._apiKeySource = apiKeySource;
 
-  _i4.EndpointConfigurationBuilder? _endpointConfiguration;
-  _i4.EndpointConfigurationBuilder get endpointConfiguration =>
-      _$this._endpointConfiguration ??= new _i4.EndpointConfigurationBuilder();
+  EndpointConfigurationBuilder? _endpointConfiguration;
+  EndpointConfigurationBuilder get endpointConfiguration =>
+      _$this._endpointConfiguration ??= new EndpointConfigurationBuilder();
   set endpointConfiguration(
-          _i4.EndpointConfigurationBuilder? endpointConfiguration) =>
+          EndpointConfigurationBuilder? endpointConfiguration) =>
       _$this._endpointConfiguration = endpointConfiguration;
 
   String? _policy;
   String? get policy => _$this._policy;
   set policy(String? policy) => _$this._policy = policy;
 
-  _i5.MapBuilder<String, String>? _tags;
-  _i5.MapBuilder<String, String> get tags =>
-      _$this._tags ??= new _i5.MapBuilder<String, String>();
-  set tags(_i5.MapBuilder<String, String>? tags) => _$this._tags = tags;
+  _i3.MapBuilder<String, String>? _tags;
+  _i3.MapBuilder<String, String> get tags =>
+      _$this._tags ??= new _i3.MapBuilder<String, String>();
+  set tags(_i3.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
   bool? _disableExecuteApiEndpoint;
   bool? get disableExecuteApiEndpoint => _$this._disableExecuteApiEndpoint;

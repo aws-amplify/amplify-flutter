@@ -9,8 +9,7 @@ part of 'batch_describe_type_configurations_input.dart';
 class _$BatchDescribeTypeConfigurationsInput
     extends BatchDescribeTypeConfigurationsInput {
   @override
-  final _i4.BuiltList<_i3.TypeConfigurationIdentifier>
-      typeConfigurationIdentifiers;
+  final _i3.BuiltList<TypeConfigurationIdentifier> typeConfigurationIdentifiers;
 
   factory _$BatchDescribeTypeConfigurationsInput(
           [void Function(BatchDescribeTypeConfigurationsInputBuilder)?
@@ -58,14 +57,13 @@ class BatchDescribeTypeConfigurationsInputBuilder
             BatchDescribeTypeConfigurationsInputBuilder> {
   _$BatchDescribeTypeConfigurationsInput? _$v;
 
-  _i4.ListBuilder<_i3.TypeConfigurationIdentifier>?
-      _typeConfigurationIdentifiers;
-  _i4.ListBuilder<_i3.TypeConfigurationIdentifier>
+  _i3.ListBuilder<TypeConfigurationIdentifier>? _typeConfigurationIdentifiers;
+  _i3.ListBuilder<TypeConfigurationIdentifier>
       get typeConfigurationIdentifiers =>
           _$this._typeConfigurationIdentifiers ??=
-              new _i4.ListBuilder<_i3.TypeConfigurationIdentifier>();
+              new _i3.ListBuilder<TypeConfigurationIdentifier>();
   set typeConfigurationIdentifiers(
-          _i4.ListBuilder<_i3.TypeConfigurationIdentifier>?
+          _i3.ListBuilder<TypeConfigurationIdentifier>?
               typeConfigurationIdentifiers) =>
       _$this._typeConfigurationIdentifiers = typeConfigurationIdentifiers;
 

@@ -8,9 +8,9 @@ part of 'remediation_parameter_value.dart';
 
 class _$RemediationParameterValue extends RemediationParameterValue {
   @override
-  final _i2.ResourceValue? resourceValue;
+  final ResourceValue? resourceValue;
   @override
-  final _i3.StaticValue? staticValue;
+  final StaticValue? staticValue;
 
   factory _$RemediationParameterValue(
           [void Function(RemediationParameterValueBuilder)? updates]) =>
@@ -51,16 +51,16 @@ class RemediationParameterValueBuilder
         Builder<RemediationParameterValue, RemediationParameterValueBuilder> {
   _$RemediationParameterValue? _$v;
 
-  _i2.ResourceValueBuilder? _resourceValue;
-  _i2.ResourceValueBuilder get resourceValue =>
-      _$this._resourceValue ??= new _i2.ResourceValueBuilder();
-  set resourceValue(_i2.ResourceValueBuilder? resourceValue) =>
+  ResourceValueBuilder? _resourceValue;
+  ResourceValueBuilder get resourceValue =>
+      _$this._resourceValue ??= new ResourceValueBuilder();
+  set resourceValue(ResourceValueBuilder? resourceValue) =>
       _$this._resourceValue = resourceValue;
 
-  _i3.StaticValueBuilder? _staticValue;
-  _i3.StaticValueBuilder get staticValue =>
-      _$this._staticValue ??= new _i3.StaticValueBuilder();
-  set staticValue(_i3.StaticValueBuilder? staticValue) =>
+  StaticValueBuilder? _staticValue;
+  StaticValueBuilder get staticValue =>
+      _$this._staticValue ??= new StaticValueBuilder();
+  set staticValue(StaticValueBuilder? staticValue) =>
       _$this._staticValue = staticValue;
 
   RemediationParameterValueBuilder();

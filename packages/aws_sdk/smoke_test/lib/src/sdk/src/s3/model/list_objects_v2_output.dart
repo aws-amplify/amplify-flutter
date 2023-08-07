@@ -4,15 +4,15 @@
 library smoke_test.s3.model.list_objects_v2_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i7;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i8;
+import 'package:meta/meta.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/common_prefix.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/encoding_type.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/object.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart' as _i6;
+import 'package:smoke_test/src/sdk/src/s3/model/common_prefix.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/encoding_type.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/object.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart';
 
 part 'list_objects_v2_output.g.dart';
 
@@ -23,28 +23,28 @@ abstract class ListObjectsV2Output
         _i2.HasPayload<ListObjectsV2OutputPayload> {
   factory ListObjectsV2Output({
     bool? isTruncated,
-    List<_i3.S3Object>? contents,
+    List<S3Object>? contents,
     String? name,
     String? prefix,
     String? delimiter,
     int? maxKeys,
-    List<_i4.CommonPrefix>? commonPrefixes,
-    _i5.EncodingType? encodingType,
+    List<CommonPrefix>? commonPrefixes,
+    EncodingType? encodingType,
     int? keyCount,
     String? continuationToken,
     String? nextContinuationToken,
     String? startAfter,
-    _i6.RequestCharged? requestCharged,
+    RequestCharged? requestCharged,
   }) {
     return _$ListObjectsV2Output._(
       isTruncated: isTruncated,
-      contents: contents == null ? null : _i7.BuiltList(contents),
+      contents: contents == null ? null : _i3.BuiltList(contents),
       name: name,
       prefix: prefix,
       delimiter: delimiter,
       maxKeys: maxKeys,
       commonPrefixes:
-          commonPrefixes == null ? null : _i7.BuiltList(commonPrefixes),
+          commonPrefixes == null ? null : _i3.BuiltList(commonPrefixes),
       encodingType: encodingType,
       keyCount: keyCount,
       continuationToken: continuationToken,
@@ -83,7 +83,7 @@ abstract class ListObjectsV2Output
         b.prefix = payload.prefix;
         b.startAfter = payload.startAfter;
         if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = _i6.RequestCharged.values
+          b.requestCharged = RequestCharged.values
               .byValue(response.headers['x-amz-request-charged']!);
         }
       });
@@ -95,7 +95,7 @@ abstract class ListObjectsV2Output
   bool? get isTruncated;
 
   /// Metadata about each object returned.
-  _i7.BuiltList<_i3.S3Object>? get contents;
+  _i3.BuiltList<S3Object>? get contents;
 
   /// The bucket name.
   ///
@@ -122,14 +122,14 @@ abstract class ListObjectsV2Output
   /// `CommonPrefixes` lists keys that act like subdirectories in the directory specified by `Prefix`.
   ///
   /// For example, if the prefix is `notes/` and the delimiter is a slash (`/`) as in `notes/summer/july`, the common prefix is `notes/summer/`. All of the keys that roll up into a common prefix count as a single return when calculating the number of returns.
-  _i7.BuiltList<_i4.CommonPrefix>? get commonPrefixes;
+  _i3.BuiltList<CommonPrefix>? get commonPrefixes;
 
   /// Encoding type used by Amazon S3 to encode object key names in the XML response.
   ///
   /// If you specify the `encoding-type` request parameter, Amazon S3 includes this element in the response, and returns encoded key name values in the following response elements:
   ///
   /// `Delimiter, Prefix, Key,` and `StartAfter`.
-  _i5.EncodingType? get encodingType;
+  EncodingType? get encodingType;
 
   /// `KeyCount` is the number of keys returned with this request. `KeyCount` will always be less than or equal to the `MaxKeys` field. For example, if you ask for 50 keys, your result will include 50 keys or fewer.
   int? get keyCount;
@@ -144,7 +144,7 @@ abstract class ListObjectsV2Output
   String? get startAfter;
 
   /// If present, indicates that the requester was successfully charged for the request.
-  _i6.RequestCharged? get requestCharged;
+  RequestCharged? get requestCharged;
   @override
   ListObjectsV2OutputPayload getPayload() => ListObjectsV2OutputPayload((b) {
         if (commonPrefixes != null) {
@@ -239,7 +239,7 @@ abstract class ListObjectsV2Output
   }
 }
 
-@_i8.internal
+@_i4.internal
 abstract class ListObjectsV2OutputPayload
     with _i1.AWSEquatable<ListObjectsV2OutputPayload>
     implements
@@ -259,10 +259,10 @@ abstract class ListObjectsV2OutputPayload
   /// `CommonPrefixes` lists keys that act like subdirectories in the directory specified by `Prefix`.
   ///
   /// For example, if the prefix is `notes/` and the delimiter is a slash (`/`) as in `notes/summer/july`, the common prefix is `notes/summer/`. All of the keys that roll up into a common prefix count as a single return when calculating the number of returns.
-  _i7.BuiltList<_i4.CommonPrefix>? get commonPrefixes;
+  _i3.BuiltList<CommonPrefix>? get commonPrefixes;
 
   /// Metadata about each object returned.
-  _i7.BuiltList<_i3.S3Object>? get contents;
+  _i3.BuiltList<S3Object>? get contents;
 
   /// If `ContinuationToken` was sent with the request, it is included in the response.
   String? get continuationToken;
@@ -275,7 +275,7 @@ abstract class ListObjectsV2OutputPayload
   /// If you specify the `encoding-type` request parameter, Amazon S3 includes this element in the response, and returns encoded key name values in the following response elements:
   ///
   /// `Delimiter, Prefix, Key,` and `StartAfter`.
-  _i5.EncodingType? get encodingType;
+  EncodingType? get encodingType;
 
   /// Set to `false` if all of the results were returned. Set to `true` if more keys are available to return. If the number of results exceeds that specified by `MaxKeys`, all of the results might not be returned.
   bool? get isTruncated;
@@ -408,13 +408,13 @@ class ListObjectsV2OutputRestXmlSerializer
         case 'CommonPrefixes':
           result.commonPrefixes.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.CommonPrefix),
-          ) as _i4.CommonPrefix));
+            specifiedType: const FullType(CommonPrefix),
+          ) as CommonPrefix));
         case 'Contents':
           result.contents.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.S3Object),
-          ) as _i3.S3Object));
+            specifiedType: const FullType(S3Object),
+          ) as S3Object));
         case 'ContinuationToken':
           result.continuationToken = (serializers.deserialize(
             value,
@@ -428,8 +428,8 @@ class ListObjectsV2OutputRestXmlSerializer
         case 'EncodingType':
           result.encodingType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.EncodingType),
-          ) as _i5.EncodingType);
+            specifiedType: const FullType(EncodingType),
+          ) as EncodingType);
         case 'IsTruncated':
           result.isTruncated = (serializers.deserialize(
             value,
@@ -504,8 +504,8 @@ class ListObjectsV2OutputRestXmlSerializer
         serializers,
         commonPrefixes,
         specifiedType: const FullType.nullable(
-          _i7.BuiltList,
-          [FullType(_i4.CommonPrefix)],
+          _i3.BuiltList,
+          [FullType(CommonPrefix)],
         ),
       ));
     }
@@ -515,8 +515,8 @@ class ListObjectsV2OutputRestXmlSerializer
         serializers,
         contents,
         specifiedType: const FullType.nullable(
-          _i7.BuiltList,
-          [FullType(_i3.S3Object)],
+          _i3.BuiltList,
+          [FullType(S3Object)],
         ),
       ));
     }
@@ -541,7 +541,7 @@ class ListObjectsV2OutputRestXmlSerializer
         ..add(const _i2.XmlElementName('EncodingType'))
         ..add(serializers.serialize(
           encodingType,
-          specifiedType: const FullType.nullable(_i5.EncodingType),
+          specifiedType: const FullType.nullable(EncodingType),
         ));
     }
     if (isTruncated != null) {

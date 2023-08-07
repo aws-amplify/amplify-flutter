@@ -3,13 +3,12 @@
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.attribute_dimension; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/attribute_type.dart'
-    as _i2;
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/attribute_type.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i3;
 
 part 'attribute_dimension.g.dart';
 
@@ -19,12 +18,12 @@ abstract class AttributeDimension
     implements Built<AttributeDimension, AttributeDimensionBuilder> {
   /// Specifies attribute-based criteria for including or excluding endpoints from a segment.
   factory AttributeDimension({
-    _i2.AttributeType? attributeType,
+    AttributeType? attributeType,
     required List<String> values,
   }) {
     return _$AttributeDimension._(
       attributeType: attributeType,
-      values: _i3.BuiltList(values),
+      values: _i2.BuiltList(values),
     );
   }
 
@@ -35,7 +34,7 @@ abstract class AttributeDimension
 
   const AttributeDimension._();
 
-  static const List<_i4.SmithySerializer<AttributeDimension>> serializers = [
+  static const List<_i3.SmithySerializer<AttributeDimension>> serializers = [
     AttributeDimensionRestJson1Serializer()
   ];
 
@@ -48,10 +47,10 @@ abstract class AttributeDimension
   /// *   AFTER - endpoints with attributes read as ISO_INSTANT datetimes after the value are included in the segment.
   /// *   ON - endpoints with attributes read as ISO_INSTANT dates on the value are included in the segment. Time is ignored in this comparison.
   /// *   BETWEEN - endpoints with attributes read as ISO_INSTANT datetimes between the values are included in the segment.
-  _i2.AttributeType? get attributeType;
+  AttributeType? get attributeType;
 
   /// The criteria values to use for the segment dimension. Depending on the value of the AttributeType property, endpoints are included or excluded from the segment if their attribute values match the criteria values.
-  _i3.BuiltList<String> get values;
+  _i2.BuiltList<String> get values;
   @override
   List<Object?> get props => [
         attributeType,
@@ -73,7 +72,7 @@ abstract class AttributeDimension
 }
 
 class AttributeDimensionRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<AttributeDimension> {
+    extends _i3.StructuredSmithySerializer<AttributeDimension> {
   const AttributeDimensionRestJson1Serializer() : super('AttributeDimension');
 
   @override
@@ -82,8 +81,8 @@ class AttributeDimensionRestJson1Serializer
         _$AttributeDimension,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -107,16 +106,16 @@ class AttributeDimensionRestJson1Serializer
         case 'AttributeType':
           result.attributeType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.AttributeType),
-          ) as _i2.AttributeType);
+            specifiedType: const FullType(AttributeType),
+          ) as AttributeType);
         case 'Values':
           result.values.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i3.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
       }
     }
 
@@ -136,7 +135,7 @@ class AttributeDimensionRestJson1Serializer
       serializers.serialize(
         values,
         specifiedType: const FullType(
-          _i3.BuiltList,
+          _i2.BuiltList,
           [FullType(String)],
         ),
       ),
@@ -146,7 +145,7 @@ class AttributeDimensionRestJson1Serializer
         ..add('AttributeType')
         ..add(serializers.serialize(
           attributeType,
-          specifiedType: const FullType(_i2.AttributeType),
+          specifiedType: const FullType(AttributeType),
         ));
     }
     return result$;

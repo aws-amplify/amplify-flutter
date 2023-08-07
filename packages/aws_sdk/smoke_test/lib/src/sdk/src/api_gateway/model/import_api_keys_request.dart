@@ -9,8 +9,7 @@ import 'package:aws_common/aws_common.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/api_keys_format.dart'
-    as _i4;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/api_keys_format.dart';
 
 part 'import_api_keys_request.g.dart';
 
@@ -23,7 +22,7 @@ abstract class ImportApiKeysRequest
   /// The POST request to import API keys from an external source, such as a CSV-formatted file.
   factory ImportApiKeysRequest({
     required _i2.Uint8List body,
-    required _i4.ApiKeysFormat format,
+    required ApiKeysFormat format,
     bool? failOnWarnings,
   }) {
     failOnWarnings ??= false;
@@ -49,8 +48,8 @@ abstract class ImportApiKeysRequest
       ImportApiKeysRequest.build((b) {
         b.body = payload;
         if (request.queryParameters['format'] != null) {
-          b.format = _i4.ApiKeysFormat.values
-              .byValue(request.queryParameters['format']!);
+          b.format =
+              ApiKeysFormat.values.byValue(request.queryParameters['format']!);
         }
         if (request.queryParameters['failonwarnings'] != null) {
           b.failOnWarnings =
@@ -71,7 +70,7 @@ abstract class ImportApiKeysRequest
   _i2.Uint8List get body;
 
   /// A query parameter to specify the input format to imported API keys. Currently, only the `csv` format is supported.
-  _i4.ApiKeysFormat get format;
+  ApiKeysFormat get format;
 
   /// A query parameter to indicate whether to rollback ApiKey importation (`true`) or not (`false`) when error is encountered.
   bool get failOnWarnings;

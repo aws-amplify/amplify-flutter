@@ -8,7 +8,7 @@ part of 'storage_class_analysis.dart';
 
 class _$StorageClassAnalysis extends StorageClassAnalysis {
   @override
-  final _i2.StorageClassAnalysisDataExport? dataExport;
+  final StorageClassAnalysisDataExport? dataExport;
 
   factory _$StorageClassAnalysis(
           [void Function(StorageClassAnalysisBuilder)? updates]) =>
@@ -44,10 +44,10 @@ class StorageClassAnalysisBuilder
     implements Builder<StorageClassAnalysis, StorageClassAnalysisBuilder> {
   _$StorageClassAnalysis? _$v;
 
-  _i2.StorageClassAnalysisDataExportBuilder? _dataExport;
-  _i2.StorageClassAnalysisDataExportBuilder get dataExport =>
-      _$this._dataExport ??= new _i2.StorageClassAnalysisDataExportBuilder();
-  set dataExport(_i2.StorageClassAnalysisDataExportBuilder? dataExport) =>
+  StorageClassAnalysisDataExportBuilder? _dataExport;
+  StorageClassAnalysisDataExportBuilder get dataExport =>
+      _$this._dataExport ??= new StorageClassAnalysisDataExportBuilder();
+  set dataExport(StorageClassAnalysisDataExportBuilder? dataExport) =>
       _$this._dataExport = dataExport;
 
   StorageClassAnalysisBuilder();

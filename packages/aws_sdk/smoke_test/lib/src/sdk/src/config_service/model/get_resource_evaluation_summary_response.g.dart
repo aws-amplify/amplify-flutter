@@ -11,17 +11,17 @@ class _$GetResourceEvaluationSummaryResponse
   @override
   final String? resourceEvaluationId;
   @override
-  final _i2.EvaluationMode? evaluationMode;
+  final EvaluationMode? evaluationMode;
   @override
-  final _i3.EvaluationStatus? evaluationStatus;
+  final EvaluationStatus? evaluationStatus;
   @override
   final DateTime? evaluationStartTimestamp;
   @override
-  final _i4.ComplianceType? compliance;
+  final ComplianceType? compliance;
   @override
-  final _i5.EvaluationContext? evaluationContext;
+  final EvaluationContext? evaluationContext;
   @override
-  final _i6.ResourceDetails? resourceDetails;
+  final ResourceDetails? resourceDetails;
 
   factory _$GetResourceEvaluationSummaryResponse(
           [void Function(GetResourceEvaluationSummaryResponseBuilder)?
@@ -87,15 +87,15 @@ class GetResourceEvaluationSummaryResponseBuilder
   set resourceEvaluationId(String? resourceEvaluationId) =>
       _$this._resourceEvaluationId = resourceEvaluationId;
 
-  _i2.EvaluationMode? _evaluationMode;
-  _i2.EvaluationMode? get evaluationMode => _$this._evaluationMode;
-  set evaluationMode(_i2.EvaluationMode? evaluationMode) =>
+  EvaluationMode? _evaluationMode;
+  EvaluationMode? get evaluationMode => _$this._evaluationMode;
+  set evaluationMode(EvaluationMode? evaluationMode) =>
       _$this._evaluationMode = evaluationMode;
 
-  _i3.EvaluationStatusBuilder? _evaluationStatus;
-  _i3.EvaluationStatusBuilder get evaluationStatus =>
-      _$this._evaluationStatus ??= new _i3.EvaluationStatusBuilder();
-  set evaluationStatus(_i3.EvaluationStatusBuilder? evaluationStatus) =>
+  EvaluationStatusBuilder? _evaluationStatus;
+  EvaluationStatusBuilder get evaluationStatus =>
+      _$this._evaluationStatus ??= new EvaluationStatusBuilder();
+  set evaluationStatus(EvaluationStatusBuilder? evaluationStatus) =>
       _$this._evaluationStatus = evaluationStatus;
 
   DateTime? _evaluationStartTimestamp;
@@ -103,21 +103,20 @@ class GetResourceEvaluationSummaryResponseBuilder
   set evaluationStartTimestamp(DateTime? evaluationStartTimestamp) =>
       _$this._evaluationStartTimestamp = evaluationStartTimestamp;
 
-  _i4.ComplianceType? _compliance;
-  _i4.ComplianceType? get compliance => _$this._compliance;
-  set compliance(_i4.ComplianceType? compliance) =>
-      _$this._compliance = compliance;
+  ComplianceType? _compliance;
+  ComplianceType? get compliance => _$this._compliance;
+  set compliance(ComplianceType? compliance) => _$this._compliance = compliance;
 
-  _i5.EvaluationContextBuilder? _evaluationContext;
-  _i5.EvaluationContextBuilder get evaluationContext =>
-      _$this._evaluationContext ??= new _i5.EvaluationContextBuilder();
-  set evaluationContext(_i5.EvaluationContextBuilder? evaluationContext) =>
+  EvaluationContextBuilder? _evaluationContext;
+  EvaluationContextBuilder get evaluationContext =>
+      _$this._evaluationContext ??= new EvaluationContextBuilder();
+  set evaluationContext(EvaluationContextBuilder? evaluationContext) =>
       _$this._evaluationContext = evaluationContext;
 
-  _i6.ResourceDetailsBuilder? _resourceDetails;
-  _i6.ResourceDetailsBuilder get resourceDetails =>
-      _$this._resourceDetails ??= new _i6.ResourceDetailsBuilder();
-  set resourceDetails(_i6.ResourceDetailsBuilder? resourceDetails) =>
+  ResourceDetailsBuilder? _resourceDetails;
+  ResourceDetailsBuilder get resourceDetails =>
+      _$this._resourceDetails ??= new ResourceDetailsBuilder();
+  set resourceDetails(ResourceDetailsBuilder? resourceDetails) =>
       _$this._resourceDetails = resourceDetails;
 
   GetResourceEvaluationSummaryResponseBuilder();

@@ -4,18 +4,15 @@
 library smoke_test.dynamo_db.model.global_secondary_index_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i7;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i6;
-import 'package:smithy/smithy.dart' as _i8;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/index_status.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/key_schema_element.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/projection.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput_description.dart'
-    as _i5;
+import 'package:fixnum/fixnum.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/index_status.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/key_schema_element.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/projection.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput_description.dart';
 
 part 'global_secondary_index_description.g.dart';
 
@@ -29,18 +26,18 @@ abstract class GlobalSecondaryIndexDescription
   /// Represents the properties of a global secondary index.
   factory GlobalSecondaryIndexDescription({
     String? indexName,
-    List<_i2.KeySchemaElement>? keySchema,
-    _i3.Projection? projection,
-    _i4.IndexStatus? indexStatus,
+    List<KeySchemaElement>? keySchema,
+    Projection? projection,
+    IndexStatus? indexStatus,
     bool? backfilling,
-    _i5.ProvisionedThroughputDescription? provisionedThroughput,
-    _i6.Int64? indexSizeBytes,
-    _i6.Int64? itemCount,
+    ProvisionedThroughputDescription? provisionedThroughput,
+    _i2.Int64? indexSizeBytes,
+    _i2.Int64? itemCount,
     String? indexArn,
   }) {
     return _$GlobalSecondaryIndexDescription._(
       indexName: indexName,
-      keySchema: keySchema == null ? null : _i7.BuiltList(keySchema),
+      keySchema: keySchema == null ? null : _i3.BuiltList(keySchema),
       projection: projection,
       indexStatus: indexStatus,
       backfilling: backfilling,
@@ -58,7 +55,7 @@ abstract class GlobalSecondaryIndexDescription
 
   const GlobalSecondaryIndexDescription._();
 
-  static const List<_i8.SmithySerializer<GlobalSecondaryIndexDescription>>
+  static const List<_i4.SmithySerializer<GlobalSecondaryIndexDescription>>
       serializers = [GlobalSecondaryIndexDescriptionAwsJson10Serializer()];
 
   /// The name of the global secondary index.
@@ -74,10 +71,10 @@ abstract class GlobalSecondaryIndexDescription
   /// The partition key of an item is also known as its _hash attribute_. The term "hash attribute" derives from DynamoDB's usage of an internal hash function to evenly distribute data items across partitions, based on their partition key values.
   ///
   /// The sort key of an item is also known as its _range attribute_. The term "range attribute" derives from the way DynamoDB stores items with the same partition key physically close together, in sorted order by the sort key value.
-  _i7.BuiltList<_i2.KeySchemaElement>? get keySchema;
+  _i3.BuiltList<KeySchemaElement>? get keySchema;
 
   /// Represents attributes that are copied (projected) from the table into the global secondary index. These are in addition to the primary key attributes and index key attributes, which are automatically projected.
-  _i3.Projection? get projection;
+  Projection? get projection;
 
   /// The current state of the global secondary index:
   ///
@@ -88,7 +85,7 @@ abstract class GlobalSecondaryIndexDescription
   /// *   `DELETING` \- The index is being deleted.
   ///
   /// *   `ACTIVE` \- The index is ready for use.
-  _i4.IndexStatus? get indexStatus;
+  IndexStatus? get indexStatus;
 
   /// Indicates whether the index is currently backfilling. _Backfilling_ is the process of reading items from the table and determining whether they can be added to the index. (Not all items will qualify: For example, a partition key cannot have any duplicate values.) If an item can be added to the index, DynamoDB will do so. After all items have been processed, the backfilling operation is complete and `Backfilling` is false.
   ///
@@ -100,13 +97,13 @@ abstract class GlobalSecondaryIndexDescription
   /// Represents the provisioned throughput settings for the specified global secondary index.
   ///
   /// For current minimum and maximum provisioned throughput values, see [Service, Account, and Table Quotas](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html) in the _Amazon DynamoDB Developer Guide_.
-  _i5.ProvisionedThroughputDescription? get provisionedThroughput;
+  ProvisionedThroughputDescription? get provisionedThroughput;
 
   /// The total size of the specified index, in bytes. DynamoDB updates this value approximately every six hours. Recent changes might not be reflected in this value.
-  _i6.Int64? get indexSizeBytes;
+  _i2.Int64? get indexSizeBytes;
 
   /// The number of items in the specified index. DynamoDB updates this value approximately every six hours. Recent changes might not be reflected in this value.
-  _i6.Int64? get itemCount;
+  _i2.Int64? get itemCount;
 
   /// The Amazon Resource Name (ARN) that uniquely identifies the index.
   String? get indexArn;
@@ -167,7 +164,7 @@ abstract class GlobalSecondaryIndexDescription
 }
 
 class GlobalSecondaryIndexDescriptionAwsJson10Serializer
-    extends _i8.StructuredSmithySerializer<GlobalSecondaryIndexDescription> {
+    extends _i4.StructuredSmithySerializer<GlobalSecondaryIndexDescription> {
   const GlobalSecondaryIndexDescriptionAwsJson10Serializer()
       : super('GlobalSecondaryIndexDescription');
 
@@ -177,8 +174,8 @@ class GlobalSecondaryIndexDescriptionAwsJson10Serializer
         _$GlobalSecondaryIndexDescription,
       ];
   @override
-  Iterable<_i8.ShapeId> get supportedProtocols => const [
-        _i8.ShapeId(
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -208,20 +205,20 @@ class GlobalSecondaryIndexDescriptionAwsJson10Serializer
           result.keySchema.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltList,
-              [FullType(_i2.KeySchemaElement)],
+              _i3.BuiltList,
+              [FullType(KeySchemaElement)],
             ),
-          ) as _i7.BuiltList<_i2.KeySchemaElement>));
+          ) as _i3.BuiltList<KeySchemaElement>));
         case 'Projection':
           result.projection.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.Projection),
-          ) as _i3.Projection));
+            specifiedType: const FullType(Projection),
+          ) as Projection));
         case 'IndexStatus':
           result.indexStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.IndexStatus),
-          ) as _i4.IndexStatus);
+            specifiedType: const FullType(IndexStatus),
+          ) as IndexStatus);
         case 'Backfilling':
           result.backfilling = (serializers.deserialize(
             value,
@@ -230,18 +227,18 @@ class GlobalSecondaryIndexDescriptionAwsJson10Serializer
         case 'ProvisionedThroughput':
           result.provisionedThroughput.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.ProvisionedThroughputDescription),
-          ) as _i5.ProvisionedThroughputDescription));
+            specifiedType: const FullType(ProvisionedThroughputDescription),
+          ) as ProvisionedThroughputDescription));
         case 'IndexSizeBytes':
           result.indexSizeBytes = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.Int64),
-          ) as _i6.Int64);
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'ItemCount':
           result.itemCount = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.Int64),
-          ) as _i6.Int64);
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'IndexArn':
           result.indexArn = (serializers.deserialize(
             value,
@@ -285,8 +282,8 @@ class GlobalSecondaryIndexDescriptionAwsJson10Serializer
         ..add(serializers.serialize(
           keySchema,
           specifiedType: const FullType(
-            _i7.BuiltList,
-            [FullType(_i2.KeySchemaElement)],
+            _i3.BuiltList,
+            [FullType(KeySchemaElement)],
           ),
         ));
     }
@@ -295,7 +292,7 @@ class GlobalSecondaryIndexDescriptionAwsJson10Serializer
         ..add('Projection')
         ..add(serializers.serialize(
           projection,
-          specifiedType: const FullType(_i3.Projection),
+          specifiedType: const FullType(Projection),
         ));
     }
     if (indexStatus != null) {
@@ -303,7 +300,7 @@ class GlobalSecondaryIndexDescriptionAwsJson10Serializer
         ..add('IndexStatus')
         ..add(serializers.serialize(
           indexStatus,
-          specifiedType: const FullType(_i4.IndexStatus),
+          specifiedType: const FullType(IndexStatus),
         ));
     }
     if (backfilling != null) {
@@ -319,7 +316,7 @@ class GlobalSecondaryIndexDescriptionAwsJson10Serializer
         ..add('ProvisionedThroughput')
         ..add(serializers.serialize(
           provisionedThroughput,
-          specifiedType: const FullType(_i5.ProvisionedThroughputDescription),
+          specifiedType: const FullType(ProvisionedThroughputDescription),
         ));
     }
     if (indexSizeBytes != null) {
@@ -327,7 +324,7 @@ class GlobalSecondaryIndexDescriptionAwsJson10Serializer
         ..add('IndexSizeBytes')
         ..add(serializers.serialize(
           indexSizeBytes,
-          specifiedType: const FullType(_i6.Int64),
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     if (itemCount != null) {
@@ -335,7 +332,7 @@ class GlobalSecondaryIndexDescriptionAwsJson10Serializer
         ..add('ItemCount')
         ..add(serializers.serialize(
           itemCount,
-          specifiedType: const FullType(_i6.Int64),
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     if (indexArn != null) {

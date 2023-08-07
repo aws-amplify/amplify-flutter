@@ -5,11 +5,9 @@
 library rest_json1_v1.rest_json_protocol.test.ignore_query_params_in_response_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1_v1/src/rest_json_protocol/model/ignore_query_params_in_response_output.dart'
-    as _i5;
-import 'package:rest_json1_v1/src/rest_json_protocol/operation/ignore_query_params_in_response_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/ignore_query_params_in_response_output.dart';
+import 'package:rest_json1_v1/src/rest_json_protocol/operation/ignore_query_params_in_response_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -18,7 +16,7 @@ void main() {
     'RestJsonIgnoreQueryParamsInResponse (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.IgnoreQueryParamsInResponseOperation(
+        operation: IgnoreQueryParamsInResponseOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -26,7 +24,7 @@ void main() {
           id: 'RestJsonIgnoreQueryParamsInResponse',
           documentation:
               'Query parameters must be ignored when serializing the output\nof an operation. As of January 2021, server implementations\nare expected to respond with a JSON object regardless of\nif the output parameters are empty.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -53,7 +51,7 @@ void main() {
     'RestJsonIgnoreQueryParamsInResponseNoPayload (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.IgnoreQueryParamsInResponseOperation(
+        operation: IgnoreQueryParamsInResponseOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -61,7 +59,7 @@ void main() {
           id: 'RestJsonIgnoreQueryParamsInResponseNoPayload',
           documentation:
               'This test is similar to RestJsonIgnoreQueryParamsInResponse,\nbut it ensures that clients gracefully handle responses from\nthe server that do not serialize an empty JSON object.',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -86,27 +84,27 @@ void main() {
   );
 }
 
-class IgnoreQueryParamsInResponseOutputRestJson1Serializer extends _i4
-    .StructuredSmithySerializer<_i5.IgnoreQueryParamsInResponseOutput> {
+class IgnoreQueryParamsInResponseOutputRestJson1Serializer
+    extends _i3.StructuredSmithySerializer<IgnoreQueryParamsInResponseOutput> {
   const IgnoreQueryParamsInResponseOutputRestJson1Serializer()
       : super('IgnoreQueryParamsInResponseOutput');
 
   @override
-  Iterable<Type> get types => const [_i5.IgnoreQueryParamsInResponseOutput];
+  Iterable<Type> get types => const [IgnoreQueryParamsInResponseOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
       ];
   @override
-  _i5.IgnoreQueryParamsInResponseOutput deserialize(
+  IgnoreQueryParamsInResponseOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.IgnoreQueryParamsInResponseOutputBuilder();
+    final result = IgnoreQueryParamsInResponseOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -130,7 +128,7 @@ class IgnoreQueryParamsInResponseOutputRestJson1Serializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.IgnoreQueryParamsInResponseOutput object, {
+    IgnoreQueryParamsInResponseOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

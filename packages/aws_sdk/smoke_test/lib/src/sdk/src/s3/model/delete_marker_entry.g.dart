@@ -8,7 +8,7 @@ part of 'delete_marker_entry.dart';
 
 class _$DeleteMarkerEntry extends DeleteMarkerEntry {
   @override
-  final _i2.Owner? owner;
+  final Owner? owner;
   @override
   final String? key;
   @override
@@ -62,9 +62,9 @@ class DeleteMarkerEntryBuilder
     implements Builder<DeleteMarkerEntry, DeleteMarkerEntryBuilder> {
   _$DeleteMarkerEntry? _$v;
 
-  _i2.OwnerBuilder? _owner;
-  _i2.OwnerBuilder get owner => _$this._owner ??= new _i2.OwnerBuilder();
-  set owner(_i2.OwnerBuilder? owner) => _$this._owner = owner;
+  OwnerBuilder? _owner;
+  OwnerBuilder get owner => _$this._owner ??= new OwnerBuilder();
+  set owner(OwnerBuilder? owner) => _$this._owner = owner;
 
   String? _key;
   String? get key => _$this._key;

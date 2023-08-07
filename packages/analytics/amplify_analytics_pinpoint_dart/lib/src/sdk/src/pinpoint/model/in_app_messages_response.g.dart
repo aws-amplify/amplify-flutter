@@ -8,7 +8,7 @@ part of 'in_app_messages_response.dart';
 
 class _$InAppMessagesResponse extends InAppMessagesResponse {
   @override
-  final _i3.BuiltList<_i2.InAppMessageCampaign>? inAppMessageCampaigns;
+  final _i2.BuiltList<InAppMessageCampaign>? inAppMessageCampaigns;
 
   factory _$InAppMessagesResponse(
           [void Function(InAppMessagesResponseBuilder)? updates]) =>
@@ -45,12 +45,12 @@ class InAppMessagesResponseBuilder
     implements Builder<InAppMessagesResponse, InAppMessagesResponseBuilder> {
   _$InAppMessagesResponse? _$v;
 
-  _i3.ListBuilder<_i2.InAppMessageCampaign>? _inAppMessageCampaigns;
-  _i3.ListBuilder<_i2.InAppMessageCampaign> get inAppMessageCampaigns =>
+  _i2.ListBuilder<InAppMessageCampaign>? _inAppMessageCampaigns;
+  _i2.ListBuilder<InAppMessageCampaign> get inAppMessageCampaigns =>
       _$this._inAppMessageCampaigns ??=
-          new _i3.ListBuilder<_i2.InAppMessageCampaign>();
+          new _i2.ListBuilder<InAppMessageCampaign>();
   set inAppMessageCampaigns(
-          _i3.ListBuilder<_i2.InAppMessageCampaign>? inAppMessageCampaigns) =>
+          _i2.ListBuilder<InAppMessageCampaign>? inAppMessageCampaigns) =>
       _$this._inAppMessageCampaigns = inAppMessageCampaigns;
 
   InAppMessagesResponseBuilder();

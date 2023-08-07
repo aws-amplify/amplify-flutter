@@ -8,7 +8,7 @@ part of 'bucket_logging_status.dart';
 
 class _$BucketLoggingStatus extends BucketLoggingStatus {
   @override
-  final _i2.LoggingEnabled? loggingEnabled;
+  final LoggingEnabled? loggingEnabled;
 
   factory _$BucketLoggingStatus(
           [void Function(BucketLoggingStatusBuilder)? updates]) =>
@@ -45,10 +45,10 @@ class BucketLoggingStatusBuilder
     implements Builder<BucketLoggingStatus, BucketLoggingStatusBuilder> {
   _$BucketLoggingStatus? _$v;
 
-  _i2.LoggingEnabledBuilder? _loggingEnabled;
-  _i2.LoggingEnabledBuilder get loggingEnabled =>
-      _$this._loggingEnabled ??= new _i2.LoggingEnabledBuilder();
-  set loggingEnabled(_i2.LoggingEnabledBuilder? loggingEnabled) =>
+  LoggingEnabledBuilder? _loggingEnabled;
+  LoggingEnabledBuilder get loggingEnabled =>
+      _$this._loggingEnabled ??= new LoggingEnabledBuilder();
+  set loggingEnabled(LoggingEnabledBuilder? loggingEnabled) =>
       _$this._loggingEnabled = loggingEnabled;
 
   BucketLoggingStatusBuilder();

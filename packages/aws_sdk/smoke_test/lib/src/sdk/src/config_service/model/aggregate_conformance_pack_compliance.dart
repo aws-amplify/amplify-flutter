@@ -6,9 +6,8 @@ library smoke_test.config_service.model.aggregate_conformance_pack_compliance; /
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_compliance_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_compliance_type.dart';
 
 part 'aggregate_conformance_pack_compliance.g.dart';
 
@@ -25,7 +24,7 @@ abstract class AggregateConformancePackCompliance
   ///
   /// A conformance pack is compliant if all of the rules in a conformance packs are compliant. It is noncompliant if any of the rules are not compliant. The compliance status of a conformance pack is INSUFFICIENT\_DATA only if all rules within a conformance pack cannot be evaluated due to insufficient data. If some of the rules in a conformance pack are compliant but the compliance status of other rules in that same conformance pack is INSUFFICIENT\_DATA, the conformance pack shows compliant.
   factory AggregateConformancePackCompliance({
-    _i2.ConformancePackComplianceType? complianceType,
+    ConformancePackComplianceType? complianceType,
     int? compliantRuleCount,
     int? nonCompliantRuleCount,
     int? totalRuleCount,
@@ -50,7 +49,7 @@ abstract class AggregateConformancePackCompliance
 
   const AggregateConformancePackCompliance._();
 
-  static const List<_i3.SmithySerializer<AggregateConformancePackCompliance>>
+  static const List<_i2.SmithySerializer<AggregateConformancePackCompliance>>
       serializers = [AggregateConformancePackComplianceAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -62,7 +61,7 @@ abstract class AggregateConformancePackCompliance
   }
 
   /// The compliance status of the conformance pack.
-  _i2.ConformancePackComplianceType? get complianceType;
+  ConformancePackComplianceType? get complianceType;
 
   /// The number of compliant Config Rules.
   int get compliantRuleCount;
@@ -104,7 +103,7 @@ abstract class AggregateConformancePackCompliance
 }
 
 class AggregateConformancePackComplianceAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<AggregateConformancePackCompliance> {
+    extends _i2.StructuredSmithySerializer<AggregateConformancePackCompliance> {
   const AggregateConformancePackComplianceAwsJson11Serializer()
       : super('AggregateConformancePackCompliance');
 
@@ -114,8 +113,8 @@ class AggregateConformancePackComplianceAwsJson11Serializer
         _$AggregateConformancePackCompliance,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -139,8 +138,8 @@ class AggregateConformancePackComplianceAwsJson11Serializer
         case 'ComplianceType':
           result.complianceType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ConformancePackComplianceType),
-          ) as _i2.ConformancePackComplianceType);
+            specifiedType: const FullType(ConformancePackComplianceType),
+          ) as ConformancePackComplianceType);
         case 'CompliantRuleCount':
           result.compliantRuleCount = (serializers.deserialize(
             value,
@@ -197,7 +196,7 @@ class AggregateConformancePackComplianceAwsJson11Serializer
         ..add('ComplianceType')
         ..add(serializers.serialize(
           complianceType,
-          specifiedType: const FullType(_i2.ConformancePackComplianceType),
+          specifiedType: const FullType(ConformancePackComplianceType),
         ));
     }
     return result$;

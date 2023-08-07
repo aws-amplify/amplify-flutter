@@ -5,13 +5,10 @@
 library rest_json1_v1.rest_json_protocol.test.http_payload_with_structure_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1_v1/src/rest_json_protocol/model/http_payload_with_structure_input_output.dart'
-    as _i5;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/nested_payload.dart'
-    as _i6;
-import 'package:rest_json1_v1/src/rest_json_protocol/operation/http_payload_with_structure_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:rest_json1_v1/src/rest_json_protocol/model/http_payload_with_structure_input_output.dart';
+import 'package:rest_json1_v1/src/rest_json_protocol/model/nested_payload.dart';
+import 'package:rest_json1_v1/src/rest_json_protocol/operation/http_payload_with_structure_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -20,14 +17,14 @@ void main() {
     'RestJsonHttpPayloadWithStructure (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.HttpPayloadWithStructureOperation(
+        operation: HttpPayloadWithStructureOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'RestJsonHttpPayloadWithStructure',
           documentation: 'Serializes a structure in the payload',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -66,14 +63,14 @@ void main() {
     'RestJsonHttpPayloadWithStructure (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.HttpPayloadWithStructureOperation(
+        operation: HttpPayloadWithStructureOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'RestJsonHttpPayloadWithStructure',
           documentation: 'Serializes a structure in the payload',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restJson1',
           ),
@@ -104,27 +101,27 @@ void main() {
   );
 }
 
-class HttpPayloadWithStructureInputOutputRestJson1Serializer extends _i4
-    .StructuredSmithySerializer<_i5.HttpPayloadWithStructureInputOutput> {
+class HttpPayloadWithStructureInputOutputRestJson1Serializer extends _i3
+    .StructuredSmithySerializer<HttpPayloadWithStructureInputOutput> {
   const HttpPayloadWithStructureInputOutputRestJson1Serializer()
       : super('HttpPayloadWithStructureInputOutput');
 
   @override
-  Iterable<Type> get types => const [_i5.HttpPayloadWithStructureInputOutput];
+  Iterable<Type> get types => const [HttpPayloadWithStructureInputOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
       ];
   @override
-  _i5.HttpPayloadWithStructureInputOutput deserialize(
+  HttpPayloadWithStructureInputOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.HttpPayloadWithStructureInputOutputBuilder();
+    final result = HttpPayloadWithStructureInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -137,8 +134,8 @@ class HttpPayloadWithStructureInputOutputRestJson1Serializer extends _i4
         case 'nested':
           result.nested.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.NestedPayload),
-          ) as _i6.NestedPayload));
+            specifiedType: const FullType(NestedPayload),
+          ) as NestedPayload));
       }
     }
 
@@ -148,7 +145,7 @@ class HttpPayloadWithStructureInputOutputRestJson1Serializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.HttpPayloadWithStructureInputOutput object, {
+    HttpPayloadWithStructureInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -156,25 +153,25 @@ class HttpPayloadWithStructureInputOutputRestJson1Serializer extends _i4
 }
 
 class NestedPayloadRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<_i6.NestedPayload> {
+    extends _i3.StructuredSmithySerializer<NestedPayload> {
   const NestedPayloadRestJson1Serializer() : super('NestedPayload');
 
   @override
-  Iterable<Type> get types => const [_i6.NestedPayload];
+  Iterable<Type> get types => const [NestedPayload];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
       ];
   @override
-  _i6.NestedPayload deserialize(
+  NestedPayload deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i6.NestedPayloadBuilder();
+    final result = NestedPayloadBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -203,7 +200,7 @@ class NestedPayloadRestJson1Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i6.NestedPayload object, {
+    NestedPayload object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

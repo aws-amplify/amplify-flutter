@@ -12,9 +12,9 @@ class _$PutBucketWebsiteRequest extends PutBucketWebsiteRequest {
   @override
   final String? contentMd5;
   @override
-  final _i4.ChecksumAlgorithm? checksumAlgorithm;
+  final ChecksumAlgorithm? checksumAlgorithm;
   @override
-  final _i2.WebsiteConfiguration websiteConfiguration;
+  final WebsiteConfiguration websiteConfiguration;
   @override
   final String? expectedBucketOwner;
 
@@ -81,16 +81,15 @@ class PutBucketWebsiteRequestBuilder
   String? get contentMd5 => _$this._contentMd5;
   set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
 
-  _i4.ChecksumAlgorithm? _checksumAlgorithm;
-  _i4.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
+  ChecksumAlgorithm? _checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
-  _i2.WebsiteConfigurationBuilder? _websiteConfiguration;
-  _i2.WebsiteConfigurationBuilder get websiteConfiguration =>
-      _$this._websiteConfiguration ??= new _i2.WebsiteConfigurationBuilder();
-  set websiteConfiguration(
-          _i2.WebsiteConfigurationBuilder? websiteConfiguration) =>
+  WebsiteConfigurationBuilder? _websiteConfiguration;
+  WebsiteConfigurationBuilder get websiteConfiguration =>
+      _$this._websiteConfiguration ??= new WebsiteConfigurationBuilder();
+  set websiteConfiguration(WebsiteConfigurationBuilder? websiteConfiguration) =>
       _$this._websiteConfiguration = websiteConfiguration;
 
   String? _expectedBucketOwner;

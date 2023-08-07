@@ -8,15 +8,15 @@ part of 'validate_template_output.dart';
 
 class _$ValidateTemplateOutput extends ValidateTemplateOutput {
   @override
-  final _i4.BuiltList<_i2.TemplateParameter>? parameters;
+  final _i2.BuiltList<TemplateParameter>? parameters;
   @override
   final String? description;
   @override
-  final _i4.BuiltList<_i3.Capability>? capabilities;
+  final _i2.BuiltList<Capability>? capabilities;
   @override
   final String? capabilitiesReason;
   @override
-  final _i4.BuiltList<String>? declaredTransforms;
+  final _i2.BuiltList<String>? declaredTransforms;
 
   factory _$ValidateTemplateOutput(
           [void Function(ValidateTemplateOutputBuilder)? updates]) =>
@@ -67,20 +67,20 @@ class ValidateTemplateOutputBuilder
     implements Builder<ValidateTemplateOutput, ValidateTemplateOutputBuilder> {
   _$ValidateTemplateOutput? _$v;
 
-  _i4.ListBuilder<_i2.TemplateParameter>? _parameters;
-  _i4.ListBuilder<_i2.TemplateParameter> get parameters =>
-      _$this._parameters ??= new _i4.ListBuilder<_i2.TemplateParameter>();
-  set parameters(_i4.ListBuilder<_i2.TemplateParameter>? parameters) =>
+  _i2.ListBuilder<TemplateParameter>? _parameters;
+  _i2.ListBuilder<TemplateParameter> get parameters =>
+      _$this._parameters ??= new _i2.ListBuilder<TemplateParameter>();
+  set parameters(_i2.ListBuilder<TemplateParameter>? parameters) =>
       _$this._parameters = parameters;
 
   String? _description;
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  _i4.ListBuilder<_i3.Capability>? _capabilities;
-  _i4.ListBuilder<_i3.Capability> get capabilities =>
-      _$this._capabilities ??= new _i4.ListBuilder<_i3.Capability>();
-  set capabilities(_i4.ListBuilder<_i3.Capability>? capabilities) =>
+  _i2.ListBuilder<Capability>? _capabilities;
+  _i2.ListBuilder<Capability> get capabilities =>
+      _$this._capabilities ??= new _i2.ListBuilder<Capability>();
+  set capabilities(_i2.ListBuilder<Capability>? capabilities) =>
       _$this._capabilities = capabilities;
 
   String? _capabilitiesReason;
@@ -88,10 +88,10 @@ class ValidateTemplateOutputBuilder
   set capabilitiesReason(String? capabilitiesReason) =>
       _$this._capabilitiesReason = capabilitiesReason;
 
-  _i4.ListBuilder<String>? _declaredTransforms;
-  _i4.ListBuilder<String> get declaredTransforms =>
-      _$this._declaredTransforms ??= new _i4.ListBuilder<String>();
-  set declaredTransforms(_i4.ListBuilder<String>? declaredTransforms) =>
+  _i2.ListBuilder<String>? _declaredTransforms;
+  _i2.ListBuilder<String> get declaredTransforms =>
+      _$this._declaredTransforms ??= new _i2.ListBuilder<String>();
+  set declaredTransforms(_i2.ListBuilder<String>? declaredTransforms) =>
       _$this._declaredTransforms = declaredTransforms;
 
   ValidateTemplateOutputBuilder();

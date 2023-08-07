@@ -8,7 +8,7 @@ part of 'list_mfa_devices_response.dart';
 
 class _$ListMfaDevicesResponse extends ListMfaDevicesResponse {
   @override
-  final _i3.BuiltList<_i2.MfaDevice> mfaDevices;
+  final _i2.BuiltList<MfaDevice> mfaDevices;
   @override
   final bool isTruncated;
   @override
@@ -60,10 +60,10 @@ class ListMfaDevicesResponseBuilder
     implements Builder<ListMfaDevicesResponse, ListMfaDevicesResponseBuilder> {
   _$ListMfaDevicesResponse? _$v;
 
-  _i3.ListBuilder<_i2.MfaDevice>? _mfaDevices;
-  _i3.ListBuilder<_i2.MfaDevice> get mfaDevices =>
-      _$this._mfaDevices ??= new _i3.ListBuilder<_i2.MfaDevice>();
-  set mfaDevices(_i3.ListBuilder<_i2.MfaDevice>? mfaDevices) =>
+  _i2.ListBuilder<MfaDevice>? _mfaDevices;
+  _i2.ListBuilder<MfaDevice> get mfaDevices =>
+      _$this._mfaDevices ??= new _i2.ListBuilder<MfaDevice>();
+  set mfaDevices(_i2.ListBuilder<MfaDevice>? mfaDevices) =>
       _$this._mfaDevices = mfaDevices;
 
   bool? _isTruncated;

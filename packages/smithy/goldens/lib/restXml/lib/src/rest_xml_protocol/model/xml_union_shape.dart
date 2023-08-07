@@ -6,8 +6,7 @@ library rest_xml_v1.rest_xml_protocol.model.xml_union_shape; // ignore_for_file:
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:fixnum/fixnum.dart' as _i2;
-import 'package:rest_xml_v1/src/rest_xml_protocol/model/xml_nested_union_struct.dart'
-    as _i3;
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/xml_nested_union_struct.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
 sealed class XmlUnionShape extends _i1.SmithyUnion<XmlUnionShape> {
@@ -50,7 +49,7 @@ sealed class XmlUnionShape extends _i1.SmithyUnion<XmlUnionShape> {
     double? floatValue,
     double? doubleValue,
   }) =>
-      XmlUnionShapeStructValue$(_i3.XmlNestedUnionStruct(
+      XmlUnionShapeStructValue$(XmlNestedUnionStruct(
         stringValue: stringValue,
         booleanValue: booleanValue,
         byteValue: byteValue,
@@ -79,7 +78,7 @@ sealed class XmlUnionShape extends _i1.SmithyUnion<XmlUnionShape> {
   double? get floatValue => null;
   double? get doubleValue => null;
   XmlUnionShape? get unionValue => null;
-  _i3.XmlNestedUnionStruct? get structValue => null;
+  XmlNestedUnionStruct? get structValue => null;
   @override
   Object get value => (stringValue ??
       booleanValue ??
@@ -252,7 +251,7 @@ final class XmlUnionShapeStructValue$ extends XmlUnionShape {
   const XmlUnionShapeStructValue$(this.structValue) : super._();
 
   @override
-  final _i3.XmlNestedUnionStruct structValue;
+  final XmlNestedUnionStruct structValue;
 
   @override
   String get name => 'structValue';
@@ -352,8 +351,8 @@ class XmlUnionShapeRestXmlSerializer
       case 'structValue':
         return XmlUnionShapeStructValue$((serializers.deserialize(
           value,
-          specifiedType: const FullType(_i3.XmlNestedUnionStruct),
-        ) as _i3.XmlNestedUnionStruct));
+          specifiedType: const FullType(XmlNestedUnionStruct),
+        ) as XmlNestedUnionStruct));
     }
     return XmlUnionShape.sdkUnknown(
       key,
@@ -408,7 +407,7 @@ class XmlUnionShapeRestXmlSerializer
           ),
         XmlUnionShapeStructValue$(:final value) => serializers.serialize(
             value,
-            specifiedType: const FullType(_i3.XmlNestedUnionStruct),
+            specifiedType: const FullType(XmlNestedUnionStruct),
           ),
         XmlUnionShapeSdkUnknown$(:final value) => value,
       },

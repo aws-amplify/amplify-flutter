@@ -8,7 +8,7 @@ part of 'table_class_summary.dart';
 
 class _$TableClassSummary extends TableClassSummary {
   @override
-  final _i2.TableClass? tableClass;
+  final TableClass? tableClass;
   @override
   final DateTime? lastUpdateDateTime;
 
@@ -48,9 +48,9 @@ class TableClassSummaryBuilder
     implements Builder<TableClassSummary, TableClassSummaryBuilder> {
   _$TableClassSummary? _$v;
 
-  _i2.TableClass? _tableClass;
-  _i2.TableClass? get tableClass => _$this._tableClass;
-  set tableClass(_i2.TableClass? tableClass) => _$this._tableClass = tableClass;
+  TableClass? _tableClass;
+  TableClass? get tableClass => _$this._tableClass;
+  set tableClass(TableClass? tableClass) => _$this._tableClass = tableClass;
 
   DateTime? _lastUpdateDateTime;
   DateTime? get lastUpdateDateTime => _$this._lastUpdateDateTime;

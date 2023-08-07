@@ -8,7 +8,7 @@ part of 'get_stored_query_response.dart';
 
 class _$GetStoredQueryResponse extends GetStoredQueryResponse {
   @override
-  final _i2.StoredQuery? storedQuery;
+  final StoredQuery? storedQuery;
 
   factory _$GetStoredQueryResponse(
           [void Function(GetStoredQueryResponseBuilder)? updates]) =>
@@ -44,10 +44,10 @@ class GetStoredQueryResponseBuilder
     implements Builder<GetStoredQueryResponse, GetStoredQueryResponseBuilder> {
   _$GetStoredQueryResponse? _$v;
 
-  _i2.StoredQueryBuilder? _storedQuery;
-  _i2.StoredQueryBuilder get storedQuery =>
-      _$this._storedQuery ??= new _i2.StoredQueryBuilder();
-  set storedQuery(_i2.StoredQueryBuilder? storedQuery) =>
+  StoredQueryBuilder? _storedQuery;
+  StoredQueryBuilder get storedQuery =>
+      _$this._storedQuery ??= new StoredQueryBuilder();
+  set storedQuery(StoredQueryBuilder? storedQuery) =>
       _$this._storedQuery = storedQuery;
 
   GetStoredQueryResponseBuilder();

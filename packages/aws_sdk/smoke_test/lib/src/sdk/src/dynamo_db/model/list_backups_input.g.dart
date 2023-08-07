@@ -18,7 +18,7 @@ class _$ListBackupsInput extends ListBackupsInput {
   @override
   final String? exclusiveStartBackupArn;
   @override
-  final _i3.BackupTypeFilter? backupType;
+  final BackupTypeFilter? backupType;
 
   factory _$ListBackupsInput(
           [void Function(ListBackupsInputBuilder)? updates]) =>
@@ -94,9 +94,9 @@ class ListBackupsInputBuilder
   set exclusiveStartBackupArn(String? exclusiveStartBackupArn) =>
       _$this._exclusiveStartBackupArn = exclusiveStartBackupArn;
 
-  _i3.BackupTypeFilter? _backupType;
-  _i3.BackupTypeFilter? get backupType => _$this._backupType;
-  set backupType(_i3.BackupTypeFilter? backupType) =>
+  BackupTypeFilter? _backupType;
+  BackupTypeFilter? get backupType => _$this._backupType;
+  set backupType(BackupTypeFilter? backupType) =>
       _$this._backupType = backupType;
 
   ListBackupsInputBuilder();

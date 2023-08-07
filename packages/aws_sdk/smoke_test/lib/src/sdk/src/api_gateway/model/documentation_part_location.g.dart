@@ -8,7 +8,7 @@ part of 'documentation_part_location.dart';
 
 class _$DocumentationPartLocation extends DocumentationPartLocation {
   @override
-  final _i2.DocumentationPartType type;
+  final DocumentationPartType type;
   @override
   final String? path;
   @override
@@ -67,9 +67,9 @@ class DocumentationPartLocationBuilder
         Builder<DocumentationPartLocation, DocumentationPartLocationBuilder> {
   _$DocumentationPartLocation? _$v;
 
-  _i2.DocumentationPartType? _type;
-  _i2.DocumentationPartType? get type => _$this._type;
-  set type(_i2.DocumentationPartType? type) => _$this._type = type;
+  DocumentationPartType? _type;
+  DocumentationPartType? get type => _$this._type;
+  set type(DocumentationPartType? type) => _$this._type = type;
 
   String? _path;
   String? get path => _$this._path;

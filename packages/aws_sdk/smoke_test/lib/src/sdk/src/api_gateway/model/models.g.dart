@@ -8,7 +8,7 @@ part of 'models.dart';
 
 class _$Models extends Models {
   @override
-  final _i3.BuiltList<_i2.Model>? items;
+  final _i2.BuiltList<Model>? items;
   @override
   final String? position;
 
@@ -45,10 +45,10 @@ class _$Models extends Models {
 class ModelsBuilder implements Builder<Models, ModelsBuilder> {
   _$Models? _$v;
 
-  _i3.ListBuilder<_i2.Model>? _items;
-  _i3.ListBuilder<_i2.Model> get items =>
-      _$this._items ??= new _i3.ListBuilder<_i2.Model>();
-  set items(_i3.ListBuilder<_i2.Model>? items) => _$this._items = items;
+  _i2.ListBuilder<Model>? _items;
+  _i2.ListBuilder<Model> get items =>
+      _$this._items ??= new _i2.ListBuilder<Model>();
+  set items(_i2.ListBuilder<Model>? items) => _$this._items = items;
 
   String? _position;
   String? get position => _$this._position;

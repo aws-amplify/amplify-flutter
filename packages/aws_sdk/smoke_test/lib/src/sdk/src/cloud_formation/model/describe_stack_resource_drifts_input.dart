@@ -4,12 +4,11 @@
 library smoke_test.cloud_formation.model.describe_stack_resource_drifts_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_resource_drift_status.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_resource_drift_status.dart';
 
 part 'describe_stack_resource_drifts_input.g.dart';
 
@@ -22,7 +21,7 @@ abstract class DescribeStackResourceDriftsInput
             DescribeStackResourceDriftsInputBuilder> {
   factory DescribeStackResourceDriftsInput({
     required String stackName,
-    List<_i3.StackResourceDriftStatus>? stackResourceDriftStatusFilters,
+    List<StackResourceDriftStatus>? stackResourceDriftStatusFilters,
     String? nextToken,
     int? maxResults,
   }) {
@@ -30,7 +29,7 @@ abstract class DescribeStackResourceDriftsInput
       stackName: stackName,
       stackResourceDriftStatusFilters: stackResourceDriftStatusFilters == null
           ? null
-          : _i4.BuiltList(stackResourceDriftStatusFilters),
+          : _i3.BuiltList(stackResourceDriftStatusFilters),
       nextToken: nextToken,
       maxResults: maxResults,
     );
@@ -64,8 +63,7 @@ abstract class DescribeStackResourceDriftsInput
   /// *   `IN_SYNC`: The resource's actual configuration matches its expected template configuration.
   ///
   /// *   `NOT_CHECKED`: CloudFormation doesn't currently return this value.
-  _i4.BuiltList<_i3.StackResourceDriftStatus>?
-      get stackResourceDriftStatusFilters;
+  _i3.BuiltList<StackResourceDriftStatus>? get stackResourceDriftStatusFilters;
 
   /// A string that identifies the next page of stack resource drift results.
   String? get nextToken;
@@ -151,10 +149,10 @@ class DescribeStackResourceDriftsInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.StackResourceDriftStatus)],
+              _i3.BuiltList,
+              [FullType(StackResourceDriftStatus)],
             ),
-          ) as _i4.BuiltList<_i3.StackResourceDriftStatus>));
+          ) as _i3.BuiltList<StackResourceDriftStatus>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -204,8 +202,8 @@ class DescribeStackResourceDriftsInputAwsQuerySerializer
           serializers,
           stackResourceDriftStatusFilters,
           specifiedType: const FullType.nullable(
-            _i4.BuiltList,
-            [FullType(_i3.StackResourceDriftStatus)],
+            _i3.BuiltList,
+            [FullType(StackResourceDriftStatus)],
           ),
         ));
     }

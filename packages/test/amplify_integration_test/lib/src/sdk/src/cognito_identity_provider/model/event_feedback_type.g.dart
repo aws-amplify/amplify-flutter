@@ -8,7 +8,7 @@ part of 'event_feedback_type.dart';
 
 class _$EventFeedbackType extends EventFeedbackType {
   @override
-  final _i2.FeedbackValueType feedbackValue;
+  final FeedbackValueType feedbackValue;
   @override
   final String provider;
   @override
@@ -59,9 +59,9 @@ class EventFeedbackTypeBuilder
     implements Builder<EventFeedbackType, EventFeedbackTypeBuilder> {
   _$EventFeedbackType? _$v;
 
-  _i2.FeedbackValueType? _feedbackValue;
-  _i2.FeedbackValueType? get feedbackValue => _$this._feedbackValue;
-  set feedbackValue(_i2.FeedbackValueType? feedbackValue) =>
+  FeedbackValueType? _feedbackValue;
+  FeedbackValueType? get feedbackValue => _$this._feedbackValue;
+  set feedbackValue(FeedbackValueType? feedbackValue) =>
       _$this._feedbackValue = feedbackValue;
 
   String? _provider;

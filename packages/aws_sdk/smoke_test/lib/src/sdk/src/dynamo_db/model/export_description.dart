@@ -6,14 +6,11 @@ library smoke_test.dynamo_db.model.export_description; // ignore_for_file: no_le
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i5;
-import 'package:smithy/smithy.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/export_format.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/export_status.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/s3_sse_algorithm.dart'
-    as _i3;
+import 'package:fixnum/fixnum.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/export_format.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/export_status.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/s3_sse_algorithm.dart';
 
 part 'export_description.g.dart';
 
@@ -24,7 +21,7 @@ abstract class ExportDescription
   /// Represents the properties of the exported table.
   factory ExportDescription({
     String? exportArn,
-    _i2.ExportStatus? exportStatus,
+    ExportStatus? exportStatus,
     DateTime? startTime,
     DateTime? endTime,
     String? exportManifest,
@@ -35,13 +32,13 @@ abstract class ExportDescription
     String? s3Bucket,
     String? s3BucketOwner,
     String? s3Prefix,
-    _i3.S3SseAlgorithm? s3SseAlgorithm,
+    S3SseAlgorithm? s3SseAlgorithm,
     String? s3SseKmsKeyId,
     String? failureCode,
     String? failureMessage,
-    _i4.ExportFormat? exportFormat,
-    _i5.Int64? billedSizeBytes,
-    _i5.Int64? itemCount,
+    ExportFormat? exportFormat,
+    _i2.Int64? billedSizeBytes,
+    _i2.Int64? itemCount,
   }) {
     return _$ExportDescription._(
       exportArn: exportArn,
@@ -72,7 +69,7 @@ abstract class ExportDescription
 
   const ExportDescription._();
 
-  static const List<_i6.SmithySerializer<ExportDescription>> serializers = [
+  static const List<_i3.SmithySerializer<ExportDescription>> serializers = [
     ExportDescriptionAwsJson10Serializer()
   ];
 
@@ -80,7 +77,7 @@ abstract class ExportDescription
   String? get exportArn;
 
   /// Export can be in one of the following states: IN_PROGRESS, COMPLETED, or FAILED.
-  _i2.ExportStatus? get exportStatus;
+  ExportStatus? get exportStatus;
 
   /// The time at which the export task began.
   DateTime? get startTime;
@@ -117,7 +114,7 @@ abstract class ExportDescription
   /// *   `AES256` \- server-side encryption with Amazon S3 managed keys
   ///
   /// *   `KMS` \- server-side encryption with KMS managed keys
-  _i3.S3SseAlgorithm? get s3SseAlgorithm;
+  S3SseAlgorithm? get s3SseAlgorithm;
 
   /// The ID of the KMS managed key used to encrypt the S3 bucket where export data is stored (if applicable).
   String? get s3SseKmsKeyId;
@@ -129,13 +126,13 @@ abstract class ExportDescription
   String? get failureMessage;
 
   /// The format of the exported data. Valid values for `ExportFormat` are `DYNAMODB_JSON` or `ION`.
-  _i4.ExportFormat? get exportFormat;
+  ExportFormat? get exportFormat;
 
   /// The billable size of the table export.
-  _i5.Int64? get billedSizeBytes;
+  _i2.Int64? get billedSizeBytes;
 
   /// The number of items exported.
-  _i5.Int64? get itemCount;
+  _i2.Int64? get itemCount;
   @override
   List<Object?> get props => [
         exportArn,
@@ -242,7 +239,7 @@ abstract class ExportDescription
 }
 
 class ExportDescriptionAwsJson10Serializer
-    extends _i6.StructuredSmithySerializer<ExportDescription> {
+    extends _i3.StructuredSmithySerializer<ExportDescription> {
   const ExportDescriptionAwsJson10Serializer() : super('ExportDescription');
 
   @override
@@ -251,8 +248,8 @@ class ExportDescriptionAwsJson10Serializer
         _$ExportDescription,
       ];
   @override
-  Iterable<_i6.ShapeId> get supportedProtocols => const [
-        _i6.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -281,8 +278,8 @@ class ExportDescriptionAwsJson10Serializer
         case 'ExportStatus':
           result.exportStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ExportStatus),
-          ) as _i2.ExportStatus);
+            specifiedType: const FullType(ExportStatus),
+          ) as ExportStatus);
         case 'StartTime':
           result.startTime = (serializers.deserialize(
             value,
@@ -336,8 +333,8 @@ class ExportDescriptionAwsJson10Serializer
         case 'S3SseAlgorithm':
           result.s3SseAlgorithm = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.S3SseAlgorithm),
-          ) as _i3.S3SseAlgorithm);
+            specifiedType: const FullType(S3SseAlgorithm),
+          ) as S3SseAlgorithm);
         case 'S3SseKmsKeyId':
           result.s3SseKmsKeyId = (serializers.deserialize(
             value,
@@ -356,18 +353,18 @@ class ExportDescriptionAwsJson10Serializer
         case 'ExportFormat':
           result.exportFormat = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ExportFormat),
-          ) as _i4.ExportFormat);
+            specifiedType: const FullType(ExportFormat),
+          ) as ExportFormat);
         case 'BilledSizeBytes':
           result.billedSizeBytes = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.Int64),
-          ) as _i5.Int64);
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'ItemCount':
           result.itemCount = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.Int64),
-          ) as _i5.Int64);
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
       }
     }
 
@@ -415,7 +412,7 @@ class ExportDescriptionAwsJson10Serializer
         ..add('ExportStatus')
         ..add(serializers.serialize(
           exportStatus,
-          specifiedType: const FullType(_i2.ExportStatus),
+          specifiedType: const FullType(ExportStatus),
         ));
     }
     if (startTime != null) {
@@ -503,7 +500,7 @@ class ExportDescriptionAwsJson10Serializer
         ..add('S3SseAlgorithm')
         ..add(serializers.serialize(
           s3SseAlgorithm,
-          specifiedType: const FullType(_i3.S3SseAlgorithm),
+          specifiedType: const FullType(S3SseAlgorithm),
         ));
     }
     if (s3SseKmsKeyId != null) {
@@ -535,7 +532,7 @@ class ExportDescriptionAwsJson10Serializer
         ..add('ExportFormat')
         ..add(serializers.serialize(
           exportFormat,
-          specifiedType: const FullType(_i4.ExportFormat),
+          specifiedType: const FullType(ExportFormat),
         ));
     }
     if (billedSizeBytes != null) {
@@ -543,7 +540,7 @@ class ExportDescriptionAwsJson10Serializer
         ..add('BilledSizeBytes')
         ..add(serializers.serialize(
           billedSizeBytes,
-          specifiedType: const FullType(_i5.Int64),
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     if (itemCount != null) {
@@ -551,7 +548,7 @@ class ExportDescriptionAwsJson10Serializer
         ..add('ItemCount')
         ..add(serializers.serialize(
           itemCount,
-          specifiedType: const FullType(_i5.Int64),
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     return result$;

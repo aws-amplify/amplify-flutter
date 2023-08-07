@@ -5,12 +5,10 @@
 library rest_xml_v1.rest_xml_protocol.test.http_request_with_labels_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i6;
-import 'package:rest_xml_v1/src/rest_xml_protocol/model/http_request_with_labels_input.dart'
-    as _i5;
-import 'package:rest_xml_v1/src/rest_xml_protocol/operation/http_request_with_labels_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:fixnum/fixnum.dart' as _i4;
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/http_request_with_labels_input.dart';
+import 'package:rest_xml_v1/src/rest_xml_protocol/operation/http_request_with_labels_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -19,14 +17,14 @@ void main() {
     'InputWithHeadersAndAllParams (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.HttpRequestWithLabelsOperation(
+        operation: HttpRequestWithLabelsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'InputWithHeadersAndAllParams',
           documentation: 'Sends a GET request that uses URI label bindings',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -67,14 +65,14 @@ void main() {
     'HttpRequestLabelEscaping (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.HttpRequestWithLabelsOperation(
+        operation: HttpRequestWithLabelsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'HttpRequestLabelEscaping',
           documentation: 'Sends a GET request that uses URI label bindings',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -114,26 +112,26 @@ void main() {
 }
 
 class HttpRequestWithLabelsInputRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<_i5.HttpRequestWithLabelsInput> {
+    extends _i3.StructuredSmithySerializer<HttpRequestWithLabelsInput> {
   const HttpRequestWithLabelsInputRestXmlSerializer()
       : super('HttpRequestWithLabelsInput');
 
   @override
-  Iterable<Type> get types => const [_i5.HttpRequestWithLabelsInput];
+  Iterable<Type> get types => const [HttpRequestWithLabelsInput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
       ];
   @override
-  _i5.HttpRequestWithLabelsInput deserialize(
+  HttpRequestWithLabelsInput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.HttpRequestWithLabelsInputBuilder();
+    final result = HttpRequestWithLabelsInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -161,8 +159,8 @@ class HttpRequestWithLabelsInputRestXmlSerializer
         case 'long':
           result.long = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.Int64),
-          ) as _i6.Int64);
+            specifiedType: const FullType(_i4.Int64),
+          ) as _i4.Int64);
         case 'float':
           result.float = (serializers.deserialize(
             value,
@@ -179,7 +177,7 @@ class HttpRequestWithLabelsInputRestXmlSerializer
             specifiedType: const FullType(bool),
           ) as bool);
         case 'timestamp':
-          result.timestamp = _i4.TimestampSerializer.epochSeconds.deserialize(
+          result.timestamp = _i3.TimestampSerializer.epochSeconds.deserialize(
             serializers,
             value,
           );
@@ -192,7 +190,7 @@ class HttpRequestWithLabelsInputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.HttpRequestWithLabelsInput object, {
+    HttpRequestWithLabelsInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

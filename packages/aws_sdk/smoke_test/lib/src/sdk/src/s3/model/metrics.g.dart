@@ -8,9 +8,9 @@ part of 'metrics.dart';
 
 class _$Metrics extends Metrics {
   @override
-  final _i2.MetricsStatus status;
+  final MetricsStatus status;
   @override
-  final _i3.ReplicationTimeValue? eventThreshold;
+  final ReplicationTimeValue? eventThreshold;
 
   factory _$Metrics([void Function(MetricsBuilder)? updates]) =>
       (new MetricsBuilder()..update(updates))._build();
@@ -47,14 +47,14 @@ class _$Metrics extends Metrics {
 class MetricsBuilder implements Builder<Metrics, MetricsBuilder> {
   _$Metrics? _$v;
 
-  _i2.MetricsStatus? _status;
-  _i2.MetricsStatus? get status => _$this._status;
-  set status(_i2.MetricsStatus? status) => _$this._status = status;
+  MetricsStatus? _status;
+  MetricsStatus? get status => _$this._status;
+  set status(MetricsStatus? status) => _$this._status = status;
 
-  _i3.ReplicationTimeValueBuilder? _eventThreshold;
-  _i3.ReplicationTimeValueBuilder get eventThreshold =>
-      _$this._eventThreshold ??= new _i3.ReplicationTimeValueBuilder();
-  set eventThreshold(_i3.ReplicationTimeValueBuilder? eventThreshold) =>
+  ReplicationTimeValueBuilder? _eventThreshold;
+  ReplicationTimeValueBuilder get eventThreshold =>
+      _$this._eventThreshold ??= new ReplicationTimeValueBuilder();
+  set eventThreshold(ReplicationTimeValueBuilder? eventThreshold) =>
       _$this._eventThreshold = eventThreshold;
 
   MetricsBuilder();

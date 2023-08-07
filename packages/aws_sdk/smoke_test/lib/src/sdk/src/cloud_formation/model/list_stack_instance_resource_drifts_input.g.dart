@@ -15,7 +15,7 @@ class _$ListStackInstanceResourceDriftsInput
   @override
   final int? maxResults;
   @override
-  final _i5.BuiltList<_i3.StackResourceDriftStatus>?
+  final _i3.BuiltList<StackResourceDriftStatus>?
       stackInstanceResourceDriftStatuses;
   @override
   final String stackInstanceAccount;
@@ -24,7 +24,7 @@ class _$ListStackInstanceResourceDriftsInput
   @override
   final String operationId;
   @override
-  final _i4.CallAs? callAs;
+  final CallAs? callAs;
 
   factory _$ListStackInstanceResourceDriftsInput(
           [void Function(ListStackInstanceResourceDriftsInputBuilder)?
@@ -110,14 +110,14 @@ class ListStackInstanceResourceDriftsInputBuilder
   int? get maxResults => _$this._maxResults;
   set maxResults(int? maxResults) => _$this._maxResults = maxResults;
 
-  _i5.ListBuilder<_i3.StackResourceDriftStatus>?
+  _i3.ListBuilder<StackResourceDriftStatus>?
       _stackInstanceResourceDriftStatuses;
-  _i5.ListBuilder<_i3.StackResourceDriftStatus>
+  _i3.ListBuilder<StackResourceDriftStatus>
       get stackInstanceResourceDriftStatuses =>
           _$this._stackInstanceResourceDriftStatuses ??=
-              new _i5.ListBuilder<_i3.StackResourceDriftStatus>();
+              new _i3.ListBuilder<StackResourceDriftStatus>();
   set stackInstanceResourceDriftStatuses(
-          _i5.ListBuilder<_i3.StackResourceDriftStatus>?
+          _i3.ListBuilder<StackResourceDriftStatus>?
               stackInstanceResourceDriftStatuses) =>
       _$this._stackInstanceResourceDriftStatuses =
           stackInstanceResourceDriftStatuses;
@@ -136,9 +136,9 @@ class ListStackInstanceResourceDriftsInputBuilder
   String? get operationId => _$this._operationId;
   set operationId(String? operationId) => _$this._operationId = operationId;
 
-  _i4.CallAs? _callAs;
-  _i4.CallAs? get callAs => _$this._callAs;
-  set callAs(_i4.CallAs? callAs) => _$this._callAs = callAs;
+  CallAs? _callAs;
+  CallAs? get callAs => _$this._callAs;
+  set callAs(CallAs? callAs) => _$this._callAs = callAs;
 
   ListStackInstanceResourceDriftsInputBuilder();
 

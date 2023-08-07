@@ -16,13 +16,13 @@ class _$StackResourceSummary extends StackResourceSummary {
   @override
   final DateTime lastUpdatedTimestamp;
   @override
-  final _i2.ResourceStatus resourceStatus;
+  final ResourceStatus resourceStatus;
   @override
   final String? resourceStatusReason;
   @override
-  final _i3.StackResourceDriftInformationSummary? driftInformation;
+  final StackResourceDriftInformationSummary? driftInformation;
   @override
-  final _i4.ModuleInfo? moduleInfo;
+  final ModuleInfo? moduleInfo;
 
   factory _$StackResourceSummary(
           [void Function(StackResourceSummaryBuilder)? updates]) =>
@@ -110,9 +110,9 @@ class StackResourceSummaryBuilder
   set lastUpdatedTimestamp(DateTime? lastUpdatedTimestamp) =>
       _$this._lastUpdatedTimestamp = lastUpdatedTimestamp;
 
-  _i2.ResourceStatus? _resourceStatus;
-  _i2.ResourceStatus? get resourceStatus => _$this._resourceStatus;
-  set resourceStatus(_i2.ResourceStatus? resourceStatus) =>
+  ResourceStatus? _resourceStatus;
+  ResourceStatus? get resourceStatus => _$this._resourceStatus;
+  set resourceStatus(ResourceStatus? resourceStatus) =>
       _$this._resourceStatus = resourceStatus;
 
   String? _resourceStatusReason;
@@ -120,18 +120,18 @@ class StackResourceSummaryBuilder
   set resourceStatusReason(String? resourceStatusReason) =>
       _$this._resourceStatusReason = resourceStatusReason;
 
-  _i3.StackResourceDriftInformationSummaryBuilder? _driftInformation;
-  _i3.StackResourceDriftInformationSummaryBuilder get driftInformation =>
+  StackResourceDriftInformationSummaryBuilder? _driftInformation;
+  StackResourceDriftInformationSummaryBuilder get driftInformation =>
       _$this._driftInformation ??=
-          new _i3.StackResourceDriftInformationSummaryBuilder();
+          new StackResourceDriftInformationSummaryBuilder();
   set driftInformation(
-          _i3.StackResourceDriftInformationSummaryBuilder? driftInformation) =>
+          StackResourceDriftInformationSummaryBuilder? driftInformation) =>
       _$this._driftInformation = driftInformation;
 
-  _i4.ModuleInfoBuilder? _moduleInfo;
-  _i4.ModuleInfoBuilder get moduleInfo =>
-      _$this._moduleInfo ??= new _i4.ModuleInfoBuilder();
-  set moduleInfo(_i4.ModuleInfoBuilder? moduleInfo) =>
+  ModuleInfoBuilder? _moduleInfo;
+  ModuleInfoBuilder get moduleInfo =>
+      _$this._moduleInfo ??= new ModuleInfoBuilder();
+  set moduleInfo(ModuleInfoBuilder? moduleInfo) =>
       _$this._moduleInfo = moduleInfo;
 
   StackResourceSummaryBuilder();

@@ -20,8 +20,7 @@ class _$ServiceLastAccessed extends ServiceLastAccessed {
   @override
   final int? totalAuthenticatedEntities;
   @override
-  final _i3.BuiltList<_i2.TrackedActionLastAccessed>?
-      trackedActionsLastAccessed;
+  final _i2.BuiltList<TrackedActionLastAccessed>? trackedActionsLastAccessed;
 
   factory _$ServiceLastAccessed(
           [void Function(ServiceLastAccessedBuilder)? updates]) =>
@@ -112,12 +111,12 @@ class ServiceLastAccessedBuilder
   set totalAuthenticatedEntities(int? totalAuthenticatedEntities) =>
       _$this._totalAuthenticatedEntities = totalAuthenticatedEntities;
 
-  _i3.ListBuilder<_i2.TrackedActionLastAccessed>? _trackedActionsLastAccessed;
-  _i3.ListBuilder<_i2.TrackedActionLastAccessed>
-      get trackedActionsLastAccessed => _$this._trackedActionsLastAccessed ??=
-          new _i3.ListBuilder<_i2.TrackedActionLastAccessed>();
+  _i2.ListBuilder<TrackedActionLastAccessed>? _trackedActionsLastAccessed;
+  _i2.ListBuilder<TrackedActionLastAccessed> get trackedActionsLastAccessed =>
+      _$this._trackedActionsLastAccessed ??=
+          new _i2.ListBuilder<TrackedActionLastAccessed>();
   set trackedActionsLastAccessed(
-          _i3.ListBuilder<_i2.TrackedActionLastAccessed>?
+          _i2.ListBuilder<TrackedActionLastAccessed>?
               trackedActionsLastAccessed) =>
       _$this._trackedActionsLastAccessed = trackedActionsLastAccessed;
 

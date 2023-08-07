@@ -10,7 +10,7 @@ class _$DeleteStackSetInput extends DeleteStackSetInput {
   @override
   final String stackSetName;
   @override
-  final _i3.CallAs? callAs;
+  final CallAs? callAs;
 
   factory _$DeleteStackSetInput(
           [void Function(DeleteStackSetInputBuilder)? updates]) =>
@@ -57,9 +57,9 @@ class DeleteStackSetInputBuilder
   String? get stackSetName => _$this._stackSetName;
   set stackSetName(String? stackSetName) => _$this._stackSetName = stackSetName;
 
-  _i3.CallAs? _callAs;
-  _i3.CallAs? get callAs => _$this._callAs;
-  set callAs(_i3.CallAs? callAs) => _$this._callAs = callAs;
+  CallAs? _callAs;
+  CallAs? get callAs => _$this._callAs;
+  set callAs(CallAs? callAs) => _$this._callAs = callAs;
 
   DeleteStackSetInputBuilder();
 

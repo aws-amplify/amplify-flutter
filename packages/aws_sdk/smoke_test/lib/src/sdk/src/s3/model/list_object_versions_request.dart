@@ -4,15 +4,14 @@
 library smoke_test.s3.model.list_object_versions_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i7;
+import 'package:meta/meta.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/encoding_type.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/optional_object_attributes.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/encoding_type.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/optional_object_attributes.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart';
 
 part 'list_object_versions_request.g.dart';
 
@@ -27,14 +26,14 @@ abstract class ListObjectVersionsRequest
   factory ListObjectVersionsRequest({
     required String bucket,
     String? delimiter,
-    _i3.EncodingType? encodingType,
+    EncodingType? encodingType,
     String? keyMarker,
     int? maxKeys,
     String? prefix,
     String? versionIdMarker,
     String? expectedBucketOwner,
-    _i4.RequestPayer? requestPayer,
-    List<_i5.OptionalObjectAttributes>? optionalObjectAttributes,
+    RequestPayer? requestPayer,
+    List<OptionalObjectAttributes>? optionalObjectAttributes,
   }) {
     return _$ListObjectVersionsRequest._(
       bucket: bucket,
@@ -48,7 +47,7 @@ abstract class ListObjectVersionsRequest
       requestPayer: requestPayer,
       optionalObjectAttributes: optionalObjectAttributes == null
           ? null
-          : _i6.BuiltList(optionalObjectAttributes),
+          : _i3.BuiltList(optionalObjectAttributes),
     );
   }
 
@@ -69,20 +68,19 @@ abstract class ListObjectVersionsRequest
               request.headers['x-amz-expected-bucket-owner']!;
         }
         if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = _i4.RequestPayer.values
+          b.requestPayer = RequestPayer.values
               .byValue(request.headers['x-amz-request-payer']!);
         }
         if (request.headers['x-amz-optional-object-attributes'] != null) {
           b.optionalObjectAttributes.addAll(_i1
               .parseHeader(request.headers['x-amz-optional-object-attributes']!)
-              .map((el) =>
-                  _i5.OptionalObjectAttributes.values.byValue(el.trim())));
+              .map((el) => OptionalObjectAttributes.values.byValue(el.trim())));
         }
         if (request.queryParameters['delimiter'] != null) {
           b.delimiter = request.queryParameters['delimiter']!;
         }
         if (request.queryParameters['encoding-type'] != null) {
-          b.encodingType = _i3.EncodingType.values
+          b.encodingType = EncodingType.values
               .byValue(request.queryParameters['encoding-type']!);
         }
         if (request.queryParameters['key-marker'] != null) {
@@ -112,7 +110,7 @@ abstract class ListObjectVersionsRequest
   String? get delimiter;
 
   /// Requests Amazon S3 to encode the object keys in the response and specifies the encoding method to use. An object key can contain any Unicode character; however, the XML 1.0 parser cannot parse some characters, such as characters with an ASCII value from 0 to 10. For characters that are not supported in XML 1.0, you can add this parameter to request that Amazon S3 encode the keys in the response.
-  _i3.EncodingType? get encodingType;
+  EncodingType? get encodingType;
 
   /// Specifies the key to start with when listing objects in a bucket.
   String? get keyMarker;
@@ -130,10 +128,10 @@ abstract class ListObjectVersionsRequest
   String? get expectedBucketOwner;
 
   /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
-  _i4.RequestPayer? get requestPayer;
+  RequestPayer? get requestPayer;
 
   /// Specifies the optional fields that you want returned in the response. Fields that you do not specify are not returned.
-  _i6.BuiltList<_i5.OptionalObjectAttributes>? get optionalObjectAttributes;
+  _i3.BuiltList<OptionalObjectAttributes>? get optionalObjectAttributes;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -209,7 +207,7 @@ abstract class ListObjectVersionsRequest
   }
 }
 
-@_i7.internal
+@_i4.internal
 abstract class ListObjectVersionsRequestPayload
     with
         _i2.AWSEquatable<ListObjectVersionsRequestPayload>

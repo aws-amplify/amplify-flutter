@@ -6,9 +6,8 @@ library smoke_test.iam.model.create_virtual_mfa_device_response; // ignore_for_f
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/virtual_mfa_device.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/virtual_mfa_device.dart';
 
 part 'create_virtual_mfa_device_response.g.dart';
 
@@ -21,7 +20,7 @@ abstract class CreateVirtualMfaDeviceResponse
             CreateVirtualMfaDeviceResponseBuilder> {
   /// Contains the response to a successful CreateVirtualMFADevice request.
   factory CreateVirtualMfaDeviceResponse(
-      {required _i2.VirtualMfaDevice virtualMfaDevice}) {
+      {required VirtualMfaDevice virtualMfaDevice}) {
     return _$CreateVirtualMfaDeviceResponse._(
         virtualMfaDevice: virtualMfaDevice);
   }
@@ -40,11 +39,11 @@ abstract class CreateVirtualMfaDeviceResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<CreateVirtualMfaDeviceResponse>>
+  static const List<_i2.SmithySerializer<CreateVirtualMfaDeviceResponse>>
       serializers = [CreateVirtualMfaDeviceResponseAwsQuerySerializer()];
 
   /// A structure containing details about the new virtual MFA device.
-  _i2.VirtualMfaDevice get virtualMfaDevice;
+  VirtualMfaDevice get virtualMfaDevice;
   @override
   List<Object?> get props => [virtualMfaDevice];
   @override
@@ -59,7 +58,7 @@ abstract class CreateVirtualMfaDeviceResponse
 }
 
 class CreateVirtualMfaDeviceResponseAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<CreateVirtualMfaDeviceResponse> {
+    extends _i2.StructuredSmithySerializer<CreateVirtualMfaDeviceResponse> {
   const CreateVirtualMfaDeviceResponseAwsQuerySerializer()
       : super('CreateVirtualMfaDeviceResponse');
 
@@ -69,8 +68,8 @@ class CreateVirtualMfaDeviceResponseAwsQuerySerializer
         _$CreateVirtualMfaDeviceResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -94,8 +93,8 @@ class CreateVirtualMfaDeviceResponseAwsQuerySerializer
         case 'VirtualMFADevice':
           result.virtualMfaDevice.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.VirtualMfaDevice),
-          ) as _i2.VirtualMfaDevice));
+            specifiedType: const FullType(VirtualMfaDevice),
+          ) as VirtualMfaDevice));
       }
     }
 
@@ -109,17 +108,17 @@ class CreateVirtualMfaDeviceResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'CreateVirtualMfaDeviceResponseResponse',
-        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final CreateVirtualMfaDeviceResponse(:virtualMfaDevice) = object;
     result$
-      ..add(const _i3.XmlElementName('VirtualMFADevice'))
+      ..add(const _i2.XmlElementName('VirtualMFADevice'))
       ..add(serializers.serialize(
         virtualMfaDevice,
-        specifiedType: const FullType(_i2.VirtualMfaDevice),
+        specifiedType: const FullType(VirtualMfaDevice),
       ));
     return result$;
   }

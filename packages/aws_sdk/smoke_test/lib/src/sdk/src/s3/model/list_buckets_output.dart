@@ -4,12 +4,12 @@
 library smoke_test.s3.model.list_buckets_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/bucket.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/owner.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/bucket.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/owner.dart';
 
 part 'list_buckets_output.g.dart';
 
@@ -17,11 +17,11 @@ abstract class ListBucketsOutput
     with _i1.AWSEquatable<ListBucketsOutput>
     implements Built<ListBucketsOutput, ListBucketsOutputBuilder> {
   factory ListBucketsOutput({
-    List<_i2.Bucket>? buckets,
-    _i3.Owner? owner,
+    List<Bucket>? buckets,
+    Owner? owner,
   }) {
     return _$ListBucketsOutput._(
-      buckets: buckets == null ? null : _i4.BuiltList(buckets),
+      buckets: buckets == null ? null : _i2.BuiltList(buckets),
       owner: owner,
     );
   }
@@ -38,15 +38,15 @@ abstract class ListBucketsOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer<ListBucketsOutput>> serializers = [
+  static const List<_i3.SmithySerializer<ListBucketsOutput>> serializers = [
     ListBucketsOutputRestXmlSerializer()
   ];
 
   /// The list of buckets owned by the requester.
-  _i4.BuiltList<_i2.Bucket>? get buckets;
+  _i2.BuiltList<Bucket>? get buckets;
 
   /// The owner of the buckets listed.
-  _i3.Owner? get owner;
+  Owner? get owner;
   @override
   List<Object?> get props => [
         buckets,
@@ -68,7 +68,7 @@ abstract class ListBucketsOutput
 }
 
 class ListBucketsOutputRestXmlSerializer
-    extends _i5.StructuredSmithySerializer<ListBucketsOutput> {
+    extends _i3.StructuredSmithySerializer<ListBucketsOutput> {
   const ListBucketsOutputRestXmlSerializer() : super('ListBucketsOutput');
 
   @override
@@ -77,8 +77,8 @@ class ListBucketsOutputRestXmlSerializer
         _$ListBucketsOutput,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -101,20 +101,20 @@ class ListBucketsOutputRestXmlSerializer
       switch (key) {
         case 'Buckets':
           result.buckets.replace(
-              (const _i5.XmlBuiltListSerializer(memberName: 'Bucket')
+              (const _i3.XmlBuiltListSerializer(memberName: 'Bucket')
                   .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i2.Bucket)],
+              _i2.BuiltList,
+              [FullType(Bucket)],
             ),
-          ) as _i4.BuiltList<_i2.Bucket>));
+          ) as _i2.BuiltList<Bucket>));
         case 'Owner':
           result.owner.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.Owner),
-          ) as _i3.Owner));
+            specifiedType: const FullType(Owner),
+          ) as Owner));
       }
     }
 
@@ -128,30 +128,30 @@ class ListBucketsOutputRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i5.XmlElementName(
+      const _i3.XmlElementName(
         'ListAllMyBucketsResult',
-        _i5.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final ListBucketsOutput(:buckets, :owner) = object;
     if (buckets != null) {
       result$
-        ..add(const _i5.XmlElementName('Buckets'))
-        ..add(const _i5.XmlBuiltListSerializer(memberName: 'Bucket').serialize(
+        ..add(const _i3.XmlElementName('Buckets'))
+        ..add(const _i3.XmlBuiltListSerializer(memberName: 'Bucket').serialize(
           serializers,
           buckets,
           specifiedType: const FullType.nullable(
-            _i4.BuiltList,
-            [FullType(_i2.Bucket)],
+            _i2.BuiltList,
+            [FullType(Bucket)],
           ),
         ));
     }
     if (owner != null) {
       result$
-        ..add(const _i5.XmlElementName('Owner'))
+        ..add(const _i3.XmlElementName('Owner'))
         ..add(serializers.serialize(
           owner,
-          specifiedType: const FullType(_i3.Owner),
+          specifiedType: const FullType(Owner),
         ));
     }
     return result$;

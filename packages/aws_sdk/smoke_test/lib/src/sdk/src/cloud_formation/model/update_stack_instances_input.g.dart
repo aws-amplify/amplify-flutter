@@ -10,19 +10,19 @@ class _$UpdateStackInstancesInput extends UpdateStackInstancesInput {
   @override
   final String stackSetName;
   @override
-  final _i7.BuiltList<String>? accounts;
+  final _i3.BuiltList<String>? accounts;
   @override
-  final _i3.DeploymentTargets? deploymentTargets;
+  final DeploymentTargets? deploymentTargets;
   @override
-  final _i7.BuiltList<String> regions;
+  final _i3.BuiltList<String> regions;
   @override
-  final _i7.BuiltList<_i4.Parameter>? parameterOverrides;
+  final _i3.BuiltList<Parameter>? parameterOverrides;
   @override
-  final _i5.StackSetOperationPreferences? operationPreferences;
+  final StackSetOperationPreferences? operationPreferences;
   @override
   final String? operationId;
   @override
-  final _i6.CallAs? callAs;
+  final CallAs? callAs;
 
   factory _$UpdateStackInstancesInput(
           [void Function(UpdateStackInstancesInputBuilder)? updates]) =>
@@ -92,44 +92,44 @@ class UpdateStackInstancesInputBuilder
   String? get stackSetName => _$this._stackSetName;
   set stackSetName(String? stackSetName) => _$this._stackSetName = stackSetName;
 
-  _i7.ListBuilder<String>? _accounts;
-  _i7.ListBuilder<String> get accounts =>
-      _$this._accounts ??= new _i7.ListBuilder<String>();
-  set accounts(_i7.ListBuilder<String>? accounts) =>
+  _i3.ListBuilder<String>? _accounts;
+  _i3.ListBuilder<String> get accounts =>
+      _$this._accounts ??= new _i3.ListBuilder<String>();
+  set accounts(_i3.ListBuilder<String>? accounts) =>
       _$this._accounts = accounts;
 
-  _i3.DeploymentTargetsBuilder? _deploymentTargets;
-  _i3.DeploymentTargetsBuilder get deploymentTargets =>
-      _$this._deploymentTargets ??= new _i3.DeploymentTargetsBuilder();
-  set deploymentTargets(_i3.DeploymentTargetsBuilder? deploymentTargets) =>
+  DeploymentTargetsBuilder? _deploymentTargets;
+  DeploymentTargetsBuilder get deploymentTargets =>
+      _$this._deploymentTargets ??= new DeploymentTargetsBuilder();
+  set deploymentTargets(DeploymentTargetsBuilder? deploymentTargets) =>
       _$this._deploymentTargets = deploymentTargets;
 
-  _i7.ListBuilder<String>? _regions;
-  _i7.ListBuilder<String> get regions =>
-      _$this._regions ??= new _i7.ListBuilder<String>();
-  set regions(_i7.ListBuilder<String>? regions) => _$this._regions = regions;
+  _i3.ListBuilder<String>? _regions;
+  _i3.ListBuilder<String> get regions =>
+      _$this._regions ??= new _i3.ListBuilder<String>();
+  set regions(_i3.ListBuilder<String>? regions) => _$this._regions = regions;
 
-  _i7.ListBuilder<_i4.Parameter>? _parameterOverrides;
-  _i7.ListBuilder<_i4.Parameter> get parameterOverrides =>
-      _$this._parameterOverrides ??= new _i7.ListBuilder<_i4.Parameter>();
-  set parameterOverrides(_i7.ListBuilder<_i4.Parameter>? parameterOverrides) =>
+  _i3.ListBuilder<Parameter>? _parameterOverrides;
+  _i3.ListBuilder<Parameter> get parameterOverrides =>
+      _$this._parameterOverrides ??= new _i3.ListBuilder<Parameter>();
+  set parameterOverrides(_i3.ListBuilder<Parameter>? parameterOverrides) =>
       _$this._parameterOverrides = parameterOverrides;
 
-  _i5.StackSetOperationPreferencesBuilder? _operationPreferences;
-  _i5.StackSetOperationPreferencesBuilder get operationPreferences =>
+  StackSetOperationPreferencesBuilder? _operationPreferences;
+  StackSetOperationPreferencesBuilder get operationPreferences =>
       _$this._operationPreferences ??=
-          new _i5.StackSetOperationPreferencesBuilder();
+          new StackSetOperationPreferencesBuilder();
   set operationPreferences(
-          _i5.StackSetOperationPreferencesBuilder? operationPreferences) =>
+          StackSetOperationPreferencesBuilder? operationPreferences) =>
       _$this._operationPreferences = operationPreferences;
 
   String? _operationId;
   String? get operationId => _$this._operationId;
   set operationId(String? operationId) => _$this._operationId = operationId;
 
-  _i6.CallAs? _callAs;
-  _i6.CallAs? get callAs => _$this._callAs;
-  set callAs(_i6.CallAs? callAs) => _$this._callAs = callAs;
+  CallAs? _callAs;
+  CallAs? get callAs => _$this._callAs;
+  set callAs(CallAs? callAs) => _$this._callAs = callAs;
 
   UpdateStackInstancesInputBuilder() {
     UpdateStackInstancesInput._init(this);

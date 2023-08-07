@@ -9,7 +9,7 @@ part of 'notification_configuration_filter.dart';
 class _$NotificationConfigurationFilter
     extends NotificationConfigurationFilter {
   @override
-  final _i2.S3KeyFilter? key;
+  final S3KeyFilter? key;
 
   factory _$NotificationConfigurationFilter(
           [void Function(NotificationConfigurationFilterBuilder)? updates]) =>
@@ -47,10 +47,9 @@ class NotificationConfigurationFilterBuilder
             NotificationConfigurationFilterBuilder> {
   _$NotificationConfigurationFilter? _$v;
 
-  _i2.S3KeyFilterBuilder? _key;
-  _i2.S3KeyFilterBuilder get key =>
-      _$this._key ??= new _i2.S3KeyFilterBuilder();
-  set key(_i2.S3KeyFilterBuilder? key) => _$this._key = key;
+  S3KeyFilterBuilder? _key;
+  S3KeyFilterBuilder get key => _$this._key ??= new S3KeyFilterBuilder();
+  set key(S3KeyFilterBuilder? key) => _$this._key = key;
 
   NotificationConfigurationFilterBuilder();
 

@@ -4,24 +4,17 @@
 library smoke_test.cloud_formation.model.describe_type_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i9;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i10;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/deprecated_status.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/logging_config.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/provisioning_type.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/registry_type.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/required_activated_type.dart'
-    as _i7;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/type_tests_status.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/visibility.dart'
-    as _i8;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/deprecated_status.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/logging_config.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/provisioning_type.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/registry_type.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/required_activated_type.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/type_tests_status.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/visibility.dart';
 
 part 'describe_type_output.g.dart';
 
@@ -30,20 +23,20 @@ abstract class DescribeTypeOutput
     implements Built<DescribeTypeOutput, DescribeTypeOutputBuilder> {
   factory DescribeTypeOutput({
     String? arn,
-    _i2.RegistryType? type,
+    RegistryType? type,
     String? typeName,
     String? defaultVersionId,
     bool? isDefaultVersion,
-    _i3.TypeTestsStatus? typeTestsStatus,
+    TypeTestsStatus? typeTestsStatus,
     String? typeTestsStatusDescription,
     String? description,
     String? schema,
-    _i4.ProvisioningType? provisioningType,
-    _i5.DeprecatedStatus? deprecatedStatus,
-    _i6.LoggingConfig? loggingConfig,
-    List<_i7.RequiredActivatedType>? requiredActivatedTypes,
+    ProvisioningType? provisioningType,
+    DeprecatedStatus? deprecatedStatus,
+    LoggingConfig? loggingConfig,
+    List<RequiredActivatedType>? requiredActivatedTypes,
     String? executionRoleArn,
-    _i8.Visibility? visibility,
+    Visibility? visibility,
     String? sourceUrl,
     String? documentationUrl,
     DateTime? lastUpdated,
@@ -72,7 +65,7 @@ abstract class DescribeTypeOutput
       loggingConfig: loggingConfig,
       requiredActivatedTypes: requiredActivatedTypes == null
           ? null
-          : _i9.BuiltList(requiredActivatedTypes),
+          : _i2.BuiltList(requiredActivatedTypes),
       executionRoleArn: executionRoleArn,
       visibility: visibility,
       sourceUrl: sourceUrl,
@@ -103,7 +96,7 @@ abstract class DescribeTypeOutput
   ) =>
       payload;
 
-  static const List<_i10.SmithySerializer<DescribeTypeOutput>> serializers = [
+  static const List<_i3.SmithySerializer<DescribeTypeOutput>> serializers = [
     DescribeTypeOutputAwsQuerySerializer()
   ];
 
@@ -111,7 +104,7 @@ abstract class DescribeTypeOutput
   String? get arn;
 
   /// The kind of extension.
-  _i2.RegistryType? get type;
+  RegistryType? get type;
 
   /// The name of the extension.
   ///
@@ -143,7 +136,7 @@ abstract class DescribeTypeOutput
   /// *   `IN_PROGRESS`: Contract tests are currently being performed on the extension.
   ///
   /// *   `NOT_TESTED`: Contract tests haven't been performed on the extension.
-  _i3.TypeTestsStatus? get typeTestsStatus;
+  TypeTestsStatus? get typeTestsStatus;
 
   /// The description of the test status. To return the extension test status of a specific extension version, you must specify `VersionId`.
   ///
@@ -173,7 +166,7 @@ abstract class DescribeTypeOutput
   ///     *   read
   ///
   ///     *   delete
-  _i4.ProvisioningType? get provisioningType;
+  ProvisioningType? get provisioningType;
 
   /// The deprecation status of the extension version.
   ///
@@ -185,13 +178,13 @@ abstract class DescribeTypeOutput
   ///
   ///
   /// For public third-party extensions, CloudFormation returns `null`.
-  _i5.DeprecatedStatus? get deprecatedStatus;
+  DeprecatedStatus? get deprecatedStatus;
 
   /// Contains logging configuration information for private extensions. This applies only to private extensions you have registered in your account. For public extensions, both those provided by Amazon Web Services and published by third parties, CloudFormation returns `null`. For more information, see [RegisterType](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html).
-  _i6.LoggingConfig? get loggingConfig;
+  LoggingConfig? get loggingConfig;
 
   /// For extensions that are modules, the public third-party extensions that must be activated in your account in order for the module itself to be activated.
-  _i9.BuiltList<_i7.RequiredActivatedType>? get requiredActivatedTypes;
+  _i2.BuiltList<RequiredActivatedType>? get requiredActivatedTypes;
 
   /// The Amazon Resource Name (ARN) of the IAM execution role used to register the extension. This applies only to private extensions you have registered in your account. For more information, see [RegisterType](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html).
   ///
@@ -205,7 +198,7 @@ abstract class DescribeTypeOutput
   /// *   `PRIVATE`: The extension is only visible and usable within the account in which it is registered. CloudFormation marks any extensions you register as `PRIVATE`.
   ///
   /// *   `PUBLIC`: The extension is publicly visible and usable within any Amazon Web Services account.
-  _i8.Visibility? get visibility;
+  Visibility? get visibility;
 
   /// The URL of the source code for the extension.
   String? get sourceUrl;
@@ -404,7 +397,7 @@ abstract class DescribeTypeOutput
 }
 
 class DescribeTypeOutputAwsQuerySerializer
-    extends _i10.StructuredSmithySerializer<DescribeTypeOutput> {
+    extends _i3.StructuredSmithySerializer<DescribeTypeOutput> {
   const DescribeTypeOutputAwsQuerySerializer() : super('DescribeTypeOutput');
 
   @override
@@ -413,8 +406,8 @@ class DescribeTypeOutputAwsQuerySerializer
         _$DescribeTypeOutput,
       ];
   @override
-  Iterable<_i10.ShapeId> get supportedProtocols => const [
-        _i10.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -443,8 +436,8 @@ class DescribeTypeOutputAwsQuerySerializer
         case 'Type':
           result.type = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.RegistryType),
-          ) as _i2.RegistryType);
+            specifiedType: const FullType(RegistryType),
+          ) as RegistryType);
         case 'TypeName':
           result.typeName = (serializers.deserialize(
             value,
@@ -463,8 +456,8 @@ class DescribeTypeOutputAwsQuerySerializer
         case 'TypeTestsStatus':
           result.typeTestsStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.TypeTestsStatus),
-          ) as _i3.TypeTestsStatus);
+            specifiedType: const FullType(TypeTestsStatus),
+          ) as TypeTestsStatus);
         case 'TypeTestsStatusDescription':
           result.typeTestsStatusDescription = (serializers.deserialize(
             value,
@@ -483,30 +476,30 @@ class DescribeTypeOutputAwsQuerySerializer
         case 'ProvisioningType':
           result.provisioningType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ProvisioningType),
-          ) as _i4.ProvisioningType);
+            specifiedType: const FullType(ProvisioningType),
+          ) as ProvisioningType);
         case 'DeprecatedStatus':
           result.deprecatedStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.DeprecatedStatus),
-          ) as _i5.DeprecatedStatus);
+            specifiedType: const FullType(DeprecatedStatus),
+          ) as DeprecatedStatus);
         case 'LoggingConfig':
           result.loggingConfig.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.LoggingConfig),
-          ) as _i6.LoggingConfig));
+            specifiedType: const FullType(LoggingConfig),
+          ) as LoggingConfig));
         case 'RequiredActivatedTypes':
           result.requiredActivatedTypes.replace(
-              (const _i10.XmlBuiltListSerializer(
-                      indexer: _i10.XmlIndexer.awsQueryList)
+              (const _i3.XmlBuiltListSerializer(
+                      indexer: _i3.XmlIndexer.awsQueryList)
                   .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i9.BuiltList,
-              [FullType(_i7.RequiredActivatedType)],
+              _i2.BuiltList,
+              [FullType(RequiredActivatedType)],
             ),
-          ) as _i9.BuiltList<_i7.RequiredActivatedType>));
+          ) as _i2.BuiltList<RequiredActivatedType>));
         case 'ExecutionRoleArn':
           result.executionRoleArn = (serializers.deserialize(
             value,
@@ -515,8 +508,8 @@ class DescribeTypeOutputAwsQuerySerializer
         case 'Visibility':
           result.visibility = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i8.Visibility),
-          ) as _i8.Visibility);
+            specifiedType: const FullType(Visibility),
+          ) as Visibility);
         case 'SourceUrl':
           result.sourceUrl = (serializers.deserialize(
             value,
@@ -590,10 +583,9 @@ class DescribeTypeOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i10.XmlElementName(
+      const _i3.XmlElementName(
         'DescribeTypeOutputResponse',
-        _i10.XmlNamespace(
-            'http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final DescribeTypeOutput(
@@ -627,7 +619,7 @@ class DescribeTypeOutputAwsQuerySerializer
     ) = object;
     if (arn != null) {
       result$
-        ..add(const _i10.XmlElementName('Arn'))
+        ..add(const _i3.XmlElementName('Arn'))
         ..add(serializers.serialize(
           arn,
           specifiedType: const FullType(String),
@@ -635,15 +627,15 @@ class DescribeTypeOutputAwsQuerySerializer
     }
     if (type != null) {
       result$
-        ..add(const _i10.XmlElementName('Type'))
+        ..add(const _i3.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(_i2.RegistryType),
+          specifiedType: const FullType.nullable(RegistryType),
         ));
     }
     if (typeName != null) {
       result$
-        ..add(const _i10.XmlElementName('TypeName'))
+        ..add(const _i3.XmlElementName('TypeName'))
         ..add(serializers.serialize(
           typeName,
           specifiedType: const FullType(String),
@@ -651,7 +643,7 @@ class DescribeTypeOutputAwsQuerySerializer
     }
     if (defaultVersionId != null) {
       result$
-        ..add(const _i10.XmlElementName('DefaultVersionId'))
+        ..add(const _i3.XmlElementName('DefaultVersionId'))
         ..add(serializers.serialize(
           defaultVersionId,
           specifiedType: const FullType(String),
@@ -659,7 +651,7 @@ class DescribeTypeOutputAwsQuerySerializer
     }
     if (isDefaultVersion != null) {
       result$
-        ..add(const _i10.XmlElementName('IsDefaultVersion'))
+        ..add(const _i3.XmlElementName('IsDefaultVersion'))
         ..add(serializers.serialize(
           isDefaultVersion,
           specifiedType: const FullType.nullable(bool),
@@ -667,15 +659,15 @@ class DescribeTypeOutputAwsQuerySerializer
     }
     if (typeTestsStatus != null) {
       result$
-        ..add(const _i10.XmlElementName('TypeTestsStatus'))
+        ..add(const _i3.XmlElementName('TypeTestsStatus'))
         ..add(serializers.serialize(
           typeTestsStatus,
-          specifiedType: const FullType.nullable(_i3.TypeTestsStatus),
+          specifiedType: const FullType.nullable(TypeTestsStatus),
         ));
     }
     if (typeTestsStatusDescription != null) {
       result$
-        ..add(const _i10.XmlElementName('TypeTestsStatusDescription'))
+        ..add(const _i3.XmlElementName('TypeTestsStatusDescription'))
         ..add(serializers.serialize(
           typeTestsStatusDescription,
           specifiedType: const FullType(String),
@@ -683,7 +675,7 @@ class DescribeTypeOutputAwsQuerySerializer
     }
     if (description != null) {
       result$
-        ..add(const _i10.XmlElementName('Description'))
+        ..add(const _i3.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
           specifiedType: const FullType(String),
@@ -691,7 +683,7 @@ class DescribeTypeOutputAwsQuerySerializer
     }
     if (schema != null) {
       result$
-        ..add(const _i10.XmlElementName('Schema'))
+        ..add(const _i3.XmlElementName('Schema'))
         ..add(serializers.serialize(
           schema,
           specifiedType: const FullType(String),
@@ -699,45 +691,45 @@ class DescribeTypeOutputAwsQuerySerializer
     }
     if (provisioningType != null) {
       result$
-        ..add(const _i10.XmlElementName('ProvisioningType'))
+        ..add(const _i3.XmlElementName('ProvisioningType'))
         ..add(serializers.serialize(
           provisioningType,
-          specifiedType: const FullType.nullable(_i4.ProvisioningType),
+          specifiedType: const FullType.nullable(ProvisioningType),
         ));
     }
     if (deprecatedStatus != null) {
       result$
-        ..add(const _i10.XmlElementName('DeprecatedStatus'))
+        ..add(const _i3.XmlElementName('DeprecatedStatus'))
         ..add(serializers.serialize(
           deprecatedStatus,
-          specifiedType: const FullType.nullable(_i5.DeprecatedStatus),
+          specifiedType: const FullType.nullable(DeprecatedStatus),
         ));
     }
     if (loggingConfig != null) {
       result$
-        ..add(const _i10.XmlElementName('LoggingConfig'))
+        ..add(const _i3.XmlElementName('LoggingConfig'))
         ..add(serializers.serialize(
           loggingConfig,
-          specifiedType: const FullType(_i6.LoggingConfig),
+          specifiedType: const FullType(LoggingConfig),
         ));
     }
     if (requiredActivatedTypes != null) {
       result$
-        ..add(const _i10.XmlElementName('RequiredActivatedTypes'))
-        ..add(const _i10.XmlBuiltListSerializer(
-                indexer: _i10.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('RequiredActivatedTypes'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           requiredActivatedTypes,
           specifiedType: const FullType.nullable(
-            _i9.BuiltList,
-            [FullType(_i7.RequiredActivatedType)],
+            _i2.BuiltList,
+            [FullType(RequiredActivatedType)],
           ),
         ));
     }
     if (executionRoleArn != null) {
       result$
-        ..add(const _i10.XmlElementName('ExecutionRoleArn'))
+        ..add(const _i3.XmlElementName('ExecutionRoleArn'))
         ..add(serializers.serialize(
           executionRoleArn,
           specifiedType: const FullType(String),
@@ -745,15 +737,15 @@ class DescribeTypeOutputAwsQuerySerializer
     }
     if (visibility != null) {
       result$
-        ..add(const _i10.XmlElementName('Visibility'))
+        ..add(const _i3.XmlElementName('Visibility'))
         ..add(serializers.serialize(
           visibility,
-          specifiedType: const FullType.nullable(_i8.Visibility),
+          specifiedType: const FullType.nullable(Visibility),
         ));
     }
     if (sourceUrl != null) {
       result$
-        ..add(const _i10.XmlElementName('SourceUrl'))
+        ..add(const _i3.XmlElementName('SourceUrl'))
         ..add(serializers.serialize(
           sourceUrl,
           specifiedType: const FullType(String),
@@ -761,7 +753,7 @@ class DescribeTypeOutputAwsQuerySerializer
     }
     if (documentationUrl != null) {
       result$
-        ..add(const _i10.XmlElementName('DocumentationUrl'))
+        ..add(const _i3.XmlElementName('DocumentationUrl'))
         ..add(serializers.serialize(
           documentationUrl,
           specifiedType: const FullType(String),
@@ -769,7 +761,7 @@ class DescribeTypeOutputAwsQuerySerializer
     }
     if (lastUpdated != null) {
       result$
-        ..add(const _i10.XmlElementName('LastUpdated'))
+        ..add(const _i3.XmlElementName('LastUpdated'))
         ..add(serializers.serialize(
           lastUpdated,
           specifiedType: const FullType.nullable(DateTime),
@@ -777,7 +769,7 @@ class DescribeTypeOutputAwsQuerySerializer
     }
     if (timeCreated != null) {
       result$
-        ..add(const _i10.XmlElementName('TimeCreated'))
+        ..add(const _i3.XmlElementName('TimeCreated'))
         ..add(serializers.serialize(
           timeCreated,
           specifiedType: const FullType.nullable(DateTime),
@@ -785,7 +777,7 @@ class DescribeTypeOutputAwsQuerySerializer
     }
     if (configurationSchema != null) {
       result$
-        ..add(const _i10.XmlElementName('ConfigurationSchema'))
+        ..add(const _i3.XmlElementName('ConfigurationSchema'))
         ..add(serializers.serialize(
           configurationSchema,
           specifiedType: const FullType(String),
@@ -793,7 +785,7 @@ class DescribeTypeOutputAwsQuerySerializer
     }
     if (publisherId != null) {
       result$
-        ..add(const _i10.XmlElementName('PublisherId'))
+        ..add(const _i3.XmlElementName('PublisherId'))
         ..add(serializers.serialize(
           publisherId,
           specifiedType: const FullType(String),
@@ -801,7 +793,7 @@ class DescribeTypeOutputAwsQuerySerializer
     }
     if (originalTypeName != null) {
       result$
-        ..add(const _i10.XmlElementName('OriginalTypeName'))
+        ..add(const _i3.XmlElementName('OriginalTypeName'))
         ..add(serializers.serialize(
           originalTypeName,
           specifiedType: const FullType(String),
@@ -809,7 +801,7 @@ class DescribeTypeOutputAwsQuerySerializer
     }
     if (originalTypeArn != null) {
       result$
-        ..add(const _i10.XmlElementName('OriginalTypeArn'))
+        ..add(const _i3.XmlElementName('OriginalTypeArn'))
         ..add(serializers.serialize(
           originalTypeArn,
           specifiedType: const FullType(String),
@@ -817,7 +809,7 @@ class DescribeTypeOutputAwsQuerySerializer
     }
     if (publicVersionNumber != null) {
       result$
-        ..add(const _i10.XmlElementName('PublicVersionNumber'))
+        ..add(const _i3.XmlElementName('PublicVersionNumber'))
         ..add(serializers.serialize(
           publicVersionNumber,
           specifiedType: const FullType(String),
@@ -825,7 +817,7 @@ class DescribeTypeOutputAwsQuerySerializer
     }
     if (latestPublicVersion != null) {
       result$
-        ..add(const _i10.XmlElementName('LatestPublicVersion'))
+        ..add(const _i3.XmlElementName('LatestPublicVersion'))
         ..add(serializers.serialize(
           latestPublicVersion,
           specifiedType: const FullType(String),
@@ -833,7 +825,7 @@ class DescribeTypeOutputAwsQuerySerializer
     }
     if (isActivated != null) {
       result$
-        ..add(const _i10.XmlElementName('IsActivated'))
+        ..add(const _i3.XmlElementName('IsActivated'))
         ..add(serializers.serialize(
           isActivated,
           specifiedType: const FullType.nullable(bool),
@@ -841,7 +833,7 @@ class DescribeTypeOutputAwsQuerySerializer
     }
     if (autoUpdate != null) {
       result$
-        ..add(const _i10.XmlElementName('AutoUpdate'))
+        ..add(const _i3.XmlElementName('AutoUpdate'))
         ..add(serializers.serialize(
           autoUpdate,
           specifiedType: const FullType.nullable(bool),

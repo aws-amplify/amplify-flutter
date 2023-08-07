@@ -6,9 +6,8 @@ library smoke_test.config_service.model.resource_key; // ignore_for_file: no_lea
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart';
 
 part 'resource_key.g.dart';
 
@@ -18,7 +17,7 @@ abstract class ResourceKey
     implements Built<ResourceKey, ResourceKeyBuilder> {
   /// The details that identify a resource within Config, including the resource type and resource ID.
   factory ResourceKey({
-    required _i2.ResourceType resourceType,
+    required ResourceType resourceType,
     required String resourceId,
   }) {
     return _$ResourceKey._(
@@ -33,12 +32,12 @@ abstract class ResourceKey
 
   const ResourceKey._();
 
-  static const List<_i3.SmithySerializer<ResourceKey>> serializers = [
+  static const List<_i2.SmithySerializer<ResourceKey>> serializers = [
     ResourceKeyAwsJson11Serializer()
   ];
 
   /// The resource type.
-  _i2.ResourceType get resourceType;
+  ResourceType get resourceType;
 
   /// The ID of the resource (for example., sg-xxxxxx).
   String get resourceId;
@@ -63,7 +62,7 @@ abstract class ResourceKey
 }
 
 class ResourceKeyAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<ResourceKey> {
+    extends _i2.StructuredSmithySerializer<ResourceKey> {
   const ResourceKeyAwsJson11Serializer() : super('ResourceKey');
 
   @override
@@ -72,8 +71,8 @@ class ResourceKeyAwsJson11Serializer
         _$ResourceKey,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -97,8 +96,8 @@ class ResourceKeyAwsJson11Serializer
         case 'resourceType':
           result.resourceType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ResourceType),
-          ) as _i2.ResourceType);
+            specifiedType: const FullType(ResourceType),
+          ) as ResourceType);
         case 'resourceId':
           result.resourceId = (serializers.deserialize(
             value,
@@ -122,7 +121,7 @@ class ResourceKeyAwsJson11Serializer
       'resourceType',
       serializers.serialize(
         resourceType,
-        specifiedType: const FullType(_i2.ResourceType),
+        specifiedType: const FullType(ResourceType),
       ),
       'resourceId',
       serializers.serialize(

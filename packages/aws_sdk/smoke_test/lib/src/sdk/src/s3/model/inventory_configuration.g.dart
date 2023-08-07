@@ -8,19 +8,19 @@ part of 'inventory_configuration.dart';
 
 class _$InventoryConfiguration extends InventoryConfiguration {
   @override
-  final _i2.InventoryDestination destination;
+  final InventoryDestination destination;
   @override
   final bool? isEnabled;
   @override
-  final _i3.InventoryFilter? filter;
+  final InventoryFilter? filter;
   @override
   final String id;
   @override
-  final _i4.InventoryIncludedObjectVersions includedObjectVersions;
+  final InventoryIncludedObjectVersions includedObjectVersions;
   @override
-  final _i7.BuiltList<_i5.InventoryOptionalField>? optionalFields;
+  final _i2.BuiltList<InventoryOptionalField>? optionalFields;
   @override
-  final _i6.InventorySchedule schedule;
+  final InventorySchedule schedule;
 
   factory _$InventoryConfiguration(
           [void Function(InventoryConfigurationBuilder)? updates]) =>
@@ -85,44 +85,42 @@ class InventoryConfigurationBuilder
     implements Builder<InventoryConfiguration, InventoryConfigurationBuilder> {
   _$InventoryConfiguration? _$v;
 
-  _i2.InventoryDestinationBuilder? _destination;
-  _i2.InventoryDestinationBuilder get destination =>
-      _$this._destination ??= new _i2.InventoryDestinationBuilder();
-  set destination(_i2.InventoryDestinationBuilder? destination) =>
+  InventoryDestinationBuilder? _destination;
+  InventoryDestinationBuilder get destination =>
+      _$this._destination ??= new InventoryDestinationBuilder();
+  set destination(InventoryDestinationBuilder? destination) =>
       _$this._destination = destination;
 
   bool? _isEnabled;
   bool? get isEnabled => _$this._isEnabled;
   set isEnabled(bool? isEnabled) => _$this._isEnabled = isEnabled;
 
-  _i3.InventoryFilterBuilder? _filter;
-  _i3.InventoryFilterBuilder get filter =>
-      _$this._filter ??= new _i3.InventoryFilterBuilder();
-  set filter(_i3.InventoryFilterBuilder? filter) => _$this._filter = filter;
+  InventoryFilterBuilder? _filter;
+  InventoryFilterBuilder get filter =>
+      _$this._filter ??= new InventoryFilterBuilder();
+  set filter(InventoryFilterBuilder? filter) => _$this._filter = filter;
 
   String? _id;
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  _i4.InventoryIncludedObjectVersions? _includedObjectVersions;
-  _i4.InventoryIncludedObjectVersions? get includedObjectVersions =>
+  InventoryIncludedObjectVersions? _includedObjectVersions;
+  InventoryIncludedObjectVersions? get includedObjectVersions =>
       _$this._includedObjectVersions;
   set includedObjectVersions(
-          _i4.InventoryIncludedObjectVersions? includedObjectVersions) =>
+          InventoryIncludedObjectVersions? includedObjectVersions) =>
       _$this._includedObjectVersions = includedObjectVersions;
 
-  _i7.ListBuilder<_i5.InventoryOptionalField>? _optionalFields;
-  _i7.ListBuilder<_i5.InventoryOptionalField> get optionalFields =>
-      _$this._optionalFields ??=
-          new _i7.ListBuilder<_i5.InventoryOptionalField>();
-  set optionalFields(
-          _i7.ListBuilder<_i5.InventoryOptionalField>? optionalFields) =>
+  _i2.ListBuilder<InventoryOptionalField>? _optionalFields;
+  _i2.ListBuilder<InventoryOptionalField> get optionalFields =>
+      _$this._optionalFields ??= new _i2.ListBuilder<InventoryOptionalField>();
+  set optionalFields(_i2.ListBuilder<InventoryOptionalField>? optionalFields) =>
       _$this._optionalFields = optionalFields;
 
-  _i6.InventoryScheduleBuilder? _schedule;
-  _i6.InventoryScheduleBuilder get schedule =>
-      _$this._schedule ??= new _i6.InventoryScheduleBuilder();
-  set schedule(_i6.InventoryScheduleBuilder? schedule) =>
+  InventoryScheduleBuilder? _schedule;
+  InventoryScheduleBuilder get schedule =>
+      _$this._schedule ??= new InventoryScheduleBuilder();
+  set schedule(InventoryScheduleBuilder? schedule) =>
       _$this._schedule = schedule;
 
   InventoryConfigurationBuilder();

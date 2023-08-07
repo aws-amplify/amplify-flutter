@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.list_conformance_pack_compliance_scores_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_compliance_score.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_compliance_score.dart';
 
 part 'list_conformance_pack_compliance_scores_response.g.dart';
 
@@ -21,13 +20,13 @@ abstract class ListConformancePackComplianceScoresResponse
             ListConformancePackComplianceScoresResponseBuilder> {
   factory ListConformancePackComplianceScoresResponse({
     String? nextToken,
-    required List<_i2.ConformancePackComplianceScore>
+    required List<ConformancePackComplianceScore>
         conformancePackComplianceScores,
   }) {
     return _$ListConformancePackComplianceScoresResponse._(
       nextToken: nextToken,
       conformancePackComplianceScores:
-          _i3.BuiltList(conformancePackComplianceScores),
+          _i2.BuiltList(conformancePackComplianceScores),
     );
   }
 
@@ -45,7 +44,7 @@ abstract class ListConformancePackComplianceScoresResponse
       payload;
 
   static const List<
-          _i4.SmithySerializer<ListConformancePackComplianceScoresResponse>>
+          _i3.SmithySerializer<ListConformancePackComplianceScoresResponse>>
       serializers = [
     ListConformancePackComplianceScoresResponseAwsJson11Serializer()
   ];
@@ -54,7 +53,7 @@ abstract class ListConformancePackComplianceScoresResponse
   String? get nextToken;
 
   /// A list of `ConformancePackComplianceScore` objects.
-  _i3.BuiltList<_i2.ConformancePackComplianceScore>
+  _i2.BuiltList<ConformancePackComplianceScore>
       get conformancePackComplianceScores;
   @override
   List<Object?> get props => [
@@ -77,7 +76,7 @@ abstract class ListConformancePackComplianceScoresResponse
   }
 }
 
-class ListConformancePackComplianceScoresResponseAwsJson11Serializer extends _i4
+class ListConformancePackComplianceScoresResponseAwsJson11Serializer extends _i3
     .StructuredSmithySerializer<ListConformancePackComplianceScoresResponse> {
   const ListConformancePackComplianceScoresResponseAwsJson11Serializer()
       : super('ListConformancePackComplianceScoresResponse');
@@ -88,8 +87,8 @@ class ListConformancePackComplianceScoresResponseAwsJson11Serializer extends _i4
         _$ListConformancePackComplianceScoresResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -120,10 +119,10 @@ class ListConformancePackComplianceScoresResponseAwsJson11Serializer extends _i4
               .replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.ConformancePackComplianceScore)],
+              _i2.BuiltList,
+              [FullType(ConformancePackComplianceScore)],
             ),
-          ) as _i3.BuiltList<_i2.ConformancePackComplianceScore>));
+          ) as _i2.BuiltList<ConformancePackComplianceScore>));
       }
     }
 
@@ -146,8 +145,8 @@ class ListConformancePackComplianceScoresResponseAwsJson11Serializer extends _i4
       serializers.serialize(
         conformancePackComplianceScores,
         specifiedType: const FullType(
-          _i3.BuiltList,
-          [FullType(_i2.ConformancePackComplianceScore)],
+          _i2.BuiltList,
+          [FullType(ConformancePackComplianceScore)],
         ),
       ),
     ]);

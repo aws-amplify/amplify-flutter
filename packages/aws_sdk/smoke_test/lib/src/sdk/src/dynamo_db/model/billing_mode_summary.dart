@@ -6,9 +6,8 @@ library smoke_test.dynamo_db.model.billing_mode_summary; // ignore_for_file: no_
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/billing_mode.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/billing_mode.dart';
 
 part 'billing_mode_summary.g.dart';
 
@@ -22,7 +21,7 @@ abstract class BillingModeSummary
   ///
   /// You may need to switch to on-demand mode at least once in order to return a `BillingModeSummary` response.
   factory BillingModeSummary({
-    _i2.BillingMode? billingMode,
+    BillingMode? billingMode,
     DateTime? lastUpdateToPayPerRequestDateTime,
   }) {
     return _$BillingModeSummary._(
@@ -40,7 +39,7 @@ abstract class BillingModeSummary
 
   const BillingModeSummary._();
 
-  static const List<_i3.SmithySerializer<BillingModeSummary>> serializers = [
+  static const List<_i2.SmithySerializer<BillingModeSummary>> serializers = [
     BillingModeSummaryAwsJson10Serializer()
   ];
 
@@ -49,7 +48,7 @@ abstract class BillingModeSummary
   /// *   `PROVISIONED` \- Sets the read/write capacity mode to `PROVISIONED`. We recommend using `PROVISIONED` for predictable workloads.
   ///
   /// *   `PAY\_PER\_REQUEST` \- Sets the read/write capacity mode to `PAY\_PER\_REQUEST`. We recommend using `PAY\_PER\_REQUEST` for unpredictable workloads.
-  _i2.BillingMode? get billingMode;
+  BillingMode? get billingMode;
 
   /// Represents the time when `PAY\_PER\_REQUEST` was last set as the read/write capacity mode.
   DateTime? get lastUpdateToPayPerRequestDateTime;
@@ -74,7 +73,7 @@ abstract class BillingModeSummary
 }
 
 class BillingModeSummaryAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<BillingModeSummary> {
+    extends _i2.StructuredSmithySerializer<BillingModeSummary> {
   const BillingModeSummaryAwsJson10Serializer() : super('BillingModeSummary');
 
   @override
@@ -83,8 +82,8 @@ class BillingModeSummaryAwsJson10Serializer
         _$BillingModeSummary,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -108,8 +107,8 @@ class BillingModeSummaryAwsJson10Serializer
         case 'BillingMode':
           result.billingMode = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.BillingMode),
-          ) as _i2.BillingMode);
+            specifiedType: const FullType(BillingMode),
+          ) as BillingMode);
         case 'LastUpdateToPayPerRequestDateTime':
           result.lastUpdateToPayPerRequestDateTime = (serializers.deserialize(
             value,
@@ -135,7 +134,7 @@ class BillingModeSummaryAwsJson10Serializer
         ..add('BillingMode')
         ..add(serializers.serialize(
           billingMode,
-          specifiedType: const FullType(_i2.BillingMode),
+          specifiedType: const FullType(BillingMode),
         ));
     }
     if (lastUpdateToPayPerRequestDateTime != null) {

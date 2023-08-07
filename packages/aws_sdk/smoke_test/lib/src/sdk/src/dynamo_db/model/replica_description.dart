@@ -4,18 +4,14 @@
 library smoke_test.dynamo_db.model.replica_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput_override.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_global_secondary_index_description.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_status.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_class_summary.dart'
-    as _i5;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput_override.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_global_secondary_index_description.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_status.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_class_summary.dart';
 
 part 'replica_description.g.dart';
 
@@ -26,14 +22,14 @@ abstract class ReplicaDescription
   /// Contains the details of the replica.
   factory ReplicaDescription({
     String? regionName,
-    _i2.ReplicaStatus? replicaStatus,
+    ReplicaStatus? replicaStatus,
     String? replicaStatusDescription,
     String? replicaStatusPercentProgress,
     String? kmsMasterKeyId,
-    _i3.ProvisionedThroughputOverride? provisionedThroughputOverride,
-    List<_i4.ReplicaGlobalSecondaryIndexDescription>? globalSecondaryIndexes,
+    ProvisionedThroughputOverride? provisionedThroughputOverride,
+    List<ReplicaGlobalSecondaryIndexDescription>? globalSecondaryIndexes,
     DateTime? replicaInaccessibleDateTime,
-    _i5.TableClassSummary? replicaTableClassSummary,
+    TableClassSummary? replicaTableClassSummary,
   }) {
     return _$ReplicaDescription._(
       regionName: regionName,
@@ -44,7 +40,7 @@ abstract class ReplicaDescription
       provisionedThroughputOverride: provisionedThroughputOverride,
       globalSecondaryIndexes: globalSecondaryIndexes == null
           ? null
-          : _i6.BuiltList(globalSecondaryIndexes),
+          : _i2.BuiltList(globalSecondaryIndexes),
       replicaInaccessibleDateTime: replicaInaccessibleDateTime,
       replicaTableClassSummary: replicaTableClassSummary,
     );
@@ -57,7 +53,7 @@ abstract class ReplicaDescription
 
   const ReplicaDescription._();
 
-  static const List<_i7.SmithySerializer<ReplicaDescription>> serializers = [
+  static const List<_i3.SmithySerializer<ReplicaDescription>> serializers = [
     ReplicaDescriptionAwsJson10Serializer()
   ];
 
@@ -81,7 +77,7 @@ abstract class ReplicaDescription
   /// *   `INACCESSIBLE\_ENCRYPTION\_CREDENTIALS` \- The KMS key used to encrypt the table is inaccessible.
   ///
   ///     If the KMS key remains inaccessible for more than 20 hours, DynamoDB will remove this replica from the replication group. The replica will not be deleted and replication will stop from and to this region.
-  _i2.ReplicaStatus? get replicaStatus;
+  ReplicaStatus? get replicaStatus;
 
   /// Detailed information about the replica status.
   String? get replicaStatusDescription;
@@ -93,17 +89,17 @@ abstract class ReplicaDescription
   String? get kmsMasterKeyId;
 
   /// Replica-specific provisioned throughput. If not described, uses the source table's provisioned throughput settings.
-  _i3.ProvisionedThroughputOverride? get provisionedThroughputOverride;
+  ProvisionedThroughputOverride? get provisionedThroughputOverride;
 
   /// Replica-specific global secondary index settings.
-  _i6.BuiltList<_i4.ReplicaGlobalSecondaryIndexDescription>?
+  _i2.BuiltList<ReplicaGlobalSecondaryIndexDescription>?
       get globalSecondaryIndexes;
 
   /// The time at which the replica was first detected as inaccessible. To determine cause of inaccessibility check the `ReplicaStatus` property.
   DateTime? get replicaInaccessibleDateTime;
 
   /// Contains details of the table class.
-  _i5.TableClassSummary? get replicaTableClassSummary;
+  TableClassSummary? get replicaTableClassSummary;
   @override
   List<Object?> get props => [
         regionName,
@@ -160,7 +156,7 @@ abstract class ReplicaDescription
 }
 
 class ReplicaDescriptionAwsJson10Serializer
-    extends _i7.StructuredSmithySerializer<ReplicaDescription> {
+    extends _i3.StructuredSmithySerializer<ReplicaDescription> {
   const ReplicaDescriptionAwsJson10Serializer() : super('ReplicaDescription');
 
   @override
@@ -169,8 +165,8 @@ class ReplicaDescriptionAwsJson10Serializer
         _$ReplicaDescription,
       ];
   @override
-  Iterable<_i7.ShapeId> get supportedProtocols => const [
-        _i7.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -199,8 +195,8 @@ class ReplicaDescriptionAwsJson10Serializer
         case 'ReplicaStatus':
           result.replicaStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ReplicaStatus),
-          ) as _i2.ReplicaStatus);
+            specifiedType: const FullType(ReplicaStatus),
+          ) as ReplicaStatus);
         case 'ReplicaStatusDescription':
           result.replicaStatusDescription = (serializers.deserialize(
             value,
@@ -219,16 +215,16 @@ class ReplicaDescriptionAwsJson10Serializer
         case 'ProvisionedThroughputOverride':
           result.provisionedThroughputOverride.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ProvisionedThroughputOverride),
-          ) as _i3.ProvisionedThroughputOverride));
+            specifiedType: const FullType(ProvisionedThroughputOverride),
+          ) as ProvisionedThroughputOverride));
         case 'GlobalSecondaryIndexes':
           result.globalSecondaryIndexes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(_i4.ReplicaGlobalSecondaryIndexDescription)],
+              _i2.BuiltList,
+              [FullType(ReplicaGlobalSecondaryIndexDescription)],
             ),
-          ) as _i6.BuiltList<_i4.ReplicaGlobalSecondaryIndexDescription>));
+          ) as _i2.BuiltList<ReplicaGlobalSecondaryIndexDescription>));
         case 'ReplicaInaccessibleDateTime':
           result.replicaInaccessibleDateTime = (serializers.deserialize(
             value,
@@ -237,8 +233,8 @@ class ReplicaDescriptionAwsJson10Serializer
         case 'ReplicaTableClassSummary':
           result.replicaTableClassSummary.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.TableClassSummary),
-          ) as _i5.TableClassSummary));
+            specifiedType: const FullType(TableClassSummary),
+          ) as TableClassSummary));
       }
     }
 
@@ -276,7 +272,7 @@ class ReplicaDescriptionAwsJson10Serializer
         ..add('ReplicaStatus')
         ..add(serializers.serialize(
           replicaStatus,
-          specifiedType: const FullType(_i2.ReplicaStatus),
+          specifiedType: const FullType(ReplicaStatus),
         ));
     }
     if (replicaStatusDescription != null) {
@@ -308,7 +304,7 @@ class ReplicaDescriptionAwsJson10Serializer
         ..add('ProvisionedThroughputOverride')
         ..add(serializers.serialize(
           provisionedThroughputOverride,
-          specifiedType: const FullType(_i3.ProvisionedThroughputOverride),
+          specifiedType: const FullType(ProvisionedThroughputOverride),
         ));
     }
     if (globalSecondaryIndexes != null) {
@@ -317,8 +313,8 @@ class ReplicaDescriptionAwsJson10Serializer
         ..add(serializers.serialize(
           globalSecondaryIndexes,
           specifiedType: const FullType(
-            _i6.BuiltList,
-            [FullType(_i4.ReplicaGlobalSecondaryIndexDescription)],
+            _i2.BuiltList,
+            [FullType(ReplicaGlobalSecondaryIndexDescription)],
           ),
         ));
     }
@@ -335,7 +331,7 @@ class ReplicaDescriptionAwsJson10Serializer
         ..add('ReplicaTableClassSummary')
         ..add(serializers.serialize(
           replicaTableClassSummary,
-          specifiedType: const FullType(_i5.TableClassSummary),
+          specifiedType: const FullType(TableClassSummary),
         ));
     }
     return result$;

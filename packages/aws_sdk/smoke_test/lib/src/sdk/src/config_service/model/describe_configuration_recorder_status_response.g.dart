@@ -9,7 +9,7 @@ part of 'describe_configuration_recorder_status_response.dart';
 class _$DescribeConfigurationRecorderStatusResponse
     extends DescribeConfigurationRecorderStatusResponse {
   @override
-  final _i3.BuiltList<_i2.ConfigurationRecorderStatus>?
+  final _i2.BuiltList<ConfigurationRecorderStatus>?
       configurationRecordersStatus;
 
   factory _$DescribeConfigurationRecorderStatusResponse(
@@ -55,14 +55,13 @@ class DescribeConfigurationRecorderStatusResponseBuilder
             DescribeConfigurationRecorderStatusResponseBuilder> {
   _$DescribeConfigurationRecorderStatusResponse? _$v;
 
-  _i3.ListBuilder<_i2.ConfigurationRecorderStatus>?
-      _configurationRecordersStatus;
-  _i3.ListBuilder<_i2.ConfigurationRecorderStatus>
+  _i2.ListBuilder<ConfigurationRecorderStatus>? _configurationRecordersStatus;
+  _i2.ListBuilder<ConfigurationRecorderStatus>
       get configurationRecordersStatus =>
           _$this._configurationRecordersStatus ??=
-              new _i3.ListBuilder<_i2.ConfigurationRecorderStatus>();
+              new _i2.ListBuilder<ConfigurationRecorderStatus>();
   set configurationRecordersStatus(
-          _i3.ListBuilder<_i2.ConfigurationRecorderStatus>?
+          _i2.ListBuilder<ConfigurationRecorderStatus>?
               configurationRecordersStatus) =>
       _$this._configurationRecordersStatus = configurationRecordersStatus;
 

@@ -4,13 +4,12 @@
 library smoke_test.s3.model.get_bucket_replication_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/replication_configuration.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/replication_rule.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/s3/model/replication_configuration.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/replication_rule.dart';
 
 part 'get_bucket_replication_output.g.dart';
 
@@ -18,9 +17,9 @@ abstract class GetBucketReplicationOutput
     with _i1.AWSEquatable<GetBucketReplicationOutput>
     implements
         Built<GetBucketReplicationOutput, GetBucketReplicationOutputBuilder>,
-        _i2.HasPayload<_i3.ReplicationConfiguration> {
+        _i2.HasPayload<ReplicationConfiguration> {
   factory GetBucketReplicationOutput(
-      {_i3.ReplicationConfiguration? replicationConfiguration}) {
+      {ReplicationConfiguration? replicationConfiguration}) {
     return _$GetBucketReplicationOutput._(
         replicationConfiguration: replicationConfiguration);
   }
@@ -33,7 +32,7 @@ abstract class GetBucketReplicationOutput
 
   /// Constructs a [GetBucketReplicationOutput] from a [payload] and [response].
   factory GetBucketReplicationOutput.fromResponse(
-    _i3.ReplicationConfiguration? payload,
+    ReplicationConfiguration? payload,
     _i1.AWSBaseHttpResponse response,
   ) =>
       GetBucketReplicationOutput.build((b) {
@@ -42,13 +41,13 @@ abstract class GetBucketReplicationOutput
         }
       });
 
-  static const List<_i2.SmithySerializer<_i3.ReplicationConfiguration?>>
+  static const List<_i2.SmithySerializer<ReplicationConfiguration?>>
       serializers = [GetBucketReplicationOutputRestXmlSerializer()];
 
   /// A container for replication rules. You can add up to 1,000 rules. The maximum size of a replication configuration is 2 MB.
-  _i3.ReplicationConfiguration? get replicationConfiguration;
+  ReplicationConfiguration? get replicationConfiguration;
   @override
-  _i3.ReplicationConfiguration? getPayload() => replicationConfiguration;
+  ReplicationConfiguration? getPayload() => replicationConfiguration;
   @override
   List<Object?> get props => [replicationConfiguration];
   @override
@@ -63,7 +62,7 @@ abstract class GetBucketReplicationOutput
 }
 
 class GetBucketReplicationOutputRestXmlSerializer
-    extends _i2.StructuredSmithySerializer<_i3.ReplicationConfiguration> {
+    extends _i2.StructuredSmithySerializer<ReplicationConfiguration> {
   const GetBucketReplicationOutputRestXmlSerializer()
       : super('GetBucketReplicationOutput');
 
@@ -80,12 +79,12 @@ class GetBucketReplicationOutputRestXmlSerializer
         )
       ];
   @override
-  _i3.ReplicationConfiguration deserialize(
+  ReplicationConfiguration deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i3.ReplicationConfigurationBuilder();
+    final result = ReplicationConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -103,8 +102,8 @@ class GetBucketReplicationOutputRestXmlSerializer
         case 'Rule':
           result.rules.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ReplicationRule),
-          ) as _i4.ReplicationRule));
+            specifiedType: const FullType(ReplicationRule),
+          ) as ReplicationRule));
       }
     }
 
@@ -114,7 +113,7 @@ class GetBucketReplicationOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i3.ReplicationConfiguration object, {
+    ReplicationConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -123,7 +122,7 @@ class GetBucketReplicationOutputRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i3.ReplicationConfiguration(:role, :rules) = object;
+    final ReplicationConfiguration(:role, :rules) = object;
     result$
       ..add(const _i2.XmlElementName('Role'))
       ..add(serializers.serialize(
@@ -135,8 +134,8 @@ class GetBucketReplicationOutputRestXmlSerializer
       serializers,
       rules,
       specifiedType: const FullType.nullable(
-        _i5.BuiltList,
-        [FullType(_i4.ReplicationRule)],
+        _i3.BuiltList,
+        [FullType(ReplicationRule)],
       ),
     ));
     return result$;

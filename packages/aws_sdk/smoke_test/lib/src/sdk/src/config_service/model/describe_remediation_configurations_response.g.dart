@@ -9,7 +9,7 @@ part of 'describe_remediation_configurations_response.dart';
 class _$DescribeRemediationConfigurationsResponse
     extends DescribeRemediationConfigurationsResponse {
   @override
-  final _i3.BuiltList<_i2.RemediationConfiguration>? remediationConfigurations;
+  final _i2.BuiltList<RemediationConfiguration>? remediationConfigurations;
 
   factory _$DescribeRemediationConfigurationsResponse(
           [void Function(DescribeRemediationConfigurationsResponseBuilder)?
@@ -53,12 +53,12 @@ class DescribeRemediationConfigurationsResponseBuilder
             DescribeRemediationConfigurationsResponseBuilder> {
   _$DescribeRemediationConfigurationsResponse? _$v;
 
-  _i3.ListBuilder<_i2.RemediationConfiguration>? _remediationConfigurations;
-  _i3.ListBuilder<_i2.RemediationConfiguration> get remediationConfigurations =>
+  _i2.ListBuilder<RemediationConfiguration>? _remediationConfigurations;
+  _i2.ListBuilder<RemediationConfiguration> get remediationConfigurations =>
       _$this._remediationConfigurations ??=
-          new _i3.ListBuilder<_i2.RemediationConfiguration>();
+          new _i2.ListBuilder<RemediationConfiguration>();
   set remediationConfigurations(
-          _i3.ListBuilder<_i2.RemediationConfiguration>?
+          _i2.ListBuilder<RemediationConfiguration>?
               remediationConfigurations) =>
       _$this._remediationConfigurations = remediationConfigurations;
 

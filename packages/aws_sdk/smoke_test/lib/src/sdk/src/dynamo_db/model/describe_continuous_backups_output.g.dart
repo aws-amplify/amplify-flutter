@@ -9,7 +9,7 @@ part of 'describe_continuous_backups_output.dart';
 class _$DescribeContinuousBackupsOutput
     extends DescribeContinuousBackupsOutput {
   @override
-  final _i2.ContinuousBackupsDescription? continuousBackupsDescription;
+  final ContinuousBackupsDescription? continuousBackupsDescription;
 
   factory _$DescribeContinuousBackupsOutput(
           [void Function(DescribeContinuousBackupsOutputBuilder)? updates]) =>
@@ -49,13 +49,12 @@ class DescribeContinuousBackupsOutputBuilder
             DescribeContinuousBackupsOutputBuilder> {
   _$DescribeContinuousBackupsOutput? _$v;
 
-  _i2.ContinuousBackupsDescriptionBuilder? _continuousBackupsDescription;
-  _i2.ContinuousBackupsDescriptionBuilder get continuousBackupsDescription =>
+  ContinuousBackupsDescriptionBuilder? _continuousBackupsDescription;
+  ContinuousBackupsDescriptionBuilder get continuousBackupsDescription =>
       _$this._continuousBackupsDescription ??=
-          new _i2.ContinuousBackupsDescriptionBuilder();
+          new ContinuousBackupsDescriptionBuilder();
   set continuousBackupsDescription(
-          _i2.ContinuousBackupsDescriptionBuilder?
-              continuousBackupsDescription) =>
+          ContinuousBackupsDescriptionBuilder? continuousBackupsDescription) =>
       _$this._continuousBackupsDescription = continuousBackupsDescription;
 
   DescribeContinuousBackupsOutputBuilder();

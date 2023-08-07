@@ -26,7 +26,7 @@ class _$CompleteMultipartUploadOutput extends CompleteMultipartUploadOutput {
   @override
   final String? checksumSha256;
   @override
-  final _i3.ServerSideEncryption? serverSideEncryption;
+  final ServerSideEncryption? serverSideEncryption;
   @override
   final String? versionId;
   @override
@@ -34,7 +34,7 @@ class _$CompleteMultipartUploadOutput extends CompleteMultipartUploadOutput {
   @override
   final bool? bucketKeyEnabled;
   @override
-  final _i4.RequestCharged? requestCharged;
+  final RequestCharged? requestCharged;
 
   factory _$CompleteMultipartUploadOutput(
           [void Function(CompleteMultipartUploadOutputBuilder)? updates]) =>
@@ -153,10 +153,10 @@ class CompleteMultipartUploadOutputBuilder
   set checksumSha256(String? checksumSha256) =>
       _$this._checksumSha256 = checksumSha256;
 
-  _i3.ServerSideEncryption? _serverSideEncryption;
-  _i3.ServerSideEncryption? get serverSideEncryption =>
+  ServerSideEncryption? _serverSideEncryption;
+  ServerSideEncryption? get serverSideEncryption =>
       _$this._serverSideEncryption;
-  set serverSideEncryption(_i3.ServerSideEncryption? serverSideEncryption) =>
+  set serverSideEncryption(ServerSideEncryption? serverSideEncryption) =>
       _$this._serverSideEncryption = serverSideEncryption;
 
   String? _versionId;
@@ -172,9 +172,9 @@ class CompleteMultipartUploadOutputBuilder
   set bucketKeyEnabled(bool? bucketKeyEnabled) =>
       _$this._bucketKeyEnabled = bucketKeyEnabled;
 
-  _i4.RequestCharged? _requestCharged;
-  _i4.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i4.RequestCharged? requestCharged) =>
+  RequestCharged? _requestCharged;
+  RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
   CompleteMultipartUploadOutputBuilder();

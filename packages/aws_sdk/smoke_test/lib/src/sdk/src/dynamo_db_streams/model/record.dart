@@ -6,13 +6,10 @@ library smoke_test.dynamo_db_streams.model.record; // ignore_for_file: no_leadin
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/identity.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/operation_type.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/stream_record.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/identity.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/operation_type.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/stream_record.dart';
 
 part 'record.g.dart';
 
@@ -23,12 +20,12 @@ abstract class Record
   /// A description of a unique event within a stream.
   factory Record({
     String? eventId,
-    _i2.OperationType? eventName,
+    OperationType? eventName,
     String? eventVersion,
     String? eventSource,
     String? awsRegion,
-    _i3.StreamRecord? dynamodb,
-    _i4.Identity? userIdentity,
+    StreamRecord? dynamodb,
+    Identity? userIdentity,
   }) {
     return _$Record._(
       eventId: eventId,
@@ -46,7 +43,7 @@ abstract class Record
 
   const Record._();
 
-  static const List<_i5.SmithySerializer<Record>> serializers = [
+  static const List<_i2.SmithySerializer<Record>> serializers = [
     RecordAwsJson10Serializer()
   ];
 
@@ -60,7 +57,7 @@ abstract class Record
   /// *   `MODIFY` \- one or more of an existing item's attributes were modified.
   ///
   /// *   `REMOVE` \- the item was deleted from the table
-  _i2.OperationType? get eventName;
+  OperationType? get eventName;
 
   /// The version number of the stream record format. This number is updated whenever the structure of `Record` is modified.
   ///
@@ -74,7 +71,7 @@ abstract class Record
   String? get awsRegion;
 
   /// The main body of the stream record, containing all of the DynamoDB-specific fields.
-  _i3.StreamRecord? get dynamodb;
+  StreamRecord? get dynamodb;
 
   /// Items that are deleted by the Time to Live process after expiration have the following fields:
   ///
@@ -85,7 +82,7 @@ abstract class Record
   /// *   Records\[\].userIdentity.principalId
   ///
   ///     "dynamodb.amazonaws.com"
-  _i4.Identity? get userIdentity;
+  Identity? get userIdentity;
   @override
   List<Object?> get props => [
         eventId,
@@ -131,7 +128,7 @@ abstract class Record
   }
 }
 
-class RecordAwsJson10Serializer extends _i5.StructuredSmithySerializer<Record> {
+class RecordAwsJson10Serializer extends _i2.StructuredSmithySerializer<Record> {
   const RecordAwsJson10Serializer() : super('Record');
 
   @override
@@ -140,8 +137,8 @@ class RecordAwsJson10Serializer extends _i5.StructuredSmithySerializer<Record> {
         _$Record,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -170,8 +167,8 @@ class RecordAwsJson10Serializer extends _i5.StructuredSmithySerializer<Record> {
         case 'eventName':
           result.eventName = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.OperationType),
-          ) as _i2.OperationType);
+            specifiedType: const FullType(OperationType),
+          ) as OperationType);
         case 'eventVersion':
           result.eventVersion = (serializers.deserialize(
             value,
@@ -190,13 +187,13 @@ class RecordAwsJson10Serializer extends _i5.StructuredSmithySerializer<Record> {
         case 'dynamodb':
           result.dynamodb.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.StreamRecord),
-          ) as _i3.StreamRecord));
+            specifiedType: const FullType(StreamRecord),
+          ) as StreamRecord));
         case 'userIdentity':
           result.userIdentity.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.Identity),
-          ) as _i4.Identity));
+            specifiedType: const FullType(Identity),
+          ) as Identity));
       }
     }
 
@@ -232,7 +229,7 @@ class RecordAwsJson10Serializer extends _i5.StructuredSmithySerializer<Record> {
         ..add('eventName')
         ..add(serializers.serialize(
           eventName,
-          specifiedType: const FullType(_i2.OperationType),
+          specifiedType: const FullType(OperationType),
         ));
     }
     if (eventVersion != null) {
@@ -264,7 +261,7 @@ class RecordAwsJson10Serializer extends _i5.StructuredSmithySerializer<Record> {
         ..add('dynamodb')
         ..add(serializers.serialize(
           dynamodb,
-          specifiedType: const FullType(_i3.StreamRecord),
+          specifiedType: const FullType(StreamRecord),
         ));
     }
     if (userIdentity != null) {
@@ -272,7 +269,7 @@ class RecordAwsJson10Serializer extends _i5.StructuredSmithySerializer<Record> {
         ..add('userIdentity')
         ..add(serializers.serialize(
           userIdentity,
-          specifiedType: const FullType(_i4.Identity),
+          specifiedType: const FullType(Identity),
         ));
     }
     return result$;

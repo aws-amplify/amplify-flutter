@@ -3,14 +3,12 @@
 
 library rest_xml_with_namespace_v1.rest_xml_protocol_namespace.rest_xml_protocol_namespace_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i4;
+import 'dart:async' as _i3;
 
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_with_namespace_v1/src/rest_xml_protocol_namespace/common/serializers.dart'
-    as _i3;
-import 'package:rest_xml_with_namespace_v1/src/rest_xml_protocol_namespace/model/simple_scalar_properties_input_output.dart'
-    as _i5;
-import 'package:shelf/shelf.dart' as _i6;
+import 'package:rest_xml_with_namespace_v1/src/rest_xml_protocol_namespace/common/serializers.dart';
+import 'package:rest_xml_with_namespace_v1/src/rest_xml_protocol_namespace/model/simple_scalar_properties_input_output.dart';
+import 'package:shelf/shelf.dart' as _i4;
 import 'package:shelf_router/shelf_router.dart';
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
@@ -18,8 +16,8 @@ import 'package:smithy_aws/smithy_aws.dart' as _i2;
 abstract class RestXmlProtocolNamespaceServerBase extends _i1.HttpServerBase {
   @override
   late final _i1.HttpProtocol protocol = _i2.RestXmlProtocol(
-    serializers: _i3.serializers,
-    builderFactories: _i3.builderFactories,
+    serializers: serializers,
+    builderFactories: builderFactories,
   );
 
   late final Router _router = () {
@@ -33,11 +31,11 @@ abstract class RestXmlProtocolNamespaceServerBase extends _i1.HttpServerBase {
     return router;
   }();
 
-  _i4.Future<_i5.SimpleScalarPropertiesInputOutput> simpleScalarProperties(
-    _i5.SimpleScalarPropertiesInputOutput input,
+  _i3.Future<SimpleScalarPropertiesInputOutput> simpleScalarProperties(
+    SimpleScalarPropertiesInputOutput input,
     _i1.Context context,
   );
-  _i4.Future<_i6.Response> call(_i6.Request request) => _router(request);
+  _i3.Future<_i4.Response> call(_i4.Request request) => _router(request);
 }
 
 class _RestXmlProtocolNamespaceServer
@@ -48,17 +46,17 @@ class _RestXmlProtocolNamespaceServer
   final RestXmlProtocolNamespaceServerBase service;
 
   late final _i1.HttpProtocol<
-          _i5.SimpleScalarPropertiesInputOutputPayload,
-          _i5.SimpleScalarPropertiesInputOutput,
-          _i5.SimpleScalarPropertiesInputOutputPayload,
-          _i5.SimpleScalarPropertiesInputOutput>
-      _simpleScalarPropertiesProtocol = _i2.RestXmlProtocol(
-    serializers: _i3.serializers,
-    builderFactories: _i3.builderFactories,
+          SimpleScalarPropertiesInputOutputPayload,
+          SimpleScalarPropertiesInputOutput,
+          SimpleScalarPropertiesInputOutputPayload,
+          SimpleScalarPropertiesInputOutput> _simpleScalarPropertiesProtocol =
+      _i2.RestXmlProtocol(
+    serializers: serializers,
+    builderFactories: builderFactories,
     noErrorWrapping: false,
   );
 
-  _i4.Future<_i6.Response> simpleScalarProperties(_i6.Request request) async {
+  _i3.Future<_i4.Response> simpleScalarProperties(_i4.Request request) async {
     final awsRequest = request.awsRequest;
     final context = _i1.Context(awsRequest);
     context.response.headers['Content-Type'] =
@@ -67,10 +65,9 @@ class _RestXmlProtocolNamespaceServer
       final payload =
           (await _simpleScalarPropertiesProtocol.wireSerializer.deserialize(
         await awsRequest.bodyBytes,
-        specifiedType:
-            const FullType(_i5.SimpleScalarPropertiesInputOutputPayload),
-      ) as _i5.SimpleScalarPropertiesInputOutputPayload);
-      final input = _i5.SimpleScalarPropertiesInputOutput.fromRequest(
+        specifiedType: const FullType(SimpleScalarPropertiesInputOutputPayload),
+      ) as SimpleScalarPropertiesInputOutputPayload);
+      final input = SimpleScalarPropertiesInputOutput.fromRequest(
         payload,
         awsRequest,
         labels: {},
@@ -87,11 +84,11 @@ class _RestXmlProtocolNamespaceServer
           await _simpleScalarPropertiesProtocol.wireSerializer.serialize(
         output,
         specifiedType: const FullType(
-          _i5.SimpleScalarPropertiesInputOutput,
-          [FullType(_i5.SimpleScalarPropertiesInputOutputPayload)],
+          SimpleScalarPropertiesInputOutput,
+          [FullType(SimpleScalarPropertiesInputOutputPayload)],
         ),
       );
-      return _i6.Response(
+      return _i4.Response(
         statusCode,
         body: body,
         headers: context.response.build().headers.toMap(),

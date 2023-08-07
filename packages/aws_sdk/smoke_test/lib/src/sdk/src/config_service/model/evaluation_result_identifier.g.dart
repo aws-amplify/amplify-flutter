@@ -8,7 +8,7 @@ part of 'evaluation_result_identifier.dart';
 
 class _$EvaluationResultIdentifier extends EvaluationResultIdentifier {
   @override
-  final _i2.EvaluationResultQualifier? evaluationResultQualifier;
+  final EvaluationResultQualifier? evaluationResultQualifier;
   @override
   final DateTime? orderingTimestamp;
   @override
@@ -58,12 +58,12 @@ class EvaluationResultIdentifierBuilder
         Builder<EvaluationResultIdentifier, EvaluationResultIdentifierBuilder> {
   _$EvaluationResultIdentifier? _$v;
 
-  _i2.EvaluationResultQualifierBuilder? _evaluationResultQualifier;
-  _i2.EvaluationResultQualifierBuilder get evaluationResultQualifier =>
+  EvaluationResultQualifierBuilder? _evaluationResultQualifier;
+  EvaluationResultQualifierBuilder get evaluationResultQualifier =>
       _$this._evaluationResultQualifier ??=
-          new _i2.EvaluationResultQualifierBuilder();
+          new EvaluationResultQualifierBuilder();
   set evaluationResultQualifier(
-          _i2.EvaluationResultQualifierBuilder? evaluationResultQualifier) =>
+          EvaluationResultQualifierBuilder? evaluationResultQualifier) =>
       _$this._evaluationResultQualifier = evaluationResultQualifier;
 
   DateTime? _orderingTimestamp;

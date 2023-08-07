@@ -14,29 +14,29 @@ class _$CreateStackInput extends CreateStackInput {
   @override
   final String? templateUrl;
   @override
-  final _i8.BuiltList<_i3.Parameter>? parameters;
+  final _i3.BuiltList<Parameter>? parameters;
   @override
   final bool? disableRollback;
   @override
-  final _i4.RollbackConfiguration? rollbackConfiguration;
+  final RollbackConfiguration? rollbackConfiguration;
   @override
   final int? timeoutInMinutes;
   @override
-  final _i8.BuiltList<String>? notificationArNs;
+  final _i3.BuiltList<String>? notificationArNs;
   @override
-  final _i8.BuiltList<_i5.Capability>? capabilities;
+  final _i3.BuiltList<Capability>? capabilities;
   @override
-  final _i8.BuiltList<String>? resourceTypes;
+  final _i3.BuiltList<String>? resourceTypes;
   @override
   final String? roleArn;
   @override
-  final _i6.OnFailure? onFailure;
+  final OnFailure? onFailure;
   @override
   final String? stackPolicyBody;
   @override
   final String? stackPolicyUrl;
   @override
-  final _i8.BuiltList<_i7.Tag>? tags;
+  final _i3.BuiltList<Tag>? tags;
   @override
   final String? clientRequestToken;
   @override
@@ -146,10 +146,10 @@ class CreateStackInputBuilder
   String? get templateUrl => _$this._templateUrl;
   set templateUrl(String? templateUrl) => _$this._templateUrl = templateUrl;
 
-  _i8.ListBuilder<_i3.Parameter>? _parameters;
-  _i8.ListBuilder<_i3.Parameter> get parameters =>
-      _$this._parameters ??= new _i8.ListBuilder<_i3.Parameter>();
-  set parameters(_i8.ListBuilder<_i3.Parameter>? parameters) =>
+  _i3.ListBuilder<Parameter>? _parameters;
+  _i3.ListBuilder<Parameter> get parameters =>
+      _$this._parameters ??= new _i3.ListBuilder<Parameter>();
+  set parameters(_i3.ListBuilder<Parameter>? parameters) =>
       _$this._parameters = parameters;
 
   bool? _disableRollback;
@@ -157,11 +157,11 @@ class CreateStackInputBuilder
   set disableRollback(bool? disableRollback) =>
       _$this._disableRollback = disableRollback;
 
-  _i4.RollbackConfigurationBuilder? _rollbackConfiguration;
-  _i4.RollbackConfigurationBuilder get rollbackConfiguration =>
-      _$this._rollbackConfiguration ??= new _i4.RollbackConfigurationBuilder();
+  RollbackConfigurationBuilder? _rollbackConfiguration;
+  RollbackConfigurationBuilder get rollbackConfiguration =>
+      _$this._rollbackConfiguration ??= new RollbackConfigurationBuilder();
   set rollbackConfiguration(
-          _i4.RollbackConfigurationBuilder? rollbackConfiguration) =>
+          RollbackConfigurationBuilder? rollbackConfiguration) =>
       _$this._rollbackConfiguration = rollbackConfiguration;
 
   int? _timeoutInMinutes;
@@ -169,31 +169,31 @@ class CreateStackInputBuilder
   set timeoutInMinutes(int? timeoutInMinutes) =>
       _$this._timeoutInMinutes = timeoutInMinutes;
 
-  _i8.ListBuilder<String>? _notificationArNs;
-  _i8.ListBuilder<String> get notificationArNs =>
-      _$this._notificationArNs ??= new _i8.ListBuilder<String>();
-  set notificationArNs(_i8.ListBuilder<String>? notificationArNs) =>
+  _i3.ListBuilder<String>? _notificationArNs;
+  _i3.ListBuilder<String> get notificationArNs =>
+      _$this._notificationArNs ??= new _i3.ListBuilder<String>();
+  set notificationArNs(_i3.ListBuilder<String>? notificationArNs) =>
       _$this._notificationArNs = notificationArNs;
 
-  _i8.ListBuilder<_i5.Capability>? _capabilities;
-  _i8.ListBuilder<_i5.Capability> get capabilities =>
-      _$this._capabilities ??= new _i8.ListBuilder<_i5.Capability>();
-  set capabilities(_i8.ListBuilder<_i5.Capability>? capabilities) =>
+  _i3.ListBuilder<Capability>? _capabilities;
+  _i3.ListBuilder<Capability> get capabilities =>
+      _$this._capabilities ??= new _i3.ListBuilder<Capability>();
+  set capabilities(_i3.ListBuilder<Capability>? capabilities) =>
       _$this._capabilities = capabilities;
 
-  _i8.ListBuilder<String>? _resourceTypes;
-  _i8.ListBuilder<String> get resourceTypes =>
-      _$this._resourceTypes ??= new _i8.ListBuilder<String>();
-  set resourceTypes(_i8.ListBuilder<String>? resourceTypes) =>
+  _i3.ListBuilder<String>? _resourceTypes;
+  _i3.ListBuilder<String> get resourceTypes =>
+      _$this._resourceTypes ??= new _i3.ListBuilder<String>();
+  set resourceTypes(_i3.ListBuilder<String>? resourceTypes) =>
       _$this._resourceTypes = resourceTypes;
 
   String? _roleArn;
   String? get roleArn => _$this._roleArn;
   set roleArn(String? roleArn) => _$this._roleArn = roleArn;
 
-  _i6.OnFailure? _onFailure;
-  _i6.OnFailure? get onFailure => _$this._onFailure;
-  set onFailure(_i6.OnFailure? onFailure) => _$this._onFailure = onFailure;
+  OnFailure? _onFailure;
+  OnFailure? get onFailure => _$this._onFailure;
+  set onFailure(OnFailure? onFailure) => _$this._onFailure = onFailure;
 
   String? _stackPolicyBody;
   String? get stackPolicyBody => _$this._stackPolicyBody;
@@ -205,10 +205,9 @@ class CreateStackInputBuilder
   set stackPolicyUrl(String? stackPolicyUrl) =>
       _$this._stackPolicyUrl = stackPolicyUrl;
 
-  _i8.ListBuilder<_i7.Tag>? _tags;
-  _i8.ListBuilder<_i7.Tag> get tags =>
-      _$this._tags ??= new _i8.ListBuilder<_i7.Tag>();
-  set tags(_i8.ListBuilder<_i7.Tag>? tags) => _$this._tags = tags;
+  _i3.ListBuilder<Tag>? _tags;
+  _i3.ListBuilder<Tag> get tags => _$this._tags ??= new _i3.ListBuilder<Tag>();
+  set tags(_i3.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   String? _clientRequestToken;
   String? get clientRequestToken => _$this._clientRequestToken;

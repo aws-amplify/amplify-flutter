@@ -14,7 +14,7 @@ class _$TypeConfigurationIdentifier extends TypeConfigurationIdentifier {
   @override
   final String? typeConfigurationArn;
   @override
-  final _i2.ThirdPartyType? type;
+  final ThirdPartyType? type;
   @override
   final String? typeName;
 
@@ -83,9 +83,9 @@ class TypeConfigurationIdentifierBuilder
   set typeConfigurationArn(String? typeConfigurationArn) =>
       _$this._typeConfigurationArn = typeConfigurationArn;
 
-  _i2.ThirdPartyType? _type;
-  _i2.ThirdPartyType? get type => _$this._type;
-  set type(_i2.ThirdPartyType? type) => _$this._type = type;
+  ThirdPartyType? _type;
+  ThirdPartyType? get type => _$this._type;
+  set type(ThirdPartyType? type) => _$this._type = type;
 
   String? _typeName;
   String? get typeName => _$this._typeName;

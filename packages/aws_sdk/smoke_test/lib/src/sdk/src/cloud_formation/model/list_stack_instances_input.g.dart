@@ -14,13 +14,13 @@ class _$ListStackInstancesInput extends ListStackInstancesInput {
   @override
   final int? maxResults;
   @override
-  final _i5.BuiltList<_i3.StackInstanceFilter>? filters;
+  final _i3.BuiltList<StackInstanceFilter>? filters;
   @override
   final String? stackInstanceAccount;
   @override
   final String? stackInstanceRegion;
   @override
-  final _i4.CallAs? callAs;
+  final CallAs? callAs;
 
   factory _$ListStackInstancesInput(
           [void Function(ListStackInstancesInputBuilder)? updates]) =>
@@ -93,10 +93,10 @@ class ListStackInstancesInputBuilder
   int? get maxResults => _$this._maxResults;
   set maxResults(int? maxResults) => _$this._maxResults = maxResults;
 
-  _i5.ListBuilder<_i3.StackInstanceFilter>? _filters;
-  _i5.ListBuilder<_i3.StackInstanceFilter> get filters =>
-      _$this._filters ??= new _i5.ListBuilder<_i3.StackInstanceFilter>();
-  set filters(_i5.ListBuilder<_i3.StackInstanceFilter>? filters) =>
+  _i3.ListBuilder<StackInstanceFilter>? _filters;
+  _i3.ListBuilder<StackInstanceFilter> get filters =>
+      _$this._filters ??= new _i3.ListBuilder<StackInstanceFilter>();
+  set filters(_i3.ListBuilder<StackInstanceFilter>? filters) =>
       _$this._filters = filters;
 
   String? _stackInstanceAccount;
@@ -109,9 +109,9 @@ class ListStackInstancesInputBuilder
   set stackInstanceRegion(String? stackInstanceRegion) =>
       _$this._stackInstanceRegion = stackInstanceRegion;
 
-  _i4.CallAs? _callAs;
-  _i4.CallAs? get callAs => _$this._callAs;
-  set callAs(_i4.CallAs? callAs) => _$this._callAs = callAs;
+  CallAs? _callAs;
+  CallAs? get callAs => _$this._callAs;
+  set callAs(CallAs? callAs) => _$this._callAs = callAs;
 
   ListStackInstancesInputBuilder();
 

@@ -6,9 +6,8 @@ library smoke_test.dynamo_db.model.export_table_to_point_in_time_output; // igno
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/export_description.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/export_description.dart';
 
 part 'export_table_to_point_in_time_output.g.dart';
 
@@ -19,7 +18,7 @@ abstract class ExportTableToPointInTimeOutput
         Built<ExportTableToPointInTimeOutput,
             ExportTableToPointInTimeOutputBuilder> {
   factory ExportTableToPointInTimeOutput(
-      {_i2.ExportDescription? exportDescription}) {
+      {ExportDescription? exportDescription}) {
     return _$ExportTableToPointInTimeOutput._(
         exportDescription: exportDescription);
   }
@@ -37,11 +36,11 @@ abstract class ExportTableToPointInTimeOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<ExportTableToPointInTimeOutput>>
+  static const List<_i2.SmithySerializer<ExportTableToPointInTimeOutput>>
       serializers = [ExportTableToPointInTimeOutputAwsJson10Serializer()];
 
   /// Contains a description of the table export.
-  _i2.ExportDescription? get exportDescription;
+  ExportDescription? get exportDescription;
   @override
   List<Object?> get props => [exportDescription];
   @override
@@ -56,7 +55,7 @@ abstract class ExportTableToPointInTimeOutput
 }
 
 class ExportTableToPointInTimeOutputAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<ExportTableToPointInTimeOutput> {
+    extends _i2.StructuredSmithySerializer<ExportTableToPointInTimeOutput> {
   const ExportTableToPointInTimeOutputAwsJson10Serializer()
       : super('ExportTableToPointInTimeOutput');
 
@@ -66,8 +65,8 @@ class ExportTableToPointInTimeOutputAwsJson10Serializer
         _$ExportTableToPointInTimeOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -91,8 +90,8 @@ class ExportTableToPointInTimeOutputAwsJson10Serializer
         case 'ExportDescription':
           result.exportDescription.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ExportDescription),
-          ) as _i2.ExportDescription));
+            specifiedType: const FullType(ExportDescription),
+          ) as ExportDescription));
       }
     }
 
@@ -112,7 +111,7 @@ class ExportTableToPointInTimeOutputAwsJson10Serializer
         ..add('ExportDescription')
         ..add(serializers.serialize(
           exportDescription,
-          specifiedType: const FullType(_i2.ExportDescription),
+          specifiedType: const FullType(ExportDescription),
         ));
     }
     return result$;

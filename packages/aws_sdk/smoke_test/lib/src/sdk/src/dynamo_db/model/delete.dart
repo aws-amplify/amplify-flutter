@@ -4,14 +4,12 @@
 library smoke_test.dynamo_db.model.delete; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_values_on_condition_check_failure.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_values_on_condition_check_failure.dart';
 
 part 'delete.g.dart';
 
@@ -21,24 +19,23 @@ abstract class Delete
     implements Built<Delete, DeleteBuilder> {
   /// Represents a request to perform a `DeleteItem` operation.
   factory Delete({
-    required Map<String, _i2.AttributeValue> key,
+    required Map<String, AttributeValue> key,
     required String tableName,
     String? conditionExpression,
     Map<String, String>? expressionAttributeNames,
-    Map<String, _i2.AttributeValue>? expressionAttributeValues,
-    _i3.ReturnValuesOnConditionCheckFailure?
-        returnValuesOnConditionCheckFailure,
+    Map<String, AttributeValue>? expressionAttributeValues,
+    ReturnValuesOnConditionCheckFailure? returnValuesOnConditionCheckFailure,
   }) {
     return _$Delete._(
-      key: _i4.BuiltMap(key),
+      key: _i2.BuiltMap(key),
       tableName: tableName,
       conditionExpression: conditionExpression,
       expressionAttributeNames: expressionAttributeNames == null
           ? null
-          : _i4.BuiltMap(expressionAttributeNames),
+          : _i2.BuiltMap(expressionAttributeNames),
       expressionAttributeValues: expressionAttributeValues == null
           ? null
-          : _i4.BuiltMap(expressionAttributeValues),
+          : _i2.BuiltMap(expressionAttributeValues),
       returnValuesOnConditionCheckFailure: returnValuesOnConditionCheckFailure,
     );
   }
@@ -48,12 +45,12 @@ abstract class Delete
 
   const Delete._();
 
-  static const List<_i5.SmithySerializer<Delete>> serializers = [
+  static const List<_i3.SmithySerializer<Delete>> serializers = [
     DeleteAwsJson10Serializer()
   ];
 
   /// The primary key of the item to be deleted. Each element consists of an attribute name and a value for that attribute.
-  _i4.BuiltMap<String, _i2.AttributeValue> get key;
+  _i2.BuiltMap<String, AttributeValue> get key;
 
   /// Name of the table in which the item to be deleted resides.
   String get tableName;
@@ -62,14 +59,13 @@ abstract class Delete
   String? get conditionExpression;
 
   /// One or more substitution tokens for attribute names in an expression.
-  _i4.BuiltMap<String, String>? get expressionAttributeNames;
+  _i2.BuiltMap<String, String>? get expressionAttributeNames;
 
   /// One or more values that can be substituted in an expression.
-  _i4.BuiltMap<String, _i2.AttributeValue>? get expressionAttributeValues;
+  _i2.BuiltMap<String, AttributeValue>? get expressionAttributeValues;
 
   /// Use `ReturnValuesOnConditionCheckFailure` to get the item attributes if the `Delete` condition fails. For `ReturnValuesOnConditionCheckFailure`, the valid values are: NONE and ALL_OLD.
-  _i3.ReturnValuesOnConditionCheckFailure?
-      get returnValuesOnConditionCheckFailure;
+  ReturnValuesOnConditionCheckFailure? get returnValuesOnConditionCheckFailure;
   @override
   List<Object?> get props => [
         key,
@@ -110,7 +106,7 @@ abstract class Delete
   }
 }
 
-class DeleteAwsJson10Serializer extends _i5.StructuredSmithySerializer<Delete> {
+class DeleteAwsJson10Serializer extends _i3.StructuredSmithySerializer<Delete> {
   const DeleteAwsJson10Serializer() : super('Delete');
 
   @override
@@ -119,8 +115,8 @@ class DeleteAwsJson10Serializer extends _i5.StructuredSmithySerializer<Delete> {
         _$Delete,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -145,13 +141,13 @@ class DeleteAwsJson10Serializer extends _i5.StructuredSmithySerializer<Delete> {
           result.key.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i2.AttributeValue),
+                FullType(AttributeValue),
               ],
             ),
-          ) as _i4.BuiltMap<String, _i2.AttributeValue>));
+          ) as _i2.BuiltMap<String, AttributeValue>));
         case 'TableName':
           result.tableName = (serializers.deserialize(
             value,
@@ -166,30 +162,29 @@ class DeleteAwsJson10Serializer extends _i5.StructuredSmithySerializer<Delete> {
           result.expressionAttributeNames.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i4.BuiltMap<String, String>));
+          ) as _i2.BuiltMap<String, String>));
         case 'ExpressionAttributeValues':
           result.expressionAttributeValues.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i2.AttributeValue),
+                FullType(AttributeValue),
               ],
             ),
-          ) as _i4.BuiltMap<String, _i2.AttributeValue>));
+          ) as _i2.BuiltMap<String, AttributeValue>));
         case 'ReturnValuesOnConditionCheckFailure':
           result.returnValuesOnConditionCheckFailure = (serializers.deserialize(
             value,
-            specifiedType:
-                const FullType(_i3.ReturnValuesOnConditionCheckFailure),
-          ) as _i3.ReturnValuesOnConditionCheckFailure);
+            specifiedType: const FullType(ReturnValuesOnConditionCheckFailure),
+          ) as ReturnValuesOnConditionCheckFailure);
       }
     }
 
@@ -216,10 +211,10 @@ class DeleteAwsJson10Serializer extends _i5.StructuredSmithySerializer<Delete> {
       serializers.serialize(
         key,
         specifiedType: const FullType(
-          _i4.BuiltMap,
+          _i2.BuiltMap,
           [
             FullType(String),
-            FullType(_i2.AttributeValue),
+            FullType(AttributeValue),
           ],
         ),
       ),
@@ -243,7 +238,7 @@ class DeleteAwsJson10Serializer extends _i5.StructuredSmithySerializer<Delete> {
         ..add(serializers.serialize(
           expressionAttributeNames,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -257,10 +252,10 @@ class DeleteAwsJson10Serializer extends _i5.StructuredSmithySerializer<Delete> {
         ..add(serializers.serialize(
           expressionAttributeValues,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
-              FullType(_i2.AttributeValue),
+              FullType(AttributeValue),
             ],
           ),
         ));
@@ -270,8 +265,7 @@ class DeleteAwsJson10Serializer extends _i5.StructuredSmithySerializer<Delete> {
         ..add('ReturnValuesOnConditionCheckFailure')
         ..add(serializers.serialize(
           returnValuesOnConditionCheckFailure,
-          specifiedType:
-              const FullType(_i3.ReturnValuesOnConditionCheckFailure),
+          specifiedType: const FullType(ReturnValuesOnConditionCheckFailure),
         ));
     }
     return result$;

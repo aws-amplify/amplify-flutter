@@ -8,11 +8,11 @@ part of 'execute_transaction_input.dart';
 
 class _$ExecuteTransactionInput extends ExecuteTransactionInput {
   @override
-  final _i5.BuiltList<_i3.ParameterizedStatement> transactStatements;
+  final _i3.BuiltList<ParameterizedStatement> transactStatements;
   @override
   final String? clientRequestToken;
   @override
-  final _i4.ReturnConsumedCapacity? returnConsumedCapacity;
+  final ReturnConsumedCapacity? returnConsumedCapacity;
 
   factory _$ExecuteTransactionInput(
           [void Function(ExecuteTransactionInputBuilder)? updates]) =>
@@ -61,12 +61,12 @@ class ExecuteTransactionInputBuilder
         Builder<ExecuteTransactionInput, ExecuteTransactionInputBuilder> {
   _$ExecuteTransactionInput? _$v;
 
-  _i5.ListBuilder<_i3.ParameterizedStatement>? _transactStatements;
-  _i5.ListBuilder<_i3.ParameterizedStatement> get transactStatements =>
+  _i3.ListBuilder<ParameterizedStatement>? _transactStatements;
+  _i3.ListBuilder<ParameterizedStatement> get transactStatements =>
       _$this._transactStatements ??=
-          new _i5.ListBuilder<_i3.ParameterizedStatement>();
+          new _i3.ListBuilder<ParameterizedStatement>();
   set transactStatements(
-          _i5.ListBuilder<_i3.ParameterizedStatement>? transactStatements) =>
+          _i3.ListBuilder<ParameterizedStatement>? transactStatements) =>
       _$this._transactStatements = transactStatements;
 
   String? _clientRequestToken;
@@ -74,11 +74,10 @@ class ExecuteTransactionInputBuilder
   set clientRequestToken(String? clientRequestToken) =>
       _$this._clientRequestToken = clientRequestToken;
 
-  _i4.ReturnConsumedCapacity? _returnConsumedCapacity;
-  _i4.ReturnConsumedCapacity? get returnConsumedCapacity =>
+  ReturnConsumedCapacity? _returnConsumedCapacity;
+  ReturnConsumedCapacity? get returnConsumedCapacity =>
       _$this._returnConsumedCapacity;
-  set returnConsumedCapacity(
-          _i4.ReturnConsumedCapacity? returnConsumedCapacity) =>
+  set returnConsumedCapacity(ReturnConsumedCapacity? returnConsumedCapacity) =>
       _$this._returnConsumedCapacity = returnConsumedCapacity;
 
   ExecuteTransactionInputBuilder() {

@@ -9,7 +9,7 @@ part of 'describe_organizations_access_input.dart';
 class _$DescribeOrganizationsAccessInput
     extends DescribeOrganizationsAccessInput {
   @override
-  final _i3.CallAs? callAs;
+  final CallAs? callAs;
 
   factory _$DescribeOrganizationsAccessInput(
           [void Function(DescribeOrganizationsAccessInputBuilder)? updates]) =>
@@ -47,9 +47,9 @@ class DescribeOrganizationsAccessInputBuilder
             DescribeOrganizationsAccessInputBuilder> {
   _$DescribeOrganizationsAccessInput? _$v;
 
-  _i3.CallAs? _callAs;
-  _i3.CallAs? get callAs => _$this._callAs;
-  set callAs(_i3.CallAs? callAs) => _$this._callAs = callAs;
+  CallAs? _callAs;
+  CallAs? get callAs => _$this._callAs;
+  set callAs(CallAs? callAs) => _$this._callAs = callAs;
 
   DescribeOrganizationsAccessInputBuilder();
 

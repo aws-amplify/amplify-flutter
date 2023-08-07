@@ -8,7 +8,7 @@ part of 'authorizers.dart';
 
 class _$Authorizers extends Authorizers {
   @override
-  final _i3.BuiltList<_i2.Authorizer>? items;
+  final _i2.BuiltList<Authorizer>? items;
   @override
   final String? position;
 
@@ -45,10 +45,10 @@ class _$Authorizers extends Authorizers {
 class AuthorizersBuilder implements Builder<Authorizers, AuthorizersBuilder> {
   _$Authorizers? _$v;
 
-  _i3.ListBuilder<_i2.Authorizer>? _items;
-  _i3.ListBuilder<_i2.Authorizer> get items =>
-      _$this._items ??= new _i3.ListBuilder<_i2.Authorizer>();
-  set items(_i3.ListBuilder<_i2.Authorizer>? items) => _$this._items = items;
+  _i2.ListBuilder<Authorizer>? _items;
+  _i2.ListBuilder<Authorizer> get items =>
+      _$this._items ??= new _i2.ListBuilder<Authorizer>();
+  set items(_i2.ListBuilder<Authorizer>? items) => _$this._items = items;
 
   String? _position;
   String? get position => _$this._position;

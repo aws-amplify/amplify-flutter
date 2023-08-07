@@ -6,7 +6,7 @@ library custom_v2.s3.model.copy_object_output; // ignore_for_file: no_leading_un
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:custom_v2/src/s3/model/copy_object_result.dart' as _i3;
+import 'package:custom_v2/src/s3/model/copy_object_result.dart';
 import 'package:smithy/smithy.dart' as _i2;
 
 part 'copy_object_output.g.dart';
@@ -15,8 +15,8 @@ abstract class CopyObjectOutput
     with _i1.AWSEquatable<CopyObjectOutput>
     implements
         Built<CopyObjectOutput, CopyObjectOutputBuilder>,
-        _i2.HasPayload<_i3.CopyObjectResult> {
-  factory CopyObjectOutput({_i3.CopyObjectResult? copyObjectResult}) {
+        _i2.HasPayload<CopyObjectResult> {
+  factory CopyObjectOutput({CopyObjectResult? copyObjectResult}) {
     return _$CopyObjectOutput._(copyObjectResult: copyObjectResult);
   }
 
@@ -27,7 +27,7 @@ abstract class CopyObjectOutput
 
   /// Constructs a [CopyObjectOutput] from a [payload] and [response].
   factory CopyObjectOutput.fromResponse(
-    _i3.CopyObjectResult? payload,
+    CopyObjectResult? payload,
     _i1.AWSBaseHttpResponse response,
   ) =>
       CopyObjectOutput.build((b) {
@@ -36,14 +36,13 @@ abstract class CopyObjectOutput
         }
       });
 
-  static const List<_i2.SmithySerializer<_i3.CopyObjectResult?>> serializers = [
+  static const List<_i2.SmithySerializer<CopyObjectResult?>> serializers = [
     CopyObjectOutputRestXmlSerializer()
   ];
 
-  _i3.CopyObjectResult? get copyObjectResult;
+  CopyObjectResult? get copyObjectResult;
   @override
-  _i3.CopyObjectResult? getPayload() =>
-      copyObjectResult ?? _i3.CopyObjectResult();
+  CopyObjectResult? getPayload() => copyObjectResult ?? CopyObjectResult();
   @override
   List<Object?> get props => [copyObjectResult];
   @override
@@ -58,7 +57,7 @@ abstract class CopyObjectOutput
 }
 
 class CopyObjectOutputRestXmlSerializer
-    extends _i2.StructuredSmithySerializer<_i3.CopyObjectResult> {
+    extends _i2.StructuredSmithySerializer<CopyObjectResult> {
   const CopyObjectOutputRestXmlSerializer() : super('CopyObjectOutput');
 
   @override
@@ -74,12 +73,12 @@ class CopyObjectOutputRestXmlSerializer
         )
       ];
   @override
-  _i3.CopyObjectResult deserialize(
+  CopyObjectResult deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i3.CopyObjectResultBuilder();
+    final result = CopyObjectResultBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -103,7 +102,7 @@ class CopyObjectOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i3.CopyObjectResult object, {
+    CopyObjectResult object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -112,7 +111,7 @@ class CopyObjectOutputRestXmlSerializer
         _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i3.CopyObjectResult(:eTag) = object;
+    final CopyObjectResult(:eTag) = object;
     if (eTag != null) {
       result$
         ..add(const _i2.XmlElementName('ETag'))

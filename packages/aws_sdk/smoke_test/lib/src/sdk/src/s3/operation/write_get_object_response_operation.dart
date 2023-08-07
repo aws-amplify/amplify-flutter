@@ -5,14 +5,13 @@ library smoke_test.s3.operation.write_get_object_response_operation; // ignore_f
 
 import 'dart:async' as _i2;
 
-import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i5;
+import 'package:aws_common/aws_common.dart' as _i5;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/common/endpoint_resolver.dart' as _i8;
-import 'package:smoke_test/src/sdk/src/s3/common/serializers.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/s3/model/write_get_object_response_request.dart'
-    as _i3;
+import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/s3/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/write_get_object_response_request.dart';
 
 /// Passes transformed objects to a `GetObject` operation when using Object Lambda access points. For information about Object Lambda access points, see [Transforming objects with Object Lambda access points](https://docs.aws.amazon.com/AmazonS3/latest/userguide/transforming-objects.html) in the _Amazon S3 User Guide_.
 ///
@@ -30,10 +29,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/write_get_object_response_reques
 ///
 /// For information on how to view and use these functions, see [Using Amazon Web Services built Lambda functions](https://docs.aws.amazon.com/AmazonS3/latest/userguide/olap-examples.html) in the _Amazon S3 User Guide_.
 class WriteGetObjectResponseOperation extends _i1.HttpOperation<
-    _i2.Stream<List<int>>,
-    _i3.WriteGetObjectResponseRequest,
-    _i1.Unit,
-    _i1.Unit> {
+    _i2.Stream<List<int>>, WriteGetObjectResponseRequest, _i1.Unit, _i1.Unit> {
   /// Passes transformed objects to a `GetObject` operation when using Object Lambda access points. For information about Object Lambda access points, see [Transforming objects with Object Lambda access points](https://docs.aws.amazon.com/AmazonS3/latest/userguide/transforming-objects.html) in the _Amazon S3 User Guide_.
   ///
   /// This operation supports metadata that can be returned by [GetObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html), in addition to `RequestRoute`, `RequestToken`, `StatusCode`, `ErrorCode`, and `ErrorMessage`. The `GetObject` response metadata is supported so that the `WriteGetObjectResponse` caller, typically an Lambda function, can provide the same metadata when it internally invokes `GetObject`. When `WriteGetObjectResponse` is called by a customer-owned Lambda function, the metadata returned to the end user `GetObject` call might differ from what Amazon S3 would normally return.
@@ -52,9 +48,9 @@ class WriteGetObjectResponseOperation extends _i1.HttpOperation<
   WriteGetObjectResponseOperation({
     required String region,
     Uri? baseUri,
-    _i4.S3ClientConfig s3ClientConfig = const _i4.S3ClientConfig(),
-    _i5.AWSCredentialsProvider credentialsProvider =
-        const _i5.AWSCredentialsProvider.environment(),
+    _i3.S3ClientConfig s3ClientConfig = const _i3.S3ClientConfig(),
+    _i4.AWSCredentialsProvider credentialsProvider =
+        const _i4.AWSCredentialsProvider.environment(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -66,23 +62,23 @@ class WriteGetObjectResponseOperation extends _i1.HttpOperation<
 
   @override
   late final List<
-      _i1.HttpProtocol<_i2.Stream<List<int>>, _i3.WriteGetObjectResponseRequest,
+      _i1.HttpProtocol<_i2.Stream<List<int>>, WriteGetObjectResponseRequest,
           _i1.Unit, _i1.Unit>> protocols = [
-    _i4.RestXmlProtocol(
-      serializers: _i6.serializers,
-      builderFactories: _i6.builderFactories,
+    _i3.RestXmlProtocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
-            _i4.WithSigV4(
+            _i3.WithSigV4(
               region: _region,
-              service: _i7.AWSService.s3,
+              service: _i5.AWSService.s3,
               credentialsProvider: _credentialsProvider,
               serviceConfiguration: _s3ClientConfig.signerConfiguration ??
-                  _i5.S3ServiceConfiguration(),
+                  _i4.S3ServiceConfiguration(),
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i4.WithSdkInvocationId(),
-            const _i4.WithSdkRequest(),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -91,8 +87,8 @@ class WriteGetObjectResponseOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i4.AWSEndpoint _awsEndpoint = _i8.endpointResolver.resolve(
-    _i8.sdkId,
+  late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -100,16 +96,16 @@ class WriteGetObjectResponseOperation extends _i1.HttpOperation<
 
   final Uri? _baseUri;
 
-  final _i4.S3ClientConfig _s3ClientConfig;
+  final _i3.S3ClientConfig _s3ClientConfig;
 
-  final _i5.AWSCredentialsProvider _credentialsProvider;
+  final _i4.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i3.WriteGetObjectResponseRequest input) =>
+  _i1.HttpRequest buildRequest(WriteGetObjectResponseRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/WriteGetObjectResponse?x-id=WriteGetObjectResponse';
@@ -314,7 +310,7 @@ class WriteGetObjectResponseOperation extends _i1.HttpOperation<
   @override
   _i1.Unit buildOutput(
     _i1.Unit payload,
-    _i7.AWSBaseHttpResponse response,
+    _i5.AWSBaseHttpResponse response,
   ) =>
       payload;
   @override
@@ -322,7 +318,7 @@ class WriteGetObjectResponseOperation extends _i1.HttpOperation<
   @override
   String get runtimeTypeName => 'WriteGetObjectResponse';
   @override
-  _i4.AWSRetryer get retryer => _i4.AWSRetryer();
+  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri {
     var baseUri = _baseUri ?? endpoint.uri;
@@ -345,8 +341,8 @@ class WriteGetObjectResponseOperation extends _i1.HttpOperation<
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
   _i1.SmithyOperation<_i1.Unit> run(
-    _i3.WriteGetObjectResponseRequest input, {
-    _i7.AWSHttpClient? client,
+    WriteGetObjectResponseRequest input, {
+    _i5.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
     return _i2.runZoned(
@@ -357,7 +353,7 @@ class WriteGetObjectResponseOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
+        ...{_i5.AWSHeaders.sdkInvocationId: _i5.uuid(secure: true)},
       },
     );
   }

@@ -6,8 +6,8 @@ library smoke_test.iam.model.get_account_password_policy_response; // ignore_for
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/password_policy.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/password_policy.dart';
 
 part 'get_account_password_policy_response.g.dart';
 
@@ -20,7 +20,7 @@ abstract class GetAccountPasswordPolicyResponse
             GetAccountPasswordPolicyResponseBuilder> {
   /// Contains the response to a successful GetAccountPasswordPolicy request.
   factory GetAccountPasswordPolicyResponse(
-      {required _i2.PasswordPolicy passwordPolicy}) {
+      {required PasswordPolicy passwordPolicy}) {
     return _$GetAccountPasswordPolicyResponse._(passwordPolicy: passwordPolicy);
   }
 
@@ -38,11 +38,11 @@ abstract class GetAccountPasswordPolicyResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<GetAccountPasswordPolicyResponse>>
+  static const List<_i2.SmithySerializer<GetAccountPasswordPolicyResponse>>
       serializers = [GetAccountPasswordPolicyResponseAwsQuerySerializer()];
 
   /// A structure that contains details about the account's password policy.
-  _i2.PasswordPolicy get passwordPolicy;
+  PasswordPolicy get passwordPolicy;
   @override
   List<Object?> get props => [passwordPolicy];
   @override
@@ -58,7 +58,7 @@ abstract class GetAccountPasswordPolicyResponse
 }
 
 class GetAccountPasswordPolicyResponseAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<GetAccountPasswordPolicyResponse> {
+    extends _i2.StructuredSmithySerializer<GetAccountPasswordPolicyResponse> {
   const GetAccountPasswordPolicyResponseAwsQuerySerializer()
       : super('GetAccountPasswordPolicyResponse');
 
@@ -68,8 +68,8 @@ class GetAccountPasswordPolicyResponseAwsQuerySerializer
         _$GetAccountPasswordPolicyResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -93,8 +93,8 @@ class GetAccountPasswordPolicyResponseAwsQuerySerializer
         case 'PasswordPolicy':
           result.passwordPolicy.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.PasswordPolicy),
-          ) as _i2.PasswordPolicy));
+            specifiedType: const FullType(PasswordPolicy),
+          ) as PasswordPolicy));
       }
     }
 
@@ -108,17 +108,17 @@ class GetAccountPasswordPolicyResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'GetAccountPasswordPolicyResponseResponse',
-        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final GetAccountPasswordPolicyResponse(:passwordPolicy) = object;
     result$
-      ..add(const _i3.XmlElementName('PasswordPolicy'))
+      ..add(const _i2.XmlElementName('PasswordPolicy'))
       ..add(serializers.serialize(
         passwordPolicy,
-        specifiedType: const FullType(_i2.PasswordPolicy),
+        specifiedType: const FullType(PasswordPolicy),
       ));
     return result$;
   }

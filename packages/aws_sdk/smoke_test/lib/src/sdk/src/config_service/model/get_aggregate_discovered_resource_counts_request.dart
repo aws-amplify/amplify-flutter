@@ -7,10 +7,8 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_count_filters.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_count_group_key.dart'
-    as _i4;
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_count_filters.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_count_group_key.dart';
 
 part 'get_aggregate_discovered_resource_counts_request.g.dart';
 
@@ -23,8 +21,8 @@ abstract class GetAggregateDiscoveredResourceCountsRequest
             GetAggregateDiscoveredResourceCountsRequestBuilder> {
   factory GetAggregateDiscoveredResourceCountsRequest({
     required String configurationAggregatorName,
-    _i3.ResourceCountFilters? filters,
-    _i4.ResourceCountGroupKey? groupByKey,
+    ResourceCountFilters? filters,
+    ResourceCountGroupKey? groupByKey,
     int? limit,
     String? nextToken,
   }) {
@@ -66,10 +64,10 @@ abstract class GetAggregateDiscoveredResourceCountsRequest
   String get configurationAggregatorName;
 
   /// Filters the results based on the `ResourceCountFilters` object.
-  _i3.ResourceCountFilters? get filters;
+  ResourceCountFilters? get filters;
 
   /// The key to group the resource counts.
-  _i4.ResourceCountGroupKey? get groupByKey;
+  ResourceCountGroupKey? get groupByKey;
 
   /// The maximum number of GroupedResourceCount objects returned on each page. The default is 1000. You cannot specify a number greater than 1000. If you specify 0, Config uses the default.
   int get limit;
@@ -155,13 +153,13 @@ class GetAggregateDiscoveredResourceCountsRequestAwsJson11Serializer extends _i1
         case 'Filters':
           result.filters.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ResourceCountFilters),
-          ) as _i3.ResourceCountFilters));
+            specifiedType: const FullType(ResourceCountFilters),
+          ) as ResourceCountFilters));
         case 'GroupByKey':
           result.groupByKey = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ResourceCountGroupKey),
-          ) as _i4.ResourceCountGroupKey);
+            specifiedType: const FullType(ResourceCountGroupKey),
+          ) as ResourceCountGroupKey);
         case 'Limit':
           result.limit = (serializers.deserialize(
             value,
@@ -209,7 +207,7 @@ class GetAggregateDiscoveredResourceCountsRequestAwsJson11Serializer extends _i1
         ..add('Filters')
         ..add(serializers.serialize(
           filters,
-          specifiedType: const FullType(_i3.ResourceCountFilters),
+          specifiedType: const FullType(ResourceCountFilters),
         ));
     }
     if (groupByKey != null) {
@@ -217,7 +215,7 @@ class GetAggregateDiscoveredResourceCountsRequestAwsJson11Serializer extends _i1
         ..add('GroupByKey')
         ..add(serializers.serialize(
           groupByKey,
-          specifiedType: const FullType(_i4.ResourceCountGroupKey),
+          specifiedType: const FullType(ResourceCountGroupKey),
         ));
     }
     if (nextToken != null) {

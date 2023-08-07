@@ -8,9 +8,9 @@ part of 'get_bucket_acl_output.dart';
 
 class _$GetBucketAclOutput extends GetBucketAclOutput {
   @override
-  final _i2.Owner? owner;
+  final Owner? owner;
   @override
-  final _i4.BuiltList<_i3.Grant>? grants;
+  final _i2.BuiltList<Grant>? grants;
 
   factory _$GetBucketAclOutput(
           [void Function(GetBucketAclOutputBuilder)? updates]) =>
@@ -49,14 +49,14 @@ class GetBucketAclOutputBuilder
     implements Builder<GetBucketAclOutput, GetBucketAclOutputBuilder> {
   _$GetBucketAclOutput? _$v;
 
-  _i2.OwnerBuilder? _owner;
-  _i2.OwnerBuilder get owner => _$this._owner ??= new _i2.OwnerBuilder();
-  set owner(_i2.OwnerBuilder? owner) => _$this._owner = owner;
+  OwnerBuilder? _owner;
+  OwnerBuilder get owner => _$this._owner ??= new OwnerBuilder();
+  set owner(OwnerBuilder? owner) => _$this._owner = owner;
 
-  _i4.ListBuilder<_i3.Grant>? _grants;
-  _i4.ListBuilder<_i3.Grant> get grants =>
-      _$this._grants ??= new _i4.ListBuilder<_i3.Grant>();
-  set grants(_i4.ListBuilder<_i3.Grant>? grants) => _$this._grants = grants;
+  _i2.ListBuilder<Grant>? _grants;
+  _i2.ListBuilder<Grant> get grants =>
+      _$this._grants ??= new _i2.ListBuilder<Grant>();
+  set grants(_i2.ListBuilder<Grant>? grants) => _$this._grants = grants;
 
   GetBucketAclOutputBuilder();
 

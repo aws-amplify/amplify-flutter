@@ -10,7 +10,7 @@ class _$UpdateRestApiRequest extends UpdateRestApiRequest {
   @override
   final String restApiId;
   @override
-  final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
+  final _i3.BuiltList<PatchOperation>? patchOperations;
 
   factory _$UpdateRestApiRequest(
           [void Function(UpdateRestApiRequestBuilder)? updates]) =>
@@ -57,10 +57,10 @@ class UpdateRestApiRequestBuilder
   String? get restApiId => _$this._restApiId;
   set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
-  _i4.ListBuilder<_i3.PatchOperation>? _patchOperations;
-  _i4.ListBuilder<_i3.PatchOperation> get patchOperations =>
-      _$this._patchOperations ??= new _i4.ListBuilder<_i3.PatchOperation>();
-  set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
+  _i3.ListBuilder<PatchOperation>? _patchOperations;
+  _i3.ListBuilder<PatchOperation> get patchOperations =>
+      _$this._patchOperations ??= new _i3.ListBuilder<PatchOperation>();
+  set patchOperations(_i3.ListBuilder<PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
   UpdateRestApiRequestBuilder();
@@ -115,7 +115,7 @@ class UpdateRestApiRequestBuilder
 
 class _$UpdateRestApiRequestPayload extends UpdateRestApiRequestPayload {
   @override
-  final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
+  final _i3.BuiltList<PatchOperation>? patchOperations;
 
   factory _$UpdateRestApiRequestPayload(
           [void Function(UpdateRestApiRequestPayloadBuilder)? updates]) =>
@@ -154,10 +154,10 @@ class UpdateRestApiRequestPayloadBuilder
             UpdateRestApiRequestPayloadBuilder> {
   _$UpdateRestApiRequestPayload? _$v;
 
-  _i4.ListBuilder<_i3.PatchOperation>? _patchOperations;
-  _i4.ListBuilder<_i3.PatchOperation> get patchOperations =>
-      _$this._patchOperations ??= new _i4.ListBuilder<_i3.PatchOperation>();
-  set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
+  _i3.ListBuilder<PatchOperation>? _patchOperations;
+  _i3.ListBuilder<PatchOperation> get patchOperations =>
+      _$this._patchOperations ??= new _i3.ListBuilder<PatchOperation>();
+  set patchOperations(_i3.ListBuilder<PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
   UpdateRestApiRequestPayloadBuilder();

@@ -11,7 +11,7 @@ class _$ConformancePackComplianceSummary
   @override
   final String conformancePackName;
   @override
-  final _i2.ConformancePackComplianceType conformancePackComplianceStatus;
+  final ConformancePackComplianceType conformancePackComplianceStatus;
 
   factory _$ConformancePackComplianceSummary(
           [void Function(ConformancePackComplianceSummaryBuilder)? updates]) =>
@@ -66,11 +66,11 @@ class ConformancePackComplianceSummaryBuilder
   set conformancePackName(String? conformancePackName) =>
       _$this._conformancePackName = conformancePackName;
 
-  _i2.ConformancePackComplianceType? _conformancePackComplianceStatus;
-  _i2.ConformancePackComplianceType? get conformancePackComplianceStatus =>
+  ConformancePackComplianceType? _conformancePackComplianceStatus;
+  ConformancePackComplianceType? get conformancePackComplianceStatus =>
       _$this._conformancePackComplianceStatus;
   set conformancePackComplianceStatus(
-          _i2.ConformancePackComplianceType? conformancePackComplianceStatus) =>
+          ConformancePackComplianceType? conformancePackComplianceStatus) =>
       _$this._conformancePackComplianceStatus = conformancePackComplianceStatus;
 
   ConformancePackComplianceSummaryBuilder();

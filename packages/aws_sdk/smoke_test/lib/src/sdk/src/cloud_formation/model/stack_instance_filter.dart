@@ -6,9 +6,8 @@ library smoke_test.cloud_formation.model.stack_instance_filter; // ignore_for_fi
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_filter_name.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_filter_name.dart';
 
 part 'stack_instance_filter.g.dart';
 
@@ -18,7 +17,7 @@ abstract class StackInstanceFilter
     implements Built<StackInstanceFilter, StackInstanceFilterBuilder> {
   /// The filter to apply to stack instances
   factory StackInstanceFilter({
-    _i2.StackInstanceFilterName? name,
+    StackInstanceFilterName? name,
     String? values,
   }) {
     return _$StackInstanceFilter._(
@@ -34,12 +33,12 @@ abstract class StackInstanceFilter
 
   const StackInstanceFilter._();
 
-  static const List<_i3.SmithySerializer<StackInstanceFilter>> serializers = [
+  static const List<_i2.SmithySerializer<StackInstanceFilter>> serializers = [
     StackInstanceFilterAwsQuerySerializer()
   ];
 
   /// The type of filter to apply.
-  _i2.StackInstanceFilterName? get name;
+  StackInstanceFilterName? get name;
 
   /// The status to filter by.
   String? get values;
@@ -64,7 +63,7 @@ abstract class StackInstanceFilter
 }
 
 class StackInstanceFilterAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<StackInstanceFilter> {
+    extends _i2.StructuredSmithySerializer<StackInstanceFilter> {
   const StackInstanceFilterAwsQuerySerializer() : super('StackInstanceFilter');
 
   @override
@@ -73,8 +72,8 @@ class StackInstanceFilterAwsQuerySerializer
         _$StackInstanceFilter,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -98,8 +97,8 @@ class StackInstanceFilterAwsQuerySerializer
         case 'Name':
           result.name = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.StackInstanceFilterName),
-          ) as _i2.StackInstanceFilterName);
+            specifiedType: const FullType(StackInstanceFilterName),
+          ) as StackInstanceFilterName);
         case 'Values':
           result.values = (serializers.deserialize(
             value,
@@ -118,23 +117,23 @@ class StackInstanceFilterAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'StackInstanceFilterResponse',
-        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final StackInstanceFilter(:name, :values) = object;
     if (name != null) {
       result$
-        ..add(const _i3.XmlElementName('Name'))
+        ..add(const _i2.XmlElementName('Name'))
         ..add(serializers.serialize(
           name,
-          specifiedType: const FullType.nullable(_i2.StackInstanceFilterName),
+          specifiedType: const FullType.nullable(StackInstanceFilterName),
         ));
     }
     if (values != null) {
       result$
-        ..add(const _i3.XmlElementName('Values'))
+        ..add(const _i2.XmlElementName('Values'))
         ..add(serializers.serialize(
           values,
           specifiedType: const FullType(String),

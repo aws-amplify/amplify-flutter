@@ -6,8 +6,8 @@ library smoke_test.iam.model.entity_details; // ignore_for_file: no_leading_unde
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/entity_info.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/entity_info.dart';
 
 part 'entity_details.g.dart';
 
@@ -21,7 +21,7 @@ abstract class EntityDetails
   ///
   /// This data type is a response element in the GetServiceLastAccessedDetailsWithEntities operation.
   factory EntityDetails({
-    required _i2.EntityInfo entityInfo,
+    required EntityInfo entityInfo,
     DateTime? lastAuthenticated,
   }) {
     return _$EntityDetails._(
@@ -38,12 +38,12 @@ abstract class EntityDetails
 
   const EntityDetails._();
 
-  static const List<_i3.SmithySerializer<EntityDetails>> serializers = [
+  static const List<_i2.SmithySerializer<EntityDetails>> serializers = [
     EntityDetailsAwsQuerySerializer()
   ];
 
   /// The `EntityInfo` object that contains details about the entity (user or role).
-  _i2.EntityInfo get entityInfo;
+  EntityInfo get entityInfo;
 
   /// The date and time, in [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the authenticated entity last attempted to access Amazon Web Services. Amazon Web Services does not report unauthenticated requests.
   ///
@@ -70,7 +70,7 @@ abstract class EntityDetails
 }
 
 class EntityDetailsAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<EntityDetails> {
+    extends _i2.StructuredSmithySerializer<EntityDetails> {
   const EntityDetailsAwsQuerySerializer() : super('EntityDetails');
 
   @override
@@ -79,8 +79,8 @@ class EntityDetailsAwsQuerySerializer
         _$EntityDetails,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -104,8 +104,8 @@ class EntityDetailsAwsQuerySerializer
         case 'EntityInfo':
           result.entityInfo.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.EntityInfo),
-          ) as _i2.EntityInfo));
+            specifiedType: const FullType(EntityInfo),
+          ) as EntityInfo));
         case 'LastAuthenticated':
           result.lastAuthenticated = (serializers.deserialize(
             value,
@@ -124,21 +124,21 @@ class EntityDetailsAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'EntityDetailsResponse',
-        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final EntityDetails(:entityInfo, :lastAuthenticated) = object;
     result$
-      ..add(const _i3.XmlElementName('EntityInfo'))
+      ..add(const _i2.XmlElementName('EntityInfo'))
       ..add(serializers.serialize(
         entityInfo,
-        specifiedType: const FullType(_i2.EntityInfo),
+        specifiedType: const FullType(EntityInfo),
       ));
     if (lastAuthenticated != null) {
       result$
-        ..add(const _i3.XmlElementName('LastAuthenticated'))
+        ..add(const _i2.XmlElementName('LastAuthenticated'))
         ..add(serializers.serialize(
           lastAuthenticated,
           specifiedType: const FullType.nullable(DateTime),

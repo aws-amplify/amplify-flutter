@@ -6,9 +6,8 @@ library smoke_test.dynamo_db.model.update_contributor_insights_output; // ignore
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/contributor_insights_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/contributor_insights_status.dart';
 
 part 'update_contributor_insights_output.g.dart';
 
@@ -21,7 +20,7 @@ abstract class UpdateContributorInsightsOutput
   factory UpdateContributorInsightsOutput({
     String? tableName,
     String? indexName,
-    _i2.ContributorInsightsStatus? contributorInsightsStatus,
+    ContributorInsightsStatus? contributorInsightsStatus,
   }) {
     return _$UpdateContributorInsightsOutput._(
       tableName: tableName,
@@ -43,7 +42,7 @@ abstract class UpdateContributorInsightsOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<UpdateContributorInsightsOutput>>
+  static const List<_i2.SmithySerializer<UpdateContributorInsightsOutput>>
       serializers = [UpdateContributorInsightsOutputAwsJson10Serializer()];
 
   /// The name of the table.
@@ -53,7 +52,7 @@ abstract class UpdateContributorInsightsOutput
   String? get indexName;
 
   /// The status of contributor insights
-  _i2.ContributorInsightsStatus? get contributorInsightsStatus;
+  ContributorInsightsStatus? get contributorInsightsStatus;
   @override
   List<Object?> get props => [
         tableName,
@@ -81,7 +80,7 @@ abstract class UpdateContributorInsightsOutput
 }
 
 class UpdateContributorInsightsOutputAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<UpdateContributorInsightsOutput> {
+    extends _i2.StructuredSmithySerializer<UpdateContributorInsightsOutput> {
   const UpdateContributorInsightsOutputAwsJson10Serializer()
       : super('UpdateContributorInsightsOutput');
 
@@ -91,8 +90,8 @@ class UpdateContributorInsightsOutputAwsJson10Serializer
         _$UpdateContributorInsightsOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -126,8 +125,8 @@ class UpdateContributorInsightsOutputAwsJson10Serializer
         case 'ContributorInsightsStatus':
           result.contributorInsightsStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ContributorInsightsStatus),
-          ) as _i2.ContributorInsightsStatus);
+            specifiedType: const FullType(ContributorInsightsStatus),
+          ) as ContributorInsightsStatus);
       }
     }
 
@@ -167,7 +166,7 @@ class UpdateContributorInsightsOutputAwsJson10Serializer
         ..add('ContributorInsightsStatus')
         ..add(serializers.serialize(
           contributorInsightsStatus,
-          specifiedType: const FullType(_i2.ContributorInsightsStatus),
+          specifiedType: const FullType(ContributorInsightsStatus),
         ));
     }
     return result$;

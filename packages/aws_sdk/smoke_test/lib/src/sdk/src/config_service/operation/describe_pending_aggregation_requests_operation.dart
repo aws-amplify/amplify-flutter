@@ -3,46 +3,38 @@
 
 library smoke_test.config_service.operation.describe_pending_aggregation_requests_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i14;
+import 'dart:async' as _i6;
 
-import 'package:aws_common/aws_common.dart' as _i9;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i6;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:aws_common/aws_common.dart' as _i5;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/config_service/common/endpoint_resolver.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/config_service/common/serializers.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_pending_aggregation_requests_request.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_pending_aggregation_requests_response.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/invalid_limit_exception.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/config_service/model/invalid_next_token_exception.dart'
-    as _i12;
-import 'package:smoke_test/src/sdk/src/config_service/model/invalid_parameter_value_exception.dart'
-    as _i13;
-import 'package:smoke_test/src/sdk/src/config_service/model/pending_aggregation_request.dart'
-    as _i5;
+import 'package:smithy_aws/smithy_aws.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/config_service/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/config_service/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_pending_aggregation_requests_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_pending_aggregation_requests_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/invalid_limit_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/invalid_next_token_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/invalid_parameter_value_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/pending_aggregation_request.dart';
 
 /// Returns a list of all pending aggregation requests.
 class DescribePendingAggregationRequestsOperation extends _i1
     .PaginatedHttpOperation<
-        _i2.DescribePendingAggregationRequestsRequest,
-        _i2.DescribePendingAggregationRequestsRequest,
-        _i3.DescribePendingAggregationRequestsResponse,
-        _i3.DescribePendingAggregationRequestsResponse,
+        DescribePendingAggregationRequestsRequest,
+        DescribePendingAggregationRequestsRequest,
+        DescribePendingAggregationRequestsResponse,
+        DescribePendingAggregationRequestsResponse,
         String,
         int,
-        _i4.BuiltList<_i5.PendingAggregationRequest>> {
+        _i2.BuiltList<PendingAggregationRequest>> {
   /// Returns a list of all pending aggregation requests.
   DescribePendingAggregationRequestsOperation({
     required String region,
     Uri? baseUri,
-    _i6.AWSCredentialsProvider credentialsProvider =
-        const _i6.AWSCredentialsProvider.environment(),
+    _i3.AWSCredentialsProvider credentialsProvider =
+        const _i3.AWSCredentialsProvider.environment(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -54,13 +46,13 @@ class DescribePendingAggregationRequestsOperation extends _i1
   @override
   late final List<
       _i1.HttpProtocol<
-          _i2.DescribePendingAggregationRequestsRequest,
-          _i2.DescribePendingAggregationRequestsRequest,
-          _i3.DescribePendingAggregationRequestsResponse,
-          _i3.DescribePendingAggregationRequestsResponse>> protocols = [
-    _i7.AwsJson1_1Protocol(
-      serializers: _i8.serializers,
-      builderFactories: _i8.builderFactories,
+          DescribePendingAggregationRequestsRequest,
+          DescribePendingAggregationRequestsRequest,
+          DescribePendingAggregationRequestsResponse,
+          DescribePendingAggregationRequestsResponse>> protocols = [
+    _i4.AwsJson1_1Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
@@ -68,14 +60,14 @@ class DescribePendingAggregationRequestsOperation extends _i1
               'X-Amz-Target',
               'StarlingDoveService.DescribePendingAggregationRequests',
             ),
-            _i7.WithSigV4(
+            _i4.WithSigV4(
               region: _region,
-              service: _i9.AWSService.configService,
+              service: _i5.AWSService.configService,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i7.WithSdkInvocationId(),
-            const _i7.WithSdkRequest(),
+            const _i4.WithSdkInvocationId(),
+            const _i4.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -83,8 +75,8 @@ class DescribePendingAggregationRequestsOperation extends _i1
     )
   ];
 
-  late final _i7.AWSEndpoint _awsEndpoint = _i10.endpointResolver.resolve(
-    _i10.sdkId,
+  late final _i4.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -92,7 +84,7 @@ class DescribePendingAggregationRequestsOperation extends _i1
 
   final Uri? _baseUri;
 
-  final _i6.AWSCredentialsProvider _credentialsProvider;
+  final _i3.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
@@ -100,70 +92,68 @@ class DescribePendingAggregationRequestsOperation extends _i1
 
   @override
   _i1.HttpRequest buildRequest(
-          _i2.DescribePendingAggregationRequestsRequest input) =>
+          DescribePendingAggregationRequestsRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
       });
   @override
-  int successCode([_i3.DescribePendingAggregationRequestsResponse? output]) =>
-      200;
+  int successCode([DescribePendingAggregationRequestsResponse? output]) => 200;
   @override
-  _i3.DescribePendingAggregationRequestsResponse buildOutput(
-    _i3.DescribePendingAggregationRequestsResponse payload,
-    _i9.AWSBaseHttpResponse response,
+  DescribePendingAggregationRequestsResponse buildOutput(
+    DescribePendingAggregationRequestsResponse payload,
+    _i5.AWSBaseHttpResponse response,
   ) =>
-      _i3.DescribePendingAggregationRequestsResponse.fromResponse(
+      DescribePendingAggregationRequestsResponse.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i11.InvalidLimitException, _i11.InvalidLimitException>(
+        _i1.SmithyError<InvalidLimitException, InvalidLimitException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidLimitException',
           ),
           _i1.ErrorKind.client,
-          _i11.InvalidLimitException,
-          builder: _i11.InvalidLimitException.fromResponse,
+          InvalidLimitException,
+          builder: InvalidLimitException.fromResponse,
         ),
-        _i1.SmithyError<_i12.InvalidNextTokenException,
-            _i12.InvalidNextTokenException>(
+        _i1.SmithyError<InvalidNextTokenException, InvalidNextTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidNextTokenException',
           ),
           _i1.ErrorKind.client,
-          _i12.InvalidNextTokenException,
-          builder: _i12.InvalidNextTokenException.fromResponse,
+          InvalidNextTokenException,
+          builder: InvalidNextTokenException.fromResponse,
         ),
-        _i1.SmithyError<_i13.InvalidParameterValueException,
-            _i13.InvalidParameterValueException>(
+        _i1.SmithyError<InvalidParameterValueException,
+            InvalidParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidParameterValueException',
           ),
           _i1.ErrorKind.client,
-          _i13.InvalidParameterValueException,
-          builder: _i13.InvalidParameterValueException.fromResponse,
+          InvalidParameterValueException,
+          builder: InvalidParameterValueException.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'DescribePendingAggregationRequests';
   @override
-  _i7.AWSRetryer get retryer => _i7.AWSRetryer();
+  _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.DescribePendingAggregationRequestsResponse> run(
-    _i2.DescribePendingAggregationRequestsRequest input, {
-    _i9.AWSHttpClient? client,
+  _i1.SmithyOperation<DescribePendingAggregationRequestsResponse> run(
+    DescribePendingAggregationRequestsRequest input, {
+    _i5.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i14.runZoned(
+    return _i6.runZoned(
       () => super.run(
         input,
         client: client,
@@ -171,21 +161,21 @@ class DescribePendingAggregationRequestsOperation extends _i1
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)},
+        ...{_i5.AWSHeaders.sdkInvocationId: _i5.uuid(secure: true)},
       },
     );
   }
 
   @override
-  String? getToken(_i3.DescribePendingAggregationRequestsResponse output) =>
+  String? getToken(DescribePendingAggregationRequestsResponse output) =>
       output.nextToken;
   @override
-  _i4.BuiltList<_i5.PendingAggregationRequest> getItems(
-          _i3.DescribePendingAggregationRequestsResponse output) =>
-      output.pendingAggregationRequests ?? _i4.BuiltList();
+  _i2.BuiltList<PendingAggregationRequest> getItems(
+          DescribePendingAggregationRequestsResponse output) =>
+      output.pendingAggregationRequests ?? _i2.BuiltList();
   @override
-  _i2.DescribePendingAggregationRequestsRequest rebuildInput(
-    _i2.DescribePendingAggregationRequestsRequest input,
+  DescribePendingAggregationRequestsRequest rebuildInput(
+    DescribePendingAggregationRequestsRequest input,
     String token,
     int? pageSize,
   ) =>

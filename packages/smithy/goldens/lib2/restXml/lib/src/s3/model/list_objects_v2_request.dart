@@ -6,9 +6,9 @@ library rest_xml_v2.s3.model.list_objects_v2_request; // ignore_for_file: no_lea
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i5;
-import 'package:rest_xml_v2/src/s3/model/encoding_type.dart' as _i3;
-import 'package:rest_xml_v2/src/s3/model/request_payer.dart' as _i4;
+import 'package:meta/meta.dart' as _i3;
+import 'package:rest_xml_v2/src/s3/model/encoding_type.dart';
+import 'package:rest_xml_v2/src/s3/model/request_payer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'list_objects_v2_request.g.dart';
@@ -24,13 +24,13 @@ abstract class ListObjectsV2Request
   factory ListObjectsV2Request({
     required String bucket,
     String? delimiter,
-    _i3.EncodingType? encodingType,
+    EncodingType? encodingType,
     int? maxKeys,
     String? prefix,
     String? continuationToken,
     bool? fetchOwner,
     String? startAfter,
-    _i4.RequestPayer? requestPayer,
+    RequestPayer? requestPayer,
     String? expectedBucketOwner,
   }) {
     return _$ListObjectsV2Request._(
@@ -60,7 +60,7 @@ abstract class ListObjectsV2Request
   }) =>
       ListObjectsV2Request.build((b) {
         if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = _i4.RequestPayer.values
+          b.requestPayer = RequestPayer.values
               .byValue(request.headers['x-amz-request-payer']!);
         }
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
@@ -71,7 +71,7 @@ abstract class ListObjectsV2Request
           b.delimiter = request.queryParameters['delimiter']!;
         }
         if (request.queryParameters['encoding-type'] != null) {
-          b.encodingType = _i3.EncodingType.values
+          b.encodingType = EncodingType.values
               .byValue(request.queryParameters['encoding-type']!);
         }
         if (request.queryParameters['max-keys'] != null) {
@@ -99,13 +99,13 @@ abstract class ListObjectsV2Request
 
   String get bucket;
   String? get delimiter;
-  _i3.EncodingType? get encodingType;
+  EncodingType? get encodingType;
   int? get maxKeys;
   String? get prefix;
   String? get continuationToken;
   bool? get fetchOwner;
   String? get startAfter;
-  _i4.RequestPayer? get requestPayer;
+  RequestPayer? get requestPayer;
   String? get expectedBucketOwner;
   @override
   String labelFor(String key) {
@@ -181,7 +181,7 @@ abstract class ListObjectsV2Request
   }
 }
 
-@_i5.internal
+@_i3.internal
 abstract class ListObjectsV2RequestPayload
     with _i2.AWSEquatable<ListObjectsV2RequestPayload>
     implements

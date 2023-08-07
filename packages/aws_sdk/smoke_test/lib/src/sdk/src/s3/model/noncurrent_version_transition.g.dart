@@ -10,7 +10,7 @@ class _$NoncurrentVersionTransition extends NoncurrentVersionTransition {
   @override
   final int? noncurrentDays;
   @override
-  final _i2.TransitionStorageClass? storageClass;
+  final TransitionStorageClass? storageClass;
   @override
   final int? newerNoncurrentVersions;
 
@@ -62,9 +62,9 @@ class NoncurrentVersionTransitionBuilder
   set noncurrentDays(int? noncurrentDays) =>
       _$this._noncurrentDays = noncurrentDays;
 
-  _i2.TransitionStorageClass? _storageClass;
-  _i2.TransitionStorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i2.TransitionStorageClass? storageClass) =>
+  TransitionStorageClass? _storageClass;
+  TransitionStorageClass? get storageClass => _$this._storageClass;
+  set storageClass(TransitionStorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
   int? _newerNoncurrentVersions;

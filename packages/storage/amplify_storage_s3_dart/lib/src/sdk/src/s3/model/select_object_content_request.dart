@@ -3,20 +3,15 @@
 
 library amplify_storage_s3_dart.s3.model.select_object_content_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/expression_type.dart'
-    as _i3;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/input_serialization.dart'
-    as _i5;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/output_serialization.dart'
-    as _i6;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_progress.dart'
-    as _i4;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/scan_range.dart'
-    as _i7;
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/expression_type.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/input_serialization.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/output_serialization.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_progress.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/scan_range.dart';
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i8;
+import 'package:meta/meta.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'select_object_content_request.g.dart';
@@ -37,11 +32,11 @@ abstract class SelectObjectContentRequest
     String? sseCustomerKey,
     String? sseCustomerKeyMd5,
     required String expression,
-    required _i3.ExpressionType expressionType,
-    _i4.RequestProgress? requestProgress,
-    required _i5.InputSerialization inputSerialization,
-    required _i6.OutputSerialization outputSerialization,
-    _i7.ScanRange? scanRange,
+    required ExpressionType expressionType,
+    RequestProgress? requestProgress,
+    required InputSerialization inputSerialization,
+    required OutputSerialization outputSerialization,
+    ScanRange? scanRange,
     String? expectedBucketOwner,
   }) {
     return _$SelectObjectContentRequest._(
@@ -133,16 +128,16 @@ abstract class SelectObjectContentRequest
   String get expression;
 
   /// The type of the provided expression (for example, SQL).
-  _i3.ExpressionType get expressionType;
+  ExpressionType get expressionType;
 
   /// Specifies if periodic request progress information should be enabled.
-  _i4.RequestProgress? get requestProgress;
+  RequestProgress? get requestProgress;
 
   /// Describes the format of the data in the object that is being queried.
-  _i5.InputSerialization get inputSerialization;
+  InputSerialization get inputSerialization;
 
   /// Describes the format of the data that you want Amazon S3 to return in response.
-  _i6.OutputSerialization get outputSerialization;
+  OutputSerialization get outputSerialization;
 
   /// Specifies the byte range of the object to get the records from. A record is processed when its first byte is contained by the range. This parameter is optional, but when specified, it must not be empty. See RFC 2616, Section 14.35.1 about how to specify the start and end of the range.
   ///
@@ -153,7 +148,7 @@ abstract class SelectObjectContentRequest
   /// *   `50` \- process only the records starting after the byte 50
   ///
   /// *   `50` \- process only the records within the last 50 bytes of the file.
-  _i7.ScanRange? get scanRange;
+  ScanRange? get scanRange;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
@@ -255,7 +250,7 @@ abstract class SelectObjectContentRequest
   }
 }
 
-@_i8.internal
+@_i3.internal
 abstract class SelectObjectContentRequestPayload
     with
         _i2.AWSEquatable<SelectObjectContentRequestPayload>
@@ -272,16 +267,16 @@ abstract class SelectObjectContentRequestPayload
   String get expression;
 
   /// The type of the provided expression (for example, SQL).
-  _i3.ExpressionType get expressionType;
+  ExpressionType get expressionType;
 
   /// Describes the format of the data in the object that is being queried.
-  _i5.InputSerialization get inputSerialization;
+  InputSerialization get inputSerialization;
 
   /// Describes the format of the data that you want Amazon S3 to return in response.
-  _i6.OutputSerialization get outputSerialization;
+  OutputSerialization get outputSerialization;
 
   /// Specifies if periodic request progress information should be enabled.
-  _i4.RequestProgress? get requestProgress;
+  RequestProgress? get requestProgress;
 
   /// Specifies the byte range of the object to get the records from. A record is processed when its first byte is contained by the range. This parameter is optional, but when specified, it must not be empty. See RFC 2616, Section 14.35.1 about how to specify the start and end of the range.
   ///
@@ -292,7 +287,7 @@ abstract class SelectObjectContentRequestPayload
   /// *   `50` \- process only the records starting after the byte 50
   ///
   /// *   `50` \- process only the records within the last 50 bytes of the file.
-  _i7.ScanRange? get scanRange;
+  ScanRange? get scanRange;
   @override
   List<Object?> get props => [
         expression,
@@ -377,28 +372,28 @@ class SelectObjectContentRequestRestXmlSerializer
         case 'ExpressionType':
           result.expressionType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ExpressionType),
-          ) as _i3.ExpressionType);
+            specifiedType: const FullType(ExpressionType),
+          ) as ExpressionType);
         case 'InputSerialization':
           result.inputSerialization.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.InputSerialization),
-          ) as _i5.InputSerialization));
+            specifiedType: const FullType(InputSerialization),
+          ) as InputSerialization));
         case 'OutputSerialization':
           result.outputSerialization.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.OutputSerialization),
-          ) as _i6.OutputSerialization));
+            specifiedType: const FullType(OutputSerialization),
+          ) as OutputSerialization));
         case 'RequestProgress':
           result.requestProgress.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.RequestProgress),
-          ) as _i4.RequestProgress));
+            specifiedType: const FullType(RequestProgress),
+          ) as RequestProgress));
         case 'ScanRange':
           result.scanRange.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i7.ScanRange),
-          ) as _i7.ScanRange));
+            specifiedType: const FullType(ScanRange),
+          ) as ScanRange));
       }
     }
 
@@ -435,26 +430,26 @@ class SelectObjectContentRequestRestXmlSerializer
       ..add(const _i1.XmlElementName('ExpressionType'))
       ..add(serializers.serialize(
         expressionType,
-        specifiedType: const FullType.nullable(_i3.ExpressionType),
+        specifiedType: const FullType.nullable(ExpressionType),
       ));
     result$
       ..add(const _i1.XmlElementName('InputSerialization'))
       ..add(serializers.serialize(
         inputSerialization,
-        specifiedType: const FullType(_i5.InputSerialization),
+        specifiedType: const FullType(InputSerialization),
       ));
     result$
       ..add(const _i1.XmlElementName('OutputSerialization'))
       ..add(serializers.serialize(
         outputSerialization,
-        specifiedType: const FullType(_i6.OutputSerialization),
+        specifiedType: const FullType(OutputSerialization),
       ));
     if (requestProgress != null) {
       result$
         ..add(const _i1.XmlElementName('RequestProgress'))
         ..add(serializers.serialize(
           requestProgress,
-          specifiedType: const FullType(_i4.RequestProgress),
+          specifiedType: const FullType(RequestProgress),
         ));
     }
     if (scanRange != null) {
@@ -462,7 +457,7 @@ class SelectObjectContentRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('ScanRange'))
         ..add(serializers.serialize(
           scanRange,
-          specifiedType: const FullType(_i7.ScanRange),
+          specifiedType: const FullType(ScanRange),
         ));
     }
     return result$;

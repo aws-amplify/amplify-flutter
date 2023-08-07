@@ -3,15 +3,13 @@
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.in_app_message; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/in_app_message_content.dart'
-    as _i2;
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/layout.dart'
-    as _i3;
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/in_app_message_content.dart';
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/layout.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
+import 'package:smithy/smithy.dart' as _i3;
 
 part 'in_app_message.g.dart';
 
@@ -21,13 +19,13 @@ abstract class InAppMessage
     implements Built<InAppMessage, InAppMessageBuilder> {
   /// Provides all fields required for building an in-app message.
   factory InAppMessage({
-    List<_i2.InAppMessageContent>? content,
+    List<InAppMessageContent>? content,
     Map<String, String>? customConfig,
-    _i3.Layout? layout,
+    Layout? layout,
   }) {
     return _$InAppMessage._(
-      content: content == null ? null : _i4.BuiltList(content),
-      customConfig: customConfig == null ? null : _i4.BuiltMap(customConfig),
+      content: content == null ? null : _i2.BuiltList(content),
+      customConfig: customConfig == null ? null : _i2.BuiltMap(customConfig),
       layout: layout,
     );
   }
@@ -38,18 +36,18 @@ abstract class InAppMessage
 
   const InAppMessage._();
 
-  static const List<_i5.SmithySerializer<InAppMessage>> serializers = [
+  static const List<_i3.SmithySerializer<InAppMessage>> serializers = [
     InAppMessageRestJson1Serializer()
   ];
 
   /// In-app message content.
-  _i4.BuiltList<_i2.InAppMessageContent>? get content;
+  _i2.BuiltList<InAppMessageContent>? get content;
 
   /// Custom config to be sent to SDK.
-  _i4.BuiltMap<String, String>? get customConfig;
+  _i2.BuiltMap<String, String>? get customConfig;
 
   /// The layout of the message.
-  _i3.Layout? get layout;
+  Layout? get layout;
   @override
   List<Object?> get props => [
         content,
@@ -76,7 +74,7 @@ abstract class InAppMessage
 }
 
 class InAppMessageRestJson1Serializer
-    extends _i5.StructuredSmithySerializer<InAppMessage> {
+    extends _i3.StructuredSmithySerializer<InAppMessage> {
   const InAppMessageRestJson1Serializer() : super('InAppMessage');
 
   @override
@@ -85,8 +83,8 @@ class InAppMessageRestJson1Serializer
         _$InAppMessage,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -111,26 +109,26 @@ class InAppMessageRestJson1Serializer
           result.content.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i2.InAppMessageContent)],
+              _i2.BuiltList,
+              [FullType(InAppMessageContent)],
             ),
-          ) as _i4.BuiltList<_i2.InAppMessageContent>));
+          ) as _i2.BuiltList<InAppMessageContent>));
         case 'CustomConfig':
           result.customConfig.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i4.BuiltMap<String, String>));
+          ) as _i2.BuiltMap<String, String>));
         case 'Layout':
           result.layout = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.Layout),
-          ) as _i3.Layout);
+            specifiedType: const FullType(Layout),
+          ) as Layout);
       }
     }
 
@@ -151,8 +149,8 @@ class InAppMessageRestJson1Serializer
         ..add(serializers.serialize(
           content,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i2.InAppMessageContent)],
+            _i2.BuiltList,
+            [FullType(InAppMessageContent)],
           ),
         ));
     }
@@ -162,7 +160,7 @@ class InAppMessageRestJson1Serializer
         ..add(serializers.serialize(
           customConfig,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -175,7 +173,7 @@ class InAppMessageRestJson1Serializer
         ..add('Layout')
         ..add(serializers.serialize(
           layout,
-          specifiedType: const FullType(_i3.Layout),
+          specifiedType: const FullType(Layout),
         ));
     }
     return result$;

@@ -7,8 +7,8 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/iam/model/policy_scope_type.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/policy_usage_type.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/iam/model/policy_scope_type.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/policy_usage_type.dart';
 
 part 'list_policies_request.g.dart';
 
@@ -18,10 +18,10 @@ abstract class ListPoliciesRequest
         _i2.AWSEquatable<ListPoliciesRequest>
     implements Built<ListPoliciesRequest, ListPoliciesRequestBuilder> {
   factory ListPoliciesRequest({
-    _i3.PolicyScopeType? scope,
+    PolicyScopeType? scope,
     bool? onlyAttached,
     String? pathPrefix,
-    _i4.PolicyUsageType? policyUsageFilter,
+    PolicyUsageType? policyUsageFilter,
     String? marker,
     int? maxItems,
   }) {
@@ -63,7 +63,7 @@ abstract class ListPoliciesRequest
   /// To list only Amazon Web Services managed policies, set `Scope` to `AWS`. To list only the customer managed policies in your Amazon Web Services account, set `Scope` to `Local`.
   ///
   /// This parameter is optional. If it is not included, or if it is set to `All`, all policies are returned.
-  _i3.PolicyScopeType? get scope;
+  PolicyScopeType? get scope;
 
   /// A flag to filter the results to only the attached policies.
   ///
@@ -78,7 +78,7 @@ abstract class ListPoliciesRequest
   /// To list only permissions policies, set `PolicyUsageFilter` to `PermissionsPolicy`. To list only the policies used to set permissions boundaries, set the value to `PermissionsBoundary`.
   ///
   /// This parameter is optional. If it is not included, all policies are returned.
-  _i4.PolicyUsageType? get policyUsageFilter;
+  PolicyUsageType? get policyUsageFilter;
 
   /// Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the `Marker` element in the response that you received to indicate where the next call should start.
   String? get marker;
@@ -164,8 +164,8 @@ class ListPoliciesRequestAwsQuerySerializer
         case 'Scope':
           result.scope = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.PolicyScopeType),
-          ) as _i3.PolicyScopeType);
+            specifiedType: const FullType(PolicyScopeType),
+          ) as PolicyScopeType);
         case 'OnlyAttached':
           result.onlyAttached = (serializers.deserialize(
             value,
@@ -179,8 +179,8 @@ class ListPoliciesRequestAwsQuerySerializer
         case 'PolicyUsageFilter':
           result.policyUsageFilter = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.PolicyUsageType),
-          ) as _i4.PolicyUsageType);
+            specifiedType: const FullType(PolicyUsageType),
+          ) as PolicyUsageType);
         case 'Marker':
           result.marker = (serializers.deserialize(
             value,
@@ -222,7 +222,7 @@ class ListPoliciesRequestAwsQuerySerializer
         ..add(const _i1.XmlElementName('Scope'))
         ..add(serializers.serialize(
           scope,
-          specifiedType: const FullType.nullable(_i3.PolicyScopeType),
+          specifiedType: const FullType.nullable(PolicyScopeType),
         ));
     }
     result$
@@ -244,7 +244,7 @@ class ListPoliciesRequestAwsQuerySerializer
         ..add(const _i1.XmlElementName('PolicyUsageFilter'))
         ..add(serializers.serialize(
           policyUsageFilter,
-          specifiedType: const FullType.nullable(_i4.PolicyUsageType),
+          specifiedType: const FullType.nullable(PolicyUsageType),
         ));
     }
     if (marker != null) {

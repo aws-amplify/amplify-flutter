@@ -12,13 +12,13 @@ class _$ReplicaSettingsUpdate extends ReplicaSettingsUpdate {
   @override
   final _i2.Int64? replicaProvisionedReadCapacityUnits;
   @override
-  final _i3.AutoScalingSettingsUpdate?
+  final AutoScalingSettingsUpdate?
       replicaProvisionedReadCapacityAutoScalingSettingsUpdate;
   @override
-  final _i6.BuiltList<_i4.ReplicaGlobalSecondaryIndexSettingsUpdate>?
+  final _i3.BuiltList<ReplicaGlobalSecondaryIndexSettingsUpdate>?
       replicaGlobalSecondaryIndexSettingsUpdate;
   @override
-  final _i5.TableClass? replicaTableClass;
+  final TableClass? replicaTableClass;
 
   factory _$ReplicaSettingsUpdate(
           [void Function(ReplicaSettingsUpdateBuilder)? updates]) =>
@@ -88,33 +88,33 @@ class ReplicaSettingsUpdateBuilder
       _$this._replicaProvisionedReadCapacityUnits =
           replicaProvisionedReadCapacityUnits;
 
-  _i3.AutoScalingSettingsUpdateBuilder?
+  AutoScalingSettingsUpdateBuilder?
       _replicaProvisionedReadCapacityAutoScalingSettingsUpdate;
-  _i3.AutoScalingSettingsUpdateBuilder
+  AutoScalingSettingsUpdateBuilder
       get replicaProvisionedReadCapacityAutoScalingSettingsUpdate =>
           _$this._replicaProvisionedReadCapacityAutoScalingSettingsUpdate ??=
-              new _i3.AutoScalingSettingsUpdateBuilder();
+              new AutoScalingSettingsUpdateBuilder();
   set replicaProvisionedReadCapacityAutoScalingSettingsUpdate(
-          _i3.AutoScalingSettingsUpdateBuilder?
+          AutoScalingSettingsUpdateBuilder?
               replicaProvisionedReadCapacityAutoScalingSettingsUpdate) =>
       _$this._replicaProvisionedReadCapacityAutoScalingSettingsUpdate =
           replicaProvisionedReadCapacityAutoScalingSettingsUpdate;
 
-  _i6.ListBuilder<_i4.ReplicaGlobalSecondaryIndexSettingsUpdate>?
+  _i3.ListBuilder<ReplicaGlobalSecondaryIndexSettingsUpdate>?
       _replicaGlobalSecondaryIndexSettingsUpdate;
-  _i6.ListBuilder<_i4.ReplicaGlobalSecondaryIndexSettingsUpdate>
-      get replicaGlobalSecondaryIndexSettingsUpdate => _$this
-              ._replicaGlobalSecondaryIndexSettingsUpdate ??=
-          new _i6.ListBuilder<_i4.ReplicaGlobalSecondaryIndexSettingsUpdate>();
+  _i3.ListBuilder<ReplicaGlobalSecondaryIndexSettingsUpdate>
+      get replicaGlobalSecondaryIndexSettingsUpdate =>
+          _$this._replicaGlobalSecondaryIndexSettingsUpdate ??=
+              new _i3.ListBuilder<ReplicaGlobalSecondaryIndexSettingsUpdate>();
   set replicaGlobalSecondaryIndexSettingsUpdate(
-          _i6.ListBuilder<_i4.ReplicaGlobalSecondaryIndexSettingsUpdate>?
+          _i3.ListBuilder<ReplicaGlobalSecondaryIndexSettingsUpdate>?
               replicaGlobalSecondaryIndexSettingsUpdate) =>
       _$this._replicaGlobalSecondaryIndexSettingsUpdate =
           replicaGlobalSecondaryIndexSettingsUpdate;
 
-  _i5.TableClass? _replicaTableClass;
-  _i5.TableClass? get replicaTableClass => _$this._replicaTableClass;
-  set replicaTableClass(_i5.TableClass? replicaTableClass) =>
+  TableClass? _replicaTableClass;
+  TableClass? get replicaTableClass => _$this._replicaTableClass;
+  set replicaTableClass(TableClass? replicaTableClass) =>
       _$this._replicaTableClass = replicaTableClass;
 
   ReplicaSettingsUpdateBuilder();

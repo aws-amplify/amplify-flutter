@@ -10,11 +10,11 @@ class _$PutBucketLoggingRequest extends PutBucketLoggingRequest {
   @override
   final String bucket;
   @override
-  final _i2.BucketLoggingStatus bucketLoggingStatus;
+  final BucketLoggingStatus bucketLoggingStatus;
   @override
   final String? contentMd5;
   @override
-  final _i4.ChecksumAlgorithm? checksumAlgorithm;
+  final ChecksumAlgorithm? checksumAlgorithm;
   @override
   final String? expectedBucketOwner;
 
@@ -77,20 +77,19 @@ class PutBucketLoggingRequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  _i2.BucketLoggingStatusBuilder? _bucketLoggingStatus;
-  _i2.BucketLoggingStatusBuilder get bucketLoggingStatus =>
-      _$this._bucketLoggingStatus ??= new _i2.BucketLoggingStatusBuilder();
-  set bucketLoggingStatus(
-          _i2.BucketLoggingStatusBuilder? bucketLoggingStatus) =>
+  BucketLoggingStatusBuilder? _bucketLoggingStatus;
+  BucketLoggingStatusBuilder get bucketLoggingStatus =>
+      _$this._bucketLoggingStatus ??= new BucketLoggingStatusBuilder();
+  set bucketLoggingStatus(BucketLoggingStatusBuilder? bucketLoggingStatus) =>
       _$this._bucketLoggingStatus = bucketLoggingStatus;
 
   String? _contentMd5;
   String? get contentMd5 => _$this._contentMd5;
   set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
 
-  _i4.ChecksumAlgorithm? _checksumAlgorithm;
-  _i4.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
+  ChecksumAlgorithm? _checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
   String? _expectedBucketOwner;

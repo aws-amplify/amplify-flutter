@@ -10,17 +10,17 @@ class _$ImportStacksToStackSetInput extends ImportStacksToStackSetInput {
   @override
   final String stackSetName;
   @override
-  final _i5.BuiltList<String>? stackIds;
+  final _i3.BuiltList<String>? stackIds;
   @override
   final String? stackIdsUrl;
   @override
-  final _i5.BuiltList<String>? organizationalUnitIds;
+  final _i3.BuiltList<String>? organizationalUnitIds;
   @override
-  final _i3.StackSetOperationPreferences? operationPreferences;
+  final StackSetOperationPreferences? operationPreferences;
   @override
   final String? operationId;
   @override
-  final _i4.CallAs? callAs;
+  final CallAs? callAs;
 
   factory _$ImportStacksToStackSetInput(
           [void Function(ImportStacksToStackSetInputBuilder)? updates]) =>
@@ -86,37 +86,37 @@ class ImportStacksToStackSetInputBuilder
   String? get stackSetName => _$this._stackSetName;
   set stackSetName(String? stackSetName) => _$this._stackSetName = stackSetName;
 
-  _i5.ListBuilder<String>? _stackIds;
-  _i5.ListBuilder<String> get stackIds =>
-      _$this._stackIds ??= new _i5.ListBuilder<String>();
-  set stackIds(_i5.ListBuilder<String>? stackIds) =>
+  _i3.ListBuilder<String>? _stackIds;
+  _i3.ListBuilder<String> get stackIds =>
+      _$this._stackIds ??= new _i3.ListBuilder<String>();
+  set stackIds(_i3.ListBuilder<String>? stackIds) =>
       _$this._stackIds = stackIds;
 
   String? _stackIdsUrl;
   String? get stackIdsUrl => _$this._stackIdsUrl;
   set stackIdsUrl(String? stackIdsUrl) => _$this._stackIdsUrl = stackIdsUrl;
 
-  _i5.ListBuilder<String>? _organizationalUnitIds;
-  _i5.ListBuilder<String> get organizationalUnitIds =>
-      _$this._organizationalUnitIds ??= new _i5.ListBuilder<String>();
-  set organizationalUnitIds(_i5.ListBuilder<String>? organizationalUnitIds) =>
+  _i3.ListBuilder<String>? _organizationalUnitIds;
+  _i3.ListBuilder<String> get organizationalUnitIds =>
+      _$this._organizationalUnitIds ??= new _i3.ListBuilder<String>();
+  set organizationalUnitIds(_i3.ListBuilder<String>? organizationalUnitIds) =>
       _$this._organizationalUnitIds = organizationalUnitIds;
 
-  _i3.StackSetOperationPreferencesBuilder? _operationPreferences;
-  _i3.StackSetOperationPreferencesBuilder get operationPreferences =>
+  StackSetOperationPreferencesBuilder? _operationPreferences;
+  StackSetOperationPreferencesBuilder get operationPreferences =>
       _$this._operationPreferences ??=
-          new _i3.StackSetOperationPreferencesBuilder();
+          new StackSetOperationPreferencesBuilder();
   set operationPreferences(
-          _i3.StackSetOperationPreferencesBuilder? operationPreferences) =>
+          StackSetOperationPreferencesBuilder? operationPreferences) =>
       _$this._operationPreferences = operationPreferences;
 
   String? _operationId;
   String? get operationId => _$this._operationId;
   set operationId(String? operationId) => _$this._operationId = operationId;
 
-  _i4.CallAs? _callAs;
-  _i4.CallAs? get callAs => _$this._callAs;
-  set callAs(_i4.CallAs? callAs) => _$this._callAs = callAs;
+  CallAs? _callAs;
+  CallAs? get callAs => _$this._callAs;
+  set callAs(CallAs? callAs) => _$this._callAs = callAs;
 
   ImportStacksToStackSetInputBuilder() {
     ImportStacksToStackSetInput._init(this);

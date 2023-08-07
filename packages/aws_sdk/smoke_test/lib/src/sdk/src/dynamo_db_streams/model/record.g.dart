@@ -10,7 +10,7 @@ class _$Record extends Record {
   @override
   final String? eventId;
   @override
-  final _i2.OperationType? eventName;
+  final OperationType? eventName;
   @override
   final String? eventVersion;
   @override
@@ -18,9 +18,9 @@ class _$Record extends Record {
   @override
   final String? awsRegion;
   @override
-  final _i3.StreamRecord? dynamodb;
+  final StreamRecord? dynamodb;
   @override
-  final _i4.Identity? userIdentity;
+  final Identity? userIdentity;
 
   factory _$Record([void Function(RecordBuilder)? updates]) =>
       (new RecordBuilder()..update(updates))._build();
@@ -77,9 +77,9 @@ class RecordBuilder implements Builder<Record, RecordBuilder> {
   String? get eventId => _$this._eventId;
   set eventId(String? eventId) => _$this._eventId = eventId;
 
-  _i2.OperationType? _eventName;
-  _i2.OperationType? get eventName => _$this._eventName;
-  set eventName(_i2.OperationType? eventName) => _$this._eventName = eventName;
+  OperationType? _eventName;
+  OperationType? get eventName => _$this._eventName;
+  set eventName(OperationType? eventName) => _$this._eventName = eventName;
 
   String? _eventVersion;
   String? get eventVersion => _$this._eventVersion;
@@ -93,16 +93,15 @@ class RecordBuilder implements Builder<Record, RecordBuilder> {
   String? get awsRegion => _$this._awsRegion;
   set awsRegion(String? awsRegion) => _$this._awsRegion = awsRegion;
 
-  _i3.StreamRecordBuilder? _dynamodb;
-  _i3.StreamRecordBuilder get dynamodb =>
-      _$this._dynamodb ??= new _i3.StreamRecordBuilder();
-  set dynamodb(_i3.StreamRecordBuilder? dynamodb) =>
-      _$this._dynamodb = dynamodb;
+  StreamRecordBuilder? _dynamodb;
+  StreamRecordBuilder get dynamodb =>
+      _$this._dynamodb ??= new StreamRecordBuilder();
+  set dynamodb(StreamRecordBuilder? dynamodb) => _$this._dynamodb = dynamodb;
 
-  _i4.IdentityBuilder? _userIdentity;
-  _i4.IdentityBuilder get userIdentity =>
-      _$this._userIdentity ??= new _i4.IdentityBuilder();
-  set userIdentity(_i4.IdentityBuilder? userIdentity) =>
+  IdentityBuilder? _userIdentity;
+  IdentityBuilder get userIdentity =>
+      _$this._userIdentity ??= new IdentityBuilder();
+  set userIdentity(IdentityBuilder? userIdentity) =>
       _$this._userIdentity = userIdentity;
 
   RecordBuilder();

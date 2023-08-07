@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.put_remediation_exceptions_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/remediation_exception_resource_key.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/remediation_exception_resource_key.dart';
 
 part 'put_remediation_exceptions_request.g.dart';
 
@@ -22,13 +21,13 @@ abstract class PutRemediationExceptionsRequest
             PutRemediationExceptionsRequestBuilder> {
   factory PutRemediationExceptionsRequest({
     required String configRuleName,
-    required List<_i3.RemediationExceptionResourceKey> resourceKeys,
+    required List<RemediationExceptionResourceKey> resourceKeys,
     String? message,
     DateTime? expirationTime,
   }) {
     return _$PutRemediationExceptionsRequest._(
       configRuleName: configRuleName,
-      resourceKeys: _i4.BuiltList(resourceKeys),
+      resourceKeys: _i3.BuiltList(resourceKeys),
       message: message,
       expirationTime: expirationTime,
     );
@@ -54,7 +53,7 @@ abstract class PutRemediationExceptionsRequest
   String get configRuleName;
 
   /// An exception list of resource exception keys to be processed with the current request. Config adds exception for each resource key. For example, Config adds 3 exceptions for 3 resource keys.
-  _i4.BuiltList<_i3.RemediationExceptionResourceKey> get resourceKeys;
+  _i3.BuiltList<RemediationExceptionResourceKey> get resourceKeys;
 
   /// The message contains an explanation of the exception.
   String? get message;
@@ -136,10 +135,10 @@ class PutRemediationExceptionsRequestAwsJson11Serializer
           result.resourceKeys.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.RemediationExceptionResourceKey)],
+              _i3.BuiltList,
+              [FullType(RemediationExceptionResourceKey)],
             ),
-          ) as _i4.BuiltList<_i3.RemediationExceptionResourceKey>));
+          ) as _i3.BuiltList<RemediationExceptionResourceKey>));
         case 'Message':
           result.message = (serializers.deserialize(
             value,
@@ -179,8 +178,8 @@ class PutRemediationExceptionsRequestAwsJson11Serializer
       serializers.serialize(
         resourceKeys,
         specifiedType: const FullType(
-          _i4.BuiltList,
-          [FullType(_i3.RemediationExceptionResourceKey)],
+          _i3.BuiltList,
+          [FullType(RemediationExceptionResourceKey)],
         ),
       ),
     ]);

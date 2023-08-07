@@ -9,7 +9,7 @@ part of 'list_policies_granting_service_access_response.dart';
 class _$ListPoliciesGrantingServiceAccessResponse
     extends ListPoliciesGrantingServiceAccessResponse {
   @override
-  final _i3.BuiltList<_i2.ListPoliciesGrantingServiceAccessEntry>
+  final _i2.BuiltList<ListPoliciesGrantingServiceAccessEntry>
       policiesGrantingServiceAccess;
   @override
   final bool isTruncated;
@@ -71,14 +71,14 @@ class ListPoliciesGrantingServiceAccessResponseBuilder
             ListPoliciesGrantingServiceAccessResponseBuilder> {
   _$ListPoliciesGrantingServiceAccessResponse? _$v;
 
-  _i3.ListBuilder<_i2.ListPoliciesGrantingServiceAccessEntry>?
+  _i2.ListBuilder<ListPoliciesGrantingServiceAccessEntry>?
       _policiesGrantingServiceAccess;
-  _i3.ListBuilder<_i2.ListPoliciesGrantingServiceAccessEntry>
+  _i2.ListBuilder<ListPoliciesGrantingServiceAccessEntry>
       get policiesGrantingServiceAccess =>
           _$this._policiesGrantingServiceAccess ??=
-              new _i3.ListBuilder<_i2.ListPoliciesGrantingServiceAccessEntry>();
+              new _i2.ListBuilder<ListPoliciesGrantingServiceAccessEntry>();
   set policiesGrantingServiceAccess(
-          _i3.ListBuilder<_i2.ListPoliciesGrantingServiceAccessEntry>?
+          _i2.ListBuilder<ListPoliciesGrantingServiceAccessEntry>?
               policiesGrantingServiceAccess) =>
       _$this._policiesGrantingServiceAccess = policiesGrantingServiceAccess;
 

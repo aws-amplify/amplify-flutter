@@ -10,17 +10,17 @@ class _$DeleteObjectsRequest extends DeleteObjectsRequest {
   @override
   final String bucket;
   @override
-  final _i2.Delete delete;
+  final Delete delete;
   @override
   final String? mfa;
   @override
-  final _i4.RequestPayer? requestPayer;
+  final RequestPayer? requestPayer;
   @override
   final bool? bypassGovernanceRetention;
   @override
   final String? expectedBucketOwner;
   @override
-  final _i5.ChecksumAlgorithm? checksumAlgorithm;
+  final ChecksumAlgorithm? checksumAlgorithm;
 
   factory _$DeleteObjectsRequest(
           [void Function(DeleteObjectsRequestBuilder)? updates]) =>
@@ -86,17 +86,17 @@ class DeleteObjectsRequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  _i2.DeleteBuilder? _delete;
-  _i2.DeleteBuilder get delete => _$this._delete ??= new _i2.DeleteBuilder();
-  set delete(_i2.DeleteBuilder? delete) => _$this._delete = delete;
+  DeleteBuilder? _delete;
+  DeleteBuilder get delete => _$this._delete ??= new DeleteBuilder();
+  set delete(DeleteBuilder? delete) => _$this._delete = delete;
 
   String? _mfa;
   String? get mfa => _$this._mfa;
   set mfa(String? mfa) => _$this._mfa = mfa;
 
-  _i4.RequestPayer? _requestPayer;
-  _i4.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i4.RequestPayer? requestPayer) =>
+  RequestPayer? _requestPayer;
+  RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
   bool? _bypassGovernanceRetention;
@@ -109,9 +109,9 @@ class DeleteObjectsRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  _i5.ChecksumAlgorithm? _checksumAlgorithm;
-  _i5.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i5.ChecksumAlgorithm? checksumAlgorithm) =>
+  ChecksumAlgorithm? _checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
   DeleteObjectsRequestBuilder();

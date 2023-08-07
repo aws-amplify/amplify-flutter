@@ -9,7 +9,7 @@ part of 'get_aggregate_resource_config_response.dart';
 class _$GetAggregateResourceConfigResponse
     extends GetAggregateResourceConfigResponse {
   @override
-  final _i2.ConfigurationItem? configurationItem;
+  final ConfigurationItem? configurationItem;
 
   factory _$GetAggregateResourceConfigResponse(
           [void Function(GetAggregateResourceConfigResponseBuilder)?
@@ -50,10 +50,10 @@ class GetAggregateResourceConfigResponseBuilder
             GetAggregateResourceConfigResponseBuilder> {
   _$GetAggregateResourceConfigResponse? _$v;
 
-  _i2.ConfigurationItemBuilder? _configurationItem;
-  _i2.ConfigurationItemBuilder get configurationItem =>
-      _$this._configurationItem ??= new _i2.ConfigurationItemBuilder();
-  set configurationItem(_i2.ConfigurationItemBuilder? configurationItem) =>
+  ConfigurationItemBuilder? _configurationItem;
+  ConfigurationItemBuilder get configurationItem =>
+      _$this._configurationItem ??= new ConfigurationItemBuilder();
+  set configurationItem(ConfigurationItemBuilder? configurationItem) =>
       _$this._configurationItem = configurationItem;
 
   GetAggregateResourceConfigResponseBuilder();

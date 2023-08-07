@@ -12,7 +12,7 @@ class _$UpdateAccessKeyRequest extends UpdateAccessKeyRequest {
   @override
   final String accessKeyId;
   @override
-  final _i3.StatusType status;
+  final StatusType status;
 
   factory _$UpdateAccessKeyRequest(
           [void Function(UpdateAccessKeyRequestBuilder)? updates]) =>
@@ -68,9 +68,9 @@ class UpdateAccessKeyRequestBuilder
   String? get accessKeyId => _$this._accessKeyId;
   set accessKeyId(String? accessKeyId) => _$this._accessKeyId = accessKeyId;
 
-  _i3.StatusType? _status;
-  _i3.StatusType? get status => _$this._status;
-  set status(_i3.StatusType? status) => _$this._status = status;
+  StatusType? _status;
+  StatusType? get status => _$this._status;
+  set status(StatusType? status) => _$this._status = status;
 
   UpdateAccessKeyRequestBuilder();
 

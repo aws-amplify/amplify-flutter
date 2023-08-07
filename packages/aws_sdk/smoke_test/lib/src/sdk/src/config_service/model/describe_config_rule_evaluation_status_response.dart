@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.describe_config_rule_evaluation_status_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/config_rule_evaluation_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/config_rule_evaluation_status.dart';
 
 part 'describe_config_rule_evaluation_status_response.g.dart';
 
@@ -20,13 +19,13 @@ abstract class DescribeConfigRuleEvaluationStatusResponse
         Built<DescribeConfigRuleEvaluationStatusResponse,
             DescribeConfigRuleEvaluationStatusResponseBuilder> {
   factory DescribeConfigRuleEvaluationStatusResponse({
-    List<_i2.ConfigRuleEvaluationStatus>? configRulesEvaluationStatus,
+    List<ConfigRuleEvaluationStatus>? configRulesEvaluationStatus,
     String? nextToken,
   }) {
     return _$DescribeConfigRuleEvaluationStatusResponse._(
       configRulesEvaluationStatus: configRulesEvaluationStatus == null
           ? null
-          : _i3.BuiltList(configRulesEvaluationStatus),
+          : _i2.BuiltList(configRulesEvaluationStatus),
       nextToken: nextToken,
     );
   }
@@ -45,14 +44,13 @@ abstract class DescribeConfigRuleEvaluationStatusResponse
       payload;
 
   static const List<
-          _i4.SmithySerializer<DescribeConfigRuleEvaluationStatusResponse>>
+          _i3.SmithySerializer<DescribeConfigRuleEvaluationStatusResponse>>
       serializers = [
     DescribeConfigRuleEvaluationStatusResponseAwsJson11Serializer()
   ];
 
   /// Status information about your Config managed rules.
-  _i3.BuiltList<_i2.ConfigRuleEvaluationStatus>?
-      get configRulesEvaluationStatus;
+  _i2.BuiltList<ConfigRuleEvaluationStatus>? get configRulesEvaluationStatus;
 
   /// The string that you use in a subsequent request to get the next page of results in a paginated response.
   String? get nextToken;
@@ -77,7 +75,7 @@ abstract class DescribeConfigRuleEvaluationStatusResponse
   }
 }
 
-class DescribeConfigRuleEvaluationStatusResponseAwsJson11Serializer extends _i4
+class DescribeConfigRuleEvaluationStatusResponseAwsJson11Serializer extends _i3
     .StructuredSmithySerializer<DescribeConfigRuleEvaluationStatusResponse> {
   const DescribeConfigRuleEvaluationStatusResponseAwsJson11Serializer()
       : super('DescribeConfigRuleEvaluationStatusResponse');
@@ -88,8 +86,8 @@ class DescribeConfigRuleEvaluationStatusResponseAwsJson11Serializer extends _i4
         _$DescribeConfigRuleEvaluationStatusResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -114,10 +112,10 @@ class DescribeConfigRuleEvaluationStatusResponseAwsJson11Serializer extends _i4
           result.configRulesEvaluationStatus.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.ConfigRuleEvaluationStatus)],
+              _i2.BuiltList,
+              [FullType(ConfigRuleEvaluationStatus)],
             ),
-          ) as _i3.BuiltList<_i2.ConfigRuleEvaluationStatus>));
+          ) as _i2.BuiltList<ConfigRuleEvaluationStatus>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -146,8 +144,8 @@ class DescribeConfigRuleEvaluationStatusResponseAwsJson11Serializer extends _i4
         ..add(serializers.serialize(
           configRulesEvaluationStatus,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.ConfigRuleEvaluationStatus)],
+            _i2.BuiltList,
+            [FullType(ConfigRuleEvaluationStatus)],
           ),
         ));
     }

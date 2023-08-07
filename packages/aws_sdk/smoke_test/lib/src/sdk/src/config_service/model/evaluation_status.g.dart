@@ -8,7 +8,7 @@ part of 'evaluation_status.dart';
 
 class _$EvaluationStatus extends EvaluationStatus {
   @override
-  final _i2.ResourceEvaluationStatus status;
+  final ResourceEvaluationStatus status;
   @override
   final String? failureReason;
 
@@ -51,9 +51,9 @@ class EvaluationStatusBuilder
     implements Builder<EvaluationStatus, EvaluationStatusBuilder> {
   _$EvaluationStatus? _$v;
 
-  _i2.ResourceEvaluationStatus? _status;
-  _i2.ResourceEvaluationStatus? get status => _$this._status;
-  set status(_i2.ResourceEvaluationStatus? status) => _$this._status = status;
+  ResourceEvaluationStatus? _status;
+  ResourceEvaluationStatus? get status => _$this._status;
+  set status(ResourceEvaluationStatus? status) => _$this._status = status;
 
   String? _failureReason;
   String? get failureReason => _$this._failureReason;

@@ -3,29 +3,21 @@
 
 library smoke_test.config_service.operation.describe_compliance_by_config_rule_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i14;
+import 'dart:async' as _i6;
 
-import 'package:aws_common/aws_common.dart' as _i9;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i6;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:aws_common/aws_common.dart' as _i5;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/config_service/common/endpoint_resolver.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/config_service/common/serializers.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/config_service/model/compliance_by_config_rule.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_compliance_by_config_rule_request.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_compliance_by_config_rule_response.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/invalid_next_token_exception.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/config_service/model/invalid_parameter_value_exception.dart'
-    as _i12;
-import 'package:smoke_test/src/sdk/src/config_service/model/no_such_config_rule_exception.dart'
-    as _i13;
+import 'package:smithy_aws/smithy_aws.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/config_service/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/config_service/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/compliance_by_config_rule.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_compliance_by_config_rule_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_compliance_by_config_rule_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/invalid_next_token_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/invalid_parameter_value_exception.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/no_such_config_rule_exception.dart';
 
 /// Indicates whether the specified Config rules are compliant. If a rule is noncompliant, this action returns the number of Amazon Web Services resources that do not comply with the rule.
 ///
@@ -40,13 +32,13 @@ import 'package:smoke_test/src/sdk/src/config_service/model/no_such_config_rule_
 /// *   The rule's Lambda function has returned `NOT_APPLICABLE` for all evaluation results. This can occur if the resources were deleted or removed from the rule's scope.
 class DescribeComplianceByConfigRuleOperation extends _i1
     .PaginatedHttpOperation<
-        _i2.DescribeComplianceByConfigRuleRequest,
-        _i2.DescribeComplianceByConfigRuleRequest,
-        _i3.DescribeComplianceByConfigRuleResponse,
-        _i3.DescribeComplianceByConfigRuleResponse,
+        DescribeComplianceByConfigRuleRequest,
+        DescribeComplianceByConfigRuleRequest,
+        DescribeComplianceByConfigRuleResponse,
+        DescribeComplianceByConfigRuleResponse,
         String,
         void,
-        _i4.BuiltList<_i5.ComplianceByConfigRule>> {
+        _i2.BuiltList<ComplianceByConfigRule>> {
   /// Indicates whether the specified Config rules are compliant. If a rule is noncompliant, this action returns the number of Amazon Web Services resources that do not comply with the rule.
   ///
   /// A rule is compliant if all of the evaluated resources comply with it. It is noncompliant if any of these resources do not comply.
@@ -61,8 +53,8 @@ class DescribeComplianceByConfigRuleOperation extends _i1
   DescribeComplianceByConfigRuleOperation({
     required String region,
     Uri? baseUri,
-    _i6.AWSCredentialsProvider credentialsProvider =
-        const _i6.AWSCredentialsProvider.environment(),
+    _i3.AWSCredentialsProvider credentialsProvider =
+        const _i3.AWSCredentialsProvider.environment(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -74,13 +66,13 @@ class DescribeComplianceByConfigRuleOperation extends _i1
   @override
   late final List<
       _i1.HttpProtocol<
-          _i2.DescribeComplianceByConfigRuleRequest,
-          _i2.DescribeComplianceByConfigRuleRequest,
-          _i3.DescribeComplianceByConfigRuleResponse,
-          _i3.DescribeComplianceByConfigRuleResponse>> protocols = [
-    _i7.AwsJson1_1Protocol(
-      serializers: _i8.serializers,
-      builderFactories: _i8.builderFactories,
+          DescribeComplianceByConfigRuleRequest,
+          DescribeComplianceByConfigRuleRequest,
+          DescribeComplianceByConfigRuleResponse,
+          DescribeComplianceByConfigRuleResponse>> protocols = [
+    _i4.AwsJson1_1Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
@@ -88,14 +80,14 @@ class DescribeComplianceByConfigRuleOperation extends _i1
               'X-Amz-Target',
               'StarlingDoveService.DescribeComplianceByConfigRule',
             ),
-            _i7.WithSigV4(
+            _i4.WithSigV4(
               region: _region,
-              service: _i9.AWSService.configService,
+              service: _i5.AWSService.configService,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i7.WithSdkInvocationId(),
-            const _i7.WithSdkRequest(),
+            const _i4.WithSdkInvocationId(),
+            const _i4.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -103,8 +95,8 @@ class DescribeComplianceByConfigRuleOperation extends _i1
     )
   ];
 
-  late final _i7.AWSEndpoint _awsEndpoint = _i10.endpointResolver.resolve(
-    _i10.sdkId,
+  late final _i4.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -112,78 +104,75 @@ class DescribeComplianceByConfigRuleOperation extends _i1
 
   final Uri? _baseUri;
 
-  final _i6.AWSCredentialsProvider _credentialsProvider;
+  final _i3.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(
-          _i2.DescribeComplianceByConfigRuleRequest input) =>
+  _i1.HttpRequest buildRequest(DescribeComplianceByConfigRuleRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
       });
   @override
-  int successCode([_i3.DescribeComplianceByConfigRuleResponse? output]) => 200;
+  int successCode([DescribeComplianceByConfigRuleResponse? output]) => 200;
   @override
-  _i3.DescribeComplianceByConfigRuleResponse buildOutput(
-    _i3.DescribeComplianceByConfigRuleResponse payload,
-    _i9.AWSBaseHttpResponse response,
+  DescribeComplianceByConfigRuleResponse buildOutput(
+    DescribeComplianceByConfigRuleResponse payload,
+    _i5.AWSBaseHttpResponse response,
   ) =>
-      _i3.DescribeComplianceByConfigRuleResponse.fromResponse(
+      DescribeComplianceByConfigRuleResponse.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i11.InvalidNextTokenException,
-            _i11.InvalidNextTokenException>(
+        _i1.SmithyError<InvalidNextTokenException, InvalidNextTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidNextTokenException',
           ),
           _i1.ErrorKind.client,
-          _i11.InvalidNextTokenException,
-          builder: _i11.InvalidNextTokenException.fromResponse,
+          InvalidNextTokenException,
+          builder: InvalidNextTokenException.fromResponse,
         ),
-        _i1.SmithyError<_i12.InvalidParameterValueException,
-            _i12.InvalidParameterValueException>(
+        _i1.SmithyError<InvalidParameterValueException,
+            InvalidParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidParameterValueException',
           ),
           _i1.ErrorKind.client,
-          _i12.InvalidParameterValueException,
-          builder: _i12.InvalidParameterValueException.fromResponse,
+          InvalidParameterValueException,
+          builder: InvalidParameterValueException.fromResponse,
         ),
-        _i1.SmithyError<_i13.NoSuchConfigRuleException,
-            _i13.NoSuchConfigRuleException>(
+        _i1.SmithyError<NoSuchConfigRuleException, NoSuchConfigRuleException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchConfigRuleException',
           ),
           _i1.ErrorKind.client,
-          _i13.NoSuchConfigRuleException,
-          builder: _i13.NoSuchConfigRuleException.fromResponse,
+          NoSuchConfigRuleException,
+          builder: NoSuchConfigRuleException.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'DescribeComplianceByConfigRule';
   @override
-  _i7.AWSRetryer get retryer => _i7.AWSRetryer();
+  _i4.AWSRetryer get retryer => _i4.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.DescribeComplianceByConfigRuleResponse> run(
-    _i2.DescribeComplianceByConfigRuleRequest input, {
-    _i9.AWSHttpClient? client,
+  _i1.SmithyOperation<DescribeComplianceByConfigRuleResponse> run(
+    DescribeComplianceByConfigRuleRequest input, {
+    _i5.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i14.runZoned(
+    return _i6.runZoned(
       () => super.run(
         input,
         client: client,
@@ -191,21 +180,21 @@ class DescribeComplianceByConfigRuleOperation extends _i1
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)},
+        ...{_i5.AWSHeaders.sdkInvocationId: _i5.uuid(secure: true)},
       },
     );
   }
 
   @override
-  String? getToken(_i3.DescribeComplianceByConfigRuleResponse output) =>
+  String? getToken(DescribeComplianceByConfigRuleResponse output) =>
       output.nextToken;
   @override
-  _i4.BuiltList<_i5.ComplianceByConfigRule> getItems(
-          _i3.DescribeComplianceByConfigRuleResponse output) =>
-      output.complianceByConfigRules ?? _i4.BuiltList();
+  _i2.BuiltList<ComplianceByConfigRule> getItems(
+          DescribeComplianceByConfigRuleResponse output) =>
+      output.complianceByConfigRules ?? _i2.BuiltList();
   @override
-  _i2.DescribeComplianceByConfigRuleRequest rebuildInput(
-    _i2.DescribeComplianceByConfigRuleRequest input,
+  DescribeComplianceByConfigRuleRequest rebuildInput(
+    DescribeComplianceByConfigRuleRequest input,
     String token,
     void pageSize,
   ) =>

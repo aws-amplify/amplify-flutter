@@ -6,8 +6,8 @@ library smoke_test.iam.model.create_role_response; // ignore_for_file: no_leadin
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/role.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/role.dart';
 
 part 'create_role_response.g.dart';
 
@@ -16,7 +16,7 @@ abstract class CreateRoleResponse
     with _i1.AWSEquatable<CreateRoleResponse>
     implements Built<CreateRoleResponse, CreateRoleResponseBuilder> {
   /// Contains the response to a successful CreateRole request.
-  factory CreateRoleResponse({required _i2.Role role}) {
+  factory CreateRoleResponse({required Role role}) {
     return _$CreateRoleResponse._(role: role);
   }
 
@@ -34,12 +34,12 @@ abstract class CreateRoleResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<CreateRoleResponse>> serializers = [
+  static const List<_i2.SmithySerializer<CreateRoleResponse>> serializers = [
     CreateRoleResponseAwsQuerySerializer()
   ];
 
   /// A structure containing details about the new role.
-  _i2.Role get role;
+  Role get role;
   @override
   List<Object?> get props => [role];
   @override
@@ -54,7 +54,7 @@ abstract class CreateRoleResponse
 }
 
 class CreateRoleResponseAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<CreateRoleResponse> {
+    extends _i2.StructuredSmithySerializer<CreateRoleResponse> {
   const CreateRoleResponseAwsQuerySerializer() : super('CreateRoleResponse');
 
   @override
@@ -63,8 +63,8 @@ class CreateRoleResponseAwsQuerySerializer
         _$CreateRoleResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -88,8 +88,8 @@ class CreateRoleResponseAwsQuerySerializer
         case 'Role':
           result.role.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Role),
-          ) as _i2.Role));
+            specifiedType: const FullType(Role),
+          ) as Role));
       }
     }
 
@@ -103,17 +103,17 @@ class CreateRoleResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'CreateRoleResponseResponse',
-        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final CreateRoleResponse(:role) = object;
     result$
-      ..add(const _i3.XmlElementName('Role'))
+      ..add(const _i2.XmlElementName('Role'))
       ..add(serializers.serialize(
         role,
-        specifiedType: const FullType(_i2.Role),
+        specifiedType: const FullType(Role),
       ));
     return result$;
   }

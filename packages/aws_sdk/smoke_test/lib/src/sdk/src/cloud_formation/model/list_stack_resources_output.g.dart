@@ -8,7 +8,7 @@ part of 'list_stack_resources_output.dart';
 
 class _$ListStackResourcesOutput extends ListStackResourcesOutput {
   @override
-  final _i3.BuiltList<_i2.StackResourceSummary>? stackResourceSummaries;
+  final _i2.BuiltList<StackResourceSummary>? stackResourceSummaries;
   @override
   final String? nextToken;
 
@@ -51,12 +51,12 @@ class ListStackResourcesOutputBuilder
         Builder<ListStackResourcesOutput, ListStackResourcesOutputBuilder> {
   _$ListStackResourcesOutput? _$v;
 
-  _i3.ListBuilder<_i2.StackResourceSummary>? _stackResourceSummaries;
-  _i3.ListBuilder<_i2.StackResourceSummary> get stackResourceSummaries =>
+  _i2.ListBuilder<StackResourceSummary>? _stackResourceSummaries;
+  _i2.ListBuilder<StackResourceSummary> get stackResourceSummaries =>
       _$this._stackResourceSummaries ??=
-          new _i3.ListBuilder<_i2.StackResourceSummary>();
+          new _i2.ListBuilder<StackResourceSummary>();
   set stackResourceSummaries(
-          _i3.ListBuilder<_i2.StackResourceSummary>? stackResourceSummaries) =>
+          _i2.ListBuilder<StackResourceSummary>? stackResourceSummaries) =>
       _$this._stackResourceSummaries = stackResourceSummaries;
 
   String? _nextToken;

@@ -11,7 +11,7 @@ class _$ListConformancePackComplianceScoresResponse
   @override
   final String? nextToken;
   @override
-  final _i3.BuiltList<_i2.ConformancePackComplianceScore>
+  final _i2.BuiltList<ConformancePackComplianceScore>
       conformancePackComplianceScores;
 
   factory _$ListConformancePackComplianceScoresResponse(
@@ -69,14 +69,14 @@ class ListConformancePackComplianceScoresResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  _i3.ListBuilder<_i2.ConformancePackComplianceScore>?
+  _i2.ListBuilder<ConformancePackComplianceScore>?
       _conformancePackComplianceScores;
-  _i3.ListBuilder<_i2.ConformancePackComplianceScore>
+  _i2.ListBuilder<ConformancePackComplianceScore>
       get conformancePackComplianceScores =>
           _$this._conformancePackComplianceScores ??=
-              new _i3.ListBuilder<_i2.ConformancePackComplianceScore>();
+              new _i2.ListBuilder<ConformancePackComplianceScore>();
   set conformancePackComplianceScores(
-          _i3.ListBuilder<_i2.ConformancePackComplianceScore>?
+          _i2.ListBuilder<ConformancePackComplianceScore>?
               conformancePackComplianceScores) =>
       _$this._conformancePackComplianceScores = conformancePackComplianceScores;
 

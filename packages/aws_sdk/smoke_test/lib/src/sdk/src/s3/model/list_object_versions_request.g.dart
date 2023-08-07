@@ -12,7 +12,7 @@ class _$ListObjectVersionsRequest extends ListObjectVersionsRequest {
   @override
   final String? delimiter;
   @override
-  final _i3.EncodingType? encodingType;
+  final EncodingType? encodingType;
   @override
   final String? keyMarker;
   @override
@@ -24,9 +24,9 @@ class _$ListObjectVersionsRequest extends ListObjectVersionsRequest {
   @override
   final String? expectedBucketOwner;
   @override
-  final _i4.RequestPayer? requestPayer;
+  final RequestPayer? requestPayer;
   @override
-  final _i6.BuiltList<_i5.OptionalObjectAttributes>? optionalObjectAttributes;
+  final _i3.BuiltList<OptionalObjectAttributes>? optionalObjectAttributes;
 
   factory _$ListObjectVersionsRequest(
           [void Function(ListObjectVersionsRequestBuilder)? updates]) =>
@@ -104,9 +104,9 @@ class ListObjectVersionsRequestBuilder
   String? get delimiter => _$this._delimiter;
   set delimiter(String? delimiter) => _$this._delimiter = delimiter;
 
-  _i3.EncodingType? _encodingType;
-  _i3.EncodingType? get encodingType => _$this._encodingType;
-  set encodingType(_i3.EncodingType? encodingType) =>
+  EncodingType? _encodingType;
+  EncodingType? get encodingType => _$this._encodingType;
+  set encodingType(EncodingType? encodingType) =>
       _$this._encodingType = encodingType;
 
   String? _keyMarker;
@@ -131,17 +131,17 @@ class ListObjectVersionsRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  _i4.RequestPayer? _requestPayer;
-  _i4.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i4.RequestPayer? requestPayer) =>
+  RequestPayer? _requestPayer;
+  RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
-  _i6.ListBuilder<_i5.OptionalObjectAttributes>? _optionalObjectAttributes;
-  _i6.ListBuilder<_i5.OptionalObjectAttributes> get optionalObjectAttributes =>
+  _i3.ListBuilder<OptionalObjectAttributes>? _optionalObjectAttributes;
+  _i3.ListBuilder<OptionalObjectAttributes> get optionalObjectAttributes =>
       _$this._optionalObjectAttributes ??=
-          new _i6.ListBuilder<_i5.OptionalObjectAttributes>();
+          new _i3.ListBuilder<OptionalObjectAttributes>();
   set optionalObjectAttributes(
-          _i6.ListBuilder<_i5.OptionalObjectAttributes>?
+          _i3.ListBuilder<OptionalObjectAttributes>?
               optionalObjectAttributes) =>
       _$this._optionalObjectAttributes = optionalObjectAttributes;
 

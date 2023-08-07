@@ -4,13 +4,12 @@
 library smoke_test.config_service.model.get_discovered_resource_counts_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:fixnum/fixnum.dart' as _i2;
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_count.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_count.dart';
 
 part 'get_discovered_resource_counts_response.g.dart';
 
@@ -22,14 +21,14 @@ abstract class GetDiscoveredResourceCountsResponse
             GetDiscoveredResourceCountsResponseBuilder> {
   factory GetDiscoveredResourceCountsResponse({
     _i2.Int64? totalDiscoveredResources,
-    List<_i3.ResourceCount>? resourceCounts,
+    List<ResourceCount>? resourceCounts,
     String? nextToken,
   }) {
     totalDiscoveredResources ??= _i2.Int64.ZERO;
     return _$GetDiscoveredResourceCountsResponse._(
       totalDiscoveredResources: totalDiscoveredResources,
       resourceCounts:
-          resourceCounts == null ? null : _i4.BuiltList(resourceCounts),
+          resourceCounts == null ? null : _i3.BuiltList(resourceCounts),
       nextToken: nextToken,
     );
   }
@@ -47,7 +46,7 @@ abstract class GetDiscoveredResourceCountsResponse
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer<GetDiscoveredResourceCountsResponse>>
+  static const List<_i4.SmithySerializer<GetDiscoveredResourceCountsResponse>>
       serializers = [GetDiscoveredResourceCountsResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
@@ -67,7 +66,7 @@ abstract class GetDiscoveredResourceCountsResponse
   _i2.Int64 get totalDiscoveredResources;
 
   /// The list of `ResourceCount` objects. Each object is listed in descending order by the number of resources.
-  _i4.BuiltList<_i3.ResourceCount>? get resourceCounts;
+  _i3.BuiltList<ResourceCount>? get resourceCounts;
 
   /// The string that you use in a subsequent request to get the next page of results in a paginated response.
   String? get nextToken;
@@ -97,7 +96,7 @@ abstract class GetDiscoveredResourceCountsResponse
   }
 }
 
-class GetDiscoveredResourceCountsResponseAwsJson11Serializer extends _i5
+class GetDiscoveredResourceCountsResponseAwsJson11Serializer extends _i4
     .StructuredSmithySerializer<GetDiscoveredResourceCountsResponse> {
   const GetDiscoveredResourceCountsResponseAwsJson11Serializer()
       : super('GetDiscoveredResourceCountsResponse');
@@ -108,8 +107,8 @@ class GetDiscoveredResourceCountsResponseAwsJson11Serializer extends _i5
         _$GetDiscoveredResourceCountsResponse,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -139,10 +138,10 @@ class GetDiscoveredResourceCountsResponseAwsJson11Serializer extends _i5
           result.resourceCounts.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.ResourceCount)],
+              _i3.BuiltList,
+              [FullType(ResourceCount)],
             ),
-          ) as _i4.BuiltList<_i3.ResourceCount>));
+          ) as _i3.BuiltList<ResourceCount>));
         case 'nextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -179,8 +178,8 @@ class GetDiscoveredResourceCountsResponseAwsJson11Serializer extends _i5
         ..add(serializers.serialize(
           resourceCounts,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i3.ResourceCount)],
+            _i3.BuiltList,
+            [FullType(ResourceCount)],
           ),
         ));
     }

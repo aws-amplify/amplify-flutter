@@ -9,7 +9,7 @@ part of 'put_aggregation_authorization_response.dart';
 class _$PutAggregationAuthorizationResponse
     extends PutAggregationAuthorizationResponse {
   @override
-  final _i2.AggregationAuthorization? aggregationAuthorization;
+  final AggregationAuthorization? aggregationAuthorization;
 
   factory _$PutAggregationAuthorizationResponse(
           [void Function(PutAggregationAuthorizationResponseBuilder)?
@@ -51,12 +51,12 @@ class PutAggregationAuthorizationResponseBuilder
             PutAggregationAuthorizationResponseBuilder> {
   _$PutAggregationAuthorizationResponse? _$v;
 
-  _i2.AggregationAuthorizationBuilder? _aggregationAuthorization;
-  _i2.AggregationAuthorizationBuilder get aggregationAuthorization =>
+  AggregationAuthorizationBuilder? _aggregationAuthorization;
+  AggregationAuthorizationBuilder get aggregationAuthorization =>
       _$this._aggregationAuthorization ??=
-          new _i2.AggregationAuthorizationBuilder();
+          new AggregationAuthorizationBuilder();
   set aggregationAuthorization(
-          _i2.AggregationAuthorizationBuilder? aggregationAuthorization) =>
+          AggregationAuthorizationBuilder? aggregationAuthorization) =>
       _$this._aggregationAuthorization = aggregationAuthorization;
 
   PutAggregationAuthorizationResponseBuilder();

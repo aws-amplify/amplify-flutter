@@ -4,14 +4,12 @@
 library smoke_test.cloud_formation.model.describe_change_set_hooks_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/change_set_hook.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/change_set_hooks_status.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/change_set_hook.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/change_set_hooks_status.dart';
 
 part 'describe_change_set_hooks_output.g.dart';
 
@@ -24,8 +22,8 @@ abstract class DescribeChangeSetHooksOutput
   factory DescribeChangeSetHooksOutput({
     String? changeSetId,
     String? changeSetName,
-    List<_i2.ChangeSetHook>? hooks,
-    _i3.ChangeSetHooksStatus? status,
+    List<ChangeSetHook>? hooks,
+    ChangeSetHooksStatus? status,
     String? nextToken,
     String? stackId,
     String? stackName,
@@ -33,7 +31,7 @@ abstract class DescribeChangeSetHooksOutput
     return _$DescribeChangeSetHooksOutput._(
       changeSetId: changeSetId,
       changeSetName: changeSetName,
-      hooks: hooks == null ? null : _i4.BuiltList(hooks),
+      hooks: hooks == null ? null : _i2.BuiltList(hooks),
       status: status,
       nextToken: nextToken,
       stackId: stackId,
@@ -54,7 +52,7 @@ abstract class DescribeChangeSetHooksOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer<DescribeChangeSetHooksOutput>>
+  static const List<_i3.SmithySerializer<DescribeChangeSetHooksOutput>>
       serializers = [DescribeChangeSetHooksOutputAwsQuerySerializer()];
 
   /// The change set identifier (stack ID).
@@ -64,10 +62,10 @@ abstract class DescribeChangeSetHooksOutput
   String? get changeSetName;
 
   /// List of hook objects.
-  _i4.BuiltList<_i2.ChangeSetHook>? get hooks;
+  _i2.BuiltList<ChangeSetHook>? get hooks;
 
   /// Provides the status of the change set hook.
-  _i3.ChangeSetHooksStatus? get status;
+  ChangeSetHooksStatus? get status;
 
   /// Pagination token, `null` or empty if no more results.
   String? get nextToken;
@@ -123,7 +121,7 @@ abstract class DescribeChangeSetHooksOutput
 }
 
 class DescribeChangeSetHooksOutputAwsQuerySerializer
-    extends _i5.StructuredSmithySerializer<DescribeChangeSetHooksOutput> {
+    extends _i3.StructuredSmithySerializer<DescribeChangeSetHooksOutput> {
   const DescribeChangeSetHooksOutputAwsQuerySerializer()
       : super('DescribeChangeSetHooksOutput');
 
@@ -133,8 +131,8 @@ class DescribeChangeSetHooksOutputAwsQuerySerializer
         _$DescribeChangeSetHooksOutput,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -166,21 +164,21 @@ class DescribeChangeSetHooksOutputAwsQuerySerializer
             specifiedType: const FullType(String),
           ) as String);
         case 'Hooks':
-          result.hooks.replace((const _i5.XmlBuiltListSerializer(
-                  indexer: _i5.XmlIndexer.awsQueryList)
+          result.hooks.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i2.ChangeSetHook)],
+              _i2.BuiltList,
+              [FullType(ChangeSetHook)],
             ),
-          ) as _i4.BuiltList<_i2.ChangeSetHook>));
+          ) as _i2.BuiltList<ChangeSetHook>));
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ChangeSetHooksStatus),
-          ) as _i3.ChangeSetHooksStatus);
+            specifiedType: const FullType(ChangeSetHooksStatus),
+          ) as ChangeSetHooksStatus);
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -209,9 +207,9 @@ class DescribeChangeSetHooksOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i5.XmlElementName(
+      const _i3.XmlElementName(
         'DescribeChangeSetHooksOutputResponse',
-        _i5.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final DescribeChangeSetHooksOutput(
@@ -225,7 +223,7 @@ class DescribeChangeSetHooksOutputAwsQuerySerializer
     ) = object;
     if (changeSetId != null) {
       result$
-        ..add(const _i5.XmlElementName('ChangeSetId'))
+        ..add(const _i3.XmlElementName('ChangeSetId'))
         ..add(serializers.serialize(
           changeSetId,
           specifiedType: const FullType(String),
@@ -233,7 +231,7 @@ class DescribeChangeSetHooksOutputAwsQuerySerializer
     }
     if (changeSetName != null) {
       result$
-        ..add(const _i5.XmlElementName('ChangeSetName'))
+        ..add(const _i3.XmlElementName('ChangeSetName'))
         ..add(serializers.serialize(
           changeSetName,
           specifiedType: const FullType(String),
@@ -241,29 +239,29 @@ class DescribeChangeSetHooksOutputAwsQuerySerializer
     }
     if (hooks != null) {
       result$
-        ..add(const _i5.XmlElementName('Hooks'))
-        ..add(const _i5.XmlBuiltListSerializer(
-                indexer: _i5.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('Hooks'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           hooks,
           specifiedType: const FullType.nullable(
-            _i4.BuiltList,
-            [FullType(_i2.ChangeSetHook)],
+            _i2.BuiltList,
+            [FullType(ChangeSetHook)],
           ),
         ));
     }
     if (status != null) {
       result$
-        ..add(const _i5.XmlElementName('Status'))
+        ..add(const _i3.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(_i3.ChangeSetHooksStatus),
+          specifiedType: const FullType.nullable(ChangeSetHooksStatus),
         ));
     }
     if (nextToken != null) {
       result$
-        ..add(const _i5.XmlElementName('NextToken'))
+        ..add(const _i3.XmlElementName('NextToken'))
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
@@ -271,7 +269,7 @@ class DescribeChangeSetHooksOutputAwsQuerySerializer
     }
     if (stackId != null) {
       result$
-        ..add(const _i5.XmlElementName('StackId'))
+        ..add(const _i3.XmlElementName('StackId'))
         ..add(serializers.serialize(
           stackId,
           specifiedType: const FullType(String),
@@ -279,7 +277,7 @@ class DescribeChangeSetHooksOutputAwsQuerySerializer
     }
     if (stackName != null) {
       result$
-        ..add(const _i5.XmlElementName('StackName'))
+        ..add(const _i3.XmlElementName('StackName'))
         ..add(serializers.serialize(
           stackName,
           specifiedType: const FullType(String),

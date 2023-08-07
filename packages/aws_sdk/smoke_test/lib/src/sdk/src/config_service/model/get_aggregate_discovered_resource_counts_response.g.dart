@@ -13,7 +13,7 @@ class _$GetAggregateDiscoveredResourceCountsResponse
   @override
   final String? groupByKey;
   @override
-  final _i4.BuiltList<_i3.GroupedResourceCount>? groupedResourceCounts;
+  final _i3.BuiltList<GroupedResourceCount>? groupedResourceCounts;
   @override
   final String? nextToken;
 
@@ -83,12 +83,12 @@ class GetAggregateDiscoveredResourceCountsResponseBuilder
   String? get groupByKey => _$this._groupByKey;
   set groupByKey(String? groupByKey) => _$this._groupByKey = groupByKey;
 
-  _i4.ListBuilder<_i3.GroupedResourceCount>? _groupedResourceCounts;
-  _i4.ListBuilder<_i3.GroupedResourceCount> get groupedResourceCounts =>
+  _i3.ListBuilder<GroupedResourceCount>? _groupedResourceCounts;
+  _i3.ListBuilder<GroupedResourceCount> get groupedResourceCounts =>
       _$this._groupedResourceCounts ??=
-          new _i4.ListBuilder<_i3.GroupedResourceCount>();
+          new _i3.ListBuilder<GroupedResourceCount>();
   set groupedResourceCounts(
-          _i4.ListBuilder<_i3.GroupedResourceCount>? groupedResourceCounts) =>
+          _i3.ListBuilder<GroupedResourceCount>? groupedResourceCounts) =>
       _$this._groupedResourceCounts = groupedResourceCounts;
 
   String? _nextToken;

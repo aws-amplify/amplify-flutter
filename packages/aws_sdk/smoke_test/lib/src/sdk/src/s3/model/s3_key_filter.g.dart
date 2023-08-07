@@ -8,7 +8,7 @@ part of 's3_key_filter.dart';
 
 class _$S3KeyFilter extends S3KeyFilter {
   @override
-  final _i3.BuiltList<_i2.FilterRule>? filterRules;
+  final _i2.BuiltList<FilterRule>? filterRules;
 
   factory _$S3KeyFilter([void Function(S3KeyFilterBuilder)? updates]) =>
       (new S3KeyFilterBuilder()..update(updates))._build();
@@ -40,10 +40,10 @@ class _$S3KeyFilter extends S3KeyFilter {
 class S3KeyFilterBuilder implements Builder<S3KeyFilter, S3KeyFilterBuilder> {
   _$S3KeyFilter? _$v;
 
-  _i3.ListBuilder<_i2.FilterRule>? _filterRules;
-  _i3.ListBuilder<_i2.FilterRule> get filterRules =>
-      _$this._filterRules ??= new _i3.ListBuilder<_i2.FilterRule>();
-  set filterRules(_i3.ListBuilder<_i2.FilterRule>? filterRules) =>
+  _i2.ListBuilder<FilterRule>? _filterRules;
+  _i2.ListBuilder<FilterRule> get filterRules =>
+      _$this._filterRules ??= new _i2.ListBuilder<FilterRule>();
+  set filterRules(_i2.ListBuilder<FilterRule>? filterRules) =>
       _$this._filterRules = filterRules;
 
   S3KeyFilterBuilder();

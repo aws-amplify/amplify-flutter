@@ -11,7 +11,7 @@ class _$TestPayloadStructureInputOutput
   @override
   final String? testId;
   @override
-  final _i2.PayloadConfig? payloadConfig;
+  final PayloadConfig? payloadConfig;
 
   factory _$TestPayloadStructureInputOutput(
           [void Function(TestPayloadStructureInputOutputBuilder)? updates]) =>
@@ -57,10 +57,10 @@ class TestPayloadStructureInputOutputBuilder
   String? get testId => _$this._testId;
   set testId(String? testId) => _$this._testId = testId;
 
-  _i2.PayloadConfigBuilder? _payloadConfig;
-  _i2.PayloadConfigBuilder get payloadConfig =>
-      _$this._payloadConfig ??= new _i2.PayloadConfigBuilder();
-  set payloadConfig(_i2.PayloadConfigBuilder? payloadConfig) =>
+  PayloadConfigBuilder? _payloadConfig;
+  PayloadConfigBuilder get payloadConfig =>
+      _$this._payloadConfig ??= new PayloadConfigBuilder();
+  set payloadConfig(PayloadConfigBuilder? payloadConfig) =>
       _$this._payloadConfig = payloadConfig;
 
   TestPayloadStructureInputOutputBuilder();

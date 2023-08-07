@@ -7,9 +7,8 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:fixnum/fixnum.dart' as _i3;
-import 'package:meta/meta.dart' as _i5;
-import 'package:rest_xml_with_namespace_v2/src/rest_xml_protocol_namespace/model/nested_with_namespace.dart'
-    as _i4;
+import 'package:meta/meta.dart' as _i4;
+import 'package:rest_xml_with_namespace_v2/src/rest_xml_protocol_namespace/model/nested_with_namespace.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'simple_scalar_properties_input_output.g.dart';
@@ -32,7 +31,7 @@ abstract class SimpleScalarPropertiesInputOutput
     int? integerValue,
     _i3.Int64? longValue,
     double? floatValue,
-    _i4.NestedWithNamespace? nested,
+    NestedWithNamespace? nested,
     double? doubleValue,
   }) {
     return _$SimpleScalarPropertiesInputOutput._(
@@ -115,7 +114,7 @@ abstract class SimpleScalarPropertiesInputOutput
   int? get integerValue;
   _i3.Int64? get longValue;
   double? get floatValue;
-  _i4.NestedWithNamespace? get nested;
+  NestedWithNamespace? get nested;
   double? get doubleValue;
   @override
   SimpleScalarPropertiesInputOutputPayload getPayload() =>
@@ -199,7 +198,7 @@ abstract class SimpleScalarPropertiesInputOutput
   }
 }
 
-@_i5.internal
+@_i4.internal
 abstract class SimpleScalarPropertiesInputOutputPayload
     with
         _i2.AWSEquatable<SimpleScalarPropertiesInputOutputPayload>
@@ -218,7 +217,7 @@ abstract class SimpleScalarPropertiesInputOutputPayload
   double? get floatValue;
   int? get integerValue;
   _i3.Int64? get longValue;
-  _i4.NestedWithNamespace? get nested;
+  NestedWithNamespace? get nested;
   int? get shortValue;
   String? get stringValue;
   bool? get trueBooleanValue;
@@ -351,8 +350,8 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i1
         case 'Nested':
           result.nested.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.NestedWithNamespace),
-          ) as _i4.NestedWithNamespace));
+            specifiedType: const FullType(NestedWithNamespace),
+          ) as NestedWithNamespace));
         case 'shortValue':
           result.shortValue = (serializers.deserialize(
             value,
@@ -457,7 +456,7 @@ class SimpleScalarPropertiesInputOutputRestXmlSerializer extends _i1
         ))
         ..add(serializers.serialize(
           nested,
-          specifiedType: const FullType(_i4.NestedWithNamespace),
+          specifiedType: const FullType(NestedWithNamespace),
         ));
     }
     if (shortValue != null) {

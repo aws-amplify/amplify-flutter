@@ -9,7 +9,7 @@ part of 'get_compliance_summary_by_config_rule_response.dart';
 class _$GetComplianceSummaryByConfigRuleResponse
     extends GetComplianceSummaryByConfigRuleResponse {
   @override
-  final _i2.ComplianceSummary? complianceSummary;
+  final ComplianceSummary? complianceSummary;
 
   factory _$GetComplianceSummaryByConfigRuleResponse(
           [void Function(GetComplianceSummaryByConfigRuleResponseBuilder)?
@@ -52,10 +52,10 @@ class GetComplianceSummaryByConfigRuleResponseBuilder
             GetComplianceSummaryByConfigRuleResponseBuilder> {
   _$GetComplianceSummaryByConfigRuleResponse? _$v;
 
-  _i2.ComplianceSummaryBuilder? _complianceSummary;
-  _i2.ComplianceSummaryBuilder get complianceSummary =>
-      _$this._complianceSummary ??= new _i2.ComplianceSummaryBuilder();
-  set complianceSummary(_i2.ComplianceSummaryBuilder? complianceSummary) =>
+  ComplianceSummaryBuilder? _complianceSummary;
+  ComplianceSummaryBuilder get complianceSummary =>
+      _$this._complianceSummary ??= new ComplianceSummaryBuilder();
+  set complianceSummary(ComplianceSummaryBuilder? complianceSummary) =>
       _$this._complianceSummary = complianceSummary;
 
   GetComplianceSummaryByConfigRuleResponseBuilder();

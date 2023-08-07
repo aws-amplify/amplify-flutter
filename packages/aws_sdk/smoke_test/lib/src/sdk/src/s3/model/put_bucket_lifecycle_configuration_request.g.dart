@@ -11,9 +11,9 @@ class _$PutBucketLifecycleConfigurationRequest
   @override
   final String bucket;
   @override
-  final _i4.ChecksumAlgorithm? checksumAlgorithm;
+  final ChecksumAlgorithm? checksumAlgorithm;
   @override
-  final _i2.BucketLifecycleConfiguration? lifecycleConfiguration;
+  final BucketLifecycleConfiguration? lifecycleConfiguration;
   @override
   final String? expectedBucketOwner;
 
@@ -75,17 +75,17 @@ class PutBucketLifecycleConfigurationRequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  _i4.ChecksumAlgorithm? _checksumAlgorithm;
-  _i4.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
+  ChecksumAlgorithm? _checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
-  _i2.BucketLifecycleConfigurationBuilder? _lifecycleConfiguration;
-  _i2.BucketLifecycleConfigurationBuilder get lifecycleConfiguration =>
+  BucketLifecycleConfigurationBuilder? _lifecycleConfiguration;
+  BucketLifecycleConfigurationBuilder get lifecycleConfiguration =>
       _$this._lifecycleConfiguration ??=
-          new _i2.BucketLifecycleConfigurationBuilder();
+          new BucketLifecycleConfigurationBuilder();
   set lifecycleConfiguration(
-          _i2.BucketLifecycleConfigurationBuilder? lifecycleConfiguration) =>
+          BucketLifecycleConfigurationBuilder? lifecycleConfiguration) =>
       _$this._lifecycleConfiguration = lifecycleConfiguration;
 
   String? _expectedBucketOwner;

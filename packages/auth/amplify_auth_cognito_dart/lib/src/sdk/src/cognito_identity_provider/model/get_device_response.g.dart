@@ -8,7 +8,7 @@ part of 'get_device_response.dart';
 
 class _$GetDeviceResponse extends GetDeviceResponse {
   @override
-  final _i2.DeviceType device;
+  final DeviceType device;
 
   factory _$GetDeviceResponse(
           [void Function(GetDeviceResponseBuilder)? updates]) =>
@@ -46,10 +46,9 @@ class GetDeviceResponseBuilder
     implements Builder<GetDeviceResponse, GetDeviceResponseBuilder> {
   _$GetDeviceResponse? _$v;
 
-  _i2.DeviceTypeBuilder? _device;
-  _i2.DeviceTypeBuilder get device =>
-      _$this._device ??= new _i2.DeviceTypeBuilder();
-  set device(_i2.DeviceTypeBuilder? device) => _$this._device = device;
+  DeviceTypeBuilder? _device;
+  DeviceTypeBuilder get device => _$this._device ??= new DeviceTypeBuilder();
+  set device(DeviceTypeBuilder? device) => _$this._device = device;
 
   GetDeviceResponseBuilder();
 

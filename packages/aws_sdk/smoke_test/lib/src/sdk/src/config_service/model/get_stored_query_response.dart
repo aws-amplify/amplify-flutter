@@ -6,16 +6,15 @@ library smoke_test.config_service.model.get_stored_query_response; // ignore_for
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/stored_query.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/stored_query.dart';
 
 part 'get_stored_query_response.g.dart';
 
 abstract class GetStoredQueryResponse
     with _i1.AWSEquatable<GetStoredQueryResponse>
     implements Built<GetStoredQueryResponse, GetStoredQueryResponseBuilder> {
-  factory GetStoredQueryResponse({_i2.StoredQuery? storedQuery}) {
+  factory GetStoredQueryResponse({StoredQuery? storedQuery}) {
     return _$GetStoredQueryResponse._(storedQuery: storedQuery);
   }
 
@@ -32,11 +31,11 @@ abstract class GetStoredQueryResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<GetStoredQueryResponse>> serializers =
+  static const List<_i2.SmithySerializer<GetStoredQueryResponse>> serializers =
       [GetStoredQueryResponseAwsJson11Serializer()];
 
   /// Returns a `StoredQuery` object.
-  _i2.StoredQuery? get storedQuery;
+  StoredQuery? get storedQuery;
   @override
   List<Object?> get props => [storedQuery];
   @override
@@ -51,7 +50,7 @@ abstract class GetStoredQueryResponse
 }
 
 class GetStoredQueryResponseAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<GetStoredQueryResponse> {
+    extends _i2.StructuredSmithySerializer<GetStoredQueryResponse> {
   const GetStoredQueryResponseAwsJson11Serializer()
       : super('GetStoredQueryResponse');
 
@@ -61,8 +60,8 @@ class GetStoredQueryResponseAwsJson11Serializer
         _$GetStoredQueryResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -86,8 +85,8 @@ class GetStoredQueryResponseAwsJson11Serializer
         case 'StoredQuery':
           result.storedQuery.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.StoredQuery),
-          ) as _i2.StoredQuery));
+            specifiedType: const FullType(StoredQuery),
+          ) as StoredQuery));
       }
     }
 
@@ -107,7 +106,7 @@ class GetStoredQueryResponseAwsJson11Serializer
         ..add('StoredQuery')
         ..add(serializers.serialize(
           storedQuery,
-          specifiedType: const FullType(_i2.StoredQuery),
+          specifiedType: const FullType(StoredQuery),
         ));
     }
     return result$;

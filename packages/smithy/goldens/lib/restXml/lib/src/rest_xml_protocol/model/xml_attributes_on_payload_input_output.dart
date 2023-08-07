@@ -3,26 +3,25 @@
 
 library rest_xml_v1.rest_xml_protocol.model.xml_attributes_on_payload_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_common/aws_common.dart' as _i3;
+import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v1/src/rest_xml_protocol/model/xml_attributes_input_output.dart'
-    as _i2;
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/xml_attributes_input_output.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:xml/xml.dart' as _i4;
+import 'package:xml/xml.dart' as _i3;
 
 part 'xml_attributes_on_payload_input_output.g.dart';
 
 abstract class XmlAttributesOnPayloadInputOutput
     with
-        _i1.HttpInput<_i2.XmlAttributesInputOutput>,
-        _i3.AWSEquatable<XmlAttributesOnPayloadInputOutput>
+        _i1.HttpInput<XmlAttributesInputOutput>,
+        _i2.AWSEquatable<XmlAttributesOnPayloadInputOutput>
     implements
         Built<XmlAttributesOnPayloadInputOutput,
             XmlAttributesOnPayloadInputOutputBuilder>,
-        _i1.HasPayload<_i2.XmlAttributesInputOutput> {
+        _i1.HasPayload<XmlAttributesInputOutput> {
   factory XmlAttributesOnPayloadInputOutput(
-      {_i2.XmlAttributesInputOutput? payload}) {
+      {XmlAttributesInputOutput? payload}) {
     return _$XmlAttributesOnPayloadInputOutput._(payload: payload);
   }
 
@@ -33,8 +32,8 @@ abstract class XmlAttributesOnPayloadInputOutput
   const XmlAttributesOnPayloadInputOutput._();
 
   factory XmlAttributesOnPayloadInputOutput.fromRequest(
-    _i2.XmlAttributesInputOutput? payload,
-    _i3.AWSBaseHttpRequest request, {
+    XmlAttributesInputOutput? payload,
+    _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
       XmlAttributesOnPayloadInputOutput.build((b) {
@@ -45,8 +44,8 @@ abstract class XmlAttributesOnPayloadInputOutput
 
   /// Constructs a [XmlAttributesOnPayloadInputOutput] from a [payload] and [response].
   factory XmlAttributesOnPayloadInputOutput.fromResponse(
-    _i2.XmlAttributesInputOutput? payload,
-    _i3.AWSBaseHttpResponse response,
+    XmlAttributesInputOutput? payload,
+    _i2.AWSBaseHttpResponse response,
   ) =>
       XmlAttributesOnPayloadInputOutput.build((b) {
         if (payload != null) {
@@ -54,13 +53,13 @@ abstract class XmlAttributesOnPayloadInputOutput
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.XmlAttributesInputOutput?>>
+  static const List<_i1.SmithySerializer<XmlAttributesInputOutput?>>
       serializers = [XmlAttributesOnPayloadInputOutputRestXmlSerializer()];
 
-  _i2.XmlAttributesInputOutput? get payload;
+  XmlAttributesInputOutput? get payload;
   @override
-  _i2.XmlAttributesInputOutput? getPayload() =>
-      payload ?? _i2.XmlAttributesInputOutput();
+  XmlAttributesInputOutput? getPayload() =>
+      payload ?? XmlAttributesInputOutput();
   @override
   List<Object?> get props => [payload];
   @override
@@ -76,7 +75,7 @@ abstract class XmlAttributesOnPayloadInputOutput
 }
 
 class XmlAttributesOnPayloadInputOutputRestXmlSerializer
-    extends _i1.StructuredSmithySerializer<_i2.XmlAttributesInputOutput> {
+    extends _i1.StructuredSmithySerializer<XmlAttributesInputOutput> {
   const XmlAttributesOnPayloadInputOutputRestXmlSerializer()
       : super('XmlAttributesOnPayloadInputOutput');
 
@@ -93,12 +92,12 @@ class XmlAttributesOnPayloadInputOutputRestXmlSerializer
         )
       ];
   @override
-  _i2.XmlAttributesInputOutput deserialize(
+  XmlAttributesInputOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i2.XmlAttributesInputOutputBuilder();
+    final result = XmlAttributesInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -127,16 +126,16 @@ class XmlAttributesOnPayloadInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i2.XmlAttributesInputOutput object, {
+    XmlAttributesInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
       const _i1.XmlElementName('XmlAttributesInputOutput')
     ];
-    final _i2.XmlAttributesInputOutput(:foo, :attr) = object;
+    final XmlAttributesInputOutput(:foo, :attr) = object;
     if (attr != null) {
-      result$.add(_i4.XmlAttribute(
-        _i4.XmlName('test'),
+      result$.add(_i3.XmlAttribute(
+        _i3.XmlName('test'),
         (serializers.serialize(
           attr,
           specifiedType: const FullType(String),

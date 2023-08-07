@@ -4,16 +4,13 @@
 library smoke_test.dynamo_db.model.put_item_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/consumed_capacity.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/item_collection_metrics.dart'
-    as _i4;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/consumed_capacity.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/item_collection_metrics.dart';
 
 part 'put_item_output.g.dart';
 
@@ -23,12 +20,12 @@ abstract class PutItemOutput
     implements Built<PutItemOutput, PutItemOutputBuilder> {
   /// Represents the output of a `PutItem` operation.
   factory PutItemOutput({
-    Map<String, _i2.AttributeValue>? attributes,
-    _i3.ConsumedCapacity? consumedCapacity,
-    _i4.ItemCollectionMetrics? itemCollectionMetrics,
+    Map<String, AttributeValue>? attributes,
+    ConsumedCapacity? consumedCapacity,
+    ItemCollectionMetrics? itemCollectionMetrics,
   }) {
     return _$PutItemOutput._(
-      attributes: attributes == null ? null : _i5.BuiltMap(attributes),
+      attributes: attributes == null ? null : _i2.BuiltMap(attributes),
       consumedCapacity: consumedCapacity,
       itemCollectionMetrics: itemCollectionMetrics,
     );
@@ -47,15 +44,15 @@ abstract class PutItemOutput
   ) =>
       payload;
 
-  static const List<_i6.SmithySerializer<PutItemOutput>> serializers = [
+  static const List<_i3.SmithySerializer<PutItemOutput>> serializers = [
     PutItemOutputAwsJson10Serializer()
   ];
 
   /// The attribute values as they appeared before the `PutItem` operation, but only if `ReturnValues` is specified as `ALL_OLD` in the request. Each element consists of an attribute name and an attribute value.
-  _i5.BuiltMap<String, _i2.AttributeValue>? get attributes;
+  _i2.BuiltMap<String, AttributeValue>? get attributes;
 
   /// The capacity units consumed by the `PutItem` operation. The data returned includes the total provisioned throughput consumed, along with statistics for the table and any indexes involved in the operation. `ConsumedCapacity` is only returned if the `ReturnConsumedCapacity` parameter was specified. For more information, see [Provisioned Throughput](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html) in the _Amazon DynamoDB Developer Guide_.
-  _i3.ConsumedCapacity? get consumedCapacity;
+  ConsumedCapacity? get consumedCapacity;
 
   /// Information about item collections, if any, that were affected by the `PutItem` operation. `ItemCollectionMetrics` is only returned if the `ReturnItemCollectionMetrics` parameter was specified. If the table does not have any local secondary indexes, this information is not returned in the response.
   ///
@@ -66,7 +63,7 @@ abstract class PutItemOutput
   /// *   `SizeEstimateRangeGB` \- An estimate of item collection size, in gigabytes. This value is a two-element array containing a lower bound and an upper bound for the estimate. The estimate includes the size of all the items in the table, plus the size of all attributes projected into all of the local secondary indexes on that table. Use this estimate to measure whether a local secondary index is approaching its size limit.
   ///
   ///     The estimate is subject to change over time; therefore, do not rely on the precision or accuracy of the estimate.
-  _i4.ItemCollectionMetrics? get itemCollectionMetrics;
+  ItemCollectionMetrics? get itemCollectionMetrics;
   @override
   List<Object?> get props => [
         attributes,
@@ -93,7 +90,7 @@ abstract class PutItemOutput
 }
 
 class PutItemOutputAwsJson10Serializer
-    extends _i6.StructuredSmithySerializer<PutItemOutput> {
+    extends _i3.StructuredSmithySerializer<PutItemOutput> {
   const PutItemOutputAwsJson10Serializer() : super('PutItemOutput');
 
   @override
@@ -102,8 +99,8 @@ class PutItemOutputAwsJson10Serializer
         _$PutItemOutput,
       ];
   @override
-  Iterable<_i6.ShapeId> get supportedProtocols => const [
-        _i6.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -128,23 +125,23 @@ class PutItemOutputAwsJson10Serializer
           result.attributes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i2.AttributeValue),
+                FullType(AttributeValue),
               ],
             ),
-          ) as _i5.BuiltMap<String, _i2.AttributeValue>));
+          ) as _i2.BuiltMap<String, AttributeValue>));
         case 'ConsumedCapacity':
           result.consumedCapacity.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ConsumedCapacity),
-          ) as _i3.ConsumedCapacity));
+            specifiedType: const FullType(ConsumedCapacity),
+          ) as ConsumedCapacity));
         case 'ItemCollectionMetrics':
           result.itemCollectionMetrics.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ItemCollectionMetrics),
-          ) as _i4.ItemCollectionMetrics));
+            specifiedType: const FullType(ItemCollectionMetrics),
+          ) as ItemCollectionMetrics));
       }
     }
 
@@ -169,10 +166,10 @@ class PutItemOutputAwsJson10Serializer
         ..add(serializers.serialize(
           attributes,
           specifiedType: const FullType(
-            _i5.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
-              FullType(_i2.AttributeValue),
+              FullType(AttributeValue),
             ],
           ),
         ));
@@ -182,7 +179,7 @@ class PutItemOutputAwsJson10Serializer
         ..add('ConsumedCapacity')
         ..add(serializers.serialize(
           consumedCapacity,
-          specifiedType: const FullType(_i3.ConsumedCapacity),
+          specifiedType: const FullType(ConsumedCapacity),
         ));
     }
     if (itemCollectionMetrics != null) {
@@ -190,7 +187,7 @@ class PutItemOutputAwsJson10Serializer
         ..add('ItemCollectionMetrics')
         ..add(serializers.serialize(
           itemCollectionMetrics,
-          specifiedType: const FullType(_i4.ItemCollectionMetrics),
+          specifiedType: const FullType(ItemCollectionMetrics),
         ));
     }
     return result$;

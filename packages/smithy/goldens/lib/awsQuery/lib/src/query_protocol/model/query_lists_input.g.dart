@@ -8,17 +8,17 @@ part of 'query_lists_input.dart';
 
 class _$QueryListsInput extends QueryListsInput {
   @override
-  final _i5.BuiltList<String>? listArg;
+  final _i3.BuiltList<String>? listArg;
   @override
-  final _i5.BuiltList<_i3.GreetingStruct>? complexListArg;
+  final _i3.BuiltList<GreetingStruct>? complexListArg;
   @override
-  final _i5.BuiltList<String>? flattenedListArg;
+  final _i3.BuiltList<String>? flattenedListArg;
   @override
-  final _i5.BuiltList<String>? listArgWithXmlNameMember;
+  final _i3.BuiltList<String>? listArgWithXmlNameMember;
   @override
-  final _i5.BuiltList<String>? flattenedListArgWithXmlName;
+  final _i3.BuiltList<String>? flattenedListArgWithXmlName;
   @override
-  final _i4.NestedStructWithList? nestedWithList;
+  final NestedStructWithList? nestedWithList;
 
   factory _$QueryListsInput([void Function(QueryListsInputBuilder)? updates]) =>
       (new QueryListsInputBuilder()..update(updates))._build();
@@ -70,41 +70,41 @@ class QueryListsInputBuilder
     implements Builder<QueryListsInput, QueryListsInputBuilder> {
   _$QueryListsInput? _$v;
 
-  _i5.ListBuilder<String>? _listArg;
-  _i5.ListBuilder<String> get listArg =>
-      _$this._listArg ??= new _i5.ListBuilder<String>();
-  set listArg(_i5.ListBuilder<String>? listArg) => _$this._listArg = listArg;
+  _i3.ListBuilder<String>? _listArg;
+  _i3.ListBuilder<String> get listArg =>
+      _$this._listArg ??= new _i3.ListBuilder<String>();
+  set listArg(_i3.ListBuilder<String>? listArg) => _$this._listArg = listArg;
 
-  _i5.ListBuilder<_i3.GreetingStruct>? _complexListArg;
-  _i5.ListBuilder<_i3.GreetingStruct> get complexListArg =>
-      _$this._complexListArg ??= new _i5.ListBuilder<_i3.GreetingStruct>();
-  set complexListArg(_i5.ListBuilder<_i3.GreetingStruct>? complexListArg) =>
+  _i3.ListBuilder<GreetingStruct>? _complexListArg;
+  _i3.ListBuilder<GreetingStruct> get complexListArg =>
+      _$this._complexListArg ??= new _i3.ListBuilder<GreetingStruct>();
+  set complexListArg(_i3.ListBuilder<GreetingStruct>? complexListArg) =>
       _$this._complexListArg = complexListArg;
 
-  _i5.ListBuilder<String>? _flattenedListArg;
-  _i5.ListBuilder<String> get flattenedListArg =>
-      _$this._flattenedListArg ??= new _i5.ListBuilder<String>();
-  set flattenedListArg(_i5.ListBuilder<String>? flattenedListArg) =>
+  _i3.ListBuilder<String>? _flattenedListArg;
+  _i3.ListBuilder<String> get flattenedListArg =>
+      _$this._flattenedListArg ??= new _i3.ListBuilder<String>();
+  set flattenedListArg(_i3.ListBuilder<String>? flattenedListArg) =>
       _$this._flattenedListArg = flattenedListArg;
 
-  _i5.ListBuilder<String>? _listArgWithXmlNameMember;
-  _i5.ListBuilder<String> get listArgWithXmlNameMember =>
-      _$this._listArgWithXmlNameMember ??= new _i5.ListBuilder<String>();
+  _i3.ListBuilder<String>? _listArgWithXmlNameMember;
+  _i3.ListBuilder<String> get listArgWithXmlNameMember =>
+      _$this._listArgWithXmlNameMember ??= new _i3.ListBuilder<String>();
   set listArgWithXmlNameMember(
-          _i5.ListBuilder<String>? listArgWithXmlNameMember) =>
+          _i3.ListBuilder<String>? listArgWithXmlNameMember) =>
       _$this._listArgWithXmlNameMember = listArgWithXmlNameMember;
 
-  _i5.ListBuilder<String>? _flattenedListArgWithXmlName;
-  _i5.ListBuilder<String> get flattenedListArgWithXmlName =>
-      _$this._flattenedListArgWithXmlName ??= new _i5.ListBuilder<String>();
+  _i3.ListBuilder<String>? _flattenedListArgWithXmlName;
+  _i3.ListBuilder<String> get flattenedListArgWithXmlName =>
+      _$this._flattenedListArgWithXmlName ??= new _i3.ListBuilder<String>();
   set flattenedListArgWithXmlName(
-          _i5.ListBuilder<String>? flattenedListArgWithXmlName) =>
+          _i3.ListBuilder<String>? flattenedListArgWithXmlName) =>
       _$this._flattenedListArgWithXmlName = flattenedListArgWithXmlName;
 
-  _i4.NestedStructWithListBuilder? _nestedWithList;
-  _i4.NestedStructWithListBuilder get nestedWithList =>
-      _$this._nestedWithList ??= new _i4.NestedStructWithListBuilder();
-  set nestedWithList(_i4.NestedStructWithListBuilder? nestedWithList) =>
+  NestedStructWithListBuilder? _nestedWithList;
+  NestedStructWithListBuilder get nestedWithList =>
+      _$this._nestedWithList ??= new NestedStructWithListBuilder();
+  set nestedWithList(NestedStructWithListBuilder? nestedWithList) =>
       _$this._nestedWithList = nestedWithList;
 
   QueryListsInputBuilder();

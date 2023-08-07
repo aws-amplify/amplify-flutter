@@ -6,9 +6,8 @@ library smoke_test.config_service.model.resource_identifier; // ignore_for_file:
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart';
 
 part 'resource_identifier.g.dart';
 
@@ -18,7 +17,7 @@ abstract class ResourceIdentifier
     implements Built<ResourceIdentifier, ResourceIdentifierBuilder> {
   /// The details that identify a resource that is discovered by Config, including the resource type, ID, and (if available) the custom resource name.
   factory ResourceIdentifier({
-    _i2.ResourceType? resourceType,
+    ResourceType? resourceType,
     String? resourceId,
     String? resourceName,
     DateTime? resourceDeletionTime,
@@ -38,12 +37,12 @@ abstract class ResourceIdentifier
 
   const ResourceIdentifier._();
 
-  static const List<_i3.SmithySerializer<ResourceIdentifier>> serializers = [
+  static const List<_i2.SmithySerializer<ResourceIdentifier>> serializers = [
     ResourceIdentifierAwsJson11Serializer()
   ];
 
   /// The type of resource.
-  _i2.ResourceType? get resourceType;
+  ResourceType? get resourceType;
 
   /// The ID of the resource (for example, `sg-xxxxxx`).
   String? get resourceId;
@@ -84,7 +83,7 @@ abstract class ResourceIdentifier
 }
 
 class ResourceIdentifierAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<ResourceIdentifier> {
+    extends _i2.StructuredSmithySerializer<ResourceIdentifier> {
   const ResourceIdentifierAwsJson11Serializer() : super('ResourceIdentifier');
 
   @override
@@ -93,8 +92,8 @@ class ResourceIdentifierAwsJson11Serializer
         _$ResourceIdentifier,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -118,8 +117,8 @@ class ResourceIdentifierAwsJson11Serializer
         case 'resourceType':
           result.resourceType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ResourceType),
-          ) as _i2.ResourceType);
+            specifiedType: const FullType(ResourceType),
+          ) as ResourceType);
         case 'resourceId':
           result.resourceId = (serializers.deserialize(
             value,
@@ -159,7 +158,7 @@ class ResourceIdentifierAwsJson11Serializer
         ..add('resourceType')
         ..add(serializers.serialize(
           resourceType,
-          specifiedType: const FullType(_i2.ResourceType),
+          specifiedType: const FullType(ResourceType),
         ));
     }
     if (resourceId != null) {

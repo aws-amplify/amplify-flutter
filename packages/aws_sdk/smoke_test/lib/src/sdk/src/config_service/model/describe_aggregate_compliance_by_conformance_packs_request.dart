@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_conformance_pack_compliance_filters.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_conformance_pack_compliance_filters.dart';
 
 part 'describe_aggregate_compliance_by_conformance_packs_request.g.dart';
 
@@ -21,7 +20,7 @@ abstract class DescribeAggregateComplianceByConformancePacksRequest
             DescribeAggregateComplianceByConformancePacksRequestBuilder> {
   factory DescribeAggregateComplianceByConformancePacksRequest({
     required String configurationAggregatorName,
-    _i3.AggregateConformancePackComplianceFilters? filters,
+    AggregateConformancePackComplianceFilters? filters,
     int? limit,
     String? nextToken,
   }) {
@@ -64,7 +63,7 @@ abstract class DescribeAggregateComplianceByConformancePacksRequest
   String get configurationAggregatorName;
 
   /// Filters the result by `AggregateConformancePackComplianceFilters` object.
-  _i3.AggregateConformancePackComplianceFilters? get filters;
+  AggregateConformancePackComplianceFilters? get filters;
 
   /// The maximum number of conformance packs compliance details returned on each page. The default is maximum. If you specify 0, Config uses the default.
   int get limit;
@@ -148,8 +147,8 @@ class DescribeAggregateComplianceByConformancePacksRequestAwsJson11Serializer
           result.filters.replace((serializers.deserialize(
             value,
             specifiedType:
-                const FullType(_i3.AggregateConformancePackComplianceFilters),
-          ) as _i3.AggregateConformancePackComplianceFilters));
+                const FullType(AggregateConformancePackComplianceFilters),
+          ) as AggregateConformancePackComplianceFilters));
         case 'Limit':
           result.limit = (serializers.deserialize(
             value,
@@ -197,7 +196,7 @@ class DescribeAggregateComplianceByConformancePacksRequestAwsJson11Serializer
         ..add(serializers.serialize(
           filters,
           specifiedType:
-              const FullType(_i3.AggregateConformancePackComplianceFilters),
+              const FullType(AggregateConformancePackComplianceFilters),
         ));
     }
     if (nextToken != null) {

@@ -4,13 +4,12 @@
 library smoke_test.config_service.model.put_config_rule_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/config_rule.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/tag.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/config_service/model/config_rule.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/tag.dart';
 
 part 'put_config_rule_request.g.dart';
 
@@ -20,12 +19,12 @@ abstract class PutConfigRuleRequest
         _i2.AWSEquatable<PutConfigRuleRequest>
     implements Built<PutConfigRuleRequest, PutConfigRuleRequestBuilder> {
   factory PutConfigRuleRequest({
-    required _i3.ConfigRule configRule,
-    List<_i4.Tag>? tags,
+    required ConfigRule configRule,
+    List<Tag>? tags,
   }) {
     return _$PutConfigRuleRequest._(
       configRule: configRule,
-      tags: tags == null ? null : _i5.BuiltList(tags),
+      tags: tags == null ? null : _i3.BuiltList(tags),
     );
   }
 
@@ -47,10 +46,10 @@ abstract class PutConfigRuleRequest
   ];
 
   /// The rule that you want to add to your account.
-  _i3.ConfigRule get configRule;
+  ConfigRule get configRule;
 
   /// An array of tag object.
-  _i5.BuiltList<_i4.Tag>? get tags;
+  _i3.BuiltList<Tag>? get tags;
   @override
   PutConfigRuleRequest getPayload() => this;
   @override
@@ -109,16 +108,16 @@ class PutConfigRuleRequestAwsJson11Serializer
         case 'ConfigRule':
           result.configRule.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ConfigRule),
-          ) as _i3.ConfigRule));
+            specifiedType: const FullType(ConfigRule),
+          ) as ConfigRule));
         case 'Tags':
           result.tags.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(_i4.Tag)],
+              _i3.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i5.BuiltList<_i4.Tag>));
+          ) as _i3.BuiltList<Tag>));
       }
     }
 
@@ -137,7 +136,7 @@ class PutConfigRuleRequestAwsJson11Serializer
       'ConfigRule',
       serializers.serialize(
         configRule,
-        specifiedType: const FullType(_i3.ConfigRule),
+        specifiedType: const FullType(ConfigRule),
       ),
     ]);
     if (tags != null) {
@@ -146,8 +145,8 @@ class PutConfigRuleRequestAwsJson11Serializer
         ..add(serializers.serialize(
           tags,
           specifiedType: const FullType(
-            _i5.BuiltList,
-            [FullType(_i4.Tag)],
+            _i3.BuiltList,
+            [FullType(Tag)],
           ),
         ));
     }

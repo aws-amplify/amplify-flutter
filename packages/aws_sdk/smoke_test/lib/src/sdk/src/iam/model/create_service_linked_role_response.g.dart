@@ -9,7 +9,7 @@ part of 'create_service_linked_role_response.dart';
 class _$CreateServiceLinkedRoleResponse
     extends CreateServiceLinkedRoleResponse {
   @override
-  final _i2.Role? role;
+  final Role? role;
 
   factory _$CreateServiceLinkedRoleResponse(
           [void Function(CreateServiceLinkedRoleResponseBuilder)? updates]) =>
@@ -47,9 +47,9 @@ class CreateServiceLinkedRoleResponseBuilder
             CreateServiceLinkedRoleResponseBuilder> {
   _$CreateServiceLinkedRoleResponse? _$v;
 
-  _i2.RoleBuilder? _role;
-  _i2.RoleBuilder get role => _$this._role ??= new _i2.RoleBuilder();
-  set role(_i2.RoleBuilder? role) => _$this._role = role;
+  RoleBuilder? _role;
+  RoleBuilder get role => _$this._role ??= new RoleBuilder();
+  set role(RoleBuilder? role) => _$this._role = role;
 
   CreateServiceLinkedRoleResponseBuilder();
 

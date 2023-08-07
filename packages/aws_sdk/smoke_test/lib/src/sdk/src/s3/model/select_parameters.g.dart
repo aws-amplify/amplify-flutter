@@ -8,13 +8,13 @@ part of 'select_parameters.dart';
 
 class _$SelectParameters extends SelectParameters {
   @override
-  final _i2.InputSerialization inputSerialization;
+  final InputSerialization inputSerialization;
   @override
-  final _i3.ExpressionType expressionType;
+  final ExpressionType expressionType;
   @override
   final String expression;
   @override
-  final _i4.OutputSerialization outputSerialization;
+  final OutputSerialization outputSerialization;
 
   factory _$SelectParameters(
           [void Function(SelectParametersBuilder)? updates]) =>
@@ -70,26 +70,25 @@ class SelectParametersBuilder
     implements Builder<SelectParameters, SelectParametersBuilder> {
   _$SelectParameters? _$v;
 
-  _i2.InputSerializationBuilder? _inputSerialization;
-  _i2.InputSerializationBuilder get inputSerialization =>
-      _$this._inputSerialization ??= new _i2.InputSerializationBuilder();
-  set inputSerialization(_i2.InputSerializationBuilder? inputSerialization) =>
+  InputSerializationBuilder? _inputSerialization;
+  InputSerializationBuilder get inputSerialization =>
+      _$this._inputSerialization ??= new InputSerializationBuilder();
+  set inputSerialization(InputSerializationBuilder? inputSerialization) =>
       _$this._inputSerialization = inputSerialization;
 
-  _i3.ExpressionType? _expressionType;
-  _i3.ExpressionType? get expressionType => _$this._expressionType;
-  set expressionType(_i3.ExpressionType? expressionType) =>
+  ExpressionType? _expressionType;
+  ExpressionType? get expressionType => _$this._expressionType;
+  set expressionType(ExpressionType? expressionType) =>
       _$this._expressionType = expressionType;
 
   String? _expression;
   String? get expression => _$this._expression;
   set expression(String? expression) => _$this._expression = expression;
 
-  _i4.OutputSerializationBuilder? _outputSerialization;
-  _i4.OutputSerializationBuilder get outputSerialization =>
-      _$this._outputSerialization ??= new _i4.OutputSerializationBuilder();
-  set outputSerialization(
-          _i4.OutputSerializationBuilder? outputSerialization) =>
+  OutputSerializationBuilder? _outputSerialization;
+  OutputSerializationBuilder get outputSerialization =>
+      _$this._outputSerialization ??= new OutputSerializationBuilder();
+  set outputSerialization(OutputSerializationBuilder? outputSerialization) =>
       _$this._outputSerialization = outputSerialization;
 
   SelectParametersBuilder();

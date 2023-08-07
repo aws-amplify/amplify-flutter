@@ -10,7 +10,7 @@ class _$ReplicationConfiguration extends ReplicationConfiguration {
   @override
   final String role;
   @override
-  final _i3.BuiltList<_i2.ReplicationRule> rules;
+  final _i2.BuiltList<ReplicationRule> rules;
 
   factory _$ReplicationConfiguration(
           [void Function(ReplicationConfigurationBuilder)? updates]) =>
@@ -60,11 +60,10 @@ class ReplicationConfigurationBuilder
   String? get role => _$this._role;
   set role(String? role) => _$this._role = role;
 
-  _i3.ListBuilder<_i2.ReplicationRule>? _rules;
-  _i3.ListBuilder<_i2.ReplicationRule> get rules =>
-      _$this._rules ??= new _i3.ListBuilder<_i2.ReplicationRule>();
-  set rules(_i3.ListBuilder<_i2.ReplicationRule>? rules) =>
-      _$this._rules = rules;
+  _i2.ListBuilder<ReplicationRule>? _rules;
+  _i2.ListBuilder<ReplicationRule> get rules =>
+      _$this._rules ??= new _i2.ListBuilder<ReplicationRule>();
+  set rules(_i2.ListBuilder<ReplicationRule>? rules) => _$this._rules = rules;
 
   ReplicationConfigurationBuilder();
 

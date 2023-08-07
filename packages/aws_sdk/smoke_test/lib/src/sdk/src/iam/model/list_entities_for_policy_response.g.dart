@@ -8,11 +8,11 @@ part of 'list_entities_for_policy_response.dart';
 
 class _$ListEntitiesForPolicyResponse extends ListEntitiesForPolicyResponse {
   @override
-  final _i5.BuiltList<_i2.PolicyGroup>? policyGroups;
+  final _i2.BuiltList<PolicyGroup>? policyGroups;
   @override
-  final _i5.BuiltList<_i3.PolicyUser>? policyUsers;
+  final _i2.BuiltList<PolicyUser>? policyUsers;
   @override
-  final _i5.BuiltList<_i4.PolicyRole>? policyRoles;
+  final _i2.BuiltList<PolicyRole>? policyRoles;
   @override
   final bool isTruncated;
   @override
@@ -72,22 +72,22 @@ class ListEntitiesForPolicyResponseBuilder
             ListEntitiesForPolicyResponseBuilder> {
   _$ListEntitiesForPolicyResponse? _$v;
 
-  _i5.ListBuilder<_i2.PolicyGroup>? _policyGroups;
-  _i5.ListBuilder<_i2.PolicyGroup> get policyGroups =>
-      _$this._policyGroups ??= new _i5.ListBuilder<_i2.PolicyGroup>();
-  set policyGroups(_i5.ListBuilder<_i2.PolicyGroup>? policyGroups) =>
+  _i2.ListBuilder<PolicyGroup>? _policyGroups;
+  _i2.ListBuilder<PolicyGroup> get policyGroups =>
+      _$this._policyGroups ??= new _i2.ListBuilder<PolicyGroup>();
+  set policyGroups(_i2.ListBuilder<PolicyGroup>? policyGroups) =>
       _$this._policyGroups = policyGroups;
 
-  _i5.ListBuilder<_i3.PolicyUser>? _policyUsers;
-  _i5.ListBuilder<_i3.PolicyUser> get policyUsers =>
-      _$this._policyUsers ??= new _i5.ListBuilder<_i3.PolicyUser>();
-  set policyUsers(_i5.ListBuilder<_i3.PolicyUser>? policyUsers) =>
+  _i2.ListBuilder<PolicyUser>? _policyUsers;
+  _i2.ListBuilder<PolicyUser> get policyUsers =>
+      _$this._policyUsers ??= new _i2.ListBuilder<PolicyUser>();
+  set policyUsers(_i2.ListBuilder<PolicyUser>? policyUsers) =>
       _$this._policyUsers = policyUsers;
 
-  _i5.ListBuilder<_i4.PolicyRole>? _policyRoles;
-  _i5.ListBuilder<_i4.PolicyRole> get policyRoles =>
-      _$this._policyRoles ??= new _i5.ListBuilder<_i4.PolicyRole>();
-  set policyRoles(_i5.ListBuilder<_i4.PolicyRole>? policyRoles) =>
+  _i2.ListBuilder<PolicyRole>? _policyRoles;
+  _i2.ListBuilder<PolicyRole> get policyRoles =>
+      _$this._policyRoles ??= new _i2.ListBuilder<PolicyRole>();
+  set policyRoles(_i2.ListBuilder<PolicyRole>? policyRoles) =>
       _$this._policyRoles = policyRoles;
 
   bool? _isTruncated;

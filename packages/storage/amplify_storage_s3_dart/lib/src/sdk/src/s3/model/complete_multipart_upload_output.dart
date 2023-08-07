@@ -3,14 +3,12 @@
 
 library amplify_storage_s3_dart.s3.model.complete_multipart_upload_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_charged.dart'
-    as _i4;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/server_side_encryption.dart'
-    as _i3;
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_charged.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/server_side_encryption.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i5;
+import 'package:meta/meta.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i2;
 
 part 'complete_multipart_upload_output.g.dart';
@@ -32,11 +30,11 @@ abstract class CompleteMultipartUploadOutput
     String? checksumCrc32C,
     String? checksumSha1,
     String? checksumSha256,
-    _i3.ServerSideEncryption? serverSideEncryption,
+    ServerSideEncryption? serverSideEncryption,
     String? versionId,
     String? ssekmsKeyId,
     bool? bucketKeyEnabled,
-    _i4.RequestCharged? requestCharged,
+    RequestCharged? requestCharged,
   }) {
     return _$CompleteMultipartUploadOutput._(
       location: location,
@@ -80,7 +78,7 @@ abstract class CompleteMultipartUploadOutput
           b.expiration = response.headers['x-amz-expiration']!;
         }
         if (response.headers['x-amz-server-side-encryption'] != null) {
-          b.serverSideEncryption = _i3.ServerSideEncryption.values
+          b.serverSideEncryption = ServerSideEncryption.values
               .byValue(response.headers['x-amz-server-side-encryption']!);
         }
         if (response.headers['x-amz-version-id'] != null) {
@@ -99,7 +97,7 @@ abstract class CompleteMultipartUploadOutput
               'true';
         }
         if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = _i4.RequestCharged.values
+          b.requestCharged = RequestCharged.values
               .byValue(response.headers['x-amz-request-charged']!);
         }
       });
@@ -139,7 +137,7 @@ abstract class CompleteMultipartUploadOutput
   String? get checksumSha256;
 
   /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`).
-  _i3.ServerSideEncryption? get serverSideEncryption;
+  ServerSideEncryption? get serverSideEncryption;
 
   /// Version ID of the newly created object, in case the bucket has versioning turned on.
   String? get versionId;
@@ -151,7 +149,7 @@ abstract class CompleteMultipartUploadOutput
   bool? get bucketKeyEnabled;
 
   /// If present, indicates that the requester was successfully charged for the request.
-  _i4.RequestCharged? get requestCharged;
+  RequestCharged? get requestCharged;
   @override
   CompleteMultipartUploadOutputPayload getPayload() =>
       CompleteMultipartUploadOutputPayload((b) {
@@ -244,7 +242,7 @@ abstract class CompleteMultipartUploadOutput
   }
 }
 
-@_i5.internal
+@_i3.internal
 abstract class CompleteMultipartUploadOutputPayload
     with
         _i1.AWSEquatable<CompleteMultipartUploadOutputPayload>

@@ -6,8 +6,8 @@ library smoke_test.s3.model.notification_configuration_filter; // ignore_for_fil
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/s3_key_filter.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/s3_key_filter.dart';
 
 part 'notification_configuration_filter.g.dart';
 
@@ -19,7 +19,7 @@ abstract class NotificationConfigurationFilter
         Built<NotificationConfigurationFilter,
             NotificationConfigurationFilterBuilder> {
   /// Specifies object key name filtering rules. For information about key name filtering, see [Configuring event notifications using object key name filtering](https://docs.aws.amazon.com/AmazonS3/latest/userguide/notification-how-to-filtering.html) in the _Amazon S3 User Guide_.
-  factory NotificationConfigurationFilter({_i2.S3KeyFilter? key}) {
+  factory NotificationConfigurationFilter({S3KeyFilter? key}) {
     return _$NotificationConfigurationFilter._(key: key);
   }
 
@@ -30,11 +30,11 @@ abstract class NotificationConfigurationFilter
 
   const NotificationConfigurationFilter._();
 
-  static const List<_i3.SmithySerializer<NotificationConfigurationFilter>>
+  static const List<_i2.SmithySerializer<NotificationConfigurationFilter>>
       serializers = [NotificationConfigurationFilterRestXmlSerializer()];
 
   /// A container for object key name prefix and suffix filtering rules.
-  _i2.S3KeyFilter? get key;
+  S3KeyFilter? get key;
   @override
   List<Object?> get props => [key];
   @override
@@ -50,7 +50,7 @@ abstract class NotificationConfigurationFilter
 }
 
 class NotificationConfigurationFilterRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<NotificationConfigurationFilter> {
+    extends _i2.StructuredSmithySerializer<NotificationConfigurationFilter> {
   const NotificationConfigurationFilterRestXmlSerializer()
       : super('NotificationConfigurationFilter');
 
@@ -60,8 +60,8 @@ class NotificationConfigurationFilterRestXmlSerializer
         _$NotificationConfigurationFilter,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -85,8 +85,8 @@ class NotificationConfigurationFilterRestXmlSerializer
         case 'S3Key':
           result.key.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.S3KeyFilter),
-          ) as _i2.S3KeyFilter));
+            specifiedType: const FullType(S3KeyFilter),
+          ) as S3KeyFilter));
       }
     }
 
@@ -100,18 +100,18 @@ class NotificationConfigurationFilterRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'NotificationConfigurationFilter',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final NotificationConfigurationFilter(:key) = object;
     if (key != null) {
       result$
-        ..add(const _i3.XmlElementName('S3Key'))
+        ..add(const _i2.XmlElementName('S3Key'))
         ..add(serializers.serialize(
           key,
-          specifiedType: const FullType(_i2.S3KeyFilter),
+          specifiedType: const FullType(S3KeyFilter),
         ));
     }
     return result$;

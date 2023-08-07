@@ -8,7 +8,7 @@ part of 'get_session_token_response.dart';
 
 class _$GetSessionTokenResponse extends GetSessionTokenResponse {
   @override
-  final _i2.Credentials? credentials;
+  final Credentials? credentials;
 
   factory _$GetSessionTokenResponse(
           [void Function(GetSessionTokenResponseBuilder)? updates]) =>
@@ -45,10 +45,10 @@ class GetSessionTokenResponseBuilder
         Builder<GetSessionTokenResponse, GetSessionTokenResponseBuilder> {
   _$GetSessionTokenResponse? _$v;
 
-  _i2.CredentialsBuilder? _credentials;
-  _i2.CredentialsBuilder get credentials =>
-      _$this._credentials ??= new _i2.CredentialsBuilder();
-  set credentials(_i2.CredentialsBuilder? credentials) =>
+  CredentialsBuilder? _credentials;
+  CredentialsBuilder get credentials =>
+      _$this._credentials ??= new CredentialsBuilder();
+  set credentials(CredentialsBuilder? credentials) =>
       _$this._credentials = credentials;
 
   GetSessionTokenResponseBuilder();

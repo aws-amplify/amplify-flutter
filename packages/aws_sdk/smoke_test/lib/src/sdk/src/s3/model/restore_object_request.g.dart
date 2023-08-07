@@ -14,11 +14,11 @@ class _$RestoreObjectRequest extends RestoreObjectRequest {
   @override
   final String? versionId;
   @override
-  final _i2.RestoreRequest? restoreRequest;
+  final RestoreRequest? restoreRequest;
   @override
-  final _i4.RequestPayer? requestPayer;
+  final RequestPayer? requestPayer;
   @override
-  final _i5.ChecksumAlgorithm? checksumAlgorithm;
+  final ChecksumAlgorithm? checksumAlgorithm;
   @override
   final String? expectedBucketOwner;
 
@@ -93,20 +93,20 @@ class RestoreObjectRequestBuilder
   String? get versionId => _$this._versionId;
   set versionId(String? versionId) => _$this._versionId = versionId;
 
-  _i2.RestoreRequestBuilder? _restoreRequest;
-  _i2.RestoreRequestBuilder get restoreRequest =>
-      _$this._restoreRequest ??= new _i2.RestoreRequestBuilder();
-  set restoreRequest(_i2.RestoreRequestBuilder? restoreRequest) =>
+  RestoreRequestBuilder? _restoreRequest;
+  RestoreRequestBuilder get restoreRequest =>
+      _$this._restoreRequest ??= new RestoreRequestBuilder();
+  set restoreRequest(RestoreRequestBuilder? restoreRequest) =>
       _$this._restoreRequest = restoreRequest;
 
-  _i4.RequestPayer? _requestPayer;
-  _i4.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i4.RequestPayer? requestPayer) =>
+  RequestPayer? _requestPayer;
+  RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
-  _i5.ChecksumAlgorithm? _checksumAlgorithm;
-  _i5.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i5.ChecksumAlgorithm? checksumAlgorithm) =>
+  ChecksumAlgorithm? _checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
   String? _expectedBucketOwner;

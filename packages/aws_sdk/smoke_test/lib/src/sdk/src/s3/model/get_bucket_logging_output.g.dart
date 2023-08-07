@@ -8,7 +8,7 @@ part of 'get_bucket_logging_output.dart';
 
 class _$GetBucketLoggingOutput extends GetBucketLoggingOutput {
   @override
-  final _i2.LoggingEnabled? loggingEnabled;
+  final LoggingEnabled? loggingEnabled;
 
   factory _$GetBucketLoggingOutput(
           [void Function(GetBucketLoggingOutputBuilder)? updates]) =>
@@ -45,10 +45,10 @@ class GetBucketLoggingOutputBuilder
     implements Builder<GetBucketLoggingOutput, GetBucketLoggingOutputBuilder> {
   _$GetBucketLoggingOutput? _$v;
 
-  _i2.LoggingEnabledBuilder? _loggingEnabled;
-  _i2.LoggingEnabledBuilder get loggingEnabled =>
-      _$this._loggingEnabled ??= new _i2.LoggingEnabledBuilder();
-  set loggingEnabled(_i2.LoggingEnabledBuilder? loggingEnabled) =>
+  LoggingEnabledBuilder? _loggingEnabled;
+  LoggingEnabledBuilder get loggingEnabled =>
+      _$this._loggingEnabled ??= new LoggingEnabledBuilder();
+  set loggingEnabled(LoggingEnabledBuilder? loggingEnabled) =>
       _$this._loggingEnabled = loggingEnabled;
 
   GetBucketLoggingOutputBuilder();

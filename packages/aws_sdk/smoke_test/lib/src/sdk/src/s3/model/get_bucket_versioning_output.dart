@@ -6,10 +6,9 @@ library smoke_test.s3.model.get_bucket_versioning_output; // ignore_for_file: no
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/bucket_versioning_status.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/mfa_delete_status.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/bucket_versioning_status.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/mfa_delete_status.dart';
 
 part 'get_bucket_versioning_output.g.dart';
 
@@ -18,8 +17,8 @@ abstract class GetBucketVersioningOutput
     implements
         Built<GetBucketVersioningOutput, GetBucketVersioningOutputBuilder> {
   factory GetBucketVersioningOutput({
-    _i2.BucketVersioningStatus? status,
-    _i3.MfaDeleteStatus? mfaDelete,
+    BucketVersioningStatus? status,
+    MfaDeleteStatus? mfaDelete,
   }) {
     return _$GetBucketVersioningOutput._(
       status: status,
@@ -40,14 +39,14 @@ abstract class GetBucketVersioningOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<GetBucketVersioningOutput>>
+  static const List<_i2.SmithySerializer<GetBucketVersioningOutput>>
       serializers = [GetBucketVersioningOutputRestXmlSerializer()];
 
   /// The versioning state of the bucket.
-  _i2.BucketVersioningStatus? get status;
+  BucketVersioningStatus? get status;
 
   /// Specifies whether MFA delete is enabled in the bucket versioning configuration. This element is only returned if the bucket has been configured with MFA delete. If the bucket has never been so configured, this element is not returned.
-  _i3.MfaDeleteStatus? get mfaDelete;
+  MfaDeleteStatus? get mfaDelete;
   @override
   List<Object?> get props => [
         status,
@@ -69,7 +68,7 @@ abstract class GetBucketVersioningOutput
 }
 
 class GetBucketVersioningOutputRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<GetBucketVersioningOutput> {
+    extends _i2.StructuredSmithySerializer<GetBucketVersioningOutput> {
   const GetBucketVersioningOutputRestXmlSerializer()
       : super('GetBucketVersioningOutput');
 
@@ -79,8 +78,8 @@ class GetBucketVersioningOutputRestXmlSerializer
         _$GetBucketVersioningOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -104,13 +103,13 @@ class GetBucketVersioningOutputRestXmlSerializer
         case 'MfaDelete':
           result.mfaDelete = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.MfaDeleteStatus),
-          ) as _i3.MfaDeleteStatus);
+            specifiedType: const FullType(MfaDeleteStatus),
+          ) as MfaDeleteStatus);
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.BucketVersioningStatus),
-          ) as _i2.BucketVersioningStatus);
+            specifiedType: const FullType(BucketVersioningStatus),
+          ) as BucketVersioningStatus);
       }
     }
 
@@ -124,26 +123,26 @@ class GetBucketVersioningOutputRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'VersioningConfiguration',
-        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final GetBucketVersioningOutput(:mfaDelete, :status) = object;
     if (mfaDelete != null) {
       result$
-        ..add(const _i4.XmlElementName('MfaDelete'))
+        ..add(const _i2.XmlElementName('MfaDelete'))
         ..add(serializers.serialize(
           mfaDelete,
-          specifiedType: const FullType.nullable(_i3.MfaDeleteStatus),
+          specifiedType: const FullType.nullable(MfaDeleteStatus),
         ));
     }
     if (status != null) {
       result$
-        ..add(const _i4.XmlElementName('Status'))
+        ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType.nullable(_i2.BucketVersioningStatus),
+          specifiedType: const FullType.nullable(BucketVersioningStatus),
         ));
     }
     return result$;

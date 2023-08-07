@@ -12,9 +12,9 @@ class _$TopicConfiguration extends TopicConfiguration {
   @override
   final String topicArn;
   @override
-  final _i4.BuiltList<_i2.Event> events;
+  final _i2.BuiltList<Event> events;
   @override
-  final _i3.NotificationConfigurationFilter? filter;
+  final NotificationConfigurationFilter? filter;
 
   factory _$TopicConfiguration(
           [void Function(TopicConfigurationBuilder)? updates]) =>
@@ -72,15 +72,15 @@ class TopicConfigurationBuilder
   String? get topicArn => _$this._topicArn;
   set topicArn(String? topicArn) => _$this._topicArn = topicArn;
 
-  _i4.ListBuilder<_i2.Event>? _events;
-  _i4.ListBuilder<_i2.Event> get events =>
-      _$this._events ??= new _i4.ListBuilder<_i2.Event>();
-  set events(_i4.ListBuilder<_i2.Event>? events) => _$this._events = events;
+  _i2.ListBuilder<Event>? _events;
+  _i2.ListBuilder<Event> get events =>
+      _$this._events ??= new _i2.ListBuilder<Event>();
+  set events(_i2.ListBuilder<Event>? events) => _$this._events = events;
 
-  _i3.NotificationConfigurationFilterBuilder? _filter;
-  _i3.NotificationConfigurationFilterBuilder get filter =>
-      _$this._filter ??= new _i3.NotificationConfigurationFilterBuilder();
-  set filter(_i3.NotificationConfigurationFilterBuilder? filter) =>
+  NotificationConfigurationFilterBuilder? _filter;
+  NotificationConfigurationFilterBuilder get filter =>
+      _$this._filter ??= new NotificationConfigurationFilterBuilder();
+  set filter(NotificationConfigurationFilterBuilder? filter) =>
       _$this._filter = filter;
 
   TopicConfigurationBuilder();

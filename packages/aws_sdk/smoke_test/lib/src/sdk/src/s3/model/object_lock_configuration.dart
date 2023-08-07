@@ -6,10 +6,9 @@ library smoke_test.s3.model.object_lock_configuration; // ignore_for_file: no_le
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/object_lock_enabled.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/object_lock_rule.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/object_lock_enabled.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/object_lock_rule.dart';
 
 part 'object_lock_configuration.g.dart';
 
@@ -19,8 +18,8 @@ abstract class ObjectLockConfiguration
     implements Built<ObjectLockConfiguration, ObjectLockConfigurationBuilder> {
   /// The container element for Object Lock configuration parameters.
   factory ObjectLockConfiguration({
-    _i2.ObjectLockEnabled? objectLockEnabled,
-    _i3.ObjectLockRule? rule,
+    ObjectLockEnabled? objectLockEnabled,
+    ObjectLockRule? rule,
   }) {
     return _$ObjectLockConfiguration._(
       objectLockEnabled: objectLockEnabled,
@@ -35,14 +34,14 @@ abstract class ObjectLockConfiguration
 
   const ObjectLockConfiguration._();
 
-  static const List<_i4.SmithySerializer<ObjectLockConfiguration>> serializers =
+  static const List<_i2.SmithySerializer<ObjectLockConfiguration>> serializers =
       [ObjectLockConfigurationRestXmlSerializer()];
 
   /// Indicates whether this bucket has an Object Lock configuration enabled. Enable `ObjectLockEnabled` when you apply `ObjectLockConfiguration` to a bucket.
-  _i2.ObjectLockEnabled? get objectLockEnabled;
+  ObjectLockEnabled? get objectLockEnabled;
 
   /// Specifies the Object Lock rule for the specified object. Enable the this rule when you apply `ObjectLockConfiguration` to a bucket. Bucket settings require both a mode and a period. The period can be either `Days` or `Years` but you must select one. You cannot specify `Days` and `Years` at the same time.
-  _i3.ObjectLockRule? get rule;
+  ObjectLockRule? get rule;
   @override
   List<Object?> get props => [
         objectLockEnabled,
@@ -64,7 +63,7 @@ abstract class ObjectLockConfiguration
 }
 
 class ObjectLockConfigurationRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<ObjectLockConfiguration> {
+    extends _i2.StructuredSmithySerializer<ObjectLockConfiguration> {
   const ObjectLockConfigurationRestXmlSerializer()
       : super('ObjectLockConfiguration');
 
@@ -74,8 +73,8 @@ class ObjectLockConfigurationRestXmlSerializer
         _$ObjectLockConfiguration,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -99,13 +98,13 @@ class ObjectLockConfigurationRestXmlSerializer
         case 'ObjectLockEnabled':
           result.objectLockEnabled = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ObjectLockEnabled),
-          ) as _i2.ObjectLockEnabled);
+            specifiedType: const FullType(ObjectLockEnabled),
+          ) as ObjectLockEnabled);
         case 'Rule':
           result.rule.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ObjectLockRule),
-          ) as _i3.ObjectLockRule));
+            specifiedType: const FullType(ObjectLockRule),
+          ) as ObjectLockRule));
       }
     }
 
@@ -119,26 +118,26 @@ class ObjectLockConfigurationRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'ObjectLockConfiguration',
-        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final ObjectLockConfiguration(:objectLockEnabled, :rule) = object;
     if (objectLockEnabled != null) {
       result$
-        ..add(const _i4.XmlElementName('ObjectLockEnabled'))
+        ..add(const _i2.XmlElementName('ObjectLockEnabled'))
         ..add(serializers.serialize(
           objectLockEnabled,
-          specifiedType: const FullType.nullable(_i2.ObjectLockEnabled),
+          specifiedType: const FullType.nullable(ObjectLockEnabled),
         ));
     }
     if (rule != null) {
       result$
-        ..add(const _i4.XmlElementName('Rule'))
+        ..add(const _i2.XmlElementName('Rule'))
         ..add(serializers.serialize(
           rule,
-          specifiedType: const FullType(_i3.ObjectLockRule),
+          specifiedType: const FullType(ObjectLockRule),
         ));
     }
     return result$;

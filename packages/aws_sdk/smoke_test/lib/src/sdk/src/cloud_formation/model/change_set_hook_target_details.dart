@@ -6,11 +6,9 @@ library smoke_test.cloud_formation.model.change_set_hook_target_details; // igno
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/change_set_hook_resource_target_details.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/hook_target_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/change_set_hook_resource_target_details.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/hook_target_type.dart';
 
 part 'change_set_hook_target_details.g.dart';
 
@@ -21,8 +19,8 @@ abstract class ChangeSetHookTargetDetails
         Built<ChangeSetHookTargetDetails, ChangeSetHookTargetDetailsBuilder> {
   /// Specifies target details for an activated hook.
   factory ChangeSetHookTargetDetails({
-    _i2.HookTargetType? targetType,
-    _i3.ChangeSetHookResourceTargetDetails? resourceTargetDetails,
+    HookTargetType? targetType,
+    ChangeSetHookResourceTargetDetails? resourceTargetDetails,
   }) {
     return _$ChangeSetHookTargetDetails._(
       targetType: targetType,
@@ -37,14 +35,14 @@ abstract class ChangeSetHookTargetDetails
 
   const ChangeSetHookTargetDetails._();
 
-  static const List<_i4.SmithySerializer<ChangeSetHookTargetDetails>>
+  static const List<_i2.SmithySerializer<ChangeSetHookTargetDetails>>
       serializers = [ChangeSetHookTargetDetailsAwsQuerySerializer()];
 
   /// The name of the type.
-  _i2.HookTargetType? get targetType;
+  HookTargetType? get targetType;
 
   /// Required if `TargetType` is `RESOURCE`.
-  _i3.ChangeSetHookResourceTargetDetails? get resourceTargetDetails;
+  ChangeSetHookResourceTargetDetails? get resourceTargetDetails;
   @override
   List<Object?> get props => [
         targetType,
@@ -66,7 +64,7 @@ abstract class ChangeSetHookTargetDetails
 }
 
 class ChangeSetHookTargetDetailsAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<ChangeSetHookTargetDetails> {
+    extends _i2.StructuredSmithySerializer<ChangeSetHookTargetDetails> {
   const ChangeSetHookTargetDetailsAwsQuerySerializer()
       : super('ChangeSetHookTargetDetails');
 
@@ -76,8 +74,8 @@ class ChangeSetHookTargetDetailsAwsQuerySerializer
         _$ChangeSetHookTargetDetails,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -101,14 +99,13 @@ class ChangeSetHookTargetDetailsAwsQuerySerializer
         case 'TargetType':
           result.targetType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.HookTargetType),
-          ) as _i2.HookTargetType);
+            specifiedType: const FullType(HookTargetType),
+          ) as HookTargetType);
         case 'ResourceTargetDetails':
           result.resourceTargetDetails.replace((serializers.deserialize(
             value,
-            specifiedType:
-                const FullType(_i3.ChangeSetHookResourceTargetDetails),
-          ) as _i3.ChangeSetHookResourceTargetDetails));
+            specifiedType: const FullType(ChangeSetHookResourceTargetDetails),
+          ) as ChangeSetHookResourceTargetDetails));
       }
     }
 
@@ -122,27 +119,27 @@ class ChangeSetHookTargetDetailsAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'ChangeSetHookTargetDetailsResponse',
-        _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final ChangeSetHookTargetDetails(:targetType, :resourceTargetDetails) =
         object;
     if (targetType != null) {
       result$
-        ..add(const _i4.XmlElementName('TargetType'))
+        ..add(const _i2.XmlElementName('TargetType'))
         ..add(serializers.serialize(
           targetType,
-          specifiedType: const FullType.nullable(_i2.HookTargetType),
+          specifiedType: const FullType.nullable(HookTargetType),
         ));
     }
     if (resourceTargetDetails != null) {
       result$
-        ..add(const _i4.XmlElementName('ResourceTargetDetails'))
+        ..add(const _i2.XmlElementName('ResourceTargetDetails'))
         ..add(serializers.serialize(
           resourceTargetDetails,
-          specifiedType: const FullType(_i3.ChangeSetHookResourceTargetDetails),
+          specifiedType: const FullType(ChangeSetHookResourceTargetDetails),
         ));
     }
     return result$;

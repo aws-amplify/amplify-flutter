@@ -3,20 +3,18 @@
 
 library aws_json1_0_v2.json_rpc_10.operation.no_input_and_output_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i7;
+import 'dart:async' as _i4;
 
-import 'package:aws_common/aws_common.dart' as _i6;
-import 'package:aws_json1_0_v2/src/json_rpc_10/common/endpoint_resolver.dart'
-    as _i5;
-import 'package:aws_json1_0_v2/src/json_rpc_10/common/serializers.dart' as _i4;
-import 'package:aws_json1_0_v2/src/json_rpc_10/model/no_input_and_output_output.dart'
-    as _i2;
+import 'package:aws_common/aws_common.dart' as _i3;
+import 'package:aws_json1_0_v2/src/json_rpc_10/common/endpoint_resolver.dart';
+import 'package:aws_json1_0_v2/src/json_rpc_10/common/serializers.dart';
+import 'package:aws_json1_0_v2/src/json_rpc_10/model/no_input_and_output_output.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 /// The example tests how requests and responses are serialized when there's no request or response payload because the operation has no input and the output is empty. While this should be rare, code generators must support this.
 class NoInputAndOutputOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
-    _i2.NoInputAndOutputOutput, _i2.NoInputAndOutputOutput> {
+    NoInputAndOutputOutput, NoInputAndOutputOutput> {
   /// The example tests how requests and responses are serialized when there's no request or response payload because the operation has no input and the output is empty. While this should be rare, code generators must support this.
   NoInputAndOutputOperation({
     required String region,
@@ -30,11 +28,11 @@ class NoInputAndOutputOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
 
   @override
   late final List<
-      _i1.HttpProtocol<_i1.Unit, _i1.Unit, _i2.NoInputAndOutputOutput,
-          _i2.NoInputAndOutputOutput>> protocols = [
-    _i3.AwsJson1_0Protocol(
-      serializers: _i4.serializers,
-      builderFactories: _i4.builderFactories,
+      _i1.HttpProtocol<_i1.Unit, _i1.Unit, NoInputAndOutputOutput,
+          NoInputAndOutputOutput>> protocols = [
+    _i2.AwsJson1_0Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithHeader(
@@ -42,8 +40,8 @@ class NoInputAndOutputOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
               'JsonRpc10.NoInputAndOutput',
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i3.WithSdkInvocationId(),
-            const _i3.WithSdkRequest(),
+            const _i2.WithSdkInvocationId(),
+            const _i2.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -51,8 +49,8 @@ class NoInputAndOutputOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
     )
   ];
 
-  late final _i3.AWSEndpoint _awsEndpoint = _i5.endpointResolver.resolve(
-    _i5.sdkId,
+  late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -70,13 +68,13 @@ class NoInputAndOutputOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
         b.path = r'/';
       });
   @override
-  int successCode([_i2.NoInputAndOutputOutput? output]) => 200;
+  int successCode([NoInputAndOutputOutput? output]) => 200;
   @override
-  _i2.NoInputAndOutputOutput buildOutput(
-    _i2.NoInputAndOutputOutput payload,
-    _i6.AWSBaseHttpResponse response,
+  NoInputAndOutputOutput buildOutput(
+    NoInputAndOutputOutput payload,
+    _i3.AWSBaseHttpResponse response,
   ) =>
-      _i2.NoInputAndOutputOutput.fromResponse(
+      NoInputAndOutputOutput.fromResponse(
         payload,
         response,
       );
@@ -85,18 +83,18 @@ class NoInputAndOutputOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
   @override
   String get runtimeTypeName => 'NoInputAndOutput';
   @override
-  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+  _i2.AWSRetryer get retryer => _i2.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i2.NoInputAndOutputOutput> run(
+  _i1.SmithyOperation<NoInputAndOutputOutput> run(
     _i1.Unit input, {
-    _i6.AWSHttpClient? client,
+    _i3.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i7.runZoned(
+    return _i4.runZoned(
       () => super.run(
         input,
         client: client,
@@ -104,7 +102,7 @@ class NoInputAndOutputOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
+        ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},
       },
     );
   }

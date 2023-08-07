@@ -3,8 +3,7 @@
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.update_endpoints_batch_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/message_body.dart'
-    as _i3;
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/message_body.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -18,8 +17,8 @@ abstract class UpdateEndpointsBatchResponse
     implements
         Built<UpdateEndpointsBatchResponse,
             UpdateEndpointsBatchResponseBuilder>,
-        _i2.HasPayload<_i3.MessageBody> {
-  factory UpdateEndpointsBatchResponse({required _i3.MessageBody messageBody}) {
+        _i2.HasPayload<MessageBody> {
+  factory UpdateEndpointsBatchResponse({required MessageBody messageBody}) {
     return _$UpdateEndpointsBatchResponse._(messageBody: messageBody);
   }
 
@@ -31,21 +30,21 @@ abstract class UpdateEndpointsBatchResponse
 
   /// Constructs a [UpdateEndpointsBatchResponse] from a [payload] and [response].
   factory UpdateEndpointsBatchResponse.fromResponse(
-    _i3.MessageBody payload,
+    MessageBody payload,
     _i1.AWSBaseHttpResponse response,
   ) =>
       UpdateEndpointsBatchResponse.build((b) {
         b.messageBody.replace(payload);
       });
 
-  static const List<_i2.SmithySerializer<_i3.MessageBody>> serializers = [
+  static const List<_i2.SmithySerializer<MessageBody>> serializers = [
     UpdateEndpointsBatchResponseRestJson1Serializer()
   ];
 
   /// Provides information about an API request or response.
-  _i3.MessageBody get messageBody;
+  MessageBody get messageBody;
   @override
-  _i3.MessageBody getPayload() => messageBody;
+  MessageBody getPayload() => messageBody;
   @override
   List<Object?> get props => [messageBody];
   @override
@@ -60,7 +59,7 @@ abstract class UpdateEndpointsBatchResponse
 }
 
 class UpdateEndpointsBatchResponseRestJson1Serializer
-    extends _i2.PrimitiveSmithySerializer<_i3.MessageBody> {
+    extends _i2.PrimitiveSmithySerializer<MessageBody> {
   const UpdateEndpointsBatchResponseRestJson1Serializer()
       : super('UpdateEndpointsBatchResponse');
 
@@ -77,26 +76,26 @@ class UpdateEndpointsBatchResponseRestJson1Serializer
         )
       ];
   @override
-  _i3.MessageBody deserialize(
+  MessageBody deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return (serializers.deserialize(
       serialized,
-      specifiedType: const FullType(_i3.MessageBody),
-    ) as _i3.MessageBody);
+      specifiedType: const FullType(MessageBody),
+    ) as MessageBody);
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    _i3.MessageBody object, {
+    MessageBody object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return serializers.serialize(
       object,
-      specifiedType: const FullType(_i3.MessageBody),
+      specifiedType: const FullType(MessageBody),
     )!;
   }
 }

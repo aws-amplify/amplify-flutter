@@ -9,7 +9,7 @@ part of 'set_security_token_service_preferences_request.dart';
 class _$SetSecurityTokenServicePreferencesRequest
     extends SetSecurityTokenServicePreferencesRequest {
   @override
-  final _i3.GlobalEndpointTokenVersion globalEndpointTokenVersion;
+  final GlobalEndpointTokenVersion globalEndpointTokenVersion;
 
   factory _$SetSecurityTokenServicePreferencesRequest(
           [void Function(SetSecurityTokenServicePreferencesRequestBuilder)?
@@ -58,11 +58,11 @@ class SetSecurityTokenServicePreferencesRequestBuilder
             SetSecurityTokenServicePreferencesRequestBuilder> {
   _$SetSecurityTokenServicePreferencesRequest? _$v;
 
-  _i3.GlobalEndpointTokenVersion? _globalEndpointTokenVersion;
-  _i3.GlobalEndpointTokenVersion? get globalEndpointTokenVersion =>
+  GlobalEndpointTokenVersion? _globalEndpointTokenVersion;
+  GlobalEndpointTokenVersion? get globalEndpointTokenVersion =>
       _$this._globalEndpointTokenVersion;
   set globalEndpointTokenVersion(
-          _i3.GlobalEndpointTokenVersion? globalEndpointTokenVersion) =>
+          GlobalEndpointTokenVersion? globalEndpointTokenVersion) =>
       _$this._globalEndpointTokenVersion = globalEndpointTokenVersion;
 
   SetSecurityTokenServicePreferencesRequestBuilder();
