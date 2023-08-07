@@ -8,11 +8,11 @@ part of 'resource_change_detail.dart';
 
 class _$ResourceChangeDetail extends ResourceChangeDetail {
   @override
-  final _i2.ResourceTargetDefinition? target;
+  final ResourceTargetDefinition? target;
   @override
-  final _i3.EvaluationType? evaluation;
+  final EvaluationType? evaluation;
   @override
-  final _i4.ChangeSource? changeSource;
+  final ChangeSource? changeSource;
   @override
   final String? causingEntity;
 
@@ -59,20 +59,19 @@ class ResourceChangeDetailBuilder
     implements Builder<ResourceChangeDetail, ResourceChangeDetailBuilder> {
   _$ResourceChangeDetail? _$v;
 
-  _i2.ResourceTargetDefinitionBuilder? _target;
-  _i2.ResourceTargetDefinitionBuilder get target =>
-      _$this._target ??= new _i2.ResourceTargetDefinitionBuilder();
-  set target(_i2.ResourceTargetDefinitionBuilder? target) =>
+  ResourceTargetDefinitionBuilder? _target;
+  ResourceTargetDefinitionBuilder get target =>
+      _$this._target ??= new ResourceTargetDefinitionBuilder();
+  set target(ResourceTargetDefinitionBuilder? target) =>
       _$this._target = target;
 
-  _i3.EvaluationType? _evaluation;
-  _i3.EvaluationType? get evaluation => _$this._evaluation;
-  set evaluation(_i3.EvaluationType? evaluation) =>
-      _$this._evaluation = evaluation;
+  EvaluationType? _evaluation;
+  EvaluationType? get evaluation => _$this._evaluation;
+  set evaluation(EvaluationType? evaluation) => _$this._evaluation = evaluation;
 
-  _i4.ChangeSource? _changeSource;
-  _i4.ChangeSource? get changeSource => _$this._changeSource;
-  set changeSource(_i4.ChangeSource? changeSource) =>
+  ChangeSource? _changeSource;
+  ChangeSource? get changeSource => _$this._changeSource;
+  set changeSource(ChangeSource? changeSource) =>
       _$this._changeSource = changeSource;
 
   String? _causingEntity;

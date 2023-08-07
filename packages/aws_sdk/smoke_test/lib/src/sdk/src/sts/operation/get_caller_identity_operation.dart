@@ -3,36 +3,33 @@
 
 library smoke_test.sts.operation.get_caller_identity_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i9;
+import 'dart:async' as _i5;
 
-import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/sts/common/endpoint_resolver.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/sts/common/serializers.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/sts/model/get_caller_identity_request.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/sts/model/get_caller_identity_response.dart'
-    as _i3;
+import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/sts/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/sts/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/get_caller_identity_request.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/get_caller_identity_response.dart';
 
 /// Returns details about the IAM user or role whose credentials are used to call the operation.
 ///
 /// No permissions are required to perform this operation. If an administrator attaches a policy to your identity that explicitly denies access to the `sts:GetCallerIdentity` action, you can still perform this operation. Permissions are not required because the same information is returned when access is denied. To view an example response, see [I Am Not Authorized to Perform: iam:DeleteVirtualMFADevice](https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_general.html#troubleshoot_general_access-denied-delete-mfa) in the _IAM User Guide_.
 class GetCallerIdentityOperation extends _i1.HttpOperation<
-    _i2.GetCallerIdentityRequest,
-    _i2.GetCallerIdentityRequest,
-    _i3.GetCallerIdentityResponse,
-    _i3.GetCallerIdentityResponse> {
+    GetCallerIdentityRequest,
+    GetCallerIdentityRequest,
+    GetCallerIdentityResponse,
+    GetCallerIdentityResponse> {
   /// Returns details about the IAM user or role whose credentials are used to call the operation.
   ///
   /// No permissions are required to perform this operation. If an administrator attaches a policy to your identity that explicitly denies access to the `sts:GetCallerIdentity` action, you can still perform this operation. Permissions are not required because the same information is returned when access is denied. To view an example response, see [I Am Not Authorized to Perform: iam:DeleteVirtualMFADevice](https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_general.html#troubleshoot_general_access-denied-delete-mfa) in the _IAM User Guide_.
   GetCallerIdentityOperation({
     required String region,
     Uri? baseUri,
-    _i4.AWSCredentialsProvider credentialsProvider =
-        const _i4.AWSCredentialsProvider.environment(),
+    _i2.AWSCredentialsProvider credentialsProvider =
+        const _i2.AWSCredentialsProvider.environment(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -43,24 +40,21 @@ class GetCallerIdentityOperation extends _i1.HttpOperation<
 
   @override
   late final List<
-      _i1.HttpProtocol<
-          _i2.GetCallerIdentityRequest,
-          _i2.GetCallerIdentityRequest,
-          _i3.GetCallerIdentityResponse,
-          _i3.GetCallerIdentityResponse>> protocols = [
-    _i5.AwsQueryProtocol(
-      serializers: _i6.serializers,
-      builderFactories: _i6.builderFactories,
+      _i1.HttpProtocol<GetCallerIdentityRequest, GetCallerIdentityRequest,
+          GetCallerIdentityResponse, GetCallerIdentityResponse>> protocols = [
+    _i3.AwsQueryProtocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
-            _i5.WithSigV4(
+            _i3.WithSigV4(
               region: _region,
-              service: _i7.AWSService.sts,
+              service: _i4.AWSService.sts,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i5.WithSdkInvocationId(),
-            const _i5.WithSdkRequest(),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -70,8 +64,8 @@ class GetCallerIdentityOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i5.AWSEndpoint _awsEndpoint = _i8.endpointResolver.resolve(
-    _i8.sdkId,
+  late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -79,26 +73,26 @@ class GetCallerIdentityOperation extends _i1.HttpOperation<
 
   final Uri? _baseUri;
 
-  final _i4.AWSCredentialsProvider _credentialsProvider;
+  final _i2.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.GetCallerIdentityRequest input) =>
+  _i1.HttpRequest buildRequest(GetCallerIdentityRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
       });
   @override
-  int successCode([_i3.GetCallerIdentityResponse? output]) => 200;
+  int successCode([GetCallerIdentityResponse? output]) => 200;
   @override
-  _i3.GetCallerIdentityResponse buildOutput(
-    _i3.GetCallerIdentityResponse payload,
-    _i7.AWSBaseHttpResponse response,
+  GetCallerIdentityResponse buildOutput(
+    GetCallerIdentityResponse payload,
+    _i4.AWSBaseHttpResponse response,
   ) =>
-      _i3.GetCallerIdentityResponse.fromResponse(
+      GetCallerIdentityResponse.fromResponse(
         payload,
         response,
       );
@@ -107,18 +101,18 @@ class GetCallerIdentityOperation extends _i1.HttpOperation<
   @override
   String get runtimeTypeName => 'GetCallerIdentity';
   @override
-  _i5.AWSRetryer get retryer => _i5.AWSRetryer();
+  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.GetCallerIdentityResponse> run(
-    _i2.GetCallerIdentityRequest input, {
-    _i7.AWSHttpClient? client,
+  _i1.SmithyOperation<GetCallerIdentityResponse> run(
+    GetCallerIdentityRequest input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i9.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -126,7 +120,7 @@ class GetCallerIdentityOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

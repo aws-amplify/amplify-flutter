@@ -4,15 +4,14 @@
 library smoke_test.s3.model.website_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/s3/model/error_document.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/index_document.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/redirect_all_requests_to.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/routing_rule.dart' as _i5;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/error_document.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/index_document.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/redirect_all_requests_to.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/routing_rule.dart';
 
 part 'website_configuration.g.dart';
 
@@ -22,16 +21,16 @@ abstract class WebsiteConfiguration
     implements Built<WebsiteConfiguration, WebsiteConfigurationBuilder> {
   /// Specifies website configuration parameters for an Amazon S3 bucket.
   factory WebsiteConfiguration({
-    _i2.ErrorDocument? errorDocument,
-    _i3.IndexDocument? indexDocument,
-    _i4.RedirectAllRequestsTo? redirectAllRequestsTo,
-    List<_i5.RoutingRule>? routingRules,
+    ErrorDocument? errorDocument,
+    IndexDocument? indexDocument,
+    RedirectAllRequestsTo? redirectAllRequestsTo,
+    List<RoutingRule>? routingRules,
   }) {
     return _$WebsiteConfiguration._(
       errorDocument: errorDocument,
       indexDocument: indexDocument,
       redirectAllRequestsTo: redirectAllRequestsTo,
-      routingRules: routingRules == null ? null : _i6.BuiltList(routingRules),
+      routingRules: routingRules == null ? null : _i2.BuiltList(routingRules),
     );
   }
 
@@ -42,23 +41,23 @@ abstract class WebsiteConfiguration
 
   const WebsiteConfiguration._();
 
-  static const List<_i7.SmithySerializer<WebsiteConfiguration>> serializers = [
+  static const List<_i3.SmithySerializer<WebsiteConfiguration>> serializers = [
     WebsiteConfigurationRestXmlSerializer()
   ];
 
   /// The name of the error document for the website.
-  _i2.ErrorDocument? get errorDocument;
+  ErrorDocument? get errorDocument;
 
   /// The name of the index document for the website.
-  _i3.IndexDocument? get indexDocument;
+  IndexDocument? get indexDocument;
 
   /// The redirect behavior for every request to this bucket's website endpoint.
   ///
   /// If you specify this property, you can't specify any other property.
-  _i4.RedirectAllRequestsTo? get redirectAllRequestsTo;
+  RedirectAllRequestsTo? get redirectAllRequestsTo;
 
   /// Rules that define when a redirect is applied and the redirect behavior.
-  _i6.BuiltList<_i5.RoutingRule>? get routingRules;
+  _i2.BuiltList<RoutingRule>? get routingRules;
   @override
   List<Object?> get props => [
         errorDocument,
@@ -90,7 +89,7 @@ abstract class WebsiteConfiguration
 }
 
 class WebsiteConfigurationRestXmlSerializer
-    extends _i7.StructuredSmithySerializer<WebsiteConfiguration> {
+    extends _i3.StructuredSmithySerializer<WebsiteConfiguration> {
   const WebsiteConfigurationRestXmlSerializer() : super('WebsiteConfiguration');
 
   @override
@@ -99,8 +98,8 @@ class WebsiteConfigurationRestXmlSerializer
         _$WebsiteConfiguration,
       ];
   @override
-  Iterable<_i7.ShapeId> get supportedProtocols => const [
-        _i7.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -124,29 +123,29 @@ class WebsiteConfigurationRestXmlSerializer
         case 'ErrorDocument':
           result.errorDocument.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ErrorDocument),
-          ) as _i2.ErrorDocument));
+            specifiedType: const FullType(ErrorDocument),
+          ) as ErrorDocument));
         case 'IndexDocument':
           result.indexDocument.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.IndexDocument),
-          ) as _i3.IndexDocument));
+            specifiedType: const FullType(IndexDocument),
+          ) as IndexDocument));
         case 'RedirectAllRequestsTo':
           result.redirectAllRequestsTo.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.RedirectAllRequestsTo),
-          ) as _i4.RedirectAllRequestsTo));
+            specifiedType: const FullType(RedirectAllRequestsTo),
+          ) as RedirectAllRequestsTo));
         case 'RoutingRules':
           result.routingRules.replace(
-              (const _i7.XmlBuiltListSerializer(memberName: 'RoutingRule')
+              (const _i3.XmlBuiltListSerializer(memberName: 'RoutingRule')
                   .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(_i5.RoutingRule)],
+              _i2.BuiltList,
+              [FullType(RoutingRule)],
             ),
-          ) as _i6.BuiltList<_i5.RoutingRule>));
+          ) as _i2.BuiltList<RoutingRule>));
       }
     }
 
@@ -160,9 +159,9 @@ class WebsiteConfigurationRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i7.XmlElementName(
+      const _i3.XmlElementName(
         'WebsiteConfiguration',
-        _i7.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final WebsiteConfiguration(
@@ -173,38 +172,38 @@ class WebsiteConfigurationRestXmlSerializer
     ) = object;
     if (errorDocument != null) {
       result$
-        ..add(const _i7.XmlElementName('ErrorDocument'))
+        ..add(const _i3.XmlElementName('ErrorDocument'))
         ..add(serializers.serialize(
           errorDocument,
-          specifiedType: const FullType(_i2.ErrorDocument),
+          specifiedType: const FullType(ErrorDocument),
         ));
     }
     if (indexDocument != null) {
       result$
-        ..add(const _i7.XmlElementName('IndexDocument'))
+        ..add(const _i3.XmlElementName('IndexDocument'))
         ..add(serializers.serialize(
           indexDocument,
-          specifiedType: const FullType(_i3.IndexDocument),
+          specifiedType: const FullType(IndexDocument),
         ));
     }
     if (redirectAllRequestsTo != null) {
       result$
-        ..add(const _i7.XmlElementName('RedirectAllRequestsTo'))
+        ..add(const _i3.XmlElementName('RedirectAllRequestsTo'))
         ..add(serializers.serialize(
           redirectAllRequestsTo,
-          specifiedType: const FullType(_i4.RedirectAllRequestsTo),
+          specifiedType: const FullType(RedirectAllRequestsTo),
         ));
     }
     if (routingRules != null) {
       result$
-        ..add(const _i7.XmlElementName('RoutingRules'))
-        ..add(const _i7.XmlBuiltListSerializer(memberName: 'RoutingRule')
+        ..add(const _i3.XmlElementName('RoutingRules'))
+        ..add(const _i3.XmlBuiltListSerializer(memberName: 'RoutingRule')
             .serialize(
           serializers,
           routingRules,
           specifiedType: const FullType.nullable(
-            _i6.BuiltList,
-            [FullType(_i5.RoutingRule)],
+            _i2.BuiltList,
+            [FullType(RoutingRule)],
           ),
         ));
     }

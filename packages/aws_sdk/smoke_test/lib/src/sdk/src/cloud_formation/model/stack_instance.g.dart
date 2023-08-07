@@ -16,17 +16,17 @@ class _$StackInstance extends StackInstance {
   @override
   final String? stackId;
   @override
-  final _i6.BuiltList<_i2.Parameter>? parameterOverrides;
+  final _i2.BuiltList<Parameter>? parameterOverrides;
   @override
-  final _i3.StackInstanceStatus? status;
+  final StackInstanceStatus? status;
   @override
-  final _i4.StackInstanceComprehensiveStatus? stackInstanceStatus;
+  final StackInstanceComprehensiveStatus? stackInstanceStatus;
   @override
   final String? statusReason;
   @override
   final String? organizationalUnitId;
   @override
-  final _i5.StackDriftStatus? driftStatus;
+  final StackDriftStatus? driftStatus;
   @override
   final DateTime? lastDriftCheckTimestamp;
   @override
@@ -115,22 +115,22 @@ class StackInstanceBuilder
   String? get stackId => _$this._stackId;
   set stackId(String? stackId) => _$this._stackId = stackId;
 
-  _i6.ListBuilder<_i2.Parameter>? _parameterOverrides;
-  _i6.ListBuilder<_i2.Parameter> get parameterOverrides =>
-      _$this._parameterOverrides ??= new _i6.ListBuilder<_i2.Parameter>();
-  set parameterOverrides(_i6.ListBuilder<_i2.Parameter>? parameterOverrides) =>
+  _i2.ListBuilder<Parameter>? _parameterOverrides;
+  _i2.ListBuilder<Parameter> get parameterOverrides =>
+      _$this._parameterOverrides ??= new _i2.ListBuilder<Parameter>();
+  set parameterOverrides(_i2.ListBuilder<Parameter>? parameterOverrides) =>
       _$this._parameterOverrides = parameterOverrides;
 
-  _i3.StackInstanceStatus? _status;
-  _i3.StackInstanceStatus? get status => _$this._status;
-  set status(_i3.StackInstanceStatus? status) => _$this._status = status;
+  StackInstanceStatus? _status;
+  StackInstanceStatus? get status => _$this._status;
+  set status(StackInstanceStatus? status) => _$this._status = status;
 
-  _i4.StackInstanceComprehensiveStatusBuilder? _stackInstanceStatus;
-  _i4.StackInstanceComprehensiveStatusBuilder get stackInstanceStatus =>
+  StackInstanceComprehensiveStatusBuilder? _stackInstanceStatus;
+  StackInstanceComprehensiveStatusBuilder get stackInstanceStatus =>
       _$this._stackInstanceStatus ??=
-          new _i4.StackInstanceComprehensiveStatusBuilder();
+          new StackInstanceComprehensiveStatusBuilder();
   set stackInstanceStatus(
-          _i4.StackInstanceComprehensiveStatusBuilder? stackInstanceStatus) =>
+          StackInstanceComprehensiveStatusBuilder? stackInstanceStatus) =>
       _$this._stackInstanceStatus = stackInstanceStatus;
 
   String? _statusReason;
@@ -142,9 +142,9 @@ class StackInstanceBuilder
   set organizationalUnitId(String? organizationalUnitId) =>
       _$this._organizationalUnitId = organizationalUnitId;
 
-  _i5.StackDriftStatus? _driftStatus;
-  _i5.StackDriftStatus? get driftStatus => _$this._driftStatus;
-  set driftStatus(_i5.StackDriftStatus? driftStatus) =>
+  StackDriftStatus? _driftStatus;
+  StackDriftStatus? get driftStatus => _$this._driftStatus;
+  set driftStatus(StackDriftStatus? driftStatus) =>
       _$this._driftStatus = driftStatus;
 
   DateTime? _lastDriftCheckTimestamp;

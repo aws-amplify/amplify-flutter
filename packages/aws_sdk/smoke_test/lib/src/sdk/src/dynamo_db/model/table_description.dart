@@ -4,37 +4,24 @@
 library smoke_test.dynamo_db.model.table_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i16;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i6;
-import 'package:smithy/smithy.dart' as _i17;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/archival_summary.dart'
-    as _i14;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_definition.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/billing_mode_summary.dart'
-    as _i7;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/global_secondary_index_description.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/key_schema_element.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/local_secondary_index_description.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput_description.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_description.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/restore_summary.dart'
-    as _i12;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/sse_description.dart'
-    as _i13;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/stream_specification.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_class_summary.dart'
-    as _i15;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_status.dart'
-    as _i4;
+import 'package:fixnum/fixnum.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/archival_summary.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_definition.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/billing_mode_summary.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/global_secondary_index_description.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/key_schema_element.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/local_secondary_index_description.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput_description.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_description.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/restore_summary.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/sse_description.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/stream_specification.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_class_summary.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_status.dart';
 
 part 'table_description.g.dart';
 
@@ -44,36 +31,36 @@ abstract class TableDescription
     implements Built<TableDescription, TableDescriptionBuilder> {
   /// Represents the properties of a table.
   factory TableDescription({
-    List<_i2.AttributeDefinition>? attributeDefinitions,
+    List<AttributeDefinition>? attributeDefinitions,
     String? tableName,
-    List<_i3.KeySchemaElement>? keySchema,
-    _i4.TableStatus? tableStatus,
+    List<KeySchemaElement>? keySchema,
+    TableStatus? tableStatus,
     DateTime? creationDateTime,
-    _i5.ProvisionedThroughputDescription? provisionedThroughput,
-    _i6.Int64? tableSizeBytes,
-    _i6.Int64? itemCount,
+    ProvisionedThroughputDescription? provisionedThroughput,
+    _i2.Int64? tableSizeBytes,
+    _i2.Int64? itemCount,
     String? tableArn,
     String? tableId,
-    _i7.BillingModeSummary? billingModeSummary,
-    List<_i8.LocalSecondaryIndexDescription>? localSecondaryIndexes,
-    List<_i9.GlobalSecondaryIndexDescription>? globalSecondaryIndexes,
-    _i10.StreamSpecification? streamSpecification,
+    BillingModeSummary? billingModeSummary,
+    List<LocalSecondaryIndexDescription>? localSecondaryIndexes,
+    List<GlobalSecondaryIndexDescription>? globalSecondaryIndexes,
+    StreamSpecification? streamSpecification,
     String? latestStreamLabel,
     String? latestStreamArn,
     String? globalTableVersion,
-    List<_i11.ReplicaDescription>? replicas,
-    _i12.RestoreSummary? restoreSummary,
-    _i13.SseDescription? sseDescription,
-    _i14.ArchivalSummary? archivalSummary,
-    _i15.TableClassSummary? tableClassSummary,
+    List<ReplicaDescription>? replicas,
+    RestoreSummary? restoreSummary,
+    SseDescription? sseDescription,
+    ArchivalSummary? archivalSummary,
+    TableClassSummary? tableClassSummary,
     bool? deletionProtectionEnabled,
   }) {
     return _$TableDescription._(
       attributeDefinitions: attributeDefinitions == null
           ? null
-          : _i16.BuiltList(attributeDefinitions),
+          : _i3.BuiltList(attributeDefinitions),
       tableName: tableName,
-      keySchema: keySchema == null ? null : _i16.BuiltList(keySchema),
+      keySchema: keySchema == null ? null : _i3.BuiltList(keySchema),
       tableStatus: tableStatus,
       creationDateTime: creationDateTime,
       provisionedThroughput: provisionedThroughput,
@@ -84,15 +71,15 @@ abstract class TableDescription
       billingModeSummary: billingModeSummary,
       localSecondaryIndexes: localSecondaryIndexes == null
           ? null
-          : _i16.BuiltList(localSecondaryIndexes),
+          : _i3.BuiltList(localSecondaryIndexes),
       globalSecondaryIndexes: globalSecondaryIndexes == null
           ? null
-          : _i16.BuiltList(globalSecondaryIndexes),
+          : _i3.BuiltList(globalSecondaryIndexes),
       streamSpecification: streamSpecification,
       latestStreamLabel: latestStreamLabel,
       latestStreamArn: latestStreamArn,
       globalTableVersion: globalTableVersion,
-      replicas: replicas == null ? null : _i16.BuiltList(replicas),
+      replicas: replicas == null ? null : _i3.BuiltList(replicas),
       restoreSummary: restoreSummary,
       sseDescription: sseDescription,
       archivalSummary: archivalSummary,
@@ -107,7 +94,7 @@ abstract class TableDescription
 
   const TableDescription._();
 
-  static const List<_i17.SmithySerializer<TableDescription>> serializers = [
+  static const List<_i4.SmithySerializer<TableDescription>> serializers = [
     TableDescriptionAwsJson10Serializer()
   ];
 
@@ -118,7 +105,7 @@ abstract class TableDescription
   /// *   `AttributeName` \- The name of the attribute.
   ///
   /// *   `AttributeType` \- The data type for the attribute.
-  _i16.BuiltList<_i2.AttributeDefinition>? get attributeDefinitions;
+  _i3.BuiltList<AttributeDefinition>? get attributeDefinitions;
 
   /// The name of the table.
   String? get tableName;
@@ -140,7 +127,7 @@ abstract class TableDescription
   ///
   ///
   /// For more information about primary keys, see [Primary Key](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html#DataModelPrimaryKey) in the _Amazon DynamoDB Developer Guide_.
-  _i16.BuiltList<_i3.KeySchemaElement>? get keySchema;
+  _i3.BuiltList<KeySchemaElement>? get keySchema;
 
   /// The current state of the table:
   ///
@@ -157,19 +144,19 @@ abstract class TableDescription
   /// *   `ARCHIVING` \- The table is being archived. Operations are not allowed until archival is complete.
   ///
   /// *   `ARCHIVED` \- The table has been archived. See the ArchivalReason for more information.
-  _i4.TableStatus? get tableStatus;
+  TableStatus? get tableStatus;
 
   /// The date and time when the table was created, in [UNIX epoch time](http://www.epochconverter.com/) format.
   DateTime? get creationDateTime;
 
   /// The provisioned throughput settings for the table, consisting of read and write capacity units, along with data about increases and decreases.
-  _i5.ProvisionedThroughputDescription? get provisionedThroughput;
+  ProvisionedThroughputDescription? get provisionedThroughput;
 
   /// The total size of the specified table, in bytes. DynamoDB updates this value approximately every six hours. Recent changes might not be reflected in this value.
-  _i6.Int64? get tableSizeBytes;
+  _i2.Int64? get tableSizeBytes;
 
   /// The number of items in the specified table. DynamoDB updates this value approximately every six hours. Recent changes might not be reflected in this value.
-  _i6.Int64? get itemCount;
+  _i2.Int64? get itemCount;
 
   /// The Amazon Resource Name (ARN) that uniquely identifies the table.
   String? get tableArn;
@@ -178,7 +165,7 @@ abstract class TableDescription
   String? get tableId;
 
   /// Contains the details for the read/write capacity mode.
-  _i7.BillingModeSummary? get billingModeSummary;
+  BillingModeSummary? get billingModeSummary;
 
   /// Represents one or more local secondary indexes on the table. Each index is scoped to a given partition key value. Tables with one or more local secondary indexes are subject to an item collection size limit, where the amount of data within a given item collection cannot exceed 10 GB. Each element is composed of:
   ///
@@ -204,7 +191,7 @@ abstract class TableDescription
   ///
   ///
   /// If the table is in the `DELETING` state, no information about indexes will be returned.
-  _i16.BuiltList<_i8.LocalSecondaryIndexDescription>? get localSecondaryIndexes;
+  _i3.BuiltList<LocalSecondaryIndexDescription>? get localSecondaryIndexes;
 
   /// The global secondary indexes, if any, on the table. Each index is scoped to a given partition key value. Each element is composed of:
   ///
@@ -246,11 +233,10 @@ abstract class TableDescription
   ///
   ///
   /// If the table is in the `DELETING` state, no information about indexes will be returned.
-  _i16.BuiltList<_i9.GlobalSecondaryIndexDescription>?
-      get globalSecondaryIndexes;
+  _i3.BuiltList<GlobalSecondaryIndexDescription>? get globalSecondaryIndexes;
 
   /// The current DynamoDB Streams configuration for the table.
-  _i10.StreamSpecification? get streamSpecification;
+  StreamSpecification? get streamSpecification;
 
   /// A timestamp, in ISO 8601 format, for this stream.
   ///
@@ -270,19 +256,19 @@ abstract class TableDescription
   String? get globalTableVersion;
 
   /// Represents replicas of the table.
-  _i16.BuiltList<_i11.ReplicaDescription>? get replicas;
+  _i3.BuiltList<ReplicaDescription>? get replicas;
 
   /// Contains details for the restore.
-  _i12.RestoreSummary? get restoreSummary;
+  RestoreSummary? get restoreSummary;
 
   /// The description of the server-side encryption status on the specified table.
-  _i13.SseDescription? get sseDescription;
+  SseDescription? get sseDescription;
 
   /// Contains information about the table archive.
-  _i14.ArchivalSummary? get archivalSummary;
+  ArchivalSummary? get archivalSummary;
 
   /// Contains details of the table class.
-  _i15.TableClassSummary? get tableClassSummary;
+  TableClassSummary? get tableClassSummary;
 
   /// Indicates whether deletion protection is enabled (true) or disabled (false) on the table.
   bool? get deletionProtectionEnabled;
@@ -412,7 +398,7 @@ abstract class TableDescription
 }
 
 class TableDescriptionAwsJson10Serializer
-    extends _i17.StructuredSmithySerializer<TableDescription> {
+    extends _i4.StructuredSmithySerializer<TableDescription> {
   const TableDescriptionAwsJson10Serializer() : super('TableDescription');
 
   @override
@@ -421,8 +407,8 @@ class TableDescriptionAwsJson10Serializer
         _$TableDescription,
       ];
   @override
-  Iterable<_i17.ShapeId> get supportedProtocols => const [
-        _i17.ShapeId(
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -447,10 +433,10 @@ class TableDescriptionAwsJson10Serializer
           result.attributeDefinitions.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i16.BuiltList,
-              [FullType(_i2.AttributeDefinition)],
+              _i3.BuiltList,
+              [FullType(AttributeDefinition)],
             ),
-          ) as _i16.BuiltList<_i2.AttributeDefinition>));
+          ) as _i3.BuiltList<AttributeDefinition>));
         case 'TableName':
           result.tableName = (serializers.deserialize(
             value,
@@ -460,15 +446,15 @@ class TableDescriptionAwsJson10Serializer
           result.keySchema.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i16.BuiltList,
-              [FullType(_i3.KeySchemaElement)],
+              _i3.BuiltList,
+              [FullType(KeySchemaElement)],
             ),
-          ) as _i16.BuiltList<_i3.KeySchemaElement>));
+          ) as _i3.BuiltList<KeySchemaElement>));
         case 'TableStatus':
           result.tableStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.TableStatus),
-          ) as _i4.TableStatus);
+            specifiedType: const FullType(TableStatus),
+          ) as TableStatus);
         case 'CreationDateTime':
           result.creationDateTime = (serializers.deserialize(
             value,
@@ -477,18 +463,18 @@ class TableDescriptionAwsJson10Serializer
         case 'ProvisionedThroughput':
           result.provisionedThroughput.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.ProvisionedThroughputDescription),
-          ) as _i5.ProvisionedThroughputDescription));
+            specifiedType: const FullType(ProvisionedThroughputDescription),
+          ) as ProvisionedThroughputDescription));
         case 'TableSizeBytes':
           result.tableSizeBytes = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.Int64),
-          ) as _i6.Int64);
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'ItemCount':
           result.itemCount = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.Int64),
-          ) as _i6.Int64);
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
         case 'TableArn':
           result.tableArn = (serializers.deserialize(
             value,
@@ -502,29 +488,29 @@ class TableDescriptionAwsJson10Serializer
         case 'BillingModeSummary':
           result.billingModeSummary.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i7.BillingModeSummary),
-          ) as _i7.BillingModeSummary));
+            specifiedType: const FullType(BillingModeSummary),
+          ) as BillingModeSummary));
         case 'LocalSecondaryIndexes':
           result.localSecondaryIndexes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i16.BuiltList,
-              [FullType(_i8.LocalSecondaryIndexDescription)],
+              _i3.BuiltList,
+              [FullType(LocalSecondaryIndexDescription)],
             ),
-          ) as _i16.BuiltList<_i8.LocalSecondaryIndexDescription>));
+          ) as _i3.BuiltList<LocalSecondaryIndexDescription>));
         case 'GlobalSecondaryIndexes':
           result.globalSecondaryIndexes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i16.BuiltList,
-              [FullType(_i9.GlobalSecondaryIndexDescription)],
+              _i3.BuiltList,
+              [FullType(GlobalSecondaryIndexDescription)],
             ),
-          ) as _i16.BuiltList<_i9.GlobalSecondaryIndexDescription>));
+          ) as _i3.BuiltList<GlobalSecondaryIndexDescription>));
         case 'StreamSpecification':
           result.streamSpecification.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i10.StreamSpecification),
-          ) as _i10.StreamSpecification));
+            specifiedType: const FullType(StreamSpecification),
+          ) as StreamSpecification));
         case 'LatestStreamLabel':
           result.latestStreamLabel = (serializers.deserialize(
             value,
@@ -544,30 +530,30 @@ class TableDescriptionAwsJson10Serializer
           result.replicas.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i16.BuiltList,
-              [FullType(_i11.ReplicaDescription)],
+              _i3.BuiltList,
+              [FullType(ReplicaDescription)],
             ),
-          ) as _i16.BuiltList<_i11.ReplicaDescription>));
+          ) as _i3.BuiltList<ReplicaDescription>));
         case 'RestoreSummary':
           result.restoreSummary.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i12.RestoreSummary),
-          ) as _i12.RestoreSummary));
+            specifiedType: const FullType(RestoreSummary),
+          ) as RestoreSummary));
         case 'SSEDescription':
           result.sseDescription.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i13.SseDescription),
-          ) as _i13.SseDescription));
+            specifiedType: const FullType(SseDescription),
+          ) as SseDescription));
         case 'ArchivalSummary':
           result.archivalSummary.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i14.ArchivalSummary),
-          ) as _i14.ArchivalSummary));
+            specifiedType: const FullType(ArchivalSummary),
+          ) as ArchivalSummary));
         case 'TableClassSummary':
           result.tableClassSummary.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i15.TableClassSummary),
-          ) as _i15.TableClassSummary));
+            specifiedType: const FullType(TableClassSummary),
+          ) as TableClassSummary));
         case 'DeletionProtectionEnabled':
           result.deletionProtectionEnabled = (serializers.deserialize(
             value,
@@ -617,8 +603,8 @@ class TableDescriptionAwsJson10Serializer
         ..add(serializers.serialize(
           attributeDefinitions,
           specifiedType: const FullType(
-            _i16.BuiltList,
-            [FullType(_i2.AttributeDefinition)],
+            _i3.BuiltList,
+            [FullType(AttributeDefinition)],
           ),
         ));
     }
@@ -636,8 +622,8 @@ class TableDescriptionAwsJson10Serializer
         ..add(serializers.serialize(
           keySchema,
           specifiedType: const FullType(
-            _i16.BuiltList,
-            [FullType(_i3.KeySchemaElement)],
+            _i3.BuiltList,
+            [FullType(KeySchemaElement)],
           ),
         ));
     }
@@ -646,7 +632,7 @@ class TableDescriptionAwsJson10Serializer
         ..add('TableStatus')
         ..add(serializers.serialize(
           tableStatus,
-          specifiedType: const FullType(_i4.TableStatus),
+          specifiedType: const FullType(TableStatus),
         ));
     }
     if (creationDateTime != null) {
@@ -662,7 +648,7 @@ class TableDescriptionAwsJson10Serializer
         ..add('ProvisionedThroughput')
         ..add(serializers.serialize(
           provisionedThroughput,
-          specifiedType: const FullType(_i5.ProvisionedThroughputDescription),
+          specifiedType: const FullType(ProvisionedThroughputDescription),
         ));
     }
     if (tableSizeBytes != null) {
@@ -670,7 +656,7 @@ class TableDescriptionAwsJson10Serializer
         ..add('TableSizeBytes')
         ..add(serializers.serialize(
           tableSizeBytes,
-          specifiedType: const FullType(_i6.Int64),
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     if (itemCount != null) {
@@ -678,7 +664,7 @@ class TableDescriptionAwsJson10Serializer
         ..add('ItemCount')
         ..add(serializers.serialize(
           itemCount,
-          specifiedType: const FullType(_i6.Int64),
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     if (tableArn != null) {
@@ -702,7 +688,7 @@ class TableDescriptionAwsJson10Serializer
         ..add('BillingModeSummary')
         ..add(serializers.serialize(
           billingModeSummary,
-          specifiedType: const FullType(_i7.BillingModeSummary),
+          specifiedType: const FullType(BillingModeSummary),
         ));
     }
     if (localSecondaryIndexes != null) {
@@ -711,8 +697,8 @@ class TableDescriptionAwsJson10Serializer
         ..add(serializers.serialize(
           localSecondaryIndexes,
           specifiedType: const FullType(
-            _i16.BuiltList,
-            [FullType(_i8.LocalSecondaryIndexDescription)],
+            _i3.BuiltList,
+            [FullType(LocalSecondaryIndexDescription)],
           ),
         ));
     }
@@ -722,8 +708,8 @@ class TableDescriptionAwsJson10Serializer
         ..add(serializers.serialize(
           globalSecondaryIndexes,
           specifiedType: const FullType(
-            _i16.BuiltList,
-            [FullType(_i9.GlobalSecondaryIndexDescription)],
+            _i3.BuiltList,
+            [FullType(GlobalSecondaryIndexDescription)],
           ),
         ));
     }
@@ -732,7 +718,7 @@ class TableDescriptionAwsJson10Serializer
         ..add('StreamSpecification')
         ..add(serializers.serialize(
           streamSpecification,
-          specifiedType: const FullType(_i10.StreamSpecification),
+          specifiedType: const FullType(StreamSpecification),
         ));
     }
     if (latestStreamLabel != null) {
@@ -765,8 +751,8 @@ class TableDescriptionAwsJson10Serializer
         ..add(serializers.serialize(
           replicas,
           specifiedType: const FullType(
-            _i16.BuiltList,
-            [FullType(_i11.ReplicaDescription)],
+            _i3.BuiltList,
+            [FullType(ReplicaDescription)],
           ),
         ));
     }
@@ -775,7 +761,7 @@ class TableDescriptionAwsJson10Serializer
         ..add('RestoreSummary')
         ..add(serializers.serialize(
           restoreSummary,
-          specifiedType: const FullType(_i12.RestoreSummary),
+          specifiedType: const FullType(RestoreSummary),
         ));
     }
     if (sseDescription != null) {
@@ -783,7 +769,7 @@ class TableDescriptionAwsJson10Serializer
         ..add('SSEDescription')
         ..add(serializers.serialize(
           sseDescription,
-          specifiedType: const FullType(_i13.SseDescription),
+          specifiedType: const FullType(SseDescription),
         ));
     }
     if (archivalSummary != null) {
@@ -791,7 +777,7 @@ class TableDescriptionAwsJson10Serializer
         ..add('ArchivalSummary')
         ..add(serializers.serialize(
           archivalSummary,
-          specifiedType: const FullType(_i14.ArchivalSummary),
+          specifiedType: const FullType(ArchivalSummary),
         ));
     }
     if (tableClassSummary != null) {
@@ -799,7 +785,7 @@ class TableDescriptionAwsJson10Serializer
         ..add('TableClassSummary')
         ..add(serializers.serialize(
           tableClassSummary,
-          specifiedType: const FullType(_i15.TableClassSummary),
+          specifiedType: const FullType(TableClassSummary),
         ));
     }
     if (deletionProtectionEnabled != null) {

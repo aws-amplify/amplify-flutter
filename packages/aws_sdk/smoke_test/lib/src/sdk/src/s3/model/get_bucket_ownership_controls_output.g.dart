@@ -9,7 +9,7 @@ part of 'get_bucket_ownership_controls_output.dart';
 class _$GetBucketOwnershipControlsOutput
     extends GetBucketOwnershipControlsOutput {
   @override
-  final _i3.OwnershipControls? ownershipControls;
+  final OwnershipControls? ownershipControls;
 
   factory _$GetBucketOwnershipControlsOutput(
           [void Function(GetBucketOwnershipControlsOutputBuilder)? updates]) =>
@@ -48,10 +48,10 @@ class GetBucketOwnershipControlsOutputBuilder
             GetBucketOwnershipControlsOutputBuilder> {
   _$GetBucketOwnershipControlsOutput? _$v;
 
-  _i3.OwnershipControlsBuilder? _ownershipControls;
-  _i3.OwnershipControlsBuilder get ownershipControls =>
-      _$this._ownershipControls ??= new _i3.OwnershipControlsBuilder();
-  set ownershipControls(_i3.OwnershipControlsBuilder? ownershipControls) =>
+  OwnershipControlsBuilder? _ownershipControls;
+  OwnershipControlsBuilder get ownershipControls =>
+      _$this._ownershipControls ??= new OwnershipControlsBuilder();
+  set ownershipControls(OwnershipControlsBuilder? ownershipControls) =>
       _$this._ownershipControls = ownershipControls;
 
   GetBucketOwnershipControlsOutputBuilder();

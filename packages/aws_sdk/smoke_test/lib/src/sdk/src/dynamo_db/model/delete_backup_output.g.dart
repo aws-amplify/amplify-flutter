@@ -8,7 +8,7 @@ part of 'delete_backup_output.dart';
 
 class _$DeleteBackupOutput extends DeleteBackupOutput {
   @override
-  final _i2.BackupDescription? backupDescription;
+  final BackupDescription? backupDescription;
 
   factory _$DeleteBackupOutput(
           [void Function(DeleteBackupOutputBuilder)? updates]) =>
@@ -45,10 +45,10 @@ class DeleteBackupOutputBuilder
     implements Builder<DeleteBackupOutput, DeleteBackupOutputBuilder> {
   _$DeleteBackupOutput? _$v;
 
-  _i2.BackupDescriptionBuilder? _backupDescription;
-  _i2.BackupDescriptionBuilder get backupDescription =>
-      _$this._backupDescription ??= new _i2.BackupDescriptionBuilder();
-  set backupDescription(_i2.BackupDescriptionBuilder? backupDescription) =>
+  BackupDescriptionBuilder? _backupDescription;
+  BackupDescriptionBuilder get backupDescription =>
+      _$this._backupDescription ??= new BackupDescriptionBuilder();
+  set backupDescription(BackupDescriptionBuilder? backupDescription) =>
       _$this._backupDescription = backupDescription;
 
   DeleteBackupOutputBuilder();

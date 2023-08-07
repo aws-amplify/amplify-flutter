@@ -7,10 +7,8 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/export_format.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/s3_sse_algorithm.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/export_format.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/s3_sse_algorithm.dart';
 
 part 'export_table_to_point_in_time_input.g.dart';
 
@@ -28,9 +26,9 @@ abstract class ExportTableToPointInTimeInput
     required String s3Bucket,
     String? s3BucketOwner,
     String? s3Prefix,
-    _i3.S3SseAlgorithm? s3SseAlgorithm,
+    S3SseAlgorithm? s3SseAlgorithm,
     String? s3SseKmsKeyId,
-    _i4.ExportFormat? exportFormat,
+    ExportFormat? exportFormat,
   }) {
     return _$ExportTableToPointInTimeInput._(
       tableArn: tableArn,
@@ -95,13 +93,13 @@ abstract class ExportTableToPointInTimeInput
   /// *   `AES256` \- server-side encryption with Amazon S3 managed keys
   ///
   /// *   `KMS` \- server-side encryption with KMS managed keys
-  _i3.S3SseAlgorithm? get s3SseAlgorithm;
+  S3SseAlgorithm? get s3SseAlgorithm;
 
   /// The ID of the KMS managed key used to encrypt the S3 bucket where export data will be stored (if applicable).
   String? get s3SseKmsKeyId;
 
   /// The format for the exported data. Valid values for `ExportFormat` are `DYNAMODB_JSON` or `ION`.
-  _i4.ExportFormat? get exportFormat;
+  ExportFormat? get exportFormat;
   @override
   ExportTableToPointInTimeInput getPayload() => this;
   @override
@@ -225,8 +223,8 @@ class ExportTableToPointInTimeInputAwsJson10Serializer
         case 'S3SseAlgorithm':
           result.s3SseAlgorithm = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.S3SseAlgorithm),
-          ) as _i3.S3SseAlgorithm);
+            specifiedType: const FullType(S3SseAlgorithm),
+          ) as S3SseAlgorithm);
         case 'S3SseKmsKeyId':
           result.s3SseKmsKeyId = (serializers.deserialize(
             value,
@@ -235,8 +233,8 @@ class ExportTableToPointInTimeInputAwsJson10Serializer
         case 'ExportFormat':
           result.exportFormat = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ExportFormat),
-          ) as _i4.ExportFormat);
+            specifiedType: const FullType(ExportFormat),
+          ) as ExportFormat);
       }
     }
 
@@ -310,7 +308,7 @@ class ExportTableToPointInTimeInputAwsJson10Serializer
         ..add('S3SseAlgorithm')
         ..add(serializers.serialize(
           s3SseAlgorithm,
-          specifiedType: const FullType(_i3.S3SseAlgorithm),
+          specifiedType: const FullType(S3SseAlgorithm),
         ));
     }
     if (s3SseKmsKeyId != null) {
@@ -326,7 +324,7 @@ class ExportTableToPointInTimeInputAwsJson10Serializer
         ..add('ExportFormat')
         ..add(serializers.serialize(
           exportFormat,
-          specifiedType: const FullType(_i4.ExportFormat),
+          specifiedType: const FullType(ExportFormat),
         ));
     }
     return result$;

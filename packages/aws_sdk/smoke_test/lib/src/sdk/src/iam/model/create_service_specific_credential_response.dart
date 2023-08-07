@@ -6,9 +6,8 @@ library smoke_test.iam.model.create_service_specific_credential_response; // ign
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/service_specific_credential.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/service_specific_credential.dart';
 
 part 'create_service_specific_credential_response.g.dart';
 
@@ -19,7 +18,7 @@ abstract class CreateServiceSpecificCredentialResponse
         Built<CreateServiceSpecificCredentialResponse,
             CreateServiceSpecificCredentialResponseBuilder> {
   factory CreateServiceSpecificCredentialResponse(
-      {_i2.ServiceSpecificCredential? serviceSpecificCredential}) {
+      {ServiceSpecificCredential? serviceSpecificCredential}) {
     return _$CreateServiceSpecificCredentialResponse._(
         serviceSpecificCredential: serviceSpecificCredential);
   }
@@ -38,7 +37,7 @@ abstract class CreateServiceSpecificCredentialResponse
       payload;
 
   static const List<
-          _i3.SmithySerializer<CreateServiceSpecificCredentialResponse>>
+          _i2.SmithySerializer<CreateServiceSpecificCredentialResponse>>
       serializers = [
     CreateServiceSpecificCredentialResponseAwsQuerySerializer()
   ];
@@ -46,7 +45,7 @@ abstract class CreateServiceSpecificCredentialResponse
   /// A structure that contains information about the newly created service-specific credential.
   ///
   /// This is the only time that the password for this credential set is available. It cannot be recovered later. Instead, you must reset the password with ResetServiceSpecificCredential.
-  _i2.ServiceSpecificCredential? get serviceSpecificCredential;
+  ServiceSpecificCredential? get serviceSpecificCredential;
   @override
   List<Object?> get props => [serviceSpecificCredential];
   @override
@@ -61,7 +60,7 @@ abstract class CreateServiceSpecificCredentialResponse
   }
 }
 
-class CreateServiceSpecificCredentialResponseAwsQuerySerializer extends _i3
+class CreateServiceSpecificCredentialResponseAwsQuerySerializer extends _i2
     .StructuredSmithySerializer<CreateServiceSpecificCredentialResponse> {
   const CreateServiceSpecificCredentialResponseAwsQuerySerializer()
       : super('CreateServiceSpecificCredentialResponse');
@@ -72,8 +71,8 @@ class CreateServiceSpecificCredentialResponseAwsQuerySerializer extends _i3
         _$CreateServiceSpecificCredentialResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -97,8 +96,8 @@ class CreateServiceSpecificCredentialResponseAwsQuerySerializer extends _i3
         case 'ServiceSpecificCredential':
           result.serviceSpecificCredential.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ServiceSpecificCredential),
-          ) as _i2.ServiceSpecificCredential));
+            specifiedType: const FullType(ServiceSpecificCredential),
+          ) as ServiceSpecificCredential));
       }
     }
 
@@ -112,19 +111,19 @@ class CreateServiceSpecificCredentialResponseAwsQuerySerializer extends _i3
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'CreateServiceSpecificCredentialResponseResponse',
-        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final CreateServiceSpecificCredentialResponse(:serviceSpecificCredential) =
         object;
     if (serviceSpecificCredential != null) {
       result$
-        ..add(const _i3.XmlElementName('ServiceSpecificCredential'))
+        ..add(const _i2.XmlElementName('ServiceSpecificCredential'))
         ..add(serializers.serialize(
           serviceSpecificCredential,
-          specifiedType: const FullType(_i2.ServiceSpecificCredential),
+          specifiedType: const FullType(ServiceSpecificCredential),
         ));
     }
     return result$;

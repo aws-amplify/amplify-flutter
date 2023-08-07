@@ -8,11 +8,11 @@ part of 'replication_group_update.dart';
 
 class _$ReplicationGroupUpdate extends ReplicationGroupUpdate {
   @override
-  final _i2.CreateReplicationGroupMemberAction? create;
+  final CreateReplicationGroupMemberAction? create;
   @override
-  final _i3.UpdateReplicationGroupMemberAction? update_;
+  final UpdateReplicationGroupMemberAction? update_;
   @override
-  final _i4.DeleteReplicationGroupMemberAction? delete;
+  final DeleteReplicationGroupMemberAction? delete;
 
   factory _$ReplicationGroupUpdate(
           [void Function(ReplicationGroupUpdateBuilder)? updates]) =>
@@ -54,22 +54,22 @@ class ReplicationGroupUpdateBuilder
     implements Builder<ReplicationGroupUpdate, ReplicationGroupUpdateBuilder> {
   _$ReplicationGroupUpdate? _$v;
 
-  _i2.CreateReplicationGroupMemberActionBuilder? _create;
-  _i2.CreateReplicationGroupMemberActionBuilder get create =>
-      _$this._create ??= new _i2.CreateReplicationGroupMemberActionBuilder();
-  set create(_i2.CreateReplicationGroupMemberActionBuilder? create) =>
+  CreateReplicationGroupMemberActionBuilder? _create;
+  CreateReplicationGroupMemberActionBuilder get create =>
+      _$this._create ??= new CreateReplicationGroupMemberActionBuilder();
+  set create(CreateReplicationGroupMemberActionBuilder? create) =>
       _$this._create = create;
 
-  _i3.UpdateReplicationGroupMemberActionBuilder? _update_;
-  _i3.UpdateReplicationGroupMemberActionBuilder get update_ =>
-      _$this._update_ ??= new _i3.UpdateReplicationGroupMemberActionBuilder();
-  set update_(_i3.UpdateReplicationGroupMemberActionBuilder? update_) =>
+  UpdateReplicationGroupMemberActionBuilder? _update_;
+  UpdateReplicationGroupMemberActionBuilder get update_ =>
+      _$this._update_ ??= new UpdateReplicationGroupMemberActionBuilder();
+  set update_(UpdateReplicationGroupMemberActionBuilder? update_) =>
       _$this._update_ = update_;
 
-  _i4.DeleteReplicationGroupMemberActionBuilder? _delete;
-  _i4.DeleteReplicationGroupMemberActionBuilder get delete =>
-      _$this._delete ??= new _i4.DeleteReplicationGroupMemberActionBuilder();
-  set delete(_i4.DeleteReplicationGroupMemberActionBuilder? delete) =>
+  DeleteReplicationGroupMemberActionBuilder? _delete;
+  DeleteReplicationGroupMemberActionBuilder get delete =>
+      _$this._delete ??= new DeleteReplicationGroupMemberActionBuilder();
+  set delete(DeleteReplicationGroupMemberActionBuilder? delete) =>
       _$this._delete = delete;
 
   ReplicationGroupUpdateBuilder();

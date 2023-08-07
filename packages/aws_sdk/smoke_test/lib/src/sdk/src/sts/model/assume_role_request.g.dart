@@ -12,15 +12,15 @@ class _$AssumeRoleRequest extends AssumeRoleRequest {
   @override
   final String roleSessionName;
   @override
-  final _i6.BuiltList<_i3.PolicyDescriptorType>? policyArns;
+  final _i3.BuiltList<PolicyDescriptorType>? policyArns;
   @override
   final String? policy;
   @override
   final int? durationSeconds;
   @override
-  final _i6.BuiltList<_i4.Tag>? tags;
+  final _i3.BuiltList<Tag>? tags;
   @override
-  final _i6.BuiltList<String>? transitiveTagKeys;
+  final _i3.BuiltList<String>? transitiveTagKeys;
   @override
   final String? externalId;
   @override
@@ -30,7 +30,7 @@ class _$AssumeRoleRequest extends AssumeRoleRequest {
   @override
   final String? sourceIdentity;
   @override
-  final _i6.BuiltList<_i5.ProvidedContext>? providedContexts;
+  final _i3.BuiltList<ProvidedContext>? providedContexts;
 
   factory _$AssumeRoleRequest(
           [void Function(AssumeRoleRequestBuilder)? updates]) =>
@@ -115,10 +115,10 @@ class AssumeRoleRequestBuilder
   set roleSessionName(String? roleSessionName) =>
       _$this._roleSessionName = roleSessionName;
 
-  _i6.ListBuilder<_i3.PolicyDescriptorType>? _policyArns;
-  _i6.ListBuilder<_i3.PolicyDescriptorType> get policyArns =>
-      _$this._policyArns ??= new _i6.ListBuilder<_i3.PolicyDescriptorType>();
-  set policyArns(_i6.ListBuilder<_i3.PolicyDescriptorType>? policyArns) =>
+  _i3.ListBuilder<PolicyDescriptorType>? _policyArns;
+  _i3.ListBuilder<PolicyDescriptorType> get policyArns =>
+      _$this._policyArns ??= new _i3.ListBuilder<PolicyDescriptorType>();
+  set policyArns(_i3.ListBuilder<PolicyDescriptorType>? policyArns) =>
       _$this._policyArns = policyArns;
 
   String? _policy;
@@ -130,15 +130,14 @@ class AssumeRoleRequestBuilder
   set durationSeconds(int? durationSeconds) =>
       _$this._durationSeconds = durationSeconds;
 
-  _i6.ListBuilder<_i4.Tag>? _tags;
-  _i6.ListBuilder<_i4.Tag> get tags =>
-      _$this._tags ??= new _i6.ListBuilder<_i4.Tag>();
-  set tags(_i6.ListBuilder<_i4.Tag>? tags) => _$this._tags = tags;
+  _i3.ListBuilder<Tag>? _tags;
+  _i3.ListBuilder<Tag> get tags => _$this._tags ??= new _i3.ListBuilder<Tag>();
+  set tags(_i3.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
-  _i6.ListBuilder<String>? _transitiveTagKeys;
-  _i6.ListBuilder<String> get transitiveTagKeys =>
-      _$this._transitiveTagKeys ??= new _i6.ListBuilder<String>();
-  set transitiveTagKeys(_i6.ListBuilder<String>? transitiveTagKeys) =>
+  _i3.ListBuilder<String>? _transitiveTagKeys;
+  _i3.ListBuilder<String> get transitiveTagKeys =>
+      _$this._transitiveTagKeys ??= new _i3.ListBuilder<String>();
+  set transitiveTagKeys(_i3.ListBuilder<String>? transitiveTagKeys) =>
       _$this._transitiveTagKeys = transitiveTagKeys;
 
   String? _externalId;
@@ -158,11 +157,10 @@ class AssumeRoleRequestBuilder
   set sourceIdentity(String? sourceIdentity) =>
       _$this._sourceIdentity = sourceIdentity;
 
-  _i6.ListBuilder<_i5.ProvidedContext>? _providedContexts;
-  _i6.ListBuilder<_i5.ProvidedContext> get providedContexts =>
-      _$this._providedContexts ??= new _i6.ListBuilder<_i5.ProvidedContext>();
-  set providedContexts(
-          _i6.ListBuilder<_i5.ProvidedContext>? providedContexts) =>
+  _i3.ListBuilder<ProvidedContext>? _providedContexts;
+  _i3.ListBuilder<ProvidedContext> get providedContexts =>
+      _$this._providedContexts ??= new _i3.ListBuilder<ProvidedContext>();
+  set providedContexts(_i3.ListBuilder<ProvidedContext>? providedContexts) =>
       _$this._providedContexts = providedContexts;
 
   AssumeRoleRequestBuilder();

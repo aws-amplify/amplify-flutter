@@ -6,9 +6,8 @@ library smoke_test.dynamo_db.model.update_global_secondary_index_action; // igno
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput.dart';
 
 part 'update_global_secondary_index_action.g.dart';
 
@@ -22,7 +21,7 @@ abstract class UpdateGlobalSecondaryIndexAction
   /// Represents the new provisioned throughput settings to be applied to a global secondary index.
   factory UpdateGlobalSecondaryIndexAction({
     required String indexName,
-    required _i2.ProvisionedThroughput provisionedThroughput,
+    required ProvisionedThroughput provisionedThroughput,
   }) {
     return _$UpdateGlobalSecondaryIndexAction._(
       indexName: indexName,
@@ -37,7 +36,7 @@ abstract class UpdateGlobalSecondaryIndexAction
 
   const UpdateGlobalSecondaryIndexAction._();
 
-  static const List<_i3.SmithySerializer<UpdateGlobalSecondaryIndexAction>>
+  static const List<_i2.SmithySerializer<UpdateGlobalSecondaryIndexAction>>
       serializers = [UpdateGlobalSecondaryIndexActionAwsJson10Serializer()];
 
   /// The name of the global secondary index to be updated.
@@ -46,7 +45,7 @@ abstract class UpdateGlobalSecondaryIndexAction
   /// Represents the provisioned throughput settings for the specified global secondary index.
   ///
   /// For current minimum and maximum provisioned throughput values, see [Service, Account, and Table Quotas](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html) in the _Amazon DynamoDB Developer Guide_.
-  _i2.ProvisionedThroughput get provisionedThroughput;
+  ProvisionedThroughput get provisionedThroughput;
   @override
   List<Object?> get props => [
         indexName,
@@ -69,7 +68,7 @@ abstract class UpdateGlobalSecondaryIndexAction
 }
 
 class UpdateGlobalSecondaryIndexActionAwsJson10Serializer
-    extends _i3.StructuredSmithySerializer<UpdateGlobalSecondaryIndexAction> {
+    extends _i2.StructuredSmithySerializer<UpdateGlobalSecondaryIndexAction> {
   const UpdateGlobalSecondaryIndexActionAwsJson10Serializer()
       : super('UpdateGlobalSecondaryIndexAction');
 
@@ -79,8 +78,8 @@ class UpdateGlobalSecondaryIndexActionAwsJson10Serializer
         _$UpdateGlobalSecondaryIndexAction,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -109,8 +108,8 @@ class UpdateGlobalSecondaryIndexActionAwsJson10Serializer
         case 'ProvisionedThroughput':
           result.provisionedThroughput.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ProvisionedThroughput),
-          ) as _i2.ProvisionedThroughput));
+            specifiedType: const FullType(ProvisionedThroughput),
+          ) as ProvisionedThroughput));
       }
     }
 
@@ -135,7 +134,7 @@ class UpdateGlobalSecondaryIndexActionAwsJson10Serializer
       'ProvisionedThroughput',
       serializers.serialize(
         provisionedThroughput,
-        specifiedType: const FullType(_i2.ProvisionedThroughput),
+        specifiedType: const FullType(ProvisionedThroughput),
       ),
     ]);
     return result$;

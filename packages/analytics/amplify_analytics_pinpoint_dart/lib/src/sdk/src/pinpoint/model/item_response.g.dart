@@ -8,9 +8,9 @@ part of 'item_response.dart';
 
 class _$ItemResponse extends ItemResponse {
   @override
-  final _i2.EndpointItemResponse? endpointItemResponse;
+  final EndpointItemResponse? endpointItemResponse;
   @override
-  final _i4.BuiltMap<String, _i3.EventItemResponse>? eventsItemResponse;
+  final _i2.BuiltMap<String, EventItemResponse>? eventsItemResponse;
 
   factory _$ItemResponse([void Function(ItemResponseBuilder)? updates]) =>
       (new ItemResponseBuilder()..update(updates))._build();
@@ -47,19 +47,18 @@ class ItemResponseBuilder
     implements Builder<ItemResponse, ItemResponseBuilder> {
   _$ItemResponse? _$v;
 
-  _i2.EndpointItemResponseBuilder? _endpointItemResponse;
-  _i2.EndpointItemResponseBuilder get endpointItemResponse =>
-      _$this._endpointItemResponse ??= new _i2.EndpointItemResponseBuilder();
-  set endpointItemResponse(
-          _i2.EndpointItemResponseBuilder? endpointItemResponse) =>
+  EndpointItemResponseBuilder? _endpointItemResponse;
+  EndpointItemResponseBuilder get endpointItemResponse =>
+      _$this._endpointItemResponse ??= new EndpointItemResponseBuilder();
+  set endpointItemResponse(EndpointItemResponseBuilder? endpointItemResponse) =>
       _$this._endpointItemResponse = endpointItemResponse;
 
-  _i4.MapBuilder<String, _i3.EventItemResponse>? _eventsItemResponse;
-  _i4.MapBuilder<String, _i3.EventItemResponse> get eventsItemResponse =>
+  _i2.MapBuilder<String, EventItemResponse>? _eventsItemResponse;
+  _i2.MapBuilder<String, EventItemResponse> get eventsItemResponse =>
       _$this._eventsItemResponse ??=
-          new _i4.MapBuilder<String, _i3.EventItemResponse>();
+          new _i2.MapBuilder<String, EventItemResponse>();
   set eventsItemResponse(
-          _i4.MapBuilder<String, _i3.EventItemResponse>? eventsItemResponse) =>
+          _i2.MapBuilder<String, EventItemResponse>? eventsItemResponse) =>
       _$this._eventsItemResponse = eventsItemResponse;
 
   ItemResponseBuilder();

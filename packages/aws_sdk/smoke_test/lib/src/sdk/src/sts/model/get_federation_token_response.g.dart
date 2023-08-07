@@ -8,9 +8,9 @@ part of 'get_federation_token_response.dart';
 
 class _$GetFederationTokenResponse extends GetFederationTokenResponse {
   @override
-  final _i2.Credentials? credentials;
+  final Credentials? credentials;
   @override
-  final _i3.FederatedUser? federatedUser;
+  final FederatedUser? federatedUser;
   @override
   final int? packedPolicySize;
 
@@ -56,16 +56,16 @@ class GetFederationTokenResponseBuilder
         Builder<GetFederationTokenResponse, GetFederationTokenResponseBuilder> {
   _$GetFederationTokenResponse? _$v;
 
-  _i2.CredentialsBuilder? _credentials;
-  _i2.CredentialsBuilder get credentials =>
-      _$this._credentials ??= new _i2.CredentialsBuilder();
-  set credentials(_i2.CredentialsBuilder? credentials) =>
+  CredentialsBuilder? _credentials;
+  CredentialsBuilder get credentials =>
+      _$this._credentials ??= new CredentialsBuilder();
+  set credentials(CredentialsBuilder? credentials) =>
       _$this._credentials = credentials;
 
-  _i3.FederatedUserBuilder? _federatedUser;
-  _i3.FederatedUserBuilder get federatedUser =>
-      _$this._federatedUser ??= new _i3.FederatedUserBuilder();
-  set federatedUser(_i3.FederatedUserBuilder? federatedUser) =>
+  FederatedUserBuilder? _federatedUser;
+  FederatedUserBuilder get federatedUser =>
+      _$this._federatedUser ??= new FederatedUserBuilder();
+  set federatedUser(FederatedUserBuilder? federatedUser) =>
       _$this._federatedUser = federatedUser;
 
   int? _packedPolicySize;

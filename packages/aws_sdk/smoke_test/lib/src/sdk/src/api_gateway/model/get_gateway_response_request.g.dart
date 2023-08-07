@@ -10,7 +10,7 @@ class _$GetGatewayResponseRequest extends GetGatewayResponseRequest {
   @override
   final String restApiId;
   @override
-  final _i3.GatewayResponseType responseType;
+  final GatewayResponseType responseType;
 
   factory _$GetGatewayResponseRequest(
           [void Function(GetGatewayResponseRequestBuilder)? updates]) =>
@@ -61,9 +61,9 @@ class GetGatewayResponseRequestBuilder
   String? get restApiId => _$this._restApiId;
   set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
-  _i3.GatewayResponseType? _responseType;
-  _i3.GatewayResponseType? get responseType => _$this._responseType;
-  set responseType(_i3.GatewayResponseType? responseType) =>
+  GatewayResponseType? _responseType;
+  GatewayResponseType? get responseType => _$this._responseType;
+  set responseType(GatewayResponseType? responseType) =>
       _$this._responseType = responseType;
 
   GetGatewayResponseRequestBuilder();

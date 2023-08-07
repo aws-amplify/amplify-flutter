@@ -11,7 +11,7 @@ class _$ConditionalCheckFailedException
   @override
   final String? message;
   @override
-  final _i4.BuiltMap<String, _i3.AttributeValue>? item;
+  final _i3.BuiltMap<String, AttributeValue>? item;
   @override
   final int? statusCode;
   @override
@@ -62,11 +62,10 @@ class ConditionalCheckFailedExceptionBuilder
   String? get message => _$this._message;
   set message(String? message) => _$this._message = message;
 
-  _i4.MapBuilder<String, _i3.AttributeValue>? _item;
-  _i4.MapBuilder<String, _i3.AttributeValue> get item =>
-      _$this._item ??= new _i4.MapBuilder<String, _i3.AttributeValue>();
-  set item(_i4.MapBuilder<String, _i3.AttributeValue>? item) =>
-      _$this._item = item;
+  _i3.MapBuilder<String, AttributeValue>? _item;
+  _i3.MapBuilder<String, AttributeValue> get item =>
+      _$this._item ??= new _i3.MapBuilder<String, AttributeValue>();
+  set item(_i3.MapBuilder<String, AttributeValue>? item) => _$this._item = item;
 
   int? _statusCode;
   int? get statusCode => _$this._statusCode;

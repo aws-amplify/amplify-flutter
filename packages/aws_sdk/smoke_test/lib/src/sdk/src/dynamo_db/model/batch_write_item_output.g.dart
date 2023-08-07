@@ -8,12 +8,12 @@ part of 'batch_write_item_output.dart';
 
 class _$BatchWriteItemOutput extends BatchWriteItemOutput {
   @override
-  final _i5.BuiltListMultimap<String, _i2.WriteRequest>? unprocessedItems;
+  final _i2.BuiltListMultimap<String, WriteRequest>? unprocessedItems;
   @override
-  final _i5.BuiltListMultimap<String, _i3.ItemCollectionMetrics>?
+  final _i2.BuiltListMultimap<String, ItemCollectionMetrics>?
       itemCollectionMetrics;
   @override
-  final _i5.BuiltList<_i4.ConsumedCapacity>? consumedCapacity;
+  final _i2.BuiltList<ConsumedCapacity>? consumedCapacity;
 
   factory _$BatchWriteItemOutput(
           [void Function(BatchWriteItemOutputBuilder)? updates]) =>
@@ -58,30 +58,28 @@ class BatchWriteItemOutputBuilder
     implements Builder<BatchWriteItemOutput, BatchWriteItemOutputBuilder> {
   _$BatchWriteItemOutput? _$v;
 
-  _i5.ListMultimapBuilder<String, _i2.WriteRequest>? _unprocessedItems;
-  _i5.ListMultimapBuilder<String, _i2.WriteRequest> get unprocessedItems =>
+  _i2.ListMultimapBuilder<String, WriteRequest>? _unprocessedItems;
+  _i2.ListMultimapBuilder<String, WriteRequest> get unprocessedItems =>
       _$this._unprocessedItems ??=
-          new _i5.ListMultimapBuilder<String, _i2.WriteRequest>();
+          new _i2.ListMultimapBuilder<String, WriteRequest>();
   set unprocessedItems(
-          _i5.ListMultimapBuilder<String, _i2.WriteRequest>?
-              unprocessedItems) =>
+          _i2.ListMultimapBuilder<String, WriteRequest>? unprocessedItems) =>
       _$this._unprocessedItems = unprocessedItems;
 
-  _i5.ListMultimapBuilder<String, _i3.ItemCollectionMetrics>?
+  _i2.ListMultimapBuilder<String, ItemCollectionMetrics>?
       _itemCollectionMetrics;
-  _i5.ListMultimapBuilder<String, _i3.ItemCollectionMetrics>
+  _i2.ListMultimapBuilder<String, ItemCollectionMetrics>
       get itemCollectionMetrics => _$this._itemCollectionMetrics ??=
-          new _i5.ListMultimapBuilder<String, _i3.ItemCollectionMetrics>();
+          new _i2.ListMultimapBuilder<String, ItemCollectionMetrics>();
   set itemCollectionMetrics(
-          _i5.ListMultimapBuilder<String, _i3.ItemCollectionMetrics>?
+          _i2.ListMultimapBuilder<String, ItemCollectionMetrics>?
               itemCollectionMetrics) =>
       _$this._itemCollectionMetrics = itemCollectionMetrics;
 
-  _i5.ListBuilder<_i4.ConsumedCapacity>? _consumedCapacity;
-  _i5.ListBuilder<_i4.ConsumedCapacity> get consumedCapacity =>
-      _$this._consumedCapacity ??= new _i5.ListBuilder<_i4.ConsumedCapacity>();
-  set consumedCapacity(
-          _i5.ListBuilder<_i4.ConsumedCapacity>? consumedCapacity) =>
+  _i2.ListBuilder<ConsumedCapacity>? _consumedCapacity;
+  _i2.ListBuilder<ConsumedCapacity> get consumedCapacity =>
+      _$this._consumedCapacity ??= new _i2.ListBuilder<ConsumedCapacity>();
+  set consumedCapacity(_i2.ListBuilder<ConsumedCapacity>? consumedCapacity) =>
       _$this._consumedCapacity = consumedCapacity;
 
   BatchWriteItemOutputBuilder();

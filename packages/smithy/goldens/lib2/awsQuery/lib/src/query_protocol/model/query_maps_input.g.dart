@@ -8,21 +8,21 @@ part of 'query_maps_input.dart';
 
 class _$QueryMapsInput extends QueryMapsInput {
   @override
-  final _i5.BuiltMap<String, String>? mapArg;
+  final _i3.BuiltMap<String, String>? mapArg;
   @override
-  final _i5.BuiltMap<String, String>? renamedMapArg;
+  final _i3.BuiltMap<String, String>? renamedMapArg;
   @override
-  final _i5.BuiltMap<String, _i3.GreetingStruct>? complexMapArg;
+  final _i3.BuiltMap<String, GreetingStruct>? complexMapArg;
   @override
-  final _i5.BuiltMap<String, String>? mapWithXmlMemberName;
+  final _i3.BuiltMap<String, String>? mapWithXmlMemberName;
   @override
-  final _i5.BuiltMap<String, String>? flattenedMap;
+  final _i3.BuiltMap<String, String>? flattenedMap;
   @override
-  final _i5.BuiltMap<String, String>? flattenedMapWithXmlName;
+  final _i3.BuiltMap<String, String>? flattenedMapWithXmlName;
   @override
-  final _i5.BuiltListMultimap<String, String>? mapOfLists;
+  final _i3.BuiltListMultimap<String, String>? mapOfLists;
   @override
-  final _i4.NestedStructWithMap? nestedStructWithMap;
+  final NestedStructWithMap? nestedStructWithMap;
 
   factory _$QueryMapsInput([void Function(QueryMapsInputBuilder)? updates]) =>
       (new QueryMapsInputBuilder()..update(updates))._build();
@@ -80,56 +80,53 @@ class QueryMapsInputBuilder
     implements Builder<QueryMapsInput, QueryMapsInputBuilder> {
   _$QueryMapsInput? _$v;
 
-  _i5.MapBuilder<String, String>? _mapArg;
-  _i5.MapBuilder<String, String> get mapArg =>
-      _$this._mapArg ??= new _i5.MapBuilder<String, String>();
-  set mapArg(_i5.MapBuilder<String, String>? mapArg) => _$this._mapArg = mapArg;
+  _i3.MapBuilder<String, String>? _mapArg;
+  _i3.MapBuilder<String, String> get mapArg =>
+      _$this._mapArg ??= new _i3.MapBuilder<String, String>();
+  set mapArg(_i3.MapBuilder<String, String>? mapArg) => _$this._mapArg = mapArg;
 
-  _i5.MapBuilder<String, String>? _renamedMapArg;
-  _i5.MapBuilder<String, String> get renamedMapArg =>
-      _$this._renamedMapArg ??= new _i5.MapBuilder<String, String>();
-  set renamedMapArg(_i5.MapBuilder<String, String>? renamedMapArg) =>
+  _i3.MapBuilder<String, String>? _renamedMapArg;
+  _i3.MapBuilder<String, String> get renamedMapArg =>
+      _$this._renamedMapArg ??= new _i3.MapBuilder<String, String>();
+  set renamedMapArg(_i3.MapBuilder<String, String>? renamedMapArg) =>
       _$this._renamedMapArg = renamedMapArg;
 
-  _i5.MapBuilder<String, _i3.GreetingStruct>? _complexMapArg;
-  _i5.MapBuilder<String, _i3.GreetingStruct> get complexMapArg =>
-      _$this._complexMapArg ??=
-          new _i5.MapBuilder<String, _i3.GreetingStruct>();
-  set complexMapArg(
-          _i5.MapBuilder<String, _i3.GreetingStruct>? complexMapArg) =>
+  _i3.MapBuilder<String, GreetingStruct>? _complexMapArg;
+  _i3.MapBuilder<String, GreetingStruct> get complexMapArg =>
+      _$this._complexMapArg ??= new _i3.MapBuilder<String, GreetingStruct>();
+  set complexMapArg(_i3.MapBuilder<String, GreetingStruct>? complexMapArg) =>
       _$this._complexMapArg = complexMapArg;
 
-  _i5.MapBuilder<String, String>? _mapWithXmlMemberName;
-  _i5.MapBuilder<String, String> get mapWithXmlMemberName =>
-      _$this._mapWithXmlMemberName ??= new _i5.MapBuilder<String, String>();
+  _i3.MapBuilder<String, String>? _mapWithXmlMemberName;
+  _i3.MapBuilder<String, String> get mapWithXmlMemberName =>
+      _$this._mapWithXmlMemberName ??= new _i3.MapBuilder<String, String>();
   set mapWithXmlMemberName(
-          _i5.MapBuilder<String, String>? mapWithXmlMemberName) =>
+          _i3.MapBuilder<String, String>? mapWithXmlMemberName) =>
       _$this._mapWithXmlMemberName = mapWithXmlMemberName;
 
-  _i5.MapBuilder<String, String>? _flattenedMap;
-  _i5.MapBuilder<String, String> get flattenedMap =>
-      _$this._flattenedMap ??= new _i5.MapBuilder<String, String>();
-  set flattenedMap(_i5.MapBuilder<String, String>? flattenedMap) =>
+  _i3.MapBuilder<String, String>? _flattenedMap;
+  _i3.MapBuilder<String, String> get flattenedMap =>
+      _$this._flattenedMap ??= new _i3.MapBuilder<String, String>();
+  set flattenedMap(_i3.MapBuilder<String, String>? flattenedMap) =>
       _$this._flattenedMap = flattenedMap;
 
-  _i5.MapBuilder<String, String>? _flattenedMapWithXmlName;
-  _i5.MapBuilder<String, String> get flattenedMapWithXmlName =>
-      _$this._flattenedMapWithXmlName ??= new _i5.MapBuilder<String, String>();
+  _i3.MapBuilder<String, String>? _flattenedMapWithXmlName;
+  _i3.MapBuilder<String, String> get flattenedMapWithXmlName =>
+      _$this._flattenedMapWithXmlName ??= new _i3.MapBuilder<String, String>();
   set flattenedMapWithXmlName(
-          _i5.MapBuilder<String, String>? flattenedMapWithXmlName) =>
+          _i3.MapBuilder<String, String>? flattenedMapWithXmlName) =>
       _$this._flattenedMapWithXmlName = flattenedMapWithXmlName;
 
-  _i5.ListMultimapBuilder<String, String>? _mapOfLists;
-  _i5.ListMultimapBuilder<String, String> get mapOfLists =>
-      _$this._mapOfLists ??= new _i5.ListMultimapBuilder<String, String>();
-  set mapOfLists(_i5.ListMultimapBuilder<String, String>? mapOfLists) =>
+  _i3.ListMultimapBuilder<String, String>? _mapOfLists;
+  _i3.ListMultimapBuilder<String, String> get mapOfLists =>
+      _$this._mapOfLists ??= new _i3.ListMultimapBuilder<String, String>();
+  set mapOfLists(_i3.ListMultimapBuilder<String, String>? mapOfLists) =>
       _$this._mapOfLists = mapOfLists;
 
-  _i4.NestedStructWithMapBuilder? _nestedStructWithMap;
-  _i4.NestedStructWithMapBuilder get nestedStructWithMap =>
-      _$this._nestedStructWithMap ??= new _i4.NestedStructWithMapBuilder();
-  set nestedStructWithMap(
-          _i4.NestedStructWithMapBuilder? nestedStructWithMap) =>
+  NestedStructWithMapBuilder? _nestedStructWithMap;
+  NestedStructWithMapBuilder get nestedStructWithMap =>
+      _$this._nestedStructWithMap ??= new NestedStructWithMapBuilder();
+  set nestedStructWithMap(NestedStructWithMapBuilder? nestedStructWithMap) =>
       _$this._nestedStructWithMap = nestedStructWithMap;
 
   QueryMapsInputBuilder();

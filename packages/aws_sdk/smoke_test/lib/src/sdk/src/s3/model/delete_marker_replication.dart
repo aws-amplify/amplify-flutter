@@ -6,9 +6,8 @@ library smoke_test.s3.model.delete_marker_replication; // ignore_for_file: no_le
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/delete_marker_replication_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/delete_marker_replication_status.dart';
 
 part 'delete_marker_replication.g.dart';
 
@@ -25,7 +24,7 @@ abstract class DeleteMarkerReplication
   /// For more information about delete marker replication, see [Basic Rule Configuration](https://docs.aws.amazon.com/AmazonS3/latest/dev/delete-marker-replication.html).
   ///
   /// If you are using an earlier version of the replication configuration, Amazon S3 handles replication of delete markers differently. For more information, see [Backward Compatibility](https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-add-config.html#replication-backward-compat-considerations).
-  factory DeleteMarkerReplication({_i2.DeleteMarkerReplicationStatus? status}) {
+  factory DeleteMarkerReplication({DeleteMarkerReplicationStatus? status}) {
     return _$DeleteMarkerReplication._(status: status);
   }
 
@@ -40,13 +39,13 @@ abstract class DeleteMarkerReplication
 
   const DeleteMarkerReplication._();
 
-  static const List<_i3.SmithySerializer<DeleteMarkerReplication>> serializers =
+  static const List<_i2.SmithySerializer<DeleteMarkerReplication>> serializers =
       [DeleteMarkerReplicationRestXmlSerializer()];
 
   /// Indicates whether to replicate delete markers.
   ///
   /// Indicates whether to replicate delete markers.
-  _i2.DeleteMarkerReplicationStatus? get status;
+  DeleteMarkerReplicationStatus? get status;
   @override
   List<Object?> get props => [status];
   @override
@@ -61,7 +60,7 @@ abstract class DeleteMarkerReplication
 }
 
 class DeleteMarkerReplicationRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<DeleteMarkerReplication> {
+    extends _i2.StructuredSmithySerializer<DeleteMarkerReplication> {
   const DeleteMarkerReplicationRestXmlSerializer()
       : super('DeleteMarkerReplication');
 
@@ -71,8 +70,8 @@ class DeleteMarkerReplicationRestXmlSerializer
         _$DeleteMarkerReplication,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -96,8 +95,8 @@ class DeleteMarkerReplicationRestXmlSerializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.DeleteMarkerReplicationStatus),
-          ) as _i2.DeleteMarkerReplicationStatus);
+            specifiedType: const FullType(DeleteMarkerReplicationStatus),
+          ) as DeleteMarkerReplicationStatus);
       }
     }
 
@@ -111,19 +110,18 @@ class DeleteMarkerReplicationRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'DeleteMarkerReplication',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final DeleteMarkerReplication(:status) = object;
     if (status != null) {
       result$
-        ..add(const _i3.XmlElementName('Status'))
+        ..add(const _i2.XmlElementName('Status'))
         ..add(serializers.serialize(
           status,
-          specifiedType:
-              const FullType.nullable(_i2.DeleteMarkerReplicationStatus),
+          specifiedType: const FullType.nullable(DeleteMarkerReplicationStatus),
         ));
     }
     return result$;

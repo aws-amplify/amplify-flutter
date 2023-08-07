@@ -8,7 +8,7 @@ part of 'glacier_job_parameters.dart';
 
 class _$GlacierJobParameters extends GlacierJobParameters {
   @override
-  final _i2.Tier tier;
+  final Tier tier;
 
   factory _$GlacierJobParameters(
           [void Function(GlacierJobParametersBuilder)? updates]) =>
@@ -47,9 +47,9 @@ class GlacierJobParametersBuilder
     implements Builder<GlacierJobParameters, GlacierJobParametersBuilder> {
   _$GlacierJobParameters? _$v;
 
-  _i2.Tier? _tier;
-  _i2.Tier? get tier => _$this._tier;
-  set tier(_i2.Tier? tier) => _$this._tier = tier;
+  Tier? _tier;
+  Tier? get tier => _$this._tier;
+  set tier(Tier? tier) => _$this._tier = tier;
 
   GlacierJobParametersBuilder();
 

@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/shard_iterator_type.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db_streams/model/shard_iterator_type.dart';
 
 part 'get_shard_iterator_input.g.dart';
 
@@ -22,7 +21,7 @@ abstract class GetShardIteratorInput
   factory GetShardIteratorInput({
     required String streamArn,
     required String shardId,
-    required _i3.ShardIteratorType shardIteratorType,
+    required ShardIteratorType shardIteratorType,
     String? sequenceNumber,
   }) {
     return _$GetShardIteratorInput._(
@@ -66,7 +65,7 @@ abstract class GetShardIteratorInput
   /// *   `TRIM_HORIZON` \- Start reading at the last (untrimmed) stream record, which is the oldest record in the shard. In DynamoDB Streams, there is a 24 hour limit on data retention. Stream records whose age exceeds this limit are subject to removal (trimming) from the stream.
   ///
   /// *   `LATEST` \- Start reading just after the most recent stream record in the shard, so that you always read the most recent data in the shard.
-  _i3.ShardIteratorType get shardIteratorType;
+  ShardIteratorType get shardIteratorType;
 
   /// The sequence number of a stream record in the shard from which to start reading.
   String? get sequenceNumber;
@@ -148,8 +147,8 @@ class GetShardIteratorInputAwsJson10Serializer
         case 'ShardIteratorType':
           result.shardIteratorType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ShardIteratorType),
-          ) as _i3.ShardIteratorType);
+            specifiedType: const FullType(ShardIteratorType),
+          ) as ShardIteratorType);
         case 'SequenceNumber':
           result.sequenceNumber = (serializers.deserialize(
             value,
@@ -188,7 +187,7 @@ class GetShardIteratorInputAwsJson10Serializer
       'ShardIteratorType',
       serializers.serialize(
         shardIteratorType,
-        specifiedType: const FullType(_i3.ShardIteratorType),
+        specifiedType: const FullType(ShardIteratorType),
       ),
     ]);
     if (sequenceNumber != null) {

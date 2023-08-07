@@ -30,7 +30,7 @@ class _$Policy extends Policy {
   @override
   final DateTime? updateDate;
   @override
-  final _i3.BuiltList<_i2.Tag>? tags;
+  final _i2.BuiltList<Tag>? tags;
 
   factory _$Policy([void Function(PolicyBuilder)? updates]) =>
       (new PolicyBuilder()..update(updates))._build();
@@ -149,10 +149,9 @@ class PolicyBuilder implements Builder<Policy, PolicyBuilder> {
   DateTime? get updateDate => _$this._updateDate;
   set updateDate(DateTime? updateDate) => _$this._updateDate = updateDate;
 
-  _i3.ListBuilder<_i2.Tag>? _tags;
-  _i3.ListBuilder<_i2.Tag> get tags =>
-      _$this._tags ??= new _i3.ListBuilder<_i2.Tag>();
-  set tags(_i3.ListBuilder<_i2.Tag>? tags) => _$this._tags = tags;
+  _i2.ListBuilder<Tag>? _tags;
+  _i2.ListBuilder<Tag> get tags => _$this._tags ??= new _i2.ListBuilder<Tag>();
+  set tags(_i2.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   PolicyBuilder() {
     Policy._init(this);

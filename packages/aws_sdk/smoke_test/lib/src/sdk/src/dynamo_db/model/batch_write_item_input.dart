@@ -4,16 +4,13 @@
 library smoke_test.dynamo_db.model.batch_write_item_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_consumed_capacity.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_item_collection_metrics.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/write_request.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_consumed_capacity.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_item_collection_metrics.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/write_request.dart';
 
 part 'batch_write_item_input.g.dart';
 
@@ -25,12 +22,12 @@ abstract class BatchWriteItemInput
     implements Built<BatchWriteItemInput, BatchWriteItemInputBuilder> {
   /// Represents the input of a `BatchWriteItem` operation.
   factory BatchWriteItemInput({
-    required Map<String, List<_i3.WriteRequest>> requestItems,
-    _i4.ReturnConsumedCapacity? returnConsumedCapacity,
-    _i5.ReturnItemCollectionMetrics? returnItemCollectionMetrics,
+    required Map<String, List<WriteRequest>> requestItems,
+    ReturnConsumedCapacity? returnConsumedCapacity,
+    ReturnItemCollectionMetrics? returnItemCollectionMetrics,
   }) {
     return _$BatchWriteItemInput._(
-      requestItems: _i6.BuiltListMultimap(requestItems),
+      requestItems: _i3.BuiltListMultimap(requestItems),
       returnConsumedCapacity: returnConsumedCapacity,
       returnItemCollectionMetrics: returnItemCollectionMetrics,
     );
@@ -65,7 +62,7 @@ abstract class BatchWriteItemInput
   ///     *   `Item` \- A map of attributes and their values. Each entry in this map consists of an attribute name and an attribute value. Attribute values must not be null; string and binary type attributes must have lengths greater than zero; and set type attributes must not be empty. Requests that contain empty values are rejected with a `ValidationException` exception.
   ///
   ///         If you specify any attributes that are part of an index key, then the data types for those attributes must match those of the schema in the table's attribute definition.
-  _i6.BuiltListMultimap<String, _i3.WriteRequest> get requestItems;
+  _i3.BuiltListMultimap<String, WriteRequest> get requestItems;
 
   /// Determines the level of detail about either provisioned or on-demand throughput consumption that is returned in the response:
   ///
@@ -76,10 +73,10 @@ abstract class BatchWriteItemInput
   /// *   `TOTAL` \- The response includes only the aggregate `ConsumedCapacity` for the operation.
   ///
   /// *   `NONE` \- No `ConsumedCapacity` details are included in the response.
-  _i4.ReturnConsumedCapacity? get returnConsumedCapacity;
+  ReturnConsumedCapacity? get returnConsumedCapacity;
 
   /// Determines whether item collection metrics are returned. If set to `SIZE`, the response includes statistics about item collections, if any, that were modified during the operation are returned in the response. If set to `NONE` (the default), no statistics are returned.
-  _i5.ReturnItemCollectionMetrics? get returnItemCollectionMetrics;
+  ReturnItemCollectionMetrics? get returnItemCollectionMetrics;
   @override
   BatchWriteItemInput getPayload() => this;
   @override
@@ -143,23 +140,23 @@ class BatchWriteItemInputAwsJson10Serializer
           result.requestItems.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltListMultimap,
+              _i3.BuiltListMultimap,
               [
                 FullType(String),
-                FullType(_i3.WriteRequest),
+                FullType(WriteRequest),
               ],
             ),
-          ) as _i6.BuiltListMultimap<String, _i3.WriteRequest>));
+          ) as _i3.BuiltListMultimap<String, WriteRequest>));
         case 'ReturnConsumedCapacity':
           result.returnConsumedCapacity = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ReturnConsumedCapacity),
-          ) as _i4.ReturnConsumedCapacity);
+            specifiedType: const FullType(ReturnConsumedCapacity),
+          ) as ReturnConsumedCapacity);
         case 'ReturnItemCollectionMetrics':
           result.returnItemCollectionMetrics = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.ReturnItemCollectionMetrics),
-          ) as _i5.ReturnItemCollectionMetrics);
+            specifiedType: const FullType(ReturnItemCollectionMetrics),
+          ) as ReturnItemCollectionMetrics);
       }
     }
 
@@ -183,10 +180,10 @@ class BatchWriteItemInputAwsJson10Serializer
       serializers.serialize(
         requestItems,
         specifiedType: const FullType(
-          _i6.BuiltListMultimap,
+          _i3.BuiltListMultimap,
           [
             FullType(String),
-            FullType(_i3.WriteRequest),
+            FullType(WriteRequest),
           ],
         ),
       ),
@@ -196,7 +193,7 @@ class BatchWriteItemInputAwsJson10Serializer
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
           returnConsumedCapacity,
-          specifiedType: const FullType(_i4.ReturnConsumedCapacity),
+          specifiedType: const FullType(ReturnConsumedCapacity),
         ));
     }
     if (returnItemCollectionMetrics != null) {
@@ -204,7 +201,7 @@ class BatchWriteItemInputAwsJson10Serializer
         ..add('ReturnItemCollectionMetrics')
         ..add(serializers.serialize(
           returnItemCollectionMetrics,
-          specifiedType: const FullType(_i5.ReturnItemCollectionMetrics),
+          specifiedType: const FullType(ReturnItemCollectionMetrics),
         ));
     }
     return result$;

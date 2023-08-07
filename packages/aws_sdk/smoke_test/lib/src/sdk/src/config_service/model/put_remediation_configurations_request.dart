@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.put_remediation_configurations_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/remediation_configuration.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/remediation_configuration.dart';
 
 part 'put_remediation_configurations_request.g.dart';
 
@@ -21,9 +20,9 @@ abstract class PutRemediationConfigurationsRequest
         Built<PutRemediationConfigurationsRequest,
             PutRemediationConfigurationsRequestBuilder> {
   factory PutRemediationConfigurationsRequest(
-      {required List<_i3.RemediationConfiguration> remediationConfigurations}) {
+      {required List<RemediationConfiguration> remediationConfigurations}) {
     return _$PutRemediationConfigurationsRequest._(
-        remediationConfigurations: _i4.BuiltList(remediationConfigurations));
+        remediationConfigurations: _i3.BuiltList(remediationConfigurations));
   }
 
   factory PutRemediationConfigurationsRequest.build(
@@ -43,7 +42,7 @@ abstract class PutRemediationConfigurationsRequest
       serializers = [PutRemediationConfigurationsRequestAwsJson11Serializer()];
 
   /// A list of remediation configuration objects.
-  _i4.BuiltList<_i3.RemediationConfiguration> get remediationConfigurations;
+  _i3.BuiltList<RemediationConfiguration> get remediationConfigurations;
   @override
   PutRemediationConfigurationsRequest getPayload() => this;
   @override
@@ -97,10 +96,10 @@ class PutRemediationConfigurationsRequestAwsJson11Serializer extends _i1
           result.remediationConfigurations.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.RemediationConfiguration)],
+              _i3.BuiltList,
+              [FullType(RemediationConfiguration)],
             ),
-          ) as _i4.BuiltList<_i3.RemediationConfiguration>));
+          ) as _i3.BuiltList<RemediationConfiguration>));
       }
     }
 
@@ -121,8 +120,8 @@ class PutRemediationConfigurationsRequestAwsJson11Serializer extends _i1
       serializers.serialize(
         remediationConfigurations,
         specifiedType: const FullType(
-          _i4.BuiltList,
-          [FullType(_i3.RemediationConfiguration)],
+          _i3.BuiltList,
+          [FullType(RemediationConfiguration)],
         ),
       ),
     ]);

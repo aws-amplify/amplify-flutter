@@ -18,11 +18,11 @@ class _$CreateDeploymentRequest extends CreateDeploymentRequest {
   @override
   final bool? cacheClusterEnabled;
   @override
-  final _i3.CacheClusterSize? cacheClusterSize;
+  final CacheClusterSize? cacheClusterSize;
   @override
-  final _i5.BuiltMap<String, String>? variables;
+  final _i3.BuiltMap<String, String>? variables;
   @override
-  final _i4.DeploymentCanarySettings? canarySettings;
+  final DeploymentCanarySettings? canarySettings;
   @override
   final bool? tracingEnabled;
 
@@ -113,21 +113,21 @@ class CreateDeploymentRequestBuilder
   set cacheClusterEnabled(bool? cacheClusterEnabled) =>
       _$this._cacheClusterEnabled = cacheClusterEnabled;
 
-  _i3.CacheClusterSize? _cacheClusterSize;
-  _i3.CacheClusterSize? get cacheClusterSize => _$this._cacheClusterSize;
-  set cacheClusterSize(_i3.CacheClusterSize? cacheClusterSize) =>
+  CacheClusterSize? _cacheClusterSize;
+  CacheClusterSize? get cacheClusterSize => _$this._cacheClusterSize;
+  set cacheClusterSize(CacheClusterSize? cacheClusterSize) =>
       _$this._cacheClusterSize = cacheClusterSize;
 
-  _i5.MapBuilder<String, String>? _variables;
-  _i5.MapBuilder<String, String> get variables =>
-      _$this._variables ??= new _i5.MapBuilder<String, String>();
-  set variables(_i5.MapBuilder<String, String>? variables) =>
+  _i3.MapBuilder<String, String>? _variables;
+  _i3.MapBuilder<String, String> get variables =>
+      _$this._variables ??= new _i3.MapBuilder<String, String>();
+  set variables(_i3.MapBuilder<String, String>? variables) =>
       _$this._variables = variables;
 
-  _i4.DeploymentCanarySettingsBuilder? _canarySettings;
-  _i4.DeploymentCanarySettingsBuilder get canarySettings =>
-      _$this._canarySettings ??= new _i4.DeploymentCanarySettingsBuilder();
-  set canarySettings(_i4.DeploymentCanarySettingsBuilder? canarySettings) =>
+  DeploymentCanarySettingsBuilder? _canarySettings;
+  DeploymentCanarySettingsBuilder get canarySettings =>
+      _$this._canarySettings ??= new DeploymentCanarySettingsBuilder();
+  set canarySettings(DeploymentCanarySettingsBuilder? canarySettings) =>
       _$this._canarySettings = canarySettings;
 
   bool? _tracingEnabled;
@@ -205,9 +205,9 @@ class _$CreateDeploymentRequestPayload extends CreateDeploymentRequestPayload {
   @override
   final bool? cacheClusterEnabled;
   @override
-  final _i3.CacheClusterSize? cacheClusterSize;
+  final CacheClusterSize? cacheClusterSize;
   @override
-  final _i4.DeploymentCanarySettings? canarySettings;
+  final DeploymentCanarySettings? canarySettings;
   @override
   final String? description;
   @override
@@ -217,7 +217,7 @@ class _$CreateDeploymentRequestPayload extends CreateDeploymentRequestPayload {
   @override
   final bool? tracingEnabled;
   @override
-  final _i5.BuiltMap<String, String>? variables;
+  final _i3.BuiltMap<String, String>? variables;
 
   factory _$CreateDeploymentRequestPayload(
           [void Function(CreateDeploymentRequestPayloadBuilder)? updates]) =>
@@ -284,15 +284,15 @@ class CreateDeploymentRequestPayloadBuilder
   set cacheClusterEnabled(bool? cacheClusterEnabled) =>
       _$this._cacheClusterEnabled = cacheClusterEnabled;
 
-  _i3.CacheClusterSize? _cacheClusterSize;
-  _i3.CacheClusterSize? get cacheClusterSize => _$this._cacheClusterSize;
-  set cacheClusterSize(_i3.CacheClusterSize? cacheClusterSize) =>
+  CacheClusterSize? _cacheClusterSize;
+  CacheClusterSize? get cacheClusterSize => _$this._cacheClusterSize;
+  set cacheClusterSize(CacheClusterSize? cacheClusterSize) =>
       _$this._cacheClusterSize = cacheClusterSize;
 
-  _i4.DeploymentCanarySettingsBuilder? _canarySettings;
-  _i4.DeploymentCanarySettingsBuilder get canarySettings =>
-      _$this._canarySettings ??= new _i4.DeploymentCanarySettingsBuilder();
-  set canarySettings(_i4.DeploymentCanarySettingsBuilder? canarySettings) =>
+  DeploymentCanarySettingsBuilder? _canarySettings;
+  DeploymentCanarySettingsBuilder get canarySettings =>
+      _$this._canarySettings ??= new DeploymentCanarySettingsBuilder();
+  set canarySettings(DeploymentCanarySettingsBuilder? canarySettings) =>
       _$this._canarySettings = canarySettings;
 
   String? _description;
@@ -313,10 +313,10 @@ class CreateDeploymentRequestPayloadBuilder
   set tracingEnabled(bool? tracingEnabled) =>
       _$this._tracingEnabled = tracingEnabled;
 
-  _i5.MapBuilder<String, String>? _variables;
-  _i5.MapBuilder<String, String> get variables =>
-      _$this._variables ??= new _i5.MapBuilder<String, String>();
-  set variables(_i5.MapBuilder<String, String>? variables) =>
+  _i3.MapBuilder<String, String>? _variables;
+  _i3.MapBuilder<String, String> get variables =>
+      _$this._variables ??= new _i3.MapBuilder<String, String>();
+  set variables(_i3.MapBuilder<String, String>? variables) =>
       _$this._variables = variables;
 
   CreateDeploymentRequestPayloadBuilder();

@@ -9,7 +9,7 @@ part of 'describe_stack_set_operation_output.dart';
 class _$DescribeStackSetOperationOutput
     extends DescribeStackSetOperationOutput {
   @override
-  final _i2.StackSetOperation? stackSetOperation;
+  final StackSetOperation? stackSetOperation;
 
   factory _$DescribeStackSetOperationOutput(
           [void Function(DescribeStackSetOperationOutputBuilder)? updates]) =>
@@ -48,10 +48,10 @@ class DescribeStackSetOperationOutputBuilder
             DescribeStackSetOperationOutputBuilder> {
   _$DescribeStackSetOperationOutput? _$v;
 
-  _i2.StackSetOperationBuilder? _stackSetOperation;
-  _i2.StackSetOperationBuilder get stackSetOperation =>
-      _$this._stackSetOperation ??= new _i2.StackSetOperationBuilder();
-  set stackSetOperation(_i2.StackSetOperationBuilder? stackSetOperation) =>
+  StackSetOperationBuilder? _stackSetOperation;
+  StackSetOperationBuilder get stackSetOperation =>
+      _$this._stackSetOperation ??= new StackSetOperationBuilder();
+  set stackSetOperation(StackSetOperationBuilder? stackSetOperation) =>
       _$this._stackSetOperation = stackSetOperation;
 
   DescribeStackSetOperationOutputBuilder();

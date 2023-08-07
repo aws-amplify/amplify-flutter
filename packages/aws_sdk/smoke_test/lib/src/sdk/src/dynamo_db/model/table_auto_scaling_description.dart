@@ -4,14 +4,12 @@
 library smoke_test.dynamo_db.model.table_auto_scaling_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_auto_scaling_description.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/replica_auto_scaling_description.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_status.dart';
 
 part 'table_auto_scaling_description.g.dart';
 
@@ -23,13 +21,13 @@ abstract class TableAutoScalingDescription
   /// Represents the auto scaling configuration for a global table.
   factory TableAutoScalingDescription({
     String? tableName,
-    _i2.TableStatus? tableStatus,
-    List<_i3.ReplicaAutoScalingDescription>? replicas,
+    TableStatus? tableStatus,
+    List<ReplicaAutoScalingDescription>? replicas,
   }) {
     return _$TableAutoScalingDescription._(
       tableName: tableName,
       tableStatus: tableStatus,
-      replicas: replicas == null ? null : _i4.BuiltList(replicas),
+      replicas: replicas == null ? null : _i2.BuiltList(replicas),
     );
   }
 
@@ -40,7 +38,7 @@ abstract class TableAutoScalingDescription
 
   const TableAutoScalingDescription._();
 
-  static const List<_i5.SmithySerializer<TableAutoScalingDescription>>
+  static const List<_i3.SmithySerializer<TableAutoScalingDescription>>
       serializers = [TableAutoScalingDescriptionAwsJson10Serializer()];
 
   /// The name of the table.
@@ -55,10 +53,10 @@ abstract class TableAutoScalingDescription
   /// *   `DELETING` \- The table is being deleted.
   ///
   /// *   `ACTIVE` \- The table is ready for use.
-  _i2.TableStatus? get tableStatus;
+  TableStatus? get tableStatus;
 
   /// Represents replicas of the global table.
-  _i4.BuiltList<_i3.ReplicaAutoScalingDescription>? get replicas;
+  _i2.BuiltList<ReplicaAutoScalingDescription>? get replicas;
   @override
   List<Object?> get props => [
         tableName,
@@ -85,7 +83,7 @@ abstract class TableAutoScalingDescription
 }
 
 class TableAutoScalingDescriptionAwsJson10Serializer
-    extends _i5.StructuredSmithySerializer<TableAutoScalingDescription> {
+    extends _i3.StructuredSmithySerializer<TableAutoScalingDescription> {
   const TableAutoScalingDescriptionAwsJson10Serializer()
       : super('TableAutoScalingDescription');
 
@@ -95,8 +93,8 @@ class TableAutoScalingDescriptionAwsJson10Serializer
         _$TableAutoScalingDescription,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -125,16 +123,16 @@ class TableAutoScalingDescriptionAwsJson10Serializer
         case 'TableStatus':
           result.tableStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.TableStatus),
-          ) as _i2.TableStatus);
+            specifiedType: const FullType(TableStatus),
+          ) as TableStatus);
         case 'Replicas':
           result.replicas.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.ReplicaAutoScalingDescription)],
+              _i2.BuiltList,
+              [FullType(ReplicaAutoScalingDescription)],
             ),
-          ) as _i4.BuiltList<_i3.ReplicaAutoScalingDescription>));
+          ) as _i2.BuiltList<ReplicaAutoScalingDescription>));
       }
     }
 
@@ -163,7 +161,7 @@ class TableAutoScalingDescriptionAwsJson10Serializer
         ..add('TableStatus')
         ..add(serializers.serialize(
           tableStatus,
-          specifiedType: const FullType(_i2.TableStatus),
+          specifiedType: const FullType(TableStatus),
         ));
     }
     if (replicas != null) {
@@ -172,8 +170,8 @@ class TableAutoScalingDescriptionAwsJson10Serializer
         ..add(serializers.serialize(
           replicas,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i3.ReplicaAutoScalingDescription)],
+            _i2.BuiltList,
+            [FullType(ReplicaAutoScalingDescription)],
           ),
         ));
     }

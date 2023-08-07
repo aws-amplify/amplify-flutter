@@ -4,18 +4,14 @@
 library smoke_test.cloud_formation.model.get_template_summary_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i7;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/capability.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/parameter_declaration.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/resource_identifier_summary.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/warnings.dart'
-    as _i5;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/capability.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/parameter_declaration.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/resource_identifier_summary.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/warnings.dart';
 
 part 'get_template_summary_output.g.dart';
 
@@ -26,31 +22,31 @@ abstract class GetTemplateSummaryOutput
         Built<GetTemplateSummaryOutput, GetTemplateSummaryOutputBuilder> {
   /// The output for the GetTemplateSummary action.
   factory GetTemplateSummaryOutput({
-    List<_i2.ParameterDeclaration>? parameters,
+    List<ParameterDeclaration>? parameters,
     String? description,
-    List<_i3.Capability>? capabilities,
+    List<Capability>? capabilities,
     String? capabilitiesReason,
     List<String>? resourceTypes,
     String? version,
     String? metadata,
     List<String>? declaredTransforms,
-    List<_i4.ResourceIdentifierSummary>? resourceIdentifierSummaries,
-    _i5.Warnings? warnings,
+    List<ResourceIdentifierSummary>? resourceIdentifierSummaries,
+    Warnings? warnings,
   }) {
     return _$GetTemplateSummaryOutput._(
-      parameters: parameters == null ? null : _i6.BuiltList(parameters),
+      parameters: parameters == null ? null : _i2.BuiltList(parameters),
       description: description,
-      capabilities: capabilities == null ? null : _i6.BuiltList(capabilities),
+      capabilities: capabilities == null ? null : _i2.BuiltList(capabilities),
       capabilitiesReason: capabilitiesReason,
       resourceTypes:
-          resourceTypes == null ? null : _i6.BuiltList(resourceTypes),
+          resourceTypes == null ? null : _i2.BuiltList(resourceTypes),
       version: version,
       metadata: metadata,
       declaredTransforms:
-          declaredTransforms == null ? null : _i6.BuiltList(declaredTransforms),
+          declaredTransforms == null ? null : _i2.BuiltList(declaredTransforms),
       resourceIdentifierSummaries: resourceIdentifierSummaries == null
           ? null
-          : _i6.BuiltList(resourceIdentifierSummaries),
+          : _i2.BuiltList(resourceIdentifierSummaries),
       warnings: warnings,
     );
   }
@@ -69,11 +65,11 @@ abstract class GetTemplateSummaryOutput
   ) =>
       payload;
 
-  static const List<_i7.SmithySerializer<GetTemplateSummaryOutput>>
+  static const List<_i3.SmithySerializer<GetTemplateSummaryOutput>>
       serializers = [GetTemplateSummaryOutputAwsQuerySerializer()];
 
   /// A list of parameter declarations that describe various properties for each parameter.
-  _i6.BuiltList<_i2.ParameterDeclaration>? get parameters;
+  _i2.BuiltList<ParameterDeclaration>? get parameters;
 
   /// The value that's defined in the `Description` property of the template.
   String? get description;
@@ -81,13 +77,13 @@ abstract class GetTemplateSummaryOutput
   /// The capabilities found within the template. If your template contains IAM resources, you must specify the `CAPABILITY_IAM` or `CAPABILITY\_NAMED\_IAM` value for this parameter when you use the CreateStack or UpdateStack actions with your template; otherwise, those actions return an `InsufficientCapabilities` error.
   ///
   /// For more information, see [Acknowledging IAM Resources in CloudFormation Templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities).
-  _i6.BuiltList<_i3.Capability>? get capabilities;
+  _i2.BuiltList<Capability>? get capabilities;
 
   /// The list of resources that generated the values in the `Capabilities` response element.
   String? get capabilitiesReason;
 
   /// A list of all the template resource types that are defined in the template, such as `AWS::EC2::Instance`, `AWS::Dynamo::Table`, and `Custom::MyCustomInstance`.
-  _i6.BuiltList<String>? get resourceTypes;
+  _i2.BuiltList<String>? get resourceTypes;
 
   /// The Amazon Web Services template format version, which identifies the capabilities of the template.
   String? get version;
@@ -96,13 +92,13 @@ abstract class GetTemplateSummaryOutput
   String? get metadata;
 
   /// A list of the transforms that are declared in the template.
-  _i6.BuiltList<String>? get declaredTransforms;
+  _i2.BuiltList<String>? get declaredTransforms;
 
   /// A list of resource identifier summaries that describe the target resources of an import operation and the properties you can provide during the import to identify the target resources. For example, `BucketName` is a possible identifier property for an `AWS::S3::Bucket` resource.
-  _i6.BuiltList<_i4.ResourceIdentifierSummary>? get resourceIdentifierSummaries;
+  _i2.BuiltList<ResourceIdentifierSummary>? get resourceIdentifierSummaries;
 
   /// An object containing any warnings returned.
-  _i5.Warnings? get warnings;
+  Warnings? get warnings;
   @override
   List<Object?> get props => [
         parameters,
@@ -164,7 +160,7 @@ abstract class GetTemplateSummaryOutput
 }
 
 class GetTemplateSummaryOutputAwsQuerySerializer
-    extends _i7.StructuredSmithySerializer<GetTemplateSummaryOutput> {
+    extends _i3.StructuredSmithySerializer<GetTemplateSummaryOutput> {
   const GetTemplateSummaryOutputAwsQuerySerializer()
       : super('GetTemplateSummaryOutput');
 
@@ -174,8 +170,8 @@ class GetTemplateSummaryOutputAwsQuerySerializer
         _$GetTemplateSummaryOutput,
       ];
   @override
-  Iterable<_i7.ShapeId> get supportedProtocols => const [
-        _i7.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -197,48 +193,48 @@ class GetTemplateSummaryOutputAwsQuerySerializer
       }
       switch (key) {
         case 'Parameters':
-          result.parameters.replace((const _i7.XmlBuiltListSerializer(
-                  indexer: _i7.XmlIndexer.awsQueryList)
+          result.parameters.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(_i2.ParameterDeclaration)],
+              _i2.BuiltList,
+              [FullType(ParameterDeclaration)],
             ),
-          ) as _i6.BuiltList<_i2.ParameterDeclaration>));
+          ) as _i2.BuiltList<ParameterDeclaration>));
         case 'Description':
           result.description = (serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String);
         case 'Capabilities':
-          result.capabilities.replace((const _i7.XmlBuiltListSerializer(
-                  indexer: _i7.XmlIndexer.awsQueryList)
+          result.capabilities.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(_i3.Capability)],
+              _i2.BuiltList,
+              [FullType(Capability)],
             ),
-          ) as _i6.BuiltList<_i3.Capability>));
+          ) as _i2.BuiltList<Capability>));
         case 'CapabilitiesReason':
           result.capabilitiesReason = (serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String);
         case 'ResourceTypes':
-          result.resourceTypes.replace((const _i7.XmlBuiltListSerializer(
-                  indexer: _i7.XmlIndexer.awsQueryList)
+          result.resourceTypes.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i6.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i6.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
         case 'Version':
           result.version = (serializers.deserialize(
             value,
@@ -250,33 +246,33 @@ class GetTemplateSummaryOutputAwsQuerySerializer
             specifiedType: const FullType(String),
           ) as String);
         case 'DeclaredTransforms':
-          result.declaredTransforms.replace((const _i7.XmlBuiltListSerializer(
-                  indexer: _i7.XmlIndexer.awsQueryList)
+          result.declaredTransforms.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i6.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i6.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
         case 'ResourceIdentifierSummaries':
           result.resourceIdentifierSummaries.replace(
-              (const _i7.XmlBuiltListSerializer(
-                      indexer: _i7.XmlIndexer.awsQueryList)
+              (const _i3.XmlBuiltListSerializer(
+                      indexer: _i3.XmlIndexer.awsQueryList)
                   .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(_i4.ResourceIdentifierSummary)],
+              _i2.BuiltList,
+              [FullType(ResourceIdentifierSummary)],
             ),
-          ) as _i6.BuiltList<_i4.ResourceIdentifierSummary>));
+          ) as _i2.BuiltList<ResourceIdentifierSummary>));
         case 'Warnings':
           result.warnings.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.Warnings),
-          ) as _i5.Warnings));
+            specifiedType: const FullType(Warnings),
+          ) as Warnings));
       }
     }
 
@@ -290,9 +286,9 @@ class GetTemplateSummaryOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i7.XmlElementName(
+      const _i3.XmlElementName(
         'GetTemplateSummaryOutputResponse',
-        _i7.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final GetTemplateSummaryOutput(
@@ -309,21 +305,21 @@ class GetTemplateSummaryOutputAwsQuerySerializer
     ) = object;
     if (parameters != null) {
       result$
-        ..add(const _i7.XmlElementName('Parameters'))
-        ..add(const _i7.XmlBuiltListSerializer(
-                indexer: _i7.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('Parameters'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           parameters,
           specifiedType: const FullType.nullable(
-            _i6.BuiltList,
-            [FullType(_i2.ParameterDeclaration)],
+            _i2.BuiltList,
+            [FullType(ParameterDeclaration)],
           ),
         ));
     }
     if (description != null) {
       result$
-        ..add(const _i7.XmlElementName('Description'))
+        ..add(const _i3.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
           specifiedType: const FullType(String),
@@ -331,21 +327,21 @@ class GetTemplateSummaryOutputAwsQuerySerializer
     }
     if (capabilities != null) {
       result$
-        ..add(const _i7.XmlElementName('Capabilities'))
-        ..add(const _i7.XmlBuiltListSerializer(
-                indexer: _i7.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('Capabilities'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           capabilities,
           specifiedType: const FullType.nullable(
-            _i6.BuiltList,
-            [FullType(_i3.Capability)],
+            _i2.BuiltList,
+            [FullType(Capability)],
           ),
         ));
     }
     if (capabilitiesReason != null) {
       result$
-        ..add(const _i7.XmlElementName('CapabilitiesReason'))
+        ..add(const _i3.XmlElementName('CapabilitiesReason'))
         ..add(serializers.serialize(
           capabilitiesReason,
           specifiedType: const FullType(String),
@@ -353,21 +349,21 @@ class GetTemplateSummaryOutputAwsQuerySerializer
     }
     if (resourceTypes != null) {
       result$
-        ..add(const _i7.XmlElementName('ResourceTypes'))
-        ..add(const _i7.XmlBuiltListSerializer(
-                indexer: _i7.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('ResourceTypes'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           resourceTypes,
           specifiedType: const FullType.nullable(
-            _i6.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));
     }
     if (version != null) {
       result$
-        ..add(const _i7.XmlElementName('Version'))
+        ..add(const _i3.XmlElementName('Version'))
         ..add(serializers.serialize(
           version,
           specifiedType: const FullType(String),
@@ -375,7 +371,7 @@ class GetTemplateSummaryOutputAwsQuerySerializer
     }
     if (metadata != null) {
       result$
-        ..add(const _i7.XmlElementName('Metadata'))
+        ..add(const _i3.XmlElementName('Metadata'))
         ..add(serializers.serialize(
           metadata,
           specifiedType: const FullType(String),
@@ -383,38 +379,38 @@ class GetTemplateSummaryOutputAwsQuerySerializer
     }
     if (declaredTransforms != null) {
       result$
-        ..add(const _i7.XmlElementName('DeclaredTransforms'))
-        ..add(const _i7.XmlBuiltListSerializer(
-                indexer: _i7.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('DeclaredTransforms'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           declaredTransforms,
           specifiedType: const FullType.nullable(
-            _i6.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));
     }
     if (resourceIdentifierSummaries != null) {
       result$
-        ..add(const _i7.XmlElementName('ResourceIdentifierSummaries'))
-        ..add(const _i7.XmlBuiltListSerializer(
-                indexer: _i7.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('ResourceIdentifierSummaries'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           resourceIdentifierSummaries,
           specifiedType: const FullType.nullable(
-            _i6.BuiltList,
-            [FullType(_i4.ResourceIdentifierSummary)],
+            _i2.BuiltList,
+            [FullType(ResourceIdentifierSummary)],
           ),
         ));
     }
     if (warnings != null) {
       result$
-        ..add(const _i7.XmlElementName('Warnings'))
+        ..add(const _i3.XmlElementName('Warnings'))
         ..add(serializers.serialize(
           warnings,
-          specifiedType: const FullType(_i5.Warnings),
+          specifiedType: const FullType(Warnings),
         ));
     }
     return result$;

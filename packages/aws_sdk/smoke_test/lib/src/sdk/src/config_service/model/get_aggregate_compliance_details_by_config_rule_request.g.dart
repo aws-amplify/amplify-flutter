@@ -17,7 +17,7 @@ class _$GetAggregateComplianceDetailsByConfigRuleRequest
   @override
   final String awsRegion;
   @override
-  final _i3.ComplianceType? complianceType;
+  final ComplianceType? complianceType;
   @override
   final int limit;
   @override
@@ -118,9 +118,9 @@ class GetAggregateComplianceDetailsByConfigRuleRequestBuilder
   String? get awsRegion => _$this._awsRegion;
   set awsRegion(String? awsRegion) => _$this._awsRegion = awsRegion;
 
-  _i3.ComplianceType? _complianceType;
-  _i3.ComplianceType? get complianceType => _$this._complianceType;
-  set complianceType(_i3.ComplianceType? complianceType) =>
+  ComplianceType? _complianceType;
+  ComplianceType? get complianceType => _$this._complianceType;
+  set complianceType(ComplianceType? complianceType) =>
       _$this._complianceType = complianceType;
 
   int? _limit;

@@ -8,9 +8,9 @@ part of 'grant.dart';
 
 class _$Grant extends Grant {
   @override
-  final _i2.Grantee? grantee;
+  final Grantee? grantee;
   @override
-  final _i3.Permission? permission;
+  final Permission? permission;
 
   factory _$Grant([void Function(GrantBuilder)? updates]) =>
       (new GrantBuilder()..update(updates))._build();
@@ -45,14 +45,13 @@ class _$Grant extends Grant {
 class GrantBuilder implements Builder<Grant, GrantBuilder> {
   _$Grant? _$v;
 
-  _i2.GranteeBuilder? _grantee;
-  _i2.GranteeBuilder get grantee =>
-      _$this._grantee ??= new _i2.GranteeBuilder();
-  set grantee(_i2.GranteeBuilder? grantee) => _$this._grantee = grantee;
+  GranteeBuilder? _grantee;
+  GranteeBuilder get grantee => _$this._grantee ??= new GranteeBuilder();
+  set grantee(GranteeBuilder? grantee) => _$this._grantee = grantee;
 
-  _i3.Permission? _permission;
-  _i3.Permission? get permission => _$this._permission;
-  set permission(_i3.Permission? permission) => _$this._permission = permission;
+  Permission? _permission;
+  Permission? get permission => _$this._permission;
+  set permission(Permission? permission) => _$this._permission = permission;
 
   GrantBuilder();
 

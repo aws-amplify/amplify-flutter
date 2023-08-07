@@ -3,32 +3,22 @@
 
 library smoke_test.dynamo_db.operation.batch_write_item_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i15;
+import 'dart:async' as _i5;
 
-import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/common/endpoint_resolver.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/dynamo_db/common/serializers.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/batch_write_item_input.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/batch_write_item_output.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/internal_server_error.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/invalid_endpoint_exception.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/item_collection_size_limit_exceeded_exception.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput_exceeded_exception.dart'
-    as _i12;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/request_limit_exceeded.dart'
-    as _i13;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/resource_not_found_exception.dart'
-    as _i14;
+import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/batch_write_item_input.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/batch_write_item_output.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/internal_server_error.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/invalid_endpoint_exception.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/item_collection_size_limit_exceeded_exception.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput_exceeded_exception.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/request_limit_exceeded.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/resource_not_found_exception.dart';
 
 /// The `BatchWriteItem` operation puts or deletes multiple items in one or more tables. A single call to `BatchWriteItem` can transmit up to 16MB of data over the network, consisting of up to 25 item put or delete operations. While individual items can be up to 400 KB once stored, it's important to note that an item's representation might be greater than 400KB while being sent in DynamoDB's JSON format for the API call. For more details on this distinction, see [Naming Rules and Data Types](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html).
 ///
@@ -63,11 +53,8 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/resource_not_found_except
 /// *   Any individual item in a batch exceeds 400 KB.
 ///
 /// *   The total request size exceeds 16 MB.
-class BatchWriteItemOperation extends _i1.HttpOperation<
-    _i2.BatchWriteItemInput,
-    _i2.BatchWriteItemInput,
-    _i3.BatchWriteItemOutput,
-    _i3.BatchWriteItemOutput> {
+class BatchWriteItemOperation extends _i1.HttpOperation<BatchWriteItemInput,
+    BatchWriteItemInput, BatchWriteItemOutput, BatchWriteItemOutput> {
   /// The `BatchWriteItem` operation puts or deletes multiple items in one or more tables. A single call to `BatchWriteItem` can transmit up to 16MB of data over the network, consisting of up to 25 item put or delete operations. While individual items can be up to 400 KB once stored, it's important to note that an item's representation might be greater than 400KB while being sent in DynamoDB's JSON format for the API call. For more details on this distinction, see [Naming Rules and Data Types](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html).
   ///
   /// `BatchWriteItem` cannot update items. If you perform a `BatchWriteItem` operation on an existing item, that item's values will be overwritten by the operation and it will appear like it was updated. To update items, we recommend you use the `UpdateItem` action.
@@ -104,8 +91,8 @@ class BatchWriteItemOperation extends _i1.HttpOperation<
   BatchWriteItemOperation({
     required String region,
     Uri? baseUri,
-    _i4.AWSCredentialsProvider credentialsProvider =
-        const _i4.AWSCredentialsProvider.environment(),
+    _i2.AWSCredentialsProvider credentialsProvider =
+        const _i2.AWSCredentialsProvider.environment(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -116,11 +103,11 @@ class BatchWriteItemOperation extends _i1.HttpOperation<
 
   @override
   late final List<
-      _i1.HttpProtocol<_i2.BatchWriteItemInput, _i2.BatchWriteItemInput,
-          _i3.BatchWriteItemOutput, _i3.BatchWriteItemOutput>> protocols = [
-    _i5.AwsJson1_0Protocol(
-      serializers: _i6.serializers,
-      builderFactories: _i6.builderFactories,
+      _i1.HttpProtocol<BatchWriteItemInput, BatchWriteItemInput,
+          BatchWriteItemOutput, BatchWriteItemOutput>> protocols = [
+    _i3.AwsJson1_0Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
@@ -128,14 +115,14 @@ class BatchWriteItemOperation extends _i1.HttpOperation<
               'X-Amz-Target',
               'DynamoDB_20120810.BatchWriteItem',
             ),
-            _i5.WithSigV4(
+            _i3.WithSigV4(
               region: _region,
-              service: _i7.AWSService.dynamoDb,
+              service: _i4.AWSService.dynamoDb,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i5.WithSdkInvocationId(),
-            const _i5.WithSdkRequest(),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -143,8 +130,8 @@ class BatchWriteItemOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i5.AWSEndpoint _awsEndpoint = _i8.endpointResolver.resolve(
-    _i8.sdkId,
+  late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -152,106 +139,104 @@ class BatchWriteItemOperation extends _i1.HttpOperation<
 
   final Uri? _baseUri;
 
-  final _i4.AWSCredentialsProvider _credentialsProvider;
+  final _i2.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.BatchWriteItemInput input) =>
+  _i1.HttpRequest buildRequest(BatchWriteItemInput input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
       });
   @override
-  int successCode([_i3.BatchWriteItemOutput? output]) => 200;
+  int successCode([BatchWriteItemOutput? output]) => 200;
   @override
-  _i3.BatchWriteItemOutput buildOutput(
-    _i3.BatchWriteItemOutput payload,
-    _i7.AWSBaseHttpResponse response,
+  BatchWriteItemOutput buildOutput(
+    BatchWriteItemOutput payload,
+    _i4.AWSBaseHttpResponse response,
   ) =>
-      _i3.BatchWriteItemOutput.fromResponse(
+      BatchWriteItemOutput.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i9.InternalServerError, _i9.InternalServerError>(
+        _i1.SmithyError<InternalServerError, InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
           ),
           _i1.ErrorKind.server,
-          _i9.InternalServerError,
-          builder: _i9.InternalServerError.fromResponse,
+          InternalServerError,
+          builder: InternalServerError.fromResponse,
         ),
-        _i1.SmithyError<_i10.InvalidEndpointException,
-            _i10.InvalidEndpointException>(
+        _i1.SmithyError<InvalidEndpointException, InvalidEndpointException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InvalidEndpointException',
           ),
           _i1.ErrorKind.client,
-          _i10.InvalidEndpointException,
+          InvalidEndpointException,
           statusCode: 421,
-          builder: _i10.InvalidEndpointException.fromResponse,
+          builder: InvalidEndpointException.fromResponse,
         ),
-        _i1.SmithyError<_i11.ItemCollectionSizeLimitExceededException,
-            _i11.ItemCollectionSizeLimitExceededException>(
+        _i1.SmithyError<ItemCollectionSizeLimitExceededException,
+            ItemCollectionSizeLimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ItemCollectionSizeLimitExceededException',
           ),
           _i1.ErrorKind.client,
-          _i11.ItemCollectionSizeLimitExceededException,
-          builder: _i11.ItemCollectionSizeLimitExceededException.fromResponse,
+          ItemCollectionSizeLimitExceededException,
+          builder: ItemCollectionSizeLimitExceededException.fromResponse,
         ),
-        _i1.SmithyError<_i12.ProvisionedThroughputExceededException,
-            _i12.ProvisionedThroughputExceededException>(
+        _i1.SmithyError<ProvisionedThroughputExceededException,
+            ProvisionedThroughputExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ProvisionedThroughputExceededException',
           ),
           _i1.ErrorKind.client,
-          _i12.ProvisionedThroughputExceededException,
-          builder: _i12.ProvisionedThroughputExceededException.fromResponse,
+          ProvisionedThroughputExceededException,
+          builder: ProvisionedThroughputExceededException.fromResponse,
         ),
-        _i1.SmithyError<_i13.RequestLimitExceeded, _i13.RequestLimitExceeded>(
+        _i1.SmithyError<RequestLimitExceeded, RequestLimitExceeded>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'RequestLimitExceeded',
           ),
           _i1.ErrorKind.client,
-          _i13.RequestLimitExceeded,
-          builder: _i13.RequestLimitExceeded.fromResponse,
+          RequestLimitExceeded,
+          builder: RequestLimitExceeded.fromResponse,
         ),
-        _i1.SmithyError<_i14.ResourceNotFoundException,
-            _i14.ResourceNotFoundException>(
+        _i1.SmithyError<ResourceNotFoundException, ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ResourceNotFoundException',
           ),
           _i1.ErrorKind.client,
-          _i14.ResourceNotFoundException,
-          builder: _i14.ResourceNotFoundException.fromResponse,
+          ResourceNotFoundException,
+          builder: ResourceNotFoundException.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'BatchWriteItem';
   @override
-  _i5.AWSRetryer get retryer => _i5.AWSRetryer();
+  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.BatchWriteItemOutput> run(
-    _i2.BatchWriteItemInput input, {
-    _i7.AWSHttpClient? client,
+  _i1.SmithyOperation<BatchWriteItemOutput> run(
+    BatchWriteItemInput input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i15.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -259,7 +244,7 @@ class BatchWriteItemOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

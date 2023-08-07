@@ -4,12 +4,11 @@
 library smoke_test.cloud_formation.model.stack_set_operation_preferences; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/region_concurrency_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/region_concurrency_type.dart';
 
 part 'stack_set_operation_preferences.g.dart';
 
@@ -26,7 +25,7 @@ abstract class StackSetOperationPreferences
   ///
   /// For more information about maximum concurrent accounts and failure tolerance, see [Stack set operation options](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-concepts.html#stackset-ops-options).
   factory StackSetOperationPreferences({
-    _i2.RegionConcurrencyType? regionConcurrencyType,
+    RegionConcurrencyType? regionConcurrencyType,
     List<String>? regionOrder,
     int? failureToleranceCount,
     int? failureTolerancePercentage,
@@ -35,7 +34,7 @@ abstract class StackSetOperationPreferences
   }) {
     return _$StackSetOperationPreferences._(
       regionConcurrencyType: regionConcurrencyType,
-      regionOrder: regionOrder == null ? null : _i3.BuiltList(regionOrder),
+      regionOrder: regionOrder == null ? null : _i2.BuiltList(regionOrder),
       failureToleranceCount: failureToleranceCount,
       failureTolerancePercentage: failureTolerancePercentage,
       maxConcurrentCount: maxConcurrentCount,
@@ -52,14 +51,14 @@ abstract class StackSetOperationPreferences
 
   const StackSetOperationPreferences._();
 
-  static const List<_i4.SmithySerializer<StackSetOperationPreferences>>
+  static const List<_i3.SmithySerializer<StackSetOperationPreferences>>
       serializers = [StackSetOperationPreferencesAwsQuerySerializer()];
 
   /// The concurrency type of deploying StackSets operations in Regions, could be in parallel or one Region at a time.
-  _i2.RegionConcurrencyType? get regionConcurrencyType;
+  RegionConcurrencyType? get regionConcurrencyType;
 
   /// The order of the Regions where you want to perform the stack operation.
-  _i3.BuiltList<String>? get regionOrder;
+  _i2.BuiltList<String>? get regionOrder;
 
   /// The number of accounts, per Region, for which this operation can fail before CloudFormation stops the operation in that Region. If the operation is stopped in a Region, CloudFormation doesn't attempt the operation in any subsequent Regions.
   ///
@@ -137,7 +136,7 @@ abstract class StackSetOperationPreferences
 }
 
 class StackSetOperationPreferencesAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<StackSetOperationPreferences> {
+    extends _i3.StructuredSmithySerializer<StackSetOperationPreferences> {
   const StackSetOperationPreferencesAwsQuerySerializer()
       : super('StackSetOperationPreferences');
 
@@ -147,8 +146,8 @@ class StackSetOperationPreferencesAwsQuerySerializer
         _$StackSetOperationPreferences,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -172,19 +171,19 @@ class StackSetOperationPreferencesAwsQuerySerializer
         case 'RegionConcurrencyType':
           result.regionConcurrencyType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.RegionConcurrencyType),
-          ) as _i2.RegionConcurrencyType);
+            specifiedType: const FullType(RegionConcurrencyType),
+          ) as RegionConcurrencyType);
         case 'RegionOrder':
-          result.regionOrder.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.regionOrder.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i3.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
         case 'FailureToleranceCount':
           result.failureToleranceCount = (serializers.deserialize(
             value,
@@ -218,9 +217,9 @@ class StackSetOperationPreferencesAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'StackSetOperationPreferencesResponse',
-        _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final StackSetOperationPreferences(
@@ -233,29 +232,29 @@ class StackSetOperationPreferencesAwsQuerySerializer
     ) = object;
     if (regionConcurrencyType != null) {
       result$
-        ..add(const _i4.XmlElementName('RegionConcurrencyType'))
+        ..add(const _i3.XmlElementName('RegionConcurrencyType'))
         ..add(serializers.serialize(
           regionConcurrencyType,
-          specifiedType: const FullType.nullable(_i2.RegionConcurrencyType),
+          specifiedType: const FullType.nullable(RegionConcurrencyType),
         ));
     }
     if (regionOrder != null) {
       result$
-        ..add(const _i4.XmlElementName('RegionOrder'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('RegionOrder'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           regionOrder,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));
     }
     if (failureToleranceCount != null) {
       result$
-        ..add(const _i4.XmlElementName('FailureToleranceCount'))
+        ..add(const _i3.XmlElementName('FailureToleranceCount'))
         ..add(serializers.serialize(
           failureToleranceCount,
           specifiedType: const FullType.nullable(int),
@@ -263,7 +262,7 @@ class StackSetOperationPreferencesAwsQuerySerializer
     }
     if (failureTolerancePercentage != null) {
       result$
-        ..add(const _i4.XmlElementName('FailureTolerancePercentage'))
+        ..add(const _i3.XmlElementName('FailureTolerancePercentage'))
         ..add(serializers.serialize(
           failureTolerancePercentage,
           specifiedType: const FullType.nullable(int),
@@ -271,7 +270,7 @@ class StackSetOperationPreferencesAwsQuerySerializer
     }
     if (maxConcurrentCount != null) {
       result$
-        ..add(const _i4.XmlElementName('MaxConcurrentCount'))
+        ..add(const _i3.XmlElementName('MaxConcurrentCount'))
         ..add(serializers.serialize(
           maxConcurrentCount,
           specifiedType: const FullType.nullable(int),
@@ -279,7 +278,7 @@ class StackSetOperationPreferencesAwsQuerySerializer
     }
     if (maxConcurrentPercentage != null) {
       result$
-        ..add(const _i4.XmlElementName('MaxConcurrentPercentage'))
+        ..add(const _i3.XmlElementName('MaxConcurrentPercentage'))
         ..add(serializers.serialize(
           maxConcurrentPercentage,
           specifiedType: const FullType.nullable(int),

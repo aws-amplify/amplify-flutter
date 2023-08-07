@@ -6,9 +6,8 @@ library smoke_test.s3.model.transition; // ignore_for_file: no_leading_underscor
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/transition_storage_class.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/transition_storage_class.dart';
 
 part 'transition.g.dart';
 
@@ -20,7 +19,7 @@ abstract class Transition
   factory Transition({
     DateTime? date,
     int? days,
-    _i2.TransitionStorageClass? storageClass,
+    TransitionStorageClass? storageClass,
   }) {
     return _$Transition._(
       date: date,
@@ -35,7 +34,7 @@ abstract class Transition
 
   const Transition._();
 
-  static const List<_i3.SmithySerializer<Transition>> serializers = [
+  static const List<_i2.SmithySerializer<Transition>> serializers = [
     TransitionRestXmlSerializer()
   ];
 
@@ -46,7 +45,7 @@ abstract class Transition
   int? get days;
 
   /// The storage class to which you want the object to transition.
-  _i2.TransitionStorageClass? get storageClass;
+  TransitionStorageClass? get storageClass;
   @override
   List<Object?> get props => [
         date,
@@ -73,7 +72,7 @@ abstract class Transition
 }
 
 class TransitionRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<Transition> {
+    extends _i2.StructuredSmithySerializer<Transition> {
   const TransitionRestXmlSerializer() : super('Transition');
 
   @override
@@ -82,8 +81,8 @@ class TransitionRestXmlSerializer
         _$Transition,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -105,7 +104,7 @@ class TransitionRestXmlSerializer
       }
       switch (key) {
         case 'Date':
-          result.date = _i3.TimestampSerializer.dateTime.deserialize(
+          result.date = _i2.TimestampSerializer.dateTime.deserialize(
             serializers,
             value,
           );
@@ -117,8 +116,8 @@ class TransitionRestXmlSerializer
         case 'StorageClass':
           result.storageClass = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.TransitionStorageClass),
-          ) as _i2.TransitionStorageClass);
+            specifiedType: const FullType(TransitionStorageClass),
+          ) as TransitionStorageClass);
       }
     }
 
@@ -132,23 +131,23 @@ class TransitionRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'Transition',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final Transition(:date, :days, :storageClass) = object;
     if (date != null) {
       result$
-        ..add(const _i3.XmlElementName('Date'))
-        ..add(_i3.TimestampSerializer.dateTime.serialize(
+        ..add(const _i2.XmlElementName('Date'))
+        ..add(_i2.TimestampSerializer.dateTime.serialize(
           serializers,
           date,
         ));
     }
     if (days != null) {
       result$
-        ..add(const _i3.XmlElementName('Days'))
+        ..add(const _i2.XmlElementName('Days'))
         ..add(serializers.serialize(
           days,
           specifiedType: const FullType.nullable(int),
@@ -156,10 +155,10 @@ class TransitionRestXmlSerializer
     }
     if (storageClass != null) {
       result$
-        ..add(const _i3.XmlElementName('StorageClass'))
+        ..add(const _i2.XmlElementName('StorageClass'))
         ..add(serializers.serialize(
           storageClass,
-          specifiedType: const FullType.nullable(_i2.TransitionStorageClass),
+          specifiedType: const FullType.nullable(TransitionStorageClass),
         ));
     }
     return result$;

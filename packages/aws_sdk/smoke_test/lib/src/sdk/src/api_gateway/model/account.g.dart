@@ -10,9 +10,9 @@ class _$Account extends Account {
   @override
   final String? cloudwatchRoleArn;
   @override
-  final _i2.ThrottleSettings? throttleSettings;
+  final ThrottleSettings? throttleSettings;
   @override
-  final _i3.BuiltList<String>? features;
+  final _i2.BuiltList<String>? features;
   @override
   final String? apiKeyVersion;
 
@@ -63,16 +63,16 @@ class AccountBuilder implements Builder<Account, AccountBuilder> {
   set cloudwatchRoleArn(String? cloudwatchRoleArn) =>
       _$this._cloudwatchRoleArn = cloudwatchRoleArn;
 
-  _i2.ThrottleSettingsBuilder? _throttleSettings;
-  _i2.ThrottleSettingsBuilder get throttleSettings =>
-      _$this._throttleSettings ??= new _i2.ThrottleSettingsBuilder();
-  set throttleSettings(_i2.ThrottleSettingsBuilder? throttleSettings) =>
+  ThrottleSettingsBuilder? _throttleSettings;
+  ThrottleSettingsBuilder get throttleSettings =>
+      _$this._throttleSettings ??= new ThrottleSettingsBuilder();
+  set throttleSettings(ThrottleSettingsBuilder? throttleSettings) =>
       _$this._throttleSettings = throttleSettings;
 
-  _i3.ListBuilder<String>? _features;
-  _i3.ListBuilder<String> get features =>
-      _$this._features ??= new _i3.ListBuilder<String>();
-  set features(_i3.ListBuilder<String>? features) =>
+  _i2.ListBuilder<String>? _features;
+  _i2.ListBuilder<String> get features =>
+      _$this._features ??= new _i2.ListBuilder<String>();
+  set features(_i2.ListBuilder<String>? features) =>
       _$this._features = features;
 
   String? _apiKeyVersion;

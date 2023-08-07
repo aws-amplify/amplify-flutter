@@ -6,8 +6,8 @@ library smoke_test.iam.model.create_instance_profile_response; // ignore_for_fil
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/instance_profile.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/instance_profile.dart';
 
 part 'create_instance_profile_response.g.dart';
 
@@ -20,7 +20,7 @@ abstract class CreateInstanceProfileResponse
             CreateInstanceProfileResponseBuilder> {
   /// Contains the response to a successful CreateInstanceProfile request.
   factory CreateInstanceProfileResponse(
-      {required _i2.InstanceProfile instanceProfile}) {
+      {required InstanceProfile instanceProfile}) {
     return _$CreateInstanceProfileResponse._(instanceProfile: instanceProfile);
   }
 
@@ -38,11 +38,11 @@ abstract class CreateInstanceProfileResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<CreateInstanceProfileResponse>>
+  static const List<_i2.SmithySerializer<CreateInstanceProfileResponse>>
       serializers = [CreateInstanceProfileResponseAwsQuerySerializer()];
 
   /// A structure containing details about the new instance profile.
-  _i2.InstanceProfile get instanceProfile;
+  InstanceProfile get instanceProfile;
   @override
   List<Object?> get props => [instanceProfile];
   @override
@@ -57,7 +57,7 @@ abstract class CreateInstanceProfileResponse
 }
 
 class CreateInstanceProfileResponseAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<CreateInstanceProfileResponse> {
+    extends _i2.StructuredSmithySerializer<CreateInstanceProfileResponse> {
   const CreateInstanceProfileResponseAwsQuerySerializer()
       : super('CreateInstanceProfileResponse');
 
@@ -67,8 +67,8 @@ class CreateInstanceProfileResponseAwsQuerySerializer
         _$CreateInstanceProfileResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -92,8 +92,8 @@ class CreateInstanceProfileResponseAwsQuerySerializer
         case 'InstanceProfile':
           result.instanceProfile.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.InstanceProfile),
-          ) as _i2.InstanceProfile));
+            specifiedType: const FullType(InstanceProfile),
+          ) as InstanceProfile));
       }
     }
 
@@ -107,17 +107,17 @@ class CreateInstanceProfileResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'CreateInstanceProfileResponseResponse',
-        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final CreateInstanceProfileResponse(:instanceProfile) = object;
     result$
-      ..add(const _i3.XmlElementName('InstanceProfile'))
+      ..add(const _i2.XmlElementName('InstanceProfile'))
       ..add(serializers.serialize(
         instanceProfile,
-        specifiedType: const FullType(_i2.InstanceProfile),
+        specifiedType: const FullType(InstanceProfile),
       ));
     return result$;
   }

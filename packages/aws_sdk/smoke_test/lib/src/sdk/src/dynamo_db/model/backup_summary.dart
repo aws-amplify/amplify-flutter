@@ -6,11 +6,10 @@ library smoke_test.dynamo_db.model.backup_summary; // ignore_for_file: no_leadin
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:fixnum/fixnum.dart' as _i4;
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/backup_status.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/backup_type.dart' as _i3;
+import 'package:fixnum/fixnum.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/backup_status.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/backup_type.dart';
 
 part 'backup_summary.g.dart';
 
@@ -27,9 +26,9 @@ abstract class BackupSummary
     String? backupName,
     DateTime? backupCreationDateTime,
     DateTime? backupExpiryDateTime,
-    _i2.BackupStatus? backupStatus,
-    _i3.BackupType? backupType,
-    _i4.Int64? backupSizeBytes,
+    BackupStatus? backupStatus,
+    BackupType? backupType,
+    _i2.Int64? backupSizeBytes,
   }) {
     return _$BackupSummary._(
       tableName: tableName,
@@ -51,7 +50,7 @@ abstract class BackupSummary
 
   const BackupSummary._();
 
-  static const List<_i5.SmithySerializer<BackupSummary>> serializers = [
+  static const List<_i3.SmithySerializer<BackupSummary>> serializers = [
     BackupSummaryAwsJson10Serializer()
   ];
 
@@ -77,7 +76,7 @@ abstract class BackupSummary
   DateTime? get backupExpiryDateTime;
 
   /// Backup can be in one of the following states: CREATING, ACTIVE, DELETED.
-  _i2.BackupStatus? get backupStatus;
+  BackupStatus? get backupStatus;
 
   /// BackupType:
   ///
@@ -86,10 +85,10 @@ abstract class BackupSummary
   /// *   `SYSTEM` \- If you delete a table with point-in-time recovery enabled, a `SYSTEM` backup is automatically created and is retained for 35 days (at no additional cost). System backups allow you to restore the deleted table to the state it was in just before the point of deletion.
   ///
   /// *   `AWS_BACKUP` \- On-demand backup created by you from Backup service.
-  _i3.BackupType? get backupType;
+  BackupType? get backupType;
 
   /// Size of the backup in bytes.
-  _i4.Int64? get backupSizeBytes;
+  _i2.Int64? get backupSizeBytes;
   @override
   List<Object?> get props => [
         tableName,
@@ -151,7 +150,7 @@ abstract class BackupSummary
 }
 
 class BackupSummaryAwsJson10Serializer
-    extends _i5.StructuredSmithySerializer<BackupSummary> {
+    extends _i3.StructuredSmithySerializer<BackupSummary> {
   const BackupSummaryAwsJson10Serializer() : super('BackupSummary');
 
   @override
@@ -160,8 +159,8 @@ class BackupSummaryAwsJson10Serializer
         _$BackupSummary,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -220,18 +219,18 @@ class BackupSummaryAwsJson10Serializer
         case 'BackupStatus':
           result.backupStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.BackupStatus),
-          ) as _i2.BackupStatus);
+            specifiedType: const FullType(BackupStatus),
+          ) as BackupStatus);
         case 'BackupType':
           result.backupType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.BackupType),
-          ) as _i3.BackupType);
+            specifiedType: const FullType(BackupType),
+          ) as BackupType);
         case 'BackupSizeBytes':
           result.backupSizeBytes = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.Int64),
-          ) as _i4.Int64);
+            specifiedType: const FullType(_i2.Int64),
+          ) as _i2.Int64);
       }
     }
 
@@ -318,7 +317,7 @@ class BackupSummaryAwsJson10Serializer
         ..add('BackupStatus')
         ..add(serializers.serialize(
           backupStatus,
-          specifiedType: const FullType(_i2.BackupStatus),
+          specifiedType: const FullType(BackupStatus),
         ));
     }
     if (backupType != null) {
@@ -326,7 +325,7 @@ class BackupSummaryAwsJson10Serializer
         ..add('BackupType')
         ..add(serializers.serialize(
           backupType,
-          specifiedType: const FullType(_i3.BackupType),
+          specifiedType: const FullType(BackupType),
         ));
     }
     if (backupSizeBytes != null) {
@@ -334,7 +333,7 @@ class BackupSummaryAwsJson10Serializer
         ..add('BackupSizeBytes')
         ..add(serializers.serialize(
           backupSizeBytes,
-          specifiedType: const FullType(_i4.Int64),
+          specifiedType: const FullType(_i2.Int64),
         ));
     }
     return result$;

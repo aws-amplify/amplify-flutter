@@ -8,7 +8,7 @@ part of 'recursive_xml_shapes_output.dart';
 
 class _$RecursiveXmlShapesOutput extends RecursiveXmlShapesOutput {
   @override
-  final _i2.RecursiveXmlShapesOutputNested1? nested;
+  final RecursiveXmlShapesOutputNested1? nested;
 
   factory _$RecursiveXmlShapesOutput(
           [void Function(RecursiveXmlShapesOutputBuilder)? updates]) =>
@@ -45,10 +45,10 @@ class RecursiveXmlShapesOutputBuilder
         Builder<RecursiveXmlShapesOutput, RecursiveXmlShapesOutputBuilder> {
   _$RecursiveXmlShapesOutput? _$v;
 
-  _i2.RecursiveXmlShapesOutputNested1Builder? _nested;
-  _i2.RecursiveXmlShapesOutputNested1Builder get nested =>
-      _$this._nested ??= new _i2.RecursiveXmlShapesOutputNested1Builder();
-  set nested(_i2.RecursiveXmlShapesOutputNested1Builder? nested) =>
+  RecursiveXmlShapesOutputNested1Builder? _nested;
+  RecursiveXmlShapesOutputNested1Builder get nested =>
+      _$this._nested ??= new RecursiveXmlShapesOutputNested1Builder();
+  set nested(RecursiveXmlShapesOutputNested1Builder? nested) =>
       _$this._nested = nested;
 
   RecursiveXmlShapesOutputBuilder();

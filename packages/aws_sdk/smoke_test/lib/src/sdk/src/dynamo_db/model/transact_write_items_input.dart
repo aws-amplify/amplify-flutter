@@ -4,16 +4,13 @@
 library smoke_test.dynamo_db.model.transact_write_items_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_consumed_capacity.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_item_collection_metrics.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/transact_write_item.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_consumed_capacity.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_item_collection_metrics.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/transact_write_item.dart';
 
 part 'transact_write_items_input.g.dart';
 
@@ -23,13 +20,13 @@ abstract class TransactWriteItemsInput
         _i2.AWSEquatable<TransactWriteItemsInput>
     implements Built<TransactWriteItemsInput, TransactWriteItemsInputBuilder> {
   factory TransactWriteItemsInput({
-    required List<_i3.TransactWriteItem> transactItems,
-    _i4.ReturnConsumedCapacity? returnConsumedCapacity,
-    _i5.ReturnItemCollectionMetrics? returnItemCollectionMetrics,
+    required List<TransactWriteItem> transactItems,
+    ReturnConsumedCapacity? returnConsumedCapacity,
+    ReturnItemCollectionMetrics? returnItemCollectionMetrics,
     String? clientRequestToken,
   }) {
     return _$TransactWriteItemsInput._(
-      transactItems: _i6.BuiltList(transactItems),
+      transactItems: _i3.BuiltList(transactItems),
       returnConsumedCapacity: returnConsumedCapacity,
       returnItemCollectionMetrics: returnItemCollectionMetrics,
       clientRequestToken: clientRequestToken,
@@ -60,7 +57,7 @@ abstract class TransactWriteItemsInput
   }
 
   /// An ordered array of up to 100 `TransactWriteItem` objects, each of which contains a `ConditionCheck`, `Put`, `Update`, or `Delete` object. These can operate on items in different tables, but the tables must reside in the same Amazon Web Services account and Region, and no two of them can operate on the same item.
-  _i6.BuiltList<_i3.TransactWriteItem> get transactItems;
+  _i3.BuiltList<TransactWriteItem> get transactItems;
 
   /// Determines the level of detail about either provisioned or on-demand throughput consumption that is returned in the response:
   ///
@@ -71,10 +68,10 @@ abstract class TransactWriteItemsInput
   /// *   `TOTAL` \- The response includes only the aggregate `ConsumedCapacity` for the operation.
   ///
   /// *   `NONE` \- No `ConsumedCapacity` details are included in the response.
-  _i4.ReturnConsumedCapacity? get returnConsumedCapacity;
+  ReturnConsumedCapacity? get returnConsumedCapacity;
 
   /// Determines whether item collection metrics are returned. If set to `SIZE`, the response includes statistics about item collections (if any), that were modified during the operation and are returned in the response. If set to `NONE` (the default), no statistics are returned.
-  _i5.ReturnItemCollectionMetrics? get returnItemCollectionMetrics;
+  ReturnItemCollectionMetrics? get returnItemCollectionMetrics;
 
   /// Providing a `ClientRequestToken` makes the call to `TransactWriteItems` idempotent, meaning that multiple identical calls have the same effect as one single call.
   ///
@@ -153,20 +150,20 @@ class TransactWriteItemsInputAwsJson10Serializer
           result.transactItems.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltList,
-              [FullType(_i3.TransactWriteItem)],
+              _i3.BuiltList,
+              [FullType(TransactWriteItem)],
             ),
-          ) as _i6.BuiltList<_i3.TransactWriteItem>));
+          ) as _i3.BuiltList<TransactWriteItem>));
         case 'ReturnConsumedCapacity':
           result.returnConsumedCapacity = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ReturnConsumedCapacity),
-          ) as _i4.ReturnConsumedCapacity);
+            specifiedType: const FullType(ReturnConsumedCapacity),
+          ) as ReturnConsumedCapacity);
         case 'ReturnItemCollectionMetrics':
           result.returnItemCollectionMetrics = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.ReturnItemCollectionMetrics),
-          ) as _i5.ReturnItemCollectionMetrics);
+            specifiedType: const FullType(ReturnItemCollectionMetrics),
+          ) as ReturnItemCollectionMetrics);
         case 'ClientRequestToken':
           result.clientRequestToken = (serializers.deserialize(
             value,
@@ -196,8 +193,8 @@ class TransactWriteItemsInputAwsJson10Serializer
       serializers.serialize(
         transactItems,
         specifiedType: const FullType(
-          _i6.BuiltList,
-          [FullType(_i3.TransactWriteItem)],
+          _i3.BuiltList,
+          [FullType(TransactWriteItem)],
         ),
       ),
     ]);
@@ -206,7 +203,7 @@ class TransactWriteItemsInputAwsJson10Serializer
         ..add('ReturnConsumedCapacity')
         ..add(serializers.serialize(
           returnConsumedCapacity,
-          specifiedType: const FullType(_i4.ReturnConsumedCapacity),
+          specifiedType: const FullType(ReturnConsumedCapacity),
         ));
     }
     if (returnItemCollectionMetrics != null) {
@@ -214,7 +211,7 @@ class TransactWriteItemsInputAwsJson10Serializer
         ..add('ReturnItemCollectionMetrics')
         ..add(serializers.serialize(
           returnItemCollectionMetrics,
-          specifiedType: const FullType(_i5.ReturnItemCollectionMetrics),
+          specifiedType: const FullType(ReturnItemCollectionMetrics),
         ));
     }
     if (clientRequestToken != null) {

@@ -8,7 +8,7 @@ part of 'recording_strategy.dart';
 
 class _$RecordingStrategy extends RecordingStrategy {
   @override
-  final _i2.RecordingStrategyType? useOnly;
+  final RecordingStrategyType? useOnly;
 
   factory _$RecordingStrategy(
           [void Function(RecordingStrategyBuilder)? updates]) =>
@@ -43,9 +43,9 @@ class RecordingStrategyBuilder
     implements Builder<RecordingStrategy, RecordingStrategyBuilder> {
   _$RecordingStrategy? _$v;
 
-  _i2.RecordingStrategyType? _useOnly;
-  _i2.RecordingStrategyType? get useOnly => _$this._useOnly;
-  set useOnly(_i2.RecordingStrategyType? useOnly) => _$this._useOnly = useOnly;
+  RecordingStrategyType? _useOnly;
+  RecordingStrategyType? get useOnly => _$this._useOnly;
+  set useOnly(RecordingStrategyType? useOnly) => _$this._useOnly = useOnly;
 
   RecordingStrategyBuilder();
 

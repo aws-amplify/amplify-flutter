@@ -6,12 +6,12 @@ library smoke_test.iam.model.virtual_mfa_device; // ignore_for_file: no_leading_
 import 'dart:typed_data' as _i2;
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/iam/model/tag.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/user.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i4;
+import 'package:smoke_test/src/sdk/src/iam/model/tag.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/user.dart';
 
 part 'virtual_mfa_device.g.dart';
 
@@ -24,9 +24,9 @@ abstract class VirtualMfaDevice
     required String serialNumber,
     _i2.Uint8List? base32StringSeed,
     _i2.Uint8List? qrCodePng,
-    _i3.User? user,
+    User? user,
     DateTime? enableDate,
-    List<_i4.Tag>? tags,
+    List<Tag>? tags,
   }) {
     return _$VirtualMfaDevice._(
       serialNumber: serialNumber,
@@ -34,7 +34,7 @@ abstract class VirtualMfaDevice
       qrCodePng: qrCodePng,
       user: user,
       enableDate: enableDate,
-      tags: tags == null ? null : _i5.BuiltList(tags),
+      tags: tags == null ? null : _i3.BuiltList(tags),
     );
   }
 
@@ -44,7 +44,7 @@ abstract class VirtualMfaDevice
 
   const VirtualMfaDevice._();
 
-  static const List<_i6.SmithySerializer<VirtualMfaDevice>> serializers = [
+  static const List<_i4.SmithySerializer<VirtualMfaDevice>> serializers = [
     VirtualMfaDeviceAwsQuerySerializer()
   ];
 
@@ -58,13 +58,13 @@ abstract class VirtualMfaDevice
   _i2.Uint8List? get qrCodePng;
 
   /// The IAM user associated with this virtual MFA device.
-  _i3.User? get user;
+  User? get user;
 
   /// The date and time on which the virtual MFA device was enabled.
   DateTime? get enableDate;
 
   /// A list of tags that are attached to the virtual MFA device. For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
-  _i5.BuiltList<_i4.Tag>? get tags;
+  _i3.BuiltList<Tag>? get tags;
   @override
   List<Object?> get props => [
         serialNumber,
@@ -106,7 +106,7 @@ abstract class VirtualMfaDevice
 }
 
 class VirtualMfaDeviceAwsQuerySerializer
-    extends _i6.StructuredSmithySerializer<VirtualMfaDevice> {
+    extends _i4.StructuredSmithySerializer<VirtualMfaDevice> {
   const VirtualMfaDeviceAwsQuerySerializer() : super('VirtualMfaDevice');
 
   @override
@@ -115,8 +115,8 @@ class VirtualMfaDeviceAwsQuerySerializer
         _$VirtualMfaDevice,
       ];
   @override
-  Iterable<_i6.ShapeId> get supportedProtocols => const [
-        _i6.ShapeId(
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -155,24 +155,24 @@ class VirtualMfaDeviceAwsQuerySerializer
         case 'User':
           result.user.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.User),
-          ) as _i3.User));
+            specifiedType: const FullType(User),
+          ) as User));
         case 'EnableDate':
           result.enableDate = (serializers.deserialize(
             value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
         case 'Tags':
-          result.tags.replace((const _i6.XmlBuiltListSerializer(
-                  indexer: _i6.XmlIndexer.awsQueryList)
+          result.tags.replace((const _i4.XmlBuiltListSerializer(
+                  indexer: _i4.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(_i4.Tag)],
+              _i3.BuiltList,
+              [FullType(Tag)],
             ),
-          ) as _i5.BuiltList<_i4.Tag>));
+          ) as _i3.BuiltList<Tag>));
       }
     }
 
@@ -186,9 +186,9 @@ class VirtualMfaDeviceAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i6.XmlElementName(
+      const _i4.XmlElementName(
         'VirtualMfaDeviceResponse',
-        _i6.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final VirtualMfaDevice(
@@ -200,14 +200,14 @@ class VirtualMfaDeviceAwsQuerySerializer
       :tags
     ) = object;
     result$
-      ..add(const _i6.XmlElementName('SerialNumber'))
+      ..add(const _i4.XmlElementName('SerialNumber'))
       ..add(serializers.serialize(
         serialNumber,
         specifiedType: const FullType(String),
       ));
     if (base32StringSeed != null) {
       result$
-        ..add(const _i6.XmlElementName('Base32StringSeed'))
+        ..add(const _i4.XmlElementName('Base32StringSeed'))
         ..add(serializers.serialize(
           base32StringSeed,
           specifiedType: const FullType.nullable(_i2.Uint8List),
@@ -215,7 +215,7 @@ class VirtualMfaDeviceAwsQuerySerializer
     }
     if (qrCodePng != null) {
       result$
-        ..add(const _i6.XmlElementName('QRCodePNG'))
+        ..add(const _i4.XmlElementName('QRCodePNG'))
         ..add(serializers.serialize(
           qrCodePng,
           specifiedType: const FullType.nullable(_i2.Uint8List),
@@ -223,15 +223,15 @@ class VirtualMfaDeviceAwsQuerySerializer
     }
     if (user != null) {
       result$
-        ..add(const _i6.XmlElementName('User'))
+        ..add(const _i4.XmlElementName('User'))
         ..add(serializers.serialize(
           user,
-          specifiedType: const FullType(_i3.User),
+          specifiedType: const FullType(User),
         ));
     }
     if (enableDate != null) {
       result$
-        ..add(const _i6.XmlElementName('EnableDate'))
+        ..add(const _i4.XmlElementName('EnableDate'))
         ..add(serializers.serialize(
           enableDate,
           specifiedType: const FullType.nullable(DateTime),
@@ -239,15 +239,15 @@ class VirtualMfaDeviceAwsQuerySerializer
     }
     if (tags != null) {
       result$
-        ..add(const _i6.XmlElementName('Tags'))
-        ..add(const _i6.XmlBuiltListSerializer(
-                indexer: _i6.XmlIndexer.awsQueryList)
+        ..add(const _i4.XmlElementName('Tags'))
+        ..add(const _i4.XmlBuiltListSerializer(
+                indexer: _i4.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           tags,
           specifiedType: const FullType.nullable(
-            _i5.BuiltList,
-            [FullType(_i4.Tag)],
+            _i3.BuiltList,
+            [FullType(Tag)],
           ),
         ));
     }

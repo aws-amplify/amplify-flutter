@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.put_remediation_configurations_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/failed_remediation_batch.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/failed_remediation_batch.dart';
 
 part 'put_remediation_configurations_response.g.dart';
 
@@ -20,10 +19,10 @@ abstract class PutRemediationConfigurationsResponse
         Built<PutRemediationConfigurationsResponse,
             PutRemediationConfigurationsResponseBuilder> {
   factory PutRemediationConfigurationsResponse(
-      {List<_i2.FailedRemediationBatch>? failedBatches}) {
+      {List<FailedRemediationBatch>? failedBatches}) {
     return _$PutRemediationConfigurationsResponse._(
         failedBatches:
-            failedBatches == null ? null : _i3.BuiltList(failedBatches));
+            failedBatches == null ? null : _i2.BuiltList(failedBatches));
   }
 
   factory PutRemediationConfigurationsResponse.build(
@@ -39,11 +38,11 @@ abstract class PutRemediationConfigurationsResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<PutRemediationConfigurationsResponse>>
+  static const List<_i3.SmithySerializer<PutRemediationConfigurationsResponse>>
       serializers = [PutRemediationConfigurationsResponseAwsJson11Serializer()];
 
   /// Returns a list of failed remediation batch objects.
-  _i3.BuiltList<_i2.FailedRemediationBatch>? get failedBatches;
+  _i2.BuiltList<FailedRemediationBatch>? get failedBatches;
   @override
   List<Object?> get props => [failedBatches];
   @override
@@ -58,7 +57,7 @@ abstract class PutRemediationConfigurationsResponse
   }
 }
 
-class PutRemediationConfigurationsResponseAwsJson11Serializer extends _i4
+class PutRemediationConfigurationsResponseAwsJson11Serializer extends _i3
     .StructuredSmithySerializer<PutRemediationConfigurationsResponse> {
   const PutRemediationConfigurationsResponseAwsJson11Serializer()
       : super('PutRemediationConfigurationsResponse');
@@ -69,8 +68,8 @@ class PutRemediationConfigurationsResponseAwsJson11Serializer extends _i4
         _$PutRemediationConfigurationsResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -95,10 +94,10 @@ class PutRemediationConfigurationsResponseAwsJson11Serializer extends _i4
           result.failedBatches.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.FailedRemediationBatch)],
+              _i2.BuiltList,
+              [FullType(FailedRemediationBatch)],
             ),
-          ) as _i3.BuiltList<_i2.FailedRemediationBatch>));
+          ) as _i2.BuiltList<FailedRemediationBatch>));
       }
     }
 
@@ -119,8 +118,8 @@ class PutRemediationConfigurationsResponseAwsJson11Serializer extends _i4
         ..add(serializers.serialize(
           failedBatches,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.FailedRemediationBatch)],
+            _i2.BuiltList,
+            [FullType(FailedRemediationBatch)],
           ),
         ));
     }

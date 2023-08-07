@@ -8,7 +8,7 @@ part of 'describe_stack_events_output.dart';
 
 class _$DescribeStackEventsOutput extends DescribeStackEventsOutput {
   @override
-  final _i3.BuiltList<_i2.StackEvent>? stackEvents;
+  final _i2.BuiltList<StackEvent>? stackEvents;
   @override
   final String? nextToken;
 
@@ -50,10 +50,10 @@ class DescribeStackEventsOutputBuilder
         Builder<DescribeStackEventsOutput, DescribeStackEventsOutputBuilder> {
   _$DescribeStackEventsOutput? _$v;
 
-  _i3.ListBuilder<_i2.StackEvent>? _stackEvents;
-  _i3.ListBuilder<_i2.StackEvent> get stackEvents =>
-      _$this._stackEvents ??= new _i3.ListBuilder<_i2.StackEvent>();
-  set stackEvents(_i3.ListBuilder<_i2.StackEvent>? stackEvents) =>
+  _i2.ListBuilder<StackEvent>? _stackEvents;
+  _i2.ListBuilder<StackEvent> get stackEvents =>
+      _$this._stackEvents ??= new _i2.ListBuilder<StackEvent>();
+  set stackEvents(_i2.ListBuilder<StackEvent>? stackEvents) =>
       _$this._stackEvents = stackEvents;
 
   String? _nextToken;

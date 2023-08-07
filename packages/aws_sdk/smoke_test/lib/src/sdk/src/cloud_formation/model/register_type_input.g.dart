@@ -8,13 +8,13 @@ part of 'register_type_input.dart';
 
 class _$RegisterTypeInput extends RegisterTypeInput {
   @override
-  final _i3.RegistryType? type;
+  final RegistryType? type;
   @override
   final String typeName;
   @override
   final String schemaHandlerPackage;
   @override
-  final _i4.LoggingConfig? loggingConfig;
+  final LoggingConfig? loggingConfig;
   @override
   final String? executionRoleArn;
   @override
@@ -76,9 +76,9 @@ class RegisterTypeInputBuilder
     implements Builder<RegisterTypeInput, RegisterTypeInputBuilder> {
   _$RegisterTypeInput? _$v;
 
-  _i3.RegistryType? _type;
-  _i3.RegistryType? get type => _$this._type;
-  set type(_i3.RegistryType? type) => _$this._type = type;
+  RegistryType? _type;
+  RegistryType? get type => _$this._type;
+  set type(RegistryType? type) => _$this._type = type;
 
   String? _typeName;
   String? get typeName => _$this._typeName;
@@ -89,10 +89,10 @@ class RegisterTypeInputBuilder
   set schemaHandlerPackage(String? schemaHandlerPackage) =>
       _$this._schemaHandlerPackage = schemaHandlerPackage;
 
-  _i4.LoggingConfigBuilder? _loggingConfig;
-  _i4.LoggingConfigBuilder get loggingConfig =>
-      _$this._loggingConfig ??= new _i4.LoggingConfigBuilder();
-  set loggingConfig(_i4.LoggingConfigBuilder? loggingConfig) =>
+  LoggingConfigBuilder? _loggingConfig;
+  LoggingConfigBuilder get loggingConfig =>
+      _$this._loggingConfig ??= new LoggingConfigBuilder();
+  set loggingConfig(LoggingConfigBuilder? loggingConfig) =>
       _$this._loggingConfig = loggingConfig;
 
   String? _executionRoleArn;

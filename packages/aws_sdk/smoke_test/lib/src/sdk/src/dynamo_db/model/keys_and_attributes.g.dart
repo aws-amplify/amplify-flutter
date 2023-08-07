@@ -8,15 +8,15 @@ part of 'keys_and_attributes.dart';
 
 class _$KeysAndAttributes extends KeysAndAttributes {
   @override
-  final _i3.BuiltList<_i3.BuiltMap<String, _i2.AttributeValue>> keys;
+  final _i2.BuiltList<_i2.BuiltMap<String, AttributeValue>> keys;
   @override
-  final _i3.BuiltList<String>? attributesToGet;
+  final _i2.BuiltList<String>? attributesToGet;
   @override
   final bool? consistentRead;
   @override
   final String? projectionExpression;
   @override
-  final _i3.BuiltMap<String, String>? expressionAttributeNames;
+  final _i2.BuiltMap<String, String>? expressionAttributeNames;
 
   factory _$KeysAndAttributes(
           [void Function(KeysAndAttributesBuilder)? updates]) =>
@@ -68,17 +68,17 @@ class KeysAndAttributesBuilder
     implements Builder<KeysAndAttributes, KeysAndAttributesBuilder> {
   _$KeysAndAttributes? _$v;
 
-  _i3.ListBuilder<_i3.BuiltMap<String, _i2.AttributeValue>>? _keys;
-  _i3.ListBuilder<_i3.BuiltMap<String, _i2.AttributeValue>> get keys =>
+  _i2.ListBuilder<_i2.BuiltMap<String, AttributeValue>>? _keys;
+  _i2.ListBuilder<_i2.BuiltMap<String, AttributeValue>> get keys =>
       _$this._keys ??=
-          new _i3.ListBuilder<_i3.BuiltMap<String, _i2.AttributeValue>>();
-  set keys(_i3.ListBuilder<_i3.BuiltMap<String, _i2.AttributeValue>>? keys) =>
+          new _i2.ListBuilder<_i2.BuiltMap<String, AttributeValue>>();
+  set keys(_i2.ListBuilder<_i2.BuiltMap<String, AttributeValue>>? keys) =>
       _$this._keys = keys;
 
-  _i3.ListBuilder<String>? _attributesToGet;
-  _i3.ListBuilder<String> get attributesToGet =>
-      _$this._attributesToGet ??= new _i3.ListBuilder<String>();
-  set attributesToGet(_i3.ListBuilder<String>? attributesToGet) =>
+  _i2.ListBuilder<String>? _attributesToGet;
+  _i2.ListBuilder<String> get attributesToGet =>
+      _$this._attributesToGet ??= new _i2.ListBuilder<String>();
+  set attributesToGet(_i2.ListBuilder<String>? attributesToGet) =>
       _$this._attributesToGet = attributesToGet;
 
   bool? _consistentRead;
@@ -91,11 +91,11 @@ class KeysAndAttributesBuilder
   set projectionExpression(String? projectionExpression) =>
       _$this._projectionExpression = projectionExpression;
 
-  _i3.MapBuilder<String, String>? _expressionAttributeNames;
-  _i3.MapBuilder<String, String> get expressionAttributeNames =>
-      _$this._expressionAttributeNames ??= new _i3.MapBuilder<String, String>();
+  _i2.MapBuilder<String, String>? _expressionAttributeNames;
+  _i2.MapBuilder<String, String> get expressionAttributeNames =>
+      _$this._expressionAttributeNames ??= new _i2.MapBuilder<String, String>();
   set expressionAttributeNames(
-          _i3.MapBuilder<String, String>? expressionAttributeNames) =>
+          _i2.MapBuilder<String, String>? expressionAttributeNames) =>
       _$this._expressionAttributeNames = expressionAttributeNames;
 
   KeysAndAttributesBuilder();

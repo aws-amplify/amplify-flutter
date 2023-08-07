@@ -9,19 +9,19 @@ part of 'omits_serializing_empty_lists_input.dart';
 class _$OmitsSerializingEmptyListsInput
     extends OmitsSerializingEmptyListsInput {
   @override
-  final _i5.BuiltList<String>? queryStringList;
+  final _i3.BuiltList<String>? queryStringList;
   @override
-  final _i5.BuiltList<int>? queryIntegerList;
+  final _i3.BuiltList<int>? queryIntegerList;
   @override
-  final _i5.BuiltList<double>? queryDoubleList;
+  final _i3.BuiltList<double>? queryDoubleList;
   @override
-  final _i5.BuiltList<bool>? queryBooleanList;
+  final _i3.BuiltList<bool>? queryBooleanList;
   @override
-  final _i5.BuiltList<DateTime>? queryTimestampList;
+  final _i3.BuiltList<DateTime>? queryTimestampList;
   @override
-  final _i5.BuiltList<_i3.FooEnum>? queryEnumList;
+  final _i3.BuiltList<FooEnum>? queryEnumList;
   @override
-  final _i5.BuiltList<_i4.IntegerEnum>? queryIntegerEnumList;
+  final _i3.BuiltList<IntegerEnum>? queryIntegerEnumList;
 
   factory _$OmitsSerializingEmptyListsInput(
           [void Function(OmitsSerializingEmptyListsInputBuilder)? updates]) =>
@@ -80,47 +80,47 @@ class OmitsSerializingEmptyListsInputBuilder
             OmitsSerializingEmptyListsInputBuilder> {
   _$OmitsSerializingEmptyListsInput? _$v;
 
-  _i5.ListBuilder<String>? _queryStringList;
-  _i5.ListBuilder<String> get queryStringList =>
-      _$this._queryStringList ??= new _i5.ListBuilder<String>();
-  set queryStringList(_i5.ListBuilder<String>? queryStringList) =>
+  _i3.ListBuilder<String>? _queryStringList;
+  _i3.ListBuilder<String> get queryStringList =>
+      _$this._queryStringList ??= new _i3.ListBuilder<String>();
+  set queryStringList(_i3.ListBuilder<String>? queryStringList) =>
       _$this._queryStringList = queryStringList;
 
-  _i5.ListBuilder<int>? _queryIntegerList;
-  _i5.ListBuilder<int> get queryIntegerList =>
-      _$this._queryIntegerList ??= new _i5.ListBuilder<int>();
-  set queryIntegerList(_i5.ListBuilder<int>? queryIntegerList) =>
+  _i3.ListBuilder<int>? _queryIntegerList;
+  _i3.ListBuilder<int> get queryIntegerList =>
+      _$this._queryIntegerList ??= new _i3.ListBuilder<int>();
+  set queryIntegerList(_i3.ListBuilder<int>? queryIntegerList) =>
       _$this._queryIntegerList = queryIntegerList;
 
-  _i5.ListBuilder<double>? _queryDoubleList;
-  _i5.ListBuilder<double> get queryDoubleList =>
-      _$this._queryDoubleList ??= new _i5.ListBuilder<double>();
-  set queryDoubleList(_i5.ListBuilder<double>? queryDoubleList) =>
+  _i3.ListBuilder<double>? _queryDoubleList;
+  _i3.ListBuilder<double> get queryDoubleList =>
+      _$this._queryDoubleList ??= new _i3.ListBuilder<double>();
+  set queryDoubleList(_i3.ListBuilder<double>? queryDoubleList) =>
       _$this._queryDoubleList = queryDoubleList;
 
-  _i5.ListBuilder<bool>? _queryBooleanList;
-  _i5.ListBuilder<bool> get queryBooleanList =>
-      _$this._queryBooleanList ??= new _i5.ListBuilder<bool>();
-  set queryBooleanList(_i5.ListBuilder<bool>? queryBooleanList) =>
+  _i3.ListBuilder<bool>? _queryBooleanList;
+  _i3.ListBuilder<bool> get queryBooleanList =>
+      _$this._queryBooleanList ??= new _i3.ListBuilder<bool>();
+  set queryBooleanList(_i3.ListBuilder<bool>? queryBooleanList) =>
       _$this._queryBooleanList = queryBooleanList;
 
-  _i5.ListBuilder<DateTime>? _queryTimestampList;
-  _i5.ListBuilder<DateTime> get queryTimestampList =>
-      _$this._queryTimestampList ??= new _i5.ListBuilder<DateTime>();
-  set queryTimestampList(_i5.ListBuilder<DateTime>? queryTimestampList) =>
+  _i3.ListBuilder<DateTime>? _queryTimestampList;
+  _i3.ListBuilder<DateTime> get queryTimestampList =>
+      _$this._queryTimestampList ??= new _i3.ListBuilder<DateTime>();
+  set queryTimestampList(_i3.ListBuilder<DateTime>? queryTimestampList) =>
       _$this._queryTimestampList = queryTimestampList;
 
-  _i5.ListBuilder<_i3.FooEnum>? _queryEnumList;
-  _i5.ListBuilder<_i3.FooEnum> get queryEnumList =>
-      _$this._queryEnumList ??= new _i5.ListBuilder<_i3.FooEnum>();
-  set queryEnumList(_i5.ListBuilder<_i3.FooEnum>? queryEnumList) =>
+  _i3.ListBuilder<FooEnum>? _queryEnumList;
+  _i3.ListBuilder<FooEnum> get queryEnumList =>
+      _$this._queryEnumList ??= new _i3.ListBuilder<FooEnum>();
+  set queryEnumList(_i3.ListBuilder<FooEnum>? queryEnumList) =>
       _$this._queryEnumList = queryEnumList;
 
-  _i5.ListBuilder<_i4.IntegerEnum>? _queryIntegerEnumList;
-  _i5.ListBuilder<_i4.IntegerEnum> get queryIntegerEnumList =>
-      _$this._queryIntegerEnumList ??= new _i5.ListBuilder<_i4.IntegerEnum>();
+  _i3.ListBuilder<IntegerEnum>? _queryIntegerEnumList;
+  _i3.ListBuilder<IntegerEnum> get queryIntegerEnumList =>
+      _$this._queryIntegerEnumList ??= new _i3.ListBuilder<IntegerEnum>();
   set queryIntegerEnumList(
-          _i5.ListBuilder<_i4.IntegerEnum>? queryIntegerEnumList) =>
+          _i3.ListBuilder<IntegerEnum>? queryIntegerEnumList) =>
       _$this._queryIntegerEnumList = queryIntegerEnumList;
 
   OmitsSerializingEmptyListsInputBuilder();

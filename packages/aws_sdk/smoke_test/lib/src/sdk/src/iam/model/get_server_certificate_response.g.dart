@@ -8,7 +8,7 @@ part of 'get_server_certificate_response.dart';
 
 class _$GetServerCertificateResponse extends GetServerCertificateResponse {
   @override
-  final _i2.ServerCertificate serverCertificate;
+  final ServerCertificate serverCertificate;
 
   factory _$GetServerCertificateResponse(
           [void Function(GetServerCertificateResponseBuilder)? updates]) =>
@@ -51,10 +51,10 @@ class GetServerCertificateResponseBuilder
             GetServerCertificateResponseBuilder> {
   _$GetServerCertificateResponse? _$v;
 
-  _i2.ServerCertificateBuilder? _serverCertificate;
-  _i2.ServerCertificateBuilder get serverCertificate =>
-      _$this._serverCertificate ??= new _i2.ServerCertificateBuilder();
-  set serverCertificate(_i2.ServerCertificateBuilder? serverCertificate) =>
+  ServerCertificateBuilder? _serverCertificate;
+  ServerCertificateBuilder get serverCertificate =>
+      _$this._serverCertificate ??= new ServerCertificateBuilder();
+  set serverCertificate(ServerCertificateBuilder? serverCertificate) =>
       _$this._serverCertificate = serverCertificate;
 
   GetServerCertificateResponseBuilder();

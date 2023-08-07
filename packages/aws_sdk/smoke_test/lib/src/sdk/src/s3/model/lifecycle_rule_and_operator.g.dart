@@ -10,11 +10,11 @@ class _$LifecycleRuleAndOperator extends LifecycleRuleAndOperator {
   @override
   final String? prefix;
   @override
-  final _i4.BuiltList<_i2.Tag>? tags;
+  final _i3.BuiltList<Tag>? tags;
   @override
-  final _i3.Int64? objectSizeGreaterThan;
+  final _i2.Int64? objectSizeGreaterThan;
   @override
-  final _i3.Int64? objectSizeLessThan;
+  final _i2.Int64? objectSizeLessThan;
 
   factory _$LifecycleRuleAndOperator(
           [void Function(LifecycleRuleAndOperatorBuilder)? updates]) =>
@@ -67,19 +67,18 @@ class LifecycleRuleAndOperatorBuilder
   String? get prefix => _$this._prefix;
   set prefix(String? prefix) => _$this._prefix = prefix;
 
-  _i4.ListBuilder<_i2.Tag>? _tags;
-  _i4.ListBuilder<_i2.Tag> get tags =>
-      _$this._tags ??= new _i4.ListBuilder<_i2.Tag>();
-  set tags(_i4.ListBuilder<_i2.Tag>? tags) => _$this._tags = tags;
+  _i3.ListBuilder<Tag>? _tags;
+  _i3.ListBuilder<Tag> get tags => _$this._tags ??= new _i3.ListBuilder<Tag>();
+  set tags(_i3.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
-  _i3.Int64? _objectSizeGreaterThan;
-  _i3.Int64? get objectSizeGreaterThan => _$this._objectSizeGreaterThan;
-  set objectSizeGreaterThan(_i3.Int64? objectSizeGreaterThan) =>
+  _i2.Int64? _objectSizeGreaterThan;
+  _i2.Int64? get objectSizeGreaterThan => _$this._objectSizeGreaterThan;
+  set objectSizeGreaterThan(_i2.Int64? objectSizeGreaterThan) =>
       _$this._objectSizeGreaterThan = objectSizeGreaterThan;
 
-  _i3.Int64? _objectSizeLessThan;
-  _i3.Int64? get objectSizeLessThan => _$this._objectSizeLessThan;
-  set objectSizeLessThan(_i3.Int64? objectSizeLessThan) =>
+  _i2.Int64? _objectSizeLessThan;
+  _i2.Int64? get objectSizeLessThan => _$this._objectSizeLessThan;
+  set objectSizeLessThan(_i2.Int64? objectSizeLessThan) =>
       _$this._objectSizeLessThan = objectSizeLessThan;
 
   LifecycleRuleAndOperatorBuilder();

@@ -4,18 +4,17 @@
 library aws_json1_1_v1.machine_learning.model.predict_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:aws_json1_1_v1/src/machine_learning/model/prediction.dart'
-    as _i2;
+import 'package:aws_json1_1_v1/src/machine_learning/model/prediction.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'predict_output.g.dart';
 
 abstract class PredictOutput
     with _i1.AWSEquatable<PredictOutput>
     implements Built<PredictOutput, PredictOutputBuilder> {
-  factory PredictOutput({_i2.Prediction? prediction}) {
+  factory PredictOutput({Prediction? prediction}) {
     return _$PredictOutput._(prediction: prediction);
   }
 
@@ -31,11 +30,11 @@ abstract class PredictOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<PredictOutput>> serializers = [
+  static const List<_i2.SmithySerializer<PredictOutput>> serializers = [
     PredictOutputAwsJson11Serializer()
   ];
 
-  _i2.Prediction? get prediction;
+  Prediction? get prediction;
   @override
   List<Object?> get props => [prediction];
   @override
@@ -50,7 +49,7 @@ abstract class PredictOutput
 }
 
 class PredictOutputAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<PredictOutput> {
+    extends _i2.StructuredSmithySerializer<PredictOutput> {
   const PredictOutputAwsJson11Serializer() : super('PredictOutput');
 
   @override
@@ -59,8 +58,8 @@ class PredictOutputAwsJson11Serializer
         _$PredictOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -84,8 +83,8 @@ class PredictOutputAwsJson11Serializer
         case 'Prediction':
           result.prediction.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Prediction),
-          ) as _i2.Prediction));
+            specifiedType: const FullType(Prediction),
+          ) as Prediction));
       }
     }
 
@@ -105,7 +104,7 @@ class PredictOutputAwsJson11Serializer
         ..add('Prediction')
         ..add(serializers.serialize(
           prediction,
-          specifiedType: const FullType(_i2.Prediction),
+          specifiedType: const FullType(Prediction),
         ));
     }
     return result$;

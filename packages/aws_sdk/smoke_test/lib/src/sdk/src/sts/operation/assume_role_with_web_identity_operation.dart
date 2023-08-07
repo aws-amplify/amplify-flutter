@@ -3,33 +3,23 @@
 
 library smoke_test.sts.operation.assume_role_with_web_identity_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i16;
+import 'dart:async' as _i5;
 
-import 'package:aws_common/aws_common.dart' as _i7;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/sts/common/endpoint_resolver.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/sts/common/serializers.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/sts/model/assume_role_with_web_identity_request.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/sts/model/assume_role_with_web_identity_response.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/sts/model/expired_token_exception.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/sts/model/idp_communication_error_exception.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/sts/model/idp_rejected_claim_exception.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/sts/model/invalid_identity_token_exception.dart'
-    as _i12;
-import 'package:smoke_test/src/sdk/src/sts/model/malformed_policy_document_exception.dart'
-    as _i13;
-import 'package:smoke_test/src/sdk/src/sts/model/packed_policy_too_large_exception.dart'
-    as _i14;
-import 'package:smoke_test/src/sdk/src/sts/model/region_disabled_exception.dart'
-    as _i15;
+import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/sts/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/sts/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/assume_role_with_web_identity_request.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/assume_role_with_web_identity_response.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/expired_token_exception.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/idp_communication_error_exception.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/idp_rejected_claim_exception.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/invalid_identity_token_exception.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/malformed_policy_document_exception.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/packed_policy_too_large_exception.dart';
+import 'package:smoke_test/src/sdk/src/sts/model/region_disabled_exception.dart';
 
 /// Returns a set of temporary security credentials for users who have been authenticated in a mobile or web application with a web identity provider. Example providers include the OAuth 2.0 providers Login with Amazon and Facebook, or any OpenID Connect-compatible identity provider such as Google or [Amazon Cognito federated identities](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html).
 ///
@@ -81,10 +71,10 @@ import 'package:smoke_test/src/sdk/src/sts/model/region_disabled_exception.dart'
 ///
 /// *   [Web Identity Federation with Mobile Applications](http://aws.amazon.com/articles/web-identity-federation-with-mobile-applications). This article discusses web identity federation and shows an example of how to use web identity federation to get access to content in Amazon S3.
 class AssumeRoleWithWebIdentityOperation extends _i1.HttpOperation<
-    _i2.AssumeRoleWithWebIdentityRequest,
-    _i2.AssumeRoleWithWebIdentityRequest,
-    _i3.AssumeRoleWithWebIdentityResponse,
-    _i3.AssumeRoleWithWebIdentityResponse> {
+    AssumeRoleWithWebIdentityRequest,
+    AssumeRoleWithWebIdentityRequest,
+    AssumeRoleWithWebIdentityResponse,
+    AssumeRoleWithWebIdentityResponse> {
   /// Returns a set of temporary security credentials for users who have been authenticated in a mobile or web application with a web identity provider. Example providers include the OAuth 2.0 providers Login with Amazon and Facebook, or any OpenID Connect-compatible identity provider such as Google or [Amazon Cognito federated identities](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html).
   ///
   /// For mobile applications, we recommend that you use Amazon Cognito. You can use Amazon Cognito with the [Amazon Web Services SDK for iOS Developer Guide](http://aws.amazon.com/sdkforios/) and the [Amazon Web Services SDK for Android Developer Guide](http://aws.amazon.com/sdkforandroid/) to uniquely identify a user. You can also supply the user with a consistent identity throughout the lifetime of an application.
@@ -137,8 +127,8 @@ class AssumeRoleWithWebIdentityOperation extends _i1.HttpOperation<
   AssumeRoleWithWebIdentityOperation({
     required String region,
     Uri? baseUri,
-    _i4.AWSCredentialsProvider credentialsProvider =
-        const _i4.AWSCredentialsProvider.environment(),
+    _i2.AWSCredentialsProvider credentialsProvider =
+        const _i2.AWSCredentialsProvider.environment(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -150,24 +140,24 @@ class AssumeRoleWithWebIdentityOperation extends _i1.HttpOperation<
   @override
   late final List<
       _i1.HttpProtocol<
-          _i2.AssumeRoleWithWebIdentityRequest,
-          _i2.AssumeRoleWithWebIdentityRequest,
-          _i3.AssumeRoleWithWebIdentityResponse,
-          _i3.AssumeRoleWithWebIdentityResponse>> protocols = [
-    _i5.AwsQueryProtocol(
-      serializers: _i6.serializers,
-      builderFactories: _i6.builderFactories,
+          AssumeRoleWithWebIdentityRequest,
+          AssumeRoleWithWebIdentityRequest,
+          AssumeRoleWithWebIdentityResponse,
+          AssumeRoleWithWebIdentityResponse>> protocols = [
+    _i3.AwsQueryProtocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
-            _i5.WithSigV4(
+            _i3.WithSigV4(
               region: _region,
-              service: _i7.AWSService.sts,
+              service: _i4.AWSService.sts,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i5.WithSdkInvocationId(),
-            const _i5.WithSdkRequest(),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -175,37 +165,37 @@ class AssumeRoleWithWebIdentityOperation extends _i1.HttpOperation<
       action: 'AssumeRoleWithWebIdentity',
       version: '2011-06-15',
       awsQueryErrors: const [
-        _i5.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'ExpiredTokenException',
           code: 'ExpiredTokenException',
           httpResponseCode: 400,
         ),
-        _i5.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'IDPCommunicationErrorException',
           code: 'IDPCommunicationError',
           httpResponseCode: 400,
         ),
-        _i5.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'IDPRejectedClaimException',
           code: 'IDPRejectedClaim',
           httpResponseCode: 403,
         ),
-        _i5.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'InvalidIdentityTokenException',
           code: 'InvalidIdentityToken',
           httpResponseCode: 400,
         ),
-        _i5.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'MalformedPolicyDocumentException',
           code: 'MalformedPolicyDocument',
           httpResponseCode: 400,
         ),
-        _i5.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'PackedPolicyTooLargeException',
           code: 'PackedPolicyTooLarge',
           httpResponseCode: 400,
         ),
-        _i5.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'RegionDisabledException',
           code: 'RegionDisabledException',
           httpResponseCode: 403,
@@ -214,8 +204,8 @@ class AssumeRoleWithWebIdentityOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i5.AWSEndpoint _awsEndpoint = _i8.endpointResolver.resolve(
-    _i8.sdkId,
+  late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -223,123 +213,121 @@ class AssumeRoleWithWebIdentityOperation extends _i1.HttpOperation<
 
   final Uri? _baseUri;
 
-  final _i4.AWSCredentialsProvider _credentialsProvider;
+  final _i2.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.AssumeRoleWithWebIdentityRequest input) =>
+  _i1.HttpRequest buildRequest(AssumeRoleWithWebIdentityRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
       });
   @override
-  int successCode([_i3.AssumeRoleWithWebIdentityResponse? output]) => 200;
+  int successCode([AssumeRoleWithWebIdentityResponse? output]) => 200;
   @override
-  _i3.AssumeRoleWithWebIdentityResponse buildOutput(
-    _i3.AssumeRoleWithWebIdentityResponse payload,
-    _i7.AWSBaseHttpResponse response,
+  AssumeRoleWithWebIdentityResponse buildOutput(
+    AssumeRoleWithWebIdentityResponse payload,
+    _i4.AWSBaseHttpResponse response,
   ) =>
-      _i3.AssumeRoleWithWebIdentityResponse.fromResponse(
+      AssumeRoleWithWebIdentityResponse.fromResponse(
         payload,
         response,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i9.ExpiredTokenException, _i9.ExpiredTokenException>(
+        _i1.SmithyError<ExpiredTokenException, ExpiredTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'ExpiredTokenException',
           ),
           _i1.ErrorKind.client,
-          _i9.ExpiredTokenException,
+          ExpiredTokenException,
           statusCode: 400,
-          builder: _i9.ExpiredTokenException.fromResponse,
+          builder: ExpiredTokenException.fromResponse,
         ),
-        _i1.SmithyError<_i10.IdpCommunicationErrorException,
-            _i10.IdpCommunicationErrorException>(
+        _i1.SmithyError<IdpCommunicationErrorException,
+            IdpCommunicationErrorException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'IDPCommunicationErrorException',
           ),
           _i1.ErrorKind.client,
-          _i10.IdpCommunicationErrorException,
+          IdpCommunicationErrorException,
           statusCode: 400,
-          builder: _i10.IdpCommunicationErrorException.fromResponse,
+          builder: IdpCommunicationErrorException.fromResponse,
         ),
-        _i1.SmithyError<_i11.IdpRejectedClaimException,
-            _i11.IdpRejectedClaimException>(
+        _i1.SmithyError<IdpRejectedClaimException, IdpRejectedClaimException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'IDPRejectedClaimException',
           ),
           _i1.ErrorKind.client,
-          _i11.IdpRejectedClaimException,
+          IdpRejectedClaimException,
           statusCode: 403,
-          builder: _i11.IdpRejectedClaimException.fromResponse,
+          builder: IdpRejectedClaimException.fromResponse,
         ),
-        _i1.SmithyError<_i12.InvalidIdentityTokenException,
-            _i12.InvalidIdentityTokenException>(
+        _i1.SmithyError<InvalidIdentityTokenException,
+            InvalidIdentityTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'InvalidIdentityTokenException',
           ),
           _i1.ErrorKind.client,
-          _i12.InvalidIdentityTokenException,
+          InvalidIdentityTokenException,
           statusCode: 400,
-          builder: _i12.InvalidIdentityTokenException.fromResponse,
+          builder: InvalidIdentityTokenException.fromResponse,
         ),
-        _i1.SmithyError<_i13.MalformedPolicyDocumentException,
-            _i13.MalformedPolicyDocumentException>(
+        _i1.SmithyError<MalformedPolicyDocumentException,
+            MalformedPolicyDocumentException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'MalformedPolicyDocumentException',
           ),
           _i1.ErrorKind.client,
-          _i13.MalformedPolicyDocumentException,
+          MalformedPolicyDocumentException,
           statusCode: 400,
-          builder: _i13.MalformedPolicyDocumentException.fromResponse,
+          builder: MalformedPolicyDocumentException.fromResponse,
         ),
-        _i1.SmithyError<_i14.PackedPolicyTooLargeException,
-            _i14.PackedPolicyTooLargeException>(
+        _i1.SmithyError<PackedPolicyTooLargeException,
+            PackedPolicyTooLargeException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'PackedPolicyTooLargeException',
           ),
           _i1.ErrorKind.client,
-          _i14.PackedPolicyTooLargeException,
+          PackedPolicyTooLargeException,
           statusCode: 400,
-          builder: _i14.PackedPolicyTooLargeException.fromResponse,
+          builder: PackedPolicyTooLargeException.fromResponse,
         ),
-        _i1.SmithyError<_i15.RegionDisabledException,
-            _i15.RegionDisabledException>(
+        _i1.SmithyError<RegionDisabledException, RegionDisabledException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'RegionDisabledException',
           ),
           _i1.ErrorKind.client,
-          _i15.RegionDisabledException,
+          RegionDisabledException,
           statusCode: 403,
-          builder: _i15.RegionDisabledException.fromResponse,
+          builder: RegionDisabledException.fromResponse,
         ),
       ];
   @override
   String get runtimeTypeName => 'AssumeRoleWithWebIdentity';
   @override
-  _i5.AWSRetryer get retryer => _i5.AWSRetryer();
+  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i3.AssumeRoleWithWebIdentityResponse> run(
-    _i2.AssumeRoleWithWebIdentityRequest input, {
-    _i7.AWSHttpClient? client,
+  _i1.SmithyOperation<AssumeRoleWithWebIdentityResponse> run(
+    AssumeRoleWithWebIdentityRequest input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i16.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -347,7 +335,7 @@ class AssumeRoleWithWebIdentityOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

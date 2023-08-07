@@ -14,17 +14,17 @@ class _$GetObjectAttributesOutput extends GetObjectAttributesOutput {
   @override
   final String? versionId;
   @override
-  final _i3.RequestCharged? requestCharged;
+  final RequestCharged? requestCharged;
   @override
   final String? eTag;
   @override
-  final _i4.Checksum? checksum;
+  final Checksum? checksum;
   @override
-  final _i5.GetObjectAttributesParts? objectParts;
+  final GetObjectAttributesParts? objectParts;
   @override
-  final _i6.StorageClass? storageClass;
+  final StorageClass? storageClass;
   @override
-  final _i7.Int64? objectSize;
+  final _i3.Int64? objectSize;
 
   factory _$GetObjectAttributesOutput(
           [void Function(GetObjectAttributesOutputBuilder)? updates]) =>
@@ -101,34 +101,33 @@ class GetObjectAttributesOutputBuilder
   String? get versionId => _$this._versionId;
   set versionId(String? versionId) => _$this._versionId = versionId;
 
-  _i3.RequestCharged? _requestCharged;
-  _i3.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i3.RequestCharged? requestCharged) =>
+  RequestCharged? _requestCharged;
+  RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
   String? _eTag;
   String? get eTag => _$this._eTag;
   set eTag(String? eTag) => _$this._eTag = eTag;
 
-  _i4.ChecksumBuilder? _checksum;
-  _i4.ChecksumBuilder get checksum =>
-      _$this._checksum ??= new _i4.ChecksumBuilder();
-  set checksum(_i4.ChecksumBuilder? checksum) => _$this._checksum = checksum;
+  ChecksumBuilder? _checksum;
+  ChecksumBuilder get checksum => _$this._checksum ??= new ChecksumBuilder();
+  set checksum(ChecksumBuilder? checksum) => _$this._checksum = checksum;
 
-  _i5.GetObjectAttributesPartsBuilder? _objectParts;
-  _i5.GetObjectAttributesPartsBuilder get objectParts =>
-      _$this._objectParts ??= new _i5.GetObjectAttributesPartsBuilder();
-  set objectParts(_i5.GetObjectAttributesPartsBuilder? objectParts) =>
+  GetObjectAttributesPartsBuilder? _objectParts;
+  GetObjectAttributesPartsBuilder get objectParts =>
+      _$this._objectParts ??= new GetObjectAttributesPartsBuilder();
+  set objectParts(GetObjectAttributesPartsBuilder? objectParts) =>
       _$this._objectParts = objectParts;
 
-  _i6.StorageClass? _storageClass;
-  _i6.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i6.StorageClass? storageClass) =>
+  StorageClass? _storageClass;
+  StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(StorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
-  _i7.Int64? _objectSize;
-  _i7.Int64? get objectSize => _$this._objectSize;
-  set objectSize(_i7.Int64? objectSize) => _$this._objectSize = objectSize;
+  _i3.Int64? _objectSize;
+  _i3.Int64? get objectSize => _$this._objectSize;
+  set objectSize(_i3.Int64? objectSize) => _$this._objectSize = objectSize;
 
   GetObjectAttributesOutputBuilder();
 
@@ -198,15 +197,15 @@ class GetObjectAttributesOutputBuilder
 class _$GetObjectAttributesOutputPayload
     extends GetObjectAttributesOutputPayload {
   @override
-  final _i4.Checksum? checksum;
+  final Checksum? checksum;
   @override
   final String? eTag;
   @override
-  final _i5.GetObjectAttributesParts? objectParts;
+  final GetObjectAttributesParts? objectParts;
   @override
-  final _i7.Int64? objectSize;
+  final _i3.Int64? objectSize;
   @override
-  final _i6.StorageClass? storageClass;
+  final StorageClass? storageClass;
 
   factory _$GetObjectAttributesOutputPayload(
           [void Function(GetObjectAttributesOutputPayloadBuilder)? updates]) =>
@@ -259,28 +258,27 @@ class GetObjectAttributesOutputPayloadBuilder
             GetObjectAttributesOutputPayloadBuilder> {
   _$GetObjectAttributesOutputPayload? _$v;
 
-  _i4.ChecksumBuilder? _checksum;
-  _i4.ChecksumBuilder get checksum =>
-      _$this._checksum ??= new _i4.ChecksumBuilder();
-  set checksum(_i4.ChecksumBuilder? checksum) => _$this._checksum = checksum;
+  ChecksumBuilder? _checksum;
+  ChecksumBuilder get checksum => _$this._checksum ??= new ChecksumBuilder();
+  set checksum(ChecksumBuilder? checksum) => _$this._checksum = checksum;
 
   String? _eTag;
   String? get eTag => _$this._eTag;
   set eTag(String? eTag) => _$this._eTag = eTag;
 
-  _i5.GetObjectAttributesPartsBuilder? _objectParts;
-  _i5.GetObjectAttributesPartsBuilder get objectParts =>
-      _$this._objectParts ??= new _i5.GetObjectAttributesPartsBuilder();
-  set objectParts(_i5.GetObjectAttributesPartsBuilder? objectParts) =>
+  GetObjectAttributesPartsBuilder? _objectParts;
+  GetObjectAttributesPartsBuilder get objectParts =>
+      _$this._objectParts ??= new GetObjectAttributesPartsBuilder();
+  set objectParts(GetObjectAttributesPartsBuilder? objectParts) =>
       _$this._objectParts = objectParts;
 
-  _i7.Int64? _objectSize;
-  _i7.Int64? get objectSize => _$this._objectSize;
-  set objectSize(_i7.Int64? objectSize) => _$this._objectSize = objectSize;
+  _i3.Int64? _objectSize;
+  _i3.Int64? get objectSize => _$this._objectSize;
+  set objectSize(_i3.Int64? objectSize) => _$this._objectSize = objectSize;
 
-  _i6.StorageClass? _storageClass;
-  _i6.StorageClass? get storageClass => _$this._storageClass;
-  set storageClass(_i6.StorageClass? storageClass) =>
+  StorageClass? _storageClass;
+  StorageClass? get storageClass => _$this._storageClass;
+  set storageClass(StorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
   GetObjectAttributesOutputPayloadBuilder();

@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/config_rule_compliance_filters.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/config_rule_compliance_filters.dart';
 
 part 'describe_aggregate_compliance_by_config_rules_request.g.dart';
 
@@ -21,7 +20,7 @@ abstract class DescribeAggregateComplianceByConfigRulesRequest
             DescribeAggregateComplianceByConfigRulesRequestBuilder> {
   factory DescribeAggregateComplianceByConfigRulesRequest({
     required String configurationAggregatorName,
-    _i3.ConfigRuleComplianceFilters? filters,
+    ConfigRuleComplianceFilters? filters,
     int? limit,
     String? nextToken,
   }) {
@@ -62,7 +61,7 @@ abstract class DescribeAggregateComplianceByConfigRulesRequest
   String get configurationAggregatorName;
 
   /// Filters the results by ConfigRuleComplianceFilters object.
-  _i3.ConfigRuleComplianceFilters? get filters;
+  ConfigRuleComplianceFilters? get filters;
 
   /// The maximum number of evaluation results returned on each page. The default is maximum. If you specify 0, Config uses the default.
   int get limit;
@@ -144,8 +143,8 @@ class DescribeAggregateComplianceByConfigRulesRequestAwsJson11Serializer
         case 'Filters':
           result.filters.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ConfigRuleComplianceFilters),
-          ) as _i3.ConfigRuleComplianceFilters));
+            specifiedType: const FullType(ConfigRuleComplianceFilters),
+          ) as ConfigRuleComplianceFilters));
         case 'Limit':
           result.limit = (serializers.deserialize(
             value,
@@ -192,7 +191,7 @@ class DescribeAggregateComplianceByConfigRulesRequestAwsJson11Serializer
         ..add('Filters')
         ..add(serializers.serialize(
           filters,
-          specifiedType: const FullType(_i3.ConfigRuleComplianceFilters),
+          specifiedType: const FullType(ConfigRuleComplianceFilters),
         ));
     }
     if (nextToken != null) {

@@ -4,11 +4,11 @@
 library smoke_test.s3.model.get_bucket_lifecycle_configuration_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/lifecycle_rule.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/lifecycle_rule.dart';
 
 part 'get_bucket_lifecycle_configuration_output.g.dart';
 
@@ -18,10 +18,9 @@ abstract class GetBucketLifecycleConfigurationOutput
     implements
         Built<GetBucketLifecycleConfigurationOutput,
             GetBucketLifecycleConfigurationOutputBuilder> {
-  factory GetBucketLifecycleConfigurationOutput(
-      {List<_i2.LifecycleRule>? rules}) {
+  factory GetBucketLifecycleConfigurationOutput({List<LifecycleRule>? rules}) {
     return _$GetBucketLifecycleConfigurationOutput._(
-        rules: rules == null ? null : _i3.BuiltList(rules));
+        rules: rules == null ? null : _i2.BuiltList(rules));
   }
 
   factory GetBucketLifecycleConfigurationOutput.build(
@@ -37,11 +36,11 @@ abstract class GetBucketLifecycleConfigurationOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<GetBucketLifecycleConfigurationOutput>>
+  static const List<_i3.SmithySerializer<GetBucketLifecycleConfigurationOutput>>
       serializers = [GetBucketLifecycleConfigurationOutputRestXmlSerializer()];
 
   /// Container for a lifecycle rule.
-  _i3.BuiltList<_i2.LifecycleRule>? get rules;
+  _i2.BuiltList<LifecycleRule>? get rules;
   @override
   List<Object?> get props => [rules];
   @override
@@ -56,7 +55,7 @@ abstract class GetBucketLifecycleConfigurationOutput
   }
 }
 
-class GetBucketLifecycleConfigurationOutputRestXmlSerializer extends _i4
+class GetBucketLifecycleConfigurationOutputRestXmlSerializer extends _i3
     .StructuredSmithySerializer<GetBucketLifecycleConfigurationOutput> {
   const GetBucketLifecycleConfigurationOutputRestXmlSerializer()
       : super('GetBucketLifecycleConfigurationOutput');
@@ -67,8 +66,8 @@ class GetBucketLifecycleConfigurationOutputRestXmlSerializer extends _i4
         _$GetBucketLifecycleConfigurationOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -92,8 +91,8 @@ class GetBucketLifecycleConfigurationOutputRestXmlSerializer extends _i4
         case 'Rule':
           result.rules.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.LifecycleRule),
-          ) as _i2.LifecycleRule));
+            specifiedType: const FullType(LifecycleRule),
+          ) as LifecycleRule));
       }
     }
 
@@ -107,20 +106,20 @@ class GetBucketLifecycleConfigurationOutputRestXmlSerializer extends _i4
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'LifecycleConfiguration',
-        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final GetBucketLifecycleConfigurationOutput(:rules) = object;
     if (rules != null) {
       result$.addAll(
-          const _i4.XmlBuiltListSerializer(memberName: 'Rule').serialize(
+          const _i3.XmlBuiltListSerializer(memberName: 'Rule').serialize(
         serializers,
         rules,
         specifiedType: const FullType.nullable(
-          _i3.BuiltList,
-          [FullType(_i2.LifecycleRule)],
+          _i2.BuiltList,
+          [FullType(LifecycleRule)],
         ),
       ));
     }

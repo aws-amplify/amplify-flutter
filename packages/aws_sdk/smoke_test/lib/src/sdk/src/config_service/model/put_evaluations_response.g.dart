@@ -8,7 +8,7 @@ part of 'put_evaluations_response.dart';
 
 class _$PutEvaluationsResponse extends PutEvaluationsResponse {
   @override
-  final _i3.BuiltList<_i2.Evaluation>? failedEvaluations;
+  final _i2.BuiltList<Evaluation>? failedEvaluations;
 
   factory _$PutEvaluationsResponse(
           [void Function(PutEvaluationsResponseBuilder)? updates]) =>
@@ -45,10 +45,10 @@ class PutEvaluationsResponseBuilder
     implements Builder<PutEvaluationsResponse, PutEvaluationsResponseBuilder> {
   _$PutEvaluationsResponse? _$v;
 
-  _i3.ListBuilder<_i2.Evaluation>? _failedEvaluations;
-  _i3.ListBuilder<_i2.Evaluation> get failedEvaluations =>
-      _$this._failedEvaluations ??= new _i3.ListBuilder<_i2.Evaluation>();
-  set failedEvaluations(_i3.ListBuilder<_i2.Evaluation>? failedEvaluations) =>
+  _i2.ListBuilder<Evaluation>? _failedEvaluations;
+  _i2.ListBuilder<Evaluation> get failedEvaluations =>
+      _$this._failedEvaluations ??= new _i2.ListBuilder<Evaluation>();
+  set failedEvaluations(_i2.ListBuilder<Evaluation>? failedEvaluations) =>
       _$this._failedEvaluations = failedEvaluations;
 
   PutEvaluationsResponseBuilder();

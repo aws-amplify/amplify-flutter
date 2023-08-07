@@ -6,11 +6,11 @@ library smoke_test.s3.model.input_serialization; // ignore_for_file: no_leading_
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/s3/model/compression_type.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/csv_input.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/json_input.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/parquet_input.dart' as _i5;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/compression_type.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/csv_input.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/json_input.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/parquet_input.dart';
 
 part 'input_serialization.g.dart';
 
@@ -20,10 +20,10 @@ abstract class InputSerialization
     implements Built<InputSerialization, InputSerializationBuilder> {
   /// Describes the serialization format of the object.
   factory InputSerialization({
-    _i2.CsvInput? csv,
-    _i3.CompressionType? compressionType,
-    _i4.JsonInput? json,
-    _i5.ParquetInput? parquet,
+    CsvInput? csv,
+    CompressionType? compressionType,
+    JsonInput? json,
+    ParquetInput? parquet,
   }) {
     return _$InputSerialization._(
       csv: csv,
@@ -40,21 +40,21 @@ abstract class InputSerialization
 
   const InputSerialization._();
 
-  static const List<_i6.SmithySerializer<InputSerialization>> serializers = [
+  static const List<_i2.SmithySerializer<InputSerialization>> serializers = [
     InputSerializationRestXmlSerializer()
   ];
 
   /// Describes the serialization of a CSV-encoded object.
-  _i2.CsvInput? get csv;
+  CsvInput? get csv;
 
   /// Specifies object's compression format. Valid values: NONE, GZIP, BZIP2. Default Value: NONE.
-  _i3.CompressionType? get compressionType;
+  CompressionType? get compressionType;
 
   /// Specifies JSON as object's input serialization format.
-  _i4.JsonInput? get json;
+  JsonInput? get json;
 
   /// Specifies Parquet as object's input serialization format.
-  _i5.ParquetInput? get parquet;
+  ParquetInput? get parquet;
   @override
   List<Object?> get props => [
         csv,
@@ -86,7 +86,7 @@ abstract class InputSerialization
 }
 
 class InputSerializationRestXmlSerializer
-    extends _i6.StructuredSmithySerializer<InputSerialization> {
+    extends _i2.StructuredSmithySerializer<InputSerialization> {
   const InputSerializationRestXmlSerializer() : super('InputSerialization');
 
   @override
@@ -95,8 +95,8 @@ class InputSerializationRestXmlSerializer
         _$InputSerialization,
       ];
   @override
-  Iterable<_i6.ShapeId> get supportedProtocols => const [
-        _i6.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -120,23 +120,23 @@ class InputSerializationRestXmlSerializer
         case 'CompressionType':
           result.compressionType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.CompressionType),
-          ) as _i3.CompressionType);
+            specifiedType: const FullType(CompressionType),
+          ) as CompressionType);
         case 'CSV':
           result.csv.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.CsvInput),
-          ) as _i2.CsvInput));
+            specifiedType: const FullType(CsvInput),
+          ) as CsvInput));
         case 'JSON':
           result.json.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.JsonInput),
-          ) as _i4.JsonInput));
+            specifiedType: const FullType(JsonInput),
+          ) as JsonInput));
         case 'Parquet':
           result.parquet.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.ParquetInput),
-          ) as _i5.ParquetInput));
+            specifiedType: const FullType(ParquetInput),
+          ) as ParquetInput));
       }
     }
 
@@ -150,42 +150,42 @@ class InputSerializationRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i6.XmlElementName(
+      const _i2.XmlElementName(
         'InputSerialization',
-        _i6.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final InputSerialization(:compressionType, :csv, :json, :parquet) = object;
     if (compressionType != null) {
       result$
-        ..add(const _i6.XmlElementName('CompressionType'))
+        ..add(const _i2.XmlElementName('CompressionType'))
         ..add(serializers.serialize(
           compressionType,
-          specifiedType: const FullType.nullable(_i3.CompressionType),
+          specifiedType: const FullType.nullable(CompressionType),
         ));
     }
     if (csv != null) {
       result$
-        ..add(const _i6.XmlElementName('CSV'))
+        ..add(const _i2.XmlElementName('CSV'))
         ..add(serializers.serialize(
           csv,
-          specifiedType: const FullType(_i2.CsvInput),
+          specifiedType: const FullType(CsvInput),
         ));
     }
     if (json != null) {
       result$
-        ..add(const _i6.XmlElementName('JSON'))
+        ..add(const _i2.XmlElementName('JSON'))
         ..add(serializers.serialize(
           json,
-          specifiedType: const FullType(_i4.JsonInput),
+          specifiedType: const FullType(JsonInput),
         ));
     }
     if (parquet != null) {
       result$
-        ..add(const _i6.XmlElementName('Parquet'))
+        ..add(const _i2.XmlElementName('Parquet'))
         ..add(serializers.serialize(
           parquet,
-          specifiedType: const FullType(_i5.ParquetInput),
+          specifiedType: const FullType(ParquetInput),
         ));
     }
     return result$;

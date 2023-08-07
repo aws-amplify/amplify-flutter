@@ -11,7 +11,7 @@ class _$StartRemediationExecutionRequest
   @override
   final String configRuleName;
   @override
-  final _i4.BuiltList<_i3.ResourceKey> resourceKeys;
+  final _i3.BuiltList<ResourceKey> resourceKeys;
 
   factory _$StartRemediationExecutionRequest(
           [void Function(StartRemediationExecutionRequestBuilder)? updates]) =>
@@ -64,10 +64,10 @@ class StartRemediationExecutionRequestBuilder
   set configRuleName(String? configRuleName) =>
       _$this._configRuleName = configRuleName;
 
-  _i4.ListBuilder<_i3.ResourceKey>? _resourceKeys;
-  _i4.ListBuilder<_i3.ResourceKey> get resourceKeys =>
-      _$this._resourceKeys ??= new _i4.ListBuilder<_i3.ResourceKey>();
-  set resourceKeys(_i4.ListBuilder<_i3.ResourceKey>? resourceKeys) =>
+  _i3.ListBuilder<ResourceKey>? _resourceKeys;
+  _i3.ListBuilder<ResourceKey> get resourceKeys =>
+      _$this._resourceKeys ??= new _i3.ListBuilder<ResourceKey>();
+  set resourceKeys(_i3.ListBuilder<ResourceKey>? resourceKeys) =>
       _$this._resourceKeys = resourceKeys;
 
   StartRemediationExecutionRequestBuilder();

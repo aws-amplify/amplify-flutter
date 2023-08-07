@@ -4,16 +4,13 @@
 library smoke_test.api_gateway.model.create_domain_name_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/endpoint_configuration.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/mutual_tls_authentication_input.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/security_policy.dart'
-    as _i4;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/endpoint_configuration.dart';
+import 'package:smoke_test/src/sdk/src/api_gateway/model/mutual_tls_authentication_input.dart';
+import 'package:smoke_test/src/sdk/src/api_gateway/model/security_policy.dart';
 
 part 'create_domain_name_request.g.dart';
 
@@ -33,10 +30,10 @@ abstract class CreateDomainNameRequest
     String? certificateArn,
     String? regionalCertificateName,
     String? regionalCertificateArn,
-    _i3.EndpointConfiguration? endpointConfiguration,
+    EndpointConfiguration? endpointConfiguration,
     Map<String, String>? tags,
-    _i4.SecurityPolicy? securityPolicy,
-    _i5.MutualTlsAuthenticationInput? mutualTlsAuthentication,
+    SecurityPolicy? securityPolicy,
+    MutualTlsAuthenticationInput? mutualTlsAuthentication,
     String? ownershipVerificationCertificateArn,
   }) {
     return _$CreateDomainNameRequest._(
@@ -49,7 +46,7 @@ abstract class CreateDomainNameRequest
       regionalCertificateName: regionalCertificateName,
       regionalCertificateArn: regionalCertificateArn,
       endpointConfiguration: endpointConfiguration,
-      tags: tags == null ? null : _i6.BuiltMap(tags),
+      tags: tags == null ? null : _i3.BuiltMap(tags),
       securityPolicy: securityPolicy,
       mutualTlsAuthentication: mutualTlsAuthentication,
       ownershipVerificationCertificateArn: ownershipVerificationCertificateArn,
@@ -98,16 +95,16 @@ abstract class CreateDomainNameRequest
   String? get regionalCertificateArn;
 
   /// The endpoint configuration of this DomainName showing the endpoint types of the domain name.
-  _i3.EndpointConfiguration? get endpointConfiguration;
+  EndpointConfiguration? get endpointConfiguration;
 
   /// The key-value map of strings. The valid character set is \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not start with `aws:`. The tag value can be up to 256 characters.
-  _i6.BuiltMap<String, String>? get tags;
+  _i3.BuiltMap<String, String>? get tags;
 
   /// The Transport Layer Security (TLS) version + cipher suite for this DomainName. The valid values are `TLS\_1\_0` and `TLS\_1\_2`.
-  _i4.SecurityPolicy? get securityPolicy;
+  SecurityPolicy? get securityPolicy;
 
   /// The mutual TLS authentication configuration for a custom domain name. If specified, API Gateway performs two-way authentication between the client and the server. Clients must present a trusted certificate to access your API.
-  _i5.MutualTlsAuthenticationInput? get mutualTlsAuthentication;
+  MutualTlsAuthenticationInput? get mutualTlsAuthentication;
 
   /// The ARN of the public certificate issued by ACM to validate ownership of your custom domain. Only required when configuring mutual TLS and using an ACM imported or private CA certificate ARN as the regionalCertificateArn.
   String? get ownershipVerificationCertificateArn;
@@ -254,13 +251,13 @@ class CreateDomainNameRequestRestJson1Serializer
         case 'endpointConfiguration':
           result.endpointConfiguration.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.EndpointConfiguration),
-          ) as _i3.EndpointConfiguration));
+            specifiedType: const FullType(EndpointConfiguration),
+          ) as EndpointConfiguration));
         case 'mutualTlsAuthentication':
           result.mutualTlsAuthentication.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.MutualTlsAuthenticationInput),
-          ) as _i5.MutualTlsAuthenticationInput));
+            specifiedType: const FullType(MutualTlsAuthenticationInput),
+          ) as MutualTlsAuthenticationInput));
         case 'ownershipVerificationCertificateArn':
           result.ownershipVerificationCertificateArn = (serializers.deserialize(
             value,
@@ -279,19 +276,19 @@ class CreateDomainNameRequestRestJson1Serializer
         case 'securityPolicy':
           result.securityPolicy = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.SecurityPolicy),
-          ) as _i4.SecurityPolicy);
+            specifiedType: const FullType(SecurityPolicy),
+          ) as SecurityPolicy);
         case 'tags':
           result.tags.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i6.BuiltMap<String, String>));
+          ) as _i3.BuiltMap<String, String>));
       }
     }
 
@@ -372,7 +369,7 @@ class CreateDomainNameRequestRestJson1Serializer
         ..add('endpointConfiguration')
         ..add(serializers.serialize(
           endpointConfiguration,
-          specifiedType: const FullType(_i3.EndpointConfiguration),
+          specifiedType: const FullType(EndpointConfiguration),
         ));
     }
     if (mutualTlsAuthentication != null) {
@@ -380,7 +377,7 @@ class CreateDomainNameRequestRestJson1Serializer
         ..add('mutualTlsAuthentication')
         ..add(serializers.serialize(
           mutualTlsAuthentication,
-          specifiedType: const FullType(_i5.MutualTlsAuthenticationInput),
+          specifiedType: const FullType(MutualTlsAuthenticationInput),
         ));
     }
     if (ownershipVerificationCertificateArn != null) {
@@ -412,7 +409,7 @@ class CreateDomainNameRequestRestJson1Serializer
         ..add('securityPolicy')
         ..add(serializers.serialize(
           securityPolicy,
-          specifiedType: const FullType(_i4.SecurityPolicy),
+          specifiedType: const FullType(SecurityPolicy),
         ));
     }
     if (tags != null) {
@@ -421,7 +418,7 @@ class CreateDomainNameRequestRestJson1Serializer
         ..add(serializers.serialize(
           tags,
           specifiedType: const FullType(
-            _i6.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
               FullType(String),

@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_evaluation_filters.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_evaluation_filters.dart';
 
 part 'get_conformance_pack_compliance_details_request.g.dart';
 
@@ -21,7 +20,7 @@ abstract class GetConformancePackComplianceDetailsRequest
             GetConformancePackComplianceDetailsRequestBuilder> {
   factory GetConformancePackComplianceDetailsRequest({
     required String conformancePackName,
-    _i3.ConformancePackEvaluationFilters? filters,
+    ConformancePackEvaluationFilters? filters,
     int? limit,
     String? nextToken,
   }) {
@@ -62,7 +61,7 @@ abstract class GetConformancePackComplianceDetailsRequest
   String get conformancePackName;
 
   /// A `ConformancePackEvaluationFilters` object.
-  _i3.ConformancePackEvaluationFilters? get filters;
+  ConformancePackEvaluationFilters? get filters;
 
   /// The maximum number of evaluation results returned on each page. If you do no specify a number, Config uses the default. The default is 100.
   int get limit;
@@ -143,8 +142,8 @@ class GetConformancePackComplianceDetailsRequestAwsJson11Serializer extends _i1
         case 'Filters':
           result.filters.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ConformancePackEvaluationFilters),
-          ) as _i3.ConformancePackEvaluationFilters));
+            specifiedType: const FullType(ConformancePackEvaluationFilters),
+          ) as ConformancePackEvaluationFilters));
         case 'Limit':
           result.limit = (serializers.deserialize(
             value,
@@ -191,7 +190,7 @@ class GetConformancePackComplianceDetailsRequestAwsJson11Serializer extends _i1
         ..add('Filters')
         ..add(serializers.serialize(
           filters,
-          specifiedType: const FullType(_i3.ConformancePackEvaluationFilters),
+          specifiedType: const FullType(ConformancePackEvaluationFilters),
         ));
     }
     if (nextToken != null) {

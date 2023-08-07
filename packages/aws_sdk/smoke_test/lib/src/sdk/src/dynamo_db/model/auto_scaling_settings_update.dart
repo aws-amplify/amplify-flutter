@@ -7,9 +7,8 @@ import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:fixnum/fixnum.dart' as _i2;
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/auto_scaling_policy_update.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/auto_scaling_policy_update.dart';
 
 part 'auto_scaling_settings_update.g.dart';
 
@@ -24,7 +23,7 @@ abstract class AutoScalingSettingsUpdate
     _i2.Int64? maximumUnits,
     bool? autoScalingDisabled,
     String? autoScalingRoleArn,
-    _i3.AutoScalingPolicyUpdate? scalingPolicyUpdate,
+    AutoScalingPolicyUpdate? scalingPolicyUpdate,
   }) {
     return _$AutoScalingSettingsUpdate._(
       minimumUnits: minimumUnits,
@@ -42,7 +41,7 @@ abstract class AutoScalingSettingsUpdate
 
   const AutoScalingSettingsUpdate._();
 
-  static const List<_i4.SmithySerializer<AutoScalingSettingsUpdate>>
+  static const List<_i3.SmithySerializer<AutoScalingSettingsUpdate>>
       serializers = [AutoScalingSettingsUpdateAwsJson10Serializer()];
 
   /// The minimum capacity units that a global table or global secondary index should be scaled down to.
@@ -58,7 +57,7 @@ abstract class AutoScalingSettingsUpdate
   String? get autoScalingRoleArn;
 
   /// The scaling policy to apply for scaling target global table or global secondary index capacity units.
-  _i3.AutoScalingPolicyUpdate? get scalingPolicyUpdate;
+  AutoScalingPolicyUpdate? get scalingPolicyUpdate;
   @override
   List<Object?> get props => [
         minimumUnits,
@@ -95,7 +94,7 @@ abstract class AutoScalingSettingsUpdate
 }
 
 class AutoScalingSettingsUpdateAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<AutoScalingSettingsUpdate> {
+    extends _i3.StructuredSmithySerializer<AutoScalingSettingsUpdate> {
   const AutoScalingSettingsUpdateAwsJson10Serializer()
       : super('AutoScalingSettingsUpdate');
 
@@ -105,8 +104,8 @@ class AutoScalingSettingsUpdateAwsJson10Serializer
         _$AutoScalingSettingsUpdate,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -150,8 +149,8 @@ class AutoScalingSettingsUpdateAwsJson10Serializer
         case 'ScalingPolicyUpdate':
           result.scalingPolicyUpdate.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.AutoScalingPolicyUpdate),
-          ) as _i3.AutoScalingPolicyUpdate));
+            specifiedType: const FullType(AutoScalingPolicyUpdate),
+          ) as AutoScalingPolicyUpdate));
       }
     }
 
@@ -209,7 +208,7 @@ class AutoScalingSettingsUpdateAwsJson10Serializer
         ..add('ScalingPolicyUpdate')
         ..add(serializers.serialize(
           scalingPolicyUpdate,
-          specifiedType: const FullType(_i3.AutoScalingPolicyUpdate),
+          specifiedType: const FullType(AutoScalingPolicyUpdate),
         ));
     }
     return result$;

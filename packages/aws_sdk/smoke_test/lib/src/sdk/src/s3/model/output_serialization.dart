@@ -6,9 +6,9 @@ library smoke_test.s3.model.output_serialization; // ignore_for_file: no_leading
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/csv_output.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/json_output.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/csv_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/json_output.dart';
 
 part 'output_serialization.g.dart';
 
@@ -18,8 +18,8 @@ abstract class OutputSerialization
     implements Built<OutputSerialization, OutputSerializationBuilder> {
   /// Describes how results of the Select job are serialized.
   factory OutputSerialization({
-    _i2.CsvOutput? csv,
-    _i3.JsonOutput? json,
+    CsvOutput? csv,
+    JsonOutput? json,
   }) {
     return _$OutputSerialization._(
       csv: csv,
@@ -34,15 +34,15 @@ abstract class OutputSerialization
 
   const OutputSerialization._();
 
-  static const List<_i4.SmithySerializer<OutputSerialization>> serializers = [
+  static const List<_i2.SmithySerializer<OutputSerialization>> serializers = [
     OutputSerializationRestXmlSerializer()
   ];
 
   /// Describes the serialization of CSV-encoded Select results.
-  _i2.CsvOutput? get csv;
+  CsvOutput? get csv;
 
   /// Specifies JSON as request's output serialization format.
-  _i3.JsonOutput? get json;
+  JsonOutput? get json;
   @override
   List<Object?> get props => [
         csv,
@@ -64,7 +64,7 @@ abstract class OutputSerialization
 }
 
 class OutputSerializationRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<OutputSerialization> {
+    extends _i2.StructuredSmithySerializer<OutputSerialization> {
   const OutputSerializationRestXmlSerializer() : super('OutputSerialization');
 
   @override
@@ -73,8 +73,8 @@ class OutputSerializationRestXmlSerializer
         _$OutputSerialization,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -98,13 +98,13 @@ class OutputSerializationRestXmlSerializer
         case 'CSV':
           result.csv.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.CsvOutput),
-          ) as _i2.CsvOutput));
+            specifiedType: const FullType(CsvOutput),
+          ) as CsvOutput));
         case 'JSON':
           result.json.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.JsonOutput),
-          ) as _i3.JsonOutput));
+            specifiedType: const FullType(JsonOutput),
+          ) as JsonOutput));
       }
     }
 
@@ -118,26 +118,26 @@ class OutputSerializationRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'OutputSerialization',
-        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final OutputSerialization(:csv, :json) = object;
     if (csv != null) {
       result$
-        ..add(const _i4.XmlElementName('CSV'))
+        ..add(const _i2.XmlElementName('CSV'))
         ..add(serializers.serialize(
           csv,
-          specifiedType: const FullType(_i2.CsvOutput),
+          specifiedType: const FullType(CsvOutput),
         ));
     }
     if (json != null) {
       result$
-        ..add(const _i4.XmlElementName('JSON'))
+        ..add(const _i2.XmlElementName('JSON'))
         ..add(serializers.serialize(
           json,
-          specifiedType: const FullType(_i3.JsonOutput),
+          specifiedType: const FullType(JsonOutput),
         ));
     }
     return result$;

@@ -4,12 +4,11 @@
 library smoke_test.dynamo_db.model.cancellation_reason; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart';
 
 part 'cancellation_reason.g.dart';
 
@@ -19,12 +18,12 @@ abstract class CancellationReason
     implements Built<CancellationReason, CancellationReasonBuilder> {
   /// An ordered list of errors for each item in the request which caused the transaction to get cancelled. The values of the list are ordered according to the ordering of the `TransactWriteItems` request parameter. If no error occurred for the associated item an error with a Null code and Null message will be present.
   factory CancellationReason({
-    Map<String, _i2.AttributeValue>? item,
+    Map<String, AttributeValue>? item,
     String? code,
     String? message,
   }) {
     return _$CancellationReason._(
-      item: item == null ? null : _i3.BuiltMap(item),
+      item: item == null ? null : _i2.BuiltMap(item),
       code: code,
       message: message,
     );
@@ -37,12 +36,12 @@ abstract class CancellationReason
 
   const CancellationReason._();
 
-  static const List<_i4.SmithySerializer<CancellationReason>> serializers = [
+  static const List<_i3.SmithySerializer<CancellationReason>> serializers = [
     CancellationReasonAwsJson10Serializer()
   ];
 
   /// Item in the request which caused the transaction to get cancelled.
-  _i3.BuiltMap<String, _i2.AttributeValue>? get item;
+  _i2.BuiltMap<String, AttributeValue>? get item;
 
   /// Status code for the result of the cancelled transaction.
   String? get code;
@@ -75,7 +74,7 @@ abstract class CancellationReason
 }
 
 class CancellationReasonAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<CancellationReason> {
+    extends _i3.StructuredSmithySerializer<CancellationReason> {
   const CancellationReasonAwsJson10Serializer() : super('CancellationReason');
 
   @override
@@ -84,8 +83,8 @@ class CancellationReasonAwsJson10Serializer
         _$CancellationReason,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -110,13 +109,13 @@ class CancellationReasonAwsJson10Serializer
           result.item.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i2.AttributeValue),
+                FullType(AttributeValue),
               ],
             ),
-          ) as _i3.BuiltMap<String, _i2.AttributeValue>));
+          ) as _i2.BuiltMap<String, AttributeValue>));
         case 'Code':
           result.code = (serializers.deserialize(
             value,
@@ -147,10 +146,10 @@ class CancellationReasonAwsJson10Serializer
         ..add(serializers.serialize(
           item,
           specifiedType: const FullType(
-            _i3.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
-              FullType(_i2.AttributeValue),
+              FullType(AttributeValue),
             ],
           ),
         ));

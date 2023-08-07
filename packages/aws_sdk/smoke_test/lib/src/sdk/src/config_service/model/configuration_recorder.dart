@@ -6,9 +6,8 @@ library smoke_test.config_service.model.configuration_recorder; // ignore_for_fi
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/recording_group.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/recording_group.dart';
 
 part 'configuration_recorder.g.dart';
 
@@ -20,7 +19,7 @@ abstract class ConfigurationRecorder
   factory ConfigurationRecorder({
     String? name,
     String? roleArn,
-    _i2.RecordingGroup? recordingGroup,
+    RecordingGroup? recordingGroup,
   }) {
     return _$ConfigurationRecorder._(
       name: name,
@@ -36,7 +35,7 @@ abstract class ConfigurationRecorder
 
   const ConfigurationRecorder._();
 
-  static const List<_i3.SmithySerializer<ConfigurationRecorder>> serializers = [
+  static const List<_i2.SmithySerializer<ConfigurationRecorder>> serializers = [
     ConfigurationRecorderAwsJson11Serializer()
   ];
 
@@ -63,7 +62,7 @@ abstract class ConfigurationRecorder
   /// You may notice increased activity in your account during your initial month recording with Config when compared to subsequent months. During the initial bootstrapping process, Config runs evaluations on all the resources in your account that you have selected for Config to record.
   ///
   /// If you are running ephemeral workloads, you may see increased activity from Config as it records configuration changes associated with creating and deleting these temporary resources. An _ephemeral workload_ is a temporary use of computing resources that are loaded and run when needed. Examples include Amazon Elastic Compute Cloud (Amazon EC2) Spot Instances, Amazon EMR jobs, and Auto Scaling. If you want to avoid the increased activity from running ephemeral workloads, you can run these types of workloads in a separate account with Config turned off to avoid increased configuration recording and rule evaluations.
-  _i2.RecordingGroup? get recordingGroup;
+  RecordingGroup? get recordingGroup;
   @override
   List<Object?> get props => [
         name,
@@ -90,7 +89,7 @@ abstract class ConfigurationRecorder
 }
 
 class ConfigurationRecorderAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<ConfigurationRecorder> {
+    extends _i2.StructuredSmithySerializer<ConfigurationRecorder> {
   const ConfigurationRecorderAwsJson11Serializer()
       : super('ConfigurationRecorder');
 
@@ -100,8 +99,8 @@ class ConfigurationRecorderAwsJson11Serializer
         _$ConfigurationRecorder,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -135,8 +134,8 @@ class ConfigurationRecorderAwsJson11Serializer
         case 'recordingGroup':
           result.recordingGroup.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.RecordingGroup),
-          ) as _i2.RecordingGroup));
+            specifiedType: const FullType(RecordingGroup),
+          ) as RecordingGroup));
       }
     }
 
@@ -172,7 +171,7 @@ class ConfigurationRecorderAwsJson11Serializer
         ..add('recordingGroup')
         ..add(serializers.serialize(
           recordingGroup,
-          specifiedType: const FullType(_i2.RecordingGroup),
+          specifiedType: const FullType(RecordingGroup),
         ));
     }
     return result$;

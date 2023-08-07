@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.get_compliance_summary_by_resource_type_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/compliance_summary_by_resource_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/compliance_summary_by_resource_type.dart';
 
 part 'get_compliance_summary_by_resource_type_response.g.dart';
 
@@ -20,13 +19,13 @@ abstract class GetComplianceSummaryByResourceTypeResponse
         Built<GetComplianceSummaryByResourceTypeResponse,
             GetComplianceSummaryByResourceTypeResponseBuilder> {
   factory GetComplianceSummaryByResourceTypeResponse(
-      {List<_i2.ComplianceSummaryByResourceType>?
+      {List<ComplianceSummaryByResourceType>?
           complianceSummariesByResourceType}) {
     return _$GetComplianceSummaryByResourceTypeResponse._(
         complianceSummariesByResourceType:
             complianceSummariesByResourceType == null
                 ? null
-                : _i3.BuiltList(complianceSummariesByResourceType));
+                : _i2.BuiltList(complianceSummariesByResourceType));
   }
 
   factory GetComplianceSummaryByResourceTypeResponse.build(
@@ -43,13 +42,13 @@ abstract class GetComplianceSummaryByResourceTypeResponse
       payload;
 
   static const List<
-          _i4.SmithySerializer<GetComplianceSummaryByResourceTypeResponse>>
+          _i3.SmithySerializer<GetComplianceSummaryByResourceTypeResponse>>
       serializers = [
     GetComplianceSummaryByResourceTypeResponseAwsJson11Serializer()
   ];
 
   /// The number of resources that are compliant and the number that are noncompliant. If one or more resource types were provided with the request, the numbers are returned for each resource type. The maximum number returned is 100.
-  _i3.BuiltList<_i2.ComplianceSummaryByResourceType>?
+  _i2.BuiltList<ComplianceSummaryByResourceType>?
       get complianceSummariesByResourceType;
   @override
   List<Object?> get props => [complianceSummariesByResourceType];
@@ -65,7 +64,7 @@ abstract class GetComplianceSummaryByResourceTypeResponse
   }
 }
 
-class GetComplianceSummaryByResourceTypeResponseAwsJson11Serializer extends _i4
+class GetComplianceSummaryByResourceTypeResponseAwsJson11Serializer extends _i3
     .StructuredSmithySerializer<GetComplianceSummaryByResourceTypeResponse> {
   const GetComplianceSummaryByResourceTypeResponseAwsJson11Serializer()
       : super('GetComplianceSummaryByResourceTypeResponse');
@@ -76,8 +75,8 @@ class GetComplianceSummaryByResourceTypeResponseAwsJson11Serializer extends _i4
         _$GetComplianceSummaryByResourceTypeResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -103,10 +102,10 @@ class GetComplianceSummaryByResourceTypeResponseAwsJson11Serializer extends _i4
               .replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.ComplianceSummaryByResourceType)],
+              _i2.BuiltList,
+              [FullType(ComplianceSummaryByResourceType)],
             ),
-          ) as _i3.BuiltList<_i2.ComplianceSummaryByResourceType>));
+          ) as _i2.BuiltList<ComplianceSummaryByResourceType>));
       }
     }
 
@@ -129,8 +128,8 @@ class GetComplianceSummaryByResourceTypeResponseAwsJson11Serializer extends _i4
         ..add(serializers.serialize(
           complianceSummariesByResourceType,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.ComplianceSummaryByResourceType)],
+            _i2.BuiltList,
+            [FullType(ComplianceSummaryByResourceType)],
           ),
         ));
     }

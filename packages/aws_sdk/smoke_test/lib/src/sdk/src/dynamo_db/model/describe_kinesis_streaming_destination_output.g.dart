@@ -11,7 +11,7 @@ class _$DescribeKinesisStreamingDestinationOutput
   @override
   final String? tableName;
   @override
-  final _i3.BuiltList<_i2.KinesisDataStreamDestination>?
+  final _i2.BuiltList<KinesisDataStreamDestination>?
       kinesisDataStreamDestinations;
 
   factory _$DescribeKinesisStreamingDestinationOutput(
@@ -62,14 +62,13 @@ class DescribeKinesisStreamingDestinationOutputBuilder
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
 
-  _i3.ListBuilder<_i2.KinesisDataStreamDestination>?
-      _kinesisDataStreamDestinations;
-  _i3.ListBuilder<_i2.KinesisDataStreamDestination>
+  _i2.ListBuilder<KinesisDataStreamDestination>? _kinesisDataStreamDestinations;
+  _i2.ListBuilder<KinesisDataStreamDestination>
       get kinesisDataStreamDestinations =>
           _$this._kinesisDataStreamDestinations ??=
-              new _i3.ListBuilder<_i2.KinesisDataStreamDestination>();
+              new _i2.ListBuilder<KinesisDataStreamDestination>();
   set kinesisDataStreamDestinations(
-          _i3.ListBuilder<_i2.KinesisDataStreamDestination>?
+          _i2.ListBuilder<KinesisDataStreamDestination>?
               kinesisDataStreamDestinations) =>
       _$this._kinesisDataStreamDestinations = kinesisDataStreamDestinations;
 

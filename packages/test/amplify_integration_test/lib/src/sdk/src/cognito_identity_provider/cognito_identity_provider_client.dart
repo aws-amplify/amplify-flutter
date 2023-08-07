@@ -3,12 +3,9 @@
 
 library amplify_integration_test.cognito_identity_provider.cognito_identity_provider_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/admin_list_user_auth_events_request.dart'
-    as _i6;
-import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/auth_event_type.dart'
-    as _i5;
-import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/operation/admin_list_user_auth_events_operation.dart'
-    as _i7;
+import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/admin_list_user_auth_events_request.dart';
+import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/auth_event_type.dart';
+import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/operation/admin_list_user_auth_events_operation.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:built_collection/built_collection.dart' as _i4;
@@ -108,13 +105,13 @@ class CognitoIdentityProviderClient {
   ///
   /// *   [Using the Amazon Cognito user pools API and user pool endpoints](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html)
   _i3.SmithyOperation<
-          _i3.PaginatedResult<_i4.BuiltList<_i5.AuthEventType>, int, String>>
+          _i3.PaginatedResult<_i4.BuiltList<AuthEventType>, int, String>>
       adminListUserAuthEvents(
-    _i6.AdminListUserAuthEventsRequest input, {
+    AdminListUserAuthEventsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i7.AdminListUserAuthEventsOperation(
+    return AdminListUserAuthEventsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,

@@ -11,7 +11,7 @@ class _$DescribeAggregateComplianceByConfigRulesRequest
   @override
   final String configurationAggregatorName;
   @override
-  final _i3.ConfigRuleComplianceFilters? filters;
+  final ConfigRuleComplianceFilters? filters;
   @override
   final int limit;
   @override
@@ -84,10 +84,10 @@ class DescribeAggregateComplianceByConfigRulesRequestBuilder
   set configurationAggregatorName(String? configurationAggregatorName) =>
       _$this._configurationAggregatorName = configurationAggregatorName;
 
-  _i3.ConfigRuleComplianceFiltersBuilder? _filters;
-  _i3.ConfigRuleComplianceFiltersBuilder get filters =>
-      _$this._filters ??= new _i3.ConfigRuleComplianceFiltersBuilder();
-  set filters(_i3.ConfigRuleComplianceFiltersBuilder? filters) =>
+  ConfigRuleComplianceFiltersBuilder? _filters;
+  ConfigRuleComplianceFiltersBuilder get filters =>
+      _$this._filters ??= new ConfigRuleComplianceFiltersBuilder();
+  set filters(ConfigRuleComplianceFiltersBuilder? filters) =>
       _$this._filters = filters;
 
   int? _limit;

@@ -18,9 +18,9 @@ class _$InstanceProfile extends InstanceProfile {
   @override
   final DateTime createDate;
   @override
-  final _i4.BuiltList<_i2.Role> roles;
+  final _i2.BuiltList<Role> roles;
   @override
-  final _i4.BuiltList<_i3.Tag>? tags;
+  final _i2.BuiltList<Tag>? tags;
 
   factory _$InstanceProfile([void Function(InstanceProfileBuilder)? updates]) =>
       (new InstanceProfileBuilder()..update(updates))._build();
@@ -107,15 +107,14 @@ class InstanceProfileBuilder
   DateTime? get createDate => _$this._createDate;
   set createDate(DateTime? createDate) => _$this._createDate = createDate;
 
-  _i4.ListBuilder<_i2.Role>? _roles;
-  _i4.ListBuilder<_i2.Role> get roles =>
-      _$this._roles ??= new _i4.ListBuilder<_i2.Role>();
-  set roles(_i4.ListBuilder<_i2.Role>? roles) => _$this._roles = roles;
+  _i2.ListBuilder<Role>? _roles;
+  _i2.ListBuilder<Role> get roles =>
+      _$this._roles ??= new _i2.ListBuilder<Role>();
+  set roles(_i2.ListBuilder<Role>? roles) => _$this._roles = roles;
 
-  _i4.ListBuilder<_i3.Tag>? _tags;
-  _i4.ListBuilder<_i3.Tag> get tags =>
-      _$this._tags ??= new _i4.ListBuilder<_i3.Tag>();
-  set tags(_i4.ListBuilder<_i3.Tag>? tags) => _$this._tags = tags;
+  _i2.ListBuilder<Tag>? _tags;
+  _i2.ListBuilder<Tag> get tags => _$this._tags ??= new _i2.ListBuilder<Tag>();
+  set tags(_i2.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   InstanceProfileBuilder();
 

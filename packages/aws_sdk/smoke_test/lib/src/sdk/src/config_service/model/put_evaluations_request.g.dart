@@ -8,7 +8,7 @@ part of 'put_evaluations_request.dart';
 
 class _$PutEvaluationsRequest extends PutEvaluationsRequest {
   @override
-  final _i4.BuiltList<_i3.Evaluation>? evaluations;
+  final _i3.BuiltList<Evaluation>? evaluations;
   @override
   final String resultToken;
   @override
@@ -60,10 +60,10 @@ class PutEvaluationsRequestBuilder
     implements Builder<PutEvaluationsRequest, PutEvaluationsRequestBuilder> {
   _$PutEvaluationsRequest? _$v;
 
-  _i4.ListBuilder<_i3.Evaluation>? _evaluations;
-  _i4.ListBuilder<_i3.Evaluation> get evaluations =>
-      _$this._evaluations ??= new _i4.ListBuilder<_i3.Evaluation>();
-  set evaluations(_i4.ListBuilder<_i3.Evaluation>? evaluations) =>
+  _i3.ListBuilder<Evaluation>? _evaluations;
+  _i3.ListBuilder<Evaluation> get evaluations =>
+      _$this._evaluations ??= new _i3.ListBuilder<Evaluation>();
+  set evaluations(_i3.ListBuilder<Evaluation>? evaluations) =>
       _$this._evaluations = evaluations;
 
   String? _resultToken;

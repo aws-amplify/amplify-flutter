@@ -26,13 +26,13 @@ class _$ListMultipartUploadsOutput extends ListMultipartUploadsOutput {
   @override
   final bool? isTruncated;
   @override
-  final _i7.BuiltList<_i3.MultipartUpload>? uploads;
+  final _i3.BuiltList<MultipartUpload>? uploads;
   @override
-  final _i7.BuiltList<_i4.CommonPrefix>? commonPrefixes;
+  final _i3.BuiltList<CommonPrefix>? commonPrefixes;
   @override
-  final _i5.EncodingType? encodingType;
+  final EncodingType? encodingType;
   @override
-  final _i6.RequestCharged? requestCharged;
+  final RequestCharged? requestCharged;
 
   factory _$ListMultipartUploadsOutput(
           [void Function(ListMultipartUploadsOutputBuilder)? updates]) =>
@@ -147,26 +147,26 @@ class ListMultipartUploadsOutputBuilder
   bool? get isTruncated => _$this._isTruncated;
   set isTruncated(bool? isTruncated) => _$this._isTruncated = isTruncated;
 
-  _i7.ListBuilder<_i3.MultipartUpload>? _uploads;
-  _i7.ListBuilder<_i3.MultipartUpload> get uploads =>
-      _$this._uploads ??= new _i7.ListBuilder<_i3.MultipartUpload>();
-  set uploads(_i7.ListBuilder<_i3.MultipartUpload>? uploads) =>
+  _i3.ListBuilder<MultipartUpload>? _uploads;
+  _i3.ListBuilder<MultipartUpload> get uploads =>
+      _$this._uploads ??= new _i3.ListBuilder<MultipartUpload>();
+  set uploads(_i3.ListBuilder<MultipartUpload>? uploads) =>
       _$this._uploads = uploads;
 
-  _i7.ListBuilder<_i4.CommonPrefix>? _commonPrefixes;
-  _i7.ListBuilder<_i4.CommonPrefix> get commonPrefixes =>
-      _$this._commonPrefixes ??= new _i7.ListBuilder<_i4.CommonPrefix>();
-  set commonPrefixes(_i7.ListBuilder<_i4.CommonPrefix>? commonPrefixes) =>
+  _i3.ListBuilder<CommonPrefix>? _commonPrefixes;
+  _i3.ListBuilder<CommonPrefix> get commonPrefixes =>
+      _$this._commonPrefixes ??= new _i3.ListBuilder<CommonPrefix>();
+  set commonPrefixes(_i3.ListBuilder<CommonPrefix>? commonPrefixes) =>
       _$this._commonPrefixes = commonPrefixes;
 
-  _i5.EncodingType? _encodingType;
-  _i5.EncodingType? get encodingType => _$this._encodingType;
-  set encodingType(_i5.EncodingType? encodingType) =>
+  EncodingType? _encodingType;
+  EncodingType? get encodingType => _$this._encodingType;
+  set encodingType(EncodingType? encodingType) =>
       _$this._encodingType = encodingType;
 
-  _i6.RequestCharged? _requestCharged;
-  _i6.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i6.RequestCharged? requestCharged) =>
+  RequestCharged? _requestCharged;
+  RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
   ListMultipartUploadsOutputBuilder();
@@ -247,11 +247,11 @@ class _$ListMultipartUploadsOutputPayload
   @override
   final String? bucket;
   @override
-  final _i7.BuiltList<_i4.CommonPrefix>? commonPrefixes;
+  final _i3.BuiltList<CommonPrefix>? commonPrefixes;
   @override
   final String? delimiter;
   @override
-  final _i5.EncodingType? encodingType;
+  final EncodingType? encodingType;
   @override
   final bool? isTruncated;
   @override
@@ -267,7 +267,7 @@ class _$ListMultipartUploadsOutputPayload
   @override
   final String? uploadIdMarker;
   @override
-  final _i7.BuiltList<_i3.MultipartUpload>? uploads;
+  final _i3.BuiltList<MultipartUpload>? uploads;
 
   factory _$ListMultipartUploadsOutputPayload(
           [void Function(ListMultipartUploadsOutputPayloadBuilder)? updates]) =>
@@ -346,19 +346,19 @@ class ListMultipartUploadsOutputPayloadBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  _i7.ListBuilder<_i4.CommonPrefix>? _commonPrefixes;
-  _i7.ListBuilder<_i4.CommonPrefix> get commonPrefixes =>
-      _$this._commonPrefixes ??= new _i7.ListBuilder<_i4.CommonPrefix>();
-  set commonPrefixes(_i7.ListBuilder<_i4.CommonPrefix>? commonPrefixes) =>
+  _i3.ListBuilder<CommonPrefix>? _commonPrefixes;
+  _i3.ListBuilder<CommonPrefix> get commonPrefixes =>
+      _$this._commonPrefixes ??= new _i3.ListBuilder<CommonPrefix>();
+  set commonPrefixes(_i3.ListBuilder<CommonPrefix>? commonPrefixes) =>
       _$this._commonPrefixes = commonPrefixes;
 
   String? _delimiter;
   String? get delimiter => _$this._delimiter;
   set delimiter(String? delimiter) => _$this._delimiter = delimiter;
 
-  _i5.EncodingType? _encodingType;
-  _i5.EncodingType? get encodingType => _$this._encodingType;
-  set encodingType(_i5.EncodingType? encodingType) =>
+  EncodingType? _encodingType;
+  EncodingType? get encodingType => _$this._encodingType;
+  set encodingType(EncodingType? encodingType) =>
       _$this._encodingType = encodingType;
 
   bool? _isTruncated;
@@ -392,10 +392,10 @@ class ListMultipartUploadsOutputPayloadBuilder
   set uploadIdMarker(String? uploadIdMarker) =>
       _$this._uploadIdMarker = uploadIdMarker;
 
-  _i7.ListBuilder<_i3.MultipartUpload>? _uploads;
-  _i7.ListBuilder<_i3.MultipartUpload> get uploads =>
-      _$this._uploads ??= new _i7.ListBuilder<_i3.MultipartUpload>();
-  set uploads(_i7.ListBuilder<_i3.MultipartUpload>? uploads) =>
+  _i3.ListBuilder<MultipartUpload>? _uploads;
+  _i3.ListBuilder<MultipartUpload> get uploads =>
+      _$this._uploads ??= new _i3.ListBuilder<MultipartUpload>();
+  set uploads(_i3.ListBuilder<MultipartUpload>? uploads) =>
       _$this._uploads = uploads;
 
   ListMultipartUploadsOutputPayloadBuilder();

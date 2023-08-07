@@ -16,7 +16,7 @@ class _$UploadPartRequest extends UploadPartRequest {
   @override
   final String? contentMd5;
   @override
-  final _i5.ChecksumAlgorithm? checksumAlgorithm;
+  final ChecksumAlgorithm? checksumAlgorithm;
   @override
   final String? checksumCrc32;
   @override
@@ -38,7 +38,7 @@ class _$UploadPartRequest extends UploadPartRequest {
   @override
   final String? sseCustomerKeyMd5;
   @override
-  final _i6.RequestPayer? requestPayer;
+  final RequestPayer? requestPayer;
   @override
   final String? expectedBucketOwner;
 
@@ -150,9 +150,9 @@ class UploadPartRequestBuilder
   String? get contentMd5 => _$this._contentMd5;
   set contentMd5(String? contentMd5) => _$this._contentMd5 = contentMd5;
 
-  _i5.ChecksumAlgorithm? _checksumAlgorithm;
-  _i5.ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
-  set checksumAlgorithm(_i5.ChecksumAlgorithm? checksumAlgorithm) =>
+  ChecksumAlgorithm? _checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm => _$this._checksumAlgorithm;
+  set checksumAlgorithm(ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
   String? _checksumCrc32;
@@ -201,9 +201,9 @@ class UploadPartRequestBuilder
   set sseCustomerKeyMd5(String? sseCustomerKeyMd5) =>
       _$this._sseCustomerKeyMd5 = sseCustomerKeyMd5;
 
-  _i6.RequestPayer? _requestPayer;
-  _i6.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i6.RequestPayer? requestPayer) =>
+  RequestPayer? _requestPayer;
+  RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
   String? _expectedBucketOwner;

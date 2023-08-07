@@ -11,7 +11,7 @@ class _$GetCredentialsForIdentityResponse
   @override
   final String? identityId;
   @override
-  final _i2.Credentials? credentials;
+  final Credentials? credentials;
 
   factory _$GetCredentialsForIdentityResponse(
           [void Function(GetCredentialsForIdentityResponseBuilder)? updates]) =>
@@ -58,10 +58,10 @@ class GetCredentialsForIdentityResponseBuilder
   String? get identityId => _$this._identityId;
   set identityId(String? identityId) => _$this._identityId = identityId;
 
-  _i2.CredentialsBuilder? _credentials;
-  _i2.CredentialsBuilder get credentials =>
-      _$this._credentials ??= new _i2.CredentialsBuilder();
-  set credentials(_i2.CredentialsBuilder? credentials) =>
+  CredentialsBuilder? _credentials;
+  CredentialsBuilder get credentials =>
+      _$this._credentials ??= new CredentialsBuilder();
+  set credentials(CredentialsBuilder? credentials) =>
       _$this._credentials = credentials;
 
   GetCredentialsForIdentityResponseBuilder();

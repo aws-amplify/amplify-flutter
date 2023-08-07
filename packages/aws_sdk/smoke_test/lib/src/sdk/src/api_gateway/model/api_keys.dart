@@ -4,11 +4,11 @@
 library smoke_test.api_gateway.model.api_keys; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/api_key.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/api_key.dart';
 
 part 'api_keys.g.dart';
 
@@ -19,12 +19,12 @@ abstract class ApiKeys
   /// Represents a collection of API keys as represented by an ApiKeys resource.
   factory ApiKeys({
     List<String>? warnings,
-    List<_i2.ApiKey>? items,
+    List<ApiKey>? items,
     String? position,
   }) {
     return _$ApiKeys._(
-      warnings: warnings == null ? null : _i3.BuiltList(warnings),
-      items: items == null ? null : _i3.BuiltList(items),
+      warnings: warnings == null ? null : _i2.BuiltList(warnings),
+      items: items == null ? null : _i2.BuiltList(items),
       position: position,
     );
   }
@@ -41,15 +41,15 @@ abstract class ApiKeys
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<ApiKeys>> serializers = [
+  static const List<_i3.SmithySerializer<ApiKeys>> serializers = [
     ApiKeysRestJson1Serializer()
   ];
 
   /// A list of warning messages logged during the import of API keys when the `failOnWarnings` option is set to true.
-  _i3.BuiltList<String>? get warnings;
+  _i2.BuiltList<String>? get warnings;
 
   /// The current page of elements from this collection.
-  _i3.BuiltList<_i2.ApiKey>? get items;
+  _i2.BuiltList<ApiKey>? get items;
 
   /// The current pagination position in the paged result set.
   String? get position;
@@ -79,7 +79,7 @@ abstract class ApiKeys
 }
 
 class ApiKeysRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<ApiKeys> {
+    extends _i3.StructuredSmithySerializer<ApiKeys> {
   const ApiKeysRestJson1Serializer() : super('ApiKeys');
 
   @override
@@ -88,8 +88,8 @@ class ApiKeysRestJson1Serializer
         _$ApiKeys,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -114,10 +114,10 @@ class ApiKeysRestJson1Serializer
           result.items.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.ApiKey)],
+              _i2.BuiltList,
+              [FullType(ApiKey)],
             ),
-          ) as _i3.BuiltList<_i2.ApiKey>));
+          ) as _i2.BuiltList<ApiKey>));
         case 'position':
           result.position = (serializers.deserialize(
             value,
@@ -127,10 +127,10 @@ class ApiKeysRestJson1Serializer
           result.warnings.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i3.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
       }
     }
 
@@ -151,8 +151,8 @@ class ApiKeysRestJson1Serializer
         ..add(serializers.serialize(
           items,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.ApiKey)],
+            _i2.BuiltList,
+            [FullType(ApiKey)],
           ),
         ));
     }
@@ -170,7 +170,7 @@ class ApiKeysRestJson1Serializer
         ..add(serializers.serialize(
           warnings,
           specifiedType: const FullType(
-            _i3.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));

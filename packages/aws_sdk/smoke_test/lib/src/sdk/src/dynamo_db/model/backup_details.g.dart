@@ -14,9 +14,9 @@ class _$BackupDetails extends BackupDetails {
   @override
   final _i2.Int64? backupSizeBytes;
   @override
-  final _i3.BackupStatus backupStatus;
+  final BackupStatus backupStatus;
   @override
-  final _i4.BackupType backupType;
+  final BackupType backupType;
   @override
   final DateTime backupCreationDateTime;
   @override
@@ -98,14 +98,14 @@ class BackupDetailsBuilder
   set backupSizeBytes(_i2.Int64? backupSizeBytes) =>
       _$this._backupSizeBytes = backupSizeBytes;
 
-  _i3.BackupStatus? _backupStatus;
-  _i3.BackupStatus? get backupStatus => _$this._backupStatus;
-  set backupStatus(_i3.BackupStatus? backupStatus) =>
+  BackupStatus? _backupStatus;
+  BackupStatus? get backupStatus => _$this._backupStatus;
+  set backupStatus(BackupStatus? backupStatus) =>
       _$this._backupStatus = backupStatus;
 
-  _i4.BackupType? _backupType;
-  _i4.BackupType? get backupType => _$this._backupType;
-  set backupType(_i4.BackupType? backupType) => _$this._backupType = backupType;
+  BackupType? _backupType;
+  BackupType? get backupType => _$this._backupType;
+  set backupType(BackupType? backupType) => _$this._backupType = backupType;
 
   DateTime? _backupCreationDateTime;
   DateTime? get backupCreationDateTime => _$this._backupCreationDateTime;

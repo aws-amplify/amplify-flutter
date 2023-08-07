@@ -3,29 +3,28 @@
 
 library smoke_test.s3.model.put_bucket_logging_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_common/aws_common.dart' as _i3;
+import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/bucket_logging_status.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/logging_enabled.dart' as _i5;
+import 'package:smoke_test/src/sdk/src/s3/model/bucket_logging_status.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/logging_enabled.dart';
 
 part 'put_bucket_logging_request.g.dart';
 
 abstract class PutBucketLoggingRequest
     with
-        _i1.HttpInput<_i2.BucketLoggingStatus>,
-        _i3.AWSEquatable<PutBucketLoggingRequest>
+        _i1.HttpInput<BucketLoggingStatus>,
+        _i2.AWSEquatable<PutBucketLoggingRequest>
     implements
         Built<PutBucketLoggingRequest, PutBucketLoggingRequestBuilder>,
-        _i1.HasPayload<_i2.BucketLoggingStatus> {
+        _i1.HasPayload<BucketLoggingStatus> {
   factory PutBucketLoggingRequest({
     required String bucket,
-    required _i2.BucketLoggingStatus bucketLoggingStatus,
+    required BucketLoggingStatus bucketLoggingStatus,
     String? contentMd5,
-    _i4.ChecksumAlgorithm? checksumAlgorithm,
+    ChecksumAlgorithm? checksumAlgorithm,
     String? expectedBucketOwner,
   }) {
     return _$PutBucketLoggingRequest._(
@@ -44,8 +43,8 @@ abstract class PutBucketLoggingRequest
   const PutBucketLoggingRequest._();
 
   factory PutBucketLoggingRequest.fromRequest(
-    _i2.BucketLoggingStatus payload,
-    _i3.AWSBaseHttpRequest request, {
+    BucketLoggingStatus payload,
+    _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
       PutBucketLoggingRequest.build((b) {
@@ -54,7 +53,7 @@ abstract class PutBucketLoggingRequest
           b.contentMd5 = request.headers['Content-MD5']!;
         }
         if (request.headers['x-amz-sdk-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = _i4.ChecksumAlgorithm.values
+          b.checksumAlgorithm = ChecksumAlgorithm.values
               .byValue(request.headers['x-amz-sdk-checksum-algorithm']!);
         }
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
@@ -66,14 +65,15 @@ abstract class PutBucketLoggingRequest
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.BucketLoggingStatus>> serializers =
-      [PutBucketLoggingRequestRestXmlSerializer()];
+  static const List<_i1.SmithySerializer<BucketLoggingStatus>> serializers = [
+    PutBucketLoggingRequestRestXmlSerializer()
+  ];
 
   /// The name of the bucket for which to set the logging parameters.
   String get bucket;
 
   /// Container for logging status information.
-  _i2.BucketLoggingStatus get bucketLoggingStatus;
+  BucketLoggingStatus get bucketLoggingStatus;
 
   /// The MD5 hash of the `PutBucketLogging` request body.
   ///
@@ -83,7 +83,7 @@ abstract class PutBucketLoggingRequest
   /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
   ///
   /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
-  _i4.ChecksumAlgorithm? get checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
@@ -100,7 +100,7 @@ abstract class PutBucketLoggingRequest
   }
 
   @override
-  _i2.BucketLoggingStatus getPayload() => bucketLoggingStatus;
+  BucketLoggingStatus getPayload() => bucketLoggingStatus;
   @override
   List<Object?> get props => [
         bucket,
@@ -137,7 +137,7 @@ abstract class PutBucketLoggingRequest
 }
 
 class PutBucketLoggingRequestRestXmlSerializer
-    extends _i1.StructuredSmithySerializer<_i2.BucketLoggingStatus> {
+    extends _i1.StructuredSmithySerializer<BucketLoggingStatus> {
   const PutBucketLoggingRequestRestXmlSerializer()
       : super('PutBucketLoggingRequest');
 
@@ -154,12 +154,12 @@ class PutBucketLoggingRequestRestXmlSerializer
         )
       ];
   @override
-  _i2.BucketLoggingStatus deserialize(
+  BucketLoggingStatus deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i2.BucketLoggingStatusBuilder();
+    final result = BucketLoggingStatusBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -172,8 +172,8 @@ class PutBucketLoggingRequestRestXmlSerializer
         case 'LoggingEnabled':
           result.loggingEnabled.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.LoggingEnabled),
-          ) as _i5.LoggingEnabled));
+            specifiedType: const FullType(LoggingEnabled),
+          ) as LoggingEnabled));
       }
     }
 
@@ -183,7 +183,7 @@ class PutBucketLoggingRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i2.BucketLoggingStatus object, {
+    BucketLoggingStatus object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -192,13 +192,13 @@ class PutBucketLoggingRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i2.BucketLoggingStatus(:loggingEnabled) = object;
+    final BucketLoggingStatus(:loggingEnabled) = object;
     if (loggingEnabled != null) {
       result$
         ..add(const _i1.XmlElementName('LoggingEnabled'))
         ..add(serializers.serialize(
           loggingEnabled,
-          specifiedType: const FullType(_i5.LoggingEnabled),
+          specifiedType: const FullType(LoggingEnabled),
         ));
     }
     return result$;

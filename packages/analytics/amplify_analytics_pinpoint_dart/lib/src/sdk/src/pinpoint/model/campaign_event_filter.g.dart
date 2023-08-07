@@ -8,9 +8,9 @@ part of 'campaign_event_filter.dart';
 
 class _$CampaignEventFilter extends CampaignEventFilter {
   @override
-  final _i2.EventDimensions dimensions;
+  final EventDimensions dimensions;
   @override
-  final _i3.FilterType filterType;
+  final FilterType filterType;
 
   factory _$CampaignEventFilter(
           [void Function(CampaignEventFilterBuilder)? updates]) =>
@@ -55,15 +55,15 @@ class CampaignEventFilterBuilder
     implements Builder<CampaignEventFilter, CampaignEventFilterBuilder> {
   _$CampaignEventFilter? _$v;
 
-  _i2.EventDimensionsBuilder? _dimensions;
-  _i2.EventDimensionsBuilder get dimensions =>
-      _$this._dimensions ??= new _i2.EventDimensionsBuilder();
-  set dimensions(_i2.EventDimensionsBuilder? dimensions) =>
+  EventDimensionsBuilder? _dimensions;
+  EventDimensionsBuilder get dimensions =>
+      _$this._dimensions ??= new EventDimensionsBuilder();
+  set dimensions(EventDimensionsBuilder? dimensions) =>
       _$this._dimensions = dimensions;
 
-  _i3.FilterType? _filterType;
-  _i3.FilterType? get filterType => _$this._filterType;
-  set filterType(_i3.FilterType? filterType) => _$this._filterType = filterType;
+  FilterType? _filterType;
+  FilterType? get filterType => _$this._filterType;
+  set filterType(FilterType? filterType) => _$this._filterType = filterType;
 
   CampaignEventFilterBuilder();
 

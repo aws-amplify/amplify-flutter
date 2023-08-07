@@ -4,15 +4,12 @@
 // ignore_for_file: unused_element
 library aws_query_v1.query_protocol.test.xml_namespaces_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_query_v1/src/query_protocol/model/xml_namespace_nested.dart'
-    as _i6;
-import 'package:aws_query_v1/src/query_protocol/model/xml_namespaces_output.dart'
-    as _i5;
-import 'package:aws_query_v1/src/query_protocol/operation/xml_namespaces_operation.dart'
-    as _i3;
-import 'package:built_collection/built_collection.dart' as _i7;
+import 'package:aws_query_v1/src/query_protocol/model/xml_namespace_nested.dart';
+import 'package:aws_query_v1/src/query_protocol/model/xml_namespaces_output.dart';
+import 'package:aws_query_v1/src/query_protocol/operation/xml_namespaces_operation.dart';
+import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -21,14 +18,14 @@ void main() {
     'QueryXmlNamespaces (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.XmlNamespacesOperation(
+        operation: XmlNamespacesOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'QueryXmlNamespaces',
           documentation: 'Serializes XML namespaces',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -64,25 +61,25 @@ void main() {
 }
 
 class XmlNamespacesOutputAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<_i5.XmlNamespacesOutput> {
+    extends _i3.StructuredSmithySerializer<XmlNamespacesOutput> {
   const XmlNamespacesOutputAwsQuerySerializer() : super('XmlNamespacesOutput');
 
   @override
-  Iterable<Type> get types => const [_i5.XmlNamespacesOutput];
+  Iterable<Type> get types => const [XmlNamespacesOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
       ];
   @override
-  _i5.XmlNamespacesOutput deserialize(
+  XmlNamespacesOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.XmlNamespacesOutputBuilder();
+    final result = XmlNamespacesOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -95,8 +92,8 @@ class XmlNamespacesOutputAwsQuerySerializer
         case 'nested':
           result.nested.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.XmlNamespaceNested),
-          ) as _i6.XmlNamespaceNested));
+            specifiedType: const FullType(XmlNamespaceNested),
+          ) as XmlNamespaceNested));
       }
     }
 
@@ -106,7 +103,7 @@ class XmlNamespacesOutputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.XmlNamespacesOutput object, {
+    XmlNamespacesOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');
@@ -114,25 +111,25 @@ class XmlNamespacesOutputAwsQuerySerializer
 }
 
 class XmlNamespaceNestedAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<_i6.XmlNamespaceNested> {
+    extends _i3.StructuredSmithySerializer<XmlNamespaceNested> {
   const XmlNamespaceNestedAwsQuerySerializer() : super('XmlNamespaceNested');
 
   @override
-  Iterable<Type> get types => const [_i6.XmlNamespaceNested];
+  Iterable<Type> get types => const [XmlNamespaceNested];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
       ];
   @override
-  _i6.XmlNamespaceNested deserialize(
+  XmlNamespaceNested deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i6.XmlNamespaceNestedBuilder();
+    final result = XmlNamespaceNestedBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -151,10 +148,10 @@ class XmlNamespaceNestedAwsQuerySerializer
           result.values.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i7.BuiltList,
+              _i4.BuiltList,
               [FullType(String)],
             ),
-          ) as _i7.BuiltList<String>));
+          ) as _i4.BuiltList<String>));
       }
     }
 
@@ -164,7 +161,7 @@ class XmlNamespaceNestedAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i6.XmlNamespaceNested object, {
+    XmlNamespaceNested object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

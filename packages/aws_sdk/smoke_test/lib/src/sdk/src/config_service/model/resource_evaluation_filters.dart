@@ -6,11 +6,9 @@ library smoke_test.config_service.model.resource_evaluation_filters; // ignore_f
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_mode.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/config_service/model/time_window.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_mode.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/time_window.dart';
 
 part 'resource_evaluation_filters.g.dart';
 
@@ -21,8 +19,8 @@ abstract class ResourceEvaluationFilters
         Built<ResourceEvaluationFilters, ResourceEvaluationFiltersBuilder> {
   /// Returns details of a resource evaluation based on the selected filter.
   factory ResourceEvaluationFilters({
-    _i2.EvaluationMode? evaluationMode,
-    _i3.TimeWindow? timeWindow,
+    EvaluationMode? evaluationMode,
+    TimeWindow? timeWindow,
     String? evaluationContextIdentifier,
   }) {
     return _$ResourceEvaluationFilters._(
@@ -39,14 +37,14 @@ abstract class ResourceEvaluationFilters
 
   const ResourceEvaluationFilters._();
 
-  static const List<_i4.SmithySerializer<ResourceEvaluationFilters>>
+  static const List<_i2.SmithySerializer<ResourceEvaluationFilters>>
       serializers = [ResourceEvaluationFiltersAwsJson11Serializer()];
 
   /// Filters all resource evaluations results based on an evaluation mode. the valid value for this API is `Proactive`.
-  _i2.EvaluationMode? get evaluationMode;
+  EvaluationMode? get evaluationMode;
 
   /// Returns a `TimeWindow` object.
-  _i3.TimeWindow? get timeWindow;
+  TimeWindow? get timeWindow;
 
   /// Filters evaluations for a given infrastructure deployment. For example: CFN Stack.
   String? get evaluationContextIdentifier;
@@ -76,7 +74,7 @@ abstract class ResourceEvaluationFilters
 }
 
 class ResourceEvaluationFiltersAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<ResourceEvaluationFilters> {
+    extends _i2.StructuredSmithySerializer<ResourceEvaluationFilters> {
   const ResourceEvaluationFiltersAwsJson11Serializer()
       : super('ResourceEvaluationFilters');
 
@@ -86,8 +84,8 @@ class ResourceEvaluationFiltersAwsJson11Serializer
         _$ResourceEvaluationFilters,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -111,13 +109,13 @@ class ResourceEvaluationFiltersAwsJson11Serializer
         case 'EvaluationMode':
           result.evaluationMode = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.EvaluationMode),
-          ) as _i2.EvaluationMode);
+            specifiedType: const FullType(EvaluationMode),
+          ) as EvaluationMode);
         case 'TimeWindow':
           result.timeWindow.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.TimeWindow),
-          ) as _i3.TimeWindow));
+            specifiedType: const FullType(TimeWindow),
+          ) as TimeWindow));
         case 'EvaluationContextIdentifier':
           result.evaluationContextIdentifier = (serializers.deserialize(
             value,
@@ -146,7 +144,7 @@ class ResourceEvaluationFiltersAwsJson11Serializer
         ..add('EvaluationMode')
         ..add(serializers.serialize(
           evaluationMode,
-          specifiedType: const FullType(_i2.EvaluationMode),
+          specifiedType: const FullType(EvaluationMode),
         ));
     }
     if (timeWindow != null) {
@@ -154,7 +152,7 @@ class ResourceEvaluationFiltersAwsJson11Serializer
         ..add('TimeWindow')
         ..add(serializers.serialize(
           timeWindow,
-          specifiedType: const FullType(_i3.TimeWindow),
+          specifiedType: const FullType(TimeWindow),
         ));
     }
     if (evaluationContextIdentifier != null) {

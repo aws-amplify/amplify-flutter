@@ -12,7 +12,7 @@ class _$CreateInstanceProfileRequest extends CreateInstanceProfileRequest {
   @override
   final String? path;
   @override
-  final _i4.BuiltList<_i3.Tag>? tags;
+  final _i3.BuiltList<Tag>? tags;
 
   factory _$CreateInstanceProfileRequest(
           [void Function(CreateInstanceProfileRequestBuilder)? updates]) =>
@@ -69,10 +69,9 @@ class CreateInstanceProfileRequestBuilder
   String? get path => _$this._path;
   set path(String? path) => _$this._path = path;
 
-  _i4.ListBuilder<_i3.Tag>? _tags;
-  _i4.ListBuilder<_i3.Tag> get tags =>
-      _$this._tags ??= new _i4.ListBuilder<_i3.Tag>();
-  set tags(_i4.ListBuilder<_i3.Tag>? tags) => _$this._tags = tags;
+  _i3.ListBuilder<Tag>? _tags;
+  _i3.ListBuilder<Tag> get tags => _$this._tags ??= new _i3.ListBuilder<Tag>();
+  set tags(_i3.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   CreateInstanceProfileRequestBuilder();
 

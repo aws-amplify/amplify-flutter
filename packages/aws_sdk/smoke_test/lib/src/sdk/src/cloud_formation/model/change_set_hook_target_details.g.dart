@@ -8,9 +8,9 @@ part of 'change_set_hook_target_details.dart';
 
 class _$ChangeSetHookTargetDetails extends ChangeSetHookTargetDetails {
   @override
-  final _i2.HookTargetType? targetType;
+  final HookTargetType? targetType;
   @override
-  final _i3.ChangeSetHookResourceTargetDetails? resourceTargetDetails;
+  final ChangeSetHookResourceTargetDetails? resourceTargetDetails;
 
   factory _$ChangeSetHookTargetDetails(
           [void Function(ChangeSetHookTargetDetailsBuilder)? updates]) =>
@@ -51,18 +51,16 @@ class ChangeSetHookTargetDetailsBuilder
         Builder<ChangeSetHookTargetDetails, ChangeSetHookTargetDetailsBuilder> {
   _$ChangeSetHookTargetDetails? _$v;
 
-  _i2.HookTargetType? _targetType;
-  _i2.HookTargetType? get targetType => _$this._targetType;
-  set targetType(_i2.HookTargetType? targetType) =>
-      _$this._targetType = targetType;
+  HookTargetType? _targetType;
+  HookTargetType? get targetType => _$this._targetType;
+  set targetType(HookTargetType? targetType) => _$this._targetType = targetType;
 
-  _i3.ChangeSetHookResourceTargetDetailsBuilder? _resourceTargetDetails;
-  _i3.ChangeSetHookResourceTargetDetailsBuilder get resourceTargetDetails =>
+  ChangeSetHookResourceTargetDetailsBuilder? _resourceTargetDetails;
+  ChangeSetHookResourceTargetDetailsBuilder get resourceTargetDetails =>
       _$this._resourceTargetDetails ??=
-          new _i3.ChangeSetHookResourceTargetDetailsBuilder();
+          new ChangeSetHookResourceTargetDetailsBuilder();
   set resourceTargetDetails(
-          _i3.ChangeSetHookResourceTargetDetailsBuilder?
-              resourceTargetDetails) =>
+          ChangeSetHookResourceTargetDetailsBuilder? resourceTargetDetails) =>
       _$this._resourceTargetDetails = resourceTargetDetails;
 
   ChangeSetHookTargetDetailsBuilder();

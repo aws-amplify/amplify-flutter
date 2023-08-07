@@ -12,7 +12,7 @@ class _$UpdateRequestValidatorRequest extends UpdateRequestValidatorRequest {
   @override
   final String requestValidatorId;
   @override
-  final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
+  final _i3.BuiltList<PatchOperation>? patchOperations;
 
   factory _$UpdateRequestValidatorRequest(
           [void Function(UpdateRequestValidatorRequestBuilder)? updates]) =>
@@ -73,10 +73,10 @@ class UpdateRequestValidatorRequestBuilder
   set requestValidatorId(String? requestValidatorId) =>
       _$this._requestValidatorId = requestValidatorId;
 
-  _i4.ListBuilder<_i3.PatchOperation>? _patchOperations;
-  _i4.ListBuilder<_i3.PatchOperation> get patchOperations =>
-      _$this._patchOperations ??= new _i4.ListBuilder<_i3.PatchOperation>();
-  set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
+  _i3.ListBuilder<PatchOperation>? _patchOperations;
+  _i3.ListBuilder<PatchOperation> get patchOperations =>
+      _$this._patchOperations ??= new _i3.ListBuilder<PatchOperation>();
+  set patchOperations(_i3.ListBuilder<PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
   UpdateRequestValidatorRequestBuilder();
@@ -137,7 +137,7 @@ class UpdateRequestValidatorRequestBuilder
 class _$UpdateRequestValidatorRequestPayload
     extends UpdateRequestValidatorRequestPayload {
   @override
-  final _i4.BuiltList<_i3.PatchOperation>? patchOperations;
+  final _i3.BuiltList<PatchOperation>? patchOperations;
 
   factory _$UpdateRequestValidatorRequestPayload(
           [void Function(UpdateRequestValidatorRequestPayloadBuilder)?
@@ -178,10 +178,10 @@ class UpdateRequestValidatorRequestPayloadBuilder
             UpdateRequestValidatorRequestPayloadBuilder> {
   _$UpdateRequestValidatorRequestPayload? _$v;
 
-  _i4.ListBuilder<_i3.PatchOperation>? _patchOperations;
-  _i4.ListBuilder<_i3.PatchOperation> get patchOperations =>
-      _$this._patchOperations ??= new _i4.ListBuilder<_i3.PatchOperation>();
-  set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
+  _i3.ListBuilder<PatchOperation>? _patchOperations;
+  _i3.ListBuilder<PatchOperation> get patchOperations =>
+      _$this._patchOperations ??= new _i3.ListBuilder<PatchOperation>();
+  set patchOperations(_i3.ListBuilder<PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
   UpdateRequestValidatorRequestPayloadBuilder();

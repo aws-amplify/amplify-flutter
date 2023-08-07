@@ -4,11 +4,11 @@
 library smoke_test.api_gateway.model.models; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/model.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/model.dart';
 
 part 'models.g.dart';
 
@@ -18,11 +18,11 @@ abstract class Models
     implements Built<Models, ModelsBuilder> {
   /// Represents a collection of Model resources.
   factory Models({
-    List<_i2.Model>? items,
+    List<Model>? items,
     String? position,
   }) {
     return _$Models._(
-      items: items == null ? null : _i3.BuiltList(items),
+      items: items == null ? null : _i2.BuiltList(items),
       position: position,
     );
   }
@@ -39,12 +39,12 @@ abstract class Models
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<Models>> serializers = [
+  static const List<_i3.SmithySerializer<Models>> serializers = [
     ModelsRestJson1Serializer()
   ];
 
   /// The current page of elements from this collection.
-  _i3.BuiltList<_i2.Model>? get items;
+  _i2.BuiltList<Model>? get items;
 
   /// The current pagination position in the paged result set.
   String? get position;
@@ -68,7 +68,7 @@ abstract class Models
   }
 }
 
-class ModelsRestJson1Serializer extends _i4.StructuredSmithySerializer<Models> {
+class ModelsRestJson1Serializer extends _i3.StructuredSmithySerializer<Models> {
   const ModelsRestJson1Serializer() : super('Models');
 
   @override
@@ -77,8 +77,8 @@ class ModelsRestJson1Serializer extends _i4.StructuredSmithySerializer<Models> {
         _$Models,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -103,10 +103,10 @@ class ModelsRestJson1Serializer extends _i4.StructuredSmithySerializer<Models> {
           result.items.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.Model)],
+              _i2.BuiltList,
+              [FullType(Model)],
             ),
-          ) as _i3.BuiltList<_i2.Model>));
+          ) as _i2.BuiltList<Model>));
         case 'position':
           result.position = (serializers.deserialize(
             value,
@@ -132,8 +132,8 @@ class ModelsRestJson1Serializer extends _i4.StructuredSmithySerializer<Models> {
         ..add(serializers.serialize(
           items,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.Model)],
+            _i2.BuiltList,
+            [FullType(Model)],
           ),
         ));
     }

@@ -9,7 +9,7 @@ part of 'get_organization_conformance_pack_detailed_status_response.dart';
 class _$GetOrganizationConformancePackDetailedStatusResponse
     extends GetOrganizationConformancePackDetailedStatusResponse {
   @override
-  final _i3.BuiltList<_i2.OrganizationConformancePackDetailedStatus>?
+  final _i2.BuiltList<OrganizationConformancePackDetailedStatus>?
       organizationConformancePackDetailedStatuses;
   @override
   final String? nextToken;
@@ -63,14 +63,14 @@ class GetOrganizationConformancePackDetailedStatusResponseBuilder
             GetOrganizationConformancePackDetailedStatusResponseBuilder> {
   _$GetOrganizationConformancePackDetailedStatusResponse? _$v;
 
-  _i3.ListBuilder<_i2.OrganizationConformancePackDetailedStatus>?
+  _i2.ListBuilder<OrganizationConformancePackDetailedStatus>?
       _organizationConformancePackDetailedStatuses;
-  _i3.ListBuilder<_i2.OrganizationConformancePackDetailedStatus>
-      get organizationConformancePackDetailedStatuses => _$this
-              ._organizationConformancePackDetailedStatuses ??=
-          new _i3.ListBuilder<_i2.OrganizationConformancePackDetailedStatus>();
+  _i2.ListBuilder<OrganizationConformancePackDetailedStatus>
+      get organizationConformancePackDetailedStatuses =>
+          _$this._organizationConformancePackDetailedStatuses ??=
+              new _i2.ListBuilder<OrganizationConformancePackDetailedStatus>();
   set organizationConformancePackDetailedStatuses(
-          _i3.ListBuilder<_i2.OrganizationConformancePackDetailedStatus>?
+          _i2.ListBuilder<OrganizationConformancePackDetailedStatus>?
               organizationConformancePackDetailedStatuses) =>
       _$this._organizationConformancePackDetailedStatuses =
           organizationConformancePackDetailedStatuses;

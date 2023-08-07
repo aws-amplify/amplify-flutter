@@ -4,11 +4,11 @@
 library smoke_test.api_gateway.model.vpc_links; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/vpc_link.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/vpc_link.dart';
 
 part 'vpc_links.g.dart';
 
@@ -18,11 +18,11 @@ abstract class VpcLinks
     implements Built<VpcLinks, VpcLinksBuilder> {
   /// The collection of VPC links under the caller's account in a region.
   factory VpcLinks({
-    List<_i2.VpcLink>? items,
+    List<VpcLink>? items,
     String? position,
   }) {
     return _$VpcLinks._(
-      items: items == null ? null : _i3.BuiltList(items),
+      items: items == null ? null : _i2.BuiltList(items),
       position: position,
     );
   }
@@ -39,12 +39,12 @@ abstract class VpcLinks
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<VpcLinks>> serializers = [
+  static const List<_i3.SmithySerializer<VpcLinks>> serializers = [
     VpcLinksRestJson1Serializer()
   ];
 
   /// The current page of elements from this collection.
-  _i3.BuiltList<_i2.VpcLink>? get items;
+  _i2.BuiltList<VpcLink>? get items;
 
   /// The current pagination position in the paged result set.
   String? get position;
@@ -69,7 +69,7 @@ abstract class VpcLinks
 }
 
 class VpcLinksRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<VpcLinks> {
+    extends _i3.StructuredSmithySerializer<VpcLinks> {
   const VpcLinksRestJson1Serializer() : super('VpcLinks');
 
   @override
@@ -78,8 +78,8 @@ class VpcLinksRestJson1Serializer
         _$VpcLinks,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -104,10 +104,10 @@ class VpcLinksRestJson1Serializer
           result.items.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.VpcLink)],
+              _i2.BuiltList,
+              [FullType(VpcLink)],
             ),
-          ) as _i3.BuiltList<_i2.VpcLink>));
+          ) as _i2.BuiltList<VpcLink>));
         case 'position':
           result.position = (serializers.deserialize(
             value,
@@ -133,8 +133,8 @@ class VpcLinksRestJson1Serializer
         ..add(serializers.serialize(
           items,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.VpcLink)],
+            _i2.BuiltList,
+            [FullType(VpcLink)],
           ),
         ));
     }

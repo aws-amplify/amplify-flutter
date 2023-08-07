@@ -4,11 +4,10 @@
 library rest_xml_v1.rest_xml_protocol.model.xml_maps_xml_name_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v1/src/rest_xml_protocol/model/greeting_struct.dart'
-    as _i3;
+import 'package:rest_xml_v1/src/rest_xml_protocol/model/greeting_struct.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'xml_maps_xml_name_input_output.g.dart';
@@ -19,9 +18,9 @@ abstract class XmlMapsXmlNameInputOutput
         _i2.AWSEquatable<XmlMapsXmlNameInputOutput>
     implements
         Built<XmlMapsXmlNameInputOutput, XmlMapsXmlNameInputOutputBuilder> {
-  factory XmlMapsXmlNameInputOutput({Map<String, _i3.GreetingStruct>? myMap}) {
+  factory XmlMapsXmlNameInputOutput({Map<String, GreetingStruct>? myMap}) {
     return _$XmlMapsXmlNameInputOutput._(
-        myMap: myMap == null ? null : _i4.BuiltMap(myMap));
+        myMap: myMap == null ? null : _i3.BuiltMap(myMap));
   }
 
   factory XmlMapsXmlNameInputOutput.build(
@@ -47,7 +46,7 @@ abstract class XmlMapsXmlNameInputOutput
   static const List<_i1.SmithySerializer<XmlMapsXmlNameInputOutput>>
       serializers = [XmlMapsXmlNameInputOutputRestXmlSerializer()];
 
-  _i4.BuiltMap<String, _i3.GreetingStruct>? get myMap;
+  _i3.BuiltMap<String, GreetingStruct>? get myMap;
   @override
   XmlMapsXmlNameInputOutput getPayload() => this;
   @override
@@ -104,10 +103,10 @@ class XmlMapsXmlNameInputOutputRestXmlSerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i3.BuiltMap,
               [
                 FullType(String),
-                FullType(_i3.GreetingStruct),
+                FullType(GreetingStruct),
               ],
             ),
           ));
@@ -137,10 +136,10 @@ class XmlMapsXmlNameInputOutputRestXmlSerializer
           serializers,
           myMap,
           specifiedType: const FullType.nullable(
-            _i4.BuiltMap,
+            _i3.BuiltMap,
             [
               FullType(String),
-              FullType(_i3.GreetingStruct),
+              FullType(GreetingStruct),
             ],
           ),
         ));

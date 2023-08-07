@@ -6,9 +6,8 @@ library smoke_test.config_service.model.external_evaluation; // ignore_for_file:
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/compliance_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/compliance_type.dart';
 
 part 'external_evaluation.g.dart';
 
@@ -20,7 +19,7 @@ abstract class ExternalEvaluation
   factory ExternalEvaluation({
     required String complianceResourceType,
     required String complianceResourceId,
-    required _i2.ComplianceType complianceType,
+    required ComplianceType complianceType,
     String? annotation,
     required DateTime orderingTimestamp,
   }) {
@@ -40,7 +39,7 @@ abstract class ExternalEvaluation
 
   const ExternalEvaluation._();
 
-  static const List<_i3.SmithySerializer<ExternalEvaluation>> serializers = [
+  static const List<_i2.SmithySerializer<ExternalEvaluation>> serializers = [
     ExternalEvaluationAwsJson11Serializer()
   ];
 
@@ -51,7 +50,7 @@ abstract class ExternalEvaluation
   String get complianceResourceId;
 
   /// The compliance of the Amazon Web Services resource. The valid values are `COMPLIANT, NON_COMPLIANT,` and `NOT_APPLICABLE`.
-  _i2.ComplianceType get complianceType;
+  ComplianceType get complianceType;
 
   /// Supplementary information about the reason of compliance. For example, this task was completed on a specific date.
   String? get annotation;
@@ -94,7 +93,7 @@ abstract class ExternalEvaluation
 }
 
 class ExternalEvaluationAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<ExternalEvaluation> {
+    extends _i2.StructuredSmithySerializer<ExternalEvaluation> {
   const ExternalEvaluationAwsJson11Serializer() : super('ExternalEvaluation');
 
   @override
@@ -103,8 +102,8 @@ class ExternalEvaluationAwsJson11Serializer
         _$ExternalEvaluation,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -138,8 +137,8 @@ class ExternalEvaluationAwsJson11Serializer
         case 'ComplianceType':
           result.complianceType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ComplianceType),
-          ) as _i2.ComplianceType);
+            specifiedType: const FullType(ComplianceType),
+          ) as ComplianceType);
         case 'Annotation':
           result.annotation = (serializers.deserialize(
             value,
@@ -184,7 +183,7 @@ class ExternalEvaluationAwsJson11Serializer
       'ComplianceType',
       serializers.serialize(
         complianceType,
-        specifiedType: const FullType(_i2.ComplianceType),
+        specifiedType: const FullType(ComplianceType),
       ),
       'OrderingTimestamp',
       serializers.serialize(

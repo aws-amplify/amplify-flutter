@@ -4,24 +4,22 @@
 // ignore_for_file: unused_element
 library aws_json1_1_v1.json_protocol.test.put_with_content_encoding_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_json1_1_v1/src/json_protocol/model/put_with_content_encoding_input.dart'
-    as _i6;
-import 'package:aws_json1_1_v1/src/json_protocol/operation/put_with_content_encoding_operation.dart'
-    as _i3;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i4;
+import 'package:aws_json1_1_v1/src/json_protocol/model/put_with_content_encoding_input.dart';
+import 'package:aws_json1_1_v1/src/json_protocol/operation/put_with_content_encoding_operation.dart';
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
+import 'package:smithy/smithy.dart' as _i4;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
 void main() {
   _i1.test('SDKAppliedContentEncoding_awsJson1_1 (request)', () async {
     await _i2.httpRequestTest(
-      operation: _i3.PutWithContentEncodingOperation(
+      operation: PutWithContentEncodingOperation(
         region: 'us-east-1',
         baseUri: Uri.parse('https://example.com'),
         credentialsProvider:
-            const _i4.AWSCredentialsProvider(_i4.AWSCredentials(
+            const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
           'DUMMY-ACCESS-KEY-ID',
           'DUMMY-SECRET-ACCESS-KEY',
         )),
@@ -30,7 +28,7 @@ void main() {
         id: 'SDKAppliedContentEncoding_awsJson1_1',
         documentation:
             'Compression algorithm encoding is appended to the Content-Encoding header.',
-        protocol: _i5.ShapeId(
+        protocol: _i4.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         ),
@@ -64,11 +62,11 @@ void main() {
   _i1.test('SDKAppendsGzipAndIgnoresHttpProvidedEncoding_awsJson1_1 (request)',
       () async {
     await _i2.httpRequestTest(
-      operation: _i3.PutWithContentEncodingOperation(
+      operation: PutWithContentEncodingOperation(
         region: 'us-east-1',
         baseUri: Uri.parse('https://example.com'),
         credentialsProvider:
-            const _i4.AWSCredentialsProvider(_i4.AWSCredentials(
+            const _i3.AWSCredentialsProvider(_i3.AWSCredentials(
           'DUMMY-ACCESS-KEY-ID',
           'DUMMY-SECRET-ACCESS-KEY',
         )),
@@ -77,7 +75,7 @@ void main() {
         id: 'SDKAppendsGzipAndIgnoresHttpProvidedEncoding_awsJson1_1',
         documentation:
             'Compression algorithm encoding is appended to the Content-Encoding header, and the\nuser-provided content-encoding is NOT in the Content-Encoding header since HTTP binding\ntraits are ignored in the awsJson1_1 protocol.\n',
-        protocol: _i5.ShapeId(
+        protocol: _i4.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         ),
@@ -112,26 +110,26 @@ void main() {
 }
 
 class PutWithContentEncodingInputAwsJson11Serializer
-    extends _i5.StructuredSmithySerializer<_i6.PutWithContentEncodingInput> {
+    extends _i4.StructuredSmithySerializer<PutWithContentEncodingInput> {
   const PutWithContentEncodingInputAwsJson11Serializer()
       : super('PutWithContentEncodingInput');
 
   @override
-  Iterable<Type> get types => const [_i6.PutWithContentEncodingInput];
+  Iterable<Type> get types => const [PutWithContentEncodingInput];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i4.ShapeId> get supportedProtocols => const [
+        _i4.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
       ];
   @override
-  _i6.PutWithContentEncodingInput deserialize(
+  PutWithContentEncodingInput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i6.PutWithContentEncodingInputBuilder();
+    final result = PutWithContentEncodingInputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -160,7 +158,7 @@ class PutWithContentEncodingInputAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i6.PutWithContentEncodingInput object, {
+    PutWithContentEncodingInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

@@ -6,9 +6,8 @@ library smoke_test.config_service.model.get_aggregate_resource_config_response; 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/configuration_item.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/configuration_item.dart';
 
 part 'get_aggregate_resource_config_response.g.dart';
 
@@ -19,7 +18,7 @@ abstract class GetAggregateResourceConfigResponse
         Built<GetAggregateResourceConfigResponse,
             GetAggregateResourceConfigResponseBuilder> {
   factory GetAggregateResourceConfigResponse(
-      {_i2.ConfigurationItem? configurationItem}) {
+      {ConfigurationItem? configurationItem}) {
     return _$GetAggregateResourceConfigResponse._(
         configurationItem: configurationItem);
   }
@@ -37,11 +36,11 @@ abstract class GetAggregateResourceConfigResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<GetAggregateResourceConfigResponse>>
+  static const List<_i2.SmithySerializer<GetAggregateResourceConfigResponse>>
       serializers = [GetAggregateResourceConfigResponseAwsJson11Serializer()];
 
   /// Returns a `ConfigurationItem` object.
-  _i2.ConfigurationItem? get configurationItem;
+  ConfigurationItem? get configurationItem;
   @override
   List<Object?> get props => [configurationItem];
   @override
@@ -57,7 +56,7 @@ abstract class GetAggregateResourceConfigResponse
 }
 
 class GetAggregateResourceConfigResponseAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<GetAggregateResourceConfigResponse> {
+    extends _i2.StructuredSmithySerializer<GetAggregateResourceConfigResponse> {
   const GetAggregateResourceConfigResponseAwsJson11Serializer()
       : super('GetAggregateResourceConfigResponse');
 
@@ -67,8 +66,8 @@ class GetAggregateResourceConfigResponseAwsJson11Serializer
         _$GetAggregateResourceConfigResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -92,8 +91,8 @@ class GetAggregateResourceConfigResponseAwsJson11Serializer
         case 'ConfigurationItem':
           result.configurationItem.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ConfigurationItem),
-          ) as _i2.ConfigurationItem));
+            specifiedType: const FullType(ConfigurationItem),
+          ) as ConfigurationItem));
       }
     }
 
@@ -113,7 +112,7 @@ class GetAggregateResourceConfigResponseAwsJson11Serializer
         ..add('ConfigurationItem')
         ..add(serializers.serialize(
           configurationItem,
-          specifiedType: const FullType(_i2.ConfigurationItem),
+          specifiedType: const FullType(ConfigurationItem),
         ));
     }
     return result$;

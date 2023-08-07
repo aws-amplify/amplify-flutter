@@ -4,12 +4,11 @@
 library smoke_test.api_gateway.model.deployments; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/deployment.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/deployment.dart';
 
 part 'deployments.g.dart';
 
@@ -19,11 +18,11 @@ abstract class Deployments
     implements Built<Deployments, DeploymentsBuilder> {
   /// Represents a collection resource that contains zero or more references to your existing deployments, and links that guide you on how to interact with your collection. The collection offers a paginated view of the contained deployments.
   factory Deployments({
-    List<_i2.Deployment>? items,
+    List<Deployment>? items,
     String? position,
   }) {
     return _$Deployments._(
-      items: items == null ? null : _i3.BuiltList(items),
+      items: items == null ? null : _i2.BuiltList(items),
       position: position,
     );
   }
@@ -41,12 +40,12 @@ abstract class Deployments
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<Deployments>> serializers = [
+  static const List<_i3.SmithySerializer<Deployments>> serializers = [
     DeploymentsRestJson1Serializer()
   ];
 
   /// The current page of elements from this collection.
-  _i3.BuiltList<_i2.Deployment>? get items;
+  _i2.BuiltList<Deployment>? get items;
 
   /// The current pagination position in the paged result set.
   String? get position;
@@ -71,7 +70,7 @@ abstract class Deployments
 }
 
 class DeploymentsRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<Deployments> {
+    extends _i3.StructuredSmithySerializer<Deployments> {
   const DeploymentsRestJson1Serializer() : super('Deployments');
 
   @override
@@ -80,8 +79,8 @@ class DeploymentsRestJson1Serializer
         _$Deployments,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -106,10 +105,10 @@ class DeploymentsRestJson1Serializer
           result.items.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.Deployment)],
+              _i2.BuiltList,
+              [FullType(Deployment)],
             ),
-          ) as _i3.BuiltList<_i2.Deployment>));
+          ) as _i2.BuiltList<Deployment>));
         case 'position':
           result.position = (serializers.deserialize(
             value,
@@ -135,8 +134,8 @@ class DeploymentsRestJson1Serializer
         ..add(serializers.serialize(
           items,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.Deployment)],
+            _i2.BuiltList,
+            [FullType(Deployment)],
           ),
         ));
     }

@@ -6,8 +6,8 @@ library smoke_test.s3.model.bucket_logging_status; // ignore_for_file: no_leadin
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/logging_enabled.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/logging_enabled.dart';
 
 part 'bucket_logging_status.g.dart';
 
@@ -16,7 +16,7 @@ abstract class BucketLoggingStatus
     with _i1.AWSEquatable<BucketLoggingStatus>
     implements Built<BucketLoggingStatus, BucketLoggingStatusBuilder> {
   /// Container for logging status information.
-  factory BucketLoggingStatus({_i2.LoggingEnabled? loggingEnabled}) {
+  factory BucketLoggingStatus({LoggingEnabled? loggingEnabled}) {
     return _$BucketLoggingStatus._(loggingEnabled: loggingEnabled);
   }
 
@@ -27,12 +27,12 @@ abstract class BucketLoggingStatus
 
   const BucketLoggingStatus._();
 
-  static const List<_i3.SmithySerializer<BucketLoggingStatus>> serializers = [
+  static const List<_i2.SmithySerializer<BucketLoggingStatus>> serializers = [
     BucketLoggingStatusRestXmlSerializer()
   ];
 
   /// Describes where logs are stored and the prefix that Amazon S3 assigns to all log object keys for a bucket. For more information, see [PUT Bucket logging](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTlogging.html) in the _Amazon S3 API Reference_.
-  _i2.LoggingEnabled? get loggingEnabled;
+  LoggingEnabled? get loggingEnabled;
   @override
   List<Object?> get props => [loggingEnabled];
   @override
@@ -47,7 +47,7 @@ abstract class BucketLoggingStatus
 }
 
 class BucketLoggingStatusRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<BucketLoggingStatus> {
+    extends _i2.StructuredSmithySerializer<BucketLoggingStatus> {
   const BucketLoggingStatusRestXmlSerializer() : super('BucketLoggingStatus');
 
   @override
@@ -56,8 +56,8 @@ class BucketLoggingStatusRestXmlSerializer
         _$BucketLoggingStatus,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -81,8 +81,8 @@ class BucketLoggingStatusRestXmlSerializer
         case 'LoggingEnabled':
           result.loggingEnabled.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.LoggingEnabled),
-          ) as _i2.LoggingEnabled));
+            specifiedType: const FullType(LoggingEnabled),
+          ) as LoggingEnabled));
       }
     }
 
@@ -96,18 +96,18 @@ class BucketLoggingStatusRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'BucketLoggingStatus',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final BucketLoggingStatus(:loggingEnabled) = object;
     if (loggingEnabled != null) {
       result$
-        ..add(const _i3.XmlElementName('LoggingEnabled'))
+        ..add(const _i2.XmlElementName('LoggingEnabled'))
         ..add(serializers.serialize(
           loggingEnabled,
-          specifiedType: const FullType(_i2.LoggingEnabled),
+          specifiedType: const FullType(LoggingEnabled),
         ));
     }
     return result$;

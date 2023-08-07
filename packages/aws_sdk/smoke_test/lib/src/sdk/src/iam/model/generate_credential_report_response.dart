@@ -6,8 +6,8 @@ library smoke_test.iam.model.generate_credential_report_response; // ignore_for_
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/report_state_type.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/report_state_type.dart';
 
 part 'generate_credential_report_response.g.dart';
 
@@ -20,7 +20,7 @@ abstract class GenerateCredentialReportResponse
             GenerateCredentialReportResponseBuilder> {
   /// Contains the response to a successful GenerateCredentialReport request.
   factory GenerateCredentialReportResponse({
-    _i2.ReportStateType? state,
+    ReportStateType? state,
     String? description,
   }) {
     return _$GenerateCredentialReportResponse._(
@@ -43,11 +43,11 @@ abstract class GenerateCredentialReportResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<GenerateCredentialReportResponse>>
+  static const List<_i2.SmithySerializer<GenerateCredentialReportResponse>>
       serializers = [GenerateCredentialReportResponseAwsQuerySerializer()];
 
   /// Information about the state of the credential report.
-  _i2.ReportStateType? get state;
+  ReportStateType? get state;
 
   /// Information about the credential report.
   String? get description;
@@ -73,7 +73,7 @@ abstract class GenerateCredentialReportResponse
 }
 
 class GenerateCredentialReportResponseAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<GenerateCredentialReportResponse> {
+    extends _i2.StructuredSmithySerializer<GenerateCredentialReportResponse> {
   const GenerateCredentialReportResponseAwsQuerySerializer()
       : super('GenerateCredentialReportResponse');
 
@@ -83,8 +83,8 @@ class GenerateCredentialReportResponseAwsQuerySerializer
         _$GenerateCredentialReportResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -108,8 +108,8 @@ class GenerateCredentialReportResponseAwsQuerySerializer
         case 'State':
           result.state = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ReportStateType),
-          ) as _i2.ReportStateType);
+            specifiedType: const FullType(ReportStateType),
+          ) as ReportStateType);
         case 'Description':
           result.description = (serializers.deserialize(
             value,
@@ -128,23 +128,23 @@ class GenerateCredentialReportResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'GenerateCredentialReportResponseResponse',
-        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final GenerateCredentialReportResponse(:state, :description) = object;
     if (state != null) {
       result$
-        ..add(const _i3.XmlElementName('State'))
+        ..add(const _i2.XmlElementName('State'))
         ..add(serializers.serialize(
           state,
-          specifiedType: const FullType.nullable(_i2.ReportStateType),
+          specifiedType: const FullType.nullable(ReportStateType),
         ));
     }
     if (description != null) {
       result$
-        ..add(const _i3.XmlElementName('Description'))
+        ..add(const _i2.XmlElementName('Description'))
         ..add(serializers.serialize(
           description,
           specifiedType: const FullType(String),

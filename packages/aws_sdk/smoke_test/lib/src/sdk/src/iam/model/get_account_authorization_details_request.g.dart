@@ -9,7 +9,7 @@ part of 'get_account_authorization_details_request.dart';
 class _$GetAccountAuthorizationDetailsRequest
     extends GetAccountAuthorizationDetailsRequest {
   @override
-  final _i4.BuiltList<_i3.EntityType>? filter;
+  final _i3.BuiltList<EntityType>? filter;
   @override
   final int? maxItems;
   @override
@@ -61,11 +61,10 @@ class GetAccountAuthorizationDetailsRequestBuilder
             GetAccountAuthorizationDetailsRequestBuilder> {
   _$GetAccountAuthorizationDetailsRequest? _$v;
 
-  _i4.ListBuilder<_i3.EntityType>? _filter;
-  _i4.ListBuilder<_i3.EntityType> get filter =>
-      _$this._filter ??= new _i4.ListBuilder<_i3.EntityType>();
-  set filter(_i4.ListBuilder<_i3.EntityType>? filter) =>
-      _$this._filter = filter;
+  _i3.ListBuilder<EntityType>? _filter;
+  _i3.ListBuilder<EntityType> get filter =>
+      _$this._filter ??= new _i3.ListBuilder<EntityType>();
+  set filter(_i3.ListBuilder<EntityType>? filter) => _$this._filter = filter;
 
   int? _maxItems;
   int? get maxItems => _$this._maxItems;

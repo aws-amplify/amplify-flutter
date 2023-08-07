@@ -8,9 +8,9 @@ part of 'access_control_policy.dart';
 
 class _$AccessControlPolicy extends AccessControlPolicy {
   @override
-  final _i4.BuiltList<_i2.Grant>? grants;
+  final _i2.BuiltList<Grant>? grants;
   @override
-  final _i3.Owner? owner;
+  final Owner? owner;
 
   factory _$AccessControlPolicy(
           [void Function(AccessControlPolicyBuilder)? updates]) =>
@@ -49,14 +49,14 @@ class AccessControlPolicyBuilder
     implements Builder<AccessControlPolicy, AccessControlPolicyBuilder> {
   _$AccessControlPolicy? _$v;
 
-  _i4.ListBuilder<_i2.Grant>? _grants;
-  _i4.ListBuilder<_i2.Grant> get grants =>
-      _$this._grants ??= new _i4.ListBuilder<_i2.Grant>();
-  set grants(_i4.ListBuilder<_i2.Grant>? grants) => _$this._grants = grants;
+  _i2.ListBuilder<Grant>? _grants;
+  _i2.ListBuilder<Grant> get grants =>
+      _$this._grants ??= new _i2.ListBuilder<Grant>();
+  set grants(_i2.ListBuilder<Grant>? grants) => _$this._grants = grants;
 
-  _i3.OwnerBuilder? _owner;
-  _i3.OwnerBuilder get owner => _$this._owner ??= new _i3.OwnerBuilder();
-  set owner(_i3.OwnerBuilder? owner) => _$this._owner = owner;
+  OwnerBuilder? _owner;
+  OwnerBuilder get owner => _$this._owner ??= new OwnerBuilder();
+  set owner(OwnerBuilder? owner) => _$this._owner = owner;
 
   AccessControlPolicyBuilder();
 

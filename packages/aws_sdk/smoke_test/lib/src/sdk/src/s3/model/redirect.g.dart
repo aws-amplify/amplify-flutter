@@ -12,7 +12,7 @@ class _$Redirect extends Redirect {
   @override
   final String? httpRedirectCode;
   @override
-  final _i2.Protocol? protocol;
+  final Protocol? protocol;
   @override
   final String? replaceKeyPrefixWith;
   @override
@@ -72,9 +72,9 @@ class RedirectBuilder implements Builder<Redirect, RedirectBuilder> {
   set httpRedirectCode(String? httpRedirectCode) =>
       _$this._httpRedirectCode = httpRedirectCode;
 
-  _i2.Protocol? _protocol;
-  _i2.Protocol? get protocol => _$this._protocol;
-  set protocol(_i2.Protocol? protocol) => _$this._protocol = protocol;
+  Protocol? _protocol;
+  Protocol? get protocol => _$this._protocol;
+  set protocol(Protocol? protocol) => _$this._protocol = protocol;
 
   String? _replaceKeyPrefixWith;
   String? get replaceKeyPrefixWith => _$this._replaceKeyPrefixWith;

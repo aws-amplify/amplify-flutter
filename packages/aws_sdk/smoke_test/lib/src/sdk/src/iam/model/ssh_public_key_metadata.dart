@@ -6,8 +6,8 @@ library smoke_test.iam.model.ssh_public_key_metadata; // ignore_for_file: no_lea
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/status_type.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/status_type.dart';
 
 part 'ssh_public_key_metadata.g.dart';
 
@@ -23,7 +23,7 @@ abstract class SshPublicKeyMetadata
   factory SshPublicKeyMetadata({
     required String userName,
     required String sshPublicKeyId,
-    required _i2.StatusType status,
+    required StatusType status,
     required DateTime uploadDate,
   }) {
     return _$SshPublicKeyMetadata._(
@@ -43,7 +43,7 @@ abstract class SshPublicKeyMetadata
 
   const SshPublicKeyMetadata._();
 
-  static const List<_i3.SmithySerializer<SshPublicKeyMetadata>> serializers = [
+  static const List<_i2.SmithySerializer<SshPublicKeyMetadata>> serializers = [
     SshPublicKeyMetadataAwsQuerySerializer()
   ];
 
@@ -54,7 +54,7 @@ abstract class SshPublicKeyMetadata
   String get sshPublicKeyId;
 
   /// The status of the SSH public key. `Active` means that the key can be used for authentication with an CodeCommit repository. `Inactive` means that the key cannot be used.
-  _i2.StatusType get status;
+  StatusType get status;
 
   /// The date and time, in [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the SSH public key was uploaded.
   DateTime get uploadDate;
@@ -89,7 +89,7 @@ abstract class SshPublicKeyMetadata
 }
 
 class SshPublicKeyMetadataAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<SshPublicKeyMetadata> {
+    extends _i2.StructuredSmithySerializer<SshPublicKeyMetadata> {
   const SshPublicKeyMetadataAwsQuerySerializer()
       : super('SshPublicKeyMetadata');
 
@@ -99,8 +99,8 @@ class SshPublicKeyMetadataAwsQuerySerializer
         _$SshPublicKeyMetadata,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -134,8 +134,8 @@ class SshPublicKeyMetadataAwsQuerySerializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.StatusType),
-          ) as _i2.StatusType);
+            specifiedType: const FullType(StatusType),
+          ) as StatusType);
         case 'UploadDate':
           result.uploadDate = (serializers.deserialize(
             value,
@@ -154,9 +154,9 @@ class SshPublicKeyMetadataAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'SshPublicKeyMetadataResponse',
-        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final SshPublicKeyMetadata(
@@ -166,25 +166,25 @@ class SshPublicKeyMetadataAwsQuerySerializer
       :uploadDate
     ) = object;
     result$
-      ..add(const _i3.XmlElementName('UserName'))
+      ..add(const _i2.XmlElementName('UserName'))
       ..add(serializers.serialize(
         userName,
         specifiedType: const FullType(String),
       ));
     result$
-      ..add(const _i3.XmlElementName('SSHPublicKeyId'))
+      ..add(const _i2.XmlElementName('SSHPublicKeyId'))
       ..add(serializers.serialize(
         sshPublicKeyId,
         specifiedType: const FullType(String),
       ));
     result$
-      ..add(const _i3.XmlElementName('Status'))
+      ..add(const _i2.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(_i2.StatusType),
+        specifiedType: const FullType.nullable(StatusType),
       ));
     result$
-      ..add(const _i3.XmlElementName('UploadDate'))
+      ..add(const _i2.XmlElementName('UploadDate'))
       ..add(serializers.serialize(
         uploadDate,
         specifiedType: const FullType.nullable(DateTime),

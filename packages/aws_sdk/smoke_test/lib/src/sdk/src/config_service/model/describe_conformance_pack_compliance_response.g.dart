@@ -11,7 +11,7 @@ class _$DescribeConformancePackComplianceResponse
   @override
   final String conformancePackName;
   @override
-  final _i3.BuiltList<_i2.ConformancePackRuleCompliance>
+  final _i2.BuiltList<ConformancePackRuleCompliance>
       conformancePackRuleComplianceList;
   @override
   final String? nextToken;
@@ -77,14 +77,14 @@ class DescribeConformancePackComplianceResponseBuilder
   set conformancePackName(String? conformancePackName) =>
       _$this._conformancePackName = conformancePackName;
 
-  _i3.ListBuilder<_i2.ConformancePackRuleCompliance>?
+  _i2.ListBuilder<ConformancePackRuleCompliance>?
       _conformancePackRuleComplianceList;
-  _i3.ListBuilder<_i2.ConformancePackRuleCompliance>
+  _i2.ListBuilder<ConformancePackRuleCompliance>
       get conformancePackRuleComplianceList =>
           _$this._conformancePackRuleComplianceList ??=
-              new _i3.ListBuilder<_i2.ConformancePackRuleCompliance>();
+              new _i2.ListBuilder<ConformancePackRuleCompliance>();
   set conformancePackRuleComplianceList(
-          _i3.ListBuilder<_i2.ConformancePackRuleCompliance>?
+          _i2.ListBuilder<ConformancePackRuleCompliance>?
               conformancePackRuleComplianceList) =>
       _$this._conformancePackRuleComplianceList =
           conformancePackRuleComplianceList;

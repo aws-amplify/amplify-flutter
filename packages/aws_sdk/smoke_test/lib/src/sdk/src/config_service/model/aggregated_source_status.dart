@@ -6,11 +6,9 @@ library smoke_test.config_service.model.aggregated_source_status; // ignore_for_
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/aggregated_source_status_type.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/aggregated_source_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/aggregated_source_status_type.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/aggregated_source_type.dart';
 
 part 'aggregated_source_status.g.dart';
 
@@ -21,9 +19,9 @@ abstract class AggregatedSourceStatus
   /// The current sync status between the source and the aggregator account.
   factory AggregatedSourceStatus({
     String? sourceId,
-    _i2.AggregatedSourceType? sourceType,
+    AggregatedSourceType? sourceType,
     String? awsRegion,
-    _i3.AggregatedSourceStatusType? lastUpdateStatus,
+    AggregatedSourceStatusType? lastUpdateStatus,
     DateTime? lastUpdateTime,
     String? lastErrorCode,
     String? lastErrorMessage,
@@ -46,14 +44,14 @@ abstract class AggregatedSourceStatus
 
   const AggregatedSourceStatus._();
 
-  static const List<_i4.SmithySerializer<AggregatedSourceStatus>> serializers =
+  static const List<_i2.SmithySerializer<AggregatedSourceStatus>> serializers =
       [AggregatedSourceStatusAwsJson11Serializer()];
 
   /// The source account ID or an organization.
   String? get sourceId;
 
   /// The source account or an organization.
-  _i2.AggregatedSourceType? get sourceType;
+  AggregatedSourceType? get sourceType;
 
   /// The region authorized to collect aggregated data.
   String? get awsRegion;
@@ -65,7 +63,7 @@ abstract class AggregatedSourceStatus
   /// *   Valid value SUCCEEDED indicates the data was successfully moved.
   ///
   /// *   Valid value OUTDATED indicates the data is not the most recent.
-  _i3.AggregatedSourceStatusType? get lastUpdateStatus;
+  AggregatedSourceStatusType? get lastUpdateStatus;
 
   /// The time of the last update.
   DateTime? get lastUpdateTime;
@@ -121,7 +119,7 @@ abstract class AggregatedSourceStatus
 }
 
 class AggregatedSourceStatusAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<AggregatedSourceStatus> {
+    extends _i2.StructuredSmithySerializer<AggregatedSourceStatus> {
   const AggregatedSourceStatusAwsJson11Serializer()
       : super('AggregatedSourceStatus');
 
@@ -131,8 +129,8 @@ class AggregatedSourceStatusAwsJson11Serializer
         _$AggregatedSourceStatus,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -161,8 +159,8 @@ class AggregatedSourceStatusAwsJson11Serializer
         case 'SourceType':
           result.sourceType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.AggregatedSourceType),
-          ) as _i2.AggregatedSourceType);
+            specifiedType: const FullType(AggregatedSourceType),
+          ) as AggregatedSourceType);
         case 'AwsRegion':
           result.awsRegion = (serializers.deserialize(
             value,
@@ -171,8 +169,8 @@ class AggregatedSourceStatusAwsJson11Serializer
         case 'LastUpdateStatus':
           result.lastUpdateStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.AggregatedSourceStatusType),
-          ) as _i3.AggregatedSourceStatusType);
+            specifiedType: const FullType(AggregatedSourceStatusType),
+          ) as AggregatedSourceStatusType);
         case 'LastUpdateTime':
           result.lastUpdateTime = (serializers.deserialize(
             value,
@@ -223,7 +221,7 @@ class AggregatedSourceStatusAwsJson11Serializer
         ..add('SourceType')
         ..add(serializers.serialize(
           sourceType,
-          specifiedType: const FullType(_i2.AggregatedSourceType),
+          specifiedType: const FullType(AggregatedSourceType),
         ));
     }
     if (awsRegion != null) {
@@ -239,7 +237,7 @@ class AggregatedSourceStatusAwsJson11Serializer
         ..add('LastUpdateStatus')
         ..add(serializers.serialize(
           lastUpdateStatus,
-          specifiedType: const FullType(_i3.AggregatedSourceStatusType),
+          specifiedType: const FullType(AggregatedSourceStatusType),
         ));
     }
     if (lastUpdateTime != null) {

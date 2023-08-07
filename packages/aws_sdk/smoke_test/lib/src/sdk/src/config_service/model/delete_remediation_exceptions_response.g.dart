@@ -9,8 +9,7 @@ part of 'delete_remediation_exceptions_response.dart';
 class _$DeleteRemediationExceptionsResponse
     extends DeleteRemediationExceptionsResponse {
   @override
-  final _i3.BuiltList<_i2.FailedDeleteRemediationExceptionsBatch>?
-      failedBatches;
+  final _i2.BuiltList<FailedDeleteRemediationExceptionsBatch>? failedBatches;
 
   factory _$DeleteRemediationExceptionsResponse(
           [void Function(DeleteRemediationExceptionsResponseBuilder)?
@@ -51,12 +50,12 @@ class DeleteRemediationExceptionsResponseBuilder
             DeleteRemediationExceptionsResponseBuilder> {
   _$DeleteRemediationExceptionsResponse? _$v;
 
-  _i3.ListBuilder<_i2.FailedDeleteRemediationExceptionsBatch>? _failedBatches;
-  _i3.ListBuilder<_i2.FailedDeleteRemediationExceptionsBatch>
-      get failedBatches => _$this._failedBatches ??=
-          new _i3.ListBuilder<_i2.FailedDeleteRemediationExceptionsBatch>();
+  _i2.ListBuilder<FailedDeleteRemediationExceptionsBatch>? _failedBatches;
+  _i2.ListBuilder<FailedDeleteRemediationExceptionsBatch> get failedBatches =>
+      _$this._failedBatches ??=
+          new _i2.ListBuilder<FailedDeleteRemediationExceptionsBatch>();
   set failedBatches(
-          _i3.ListBuilder<_i2.FailedDeleteRemediationExceptionsBatch>?
+          _i2.ListBuilder<FailedDeleteRemediationExceptionsBatch>?
               failedBatches) =>
       _$this._failedBatches = failedBatches;
 

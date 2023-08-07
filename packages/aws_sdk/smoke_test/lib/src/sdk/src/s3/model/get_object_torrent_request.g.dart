@@ -12,7 +12,7 @@ class _$GetObjectTorrentRequest extends GetObjectTorrentRequest {
   @override
   final String key;
   @override
-  final _i3.RequestPayer? requestPayer;
+  final RequestPayer? requestPayer;
   @override
   final String? expectedBucketOwner;
 
@@ -76,9 +76,9 @@ class GetObjectTorrentRequestBuilder
   String? get key => _$this._key;
   set key(String? key) => _$this._key = key;
 
-  _i3.RequestPayer? _requestPayer;
-  _i3.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i3.RequestPayer? requestPayer) =>
+  RequestPayer? _requestPayer;
+  RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
   String? _expectedBucketOwner;

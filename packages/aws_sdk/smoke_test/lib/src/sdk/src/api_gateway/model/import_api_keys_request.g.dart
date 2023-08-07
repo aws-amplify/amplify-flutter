@@ -10,7 +10,7 @@ class _$ImportApiKeysRequest extends ImportApiKeysRequest {
   @override
   final _i2.Uint8List body;
   @override
-  final _i4.ApiKeysFormat format;
+  final ApiKeysFormat format;
   @override
   final bool failOnWarnings;
 
@@ -66,9 +66,9 @@ class ImportApiKeysRequestBuilder
   _i2.Uint8List? get body => _$this._body;
   set body(_i2.Uint8List? body) => _$this._body = body;
 
-  _i4.ApiKeysFormat? _format;
-  _i4.ApiKeysFormat? get format => _$this._format;
-  set format(_i4.ApiKeysFormat? format) => _$this._format = format;
+  ApiKeysFormat? _format;
+  ApiKeysFormat? get format => _$this._format;
+  set format(ApiKeysFormat? format) => _$this._format = format;
 
   bool? _failOnWarnings;
   bool? get failOnWarnings => _$this._failOnWarnings;

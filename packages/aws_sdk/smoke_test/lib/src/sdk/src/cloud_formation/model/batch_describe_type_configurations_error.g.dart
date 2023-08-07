@@ -13,7 +13,7 @@ class _$BatchDescribeTypeConfigurationsError
   @override
   final String? errorMessage;
   @override
-  final _i2.TypeConfigurationIdentifier? typeConfigurationIdentifier;
+  final TypeConfigurationIdentifier? typeConfigurationIdentifier;
 
   factory _$BatchDescribeTypeConfigurationsError(
           [void Function(BatchDescribeTypeConfigurationsErrorBuilder)?
@@ -68,13 +68,12 @@ class BatchDescribeTypeConfigurationsErrorBuilder
   String? get errorMessage => _$this._errorMessage;
   set errorMessage(String? errorMessage) => _$this._errorMessage = errorMessage;
 
-  _i2.TypeConfigurationIdentifierBuilder? _typeConfigurationIdentifier;
-  _i2.TypeConfigurationIdentifierBuilder get typeConfigurationIdentifier =>
+  TypeConfigurationIdentifierBuilder? _typeConfigurationIdentifier;
+  TypeConfigurationIdentifierBuilder get typeConfigurationIdentifier =>
       _$this._typeConfigurationIdentifier ??=
-          new _i2.TypeConfigurationIdentifierBuilder();
+          new TypeConfigurationIdentifierBuilder();
   set typeConfigurationIdentifier(
-          _i2.TypeConfigurationIdentifierBuilder?
-              typeConfigurationIdentifier) =>
+          TypeConfigurationIdentifierBuilder? typeConfigurationIdentifier) =>
       _$this._typeConfigurationIdentifier = typeConfigurationIdentifier;
 
   BatchDescribeTypeConfigurationsErrorBuilder();

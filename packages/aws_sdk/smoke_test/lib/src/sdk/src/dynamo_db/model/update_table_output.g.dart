@@ -8,7 +8,7 @@ part of 'update_table_output.dart';
 
 class _$UpdateTableOutput extends UpdateTableOutput {
   @override
-  final _i2.TableDescription? tableDescription;
+  final TableDescription? tableDescription;
 
   factory _$UpdateTableOutput(
           [void Function(UpdateTableOutputBuilder)? updates]) =>
@@ -44,10 +44,10 @@ class UpdateTableOutputBuilder
     implements Builder<UpdateTableOutput, UpdateTableOutputBuilder> {
   _$UpdateTableOutput? _$v;
 
-  _i2.TableDescriptionBuilder? _tableDescription;
-  _i2.TableDescriptionBuilder get tableDescription =>
-      _$this._tableDescription ??= new _i2.TableDescriptionBuilder();
-  set tableDescription(_i2.TableDescriptionBuilder? tableDescription) =>
+  TableDescriptionBuilder? _tableDescription;
+  TableDescriptionBuilder get tableDescription =>
+      _$this._tableDescription ??= new TableDescriptionBuilder();
+  set tableDescription(TableDescriptionBuilder? tableDescription) =>
       _$this._tableDescription = tableDescription;
 
   UpdateTableOutputBuilder();

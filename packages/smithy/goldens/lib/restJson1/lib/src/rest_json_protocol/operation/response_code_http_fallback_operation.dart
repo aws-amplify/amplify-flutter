@@ -3,23 +3,20 @@
 
 library rest_json1_v1.rest_json_protocol.operation.response_code_http_fallback_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i7;
+import 'dart:async' as _i4;
 
-import 'package:aws_common/aws_common.dart' as _i6;
-import 'package:rest_json1_v1/src/rest_json_protocol/common/endpoint_resolver.dart'
-    as _i5;
-import 'package:rest_json1_v1/src/rest_json_protocol/common/serializers.dart'
-    as _i4;
-import 'package:rest_json1_v1/src/rest_json_protocol/model/response_code_http_fallback_input_output.dart'
-    as _i2;
+import 'package:aws_common/aws_common.dart' as _i3;
+import 'package:rest_json1_v1/src/rest_json_protocol/common/endpoint_resolver.dart';
+import 'package:rest_json1_v1/src/rest_json_protocol/common/serializers.dart';
+import 'package:rest_json1_v1/src/rest_json_protocol/model/response_code_http_fallback_input_output.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smithy_aws/smithy_aws.dart' as _i2;
 
 class ResponseCodeHttpFallbackOperation extends _i1.HttpOperation<
-    _i2.ResponseCodeHttpFallbackInputOutput,
-    _i2.ResponseCodeHttpFallbackInputOutput,
-    _i2.ResponseCodeHttpFallbackInputOutput,
-    _i2.ResponseCodeHttpFallbackInputOutput> {
+    ResponseCodeHttpFallbackInputOutput,
+    ResponseCodeHttpFallbackInputOutput,
+    ResponseCodeHttpFallbackInputOutput,
+    ResponseCodeHttpFallbackInputOutput> {
   ResponseCodeHttpFallbackOperation({
     required String region,
     Uri? baseUri,
@@ -33,20 +30,20 @@ class ResponseCodeHttpFallbackOperation extends _i1.HttpOperation<
   @override
   late final List<
       _i1.HttpProtocol<
-          _i2.ResponseCodeHttpFallbackInputOutput,
-          _i2.ResponseCodeHttpFallbackInputOutput,
-          _i2.ResponseCodeHttpFallbackInputOutput,
-          _i2.ResponseCodeHttpFallbackInputOutput>> protocols = [
-    _i3.RestJson1Protocol(
-      serializers: _i4.serializers,
-      builderFactories: _i4.builderFactories,
+          ResponseCodeHttpFallbackInputOutput,
+          ResponseCodeHttpFallbackInputOutput,
+          ResponseCodeHttpFallbackInputOutput,
+          ResponseCodeHttpFallbackInputOutput>> protocols = [
+    _i2.RestJson1Protocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithNoHeader('Content-Length'),
             const _i1.WithNoHeader('Content-Type'),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i3.WithSdkInvocationId(),
-            const _i3.WithSdkRequest(),
+            const _i2.WithSdkInvocationId(),
+            const _i2.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -54,8 +51,8 @@ class ResponseCodeHttpFallbackOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i3.AWSEndpoint _awsEndpoint = _i5.endpointResolver.resolve(
-    _i5.sdkId,
+  late final _i2.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -68,19 +65,19 @@ class ResponseCodeHttpFallbackOperation extends _i1.HttpOperation<
   final List<_i1.HttpResponseInterceptor> _responseInterceptors;
 
   @override
-  _i1.HttpRequest buildRequest(_i2.ResponseCodeHttpFallbackInputOutput input) =>
+  _i1.HttpRequest buildRequest(ResponseCodeHttpFallbackInputOutput input) =>
       _i1.HttpRequest((b) {
         b.method = 'GET';
         b.path = r'/responseCodeHttpFallback';
       });
   @override
-  int successCode([_i2.ResponseCodeHttpFallbackInputOutput? output]) => 201;
+  int successCode([ResponseCodeHttpFallbackInputOutput? output]) => 201;
   @override
-  _i2.ResponseCodeHttpFallbackInputOutput buildOutput(
-    _i2.ResponseCodeHttpFallbackInputOutput payload,
-    _i6.AWSBaseHttpResponse response,
+  ResponseCodeHttpFallbackInputOutput buildOutput(
+    ResponseCodeHttpFallbackInputOutput payload,
+    _i3.AWSBaseHttpResponse response,
   ) =>
-      _i2.ResponseCodeHttpFallbackInputOutput.fromResponse(
+      ResponseCodeHttpFallbackInputOutput.fromResponse(
         payload,
         response,
       );
@@ -89,18 +86,18 @@ class ResponseCodeHttpFallbackOperation extends _i1.HttpOperation<
   @override
   String get runtimeTypeName => 'ResponseCodeHttpFallback';
   @override
-  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
+  _i2.AWSRetryer get retryer => _i2.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
-  _i1.SmithyOperation<_i2.ResponseCodeHttpFallbackInputOutput> run(
-    _i2.ResponseCodeHttpFallbackInputOutput input, {
-    _i6.AWSHttpClient? client,
+  _i1.SmithyOperation<ResponseCodeHttpFallbackInputOutput> run(
+    ResponseCodeHttpFallbackInputOutput input, {
+    _i3.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i7.runZoned(
+    return _i4.runZoned(
       () => super.run(
         input,
         client: client,
@@ -108,7 +105,7 @@ class ResponseCodeHttpFallbackOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
+        ...{_i3.AWSHeaders.sdkInvocationId: _i3.uuid(secure: true)},
       },
     );
   }

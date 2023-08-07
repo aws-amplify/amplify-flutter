@@ -8,9 +8,9 @@ part of 'stack_set_operation_preferences.dart';
 
 class _$StackSetOperationPreferences extends StackSetOperationPreferences {
   @override
-  final _i2.RegionConcurrencyType? regionConcurrencyType;
+  final RegionConcurrencyType? regionConcurrencyType;
   @override
-  final _i3.BuiltList<String>? regionOrder;
+  final _i2.BuiltList<String>? regionOrder;
   @override
   final int? failureToleranceCount;
   @override
@@ -74,16 +74,16 @@ class StackSetOperationPreferencesBuilder
             StackSetOperationPreferencesBuilder> {
   _$StackSetOperationPreferences? _$v;
 
-  _i2.RegionConcurrencyType? _regionConcurrencyType;
-  _i2.RegionConcurrencyType? get regionConcurrencyType =>
+  RegionConcurrencyType? _regionConcurrencyType;
+  RegionConcurrencyType? get regionConcurrencyType =>
       _$this._regionConcurrencyType;
-  set regionConcurrencyType(_i2.RegionConcurrencyType? regionConcurrencyType) =>
+  set regionConcurrencyType(RegionConcurrencyType? regionConcurrencyType) =>
       _$this._regionConcurrencyType = regionConcurrencyType;
 
-  _i3.ListBuilder<String>? _regionOrder;
-  _i3.ListBuilder<String> get regionOrder =>
-      _$this._regionOrder ??= new _i3.ListBuilder<String>();
-  set regionOrder(_i3.ListBuilder<String>? regionOrder) =>
+  _i2.ListBuilder<String>? _regionOrder;
+  _i2.ListBuilder<String> get regionOrder =>
+      _$this._regionOrder ??= new _i2.ListBuilder<String>();
+  set regionOrder(_i2.ListBuilder<String>? regionOrder) =>
       _$this._regionOrder = regionOrder;
 
   int? _failureToleranceCount;

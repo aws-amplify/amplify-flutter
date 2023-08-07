@@ -5,11 +5,9 @@
 library rest_xml_v2.rest_xml_protocol.test.xml_empty_strings_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_empty_strings_input_output.dart'
-    as _i5;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_empty_strings_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/xml_empty_strings_input_output.dart';
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/xml_empty_strings_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -18,14 +16,14 @@ void main() {
     'XmlEmptyStrings (request)',
     () async {
       await _i2.httpRequestTest(
-        operation: _i3.XmlEmptyStringsOperation(
+        operation: XmlEmptyStringsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpRequestTestCase(
           id: 'XmlEmptyStrings',
           documentation: 'Serializes xml empty strings',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -57,14 +55,14 @@ void main() {
     'XmlEmptyStrings (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.XmlEmptyStringsOperation(
+        operation: XmlEmptyStringsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'XmlEmptyStrings',
           documentation: 'Deserializes xml empty strings',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -92,7 +90,7 @@ void main() {
     'XmlEmptySelfClosedStrings (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.XmlEmptyStringsOperation(
+        operation: XmlEmptyStringsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -100,7 +98,7 @@ void main() {
           id: 'XmlEmptySelfClosedStrings',
           documentation:
               'Empty self closed string are deserialized as empty string',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -127,26 +125,26 @@ void main() {
 }
 
 class XmlEmptyStringsInputOutputRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<_i5.XmlEmptyStringsInputOutput> {
+    extends _i3.StructuredSmithySerializer<XmlEmptyStringsInputOutput> {
   const XmlEmptyStringsInputOutputRestXmlSerializer()
       : super('XmlEmptyStringsInputOutput');
 
   @override
-  Iterable<Type> get types => const [_i5.XmlEmptyStringsInputOutput];
+  Iterable<Type> get types => const [XmlEmptyStringsInputOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
       ];
   @override
-  _i5.XmlEmptyStringsInputOutput deserialize(
+  XmlEmptyStringsInputOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.XmlEmptyStringsInputOutputBuilder();
+    final result = XmlEmptyStringsInputOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -170,7 +168,7 @@ class XmlEmptyStringsInputOutputRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.XmlEmptyStringsInputOutput object, {
+    XmlEmptyStringsInputOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

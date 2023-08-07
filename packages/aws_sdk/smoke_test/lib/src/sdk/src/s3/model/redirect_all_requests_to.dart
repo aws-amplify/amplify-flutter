@@ -6,8 +6,8 @@ library smoke_test.s3.model.redirect_all_requests_to; // ignore_for_file: no_lea
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/protocol.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/protocol.dart';
 
 part 'redirect_all_requests_to.g.dart';
 
@@ -18,7 +18,7 @@ abstract class RedirectAllRequestsTo
   /// Specifies the redirect behavior of all requests to a website endpoint of an Amazon S3 bucket.
   factory RedirectAllRequestsTo({
     required String hostName,
-    _i2.Protocol? protocol,
+    Protocol? protocol,
   }) {
     return _$RedirectAllRequestsTo._(
       hostName: hostName,
@@ -33,7 +33,7 @@ abstract class RedirectAllRequestsTo
 
   const RedirectAllRequestsTo._();
 
-  static const List<_i3.SmithySerializer<RedirectAllRequestsTo>> serializers = [
+  static const List<_i2.SmithySerializer<RedirectAllRequestsTo>> serializers = [
     RedirectAllRequestsToRestXmlSerializer()
   ];
 
@@ -41,7 +41,7 @@ abstract class RedirectAllRequestsTo
   String get hostName;
 
   /// Protocol to use when redirecting requests. The default is the protocol that is used in the original request.
-  _i2.Protocol? get protocol;
+  Protocol? get protocol;
   @override
   List<Object?> get props => [
         hostName,
@@ -63,7 +63,7 @@ abstract class RedirectAllRequestsTo
 }
 
 class RedirectAllRequestsToRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<RedirectAllRequestsTo> {
+    extends _i2.StructuredSmithySerializer<RedirectAllRequestsTo> {
   const RedirectAllRequestsToRestXmlSerializer()
       : super('RedirectAllRequestsTo');
 
@@ -73,8 +73,8 @@ class RedirectAllRequestsToRestXmlSerializer
         _$RedirectAllRequestsTo,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -103,8 +103,8 @@ class RedirectAllRequestsToRestXmlSerializer
         case 'Protocol':
           result.protocol = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Protocol),
-          ) as _i2.Protocol);
+            specifiedType: const FullType(Protocol),
+          ) as Protocol);
       }
     }
 
@@ -118,24 +118,24 @@ class RedirectAllRequestsToRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'RedirectAllRequestsTo',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final RedirectAllRequestsTo(:hostName, :protocol) = object;
     result$
-      ..add(const _i3.XmlElementName('HostName'))
+      ..add(const _i2.XmlElementName('HostName'))
       ..add(serializers.serialize(
         hostName,
         specifiedType: const FullType(String),
       ));
     if (protocol != null) {
       result$
-        ..add(const _i3.XmlElementName('Protocol'))
+        ..add(const _i2.XmlElementName('Protocol'))
         ..add(serializers.serialize(
           protocol,
-          specifiedType: const FullType.nullable(_i2.Protocol),
+          specifiedType: const FullType.nullable(Protocol),
         ));
     }
     return result$;

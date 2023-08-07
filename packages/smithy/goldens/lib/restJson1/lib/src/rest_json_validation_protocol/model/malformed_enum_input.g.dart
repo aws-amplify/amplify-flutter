@@ -8,15 +8,15 @@ part of 'malformed_enum_input.dart';
 
 class _$MalformedEnumInput extends MalformedEnumInput {
   @override
-  final _i3.EnumString? string;
+  final EnumString? string;
   @override
-  final _i4.EnumTraitString? stringWithEnumTrait;
+  final EnumTraitString? stringWithEnumTrait;
   @override
-  final _i6.BuiltList<_i3.EnumString>? list;
+  final _i3.BuiltList<EnumString>? list;
   @override
-  final _i6.BuiltMap<_i3.EnumString, _i3.EnumString>? map;
+  final _i3.BuiltMap<EnumString, EnumString>? map;
   @override
-  final _i5.EnumUnion? union;
+  final EnumUnion? union;
 
   factory _$MalformedEnumInput(
           [void Function(MalformedEnumInputBuilder)? updates]) =>
@@ -63,29 +63,28 @@ class MalformedEnumInputBuilder
     implements Builder<MalformedEnumInput, MalformedEnumInputBuilder> {
   _$MalformedEnumInput? _$v;
 
-  _i3.EnumString? _string;
-  _i3.EnumString? get string => _$this._string;
-  set string(_i3.EnumString? string) => _$this._string = string;
+  EnumString? _string;
+  EnumString? get string => _$this._string;
+  set string(EnumString? string) => _$this._string = string;
 
-  _i4.EnumTraitString? _stringWithEnumTrait;
-  _i4.EnumTraitString? get stringWithEnumTrait => _$this._stringWithEnumTrait;
-  set stringWithEnumTrait(_i4.EnumTraitString? stringWithEnumTrait) =>
+  EnumTraitString? _stringWithEnumTrait;
+  EnumTraitString? get stringWithEnumTrait => _$this._stringWithEnumTrait;
+  set stringWithEnumTrait(EnumTraitString? stringWithEnumTrait) =>
       _$this._stringWithEnumTrait = stringWithEnumTrait;
 
-  _i6.ListBuilder<_i3.EnumString>? _list;
-  _i6.ListBuilder<_i3.EnumString> get list =>
-      _$this._list ??= new _i6.ListBuilder<_i3.EnumString>();
-  set list(_i6.ListBuilder<_i3.EnumString>? list) => _$this._list = list;
+  _i3.ListBuilder<EnumString>? _list;
+  _i3.ListBuilder<EnumString> get list =>
+      _$this._list ??= new _i3.ListBuilder<EnumString>();
+  set list(_i3.ListBuilder<EnumString>? list) => _$this._list = list;
 
-  _i6.MapBuilder<_i3.EnumString, _i3.EnumString>? _map;
-  _i6.MapBuilder<_i3.EnumString, _i3.EnumString> get map =>
-      _$this._map ??= new _i6.MapBuilder<_i3.EnumString, _i3.EnumString>();
-  set map(_i6.MapBuilder<_i3.EnumString, _i3.EnumString>? map) =>
-      _$this._map = map;
+  _i3.MapBuilder<EnumString, EnumString>? _map;
+  _i3.MapBuilder<EnumString, EnumString> get map =>
+      _$this._map ??= new _i3.MapBuilder<EnumString, EnumString>();
+  set map(_i3.MapBuilder<EnumString, EnumString>? map) => _$this._map = map;
 
-  _i5.EnumUnion? _union;
-  _i5.EnumUnion? get union => _$this._union;
-  set union(_i5.EnumUnion? union) => _$this._union = union;
+  EnumUnion? _union;
+  EnumUnion? get union => _$this._union;
+  set union(EnumUnion? union) => _$this._union = union;
 
   MalformedEnumInputBuilder();
 

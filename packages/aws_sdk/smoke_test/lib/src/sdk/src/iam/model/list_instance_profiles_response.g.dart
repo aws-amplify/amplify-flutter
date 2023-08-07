@@ -8,7 +8,7 @@ part of 'list_instance_profiles_response.dart';
 
 class _$ListInstanceProfilesResponse extends ListInstanceProfilesResponse {
   @override
-  final _i3.BuiltList<_i2.InstanceProfile> instanceProfiles;
+  final _i2.BuiltList<InstanceProfile> instanceProfiles;
   @override
   final bool isTruncated;
   @override
@@ -62,11 +62,10 @@ class ListInstanceProfilesResponseBuilder
             ListInstanceProfilesResponseBuilder> {
   _$ListInstanceProfilesResponse? _$v;
 
-  _i3.ListBuilder<_i2.InstanceProfile>? _instanceProfiles;
-  _i3.ListBuilder<_i2.InstanceProfile> get instanceProfiles =>
-      _$this._instanceProfiles ??= new _i3.ListBuilder<_i2.InstanceProfile>();
-  set instanceProfiles(
-          _i3.ListBuilder<_i2.InstanceProfile>? instanceProfiles) =>
+  _i2.ListBuilder<InstanceProfile>? _instanceProfiles;
+  _i2.ListBuilder<InstanceProfile> get instanceProfiles =>
+      _$this._instanceProfiles ??= new _i2.ListBuilder<InstanceProfile>();
+  set instanceProfiles(_i2.ListBuilder<InstanceProfile>? instanceProfiles) =>
       _$this._instanceProfiles = instanceProfiles;
 
   bool? _isTruncated;

@@ -8,7 +8,7 @@ part of 'get_bucket_policy_status_output.dart';
 
 class _$GetBucketPolicyStatusOutput extends GetBucketPolicyStatusOutput {
   @override
-  final _i3.PolicyStatus? policyStatus;
+  final PolicyStatus? policyStatus;
 
   factory _$GetBucketPolicyStatusOutput(
           [void Function(GetBucketPolicyStatusOutputBuilder)? updates]) =>
@@ -47,10 +47,10 @@ class GetBucketPolicyStatusOutputBuilder
             GetBucketPolicyStatusOutputBuilder> {
   _$GetBucketPolicyStatusOutput? _$v;
 
-  _i3.PolicyStatusBuilder? _policyStatus;
-  _i3.PolicyStatusBuilder get policyStatus =>
-      _$this._policyStatus ??= new _i3.PolicyStatusBuilder();
-  set policyStatus(_i3.PolicyStatusBuilder? policyStatus) =>
+  PolicyStatusBuilder? _policyStatus;
+  PolicyStatusBuilder get policyStatus =>
+      _$this._policyStatus ??= new PolicyStatusBuilder();
+  set policyStatus(PolicyStatusBuilder? policyStatus) =>
       _$this._policyStatus = policyStatus;
 
   GetBucketPolicyStatusOutputBuilder();

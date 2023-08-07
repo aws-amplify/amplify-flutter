@@ -8,7 +8,7 @@ part of 'resource_change.dart';
 
 class _$ResourceChange extends ResourceChange {
   @override
-  final _i2.ChangeAction? action;
+  final ChangeAction? action;
   @override
   final String? logicalResourceId;
   @override
@@ -16,15 +16,15 @@ class _$ResourceChange extends ResourceChange {
   @override
   final String? resourceType;
   @override
-  final _i3.Replacement? replacement;
+  final Replacement? replacement;
   @override
-  final _i7.BuiltList<_i4.ResourceAttribute>? scope;
+  final _i2.BuiltList<ResourceAttribute>? scope;
   @override
-  final _i7.BuiltList<_i5.ResourceChangeDetail>? details;
+  final _i2.BuiltList<ResourceChangeDetail>? details;
   @override
   final String? changeSetId;
   @override
-  final _i6.ModuleInfo? moduleInfo;
+  final ModuleInfo? moduleInfo;
 
   factory _$ResourceChange([void Function(ResourceChangeBuilder)? updates]) =>
       (new ResourceChangeBuilder()..update(updates))._build();
@@ -85,9 +85,9 @@ class ResourceChangeBuilder
     implements Builder<ResourceChange, ResourceChangeBuilder> {
   _$ResourceChange? _$v;
 
-  _i2.ChangeAction? _action;
-  _i2.ChangeAction? get action => _$this._action;
-  set action(_i2.ChangeAction? action) => _$this._action = action;
+  ChangeAction? _action;
+  ChangeAction? get action => _$this._action;
+  set action(ChangeAction? action) => _$this._action = action;
 
   String? _logicalResourceId;
   String? get logicalResourceId => _$this._logicalResourceId;
@@ -103,31 +103,30 @@ class ResourceChangeBuilder
   String? get resourceType => _$this._resourceType;
   set resourceType(String? resourceType) => _$this._resourceType = resourceType;
 
-  _i3.Replacement? _replacement;
-  _i3.Replacement? get replacement => _$this._replacement;
-  set replacement(_i3.Replacement? replacement) =>
+  Replacement? _replacement;
+  Replacement? get replacement => _$this._replacement;
+  set replacement(Replacement? replacement) =>
       _$this._replacement = replacement;
 
-  _i7.ListBuilder<_i4.ResourceAttribute>? _scope;
-  _i7.ListBuilder<_i4.ResourceAttribute> get scope =>
-      _$this._scope ??= new _i7.ListBuilder<_i4.ResourceAttribute>();
-  set scope(_i7.ListBuilder<_i4.ResourceAttribute>? scope) =>
-      _$this._scope = scope;
+  _i2.ListBuilder<ResourceAttribute>? _scope;
+  _i2.ListBuilder<ResourceAttribute> get scope =>
+      _$this._scope ??= new _i2.ListBuilder<ResourceAttribute>();
+  set scope(_i2.ListBuilder<ResourceAttribute>? scope) => _$this._scope = scope;
 
-  _i7.ListBuilder<_i5.ResourceChangeDetail>? _details;
-  _i7.ListBuilder<_i5.ResourceChangeDetail> get details =>
-      _$this._details ??= new _i7.ListBuilder<_i5.ResourceChangeDetail>();
-  set details(_i7.ListBuilder<_i5.ResourceChangeDetail>? details) =>
+  _i2.ListBuilder<ResourceChangeDetail>? _details;
+  _i2.ListBuilder<ResourceChangeDetail> get details =>
+      _$this._details ??= new _i2.ListBuilder<ResourceChangeDetail>();
+  set details(_i2.ListBuilder<ResourceChangeDetail>? details) =>
       _$this._details = details;
 
   String? _changeSetId;
   String? get changeSetId => _$this._changeSetId;
   set changeSetId(String? changeSetId) => _$this._changeSetId = changeSetId;
 
-  _i6.ModuleInfoBuilder? _moduleInfo;
-  _i6.ModuleInfoBuilder get moduleInfo =>
-      _$this._moduleInfo ??= new _i6.ModuleInfoBuilder();
-  set moduleInfo(_i6.ModuleInfoBuilder? moduleInfo) =>
+  ModuleInfoBuilder? _moduleInfo;
+  ModuleInfoBuilder get moduleInfo =>
+      _$this._moduleInfo ??= new ModuleInfoBuilder();
+  set moduleInfo(ModuleInfoBuilder? moduleInfo) =>
       _$this._moduleInfo = moduleInfo;
 
   ResourceChangeBuilder();

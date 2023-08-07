@@ -3,12 +3,11 @@
 
 library amplify_storage_s3_dart.s3.model.list_parts_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_payer.dart'
-    as _i3;
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_payer.dart';
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i4;
+import 'package:meta/meta.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'list_parts_request.g.dart';
@@ -27,7 +26,7 @@ abstract class ListPartsRequest
     int? maxParts,
     String? partNumberMarker,
     required String uploadId,
-    _i3.RequestPayer? requestPayer,
+    RequestPayer? requestPayer,
     String? expectedBucketOwner,
     String? sseCustomerAlgorithm,
     String? sseCustomerKey,
@@ -59,7 +58,7 @@ abstract class ListPartsRequest
   }) =>
       ListPartsRequest.build((b) {
         if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = _i3.RequestPayer.values
+          b.requestPayer = RequestPayer.values
               .byValue(request.headers['x-amz-request-payer']!);
         }
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
@@ -122,7 +121,7 @@ abstract class ListPartsRequest
   String get uploadId;
 
   /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
-  _i3.RequestPayer? get requestPayer;
+  RequestPayer? get requestPayer;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
@@ -211,7 +210,7 @@ abstract class ListPartsRequest
   }
 }
 
-@_i4.internal
+@_i3.internal
 abstract class ListPartsRequestPayload
     with _i2.AWSEquatable<ListPartsRequestPayload>
     implements

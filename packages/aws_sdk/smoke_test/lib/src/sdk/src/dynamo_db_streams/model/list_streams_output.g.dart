@@ -8,7 +8,7 @@ part of 'list_streams_output.dart';
 
 class _$ListStreamsOutput extends ListStreamsOutput {
   @override
-  final _i3.BuiltList<_i2.Stream>? streams;
+  final _i2.BuiltList<Stream>? streams;
   @override
   final String? lastEvaluatedStreamArn;
 
@@ -49,11 +49,10 @@ class ListStreamsOutputBuilder
     implements Builder<ListStreamsOutput, ListStreamsOutputBuilder> {
   _$ListStreamsOutput? _$v;
 
-  _i3.ListBuilder<_i2.Stream>? _streams;
-  _i3.ListBuilder<_i2.Stream> get streams =>
-      _$this._streams ??= new _i3.ListBuilder<_i2.Stream>();
-  set streams(_i3.ListBuilder<_i2.Stream>? streams) =>
-      _$this._streams = streams;
+  _i2.ListBuilder<Stream>? _streams;
+  _i2.ListBuilder<Stream> get streams =>
+      _$this._streams ??= new _i2.ListBuilder<Stream>();
+  set streams(_i2.ListBuilder<Stream>? streams) => _$this._streams = streams;
 
   String? _lastEvaluatedStreamArn;
   String? get lastEvaluatedStreamArn => _$this._lastEvaluatedStreamArn;

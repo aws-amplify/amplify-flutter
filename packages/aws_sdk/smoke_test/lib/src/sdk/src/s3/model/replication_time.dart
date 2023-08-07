@@ -6,11 +6,9 @@ library smoke_test.s3.model.replication_time; // ignore_for_file: no_leading_und
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/replication_time_status.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/replication_time_value.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/replication_time_status.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/replication_time_value.dart';
 
 part 'replication_time.g.dart';
 
@@ -20,8 +18,8 @@ abstract class ReplicationTime
     implements Built<ReplicationTime, ReplicationTimeBuilder> {
   /// A container specifying S3 Replication Time Control (S3 RTC) related information, including whether S3 RTC is enabled and the time when all objects and operations on objects must be replicated. Must be specified together with a `Metrics` block.
   factory ReplicationTime({
-    required _i2.ReplicationTimeStatus status,
-    required _i3.ReplicationTimeValue time,
+    required ReplicationTimeStatus status,
+    required ReplicationTimeValue time,
   }) {
     return _$ReplicationTime._(
       status: status,
@@ -35,15 +33,15 @@ abstract class ReplicationTime
 
   const ReplicationTime._();
 
-  static const List<_i4.SmithySerializer<ReplicationTime>> serializers = [
+  static const List<_i2.SmithySerializer<ReplicationTime>> serializers = [
     ReplicationTimeRestXmlSerializer()
   ];
 
   /// Specifies whether the replication time is enabled.
-  _i2.ReplicationTimeStatus get status;
+  ReplicationTimeStatus get status;
 
   /// A container specifying the time by which replication should be complete for all objects and operations on objects.
-  _i3.ReplicationTimeValue get time;
+  ReplicationTimeValue get time;
   @override
   List<Object?> get props => [
         status,
@@ -65,7 +63,7 @@ abstract class ReplicationTime
 }
 
 class ReplicationTimeRestXmlSerializer
-    extends _i4.StructuredSmithySerializer<ReplicationTime> {
+    extends _i2.StructuredSmithySerializer<ReplicationTime> {
   const ReplicationTimeRestXmlSerializer() : super('ReplicationTime');
 
   @override
@@ -74,8 +72,8 @@ class ReplicationTimeRestXmlSerializer
         _$ReplicationTime,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -99,13 +97,13 @@ class ReplicationTimeRestXmlSerializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ReplicationTimeStatus),
-          ) as _i2.ReplicationTimeStatus);
+            specifiedType: const FullType(ReplicationTimeStatus),
+          ) as ReplicationTimeStatus);
         case 'Time':
           result.time.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ReplicationTimeValue),
-          ) as _i3.ReplicationTimeValue));
+            specifiedType: const FullType(ReplicationTimeValue),
+          ) as ReplicationTimeValue));
       }
     }
 
@@ -119,23 +117,23 @@ class ReplicationTimeRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'ReplicationTime',
-        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final ReplicationTime(:status, :time) = object;
     result$
-      ..add(const _i4.XmlElementName('Status'))
+      ..add(const _i2.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(_i2.ReplicationTimeStatus),
+        specifiedType: const FullType.nullable(ReplicationTimeStatus),
       ));
     result$
-      ..add(const _i4.XmlElementName('Time'))
+      ..add(const _i2.XmlElementName('Time'))
       ..add(serializers.serialize(
         time,
-        specifiedType: const FullType(_i3.ReplicationTimeValue),
+        specifiedType: const FullType(ReplicationTimeValue),
       ));
     return result$;
   }

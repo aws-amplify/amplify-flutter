@@ -4,16 +4,13 @@
 library smoke_test.cloud_formation.model.delete_stack_instances_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/deployment_targets.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_preferences.dart'
-    as _i4;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/deployment_targets.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_preferences.dart';
 
 part 'delete_stack_instances_input.g.dart';
 
@@ -26,19 +23,19 @@ abstract class DeleteStackInstancesInput
   factory DeleteStackInstancesInput({
     required String stackSetName,
     List<String>? accounts,
-    _i3.DeploymentTargets? deploymentTargets,
+    DeploymentTargets? deploymentTargets,
     required List<String> regions,
-    _i4.StackSetOperationPreferences? operationPreferences,
+    StackSetOperationPreferences? operationPreferences,
     bool? retainStacks,
     String? operationId,
-    _i5.CallAs? callAs,
+    CallAs? callAs,
   }) {
     retainStacks ??= false;
     return _$DeleteStackInstancesInput._(
       stackSetName: stackSetName,
-      accounts: accounts == null ? null : _i6.BuiltList(accounts),
+      accounts: accounts == null ? null : _i3.BuiltList(accounts),
       deploymentTargets: deploymentTargets,
-      regions: _i6.BuiltList(regions),
+      regions: _i3.BuiltList(regions),
       operationPreferences: operationPreferences,
       retainStacks: retainStacks,
       operationId: operationId,
@@ -77,18 +74,18 @@ abstract class DeleteStackInstancesInput
   /// \[Self-managed permissions\] The names of the Amazon Web Services accounts that you want to delete stack instances for.
   ///
   /// You can specify `Accounts` or `DeploymentTargets`, but not both.
-  _i6.BuiltList<String>? get accounts;
+  _i3.BuiltList<String>? get accounts;
 
   /// \[Service-managed permissions\] The Organizations accounts from which to delete stack instances.
   ///
   /// You can specify `Accounts` or `DeploymentTargets`, but not both.
-  _i3.DeploymentTargets? get deploymentTargets;
+  DeploymentTargets? get deploymentTargets;
 
   /// The Amazon Web Services Regions where you want to delete stack set instances.
-  _i6.BuiltList<String> get regions;
+  _i3.BuiltList<String> get regions;
 
   /// Preferences for how CloudFormation performs this stack set operation.
-  _i4.StackSetOperationPreferences? get operationPreferences;
+  StackSetOperationPreferences? get operationPreferences;
 
   /// Removes the stack instances from the specified stack set, but doesn't delete the stacks. You can't reassociate a retained stack or add an existing, saved stack to a new stack set.
   ///
@@ -113,7 +110,7 @@ abstract class DeleteStackInstancesInput
   /// *   If you are signed in to a delegated administrator account, specify `DELEGATED_ADMIN`.
   ///
   ///     Your Amazon Web Services account must be registered as a delegated administrator in the management account. For more information, see [Register a delegated administrator](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html) in the _CloudFormation User Guide_.
-  _i5.CallAs? get callAs;
+  CallAs? get callAs;
   @override
   DeleteStackInstancesInput getPayload() => this;
   @override
@@ -211,15 +208,15 @@ class DeleteStackInstancesInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i6.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i6.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'DeploymentTargets':
           result.deploymentTargets.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.DeploymentTargets),
-          ) as _i3.DeploymentTargets));
+            specifiedType: const FullType(DeploymentTargets),
+          ) as DeploymentTargets));
         case 'Regions':
           result.regions.replace((const _i1.XmlBuiltListSerializer(
                   indexer: _i1.XmlIndexer.awsQueryList)
@@ -227,15 +224,15 @@ class DeleteStackInstancesInputAwsQuerySerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i6.BuiltList,
+              _i3.BuiltList,
               [FullType(String)],
             ),
-          ) as _i6.BuiltList<String>));
+          ) as _i3.BuiltList<String>));
         case 'OperationPreferences':
           result.operationPreferences.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.StackSetOperationPreferences),
-          ) as _i4.StackSetOperationPreferences));
+            specifiedType: const FullType(StackSetOperationPreferences),
+          ) as StackSetOperationPreferences));
         case 'RetainStacks':
           result.retainStacks = (serializers.deserialize(
             value,
@@ -249,8 +246,8 @@ class DeleteStackInstancesInputAwsQuerySerializer
         case 'CallAs':
           result.callAs = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.CallAs),
-          ) as _i5.CallAs);
+            specifiedType: const FullType(CallAs),
+          ) as CallAs);
       }
     }
 
@@ -294,7 +291,7 @@ class DeleteStackInstancesInputAwsQuerySerializer
           serializers,
           accounts,
           specifiedType: const FullType.nullable(
-            _i6.BuiltList,
+            _i3.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -304,7 +301,7 @@ class DeleteStackInstancesInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('DeploymentTargets'))
         ..add(serializers.serialize(
           deploymentTargets,
-          specifiedType: const FullType(_i3.DeploymentTargets),
+          specifiedType: const FullType(DeploymentTargets),
         ));
     }
     result$
@@ -315,7 +312,7 @@ class DeleteStackInstancesInputAwsQuerySerializer
         serializers,
         regions,
         specifiedType: const FullType.nullable(
-          _i6.BuiltList,
+          _i3.BuiltList,
           [FullType(String)],
         ),
       ));
@@ -324,7 +321,7 @@ class DeleteStackInstancesInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('OperationPreferences'))
         ..add(serializers.serialize(
           operationPreferences,
-          specifiedType: const FullType(_i4.StackSetOperationPreferences),
+          specifiedType: const FullType(StackSetOperationPreferences),
         ));
     }
     result$
@@ -346,7 +343,7 @@ class DeleteStackInstancesInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
           callAs,
-          specifiedType: const FullType.nullable(_i5.CallAs),
+          specifiedType: const FullType.nullable(CallAs),
         ));
     }
     return result$;

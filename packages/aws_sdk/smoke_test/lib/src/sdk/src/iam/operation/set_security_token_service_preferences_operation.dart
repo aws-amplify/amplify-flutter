@@ -3,19 +3,16 @@
 
 library smoke_test.iam.operation.set_security_token_service_preferences_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i9;
+import 'dart:async' as _i5;
 
-import 'package:aws_common/aws_common.dart' as _i6;
-import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
+import 'package:aws_common/aws_common.dart' as _i4;
+import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smithy_aws/smithy_aws.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/common/endpoint_resolver.dart'
-    as _i7;
-import 'package:smoke_test/src/sdk/src/iam/common/serializers.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/iam/model/set_security_token_service_preferences_request.dart'
-    as _i2;
+import 'package:smithy_aws/smithy_aws.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/common/endpoint_resolver.dart';
+import 'package:smoke_test/src/sdk/src/iam/common/serializers.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart';
+import 'package:smoke_test/src/sdk/src/iam/model/set_security_token_service_preferences_request.dart';
 
 /// Sets the specified version of the global endpoint token as the token version used for the Amazon Web Services account.
 ///
@@ -25,8 +22,8 @@ import 'package:smoke_test/src/sdk/src/iam/model/set_security_token_service_pref
 ///
 /// To view the current session token version, see the `GlobalEndpointTokenVersion` entry in the response of the GetAccountSummary operation.
 class SetSecurityTokenServicePreferencesOperation extends _i1.HttpOperation<
-    _i2.SetSecurityTokenServicePreferencesRequest,
-    _i2.SetSecurityTokenServicePreferencesRequest,
+    SetSecurityTokenServicePreferencesRequest,
+    SetSecurityTokenServicePreferencesRequest,
     _i1.Unit,
     _i1.Unit> {
   /// Sets the specified version of the global endpoint token as the token version used for the Amazon Web Services account.
@@ -39,8 +36,8 @@ class SetSecurityTokenServicePreferencesOperation extends _i1.HttpOperation<
   SetSecurityTokenServicePreferencesOperation({
     required String region,
     Uri? baseUri,
-    _i3.AWSCredentialsProvider credentialsProvider =
-        const _i3.AWSCredentialsProvider.environment(),
+    _i2.AWSCredentialsProvider credentialsProvider =
+        const _i2.AWSCredentialsProvider.environment(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
@@ -52,24 +49,24 @@ class SetSecurityTokenServicePreferencesOperation extends _i1.HttpOperation<
   @override
   late final List<
       _i1.HttpProtocol<
-          _i2.SetSecurityTokenServicePreferencesRequest,
-          _i2.SetSecurityTokenServicePreferencesRequest,
+          SetSecurityTokenServicePreferencesRequest,
+          SetSecurityTokenServicePreferencesRequest,
           _i1.Unit,
           _i1.Unit>> protocols = [
-    _i4.AwsQueryProtocol(
-      serializers: _i5.serializers,
-      builderFactories: _i5.builderFactories,
+    _i3.AwsQueryProtocol(
+      serializers: serializers,
+      builderFactories: builderFactories,
       requestInterceptors: <_i1.HttpRequestInterceptor>[
             const _i1.WithHost(),
             const _i1.WithContentLength(),
-            _i4.WithSigV4(
+            _i3.WithSigV4(
               region: _region,
-              service: _i6.AWSService.iam,
+              service: _i4.AWSService.iam,
               credentialsProvider: _credentialsProvider,
             ),
             const _i1.WithUserAgent('aws-sdk-dart/0.3.1'),
-            const _i4.WithSdkInvocationId(),
-            const _i4.WithSdkRequest(),
+            const _i3.WithSdkInvocationId(),
+            const _i3.WithSdkRequest(),
           ] +
           _requestInterceptors,
       responseInterceptors:
@@ -77,7 +74,7 @@ class SetSecurityTokenServicePreferencesOperation extends _i1.HttpOperation<
       action: 'SetSecurityTokenServicePreferences',
       version: '2010-05-08',
       awsQueryErrors: const [
-        _i4.AwsQueryError(
+        _i3.AwsQueryError(
           shape: 'ServiceFailureException',
           code: 'ServiceFailure',
           httpResponseCode: 500,
@@ -86,8 +83,8 @@ class SetSecurityTokenServicePreferencesOperation extends _i1.HttpOperation<
     )
   ];
 
-  late final _i4.AWSEndpoint _awsEndpoint = _i7.endpointResolver.resolve(
-    _i7.sdkId,
+  late final _i3.AWSEndpoint _awsEndpoint = endpointResolver.resolve(
+    sdkId,
     _region,
   );
 
@@ -95,7 +92,7 @@ class SetSecurityTokenServicePreferencesOperation extends _i1.HttpOperation<
 
   final Uri? _baseUri;
 
-  final _i3.AWSCredentialsProvider _credentialsProvider;
+  final _i2.AWSCredentialsProvider _credentialsProvider;
 
   final List<_i1.HttpRequestInterceptor> _requestInterceptors;
 
@@ -103,7 +100,7 @@ class SetSecurityTokenServicePreferencesOperation extends _i1.HttpOperation<
 
   @override
   _i1.HttpRequest buildRequest(
-          _i2.SetSecurityTokenServicePreferencesRequest input) =>
+          SetSecurityTokenServicePreferencesRequest input) =>
       _i1.HttpRequest((b) {
         b.method = 'POST';
         b.path = r'/';
@@ -113,38 +110,37 @@ class SetSecurityTokenServicePreferencesOperation extends _i1.HttpOperation<
   @override
   _i1.Unit buildOutput(
     _i1.Unit payload,
-    _i6.AWSBaseHttpResponse response,
+    _i4.AWSBaseHttpResponse response,
   ) =>
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError<_i8.ServiceFailureException,
-            _i8.ServiceFailureException>(
+        _i1.SmithyError<ServiceFailureException, ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',
           ),
           _i1.ErrorKind.server,
-          _i8.ServiceFailureException,
+          ServiceFailureException,
           statusCode: 500,
-          builder: _i8.ServiceFailureException.fromResponse,
+          builder: ServiceFailureException.fromResponse,
         )
       ];
   @override
   String get runtimeTypeName => 'SetSecurityTokenServicePreferences';
   @override
-  _i4.AWSRetryer get retryer => _i4.AWSRetryer();
+  _i3.AWSRetryer get retryer => _i3.AWSRetryer();
   @override
   Uri get baseUri => _baseUri ?? endpoint.uri;
   @override
   _i1.Endpoint get endpoint => _awsEndpoint.endpoint;
   @override
   _i1.SmithyOperation<_i1.Unit> run(
-    _i2.SetSecurityTokenServicePreferencesRequest input, {
-    _i6.AWSHttpClient? client,
+    SetSecurityTokenServicePreferencesRequest input, {
+    _i4.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i9.runZoned(
+    return _i5.runZoned(
       () => super.run(
         input,
         client: client,
@@ -152,7 +148,7 @@ class SetSecurityTokenServicePreferencesOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
+        ...{_i4.AWSHeaders.sdkInvocationId: _i4.uuid(secure: true)},
       },
     );
   }

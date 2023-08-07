@@ -6,9 +6,8 @@ library smoke_test.s3.model.sse_kms_encrypted_objects; // ignore_for_file: no_le
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/sse_kms_encrypted_objects_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/sse_kms_encrypted_objects_status.dart';
 
 part 'sse_kms_encrypted_objects.g.dart';
 
@@ -18,7 +17,7 @@ abstract class SseKmsEncryptedObjects
     implements Built<SseKmsEncryptedObjects, SseKmsEncryptedObjectsBuilder> {
   /// A container for filter information for the selection of S3 objects encrypted with Amazon Web Services KMS.
   factory SseKmsEncryptedObjects(
-      {required _i2.SseKmsEncryptedObjectsStatus status}) {
+      {required SseKmsEncryptedObjectsStatus status}) {
     return _$SseKmsEncryptedObjects._(status: status);
   }
 
@@ -29,11 +28,11 @@ abstract class SseKmsEncryptedObjects
 
   const SseKmsEncryptedObjects._();
 
-  static const List<_i3.SmithySerializer<SseKmsEncryptedObjects>> serializers =
+  static const List<_i2.SmithySerializer<SseKmsEncryptedObjects>> serializers =
       [SseKmsEncryptedObjectsRestXmlSerializer()];
 
   /// Specifies whether Amazon S3 replicates objects created with server-side encryption using an Amazon Web Services KMS key stored in Amazon Web Services Key Management Service.
-  _i2.SseKmsEncryptedObjectsStatus get status;
+  SseKmsEncryptedObjectsStatus get status;
   @override
   List<Object?> get props => [status];
   @override
@@ -48,7 +47,7 @@ abstract class SseKmsEncryptedObjects
 }
 
 class SseKmsEncryptedObjectsRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<SseKmsEncryptedObjects> {
+    extends _i2.StructuredSmithySerializer<SseKmsEncryptedObjects> {
   const SseKmsEncryptedObjectsRestXmlSerializer()
       : super('SseKmsEncryptedObjects');
 
@@ -58,8 +57,8 @@ class SseKmsEncryptedObjectsRestXmlSerializer
         _$SseKmsEncryptedObjects,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -83,8 +82,8 @@ class SseKmsEncryptedObjectsRestXmlSerializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.SseKmsEncryptedObjectsStatus),
-          ) as _i2.SseKmsEncryptedObjectsStatus);
+            specifiedType: const FullType(SseKmsEncryptedObjectsStatus),
+          ) as SseKmsEncryptedObjectsStatus);
       }
     }
 
@@ -98,18 +97,17 @@ class SseKmsEncryptedObjectsRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'SseKmsEncryptedObjects',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final SseKmsEncryptedObjects(:status) = object;
     result$
-      ..add(const _i3.XmlElementName('Status'))
+      ..add(const _i2.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType:
-            const FullType.nullable(_i2.SseKmsEncryptedObjectsStatus),
+        specifiedType: const FullType.nullable(SseKmsEncryptedObjectsStatus),
       ));
     return result$;
   }

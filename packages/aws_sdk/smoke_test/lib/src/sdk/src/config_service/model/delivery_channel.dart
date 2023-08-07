@@ -6,9 +6,8 @@ library smoke_test.config_service.model.delivery_channel; // ignore_for_file: no
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/config_snapshot_delivery_properties.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/config_snapshot_delivery_properties.dart';
 
 part 'delivery_channel.g.dart';
 
@@ -23,7 +22,7 @@ abstract class DeliveryChannel
     String? s3KeyPrefix,
     String? s3KmsKeyArn,
     String? snsTopicArn,
-    _i2.ConfigSnapshotDeliveryProperties? configSnapshotDeliveryProperties,
+    ConfigSnapshotDeliveryProperties? configSnapshotDeliveryProperties,
   }) {
     return _$DeliveryChannel._(
       name: name,
@@ -41,7 +40,7 @@ abstract class DeliveryChannel
 
   const DeliveryChannel._();
 
-  static const List<_i3.SmithySerializer<DeliveryChannel>> serializers = [
+  static const List<_i2.SmithySerializer<DeliveryChannel>> serializers = [
     DeliveryChannelAwsJson11Serializer()
   ];
 
@@ -65,7 +64,7 @@ abstract class DeliveryChannel
   String? get snsTopicArn;
 
   /// The options for how often Config delivers configuration snapshots to the Amazon S3 bucket.
-  _i2.ConfigSnapshotDeliveryProperties? get configSnapshotDeliveryProperties;
+  ConfigSnapshotDeliveryProperties? get configSnapshotDeliveryProperties;
   @override
   List<Object?> get props => [
         name,
@@ -107,7 +106,7 @@ abstract class DeliveryChannel
 }
 
 class DeliveryChannelAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<DeliveryChannel> {
+    extends _i2.StructuredSmithySerializer<DeliveryChannel> {
   const DeliveryChannelAwsJson11Serializer() : super('DeliveryChannel');
 
   @override
@@ -116,8 +115,8 @@ class DeliveryChannelAwsJson11Serializer
         _$DeliveryChannel,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -167,8 +166,8 @@ class DeliveryChannelAwsJson11Serializer
           result.configSnapshotDeliveryProperties
               .replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ConfigSnapshotDeliveryProperties),
-          ) as _i2.ConfigSnapshotDeliveryProperties));
+            specifiedType: const FullType(ConfigSnapshotDeliveryProperties),
+          ) as ConfigSnapshotDeliveryProperties));
       }
     }
 
@@ -235,7 +234,7 @@ class DeliveryChannelAwsJson11Serializer
         ..add('configSnapshotDeliveryProperties')
         ..add(serializers.serialize(
           configSnapshotDeliveryProperties,
-          specifiedType: const FullType(_i2.ConfigSnapshotDeliveryProperties),
+          specifiedType: const FullType(ConfigSnapshotDeliveryProperties),
         ));
     }
     return result$;

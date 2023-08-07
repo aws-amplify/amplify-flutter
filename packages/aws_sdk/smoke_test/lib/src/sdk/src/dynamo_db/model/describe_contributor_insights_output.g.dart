@@ -13,13 +13,13 @@ class _$DescribeContributorInsightsOutput
   @override
   final String? indexName;
   @override
-  final _i4.BuiltList<String>? contributorInsightsRuleList;
+  final _i2.BuiltList<String>? contributorInsightsRuleList;
   @override
-  final _i2.ContributorInsightsStatus? contributorInsightsStatus;
+  final ContributorInsightsStatus? contributorInsightsStatus;
   @override
   final DateTime? lastUpdateDateTime;
   @override
-  final _i3.FailureException? failureException;
+  final FailureException? failureException;
 
   factory _$DescribeContributorInsightsOutput(
           [void Function(DescribeContributorInsightsOutputBuilder)? updates]) =>
@@ -84,18 +84,18 @@ class DescribeContributorInsightsOutputBuilder
   String? get indexName => _$this._indexName;
   set indexName(String? indexName) => _$this._indexName = indexName;
 
-  _i4.ListBuilder<String>? _contributorInsightsRuleList;
-  _i4.ListBuilder<String> get contributorInsightsRuleList =>
-      _$this._contributorInsightsRuleList ??= new _i4.ListBuilder<String>();
+  _i2.ListBuilder<String>? _contributorInsightsRuleList;
+  _i2.ListBuilder<String> get contributorInsightsRuleList =>
+      _$this._contributorInsightsRuleList ??= new _i2.ListBuilder<String>();
   set contributorInsightsRuleList(
-          _i4.ListBuilder<String>? contributorInsightsRuleList) =>
+          _i2.ListBuilder<String>? contributorInsightsRuleList) =>
       _$this._contributorInsightsRuleList = contributorInsightsRuleList;
 
-  _i2.ContributorInsightsStatus? _contributorInsightsStatus;
-  _i2.ContributorInsightsStatus? get contributorInsightsStatus =>
+  ContributorInsightsStatus? _contributorInsightsStatus;
+  ContributorInsightsStatus? get contributorInsightsStatus =>
       _$this._contributorInsightsStatus;
   set contributorInsightsStatus(
-          _i2.ContributorInsightsStatus? contributorInsightsStatus) =>
+          ContributorInsightsStatus? contributorInsightsStatus) =>
       _$this._contributorInsightsStatus = contributorInsightsStatus;
 
   DateTime? _lastUpdateDateTime;
@@ -103,10 +103,10 @@ class DescribeContributorInsightsOutputBuilder
   set lastUpdateDateTime(DateTime? lastUpdateDateTime) =>
       _$this._lastUpdateDateTime = lastUpdateDateTime;
 
-  _i3.FailureExceptionBuilder? _failureException;
-  _i3.FailureExceptionBuilder get failureException =>
-      _$this._failureException ??= new _i3.FailureExceptionBuilder();
-  set failureException(_i3.FailureExceptionBuilder? failureException) =>
+  FailureExceptionBuilder? _failureException;
+  FailureExceptionBuilder get failureException =>
+      _$this._failureException ??= new FailureExceptionBuilder();
+  set failureException(FailureExceptionBuilder? failureException) =>
       _$this._failureException = failureException;
 
   DescribeContributorInsightsOutputBuilder();

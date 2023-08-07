@@ -10,11 +10,11 @@ class _$Statement extends Statement {
   @override
   final String? sourcePolicyId;
   @override
-  final _i2.PolicySourceType? sourcePolicyType;
+  final PolicySourceType? sourcePolicyType;
   @override
-  final _i3.Position? startPosition;
+  final Position? startPosition;
   @override
-  final _i3.Position? endPosition;
+  final Position? endPosition;
 
   factory _$Statement([void Function(StatementBuilder)? updates]) =>
       (new StatementBuilder()..update(updates))._build();
@@ -63,21 +63,21 @@ class StatementBuilder implements Builder<Statement, StatementBuilder> {
   set sourcePolicyId(String? sourcePolicyId) =>
       _$this._sourcePolicyId = sourcePolicyId;
 
-  _i2.PolicySourceType? _sourcePolicyType;
-  _i2.PolicySourceType? get sourcePolicyType => _$this._sourcePolicyType;
-  set sourcePolicyType(_i2.PolicySourceType? sourcePolicyType) =>
+  PolicySourceType? _sourcePolicyType;
+  PolicySourceType? get sourcePolicyType => _$this._sourcePolicyType;
+  set sourcePolicyType(PolicySourceType? sourcePolicyType) =>
       _$this._sourcePolicyType = sourcePolicyType;
 
-  _i3.PositionBuilder? _startPosition;
-  _i3.PositionBuilder get startPosition =>
-      _$this._startPosition ??= new _i3.PositionBuilder();
-  set startPosition(_i3.PositionBuilder? startPosition) =>
+  PositionBuilder? _startPosition;
+  PositionBuilder get startPosition =>
+      _$this._startPosition ??= new PositionBuilder();
+  set startPosition(PositionBuilder? startPosition) =>
       _$this._startPosition = startPosition;
 
-  _i3.PositionBuilder? _endPosition;
-  _i3.PositionBuilder get endPosition =>
-      _$this._endPosition ??= new _i3.PositionBuilder();
-  set endPosition(_i3.PositionBuilder? endPosition) =>
+  PositionBuilder? _endPosition;
+  PositionBuilder get endPosition =>
+      _$this._endPosition ??= new PositionBuilder();
+  set endPosition(PositionBuilder? endPosition) =>
       _$this._endPosition = endPosition;
 
   StatementBuilder();

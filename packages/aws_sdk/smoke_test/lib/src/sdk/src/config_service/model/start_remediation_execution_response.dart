@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.start_remediation_execution_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_key.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_key.dart';
 
 part 'start_remediation_execution_response.g.dart';
 
@@ -21,11 +20,11 @@ abstract class StartRemediationExecutionResponse
             StartRemediationExecutionResponseBuilder> {
   factory StartRemediationExecutionResponse({
     String? failureMessage,
-    List<_i2.ResourceKey>? failedItems,
+    List<ResourceKey>? failedItems,
   }) {
     return _$StartRemediationExecutionResponse._(
       failureMessage: failureMessage,
-      failedItems: failedItems == null ? null : _i3.BuiltList(failedItems),
+      failedItems: failedItems == null ? null : _i2.BuiltList(failedItems),
     );
   }
 
@@ -42,14 +41,14 @@ abstract class StartRemediationExecutionResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<StartRemediationExecutionResponse>>
+  static const List<_i3.SmithySerializer<StartRemediationExecutionResponse>>
       serializers = [StartRemediationExecutionResponseAwsJson11Serializer()];
 
   /// Returns a failure message. For example, the resource is already compliant.
   String? get failureMessage;
 
   /// For resources that have failed to start execution, the API returns a resource key object.
-  _i3.BuiltList<_i2.ResourceKey>? get failedItems;
+  _i2.BuiltList<ResourceKey>? get failedItems;
   @override
   List<Object?> get props => [
         failureMessage,
@@ -72,7 +71,7 @@ abstract class StartRemediationExecutionResponse
 }
 
 class StartRemediationExecutionResponseAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<StartRemediationExecutionResponse> {
+    extends _i3.StructuredSmithySerializer<StartRemediationExecutionResponse> {
   const StartRemediationExecutionResponseAwsJson11Serializer()
       : super('StartRemediationExecutionResponse');
 
@@ -82,8 +81,8 @@ class StartRemediationExecutionResponseAwsJson11Serializer
         _$StartRemediationExecutionResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -113,10 +112,10 @@ class StartRemediationExecutionResponseAwsJson11Serializer
           result.failedItems.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.ResourceKey)],
+              _i2.BuiltList,
+              [FullType(ResourceKey)],
             ),
-          ) as _i3.BuiltList<_i2.ResourceKey>));
+          ) as _i2.BuiltList<ResourceKey>));
       }
     }
 
@@ -146,8 +145,8 @@ class StartRemediationExecutionResponseAwsJson11Serializer
         ..add(serializers.serialize(
           failedItems,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.ResourceKey)],
+            _i2.BuiltList,
+            [FullType(ResourceKey)],
           ),
         ));
     }

@@ -8,11 +8,11 @@ part of 'batch_statement_error.dart';
 
 class _$BatchStatementError extends BatchStatementError {
   @override
-  final _i2.BatchStatementErrorCodeEnum? code;
+  final BatchStatementErrorCodeEnum? code;
   @override
   final String? message;
   @override
-  final _i4.BuiltMap<String, _i3.AttributeValue>? item;
+  final _i2.BuiltMap<String, AttributeValue>? item;
 
   factory _$BatchStatementError(
           [void Function(BatchStatementErrorBuilder)? updates]) =>
@@ -53,19 +53,18 @@ class BatchStatementErrorBuilder
     implements Builder<BatchStatementError, BatchStatementErrorBuilder> {
   _$BatchStatementError? _$v;
 
-  _i2.BatchStatementErrorCodeEnum? _code;
-  _i2.BatchStatementErrorCodeEnum? get code => _$this._code;
-  set code(_i2.BatchStatementErrorCodeEnum? code) => _$this._code = code;
+  BatchStatementErrorCodeEnum? _code;
+  BatchStatementErrorCodeEnum? get code => _$this._code;
+  set code(BatchStatementErrorCodeEnum? code) => _$this._code = code;
 
   String? _message;
   String? get message => _$this._message;
   set message(String? message) => _$this._message = message;
 
-  _i4.MapBuilder<String, _i3.AttributeValue>? _item;
-  _i4.MapBuilder<String, _i3.AttributeValue> get item =>
-      _$this._item ??= new _i4.MapBuilder<String, _i3.AttributeValue>();
-  set item(_i4.MapBuilder<String, _i3.AttributeValue>? item) =>
-      _$this._item = item;
+  _i2.MapBuilder<String, AttributeValue>? _item;
+  _i2.MapBuilder<String, AttributeValue> get item =>
+      _$this._item ??= new _i2.MapBuilder<String, AttributeValue>();
+  set item(_i2.MapBuilder<String, AttributeValue>? item) => _$this._item = item;
 
   BatchStatementErrorBuilder();
 

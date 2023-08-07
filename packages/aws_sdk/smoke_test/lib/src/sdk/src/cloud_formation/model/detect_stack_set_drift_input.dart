@@ -7,10 +7,8 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_preferences.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_operation_preferences.dart';
 
 part 'detect_stack_set_drift_input.g.dart';
 
@@ -22,9 +20,9 @@ abstract class DetectStackSetDriftInput
         Built<DetectStackSetDriftInput, DetectStackSetDriftInputBuilder> {
   factory DetectStackSetDriftInput({
     required String stackSetName,
-    _i3.StackSetOperationPreferences? operationPreferences,
+    StackSetOperationPreferences? operationPreferences,
     String? operationId,
-    _i4.CallAs? callAs,
+    CallAs? callAs,
   }) {
     return _$DetectStackSetDriftInput._(
       stackSetName: stackSetName,
@@ -63,7 +61,7 @@ abstract class DetectStackSetDriftInput
   /// The user-specified preferences for how CloudFormation performs a stack set operation.
   ///
   /// For more information about maximum concurrent accounts and failure tolerance, see [Stack set operation options](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-concepts.html#stackset-ops-options).
-  _i3.StackSetOperationPreferences? get operationPreferences;
+  StackSetOperationPreferences? get operationPreferences;
 
   /// _The ID of the stack set operation._
   String? get operationId;
@@ -77,7 +75,7 @@ abstract class DetectStackSetDriftInput
   /// *   If you are signed in to a delegated administrator account, specify `DELEGATED_ADMIN`.
   ///
   ///     Your Amazon Web Services account must be registered as a delegated administrator in the management account. For more information, see [Register a delegated administrator](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html) in the _CloudFormation User Guide_.
-  _i4.CallAs? get callAs;
+  CallAs? get callAs;
   @override
   DetectStackSetDriftInput getPayload() => this;
   @override
@@ -151,8 +149,8 @@ class DetectStackSetDriftInputAwsQuerySerializer
         case 'OperationPreferences':
           result.operationPreferences.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.StackSetOperationPreferences),
-          ) as _i3.StackSetOperationPreferences));
+            specifiedType: const FullType(StackSetOperationPreferences),
+          ) as StackSetOperationPreferences));
         case 'OperationId':
           result.operationId = (serializers.deserialize(
             value,
@@ -161,8 +159,8 @@ class DetectStackSetDriftInputAwsQuerySerializer
         case 'CallAs':
           result.callAs = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.CallAs),
-          ) as _i4.CallAs);
+            specifiedType: const FullType(CallAs),
+          ) as CallAs);
       }
     }
 
@@ -198,7 +196,7 @@ class DetectStackSetDriftInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('OperationPreferences'))
         ..add(serializers.serialize(
           operationPreferences,
-          specifiedType: const FullType(_i3.StackSetOperationPreferences),
+          specifiedType: const FullType(StackSetOperationPreferences),
         ));
     }
     if (operationId != null) {
@@ -214,7 +212,7 @@ class DetectStackSetDriftInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
           callAs,
-          specifiedType: const FullType.nullable(_i4.CallAs),
+          specifiedType: const FullType.nullable(CallAs),
         ));
     }
     return result$;

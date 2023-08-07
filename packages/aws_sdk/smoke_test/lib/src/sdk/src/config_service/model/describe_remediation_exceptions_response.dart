@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.describe_remediation_exceptions_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/remediation_exception.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/remediation_exception.dart';
 
 part 'describe_remediation_exceptions_response.g.dart';
 
@@ -20,13 +19,13 @@ abstract class DescribeRemediationExceptionsResponse
         Built<DescribeRemediationExceptionsResponse,
             DescribeRemediationExceptionsResponseBuilder> {
   factory DescribeRemediationExceptionsResponse({
-    List<_i2.RemediationException>? remediationExceptions,
+    List<RemediationException>? remediationExceptions,
     String? nextToken,
   }) {
     return _$DescribeRemediationExceptionsResponse._(
       remediationExceptions: remediationExceptions == null
           ? null
-          : _i3.BuiltList(remediationExceptions),
+          : _i2.BuiltList(remediationExceptions),
       nextToken: nextToken,
     );
   }
@@ -44,13 +43,13 @@ abstract class DescribeRemediationExceptionsResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<DescribeRemediationExceptionsResponse>>
+  static const List<_i3.SmithySerializer<DescribeRemediationExceptionsResponse>>
       serializers = [
     DescribeRemediationExceptionsResponseAwsJson11Serializer()
   ];
 
   /// Returns a list of remediation exception objects.
-  _i3.BuiltList<_i2.RemediationException>? get remediationExceptions;
+  _i2.BuiltList<RemediationException>? get remediationExceptions;
 
   /// The `nextToken` string returned in a previous request that you use to request the next page of results in a paginated response.
   String? get nextToken;
@@ -75,7 +74,7 @@ abstract class DescribeRemediationExceptionsResponse
   }
 }
 
-class DescribeRemediationExceptionsResponseAwsJson11Serializer extends _i4
+class DescribeRemediationExceptionsResponseAwsJson11Serializer extends _i3
     .StructuredSmithySerializer<DescribeRemediationExceptionsResponse> {
   const DescribeRemediationExceptionsResponseAwsJson11Serializer()
       : super('DescribeRemediationExceptionsResponse');
@@ -86,8 +85,8 @@ class DescribeRemediationExceptionsResponseAwsJson11Serializer extends _i4
         _$DescribeRemediationExceptionsResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -112,10 +111,10 @@ class DescribeRemediationExceptionsResponseAwsJson11Serializer extends _i4
           result.remediationExceptions.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.RemediationException)],
+              _i2.BuiltList,
+              [FullType(RemediationException)],
             ),
-          ) as _i3.BuiltList<_i2.RemediationException>));
+          ) as _i2.BuiltList<RemediationException>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -144,8 +143,8 @@ class DescribeRemediationExceptionsResponseAwsJson11Serializer extends _i4
         ..add(serializers.serialize(
           remediationExceptions,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.RemediationException)],
+            _i2.BuiltList,
+            [FullType(RemediationException)],
           ),
         ));
     }

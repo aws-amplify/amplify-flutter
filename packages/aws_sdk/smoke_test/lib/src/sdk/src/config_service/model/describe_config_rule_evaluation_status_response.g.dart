@@ -9,8 +9,7 @@ part of 'describe_config_rule_evaluation_status_response.dart';
 class _$DescribeConfigRuleEvaluationStatusResponse
     extends DescribeConfigRuleEvaluationStatusResponse {
   @override
-  final _i3.BuiltList<_i2.ConfigRuleEvaluationStatus>?
-      configRulesEvaluationStatus;
+  final _i2.BuiltList<ConfigRuleEvaluationStatus>? configRulesEvaluationStatus;
   @override
   final String? nextToken;
 
@@ -58,12 +57,12 @@ class DescribeConfigRuleEvaluationStatusResponseBuilder
             DescribeConfigRuleEvaluationStatusResponseBuilder> {
   _$DescribeConfigRuleEvaluationStatusResponse? _$v;
 
-  _i3.ListBuilder<_i2.ConfigRuleEvaluationStatus>? _configRulesEvaluationStatus;
-  _i3.ListBuilder<_i2.ConfigRuleEvaluationStatus>
-      get configRulesEvaluationStatus => _$this._configRulesEvaluationStatus ??=
-          new _i3.ListBuilder<_i2.ConfigRuleEvaluationStatus>();
+  _i2.ListBuilder<ConfigRuleEvaluationStatus>? _configRulesEvaluationStatus;
+  _i2.ListBuilder<ConfigRuleEvaluationStatus> get configRulesEvaluationStatus =>
+      _$this._configRulesEvaluationStatus ??=
+          new _i2.ListBuilder<ConfigRuleEvaluationStatus>();
   set configRulesEvaluationStatus(
-          _i3.ListBuilder<_i2.ConfigRuleEvaluationStatus>?
+          _i2.ListBuilder<ConfigRuleEvaluationStatus>?
               configRulesEvaluationStatus) =>
       _$this._configRulesEvaluationStatus = configRulesEvaluationStatus;
 

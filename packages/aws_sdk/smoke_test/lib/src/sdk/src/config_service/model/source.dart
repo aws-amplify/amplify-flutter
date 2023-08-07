@@ -4,15 +4,13 @@
 library smoke_test.config_service.model.source; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/config_service/model/custom_policy_details.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/owner.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/config_service/model/source_detail.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/custom_policy_details.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/owner.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/source_detail.dart';
 
 part 'source.g.dart';
 
@@ -22,16 +20,16 @@ abstract class Source
     implements Built<Source, SourceBuilder> {
   /// Provides the CustomPolicyDetails, the rule owner (`Amazon Web Services` for managed rules, `CUSTOM_POLICY` for Custom Policy rules, and `CUSTOM_LAMBDA` for Custom Lambda rules), the rule identifier, and the events that cause the evaluation of your Amazon Web Services resources.
   factory Source({
-    required _i2.Owner owner,
+    required Owner owner,
     String? sourceIdentifier,
-    List<_i3.SourceDetail>? sourceDetails,
-    _i4.CustomPolicyDetails? customPolicyDetails,
+    List<SourceDetail>? sourceDetails,
+    CustomPolicyDetails? customPolicyDetails,
   }) {
     return _$Source._(
       owner: owner,
       sourceIdentifier: sourceIdentifier,
       sourceDetails:
-          sourceDetails == null ? null : _i5.BuiltList(sourceDetails),
+          sourceDetails == null ? null : _i2.BuiltList(sourceDetails),
       customPolicyDetails: customPolicyDetails,
     );
   }
@@ -41,7 +39,7 @@ abstract class Source
 
   const Source._();
 
-  static const List<_i6.SmithySerializer<Source>> serializers = [
+  static const List<_i3.SmithySerializer<Source>> serializers = [
     SourceAwsJson11Serializer()
   ];
 
@@ -50,7 +48,7 @@ abstract class Source
   /// Config Managed Rules are predefined rules owned by Amazon Web Services. For more information, see [Config Managed Rules](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config_use-managed-rules.html) in the _Config developer guide_.
   ///
   /// Config Custom Rules are rules that you can develop either with Guard (`CUSTOM_POLICY`) or Lambda (`CUSTOM_LAMBDA`). For more information, see [Config Custom Rules](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config_develop-rules.html) in the _Config developer guide_.
-  _i2.Owner get owner;
+  Owner get owner;
 
   /// For Config Managed rules, a predefined identifier from a list. For example, `IAM\_PASSWORD\_POLICY` is a managed rule. To reference a managed rule, see [List of Config Managed Rules](https://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html).
   ///
@@ -62,10 +60,10 @@ abstract class Source
   /// Provides the source and the message types that cause Config to evaluate your Amazon Web Services resources against a rule. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic.
   ///
   /// If the owner is set to `CUSTOM_POLICY`, the only acceptable values for the Config rule trigger message type are `ConfigurationItemChangeNotification` and `OversizedConfigurationItemChangeNotification`.
-  _i5.BuiltList<_i3.SourceDetail>? get sourceDetails;
+  _i2.BuiltList<SourceDetail>? get sourceDetails;
 
   /// Provides the runtime system, policy definition, and whether debug logging is enabled. Required when owner is set to `CUSTOM_POLICY`.
-  _i4.CustomPolicyDetails? get customPolicyDetails;
+  CustomPolicyDetails? get customPolicyDetails;
   @override
   List<Object?> get props => [
         owner,
@@ -96,7 +94,7 @@ abstract class Source
   }
 }
 
-class SourceAwsJson11Serializer extends _i6.StructuredSmithySerializer<Source> {
+class SourceAwsJson11Serializer extends _i3.StructuredSmithySerializer<Source> {
   const SourceAwsJson11Serializer() : super('Source');
 
   @override
@@ -105,8 +103,8 @@ class SourceAwsJson11Serializer extends _i6.StructuredSmithySerializer<Source> {
         _$Source,
       ];
   @override
-  Iterable<_i6.ShapeId> get supportedProtocols => const [
-        _i6.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -130,8 +128,8 @@ class SourceAwsJson11Serializer extends _i6.StructuredSmithySerializer<Source> {
         case 'Owner':
           result.owner = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Owner),
-          ) as _i2.Owner);
+            specifiedType: const FullType(Owner),
+          ) as Owner);
         case 'SourceIdentifier':
           result.sourceIdentifier = (serializers.deserialize(
             value,
@@ -141,15 +139,15 @@ class SourceAwsJson11Serializer extends _i6.StructuredSmithySerializer<Source> {
           result.sourceDetails.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(_i3.SourceDetail)],
+              _i2.BuiltList,
+              [FullType(SourceDetail)],
             ),
-          ) as _i5.BuiltList<_i3.SourceDetail>));
+          ) as _i2.BuiltList<SourceDetail>));
         case 'CustomPolicyDetails':
           result.customPolicyDetails.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.CustomPolicyDetails),
-          ) as _i4.CustomPolicyDetails));
+            specifiedType: const FullType(CustomPolicyDetails),
+          ) as CustomPolicyDetails));
       }
     }
 
@@ -173,7 +171,7 @@ class SourceAwsJson11Serializer extends _i6.StructuredSmithySerializer<Source> {
       'Owner',
       serializers.serialize(
         owner,
-        specifiedType: const FullType(_i2.Owner),
+        specifiedType: const FullType(Owner),
       ),
     ]);
     if (sourceIdentifier != null) {
@@ -190,8 +188,8 @@ class SourceAwsJson11Serializer extends _i6.StructuredSmithySerializer<Source> {
         ..add(serializers.serialize(
           sourceDetails,
           specifiedType: const FullType(
-            _i5.BuiltList,
-            [FullType(_i3.SourceDetail)],
+            _i2.BuiltList,
+            [FullType(SourceDetail)],
           ),
         ));
     }
@@ -200,7 +198,7 @@ class SourceAwsJson11Serializer extends _i6.StructuredSmithySerializer<Source> {
         ..add('CustomPolicyDetails')
         ..add(serializers.serialize(
           customPolicyDetails,
-          specifiedType: const FullType(_i4.CustomPolicyDetails),
+          specifiedType: const FullType(CustomPolicyDetails),
         ));
     }
     return result$;

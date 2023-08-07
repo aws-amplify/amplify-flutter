@@ -6,9 +6,8 @@ library smoke_test.iam.model.upload_signing_certificate_response; // ignore_for_
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/signing_certificate.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/signing_certificate.dart';
 
 part 'upload_signing_certificate_response.g.dart';
 
@@ -21,7 +20,7 @@ abstract class UploadSigningCertificateResponse
             UploadSigningCertificateResponseBuilder> {
   /// Contains the response to a successful UploadSigningCertificate request.
   factory UploadSigningCertificateResponse(
-      {required _i2.SigningCertificate certificate}) {
+      {required SigningCertificate certificate}) {
     return _$UploadSigningCertificateResponse._(certificate: certificate);
   }
 
@@ -39,11 +38,11 @@ abstract class UploadSigningCertificateResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<UploadSigningCertificateResponse>>
+  static const List<_i2.SmithySerializer<UploadSigningCertificateResponse>>
       serializers = [UploadSigningCertificateResponseAwsQuerySerializer()];
 
   /// Information about the certificate.
-  _i2.SigningCertificate get certificate;
+  SigningCertificate get certificate;
   @override
   List<Object?> get props => [certificate];
   @override
@@ -59,7 +58,7 @@ abstract class UploadSigningCertificateResponse
 }
 
 class UploadSigningCertificateResponseAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<UploadSigningCertificateResponse> {
+    extends _i2.StructuredSmithySerializer<UploadSigningCertificateResponse> {
   const UploadSigningCertificateResponseAwsQuerySerializer()
       : super('UploadSigningCertificateResponse');
 
@@ -69,8 +68,8 @@ class UploadSigningCertificateResponseAwsQuerySerializer
         _$UploadSigningCertificateResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -94,8 +93,8 @@ class UploadSigningCertificateResponseAwsQuerySerializer
         case 'Certificate':
           result.certificate.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.SigningCertificate),
-          ) as _i2.SigningCertificate));
+            specifiedType: const FullType(SigningCertificate),
+          ) as SigningCertificate));
       }
     }
 
@@ -109,17 +108,17 @@ class UploadSigningCertificateResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'UploadSigningCertificateResponseResponse',
-        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final UploadSigningCertificateResponse(:certificate) = object;
     result$
-      ..add(const _i3.XmlElementName('Certificate'))
+      ..add(const _i2.XmlElementName('Certificate'))
       ..add(serializers.serialize(
         certificate,
-        specifiedType: const FullType(_i2.SigningCertificate),
+        specifiedType: const FullType(SigningCertificate),
       ));
     return result$;
   }

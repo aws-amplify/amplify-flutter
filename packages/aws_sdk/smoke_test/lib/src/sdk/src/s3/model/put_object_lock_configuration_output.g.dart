@@ -9,7 +9,7 @@ part of 'put_object_lock_configuration_output.dart';
 class _$PutObjectLockConfigurationOutput
     extends PutObjectLockConfigurationOutput {
   @override
-  final _i3.RequestCharged? requestCharged;
+  final RequestCharged? requestCharged;
 
   factory _$PutObjectLockConfigurationOutput(
           [void Function(PutObjectLockConfigurationOutputBuilder)? updates]) =>
@@ -48,9 +48,9 @@ class PutObjectLockConfigurationOutputBuilder
             PutObjectLockConfigurationOutputBuilder> {
   _$PutObjectLockConfigurationOutput? _$v;
 
-  _i3.RequestCharged? _requestCharged;
-  _i3.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i3.RequestCharged? requestCharged) =>
+  RequestCharged? _requestCharged;
+  RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
   PutObjectLockConfigurationOutputBuilder();

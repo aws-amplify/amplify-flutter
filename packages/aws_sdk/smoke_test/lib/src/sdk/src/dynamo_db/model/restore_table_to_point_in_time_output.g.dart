@@ -9,7 +9,7 @@ part of 'restore_table_to_point_in_time_output.dart';
 class _$RestoreTableToPointInTimeOutput
     extends RestoreTableToPointInTimeOutput {
   @override
-  final _i2.TableDescription? tableDescription;
+  final TableDescription? tableDescription;
 
   factory _$RestoreTableToPointInTimeOutput(
           [void Function(RestoreTableToPointInTimeOutputBuilder)? updates]) =>
@@ -48,10 +48,10 @@ class RestoreTableToPointInTimeOutputBuilder
             RestoreTableToPointInTimeOutputBuilder> {
   _$RestoreTableToPointInTimeOutput? _$v;
 
-  _i2.TableDescriptionBuilder? _tableDescription;
-  _i2.TableDescriptionBuilder get tableDescription =>
-      _$this._tableDescription ??= new _i2.TableDescriptionBuilder();
-  set tableDescription(_i2.TableDescriptionBuilder? tableDescription) =>
+  TableDescriptionBuilder? _tableDescription;
+  TableDescriptionBuilder get tableDescription =>
+      _$this._tableDescription ??= new TableDescriptionBuilder();
+  set tableDescription(TableDescriptionBuilder? tableDescription) =>
       _$this._tableDescription = tableDescription;
 
   RestoreTableToPointInTimeOutputBuilder();

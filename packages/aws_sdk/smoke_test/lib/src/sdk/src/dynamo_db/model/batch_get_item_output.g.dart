@@ -8,12 +8,12 @@ part of 'batch_get_item_output.dart';
 
 class _$BatchGetItemOutput extends BatchGetItemOutput {
   @override
-  final _i5.BuiltListMultimap<String, _i5.BuiltMap<String, _i2.AttributeValue>>?
+  final _i2.BuiltListMultimap<String, _i2.BuiltMap<String, AttributeValue>>?
       responses;
   @override
-  final _i5.BuiltMap<String, _i3.KeysAndAttributes>? unprocessedKeys;
+  final _i2.BuiltMap<String, KeysAndAttributes>? unprocessedKeys;
   @override
-  final _i5.BuiltList<_i4.ConsumedCapacity>? consumedCapacity;
+  final _i2.BuiltList<ConsumedCapacity>? consumedCapacity;
 
   factory _$BatchGetItemOutput(
           [void Function(BatchGetItemOutputBuilder)? updates]) =>
@@ -56,30 +56,28 @@ class BatchGetItemOutputBuilder
     implements Builder<BatchGetItemOutput, BatchGetItemOutputBuilder> {
   _$BatchGetItemOutput? _$v;
 
-  _i5.ListMultimapBuilder<String, _i5.BuiltMap<String, _i2.AttributeValue>>?
+  _i2.ListMultimapBuilder<String, _i2.BuiltMap<String, AttributeValue>>?
       _responses;
-  _i5.ListMultimapBuilder<String, _i5.BuiltMap<String, _i2.AttributeValue>>
-      get responses => _$this._responses ??= new _i5.ListMultimapBuilder<String,
-          _i5.BuiltMap<String, _i2.AttributeValue>>();
+  _i2.ListMultimapBuilder<String, _i2.BuiltMap<String, AttributeValue>>
+      get responses => _$this._responses ??= new _i2
+          .ListMultimapBuilder<String, _i2.BuiltMap<String, AttributeValue>>();
   set responses(
-          _i5.ListMultimapBuilder<String,
-                  _i5.BuiltMap<String, _i2.AttributeValue>>?
+          _i2.ListMultimapBuilder<String, _i2.BuiltMap<String, AttributeValue>>?
               responses) =>
       _$this._responses = responses;
 
-  _i5.MapBuilder<String, _i3.KeysAndAttributes>? _unprocessedKeys;
-  _i5.MapBuilder<String, _i3.KeysAndAttributes> get unprocessedKeys =>
+  _i2.MapBuilder<String, KeysAndAttributes>? _unprocessedKeys;
+  _i2.MapBuilder<String, KeysAndAttributes> get unprocessedKeys =>
       _$this._unprocessedKeys ??=
-          new _i5.MapBuilder<String, _i3.KeysAndAttributes>();
+          new _i2.MapBuilder<String, KeysAndAttributes>();
   set unprocessedKeys(
-          _i5.MapBuilder<String, _i3.KeysAndAttributes>? unprocessedKeys) =>
+          _i2.MapBuilder<String, KeysAndAttributes>? unprocessedKeys) =>
       _$this._unprocessedKeys = unprocessedKeys;
 
-  _i5.ListBuilder<_i4.ConsumedCapacity>? _consumedCapacity;
-  _i5.ListBuilder<_i4.ConsumedCapacity> get consumedCapacity =>
-      _$this._consumedCapacity ??= new _i5.ListBuilder<_i4.ConsumedCapacity>();
-  set consumedCapacity(
-          _i5.ListBuilder<_i4.ConsumedCapacity>? consumedCapacity) =>
+  _i2.ListBuilder<ConsumedCapacity>? _consumedCapacity;
+  _i2.ListBuilder<ConsumedCapacity> get consumedCapacity =>
+      _$this._consumedCapacity ??= new _i2.ListBuilder<ConsumedCapacity>();
+  set consumedCapacity(_i2.ListBuilder<ConsumedCapacity>? consumedCapacity) =>
       _$this._consumedCapacity = consumedCapacity;
 
   BatchGetItemOutputBuilder();

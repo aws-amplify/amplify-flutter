@@ -12,13 +12,13 @@ class _$ForgotPasswordRequest extends ForgotPasswordRequest {
   @override
   final String? secretHash;
   @override
-  final _i3.UserContextDataType? userContextData;
+  final UserContextDataType? userContextData;
   @override
   final String username;
   @override
-  final _i4.AnalyticsMetadataType? analyticsMetadata;
+  final AnalyticsMetadataType? analyticsMetadata;
   @override
-  final _i5.BuiltMap<String, String>? clientMetadata;
+  final _i3.BuiltMap<String, String>? clientMetadata;
 
   factory _$ForgotPasswordRequest(
           [void Function(ForgotPasswordRequestBuilder)? updates]) =>
@@ -85,26 +85,26 @@ class ForgotPasswordRequestBuilder
   String? get secretHash => _$this._secretHash;
   set secretHash(String? secretHash) => _$this._secretHash = secretHash;
 
-  _i3.UserContextDataTypeBuilder? _userContextData;
-  _i3.UserContextDataTypeBuilder get userContextData =>
-      _$this._userContextData ??= new _i3.UserContextDataTypeBuilder();
-  set userContextData(_i3.UserContextDataTypeBuilder? userContextData) =>
+  UserContextDataTypeBuilder? _userContextData;
+  UserContextDataTypeBuilder get userContextData =>
+      _$this._userContextData ??= new UserContextDataTypeBuilder();
+  set userContextData(UserContextDataTypeBuilder? userContextData) =>
       _$this._userContextData = userContextData;
 
   String? _username;
   String? get username => _$this._username;
   set username(String? username) => _$this._username = username;
 
-  _i4.AnalyticsMetadataTypeBuilder? _analyticsMetadata;
-  _i4.AnalyticsMetadataTypeBuilder get analyticsMetadata =>
-      _$this._analyticsMetadata ??= new _i4.AnalyticsMetadataTypeBuilder();
-  set analyticsMetadata(_i4.AnalyticsMetadataTypeBuilder? analyticsMetadata) =>
+  AnalyticsMetadataTypeBuilder? _analyticsMetadata;
+  AnalyticsMetadataTypeBuilder get analyticsMetadata =>
+      _$this._analyticsMetadata ??= new AnalyticsMetadataTypeBuilder();
+  set analyticsMetadata(AnalyticsMetadataTypeBuilder? analyticsMetadata) =>
       _$this._analyticsMetadata = analyticsMetadata;
 
-  _i5.MapBuilder<String, String>? _clientMetadata;
-  _i5.MapBuilder<String, String> get clientMetadata =>
-      _$this._clientMetadata ??= new _i5.MapBuilder<String, String>();
-  set clientMetadata(_i5.MapBuilder<String, String>? clientMetadata) =>
+  _i3.MapBuilder<String, String>? _clientMetadata;
+  _i3.MapBuilder<String, String> get clientMetadata =>
+      _$this._clientMetadata ??= new _i3.MapBuilder<String, String>();
+  set clientMetadata(_i3.MapBuilder<String, String>? clientMetadata) =>
       _$this._clientMetadata = clientMetadata;
 
   ForgotPasswordRequestBuilder();

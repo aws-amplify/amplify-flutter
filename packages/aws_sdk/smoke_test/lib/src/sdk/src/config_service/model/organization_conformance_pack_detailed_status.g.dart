@@ -13,7 +13,7 @@ class _$OrganizationConformancePackDetailedStatus
   @override
   final String conformancePackName;
   @override
-  final _i2.OrganizationResourceDetailedStatus status;
+  final OrganizationResourceDetailedStatus status;
   @override
   final String? errorCode;
   @override
@@ -94,9 +94,9 @@ class OrganizationConformancePackDetailedStatusBuilder
   set conformancePackName(String? conformancePackName) =>
       _$this._conformancePackName = conformancePackName;
 
-  _i2.OrganizationResourceDetailedStatus? _status;
-  _i2.OrganizationResourceDetailedStatus? get status => _$this._status;
-  set status(_i2.OrganizationResourceDetailedStatus? status) =>
+  OrganizationResourceDetailedStatus? _status;
+  OrganizationResourceDetailedStatus? get status => _$this._status;
+  set status(OrganizationResourceDetailedStatus? status) =>
       _$this._status = status;
 
   String? _errorCode;

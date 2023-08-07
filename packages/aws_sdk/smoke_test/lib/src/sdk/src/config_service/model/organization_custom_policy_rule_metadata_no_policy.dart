@@ -4,14 +4,12 @@
 library smoke_test.config_service.model.organization_custom_policy_rule_metadata_no_policy; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/config_service/model/maximum_execution_frequency.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/organization_config_rule_trigger_type_no_sn.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/maximum_execution_frequency.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/organization_config_rule_trigger_type_no_sn.dart';
 
 part 'organization_custom_policy_rule_metadata_no_policy.g.dart';
 
@@ -25,10 +23,10 @@ abstract class OrganizationCustomPolicyRuleMetadataNoPolicy
   /// metadata for your organization Config Custom Policy rule including the runtime system in use, which accounts have debug logging enabled, and other custom rule metadata such as resource type, resource ID of Amazon Web Services resource, and organization trigger types that trigger Config to evaluate Amazon Web Services resources against a rule.
   factory OrganizationCustomPolicyRuleMetadataNoPolicy({
     String? description,
-    List<_i2.OrganizationConfigRuleTriggerTypeNoSn>?
+    List<OrganizationConfigRuleTriggerTypeNoSn>?
         organizationConfigRuleTriggerTypes,
     String? inputParameters,
-    _i3.MaximumExecutionFrequency? maximumExecutionFrequency,
+    MaximumExecutionFrequency? maximumExecutionFrequency,
     List<String>? resourceTypesScope,
     String? resourceIdScope,
     String? tagKeyScope,
@@ -41,18 +39,18 @@ abstract class OrganizationCustomPolicyRuleMetadataNoPolicy
       organizationConfigRuleTriggerTypes:
           organizationConfigRuleTriggerTypes == null
               ? null
-              : _i4.BuiltList(organizationConfigRuleTriggerTypes),
+              : _i2.BuiltList(organizationConfigRuleTriggerTypes),
       inputParameters: inputParameters,
       maximumExecutionFrequency: maximumExecutionFrequency,
       resourceTypesScope:
-          resourceTypesScope == null ? null : _i4.BuiltList(resourceTypesScope),
+          resourceTypesScope == null ? null : _i2.BuiltList(resourceTypesScope),
       resourceIdScope: resourceIdScope,
       tagKeyScope: tagKeyScope,
       tagValueScope: tagValueScope,
       policyRuntime: policyRuntime,
       debugLogDeliveryAccounts: debugLogDeliveryAccounts == null
           ? null
-          : _i4.BuiltList(debugLogDeliveryAccounts),
+          : _i2.BuiltList(debugLogDeliveryAccounts),
     );
   }
 
@@ -64,7 +62,7 @@ abstract class OrganizationCustomPolicyRuleMetadataNoPolicy
   const OrganizationCustomPolicyRuleMetadataNoPolicy._();
 
   static const List<
-          _i5.SmithySerializer<OrganizationCustomPolicyRuleMetadataNoPolicy>>
+          _i3.SmithySerializer<OrganizationCustomPolicyRuleMetadataNoPolicy>>
       serializers = [
     OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer()
   ];
@@ -77,17 +75,17 @@ abstract class OrganizationCustomPolicyRuleMetadataNoPolicy
   /// *   `ConfigurationItemChangeNotification` \- Triggers an evaluation when Config delivers a configuration item as a result of a resource change.
   ///
   /// *   `OversizedConfigurationItemChangeNotification` \- Triggers an evaluation when Config delivers an oversized configuration item. Config may generate this notification type when a resource changes and the notification exceeds the maximum size allowed by Amazon SNS.
-  _i4.BuiltList<_i2.OrganizationConfigRuleTriggerTypeNoSn>?
+  _i2.BuiltList<OrganizationConfigRuleTriggerTypeNoSn>?
       get organizationConfigRuleTriggerTypes;
 
   /// A string, in JSON format, that is passed to your organization Config Custom Policy rule.
   String? get inputParameters;
 
   /// The maximum frequency with which Config runs evaluations for a rule. Your Config Custom Policy rule is triggered when Config delivers the configuration snapshot. For more information, see ConfigSnapshotDeliveryProperties.
-  _i3.MaximumExecutionFrequency? get maximumExecutionFrequency;
+  MaximumExecutionFrequency? get maximumExecutionFrequency;
 
   /// The type of the Amazon Web Services resource that was evaluated.
-  _i4.BuiltList<String>? get resourceTypesScope;
+  _i2.BuiltList<String>? get resourceTypesScope;
 
   /// The ID of the Amazon Web Services resource that was evaluated.
   String? get resourceIdScope;
@@ -102,7 +100,7 @@ abstract class OrganizationCustomPolicyRuleMetadataNoPolicy
   String? get policyRuntime;
 
   /// A list of accounts that you can enable debug logging for your organization Config Custom Policy rule. List is null when debug logging is enabled for all accounts.
-  _i4.BuiltList<String>? get debugLogDeliveryAccounts;
+  _i2.BuiltList<String>? get debugLogDeliveryAccounts;
   @override
   List<Object?> get props => [
         description,
@@ -165,7 +163,7 @@ abstract class OrganizationCustomPolicyRuleMetadataNoPolicy
 }
 
 class OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer
-    extends _i5
+    extends _i3
     .StructuredSmithySerializer<OrganizationCustomPolicyRuleMetadataNoPolicy> {
   const OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer()
       : super('OrganizationCustomPolicyRuleMetadataNoPolicy');
@@ -176,8 +174,8 @@ class OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer
         _$OrganizationCustomPolicyRuleMetadataNoPolicy,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -208,10 +206,10 @@ class OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer
               .replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i2.OrganizationConfigRuleTriggerTypeNoSn)],
+              _i2.BuiltList,
+              [FullType(OrganizationConfigRuleTriggerTypeNoSn)],
             ),
-          ) as _i4.BuiltList<_i2.OrganizationConfigRuleTriggerTypeNoSn>));
+          ) as _i2.BuiltList<OrganizationConfigRuleTriggerTypeNoSn>));
         case 'InputParameters':
           result.inputParameters = (serializers.deserialize(
             value,
@@ -220,16 +218,16 @@ class OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer
         case 'MaximumExecutionFrequency':
           result.maximumExecutionFrequency = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.MaximumExecutionFrequency),
-          ) as _i3.MaximumExecutionFrequency);
+            specifiedType: const FullType(MaximumExecutionFrequency),
+          ) as MaximumExecutionFrequency);
         case 'ResourceTypesScope':
           result.resourceTypesScope.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i4.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
         case 'ResourceIdScope':
           result.resourceIdScope = (serializers.deserialize(
             value,
@@ -254,10 +252,10 @@ class OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer
           result.debugLogDeliveryAccounts.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i4.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
       }
     }
 
@@ -297,8 +295,8 @@ class OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer
         ..add(serializers.serialize(
           organizationConfigRuleTriggerTypes,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i2.OrganizationConfigRuleTriggerTypeNoSn)],
+            _i2.BuiltList,
+            [FullType(OrganizationConfigRuleTriggerTypeNoSn)],
           ),
         ));
     }
@@ -315,7 +313,7 @@ class OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer
         ..add('MaximumExecutionFrequency')
         ..add(serializers.serialize(
           maximumExecutionFrequency,
-          specifiedType: const FullType(_i3.MaximumExecutionFrequency),
+          specifiedType: const FullType(MaximumExecutionFrequency),
         ));
     }
     if (resourceTypesScope != null) {
@@ -324,7 +322,7 @@ class OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer
         ..add(serializers.serialize(
           resourceTypesScope,
           specifiedType: const FullType(
-            _i4.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -367,7 +365,7 @@ class OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer
         ..add(serializers.serialize(
           debugLogDeliveryAccounts,
           specifiedType: const FullType(
-            _i4.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));

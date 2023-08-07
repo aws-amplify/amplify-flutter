@@ -3,37 +3,33 @@
 
 library smoke_test.s3.model.restore_object_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_common/aws_common.dart' as _i3;
+import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/glacier_job_parameters.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/s3/model/output_location.dart' as _i10;
-import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/restore_request.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/restore_request_type.dart'
-    as _i7;
-import 'package:smoke_test/src/sdk/src/s3/model/select_parameters.dart' as _i9;
-import 'package:smoke_test/src/sdk/src/s3/model/tier.dart' as _i8;
+import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/glacier_job_parameters.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/output_location.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/restore_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/restore_request_type.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/select_parameters.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/tier.dart';
 
 part 'restore_object_request.g.dart';
 
 abstract class RestoreObjectRequest
-    with
-        _i1.HttpInput<_i2.RestoreRequest>,
-        _i3.AWSEquatable<RestoreObjectRequest>
+    with _i1.HttpInput<RestoreRequest>, _i2.AWSEquatable<RestoreObjectRequest>
     implements
         Built<RestoreObjectRequest, RestoreObjectRequestBuilder>,
-        _i1.HasPayload<_i2.RestoreRequest> {
+        _i1.HasPayload<RestoreRequest> {
   factory RestoreObjectRequest({
     required String bucket,
     required String key,
     String? versionId,
-    _i2.RestoreRequest? restoreRequest,
-    _i4.RequestPayer? requestPayer,
-    _i5.ChecksumAlgorithm? checksumAlgorithm,
+    RestoreRequest? restoreRequest,
+    RequestPayer? requestPayer,
+    ChecksumAlgorithm? checksumAlgorithm,
     String? expectedBucketOwner,
   }) {
     return _$RestoreObjectRequest._(
@@ -54,8 +50,8 @@ abstract class RestoreObjectRequest
   const RestoreObjectRequest._();
 
   factory RestoreObjectRequest.fromRequest(
-    _i2.RestoreRequest? payload,
-    _i3.AWSBaseHttpRequest request, {
+    RestoreRequest? payload,
+    _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
       RestoreObjectRequest.build((b) {
@@ -63,11 +59,11 @@ abstract class RestoreObjectRequest
           b.restoreRequest.replace(payload);
         }
         if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = _i4.RequestPayer.values
+          b.requestPayer = RequestPayer.values
               .byValue(request.headers['x-amz-request-payer']!);
         }
         if (request.headers['x-amz-sdk-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = _i5.ChecksumAlgorithm.values
+          b.checksumAlgorithm = ChecksumAlgorithm.values
               .byValue(request.headers['x-amz-sdk-checksum-algorithm']!);
         }
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
@@ -85,7 +81,7 @@ abstract class RestoreObjectRequest
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.RestoreRequest?>> serializers = [
+  static const List<_i1.SmithySerializer<RestoreRequest?>> serializers = [
     RestoreObjectRequestRestXmlSerializer()
   ];
 
@@ -103,15 +99,15 @@ abstract class RestoreObjectRequest
   String? get versionId;
 
   /// Container for restore job parameters.
-  _i2.RestoreRequest? get restoreRequest;
+  RestoreRequest? get restoreRequest;
 
   /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
-  _i4.RequestPayer? get requestPayer;
+  RequestPayer? get requestPayer;
 
   /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
   ///
   /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
-  _i5.ChecksumAlgorithm? get checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
@@ -130,7 +126,7 @@ abstract class RestoreObjectRequest
   }
 
   @override
-  _i2.RestoreRequest? getPayload() => restoreRequest ?? _i2.RestoreRequest();
+  RestoreRequest? getPayload() => restoreRequest ?? RestoreRequest();
   @override
   List<Object?> get props => [
         bucket,
@@ -177,7 +173,7 @@ abstract class RestoreObjectRequest
 }
 
 class RestoreObjectRequestRestXmlSerializer
-    extends _i1.StructuredSmithySerializer<_i2.RestoreRequest> {
+    extends _i1.StructuredSmithySerializer<RestoreRequest> {
   const RestoreObjectRequestRestXmlSerializer() : super('RestoreObjectRequest');
 
   @override
@@ -193,12 +189,12 @@ class RestoreObjectRequestRestXmlSerializer
         )
       ];
   @override
-  _i2.RestoreRequest deserialize(
+  RestoreRequest deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i2.RestoreRequestBuilder();
+    final result = RestoreRequestBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -216,18 +212,18 @@ class RestoreObjectRequestRestXmlSerializer
         case 'GlacierJobParameters':
           result.glacierJobParameters.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.GlacierJobParameters),
-          ) as _i6.GlacierJobParameters));
+            specifiedType: const FullType(GlacierJobParameters),
+          ) as GlacierJobParameters));
         case 'Type':
           result.type = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i7.RestoreRequestType),
-          ) as _i7.RestoreRequestType);
+            specifiedType: const FullType(RestoreRequestType),
+          ) as RestoreRequestType);
         case 'Tier':
           result.tier = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i8.Tier),
-          ) as _i8.Tier);
+            specifiedType: const FullType(Tier),
+          ) as Tier);
         case 'Description':
           result.description = (serializers.deserialize(
             value,
@@ -236,13 +232,13 @@ class RestoreObjectRequestRestXmlSerializer
         case 'SelectParameters':
           result.selectParameters.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i9.SelectParameters),
-          ) as _i9.SelectParameters));
+            specifiedType: const FullType(SelectParameters),
+          ) as SelectParameters));
         case 'OutputLocation':
           result.outputLocation.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i10.OutputLocation),
-          ) as _i10.OutputLocation));
+            specifiedType: const FullType(OutputLocation),
+          ) as OutputLocation));
       }
     }
 
@@ -252,7 +248,7 @@ class RestoreObjectRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i2.RestoreRequest object, {
+    RestoreRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -261,7 +257,7 @@ class RestoreObjectRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i2.RestoreRequest(
+    final RestoreRequest(
       :days,
       :glacierJobParameters,
       :type,
@@ -283,7 +279,7 @@ class RestoreObjectRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('GlacierJobParameters'))
         ..add(serializers.serialize(
           glacierJobParameters,
-          specifiedType: const FullType(_i6.GlacierJobParameters),
+          specifiedType: const FullType(GlacierJobParameters),
         ));
     }
     if (type != null) {
@@ -291,7 +287,7 @@ class RestoreObjectRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('Type'))
         ..add(serializers.serialize(
           type,
-          specifiedType: const FullType.nullable(_i7.RestoreRequestType),
+          specifiedType: const FullType.nullable(RestoreRequestType),
         ));
     }
     if (tier != null) {
@@ -299,7 +295,7 @@ class RestoreObjectRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('Tier'))
         ..add(serializers.serialize(
           tier,
-          specifiedType: const FullType.nullable(_i8.Tier),
+          specifiedType: const FullType.nullable(Tier),
         ));
     }
     if (description != null) {
@@ -315,7 +311,7 @@ class RestoreObjectRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('SelectParameters'))
         ..add(serializers.serialize(
           selectParameters,
-          specifiedType: const FullType(_i9.SelectParameters),
+          specifiedType: const FullType(SelectParameters),
         ));
     }
     if (outputLocation != null) {
@@ -323,7 +319,7 @@ class RestoreObjectRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('OutputLocation'))
         ..add(serializers.serialize(
           outputLocation,
-          specifiedType: const FullType(_i10.OutputLocation),
+          specifiedType: const FullType(OutputLocation),
         ));
     }
     return result$;

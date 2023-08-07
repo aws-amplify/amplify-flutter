@@ -11,7 +11,7 @@ class _$GetAggregateResourceConfigRequest
   @override
   final String configurationAggregatorName;
   @override
-  final _i3.AggregateResourceIdentifier resourceIdentifier;
+  final AggregateResourceIdentifier resourceIdentifier;
 
   factory _$GetAggregateResourceConfigRequest(
           [void Function(GetAggregateResourceConfigRequestBuilder)? updates]) =>
@@ -67,12 +67,11 @@ class GetAggregateResourceConfigRequestBuilder
   set configurationAggregatorName(String? configurationAggregatorName) =>
       _$this._configurationAggregatorName = configurationAggregatorName;
 
-  _i3.AggregateResourceIdentifierBuilder? _resourceIdentifier;
-  _i3.AggregateResourceIdentifierBuilder get resourceIdentifier =>
-      _$this._resourceIdentifier ??=
-          new _i3.AggregateResourceIdentifierBuilder();
+  AggregateResourceIdentifierBuilder? _resourceIdentifier;
+  AggregateResourceIdentifierBuilder get resourceIdentifier =>
+      _$this._resourceIdentifier ??= new AggregateResourceIdentifierBuilder();
   set resourceIdentifier(
-          _i3.AggregateResourceIdentifierBuilder? resourceIdentifier) =>
+          AggregateResourceIdentifierBuilder? resourceIdentifier) =>
       _$this._resourceIdentifier = resourceIdentifier;
 
   GetAggregateResourceConfigRequestBuilder();

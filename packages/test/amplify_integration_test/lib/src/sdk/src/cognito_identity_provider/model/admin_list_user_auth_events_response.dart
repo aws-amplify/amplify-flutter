@@ -3,13 +3,12 @@
 
 library amplify_integration_test.cognito_identity_provider.model.admin_list_user_auth_events_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/auth_event_type.dart'
-    as _i2;
+import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/auth_event_type.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i3;
 
 part 'admin_list_user_auth_events_response.g.dart';
 
@@ -20,11 +19,11 @@ abstract class AdminListUserAuthEventsResponse
         Built<AdminListUserAuthEventsResponse,
             AdminListUserAuthEventsResponseBuilder> {
   factory AdminListUserAuthEventsResponse({
-    List<_i2.AuthEventType>? authEvents,
+    List<AuthEventType>? authEvents,
     String? nextToken,
   }) {
     return _$AdminListUserAuthEventsResponse._(
-      authEvents: authEvents == null ? null : _i3.BuiltList(authEvents),
+      authEvents: authEvents == null ? null : _i2.BuiltList(authEvents),
       nextToken: nextToken,
     );
   }
@@ -42,11 +41,11 @@ abstract class AdminListUserAuthEventsResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<AdminListUserAuthEventsResponse>>
+  static const List<_i3.SmithySerializer<AdminListUserAuthEventsResponse>>
       serializers = [AdminListUserAuthEventsResponseAwsJson11Serializer()];
 
   /// The response object. It includes the `EventID`, `EventType`, `CreationDate`, `EventRisk`, and `EventResponse`.
-  _i3.BuiltList<_i2.AuthEventType>? get authEvents;
+  _i2.BuiltList<AuthEventType>? get authEvents;
 
   /// A pagination token.
   String? get nextToken;
@@ -72,7 +71,7 @@ abstract class AdminListUserAuthEventsResponse
 }
 
 class AdminListUserAuthEventsResponseAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<AdminListUserAuthEventsResponse> {
+    extends _i3.StructuredSmithySerializer<AdminListUserAuthEventsResponse> {
   const AdminListUserAuthEventsResponseAwsJson11Serializer()
       : super('AdminListUserAuthEventsResponse');
 
@@ -82,8 +81,8 @@ class AdminListUserAuthEventsResponseAwsJson11Serializer
         _$AdminListUserAuthEventsResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -108,10 +107,10 @@ class AdminListUserAuthEventsResponseAwsJson11Serializer
           result.authEvents.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.AuthEventType)],
+              _i2.BuiltList,
+              [FullType(AuthEventType)],
             ),
-          ) as _i3.BuiltList<_i2.AuthEventType>));
+          ) as _i2.BuiltList<AuthEventType>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -137,8 +136,8 @@ class AdminListUserAuthEventsResponseAwsJson11Serializer
         ..add(serializers.serialize(
           authEvents,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.AuthEventType)],
+            _i2.BuiltList,
+            [FullType(AuthEventType)],
           ),
         ));
     }

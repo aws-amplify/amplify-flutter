@@ -4,12 +4,11 @@
 library smoke_test.cloud_formation.model.get_template_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/template_stage.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/template_stage.dart';
 
 part 'get_template_output.g.dart';
 
@@ -20,12 +19,12 @@ abstract class GetTemplateOutput
   /// The output for GetTemplate action.
   factory GetTemplateOutput({
     String? templateBody,
-    List<_i2.TemplateStage>? stagesAvailable,
+    List<TemplateStage>? stagesAvailable,
   }) {
     return _$GetTemplateOutput._(
       templateBody: templateBody,
       stagesAvailable:
-          stagesAvailable == null ? null : _i3.BuiltList(stagesAvailable),
+          stagesAvailable == null ? null : _i2.BuiltList(stagesAvailable),
     );
   }
 
@@ -42,7 +41,7 @@ abstract class GetTemplateOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<GetTemplateOutput>> serializers = [
+  static const List<_i3.SmithySerializer<GetTemplateOutput>> serializers = [
     GetTemplateOutputAwsQuerySerializer()
   ];
 
@@ -52,7 +51,7 @@ abstract class GetTemplateOutput
   String? get templateBody;
 
   /// The stage of the template that you can retrieve. For stacks, the `Original` and `Processed` templates are always available. For change sets, the `Original` template is always available. After CloudFormation finishes creating the change set, the `Processed` template becomes available.
-  _i3.BuiltList<_i2.TemplateStage>? get stagesAvailable;
+  _i2.BuiltList<TemplateStage>? get stagesAvailable;
   @override
   List<Object?> get props => [
         templateBody,
@@ -74,7 +73,7 @@ abstract class GetTemplateOutput
 }
 
 class GetTemplateOutputAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<GetTemplateOutput> {
+    extends _i3.StructuredSmithySerializer<GetTemplateOutput> {
   const GetTemplateOutputAwsQuerySerializer() : super('GetTemplateOutput');
 
   @override
@@ -83,8 +82,8 @@ class GetTemplateOutputAwsQuerySerializer
         _$GetTemplateOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -111,16 +110,16 @@ class GetTemplateOutputAwsQuerySerializer
             specifiedType: const FullType(String),
           ) as String);
         case 'StagesAvailable':
-          result.stagesAvailable.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.stagesAvailable.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.TemplateStage)],
+              _i2.BuiltList,
+              [FullType(TemplateStage)],
             ),
-          ) as _i3.BuiltList<_i2.TemplateStage>));
+          ) as _i2.BuiltList<TemplateStage>));
       }
     }
 
@@ -134,15 +133,15 @@ class GetTemplateOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'GetTemplateOutputResponse',
-        _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final GetTemplateOutput(:templateBody, :stagesAvailable) = object;
     if (templateBody != null) {
       result$
-        ..add(const _i4.XmlElementName('TemplateBody'))
+        ..add(const _i3.XmlElementName('TemplateBody'))
         ..add(serializers.serialize(
           templateBody,
           specifiedType: const FullType(String),
@@ -150,15 +149,15 @@ class GetTemplateOutputAwsQuerySerializer
     }
     if (stagesAvailable != null) {
       result$
-        ..add(const _i4.XmlElementName('StagesAvailable'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('StagesAvailable'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           stagesAvailable,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
-            [FullType(_i2.TemplateStage)],
+            _i2.BuiltList,
+            [FullType(TemplateStage)],
           ),
         ));
     }

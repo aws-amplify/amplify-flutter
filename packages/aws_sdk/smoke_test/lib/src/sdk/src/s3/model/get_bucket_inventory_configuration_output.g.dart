@@ -9,7 +9,7 @@ part of 'get_bucket_inventory_configuration_output.dart';
 class _$GetBucketInventoryConfigurationOutput
     extends GetBucketInventoryConfigurationOutput {
   @override
-  final _i3.InventoryConfiguration? inventoryConfiguration;
+  final InventoryConfiguration? inventoryConfiguration;
 
   factory _$GetBucketInventoryConfigurationOutput(
           [void Function(GetBucketInventoryConfigurationOutputBuilder)?
@@ -52,12 +52,11 @@ class GetBucketInventoryConfigurationOutputBuilder
             GetBucketInventoryConfigurationOutputBuilder> {
   _$GetBucketInventoryConfigurationOutput? _$v;
 
-  _i3.InventoryConfigurationBuilder? _inventoryConfiguration;
-  _i3.InventoryConfigurationBuilder get inventoryConfiguration =>
-      _$this._inventoryConfiguration ??=
-          new _i3.InventoryConfigurationBuilder();
+  InventoryConfigurationBuilder? _inventoryConfiguration;
+  InventoryConfigurationBuilder get inventoryConfiguration =>
+      _$this._inventoryConfiguration ??= new InventoryConfigurationBuilder();
   set inventoryConfiguration(
-          _i3.InventoryConfigurationBuilder? inventoryConfiguration) =>
+          InventoryConfigurationBuilder? inventoryConfiguration) =>
       _$this._inventoryConfiguration = inventoryConfiguration;
 
   GetBucketInventoryConfigurationOutputBuilder();

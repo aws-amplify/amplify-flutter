@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.get_conformance_pack_compliance_summary_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_compliance_summary.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_compliance_summary.dart';
 
 part 'get_conformance_pack_compliance_summary_response.g.dart';
 
@@ -20,7 +19,7 @@ abstract class GetConformancePackComplianceSummaryResponse
         Built<GetConformancePackComplianceSummaryResponse,
             GetConformancePackComplianceSummaryResponseBuilder> {
   factory GetConformancePackComplianceSummaryResponse({
-    List<_i2.ConformancePackComplianceSummary>?
+    List<ConformancePackComplianceSummary>?
         conformancePackComplianceSummaryList,
     String? nextToken,
   }) {
@@ -28,7 +27,7 @@ abstract class GetConformancePackComplianceSummaryResponse
       conformancePackComplianceSummaryList:
           conformancePackComplianceSummaryList == null
               ? null
-              : _i3.BuiltList(conformancePackComplianceSummaryList),
+              : _i2.BuiltList(conformancePackComplianceSummaryList),
       nextToken: nextToken,
     );
   }
@@ -47,13 +46,13 @@ abstract class GetConformancePackComplianceSummaryResponse
       payload;
 
   static const List<
-          _i4.SmithySerializer<GetConformancePackComplianceSummaryResponse>>
+          _i3.SmithySerializer<GetConformancePackComplianceSummaryResponse>>
       serializers = [
     GetConformancePackComplianceSummaryResponseAwsJson11Serializer()
   ];
 
   /// A list of `ConformancePackComplianceSummary` objects.
-  _i3.BuiltList<_i2.ConformancePackComplianceSummary>?
+  _i2.BuiltList<ConformancePackComplianceSummary>?
       get conformancePackComplianceSummaryList;
 
   /// The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
@@ -79,7 +78,7 @@ abstract class GetConformancePackComplianceSummaryResponse
   }
 }
 
-class GetConformancePackComplianceSummaryResponseAwsJson11Serializer extends _i4
+class GetConformancePackComplianceSummaryResponseAwsJson11Serializer extends _i3
     .StructuredSmithySerializer<GetConformancePackComplianceSummaryResponse> {
   const GetConformancePackComplianceSummaryResponseAwsJson11Serializer()
       : super('GetConformancePackComplianceSummaryResponse');
@@ -90,8 +89,8 @@ class GetConformancePackComplianceSummaryResponseAwsJson11Serializer extends _i4
         _$GetConformancePackComplianceSummaryResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -117,10 +116,10 @@ class GetConformancePackComplianceSummaryResponseAwsJson11Serializer extends _i4
               .replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.ConformancePackComplianceSummary)],
+              _i2.BuiltList,
+              [FullType(ConformancePackComplianceSummary)],
             ),
-          ) as _i3.BuiltList<_i2.ConformancePackComplianceSummary>));
+          ) as _i2.BuiltList<ConformancePackComplianceSummary>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -149,8 +148,8 @@ class GetConformancePackComplianceSummaryResponseAwsJson11Serializer extends _i4
         ..add(serializers.serialize(
           conformancePackComplianceSummaryList,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.ConformancePackComplianceSummary)],
+            _i2.BuiltList,
+            [FullType(ConformancePackComplianceSummary)],
           ),
         ));
     }

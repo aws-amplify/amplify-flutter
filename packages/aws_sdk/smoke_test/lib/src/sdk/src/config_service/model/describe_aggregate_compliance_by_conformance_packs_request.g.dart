@@ -11,7 +11,7 @@ class _$DescribeAggregateComplianceByConformancePacksRequest
   @override
   final String configurationAggregatorName;
   @override
-  final _i3.AggregateConformancePackComplianceFilters? filters;
+  final AggregateConformancePackComplianceFilters? filters;
   @override
   final int limit;
   @override
@@ -85,11 +85,11 @@ class DescribeAggregateComplianceByConformancePacksRequestBuilder
   set configurationAggregatorName(String? configurationAggregatorName) =>
       _$this._configurationAggregatorName = configurationAggregatorName;
 
-  _i3.AggregateConformancePackComplianceFiltersBuilder? _filters;
-  _i3.AggregateConformancePackComplianceFiltersBuilder get filters =>
+  AggregateConformancePackComplianceFiltersBuilder? _filters;
+  AggregateConformancePackComplianceFiltersBuilder get filters =>
       _$this._filters ??=
-          new _i3.AggregateConformancePackComplianceFiltersBuilder();
-  set filters(_i3.AggregateConformancePackComplianceFiltersBuilder? filters) =>
+          new AggregateConformancePackComplianceFiltersBuilder();
+  set filters(AggregateConformancePackComplianceFiltersBuilder? filters) =>
       _$this._filters = filters;
 
   int? _limit;

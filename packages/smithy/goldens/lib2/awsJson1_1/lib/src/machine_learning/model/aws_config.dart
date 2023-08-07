@@ -4,11 +4,10 @@
 library aws_json1_1_v2.machine_learning.model.aws_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:aws_json1_1_v2/src/machine_learning/model/scoped_config.dart'
-    as _i2;
+import 'package:aws_json1_1_v2/src/machine_learning/model/scoped_config.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'aws_config.g.dart';
 
@@ -17,7 +16,7 @@ abstract class AwsConfig
     implements Built<AwsConfig, AwsConfigBuilder> {
   factory AwsConfig({
     DateTime? clockTime,
-    _i2.ScopedConfig? scopedConfig,
+    ScopedConfig? scopedConfig,
   }) {
     return _$AwsConfig._(
       clockTime: clockTime,
@@ -30,7 +29,7 @@ abstract class AwsConfig
 
   const AwsConfig._();
 
-  static const List<_i3.SmithySerializer<AwsConfig>> serializers = [
+  static const List<_i2.SmithySerializer<AwsConfig>> serializers = [
     AwsConfigAwsJson11Serializer()
   ];
 
@@ -38,7 +37,7 @@ abstract class AwsConfig
   DateTime? get clockTime;
 
   /// Config settings that are scoped to different sources, such as environment variables or the AWS config file.
-  _i2.ScopedConfig? get scopedConfig;
+  ScopedConfig? get scopedConfig;
   @override
   List<Object?> get props => [
         clockTime,
@@ -60,7 +59,7 @@ abstract class AwsConfig
 }
 
 class AwsConfigAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<AwsConfig> {
+    extends _i2.StructuredSmithySerializer<AwsConfig> {
   const AwsConfigAwsJson11Serializer() : super('AwsConfig');
 
   @override
@@ -69,8 +68,8 @@ class AwsConfigAwsJson11Serializer
         _$AwsConfig,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -99,8 +98,8 @@ class AwsConfigAwsJson11Serializer
         case 'scopedConfig':
           result.scopedConfig.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ScopedConfig),
-          ) as _i2.ScopedConfig));
+            specifiedType: const FullType(ScopedConfig),
+          ) as ScopedConfig));
       }
     }
 
@@ -128,7 +127,7 @@ class AwsConfigAwsJson11Serializer
         ..add('scopedConfig')
         ..add(serializers.serialize(
           scopedConfig,
-          specifiedType: const FullType(_i2.ScopedConfig),
+          specifiedType: const FullType(ScopedConfig),
         ));
     }
     return result$;

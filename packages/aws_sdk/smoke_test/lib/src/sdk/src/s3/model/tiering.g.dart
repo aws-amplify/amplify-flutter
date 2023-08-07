@@ -10,7 +10,7 @@ class _$Tiering extends Tiering {
   @override
   final int? days;
   @override
-  final _i2.IntelligentTieringAccessTier accessTier;
+  final IntelligentTieringAccessTier accessTier;
 
   factory _$Tiering([void Function(TieringBuilder)? updates]) =>
       (new TieringBuilder()..update(updates))._build();
@@ -51,9 +51,9 @@ class TieringBuilder implements Builder<Tiering, TieringBuilder> {
   int? get days => _$this._days;
   set days(int? days) => _$this._days = days;
 
-  _i2.IntelligentTieringAccessTier? _accessTier;
-  _i2.IntelligentTieringAccessTier? get accessTier => _$this._accessTier;
-  set accessTier(_i2.IntelligentTieringAccessTier? accessTier) =>
+  IntelligentTieringAccessTier? _accessTier;
+  IntelligentTieringAccessTier? get accessTier => _$this._accessTier;
+  set accessTier(IntelligentTieringAccessTier? accessTier) =>
       _$this._accessTier = accessTier;
 
   TieringBuilder();

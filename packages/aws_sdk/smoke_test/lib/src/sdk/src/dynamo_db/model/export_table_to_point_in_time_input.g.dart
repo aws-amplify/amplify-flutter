@@ -20,11 +20,11 @@ class _$ExportTableToPointInTimeInput extends ExportTableToPointInTimeInput {
   @override
   final String? s3Prefix;
   @override
-  final _i3.S3SseAlgorithm? s3SseAlgorithm;
+  final S3SseAlgorithm? s3SseAlgorithm;
   @override
   final String? s3SseKmsKeyId;
   @override
-  final _i4.ExportFormat? exportFormat;
+  final ExportFormat? exportFormat;
 
   factory _$ExportTableToPointInTimeInput(
           [void Function(ExportTableToPointInTimeInputBuilder)? updates]) =>
@@ -119,9 +119,9 @@ class ExportTableToPointInTimeInputBuilder
   String? get s3Prefix => _$this._s3Prefix;
   set s3Prefix(String? s3Prefix) => _$this._s3Prefix = s3Prefix;
 
-  _i3.S3SseAlgorithm? _s3SseAlgorithm;
-  _i3.S3SseAlgorithm? get s3SseAlgorithm => _$this._s3SseAlgorithm;
-  set s3SseAlgorithm(_i3.S3SseAlgorithm? s3SseAlgorithm) =>
+  S3SseAlgorithm? _s3SseAlgorithm;
+  S3SseAlgorithm? get s3SseAlgorithm => _$this._s3SseAlgorithm;
+  set s3SseAlgorithm(S3SseAlgorithm? s3SseAlgorithm) =>
       _$this._s3SseAlgorithm = s3SseAlgorithm;
 
   String? _s3SseKmsKeyId;
@@ -129,9 +129,9 @@ class ExportTableToPointInTimeInputBuilder
   set s3SseKmsKeyId(String? s3SseKmsKeyId) =>
       _$this._s3SseKmsKeyId = s3SseKmsKeyId;
 
-  _i4.ExportFormat? _exportFormat;
-  _i4.ExportFormat? get exportFormat => _$this._exportFormat;
-  set exportFormat(_i4.ExportFormat? exportFormat) =>
+  ExportFormat? _exportFormat;
+  ExportFormat? get exportFormat => _$this._exportFormat;
+  set exportFormat(ExportFormat? exportFormat) =>
       _$this._exportFormat = exportFormat;
 
   ExportTableToPointInTimeInputBuilder() {

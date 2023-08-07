@@ -6,9 +6,8 @@ library smoke_test.config_service.model.aggregate_conformance_pack_compliance_su
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_conformance_pack_compliance_count.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_conformance_pack_compliance_count.dart';
 
 part 'aggregate_conformance_pack_compliance_summary.g.dart';
 
@@ -21,7 +20,7 @@ abstract class AggregateConformancePackComplianceSummary
             AggregateConformancePackComplianceSummaryBuilder> {
   /// Provides a summary of compliance based on either account ID or region.
   factory AggregateConformancePackComplianceSummary({
-    _i2.AggregateConformancePackComplianceCount? complianceSummary,
+    AggregateConformancePackComplianceCount? complianceSummary,
     String? groupName,
   }) {
     return _$AggregateConformancePackComplianceSummary._(
@@ -38,13 +37,13 @@ abstract class AggregateConformancePackComplianceSummary
   const AggregateConformancePackComplianceSummary._();
 
   static const List<
-          _i3.SmithySerializer<AggregateConformancePackComplianceSummary>>
+          _i2.SmithySerializer<AggregateConformancePackComplianceSummary>>
       serializers = [
     AggregateConformancePackComplianceSummaryAwsJson11Serializer()
   ];
 
   /// Returns an `AggregateConformancePackComplianceCount` object.
-  _i2.AggregateConformancePackComplianceCount? get complianceSummary;
+  AggregateConformancePackComplianceCount? get complianceSummary;
 
   /// Groups the result based on Amazon Web Services account ID or Amazon Web Services Region.
   String? get groupName;
@@ -69,7 +68,7 @@ abstract class AggregateConformancePackComplianceSummary
   }
 }
 
-class AggregateConformancePackComplianceSummaryAwsJson11Serializer extends _i3
+class AggregateConformancePackComplianceSummaryAwsJson11Serializer extends _i2
     .StructuredSmithySerializer<AggregateConformancePackComplianceSummary> {
   const AggregateConformancePackComplianceSummaryAwsJson11Serializer()
       : super('AggregateConformancePackComplianceSummary');
@@ -80,8 +79,8 @@ class AggregateConformancePackComplianceSummaryAwsJson11Serializer extends _i3
         _$AggregateConformancePackComplianceSummary,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -106,8 +105,8 @@ class AggregateConformancePackComplianceSummaryAwsJson11Serializer extends _i3
           result.complianceSummary.replace((serializers.deserialize(
             value,
             specifiedType:
-                const FullType(_i2.AggregateConformancePackComplianceCount),
-          ) as _i2.AggregateConformancePackComplianceCount));
+                const FullType(AggregateConformancePackComplianceCount),
+          ) as AggregateConformancePackComplianceCount));
         case 'GroupName':
           result.groupName = (serializers.deserialize(
             value,
@@ -136,7 +135,7 @@ class AggregateConformancePackComplianceSummaryAwsJson11Serializer extends _i3
         ..add(serializers.serialize(
           complianceSummary,
           specifiedType:
-              const FullType(_i2.AggregateConformancePackComplianceCount),
+              const FullType(AggregateConformancePackComplianceCount),
         ));
     }
     if (groupName != null) {

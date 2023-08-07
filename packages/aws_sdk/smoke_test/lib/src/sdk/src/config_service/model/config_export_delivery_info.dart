@@ -6,9 +6,8 @@ library smoke_test.config_service.model.config_export_delivery_info; // ignore_f
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/delivery_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/delivery_status.dart';
 
 part 'config_export_delivery_info.g.dart';
 
@@ -19,7 +18,7 @@ abstract class ConfigExportDeliveryInfo
         Built<ConfigExportDeliveryInfo, ConfigExportDeliveryInfoBuilder> {
   /// Provides status of the delivery of the snapshot or the configuration history to the specified Amazon S3 bucket. Also provides the status of notifications about the Amazon S3 delivery to the specified Amazon SNS topic.
   factory ConfigExportDeliveryInfo({
-    _i2.DeliveryStatus? lastStatus,
+    DeliveryStatus? lastStatus,
     String? lastErrorCode,
     String? lastErrorMessage,
     DateTime? lastAttemptTime,
@@ -43,11 +42,11 @@ abstract class ConfigExportDeliveryInfo
 
   const ConfigExportDeliveryInfo._();
 
-  static const List<_i3.SmithySerializer<ConfigExportDeliveryInfo>>
+  static const List<_i2.SmithySerializer<ConfigExportDeliveryInfo>>
       serializers = [ConfigExportDeliveryInfoAwsJson11Serializer()];
 
   /// Status of the last attempted delivery.
-  _i2.DeliveryStatus? get lastStatus;
+  DeliveryStatus? get lastStatus;
 
   /// The error code from the last attempted delivery.
   String? get lastErrorCode;
@@ -104,7 +103,7 @@ abstract class ConfigExportDeliveryInfo
 }
 
 class ConfigExportDeliveryInfoAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<ConfigExportDeliveryInfo> {
+    extends _i2.StructuredSmithySerializer<ConfigExportDeliveryInfo> {
   const ConfigExportDeliveryInfoAwsJson11Serializer()
       : super('ConfigExportDeliveryInfo');
 
@@ -114,8 +113,8 @@ class ConfigExportDeliveryInfoAwsJson11Serializer
         _$ConfigExportDeliveryInfo,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -139,8 +138,8 @@ class ConfigExportDeliveryInfoAwsJson11Serializer
         case 'lastStatus':
           result.lastStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.DeliveryStatus),
-          ) as _i2.DeliveryStatus);
+            specifiedType: const FullType(DeliveryStatus),
+          ) as DeliveryStatus);
         case 'lastErrorCode':
           result.lastErrorCode = (serializers.deserialize(
             value,
@@ -192,7 +191,7 @@ class ConfigExportDeliveryInfoAwsJson11Serializer
         ..add('lastStatus')
         ..add(serializers.serialize(
           lastStatus,
-          specifiedType: const FullType(_i2.DeliveryStatus),
+          specifiedType: const FullType(DeliveryStatus),
         ));
     }
     if (lastErrorCode != null) {

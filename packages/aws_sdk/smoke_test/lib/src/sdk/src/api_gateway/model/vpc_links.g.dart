@@ -8,7 +8,7 @@ part of 'vpc_links.dart';
 
 class _$VpcLinks extends VpcLinks {
   @override
-  final _i3.BuiltList<_i2.VpcLink>? items;
+  final _i2.BuiltList<VpcLink>? items;
   @override
   final String? position;
 
@@ -45,10 +45,10 @@ class _$VpcLinks extends VpcLinks {
 class VpcLinksBuilder implements Builder<VpcLinks, VpcLinksBuilder> {
   _$VpcLinks? _$v;
 
-  _i3.ListBuilder<_i2.VpcLink>? _items;
-  _i3.ListBuilder<_i2.VpcLink> get items =>
-      _$this._items ??= new _i3.ListBuilder<_i2.VpcLink>();
-  set items(_i3.ListBuilder<_i2.VpcLink>? items) => _$this._items = items;
+  _i2.ListBuilder<VpcLink>? _items;
+  _i2.ListBuilder<VpcLink> get items =>
+      _$this._items ??= new _i2.ListBuilder<VpcLink>();
+  set items(_i2.ListBuilder<VpcLink>? items) => _$this._items = items;
 
   String? _position;
   String? get position => _$this._position;

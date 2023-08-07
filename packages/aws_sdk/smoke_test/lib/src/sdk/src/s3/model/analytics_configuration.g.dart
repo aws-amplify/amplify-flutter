@@ -10,9 +10,9 @@ class _$AnalyticsConfiguration extends AnalyticsConfiguration {
   @override
   final String id;
   @override
-  final _i2.AnalyticsFilter? filter;
+  final AnalyticsFilter? filter;
   @override
-  final _i3.StorageClassAnalysis storageClassAnalysis;
+  final StorageClassAnalysis storageClassAnalysis;
 
   factory _$AnalyticsConfiguration(
           [void Function(AnalyticsConfigurationBuilder)? updates]) =>
@@ -63,15 +63,14 @@ class AnalyticsConfigurationBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  _i2.AnalyticsFilter? _filter;
-  _i2.AnalyticsFilter? get filter => _$this._filter;
-  set filter(_i2.AnalyticsFilter? filter) => _$this._filter = filter;
+  AnalyticsFilter? _filter;
+  AnalyticsFilter? get filter => _$this._filter;
+  set filter(AnalyticsFilter? filter) => _$this._filter = filter;
 
-  _i3.StorageClassAnalysisBuilder? _storageClassAnalysis;
-  _i3.StorageClassAnalysisBuilder get storageClassAnalysis =>
-      _$this._storageClassAnalysis ??= new _i3.StorageClassAnalysisBuilder();
-  set storageClassAnalysis(
-          _i3.StorageClassAnalysisBuilder? storageClassAnalysis) =>
+  StorageClassAnalysisBuilder? _storageClassAnalysis;
+  StorageClassAnalysisBuilder get storageClassAnalysis =>
+      _$this._storageClassAnalysis ??= new StorageClassAnalysisBuilder();
+  set storageClassAnalysis(StorageClassAnalysisBuilder? storageClassAnalysis) =>
       _$this._storageClassAnalysis = storageClassAnalysis;
 
   AnalyticsConfigurationBuilder();

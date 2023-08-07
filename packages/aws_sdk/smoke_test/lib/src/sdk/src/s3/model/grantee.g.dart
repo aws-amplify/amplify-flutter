@@ -16,7 +16,7 @@ class _$Grantee extends Grantee {
   @override
   final String? uri;
   @override
-  final _i2.S3Type type;
+  final S3Type type;
 
   factory _$Grantee([void Function(GranteeBuilder)? updates]) =>
       (new GranteeBuilder()..update(updates))._build();
@@ -81,9 +81,9 @@ class GranteeBuilder implements Builder<Grantee, GranteeBuilder> {
   String? get uri => _$this._uri;
   set uri(String? uri) => _$this._uri = uri;
 
-  _i2.S3Type? _type;
-  _i2.S3Type? get type => _$this._type;
-  set type(_i2.S3Type? type) => _$this._type = type;
+  S3Type? _type;
+  S3Type? get type => _$this._type;
+  set type(S3Type? type) => _$this._type = type;
 
   GranteeBuilder();
 

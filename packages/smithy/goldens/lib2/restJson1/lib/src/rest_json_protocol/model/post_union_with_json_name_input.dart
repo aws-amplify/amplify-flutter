@@ -6,8 +6,7 @@ library rest_json1_v2.rest_json_protocol.model.post_union_with_json_name_input; 
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1_v2/src/rest_json_protocol/model/union_with_json_name.dart'
-    as _i3;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/union_with_json_name.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'post_union_with_json_name_input.g.dart';
@@ -18,7 +17,7 @@ abstract class PostUnionWithJsonNameInput
         _i2.AWSEquatable<PostUnionWithJsonNameInput>
     implements
         Built<PostUnionWithJsonNameInput, PostUnionWithJsonNameInputBuilder> {
-  factory PostUnionWithJsonNameInput({_i3.UnionWithJsonName? value}) {
+  factory PostUnionWithJsonNameInput({UnionWithJsonName? value}) {
     return _$PostUnionWithJsonNameInput._(value: value);
   }
 
@@ -38,7 +37,7 @@ abstract class PostUnionWithJsonNameInput
   static const List<_i1.SmithySerializer<PostUnionWithJsonNameInput>>
       serializers = [PostUnionWithJsonNameInputRestJson1Serializer()];
 
-  _i3.UnionWithJsonName? get value;
+  UnionWithJsonName? get value;
   @override
   PostUnionWithJsonNameInput getPayload() => this;
   @override
@@ -90,8 +89,8 @@ class PostUnionWithJsonNameInputRestJson1Serializer
         case 'value':
           result.value = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.UnionWithJsonName),
-          ) as _i3.UnionWithJsonName);
+            specifiedType: const FullType(UnionWithJsonName),
+          ) as UnionWithJsonName);
       }
     }
 
@@ -111,7 +110,7 @@ class PostUnionWithJsonNameInputRestJson1Serializer
         ..add('value')
         ..add(serializers.serialize(
           value,
-          specifiedType: const FullType(_i3.UnionWithJsonName),
+          specifiedType: const FullType(UnionWithJsonName),
         ));
     }
     return result$;

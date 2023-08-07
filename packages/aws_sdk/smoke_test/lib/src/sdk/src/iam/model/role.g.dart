@@ -24,11 +24,11 @@ class _$Role extends Role {
   @override
   final int? maxSessionDuration;
   @override
-  final _i2.AttachedPermissionsBoundary? permissionsBoundary;
+  final AttachedPermissionsBoundary? permissionsBoundary;
   @override
-  final _i5.BuiltList<_i3.Tag>? tags;
+  final _i2.BuiltList<Tag>? tags;
   @override
-  final _i4.RoleLastUsed? roleLastUsed;
+  final RoleLastUsed? roleLastUsed;
 
   factory _$Role([void Function(RoleBuilder)? updates]) =>
       (new RoleBuilder()..update(updates))._build();
@@ -133,23 +133,21 @@ class RoleBuilder implements Builder<Role, RoleBuilder> {
   set maxSessionDuration(int? maxSessionDuration) =>
       _$this._maxSessionDuration = maxSessionDuration;
 
-  _i2.AttachedPermissionsBoundaryBuilder? _permissionsBoundary;
-  _i2.AttachedPermissionsBoundaryBuilder get permissionsBoundary =>
-      _$this._permissionsBoundary ??=
-          new _i2.AttachedPermissionsBoundaryBuilder();
+  AttachedPermissionsBoundaryBuilder? _permissionsBoundary;
+  AttachedPermissionsBoundaryBuilder get permissionsBoundary =>
+      _$this._permissionsBoundary ??= new AttachedPermissionsBoundaryBuilder();
   set permissionsBoundary(
-          _i2.AttachedPermissionsBoundaryBuilder? permissionsBoundary) =>
+          AttachedPermissionsBoundaryBuilder? permissionsBoundary) =>
       _$this._permissionsBoundary = permissionsBoundary;
 
-  _i5.ListBuilder<_i3.Tag>? _tags;
-  _i5.ListBuilder<_i3.Tag> get tags =>
-      _$this._tags ??= new _i5.ListBuilder<_i3.Tag>();
-  set tags(_i5.ListBuilder<_i3.Tag>? tags) => _$this._tags = tags;
+  _i2.ListBuilder<Tag>? _tags;
+  _i2.ListBuilder<Tag> get tags => _$this._tags ??= new _i2.ListBuilder<Tag>();
+  set tags(_i2.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
-  _i4.RoleLastUsedBuilder? _roleLastUsed;
-  _i4.RoleLastUsedBuilder get roleLastUsed =>
-      _$this._roleLastUsed ??= new _i4.RoleLastUsedBuilder();
-  set roleLastUsed(_i4.RoleLastUsedBuilder? roleLastUsed) =>
+  RoleLastUsedBuilder? _roleLastUsed;
+  RoleLastUsedBuilder get roleLastUsed =>
+      _$this._roleLastUsed ??= new RoleLastUsedBuilder();
+  set roleLastUsed(RoleLastUsedBuilder? roleLastUsed) =>
       _$this._roleLastUsed = roleLastUsed;
 
   RoleBuilder();

@@ -13,7 +13,7 @@ class _$ChangeSetHookResourceTargetDetails
   @override
   final String? resourceType;
   @override
-  final _i2.ChangeAction? resourceAction;
+  final ChangeAction? resourceAction;
 
   factory _$ChangeSetHookResourceTargetDetails(
           [void Function(ChangeSetHookResourceTargetDetailsBuilder)?
@@ -69,9 +69,9 @@ class ChangeSetHookResourceTargetDetailsBuilder
   String? get resourceType => _$this._resourceType;
   set resourceType(String? resourceType) => _$this._resourceType = resourceType;
 
-  _i2.ChangeAction? _resourceAction;
-  _i2.ChangeAction? get resourceAction => _$this._resourceAction;
-  set resourceAction(_i2.ChangeAction? resourceAction) =>
+  ChangeAction? _resourceAction;
+  ChangeAction? get resourceAction => _$this._resourceAction;
+  set resourceAction(ChangeAction? resourceAction) =>
       _$this._resourceAction = resourceAction;
 
   ChangeSetHookResourceTargetDetailsBuilder();

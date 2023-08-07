@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/template_stage.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/template_stage.dart';
 
 part 'get_template_input.g.dart';
 
@@ -20,7 +19,7 @@ abstract class GetTemplateInput
   factory GetTemplateInput({
     String? stackName,
     String? changeSetName,
-    _i3.TemplateStage? templateStage,
+    TemplateStage? templateStage,
   }) {
     return _$GetTemplateInput._(
       stackName: stackName,
@@ -62,7 +61,7 @@ abstract class GetTemplateInput
   /// For templates that include transforms, the stage of the template that CloudFormation returns. To get the user-submitted template, specify `Original`. To get the template after CloudFormation has processed all transforms, specify `Processed`.
   ///
   /// If the template doesn't include transforms, `Original` and `Processed` return the same template. By default, CloudFormation specifies `Processed`.
-  _i3.TemplateStage? get templateStage;
+  TemplateStage? get templateStage;
   @override
   GetTemplateInput getPayload() => this;
   @override
@@ -135,8 +134,8 @@ class GetTemplateInputAwsQuerySerializer
         case 'TemplateStage':
           result.templateStage = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.TemplateStage),
-          ) as _i3.TemplateStage);
+            specifiedType: const FullType(TemplateStage),
+          ) as TemplateStage);
       }
     }
 
@@ -177,7 +176,7 @@ class GetTemplateInputAwsQuerySerializer
         ..add(const _i1.XmlElementName('TemplateStage'))
         ..add(serializers.serialize(
           templateStage,
-          specifiedType: const FullType.nullable(_i3.TemplateStage),
+          specifiedType: const FullType.nullable(TemplateStage),
         ));
     }
     return result$;

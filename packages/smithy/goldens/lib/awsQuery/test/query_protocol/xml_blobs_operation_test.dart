@@ -4,14 +4,12 @@
 // ignore_for_file: unused_element
 library aws_query_v1.query_protocol.test.xml_blobs_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:typed_data' as _i6;
+import 'dart:typed_data' as _i4;
 
-import 'package:aws_query_v1/src/query_protocol/model/xml_blobs_output.dart'
-    as _i5;
-import 'package:aws_query_v1/src/query_protocol/operation/xml_blobs_operation.dart'
-    as _i3;
+import 'package:aws_query_v1/src/query_protocol/model/xml_blobs_output.dart';
+import 'package:aws_query_v1/src/query_protocol/operation/xml_blobs_operation.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -20,14 +18,14 @@ void main() {
     'QueryXmlBlobs (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.XmlBlobsOperation(
+        operation: XmlBlobsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'QueryXmlBlobs',
           documentation: 'Blobs are base64 encoded',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -52,25 +50,25 @@ void main() {
 }
 
 class XmlBlobsOutputAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<_i5.XmlBlobsOutput> {
+    extends _i3.StructuredSmithySerializer<XmlBlobsOutput> {
   const XmlBlobsOutputAwsQuerySerializer() : super('XmlBlobsOutput');
 
   @override
-  Iterable<Type> get types => const [_i5.XmlBlobsOutput];
+  Iterable<Type> get types => const [XmlBlobsOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
       ];
   @override
-  _i5.XmlBlobsOutput deserialize(
+  XmlBlobsOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.XmlBlobsOutputBuilder();
+    final result = XmlBlobsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -83,8 +81,8 @@ class XmlBlobsOutputAwsQuerySerializer
         case 'data':
           result.data = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.Uint8List),
-          ) as _i6.Uint8List);
+            specifiedType: const FullType(_i4.Uint8List),
+          ) as _i4.Uint8List);
       }
     }
 
@@ -94,7 +92,7 @@ class XmlBlobsOutputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.XmlBlobsOutput object, {
+    XmlBlobsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

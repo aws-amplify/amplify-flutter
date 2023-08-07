@@ -8,9 +8,8 @@ import 'dart:typed_data' as _i2;
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/report_format_type.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/report_format_type.dart';
 
 part 'get_credential_report_response.g.dart';
 
@@ -22,7 +21,7 @@ abstract class GetCredentialReportResponse
   /// Contains the response to a successful GetCredentialReport request.
   factory GetCredentialReportResponse({
     _i2.Uint8List? content,
-    _i3.ReportFormatType? reportFormat,
+    ReportFormatType? reportFormat,
     DateTime? generatedTime,
   }) {
     return _$GetCredentialReportResponse._(
@@ -46,14 +45,14 @@ abstract class GetCredentialReportResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<GetCredentialReportResponse>>
+  static const List<_i3.SmithySerializer<GetCredentialReportResponse>>
       serializers = [GetCredentialReportResponseAwsQuerySerializer()];
 
   /// Contains the credential report. The report is Base64-encoded.
   _i2.Uint8List? get content;
 
   /// The format (MIME type) of the credential report.
-  _i3.ReportFormatType? get reportFormat;
+  ReportFormatType? get reportFormat;
 
   /// The date and time when the credential report was created, in [ISO 8601 date-time format](http://www.iso.org/iso/iso8601).
   DateTime? get generatedTime;
@@ -83,7 +82,7 @@ abstract class GetCredentialReportResponse
 }
 
 class GetCredentialReportResponseAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<GetCredentialReportResponse> {
+    extends _i3.StructuredSmithySerializer<GetCredentialReportResponse> {
   const GetCredentialReportResponseAwsQuerySerializer()
       : super('GetCredentialReportResponse');
 
@@ -93,8 +92,8 @@ class GetCredentialReportResponseAwsQuerySerializer
         _$GetCredentialReportResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -123,8 +122,8 @@ class GetCredentialReportResponseAwsQuerySerializer
         case 'ReportFormat':
           result.reportFormat = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ReportFormatType),
-          ) as _i3.ReportFormatType);
+            specifiedType: const FullType(ReportFormatType),
+          ) as ReportFormatType);
         case 'GeneratedTime':
           result.generatedTime = (serializers.deserialize(
             value,
@@ -143,16 +142,16 @@ class GetCredentialReportResponseAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'GetCredentialReportResponseResponse',
-        _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final GetCredentialReportResponse(:content, :reportFormat, :generatedTime) =
         object;
     if (content != null) {
       result$
-        ..add(const _i4.XmlElementName('Content'))
+        ..add(const _i3.XmlElementName('Content'))
         ..add(serializers.serialize(
           content,
           specifiedType: const FullType.nullable(_i2.Uint8List),
@@ -160,15 +159,15 @@ class GetCredentialReportResponseAwsQuerySerializer
     }
     if (reportFormat != null) {
       result$
-        ..add(const _i4.XmlElementName('ReportFormat'))
+        ..add(const _i3.XmlElementName('ReportFormat'))
         ..add(serializers.serialize(
           reportFormat,
-          specifiedType: const FullType.nullable(_i3.ReportFormatType),
+          specifiedType: const FullType.nullable(ReportFormatType),
         ));
     }
     if (generatedTime != null) {
       result$
-        ..add(const _i4.XmlElementName('GeneratedTime'))
+        ..add(const _i3.XmlElementName('GeneratedTime'))
         ..add(serializers.serialize(
           generatedTime,
           specifiedType: const FullType.nullable(DateTime),

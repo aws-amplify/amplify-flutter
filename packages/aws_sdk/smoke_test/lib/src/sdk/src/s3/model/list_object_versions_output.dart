@@ -4,17 +4,16 @@
 library smoke_test.s3.model.list_object_versions_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i8;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i9;
+import 'package:meta/meta.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/common_prefix.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/delete_marker_entry.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/encoding_type.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/s3/model/object_version.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart' as _i7;
+import 'package:smoke_test/src/sdk/src/s3/model/common_prefix.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/delete_marker_entry.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/encoding_type.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/object_version.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/request_charged.dart';
 
 part 'list_object_versions_output.g.dart';
 
@@ -29,15 +28,15 @@ abstract class ListObjectVersionsOutput
     String? versionIdMarker,
     String? nextKeyMarker,
     String? nextVersionIdMarker,
-    List<_i3.ObjectVersion>? versions,
-    List<_i4.DeleteMarkerEntry>? deleteMarkers,
+    List<ObjectVersion>? versions,
+    List<DeleteMarkerEntry>? deleteMarkers,
     String? name,
     String? prefix,
     String? delimiter,
     int? maxKeys,
-    List<_i5.CommonPrefix>? commonPrefixes,
-    _i6.EncodingType? encodingType,
-    _i7.RequestCharged? requestCharged,
+    List<CommonPrefix>? commonPrefixes,
+    EncodingType? encodingType,
+    RequestCharged? requestCharged,
   }) {
     return _$ListObjectVersionsOutput._(
       isTruncated: isTruncated,
@@ -45,15 +44,15 @@ abstract class ListObjectVersionsOutput
       versionIdMarker: versionIdMarker,
       nextKeyMarker: nextKeyMarker,
       nextVersionIdMarker: nextVersionIdMarker,
-      versions: versions == null ? null : _i8.BuiltList(versions),
+      versions: versions == null ? null : _i3.BuiltList(versions),
       deleteMarkers:
-          deleteMarkers == null ? null : _i8.BuiltList(deleteMarkers),
+          deleteMarkers == null ? null : _i3.BuiltList(deleteMarkers),
       name: name,
       prefix: prefix,
       delimiter: delimiter,
       maxKeys: maxKeys,
       commonPrefixes:
-          commonPrefixes == null ? null : _i8.BuiltList(commonPrefixes),
+          commonPrefixes == null ? null : _i3.BuiltList(commonPrefixes),
       encodingType: encodingType,
       requestCharged: requestCharged,
     );
@@ -91,7 +90,7 @@ abstract class ListObjectVersionsOutput
           b.versions.replace(payload.versions!);
         }
         if (response.headers['x-amz-request-charged'] != null) {
-          b.requestCharged = _i7.RequestCharged.values
+          b.requestCharged = RequestCharged.values
               .byValue(response.headers['x-amz-request-charged']!);
         }
       });
@@ -115,10 +114,10 @@ abstract class ListObjectVersionsOutput
   String? get nextVersionIdMarker;
 
   /// Container for version information.
-  _i8.BuiltList<_i3.ObjectVersion>? get versions;
+  _i3.BuiltList<ObjectVersion>? get versions;
 
   /// Container for an object that is a delete marker.
-  _i8.BuiltList<_i4.DeleteMarkerEntry>? get deleteMarkers;
+  _i3.BuiltList<DeleteMarkerEntry>? get deleteMarkers;
 
   /// The bucket name.
   String? get name;
@@ -133,17 +132,17 @@ abstract class ListObjectVersionsOutput
   int? get maxKeys;
 
   /// All of the keys rolled up into a common prefix count as a single return when calculating the number of returns.
-  _i8.BuiltList<_i5.CommonPrefix>? get commonPrefixes;
+  _i3.BuiltList<CommonPrefix>? get commonPrefixes;
 
   /// Encoding type used by Amazon S3 to encode object key names in the XML response.
   ///
   /// If you specify the `encoding-type` request parameter, Amazon S3 includes this element in the response, and returns encoded key name values in the following response elements:
   ///
   /// `KeyMarker, NextKeyMarker, Prefix, Key`, and `Delimiter`.
-  _i6.EncodingType? get encodingType;
+  EncodingType? get encodingType;
 
   /// If present, indicates that the requester was successfully charged for the request.
-  _i7.RequestCharged? get requestCharged;
+  RequestCharged? get requestCharged;
   @override
   ListObjectVersionsOutputPayload getPayload() =>
       ListObjectVersionsOutputPayload((b) {
@@ -247,7 +246,7 @@ abstract class ListObjectVersionsOutput
   }
 }
 
-@_i9.internal
+@_i4.internal
 abstract class ListObjectVersionsOutputPayload
     with
         _i1.AWSEquatable<ListObjectVersionsOutputPayload>
@@ -261,10 +260,10 @@ abstract class ListObjectVersionsOutputPayload
   const ListObjectVersionsOutputPayload._();
 
   /// All of the keys rolled up into a common prefix count as a single return when calculating the number of returns.
-  _i8.BuiltList<_i5.CommonPrefix>? get commonPrefixes;
+  _i3.BuiltList<CommonPrefix>? get commonPrefixes;
 
   /// Container for an object that is a delete marker.
-  _i8.BuiltList<_i4.DeleteMarkerEntry>? get deleteMarkers;
+  _i3.BuiltList<DeleteMarkerEntry>? get deleteMarkers;
 
   /// The delimiter grouping the included keys. A delimiter is a character that you specify to group keys. All keys that contain the same string between the prefix and the first occurrence of the delimiter are grouped under a single result element in `CommonPrefixes`. These groups are counted as one result against the `max-keys` limitation. These keys are not returned elsewhere in the response.
   String? get delimiter;
@@ -274,7 +273,7 @@ abstract class ListObjectVersionsOutputPayload
   /// If you specify the `encoding-type` request parameter, Amazon S3 includes this element in the response, and returns encoded key name values in the following response elements:
   ///
   /// `KeyMarker, NextKeyMarker, Prefix, Key`, and `Delimiter`.
-  _i6.EncodingType? get encodingType;
+  EncodingType? get encodingType;
 
   /// A flag that indicates whether Amazon S3 returned all of the results that satisfied the search criteria. If your results were truncated, you can make a follow-up paginated request by using the `NextKeyMarker` and `NextVersionIdMarker` response parameters as a starting place in another request to return the rest of the results.
   bool? get isTruncated;
@@ -301,7 +300,7 @@ abstract class ListObjectVersionsOutputPayload
   String? get versionIdMarker;
 
   /// Container for version information.
-  _i8.BuiltList<_i3.ObjectVersion>? get versions;
+  _i3.BuiltList<ObjectVersion>? get versions;
   @override
   List<Object?> get props => [
         commonPrefixes,
@@ -416,13 +415,13 @@ class ListObjectVersionsOutputRestXmlSerializer
         case 'CommonPrefixes':
           result.commonPrefixes.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.CommonPrefix),
-          ) as _i5.CommonPrefix));
+            specifiedType: const FullType(CommonPrefix),
+          ) as CommonPrefix));
         case 'DeleteMarker':
           result.deleteMarkers.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.DeleteMarkerEntry),
-          ) as _i4.DeleteMarkerEntry));
+            specifiedType: const FullType(DeleteMarkerEntry),
+          ) as DeleteMarkerEntry));
         case 'Delimiter':
           result.delimiter = (serializers.deserialize(
             value,
@@ -431,8 +430,8 @@ class ListObjectVersionsOutputRestXmlSerializer
         case 'EncodingType':
           result.encodingType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.EncodingType),
-          ) as _i6.EncodingType);
+            specifiedType: const FullType(EncodingType),
+          ) as EncodingType);
         case 'IsTruncated':
           result.isTruncated = (serializers.deserialize(
             value,
@@ -476,8 +475,8 @@ class ListObjectVersionsOutputRestXmlSerializer
         case 'Version':
           result.versions.add((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ObjectVersion),
-          ) as _i3.ObjectVersion));
+            specifiedType: const FullType(ObjectVersion),
+          ) as ObjectVersion));
       }
     }
 
@@ -518,8 +517,8 @@ class ListObjectVersionsOutputRestXmlSerializer
         serializers,
         commonPrefixes,
         specifiedType: const FullType.nullable(
-          _i8.BuiltList,
-          [FullType(_i5.CommonPrefix)],
+          _i3.BuiltList,
+          [FullType(CommonPrefix)],
         ),
       ));
     }
@@ -530,8 +529,8 @@ class ListObjectVersionsOutputRestXmlSerializer
         serializers,
         deleteMarkers,
         specifiedType: const FullType.nullable(
-          _i8.BuiltList,
-          [FullType(_i4.DeleteMarkerEntry)],
+          _i3.BuiltList,
+          [FullType(DeleteMarkerEntry)],
         ),
       ));
     }
@@ -548,7 +547,7 @@ class ListObjectVersionsOutputRestXmlSerializer
         ..add(const _i2.XmlElementName('EncodingType'))
         ..add(serializers.serialize(
           encodingType,
-          specifiedType: const FullType.nullable(_i6.EncodingType),
+          specifiedType: const FullType.nullable(EncodingType),
         ));
     }
     if (isTruncated != null) {
@@ -621,8 +620,8 @@ class ListObjectVersionsOutputRestXmlSerializer
         serializers,
         versions,
         specifiedType: const FullType.nullable(
-          _i8.BuiltList,
-          [FullType(_i3.ObjectVersion)],
+          _i3.BuiltList,
+          [FullType(ObjectVersion)],
         ),
       ));
     }

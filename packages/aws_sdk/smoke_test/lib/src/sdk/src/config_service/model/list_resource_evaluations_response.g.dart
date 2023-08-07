@@ -9,7 +9,7 @@ part of 'list_resource_evaluations_response.dart';
 class _$ListResourceEvaluationsResponse
     extends ListResourceEvaluationsResponse {
   @override
-  final _i3.BuiltList<_i2.ResourceEvaluation>? resourceEvaluations;
+  final _i2.BuiltList<ResourceEvaluation>? resourceEvaluations;
   @override
   final String? nextToken;
 
@@ -54,12 +54,11 @@ class ListResourceEvaluationsResponseBuilder
             ListResourceEvaluationsResponseBuilder> {
   _$ListResourceEvaluationsResponse? _$v;
 
-  _i3.ListBuilder<_i2.ResourceEvaluation>? _resourceEvaluations;
-  _i3.ListBuilder<_i2.ResourceEvaluation> get resourceEvaluations =>
-      _$this._resourceEvaluations ??=
-          new _i3.ListBuilder<_i2.ResourceEvaluation>();
+  _i2.ListBuilder<ResourceEvaluation>? _resourceEvaluations;
+  _i2.ListBuilder<ResourceEvaluation> get resourceEvaluations =>
+      _$this._resourceEvaluations ??= new _i2.ListBuilder<ResourceEvaluation>();
   set resourceEvaluations(
-          _i3.ListBuilder<_i2.ResourceEvaluation>? resourceEvaluations) =>
+          _i2.ListBuilder<ResourceEvaluation>? resourceEvaluations) =>
       _$this._resourceEvaluations = resourceEvaluations;
 
   String? _nextToken;

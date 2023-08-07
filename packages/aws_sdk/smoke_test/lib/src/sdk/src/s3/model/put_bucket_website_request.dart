@@ -3,34 +3,32 @@
 
 library smoke_test.s3.model.put_bucket_website_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_common/aws_common.dart' as _i3;
-import 'package:built_collection/built_collection.dart' as _i8;
+import 'package:aws_common/aws_common.dart' as _i2;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/error_document.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/index_document.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/s3/model/redirect_all_requests_to.dart'
-    as _i7;
-import 'package:smoke_test/src/sdk/src/s3/model/routing_rule.dart' as _i9;
-import 'package:smoke_test/src/sdk/src/s3/model/website_configuration.dart'
-    as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/error_document.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/index_document.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/redirect_all_requests_to.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/routing_rule.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/website_configuration.dart';
 
 part 'put_bucket_website_request.g.dart';
 
 abstract class PutBucketWebsiteRequest
     with
-        _i1.HttpInput<_i2.WebsiteConfiguration>,
-        _i3.AWSEquatable<PutBucketWebsiteRequest>
+        _i1.HttpInput<WebsiteConfiguration>,
+        _i2.AWSEquatable<PutBucketWebsiteRequest>
     implements
         Built<PutBucketWebsiteRequest, PutBucketWebsiteRequestBuilder>,
-        _i1.HasPayload<_i2.WebsiteConfiguration> {
+        _i1.HasPayload<WebsiteConfiguration> {
   factory PutBucketWebsiteRequest({
     required String bucket,
     String? contentMd5,
-    _i4.ChecksumAlgorithm? checksumAlgorithm,
-    required _i2.WebsiteConfiguration websiteConfiguration,
+    ChecksumAlgorithm? checksumAlgorithm,
+    required WebsiteConfiguration websiteConfiguration,
     String? expectedBucketOwner,
   }) {
     return _$PutBucketWebsiteRequest._(
@@ -49,8 +47,8 @@ abstract class PutBucketWebsiteRequest
   const PutBucketWebsiteRequest._();
 
   factory PutBucketWebsiteRequest.fromRequest(
-    _i2.WebsiteConfiguration payload,
-    _i3.AWSBaseHttpRequest request, {
+    WebsiteConfiguration payload,
+    _i2.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
       PutBucketWebsiteRequest.build((b) {
@@ -59,7 +57,7 @@ abstract class PutBucketWebsiteRequest
           b.contentMd5 = request.headers['Content-MD5']!;
         }
         if (request.headers['x-amz-sdk-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = _i4.ChecksumAlgorithm.values
+          b.checksumAlgorithm = ChecksumAlgorithm.values
               .byValue(request.headers['x-amz-sdk-checksum-algorithm']!);
         }
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
@@ -71,8 +69,9 @@ abstract class PutBucketWebsiteRequest
         }
       });
 
-  static const List<_i1.SmithySerializer<_i2.WebsiteConfiguration>>
-      serializers = [PutBucketWebsiteRequestRestXmlSerializer()];
+  static const List<_i1.SmithySerializer<WebsiteConfiguration>> serializers = [
+    PutBucketWebsiteRequestRestXmlSerializer()
+  ];
 
   /// The bucket name.
   String get bucket;
@@ -85,10 +84,10 @@ abstract class PutBucketWebsiteRequest
   /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
   ///
   /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
-  _i4.ChecksumAlgorithm? get checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm;
 
   /// Container for the request.
-  _i2.WebsiteConfiguration get websiteConfiguration;
+  WebsiteConfiguration get websiteConfiguration;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
   String? get expectedBucketOwner;
@@ -105,7 +104,7 @@ abstract class PutBucketWebsiteRequest
   }
 
   @override
-  _i2.WebsiteConfiguration getPayload() => websiteConfiguration;
+  WebsiteConfiguration getPayload() => websiteConfiguration;
   @override
   List<Object?> get props => [
         bucket,
@@ -142,7 +141,7 @@ abstract class PutBucketWebsiteRequest
 }
 
 class PutBucketWebsiteRequestRestXmlSerializer
-    extends _i1.StructuredSmithySerializer<_i2.WebsiteConfiguration> {
+    extends _i1.StructuredSmithySerializer<WebsiteConfiguration> {
   const PutBucketWebsiteRequestRestXmlSerializer()
       : super('PutBucketWebsiteRequest');
 
@@ -159,12 +158,12 @@ class PutBucketWebsiteRequestRestXmlSerializer
         )
       ];
   @override
-  _i2.WebsiteConfiguration deserialize(
+  WebsiteConfiguration deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i2.WebsiteConfigurationBuilder();
+    final result = WebsiteConfigurationBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -177,18 +176,18 @@ class PutBucketWebsiteRequestRestXmlSerializer
         case 'ErrorDocument':
           result.errorDocument.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i5.ErrorDocument),
-          ) as _i5.ErrorDocument));
+            specifiedType: const FullType(ErrorDocument),
+          ) as ErrorDocument));
         case 'IndexDocument':
           result.indexDocument.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i6.IndexDocument),
-          ) as _i6.IndexDocument));
+            specifiedType: const FullType(IndexDocument),
+          ) as IndexDocument));
         case 'RedirectAllRequestsTo':
           result.redirectAllRequestsTo.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i7.RedirectAllRequestsTo),
-          ) as _i7.RedirectAllRequestsTo));
+            specifiedType: const FullType(RedirectAllRequestsTo),
+          ) as RedirectAllRequestsTo));
         case 'RoutingRules':
           result.routingRules.replace(
               (const _i1.XmlBuiltListSerializer(memberName: 'RoutingRule')
@@ -196,10 +195,10 @@ class PutBucketWebsiteRequestRestXmlSerializer
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i8.BuiltList,
-              [FullType(_i9.RoutingRule)],
+              _i3.BuiltList,
+              [FullType(RoutingRule)],
             ),
-          ) as _i8.BuiltList<_i9.RoutingRule>));
+          ) as _i3.BuiltList<RoutingRule>));
       }
     }
 
@@ -209,7 +208,7 @@ class PutBucketWebsiteRequestRestXmlSerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i2.WebsiteConfiguration object, {
+    WebsiteConfiguration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
@@ -218,7 +217,7 @@ class PutBucketWebsiteRequestRestXmlSerializer
         _i1.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
-    final _i2.WebsiteConfiguration(
+    final WebsiteConfiguration(
       :errorDocument,
       :indexDocument,
       :redirectAllRequestsTo,
@@ -229,7 +228,7 @@ class PutBucketWebsiteRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('ErrorDocument'))
         ..add(serializers.serialize(
           errorDocument,
-          specifiedType: const FullType(_i5.ErrorDocument),
+          specifiedType: const FullType(ErrorDocument),
         ));
     }
     if (indexDocument != null) {
@@ -237,7 +236,7 @@ class PutBucketWebsiteRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('IndexDocument'))
         ..add(serializers.serialize(
           indexDocument,
-          specifiedType: const FullType(_i6.IndexDocument),
+          specifiedType: const FullType(IndexDocument),
         ));
     }
     if (redirectAllRequestsTo != null) {
@@ -245,7 +244,7 @@ class PutBucketWebsiteRequestRestXmlSerializer
         ..add(const _i1.XmlElementName('RedirectAllRequestsTo'))
         ..add(serializers.serialize(
           redirectAllRequestsTo,
-          specifiedType: const FullType(_i7.RedirectAllRequestsTo),
+          specifiedType: const FullType(RedirectAllRequestsTo),
         ));
     }
     if (routingRules != null) {
@@ -256,8 +255,8 @@ class PutBucketWebsiteRequestRestXmlSerializer
           serializers,
           routingRules,
           specifiedType: const FullType.nullable(
-            _i8.BuiltList,
-            [FullType(_i9.RoutingRule)],
+            _i3.BuiltList,
+            [FullType(RoutingRule)],
           ),
         ));
     }

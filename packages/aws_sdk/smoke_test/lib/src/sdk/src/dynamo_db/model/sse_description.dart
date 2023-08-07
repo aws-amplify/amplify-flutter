@@ -6,9 +6,9 @@ library smoke_test.dynamo_db.model.sse_description; // ignore_for_file: no_leadi
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/sse_status.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/sse_type.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/sse_status.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/sse_type.dart';
 
 part 'sse_description.g.dart';
 
@@ -18,8 +18,8 @@ abstract class SseDescription
     implements Built<SseDescription, SseDescriptionBuilder> {
   /// The description of the server-side encryption status on the specified table.
   factory SseDescription({
-    _i2.SseStatus? status,
-    _i3.SseType? sseType,
+    SseStatus? status,
+    SseType? sseType,
     String? kmsMasterKeyArn,
     DateTime? inaccessibleEncryptionDateTime,
   }) {
@@ -37,7 +37,7 @@ abstract class SseDescription
 
   const SseDescription._();
 
-  static const List<_i4.SmithySerializer<SseDescription>> serializers = [
+  static const List<_i2.SmithySerializer<SseDescription>> serializers = [
     SseDescriptionAwsJson10Serializer()
   ];
 
@@ -46,12 +46,12 @@ abstract class SseDescription
   /// *   `ENABLED` \- Server-side encryption is enabled.
   ///
   /// *   `UPDATING` \- Server-side encryption is being updated.
-  _i2.SseStatus? get status;
+  SseStatus? get status;
 
   /// Server-side encryption type. The only supported value is:
   ///
   /// *   `KMS` \- Server-side encryption that uses Key Management Service. The key is stored in your account and is managed by KMS (KMS charges apply).
-  _i3.SseType? get sseType;
+  SseType? get sseType;
 
   /// The KMS key ARN used for the KMS encryption.
   String? get kmsMasterKeyArn;
@@ -89,7 +89,7 @@ abstract class SseDescription
 }
 
 class SseDescriptionAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<SseDescription> {
+    extends _i2.StructuredSmithySerializer<SseDescription> {
   const SseDescriptionAwsJson10Serializer() : super('SseDescription');
 
   @override
@@ -98,8 +98,8 @@ class SseDescriptionAwsJson10Serializer
         _$SseDescription,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -123,13 +123,13 @@ class SseDescriptionAwsJson10Serializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.SseStatus),
-          ) as _i2.SseStatus);
+            specifiedType: const FullType(SseStatus),
+          ) as SseStatus);
         case 'SSEType':
           result.sseType = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.SseType),
-          ) as _i3.SseType);
+            specifiedType: const FullType(SseType),
+          ) as SseType);
         case 'KMSMasterKeyArn':
           result.kmsMasterKeyArn = (serializers.deserialize(
             value,
@@ -164,7 +164,7 @@ class SseDescriptionAwsJson10Serializer
         ..add('Status')
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType(_i2.SseStatus),
+          specifiedType: const FullType(SseStatus),
         ));
     }
     if (sseType != null) {
@@ -172,7 +172,7 @@ class SseDescriptionAwsJson10Serializer
         ..add('SSEType')
         ..add(serializers.serialize(
           sseType,
-          specifiedType: const FullType(_i3.SseType),
+          specifiedType: const FullType(SseType),
         ));
     }
     if (kmsMasterKeyArn != null) {

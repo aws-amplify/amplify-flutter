@@ -9,7 +9,7 @@ part of 'upload_signing_certificate_response.dart';
 class _$UploadSigningCertificateResponse
     extends UploadSigningCertificateResponse {
   @override
-  final _i2.SigningCertificate certificate;
+  final SigningCertificate certificate;
 
   factory _$UploadSigningCertificateResponse(
           [void Function(UploadSigningCertificateResponseBuilder)? updates]) =>
@@ -52,10 +52,10 @@ class UploadSigningCertificateResponseBuilder
             UploadSigningCertificateResponseBuilder> {
   _$UploadSigningCertificateResponse? _$v;
 
-  _i2.SigningCertificateBuilder? _certificate;
-  _i2.SigningCertificateBuilder get certificate =>
-      _$this._certificate ??= new _i2.SigningCertificateBuilder();
-  set certificate(_i2.SigningCertificateBuilder? certificate) =>
+  SigningCertificateBuilder? _certificate;
+  SigningCertificateBuilder get certificate =>
+      _$this._certificate ??= new SigningCertificateBuilder();
+  set certificate(SigningCertificateBuilder? certificate) =>
       _$this._certificate = certificate;
 
   UploadSigningCertificateResponseBuilder();

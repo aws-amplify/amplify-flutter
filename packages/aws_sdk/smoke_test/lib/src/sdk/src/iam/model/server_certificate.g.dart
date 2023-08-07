@@ -8,13 +8,13 @@ part of 'server_certificate.dart';
 
 class _$ServerCertificate extends ServerCertificate {
   @override
-  final _i2.ServerCertificateMetadata serverCertificateMetadata;
+  final ServerCertificateMetadata serverCertificateMetadata;
   @override
   final String certificateBody;
   @override
   final String? certificateChain;
   @override
-  final _i4.BuiltList<_i3.Tag>? tags;
+  final _i2.BuiltList<Tag>? tags;
 
   factory _$ServerCertificate(
           [void Function(ServerCertificateBuilder)? updates]) =>
@@ -66,12 +66,12 @@ class ServerCertificateBuilder
     implements Builder<ServerCertificate, ServerCertificateBuilder> {
   _$ServerCertificate? _$v;
 
-  _i2.ServerCertificateMetadataBuilder? _serverCertificateMetadata;
-  _i2.ServerCertificateMetadataBuilder get serverCertificateMetadata =>
+  ServerCertificateMetadataBuilder? _serverCertificateMetadata;
+  ServerCertificateMetadataBuilder get serverCertificateMetadata =>
       _$this._serverCertificateMetadata ??=
-          new _i2.ServerCertificateMetadataBuilder();
+          new ServerCertificateMetadataBuilder();
   set serverCertificateMetadata(
-          _i2.ServerCertificateMetadataBuilder? serverCertificateMetadata) =>
+          ServerCertificateMetadataBuilder? serverCertificateMetadata) =>
       _$this._serverCertificateMetadata = serverCertificateMetadata;
 
   String? _certificateBody;
@@ -84,10 +84,9 @@ class ServerCertificateBuilder
   set certificateChain(String? certificateChain) =>
       _$this._certificateChain = certificateChain;
 
-  _i4.ListBuilder<_i3.Tag>? _tags;
-  _i4.ListBuilder<_i3.Tag> get tags =>
-      _$this._tags ??= new _i4.ListBuilder<_i3.Tag>();
-  set tags(_i4.ListBuilder<_i3.Tag>? tags) => _$this._tags = tags;
+  _i2.ListBuilder<Tag>? _tags;
+  _i2.ListBuilder<Tag> get tags => _$this._tags ??= new _i2.ListBuilder<Tag>();
+  set tags(_i2.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   ServerCertificateBuilder();
 

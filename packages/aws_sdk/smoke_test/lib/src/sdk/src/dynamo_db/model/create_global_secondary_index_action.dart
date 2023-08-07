@@ -4,15 +4,13 @@
 library smoke_test.dynamo_db.model.create_global_secondary_index_action; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/key_schema_element.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/projection.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput.dart'
-    as _i4;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/key_schema_element.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/projection.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/provisioned_throughput.dart';
 
 part 'create_global_secondary_index_action.g.dart';
 
@@ -26,13 +24,13 @@ abstract class CreateGlobalSecondaryIndexAction
   /// Represents a new global secondary index to be added to an existing table.
   factory CreateGlobalSecondaryIndexAction({
     required String indexName,
-    required List<_i2.KeySchemaElement> keySchema,
-    required _i3.Projection projection,
-    _i4.ProvisionedThroughput? provisionedThroughput,
+    required List<KeySchemaElement> keySchema,
+    required Projection projection,
+    ProvisionedThroughput? provisionedThroughput,
   }) {
     return _$CreateGlobalSecondaryIndexAction._(
       indexName: indexName,
-      keySchema: _i5.BuiltList(keySchema),
+      keySchema: _i2.BuiltList(keySchema),
       projection: projection,
       provisionedThroughput: provisionedThroughput,
     );
@@ -45,22 +43,22 @@ abstract class CreateGlobalSecondaryIndexAction
 
   const CreateGlobalSecondaryIndexAction._();
 
-  static const List<_i6.SmithySerializer<CreateGlobalSecondaryIndexAction>>
+  static const List<_i3.SmithySerializer<CreateGlobalSecondaryIndexAction>>
       serializers = [CreateGlobalSecondaryIndexActionAwsJson10Serializer()];
 
   /// The name of the global secondary index to be created.
   String get indexName;
 
   /// The key schema for the global secondary index.
-  _i5.BuiltList<_i2.KeySchemaElement> get keySchema;
+  _i2.BuiltList<KeySchemaElement> get keySchema;
 
   /// Represents attributes that are copied (projected) from the table into an index. These are in addition to the primary key attributes and index key attributes, which are automatically projected.
-  _i3.Projection get projection;
+  Projection get projection;
 
   /// Represents the provisioned throughput settings for the specified global secondary index.
   ///
   /// For current minimum and maximum provisioned throughput values, see [Service, Account, and Table Quotas](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html) in the _Amazon DynamoDB Developer Guide_.
-  _i4.ProvisionedThroughput? get provisionedThroughput;
+  ProvisionedThroughput? get provisionedThroughput;
   @override
   List<Object?> get props => [
         indexName,
@@ -93,7 +91,7 @@ abstract class CreateGlobalSecondaryIndexAction
 }
 
 class CreateGlobalSecondaryIndexActionAwsJson10Serializer
-    extends _i6.StructuredSmithySerializer<CreateGlobalSecondaryIndexAction> {
+    extends _i3.StructuredSmithySerializer<CreateGlobalSecondaryIndexAction> {
   const CreateGlobalSecondaryIndexActionAwsJson10Serializer()
       : super('CreateGlobalSecondaryIndexAction');
 
@@ -103,8 +101,8 @@ class CreateGlobalSecondaryIndexActionAwsJson10Serializer
         _$CreateGlobalSecondaryIndexAction,
       ];
   @override
-  Iterable<_i6.ShapeId> get supportedProtocols => const [
-        _i6.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -134,20 +132,20 @@ class CreateGlobalSecondaryIndexActionAwsJson10Serializer
           result.keySchema.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(_i2.KeySchemaElement)],
+              _i2.BuiltList,
+              [FullType(KeySchemaElement)],
             ),
-          ) as _i5.BuiltList<_i2.KeySchemaElement>));
+          ) as _i2.BuiltList<KeySchemaElement>));
         case 'Projection':
           result.projection.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.Projection),
-          ) as _i3.Projection));
+            specifiedType: const FullType(Projection),
+          ) as Projection));
         case 'ProvisionedThroughput':
           result.provisionedThroughput.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.ProvisionedThroughput),
-          ) as _i4.ProvisionedThroughput));
+            specifiedType: const FullType(ProvisionedThroughput),
+          ) as ProvisionedThroughput));
       }
     }
 
@@ -177,14 +175,14 @@ class CreateGlobalSecondaryIndexActionAwsJson10Serializer
       serializers.serialize(
         keySchema,
         specifiedType: const FullType(
-          _i5.BuiltList,
-          [FullType(_i2.KeySchemaElement)],
+          _i2.BuiltList,
+          [FullType(KeySchemaElement)],
         ),
       ),
       'Projection',
       serializers.serialize(
         projection,
-        specifiedType: const FullType(_i3.Projection),
+        specifiedType: const FullType(Projection),
       ),
     ]);
     if (provisionedThroughput != null) {
@@ -192,7 +190,7 @@ class CreateGlobalSecondaryIndexActionAwsJson10Serializer
         ..add('ProvisionedThroughput')
         ..add(serializers.serialize(
           provisionedThroughput,
-          specifiedType: const FullType(_i4.ProvisionedThroughput),
+          specifiedType: const FullType(ProvisionedThroughput),
         ));
     }
     return result$;

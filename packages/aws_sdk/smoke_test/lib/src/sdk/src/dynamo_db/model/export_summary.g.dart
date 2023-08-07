@@ -10,7 +10,7 @@ class _$ExportSummary extends ExportSummary {
   @override
   final String? exportArn;
   @override
-  final _i2.ExportStatus? exportStatus;
+  final ExportStatus? exportStatus;
 
   factory _$ExportSummary([void Function(ExportSummaryBuilder)? updates]) =>
       (new ExportSummaryBuilder()..update(updates))._build();
@@ -50,9 +50,9 @@ class ExportSummaryBuilder
   String? get exportArn => _$this._exportArn;
   set exportArn(String? exportArn) => _$this._exportArn = exportArn;
 
-  _i2.ExportStatus? _exportStatus;
-  _i2.ExportStatus? get exportStatus => _$this._exportStatus;
-  set exportStatus(_i2.ExportStatus? exportStatus) =>
+  ExportStatus? _exportStatus;
+  ExportStatus? get exportStatus => _$this._exportStatus;
+  set exportStatus(ExportStatus? exportStatus) =>
       _$this._exportStatus = exportStatus;
 
   ExportSummaryBuilder();

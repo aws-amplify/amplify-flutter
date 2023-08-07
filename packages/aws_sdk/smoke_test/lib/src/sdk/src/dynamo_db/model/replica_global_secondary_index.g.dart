@@ -10,7 +10,7 @@ class _$ReplicaGlobalSecondaryIndex extends ReplicaGlobalSecondaryIndex {
   @override
   final String indexName;
   @override
-  final _i2.ProvisionedThroughputOverride? provisionedThroughputOverride;
+  final ProvisionedThroughputOverride? provisionedThroughputOverride;
 
   factory _$ReplicaGlobalSecondaryIndex(
           [void Function(ReplicaGlobalSecondaryIndexBuilder)? updates]) =>
@@ -60,12 +60,12 @@ class ReplicaGlobalSecondaryIndexBuilder
   String? get indexName => _$this._indexName;
   set indexName(String? indexName) => _$this._indexName = indexName;
 
-  _i2.ProvisionedThroughputOverrideBuilder? _provisionedThroughputOverride;
-  _i2.ProvisionedThroughputOverrideBuilder get provisionedThroughputOverride =>
+  ProvisionedThroughputOverrideBuilder? _provisionedThroughputOverride;
+  ProvisionedThroughputOverrideBuilder get provisionedThroughputOverride =>
       _$this._provisionedThroughputOverride ??=
-          new _i2.ProvisionedThroughputOverrideBuilder();
+          new ProvisionedThroughputOverrideBuilder();
   set provisionedThroughputOverride(
-          _i2.ProvisionedThroughputOverrideBuilder?
+          ProvisionedThroughputOverrideBuilder?
               provisionedThroughputOverride) =>
       _$this._provisionedThroughputOverride = provisionedThroughputOverride;
 

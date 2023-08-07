@@ -16,7 +16,7 @@ class _$ConfigurationRecorderStatus extends ConfigurationRecorderStatus {
   @override
   final bool recording;
   @override
-  final _i2.RecorderStatus? lastStatus;
+  final RecorderStatus? lastStatus;
   @override
   final String? lastErrorCode;
   @override
@@ -105,10 +105,9 @@ class ConfigurationRecorderStatusBuilder
   bool? get recording => _$this._recording;
   set recording(bool? recording) => _$this._recording = recording;
 
-  _i2.RecorderStatus? _lastStatus;
-  _i2.RecorderStatus? get lastStatus => _$this._lastStatus;
-  set lastStatus(_i2.RecorderStatus? lastStatus) =>
-      _$this._lastStatus = lastStatus;
+  RecorderStatus? _lastStatus;
+  RecorderStatus? get lastStatus => _$this._lastStatus;
+  set lastStatus(RecorderStatus? lastStatus) => _$this._lastStatus = lastStatus;
 
   String? _lastErrorCode;
   String? get lastErrorCode => _$this._lastErrorCode;

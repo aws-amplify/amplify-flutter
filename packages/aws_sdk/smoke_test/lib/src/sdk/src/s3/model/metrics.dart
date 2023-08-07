@@ -6,10 +6,9 @@ library smoke_test.s3.model.metrics; // ignore_for_file: no_leading_underscores_
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/s3/model/metrics_status.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/replication_time_value.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/metrics_status.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/replication_time_value.dart';
 
 part 'metrics.g.dart';
 
@@ -19,8 +18,8 @@ abstract class Metrics
     implements Built<Metrics, MetricsBuilder> {
   /// A container specifying replication metrics-related settings enabling replication metrics and events.
   factory Metrics({
-    required _i2.MetricsStatus status,
-    _i3.ReplicationTimeValue? eventThreshold,
+    required MetricsStatus status,
+    ReplicationTimeValue? eventThreshold,
   }) {
     return _$Metrics._(
       status: status,
@@ -33,15 +32,15 @@ abstract class Metrics
 
   const Metrics._();
 
-  static const List<_i4.SmithySerializer<Metrics>> serializers = [
+  static const List<_i2.SmithySerializer<Metrics>> serializers = [
     MetricsRestXmlSerializer()
   ];
 
   /// Specifies whether the replication metrics are enabled.
-  _i2.MetricsStatus get status;
+  MetricsStatus get status;
 
   /// A container specifying the time threshold for emitting the `s3:Replication:OperationMissedThreshold` event.
-  _i3.ReplicationTimeValue? get eventThreshold;
+  ReplicationTimeValue? get eventThreshold;
   @override
   List<Object?> get props => [
         status,
@@ -62,7 +61,7 @@ abstract class Metrics
   }
 }
 
-class MetricsRestXmlSerializer extends _i4.StructuredSmithySerializer<Metrics> {
+class MetricsRestXmlSerializer extends _i2.StructuredSmithySerializer<Metrics> {
   const MetricsRestXmlSerializer() : super('Metrics');
 
   @override
@@ -71,8 +70,8 @@ class MetricsRestXmlSerializer extends _i4.StructuredSmithySerializer<Metrics> {
         _$Metrics,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -96,13 +95,13 @@ class MetricsRestXmlSerializer extends _i4.StructuredSmithySerializer<Metrics> {
         case 'EventThreshold':
           result.eventThreshold.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ReplicationTimeValue),
-          ) as _i3.ReplicationTimeValue));
+            specifiedType: const FullType(ReplicationTimeValue),
+          ) as ReplicationTimeValue));
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.MetricsStatus),
-          ) as _i2.MetricsStatus);
+            specifiedType: const FullType(MetricsStatus),
+          ) as MetricsStatus);
       }
     }
 
@@ -116,25 +115,25 @@ class MetricsRestXmlSerializer extends _i4.StructuredSmithySerializer<Metrics> {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'Metrics',
-        _i4.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final Metrics(:eventThreshold, :status) = object;
     if (eventThreshold != null) {
       result$
-        ..add(const _i4.XmlElementName('EventThreshold'))
+        ..add(const _i2.XmlElementName('EventThreshold'))
         ..add(serializers.serialize(
           eventThreshold,
-          specifiedType: const FullType(_i3.ReplicationTimeValue),
+          specifiedType: const FullType(ReplicationTimeValue),
         ));
     }
     result$
-      ..add(const _i4.XmlElementName('Status'))
+      ..add(const _i2.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(_i2.MetricsStatus),
+        specifiedType: const FullType.nullable(MetricsStatus),
       ));
     return result$;
   }

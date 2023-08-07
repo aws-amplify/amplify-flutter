@@ -4,11 +4,11 @@
 library aws_query_v1.query_protocol.model.client_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:aws_query_v1/src/query_protocol/model/retry_config.dart' as _i3;
-import 'package:aws_query_v1/src/query_protocol/model/s3_config.dart' as _i2;
+import 'package:aws_query_v1/src/query_protocol/model/retry_config.dart';
+import 'package:aws_query_v1/src/query_protocol/model/s3_config.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'client_config.g.dart';
 
@@ -22,8 +22,8 @@ abstract class ClientConfig
     String? awsSecretAccessKey,
     String? awsSessionToken,
     String? region,
-    _i2.S3Config? s3,
-    _i3.RetryConfig? retryConfig,
+    S3Config? s3,
+    RetryConfig? retryConfig,
     String? awsProfile,
   }) {
     return _$ClientConfig._(
@@ -43,7 +43,7 @@ abstract class ClientConfig
 
   const ClientConfig._();
 
-  static const List<_i4.SmithySerializer<ClientConfig>> serializers = [
+  static const List<_i2.SmithySerializer<ClientConfig>> serializers = [
     ClientConfigAwsQuerySerializer()
   ];
 
@@ -53,10 +53,10 @@ abstract class ClientConfig
   String? get region;
 
   /// Configuration specific to S3.
-  _i2.S3Config? get s3;
+  S3Config? get s3;
 
   /// Configuration specific to retries.
-  _i3.RetryConfig? get retryConfig;
+  RetryConfig? get retryConfig;
   String? get awsProfile;
   @override
   List<Object?> get props => [
@@ -104,7 +104,7 @@ abstract class ClientConfig
 }
 
 class ClientConfigAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<ClientConfig> {
+    extends _i2.StructuredSmithySerializer<ClientConfig> {
   const ClientConfigAwsQuerySerializer() : super('ClientConfig');
 
   @override
@@ -113,8 +113,8 @@ class ClientConfigAwsQuerySerializer
         _$ClientConfig,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -158,13 +158,13 @@ class ClientConfigAwsQuerySerializer
         case 's3':
           result.s3.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.S3Config),
-          ) as _i2.S3Config));
+            specifiedType: const FullType(S3Config),
+          ) as S3Config));
         case 'retry_config':
           result.retryConfig.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.RetryConfig),
-          ) as _i3.RetryConfig));
+            specifiedType: const FullType(RetryConfig),
+          ) as RetryConfig));
         case 'aws_profile':
           result.awsProfile = (serializers.deserialize(
             value,
@@ -183,9 +183,9 @@ class ClientConfigAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i2.XmlElementName(
         'ClientConfigResponse',
-        _i4.XmlNamespace('https://example.com/'),
+        _i2.XmlNamespace('https://example.com/'),
       )
     ];
     final ClientConfig(
@@ -199,7 +199,7 @@ class ClientConfigAwsQuerySerializer
     ) = object;
     if (awsAccessKeyId != null) {
       result$
-        ..add(const _i4.XmlElementName('aws_access_key_id'))
+        ..add(const _i2.XmlElementName('aws_access_key_id'))
         ..add(serializers.serialize(
           awsAccessKeyId,
           specifiedType: const FullType(String),
@@ -207,7 +207,7 @@ class ClientConfigAwsQuerySerializer
     }
     if (awsSecretAccessKey != null) {
       result$
-        ..add(const _i4.XmlElementName('aws_secret_access_key'))
+        ..add(const _i2.XmlElementName('aws_secret_access_key'))
         ..add(serializers.serialize(
           awsSecretAccessKey,
           specifiedType: const FullType(String),
@@ -215,7 +215,7 @@ class ClientConfigAwsQuerySerializer
     }
     if (awsSessionToken != null) {
       result$
-        ..add(const _i4.XmlElementName('aws_session_token'))
+        ..add(const _i2.XmlElementName('aws_session_token'))
         ..add(serializers.serialize(
           awsSessionToken,
           specifiedType: const FullType(String),
@@ -223,7 +223,7 @@ class ClientConfigAwsQuerySerializer
     }
     if (region != null) {
       result$
-        ..add(const _i4.XmlElementName('region'))
+        ..add(const _i2.XmlElementName('region'))
         ..add(serializers.serialize(
           region,
           specifiedType: const FullType(String),
@@ -231,23 +231,23 @@ class ClientConfigAwsQuerySerializer
     }
     if (s3 != null) {
       result$
-        ..add(const _i4.XmlElementName('s3'))
+        ..add(const _i2.XmlElementName('s3'))
         ..add(serializers.serialize(
           s3,
-          specifiedType: const FullType(_i2.S3Config),
+          specifiedType: const FullType(S3Config),
         ));
     }
     if (retryConfig != null) {
       result$
-        ..add(const _i4.XmlElementName('retry_config'))
+        ..add(const _i2.XmlElementName('retry_config'))
         ..add(serializers.serialize(
           retryConfig,
-          specifiedType: const FullType(_i3.RetryConfig),
+          specifiedType: const FullType(RetryConfig),
         ));
     }
     if (awsProfile != null) {
       result$
-        ..add(const _i4.XmlElementName('aws_profile'))
+        ..add(const _i2.XmlElementName('aws_profile'))
         ..add(serializers.serialize(
           awsProfile,
           specifiedType: const FullType(String),

@@ -18,7 +18,7 @@ class _$ParameterDeclaration extends ParameterDeclaration {
   @override
   final String? description;
   @override
-  final _i2.ParameterConstraints? parameterConstraints;
+  final ParameterConstraints? parameterConstraints;
 
   factory _$ParameterDeclaration(
           [void Function(ParameterDeclarationBuilder)? updates]) =>
@@ -93,11 +93,10 @@ class ParameterDeclarationBuilder
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  _i2.ParameterConstraintsBuilder? _parameterConstraints;
-  _i2.ParameterConstraintsBuilder get parameterConstraints =>
-      _$this._parameterConstraints ??= new _i2.ParameterConstraintsBuilder();
-  set parameterConstraints(
-          _i2.ParameterConstraintsBuilder? parameterConstraints) =>
+  ParameterConstraintsBuilder? _parameterConstraints;
+  ParameterConstraintsBuilder get parameterConstraints =>
+      _$this._parameterConstraints ??= new ParameterConstraintsBuilder();
+  set parameterConstraints(ParameterConstraintsBuilder? parameterConstraints) =>
       _$this._parameterConstraints = parameterConstraints;
 
   ParameterDeclarationBuilder();

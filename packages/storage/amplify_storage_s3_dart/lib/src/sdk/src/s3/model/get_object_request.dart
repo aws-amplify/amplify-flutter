@@ -3,14 +3,12 @@
 
 library amplify_storage_s3_dart.s3.model.get_object_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/checksum_mode.dart'
-    as _i4;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_payer.dart'
-    as _i3;
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/checksum_mode.dart';
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/request_payer.dart';
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i5;
+import 'package:meta/meta.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i1;
 
 part 'get_object_request.g.dart';
@@ -41,10 +39,10 @@ abstract class GetObjectRequest
     String? sseCustomerAlgorithm,
     String? sseCustomerKey,
     String? sseCustomerKeyMd5,
-    _i3.RequestPayer? requestPayer,
+    RequestPayer? requestPayer,
     int? partNumber,
     String? expectedBucketOwner,
-    _i4.ChecksumMode? checksumMode,
+    ChecksumMode? checksumMode,
   }) {
     return _$GetObjectRequest._(
       bucket: bucket,
@@ -120,7 +118,7 @@ abstract class GetObjectRequest
               request.headers['x-amz-server-side-encryption-customer-key-MD5']!;
         }
         if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = _i3.RequestPayer.values
+          b.requestPayer = RequestPayer.values
               .byValue(request.headers['x-amz-request-payer']!);
         }
         if (request.headers['x-amz-expected-bucket-owner'] != null) {
@@ -128,7 +126,7 @@ abstract class GetObjectRequest
               request.headers['x-amz-expected-bucket-owner']!;
         }
         if (request.headers['x-amz-checksum-mode'] != null) {
-          b.checksumMode = _i4.ChecksumMode.values
+          b.checksumMode = ChecksumMode.values
               .byValue(request.headers['x-amz-checksum-mode']!);
         }
         if (request.queryParameters['response-cache-control'] != null) {
@@ -234,7 +232,7 @@ abstract class GetObjectRequest
   String? get sseCustomerKeyMd5;
 
   /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
-  _i3.RequestPayer? get requestPayer;
+  RequestPayer? get requestPayer;
 
   /// Part number of the object being read. This is a positive integer between 1 and 10,000. Effectively performs a 'ranged' GET request for the part specified. Useful for downloading just a part of an object.
   int? get partNumber;
@@ -243,7 +241,7 @@ abstract class GetObjectRequest
   String? get expectedBucketOwner;
 
   /// To retrieve the checksum, this mode must be enabled.
-  _i4.ChecksumMode? get checksumMode;
+  ChecksumMode? get checksumMode;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -375,7 +373,7 @@ abstract class GetObjectRequest
   }
 }
 
-@_i5.internal
+@_i3.internal
 abstract class GetObjectRequestPayload
     with _i2.AWSEquatable<GetObjectRequestPayload>
     implements

@@ -14,13 +14,13 @@ class _$BaseConfigurationItem extends BaseConfigurationItem {
   @override
   final DateTime? configurationItemCaptureTime;
   @override
-  final _i2.ConfigurationItemStatus? configurationItemStatus;
+  final ConfigurationItemStatus? configurationItemStatus;
   @override
   final String? configurationStateId;
   @override
   final String? arn;
   @override
-  final _i3.ResourceType? resourceType;
+  final ResourceType? resourceType;
   @override
   final String? resourceId;
   @override
@@ -34,7 +34,7 @@ class _$BaseConfigurationItem extends BaseConfigurationItem {
   @override
   final String? configuration;
   @override
-  final _i4.BuiltMap<String, String>? supplementaryConfiguration;
+  final _i2.BuiltMap<String, String>? supplementaryConfiguration;
 
   factory _$BaseConfigurationItem(
           [void Function(BaseConfigurationItemBuilder)? updates]) =>
@@ -126,11 +126,11 @@ class BaseConfigurationItemBuilder
   set configurationItemCaptureTime(DateTime? configurationItemCaptureTime) =>
       _$this._configurationItemCaptureTime = configurationItemCaptureTime;
 
-  _i2.ConfigurationItemStatus? _configurationItemStatus;
-  _i2.ConfigurationItemStatus? get configurationItemStatus =>
+  ConfigurationItemStatus? _configurationItemStatus;
+  ConfigurationItemStatus? get configurationItemStatus =>
       _$this._configurationItemStatus;
   set configurationItemStatus(
-          _i2.ConfigurationItemStatus? configurationItemStatus) =>
+          ConfigurationItemStatus? configurationItemStatus) =>
       _$this._configurationItemStatus = configurationItemStatus;
 
   String? _configurationStateId;
@@ -142,9 +142,9 @@ class BaseConfigurationItemBuilder
   String? get arn => _$this._arn;
   set arn(String? arn) => _$this._arn = arn;
 
-  _i3.ResourceType? _resourceType;
-  _i3.ResourceType? get resourceType => _$this._resourceType;
-  set resourceType(_i3.ResourceType? resourceType) =>
+  ResourceType? _resourceType;
+  ResourceType? get resourceType => _$this._resourceType;
+  set resourceType(ResourceType? resourceType) =>
       _$this._resourceType = resourceType;
 
   String? _resourceId;
@@ -174,12 +174,12 @@ class BaseConfigurationItemBuilder
   set configuration(String? configuration) =>
       _$this._configuration = configuration;
 
-  _i4.MapBuilder<String, String>? _supplementaryConfiguration;
-  _i4.MapBuilder<String, String> get supplementaryConfiguration =>
+  _i2.MapBuilder<String, String>? _supplementaryConfiguration;
+  _i2.MapBuilder<String, String> get supplementaryConfiguration =>
       _$this._supplementaryConfiguration ??=
-          new _i4.MapBuilder<String, String>();
+          new _i2.MapBuilder<String, String>();
   set supplementaryConfiguration(
-          _i4.MapBuilder<String, String>? supplementaryConfiguration) =>
+          _i2.MapBuilder<String, String>? supplementaryConfiguration) =>
       _$this._supplementaryConfiguration = supplementaryConfiguration;
 
   BaseConfigurationItemBuilder();

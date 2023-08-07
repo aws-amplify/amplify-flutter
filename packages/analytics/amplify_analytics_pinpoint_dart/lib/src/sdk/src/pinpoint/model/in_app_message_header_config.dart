@@ -3,12 +3,11 @@
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.in_app_message_header_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/alignment.dart'
-    as _i2;
+import 'package:amplify_analytics_pinpoint_dart/src/sdk/src/pinpoint/model/alignment.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'in_app_message_header_config.g.dart';
 
@@ -19,7 +18,7 @@ abstract class InAppMessageHeaderConfig
         Built<InAppMessageHeaderConfig, InAppMessageHeaderConfigBuilder> {
   /// Text config for Message Header.
   factory InAppMessageHeaderConfig({
-    required _i2.Alignment alignment,
+    required Alignment alignment,
     required String header,
     required String textColor,
   }) {
@@ -37,11 +36,11 @@ abstract class InAppMessageHeaderConfig
 
   const InAppMessageHeaderConfig._();
 
-  static const List<_i3.SmithySerializer<InAppMessageHeaderConfig>>
+  static const List<_i2.SmithySerializer<InAppMessageHeaderConfig>>
       serializers = [InAppMessageHeaderConfigRestJson1Serializer()];
 
   /// The alignment of the text. Valid values: LEFT, CENTER, RIGHT.
-  _i2.Alignment get alignment;
+  Alignment get alignment;
 
   /// Message Header.
   String get header;
@@ -74,7 +73,7 @@ abstract class InAppMessageHeaderConfig
 }
 
 class InAppMessageHeaderConfigRestJson1Serializer
-    extends _i3.StructuredSmithySerializer<InAppMessageHeaderConfig> {
+    extends _i2.StructuredSmithySerializer<InAppMessageHeaderConfig> {
   const InAppMessageHeaderConfigRestJson1Serializer()
       : super('InAppMessageHeaderConfig');
 
@@ -84,8 +83,8 @@ class InAppMessageHeaderConfigRestJson1Serializer
         _$InAppMessageHeaderConfig,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -109,8 +108,8 @@ class InAppMessageHeaderConfigRestJson1Serializer
         case 'Alignment':
           result.alignment = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.Alignment),
-          ) as _i2.Alignment);
+            specifiedType: const FullType(Alignment),
+          ) as Alignment);
         case 'Header':
           result.header = (serializers.deserialize(
             value,
@@ -139,7 +138,7 @@ class InAppMessageHeaderConfigRestJson1Serializer
       'Alignment',
       serializers.serialize(
         alignment,
-        specifiedType: const FullType(_i2.Alignment),
+        specifiedType: const FullType(Alignment),
       ),
       'Header',
       serializers.serialize(

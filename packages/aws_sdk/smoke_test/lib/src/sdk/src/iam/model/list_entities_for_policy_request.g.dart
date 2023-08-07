@@ -10,11 +10,11 @@ class _$ListEntitiesForPolicyRequest extends ListEntitiesForPolicyRequest {
   @override
   final String policyArn;
   @override
-  final _i3.EntityType? entityFilter;
+  final EntityType? entityFilter;
   @override
   final String? pathPrefix;
   @override
-  final _i4.PolicyUsageType? policyUsageFilter;
+  final PolicyUsageType? policyUsageFilter;
   @override
   final String? marker;
   @override
@@ -81,18 +81,18 @@ class ListEntitiesForPolicyRequestBuilder
   String? get policyArn => _$this._policyArn;
   set policyArn(String? policyArn) => _$this._policyArn = policyArn;
 
-  _i3.EntityType? _entityFilter;
-  _i3.EntityType? get entityFilter => _$this._entityFilter;
-  set entityFilter(_i3.EntityType? entityFilter) =>
+  EntityType? _entityFilter;
+  EntityType? get entityFilter => _$this._entityFilter;
+  set entityFilter(EntityType? entityFilter) =>
       _$this._entityFilter = entityFilter;
 
   String? _pathPrefix;
   String? get pathPrefix => _$this._pathPrefix;
   set pathPrefix(String? pathPrefix) => _$this._pathPrefix = pathPrefix;
 
-  _i4.PolicyUsageType? _policyUsageFilter;
-  _i4.PolicyUsageType? get policyUsageFilter => _$this._policyUsageFilter;
-  set policyUsageFilter(_i4.PolicyUsageType? policyUsageFilter) =>
+  PolicyUsageType? _policyUsageFilter;
+  PolicyUsageType? get policyUsageFilter => _$this._policyUsageFilter;
+  set policyUsageFilter(PolicyUsageType? policyUsageFilter) =>
       _$this._policyUsageFilter = policyUsageFilter;
 
   String? _marker;

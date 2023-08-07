@@ -5,513 +5,261 @@ library smoke_test.config_service.config_client; // ignore_for_file: no_leading_
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i50;
+import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_compliance_by_conformance_pack.dart'
-    as _i51;
-import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_evaluation_result.dart'
-    as _i123;
-import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_resource_identifier.dart'
-    as _i178;
-import 'package:smoke_test/src/sdk/src/config_service/model/aggregated_source_status.dart'
-    as _i69;
-import 'package:smoke_test/src/sdk/src/config_service/model/aggregation_authorization.dart'
-    as _i54;
-import 'package:smoke_test/src/sdk/src/config_service/model/batch_get_aggregate_resource_config_request.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/config_service/model/batch_get_aggregate_resource_config_response.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/batch_get_resource_config_request.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/config_service/model/batch_get_resource_config_response.dart'
-    as _i7;
-import 'package:smoke_test/src/sdk/src/config_service/model/compliance_by_config_rule.dart'
-    as _i57;
-import 'package:smoke_test/src/sdk/src/config_service/model/compliance_by_resource.dart'
-    as _i60;
-import 'package:smoke_test/src/sdk/src/config_service/model/config_rule.dart'
-    as _i66;
-import 'package:smoke_test/src/sdk/src/config_service/model/config_rule_evaluation_status.dart'
-    as _i63;
-import 'package:smoke_test/src/sdk/src/config_service/model/configuration_aggregator.dart'
-    as _i72;
-import 'package:smoke_test/src/sdk/src/config_service/model/configuration_item.dart'
-    as _i169;
-import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_compliance_summary.dart'
-    as _i151;
-import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_detail.dart'
-    as _i87;
-import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_status_detail.dart'
-    as _i84;
-import 'package:smoke_test/src/sdk/src/config_service/model/delete_aggregation_authorization_request.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/config_service/model/delete_config_rule_request.dart'
-    as _i12;
-import 'package:smoke_test/src/sdk/src/config_service/model/delete_configuration_aggregator_request.dart'
-    as _i14;
-import 'package:smoke_test/src/sdk/src/config_service/model/delete_configuration_recorder_request.dart'
-    as _i16;
-import 'package:smoke_test/src/sdk/src/config_service/model/delete_conformance_pack_request.dart'
-    as _i18;
-import 'package:smoke_test/src/sdk/src/config_service/model/delete_delivery_channel_request.dart'
-    as _i20;
-import 'package:smoke_test/src/sdk/src/config_service/model/delete_evaluation_results_request.dart'
-    as _i23;
-import 'package:smoke_test/src/sdk/src/config_service/model/delete_evaluation_results_response.dart'
-    as _i22;
-import 'package:smoke_test/src/sdk/src/config_service/model/delete_organization_config_rule_request.dart'
-    as _i25;
-import 'package:smoke_test/src/sdk/src/config_service/model/delete_organization_conformance_pack_request.dart'
-    as _i27;
-import 'package:smoke_test/src/sdk/src/config_service/model/delete_pending_aggregation_request_request.dart'
-    as _i29;
-import 'package:smoke_test/src/sdk/src/config_service/model/delete_remediation_configuration_request.dart'
-    as _i32;
-import 'package:smoke_test/src/sdk/src/config_service/model/delete_remediation_configuration_response.dart'
-    as _i31;
-import 'package:smoke_test/src/sdk/src/config_service/model/delete_remediation_exceptions_request.dart'
-    as _i35;
-import 'package:smoke_test/src/sdk/src/config_service/model/delete_remediation_exceptions_response.dart'
-    as _i34;
-import 'package:smoke_test/src/sdk/src/config_service/model/delete_resource_config_request.dart'
-    as _i37;
-import 'package:smoke_test/src/sdk/src/config_service/model/delete_retention_configuration_request.dart'
-    as _i39;
-import 'package:smoke_test/src/sdk/src/config_service/model/delete_stored_query_request.dart'
-    as _i42;
-import 'package:smoke_test/src/sdk/src/config_service/model/delete_stored_query_response.dart'
-    as _i41;
-import 'package:smoke_test/src/sdk/src/config_service/model/deliver_config_snapshot_request.dart'
-    as _i45;
-import 'package:smoke_test/src/sdk/src/config_service/model/deliver_config_snapshot_response.dart'
-    as _i44;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_aggregate_compliance_by_config_rules_request.dart'
-    as _i48;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_aggregate_compliance_by_config_rules_response.dart'
-    as _i47;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_aggregate_compliance_by_conformance_packs_request.dart'
-    as _i52;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_aggregation_authorizations_request.dart'
-    as _i55;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_compliance_by_config_rule_request.dart'
-    as _i58;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_compliance_by_resource_request.dart'
-    as _i61;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_config_rule_evaluation_status_request.dart'
-    as _i64;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_config_rules_request.dart'
-    as _i67;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_configuration_aggregator_sources_status_request.dart'
-    as _i70;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_configuration_aggregators_request.dart'
-    as _i73;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_configuration_recorder_status_request.dart'
-    as _i76;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_configuration_recorder_status_response.dart'
-    as _i75;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_configuration_recorders_request.dart'
-    as _i79;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_configuration_recorders_response.dart'
-    as _i78;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_conformance_pack_compliance_request.dart'
-    as _i82;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_conformance_pack_compliance_response.dart'
-    as _i81;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_conformance_pack_status_request.dart'
-    as _i85;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_conformance_packs_request.dart'
-    as _i88;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_delivery_channel_status_request.dart'
-    as _i91;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_delivery_channel_status_response.dart'
-    as _i90;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_delivery_channels_request.dart'
-    as _i94;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_delivery_channels_response.dart'
-    as _i93;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_organization_config_rule_statuses_request.dart'
-    as _i97;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_organization_config_rules_request.dart'
-    as _i100;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_organization_conformance_pack_statuses_request.dart'
-    as _i103;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_organization_conformance_packs_request.dart'
-    as _i106;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_pending_aggregation_requests_request.dart'
-    as _i109;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_remediation_configurations_request.dart'
-    as _i112;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_remediation_configurations_response.dart'
-    as _i111;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_remediation_exceptions_request.dart'
-    as _i115;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_remediation_exceptions_response.dart'
-    as _i114;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_remediation_execution_status_request.dart'
-    as _i118;
-import 'package:smoke_test/src/sdk/src/config_service/model/describe_retention_configurations_request.dart'
-    as _i121;
-import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_result.dart'
-    as _i138;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_aggregate_compliance_details_by_config_rule_request.dart'
-    as _i124;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_aggregate_config_rule_compliance_summary_request.dart'
-    as _i127;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_aggregate_config_rule_compliance_summary_response.dart'
-    as _i126;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_aggregate_conformance_pack_compliance_summary_request.dart'
-    as _i130;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_aggregate_conformance_pack_compliance_summary_response.dart'
-    as _i129;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_aggregate_discovered_resource_counts_request.dart'
-    as _i133;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_aggregate_discovered_resource_counts_response.dart'
-    as _i132;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_aggregate_resource_config_request.dart'
-    as _i136;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_aggregate_resource_config_response.dart'
-    as _i135;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_compliance_details_by_config_rule_request.dart'
-    as _i139;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_compliance_details_by_resource_request.dart'
-    as _i141;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_compliance_summary_by_config_rule_response.dart'
-    as _i143;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_compliance_summary_by_resource_type_request.dart'
-    as _i146;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_compliance_summary_by_resource_type_response.dart'
-    as _i145;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_conformance_pack_compliance_details_request.dart'
-    as _i149;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_conformance_pack_compliance_details_response.dart'
-    as _i148;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_conformance_pack_compliance_summary_request.dart'
-    as _i152;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_custom_rule_policy_request.dart'
-    as _i155;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_custom_rule_policy_response.dart'
-    as _i154;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_discovered_resource_counts_request.dart'
-    as _i158;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_discovered_resource_counts_response.dart'
-    as _i157;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_organization_config_rule_detailed_status_request.dart'
-    as _i161;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_organization_conformance_pack_detailed_status_request.dart'
-    as _i164;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_organization_custom_rule_policy_request.dart'
-    as _i167;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_organization_custom_rule_policy_response.dart'
-    as _i166;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_resource_config_history_request.dart'
-    as _i170;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_resource_evaluation_summary_request.dart'
-    as _i173;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_resource_evaluation_summary_response.dart'
-    as _i172;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_stored_query_request.dart'
-    as _i176;
-import 'package:smoke_test/src/sdk/src/config_service/model/get_stored_query_response.dart'
-    as _i175;
-import 'package:smoke_test/src/sdk/src/config_service/model/list_aggregate_discovered_resources_request.dart'
-    as _i179;
-import 'package:smoke_test/src/sdk/src/config_service/model/list_conformance_pack_compliance_scores_request.dart'
-    as _i182;
-import 'package:smoke_test/src/sdk/src/config_service/model/list_conformance_pack_compliance_scores_response.dart'
-    as _i181;
-import 'package:smoke_test/src/sdk/src/config_service/model/list_discovered_resources_request.dart'
-    as _i185;
-import 'package:smoke_test/src/sdk/src/config_service/model/list_resource_evaluations_request.dart'
-    as _i188;
-import 'package:smoke_test/src/sdk/src/config_service/model/list_stored_queries_request.dart'
-    as _i191;
-import 'package:smoke_test/src/sdk/src/config_service/model/list_stored_queries_response.dart'
-    as _i190;
-import 'package:smoke_test/src/sdk/src/config_service/model/list_tags_for_resource_request.dart'
-    as _i194;
-import 'package:smoke_test/src/sdk/src/config_service/model/member_account_status.dart'
-    as _i160;
-import 'package:smoke_test/src/sdk/src/config_service/model/organization_config_rule.dart'
-    as _i99;
-import 'package:smoke_test/src/sdk/src/config_service/model/organization_config_rule_status.dart'
-    as _i96;
-import 'package:smoke_test/src/sdk/src/config_service/model/organization_conformance_pack.dart'
-    as _i105;
-import 'package:smoke_test/src/sdk/src/config_service/model/organization_conformance_pack_detailed_status.dart'
-    as _i163;
-import 'package:smoke_test/src/sdk/src/config_service/model/organization_conformance_pack_status.dart'
-    as _i102;
-import 'package:smoke_test/src/sdk/src/config_service/model/pending_aggregation_request.dart'
-    as _i108;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_aggregation_authorization_request.dart'
-    as _i197;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_aggregation_authorization_response.dart'
-    as _i196;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_config_rule_request.dart'
-    as _i199;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_configuration_aggregator_request.dart'
-    as _i202;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_configuration_aggregator_response.dart'
-    as _i201;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_configuration_recorder_request.dart'
-    as _i204;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_conformance_pack_request.dart'
-    as _i207;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_conformance_pack_response.dart'
-    as _i206;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_delivery_channel_request.dart'
-    as _i209;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_evaluations_request.dart'
-    as _i212;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_evaluations_response.dart'
-    as _i211;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_external_evaluation_request.dart'
-    as _i215;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_external_evaluation_response.dart'
-    as _i214;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_organization_config_rule_request.dart'
-    as _i218;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_organization_config_rule_response.dart'
-    as _i217;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_organization_conformance_pack_request.dart'
-    as _i221;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_organization_conformance_pack_response.dart'
-    as _i220;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_remediation_configurations_request.dart'
-    as _i224;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_remediation_configurations_response.dart'
-    as _i223;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_remediation_exceptions_request.dart'
-    as _i227;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_remediation_exceptions_response.dart'
-    as _i226;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_resource_config_request.dart'
-    as _i229;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_retention_configuration_request.dart'
-    as _i232;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_retention_configuration_response.dart'
-    as _i231;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_stored_query_request.dart'
-    as _i235;
-import 'package:smoke_test/src/sdk/src/config_service/model/put_stored_query_response.dart'
-    as _i234;
-import 'package:smoke_test/src/sdk/src/config_service/model/remediation_execution_status.dart'
-    as _i117;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_evaluation.dart'
-    as _i187;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_identifier.dart'
-    as _i184;
-import 'package:smoke_test/src/sdk/src/config_service/model/retention_configuration.dart'
-    as _i120;
-import 'package:smoke_test/src/sdk/src/config_service/model/select_aggregate_resource_config_request.dart'
-    as _i237;
-import 'package:smoke_test/src/sdk/src/config_service/model/select_resource_config_request.dart'
-    as _i239;
-import 'package:smoke_test/src/sdk/src/config_service/model/start_config_rules_evaluation_request.dart'
-    as _i242;
-import 'package:smoke_test/src/sdk/src/config_service/model/start_config_rules_evaluation_response.dart'
-    as _i241;
-import 'package:smoke_test/src/sdk/src/config_service/model/start_configuration_recorder_request.dart'
-    as _i244;
-import 'package:smoke_test/src/sdk/src/config_service/model/start_remediation_execution_request.dart'
-    as _i247;
-import 'package:smoke_test/src/sdk/src/config_service/model/start_remediation_execution_response.dart'
-    as _i246;
-import 'package:smoke_test/src/sdk/src/config_service/model/start_resource_evaluation_request.dart'
-    as _i250;
-import 'package:smoke_test/src/sdk/src/config_service/model/start_resource_evaluation_response.dart'
-    as _i249;
-import 'package:smoke_test/src/sdk/src/config_service/model/stop_configuration_recorder_request.dart'
-    as _i252;
-import 'package:smoke_test/src/sdk/src/config_service/model/tag.dart' as _i193;
-import 'package:smoke_test/src/sdk/src/config_service/model/tag_resource_request.dart'
-    as _i254;
-import 'package:smoke_test/src/sdk/src/config_service/model/untag_resource_request.dart'
-    as _i256;
-import 'package:smoke_test/src/sdk/src/config_service/operation/batch_get_aggregate_resource_config_operation.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/config_service/operation/batch_get_resource_config_operation.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_aggregation_authorization_operation.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_config_rule_operation.dart'
-    as _i13;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_configuration_aggregator_operation.dart'
-    as _i15;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_configuration_recorder_operation.dart'
-    as _i17;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_conformance_pack_operation.dart'
-    as _i19;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_delivery_channel_operation.dart'
-    as _i21;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_evaluation_results_operation.dart'
-    as _i24;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_organization_config_rule_operation.dart'
-    as _i26;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_organization_conformance_pack_operation.dart'
-    as _i28;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_pending_aggregation_request_operation.dart'
-    as _i30;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_remediation_configuration_operation.dart'
-    as _i33;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_remediation_exceptions_operation.dart'
-    as _i36;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_resource_config_operation.dart'
-    as _i38;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_retention_configuration_operation.dart'
-    as _i40;
-import 'package:smoke_test/src/sdk/src/config_service/operation/delete_stored_query_operation.dart'
-    as _i43;
-import 'package:smoke_test/src/sdk/src/config_service/operation/deliver_config_snapshot_operation.dart'
-    as _i46;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_aggregate_compliance_by_config_rules_operation.dart'
-    as _i49;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_aggregate_compliance_by_conformance_packs_operation.dart'
-    as _i53;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_aggregation_authorizations_operation.dart'
-    as _i56;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_compliance_by_config_rule_operation.dart'
-    as _i59;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_compliance_by_resource_operation.dart'
-    as _i62;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_config_rule_evaluation_status_operation.dart'
-    as _i65;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_config_rules_operation.dart'
-    as _i68;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_configuration_aggregator_sources_status_operation.dart'
-    as _i71;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_configuration_aggregators_operation.dart'
-    as _i74;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_configuration_recorder_status_operation.dart'
-    as _i77;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_configuration_recorders_operation.dart'
-    as _i80;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_conformance_pack_compliance_operation.dart'
-    as _i83;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_conformance_pack_status_operation.dart'
-    as _i86;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_conformance_packs_operation.dart'
-    as _i89;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_delivery_channel_status_operation.dart'
-    as _i92;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_delivery_channels_operation.dart'
-    as _i95;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_organization_config_rule_statuses_operation.dart'
-    as _i98;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_organization_config_rules_operation.dart'
-    as _i101;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_organization_conformance_pack_statuses_operation.dart'
-    as _i104;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_organization_conformance_packs_operation.dart'
-    as _i107;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_pending_aggregation_requests_operation.dart'
-    as _i110;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_remediation_configurations_operation.dart'
-    as _i113;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_remediation_exceptions_operation.dart'
-    as _i116;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_remediation_execution_status_operation.dart'
-    as _i119;
-import 'package:smoke_test/src/sdk/src/config_service/operation/describe_retention_configurations_operation.dart'
-    as _i122;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_aggregate_compliance_details_by_config_rule_operation.dart'
-    as _i125;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_aggregate_config_rule_compliance_summary_operation.dart'
-    as _i128;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_aggregate_conformance_pack_compliance_summary_operation.dart'
-    as _i131;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_aggregate_discovered_resource_counts_operation.dart'
-    as _i134;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_aggregate_resource_config_operation.dart'
-    as _i137;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_compliance_details_by_config_rule_operation.dart'
-    as _i140;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_compliance_details_by_resource_operation.dart'
-    as _i142;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_compliance_summary_by_config_rule_operation.dart'
-    as _i144;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_compliance_summary_by_resource_type_operation.dart'
-    as _i147;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_conformance_pack_compliance_details_operation.dart'
-    as _i150;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_conformance_pack_compliance_summary_operation.dart'
-    as _i153;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_custom_rule_policy_operation.dart'
-    as _i156;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_discovered_resource_counts_operation.dart'
-    as _i159;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_organization_config_rule_detailed_status_operation.dart'
-    as _i162;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_organization_conformance_pack_detailed_status_operation.dart'
-    as _i165;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_organization_custom_rule_policy_operation.dart'
-    as _i168;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_resource_config_history_operation.dart'
-    as _i171;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_resource_evaluation_summary_operation.dart'
-    as _i174;
-import 'package:smoke_test/src/sdk/src/config_service/operation/get_stored_query_operation.dart'
-    as _i177;
-import 'package:smoke_test/src/sdk/src/config_service/operation/list_aggregate_discovered_resources_operation.dart'
-    as _i180;
-import 'package:smoke_test/src/sdk/src/config_service/operation/list_conformance_pack_compliance_scores_operation.dart'
-    as _i183;
-import 'package:smoke_test/src/sdk/src/config_service/operation/list_discovered_resources_operation.dart'
-    as _i186;
-import 'package:smoke_test/src/sdk/src/config_service/operation/list_resource_evaluations_operation.dart'
-    as _i189;
-import 'package:smoke_test/src/sdk/src/config_service/operation/list_stored_queries_operation.dart'
-    as _i192;
-import 'package:smoke_test/src/sdk/src/config_service/operation/list_tags_for_resource_operation.dart'
-    as _i195;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_aggregation_authorization_operation.dart'
-    as _i198;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_config_rule_operation.dart'
-    as _i200;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_configuration_aggregator_operation.dart'
-    as _i203;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_configuration_recorder_operation.dart'
-    as _i205;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_conformance_pack_operation.dart'
-    as _i208;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_delivery_channel_operation.dart'
-    as _i210;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_evaluations_operation.dart'
-    as _i213;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_external_evaluation_operation.dart'
-    as _i216;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_organization_config_rule_operation.dart'
-    as _i219;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_organization_conformance_pack_operation.dart'
-    as _i222;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_remediation_configurations_operation.dart'
-    as _i225;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_remediation_exceptions_operation.dart'
-    as _i228;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_resource_config_operation.dart'
-    as _i230;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_retention_configuration_operation.dart'
-    as _i233;
-import 'package:smoke_test/src/sdk/src/config_service/operation/put_stored_query_operation.dart'
-    as _i236;
-import 'package:smoke_test/src/sdk/src/config_service/operation/select_aggregate_resource_config_operation.dart'
-    as _i238;
-import 'package:smoke_test/src/sdk/src/config_service/operation/select_resource_config_operation.dart'
-    as _i240;
-import 'package:smoke_test/src/sdk/src/config_service/operation/start_config_rules_evaluation_operation.dart'
-    as _i243;
-import 'package:smoke_test/src/sdk/src/config_service/operation/start_configuration_recorder_operation.dart'
-    as _i245;
-import 'package:smoke_test/src/sdk/src/config_service/operation/start_remediation_execution_operation.dart'
-    as _i248;
-import 'package:smoke_test/src/sdk/src/config_service/operation/start_resource_evaluation_operation.dart'
-    as _i251;
-import 'package:smoke_test/src/sdk/src/config_service/operation/stop_configuration_recorder_operation.dart'
-    as _i253;
-import 'package:smoke_test/src/sdk/src/config_service/operation/tag_resource_operation.dart'
-    as _i255;
-import 'package:smoke_test/src/sdk/src/config_service/operation/untag_resource_operation.dart'
-    as _i257;
+import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_compliance_by_conformance_pack.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_evaluation_result.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_resource_identifier.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/aggregated_source_status.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/aggregation_authorization.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/batch_get_aggregate_resource_config_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/batch_get_aggregate_resource_config_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/batch_get_resource_config_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/batch_get_resource_config_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/compliance_by_config_rule.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/compliance_by_resource.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/config_rule.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/config_rule_evaluation_status.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/configuration_aggregator.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/configuration_item.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_compliance_summary.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_detail.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_status_detail.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/delete_aggregation_authorization_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/delete_config_rule_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/delete_configuration_aggregator_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/delete_configuration_recorder_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/delete_conformance_pack_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/delete_delivery_channel_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/delete_evaluation_results_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/delete_evaluation_results_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/delete_organization_config_rule_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/delete_organization_conformance_pack_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/delete_pending_aggregation_request_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/delete_remediation_configuration_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/delete_remediation_configuration_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/delete_remediation_exceptions_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/delete_remediation_exceptions_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/delete_resource_config_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/delete_retention_configuration_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/delete_stored_query_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/delete_stored_query_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/deliver_config_snapshot_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/deliver_config_snapshot_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_aggregate_compliance_by_config_rules_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_aggregate_compliance_by_config_rules_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_aggregate_compliance_by_conformance_packs_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_aggregation_authorizations_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_compliance_by_config_rule_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_compliance_by_resource_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_config_rule_evaluation_status_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_config_rules_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_configuration_aggregator_sources_status_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_configuration_aggregators_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_configuration_recorder_status_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_configuration_recorder_status_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_configuration_recorders_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_configuration_recorders_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_conformance_pack_compliance_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_conformance_pack_compliance_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_conformance_pack_status_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_conformance_packs_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_delivery_channel_status_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_delivery_channel_status_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_delivery_channels_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_delivery_channels_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_organization_config_rule_statuses_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_organization_config_rules_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_organization_conformance_pack_statuses_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_organization_conformance_packs_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_pending_aggregation_requests_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_remediation_configurations_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_remediation_configurations_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_remediation_exceptions_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_remediation_exceptions_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_remediation_execution_status_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/describe_retention_configurations_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/evaluation_result.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_aggregate_compliance_details_by_config_rule_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_aggregate_config_rule_compliance_summary_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_aggregate_config_rule_compliance_summary_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_aggregate_conformance_pack_compliance_summary_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_aggregate_conformance_pack_compliance_summary_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_aggregate_discovered_resource_counts_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_aggregate_discovered_resource_counts_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_aggregate_resource_config_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_aggregate_resource_config_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_compliance_details_by_config_rule_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_compliance_details_by_resource_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_compliance_summary_by_config_rule_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_compliance_summary_by_resource_type_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_compliance_summary_by_resource_type_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_conformance_pack_compliance_details_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_conformance_pack_compliance_details_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_conformance_pack_compliance_summary_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_custom_rule_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_custom_rule_policy_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_discovered_resource_counts_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_discovered_resource_counts_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_organization_config_rule_detailed_status_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_organization_conformance_pack_detailed_status_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_organization_custom_rule_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_organization_custom_rule_policy_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_resource_config_history_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_resource_evaluation_summary_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_resource_evaluation_summary_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_stored_query_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/get_stored_query_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/list_aggregate_discovered_resources_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/list_conformance_pack_compliance_scores_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/list_conformance_pack_compliance_scores_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/list_discovered_resources_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/list_resource_evaluations_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/list_stored_queries_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/list_stored_queries_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/list_tags_for_resource_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/member_account_status.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/organization_config_rule.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/organization_config_rule_status.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/organization_conformance_pack.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/organization_conformance_pack_detailed_status.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/organization_conformance_pack_status.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/pending_aggregation_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_aggregation_authorization_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_aggregation_authorization_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_config_rule_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_configuration_aggregator_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_configuration_aggregator_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_configuration_recorder_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_conformance_pack_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_conformance_pack_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_delivery_channel_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_evaluations_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_evaluations_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_external_evaluation_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_external_evaluation_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_organization_config_rule_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_organization_config_rule_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_organization_conformance_pack_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_organization_conformance_pack_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_remediation_configurations_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_remediation_configurations_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_remediation_exceptions_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_remediation_exceptions_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_resource_config_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_retention_configuration_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_retention_configuration_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_stored_query_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/put_stored_query_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/remediation_execution_status.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_evaluation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_identifier.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/retention_configuration.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/select_aggregate_resource_config_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/select_resource_config_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/start_config_rules_evaluation_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/start_config_rules_evaluation_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/start_configuration_recorder_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/start_remediation_execution_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/start_remediation_execution_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/start_resource_evaluation_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/start_resource_evaluation_response.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/stop_configuration_recorder_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/tag.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/tag_resource_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/untag_resource_request.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/batch_get_aggregate_resource_config_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/batch_get_resource_config_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_aggregation_authorization_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_config_rule_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_configuration_aggregator_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_configuration_recorder_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_conformance_pack_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_delivery_channel_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_evaluation_results_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_organization_config_rule_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_organization_conformance_pack_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_pending_aggregation_request_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_remediation_configuration_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_remediation_exceptions_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_resource_config_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_retention_configuration_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/delete_stored_query_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/deliver_config_snapshot_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_aggregate_compliance_by_config_rules_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_aggregate_compliance_by_conformance_packs_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_aggregation_authorizations_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_compliance_by_config_rule_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_compliance_by_resource_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_config_rule_evaluation_status_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_config_rules_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_configuration_aggregator_sources_status_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_configuration_aggregators_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_configuration_recorder_status_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_configuration_recorders_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_conformance_pack_compliance_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_conformance_pack_status_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_conformance_packs_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_delivery_channel_status_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_delivery_channels_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_organization_config_rule_statuses_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_organization_config_rules_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_organization_conformance_pack_statuses_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_organization_conformance_packs_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_pending_aggregation_requests_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_remediation_configurations_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_remediation_exceptions_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_remediation_execution_status_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/describe_retention_configurations_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_aggregate_compliance_details_by_config_rule_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_aggregate_config_rule_compliance_summary_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_aggregate_conformance_pack_compliance_summary_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_aggregate_discovered_resource_counts_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_aggregate_resource_config_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_compliance_details_by_config_rule_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_compliance_details_by_resource_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_compliance_summary_by_config_rule_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_compliance_summary_by_resource_type_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_conformance_pack_compliance_details_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_conformance_pack_compliance_summary_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_custom_rule_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_discovered_resource_counts_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_organization_config_rule_detailed_status_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_organization_conformance_pack_detailed_status_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_organization_custom_rule_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_resource_config_history_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_resource_evaluation_summary_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/get_stored_query_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/list_aggregate_discovered_resources_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/list_conformance_pack_compliance_scores_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/list_discovered_resources_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/list_resource_evaluations_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/list_stored_queries_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/list_tags_for_resource_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_aggregation_authorization_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_config_rule_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_configuration_aggregator_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_configuration_recorder_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_conformance_pack_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_delivery_channel_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_evaluations_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_external_evaluation_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_organization_config_rule_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_organization_conformance_pack_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_remediation_configurations_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_remediation_exceptions_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_resource_config_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_retention_configuration_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/put_stored_query_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/select_aggregate_resource_config_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/select_resource_config_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/start_config_rules_evaluation_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/start_configuration_recorder_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/start_remediation_execution_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/start_resource_evaluation_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/stop_configuration_recorder_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/tag_resource_operation.dart';
+import 'package:smoke_test/src/sdk/src/config_service/operation/untag_resource_operation.dart';
 
 /// ## Config
 ///
@@ -556,13 +304,13 @@ class ConfigClient {
   /// *   The API does not return results for deleted resources.
   ///
   /// *   The API does not return tags and relationships.
-  _i3.SmithyOperation<_i4.BatchGetAggregateResourceConfigResponse>
+  _i3.SmithyOperation<BatchGetAggregateResourceConfigResponse>
       batchGetAggregateResourceConfig(
-    _i5.BatchGetAggregateResourceConfigRequest input, {
+    BatchGetAggregateResourceConfigRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i6.BatchGetAggregateResourceConfigOperation(
+    return BatchGetAggregateResourceConfigOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -579,13 +327,12 @@ class ConfigClient {
   /// *   The API does not return results for deleted resources.
   ///
   /// *   The API does not return any tags for the requested resources. This information is filtered out of the supplementaryConfiguration section of the API response.
-  _i3.SmithyOperation<_i7.BatchGetResourceConfigResponse>
-      batchGetResourceConfig(
-    _i8.BatchGetResourceConfigRequest input, {
+  _i3.SmithyOperation<BatchGetResourceConfigResponse> batchGetResourceConfig(
+    BatchGetResourceConfigRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i9.BatchGetResourceConfigOperation(
+    return BatchGetResourceConfigOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -599,11 +346,11 @@ class ConfigClient {
 
   /// Deletes the authorization granted to the specified configuration aggregator account in a specified region.
   _i3.SmithyOperation<void> deleteAggregationAuthorization(
-    _i10.DeleteAggregationAuthorizationRequest input, {
+    DeleteAggregationAuthorizationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i11.DeleteAggregationAuthorizationOperation(
+    return DeleteAggregationAuthorizationOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -621,11 +368,11 @@ class ConfigClient {
   ///
   /// You can check the state of a rule by using the `DescribeConfigRules` request.
   _i3.SmithyOperation<void> deleteConfigRule(
-    _i12.DeleteConfigRuleRequest input, {
+    DeleteConfigRuleRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i13.DeleteConfigRuleOperation(
+    return DeleteConfigRuleOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -639,11 +386,11 @@ class ConfigClient {
 
   /// Deletes the specified configuration aggregator and the aggregated data associated with the aggregator.
   _i3.SmithyOperation<void> deleteConfigurationAggregator(
-    _i14.DeleteConfigurationAggregatorRequest input, {
+    DeleteConfigurationAggregatorRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i15.DeleteConfigurationAggregatorOperation(
+    return DeleteConfigurationAggregatorOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -661,11 +408,11 @@ class ConfigClient {
   ///
   /// This action does not delete the configuration information that was previously recorded. You will be able to access the previously recorded information by using the `GetResourceConfigHistory` action, but you will not be able to access this information in the Config console until you create a new configuration recorder.
   _i3.SmithyOperation<void> deleteConfigurationRecorder(
-    _i16.DeleteConfigurationRecorderRequest input, {
+    DeleteConfigurationRecorderRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i17.DeleteConfigurationRecorderOperation(
+    return DeleteConfigurationRecorderOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -681,11 +428,11 @@ class ConfigClient {
   ///
   /// Config sets the conformance pack to `DELETE\_IN\_PROGRESS` until the deletion is complete. You cannot update a conformance pack while it is in this state.
   _i3.SmithyOperation<void> deleteConformancePack(
-    _i18.DeleteConformancePackRequest input, {
+    DeleteConformancePackRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i19.DeleteConformancePackOperation(
+    return DeleteConformancePackOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -701,11 +448,11 @@ class ConfigClient {
   ///
   /// Before you can delete the delivery channel, you must stop the configuration recorder by using the StopConfigurationRecorder action.
   _i3.SmithyOperation<void> deleteDeliveryChannel(
-    _i20.DeleteDeliveryChannelRequest input, {
+    DeleteDeliveryChannelRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i21.DeleteDeliveryChannelOperation(
+    return DeleteDeliveryChannelOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -718,13 +465,12 @@ class ConfigClient {
   }
 
   /// Deletes the evaluation results for the specified Config rule. You can specify one Config rule per request. After you delete the evaluation results, you can call the StartConfigRulesEvaluation API to start evaluating your Amazon Web Services resources against the rule.
-  _i3.SmithyOperation<_i22.DeleteEvaluationResultsResponse>
-      deleteEvaluationResults(
-    _i23.DeleteEvaluationResultsRequest input, {
+  _i3.SmithyOperation<DeleteEvaluationResultsResponse> deleteEvaluationResults(
+    DeleteEvaluationResultsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i24.DeleteEvaluationResultsOperation(
+    return DeleteEvaluationResultsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -742,11 +488,11 @@ class ConfigClient {
   ///
   /// Config sets the state of a rule to DELETE\_IN\_PROGRESS until the deletion is complete. You cannot update a rule while it is in this state.
   _i3.SmithyOperation<void> deleteOrganizationConfigRule(
-    _i25.DeleteOrganizationConfigRuleRequest input, {
+    DeleteOrganizationConfigRuleRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i26.DeleteOrganizationConfigRuleOperation(
+    return DeleteOrganizationConfigRuleOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -764,11 +510,11 @@ class ConfigClient {
   ///
   /// Config sets the state of a conformance pack to DELETE\_IN\_PROGRESS until the deletion is complete. You cannot update a conformance pack while it is in this state.
   _i3.SmithyOperation<void> deleteOrganizationConformancePack(
-    _i27.DeleteOrganizationConformancePackRequest input, {
+    DeleteOrganizationConformancePackRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i28.DeleteOrganizationConformancePackOperation(
+    return DeleteOrganizationConformancePackOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -782,11 +528,11 @@ class ConfigClient {
 
   /// Deletes pending authorization requests for a specified aggregator account in a specified region.
   _i3.SmithyOperation<void> deletePendingAggregationRequest(
-    _i29.DeletePendingAggregationRequestRequest input, {
+    DeletePendingAggregationRequestRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i30.DeletePendingAggregationRequestOperation(
+    return DeletePendingAggregationRequestOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -799,13 +545,13 @@ class ConfigClient {
   }
 
   /// Deletes the remediation configuration.
-  _i3.SmithyOperation<_i31.DeleteRemediationConfigurationResponse>
+  _i3.SmithyOperation<DeleteRemediationConfigurationResponse>
       deleteRemediationConfiguration(
-    _i32.DeleteRemediationConfigurationRequest input, {
+    DeleteRemediationConfigurationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i33.DeleteRemediationConfigurationOperation(
+    return DeleteRemediationConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -820,13 +566,13 @@ class ConfigClient {
   /// Deletes one or more remediation exceptions mentioned in the resource keys.
   ///
   /// Config generates a remediation exception when a problem occurs executing a remediation action to a specific resource. Remediation exceptions blocks auto-remediation until the exception is cleared.
-  _i3.SmithyOperation<_i34.DeleteRemediationExceptionsResponse>
+  _i3.SmithyOperation<DeleteRemediationExceptionsResponse>
       deleteRemediationExceptions(
-    _i35.DeleteRemediationExceptionsRequest input, {
+    DeleteRemediationExceptionsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i36.DeleteRemediationExceptionsOperation(
+    return DeleteRemediationExceptionsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -840,11 +586,11 @@ class ConfigClient {
 
   /// Records the configuration state for a custom resource that has been deleted. This API records a new ConfigurationItem with a ResourceDeleted status. You can retrieve the ConfigurationItems recorded for this resource in your Config History.
   _i3.SmithyOperation<void> deleteResourceConfig(
-    _i37.DeleteResourceConfigRequest input, {
+    DeleteResourceConfigRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i38.DeleteResourceConfigOperation(
+    return DeleteResourceConfigOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -858,11 +604,11 @@ class ConfigClient {
 
   /// Deletes the retention configuration.
   _i3.SmithyOperation<void> deleteRetentionConfiguration(
-    _i39.DeleteRetentionConfigurationRequest input, {
+    DeleteRetentionConfigurationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i40.DeleteRetentionConfigurationOperation(
+    return DeleteRetentionConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -875,12 +621,12 @@ class ConfigClient {
   }
 
   /// Deletes the stored query for a single Amazon Web Services account and a single Amazon Web Services Region.
-  _i3.SmithyOperation<_i41.DeleteStoredQueryResponse> deleteStoredQuery(
-    _i42.DeleteStoredQueryRequest input, {
+  _i3.SmithyOperation<DeleteStoredQueryResponse> deleteStoredQuery(
+    DeleteStoredQueryRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i43.DeleteStoredQueryOperation(
+    return DeleteStoredQueryOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -899,12 +645,12 @@ class ConfigClient {
   /// *   Notification of the completion of the delivery, if the delivery was successfully completed.
   ///
   /// *   Notification of delivery failure, if the delivery failed.
-  _i3.SmithyOperation<_i44.DeliverConfigSnapshotResponse> deliverConfigSnapshot(
-    _i45.DeliverConfigSnapshotRequest input, {
+  _i3.SmithyOperation<DeliverConfigSnapshotResponse> deliverConfigSnapshot(
+    DeliverConfigSnapshotRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i46.DeliverConfigSnapshotOperation(
+    return DeliverConfigSnapshotOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -920,13 +666,13 @@ class ConfigClient {
   ///
   /// The results can return an empty result page, but if you have a `nextToken`, the results are displayed on the next page.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i47.DescribeAggregateComplianceByConfigRulesResponse,
-          int, String>> describeAggregateComplianceByConfigRules(
-    _i48.DescribeAggregateComplianceByConfigRulesRequest input, {
+      _i3.PaginatedResult<DescribeAggregateComplianceByConfigRulesResponse, int,
+          String>> describeAggregateComplianceByConfigRules(
+    DescribeAggregateComplianceByConfigRulesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i49.DescribeAggregateComplianceByConfigRulesOperation(
+    return DescribeAggregateComplianceByConfigRulesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -942,15 +688,13 @@ class ConfigClient {
   ///
   /// The results can return an empty result page, but if you have a `nextToken`, the results are displayed on the next page.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<
-          _i50.BuiltList<_i51.AggregateComplianceByConformancePack>,
-          int,
-          String>> describeAggregateComplianceByConformancePacks(
-    _i52.DescribeAggregateComplianceByConformancePacksRequest input, {
+      _i3.PaginatedResult<_i4.BuiltList<AggregateComplianceByConformancePack>,
+          int, String>> describeAggregateComplianceByConformancePacks(
+    DescribeAggregateComplianceByConformancePacksRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i53.DescribeAggregateComplianceByConformancePacksOperation(
+    return DescribeAggregateComplianceByConformancePacksOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -964,13 +708,13 @@ class ConfigClient {
 
   /// Returns a list of authorizations granted to various aggregator accounts and regions.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i54.AggregationAuthorization>, int,
+      _i3.PaginatedResult<_i4.BuiltList<AggregationAuthorization>, int,
           String>> describeAggregationAuthorizations(
-    _i55.DescribeAggregationAuthorizationsRequest input, {
+    DescribeAggregationAuthorizationsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i56.DescribeAggregationAuthorizationsOperation(
+    return DescribeAggregationAuthorizationsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -994,13 +738,14 @@ class ConfigClient {
   ///
   /// *   The rule's Lambda function has returned `NOT_APPLICABLE` for all evaluation results. This can occur if the resources were deleted or removed from the rule's scope.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i57.ComplianceByConfigRule>, void,
-          String>> describeComplianceByConfigRule(
-    _i58.DescribeComplianceByConfigRuleRequest input, {
+          _i3
+          .PaginatedResult<_i4.BuiltList<ComplianceByConfigRule>, void, String>>
+      describeComplianceByConfigRule(
+    DescribeComplianceByConfigRuleRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i59.DescribeComplianceByConfigRuleOperation(
+    return DescribeComplianceByConfigRuleOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1024,13 +769,13 @@ class ConfigClient {
   ///
   /// *   The rule's Lambda function has returned `NOT_APPLICABLE` for all evaluation results. This can occur if the resources were deleted or removed from the rule's scope.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i60.ComplianceByResource>, int,
-          String>> describeComplianceByResource(
-    _i61.DescribeComplianceByResourceRequest input, {
+          _i3.PaginatedResult<_i4.BuiltList<ComplianceByResource>, int, String>>
+      describeComplianceByResource(
+    DescribeComplianceByResourceRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i62.DescribeComplianceByResourceOperation(
+    return DescribeComplianceByResourceOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1044,13 +789,13 @@ class ConfigClient {
 
   /// Returns status information for each of your Config managed rules. The status includes information such as the last time Config invoked the rule, the last time Config failed to invoke the rule, and the related error for the last failure.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i63.ConfigRuleEvaluationStatus>, int,
+      _i3.PaginatedResult<_i4.BuiltList<ConfigRuleEvaluationStatus>, int,
           String>> describeConfigRuleEvaluationStatus(
-    _i64.DescribeConfigRuleEvaluationStatusRequest input, {
+    DescribeConfigRuleEvaluationStatusRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i65.DescribeConfigRuleEvaluationStatusOperation(
+    return DescribeConfigRuleEvaluationStatusOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1064,13 +809,13 @@ class ConfigClient {
 
   /// Returns details about your Config rules.
   _i3.SmithyOperation<
-          _i3.PaginatedResult<_i50.BuiltList<_i66.ConfigRule>, void, String>>
+          _i3.PaginatedResult<_i4.BuiltList<ConfigRule>, void, String>>
       describeConfigRules(
-    _i67.DescribeConfigRulesRequest input, {
+    DescribeConfigRulesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i68.DescribeConfigRulesOperation(
+    return DescribeConfigRulesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1084,13 +829,14 @@ class ConfigClient {
 
   /// Returns status information for sources within an aggregator. The status includes information about the last time Config verified authorization between the source account and an aggregator account. In case of a failure, the status contains the related error code or message.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i69.AggregatedSourceStatus>, int,
-          String>> describeConfigurationAggregatorSourcesStatus(
-    _i70.DescribeConfigurationAggregatorSourcesStatusRequest input, {
+          _i3
+          .PaginatedResult<_i4.BuiltList<AggregatedSourceStatus>, int, String>>
+      describeConfigurationAggregatorSourcesStatus(
+    DescribeConfigurationAggregatorSourcesStatusRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i71.DescribeConfigurationAggregatorSourcesStatusOperation(
+    return DescribeConfigurationAggregatorSourcesStatusOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1104,13 +850,14 @@ class ConfigClient {
 
   /// Returns the details of one or more configuration aggregators. If the configuration aggregator is not specified, this action returns the details for all the configuration aggregators associated with the account.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i72.ConfigurationAggregator>, int,
-          String>> describeConfigurationAggregators(
-    _i73.DescribeConfigurationAggregatorsRequest input, {
+          _i3
+          .PaginatedResult<_i4.BuiltList<ConfigurationAggregator>, int, String>>
+      describeConfigurationAggregators(
+    DescribeConfigurationAggregatorsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i74.DescribeConfigurationAggregatorsOperation(
+    return DescribeConfigurationAggregatorsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1125,13 +872,13 @@ class ConfigClient {
   /// Returns the current status of the specified configuration recorder as well as the status of the last recording event for the recorder. If a configuration recorder is not specified, this action returns the status of all configuration recorders associated with the account.
   ///
   /// >You can specify only one configuration recorder for each Amazon Web Services Region for each account. For a detailed status of recording events over time, add your Config events to Amazon CloudWatch metrics and use CloudWatch metrics.
-  _i3.SmithyOperation<_i75.DescribeConfigurationRecorderStatusResponse>
+  _i3.SmithyOperation<DescribeConfigurationRecorderStatusResponse>
       describeConfigurationRecorderStatus(
-    _i76.DescribeConfigurationRecorderStatusRequest input, {
+    DescribeConfigurationRecorderStatusRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i77.DescribeConfigurationRecorderStatusOperation(
+    return DescribeConfigurationRecorderStatusOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1146,13 +893,13 @@ class ConfigClient {
   /// Returns the details for the specified configuration recorders. If the configuration recorder is not specified, this action returns the details for all configuration recorders associated with the account.
   ///
   /// You can specify only one configuration recorder for each Amazon Web Services Region for each account.
-  _i3.SmithyOperation<_i78.DescribeConfigurationRecordersResponse>
+  _i3.SmithyOperation<DescribeConfigurationRecordersResponse>
       describeConfigurationRecorders(
-    _i79.DescribeConfigurationRecordersRequest input, {
+    DescribeConfigurationRecordersRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i80.DescribeConfigurationRecordersOperation(
+    return DescribeConfigurationRecordersOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1168,13 +915,13 @@ class ConfigClient {
   ///
   /// You must provide exact rule names.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i81.DescribeConformancePackComplianceResponse, int,
+      _i3.PaginatedResult<DescribeConformancePackComplianceResponse, int,
           String>> describeConformancePackCompliance(
-    _i82.DescribeConformancePackComplianceRequest input, {
+    DescribeConformancePackComplianceRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i83.DescribeConformancePackComplianceOperation(
+    return DescribeConformancePackComplianceOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1190,13 +937,13 @@ class ConfigClient {
   ///
   /// If there are no conformance packs then you will see an empty result.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i84.ConformancePackStatusDetail>, int,
+      _i3.PaginatedResult<_i4.BuiltList<ConformancePackStatusDetail>, int,
           String>> describeConformancePackStatus(
-    _i85.DescribeConformancePackStatusRequest input, {
+    DescribeConformancePackStatusRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i86.DescribeConformancePackStatusOperation(
+    return DescribeConformancePackStatusOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1210,13 +957,14 @@ class ConfigClient {
 
   /// Returns a list of one or more conformance packs.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i87.ConformancePackDetail>, int,
-          String>> describeConformancePacks(
-    _i88.DescribeConformancePacksRequest input, {
+          _i3
+          .PaginatedResult<_i4.BuiltList<ConformancePackDetail>, int, String>>
+      describeConformancePacks(
+    DescribeConformancePacksRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i89.DescribeConformancePacksOperation(
+    return DescribeConformancePacksOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1231,13 +979,13 @@ class ConfigClient {
   /// Returns the current status of the specified delivery channel. If a delivery channel is not specified, this action returns the current status of all delivery channels associated with the account.
   ///
   /// Currently, you can specify only one delivery channel per region in your account.
-  _i3.SmithyOperation<_i90.DescribeDeliveryChannelStatusResponse>
+  _i3.SmithyOperation<DescribeDeliveryChannelStatusResponse>
       describeDeliveryChannelStatus(
-    _i91.DescribeDeliveryChannelStatusRequest input, {
+    DescribeDeliveryChannelStatusRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i92.DescribeDeliveryChannelStatusOperation(
+    return DescribeDeliveryChannelStatusOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1252,13 +1000,13 @@ class ConfigClient {
   /// Returns details about the specified delivery channel. If a delivery channel is not specified, this action returns the details of all delivery channels associated with the account.
   ///
   /// Currently, you can specify only one delivery channel per region in your account.
-  _i3.SmithyOperation<_i93.DescribeDeliveryChannelsResponse>
+  _i3.SmithyOperation<DescribeDeliveryChannelsResponse>
       describeDeliveryChannels(
-    _i94.DescribeDeliveryChannelsRequest input, {
+    DescribeDeliveryChannelsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i95.DescribeDeliveryChannelsOperation(
+    return DescribeDeliveryChannelsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1276,13 +1024,13 @@ class ConfigClient {
   ///
   /// When you specify the limit and the next token, you receive a paginated response. Limit and next token are not applicable if you specify organization Config rule names. It is only applicable, when you request all the organization Config rules.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i96.OrganizationConfigRuleStatus>,
-          int, String>> describeOrganizationConfigRuleStatuses(
-    _i97.DescribeOrganizationConfigRuleStatusesRequest input, {
+      _i3.PaginatedResult<_i4.BuiltList<OrganizationConfigRuleStatus>, int,
+          String>> describeOrganizationConfigRuleStatuses(
+    DescribeOrganizationConfigRuleStatusesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i98.DescribeOrganizationConfigRuleStatusesOperation(
+    return DescribeOrganizationConfigRuleStatusesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1304,13 +1052,14 @@ class ConfigClient {
   ///
   /// If you deploy an organizational rule or conformance pack in an organization administrator account, and then establish a delegated administrator and deploy an organizational rule or conformance pack in the delegated administrator account, you won't be able to see the organizational rule or conformance pack in the organization administrator account from the delegated administrator account or see the organizational rule or conformance pack in the delegated administrator account from organization administrator account. The `DescribeOrganizationConfigRules` and `DescribeOrganizationConformancePacks` APIs can only see and interact with the organization-related resource that were deployed from within the account calling those APIs.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i99.OrganizationConfigRule>, int,
-          String>> describeOrganizationConfigRules(
-    _i100.DescribeOrganizationConfigRulesRequest input, {
+          _i3
+          .PaginatedResult<_i4.BuiltList<OrganizationConfigRule>, int, String>>
+      describeOrganizationConfigRules(
+    DescribeOrganizationConfigRulesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i101.DescribeOrganizationConfigRulesOperation(
+    return DescribeOrganizationConfigRulesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1328,15 +1077,13 @@ class ConfigClient {
   ///
   /// When you specify the limit and the next token, you receive a paginated response. Limit and next token are not applicable if you specify organization conformance pack names. They are only applicable, when you request all the organization conformance packs.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<
-          _i50.BuiltList<_i102.OrganizationConformancePackStatus>,
-          int,
+      _i3.PaginatedResult<_i4.BuiltList<OrganizationConformancePackStatus>, int,
           String>> describeOrganizationConformancePackStatuses(
-    _i103.DescribeOrganizationConformancePackStatusesRequest input, {
+    DescribeOrganizationConformancePackStatusesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i104.DescribeOrganizationConformancePackStatusesOperation(
+    return DescribeOrganizationConformancePackStatusesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1358,13 +1105,13 @@ class ConfigClient {
   ///
   /// If you deploy an organizational rule or conformance pack in an organization administrator account, and then establish a delegated administrator and deploy an organizational rule or conformance pack in the delegated administrator account, you won't be able to see the organizational rule or conformance pack in the organization administrator account from the delegated administrator account or see the organizational rule or conformance pack in the delegated administrator account from organization administrator account. The `DescribeOrganizationConfigRules` and `DescribeOrganizationConformancePacks` APIs can only see and interact with the organization-related resource that were deployed from within the account calling those APIs.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i105.OrganizationConformancePack>,
-          int, String>> describeOrganizationConformancePacks(
-    _i106.DescribeOrganizationConformancePacksRequest input, {
+      _i3.PaginatedResult<_i4.BuiltList<OrganizationConformancePack>, int,
+          String>> describeOrganizationConformancePacks(
+    DescribeOrganizationConformancePacksRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i107.DescribeOrganizationConformancePacksOperation(
+    return DescribeOrganizationConformancePacksOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1378,13 +1125,13 @@ class ConfigClient {
 
   /// Returns a list of all pending aggregation requests.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i108.PendingAggregationRequest>, int,
+      _i3.PaginatedResult<_i4.BuiltList<PendingAggregationRequest>, int,
           String>> describePendingAggregationRequests(
-    _i109.DescribePendingAggregationRequestsRequest input, {
+    DescribePendingAggregationRequestsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i110.DescribePendingAggregationRequestsOperation(
+    return DescribePendingAggregationRequestsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1397,13 +1144,13 @@ class ConfigClient {
   }
 
   /// Returns the details of one or more remediation configurations.
-  _i3.SmithyOperation<_i111.DescribeRemediationConfigurationsResponse>
+  _i3.SmithyOperation<DescribeRemediationConfigurationsResponse>
       describeRemediationConfigurations(
-    _i112.DescribeRemediationConfigurationsRequest input, {
+    DescribeRemediationConfigurationsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i113.DescribeRemediationConfigurationsOperation(
+    return DescribeRemediationConfigurationsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1423,13 +1170,14 @@ class ConfigClient {
   ///
   /// Limit and next token are not applicable if you request resources in batch. It is only applicable, when you request all resources.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i114.DescribeRemediationExceptionsResponse, int,
-          String>> describeRemediationExceptions(
-    _i115.DescribeRemediationExceptionsRequest input, {
+          _i3
+          .PaginatedResult<DescribeRemediationExceptionsResponse, int, String>>
+      describeRemediationExceptions(
+    DescribeRemediationExceptionsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i116.DescribeRemediationExceptionsOperation(
+    return DescribeRemediationExceptionsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1443,13 +1191,13 @@ class ConfigClient {
 
   /// Provides a detailed view of a Remediation Execution for a set of resources including state, timestamps for when steps for the remediation execution occur, and any error messages for steps that have failed. When you specify the limit and the next token, you receive a paginated response.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i117.RemediationExecutionStatus>, int,
+      _i3.PaginatedResult<_i4.BuiltList<RemediationExecutionStatus>, int,
           String>> describeRemediationExecutionStatus(
-    _i118.DescribeRemediationExecutionStatusRequest input, {
+    DescribeRemediationExecutionStatusRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i119.DescribeRemediationExecutionStatusOperation(
+    return DescribeRemediationExecutionStatusOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1465,13 +1213,14 @@ class ConfigClient {
   ///
   /// Currently, Config supports only one retention configuration per region in your account.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i120.RetentionConfiguration>, void,
-          String>> describeRetentionConfigurations(
-    _i121.DescribeRetentionConfigurationsRequest input, {
+          _i3
+          .PaginatedResult<_i4.BuiltList<RetentionConfiguration>, void, String>>
+      describeRetentionConfigurations(
+    DescribeRetentionConfigurationsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i122.DescribeRetentionConfigurationsOperation(
+    return DescribeRetentionConfigurationsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1487,13 +1236,13 @@ class ConfigClient {
   ///
   /// The results can return an empty result page. But if you have a `nextToken`, the results are displayed on the next page.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i123.AggregateEvaluationResult>, int,
+      _i3.PaginatedResult<_i4.BuiltList<AggregateEvaluationResult>, int,
           String>> getAggregateComplianceDetailsByConfigRule(
-    _i124.GetAggregateComplianceDetailsByConfigRuleRequest input, {
+    GetAggregateComplianceDetailsByConfigRuleRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i125.GetAggregateComplianceDetailsByConfigRuleOperation(
+    return GetAggregateComplianceDetailsByConfigRuleOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1509,13 +1258,13 @@ class ConfigClient {
   ///
   /// The results can return an empty result page, but if you have a nextToken, the results are displayed on the next page.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i126.GetAggregateConfigRuleComplianceSummaryResponse,
-          int, String>> getAggregateConfigRuleComplianceSummary(
-    _i127.GetAggregateConfigRuleComplianceSummaryRequest input, {
+      _i3.PaginatedResult<GetAggregateConfigRuleComplianceSummaryResponse, int,
+          String>> getAggregateConfigRuleComplianceSummary(
+    GetAggregateConfigRuleComplianceSummaryRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i128.GetAggregateConfigRuleComplianceSummaryOperation(
+    return GetAggregateConfigRuleComplianceSummaryOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1531,15 +1280,13 @@ class ConfigClient {
   ///
   /// The results can return an empty result page, but if you have a nextToken, the results are displayed on the next page.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<
-          _i129.GetAggregateConformancePackComplianceSummaryResponse,
-          int,
-          String>> getAggregateConformancePackComplianceSummary(
-    _i130.GetAggregateConformancePackComplianceSummaryRequest input, {
+      _i3.PaginatedResult<GetAggregateConformancePackComplianceSummaryResponse,
+          int, String>> getAggregateConformancePackComplianceSummary(
+    GetAggregateConformancePackComplianceSummaryRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i131.GetAggregateConformancePackComplianceSummaryOperation(
+    return GetAggregateConformancePackComplianceSummaryOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1555,13 +1302,13 @@ class ConfigClient {
   ///
   /// For example, if the input contains accountID 12345678910 and region us-east-1 in filters, the API returns the count of resources in account ID 12345678910 and region us-east-1. If the input contains ACCOUNT_ID as a GroupByKey, the API returns resource counts for all source accounts that are present in your aggregator.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i132.GetAggregateDiscoveredResourceCountsResponse,
-          int, String>> getAggregateDiscoveredResourceCounts(
-    _i133.GetAggregateDiscoveredResourceCountsRequest input, {
+      _i3.PaginatedResult<GetAggregateDiscoveredResourceCountsResponse, int,
+          String>> getAggregateDiscoveredResourceCounts(
+    GetAggregateDiscoveredResourceCountsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i134.GetAggregateDiscoveredResourceCountsOperation(
+    return GetAggregateDiscoveredResourceCountsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1574,13 +1321,13 @@ class ConfigClient {
   }
 
   /// Returns configuration item that is aggregated for your specific resource in a specific source account and region.
-  _i3.SmithyOperation<_i135.GetAggregateResourceConfigResponse>
+  _i3.SmithyOperation<GetAggregateResourceConfigResponse>
       getAggregateResourceConfig(
-    _i136.GetAggregateResourceConfigRequest input, {
+    GetAggregateResourceConfigRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i137.GetAggregateResourceConfigOperation(
+    return GetAggregateResourceConfigOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1594,14 +1341,13 @@ class ConfigClient {
 
   /// Returns the evaluation results for the specified Config rule. The results indicate which Amazon Web Services resources were evaluated by the rule, when each resource was last evaluated, and whether each resource complies with the rule.
   _i3.SmithyOperation<
-          _i3
-          .PaginatedResult<_i50.BuiltList<_i138.EvaluationResult>, int, String>>
+          _i3.PaginatedResult<_i4.BuiltList<EvaluationResult>, int, String>>
       getComplianceDetailsByConfigRule(
-    _i139.GetComplianceDetailsByConfigRuleRequest input, {
+    GetComplianceDetailsByConfigRuleRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i140.GetComplianceDetailsByConfigRuleOperation(
+    return GetComplianceDetailsByConfigRuleOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1615,13 +1361,13 @@ class ConfigClient {
 
   /// Returns the evaluation results for the specified Amazon Web Services resource. The results indicate which Config rules were used to evaluate the resource, when each rule was last invoked, and whether the resource complies with each rule.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i138.EvaluationResult>, void,
-          String>> getComplianceDetailsByResource(
-    _i141.GetComplianceDetailsByResourceRequest input, {
+          _i3.PaginatedResult<_i4.BuiltList<EvaluationResult>, void, String>>
+      getComplianceDetailsByResource(
+    GetComplianceDetailsByResourceRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i142.GetComplianceDetailsByResourceOperation(
+    return GetComplianceDetailsByResourceOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1634,12 +1380,12 @@ class ConfigClient {
   }
 
   /// Returns the number of Config rules that are compliant and noncompliant, up to a maximum of 25 for each.
-  _i3.SmithyOperation<_i143.GetComplianceSummaryByConfigRuleResponse>
+  _i3.SmithyOperation<GetComplianceSummaryByConfigRuleResponse>
       getComplianceSummaryByConfigRule({
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i144.GetComplianceSummaryByConfigRuleOperation(
+    return GetComplianceSummaryByConfigRuleOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1652,13 +1398,13 @@ class ConfigClient {
   }
 
   /// Returns the number of resources that are compliant and the number that are noncompliant. You can specify one or more resource types to get these numbers for each resource type. The maximum number returned is 100.
-  _i3.SmithyOperation<_i145.GetComplianceSummaryByResourceTypeResponse>
+  _i3.SmithyOperation<GetComplianceSummaryByResourceTypeResponse>
       getComplianceSummaryByResourceType(
-    _i146.GetComplianceSummaryByResourceTypeRequest input, {
+    GetComplianceSummaryByResourceTypeRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i147.GetComplianceSummaryByResourceTypeOperation(
+    return GetComplianceSummaryByResourceTypeOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1672,13 +1418,13 @@ class ConfigClient {
 
   /// Returns compliance details of a conformance pack for all Amazon Web Services resources that are monitered by conformance pack.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i148.GetConformancePackComplianceDetailsResponse,
-          int, String>> getConformancePackComplianceDetails(
-    _i149.GetConformancePackComplianceDetailsRequest input, {
+      _i3.PaginatedResult<GetConformancePackComplianceDetailsResponse, int,
+          String>> getConformancePackComplianceDetails(
+    GetConformancePackComplianceDetailsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i150.GetConformancePackComplianceDetailsOperation(
+    return GetConformancePackComplianceDetailsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1692,15 +1438,13 @@ class ConfigClient {
 
   /// Returns compliance details for the conformance pack based on the cumulative compliance results of all the rules in that conformance pack.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<
-          _i50.BuiltList<_i151.ConformancePackComplianceSummary>,
-          int,
+      _i3.PaginatedResult<_i4.BuiltList<ConformancePackComplianceSummary>, int,
           String>> getConformancePackComplianceSummary(
-    _i152.GetConformancePackComplianceSummaryRequest input, {
+    GetConformancePackComplianceSummaryRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i153.GetConformancePackComplianceSummaryOperation(
+    return GetConformancePackComplianceSummaryOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1713,12 +1457,12 @@ class ConfigClient {
   }
 
   /// Returns the policy definition containing the logic for your Config Custom Policy rule.
-  _i3.SmithyOperation<_i154.GetCustomRulePolicyResponse> getCustomRulePolicy(
-    _i155.GetCustomRulePolicyRequest input, {
+  _i3.SmithyOperation<GetCustomRulePolicyResponse> getCustomRulePolicy(
+    GetCustomRulePolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i156.GetCustomRulePolicyOperation(
+    return GetCustomRulePolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1758,13 +1502,13 @@ class ConfigClient {
   ///
   /// It might take a few minutes for Config to record and count your resources. Wait a few minutes and then retry the GetDiscoveredResourceCounts action.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i157.GetDiscoveredResourceCountsResponse, int,
-          String>> getDiscoveredResourceCounts(
-    _i158.GetDiscoveredResourceCountsRequest input, {
+          _i3.PaginatedResult<GetDiscoveredResourceCountsResponse, int, String>>
+      getDiscoveredResourceCounts(
+    GetDiscoveredResourceCountsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i159.GetDiscoveredResourceCountsOperation(
+    return GetDiscoveredResourceCountsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1778,13 +1522,13 @@ class ConfigClient {
 
   /// Returns detailed status for each member account within an organization for a given organization Config rule.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i160.MemberAccountStatus>, int,
-          String>> getOrganizationConfigRuleDetailedStatus(
-    _i161.GetOrganizationConfigRuleDetailedStatusRequest input, {
+          _i3.PaginatedResult<_i4.BuiltList<MemberAccountStatus>, int, String>>
+      getOrganizationConfigRuleDetailedStatus(
+    GetOrganizationConfigRuleDetailedStatusRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i162.GetOrganizationConfigRuleDetailedStatusOperation(
+    return GetOrganizationConfigRuleDetailedStatusOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1799,14 +1543,14 @@ class ConfigClient {
   /// Returns detailed status for each member account within an organization for a given organization conformance pack.
   _i3.SmithyOperation<
       _i3.PaginatedResult<
-          _i50.BuiltList<_i163.OrganizationConformancePackDetailedStatus>,
+          _i4.BuiltList<OrganizationConformancePackDetailedStatus>,
           int,
           String>> getOrganizationConformancePackDetailedStatus(
-    _i164.GetOrganizationConformancePackDetailedStatusRequest input, {
+    GetOrganizationConformancePackDetailedStatusRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i165.GetOrganizationConformancePackDetailedStatusOperation(
+    return GetOrganizationConformancePackDetailedStatusOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1819,13 +1563,13 @@ class ConfigClient {
   }
 
   /// Returns the policy definition containing the logic for your organization Config Custom Policy rule.
-  _i3.SmithyOperation<_i166.GetOrganizationCustomRulePolicyResponse>
+  _i3.SmithyOperation<GetOrganizationCustomRulePolicyResponse>
       getOrganizationCustomRulePolicy(
-    _i167.GetOrganizationCustomRulePolicyRequest input, {
+    GetOrganizationCustomRulePolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i168.GetOrganizationCustomRulePolicyOperation(
+    return GetOrganizationCustomRulePolicyOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1843,13 +1587,13 @@ class ConfigClient {
   ///
   /// Each call to the API is limited to span a duration of seven days. It is likely that the number of records returned is smaller than the specified `limit`. In such cases, you can make another call, using the `nextToken`.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i169.ConfigurationItem>, int,
-          String>> getResourceConfigHistory(
-    _i170.GetResourceConfigHistoryRequest input, {
+          _i3.PaginatedResult<_i4.BuiltList<ConfigurationItem>, int, String>>
+      getResourceConfigHistory(
+    GetResourceConfigHistoryRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i171.GetResourceConfigHistoryOperation(
+    return GetResourceConfigHistoryOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1864,13 +1608,13 @@ class ConfigClient {
   /// Returns a summary of resource evaluation for the specified resource evaluation ID from the proactive rules that were run. The results indicate which evaluation context was used to evaluate the rules, which resource details were evaluated, the evaluation mode that was run, and whether the resource details comply with the configuration of the proactive rules.
   ///
   /// To see additional information about the evaluation result, such as which rule flagged a resource as NON_COMPLIANT, use the [GetComplianceDetailsByResource](https://docs.aws.amazon.com/config/latest/APIReference/API_GetComplianceDetailsByResource.html) API. For more information, see the [Examples](https://docs.aws.amazon.com/config/latest/APIReference/API_GetResourceEvaluationSummary.html#API_GetResourceEvaluationSummary_Examples) section.
-  _i3.SmithyOperation<_i172.GetResourceEvaluationSummaryResponse>
+  _i3.SmithyOperation<GetResourceEvaluationSummaryResponse>
       getResourceEvaluationSummary(
-    _i173.GetResourceEvaluationSummaryRequest input, {
+    GetResourceEvaluationSummaryRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i174.GetResourceEvaluationSummaryOperation(
+    return GetResourceEvaluationSummaryOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1883,12 +1627,12 @@ class ConfigClient {
   }
 
   /// Returns the details of a specific stored query.
-  _i3.SmithyOperation<_i175.GetStoredQueryResponse> getStoredQuery(
-    _i176.GetStoredQueryRequest input, {
+  _i3.SmithyOperation<GetStoredQueryResponse> getStoredQuery(
+    GetStoredQueryRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i177.GetStoredQueryOperation(
+    return GetStoredQueryOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1904,13 +1648,13 @@ class ConfigClient {
   ///
   /// For example, if the input consists of accountID 12345678910 and the region is us-east-1 for resource type `AWS::EC2::Instance` then the API returns all the EC2 instance identifiers of accountID 12345678910 and region us-east-1.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i178.AggregateResourceIdentifier>,
-          int, String>> listAggregateDiscoveredResources(
-    _i179.ListAggregateDiscoveredResourcesRequest input, {
+      _i3.PaginatedResult<_i4.BuiltList<AggregateResourceIdentifier>, int,
+          String>> listAggregateDiscoveredResources(
+    ListAggregateDiscoveredResourcesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i180.ListAggregateDiscoveredResourcesOperation(
+    return ListAggregateDiscoveredResourcesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1926,13 +1670,13 @@ class ConfigClient {
   ///
   /// Conformance packs with no evaluation results will have a compliance score of `INSUFFICIENT_DATA`.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i181.ListConformancePackComplianceScoresResponse,
-          int, String>> listConformancePackComplianceScores(
-    _i182.ListConformancePackComplianceScoresRequest input, {
+      _i3.PaginatedResult<ListConformancePackComplianceScoresResponse, int,
+          String>> listConformancePackComplianceScores(
+    ListConformancePackComplianceScoresRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i183.ListConformancePackComplianceScoresOperation(
+    return ListConformancePackComplianceScoresOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1950,13 +1694,13 @@ class ConfigClient {
   ///
   /// The response is paginated. By default, Config lists 100 resource identifiers on each page. You can customize this number with the `limit` parameter. The response includes a `nextToken` string. To get the next page of results, run the request again and specify the string for the `nextToken` parameter.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i184.ResourceIdentifier>, int,
-          String>> listDiscoveredResources(
-    _i185.ListDiscoveredResourcesRequest input, {
+          _i3.PaginatedResult<_i4.BuiltList<ResourceIdentifier>, int, String>>
+      listDiscoveredResources(
+    ListDiscoveredResourcesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i186.ListDiscoveredResourcesOperation(
+    return ListDiscoveredResourcesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1970,13 +1714,13 @@ class ConfigClient {
 
   /// Returns a list of proactive resource evaluations.
   _i3.SmithyOperation<
-      _i3.PaginatedResult<_i50.BuiltList<_i187.ResourceEvaluation>, int,
-          String>> listResourceEvaluations(
-    _i188.ListResourceEvaluationsRequest input, {
+          _i3.PaginatedResult<_i4.BuiltList<ResourceEvaluation>, int, String>>
+      listResourceEvaluations(
+    ListResourceEvaluationsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i189.ListResourceEvaluationsOperation(
+    return ListResourceEvaluationsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -1990,13 +1734,13 @@ class ConfigClient {
 
   /// Lists the stored queries for a single Amazon Web Services account and a single Amazon Web Services Region. The default is 100.
   _i3.SmithyOperation<
-          _i3.PaginatedResult<_i190.ListStoredQueriesResponse, int, String>>
+          _i3.PaginatedResult<ListStoredQueriesResponse, int, String>>
       listStoredQueries(
-    _i191.ListStoredQueriesRequest input, {
+    ListStoredQueriesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i192.ListStoredQueriesOperation(
+    return ListStoredQueriesOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2009,14 +1753,13 @@ class ConfigClient {
   }
 
   /// List the tags for Config resource.
-  _i3.SmithyOperation<
-          _i3.PaginatedResult<_i50.BuiltList<_i193.Tag>, int, String>>
+  _i3.SmithyOperation<_i3.PaginatedResult<_i4.BuiltList<Tag>, int, String>>
       listTagsForResource(
-    _i194.ListTagsForResourceRequest input, {
+    ListTagsForResourceRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i195.ListTagsForResourceOperation(
+    return ListTagsForResourceOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2031,13 +1774,13 @@ class ConfigClient {
   /// Authorizes the aggregator account and region to collect data from the source account and region.
   ///
   /// `PutAggregationAuthorization` is an idempotent API. Subsequent requests won’t create a duplicate resource if one was already created. If a following request has different `tags` values, Config will ignore these differences and treat it as an idempotent request of the previous. In this case, `tags` will not be updated, even if they are different.
-  _i3.SmithyOperation<_i196.PutAggregationAuthorizationResponse>
+  _i3.SmithyOperation<PutAggregationAuthorizationResponse>
       putAggregationAuthorization(
-    _i197.PutAggregationAuthorizationRequest input, {
+    PutAggregationAuthorizationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i198.PutAggregationAuthorizationOperation(
+    return PutAggregationAuthorizationOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2067,11 +1810,11 @@ class ConfigClient {
   ///
   /// `PutConfigRule` is an idempotent API. Subsequent requests won’t create a duplicate resource if one was already created. If a following request has different `tags` values, Config will ignore these differences and treat it as an idempotent request of the previous. In this case, `tags` will not be updated, even if they are different.
   _i3.SmithyOperation<void> putConfigRule(
-    _i199.PutConfigRuleRequest input, {
+    PutConfigRuleRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i200.PutConfigRuleOperation(
+    return PutConfigRuleOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2094,13 +1837,13 @@ class ConfigClient {
   /// To register a delegated administrator, see [Register a Delegated Administrator](https://docs.aws.amazon.com/config/latest/developerguide/set-up-aggregator-cli.html#register-a-delegated-administrator-cli) in the _Config developer guide_.
   ///
   /// `PutConfigurationAggregator` is an idempotent API. Subsequent requests won’t create a duplicate resource if one was already created. If a following request has different `tags` values, Config will ignore these differences and treat it as an idempotent request of the previous. In this case, `tags` will not be updated, even if they are different.
-  _i3.SmithyOperation<_i201.PutConfigurationAggregatorResponse>
+  _i3.SmithyOperation<PutConfigurationAggregatorResponse>
       putConfigurationAggregator(
-    _i202.PutConfigurationAggregatorRequest input, {
+    PutConfigurationAggregatorRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i203.PutConfigurationAggregatorOperation(
+    return PutConfigurationAggregatorOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2120,11 +1863,11 @@ class ConfigClient {
   ///
   /// If the configuration recorder does not have the `recordingGroup` field specified, the default is to record all supported resource types.
   _i3.SmithyOperation<void> putConfigurationRecorder(
-    _i204.PutConfigurationRecorderRequest input, {
+    PutConfigurationRecorderRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i205.PutConfigurationRecorderOperation(
+    return PutConfigurationRecorderOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2141,12 +1884,12 @@ class ConfigClient {
   /// This API creates a service-linked role `AWSServiceRoleForConfigConforms` in your account. The service-linked role is created only when the role does not exist in your account.
   ///
   /// You must specify only one of the follow parameters: `TemplateS3Uri`, `TemplateBody` or `TemplateSSMDocumentDetails`.
-  _i3.SmithyOperation<_i206.PutConformancePackResponse> putConformancePack(
-    _i207.PutConformancePackRequest input, {
+  _i3.SmithyOperation<PutConformancePackResponse> putConformancePack(
+    PutConformancePackRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i208.PutConformancePackOperation(
+    return PutConformancePackOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2166,11 +1909,11 @@ class ConfigClient {
   ///
   /// You can have only one delivery channel per region in your account.
   _i3.SmithyOperation<void> putDeliveryChannel(
-    _i209.PutDeliveryChannelRequest input, {
+    PutDeliveryChannelRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i210.PutDeliveryChannelOperation(
+    return PutDeliveryChannelOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2183,12 +1926,12 @@ class ConfigClient {
   }
 
   /// Used by an Lambda function to deliver evaluation results to Config. This action is required in every Lambda function that is invoked by an Config rule.
-  _i3.SmithyOperation<_i211.PutEvaluationsResponse> putEvaluations(
-    _i212.PutEvaluationsRequest input, {
+  _i3.SmithyOperation<PutEvaluationsResponse> putEvaluations(
+    PutEvaluationsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i213.PutEvaluationsOperation(
+    return PutEvaluationsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2201,13 +1944,12 @@ class ConfigClient {
   }
 
   /// Add or updates the evaluations for process checks. This API checks if the rule is a process check when the name of the Config rule is provided.
-  _i3.SmithyOperation<_i214.PutExternalEvaluationResponse>
-      putExternalEvaluation(
-    _i215.PutExternalEvaluationRequest input, {
+  _i3.SmithyOperation<PutExternalEvaluationResponse> putExternalEvaluation(
+    PutExternalEvaluationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i216.PutExternalEvaluationOperation(
+    return PutExternalEvaluationOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2238,13 +1980,13 @@ class ConfigClient {
   /// Prerequisite: Ensure you call `EnableAllFeatures` API to enable all features in an organization.
   ///
   /// Make sure to specify one of either `OrganizationCustomPolicyRuleMetadata` for Custom Policy rules, `OrganizationCustomRuleMetadata` for Custom Lambda rules, or `OrganizationManagedRuleMetadata` for managed rules.
-  _i3.SmithyOperation<_i217.PutOrganizationConfigRuleResponse>
+  _i3.SmithyOperation<PutOrganizationConfigRuleResponse>
       putOrganizationConfigRule(
-    _i218.PutOrganizationConfigRuleRequest input, {
+    PutOrganizationConfigRuleRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i219.PutOrganizationConfigRuleOperation(
+    return PutOrganizationConfigRuleOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2267,13 +2009,13 @@ class ConfigClient {
   /// You must specify either the `TemplateS3Uri` or the `TemplateBody` parameter, but not both. If you provide both Config uses the `TemplateS3Uri` parameter and ignores the `TemplateBody` parameter.
   ///
   /// Config sets the state of a conformance pack to CREATE\_IN\_PROGRESS and UPDATE\_IN\_PROGRESS until the conformance pack is created or updated. You cannot update a conformance pack while it is in this state.
-  _i3.SmithyOperation<_i220.PutOrganizationConformancePackResponse>
+  _i3.SmithyOperation<PutOrganizationConformancePackResponse>
       putOrganizationConformancePack(
-    _i221.PutOrganizationConformancePackRequest input, {
+    PutOrganizationConformancePackRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i222.PutOrganizationConformancePackOperation(
+    return PutOrganizationConformancePackOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2294,13 +2036,13 @@ class ConfigClient {
   /// For manual remediation configuration, you need to provide a value for `automationAssumeRole` or use a value in the `assumeRole`field to remediate your resources. The SSM automation document can use either as long as it maps to a valid parameter.
   ///
   /// However, for automatic remediation configuration, the only valid `assumeRole` field value is `AutomationAssumeRole` and you need to provide a value for `AutomationAssumeRole` to remediate your resources.
-  _i3.SmithyOperation<_i223.PutRemediationConfigurationsResponse>
+  _i3.SmithyOperation<PutRemediationConfigurationsResponse>
       putRemediationConfigurations(
-    _i224.PutRemediationConfigurationsRequest input, {
+    PutRemediationConfigurationsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i225.PutRemediationConfigurationsOperation(
+    return PutRemediationConfigurationsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2319,13 +2061,13 @@ class ConfigClient {
   /// When placing an exception on an Amazon Web Services resource, it is recommended that remediation is set as manual remediation until the given Config rule for the specified resource evaluates the resource as `NON_COMPLIANT`. Once the resource has been evaluated as `NON_COMPLIANT`, you can add remediation exceptions and change the remediation type back from Manual to Auto if you want to use auto-remediation. Otherwise, using auto-remediation before a `NON_COMPLIANT` evaluation result can delete resources before the exception is applied.
   ///
   /// Placing an exception can only be performed on resources that are `NON_COMPLIANT`. If you use this API for `COMPLIANT` resources or resources that are `NOT_APPLICABLE`, a remediation exception will not be generated. For more information on the conditions that initiate the possible Config evaluation results, see [Concepts | Config Rules](https://docs.aws.amazon.com/config/latest/developerguide/config-concepts.html#aws-config-rules) in the _Config Developer Guide_.
-  _i3.SmithyOperation<_i226.PutRemediationExceptionsResponse>
+  _i3.SmithyOperation<PutRemediationExceptionsResponse>
       putRemediationExceptions(
-    _i227.PutRemediationExceptionsRequest input, {
+    PutRemediationExceptionsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i228.PutRemediationExceptionsOperation(
+    return PutRemediationExceptionsOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2345,11 +2087,11 @@ class ConfigClient {
   ///
   /// Write-only schema properites are not recorded as part of the published configuration item.
   _i3.SmithyOperation<void> putResourceConfig(
-    _i229.PutResourceConfigRequest input, {
+    PutResourceConfigRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i230.PutResourceConfigOperation(
+    return PutResourceConfigOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2364,13 +2106,13 @@ class ConfigClient {
   /// Creates and updates the retention configuration with details about retention period (number of days) that Config stores your historical information. The API creates the `RetentionConfiguration` object and names the object as **default**. When you have a `RetentionConfiguration` object named **default**, calling the API modifies the default object.
   ///
   /// Currently, Config supports only one retention configuration per region in your account.
-  _i3.SmithyOperation<_i231.PutRetentionConfigurationResponse>
+  _i3.SmithyOperation<PutRetentionConfigurationResponse>
       putRetentionConfiguration(
-    _i232.PutRetentionConfigurationRequest input, {
+    PutRetentionConfigurationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i233.PutRetentionConfigurationOperation(
+    return PutRetentionConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2385,12 +2127,12 @@ class ConfigClient {
   /// Saves a new query or updates an existing saved query. The `QueryName` must be unique for a single Amazon Web Services account and a single Amazon Web Services Region. You can create upto 300 queries in a single Amazon Web Services account and a single Amazon Web Services Region.
   ///
   /// `PutStoredQuery` is an idempotent API. Subsequent requests won’t create a duplicate resource if one was already created. If a following request has different `tags` values, Config will ignore these differences and treat it as an idempotent request of the previous. In this case, `tags` will not be updated, even if they are different.
-  _i3.SmithyOperation<_i234.PutStoredQueryResponse> putStoredQuery(
-    _i235.PutStoredQueryRequest input, {
+  _i3.SmithyOperation<PutStoredQueryResponse> putStoredQuery(
+    PutStoredQueryRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i236.PutStoredQueryOperation(
+    return PutStoredQueryOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2409,13 +2151,13 @@ class ConfigClient {
   /// If you run an aggregation query (i.e., using `GROUP BY` or using aggregate functions such as `COUNT`; e.g., `SELECT resourceId, COUNT(*) WHERE resourceType = 'AWS::IAM::Role' GROUP BY resourceId`) and do not specify the `MaxResults` or the `Limit` query parameters, the default page size is set to 500.
   ///
   /// If you run a non-aggregation query (i.e., not using `GROUP BY` or aggregate function; e.g., `SELECT * WHERE resourceType = 'AWS::IAM::Role'`) and do not specify the `MaxResults` or the `Limit` query parameters, the default page size is set to 25.
-  _i3.SmithyOperation<_i3.PaginatedResult<_i50.BuiltList<String>, int, String>>
+  _i3.SmithyOperation<_i3.PaginatedResult<_i4.BuiltList<String>, int, String>>
       selectAggregateResourceConfig(
-    _i237.SelectAggregateResourceConfigRequest input, {
+    SelectAggregateResourceConfigRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i238.SelectAggregateResourceConfigOperation(
+    return SelectAggregateResourceConfigOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2430,13 +2172,13 @@ class ConfigClient {
   /// Accepts a structured query language (SQL) `SELECT` command, performs the corresponding search, and returns resource configurations matching the properties.
   ///
   /// For more information about query components, see the [**Query Components**](https://docs.aws.amazon.com/config/latest/developerguide/query-components.html) section in the _Config Developer Guide_.
-  _i3.SmithyOperation<_i3.PaginatedResult<_i50.BuiltList<String>, int, String>>
+  _i3.SmithyOperation<_i3.PaginatedResult<_i4.BuiltList<String>, int, String>>
       selectResourceConfig(
-    _i239.SelectResourceConfigRequest input, {
+    SelectResourceConfigRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i240.SelectResourceConfigOperation(
+    return SelectResourceConfigOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2467,13 +2209,13 @@ class ConfigClient {
   /// 4.  Config invokes your Lambda function and evaluates your IAM resources.
   ///
   /// 5.  Your custom rule will still run periodic evaluations every 24 hours.
-  _i3.SmithyOperation<_i241.StartConfigRulesEvaluationResponse>
+  _i3.SmithyOperation<StartConfigRulesEvaluationResponse>
       startConfigRulesEvaluation(
-    _i242.StartConfigRulesEvaluationRequest input, {
+    StartConfigRulesEvaluationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i243.StartConfigRulesEvaluationOperation(
+    return StartConfigRulesEvaluationOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2489,11 +2231,11 @@ class ConfigClient {
   ///
   /// You must have created at least one delivery channel to successfully start the configuration recorder.
   _i3.SmithyOperation<void> startConfigurationRecorder(
-    _i244.StartConfigurationRecorderRequest input, {
+    StartConfigurationRecorderRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i245.StartConfigurationRecorderOperation(
+    return StartConfigurationRecorderOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2508,13 +2250,13 @@ class ConfigClient {
   /// Runs an on-demand remediation for the specified Config rules against the last known remediation configuration. It runs an execution against the current state of your resources. Remediation execution is asynchronous.
   ///
   /// You can specify up to 100 resource keys per request. An existing StartRemediationExecution call for the specified resource keys must complete before you can call the API again.
-  _i3.SmithyOperation<_i246.StartRemediationExecutionResponse>
+  _i3.SmithyOperation<StartRemediationExecutionResponse>
       startRemediationExecution(
-    _i247.StartRemediationExecutionRequest input, {
+    StartRemediationExecutionRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i248.StartRemediationExecutionOperation(
+    return StartRemediationExecutionOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2533,13 +2275,12 @@ class ConfigClient {
   /// You can find the [Resource type schema](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-schema.html) in "_Amazon Web Services public extensions_" within the CloudFormation registry or with the following CLI commmand: `aws cloudformation describe-type --type-name "AWS::S3::Bucket" --type RESOURCE`.
   ///
   /// For more information, see [Managing extensions through the CloudFormation registry](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry.html#registry-view) and [Amazon Web Services resource and property types reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html) in the CloudFormation User Guide.
-  _i3.SmithyOperation<_i249.StartResourceEvaluationResponse>
-      startResourceEvaluation(
-    _i250.StartResourceEvaluationRequest input, {
+  _i3.SmithyOperation<StartResourceEvaluationResponse> startResourceEvaluation(
+    StartResourceEvaluationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i251.StartResourceEvaluationOperation(
+    return StartResourceEvaluationOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2553,11 +2294,11 @@ class ConfigClient {
 
   /// Stops recording configurations of the Amazon Web Services resources you have selected to record in your Amazon Web Services account.
   _i3.SmithyOperation<void> stopConfigurationRecorder(
-    _i252.StopConfigurationRecorderRequest input, {
+    StopConfigurationRecorderRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i253.StopConfigurationRecorderOperation(
+    return StopConfigurationRecorderOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2571,11 +2312,11 @@ class ConfigClient {
 
   /// Associates the specified tags to a resource with the specified resourceArn. If existing tags on a resource are not specified in the request parameters, they are not changed. If existing tags are specified, however, then their values will be updated. When a resource is deleted, the tags associated with that resource are deleted as well.
   _i3.SmithyOperation<void> tagResource(
-    _i254.TagResourceRequest input, {
+    TagResourceRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i255.TagResourceOperation(
+    return TagResourceOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,
@@ -2589,11 +2330,11 @@ class ConfigClient {
 
   /// Deletes specified tags from a resource.
   _i3.SmithyOperation<void> untagResource(
-    _i256.UntagResourceRequest input, {
+    UntagResourceRequest input, {
     _i1.AWSHttpClient? client,
     _i2.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i257.UntagResourceOperation(
+    return UntagResourceOperation(
       region: _region,
       baseUri: _baseUri,
       credentialsProvider: credentialsProvider ?? _credentialsProvider,

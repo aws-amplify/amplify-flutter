@@ -27,7 +27,7 @@ class _$SimpleScalarPropertiesInputOutput
   @override
   final double? floatValue;
   @override
-  final _i4.NestedWithNamespace? nested;
+  final NestedWithNamespace? nested;
   @override
   final double? doubleValue;
 
@@ -139,10 +139,10 @@ class SimpleScalarPropertiesInputOutputBuilder
   double? get floatValue => _$this._floatValue;
   set floatValue(double? floatValue) => _$this._floatValue = floatValue;
 
-  _i4.NestedWithNamespaceBuilder? _nested;
-  _i4.NestedWithNamespaceBuilder get nested =>
-      _$this._nested ??= new _i4.NestedWithNamespaceBuilder();
-  set nested(_i4.NestedWithNamespaceBuilder? nested) => _$this._nested = nested;
+  NestedWithNamespaceBuilder? _nested;
+  NestedWithNamespaceBuilder get nested =>
+      _$this._nested ??= new NestedWithNamespaceBuilder();
+  set nested(NestedWithNamespaceBuilder? nested) => _$this._nested = nested;
 
   double? _doubleValue;
   double? get doubleValue => _$this._doubleValue;
@@ -231,7 +231,7 @@ class _$SimpleScalarPropertiesInputOutputPayload
   @override
   final _i3.Int64? longValue;
   @override
-  final _i4.NestedWithNamespace? nested;
+  final NestedWithNamespace? nested;
   @override
   final int? shortValue;
   @override
@@ -333,10 +333,10 @@ class SimpleScalarPropertiesInputOutputPayloadBuilder
   _i3.Int64? get longValue => _$this._longValue;
   set longValue(_i3.Int64? longValue) => _$this._longValue = longValue;
 
-  _i4.NestedWithNamespaceBuilder? _nested;
-  _i4.NestedWithNamespaceBuilder get nested =>
-      _$this._nested ??= new _i4.NestedWithNamespaceBuilder();
-  set nested(_i4.NestedWithNamespaceBuilder? nested) => _$this._nested = nested;
+  NestedWithNamespaceBuilder? _nested;
+  NestedWithNamespaceBuilder get nested =>
+      _$this._nested ??= new NestedWithNamespaceBuilder();
+  set nested(NestedWithNamespaceBuilder? nested) => _$this._nested = nested;
 
   int? _shortValue;
   int? get shortValue => _$this._shortValue;

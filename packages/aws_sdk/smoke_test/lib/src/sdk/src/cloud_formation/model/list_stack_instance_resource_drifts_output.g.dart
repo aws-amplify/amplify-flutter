@@ -9,7 +9,7 @@ part of 'list_stack_instance_resource_drifts_output.dart';
 class _$ListStackInstanceResourceDriftsOutput
     extends ListStackInstanceResourceDriftsOutput {
   @override
-  final _i3.BuiltList<_i2.StackInstanceResourceDriftsSummary>? summaries;
+  final _i2.BuiltList<StackInstanceResourceDriftsSummary>? summaries;
   @override
   final String? nextToken;
 
@@ -56,12 +56,12 @@ class ListStackInstanceResourceDriftsOutputBuilder
             ListStackInstanceResourceDriftsOutputBuilder> {
   _$ListStackInstanceResourceDriftsOutput? _$v;
 
-  _i3.ListBuilder<_i2.StackInstanceResourceDriftsSummary>? _summaries;
-  _i3.ListBuilder<_i2.StackInstanceResourceDriftsSummary> get summaries =>
+  _i2.ListBuilder<StackInstanceResourceDriftsSummary>? _summaries;
+  _i2.ListBuilder<StackInstanceResourceDriftsSummary> get summaries =>
       _$this._summaries ??=
-          new _i3.ListBuilder<_i2.StackInstanceResourceDriftsSummary>();
+          new _i2.ListBuilder<StackInstanceResourceDriftsSummary>();
   set summaries(
-          _i3.ListBuilder<_i2.StackInstanceResourceDriftsSummary>? summaries) =>
+          _i2.ListBuilder<StackInstanceResourceDriftsSummary>? summaries) =>
       _$this._summaries = summaries;
 
   String? _nextToken;

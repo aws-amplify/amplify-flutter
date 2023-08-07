@@ -6,9 +6,9 @@ library smoke_test.s3.model.get_object_tagging_request; // ignore_for_file: no_l
 import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart' as _i4;
+import 'package:meta/meta.dart' as _i3;
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/request_payer.dart';
 
 part 'get_object_tagging_request.g.dart';
 
@@ -25,7 +25,7 @@ abstract class GetObjectTaggingRequest
     required String key,
     String? versionId,
     String? expectedBucketOwner,
-    _i3.RequestPayer? requestPayer,
+    RequestPayer? requestPayer,
   }) {
     return _$GetObjectTaggingRequest._(
       bucket: bucket,
@@ -53,7 +53,7 @@ abstract class GetObjectTaggingRequest
               request.headers['x-amz-expected-bucket-owner']!;
         }
         if (request.headers['x-amz-request-payer'] != null) {
-          b.requestPayer = _i3.RequestPayer.values
+          b.requestPayer = RequestPayer.values
               .byValue(request.headers['x-amz-request-payer']!);
         }
         if (request.queryParameters['versionId'] != null) {
@@ -87,7 +87,7 @@ abstract class GetObjectTaggingRequest
   String? get expectedBucketOwner;
 
   /// Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see [Downloading Objects in Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) in the _Amazon S3 User Guide_.
-  _i3.RequestPayer? get requestPayer;
+  RequestPayer? get requestPayer;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -140,7 +140,7 @@ abstract class GetObjectTaggingRequest
   }
 }
 
-@_i4.internal
+@_i3.internal
 abstract class GetObjectTaggingRequestPayload
     with
         _i2.AWSEquatable<GetObjectTaggingRequestPayload>

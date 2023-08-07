@@ -6,9 +6,8 @@ library smoke_test.s3.model.replica_modifications; // ignore_for_file: no_leadin
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/replica_modifications_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/replica_modifications_status.dart';
 
 part 'replica_modifications.g.dart';
 
@@ -21,8 +20,7 @@ abstract class ReplicaModifications
   /// A filter that you can specify for selection for modifications on replicas. Amazon S3 doesn't replicate replica modifications by default. In the latest version of replication configuration (when `Filter` is specified), you can specify this element and set the status to `Enabled` to replicate modifications on replicas.
   ///
   /// If you don't specify the `Filter` element, Amazon S3 assumes that the replication configuration is the earlier version, V1. In the earlier version, this element is not allowed.
-  factory ReplicaModifications(
-      {required _i2.ReplicaModificationsStatus status}) {
+  factory ReplicaModifications({required ReplicaModificationsStatus status}) {
     return _$ReplicaModifications._(status: status);
   }
 
@@ -35,12 +33,12 @@ abstract class ReplicaModifications
 
   const ReplicaModifications._();
 
-  static const List<_i3.SmithySerializer<ReplicaModifications>> serializers = [
+  static const List<_i2.SmithySerializer<ReplicaModifications>> serializers = [
     ReplicaModificationsRestXmlSerializer()
   ];
 
   /// Specifies whether Amazon S3 replicates modifications on replicas.
-  _i2.ReplicaModificationsStatus get status;
+  ReplicaModificationsStatus get status;
   @override
   List<Object?> get props => [status];
   @override
@@ -55,7 +53,7 @@ abstract class ReplicaModifications
 }
 
 class ReplicaModificationsRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<ReplicaModifications> {
+    extends _i2.StructuredSmithySerializer<ReplicaModifications> {
   const ReplicaModificationsRestXmlSerializer() : super('ReplicaModifications');
 
   @override
@@ -64,8 +62,8 @@ class ReplicaModificationsRestXmlSerializer
         _$ReplicaModifications,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -89,8 +87,8 @@ class ReplicaModificationsRestXmlSerializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ReplicaModificationsStatus),
-          ) as _i2.ReplicaModificationsStatus);
+            specifiedType: const FullType(ReplicaModificationsStatus),
+          ) as ReplicaModificationsStatus);
       }
     }
 
@@ -104,17 +102,17 @@ class ReplicaModificationsRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'ReplicaModifications',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final ReplicaModifications(:status) = object;
     result$
-      ..add(const _i3.XmlElementName('Status'))
+      ..add(const _i2.XmlElementName('Status'))
       ..add(serializers.serialize(
         status,
-        specifiedType: const FullType.nullable(_i2.ReplicaModificationsStatus),
+        specifiedType: const FullType.nullable(ReplicaModificationsStatus),
       ));
     return result$;
   }

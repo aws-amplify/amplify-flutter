@@ -7,7 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/s3/model/checksum_algorithm.dart';
 
 part 'put_bucket_policy_request.g.dart';
 
@@ -19,7 +19,7 @@ abstract class PutBucketPolicyRequest
   factory PutBucketPolicyRequest({
     required String bucket,
     String? contentMd5,
-    _i3.ChecksumAlgorithm? checksumAlgorithm,
+    ChecksumAlgorithm? checksumAlgorithm,
     bool? confirmRemoveSelfBucketAccess,
     required String policy,
     String? expectedBucketOwner,
@@ -51,7 +51,7 @@ abstract class PutBucketPolicyRequest
           b.contentMd5 = request.headers['Content-MD5']!;
         }
         if (request.headers['x-amz-sdk-checksum-algorithm'] != null) {
-          b.checksumAlgorithm = _i3.ChecksumAlgorithm.values
+          b.checksumAlgorithm = ChecksumAlgorithm.values
               .byValue(request.headers['x-amz-sdk-checksum-algorithm']!);
         }
         if (request.headers['x-amz-confirm-remove-self-bucket-access'] !=
@@ -84,7 +84,7 @@ abstract class PutBucketPolicyRequest
   /// Indicates the algorithm used to create the checksum for the object when using the SDK. This header will not provide any additional functionality if not using the SDK. When sending this header, there must be a corresponding `x-amz-checksum` or `x-amz-trailer` header sent. Otherwise, Amazon S3 fails the request with the HTTP status code `400 Bad Request`. For more information, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html) in the _Amazon S3 User Guide_.
   ///
   /// If you provide an individual checksum, Amazon S3 ignores any provided `ChecksumAlgorithm` parameter.
-  _i3.ChecksumAlgorithm? get checksumAlgorithm;
+  ChecksumAlgorithm? get checksumAlgorithm;
 
   /// Set this parameter to true to confirm that you want to remove your permissions to change this bucket policy in the future.
   bool? get confirmRemoveSelfBucketAccess;

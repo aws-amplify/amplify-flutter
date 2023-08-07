@@ -8,8 +8,7 @@ part of 'get_bucket_encryption_output.dart';
 
 class _$GetBucketEncryptionOutput extends GetBucketEncryptionOutput {
   @override
-  final _i3.ServerSideEncryptionConfiguration?
-      serverSideEncryptionConfiguration;
+  final ServerSideEncryptionConfiguration? serverSideEncryptionConfiguration;
 
   factory _$GetBucketEncryptionOutput(
           [void Function(GetBucketEncryptionOutputBuilder)? updates]) =>
@@ -49,14 +48,13 @@ class GetBucketEncryptionOutputBuilder
         Builder<GetBucketEncryptionOutput, GetBucketEncryptionOutputBuilder> {
   _$GetBucketEncryptionOutput? _$v;
 
-  _i3.ServerSideEncryptionConfigurationBuilder?
-      _serverSideEncryptionConfiguration;
-  _i3.ServerSideEncryptionConfigurationBuilder
+  ServerSideEncryptionConfigurationBuilder? _serverSideEncryptionConfiguration;
+  ServerSideEncryptionConfigurationBuilder
       get serverSideEncryptionConfiguration =>
           _$this._serverSideEncryptionConfiguration ??=
-              new _i3.ServerSideEncryptionConfigurationBuilder();
+              new ServerSideEncryptionConfigurationBuilder();
   set serverSideEncryptionConfiguration(
-          _i3.ServerSideEncryptionConfigurationBuilder?
+          ServerSideEncryptionConfigurationBuilder?
               serverSideEncryptionConfiguration) =>
       _$this._serverSideEncryptionConfiguration =
           serverSideEncryptionConfiguration;

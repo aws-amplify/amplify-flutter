@@ -11,7 +11,7 @@ class _$GetDiscoveredResourceCountsResponse
   @override
   final _i2.Int64 totalDiscoveredResources;
   @override
-  final _i4.BuiltList<_i3.ResourceCount>? resourceCounts;
+  final _i3.BuiltList<ResourceCount>? resourceCounts;
   @override
   final String? nextToken;
 
@@ -70,10 +70,10 @@ class GetDiscoveredResourceCountsResponseBuilder
   set totalDiscoveredResources(_i2.Int64? totalDiscoveredResources) =>
       _$this._totalDiscoveredResources = totalDiscoveredResources;
 
-  _i4.ListBuilder<_i3.ResourceCount>? _resourceCounts;
-  _i4.ListBuilder<_i3.ResourceCount> get resourceCounts =>
-      _$this._resourceCounts ??= new _i4.ListBuilder<_i3.ResourceCount>();
-  set resourceCounts(_i4.ListBuilder<_i3.ResourceCount>? resourceCounts) =>
+  _i3.ListBuilder<ResourceCount>? _resourceCounts;
+  _i3.ListBuilder<ResourceCount> get resourceCounts =>
+      _$this._resourceCounts ??= new _i3.ListBuilder<ResourceCount>();
+  set resourceCounts(_i3.ListBuilder<ResourceCount>? resourceCounts) =>
       _$this._resourceCounts = resourceCounts;
 
   String? _nextToken;

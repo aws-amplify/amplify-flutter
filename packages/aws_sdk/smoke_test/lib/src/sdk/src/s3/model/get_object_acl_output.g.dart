@@ -8,11 +8,11 @@ part of 'get_object_acl_output.dart';
 
 class _$GetObjectAclOutput extends GetObjectAclOutput {
   @override
-  final _i3.Owner? owner;
+  final Owner? owner;
   @override
-  final _i6.BuiltList<_i4.Grant>? grants;
+  final _i3.BuiltList<Grant>? grants;
   @override
-  final _i5.RequestCharged? requestCharged;
+  final RequestCharged? requestCharged;
 
   factory _$GetObjectAclOutput(
           [void Function(GetObjectAclOutputBuilder)? updates]) =>
@@ -54,18 +54,18 @@ class GetObjectAclOutputBuilder
     implements Builder<GetObjectAclOutput, GetObjectAclOutputBuilder> {
   _$GetObjectAclOutput? _$v;
 
-  _i3.OwnerBuilder? _owner;
-  _i3.OwnerBuilder get owner => _$this._owner ??= new _i3.OwnerBuilder();
-  set owner(_i3.OwnerBuilder? owner) => _$this._owner = owner;
+  OwnerBuilder? _owner;
+  OwnerBuilder get owner => _$this._owner ??= new OwnerBuilder();
+  set owner(OwnerBuilder? owner) => _$this._owner = owner;
 
-  _i6.ListBuilder<_i4.Grant>? _grants;
-  _i6.ListBuilder<_i4.Grant> get grants =>
-      _$this._grants ??= new _i6.ListBuilder<_i4.Grant>();
-  set grants(_i6.ListBuilder<_i4.Grant>? grants) => _$this._grants = grants;
+  _i3.ListBuilder<Grant>? _grants;
+  _i3.ListBuilder<Grant> get grants =>
+      _$this._grants ??= new _i3.ListBuilder<Grant>();
+  set grants(_i3.ListBuilder<Grant>? grants) => _$this._grants = grants;
 
-  _i5.RequestCharged? _requestCharged;
-  _i5.RequestCharged? get requestCharged => _$this._requestCharged;
-  set requestCharged(_i5.RequestCharged? requestCharged) =>
+  RequestCharged? _requestCharged;
+  RequestCharged? get requestCharged => _$this._requestCharged;
+  set requestCharged(RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
   GetObjectAclOutputBuilder();
@@ -123,9 +123,9 @@ class GetObjectAclOutputBuilder
 
 class _$GetObjectAclOutputPayload extends GetObjectAclOutputPayload {
   @override
-  final _i6.BuiltList<_i4.Grant>? grants;
+  final _i3.BuiltList<Grant>? grants;
   @override
-  final _i3.Owner? owner;
+  final Owner? owner;
 
   factory _$GetObjectAclOutputPayload(
           [void Function(GetObjectAclOutputPayloadBuilder)? updates]) =>
@@ -165,14 +165,14 @@ class GetObjectAclOutputPayloadBuilder
         Builder<GetObjectAclOutputPayload, GetObjectAclOutputPayloadBuilder> {
   _$GetObjectAclOutputPayload? _$v;
 
-  _i6.ListBuilder<_i4.Grant>? _grants;
-  _i6.ListBuilder<_i4.Grant> get grants =>
-      _$this._grants ??= new _i6.ListBuilder<_i4.Grant>();
-  set grants(_i6.ListBuilder<_i4.Grant>? grants) => _$this._grants = grants;
+  _i3.ListBuilder<Grant>? _grants;
+  _i3.ListBuilder<Grant> get grants =>
+      _$this._grants ??= new _i3.ListBuilder<Grant>();
+  set grants(_i3.ListBuilder<Grant>? grants) => _$this._grants = grants;
 
-  _i3.OwnerBuilder? _owner;
-  _i3.OwnerBuilder get owner => _$this._owner ??= new _i3.OwnerBuilder();
-  set owner(_i3.OwnerBuilder? owner) => _$this._owner = owner;
+  OwnerBuilder? _owner;
+  OwnerBuilder get owner => _$this._owner ??= new OwnerBuilder();
+  set owner(OwnerBuilder? owner) => _$this._owner = owner;
 
   GetObjectAclOutputPayloadBuilder();
 

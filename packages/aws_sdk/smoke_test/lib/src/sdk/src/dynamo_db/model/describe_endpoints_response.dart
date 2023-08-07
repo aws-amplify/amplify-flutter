@@ -4,11 +4,11 @@
 library smoke_test.dynamo_db.model.describe_endpoints_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/endpoint.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/endpoint.dart';
 
 part 'describe_endpoints_response.g.dart';
 
@@ -16,8 +16,8 @@ abstract class DescribeEndpointsResponse
     with _i1.AWSEquatable<DescribeEndpointsResponse>
     implements
         Built<DescribeEndpointsResponse, DescribeEndpointsResponseBuilder> {
-  factory DescribeEndpointsResponse({required List<_i2.Endpoint> endpoints}) {
-    return _$DescribeEndpointsResponse._(endpoints: _i3.BuiltList(endpoints));
+  factory DescribeEndpointsResponse({required List<Endpoint> endpoints}) {
+    return _$DescribeEndpointsResponse._(endpoints: _i2.BuiltList(endpoints));
   }
 
   factory DescribeEndpointsResponse.build(
@@ -33,11 +33,11 @@ abstract class DescribeEndpointsResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<DescribeEndpointsResponse>>
+  static const List<_i3.SmithySerializer<DescribeEndpointsResponse>>
       serializers = [DescribeEndpointsResponseAwsJson10Serializer()];
 
   /// List of endpoints.
-  _i3.BuiltList<_i2.Endpoint> get endpoints;
+  _i2.BuiltList<Endpoint> get endpoints;
   @override
   List<Object?> get props => [endpoints];
   @override
@@ -52,7 +52,7 @@ abstract class DescribeEndpointsResponse
 }
 
 class DescribeEndpointsResponseAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<DescribeEndpointsResponse> {
+    extends _i3.StructuredSmithySerializer<DescribeEndpointsResponse> {
   const DescribeEndpointsResponseAwsJson10Serializer()
       : super('DescribeEndpointsResponse');
 
@@ -62,8 +62,8 @@ class DescribeEndpointsResponseAwsJson10Serializer
         _$DescribeEndpointsResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -88,10 +88,10 @@ class DescribeEndpointsResponseAwsJson10Serializer
           result.endpoints.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.Endpoint)],
+              _i2.BuiltList,
+              [FullType(Endpoint)],
             ),
-          ) as _i3.BuiltList<_i2.Endpoint>));
+          ) as _i2.BuiltList<Endpoint>));
       }
     }
 
@@ -111,8 +111,8 @@ class DescribeEndpointsResponseAwsJson10Serializer
       serializers.serialize(
         endpoints,
         specifiedType: const FullType(
-          _i3.BuiltList,
-          [FullType(_i2.Endpoint)],
+          _i2.BuiltList,
+          [FullType(Endpoint)],
         ),
       ),
     ]);

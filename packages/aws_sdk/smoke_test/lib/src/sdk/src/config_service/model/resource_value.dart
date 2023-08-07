@@ -6,9 +6,8 @@ library smoke_test.config_service.model.resource_value; // ignore_for_file: no_l
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_value_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_value_type.dart';
 
 part 'resource_value.g.dart';
 
@@ -17,7 +16,7 @@ abstract class ResourceValue
     with _i1.AWSEquatable<ResourceValue>
     implements Built<ResourceValue, ResourceValueBuilder> {
   /// The dynamic value of the resource.
-  factory ResourceValue({required _i2.ResourceValueType value}) {
+  factory ResourceValue({required ResourceValueType value}) {
     return _$ResourceValue._(value: value);
   }
 
@@ -27,12 +26,12 @@ abstract class ResourceValue
 
   const ResourceValue._();
 
-  static const List<_i3.SmithySerializer<ResourceValue>> serializers = [
+  static const List<_i2.SmithySerializer<ResourceValue>> serializers = [
     ResourceValueAwsJson11Serializer()
   ];
 
   /// The value is a resource ID.
-  _i2.ResourceValueType get value;
+  ResourceValueType get value;
   @override
   List<Object?> get props => [value];
   @override
@@ -47,7 +46,7 @@ abstract class ResourceValue
 }
 
 class ResourceValueAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<ResourceValue> {
+    extends _i2.StructuredSmithySerializer<ResourceValue> {
   const ResourceValueAwsJson11Serializer() : super('ResourceValue');
 
   @override
@@ -56,8 +55,8 @@ class ResourceValueAwsJson11Serializer
         _$ResourceValue,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -81,8 +80,8 @@ class ResourceValueAwsJson11Serializer
         case 'Value':
           result.value = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ResourceValueType),
-          ) as _i2.ResourceValueType);
+            specifiedType: const FullType(ResourceValueType),
+          ) as ResourceValueType);
       }
     }
 
@@ -101,7 +100,7 @@ class ResourceValueAwsJson11Serializer
       'Value',
       serializers.serialize(
         value,
-        specifiedType: const FullType(_i2.ResourceValueType),
+        specifiedType: const FullType(ResourceValueType),
       ),
     ]);
     return result$;

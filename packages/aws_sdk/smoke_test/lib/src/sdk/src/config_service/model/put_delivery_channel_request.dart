@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/delivery_channel.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/delivery_channel.dart';
 
 part 'put_delivery_channel_request.g.dart';
 
@@ -21,7 +20,7 @@ abstract class PutDeliveryChannelRequest
         Built<PutDeliveryChannelRequest, PutDeliveryChannelRequestBuilder> {
   /// The input for the PutDeliveryChannel action.
   factory PutDeliveryChannelRequest(
-      {required _i3.DeliveryChannel deliveryChannel}) {
+      {required DeliveryChannel deliveryChannel}) {
     return _$PutDeliveryChannelRequest._(deliveryChannel: deliveryChannel);
   }
 
@@ -43,7 +42,7 @@ abstract class PutDeliveryChannelRequest
       serializers = [PutDeliveryChannelRequestAwsJson11Serializer()];
 
   /// The configuration delivery channel object that delivers the configuration information to an Amazon S3 bucket and to an Amazon SNS topic.
-  _i3.DeliveryChannel get deliveryChannel;
+  DeliveryChannel get deliveryChannel;
   @override
   PutDeliveryChannelRequest getPayload() => this;
   @override
@@ -95,8 +94,8 @@ class PutDeliveryChannelRequestAwsJson11Serializer
         case 'DeliveryChannel':
           result.deliveryChannel.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.DeliveryChannel),
-          ) as _i3.DeliveryChannel));
+            specifiedType: const FullType(DeliveryChannel),
+          ) as DeliveryChannel));
       }
     }
 
@@ -115,7 +114,7 @@ class PutDeliveryChannelRequestAwsJson11Serializer
       'DeliveryChannel',
       serializers.serialize(
         deliveryChannel,
-        specifiedType: const FullType(_i3.DeliveryChannel),
+        specifiedType: const FullType(DeliveryChannel),
       ),
     ]);
     return result$;

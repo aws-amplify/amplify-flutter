@@ -8,7 +8,7 @@ part of 'cancellation_reason.dart';
 
 class _$CancellationReason extends CancellationReason {
   @override
-  final _i3.BuiltMap<String, _i2.AttributeValue>? item;
+  final _i2.BuiltMap<String, AttributeValue>? item;
   @override
   final String? code;
   @override
@@ -53,11 +53,10 @@ class CancellationReasonBuilder
     implements Builder<CancellationReason, CancellationReasonBuilder> {
   _$CancellationReason? _$v;
 
-  _i3.MapBuilder<String, _i2.AttributeValue>? _item;
-  _i3.MapBuilder<String, _i2.AttributeValue> get item =>
-      _$this._item ??= new _i3.MapBuilder<String, _i2.AttributeValue>();
-  set item(_i3.MapBuilder<String, _i2.AttributeValue>? item) =>
-      _$this._item = item;
+  _i2.MapBuilder<String, AttributeValue>? _item;
+  _i2.MapBuilder<String, AttributeValue> get item =>
+      _$this._item ??= new _i2.MapBuilder<String, AttributeValue>();
+  set item(_i2.MapBuilder<String, AttributeValue>? item) => _$this._item = item;
 
   String? _code;
   String? get code => _$this._code;

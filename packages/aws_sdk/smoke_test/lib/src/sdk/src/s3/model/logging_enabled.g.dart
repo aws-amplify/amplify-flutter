@@ -10,7 +10,7 @@ class _$LoggingEnabled extends LoggingEnabled {
   @override
   final String targetBucket;
   @override
-  final _i3.BuiltList<_i2.TargetGrant>? targetGrants;
+  final _i2.BuiltList<TargetGrant>? targetGrants;
   @override
   final String targetPrefix;
 
@@ -64,10 +64,10 @@ class LoggingEnabledBuilder
   String? get targetBucket => _$this._targetBucket;
   set targetBucket(String? targetBucket) => _$this._targetBucket = targetBucket;
 
-  _i3.ListBuilder<_i2.TargetGrant>? _targetGrants;
-  _i3.ListBuilder<_i2.TargetGrant> get targetGrants =>
-      _$this._targetGrants ??= new _i3.ListBuilder<_i2.TargetGrant>();
-  set targetGrants(_i3.ListBuilder<_i2.TargetGrant>? targetGrants) =>
+  _i2.ListBuilder<TargetGrant>? _targetGrants;
+  _i2.ListBuilder<TargetGrant> get targetGrants =>
+      _$this._targetGrants ??= new _i2.ListBuilder<TargetGrant>();
+  set targetGrants(_i2.ListBuilder<TargetGrant>? targetGrants) =>
       _$this._targetGrants = targetGrants;
 
   String? _targetPrefix;

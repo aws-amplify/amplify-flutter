@@ -6,8 +6,8 @@ library smoke_test.s3.model.filter_rule; // ignore_for_file: no_leading_undersco
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/filter_rule_name.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/filter_rule_name.dart';
 
 part 'filter_rule.g.dart';
 
@@ -17,7 +17,7 @@ abstract class FilterRule
     implements Built<FilterRule, FilterRuleBuilder> {
   /// Specifies the Amazon S3 object key name to filter on and whether to filter on the suffix or prefix of the key name.
   factory FilterRule({
-    _i2.FilterRuleName? name,
+    FilterRuleName? name,
     String? value,
   }) {
     return _$FilterRule._(
@@ -32,12 +32,12 @@ abstract class FilterRule
 
   const FilterRule._();
 
-  static const List<_i3.SmithySerializer<FilterRule>> serializers = [
+  static const List<_i2.SmithySerializer<FilterRule>> serializers = [
     FilterRuleRestXmlSerializer()
   ];
 
   /// The object key name prefix or suffix identifying one or more objects to which the filtering rule applies. The maximum length is 1,024 characters. Overlapping prefixes and suffixes are not supported. For more information, see [Configuring Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) in the _Amazon S3 User Guide_.
-  _i2.FilterRuleName? get name;
+  FilterRuleName? get name;
 
   /// The value that the filter searches for in object key names.
   String? get value;
@@ -62,7 +62,7 @@ abstract class FilterRule
 }
 
 class FilterRuleRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<FilterRule> {
+    extends _i2.StructuredSmithySerializer<FilterRule> {
   const FilterRuleRestXmlSerializer() : super('FilterRule');
 
   @override
@@ -71,8 +71,8 @@ class FilterRuleRestXmlSerializer
         _$FilterRule,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -96,8 +96,8 @@ class FilterRuleRestXmlSerializer
         case 'Name':
           result.name = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.FilterRuleName),
-          ) as _i2.FilterRuleName);
+            specifiedType: const FullType(FilterRuleName),
+          ) as FilterRuleName);
         case 'Value':
           result.value = (serializers.deserialize(
             value,
@@ -116,23 +116,23 @@ class FilterRuleRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'FilterRule',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final FilterRule(:name, :value) = object;
     if (name != null) {
       result$
-        ..add(const _i3.XmlElementName('Name'))
+        ..add(const _i2.XmlElementName('Name'))
         ..add(serializers.serialize(
           name,
-          specifiedType: const FullType.nullable(_i2.FilterRuleName),
+          specifiedType: const FullType.nullable(FilterRuleName),
         ));
     }
     if (value != null) {
       result$
-        ..add(const _i3.XmlElementName('Value'))
+        ..add(const _i2.XmlElementName('Value'))
         ..add(serializers.serialize(
           value,
           specifiedType: const FullType(String),

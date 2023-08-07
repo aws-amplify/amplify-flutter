@@ -4,12 +4,11 @@
 library smoke_test.dynamo_db.model.item_collection_metrics; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart';
 
 part 'item_collection_metrics.g.dart';
 
@@ -19,15 +18,15 @@ abstract class ItemCollectionMetrics
     implements Built<ItemCollectionMetrics, ItemCollectionMetricsBuilder> {
   /// Information about item collections, if any, that were affected by the operation. `ItemCollectionMetrics` is only returned if the request asked for it. If the table does not have any local secondary indexes, this information is not returned in the response.
   factory ItemCollectionMetrics({
-    Map<String, _i2.AttributeValue>? itemCollectionKey,
+    Map<String, AttributeValue>? itemCollectionKey,
     List<double>? sizeEstimateRangeGb,
   }) {
     return _$ItemCollectionMetrics._(
       itemCollectionKey:
-          itemCollectionKey == null ? null : _i3.BuiltMap(itemCollectionKey),
+          itemCollectionKey == null ? null : _i2.BuiltMap(itemCollectionKey),
       sizeEstimateRangeGb: sizeEstimateRangeGb == null
           ? null
-          : _i3.BuiltList(sizeEstimateRangeGb),
+          : _i2.BuiltList(sizeEstimateRangeGb),
     );
   }
 
@@ -38,17 +37,17 @@ abstract class ItemCollectionMetrics
 
   const ItemCollectionMetrics._();
 
-  static const List<_i4.SmithySerializer<ItemCollectionMetrics>> serializers = [
+  static const List<_i3.SmithySerializer<ItemCollectionMetrics>> serializers = [
     ItemCollectionMetricsAwsJson10Serializer()
   ];
 
   /// The partition key value of the item collection. This value is the same as the partition key value of the item.
-  _i3.BuiltMap<String, _i2.AttributeValue>? get itemCollectionKey;
+  _i2.BuiltMap<String, AttributeValue>? get itemCollectionKey;
 
   /// An estimate of item collection size, in gigabytes. This value is a two-element array containing a lower bound and an upper bound for the estimate. The estimate includes the size of all the items in the table, plus the size of all attributes projected into all of the local secondary indexes on that table. Use this estimate to measure whether a local secondary index is approaching its size limit.
   ///
   /// The estimate is subject to change over time; therefore, do not rely on the precision or accuracy of the estimate.
-  _i3.BuiltList<double>? get sizeEstimateRangeGb;
+  _i2.BuiltList<double>? get sizeEstimateRangeGb;
   @override
   List<Object?> get props => [
         itemCollectionKey,
@@ -70,7 +69,7 @@ abstract class ItemCollectionMetrics
 }
 
 class ItemCollectionMetricsAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<ItemCollectionMetrics> {
+    extends _i3.StructuredSmithySerializer<ItemCollectionMetrics> {
   const ItemCollectionMetricsAwsJson10Serializer()
       : super('ItemCollectionMetrics');
 
@@ -80,8 +79,8 @@ class ItemCollectionMetricsAwsJson10Serializer
         _$ItemCollectionMetrics,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -106,21 +105,21 @@ class ItemCollectionMetricsAwsJson10Serializer
           result.itemCollectionKey.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i2.AttributeValue),
+                FullType(AttributeValue),
               ],
             ),
-          ) as _i3.BuiltMap<String, _i2.AttributeValue>));
+          ) as _i2.BuiltMap<String, AttributeValue>));
         case 'SizeEstimateRangeGB':
           result.sizeEstimateRangeGb.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
+              _i2.BuiltList,
               [FullType(double)],
             ),
-          ) as _i3.BuiltList<double>));
+          ) as _i2.BuiltList<double>));
       }
     }
 
@@ -142,10 +141,10 @@ class ItemCollectionMetricsAwsJson10Serializer
         ..add(serializers.serialize(
           itemCollectionKey,
           specifiedType: const FullType(
-            _i3.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
-              FullType(_i2.AttributeValue),
+              FullType(AttributeValue),
             ],
           ),
         ));
@@ -156,7 +155,7 @@ class ItemCollectionMetricsAwsJson10Serializer
         ..add(serializers.serialize(
           sizeEstimateRangeGb,
           specifiedType: const FullType(
-            _i3.BuiltList,
+            _i2.BuiltList,
             [FullType(double)],
           ),
         ));

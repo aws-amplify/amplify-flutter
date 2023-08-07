@@ -12,7 +12,7 @@ class _$CompleteMultipartUploadRequest extends CompleteMultipartUploadRequest {
   @override
   final String key;
   @override
-  final _i2.CompletedMultipartUpload? multipartUpload;
+  final CompletedMultipartUpload? multipartUpload;
   @override
   final String uploadId;
   @override
@@ -24,7 +24,7 @@ class _$CompleteMultipartUploadRequest extends CompleteMultipartUploadRequest {
   @override
   final String? checksumSha256;
   @override
-  final _i4.RequestPayer? requestPayer;
+  final RequestPayer? requestPayer;
   @override
   final String? expectedBucketOwner;
   @override
@@ -124,10 +124,10 @@ class CompleteMultipartUploadRequestBuilder
   String? get key => _$this._key;
   set key(String? key) => _$this._key = key;
 
-  _i2.CompletedMultipartUploadBuilder? _multipartUpload;
-  _i2.CompletedMultipartUploadBuilder get multipartUpload =>
-      _$this._multipartUpload ??= new _i2.CompletedMultipartUploadBuilder();
-  set multipartUpload(_i2.CompletedMultipartUploadBuilder? multipartUpload) =>
+  CompletedMultipartUploadBuilder? _multipartUpload;
+  CompletedMultipartUploadBuilder get multipartUpload =>
+      _$this._multipartUpload ??= new CompletedMultipartUploadBuilder();
+  set multipartUpload(CompletedMultipartUploadBuilder? multipartUpload) =>
       _$this._multipartUpload = multipartUpload;
 
   String? _uploadId;
@@ -153,9 +153,9 @@ class CompleteMultipartUploadRequestBuilder
   set checksumSha256(String? checksumSha256) =>
       _$this._checksumSha256 = checksumSha256;
 
-  _i4.RequestPayer? _requestPayer;
-  _i4.RequestPayer? get requestPayer => _$this._requestPayer;
-  set requestPayer(_i4.RequestPayer? requestPayer) =>
+  RequestPayer? _requestPayer;
+  RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
   String? _expectedBucketOwner;

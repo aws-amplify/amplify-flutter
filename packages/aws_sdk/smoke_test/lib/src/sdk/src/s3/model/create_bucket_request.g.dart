@@ -8,11 +8,11 @@ part of 'create_bucket_request.dart';
 
 class _$CreateBucketRequest extends CreateBucketRequest {
   @override
-  final _i4.BucketCannedAcl? acl;
+  final BucketCannedAcl? acl;
   @override
   final String bucket;
   @override
-  final _i2.CreateBucketConfiguration? createBucketConfiguration;
+  final CreateBucketConfiguration? createBucketConfiguration;
   @override
   final String? grantFullControl;
   @override
@@ -26,7 +26,7 @@ class _$CreateBucketRequest extends CreateBucketRequest {
   @override
   final bool? objectLockEnabledForBucket;
   @override
-  final _i5.ObjectOwnership? objectOwnership;
+  final ObjectOwnership? objectOwnership;
 
   factory _$CreateBucketRequest(
           [void Function(CreateBucketRequestBuilder)? updates]) =>
@@ -95,20 +95,20 @@ class CreateBucketRequestBuilder
     implements Builder<CreateBucketRequest, CreateBucketRequestBuilder> {
   _$CreateBucketRequest? _$v;
 
-  _i4.BucketCannedAcl? _acl;
-  _i4.BucketCannedAcl? get acl => _$this._acl;
-  set acl(_i4.BucketCannedAcl? acl) => _$this._acl = acl;
+  BucketCannedAcl? _acl;
+  BucketCannedAcl? get acl => _$this._acl;
+  set acl(BucketCannedAcl? acl) => _$this._acl = acl;
 
   String? _bucket;
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  _i2.CreateBucketConfigurationBuilder? _createBucketConfiguration;
-  _i2.CreateBucketConfigurationBuilder get createBucketConfiguration =>
+  CreateBucketConfigurationBuilder? _createBucketConfiguration;
+  CreateBucketConfigurationBuilder get createBucketConfiguration =>
       _$this._createBucketConfiguration ??=
-          new _i2.CreateBucketConfigurationBuilder();
+          new CreateBucketConfigurationBuilder();
   set createBucketConfiguration(
-          _i2.CreateBucketConfigurationBuilder? createBucketConfiguration) =>
+          CreateBucketConfigurationBuilder? createBucketConfiguration) =>
       _$this._createBucketConfiguration = createBucketConfiguration;
 
   String? _grantFullControl;
@@ -138,9 +138,9 @@ class CreateBucketRequestBuilder
   set objectLockEnabledForBucket(bool? objectLockEnabledForBucket) =>
       _$this._objectLockEnabledForBucket = objectLockEnabledForBucket;
 
-  _i5.ObjectOwnership? _objectOwnership;
-  _i5.ObjectOwnership? get objectOwnership => _$this._objectOwnership;
-  set objectOwnership(_i5.ObjectOwnership? objectOwnership) =>
+  ObjectOwnership? _objectOwnership;
+  ObjectOwnership? get objectOwnership => _$this._objectOwnership;
+  set objectOwnership(ObjectOwnership? objectOwnership) =>
       _$this._objectOwnership = objectOwnership;
 
   CreateBucketRequestBuilder();

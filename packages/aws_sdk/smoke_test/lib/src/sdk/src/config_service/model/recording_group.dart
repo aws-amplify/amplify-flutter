@@ -4,16 +4,13 @@
 library smoke_test.config_service.model.recording_group; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/config_service/model/exclusion_by_resource_types.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/config_service/model/recording_strategy.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/exclusion_by_resource_types.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/recording_strategy.dart';
+import 'package:smoke_test/src/sdk/src/config_service/model/resource_type.dart';
 
 part 'recording_group.g.dart';
 
@@ -49,9 +46,9 @@ abstract class RecordingGroup
   factory RecordingGroup({
     bool? allSupported,
     bool? includeGlobalResourceTypes,
-    List<_i2.ResourceType>? resourceTypes,
-    _i3.ExclusionByResourceTypes? exclusionByResourceTypes,
-    _i4.RecordingStrategy? recordingStrategy,
+    List<ResourceType>? resourceTypes,
+    ExclusionByResourceTypes? exclusionByResourceTypes,
+    RecordingStrategy? recordingStrategy,
   }) {
     allSupported ??= false;
     includeGlobalResourceTypes ??= false;
@@ -59,7 +56,7 @@ abstract class RecordingGroup
       allSupported: allSupported,
       includeGlobalResourceTypes: includeGlobalResourceTypes,
       resourceTypes:
-          resourceTypes == null ? null : _i5.BuiltList(resourceTypes),
+          resourceTypes == null ? null : _i2.BuiltList(resourceTypes),
       exclusionByResourceTypes: exclusionByResourceTypes,
       recordingStrategy: recordingStrategy,
     );
@@ -83,7 +80,7 @@ abstract class RecordingGroup
 
   const RecordingGroup._();
 
-  static const List<_i6.SmithySerializer<RecordingGroup>> serializers = [
+  static const List<_i3.SmithySerializer<RecordingGroup>> serializers = [
     RecordingGroupAwsJson11Serializer()
   ];
 
@@ -123,12 +120,12 @@ abstract class RecordingGroup
   /// **Region Availability**
   ///
   /// Before specifying a resource type for Config to track, check [Resource Coverage by Region Availability](https://docs.aws.amazon.com/config/latest/developerguide/what-is-resource-config-coverage.html) to see if the resource type is supported in the Amazon Web Services Region where you set up Config. If a resource type is supported by Config in at least one Region, you can enable the recording of that resource type in all Regions supported by Config, even if the specified resource type is not supported in the Amazon Web Services Region where you set up Config.
-  _i5.BuiltList<_i2.ResourceType>? get resourceTypes;
+  _i2.BuiltList<ResourceType>? get resourceTypes;
 
   /// An object that specifies how Config excludes resource types from being recorded by the configuration recorder.
   ///
   /// To use this option, you must set the `useOnly` field of [RecordingStrategy](https://docs.aws.amazon.com/config/latest/APIReference/API_RecordingStrategy.html) to `EXCLUSION\_BY\_RESOURCE_TYPES`.
-  _i3.ExclusionByResourceTypes? get exclusionByResourceTypes;
+  ExclusionByResourceTypes? get exclusionByResourceTypes;
 
   /// An object that specifies the recording strategy for the configuration recorder.
   ///
@@ -150,7 +147,7 @@ abstract class RecordingGroup
   /// For example, even if you set `includeGlobalResourceTypes` to false, global resource types will still be automatically recorded in this option unless those resource types are specifically listed as exemptions in the `resourceTypes` field of `exclusionByResourceTypes`.
   ///
   /// By default, if you choose the `EXCLUSION\_BY\_RESOURCE_TYPES` recording strategy, when Config adds support for a new resource type in the Region where you set up the configuration recorder, including global resource types, Config starts recording resources of that type automatically.
-  _i4.RecordingStrategy? get recordingStrategy;
+  RecordingStrategy? get recordingStrategy;
   @override
   List<Object?> get props => [
         allSupported,
@@ -187,7 +184,7 @@ abstract class RecordingGroup
 }
 
 class RecordingGroupAwsJson11Serializer
-    extends _i6.StructuredSmithySerializer<RecordingGroup> {
+    extends _i3.StructuredSmithySerializer<RecordingGroup> {
   const RecordingGroupAwsJson11Serializer() : super('RecordingGroup');
 
   @override
@@ -196,8 +193,8 @@ class RecordingGroupAwsJson11Serializer
         _$RecordingGroup,
       ];
   @override
-  Iterable<_i6.ShapeId> get supportedProtocols => const [
-        _i6.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -232,20 +229,20 @@ class RecordingGroupAwsJson11Serializer
           result.resourceTypes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(_i2.ResourceType)],
+              _i2.BuiltList,
+              [FullType(ResourceType)],
             ),
-          ) as _i5.BuiltList<_i2.ResourceType>));
+          ) as _i2.BuiltList<ResourceType>));
         case 'exclusionByResourceTypes':
           result.exclusionByResourceTypes.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ExclusionByResourceTypes),
-          ) as _i3.ExclusionByResourceTypes));
+            specifiedType: const FullType(ExclusionByResourceTypes),
+          ) as ExclusionByResourceTypes));
         case 'recordingStrategy':
           result.recordingStrategy.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.RecordingStrategy),
-          ) as _i4.RecordingStrategy));
+            specifiedType: const FullType(RecordingStrategy),
+          ) as RecordingStrategy));
       }
     }
 
@@ -284,8 +281,8 @@ class RecordingGroupAwsJson11Serializer
         ..add(serializers.serialize(
           resourceTypes,
           specifiedType: const FullType(
-            _i5.BuiltList,
-            [FullType(_i2.ResourceType)],
+            _i2.BuiltList,
+            [FullType(ResourceType)],
           ),
         ));
     }
@@ -294,7 +291,7 @@ class RecordingGroupAwsJson11Serializer
         ..add('exclusionByResourceTypes')
         ..add(serializers.serialize(
           exclusionByResourceTypes,
-          specifiedType: const FullType(_i3.ExclusionByResourceTypes),
+          specifiedType: const FullType(ExclusionByResourceTypes),
         ));
     }
     if (recordingStrategy != null) {
@@ -302,7 +299,7 @@ class RecordingGroupAwsJson11Serializer
         ..add('recordingStrategy')
         ..add(serializers.serialize(
           recordingStrategy,
-          specifiedType: const FullType(_i4.RecordingStrategy),
+          specifiedType: const FullType(RecordingStrategy),
         ));
     }
     return result$;

@@ -18,7 +18,7 @@ class _$DeliveryChannel extends DeliveryChannel {
   @override
   final String? snsTopicArn;
   @override
-  final _i2.ConfigSnapshotDeliveryProperties? configSnapshotDeliveryProperties;
+  final ConfigSnapshotDeliveryProperties? configSnapshotDeliveryProperties;
 
   factory _$DeliveryChannel([void Function(DeliveryChannelBuilder)? updates]) =>
       (new DeliveryChannelBuilder()..update(updates))._build();
@@ -91,14 +91,13 @@ class DeliveryChannelBuilder
   String? get snsTopicArn => _$this._snsTopicArn;
   set snsTopicArn(String? snsTopicArn) => _$this._snsTopicArn = snsTopicArn;
 
-  _i2.ConfigSnapshotDeliveryPropertiesBuilder?
-      _configSnapshotDeliveryProperties;
-  _i2.ConfigSnapshotDeliveryPropertiesBuilder
+  ConfigSnapshotDeliveryPropertiesBuilder? _configSnapshotDeliveryProperties;
+  ConfigSnapshotDeliveryPropertiesBuilder
       get configSnapshotDeliveryProperties =>
           _$this._configSnapshotDeliveryProperties ??=
-              new _i2.ConfigSnapshotDeliveryPropertiesBuilder();
+              new ConfigSnapshotDeliveryPropertiesBuilder();
   set configSnapshotDeliveryProperties(
-          _i2.ConfigSnapshotDeliveryPropertiesBuilder?
+          ConfigSnapshotDeliveryPropertiesBuilder?
               configSnapshotDeliveryProperties) =>
       _$this._configSnapshotDeliveryProperties =
           configSnapshotDeliveryProperties;

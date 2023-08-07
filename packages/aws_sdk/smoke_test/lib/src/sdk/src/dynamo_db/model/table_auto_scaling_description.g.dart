@@ -10,9 +10,9 @@ class _$TableAutoScalingDescription extends TableAutoScalingDescription {
   @override
   final String? tableName;
   @override
-  final _i2.TableStatus? tableStatus;
+  final TableStatus? tableStatus;
   @override
-  final _i4.BuiltList<_i3.ReplicaAutoScalingDescription>? replicas;
+  final _i2.BuiltList<ReplicaAutoScalingDescription>? replicas;
 
   factory _$TableAutoScalingDescription(
           [void Function(TableAutoScalingDescriptionBuilder)? updates]) =>
@@ -61,16 +61,15 @@ class TableAutoScalingDescriptionBuilder
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
 
-  _i2.TableStatus? _tableStatus;
-  _i2.TableStatus? get tableStatus => _$this._tableStatus;
-  set tableStatus(_i2.TableStatus? tableStatus) =>
+  TableStatus? _tableStatus;
+  TableStatus? get tableStatus => _$this._tableStatus;
+  set tableStatus(TableStatus? tableStatus) =>
       _$this._tableStatus = tableStatus;
 
-  _i4.ListBuilder<_i3.ReplicaAutoScalingDescription>? _replicas;
-  _i4.ListBuilder<_i3.ReplicaAutoScalingDescription> get replicas =>
-      _$this._replicas ??=
-          new _i4.ListBuilder<_i3.ReplicaAutoScalingDescription>();
-  set replicas(_i4.ListBuilder<_i3.ReplicaAutoScalingDescription>? replicas) =>
+  _i2.ListBuilder<ReplicaAutoScalingDescription>? _replicas;
+  _i2.ListBuilder<ReplicaAutoScalingDescription> get replicas =>
+      _$this._replicas ??= new _i2.ListBuilder<ReplicaAutoScalingDescription>();
+  set replicas(_i2.ListBuilder<ReplicaAutoScalingDescription>? replicas) =>
       _$this._replicas = replicas;
 
   TableAutoScalingDescriptionBuilder();

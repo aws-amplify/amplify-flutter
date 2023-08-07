@@ -6,9 +6,8 @@ library smoke_test.iam.model.attached_permissions_boundary; // ignore_for_file: 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/iam/model/permissions_boundary_attachment_type.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/iam/model/permissions_boundary_attachment_type.dart';
 
 part 'attached_permissions_boundary.g.dart';
 
@@ -27,7 +26,7 @@ abstract class AttachedPermissionsBoundary
   ///
   /// For more information about permissions boundaries, see [Permissions boundaries for IAM identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html) in the _IAM User Guide_.
   factory AttachedPermissionsBoundary({
-    _i2.PermissionsBoundaryAttachmentType? permissionsBoundaryType,
+    PermissionsBoundaryAttachmentType? permissionsBoundaryType,
     String? permissionsBoundaryArn,
   }) {
     return _$AttachedPermissionsBoundary._(
@@ -47,11 +46,11 @@ abstract class AttachedPermissionsBoundary
 
   const AttachedPermissionsBoundary._();
 
-  static const List<_i3.SmithySerializer<AttachedPermissionsBoundary>>
+  static const List<_i2.SmithySerializer<AttachedPermissionsBoundary>>
       serializers = [AttachedPermissionsBoundaryAwsQuerySerializer()];
 
   /// The permissions boundary usage type that indicates what type of IAM resource is used as the permissions boundary for an entity. This data type can only have a value of `Policy`.
-  _i2.PermissionsBoundaryAttachmentType? get permissionsBoundaryType;
+  PermissionsBoundaryAttachmentType? get permissionsBoundaryType;
 
   /// The ARN of the policy used to set the permissions boundary for the user or role.
   String? get permissionsBoundaryArn;
@@ -76,7 +75,7 @@ abstract class AttachedPermissionsBoundary
 }
 
 class AttachedPermissionsBoundaryAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<AttachedPermissionsBoundary> {
+    extends _i2.StructuredSmithySerializer<AttachedPermissionsBoundary> {
   const AttachedPermissionsBoundaryAwsQuerySerializer()
       : super('AttachedPermissionsBoundary');
 
@@ -86,8 +85,8 @@ class AttachedPermissionsBoundaryAwsQuerySerializer
         _$AttachedPermissionsBoundary,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -111,9 +110,8 @@ class AttachedPermissionsBoundaryAwsQuerySerializer
         case 'PermissionsBoundaryType':
           result.permissionsBoundaryType = (serializers.deserialize(
             value,
-            specifiedType:
-                const FullType(_i2.PermissionsBoundaryAttachmentType),
-          ) as _i2.PermissionsBoundaryAttachmentType);
+            specifiedType: const FullType(PermissionsBoundaryAttachmentType),
+          ) as PermissionsBoundaryAttachmentType);
         case 'PermissionsBoundaryArn':
           result.permissionsBoundaryArn = (serializers.deserialize(
             value,
@@ -132,9 +130,9 @@ class AttachedPermissionsBoundaryAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'AttachedPermissionsBoundaryResponse',
-        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i2.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final AttachedPermissionsBoundary(
@@ -143,16 +141,16 @@ class AttachedPermissionsBoundaryAwsQuerySerializer
     ) = object;
     if (permissionsBoundaryType != null) {
       result$
-        ..add(const _i3.XmlElementName('PermissionsBoundaryType'))
+        ..add(const _i2.XmlElementName('PermissionsBoundaryType'))
         ..add(serializers.serialize(
           permissionsBoundaryType,
           specifiedType:
-              const FullType.nullable(_i2.PermissionsBoundaryAttachmentType),
+              const FullType.nullable(PermissionsBoundaryAttachmentType),
         ));
     }
     if (permissionsBoundaryArn != null) {
       result$
-        ..add(const _i3.XmlElementName('PermissionsBoundaryArn'))
+        ..add(const _i2.XmlElementName('PermissionsBoundaryArn'))
         ..add(serializers.serialize(
           permissionsBoundaryArn,
           specifiedType: const FullType(String),

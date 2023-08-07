@@ -8,13 +8,13 @@ part of 'website_configuration.dart';
 
 class _$WebsiteConfiguration extends WebsiteConfiguration {
   @override
-  final _i2.ErrorDocument? errorDocument;
+  final ErrorDocument? errorDocument;
   @override
-  final _i3.IndexDocument? indexDocument;
+  final IndexDocument? indexDocument;
   @override
-  final _i4.RedirectAllRequestsTo? redirectAllRequestsTo;
+  final RedirectAllRequestsTo? redirectAllRequestsTo;
   @override
-  final _i6.BuiltList<_i5.RoutingRule>? routingRules;
+  final _i2.BuiltList<RoutingRule>? routingRules;
 
   factory _$WebsiteConfiguration(
           [void Function(WebsiteConfigurationBuilder)? updates]) =>
@@ -62,29 +62,29 @@ class WebsiteConfigurationBuilder
     implements Builder<WebsiteConfiguration, WebsiteConfigurationBuilder> {
   _$WebsiteConfiguration? _$v;
 
-  _i2.ErrorDocumentBuilder? _errorDocument;
-  _i2.ErrorDocumentBuilder get errorDocument =>
-      _$this._errorDocument ??= new _i2.ErrorDocumentBuilder();
-  set errorDocument(_i2.ErrorDocumentBuilder? errorDocument) =>
+  ErrorDocumentBuilder? _errorDocument;
+  ErrorDocumentBuilder get errorDocument =>
+      _$this._errorDocument ??= new ErrorDocumentBuilder();
+  set errorDocument(ErrorDocumentBuilder? errorDocument) =>
       _$this._errorDocument = errorDocument;
 
-  _i3.IndexDocumentBuilder? _indexDocument;
-  _i3.IndexDocumentBuilder get indexDocument =>
-      _$this._indexDocument ??= new _i3.IndexDocumentBuilder();
-  set indexDocument(_i3.IndexDocumentBuilder? indexDocument) =>
+  IndexDocumentBuilder? _indexDocument;
+  IndexDocumentBuilder get indexDocument =>
+      _$this._indexDocument ??= new IndexDocumentBuilder();
+  set indexDocument(IndexDocumentBuilder? indexDocument) =>
       _$this._indexDocument = indexDocument;
 
-  _i4.RedirectAllRequestsToBuilder? _redirectAllRequestsTo;
-  _i4.RedirectAllRequestsToBuilder get redirectAllRequestsTo =>
-      _$this._redirectAllRequestsTo ??= new _i4.RedirectAllRequestsToBuilder();
+  RedirectAllRequestsToBuilder? _redirectAllRequestsTo;
+  RedirectAllRequestsToBuilder get redirectAllRequestsTo =>
+      _$this._redirectAllRequestsTo ??= new RedirectAllRequestsToBuilder();
   set redirectAllRequestsTo(
-          _i4.RedirectAllRequestsToBuilder? redirectAllRequestsTo) =>
+          RedirectAllRequestsToBuilder? redirectAllRequestsTo) =>
       _$this._redirectAllRequestsTo = redirectAllRequestsTo;
 
-  _i6.ListBuilder<_i5.RoutingRule>? _routingRules;
-  _i6.ListBuilder<_i5.RoutingRule> get routingRules =>
-      _$this._routingRules ??= new _i6.ListBuilder<_i5.RoutingRule>();
-  set routingRules(_i6.ListBuilder<_i5.RoutingRule>? routingRules) =>
+  _i2.ListBuilder<RoutingRule>? _routingRules;
+  _i2.ListBuilder<RoutingRule> get routingRules =>
+      _$this._routingRules ??= new _i2.ListBuilder<RoutingRule>();
+  set routingRules(_i2.ListBuilder<RoutingRule>? routingRules) =>
       _$this._routingRules = routingRules;
 
   WebsiteConfigurationBuilder();

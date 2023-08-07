@@ -11,7 +11,7 @@ class _$RecursiveXmlShapesOutputNested1
   @override
   final String? foo;
   @override
-  final _i2.RecursiveXmlShapesOutputNested2? nested;
+  final RecursiveXmlShapesOutputNested2? nested;
 
   factory _$RecursiveXmlShapesOutputNested1(
           [void Function(RecursiveXmlShapesOutputNested1Builder)? updates]) =>
@@ -56,10 +56,10 @@ class RecursiveXmlShapesOutputNested1Builder
   String? get foo => _$this._foo;
   set foo(String? foo) => _$this._foo = foo;
 
-  _i2.RecursiveXmlShapesOutputNested2Builder? _nested;
-  _i2.RecursiveXmlShapesOutputNested2Builder get nested =>
-      _$this._nested ??= new _i2.RecursiveXmlShapesOutputNested2Builder();
-  set nested(_i2.RecursiveXmlShapesOutputNested2Builder? nested) =>
+  RecursiveXmlShapesOutputNested2Builder? _nested;
+  RecursiveXmlShapesOutputNested2Builder get nested =>
+      _$this._nested ??= new RecursiveXmlShapesOutputNested2Builder();
+  set nested(RecursiveXmlShapesOutputNested2Builder? nested) =>
       _$this._nested = nested;
 
   RecursiveXmlShapesOutputNested1Builder();

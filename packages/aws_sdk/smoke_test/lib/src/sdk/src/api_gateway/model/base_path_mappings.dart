@@ -4,12 +4,11 @@
 library smoke_test.api_gateway.model.base_path_mappings; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/base_path_mapping.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/base_path_mapping.dart';
 
 part 'base_path_mappings.g.dart';
 
@@ -19,11 +18,11 @@ abstract class BasePathMappings
     implements Built<BasePathMappings, BasePathMappingsBuilder> {
   /// Represents a collection of BasePathMapping resources.
   factory BasePathMappings({
-    List<_i2.BasePathMapping>? items,
+    List<BasePathMapping>? items,
     String? position,
   }) {
     return _$BasePathMappings._(
-      items: items == null ? null : _i3.BuiltList(items),
+      items: items == null ? null : _i2.BuiltList(items),
       position: position,
     );
   }
@@ -41,12 +40,12 @@ abstract class BasePathMappings
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<BasePathMappings>> serializers = [
+  static const List<_i3.SmithySerializer<BasePathMappings>> serializers = [
     BasePathMappingsRestJson1Serializer()
   ];
 
   /// The current page of elements from this collection.
-  _i3.BuiltList<_i2.BasePathMapping>? get items;
+  _i2.BuiltList<BasePathMapping>? get items;
 
   /// The current pagination position in the paged result set.
   String? get position;
@@ -71,7 +70,7 @@ abstract class BasePathMappings
 }
 
 class BasePathMappingsRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<BasePathMappings> {
+    extends _i3.StructuredSmithySerializer<BasePathMappings> {
   const BasePathMappingsRestJson1Serializer() : super('BasePathMappings');
 
   @override
@@ -80,8 +79,8 @@ class BasePathMappingsRestJson1Serializer
         _$BasePathMappings,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -106,10 +105,10 @@ class BasePathMappingsRestJson1Serializer
           result.items.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.BasePathMapping)],
+              _i2.BuiltList,
+              [FullType(BasePathMapping)],
             ),
-          ) as _i3.BuiltList<_i2.BasePathMapping>));
+          ) as _i2.BuiltList<BasePathMapping>));
         case 'position':
           result.position = (serializers.deserialize(
             value,
@@ -135,8 +134,8 @@ class BasePathMappingsRestJson1Serializer
         ..add(serializers.serialize(
           items,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.BasePathMapping)],
+            _i2.BuiltList,
+            [FullType(BasePathMapping)],
           ),
         ));
     }

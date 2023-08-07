@@ -4,13 +4,11 @@
 // ignore_for_file: unused_element
 library aws_query_v1.query_protocol.test.xml_int_enums_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_query_v1/src/query_protocol/model/xml_int_enums_output.dart'
-    as _i5;
-import 'package:aws_query_v1/src/query_protocol/operation/xml_int_enums_operation.dart'
-    as _i3;
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:aws_query_v1/src/query_protocol/model/xml_int_enums_output.dart';
+import 'package:aws_query_v1/src/query_protocol/operation/xml_int_enums_operation.dart';
+import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -19,14 +17,14 @@ void main() {
     'QueryXmlIntEnums (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.XmlIntEnumsOperation(
+        operation: XmlIntEnumsOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
         testCase: const _i2.HttpResponseTestCase(
           id: 'QueryXmlIntEnums',
           documentation: 'Serializes simple scalar properties',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'awsQuery',
           ),
@@ -67,25 +65,25 @@ void main() {
 }
 
 class XmlIntEnumsOutputAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<_i5.XmlIntEnumsOutput> {
+    extends _i3.StructuredSmithySerializer<XmlIntEnumsOutput> {
   const XmlIntEnumsOutputAwsQuerySerializer() : super('XmlIntEnumsOutput');
 
   @override
-  Iterable<Type> get types => const [_i5.XmlIntEnumsOutput];
+  Iterable<Type> get types => const [XmlIntEnumsOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
       ];
   @override
-  _i5.XmlIntEnumsOutput deserialize(
+  XmlIntEnumsOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.XmlIntEnumsOutputBuilder();
+    final result = XmlIntEnumsOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -114,29 +112,29 @@ class XmlIntEnumsOutputAwsQuerySerializer
           result.intEnumList.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltList,
+              _i4.BuiltList,
               [FullType(int)],
             ),
-          ) as _i6.BuiltList<int>));
+          ) as _i4.BuiltList<int>));
         case 'intEnumSet':
           result.intEnumSet.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltSet,
+              _i4.BuiltSet,
               [FullType(int)],
             ),
-          ) as _i6.BuiltSet<int>));
+          ) as _i4.BuiltSet<int>));
         case 'intEnumMap':
           result.intEnumMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltMap,
+              _i4.BuiltMap,
               [
                 FullType(String),
                 FullType(int),
               ],
             ),
-          ) as _i6.BuiltMap<String, int>));
+          ) as _i4.BuiltMap<String, int>));
       }
     }
 
@@ -146,7 +144,7 @@ class XmlIntEnumsOutputAwsQuerySerializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.XmlIntEnumsOutput object, {
+    XmlIntEnumsOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

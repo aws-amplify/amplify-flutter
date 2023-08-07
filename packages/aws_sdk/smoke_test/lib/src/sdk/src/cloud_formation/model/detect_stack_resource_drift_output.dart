@@ -6,9 +6,8 @@ library smoke_test.cloud_formation.model.detect_stack_resource_drift_output; // 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_resource_drift.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_resource_drift.dart';
 
 part 'detect_stack_resource_drift_output.g.dart';
 
@@ -19,7 +18,7 @@ abstract class DetectStackResourceDriftOutput
         Built<DetectStackResourceDriftOutput,
             DetectStackResourceDriftOutputBuilder> {
   factory DetectStackResourceDriftOutput(
-      {required _i2.StackResourceDrift stackResourceDrift}) {
+      {required StackResourceDrift stackResourceDrift}) {
     return _$DetectStackResourceDriftOutput._(
         stackResourceDrift: stackResourceDrift);
   }
@@ -37,11 +36,11 @@ abstract class DetectStackResourceDriftOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<DetectStackResourceDriftOutput>>
+  static const List<_i2.SmithySerializer<DetectStackResourceDriftOutput>>
       serializers = [DetectStackResourceDriftOutputAwsQuerySerializer()];
 
   /// Information about whether the resource's actual configuration has drifted from its expected template configuration, including actual and expected property values and any differences detected.
-  _i2.StackResourceDrift get stackResourceDrift;
+  StackResourceDrift get stackResourceDrift;
   @override
   List<Object?> get props => [stackResourceDrift];
   @override
@@ -56,7 +55,7 @@ abstract class DetectStackResourceDriftOutput
 }
 
 class DetectStackResourceDriftOutputAwsQuerySerializer
-    extends _i3.StructuredSmithySerializer<DetectStackResourceDriftOutput> {
+    extends _i2.StructuredSmithySerializer<DetectStackResourceDriftOutput> {
   const DetectStackResourceDriftOutputAwsQuerySerializer()
       : super('DetectStackResourceDriftOutput');
 
@@ -66,8 +65,8 @@ class DetectStackResourceDriftOutputAwsQuerySerializer
         _$DetectStackResourceDriftOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -91,8 +90,8 @@ class DetectStackResourceDriftOutputAwsQuerySerializer
         case 'StackResourceDrift':
           result.stackResourceDrift.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.StackResourceDrift),
-          ) as _i2.StackResourceDrift));
+            specifiedType: const FullType(StackResourceDrift),
+          ) as StackResourceDrift));
       }
     }
 
@@ -106,17 +105,17 @@ class DetectStackResourceDriftOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'DetectStackResourceDriftOutputResponse',
-        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final DetectStackResourceDriftOutput(:stackResourceDrift) = object;
     result$
-      ..add(const _i3.XmlElementName('StackResourceDrift'))
+      ..add(const _i2.XmlElementName('StackResourceDrift'))
       ..add(serializers.serialize(
         stackResourceDrift,
-        specifiedType: const FullType(_i2.StackResourceDrift),
+        specifiedType: const FullType(StackResourceDrift),
       ));
     return result$;
   }

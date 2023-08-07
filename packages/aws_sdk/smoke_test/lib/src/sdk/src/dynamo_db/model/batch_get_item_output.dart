@@ -4,16 +4,13 @@
 library smoke_test.dynamo_db.model.batch_get_item_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i6;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
-    as _i2;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/consumed_capacity.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/dynamo_db/model/keys_and_attributes.dart'
-    as _i3;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/consumed_capacity.dart';
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/keys_and_attributes.dart';
 
 part 'batch_get_item_output.g.dart';
 
@@ -23,25 +20,25 @@ abstract class BatchGetItemOutput
     implements Built<BatchGetItemOutput, BatchGetItemOutputBuilder> {
   /// Represents the output of a `BatchGetItem` operation.
   factory BatchGetItemOutput({
-    Map<String, List<Map<String, _i2.AttributeValue>>>? responses,
-    Map<String, _i3.KeysAndAttributes>? unprocessedKeys,
-    List<_i4.ConsumedCapacity>? consumedCapacity,
+    Map<String, List<Map<String, AttributeValue>>>? responses,
+    Map<String, KeysAndAttributes>? unprocessedKeys,
+    List<ConsumedCapacity>? consumedCapacity,
   }) {
     return _$BatchGetItemOutput._(
       responses: responses == null
           ? null
-          : _i5.BuiltListMultimap(responses.map((
+          : _i2.BuiltListMultimap(responses.map((
               key,
               value,
             ) =>
               MapEntry(
                 key,
-                value.map((el) => _i5.BuiltMap(el)),
+                value.map((el) => _i2.BuiltMap(el)),
               ))),
       unprocessedKeys:
-          unprocessedKeys == null ? null : _i5.BuiltMap(unprocessedKeys),
+          unprocessedKeys == null ? null : _i2.BuiltMap(unprocessedKeys),
       consumedCapacity:
-          consumedCapacity == null ? null : _i5.BuiltList(consumedCapacity),
+          consumedCapacity == null ? null : _i2.BuiltList(consumedCapacity),
     );
   }
 
@@ -59,12 +56,12 @@ abstract class BatchGetItemOutput
   ) =>
       payload;
 
-  static const List<_i6.SmithySerializer<BatchGetItemOutput>> serializers = [
+  static const List<_i3.SmithySerializer<BatchGetItemOutput>> serializers = [
     BatchGetItemOutputAwsJson10Serializer()
   ];
 
   /// A map of table name to a list of items. Each object in `Responses` consists of a table name, along with a map of attribute data consisting of the data type and attribute value.
-  _i5.BuiltListMultimap<String, _i5.BuiltMap<String, _i2.AttributeValue>>?
+  _i2.BuiltListMultimap<String, _i2.BuiltMap<String, AttributeValue>>?
       get responses;
 
   /// A map of tables and their respective keys that were not processed with the current response. The `UnprocessedKeys` value is in the same form as `RequestItems`, so the value can be provided directly to a subsequent `BatchGetItem` operation. For more information, see `RequestItems` in the Request Parameters section.
@@ -79,7 +76,7 @@ abstract class BatchGetItemOutput
   ///
   ///
   /// If there are no unprocessed keys remaining, the response contains an empty `UnprocessedKeys` map.
-  _i5.BuiltMap<String, _i3.KeysAndAttributes>? get unprocessedKeys;
+  _i2.BuiltMap<String, KeysAndAttributes>? get unprocessedKeys;
 
   /// The read capacity units consumed by the entire `BatchGetItem` operation.
   ///
@@ -88,7 +85,7 @@ abstract class BatchGetItemOutput
   /// *   `TableName` \- The table that consumed the provisioned throughput.
   ///
   /// *   `CapacityUnits` \- The total number of capacity units consumed.
-  _i5.BuiltList<_i4.ConsumedCapacity>? get consumedCapacity;
+  _i2.BuiltList<ConsumedCapacity>? get consumedCapacity;
   @override
   List<Object?> get props => [
         responses,
@@ -115,7 +112,7 @@ abstract class BatchGetItemOutput
 }
 
 class BatchGetItemOutputAwsJson10Serializer
-    extends _i6.StructuredSmithySerializer<BatchGetItemOutput> {
+    extends _i3.StructuredSmithySerializer<BatchGetItemOutput> {
   const BatchGetItemOutputAwsJson10Serializer() : super('BatchGetItemOutput');
 
   @override
@@ -124,8 +121,8 @@ class BatchGetItemOutputAwsJson10Serializer
         _$BatchGetItemOutput,
       ];
   @override
-  Iterable<_i6.ShapeId> get supportedProtocols => const [
-        _i6.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -150,39 +147,39 @@ class BatchGetItemOutputAwsJson10Serializer
           result.responses.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltListMultimap,
+              _i2.BuiltListMultimap,
               [
                 FullType(String),
                 FullType(
-                  _i5.BuiltMap,
+                  _i2.BuiltMap,
                   [
                     FullType(String),
-                    FullType(_i2.AttributeValue),
+                    FullType(AttributeValue),
                   ],
                 ),
               ],
             ),
-          ) as _i5.BuiltListMultimap<String,
-              _i5.BuiltMap<String, _i2.AttributeValue>>));
+          ) as _i2.BuiltListMultimap<String,
+              _i2.BuiltMap<String, AttributeValue>>));
         case 'UnprocessedKeys':
           result.unprocessedKeys.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i3.KeysAndAttributes),
+                FullType(KeysAndAttributes),
               ],
             ),
-          ) as _i5.BuiltMap<String, _i3.KeysAndAttributes>));
+          ) as _i2.BuiltMap<String, KeysAndAttributes>));
         case 'ConsumedCapacity':
           result.consumedCapacity.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(_i4.ConsumedCapacity)],
+              _i2.BuiltList,
+              [FullType(ConsumedCapacity)],
             ),
-          ) as _i5.BuiltList<_i4.ConsumedCapacity>));
+          ) as _i2.BuiltList<ConsumedCapacity>));
       }
     }
 
@@ -204,14 +201,14 @@ class BatchGetItemOutputAwsJson10Serializer
         ..add(serializers.serialize(
           responses,
           specifiedType: const FullType(
-            _i5.BuiltListMultimap,
+            _i2.BuiltListMultimap,
             [
               FullType(String),
               FullType(
-                _i5.BuiltMap,
+                _i2.BuiltMap,
                 [
                   FullType(String),
-                  FullType(_i2.AttributeValue),
+                  FullType(AttributeValue),
                 ],
               ),
             ],
@@ -224,10 +221,10 @@ class BatchGetItemOutputAwsJson10Serializer
         ..add(serializers.serialize(
           unprocessedKeys,
           specifiedType: const FullType(
-            _i5.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
-              FullType(_i3.KeysAndAttributes),
+              FullType(KeysAndAttributes),
             ],
           ),
         ));
@@ -238,8 +235,8 @@ class BatchGetItemOutputAwsJson10Serializer
         ..add(serializers.serialize(
           consumedCapacity,
           specifiedType: const FullType(
-            _i5.BuiltList,
-            [FullType(_i4.ConsumedCapacity)],
+            _i2.BuiltList,
+            [FullType(ConsumedCapacity)],
           ),
         ));
     }

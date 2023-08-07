@@ -11,7 +11,7 @@ class _$ComplianceSummaryByResourceType
   @override
   final String? resourceType;
   @override
-  final _i2.ComplianceSummary? complianceSummary;
+  final ComplianceSummary? complianceSummary;
 
   factory _$ComplianceSummaryByResourceType(
           [void Function(ComplianceSummaryByResourceTypeBuilder)? updates]) =>
@@ -58,10 +58,10 @@ class ComplianceSummaryByResourceTypeBuilder
   String? get resourceType => _$this._resourceType;
   set resourceType(String? resourceType) => _$this._resourceType = resourceType;
 
-  _i2.ComplianceSummaryBuilder? _complianceSummary;
-  _i2.ComplianceSummaryBuilder get complianceSummary =>
-      _$this._complianceSummary ??= new _i2.ComplianceSummaryBuilder();
-  set complianceSummary(_i2.ComplianceSummaryBuilder? complianceSummary) =>
+  ComplianceSummaryBuilder? _complianceSummary;
+  ComplianceSummaryBuilder get complianceSummary =>
+      _$this._complianceSummary ??= new ComplianceSummaryBuilder();
+  set complianceSummary(ComplianceSummaryBuilder? complianceSummary) =>
       _$this._complianceSummary = complianceSummary;
 
   ComplianceSummaryByResourceTypeBuilder();

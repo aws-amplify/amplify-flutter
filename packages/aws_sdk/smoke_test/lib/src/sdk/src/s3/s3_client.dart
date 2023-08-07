@@ -5,494 +5,252 @@ library smoke_test.s3.s3_client; // ignore_for_file: no_leading_underscores_for_
 
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i3;
-import 'package:built_collection/built_collection.dart' as _i175;
+import 'package:built_collection/built_collection.dart' as _i5;
 import 'package:smithy/smithy.dart' as _i4;
 import 'package:smithy_aws/smithy_aws.dart' as _i2;
-import 'package:smoke_test/src/sdk/src/s3/model/abort_multipart_upload_output.dart'
-    as _i5;
-import 'package:smoke_test/src/sdk/src/s3/model/abort_multipart_upload_request.dart'
-    as _i6;
-import 'package:smoke_test/src/sdk/src/s3/model/complete_multipart_upload_output.dart'
-    as _i8;
-import 'package:smoke_test/src/sdk/src/s3/model/complete_multipart_upload_request.dart'
-    as _i9;
-import 'package:smoke_test/src/sdk/src/s3/model/copy_object_output.dart'
-    as _i11;
-import 'package:smoke_test/src/sdk/src/s3/model/copy_object_request.dart'
-    as _i12;
-import 'package:smoke_test/src/sdk/src/s3/model/create_bucket_output.dart'
-    as _i14;
-import 'package:smoke_test/src/sdk/src/s3/model/create_bucket_request.dart'
-    as _i15;
-import 'package:smoke_test/src/sdk/src/s3/model/create_multipart_upload_output.dart'
-    as _i17;
-import 'package:smoke_test/src/sdk/src/s3/model/create_multipart_upload_request.dart'
-    as _i18;
-import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_analytics_configuration_request.dart'
-    as _i22;
-import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_cors_request.dart'
-    as _i24;
-import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_encryption_request.dart'
-    as _i26;
-import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_intelligent_tiering_configuration_request.dart'
-    as _i28;
-import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_inventory_configuration_request.dart'
-    as _i30;
-import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_lifecycle_request.dart'
-    as _i32;
-import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_metrics_configuration_request.dart'
-    as _i34;
-import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_ownership_controls_request.dart'
-    as _i36;
-import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_policy_request.dart'
-    as _i38;
-import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_replication_request.dart'
-    as _i40;
-import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_request.dart'
-    as _i20;
-import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_tagging_request.dart'
-    as _i42;
-import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_website_request.dart'
-    as _i44;
-import 'package:smoke_test/src/sdk/src/s3/model/delete_object_output.dart'
-    as _i46;
-import 'package:smoke_test/src/sdk/src/s3/model/delete_object_request.dart'
-    as _i47;
-import 'package:smoke_test/src/sdk/src/s3/model/delete_object_tagging_output.dart'
-    as _i49;
-import 'package:smoke_test/src/sdk/src/s3/model/delete_object_tagging_request.dart'
-    as _i50;
-import 'package:smoke_test/src/sdk/src/s3/model/delete_objects_output.dart'
-    as _i52;
-import 'package:smoke_test/src/sdk/src/s3/model/delete_objects_request.dart'
-    as _i53;
-import 'package:smoke_test/src/sdk/src/s3/model/delete_public_access_block_request.dart'
-    as _i55;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_accelerate_configuration_output.dart'
-    as _i57;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_accelerate_configuration_request.dart'
-    as _i58;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_acl_output.dart'
-    as _i60;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_acl_request.dart'
-    as _i61;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_analytics_configuration_output.dart'
-    as _i63;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_analytics_configuration_request.dart'
-    as _i64;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_cors_output.dart'
-    as _i66;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_cors_request.dart'
-    as _i67;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_encryption_output.dart'
-    as _i69;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_encryption_request.dart'
-    as _i70;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_intelligent_tiering_configuration_output.dart'
-    as _i72;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_intelligent_tiering_configuration_request.dart'
-    as _i73;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_inventory_configuration_output.dart'
-    as _i75;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_inventory_configuration_request.dart'
-    as _i76;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_lifecycle_configuration_output.dart'
-    as _i78;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_lifecycle_configuration_request.dart'
-    as _i79;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_location_output.dart'
-    as _i81;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_location_request.dart'
-    as _i82;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_logging_output.dart'
-    as _i84;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_logging_request.dart'
-    as _i85;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_metrics_configuration_output.dart'
-    as _i87;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_metrics_configuration_request.dart'
-    as _i88;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_notification_configuration_request.dart'
-    as _i91;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_ownership_controls_output.dart'
-    as _i93;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_ownership_controls_request.dart'
-    as _i94;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_policy_output.dart'
-    as _i96;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_policy_request.dart'
-    as _i97;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_policy_status_output.dart'
-    as _i99;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_policy_status_request.dart'
-    as _i100;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_replication_output.dart'
-    as _i102;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_replication_request.dart'
-    as _i103;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_request_payment_output.dart'
-    as _i105;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_request_payment_request.dart'
-    as _i106;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_tagging_output.dart'
-    as _i108;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_tagging_request.dart'
-    as _i109;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_versioning_output.dart'
-    as _i111;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_versioning_request.dart'
-    as _i112;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_website_output.dart'
-    as _i114;
-import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_website_request.dart'
-    as _i115;
-import 'package:smoke_test/src/sdk/src/s3/model/get_object_acl_output.dart'
-    as _i120;
-import 'package:smoke_test/src/sdk/src/s3/model/get_object_acl_request.dart'
-    as _i121;
-import 'package:smoke_test/src/sdk/src/s3/model/get_object_attributes_output.dart'
-    as _i123;
-import 'package:smoke_test/src/sdk/src/s3/model/get_object_attributes_request.dart'
-    as _i124;
-import 'package:smoke_test/src/sdk/src/s3/model/get_object_legal_hold_output.dart'
-    as _i126;
-import 'package:smoke_test/src/sdk/src/s3/model/get_object_legal_hold_request.dart'
-    as _i127;
-import 'package:smoke_test/src/sdk/src/s3/model/get_object_lock_configuration_output.dart'
-    as _i129;
-import 'package:smoke_test/src/sdk/src/s3/model/get_object_lock_configuration_request.dart'
-    as _i130;
-import 'package:smoke_test/src/sdk/src/s3/model/get_object_output.dart'
-    as _i117;
-import 'package:smoke_test/src/sdk/src/s3/model/get_object_request.dart'
-    as _i118;
-import 'package:smoke_test/src/sdk/src/s3/model/get_object_retention_output.dart'
-    as _i132;
-import 'package:smoke_test/src/sdk/src/s3/model/get_object_retention_request.dart'
-    as _i133;
-import 'package:smoke_test/src/sdk/src/s3/model/get_object_tagging_output.dart'
-    as _i135;
-import 'package:smoke_test/src/sdk/src/s3/model/get_object_tagging_request.dart'
-    as _i136;
-import 'package:smoke_test/src/sdk/src/s3/model/get_object_torrent_output.dart'
-    as _i138;
-import 'package:smoke_test/src/sdk/src/s3/model/get_object_torrent_request.dart'
-    as _i139;
-import 'package:smoke_test/src/sdk/src/s3/model/get_public_access_block_output.dart'
-    as _i141;
-import 'package:smoke_test/src/sdk/src/s3/model/get_public_access_block_request.dart'
-    as _i142;
-import 'package:smoke_test/src/sdk/src/s3/model/head_bucket_request.dart'
-    as _i144;
-import 'package:smoke_test/src/sdk/src/s3/model/head_object_output.dart'
-    as _i146;
-import 'package:smoke_test/src/sdk/src/s3/model/head_object_request.dart'
-    as _i147;
-import 'package:smoke_test/src/sdk/src/s3/model/list_bucket_analytics_configurations_output.dart'
-    as _i149;
-import 'package:smoke_test/src/sdk/src/s3/model/list_bucket_analytics_configurations_request.dart'
-    as _i150;
-import 'package:smoke_test/src/sdk/src/s3/model/list_bucket_intelligent_tiering_configurations_output.dart'
-    as _i152;
-import 'package:smoke_test/src/sdk/src/s3/model/list_bucket_intelligent_tiering_configurations_request.dart'
-    as _i153;
-import 'package:smoke_test/src/sdk/src/s3/model/list_bucket_inventory_configurations_output.dart'
-    as _i155;
-import 'package:smoke_test/src/sdk/src/s3/model/list_bucket_inventory_configurations_request.dart'
-    as _i156;
-import 'package:smoke_test/src/sdk/src/s3/model/list_bucket_metrics_configurations_output.dart'
-    as _i158;
-import 'package:smoke_test/src/sdk/src/s3/model/list_bucket_metrics_configurations_request.dart'
-    as _i159;
-import 'package:smoke_test/src/sdk/src/s3/model/list_buckets_output.dart'
-    as _i161;
-import 'package:smoke_test/src/sdk/src/s3/model/list_multipart_uploads_output.dart'
-    as _i163;
-import 'package:smoke_test/src/sdk/src/s3/model/list_multipart_uploads_request.dart'
-    as _i164;
-import 'package:smoke_test/src/sdk/src/s3/model/list_object_versions_output.dart'
-    as _i166;
-import 'package:smoke_test/src/sdk/src/s3/model/list_object_versions_request.dart'
-    as _i167;
-import 'package:smoke_test/src/sdk/src/s3/model/list_objects_output.dart'
-    as _i169;
-import 'package:smoke_test/src/sdk/src/s3/model/list_objects_request.dart'
-    as _i170;
-import 'package:smoke_test/src/sdk/src/s3/model/list_objects_v2_output.dart'
-    as _i172;
-import 'package:smoke_test/src/sdk/src/s3/model/list_objects_v2_request.dart'
-    as _i173;
-import 'package:smoke_test/src/sdk/src/s3/model/list_parts_request.dart'
-    as _i177;
-import 'package:smoke_test/src/sdk/src/s3/model/notification_configuration.dart'
-    as _i90;
-import 'package:smoke_test/src/sdk/src/s3/model/part.dart' as _i176;
-import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_accelerate_configuration_request.dart'
-    as _i179;
-import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_acl_request.dart'
-    as _i181;
-import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_analytics_configuration_request.dart'
-    as _i183;
-import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_cors_request.dart'
-    as _i185;
-import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_encryption_request.dart'
-    as _i187;
-import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_intelligent_tiering_configuration_request.dart'
-    as _i189;
-import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_inventory_configuration_request.dart'
-    as _i191;
-import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_lifecycle_configuration_request.dart'
-    as _i193;
-import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_logging_request.dart'
-    as _i195;
-import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_metrics_configuration_request.dart'
-    as _i197;
-import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_notification_configuration_request.dart'
-    as _i199;
-import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_ownership_controls_request.dart'
-    as _i201;
-import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_policy_request.dart'
-    as _i203;
-import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_replication_request.dart'
-    as _i205;
-import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_request_payment_request.dart'
-    as _i207;
-import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_tagging_request.dart'
-    as _i209;
-import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_versioning_request.dart'
-    as _i211;
-import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_website_request.dart'
-    as _i213;
-import 'package:smoke_test/src/sdk/src/s3/model/put_object_acl_output.dart'
-    as _i218;
-import 'package:smoke_test/src/sdk/src/s3/model/put_object_acl_request.dart'
-    as _i219;
-import 'package:smoke_test/src/sdk/src/s3/model/put_object_legal_hold_output.dart'
-    as _i221;
-import 'package:smoke_test/src/sdk/src/s3/model/put_object_legal_hold_request.dart'
-    as _i222;
-import 'package:smoke_test/src/sdk/src/s3/model/put_object_lock_configuration_output.dart'
-    as _i224;
-import 'package:smoke_test/src/sdk/src/s3/model/put_object_lock_configuration_request.dart'
-    as _i225;
-import 'package:smoke_test/src/sdk/src/s3/model/put_object_output.dart'
-    as _i215;
-import 'package:smoke_test/src/sdk/src/s3/model/put_object_request.dart'
-    as _i216;
-import 'package:smoke_test/src/sdk/src/s3/model/put_object_retention_output.dart'
-    as _i227;
-import 'package:smoke_test/src/sdk/src/s3/model/put_object_retention_request.dart'
-    as _i228;
-import 'package:smoke_test/src/sdk/src/s3/model/put_object_tagging_output.dart'
-    as _i230;
-import 'package:smoke_test/src/sdk/src/s3/model/put_object_tagging_request.dart'
-    as _i231;
-import 'package:smoke_test/src/sdk/src/s3/model/put_public_access_block_request.dart'
-    as _i233;
-import 'package:smoke_test/src/sdk/src/s3/model/restore_object_output.dart'
-    as _i235;
-import 'package:smoke_test/src/sdk/src/s3/model/restore_object_request.dart'
-    as _i236;
-import 'package:smoke_test/src/sdk/src/s3/model/select_object_content_output.dart'
-    as _i238;
-import 'package:smoke_test/src/sdk/src/s3/model/select_object_content_request.dart'
-    as _i239;
-import 'package:smoke_test/src/sdk/src/s3/model/upload_part_copy_output.dart'
-    as _i244;
-import 'package:smoke_test/src/sdk/src/s3/model/upload_part_copy_request.dart'
-    as _i245;
-import 'package:smoke_test/src/sdk/src/s3/model/upload_part_output.dart'
-    as _i241;
-import 'package:smoke_test/src/sdk/src/s3/model/upload_part_request.dart'
-    as _i242;
-import 'package:smoke_test/src/sdk/src/s3/model/write_get_object_response_request.dart'
-    as _i247;
-import 'package:smoke_test/src/sdk/src/s3/operation/abort_multipart_upload_operation.dart'
-    as _i7;
-import 'package:smoke_test/src/sdk/src/s3/operation/complete_multipart_upload_operation.dart'
-    as _i10;
-import 'package:smoke_test/src/sdk/src/s3/operation/copy_object_operation.dart'
-    as _i13;
-import 'package:smoke_test/src/sdk/src/s3/operation/create_bucket_operation.dart'
-    as _i16;
-import 'package:smoke_test/src/sdk/src/s3/operation/create_multipart_upload_operation.dart'
-    as _i19;
-import 'package:smoke_test/src/sdk/src/s3/operation/delete_bucket_analytics_configuration_operation.dart'
-    as _i23;
-import 'package:smoke_test/src/sdk/src/s3/operation/delete_bucket_cors_operation.dart'
-    as _i25;
-import 'package:smoke_test/src/sdk/src/s3/operation/delete_bucket_encryption_operation.dart'
-    as _i27;
-import 'package:smoke_test/src/sdk/src/s3/operation/delete_bucket_intelligent_tiering_configuration_operation.dart'
-    as _i29;
-import 'package:smoke_test/src/sdk/src/s3/operation/delete_bucket_inventory_configuration_operation.dart'
-    as _i31;
-import 'package:smoke_test/src/sdk/src/s3/operation/delete_bucket_lifecycle_operation.dart'
-    as _i33;
-import 'package:smoke_test/src/sdk/src/s3/operation/delete_bucket_metrics_configuration_operation.dart'
-    as _i35;
-import 'package:smoke_test/src/sdk/src/s3/operation/delete_bucket_operation.dart'
-    as _i21;
-import 'package:smoke_test/src/sdk/src/s3/operation/delete_bucket_ownership_controls_operation.dart'
-    as _i37;
-import 'package:smoke_test/src/sdk/src/s3/operation/delete_bucket_policy_operation.dart'
-    as _i39;
-import 'package:smoke_test/src/sdk/src/s3/operation/delete_bucket_replication_operation.dart'
-    as _i41;
-import 'package:smoke_test/src/sdk/src/s3/operation/delete_bucket_tagging_operation.dart'
-    as _i43;
-import 'package:smoke_test/src/sdk/src/s3/operation/delete_bucket_website_operation.dart'
-    as _i45;
-import 'package:smoke_test/src/sdk/src/s3/operation/delete_object_operation.dart'
-    as _i48;
-import 'package:smoke_test/src/sdk/src/s3/operation/delete_object_tagging_operation.dart'
-    as _i51;
-import 'package:smoke_test/src/sdk/src/s3/operation/delete_objects_operation.dart'
-    as _i54;
-import 'package:smoke_test/src/sdk/src/s3/operation/delete_public_access_block_operation.dart'
-    as _i56;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_accelerate_configuration_operation.dart'
-    as _i59;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_acl_operation.dart'
-    as _i62;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_analytics_configuration_operation.dart'
-    as _i65;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_cors_operation.dart'
-    as _i68;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_encryption_operation.dart'
-    as _i71;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_intelligent_tiering_configuration_operation.dart'
-    as _i74;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_inventory_configuration_operation.dart'
-    as _i77;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_lifecycle_configuration_operation.dart'
-    as _i80;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_location_operation.dart'
-    as _i83;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_logging_operation.dart'
-    as _i86;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_metrics_configuration_operation.dart'
-    as _i89;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_notification_configuration_operation.dart'
-    as _i92;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_ownership_controls_operation.dart'
-    as _i95;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_policy_operation.dart'
-    as _i98;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_policy_status_operation.dart'
-    as _i101;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_replication_operation.dart'
-    as _i104;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_request_payment_operation.dart'
-    as _i107;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_tagging_operation.dart'
-    as _i110;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_versioning_operation.dart'
-    as _i113;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_website_operation.dart'
-    as _i116;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_object_acl_operation.dart'
-    as _i122;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_object_attributes_operation.dart'
-    as _i125;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_object_legal_hold_operation.dart'
-    as _i128;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_object_lock_configuration_operation.dart'
-    as _i131;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_object_operation.dart'
-    as _i119;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_object_retention_operation.dart'
-    as _i134;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_object_tagging_operation.dart'
-    as _i137;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_object_torrent_operation.dart'
-    as _i140;
-import 'package:smoke_test/src/sdk/src/s3/operation/get_public_access_block_operation.dart'
-    as _i143;
-import 'package:smoke_test/src/sdk/src/s3/operation/head_bucket_operation.dart'
-    as _i145;
-import 'package:smoke_test/src/sdk/src/s3/operation/head_object_operation.dart'
-    as _i148;
-import 'package:smoke_test/src/sdk/src/s3/operation/list_bucket_analytics_configurations_operation.dart'
-    as _i151;
-import 'package:smoke_test/src/sdk/src/s3/operation/list_bucket_intelligent_tiering_configurations_operation.dart'
-    as _i154;
-import 'package:smoke_test/src/sdk/src/s3/operation/list_bucket_inventory_configurations_operation.dart'
-    as _i157;
-import 'package:smoke_test/src/sdk/src/s3/operation/list_bucket_metrics_configurations_operation.dart'
-    as _i160;
-import 'package:smoke_test/src/sdk/src/s3/operation/list_buckets_operation.dart'
-    as _i162;
-import 'package:smoke_test/src/sdk/src/s3/operation/list_multipart_uploads_operation.dart'
-    as _i165;
-import 'package:smoke_test/src/sdk/src/s3/operation/list_object_versions_operation.dart'
-    as _i168;
-import 'package:smoke_test/src/sdk/src/s3/operation/list_objects_operation.dart'
-    as _i171;
-import 'package:smoke_test/src/sdk/src/s3/operation/list_objects_v2_operation.dart'
-    as _i174;
-import 'package:smoke_test/src/sdk/src/s3/operation/list_parts_operation.dart'
-    as _i178;
-import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_accelerate_configuration_operation.dart'
-    as _i180;
-import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_acl_operation.dart'
-    as _i182;
-import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_analytics_configuration_operation.dart'
-    as _i184;
-import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_cors_operation.dart'
-    as _i186;
-import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_encryption_operation.dart'
-    as _i188;
-import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_intelligent_tiering_configuration_operation.dart'
-    as _i190;
-import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_inventory_configuration_operation.dart'
-    as _i192;
-import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_lifecycle_configuration_operation.dart'
-    as _i194;
-import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_logging_operation.dart'
-    as _i196;
-import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_metrics_configuration_operation.dart'
-    as _i198;
-import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_notification_configuration_operation.dart'
-    as _i200;
-import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_ownership_controls_operation.dart'
-    as _i202;
-import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_policy_operation.dart'
-    as _i204;
-import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_replication_operation.dart'
-    as _i206;
-import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_request_payment_operation.dart'
-    as _i208;
-import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_tagging_operation.dart'
-    as _i210;
-import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_versioning_operation.dart'
-    as _i212;
-import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_website_operation.dart'
-    as _i214;
-import 'package:smoke_test/src/sdk/src/s3/operation/put_object_acl_operation.dart'
-    as _i220;
-import 'package:smoke_test/src/sdk/src/s3/operation/put_object_legal_hold_operation.dart'
-    as _i223;
-import 'package:smoke_test/src/sdk/src/s3/operation/put_object_lock_configuration_operation.dart'
-    as _i226;
-import 'package:smoke_test/src/sdk/src/s3/operation/put_object_operation.dart'
-    as _i217;
-import 'package:smoke_test/src/sdk/src/s3/operation/put_object_retention_operation.dart'
-    as _i229;
-import 'package:smoke_test/src/sdk/src/s3/operation/put_object_tagging_operation.dart'
-    as _i232;
-import 'package:smoke_test/src/sdk/src/s3/operation/put_public_access_block_operation.dart'
-    as _i234;
-import 'package:smoke_test/src/sdk/src/s3/operation/restore_object_operation.dart'
-    as _i237;
-import 'package:smoke_test/src/sdk/src/s3/operation/select_object_content_operation.dart'
-    as _i240;
-import 'package:smoke_test/src/sdk/src/s3/operation/upload_part_copy_operation.dart'
-    as _i246;
-import 'package:smoke_test/src/sdk/src/s3/operation/upload_part_operation.dart'
-    as _i243;
-import 'package:smoke_test/src/sdk/src/s3/operation/write_get_object_response_operation.dart'
-    as _i248;
+import 'package:smoke_test/src/sdk/src/s3/model/abort_multipart_upload_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/abort_multipart_upload_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/complete_multipart_upload_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/complete_multipart_upload_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/copy_object_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/copy_object_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/create_bucket_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/create_bucket_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/create_multipart_upload_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/create_multipart_upload_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_analytics_configuration_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_cors_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_encryption_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_intelligent_tiering_configuration_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_inventory_configuration_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_lifecycle_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_metrics_configuration_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_ownership_controls_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_replication_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_tagging_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/delete_bucket_website_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/delete_object_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/delete_object_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/delete_object_tagging_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/delete_object_tagging_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/delete_objects_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/delete_objects_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/delete_public_access_block_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_accelerate_configuration_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_accelerate_configuration_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_acl_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_acl_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_analytics_configuration_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_analytics_configuration_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_cors_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_cors_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_encryption_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_encryption_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_intelligent_tiering_configuration_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_intelligent_tiering_configuration_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_inventory_configuration_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_inventory_configuration_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_lifecycle_configuration_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_lifecycle_configuration_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_location_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_location_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_logging_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_logging_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_metrics_configuration_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_metrics_configuration_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_notification_configuration_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_ownership_controls_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_ownership_controls_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_policy_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_policy_status_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_policy_status_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_replication_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_replication_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_request_payment_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_request_payment_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_tagging_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_tagging_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_versioning_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_versioning_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_website_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_website_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_object_acl_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_object_acl_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_object_attributes_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_object_attributes_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_object_legal_hold_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_object_legal_hold_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_object_lock_configuration_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_object_lock_configuration_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_object_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_object_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_object_retention_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_object_retention_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_object_tagging_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_object_tagging_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_object_torrent_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_object_torrent_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_public_access_block_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/get_public_access_block_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/head_bucket_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/head_object_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/head_object_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/list_bucket_analytics_configurations_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/list_bucket_analytics_configurations_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/list_bucket_intelligent_tiering_configurations_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/list_bucket_intelligent_tiering_configurations_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/list_bucket_inventory_configurations_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/list_bucket_inventory_configurations_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/list_bucket_metrics_configurations_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/list_bucket_metrics_configurations_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/list_buckets_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/list_multipart_uploads_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/list_multipart_uploads_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/list_object_versions_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/list_object_versions_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/list_objects_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/list_objects_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/list_objects_v2_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/list_objects_v2_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/list_parts_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/notification_configuration.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/part.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_accelerate_configuration_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_acl_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_analytics_configuration_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_cors_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_encryption_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_intelligent_tiering_configuration_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_inventory_configuration_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_lifecycle_configuration_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_logging_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_metrics_configuration_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_notification_configuration_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_ownership_controls_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_policy_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_replication_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_request_payment_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_tagging_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_versioning_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_website_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_object_acl_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_object_acl_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_object_legal_hold_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_object_legal_hold_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_object_lock_configuration_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_object_lock_configuration_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_object_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_object_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_object_retention_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_object_retention_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_object_tagging_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_object_tagging_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/put_public_access_block_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/restore_object_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/restore_object_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/select_object_content_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/select_object_content_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/upload_part_copy_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/upload_part_copy_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/upload_part_output.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/upload_part_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/model/write_get_object_response_request.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/abort_multipart_upload_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/complete_multipart_upload_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/copy_object_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/create_bucket_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/create_multipart_upload_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/delete_bucket_analytics_configuration_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/delete_bucket_cors_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/delete_bucket_encryption_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/delete_bucket_intelligent_tiering_configuration_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/delete_bucket_inventory_configuration_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/delete_bucket_lifecycle_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/delete_bucket_metrics_configuration_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/delete_bucket_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/delete_bucket_ownership_controls_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/delete_bucket_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/delete_bucket_replication_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/delete_bucket_tagging_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/delete_bucket_website_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/delete_object_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/delete_object_tagging_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/delete_objects_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/delete_public_access_block_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_accelerate_configuration_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_acl_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_analytics_configuration_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_cors_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_encryption_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_intelligent_tiering_configuration_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_inventory_configuration_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_lifecycle_configuration_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_location_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_logging_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_metrics_configuration_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_notification_configuration_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_ownership_controls_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_policy_status_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_replication_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_request_payment_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_tagging_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_versioning_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_bucket_website_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_object_acl_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_object_attributes_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_object_legal_hold_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_object_lock_configuration_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_object_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_object_retention_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_object_tagging_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_object_torrent_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/get_public_access_block_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/head_bucket_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/head_object_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/list_bucket_analytics_configurations_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/list_bucket_intelligent_tiering_configurations_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/list_bucket_inventory_configurations_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/list_bucket_metrics_configurations_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/list_buckets_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/list_multipart_uploads_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/list_object_versions_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/list_objects_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/list_objects_v2_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/list_parts_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_accelerate_configuration_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_acl_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_analytics_configuration_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_cors_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_encryption_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_intelligent_tiering_configuration_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_inventory_configuration_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_lifecycle_configuration_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_logging_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_metrics_configuration_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_notification_configuration_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_ownership_controls_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_policy_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_replication_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_request_payment_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_tagging_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_versioning_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/put_bucket_website_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/put_object_acl_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/put_object_legal_hold_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/put_object_lock_configuration_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/put_object_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/put_object_retention_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/put_object_tagging_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/put_public_access_block_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/restore_object_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/select_object_content_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/upload_part_copy_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/upload_part_operation.dart';
+import 'package:smoke_test/src/sdk/src/s3/operation/write_get_object_response_operation.dart';
 
 class S3Client {
   const S3Client({
@@ -543,13 +301,13 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-  _i4.SmithyOperation<_i5.AbortMultipartUploadOutput> abortMultipartUpload(
-    _i6.AbortMultipartUploadRequest input, {
+  _i4.SmithyOperation<AbortMultipartUploadOutput> abortMultipartUpload(
+    AbortMultipartUploadRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i7.AbortMultipartUploadOperation(
+    return AbortMultipartUploadOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -614,14 +372,13 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-  _i4.SmithyOperation<_i8.CompleteMultipartUploadOutput>
-      completeMultipartUpload(
-    _i9.CompleteMultipartUploadRequest input, {
+  _i4.SmithyOperation<CompleteMultipartUploadOutput> completeMultipartUpload(
+    CompleteMultipartUploadRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i10.CompleteMultipartUploadOperation(
+    return CompleteMultipartUploadOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -728,13 +485,13 @@ class S3Client {
   /// *   [PutObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html)
   ///
   /// *   [GetObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html)
-  _i4.SmithyOperation<_i11.CopyObjectOutput> copyObject(
-    _i12.CopyObjectRequest input, {
+  _i4.SmithyOperation<CopyObjectOutput> copyObject(
+    CopyObjectRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i13.CopyObjectOperation(
+    return CopyObjectOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -777,13 +534,13 @@ class S3Client {
   /// *   [PutObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html)
   ///
   /// *   [DeleteBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucket.html)
-  _i4.SmithyOperation<_i14.CreateBucketOutput> createBucket(
-    _i15.CreateBucketRequest input, {
+  _i4.SmithyOperation<CreateBucketOutput> createBucket(
+    CreateBucketRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i16.CreateBucketOperation(
+    return CreateBucketOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -923,13 +680,13 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-  _i4.SmithyOperation<_i17.CreateMultipartUploadOutput> createMultipartUpload(
-    _i18.CreateMultipartUploadRequest input, {
+  _i4.SmithyOperation<CreateMultipartUploadOutput> createMultipartUpload(
+    CreateMultipartUploadRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i19.CreateMultipartUploadOperation(
+    return CreateMultipartUploadOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -950,12 +707,12 @@ class S3Client {
   ///
   /// *   [DeleteObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html)
   _i4.SmithyOperation<void> deleteBucket(
-    _i20.DeleteBucketRequest input, {
+    DeleteBucketRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i21.DeleteBucketOperation(
+    return DeleteBucketOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -982,12 +739,12 @@ class S3Client {
   ///
   /// *   [PutBucketAnalyticsConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketAnalyticsConfiguration.html)
   _i4.SmithyOperation<void> deleteBucketAnalyticsConfiguration(
-    _i22.DeleteBucketAnalyticsConfigurationRequest input, {
+    DeleteBucketAnalyticsConfigurationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i23.DeleteBucketAnalyticsConfigurationOperation(
+    return DeleteBucketAnalyticsConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1012,12 +769,12 @@ class S3Client {
   ///
   /// *   [RESTOPTIONSobject](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTOPTIONSobject.html)
   _i4.SmithyOperation<void> deleteBucketCors(
-    _i24.DeleteBucketCorsRequest input, {
+    DeleteBucketCorsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i25.DeleteBucketCorsOperation(
+    return DeleteBucketCorsOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1040,12 +797,12 @@ class S3Client {
   ///
   /// *   [GetBucketEncryption](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketEncryption.html)
   _i4.SmithyOperation<void> deleteBucketEncryption(
-    _i26.DeleteBucketEncryptionRequest input, {
+    DeleteBucketEncryptionRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i27.DeleteBucketEncryptionOperation(
+    return DeleteBucketEncryptionOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1074,12 +831,12 @@ class S3Client {
   ///
   /// *   [ListBucketIntelligentTieringConfigurations](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketIntelligentTieringConfigurations.html)
   _i4.SmithyOperation<void> deleteBucketIntelligentTieringConfiguration(
-    _i28.DeleteBucketIntelligentTieringConfigurationRequest input, {
+    DeleteBucketIntelligentTieringConfigurationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i29.DeleteBucketIntelligentTieringConfigurationOperation(
+    return DeleteBucketIntelligentTieringConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1106,12 +863,12 @@ class S3Client {
   ///
   /// *   [ListBucketInventoryConfigurations](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketInventoryConfigurations.html)
   _i4.SmithyOperation<void> deleteBucketInventoryConfiguration(
-    _i30.DeleteBucketInventoryConfigurationRequest input, {
+    DeleteBucketInventoryConfigurationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i31.DeleteBucketInventoryConfigurationOperation(
+    return DeleteBucketInventoryConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1138,12 +895,12 @@ class S3Client {
   ///
   /// *   [GetBucketLifecycleConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketLifecycleConfiguration.html)
   _i4.SmithyOperation<void> deleteBucketLifecycle(
-    _i32.DeleteBucketLifecycleRequest input, {
+    DeleteBucketLifecycleRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i33.DeleteBucketLifecycleOperation(
+    return DeleteBucketLifecycleOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1172,12 +929,12 @@ class S3Client {
   ///
   /// *   [Monitoring Metrics with Amazon CloudWatch](https://docs.aws.amazon.com/AmazonS3/latest/dev/cloudwatch-monitoring.html)
   _i4.SmithyOperation<void> deleteBucketMetricsConfiguration(
-    _i34.DeleteBucketMetricsConfigurationRequest input, {
+    DeleteBucketMetricsConfigurationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i35.DeleteBucketMetricsConfigurationOperation(
+    return DeleteBucketMetricsConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1200,12 +957,12 @@ class S3Client {
   ///
   /// *   PutBucketOwnershipControls
   _i4.SmithyOperation<void> deleteBucketOwnershipControls(
-    _i36.DeleteBucketOwnershipControlsRequest input, {
+    DeleteBucketOwnershipControlsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i37.DeleteBucketOwnershipControlsOperation(
+    return DeleteBucketOwnershipControlsOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1232,12 +989,12 @@ class S3Client {
   ///
   /// *   [DeleteObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html)
   _i4.SmithyOperation<void> deleteBucketPolicy(
-    _i38.DeleteBucketPolicyRequest input, {
+    DeleteBucketPolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i39.DeleteBucketPolicyOperation(
+    return DeleteBucketPolicyOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1264,12 +1021,12 @@ class S3Client {
   ///
   /// *   [GetBucketReplication](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketReplication.html)
   _i4.SmithyOperation<void> deleteBucketReplication(
-    _i40.DeleteBucketReplicationRequest input, {
+    DeleteBucketReplicationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i41.DeleteBucketReplicationOperation(
+    return DeleteBucketReplicationOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1292,12 +1049,12 @@ class S3Client {
   ///
   /// *   [PutBucketTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketTagging.html)
   _i4.SmithyOperation<void> deleteBucketTagging(
-    _i42.DeleteBucketTaggingRequest input, {
+    DeleteBucketTaggingRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i43.DeleteBucketTaggingOperation(
+    return DeleteBucketTaggingOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1322,12 +1079,12 @@ class S3Client {
   ///
   /// *   [PutBucketWebsite](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketWebsite.html)
   _i4.SmithyOperation<void> deleteBucketWebsite(
-    _i44.DeleteBucketWebsiteRequest input, {
+    DeleteBucketWebsiteRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i45.DeleteBucketWebsiteOperation(
+    return DeleteBucketWebsiteOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1353,13 +1110,13 @@ class S3Client {
   /// The following action is related to `DeleteObject`:
   ///
   /// *   [PutObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html)
-  _i4.SmithyOperation<_i46.DeleteObjectOutput> deleteObject(
-    _i47.DeleteObjectRequest input, {
+  _i4.SmithyOperation<DeleteObjectOutput> deleteObject(
+    DeleteObjectRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i48.DeleteObjectOperation(
+    return DeleteObjectOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1383,13 +1140,13 @@ class S3Client {
   /// *   [PutObjectTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectTagging.html)
   ///
   /// *   [GetObjectTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html)
-  _i4.SmithyOperation<_i49.DeleteObjectTaggingOutput> deleteObjectTagging(
-    _i50.DeleteObjectTaggingRequest input, {
+  _i4.SmithyOperation<DeleteObjectTaggingOutput> deleteObjectTagging(
+    DeleteObjectTaggingRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i51.DeleteObjectTaggingOperation(
+    return DeleteObjectTaggingOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1423,13 +1180,13 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [AbortMultipartUpload](https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html)
-  _i4.SmithyOperation<_i52.DeleteObjectsOutput> deleteObjects(
-    _i53.DeleteObjectsRequest input, {
+  _i4.SmithyOperation<DeleteObjectsOutput> deleteObjects(
+    DeleteObjectsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i54.DeleteObjectsOperation(
+    return DeleteObjectsOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1454,12 +1211,12 @@ class S3Client {
   ///
   /// *   [GetBucketPolicyStatus](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketPolicyStatus.html)
   _i4.SmithyOperation<void> deletePublicAccessBlock(
-    _i55.DeletePublicAccessBlockRequest input, {
+    DeletePublicAccessBlockRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i56.DeletePublicAccessBlockOperation(
+    return DeletePublicAccessBlockOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1485,14 +1242,14 @@ class S3Client {
   /// The following operations are related to `GetBucketAccelerateConfiguration`:
   ///
   /// *   [PutBucketAccelerateConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketAccelerateConfiguration.html)
-  _i4.SmithyOperation<_i57.GetBucketAccelerateConfigurationOutput>
+  _i4.SmithyOperation<GetBucketAccelerateConfigurationOutput>
       getBucketAccelerateConfiguration(
-    _i58.GetBucketAccelerateConfigurationRequest input, {
+    GetBucketAccelerateConfigurationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i59.GetBucketAccelerateConfigurationOperation(
+    return GetBucketAccelerateConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1516,13 +1273,13 @@ class S3Client {
   /// The following operations are related to `GetBucketAcl`:
   ///
   /// *   [ListObjects](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjects.html)
-  _i4.SmithyOperation<_i60.GetBucketAclOutput> getBucketAcl(
-    _i61.GetBucketAclRequest input, {
+  _i4.SmithyOperation<GetBucketAclOutput> getBucketAcl(
+    GetBucketAclRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i62.GetBucketAclOperation(
+    return GetBucketAclOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1548,14 +1305,14 @@ class S3Client {
   /// *   [ListBucketAnalyticsConfigurations](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketAnalyticsConfigurations.html)
   ///
   /// *   [PutBucketAnalyticsConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketAnalyticsConfiguration.html)
-  _i4.SmithyOperation<_i63.GetBucketAnalyticsConfigurationOutput>
+  _i4.SmithyOperation<GetBucketAnalyticsConfigurationOutput>
       getBucketAnalyticsConfiguration(
-    _i64.GetBucketAnalyticsConfigurationRequest input, {
+    GetBucketAnalyticsConfigurationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i65.GetBucketAnalyticsConfigurationOperation(
+    return GetBucketAnalyticsConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1583,13 +1340,13 @@ class S3Client {
   /// *   [PutBucketCors](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketCors.html)
   ///
   /// *   [DeleteBucketCors](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketCors.html)
-  _i4.SmithyOperation<_i66.GetBucketCorsOutput> getBucketCors(
-    _i67.GetBucketCorsRequest input, {
+  _i4.SmithyOperation<GetBucketCorsOutput> getBucketCors(
+    GetBucketCorsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i68.GetBucketCorsOperation(
+    return GetBucketCorsOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1611,13 +1368,13 @@ class S3Client {
   /// *   [PutBucketEncryption](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketEncryption.html)
   ///
   /// *   [DeleteBucketEncryption](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketEncryption.html)
-  _i4.SmithyOperation<_i69.GetBucketEncryptionOutput> getBucketEncryption(
-    _i70.GetBucketEncryptionRequest input, {
+  _i4.SmithyOperation<GetBucketEncryptionOutput> getBucketEncryption(
+    GetBucketEncryptionRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i71.GetBucketEncryptionOperation(
+    return GetBucketEncryptionOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1645,14 +1402,14 @@ class S3Client {
   /// *   [PutBucketIntelligentTieringConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketIntelligentTieringConfiguration.html)
   ///
   /// *   [ListBucketIntelligentTieringConfigurations](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketIntelligentTieringConfigurations.html)
-  _i4.SmithyOperation<_i72.GetBucketIntelligentTieringConfigurationOutput>
+  _i4.SmithyOperation<GetBucketIntelligentTieringConfigurationOutput>
       getBucketIntelligentTieringConfiguration(
-    _i73.GetBucketIntelligentTieringConfigurationRequest input, {
+    GetBucketIntelligentTieringConfigurationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i74.GetBucketIntelligentTieringConfigurationOperation(
+    return GetBucketIntelligentTieringConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1678,14 +1435,14 @@ class S3Client {
   /// *   [ListBucketInventoryConfigurations](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketInventoryConfigurations.html)
   ///
   /// *   [PutBucketInventoryConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketInventoryConfiguration.html)
-  _i4.SmithyOperation<_i75.GetBucketInventoryConfigurationOutput>
+  _i4.SmithyOperation<GetBucketInventoryConfigurationOutput>
       getBucketInventoryConfiguration(
-    _i76.GetBucketInventoryConfigurationRequest input, {
+    GetBucketInventoryConfigurationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i77.GetBucketInventoryConfigurationOperation(
+    return GetBucketInventoryConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1722,14 +1479,14 @@ class S3Client {
   /// *   [PutBucketLifecycle](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycle.html)
   ///
   /// *   [DeleteBucketLifecycle](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketLifecycle.html)
-  _i4.SmithyOperation<_i78.GetBucketLifecycleConfigurationOutput>
+  _i4.SmithyOperation<GetBucketLifecycleConfigurationOutput>
       getBucketLifecycleConfiguration(
-    _i79.GetBucketLifecycleConfigurationRequest input, {
+    GetBucketLifecycleConfigurationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i80.GetBucketLifecycleConfigurationOperation(
+    return GetBucketLifecycleConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1755,13 +1512,13 @@ class S3Client {
   /// *   [GetObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html)
   ///
   /// *   [CreateBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html)
-  _i4.SmithyOperation<_i81.GetBucketLocationOutput> getBucketLocation(
-    _i82.GetBucketLocationRequest input, {
+  _i4.SmithyOperation<GetBucketLocationOutput> getBucketLocation(
+    GetBucketLocationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i83.GetBucketLocationOperation(
+    return GetBucketLocationOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1781,13 +1538,13 @@ class S3Client {
   /// *   [CreateBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html)
   ///
   /// *   [PutBucketLogging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLogging.html)
-  _i4.SmithyOperation<_i84.GetBucketLoggingOutput> getBucketLogging(
-    _i85.GetBucketLoggingRequest input, {
+  _i4.SmithyOperation<GetBucketLoggingOutput> getBucketLogging(
+    GetBucketLoggingRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i86.GetBucketLoggingOperation(
+    return GetBucketLoggingOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1815,14 +1572,14 @@ class S3Client {
   /// *   [ListBucketMetricsConfigurations](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketMetricsConfigurations.html)
   ///
   /// *   [Monitoring Metrics with Amazon CloudWatch](https://docs.aws.amazon.com/AmazonS3/latest/dev/cloudwatch-monitoring.html)
-  _i4.SmithyOperation<_i87.GetBucketMetricsConfigurationOutput>
+  _i4.SmithyOperation<GetBucketMetricsConfigurationOutput>
       getBucketMetricsConfiguration(
-    _i88.GetBucketMetricsConfigurationRequest input, {
+    GetBucketMetricsConfigurationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i89.GetBucketMetricsConfigurationOperation(
+    return GetBucketMetricsConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1850,14 +1607,14 @@ class S3Client {
   /// The following action is related to `GetBucketNotification`:
   ///
   /// *   [PutBucketNotification](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketNotification.html)
-  _i4.SmithyOperation<_i90.NotificationConfiguration>
+  _i4.SmithyOperation<NotificationConfiguration>
       getBucketNotificationConfiguration(
-    _i91.GetBucketNotificationConfigurationRequest input, {
+    GetBucketNotificationConfigurationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i92.GetBucketNotificationConfigurationOperation(
+    return GetBucketNotificationConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1879,14 +1636,14 @@ class S3Client {
   /// *   PutBucketOwnershipControls
   ///
   /// *   DeleteBucketOwnershipControls
-  _i4.SmithyOperation<_i93.GetBucketOwnershipControlsOutput>
+  _i4.SmithyOperation<GetBucketOwnershipControlsOutput>
       getBucketOwnershipControls(
-    _i94.GetBucketOwnershipControlsRequest input, {
+    GetBucketOwnershipControlsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i95.GetBucketOwnershipControlsOperation(
+    return GetBucketOwnershipControlsOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1914,13 +1671,13 @@ class S3Client {
   /// The following action is related to `GetBucketPolicy`:
   ///
   /// *   [GetObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html)
-  _i4.SmithyOperation<_i96.GetBucketPolicyOutput> getBucketPolicy(
-    _i97.GetBucketPolicyRequest input, {
+  _i4.SmithyOperation<GetBucketPolicyOutput> getBucketPolicy(
+    GetBucketPolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i98.GetBucketPolicyOperation(
+    return GetBucketPolicyOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1946,13 +1703,13 @@ class S3Client {
   /// *   [PutPublicAccessBlock](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutPublicAccessBlock.html)
   ///
   /// *   [DeletePublicAccessBlock](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeletePublicAccessBlock.html)
-  _i4.SmithyOperation<_i99.GetBucketPolicyStatusOutput> getBucketPolicyStatus(
-    _i100.GetBucketPolicyStatusRequest input, {
+  _i4.SmithyOperation<GetBucketPolicyStatusOutput> getBucketPolicyStatus(
+    GetBucketPolicyStatusRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i101.GetBucketPolicyStatusOperation(
+    return GetBucketPolicyStatusOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -1982,13 +1739,13 @@ class S3Client {
   /// *   [PutBucketReplication](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketReplication.html)
   ///
   /// *   [DeleteBucketReplication](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketReplication.html)
-  _i4.SmithyOperation<_i102.GetBucketReplicationOutput> getBucketReplication(
-    _i103.GetBucketReplicationRequest input, {
+  _i4.SmithyOperation<GetBucketReplicationOutput> getBucketReplication(
+    GetBucketReplicationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i104.GetBucketReplicationOperation(
+    return GetBucketReplicationOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -2006,14 +1763,13 @@ class S3Client {
   /// The following operations are related to `GetBucketRequestPayment`:
   ///
   /// *   [ListObjects](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjects.html)
-  _i4.SmithyOperation<_i105.GetBucketRequestPaymentOutput>
-      getBucketRequestPayment(
-    _i106.GetBucketRequestPaymentRequest input, {
+  _i4.SmithyOperation<GetBucketRequestPaymentOutput> getBucketRequestPayment(
+    GetBucketRequestPaymentRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i107.GetBucketRequestPaymentOperation(
+    return GetBucketRequestPaymentOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -2042,13 +1798,13 @@ class S3Client {
   /// *   [PutBucketTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketTagging.html)
   ///
   /// *   [DeleteBucketTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketTagging.html)
-  _i4.SmithyOperation<_i108.GetBucketTaggingOutput> getBucketTagging(
-    _i109.GetBucketTaggingRequest input, {
+  _i4.SmithyOperation<GetBucketTaggingOutput> getBucketTagging(
+    GetBucketTaggingRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i110.GetBucketTaggingOperation(
+    return GetBucketTaggingOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -2074,13 +1830,13 @@ class S3Client {
   /// *   [PutObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html)
   ///
   /// *   [DeleteObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html)
-  _i4.SmithyOperation<_i111.GetBucketVersioningOutput> getBucketVersioning(
-    _i112.GetBucketVersioningRequest input, {
+  _i4.SmithyOperation<GetBucketVersioningOutput> getBucketVersioning(
+    GetBucketVersioningRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i113.GetBucketVersioningOperation(
+    return GetBucketVersioningOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -2102,13 +1858,13 @@ class S3Client {
   /// *   [DeleteBucketWebsite](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketWebsite.html)
   ///
   /// *   [PutBucketWebsite](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketWebsite.html)
-  _i4.SmithyOperation<_i114.GetBucketWebsiteOutput> getBucketWebsite(
-    _i115.GetBucketWebsiteRequest input, {
+  _i4.SmithyOperation<GetBucketWebsiteOutput> getBucketWebsite(
+    GetBucketWebsiteRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i116.GetBucketWebsiteOperation(
+    return GetBucketWebsiteOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -2199,13 +1955,13 @@ class S3Client {
   /// *   [ListBuckets](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBuckets.html)
   ///
   /// *   [GetObjectAcl](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAcl.html)
-  _i4.SmithyOperation<_i117.GetObjectOutput> getObject(
-    _i118.GetObjectRequest input, {
+  _i4.SmithyOperation<GetObjectOutput> getObject(
+    GetObjectRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i119.GetObjectOperation(
+    return GetObjectOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -2235,13 +1991,13 @@ class S3Client {
   /// *   [DeleteObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html)
   ///
   /// *   [PutObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html)
-  _i4.SmithyOperation<_i120.GetObjectAclOutput> getObjectAcl(
-    _i121.GetObjectAclRequest input, {
+  _i4.SmithyOperation<GetObjectAclOutput> getObjectAcl(
+    GetObjectAclRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i122.GetObjectAclOperation(
+    return GetObjectAclOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -2317,13 +2073,13 @@ class S3Client {
   /// *   [HeadObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_HeadObject.html)
   ///
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
-  _i4.SmithyOperation<_i123.GetObjectAttributesOutput> getObjectAttributes(
-    _i124.GetObjectAttributesRequest input, {
+  _i4.SmithyOperation<GetObjectAttributesOutput> getObjectAttributes(
+    GetObjectAttributesRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i125.GetObjectAttributesOperation(
+    return GetObjectAttributesOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -2343,13 +2099,13 @@ class S3Client {
   /// The following action is related to `GetObjectLegalHold`:
   ///
   /// *   [GetObjectAttributes](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html)
-  _i4.SmithyOperation<_i126.GetObjectLegalHoldOutput> getObjectLegalHold(
-    _i127.GetObjectLegalHoldRequest input, {
+  _i4.SmithyOperation<GetObjectLegalHoldOutput> getObjectLegalHold(
+    GetObjectLegalHoldRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i128.GetObjectLegalHoldOperation(
+    return GetObjectLegalHoldOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -2367,14 +2123,14 @@ class S3Client {
   /// The following action is related to `GetObjectLockConfiguration`:
   ///
   /// *   [GetObjectAttributes](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html)
-  _i4.SmithyOperation<_i129.GetObjectLockConfigurationOutput>
+  _i4.SmithyOperation<GetObjectLockConfigurationOutput>
       getObjectLockConfiguration(
-    _i130.GetObjectLockConfigurationRequest input, {
+    GetObjectLockConfigurationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i131.GetObjectLockConfigurationOperation(
+    return GetObjectLockConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -2394,13 +2150,13 @@ class S3Client {
   /// The following action is related to `GetObjectRetention`:
   ///
   /// *   [GetObjectAttributes](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html)
-  _i4.SmithyOperation<_i132.GetObjectRetentionOutput> getObjectRetention(
-    _i133.GetObjectRetentionRequest input, {
+  _i4.SmithyOperation<GetObjectRetentionOutput> getObjectRetention(
+    GetObjectRetentionRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i134.GetObjectRetentionOperation(
+    return GetObjectRetentionOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -2428,13 +2184,13 @@ class S3Client {
   /// *   [GetObjectAttributes](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html)
   ///
   /// *   [PutObjectTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectTagging.html)
-  _i4.SmithyOperation<_i135.GetObjectTaggingOutput> getObjectTagging(
-    _i136.GetObjectTaggingRequest input, {
+  _i4.SmithyOperation<GetObjectTaggingOutput> getObjectTagging(
+    GetObjectTaggingRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i137.GetObjectTaggingOperation(
+    return GetObjectTaggingOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -2458,13 +2214,13 @@ class S3Client {
   /// The following action is related to `GetObjectTorrent`:
   ///
   /// *   [GetObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html)
-  _i4.SmithyOperation<_i138.GetObjectTorrentOutput> getObjectTorrent(
-    _i139.GetObjectTorrentRequest input, {
+  _i4.SmithyOperation<GetObjectTorrentOutput> getObjectTorrent(
+    GetObjectTorrentRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i140.GetObjectTorrentOperation(
+    return GetObjectTorrentOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -2492,13 +2248,13 @@ class S3Client {
   /// *   [GetPublicAccessBlock](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetPublicAccessBlock.html)
   ///
   /// *   [DeletePublicAccessBlock](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeletePublicAccessBlock.html)
-  _i4.SmithyOperation<_i141.GetPublicAccessBlockOutput> getPublicAccessBlock(
-    _i142.GetPublicAccessBlockRequest input, {
+  _i4.SmithyOperation<GetPublicAccessBlockOutput> getPublicAccessBlock(
+    GetPublicAccessBlockRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i143.GetPublicAccessBlockOperation(
+    return GetPublicAccessBlockOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -2521,12 +2277,12 @@ class S3Client {
   ///
   /// To use this API operation against an Object Lambda access point, provide the alias of the Object Lambda access point in place of the bucket name. If the Object Lambda access point alias in a request is not valid, the error code `InvalidAccessPointAliasError` is returned. For more information about `InvalidAccessPointAliasError`, see [List of Error Codes](https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html#ErrorCodeList).
   _i4.SmithyOperation<void> headBucket(
-    _i144.HeadBucketRequest input, {
+    HeadBucketRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i145.HeadBucketOperation(
+    return HeadBucketOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -2598,13 +2354,13 @@ class S3Client {
   /// *   [GetObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html)
   ///
   /// *   [GetObjectAttributes](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html)
-  _i4.SmithyOperation<_i146.HeadObjectOutput> headObject(
-    _i147.HeadObjectRequest input, {
+  _i4.SmithyOperation<HeadObjectOutput> headObject(
+    HeadObjectRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i148.HeadObjectOperation(
+    return HeadObjectOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -2632,14 +2388,14 @@ class S3Client {
   /// *   [DeleteBucketAnalyticsConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketAnalyticsConfiguration.html)
   ///
   /// *   [PutBucketAnalyticsConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketAnalyticsConfiguration.html)
-  _i4.SmithyOperation<_i149.ListBucketAnalyticsConfigurationsOutput>
+  _i4.SmithyOperation<ListBucketAnalyticsConfigurationsOutput>
       listBucketAnalyticsConfigurations(
-    _i150.ListBucketAnalyticsConfigurationsRequest input, {
+    ListBucketAnalyticsConfigurationsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i151.ListBucketAnalyticsConfigurationsOperation(
+    return ListBucketAnalyticsConfigurationsOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -2667,14 +2423,14 @@ class S3Client {
   /// *   [PutBucketIntelligentTieringConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketIntelligentTieringConfiguration.html)
   ///
   /// *   [GetBucketIntelligentTieringConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketIntelligentTieringConfiguration.html)
-  _i4.SmithyOperation<_i152.ListBucketIntelligentTieringConfigurationsOutput>
+  _i4.SmithyOperation<ListBucketIntelligentTieringConfigurationsOutput>
       listBucketIntelligentTieringConfigurations(
-    _i153.ListBucketIntelligentTieringConfigurationsRequest input, {
+    ListBucketIntelligentTieringConfigurationsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i154.ListBucketIntelligentTieringConfigurationsOperation(
+    return ListBucketIntelligentTieringConfigurationsOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -2702,14 +2458,14 @@ class S3Client {
   /// *   [DeleteBucketInventoryConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketInventoryConfiguration.html)
   ///
   /// *   [PutBucketInventoryConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketInventoryConfiguration.html)
-  _i4.SmithyOperation<_i155.ListBucketInventoryConfigurationsOutput>
+  _i4.SmithyOperation<ListBucketInventoryConfigurationsOutput>
       listBucketInventoryConfigurations(
-    _i156.ListBucketInventoryConfigurationsRequest input, {
+    ListBucketInventoryConfigurationsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i157.ListBucketInventoryConfigurationsOperation(
+    return ListBucketInventoryConfigurationsOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -2737,14 +2493,14 @@ class S3Client {
   /// *   [GetBucketMetricsConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketMetricsConfiguration.html)
   ///
   /// *   [DeleteBucketMetricsConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketMetricsConfiguration.html)
-  _i4.SmithyOperation<_i158.ListBucketMetricsConfigurationsOutput>
+  _i4.SmithyOperation<ListBucketMetricsConfigurationsOutput>
       listBucketMetricsConfigurations(
-    _i159.ListBucketMetricsConfigurationsRequest input, {
+    ListBucketMetricsConfigurationsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i160.ListBucketMetricsConfigurationsOperation(
+    return ListBucketMetricsConfigurationsOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -2760,12 +2516,12 @@ class S3Client {
   /// Returns a list of all buckets owned by the authenticated sender of the request. To use this operation, you must have the `s3:ListAllMyBuckets` permission.
   ///
   /// For information about Amazon S3 buckets, see [Creating, configuring, and working with Amazon S3 buckets](https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-buckets-s3.html).
-  _i4.SmithyOperation<_i161.ListBucketsOutput> listBuckets({
+  _i4.SmithyOperation<ListBucketsOutput> listBuckets({
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i162.ListBucketsOperation(
+    return ListBucketsOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -2799,13 +2555,13 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [AbortMultipartUpload](https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html)
-  _i4.SmithyOperation<_i163.ListMultipartUploadsOutput> listMultipartUploads(
-    _i164.ListMultipartUploadsRequest input, {
+  _i4.SmithyOperation<ListMultipartUploadsOutput> listMultipartUploads(
+    ListMultipartUploadsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i165.ListMultipartUploadsOperation(
+    return ListMultipartUploadsOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -2837,13 +2593,13 @@ class S3Client {
   /// *   [PutObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html)
   ///
   /// *   [DeleteObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html)
-  _i4.SmithyOperation<_i166.ListObjectVersionsOutput> listObjectVersions(
-    _i167.ListObjectVersionsRequest input, {
+  _i4.SmithyOperation<ListObjectVersionsOutput> listObjectVersions(
+    ListObjectVersionsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i168.ListObjectVersionsOperation(
+    return ListObjectVersionsOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -2871,13 +2627,13 @@ class S3Client {
   /// *   [CreateBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html)
   ///
   /// *   [ListBuckets](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBuckets.html)
-  _i4.SmithyOperation<_i169.ListObjectsOutput> listObjects(
-    _i170.ListObjectsRequest input, {
+  _i4.SmithyOperation<ListObjectsOutput> listObjects(
+    ListObjectsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i171.ListObjectsOperation(
+    return ListObjectsOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -2907,15 +2663,14 @@ class S3Client {
   /// *   [PutObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html)
   ///
   /// *   [CreateBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html)
-  _i4.SmithyOperation<
-          _i4.PaginatedResult<_i172.ListObjectsV2Output, int, String>>
+  _i4.SmithyOperation<_i4.PaginatedResult<ListObjectsV2Output, int, String>>
       listObjectsV2(
-    _i173.ListObjectsV2Request input, {
+    ListObjectsV2Request input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i174.ListObjectsV2Operation(
+    return ListObjectsV2Operation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -2949,14 +2704,14 @@ class S3Client {
   /// *   [GetObjectAttributes](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html)
   ///
   /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-  _i4.SmithyOperation<
-      _i4.PaginatedResult<_i175.BuiltList<_i176.Part>, int, String>> listParts(
-    _i177.ListPartsRequest input, {
+  _i4.SmithyOperation<_i4.PaginatedResult<_i5.BuiltList<Part>, int, String>>
+      listParts(
+    ListPartsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i178.ListPartsOperation(
+    return ListPartsOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -2994,12 +2749,12 @@ class S3Client {
   ///
   /// *   [CreateBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html)
   _i4.SmithyOperation<void> putBucketAccelerateConfiguration(
-    _i179.PutBucketAccelerateConfigurationRequest input, {
+    PutBucketAccelerateConfigurationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i180.PutBucketAccelerateConfigurationOperation(
+    return PutBucketAccelerateConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -3122,12 +2877,12 @@ class S3Client {
   ///
   /// *   [GetObjectAcl](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAcl.html)
   _i4.SmithyOperation<void> putBucketAcl(
-    _i181.PutBucketAclRequest input, {
+    PutBucketAclRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i182.PutBucketAclOperation(
+    return PutBucketAclOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -3177,12 +2932,12 @@ class S3Client {
   ///
   /// *   [ListBucketAnalyticsConfigurations](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketAnalyticsConfigurations.html)
   _i4.SmithyOperation<void> putBucketAnalyticsConfiguration(
-    _i183.PutBucketAnalyticsConfigurationRequest input, {
+    PutBucketAnalyticsConfigurationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i184.PutBucketAnalyticsConfigurationOperation(
+    return PutBucketAnalyticsConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -3222,12 +2977,12 @@ class S3Client {
   ///
   /// *   [RESTOPTIONSobject](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTOPTIONSobject.html)
   _i4.SmithyOperation<void> putBucketCors(
-    _i185.PutBucketCorsRequest input, {
+    PutBucketCorsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i186.PutBucketCorsOperation(
+    return PutBucketCorsOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -3254,12 +3009,12 @@ class S3Client {
   ///
   /// *   [DeleteBucketEncryption](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketEncryption.html)
   _i4.SmithyOperation<void> putBucketEncryption(
-    _i187.PutBucketEncryptionRequest input, {
+    PutBucketEncryptionRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i188.PutBucketEncryptionOperation(
+    return PutBucketEncryptionOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -3309,12 +3064,12 @@ class S3Client {
   ///
   /// _Cause:_ You are not the owner of the specified bucket, or you do not have the `s3:PutIntelligentTieringConfiguration` bucket permission to set the configuration on the bucket.
   _i4.SmithyOperation<void> putBucketIntelligentTieringConfiguration(
-    _i189.PutBucketIntelligentTieringConfigurationRequest input, {
+    PutBucketIntelligentTieringConfigurationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i190.PutBucketIntelligentTieringConfigurationOperation(
+    return PutBucketIntelligentTieringConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -3369,12 +3124,12 @@ class S3Client {
   ///
   /// *   [ListBucketInventoryConfigurations](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketInventoryConfigurations.html)
   _i4.SmithyOperation<void> putBucketInventoryConfiguration(
-    _i191.PutBucketInventoryConfigurationRequest input, {
+    PutBucketInventoryConfigurationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i192.PutBucketInventoryConfigurationOperation(
+    return PutBucketInventoryConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -3427,12 +3182,12 @@ class S3Client {
   ///
   /// *   [DeleteBucketLifecycle](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketLifecycle.html)
   _i4.SmithyOperation<void> putBucketLifecycleConfiguration(
-    _i193.PutBucketLifecycleConfigurationRequest input, {
+    PutBucketLifecycleConfigurationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i194.PutBucketLifecycleConfigurationOperation(
+    return PutBucketLifecycleConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -3488,12 +3243,12 @@ class S3Client {
   ///
   /// *   [GetBucketLogging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketLogging.html)
   _i4.SmithyOperation<void> putBucketLogging(
-    _i195.PutBucketLoggingRequest input, {
+    PutBucketLoggingRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i196.PutBucketLoggingOperation(
+    return PutBucketLoggingOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -3529,12 +3284,12 @@ class S3Client {
   ///
   ///     *   HTTP Status Code: HTTP 400 Bad Request
   _i4.SmithyOperation<void> putBucketMetricsConfiguration(
-    _i197.PutBucketMetricsConfigurationRequest input, {
+    PutBucketMetricsConfigurationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i198.PutBucketMetricsConfigurationOperation(
+    return PutBucketMetricsConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -3571,12 +3326,12 @@ class S3Client {
   ///
   /// *   [GetBucketNotificationConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketNotificationConfiguration.html)
   _i4.SmithyOperation<void> putBucketNotificationConfiguration(
-    _i199.PutBucketNotificationConfigurationRequest input, {
+    PutBucketNotificationConfigurationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i200.PutBucketNotificationConfigurationOperation(
+    return PutBucketNotificationConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -3599,12 +3354,12 @@ class S3Client {
   ///
   /// *   DeleteBucketOwnershipControls
   _i4.SmithyOperation<void> putBucketOwnershipControls(
-    _i201.PutBucketOwnershipControlsRequest input, {
+    PutBucketOwnershipControlsRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i202.PutBucketOwnershipControlsOperation(
+    return PutBucketOwnershipControlsOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -3631,12 +3386,12 @@ class S3Client {
   ///
   /// *   [DeleteBucket](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucket.html)
   _i4.SmithyOperation<void> putBucketPolicy(
-    _i203.PutBucketPolicyRequest input, {
+    PutBucketPolicyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i204.PutBucketPolicyOperation(
+    return PutBucketPolicyOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -3681,12 +3436,12 @@ class S3Client {
   ///
   /// *   [DeleteBucketReplication](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketReplication.html)
   _i4.SmithyOperation<void> putBucketReplication(
-    _i205.PutBucketReplicationRequest input, {
+    PutBucketReplicationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i206.PutBucketReplicationOperation(
+    return PutBucketReplicationOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -3707,12 +3462,12 @@ class S3Client {
   ///
   /// *   [GetBucketRequestPayment](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketRequestPayment.html)
   _i4.SmithyOperation<void> putBucketRequestPayment(
-    _i207.PutBucketRequestPaymentRequest input, {
+    PutBucketRequestPaymentRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i208.PutBucketRequestPaymentOperation(
+    return PutBucketRequestPaymentOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -3758,12 +3513,12 @@ class S3Client {
   ///
   /// *   [DeleteBucketTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketTagging.html)
   _i4.SmithyOperation<void> putBucketTagging(
-    _i209.PutBucketTaggingRequest input, {
+    PutBucketTaggingRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i210.PutBucketTaggingOperation(
+    return PutBucketTaggingOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -3798,12 +3553,12 @@ class S3Client {
   ///
   /// *   [GetBucketVersioning](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketVersioning.html)
   _i4.SmithyOperation<void> putBucketVersioning(
-    _i211.PutBucketVersioningRequest input, {
+    PutBucketVersioningRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i212.PutBucketVersioningOperation(
+    return PutBucketVersioningOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -3868,12 +3623,12 @@ class S3Client {
   ///
   /// Amazon S3 has a limitation of 50 routing rules per website configuration. If you require more than 50 routing rules, you can use object redirect. For more information, see [Configuring an Object Redirect](https://docs.aws.amazon.com/AmazonS3/latest/dev/how-to-page-redirect.html) in the _Amazon S3 User Guide_.
   _i4.SmithyOperation<void> putBucketWebsite(
-    _i213.PutBucketWebsiteRequest input, {
+    PutBucketWebsiteRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i214.PutBucketWebsiteOperation(
+    return PutBucketWebsiteOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -3920,13 +3675,13 @@ class S3Client {
   /// *   [CopyObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html)
   ///
   /// *   [DeleteObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html)
-  _i4.SmithyOperation<_i215.PutObjectOutput> putObject(
-    _i216.PutObjectRequest input, {
+  _i4.SmithyOperation<PutObjectOutput> putObject(
+    PutObjectRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i217.PutObjectOperation(
+    return PutObjectOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -4043,13 +3798,13 @@ class S3Client {
   /// *   [CopyObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html)
   ///
   /// *   [GetObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html)
-  _i4.SmithyOperation<_i218.PutObjectAclOutput> putObjectAcl(
-    _i219.PutObjectAclRequest input, {
+  _i4.SmithyOperation<PutObjectAclOutput> putObjectAcl(
+    PutObjectAclRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i220.PutObjectAclOperation(
+    return PutObjectAclOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -4065,13 +3820,13 @@ class S3Client {
   /// Applies a legal hold configuration to the specified object. For more information, see [Locking Objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html).
   ///
   /// This action is not supported by Amazon S3 on Outposts.
-  _i4.SmithyOperation<_i221.PutObjectLegalHoldOutput> putObjectLegalHold(
-    _i222.PutObjectLegalHoldRequest input, {
+  _i4.SmithyOperation<PutObjectLegalHoldOutput> putObjectLegalHold(
+    PutObjectLegalHoldRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i223.PutObjectLegalHoldOperation(
+    return PutObjectLegalHoldOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -4091,14 +3846,14 @@ class S3Client {
   /// *   The `DefaultRetention` period can be either `Days` or `Years` but you must select one. You cannot specify `Days` and `Years` at the same time.
   ///
   /// *   You can only enable Object Lock for new buckets. If you want to turn on Object Lock for an existing bucket, contact Amazon Web Services Support.
-  _i4.SmithyOperation<_i224.PutObjectLockConfigurationOutput>
+  _i4.SmithyOperation<PutObjectLockConfigurationOutput>
       putObjectLockConfiguration(
-    _i225.PutObjectLockConfigurationRequest input, {
+    PutObjectLockConfigurationRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i226.PutObjectLockConfigurationOperation(
+    return PutObjectLockConfigurationOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -4114,13 +3869,13 @@ class S3Client {
   /// Places an Object Retention configuration on an object. For more information, see [Locking Objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html). Users or accounts require the `s3:PutObjectRetention` permission in order to place an Object Retention configuration on objects. Bypassing a Governance Retention configuration requires the `s3:BypassGovernanceRetention` permission.
   ///
   /// This action is not supported by Amazon S3 on Outposts.
-  _i4.SmithyOperation<_i227.PutObjectRetentionOutput> putObjectRetention(
-    _i228.PutObjectRetentionRequest input, {
+  _i4.SmithyOperation<PutObjectRetentionOutput> putObjectRetention(
+    PutObjectRetentionRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i229.PutObjectRetentionOperation(
+    return PutObjectRetentionOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -4169,13 +3924,13 @@ class S3Client {
   /// *   [GetObjectTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html)
   ///
   /// *   [DeleteObjectTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObjectTagging.html)
-  _i4.SmithyOperation<_i230.PutObjectTaggingOutput> putObjectTagging(
-    _i231.PutObjectTaggingRequest input, {
+  _i4.SmithyOperation<PutObjectTaggingOutput> putObjectTagging(
+    PutObjectTaggingRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i232.PutObjectTaggingOperation(
+    return PutObjectTaggingOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -4204,12 +3959,12 @@ class S3Client {
   ///
   /// *   [Using Amazon S3 Block Public Access](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html)
   _i4.SmithyOperation<void> putPublicAccessBlock(
-    _i233.PutPublicAccessBlockRequest input, {
+    PutPublicAccessBlockRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i234.PutPublicAccessBlockOperation(
+    return PutPublicAccessBlockOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -4335,13 +4090,13 @@ class S3Client {
   /// *   [PutBucketLifecycleConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycleConfiguration.html)
   ///
   /// *   [GetBucketNotificationConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketNotificationConfiguration.html)
-  _i4.SmithyOperation<_i235.RestoreObjectOutput> restoreObject(
-    _i236.RestoreObjectRequest input, {
+  _i4.SmithyOperation<RestoreObjectOutput> restoreObject(
+    RestoreObjectRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i237.RestoreObjectOperation(
+    return RestoreObjectOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -4405,13 +4160,13 @@ class S3Client {
   /// *   [GetBucketLifecycleConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketLifecycleConfiguration.html)
   ///
   /// *   [PutBucketLifecycleConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycleConfiguration.html)
-  _i4.SmithyOperation<_i238.SelectObjectContentOutput> selectObjectContent(
-    _i239.SelectObjectContentRequest input, {
+  _i4.SmithyOperation<SelectObjectContentOutput> selectObjectContent(
+    SelectObjectContentRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i240.SelectObjectContentOperation(
+    return SelectObjectContentOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -4479,13 +4234,13 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-  _i4.SmithyOperation<_i241.UploadPartOutput> uploadPart(
-    _i242.UploadPartRequest input, {
+  _i4.SmithyOperation<UploadPartOutput> uploadPart(
+    UploadPartRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i243.UploadPartOperation(
+    return UploadPartOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -4572,13 +4327,13 @@ class S3Client {
   /// *   [ListParts](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html)
   ///
   /// *   [ListMultipartUploads](https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html)
-  _i4.SmithyOperation<_i244.UploadPartCopyOutput> uploadPartCopy(
-    _i245.UploadPartCopyRequest input, {
+  _i4.SmithyOperation<UploadPartCopyOutput> uploadPartCopy(
+    UploadPartCopyRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i246.UploadPartCopyOperation(
+    return UploadPartCopyOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,
@@ -4607,12 +4362,12 @@ class S3Client {
   ///
   /// For information on how to view and use these functions, see [Using Amazon Web Services built Lambda functions](https://docs.aws.amazon.com/AmazonS3/latest/userguide/olap-examples.html) in the _Amazon S3 User Guide_.
   _i4.SmithyOperation<void> writeGetObjectResponse(
-    _i247.WriteGetObjectResponseRequest input, {
+    WriteGetObjectResponseRequest input, {
     _i1.AWSHttpClient? client,
     _i2.S3ClientConfig? s3ClientConfig,
     _i3.AWSCredentialsProvider? credentialsProvider,
   }) {
-    return _i248.WriteGetObjectResponseOperation(
+    return WriteGetObjectResponseOperation(
       region: _region,
       baseUri: _baseUri,
       s3ClientConfig: s3ClientConfig ?? _s3ClientConfig,

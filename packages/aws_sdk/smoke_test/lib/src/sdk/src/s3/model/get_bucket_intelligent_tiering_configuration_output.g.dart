@@ -9,7 +9,7 @@ part of 'get_bucket_intelligent_tiering_configuration_output.dart';
 class _$GetBucketIntelligentTieringConfigurationOutput
     extends GetBucketIntelligentTieringConfigurationOutput {
   @override
-  final _i3.IntelligentTieringConfiguration? intelligentTieringConfiguration;
+  final IntelligentTieringConfiguration? intelligentTieringConfiguration;
 
   factory _$GetBucketIntelligentTieringConfigurationOutput(
           [void Function(GetBucketIntelligentTieringConfigurationOutputBuilder)?
@@ -56,13 +56,12 @@ class GetBucketIntelligentTieringConfigurationOutputBuilder
             GetBucketIntelligentTieringConfigurationOutputBuilder> {
   _$GetBucketIntelligentTieringConfigurationOutput? _$v;
 
-  _i3.IntelligentTieringConfigurationBuilder? _intelligentTieringConfiguration;
-  _i3.IntelligentTieringConfigurationBuilder
-      get intelligentTieringConfiguration =>
-          _$this._intelligentTieringConfiguration ??=
-              new _i3.IntelligentTieringConfigurationBuilder();
+  IntelligentTieringConfigurationBuilder? _intelligentTieringConfiguration;
+  IntelligentTieringConfigurationBuilder get intelligentTieringConfiguration =>
+      _$this._intelligentTieringConfiguration ??=
+          new IntelligentTieringConfigurationBuilder();
   set intelligentTieringConfiguration(
-          _i3.IntelligentTieringConfigurationBuilder?
+          IntelligentTieringConfigurationBuilder?
               intelligentTieringConfiguration) =>
       _$this._intelligentTieringConfiguration = intelligentTieringConfiguration;
 

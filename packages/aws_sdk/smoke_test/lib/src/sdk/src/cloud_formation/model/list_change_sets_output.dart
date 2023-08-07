@@ -4,12 +4,11 @@
 library smoke_test.cloud_formation.model.list_change_sets_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/change_set_summary.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/change_set_summary.dart';
 
 part 'list_change_sets_output.g.dart';
 
@@ -19,11 +18,11 @@ abstract class ListChangeSetsOutput
     implements Built<ListChangeSetsOutput, ListChangeSetsOutputBuilder> {
   /// The output for the ListChangeSets action.
   factory ListChangeSetsOutput({
-    List<_i2.ChangeSetSummary>? summaries,
+    List<ChangeSetSummary>? summaries,
     String? nextToken,
   }) {
     return _$ListChangeSetsOutput._(
-      summaries: summaries == null ? null : _i3.BuiltList(summaries),
+      summaries: summaries == null ? null : _i2.BuiltList(summaries),
       nextToken: nextToken,
     );
   }
@@ -42,12 +41,12 @@ abstract class ListChangeSetsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<ListChangeSetsOutput>> serializers = [
+  static const List<_i3.SmithySerializer<ListChangeSetsOutput>> serializers = [
     ListChangeSetsOutputAwsQuerySerializer()
   ];
 
   /// A list of `ChangeSetSummary` structures that provides the ID and status of each change set for the specified stack.
-  _i3.BuiltList<_i2.ChangeSetSummary>? get summaries;
+  _i2.BuiltList<ChangeSetSummary>? get summaries;
 
   /// If the output exceeds 1 MB, a string that identifies the next page of change sets. If there is no additional page, this value is `null`.
   String? get nextToken;
@@ -72,7 +71,7 @@ abstract class ListChangeSetsOutput
 }
 
 class ListChangeSetsOutputAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<ListChangeSetsOutput> {
+    extends _i3.StructuredSmithySerializer<ListChangeSetsOutput> {
   const ListChangeSetsOutputAwsQuerySerializer()
       : super('ListChangeSetsOutput');
 
@@ -82,8 +81,8 @@ class ListChangeSetsOutputAwsQuerySerializer
         _$ListChangeSetsOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -105,16 +104,16 @@ class ListChangeSetsOutputAwsQuerySerializer
       }
       switch (key) {
         case 'Summaries':
-          result.summaries.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.summaries.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.ChangeSetSummary)],
+              _i2.BuiltList,
+              [FullType(ChangeSetSummary)],
             ),
-          ) as _i3.BuiltList<_i2.ChangeSetSummary>));
+          ) as _i2.BuiltList<ChangeSetSummary>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -133,29 +132,29 @@ class ListChangeSetsOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'ListChangeSetsOutputResponse',
-        _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final ListChangeSetsOutput(:summaries, :nextToken) = object;
     if (summaries != null) {
       result$
-        ..add(const _i4.XmlElementName('Summaries'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('Summaries'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           summaries,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
-            [FullType(_i2.ChangeSetSummary)],
+            _i2.BuiltList,
+            [FullType(ChangeSetSummary)],
           ),
         ));
     }
     if (nextToken != null) {
       result$
-        ..add(const _i4.XmlElementName('NextToken'))
+        ..add(const _i3.XmlElementName('NextToken'))
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),

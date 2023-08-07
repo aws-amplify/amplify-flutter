@@ -12,9 +12,9 @@ class _$DescribeChangeSetHooksOutput extends DescribeChangeSetHooksOutput {
   @override
   final String? changeSetName;
   @override
-  final _i4.BuiltList<_i2.ChangeSetHook>? hooks;
+  final _i2.BuiltList<ChangeSetHook>? hooks;
   @override
-  final _i3.ChangeSetHooksStatus? status;
+  final ChangeSetHooksStatus? status;
   @override
   final String? nextToken;
   @override
@@ -88,14 +88,14 @@ class DescribeChangeSetHooksOutputBuilder
   set changeSetName(String? changeSetName) =>
       _$this._changeSetName = changeSetName;
 
-  _i4.ListBuilder<_i2.ChangeSetHook>? _hooks;
-  _i4.ListBuilder<_i2.ChangeSetHook> get hooks =>
-      _$this._hooks ??= new _i4.ListBuilder<_i2.ChangeSetHook>();
-  set hooks(_i4.ListBuilder<_i2.ChangeSetHook>? hooks) => _$this._hooks = hooks;
+  _i2.ListBuilder<ChangeSetHook>? _hooks;
+  _i2.ListBuilder<ChangeSetHook> get hooks =>
+      _$this._hooks ??= new _i2.ListBuilder<ChangeSetHook>();
+  set hooks(_i2.ListBuilder<ChangeSetHook>? hooks) => _$this._hooks = hooks;
 
-  _i3.ChangeSetHooksStatus? _status;
-  _i3.ChangeSetHooksStatus? get status => _$this._status;
-  set status(_i3.ChangeSetHooksStatus? status) => _$this._status = status;
+  ChangeSetHooksStatus? _status;
+  ChangeSetHooksStatus? get status => _$this._status;
+  set status(ChangeSetHooksStatus? status) => _$this._status = status;
 
   String? _nextToken;
   String? get nextToken => _$this._nextToken;

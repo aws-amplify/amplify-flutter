@@ -18,25 +18,25 @@ class _$DescribeChangeSetOutput extends DescribeChangeSetOutput {
   @override
   final String? description;
   @override
-  final _i10.BuiltList<_i2.Parameter>? parameters;
+  final _i2.BuiltList<Parameter>? parameters;
   @override
   final DateTime? creationTime;
   @override
-  final _i3.ExecutionStatus? executionStatus;
+  final ExecutionStatus? executionStatus;
   @override
-  final _i4.ChangeSetStatus? status;
+  final ChangeSetStatus? status;
   @override
   final String? statusReason;
   @override
-  final _i10.BuiltList<String>? notificationArNs;
+  final _i2.BuiltList<String>? notificationArNs;
   @override
-  final _i5.RollbackConfiguration? rollbackConfiguration;
+  final RollbackConfiguration? rollbackConfiguration;
   @override
-  final _i10.BuiltList<_i6.Capability>? capabilities;
+  final _i2.BuiltList<Capability>? capabilities;
   @override
-  final _i10.BuiltList<_i7.Tag>? tags;
+  final _i2.BuiltList<Tag>? tags;
   @override
-  final _i10.BuiltList<_i8.Change>? changes;
+  final _i2.BuiltList<Change>? changes;
   @override
   final String? nextToken;
   @override
@@ -46,7 +46,7 @@ class _$DescribeChangeSetOutput extends DescribeChangeSetOutput {
   @override
   final String? rootChangeSetId;
   @override
-  final _i9.OnStackFailure? onStackFailure;
+  final OnStackFailure? onStackFailure;
 
   factory _$DescribeChangeSetOutput(
           [void Function(DescribeChangeSetOutputBuilder)? updates]) =>
@@ -164,10 +164,10 @@ class DescribeChangeSetOutputBuilder
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  _i10.ListBuilder<_i2.Parameter>? _parameters;
-  _i10.ListBuilder<_i2.Parameter> get parameters =>
-      _$this._parameters ??= new _i10.ListBuilder<_i2.Parameter>();
-  set parameters(_i10.ListBuilder<_i2.Parameter>? parameters) =>
+  _i2.ListBuilder<Parameter>? _parameters;
+  _i2.ListBuilder<Parameter> get parameters =>
+      _$this._parameters ??= new _i2.ListBuilder<Parameter>();
+  set parameters(_i2.ListBuilder<Parameter>? parameters) =>
       _$this._parameters = parameters;
 
   DateTime? _creationTime;
@@ -175,48 +175,46 @@ class DescribeChangeSetOutputBuilder
   set creationTime(DateTime? creationTime) =>
       _$this._creationTime = creationTime;
 
-  _i3.ExecutionStatus? _executionStatus;
-  _i3.ExecutionStatus? get executionStatus => _$this._executionStatus;
-  set executionStatus(_i3.ExecutionStatus? executionStatus) =>
+  ExecutionStatus? _executionStatus;
+  ExecutionStatus? get executionStatus => _$this._executionStatus;
+  set executionStatus(ExecutionStatus? executionStatus) =>
       _$this._executionStatus = executionStatus;
 
-  _i4.ChangeSetStatus? _status;
-  _i4.ChangeSetStatus? get status => _$this._status;
-  set status(_i4.ChangeSetStatus? status) => _$this._status = status;
+  ChangeSetStatus? _status;
+  ChangeSetStatus? get status => _$this._status;
+  set status(ChangeSetStatus? status) => _$this._status = status;
 
   String? _statusReason;
   String? get statusReason => _$this._statusReason;
   set statusReason(String? statusReason) => _$this._statusReason = statusReason;
 
-  _i10.ListBuilder<String>? _notificationArNs;
-  _i10.ListBuilder<String> get notificationArNs =>
-      _$this._notificationArNs ??= new _i10.ListBuilder<String>();
-  set notificationArNs(_i10.ListBuilder<String>? notificationArNs) =>
+  _i2.ListBuilder<String>? _notificationArNs;
+  _i2.ListBuilder<String> get notificationArNs =>
+      _$this._notificationArNs ??= new _i2.ListBuilder<String>();
+  set notificationArNs(_i2.ListBuilder<String>? notificationArNs) =>
       _$this._notificationArNs = notificationArNs;
 
-  _i5.RollbackConfigurationBuilder? _rollbackConfiguration;
-  _i5.RollbackConfigurationBuilder get rollbackConfiguration =>
-      _$this._rollbackConfiguration ??= new _i5.RollbackConfigurationBuilder();
+  RollbackConfigurationBuilder? _rollbackConfiguration;
+  RollbackConfigurationBuilder get rollbackConfiguration =>
+      _$this._rollbackConfiguration ??= new RollbackConfigurationBuilder();
   set rollbackConfiguration(
-          _i5.RollbackConfigurationBuilder? rollbackConfiguration) =>
+          RollbackConfigurationBuilder? rollbackConfiguration) =>
       _$this._rollbackConfiguration = rollbackConfiguration;
 
-  _i10.ListBuilder<_i6.Capability>? _capabilities;
-  _i10.ListBuilder<_i6.Capability> get capabilities =>
-      _$this._capabilities ??= new _i10.ListBuilder<_i6.Capability>();
-  set capabilities(_i10.ListBuilder<_i6.Capability>? capabilities) =>
+  _i2.ListBuilder<Capability>? _capabilities;
+  _i2.ListBuilder<Capability> get capabilities =>
+      _$this._capabilities ??= new _i2.ListBuilder<Capability>();
+  set capabilities(_i2.ListBuilder<Capability>? capabilities) =>
       _$this._capabilities = capabilities;
 
-  _i10.ListBuilder<_i7.Tag>? _tags;
-  _i10.ListBuilder<_i7.Tag> get tags =>
-      _$this._tags ??= new _i10.ListBuilder<_i7.Tag>();
-  set tags(_i10.ListBuilder<_i7.Tag>? tags) => _$this._tags = tags;
+  _i2.ListBuilder<Tag>? _tags;
+  _i2.ListBuilder<Tag> get tags => _$this._tags ??= new _i2.ListBuilder<Tag>();
+  set tags(_i2.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
-  _i10.ListBuilder<_i8.Change>? _changes;
-  _i10.ListBuilder<_i8.Change> get changes =>
-      _$this._changes ??= new _i10.ListBuilder<_i8.Change>();
-  set changes(_i10.ListBuilder<_i8.Change>? changes) =>
-      _$this._changes = changes;
+  _i2.ListBuilder<Change>? _changes;
+  _i2.ListBuilder<Change> get changes =>
+      _$this._changes ??= new _i2.ListBuilder<Change>();
+  set changes(_i2.ListBuilder<Change>? changes) => _$this._changes = changes;
 
   String? _nextToken;
   String? get nextToken => _$this._nextToken;
@@ -237,9 +235,9 @@ class DescribeChangeSetOutputBuilder
   set rootChangeSetId(String? rootChangeSetId) =>
       _$this._rootChangeSetId = rootChangeSetId;
 
-  _i9.OnStackFailure? _onStackFailure;
-  _i9.OnStackFailure? get onStackFailure => _$this._onStackFailure;
-  set onStackFailure(_i9.OnStackFailure? onStackFailure) =>
+  OnStackFailure? _onStackFailure;
+  OnStackFailure? get onStackFailure => _$this._onStackFailure;
+  set onStackFailure(OnStackFailure? onStackFailure) =>
       _$this._onStackFailure = onStackFailure;
 
   DescribeChangeSetOutputBuilder();

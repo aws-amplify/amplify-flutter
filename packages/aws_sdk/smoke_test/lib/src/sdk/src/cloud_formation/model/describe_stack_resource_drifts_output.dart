@@ -4,12 +4,11 @@
 library smoke_test.cloud_formation.model.describe_stack_resource_drifts_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_resource_drift.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_resource_drift.dart';
 
 part 'describe_stack_resource_drifts_output.g.dart';
 
@@ -20,11 +19,11 @@ abstract class DescribeStackResourceDriftsOutput
         Built<DescribeStackResourceDriftsOutput,
             DescribeStackResourceDriftsOutputBuilder> {
   factory DescribeStackResourceDriftsOutput({
-    required List<_i2.StackResourceDrift> stackResourceDrifts,
+    required List<StackResourceDrift> stackResourceDrifts,
     String? nextToken,
   }) {
     return _$DescribeStackResourceDriftsOutput._(
-      stackResourceDrifts: _i3.BuiltList(stackResourceDrifts),
+      stackResourceDrifts: _i2.BuiltList(stackResourceDrifts),
       nextToken: nextToken,
     );
   }
@@ -42,13 +41,13 @@ abstract class DescribeStackResourceDriftsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<DescribeStackResourceDriftsOutput>>
+  static const List<_i3.SmithySerializer<DescribeStackResourceDriftsOutput>>
       serializers = [DescribeStackResourceDriftsOutputAwsQuerySerializer()];
 
   /// Drift information for the resources that have been checked for drift in the specified stack. This includes actual and expected configuration values for resources where CloudFormation detects drift.
   ///
   /// For a given stack, there will be one `StackResourceDrift` for each stack resource that has been checked for drift. Resources that haven't yet been checked for drift aren't included. Resources that do not currently support drift detection aren't checked, and so not included. For a list of resources that support drift detection, see [Resources that Support Drift Detection](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html).
-  _i3.BuiltList<_i2.StackResourceDrift> get stackResourceDrifts;
+  _i2.BuiltList<StackResourceDrift> get stackResourceDrifts;
 
   /// If the request doesn't return all the remaining results, `NextToken` is set to a token. To retrieve the next set of results, call `DescribeStackResourceDrifts` again and assign that token to the request object's `NextToken` parameter. If the request returns all results, `NextToken` is set to `null`.
   String? get nextToken;
@@ -74,7 +73,7 @@ abstract class DescribeStackResourceDriftsOutput
 }
 
 class DescribeStackResourceDriftsOutputAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<DescribeStackResourceDriftsOutput> {
+    extends _i3.StructuredSmithySerializer<DescribeStackResourceDriftsOutput> {
   const DescribeStackResourceDriftsOutputAwsQuerySerializer()
       : super('DescribeStackResourceDriftsOutput');
 
@@ -84,8 +83,8 @@ class DescribeStackResourceDriftsOutputAwsQuerySerializer
         _$DescribeStackResourceDriftsOutput,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -107,16 +106,16 @@ class DescribeStackResourceDriftsOutputAwsQuerySerializer
       }
       switch (key) {
         case 'StackResourceDrifts':
-          result.stackResourceDrifts.replace((const _i4.XmlBuiltListSerializer(
-                  indexer: _i4.XmlIndexer.awsQueryList)
+          result.stackResourceDrifts.replace((const _i3.XmlBuiltListSerializer(
+                  indexer: _i3.XmlIndexer.awsQueryList)
               .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.StackResourceDrift)],
+              _i2.BuiltList,
+              [FullType(StackResourceDrift)],
             ),
-          ) as _i3.BuiltList<_i2.StackResourceDrift>));
+          ) as _i2.BuiltList<StackResourceDrift>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -135,28 +134,28 @@ class DescribeStackResourceDriftsOutputAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'DescribeStackResourceDriftsOutputResponse',
-        _i4.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final DescribeStackResourceDriftsOutput(:stackResourceDrifts, :nextToken) =
         object;
     result$
-      ..add(const _i4.XmlElementName('StackResourceDrifts'))
+      ..add(const _i3.XmlElementName('StackResourceDrifts'))
       ..add(
-          const _i4.XmlBuiltListSerializer(indexer: _i4.XmlIndexer.awsQueryList)
+          const _i3.XmlBuiltListSerializer(indexer: _i3.XmlIndexer.awsQueryList)
               .serialize(
         serializers,
         stackResourceDrifts,
         specifiedType: const FullType.nullable(
-          _i3.BuiltList,
-          [FullType(_i2.StackResourceDrift)],
+          _i2.BuiltList,
+          [FullType(StackResourceDrift)],
         ),
       ));
     if (nextToken != null) {
       result$
-        ..add(const _i4.XmlElementName('NextToken'))
+        ..add(const _i3.XmlElementName('NextToken'))
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),

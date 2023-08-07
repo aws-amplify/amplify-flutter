@@ -6,9 +6,8 @@ library rest_json1_v2.rest_json_protocol.model.post_union_with_json_name_output;
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:rest_json1_v2/src/rest_json_protocol/model/union_with_json_name.dart'
-    as _i2;
-import 'package:smithy/smithy.dart' as _i3;
+import 'package:rest_json1_v2/src/rest_json_protocol/model/union_with_json_name.dart';
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'post_union_with_json_name_output.g.dart';
 
@@ -16,7 +15,7 @@ abstract class PostUnionWithJsonNameOutput
     with _i1.AWSEquatable<PostUnionWithJsonNameOutput>
     implements
         Built<PostUnionWithJsonNameOutput, PostUnionWithJsonNameOutputBuilder> {
-  factory PostUnionWithJsonNameOutput({required _i2.UnionWithJsonName value}) {
+  factory PostUnionWithJsonNameOutput({required UnionWithJsonName value}) {
     return _$PostUnionWithJsonNameOutput._(value: value);
   }
 
@@ -33,10 +32,10 @@ abstract class PostUnionWithJsonNameOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<PostUnionWithJsonNameOutput>>
+  static const List<_i2.SmithySerializer<PostUnionWithJsonNameOutput>>
       serializers = [PostUnionWithJsonNameOutputRestJson1Serializer()];
 
-  _i2.UnionWithJsonName get value;
+  UnionWithJsonName get value;
   @override
   List<Object?> get props => [value];
   @override
@@ -51,7 +50,7 @@ abstract class PostUnionWithJsonNameOutput
 }
 
 class PostUnionWithJsonNameOutputRestJson1Serializer
-    extends _i3.StructuredSmithySerializer<PostUnionWithJsonNameOutput> {
+    extends _i2.StructuredSmithySerializer<PostUnionWithJsonNameOutput> {
   const PostUnionWithJsonNameOutputRestJson1Serializer()
       : super('PostUnionWithJsonNameOutput');
 
@@ -61,8 +60,8 @@ class PostUnionWithJsonNameOutputRestJson1Serializer
         _$PostUnionWithJsonNameOutput,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -86,8 +85,8 @@ class PostUnionWithJsonNameOutputRestJson1Serializer
         case 'value':
           result.value = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.UnionWithJsonName),
-          ) as _i2.UnionWithJsonName);
+            specifiedType: const FullType(UnionWithJsonName),
+          ) as UnionWithJsonName);
       }
     }
 
@@ -106,7 +105,7 @@ class PostUnionWithJsonNameOutputRestJson1Serializer
       'value',
       serializers.serialize(
         value,
-        specifiedType: const FullType(_i2.UnionWithJsonName),
+        specifiedType: const FullType(UnionWithJsonName),
       ),
     ]);
     return result$;

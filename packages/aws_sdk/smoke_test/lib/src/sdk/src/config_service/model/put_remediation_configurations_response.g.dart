@@ -9,7 +9,7 @@ part of 'put_remediation_configurations_response.dart';
 class _$PutRemediationConfigurationsResponse
     extends PutRemediationConfigurationsResponse {
   @override
-  final _i3.BuiltList<_i2.FailedRemediationBatch>? failedBatches;
+  final _i2.BuiltList<FailedRemediationBatch>? failedBatches;
 
   factory _$PutRemediationConfigurationsResponse(
           [void Function(PutRemediationConfigurationsResponseBuilder)?
@@ -50,12 +50,10 @@ class PutRemediationConfigurationsResponseBuilder
             PutRemediationConfigurationsResponseBuilder> {
   _$PutRemediationConfigurationsResponse? _$v;
 
-  _i3.ListBuilder<_i2.FailedRemediationBatch>? _failedBatches;
-  _i3.ListBuilder<_i2.FailedRemediationBatch> get failedBatches =>
-      _$this._failedBatches ??=
-          new _i3.ListBuilder<_i2.FailedRemediationBatch>();
-  set failedBatches(
-          _i3.ListBuilder<_i2.FailedRemediationBatch>? failedBatches) =>
+  _i2.ListBuilder<FailedRemediationBatch>? _failedBatches;
+  _i2.ListBuilder<FailedRemediationBatch> get failedBatches =>
+      _$this._failedBatches ??= new _i2.ListBuilder<FailedRemediationBatch>();
+  set failedBatches(_i2.ListBuilder<FailedRemediationBatch>? failedBatches) =>
       _$this._failedBatches = failedBatches;
 
   PutRemediationConfigurationsResponseBuilder();

@@ -8,13 +8,13 @@ part of 'get.dart';
 
 class _$Get extends Get {
   @override
-  final _i3.BuiltMap<String, _i2.AttributeValue> key;
+  final _i2.BuiltMap<String, AttributeValue> key;
   @override
   final String tableName;
   @override
   final String? projectionExpression;
   @override
-  final _i3.BuiltMap<String, String>? expressionAttributeNames;
+  final _i2.BuiltMap<String, String>? expressionAttributeNames;
 
   factory _$Get([void Function(GetBuilder)? updates]) =>
       (new GetBuilder()..update(updates))._build();
@@ -61,10 +61,10 @@ class _$Get extends Get {
 class GetBuilder implements Builder<Get, GetBuilder> {
   _$Get? _$v;
 
-  _i3.MapBuilder<String, _i2.AttributeValue>? _key;
-  _i3.MapBuilder<String, _i2.AttributeValue> get key =>
-      _$this._key ??= new _i3.MapBuilder<String, _i2.AttributeValue>();
-  set key(_i3.MapBuilder<String, _i2.AttributeValue>? key) => _$this._key = key;
+  _i2.MapBuilder<String, AttributeValue>? _key;
+  _i2.MapBuilder<String, AttributeValue> get key =>
+      _$this._key ??= new _i2.MapBuilder<String, AttributeValue>();
+  set key(_i2.MapBuilder<String, AttributeValue>? key) => _$this._key = key;
 
   String? _tableName;
   String? get tableName => _$this._tableName;
@@ -75,11 +75,11 @@ class GetBuilder implements Builder<Get, GetBuilder> {
   set projectionExpression(String? projectionExpression) =>
       _$this._projectionExpression = projectionExpression;
 
-  _i3.MapBuilder<String, String>? _expressionAttributeNames;
-  _i3.MapBuilder<String, String> get expressionAttributeNames =>
-      _$this._expressionAttributeNames ??= new _i3.MapBuilder<String, String>();
+  _i2.MapBuilder<String, String>? _expressionAttributeNames;
+  _i2.MapBuilder<String, String> get expressionAttributeNames =>
+      _$this._expressionAttributeNames ??= new _i2.MapBuilder<String, String>();
   set expressionAttributeNames(
-          _i3.MapBuilder<String, String>? expressionAttributeNames) =>
+          _i2.MapBuilder<String, String>? expressionAttributeNames) =>
       _$this._expressionAttributeNames = expressionAttributeNames;
 
   GetBuilder();

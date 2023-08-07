@@ -8,7 +8,7 @@ part of 'list_type_versions_output.dart';
 
 class _$ListTypeVersionsOutput extends ListTypeVersionsOutput {
   @override
-  final _i3.BuiltList<_i2.TypeVersionSummary>? typeVersionSummaries;
+  final _i2.BuiltList<TypeVersionSummary>? typeVersionSummaries;
   @override
   final String? nextToken;
 
@@ -50,12 +50,12 @@ class ListTypeVersionsOutputBuilder
     implements Builder<ListTypeVersionsOutput, ListTypeVersionsOutputBuilder> {
   _$ListTypeVersionsOutput? _$v;
 
-  _i3.ListBuilder<_i2.TypeVersionSummary>? _typeVersionSummaries;
-  _i3.ListBuilder<_i2.TypeVersionSummary> get typeVersionSummaries =>
+  _i2.ListBuilder<TypeVersionSummary>? _typeVersionSummaries;
+  _i2.ListBuilder<TypeVersionSummary> get typeVersionSummaries =>
       _$this._typeVersionSummaries ??=
-          new _i3.ListBuilder<_i2.TypeVersionSummary>();
+          new _i2.ListBuilder<TypeVersionSummary>();
   set typeVersionSummaries(
-          _i3.ListBuilder<_i2.TypeVersionSummary>? typeVersionSummaries) =>
+          _i2.ListBuilder<TypeVersionSummary>? typeVersionSummaries) =>
       _$this._typeVersionSummaries = typeVersionSummaries;
 
   String? _nextToken;

@@ -18,33 +18,33 @@ class _$UpdateStackSetInput extends UpdateStackSetInput {
   @override
   final bool? usePreviousTemplate;
   @override
-  final _i12.BuiltList<_i3.Parameter>? parameters;
+  final _i3.BuiltList<Parameter>? parameters;
   @override
-  final _i12.BuiltList<_i4.Capability>? capabilities;
+  final _i3.BuiltList<Capability>? capabilities;
   @override
-  final _i12.BuiltList<_i5.Tag>? tags;
+  final _i3.BuiltList<Tag>? tags;
   @override
-  final _i6.StackSetOperationPreferences? operationPreferences;
+  final StackSetOperationPreferences? operationPreferences;
   @override
   final String? administrationRoleArn;
   @override
   final String? executionRoleName;
   @override
-  final _i7.DeploymentTargets? deploymentTargets;
+  final DeploymentTargets? deploymentTargets;
   @override
-  final _i8.PermissionModels? permissionModel;
+  final PermissionModels? permissionModel;
   @override
-  final _i9.AutoDeployment? autoDeployment;
+  final AutoDeployment? autoDeployment;
   @override
   final String? operationId;
   @override
-  final _i12.BuiltList<String>? accounts;
+  final _i3.BuiltList<String>? accounts;
   @override
-  final _i12.BuiltList<String>? regions;
+  final _i3.BuiltList<String>? regions;
   @override
-  final _i10.CallAs? callAs;
+  final CallAs? callAs;
   @override
-  final _i11.ManagedExecution? managedExecution;
+  final ManagedExecution? managedExecution;
 
   factory _$UpdateStackSetInput(
           [void Function(UpdateStackSetInputBuilder)? updates]) =>
@@ -161,29 +161,28 @@ class UpdateStackSetInputBuilder
   set usePreviousTemplate(bool? usePreviousTemplate) =>
       _$this._usePreviousTemplate = usePreviousTemplate;
 
-  _i12.ListBuilder<_i3.Parameter>? _parameters;
-  _i12.ListBuilder<_i3.Parameter> get parameters =>
-      _$this._parameters ??= new _i12.ListBuilder<_i3.Parameter>();
-  set parameters(_i12.ListBuilder<_i3.Parameter>? parameters) =>
+  _i3.ListBuilder<Parameter>? _parameters;
+  _i3.ListBuilder<Parameter> get parameters =>
+      _$this._parameters ??= new _i3.ListBuilder<Parameter>();
+  set parameters(_i3.ListBuilder<Parameter>? parameters) =>
       _$this._parameters = parameters;
 
-  _i12.ListBuilder<_i4.Capability>? _capabilities;
-  _i12.ListBuilder<_i4.Capability> get capabilities =>
-      _$this._capabilities ??= new _i12.ListBuilder<_i4.Capability>();
-  set capabilities(_i12.ListBuilder<_i4.Capability>? capabilities) =>
+  _i3.ListBuilder<Capability>? _capabilities;
+  _i3.ListBuilder<Capability> get capabilities =>
+      _$this._capabilities ??= new _i3.ListBuilder<Capability>();
+  set capabilities(_i3.ListBuilder<Capability>? capabilities) =>
       _$this._capabilities = capabilities;
 
-  _i12.ListBuilder<_i5.Tag>? _tags;
-  _i12.ListBuilder<_i5.Tag> get tags =>
-      _$this._tags ??= new _i12.ListBuilder<_i5.Tag>();
-  set tags(_i12.ListBuilder<_i5.Tag>? tags) => _$this._tags = tags;
+  _i3.ListBuilder<Tag>? _tags;
+  _i3.ListBuilder<Tag> get tags => _$this._tags ??= new _i3.ListBuilder<Tag>();
+  set tags(_i3.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
-  _i6.StackSetOperationPreferencesBuilder? _operationPreferences;
-  _i6.StackSetOperationPreferencesBuilder get operationPreferences =>
+  StackSetOperationPreferencesBuilder? _operationPreferences;
+  StackSetOperationPreferencesBuilder get operationPreferences =>
       _$this._operationPreferences ??=
-          new _i6.StackSetOperationPreferencesBuilder();
+          new StackSetOperationPreferencesBuilder();
   set operationPreferences(
-          _i6.StackSetOperationPreferencesBuilder? operationPreferences) =>
+          StackSetOperationPreferencesBuilder? operationPreferences) =>
       _$this._operationPreferences = operationPreferences;
 
   String? _administrationRoleArn;
@@ -196,46 +195,46 @@ class UpdateStackSetInputBuilder
   set executionRoleName(String? executionRoleName) =>
       _$this._executionRoleName = executionRoleName;
 
-  _i7.DeploymentTargetsBuilder? _deploymentTargets;
-  _i7.DeploymentTargetsBuilder get deploymentTargets =>
-      _$this._deploymentTargets ??= new _i7.DeploymentTargetsBuilder();
-  set deploymentTargets(_i7.DeploymentTargetsBuilder? deploymentTargets) =>
+  DeploymentTargetsBuilder? _deploymentTargets;
+  DeploymentTargetsBuilder get deploymentTargets =>
+      _$this._deploymentTargets ??= new DeploymentTargetsBuilder();
+  set deploymentTargets(DeploymentTargetsBuilder? deploymentTargets) =>
       _$this._deploymentTargets = deploymentTargets;
 
-  _i8.PermissionModels? _permissionModel;
-  _i8.PermissionModels? get permissionModel => _$this._permissionModel;
-  set permissionModel(_i8.PermissionModels? permissionModel) =>
+  PermissionModels? _permissionModel;
+  PermissionModels? get permissionModel => _$this._permissionModel;
+  set permissionModel(PermissionModels? permissionModel) =>
       _$this._permissionModel = permissionModel;
 
-  _i9.AutoDeploymentBuilder? _autoDeployment;
-  _i9.AutoDeploymentBuilder get autoDeployment =>
-      _$this._autoDeployment ??= new _i9.AutoDeploymentBuilder();
-  set autoDeployment(_i9.AutoDeploymentBuilder? autoDeployment) =>
+  AutoDeploymentBuilder? _autoDeployment;
+  AutoDeploymentBuilder get autoDeployment =>
+      _$this._autoDeployment ??= new AutoDeploymentBuilder();
+  set autoDeployment(AutoDeploymentBuilder? autoDeployment) =>
       _$this._autoDeployment = autoDeployment;
 
   String? _operationId;
   String? get operationId => _$this._operationId;
   set operationId(String? operationId) => _$this._operationId = operationId;
 
-  _i12.ListBuilder<String>? _accounts;
-  _i12.ListBuilder<String> get accounts =>
-      _$this._accounts ??= new _i12.ListBuilder<String>();
-  set accounts(_i12.ListBuilder<String>? accounts) =>
+  _i3.ListBuilder<String>? _accounts;
+  _i3.ListBuilder<String> get accounts =>
+      _$this._accounts ??= new _i3.ListBuilder<String>();
+  set accounts(_i3.ListBuilder<String>? accounts) =>
       _$this._accounts = accounts;
 
-  _i12.ListBuilder<String>? _regions;
-  _i12.ListBuilder<String> get regions =>
-      _$this._regions ??= new _i12.ListBuilder<String>();
-  set regions(_i12.ListBuilder<String>? regions) => _$this._regions = regions;
+  _i3.ListBuilder<String>? _regions;
+  _i3.ListBuilder<String> get regions =>
+      _$this._regions ??= new _i3.ListBuilder<String>();
+  set regions(_i3.ListBuilder<String>? regions) => _$this._regions = regions;
 
-  _i10.CallAs? _callAs;
-  _i10.CallAs? get callAs => _$this._callAs;
-  set callAs(_i10.CallAs? callAs) => _$this._callAs = callAs;
+  CallAs? _callAs;
+  CallAs? get callAs => _$this._callAs;
+  set callAs(CallAs? callAs) => _$this._callAs = callAs;
 
-  _i11.ManagedExecutionBuilder? _managedExecution;
-  _i11.ManagedExecutionBuilder get managedExecution =>
-      _$this._managedExecution ??= new _i11.ManagedExecutionBuilder();
-  set managedExecution(_i11.ManagedExecutionBuilder? managedExecution) =>
+  ManagedExecutionBuilder? _managedExecution;
+  ManagedExecutionBuilder get managedExecution =>
+      _$this._managedExecution ??= new ManagedExecutionBuilder();
+  set managedExecution(ManagedExecutionBuilder? managedExecution) =>
       _$this._managedExecution = managedExecution;
 
   UpdateStackSetInputBuilder() {

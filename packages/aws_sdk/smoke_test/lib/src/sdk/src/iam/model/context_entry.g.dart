@@ -10,9 +10,9 @@ class _$ContextEntry extends ContextEntry {
   @override
   final String? contextKeyName;
   @override
-  final _i3.BuiltList<String>? contextKeyValues;
+  final _i2.BuiltList<String>? contextKeyValues;
   @override
-  final _i2.ContextKeyTypeEnum? contextKeyType;
+  final ContextKeyTypeEnum? contextKeyType;
 
   factory _$ContextEntry([void Function(ContextEntryBuilder)? updates]) =>
       (new ContextEntryBuilder()..update(updates))._build();
@@ -57,15 +57,15 @@ class ContextEntryBuilder
   set contextKeyName(String? contextKeyName) =>
       _$this._contextKeyName = contextKeyName;
 
-  _i3.ListBuilder<String>? _contextKeyValues;
-  _i3.ListBuilder<String> get contextKeyValues =>
-      _$this._contextKeyValues ??= new _i3.ListBuilder<String>();
-  set contextKeyValues(_i3.ListBuilder<String>? contextKeyValues) =>
+  _i2.ListBuilder<String>? _contextKeyValues;
+  _i2.ListBuilder<String> get contextKeyValues =>
+      _$this._contextKeyValues ??= new _i2.ListBuilder<String>();
+  set contextKeyValues(_i2.ListBuilder<String>? contextKeyValues) =>
       _$this._contextKeyValues = contextKeyValues;
 
-  _i2.ContextKeyTypeEnum? _contextKeyType;
-  _i2.ContextKeyTypeEnum? get contextKeyType => _$this._contextKeyType;
-  set contextKeyType(_i2.ContextKeyTypeEnum? contextKeyType) =>
+  ContextKeyTypeEnum? _contextKeyType;
+  ContextKeyTypeEnum? get contextKeyType => _$this._contextKeyType;
+  set contextKeyType(ContextKeyTypeEnum? contextKeyType) =>
       _$this._contextKeyType = contextKeyType;
 
   ContextEntryBuilder();

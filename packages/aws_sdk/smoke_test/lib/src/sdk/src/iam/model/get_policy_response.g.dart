@@ -8,7 +8,7 @@ part of 'get_policy_response.dart';
 
 class _$GetPolicyResponse extends GetPolicyResponse {
   @override
-  final _i2.Policy? policy;
+  final Policy? policy;
 
   factory _$GetPolicyResponse(
           [void Function(GetPolicyResponseBuilder)? updates]) =>
@@ -43,9 +43,9 @@ class GetPolicyResponseBuilder
     implements Builder<GetPolicyResponse, GetPolicyResponseBuilder> {
   _$GetPolicyResponse? _$v;
 
-  _i2.PolicyBuilder? _policy;
-  _i2.PolicyBuilder get policy => _$this._policy ??= new _i2.PolicyBuilder();
-  set policy(_i2.PolicyBuilder? policy) => _$this._policy = policy;
+  PolicyBuilder? _policy;
+  PolicyBuilder get policy => _$this._policy ??= new PolicyBuilder();
+  set policy(PolicyBuilder? policy) => _$this._policy = policy;
 
   GetPolicyResponseBuilder();
 

@@ -16,15 +16,15 @@ class _$SourceTableDetails extends SourceTableDetails {
   @override
   final _i2.Int64? tableSizeBytes;
   @override
-  final _i6.BuiltList<_i3.KeySchemaElement> keySchema;
+  final _i3.BuiltList<KeySchemaElement> keySchema;
   @override
   final DateTime tableCreationDateTime;
   @override
-  final _i4.ProvisionedThroughput provisionedThroughput;
+  final ProvisionedThroughput provisionedThroughput;
   @override
   final _i2.Int64? itemCount;
   @override
-  final _i5.BillingMode? billingMode;
+  final BillingMode? billingMode;
 
   factory _$SourceTableDetails(
           [void Function(SourceTableDetailsBuilder)? updates]) =>
@@ -115,10 +115,10 @@ class SourceTableDetailsBuilder
   set tableSizeBytes(_i2.Int64? tableSizeBytes) =>
       _$this._tableSizeBytes = tableSizeBytes;
 
-  _i6.ListBuilder<_i3.KeySchemaElement>? _keySchema;
-  _i6.ListBuilder<_i3.KeySchemaElement> get keySchema =>
-      _$this._keySchema ??= new _i6.ListBuilder<_i3.KeySchemaElement>();
-  set keySchema(_i6.ListBuilder<_i3.KeySchemaElement>? keySchema) =>
+  _i3.ListBuilder<KeySchemaElement>? _keySchema;
+  _i3.ListBuilder<KeySchemaElement> get keySchema =>
+      _$this._keySchema ??= new _i3.ListBuilder<KeySchemaElement>();
+  set keySchema(_i3.ListBuilder<KeySchemaElement>? keySchema) =>
       _$this._keySchema = keySchema;
 
   DateTime? _tableCreationDateTime;
@@ -126,20 +126,20 @@ class SourceTableDetailsBuilder
   set tableCreationDateTime(DateTime? tableCreationDateTime) =>
       _$this._tableCreationDateTime = tableCreationDateTime;
 
-  _i4.ProvisionedThroughputBuilder? _provisionedThroughput;
-  _i4.ProvisionedThroughputBuilder get provisionedThroughput =>
-      _$this._provisionedThroughput ??= new _i4.ProvisionedThroughputBuilder();
+  ProvisionedThroughputBuilder? _provisionedThroughput;
+  ProvisionedThroughputBuilder get provisionedThroughput =>
+      _$this._provisionedThroughput ??= new ProvisionedThroughputBuilder();
   set provisionedThroughput(
-          _i4.ProvisionedThroughputBuilder? provisionedThroughput) =>
+          ProvisionedThroughputBuilder? provisionedThroughput) =>
       _$this._provisionedThroughput = provisionedThroughput;
 
   _i2.Int64? _itemCount;
   _i2.Int64? get itemCount => _$this._itemCount;
   set itemCount(_i2.Int64? itemCount) => _$this._itemCount = itemCount;
 
-  _i5.BillingMode? _billingMode;
-  _i5.BillingMode? get billingMode => _$this._billingMode;
-  set billingMode(_i5.BillingMode? billingMode) =>
+  BillingMode? _billingMode;
+  BillingMode? get billingMode => _$this._billingMode;
+  set billingMode(BillingMode? billingMode) =>
       _$this._billingMode = billingMode;
 
   SourceTableDetailsBuilder();

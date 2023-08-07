@@ -10,7 +10,7 @@ class _$StreamSpecification extends StreamSpecification {
   @override
   final bool streamEnabled;
   @override
-  final _i2.StreamViewType? streamViewType;
+  final StreamViewType? streamViewType;
 
   factory _$StreamSpecification(
           [void Function(StreamSpecificationBuilder)? updates]) =>
@@ -58,9 +58,9 @@ class StreamSpecificationBuilder
   set streamEnabled(bool? streamEnabled) =>
       _$this._streamEnabled = streamEnabled;
 
-  _i2.StreamViewType? _streamViewType;
-  _i2.StreamViewType? get streamViewType => _$this._streamViewType;
-  set streamViewType(_i2.StreamViewType? streamViewType) =>
+  StreamViewType? _streamViewType;
+  StreamViewType? get streamViewType => _$this._streamViewType;
+  set streamViewType(StreamViewType? streamViewType) =>
       _$this._streamViewType = streamViewType;
 
   StreamSpecificationBuilder();

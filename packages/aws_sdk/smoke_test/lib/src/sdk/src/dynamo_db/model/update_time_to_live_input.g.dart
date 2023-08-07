@@ -10,7 +10,7 @@ class _$UpdateTimeToLiveInput extends UpdateTimeToLiveInput {
   @override
   final String tableName;
   @override
-  final _i3.TimeToLiveSpecification timeToLiveSpecification;
+  final TimeToLiveSpecification timeToLiveSpecification;
 
   factory _$UpdateTimeToLiveInput(
           [void Function(UpdateTimeToLiveInputBuilder)? updates]) =>
@@ -60,12 +60,11 @@ class UpdateTimeToLiveInputBuilder
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
 
-  _i3.TimeToLiveSpecificationBuilder? _timeToLiveSpecification;
-  _i3.TimeToLiveSpecificationBuilder get timeToLiveSpecification =>
-      _$this._timeToLiveSpecification ??=
-          new _i3.TimeToLiveSpecificationBuilder();
+  TimeToLiveSpecificationBuilder? _timeToLiveSpecification;
+  TimeToLiveSpecificationBuilder get timeToLiveSpecification =>
+      _$this._timeToLiveSpecification ??= new TimeToLiveSpecificationBuilder();
   set timeToLiveSpecification(
-          _i3.TimeToLiveSpecificationBuilder? timeToLiveSpecification) =>
+          TimeToLiveSpecificationBuilder? timeToLiveSpecification) =>
       _$this._timeToLiveSpecification = timeToLiveSpecification;
 
   UpdateTimeToLiveInputBuilder();

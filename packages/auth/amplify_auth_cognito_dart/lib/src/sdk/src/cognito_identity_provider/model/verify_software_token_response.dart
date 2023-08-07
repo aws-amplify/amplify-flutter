@@ -3,12 +3,11 @@
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.verify_software_token_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/verify_software_token_response_type.dart'
-    as _i2;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/verify_software_token_response_type.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'verify_software_token_response.g.dart';
 
@@ -17,7 +16,7 @@ abstract class VerifySoftwareTokenResponse
     implements
         Built<VerifySoftwareTokenResponse, VerifySoftwareTokenResponseBuilder> {
   factory VerifySoftwareTokenResponse({
-    _i2.VerifySoftwareTokenResponseType? status,
+    VerifySoftwareTokenResponseType? status,
     String? session,
   }) {
     return _$VerifySoftwareTokenResponse._(
@@ -39,11 +38,11 @@ abstract class VerifySoftwareTokenResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer<VerifySoftwareTokenResponse>>
+  static const List<_i2.SmithySerializer<VerifySoftwareTokenResponse>>
       serializers = [VerifySoftwareTokenResponseAwsJson11Serializer()];
 
   /// The status of the verify software token.
-  _i2.VerifySoftwareTokenResponseType? get status;
+  VerifySoftwareTokenResponseType? get status;
 
   /// The session that should be passed both ways in challenge-response calls to the service.
   String? get session;
@@ -68,7 +67,7 @@ abstract class VerifySoftwareTokenResponse
 }
 
 class VerifySoftwareTokenResponseAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<VerifySoftwareTokenResponse> {
+    extends _i2.StructuredSmithySerializer<VerifySoftwareTokenResponse> {
   const VerifySoftwareTokenResponseAwsJson11Serializer()
       : super('VerifySoftwareTokenResponse');
 
@@ -78,8 +77,8 @@ class VerifySoftwareTokenResponseAwsJson11Serializer
         _$VerifySoftwareTokenResponse,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -103,8 +102,8 @@ class VerifySoftwareTokenResponseAwsJson11Serializer
         case 'Status':
           result.status = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.VerifySoftwareTokenResponseType),
-          ) as _i2.VerifySoftwareTokenResponseType);
+            specifiedType: const FullType(VerifySoftwareTokenResponseType),
+          ) as VerifySoftwareTokenResponseType);
         case 'Session':
           result.session = (serializers.deserialize(
             value,
@@ -129,7 +128,7 @@ class VerifySoftwareTokenResponseAwsJson11Serializer
         ..add('Status')
         ..add(serializers.serialize(
           status,
-          specifiedType: const FullType(_i2.VerifySoftwareTokenResponseType),
+          specifiedType: const FullType(VerifySoftwareTokenResponseType),
         ));
     }
     if (session != null) {

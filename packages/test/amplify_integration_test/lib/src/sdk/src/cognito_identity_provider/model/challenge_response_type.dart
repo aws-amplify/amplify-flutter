@@ -3,14 +3,12 @@
 
 library amplify_integration_test.cognito_identity_provider.model.challenge_response_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/challenge_name.dart'
-    as _i2;
-import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/challenge_response.dart'
-    as _i3;
+import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/challenge_name.dart';
+import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/model/challenge_response.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'challenge_response_type.g.dart';
 
@@ -20,8 +18,8 @@ abstract class ChallengeResponseType
     implements Built<ChallengeResponseType, ChallengeResponseTypeBuilder> {
   /// The challenge response type.
   factory ChallengeResponseType({
-    _i2.ChallengeName? challengeName,
-    _i3.ChallengeResponse? challengeResponse,
+    ChallengeName? challengeName,
+    ChallengeResponse? challengeResponse,
   }) {
     return _$ChallengeResponseType._(
       challengeName: challengeName,
@@ -36,15 +34,15 @@ abstract class ChallengeResponseType
 
   const ChallengeResponseType._();
 
-  static const List<_i4.SmithySerializer<ChallengeResponseType>> serializers = [
+  static const List<_i2.SmithySerializer<ChallengeResponseType>> serializers = [
     ChallengeResponseTypeAwsJson11Serializer()
   ];
 
   /// The challenge name.
-  _i2.ChallengeName? get challengeName;
+  ChallengeName? get challengeName;
 
   /// The challenge response.
-  _i3.ChallengeResponse? get challengeResponse;
+  ChallengeResponse? get challengeResponse;
   @override
   List<Object?> get props => [
         challengeName,
@@ -66,7 +64,7 @@ abstract class ChallengeResponseType
 }
 
 class ChallengeResponseTypeAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<ChallengeResponseType> {
+    extends _i2.StructuredSmithySerializer<ChallengeResponseType> {
   const ChallengeResponseTypeAwsJson11Serializer()
       : super('ChallengeResponseType');
 
@@ -76,8 +74,8 @@ class ChallengeResponseTypeAwsJson11Serializer
         _$ChallengeResponseType,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -101,13 +99,13 @@ class ChallengeResponseTypeAwsJson11Serializer
         case 'ChallengeName':
           result.challengeName = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ChallengeName),
-          ) as _i2.ChallengeName);
+            specifiedType: const FullType(ChallengeName),
+          ) as ChallengeName);
         case 'ChallengeResponse':
           result.challengeResponse = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.ChallengeResponse),
-          ) as _i3.ChallengeResponse);
+            specifiedType: const FullType(ChallengeResponse),
+          ) as ChallengeResponse);
       }
     }
 
@@ -127,7 +125,7 @@ class ChallengeResponseTypeAwsJson11Serializer
         ..add('ChallengeName')
         ..add(serializers.serialize(
           challengeName,
-          specifiedType: const FullType(_i2.ChallengeName),
+          specifiedType: const FullType(ChallengeName),
         ));
     }
     if (challengeResponse != null) {
@@ -135,7 +133,7 @@ class ChallengeResponseTypeAwsJson11Serializer
         ..add('ChallengeResponse')
         ..add(serializers.serialize(
           challengeResponse,
-          specifiedType: const FullType(_i3.ChallengeResponse),
+          specifiedType: const FullType(ChallengeResponse),
         ));
     }
     return result$;

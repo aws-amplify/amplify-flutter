@@ -7,8 +7,7 @@ import 'package:aws_common/aws_common.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_resource_identifier.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/aggregate_resource_identifier.dart';
 
 part 'get_aggregate_resource_config_request.g.dart';
 
@@ -21,7 +20,7 @@ abstract class GetAggregateResourceConfigRequest
             GetAggregateResourceConfigRequestBuilder> {
   factory GetAggregateResourceConfigRequest({
     required String configurationAggregatorName,
-    required _i3.AggregateResourceIdentifier resourceIdentifier,
+    required AggregateResourceIdentifier resourceIdentifier,
   }) {
     return _$GetAggregateResourceConfigRequest._(
       configurationAggregatorName: configurationAggregatorName,
@@ -49,7 +48,7 @@ abstract class GetAggregateResourceConfigRequest
   String get configurationAggregatorName;
 
   /// An object that identifies aggregate resource.
-  _i3.AggregateResourceIdentifier get resourceIdentifier;
+  AggregateResourceIdentifier get resourceIdentifier;
   @override
   GetAggregateResourceConfigRequest getPayload() => this;
   @override
@@ -114,8 +113,8 @@ class GetAggregateResourceConfigRequestAwsJson11Serializer
         case 'ResourceIdentifier':
           result.resourceIdentifier.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.AggregateResourceIdentifier),
-          ) as _i3.AggregateResourceIdentifier));
+            specifiedType: const FullType(AggregateResourceIdentifier),
+          ) as AggregateResourceIdentifier));
       }
     }
 
@@ -142,7 +141,7 @@ class GetAggregateResourceConfigRequestAwsJson11Serializer
       'ResourceIdentifier',
       serializers.serialize(
         resourceIdentifier,
-        specifiedType: const FullType(_i3.AggregateResourceIdentifier),
+        specifiedType: const FullType(AggregateResourceIdentifier),
       ),
     ]);
     return result$;

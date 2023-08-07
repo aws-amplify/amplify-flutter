@@ -4,11 +4,11 @@
 library smoke_test.api_gateway.model.rest_apis; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/rest_api.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/rest_api.dart';
 
 part 'rest_apis.g.dart';
 
@@ -18,11 +18,11 @@ abstract class RestApis
     implements Built<RestApis, RestApisBuilder> {
   /// Contains references to your APIs and links that guide you in how to interact with your collection. A collection offers a paginated view of your APIs.
   factory RestApis({
-    List<_i2.RestApi>? items,
+    List<RestApi>? items,
     String? position,
   }) {
     return _$RestApis._(
-      items: items == null ? null : _i3.BuiltList(items),
+      items: items == null ? null : _i2.BuiltList(items),
       position: position,
     );
   }
@@ -39,12 +39,12 @@ abstract class RestApis
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<RestApis>> serializers = [
+  static const List<_i3.SmithySerializer<RestApis>> serializers = [
     RestApisRestJson1Serializer()
   ];
 
   /// The current page of elements from this collection.
-  _i3.BuiltList<_i2.RestApi>? get items;
+  _i2.BuiltList<RestApi>? get items;
 
   /// The current pagination position in the paged result set.
   String? get position;
@@ -69,7 +69,7 @@ abstract class RestApis
 }
 
 class RestApisRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<RestApis> {
+    extends _i3.StructuredSmithySerializer<RestApis> {
   const RestApisRestJson1Serializer() : super('RestApis');
 
   @override
@@ -78,8 +78,8 @@ class RestApisRestJson1Serializer
         _$RestApis,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -104,10 +104,10 @@ class RestApisRestJson1Serializer
           result.items.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.RestApi)],
+              _i2.BuiltList,
+              [FullType(RestApi)],
             ),
-          ) as _i3.BuiltList<_i2.RestApi>));
+          ) as _i2.BuiltList<RestApi>));
         case 'position':
           result.position = (serializers.deserialize(
             value,
@@ -133,8 +133,8 @@ class RestApisRestJson1Serializer
         ..add(serializers.serialize(
           items,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.RestApi)],
+            _i2.BuiltList,
+            [FullType(RestApi)],
           ),
         ));
     }

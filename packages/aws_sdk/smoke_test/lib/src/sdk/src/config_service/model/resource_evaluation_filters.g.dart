@@ -8,9 +8,9 @@ part of 'resource_evaluation_filters.dart';
 
 class _$ResourceEvaluationFilters extends ResourceEvaluationFilters {
   @override
-  final _i2.EvaluationMode? evaluationMode;
+  final EvaluationMode? evaluationMode;
   @override
-  final _i3.TimeWindow? timeWindow;
+  final TimeWindow? timeWindow;
   @override
   final String? evaluationContextIdentifier;
 
@@ -56,15 +56,15 @@ class ResourceEvaluationFiltersBuilder
         Builder<ResourceEvaluationFilters, ResourceEvaluationFiltersBuilder> {
   _$ResourceEvaluationFilters? _$v;
 
-  _i2.EvaluationMode? _evaluationMode;
-  _i2.EvaluationMode? get evaluationMode => _$this._evaluationMode;
-  set evaluationMode(_i2.EvaluationMode? evaluationMode) =>
+  EvaluationMode? _evaluationMode;
+  EvaluationMode? get evaluationMode => _$this._evaluationMode;
+  set evaluationMode(EvaluationMode? evaluationMode) =>
       _$this._evaluationMode = evaluationMode;
 
-  _i3.TimeWindowBuilder? _timeWindow;
-  _i3.TimeWindowBuilder get timeWindow =>
-      _$this._timeWindow ??= new _i3.TimeWindowBuilder();
-  set timeWindow(_i3.TimeWindowBuilder? timeWindow) =>
+  TimeWindowBuilder? _timeWindow;
+  TimeWindowBuilder get timeWindow =>
+      _$this._timeWindow ??= new TimeWindowBuilder();
+  set timeWindow(TimeWindowBuilder? timeWindow) =>
       _$this._timeWindow = timeWindow;
 
   String? _evaluationContextIdentifier;

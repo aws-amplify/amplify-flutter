@@ -14,7 +14,7 @@ class _$ConfigurationItem extends ConfigurationItem {
   @override
   final DateTime? configurationItemCaptureTime;
   @override
-  final _i2.ConfigurationItemStatus? configurationItemStatus;
+  final ConfigurationItemStatus? configurationItemStatus;
   @override
   final String? configurationStateId;
   @override
@@ -22,7 +22,7 @@ class _$ConfigurationItem extends ConfigurationItem {
   @override
   final String? arn;
   @override
-  final _i3.ResourceType? resourceType;
+  final ResourceType? resourceType;
   @override
   final String? resourceId;
   @override
@@ -34,15 +34,15 @@ class _$ConfigurationItem extends ConfigurationItem {
   @override
   final DateTime? resourceCreationTime;
   @override
-  final _i5.BuiltMap<String, String>? tags;
+  final _i2.BuiltMap<String, String>? tags;
   @override
-  final _i5.BuiltList<String>? relatedEvents;
+  final _i2.BuiltList<String>? relatedEvents;
   @override
-  final _i5.BuiltList<_i4.Relationship>? relationships;
+  final _i2.BuiltList<Relationship>? relationships;
   @override
   final String? configuration;
   @override
-  final _i5.BuiltMap<String, String>? supplementaryConfiguration;
+  final _i2.BuiltMap<String, String>? supplementaryConfiguration;
 
   factory _$ConfigurationItem(
           [void Function(ConfigurationItemBuilder)? updates]) =>
@@ -145,11 +145,11 @@ class ConfigurationItemBuilder
   set configurationItemCaptureTime(DateTime? configurationItemCaptureTime) =>
       _$this._configurationItemCaptureTime = configurationItemCaptureTime;
 
-  _i2.ConfigurationItemStatus? _configurationItemStatus;
-  _i2.ConfigurationItemStatus? get configurationItemStatus =>
+  ConfigurationItemStatus? _configurationItemStatus;
+  ConfigurationItemStatus? get configurationItemStatus =>
       _$this._configurationItemStatus;
   set configurationItemStatus(
-          _i2.ConfigurationItemStatus? configurationItemStatus) =>
+          ConfigurationItemStatus? configurationItemStatus) =>
       _$this._configurationItemStatus = configurationItemStatus;
 
   String? _configurationStateId;
@@ -166,9 +166,9 @@ class ConfigurationItemBuilder
   String? get arn => _$this._arn;
   set arn(String? arn) => _$this._arn = arn;
 
-  _i3.ResourceType? _resourceType;
-  _i3.ResourceType? get resourceType => _$this._resourceType;
-  set resourceType(_i3.ResourceType? resourceType) =>
+  ResourceType? _resourceType;
+  ResourceType? get resourceType => _$this._resourceType;
+  set resourceType(ResourceType? resourceType) =>
       _$this._resourceType = resourceType;
 
   String? _resourceId;
@@ -193,21 +193,21 @@ class ConfigurationItemBuilder
   set resourceCreationTime(DateTime? resourceCreationTime) =>
       _$this._resourceCreationTime = resourceCreationTime;
 
-  _i5.MapBuilder<String, String>? _tags;
-  _i5.MapBuilder<String, String> get tags =>
-      _$this._tags ??= new _i5.MapBuilder<String, String>();
-  set tags(_i5.MapBuilder<String, String>? tags) => _$this._tags = tags;
+  _i2.MapBuilder<String, String>? _tags;
+  _i2.MapBuilder<String, String> get tags =>
+      _$this._tags ??= new _i2.MapBuilder<String, String>();
+  set tags(_i2.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
-  _i5.ListBuilder<String>? _relatedEvents;
-  _i5.ListBuilder<String> get relatedEvents =>
-      _$this._relatedEvents ??= new _i5.ListBuilder<String>();
-  set relatedEvents(_i5.ListBuilder<String>? relatedEvents) =>
+  _i2.ListBuilder<String>? _relatedEvents;
+  _i2.ListBuilder<String> get relatedEvents =>
+      _$this._relatedEvents ??= new _i2.ListBuilder<String>();
+  set relatedEvents(_i2.ListBuilder<String>? relatedEvents) =>
       _$this._relatedEvents = relatedEvents;
 
-  _i5.ListBuilder<_i4.Relationship>? _relationships;
-  _i5.ListBuilder<_i4.Relationship> get relationships =>
-      _$this._relationships ??= new _i5.ListBuilder<_i4.Relationship>();
-  set relationships(_i5.ListBuilder<_i4.Relationship>? relationships) =>
+  _i2.ListBuilder<Relationship>? _relationships;
+  _i2.ListBuilder<Relationship> get relationships =>
+      _$this._relationships ??= new _i2.ListBuilder<Relationship>();
+  set relationships(_i2.ListBuilder<Relationship>? relationships) =>
       _$this._relationships = relationships;
 
   String? _configuration;
@@ -215,12 +215,12 @@ class ConfigurationItemBuilder
   set configuration(String? configuration) =>
       _$this._configuration = configuration;
 
-  _i5.MapBuilder<String, String>? _supplementaryConfiguration;
-  _i5.MapBuilder<String, String> get supplementaryConfiguration =>
+  _i2.MapBuilder<String, String>? _supplementaryConfiguration;
+  _i2.MapBuilder<String, String> get supplementaryConfiguration =>
       _$this._supplementaryConfiguration ??=
-          new _i5.MapBuilder<String, String>();
+          new _i2.MapBuilder<String, String>();
   set supplementaryConfiguration(
-          _i5.MapBuilder<String, String>? supplementaryConfiguration) =>
+          _i2.MapBuilder<String, String>? supplementaryConfiguration) =>
       _$this._supplementaryConfiguration = supplementaryConfiguration;
 
   ConfigurationItemBuilder();

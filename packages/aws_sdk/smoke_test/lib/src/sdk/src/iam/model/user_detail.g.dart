@@ -18,15 +18,15 @@ class _$UserDetail extends UserDetail {
   @override
   final DateTime? createDate;
   @override
-  final _i6.BuiltList<_i2.PolicyDetail>? userPolicyList;
+  final _i2.BuiltList<PolicyDetail>? userPolicyList;
   @override
-  final _i6.BuiltList<String>? groupList;
+  final _i2.BuiltList<String>? groupList;
   @override
-  final _i6.BuiltList<_i3.AttachedPolicy>? attachedManagedPolicies;
+  final _i2.BuiltList<AttachedPolicy>? attachedManagedPolicies;
   @override
-  final _i4.AttachedPermissionsBoundary? permissionsBoundary;
+  final AttachedPermissionsBoundary? permissionsBoundary;
   @override
-  final _i6.BuiltList<_i5.Tag>? tags;
+  final _i2.BuiltList<Tag>? tags;
 
   factory _$UserDetail([void Function(UserDetailBuilder)? updates]) =>
       (new UserDetailBuilder()..update(updates))._build();
@@ -108,38 +108,35 @@ class UserDetailBuilder implements Builder<UserDetail, UserDetailBuilder> {
   DateTime? get createDate => _$this._createDate;
   set createDate(DateTime? createDate) => _$this._createDate = createDate;
 
-  _i6.ListBuilder<_i2.PolicyDetail>? _userPolicyList;
-  _i6.ListBuilder<_i2.PolicyDetail> get userPolicyList =>
-      _$this._userPolicyList ??= new _i6.ListBuilder<_i2.PolicyDetail>();
-  set userPolicyList(_i6.ListBuilder<_i2.PolicyDetail>? userPolicyList) =>
+  _i2.ListBuilder<PolicyDetail>? _userPolicyList;
+  _i2.ListBuilder<PolicyDetail> get userPolicyList =>
+      _$this._userPolicyList ??= new _i2.ListBuilder<PolicyDetail>();
+  set userPolicyList(_i2.ListBuilder<PolicyDetail>? userPolicyList) =>
       _$this._userPolicyList = userPolicyList;
 
-  _i6.ListBuilder<String>? _groupList;
-  _i6.ListBuilder<String> get groupList =>
-      _$this._groupList ??= new _i6.ListBuilder<String>();
-  set groupList(_i6.ListBuilder<String>? groupList) =>
+  _i2.ListBuilder<String>? _groupList;
+  _i2.ListBuilder<String> get groupList =>
+      _$this._groupList ??= new _i2.ListBuilder<String>();
+  set groupList(_i2.ListBuilder<String>? groupList) =>
       _$this._groupList = groupList;
 
-  _i6.ListBuilder<_i3.AttachedPolicy>? _attachedManagedPolicies;
-  _i6.ListBuilder<_i3.AttachedPolicy> get attachedManagedPolicies =>
-      _$this._attachedManagedPolicies ??=
-          new _i6.ListBuilder<_i3.AttachedPolicy>();
+  _i2.ListBuilder<AttachedPolicy>? _attachedManagedPolicies;
+  _i2.ListBuilder<AttachedPolicy> get attachedManagedPolicies =>
+      _$this._attachedManagedPolicies ??= new _i2.ListBuilder<AttachedPolicy>();
   set attachedManagedPolicies(
-          _i6.ListBuilder<_i3.AttachedPolicy>? attachedManagedPolicies) =>
+          _i2.ListBuilder<AttachedPolicy>? attachedManagedPolicies) =>
       _$this._attachedManagedPolicies = attachedManagedPolicies;
 
-  _i4.AttachedPermissionsBoundaryBuilder? _permissionsBoundary;
-  _i4.AttachedPermissionsBoundaryBuilder get permissionsBoundary =>
-      _$this._permissionsBoundary ??=
-          new _i4.AttachedPermissionsBoundaryBuilder();
+  AttachedPermissionsBoundaryBuilder? _permissionsBoundary;
+  AttachedPermissionsBoundaryBuilder get permissionsBoundary =>
+      _$this._permissionsBoundary ??= new AttachedPermissionsBoundaryBuilder();
   set permissionsBoundary(
-          _i4.AttachedPermissionsBoundaryBuilder? permissionsBoundary) =>
+          AttachedPermissionsBoundaryBuilder? permissionsBoundary) =>
       _$this._permissionsBoundary = permissionsBoundary;
 
-  _i6.ListBuilder<_i5.Tag>? _tags;
-  _i6.ListBuilder<_i5.Tag> get tags =>
-      _$this._tags ??= new _i6.ListBuilder<_i5.Tag>();
-  set tags(_i6.ListBuilder<_i5.Tag>? tags) => _$this._tags = tags;
+  _i2.ListBuilder<Tag>? _tags;
+  _i2.ListBuilder<Tag> get tags => _$this._tags ??= new _i2.ListBuilder<Tag>();
+  set tags(_i2.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   UserDetailBuilder();
 

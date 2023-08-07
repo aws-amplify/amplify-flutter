@@ -8,7 +8,7 @@ part of 'restore_table_from_backup_output.dart';
 
 class _$RestoreTableFromBackupOutput extends RestoreTableFromBackupOutput {
   @override
-  final _i2.TableDescription? tableDescription;
+  final TableDescription? tableDescription;
 
   factory _$RestoreTableFromBackupOutput(
           [void Function(RestoreTableFromBackupOutputBuilder)? updates]) =>
@@ -47,10 +47,10 @@ class RestoreTableFromBackupOutputBuilder
             RestoreTableFromBackupOutputBuilder> {
   _$RestoreTableFromBackupOutput? _$v;
 
-  _i2.TableDescriptionBuilder? _tableDescription;
-  _i2.TableDescriptionBuilder get tableDescription =>
-      _$this._tableDescription ??= new _i2.TableDescriptionBuilder();
-  set tableDescription(_i2.TableDescriptionBuilder? tableDescription) =>
+  TableDescriptionBuilder? _tableDescription;
+  TableDescriptionBuilder get tableDescription =>
+      _$this._tableDescription ??= new TableDescriptionBuilder();
+  set tableDescription(TableDescriptionBuilder? tableDescription) =>
       _$this._tableDescription = tableDescription;
 
   RestoreTableFromBackupOutputBuilder();

@@ -6,8 +6,8 @@ library smoke_test.s3.model.object_lock_rule; // ignore_for_file: no_leading_und
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/s3/model/default_retention.dart' as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/s3/model/default_retention.dart';
 
 part 'object_lock_rule.g.dart';
 
@@ -16,7 +16,7 @@ abstract class ObjectLockRule
     with _i1.AWSEquatable<ObjectLockRule>
     implements Built<ObjectLockRule, ObjectLockRuleBuilder> {
   /// The container element for an Object Lock rule.
-  factory ObjectLockRule({_i2.DefaultRetention? defaultRetention}) {
+  factory ObjectLockRule({DefaultRetention? defaultRetention}) {
     return _$ObjectLockRule._(defaultRetention: defaultRetention);
   }
 
@@ -26,12 +26,12 @@ abstract class ObjectLockRule
 
   const ObjectLockRule._();
 
-  static const List<_i3.SmithySerializer<ObjectLockRule>> serializers = [
+  static const List<_i2.SmithySerializer<ObjectLockRule>> serializers = [
     ObjectLockRuleRestXmlSerializer()
   ];
 
   /// The default Object Lock retention mode and period that you want to apply to new objects placed in the specified bucket. Bucket settings require both a mode and a period. The period can be either `Days` or `Years` but you must select one. You cannot specify `Days` and `Years` at the same time.
-  _i2.DefaultRetention? get defaultRetention;
+  DefaultRetention? get defaultRetention;
   @override
   List<Object?> get props => [defaultRetention];
   @override
@@ -46,7 +46,7 @@ abstract class ObjectLockRule
 }
 
 class ObjectLockRuleRestXmlSerializer
-    extends _i3.StructuredSmithySerializer<ObjectLockRule> {
+    extends _i2.StructuredSmithySerializer<ObjectLockRule> {
   const ObjectLockRuleRestXmlSerializer() : super('ObjectLockRule');
 
   @override
@@ -55,8 +55,8 @@ class ObjectLockRuleRestXmlSerializer
         _$ObjectLockRule,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
@@ -80,8 +80,8 @@ class ObjectLockRuleRestXmlSerializer
         case 'DefaultRetention':
           result.defaultRetention.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.DefaultRetention),
-          ) as _i2.DefaultRetention));
+            specifiedType: const FullType(DefaultRetention),
+          ) as DefaultRetention));
       }
     }
 
@@ -95,18 +95,18 @@ class ObjectLockRuleRestXmlSerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'ObjectLockRule',
-        _i3.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
+        _i2.XmlNamespace('http://s3.amazonaws.com/doc/2006-03-01/'),
       )
     ];
     final ObjectLockRule(:defaultRetention) = object;
     if (defaultRetention != null) {
       result$
-        ..add(const _i3.XmlElementName('DefaultRetention'))
+        ..add(const _i2.XmlElementName('DefaultRetention'))
         ..add(serializers.serialize(
           defaultRetention,
-          specifiedType: const FullType(_i2.DefaultRetention),
+          specifiedType: const FullType(DefaultRetention),
         ));
     }
     return result$;

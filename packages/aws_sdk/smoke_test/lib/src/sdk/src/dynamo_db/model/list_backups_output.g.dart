@@ -8,7 +8,7 @@ part of 'list_backups_output.dart';
 
 class _$ListBackupsOutput extends ListBackupsOutput {
   @override
-  final _i3.BuiltList<_i2.BackupSummary>? backupSummaries;
+  final _i2.BuiltList<BackupSummary>? backupSummaries;
   @override
   final String? lastEvaluatedBackupArn;
 
@@ -49,10 +49,10 @@ class ListBackupsOutputBuilder
     implements Builder<ListBackupsOutput, ListBackupsOutputBuilder> {
   _$ListBackupsOutput? _$v;
 
-  _i3.ListBuilder<_i2.BackupSummary>? _backupSummaries;
-  _i3.ListBuilder<_i2.BackupSummary> get backupSummaries =>
-      _$this._backupSummaries ??= new _i3.ListBuilder<_i2.BackupSummary>();
-  set backupSummaries(_i3.ListBuilder<_i2.BackupSummary>? backupSummaries) =>
+  _i2.ListBuilder<BackupSummary>? _backupSummaries;
+  _i2.ListBuilder<BackupSummary> get backupSummaries =>
+      _$this._backupSummaries ??= new _i2.ListBuilder<BackupSummary>();
+  set backupSummaries(_i2.ListBuilder<BackupSummary>? backupSummaries) =>
       _$this._backupSummaries = backupSummaries;
 
   String? _lastEvaluatedBackupArn;

@@ -3,105 +3,85 @@
 
 library aws_json1_0_v1.json_rpc_10.common.serializers; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/aws_config.dart' as _i29;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/client_config.dart'
-    as _i26;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/complex_error.dart' as _i5;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/complex_nested_error_data.dart'
-    as _i6;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/empty_input_and_empty_output_input.dart'
-    as _i2;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/empty_input_and_empty_output_output.dart'
-    as _i3;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/endpoint_with_host_label_operation_input.dart'
-    as _i4;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/environment_config.dart'
-    as _i21;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/file_config_settings.dart'
-    as _i24;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/foo_enum.dart' as _i13;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/foo_error.dart' as _i7;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/greeting_struct.dart'
-    as _i14;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/greeting_with_errors_input.dart'
-    as _i9;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/greeting_with_errors_output.dart'
-    as _i10;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/invalid_greeting.dart'
-    as _i8;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/json_unions_input.dart'
-    as _i11;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/json_unions_output.dart'
-    as _i12;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/my_union.dart' as _i15;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/no_input_and_output_output.dart'
-    as _i16;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/operation_config.dart'
-    as _i27;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/put_with_content_encoding_input.dart'
-    as _i17;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/retry_config.dart' as _i25;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/retry_mode.dart' as _i20;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/s3_addressing_style.dart'
-    as _i22;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/s3_config.dart' as _i23;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/scoped_config.dart'
-    as _i28;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/simple_scalar_properties_input.dart'
-    as _i18;
-import 'package:aws_json1_0_v1/src/json_rpc_10/model/simple_scalar_properties_output.dart'
-    as _i19;
-import 'package:built_collection/built_collection.dart' as _i30;
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/aws_config.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/client_config.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/complex_error.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/complex_nested_error_data.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/empty_input_and_empty_output_input.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/empty_input_and_empty_output_output.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/endpoint_with_host_label_operation_input.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/environment_config.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/file_config_settings.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/foo_enum.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/foo_error.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/greeting_struct.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/greeting_with_errors_input.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/greeting_with_errors_output.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/invalid_greeting.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/json_unions_input.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/json_unions_output.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/my_union.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/no_input_and_output_output.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/operation_config.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/put_with_content_encoding_input.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/retry_config.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/retry_mode.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/s3_addressing_style.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/s3_config.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/scoped_config.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/simple_scalar_properties_input.dart';
+import 'package:aws_json1_0_v1/src/json_rpc_10/model/simple_scalar_properties_output.dart';
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
 const List<_i1.SmithySerializer> serializers = [
-  ..._i2.EmptyInputAndEmptyOutputInput.serializers,
-  ..._i3.EmptyInputAndEmptyOutputOutput.serializers,
-  ..._i4.EndpointWithHostLabelOperationInput.serializers,
-  ..._i5.ComplexError.serializers,
-  ..._i6.ComplexNestedErrorData.serializers,
-  ..._i7.FooError.serializers,
-  ..._i8.InvalidGreeting.serializers,
-  ..._i9.GreetingWithErrorsInput.serializers,
-  ..._i10.GreetingWithErrorsOutput.serializers,
-  ..._i11.JsonUnionsInput.serializers,
-  ..._i12.JsonUnionsOutput.serializers,
-  ..._i13.FooEnum.serializers,
-  ..._i14.GreetingStruct.serializers,
-  ..._i15.MyUnion.serializers,
-  ..._i16.NoInputAndOutputOutput.serializers,
-  ..._i17.PutWithContentEncodingInput.serializers,
-  ..._i18.SimpleScalarPropertiesInput.serializers,
-  ..._i19.SimpleScalarPropertiesOutput.serializers,
-  ..._i20.RetryMode.serializers,
-  ..._i21.EnvironmentConfig.serializers,
-  ..._i22.S3AddressingStyle.serializers,
-  ..._i23.S3Config.serializers,
-  ..._i24.FileConfigSettings.serializers,
-  ..._i25.RetryConfig.serializers,
-  ..._i26.ClientConfig.serializers,
-  ..._i27.OperationConfig.serializers,
-  ..._i28.ScopedConfig.serializers,
-  ..._i29.AwsConfig.serializers,
+  ...EmptyInputAndEmptyOutputInput.serializers,
+  ...EmptyInputAndEmptyOutputOutput.serializers,
+  ...EndpointWithHostLabelOperationInput.serializers,
+  ...ComplexError.serializers,
+  ...ComplexNestedErrorData.serializers,
+  ...FooError.serializers,
+  ...InvalidGreeting.serializers,
+  ...GreetingWithErrorsInput.serializers,
+  ...GreetingWithErrorsOutput.serializers,
+  ...JsonUnionsInput.serializers,
+  ...JsonUnionsOutput.serializers,
+  ...FooEnum.serializers,
+  ...GreetingStruct.serializers,
+  ...MyUnion.serializers,
+  ...NoInputAndOutputOutput.serializers,
+  ...PutWithContentEncodingInput.serializers,
+  ...SimpleScalarPropertiesInput.serializers,
+  ...SimpleScalarPropertiesOutput.serializers,
+  ...RetryMode.serializers,
+  ...EnvironmentConfig.serializers,
+  ...S3AddressingStyle.serializers,
+  ...S3Config.serializers,
+  ...FileConfigSettings.serializers,
+  ...RetryConfig.serializers,
+  ...ClientConfig.serializers,
+  ...OperationConfig.serializers,
+  ...ScopedConfig.serializers,
+  ...AwsConfig.serializers,
 ];
 final Map<FullType, Function> builderFactories = {
   const FullType(
-    _i30.BuiltList,
+    _i2.BuiltList,
     [FullType(String)],
-  ): _i30.ListBuilder<String>.new,
+  ): _i2.ListBuilder<String>.new,
   const FullType(
-    _i30.BuiltMap,
+    _i2.BuiltMap,
     [
       FullType(String),
       FullType(String),
     ],
-  ): _i30.MapBuilder<String, String>.new,
+  ): _i2.MapBuilder<String, String>.new,
   const FullType(
-    _i30.BuiltMap,
+    _i2.BuiltMap,
     [
       FullType(String),
-      FullType(_i24.FileConfigSettings),
+      FullType(FileConfigSettings),
     ],
-  ): _i30.MapBuilder<String, _i24.FileConfigSettings>.new,
+  ): _i2.MapBuilder<String, FileConfigSettings>.new,
 };

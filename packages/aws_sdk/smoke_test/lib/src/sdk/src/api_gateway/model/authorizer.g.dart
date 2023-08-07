@@ -12,9 +12,9 @@ class _$Authorizer extends Authorizer {
   @override
   final String? name;
   @override
-  final _i2.AuthorizerType? type;
+  final AuthorizerType? type;
   @override
-  final _i3.BuiltList<String>? providerArNs;
+  final _i2.BuiltList<String>? providerArNs;
   @override
   final String? authType;
   @override
@@ -96,14 +96,14 @@ class AuthorizerBuilder implements Builder<Authorizer, AuthorizerBuilder> {
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
-  _i2.AuthorizerType? _type;
-  _i2.AuthorizerType? get type => _$this._type;
-  set type(_i2.AuthorizerType? type) => _$this._type = type;
+  AuthorizerType? _type;
+  AuthorizerType? get type => _$this._type;
+  set type(AuthorizerType? type) => _$this._type = type;
 
-  _i3.ListBuilder<String>? _providerArNs;
-  _i3.ListBuilder<String> get providerArNs =>
-      _$this._providerArNs ??= new _i3.ListBuilder<String>();
-  set providerArNs(_i3.ListBuilder<String>? providerArNs) =>
+  _i2.ListBuilder<String>? _providerArNs;
+  _i2.ListBuilder<String> get providerArNs =>
+      _$this._providerArNs ??= new _i2.ListBuilder<String>();
+  set providerArNs(_i2.ListBuilder<String>? providerArNs) =>
       _$this._providerArNs = providerArNs;
 
   String? _authType;

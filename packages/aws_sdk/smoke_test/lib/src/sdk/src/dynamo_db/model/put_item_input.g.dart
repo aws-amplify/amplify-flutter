@@ -10,25 +10,25 @@ class _$PutItemInput extends PutItemInput {
   @override
   final String tableName;
   @override
-  final _i10.BuiltMap<String, _i3.AttributeValue> item;
+  final _i3.BuiltMap<String, AttributeValue> item;
   @override
-  final _i10.BuiltMap<String, _i4.ExpectedAttributeValue>? expected;
+  final _i3.BuiltMap<String, ExpectedAttributeValue>? expected;
   @override
-  final _i5.ReturnValue? returnValues;
+  final ReturnValue? returnValues;
   @override
-  final _i6.ReturnConsumedCapacity? returnConsumedCapacity;
+  final ReturnConsumedCapacity? returnConsumedCapacity;
   @override
-  final _i7.ReturnItemCollectionMetrics? returnItemCollectionMetrics;
+  final ReturnItemCollectionMetrics? returnItemCollectionMetrics;
   @override
-  final _i8.ConditionalOperator? conditionalOperator;
+  final ConditionalOperator? conditionalOperator;
   @override
   final String? conditionExpression;
   @override
-  final _i10.BuiltMap<String, String>? expressionAttributeNames;
+  final _i3.BuiltMap<String, String>? expressionAttributeNames;
   @override
-  final _i10.BuiltMap<String, _i3.AttributeValue>? expressionAttributeValues;
+  final _i3.BuiltMap<String, AttributeValue>? expressionAttributeValues;
   @override
-  final _i9.ReturnValuesOnConditionCheckFailure?
+  final ReturnValuesOnConditionCheckFailure?
       returnValuesOnConditionCheckFailure;
 
   factory _$PutItemInput([void Function(PutItemInputBuilder)? updates]) =>
@@ -104,42 +104,38 @@ class PutItemInputBuilder
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
 
-  _i10.MapBuilder<String, _i3.AttributeValue>? _item;
-  _i10.MapBuilder<String, _i3.AttributeValue> get item =>
-      _$this._item ??= new _i10.MapBuilder<String, _i3.AttributeValue>();
-  set item(_i10.MapBuilder<String, _i3.AttributeValue>? item) =>
-      _$this._item = item;
+  _i3.MapBuilder<String, AttributeValue>? _item;
+  _i3.MapBuilder<String, AttributeValue> get item =>
+      _$this._item ??= new _i3.MapBuilder<String, AttributeValue>();
+  set item(_i3.MapBuilder<String, AttributeValue>? item) => _$this._item = item;
 
-  _i10.MapBuilder<String, _i4.ExpectedAttributeValue>? _expected;
-  _i10.MapBuilder<String, _i4.ExpectedAttributeValue> get expected =>
-      _$this._expected ??=
-          new _i10.MapBuilder<String, _i4.ExpectedAttributeValue>();
-  set expected(_i10.MapBuilder<String, _i4.ExpectedAttributeValue>? expected) =>
+  _i3.MapBuilder<String, ExpectedAttributeValue>? _expected;
+  _i3.MapBuilder<String, ExpectedAttributeValue> get expected =>
+      _$this._expected ??= new _i3.MapBuilder<String, ExpectedAttributeValue>();
+  set expected(_i3.MapBuilder<String, ExpectedAttributeValue>? expected) =>
       _$this._expected = expected;
 
-  _i5.ReturnValue? _returnValues;
-  _i5.ReturnValue? get returnValues => _$this._returnValues;
-  set returnValues(_i5.ReturnValue? returnValues) =>
+  ReturnValue? _returnValues;
+  ReturnValue? get returnValues => _$this._returnValues;
+  set returnValues(ReturnValue? returnValues) =>
       _$this._returnValues = returnValues;
 
-  _i6.ReturnConsumedCapacity? _returnConsumedCapacity;
-  _i6.ReturnConsumedCapacity? get returnConsumedCapacity =>
+  ReturnConsumedCapacity? _returnConsumedCapacity;
+  ReturnConsumedCapacity? get returnConsumedCapacity =>
       _$this._returnConsumedCapacity;
-  set returnConsumedCapacity(
-          _i6.ReturnConsumedCapacity? returnConsumedCapacity) =>
+  set returnConsumedCapacity(ReturnConsumedCapacity? returnConsumedCapacity) =>
       _$this._returnConsumedCapacity = returnConsumedCapacity;
 
-  _i7.ReturnItemCollectionMetrics? _returnItemCollectionMetrics;
-  _i7.ReturnItemCollectionMetrics? get returnItemCollectionMetrics =>
+  ReturnItemCollectionMetrics? _returnItemCollectionMetrics;
+  ReturnItemCollectionMetrics? get returnItemCollectionMetrics =>
       _$this._returnItemCollectionMetrics;
   set returnItemCollectionMetrics(
-          _i7.ReturnItemCollectionMetrics? returnItemCollectionMetrics) =>
+          ReturnItemCollectionMetrics? returnItemCollectionMetrics) =>
       _$this._returnItemCollectionMetrics = returnItemCollectionMetrics;
 
-  _i8.ConditionalOperator? _conditionalOperator;
-  _i8.ConditionalOperator? get conditionalOperator =>
-      _$this._conditionalOperator;
-  set conditionalOperator(_i8.ConditionalOperator? conditionalOperator) =>
+  ConditionalOperator? _conditionalOperator;
+  ConditionalOperator? get conditionalOperator => _$this._conditionalOperator;
+  set conditionalOperator(ConditionalOperator? conditionalOperator) =>
       _$this._conditionalOperator = conditionalOperator;
 
   String? _conditionExpression;
@@ -147,29 +143,27 @@ class PutItemInputBuilder
   set conditionExpression(String? conditionExpression) =>
       _$this._conditionExpression = conditionExpression;
 
-  _i10.MapBuilder<String, String>? _expressionAttributeNames;
-  _i10.MapBuilder<String, String> get expressionAttributeNames =>
-      _$this._expressionAttributeNames ??=
-          new _i10.MapBuilder<String, String>();
+  _i3.MapBuilder<String, String>? _expressionAttributeNames;
+  _i3.MapBuilder<String, String> get expressionAttributeNames =>
+      _$this._expressionAttributeNames ??= new _i3.MapBuilder<String, String>();
   set expressionAttributeNames(
-          _i10.MapBuilder<String, String>? expressionAttributeNames) =>
+          _i3.MapBuilder<String, String>? expressionAttributeNames) =>
       _$this._expressionAttributeNames = expressionAttributeNames;
 
-  _i10.MapBuilder<String, _i3.AttributeValue>? _expressionAttributeValues;
-  _i10.MapBuilder<String, _i3.AttributeValue> get expressionAttributeValues =>
+  _i3.MapBuilder<String, AttributeValue>? _expressionAttributeValues;
+  _i3.MapBuilder<String, AttributeValue> get expressionAttributeValues =>
       _$this._expressionAttributeValues ??=
-          new _i10.MapBuilder<String, _i3.AttributeValue>();
+          new _i3.MapBuilder<String, AttributeValue>();
   set expressionAttributeValues(
-          _i10.MapBuilder<String, _i3.AttributeValue>?
-              expressionAttributeValues) =>
+          _i3.MapBuilder<String, AttributeValue>? expressionAttributeValues) =>
       _$this._expressionAttributeValues = expressionAttributeValues;
 
-  _i9.ReturnValuesOnConditionCheckFailure? _returnValuesOnConditionCheckFailure;
-  _i9.ReturnValuesOnConditionCheckFailure?
+  ReturnValuesOnConditionCheckFailure? _returnValuesOnConditionCheckFailure;
+  ReturnValuesOnConditionCheckFailure?
       get returnValuesOnConditionCheckFailure =>
           _$this._returnValuesOnConditionCheckFailure;
   set returnValuesOnConditionCheckFailure(
-          _i9.ReturnValuesOnConditionCheckFailure?
+          ReturnValuesOnConditionCheckFailure?
               returnValuesOnConditionCheckFailure) =>
       _$this._returnValuesOnConditionCheckFailure =
           returnValuesOnConditionCheckFailure;

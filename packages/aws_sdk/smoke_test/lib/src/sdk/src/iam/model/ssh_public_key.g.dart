@@ -16,7 +16,7 @@ class _$SshPublicKey extends SshPublicKey {
   @override
   final String sshPublicKeyBody;
   @override
-  final _i2.StatusType status;
+  final StatusType status;
   @override
   final DateTime? uploadDate;
 
@@ -97,9 +97,9 @@ class SshPublicKeyBuilder
   set sshPublicKeyBody(String? sshPublicKeyBody) =>
       _$this._sshPublicKeyBody = sshPublicKeyBody;
 
-  _i2.StatusType? _status;
-  _i2.StatusType? get status => _$this._status;
-  set status(_i2.StatusType? status) => _$this._status = status;
+  StatusType? _status;
+  StatusType? get status => _$this._status;
+  set status(StatusType? status) => _$this._status = status;
 
   DateTime? _uploadDate;
   DateTime? get uploadDate => _$this._uploadDate;

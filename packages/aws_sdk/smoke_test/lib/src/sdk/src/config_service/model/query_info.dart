@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.query_info; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/field_info.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/field_info.dart';
 
 part 'query_info.g.dart';
 
@@ -18,10 +17,10 @@ abstract class QueryInfo
     with _i1.AWSEquatable<QueryInfo>
     implements Built<QueryInfo, QueryInfoBuilder> {
   /// Details about the query.
-  factory QueryInfo({List<_i2.FieldInfo>? selectFields}) {
+  factory QueryInfo({List<FieldInfo>? selectFields}) {
     return _$QueryInfo._(
         selectFields:
-            selectFields == null ? null : _i3.BuiltList(selectFields));
+            selectFields == null ? null : _i2.BuiltList(selectFields));
   }
 
   /// Details about the query.
@@ -30,12 +29,12 @@ abstract class QueryInfo
 
   const QueryInfo._();
 
-  static const List<_i4.SmithySerializer<QueryInfo>> serializers = [
+  static const List<_i3.SmithySerializer<QueryInfo>> serializers = [
     QueryInfoAwsJson11Serializer()
   ];
 
   /// Returns a `FieldInfo` object.
-  _i3.BuiltList<_i2.FieldInfo>? get selectFields;
+  _i2.BuiltList<FieldInfo>? get selectFields;
   @override
   List<Object?> get props => [selectFields];
   @override
@@ -50,7 +49,7 @@ abstract class QueryInfo
 }
 
 class QueryInfoAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<QueryInfo> {
+    extends _i3.StructuredSmithySerializer<QueryInfo> {
   const QueryInfoAwsJson11Serializer() : super('QueryInfo');
 
   @override
@@ -59,8 +58,8 @@ class QueryInfoAwsJson11Serializer
         _$QueryInfo,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -85,10 +84,10 @@ class QueryInfoAwsJson11Serializer
           result.selectFields.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.FieldInfo)],
+              _i2.BuiltList,
+              [FullType(FieldInfo)],
             ),
-          ) as _i3.BuiltList<_i2.FieldInfo>));
+          ) as _i2.BuiltList<FieldInfo>));
       }
     }
 
@@ -109,8 +108,8 @@ class QueryInfoAwsJson11Serializer
         ..add(serializers.serialize(
           selectFields,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.FieldInfo)],
+            _i2.BuiltList,
+            [FullType(FieldInfo)],
           ),
         ));
     }

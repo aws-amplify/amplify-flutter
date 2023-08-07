@@ -8,7 +8,7 @@ part of 'get_login_profile_response.dart';
 
 class _$GetLoginProfileResponse extends GetLoginProfileResponse {
   @override
-  final _i2.LoginProfile loginProfile;
+  final LoginProfile loginProfile;
 
   factory _$GetLoginProfileResponse(
           [void Function(GetLoginProfileResponseBuilder)? updates]) =>
@@ -49,10 +49,10 @@ class GetLoginProfileResponseBuilder
         Builder<GetLoginProfileResponse, GetLoginProfileResponseBuilder> {
   _$GetLoginProfileResponse? _$v;
 
-  _i2.LoginProfileBuilder? _loginProfile;
-  _i2.LoginProfileBuilder get loginProfile =>
-      _$this._loginProfile ??= new _i2.LoginProfileBuilder();
-  set loginProfile(_i2.LoginProfileBuilder? loginProfile) =>
+  LoginProfileBuilder? _loginProfile;
+  LoginProfileBuilder get loginProfile =>
+      _$this._loginProfile ??= new LoginProfileBuilder();
+  set loginProfile(LoginProfileBuilder? loginProfile) =>
       _$this._loginProfile = loginProfile;
 
   GetLoginProfileResponseBuilder();

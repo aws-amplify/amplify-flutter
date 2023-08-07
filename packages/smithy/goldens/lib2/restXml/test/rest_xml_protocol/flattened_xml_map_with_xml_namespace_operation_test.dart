@@ -4,13 +4,11 @@
 // ignore_for_file: unused_element
 library rest_xml_v2.rest_xml_protocol.test.flattened_xml_map_with_xml_namespace_operation_test_test; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:built_collection/built_collection.dart' as _i6;
+import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/serializer.dart';
-import 'package:rest_xml_v2/src/rest_xml_protocol/model/flattened_xml_map_with_xml_namespace_output.dart'
-    as _i5;
-import 'package:rest_xml_v2/src/rest_xml_protocol/operation/flattened_xml_map_with_xml_namespace_operation.dart'
-    as _i3;
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:rest_xml_v2/src/rest_xml_protocol/model/flattened_xml_map_with_xml_namespace_output.dart';
+import 'package:rest_xml_v2/src/rest_xml_protocol/operation/flattened_xml_map_with_xml_namespace_operation.dart';
+import 'package:smithy/smithy.dart' as _i3;
 import 'package:smithy_test/smithy_test.dart' as _i2;
 import 'package:test/test.dart' as _i1;
 
@@ -19,7 +17,7 @@ void main() {
     'RestXmlFlattenedXmlMapWithXmlNamespace (response)',
     () async {
       await _i2.httpResponseTest(
-        operation: _i3.FlattenedXmlMapWithXmlNamespaceOperation(
+        operation: FlattenedXmlMapWithXmlNamespaceOperation(
           region: 'us-east-1',
           baseUri: Uri.parse('https://example.com'),
         ),
@@ -27,7 +25,7 @@ void main() {
           id: 'RestXmlFlattenedXmlMapWithXmlNamespace',
           documentation:
               'Serializes flattened XML maps in responses that have xmlNamespace and xmlName on members',
-          protocol: _i4.ShapeId(
+          protocol: _i3.ShapeId(
             namespace: 'aws.protocols',
             shape: 'restXml',
           ),
@@ -58,27 +56,27 @@ void main() {
   );
 }
 
-class FlattenedXmlMapWithXmlNamespaceOutputRestXmlSerializer extends _i4
-    .StructuredSmithySerializer<_i5.FlattenedXmlMapWithXmlNamespaceOutput> {
+class FlattenedXmlMapWithXmlNamespaceOutputRestXmlSerializer extends _i3
+    .StructuredSmithySerializer<FlattenedXmlMapWithXmlNamespaceOutput> {
   const FlattenedXmlMapWithXmlNamespaceOutputRestXmlSerializer()
       : super('FlattenedXmlMapWithXmlNamespaceOutput');
 
   @override
-  Iterable<Type> get types => const [_i5.FlattenedXmlMapWithXmlNamespaceOutput];
+  Iterable<Type> get types => const [FlattenedXmlMapWithXmlNamespaceOutput];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restXml',
         )
       ];
   @override
-  _i5.FlattenedXmlMapWithXmlNamespaceOutput deserialize(
+  FlattenedXmlMapWithXmlNamespaceOutput deserialize(
     Serializers serializers,
     Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = _i5.FlattenedXmlMapWithXmlNamespaceOutputBuilder();
+    final result = FlattenedXmlMapWithXmlNamespaceOutputBuilder();
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
@@ -92,13 +90,13 @@ class FlattenedXmlMapWithXmlNamespaceOutputRestXmlSerializer extends _i4
           result.myMap.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i6.BuiltMap,
+              _i4.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i6.BuiltMap<String, String>));
+          ) as _i4.BuiltMap<String, String>));
       }
     }
 
@@ -108,7 +106,7 @@ class FlattenedXmlMapWithXmlNamespaceOutputRestXmlSerializer extends _i4
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    _i5.FlattenedXmlMapWithXmlNamespaceOutput object, {
+    FlattenedXmlMapWithXmlNamespaceOutput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     throw StateError('Not supported for tests');

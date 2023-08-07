@@ -4,12 +4,11 @@
 library smoke_test.iam.model.service_last_accessed; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/iam/model/tracked_action_last_accessed.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/iam/model/tracked_action_last_accessed.dart';
 
 part 'service_last_accessed.g.dart';
 
@@ -29,7 +28,7 @@ abstract class ServiceLastAccessed
     String? lastAuthenticatedEntity,
     String? lastAuthenticatedRegion,
     int? totalAuthenticatedEntities,
-    List<_i2.TrackedActionLastAccessed>? trackedActionsLastAccessed,
+    List<TrackedActionLastAccessed>? trackedActionsLastAccessed,
   }) {
     return _$ServiceLastAccessed._(
       serviceName: serviceName,
@@ -40,7 +39,7 @@ abstract class ServiceLastAccessed
       totalAuthenticatedEntities: totalAuthenticatedEntities,
       trackedActionsLastAccessed: trackedActionsLastAccessed == null
           ? null
-          : _i3.BuiltList(trackedActionsLastAccessed),
+          : _i2.BuiltList(trackedActionsLastAccessed),
     );
   }
 
@@ -53,7 +52,7 @@ abstract class ServiceLastAccessed
 
   const ServiceLastAccessed._();
 
-  static const List<_i4.SmithySerializer<ServiceLastAccessed>> serializers = [
+  static const List<_i3.SmithySerializer<ServiceLastAccessed>> serializers = [
     ServiceLastAccessedAwsQuerySerializer()
   ];
 
@@ -88,7 +87,7 @@ abstract class ServiceLastAccessed
   /// An object that contains details about the most recent attempt to access a tracked action within the service.
   ///
   /// This field is null if there no tracked actions or if the principal did not use the tracked actions within the [tracking period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period). This field is also null if the report was generated at the service level and not the action level. For more information, see the `Granularity` field in GenerateServiceLastAccessedDetails.
-  _i3.BuiltList<_i2.TrackedActionLastAccessed>? get trackedActionsLastAccessed;
+  _i2.BuiltList<TrackedActionLastAccessed>? get trackedActionsLastAccessed;
   @override
   List<Object?> get props => [
         serviceName,
@@ -135,7 +134,7 @@ abstract class ServiceLastAccessed
 }
 
 class ServiceLastAccessedAwsQuerySerializer
-    extends _i4.StructuredSmithySerializer<ServiceLastAccessed> {
+    extends _i3.StructuredSmithySerializer<ServiceLastAccessed> {
   const ServiceLastAccessedAwsQuerySerializer() : super('ServiceLastAccessed');
 
   @override
@@ -144,8 +143,8 @@ class ServiceLastAccessedAwsQuerySerializer
         _$ServiceLastAccessed,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -198,16 +197,16 @@ class ServiceLastAccessedAwsQuerySerializer
           ) as int);
         case 'TrackedActionsLastAccessed':
           result.trackedActionsLastAccessed.replace(
-              (const _i4.XmlBuiltListSerializer(
-                      indexer: _i4.XmlIndexer.awsQueryList)
+              (const _i3.XmlBuiltListSerializer(
+                      indexer: _i3.XmlIndexer.awsQueryList)
                   .deserialize(
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.TrackedActionLastAccessed)],
+              _i2.BuiltList,
+              [FullType(TrackedActionLastAccessed)],
             ),
-          ) as _i3.BuiltList<_i2.TrackedActionLastAccessed>));
+          ) as _i2.BuiltList<TrackedActionLastAccessed>));
       }
     }
 
@@ -221,9 +220,9 @@ class ServiceLastAccessedAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i4.XmlElementName(
+      const _i3.XmlElementName(
         'ServiceLastAccessedResponse',
-        _i4.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
+        _i3.XmlNamespace('https://iam.amazonaws.com/doc/2010-05-08/'),
       )
     ];
     final ServiceLastAccessed(
@@ -236,28 +235,28 @@ class ServiceLastAccessedAwsQuerySerializer
       :trackedActionsLastAccessed
     ) = object;
     result$
-      ..add(const _i4.XmlElementName('ServiceName'))
+      ..add(const _i3.XmlElementName('ServiceName'))
       ..add(serializers.serialize(
         serviceName,
         specifiedType: const FullType(String),
       ));
     if (lastAuthenticated != null) {
       result$
-        ..add(const _i4.XmlElementName('LastAuthenticated'))
+        ..add(const _i3.XmlElementName('LastAuthenticated'))
         ..add(serializers.serialize(
           lastAuthenticated,
           specifiedType: const FullType.nullable(DateTime),
         ));
     }
     result$
-      ..add(const _i4.XmlElementName('ServiceNamespace'))
+      ..add(const _i3.XmlElementName('ServiceNamespace'))
       ..add(serializers.serialize(
         serviceNamespace,
         specifiedType: const FullType(String),
       ));
     if (lastAuthenticatedEntity != null) {
       result$
-        ..add(const _i4.XmlElementName('LastAuthenticatedEntity'))
+        ..add(const _i3.XmlElementName('LastAuthenticatedEntity'))
         ..add(serializers.serialize(
           lastAuthenticatedEntity,
           specifiedType: const FullType(String),
@@ -265,7 +264,7 @@ class ServiceLastAccessedAwsQuerySerializer
     }
     if (lastAuthenticatedRegion != null) {
       result$
-        ..add(const _i4.XmlElementName('LastAuthenticatedRegion'))
+        ..add(const _i3.XmlElementName('LastAuthenticatedRegion'))
         ..add(serializers.serialize(
           lastAuthenticatedRegion,
           specifiedType: const FullType(String),
@@ -273,7 +272,7 @@ class ServiceLastAccessedAwsQuerySerializer
     }
     if (totalAuthenticatedEntities != null) {
       result$
-        ..add(const _i4.XmlElementName('TotalAuthenticatedEntities'))
+        ..add(const _i3.XmlElementName('TotalAuthenticatedEntities'))
         ..add(serializers.serialize(
           totalAuthenticatedEntities,
           specifiedType: const FullType.nullable(int),
@@ -281,15 +280,15 @@ class ServiceLastAccessedAwsQuerySerializer
     }
     if (trackedActionsLastAccessed != null) {
       result$
-        ..add(const _i4.XmlElementName('TrackedActionsLastAccessed'))
-        ..add(const _i4.XmlBuiltListSerializer(
-                indexer: _i4.XmlIndexer.awsQueryList)
+        ..add(const _i3.XmlElementName('TrackedActionsLastAccessed'))
+        ..add(const _i3.XmlBuiltListSerializer(
+                indexer: _i3.XmlIndexer.awsQueryList)
             .serialize(
           serializers,
           trackedActionsLastAccessed,
           specifiedType: const FullType.nullable(
-            _i3.BuiltList,
-            [FullType(_i2.TrackedActionLastAccessed)],
+            _i2.BuiltList,
+            [FullType(TrackedActionLastAccessed)],
           ),
         ));
     }

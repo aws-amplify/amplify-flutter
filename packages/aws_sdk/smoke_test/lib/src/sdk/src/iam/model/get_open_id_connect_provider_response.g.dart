@@ -11,13 +11,13 @@ class _$GetOpenIdConnectProviderResponse
   @override
   final String? url;
   @override
-  final _i3.BuiltList<String>? clientIdList;
+  final _i2.BuiltList<String>? clientIdList;
   @override
-  final _i3.BuiltList<String>? thumbprintList;
+  final _i2.BuiltList<String>? thumbprintList;
   @override
   final DateTime? createDate;
   @override
-  final _i3.BuiltList<_i2.Tag>? tags;
+  final _i2.BuiltList<Tag>? tags;
 
   factory _$GetOpenIdConnectProviderResponse(
           [void Function(GetOpenIdConnectProviderResponseBuilder)? updates]) =>
@@ -74,26 +74,25 @@ class GetOpenIdConnectProviderResponseBuilder
   String? get url => _$this._url;
   set url(String? url) => _$this._url = url;
 
-  _i3.ListBuilder<String>? _clientIdList;
-  _i3.ListBuilder<String> get clientIdList =>
-      _$this._clientIdList ??= new _i3.ListBuilder<String>();
-  set clientIdList(_i3.ListBuilder<String>? clientIdList) =>
+  _i2.ListBuilder<String>? _clientIdList;
+  _i2.ListBuilder<String> get clientIdList =>
+      _$this._clientIdList ??= new _i2.ListBuilder<String>();
+  set clientIdList(_i2.ListBuilder<String>? clientIdList) =>
       _$this._clientIdList = clientIdList;
 
-  _i3.ListBuilder<String>? _thumbprintList;
-  _i3.ListBuilder<String> get thumbprintList =>
-      _$this._thumbprintList ??= new _i3.ListBuilder<String>();
-  set thumbprintList(_i3.ListBuilder<String>? thumbprintList) =>
+  _i2.ListBuilder<String>? _thumbprintList;
+  _i2.ListBuilder<String> get thumbprintList =>
+      _$this._thumbprintList ??= new _i2.ListBuilder<String>();
+  set thumbprintList(_i2.ListBuilder<String>? thumbprintList) =>
       _$this._thumbprintList = thumbprintList;
 
   DateTime? _createDate;
   DateTime? get createDate => _$this._createDate;
   set createDate(DateTime? createDate) => _$this._createDate = createDate;
 
-  _i3.ListBuilder<_i2.Tag>? _tags;
-  _i3.ListBuilder<_i2.Tag> get tags =>
-      _$this._tags ??= new _i3.ListBuilder<_i2.Tag>();
-  set tags(_i3.ListBuilder<_i2.Tag>? tags) => _$this._tags = tags;
+  _i2.ListBuilder<Tag>? _tags;
+  _i2.ListBuilder<Tag> get tags => _$this._tags ??= new _i2.ListBuilder<Tag>();
+  set tags(_i2.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   GetOpenIdConnectProviderResponseBuilder();
 

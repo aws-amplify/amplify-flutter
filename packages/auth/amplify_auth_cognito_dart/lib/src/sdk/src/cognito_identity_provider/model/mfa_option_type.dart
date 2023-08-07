@@ -3,12 +3,11 @@
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.mfa_option_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/delivery_medium_type.dart'
-    as _i2;
+import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/model/delivery_medium_type.dart';
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
+import 'package:smithy/smithy.dart' as _i2;
 
 part 'mfa_option_type.g.dart';
 
@@ -18,7 +17,7 @@ abstract class MfaOptionType
     implements Built<MfaOptionType, MfaOptionTypeBuilder> {
   /// _This data type is no longer supported._ Applies only to SMS multi-factor authentication (MFA) configurations. Does not apply to time-based one-time password (TOTP) software token MFA configurations.
   factory MfaOptionType({
-    _i2.DeliveryMediumType? deliveryMedium,
+    DeliveryMediumType? deliveryMedium,
     String? attributeName,
   }) {
     return _$MfaOptionType._(
@@ -33,12 +32,12 @@ abstract class MfaOptionType
 
   const MfaOptionType._();
 
-  static const List<_i3.SmithySerializer<MfaOptionType>> serializers = [
+  static const List<_i2.SmithySerializer<MfaOptionType>> serializers = [
     MfaOptionTypeAwsJson11Serializer()
   ];
 
   /// The delivery medium to send the MFA code. You can use this parameter to set only the `SMS` delivery medium value.
-  _i2.DeliveryMediumType? get deliveryMedium;
+  DeliveryMediumType? get deliveryMedium;
 
   /// The attribute name of the MFA option type. The only valid value is `phone_number`.
   String? get attributeName;
@@ -63,7 +62,7 @@ abstract class MfaOptionType
 }
 
 class MfaOptionTypeAwsJson11Serializer
-    extends _i3.StructuredSmithySerializer<MfaOptionType> {
+    extends _i2.StructuredSmithySerializer<MfaOptionType> {
   const MfaOptionTypeAwsJson11Serializer() : super('MfaOptionType');
 
   @override
@@ -72,8 +71,8 @@ class MfaOptionTypeAwsJson11Serializer
         _$MfaOptionType,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -97,8 +96,8 @@ class MfaOptionTypeAwsJson11Serializer
         case 'DeliveryMedium':
           result.deliveryMedium = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.DeliveryMediumType),
-          ) as _i2.DeliveryMediumType);
+            specifiedType: const FullType(DeliveryMediumType),
+          ) as DeliveryMediumType);
         case 'AttributeName':
           result.attributeName = (serializers.deserialize(
             value,
@@ -123,7 +122,7 @@ class MfaOptionTypeAwsJson11Serializer
         ..add('DeliveryMedium')
         ..add(serializers.serialize(
           deliveryMedium,
-          specifiedType: const FullType(_i2.DeliveryMediumType),
+          specifiedType: const FullType(DeliveryMediumType),
         ));
     }
     if (attributeName != null) {

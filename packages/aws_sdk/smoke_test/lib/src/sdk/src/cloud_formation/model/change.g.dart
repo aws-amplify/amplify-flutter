@@ -8,11 +8,11 @@ part of 'change.dart';
 
 class _$Change extends Change {
   @override
-  final _i2.ChangeType? type;
+  final ChangeType? type;
   @override
   final int? hookInvocationCount;
   @override
-  final _i3.ResourceChange? resourceChange;
+  final ResourceChange? resourceChange;
 
   factory _$Change([void Function(ChangeBuilder)? updates]) =>
       (new ChangeBuilder()..update(updates))._build();
@@ -50,19 +50,19 @@ class _$Change extends Change {
 class ChangeBuilder implements Builder<Change, ChangeBuilder> {
   _$Change? _$v;
 
-  _i2.ChangeType? _type;
-  _i2.ChangeType? get type => _$this._type;
-  set type(_i2.ChangeType? type) => _$this._type = type;
+  ChangeType? _type;
+  ChangeType? get type => _$this._type;
+  set type(ChangeType? type) => _$this._type = type;
 
   int? _hookInvocationCount;
   int? get hookInvocationCount => _$this._hookInvocationCount;
   set hookInvocationCount(int? hookInvocationCount) =>
       _$this._hookInvocationCount = hookInvocationCount;
 
-  _i3.ResourceChangeBuilder? _resourceChange;
-  _i3.ResourceChangeBuilder get resourceChange =>
-      _$this._resourceChange ??= new _i3.ResourceChangeBuilder();
-  set resourceChange(_i3.ResourceChangeBuilder? resourceChange) =>
+  ResourceChangeBuilder? _resourceChange;
+  ResourceChangeBuilder get resourceChange =>
+      _$this._resourceChange ??= new ResourceChangeBuilder();
+  set resourceChange(ResourceChangeBuilder? resourceChange) =>
       _$this._resourceChange = resourceChange;
 
   ChangeBuilder();

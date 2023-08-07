@@ -4,14 +4,12 @@
 library smoke_test.cloud_formation.model.list_stack_instance_resource_drifts_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i5;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart'
-    as _i4;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_resource_drift_status.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart';
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_resource_drift_status.dart';
 
 part 'list_stack_instance_resource_drifts_input.g.dart';
 
@@ -26,11 +24,11 @@ abstract class ListStackInstanceResourceDriftsInput
     required String stackSetName,
     String? nextToken,
     int? maxResults,
-    List<_i3.StackResourceDriftStatus>? stackInstanceResourceDriftStatuses,
+    List<StackResourceDriftStatus>? stackInstanceResourceDriftStatuses,
     required String stackInstanceAccount,
     required String stackInstanceRegion,
     required String operationId,
-    _i4.CallAs? callAs,
+    CallAs? callAs,
   }) {
     return _$ListStackInstanceResourceDriftsInput._(
       stackSetName: stackSetName,
@@ -39,7 +37,7 @@ abstract class ListStackInstanceResourceDriftsInput
       stackInstanceResourceDriftStatuses:
           stackInstanceResourceDriftStatuses == null
               ? null
-              : _i5.BuiltList(stackInstanceResourceDriftStatuses),
+              : _i3.BuiltList(stackInstanceResourceDriftStatuses),
       stackInstanceAccount: stackInstanceAccount,
       stackInstanceRegion: stackInstanceRegion,
       operationId: operationId,
@@ -81,7 +79,7 @@ abstract class ListStackInstanceResourceDriftsInput
   /// *   `IN_SYNC`: The resource's actual configuration matches its expected template configuration.
   ///
   /// *   `NOT_CHECKED`: CloudFormation doesn't currently return this value.
-  _i5.BuiltList<_i3.StackResourceDriftStatus>?
+  _i3.BuiltList<StackResourceDriftStatus>?
       get stackInstanceResourceDriftStatuses;
 
   /// The name of the Amazon Web Services account that you want to list resource drifts for.
@@ -102,7 +100,7 @@ abstract class ListStackInstanceResourceDriftsInput
   /// *   If you are signed in to a delegated administrator account, specify `DELEGATED_ADMIN`.
   ///
   ///     Your Amazon Web Services account must be registered as a delegated administrator in the management account. For more information, see [Register a delegated administrator](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html) in the _CloudFormation User Guide_.
-  _i4.CallAs? get callAs;
+  CallAs? get callAs;
   @override
   ListStackInstanceResourceDriftsInput getPayload() => this;
   @override
@@ -212,10 +210,10 @@ class ListStackInstanceResourceDriftsInputAwsQuerySerializer extends _i1
             serializers,
             value is String ? const [] : (value as Iterable<Object?>),
             specifiedType: const FullType(
-              _i5.BuiltList,
-              [FullType(_i3.StackResourceDriftStatus)],
+              _i3.BuiltList,
+              [FullType(StackResourceDriftStatus)],
             ),
-          ) as _i5.BuiltList<_i3.StackResourceDriftStatus>));
+          ) as _i3.BuiltList<StackResourceDriftStatus>));
         case 'StackInstanceAccount':
           result.stackInstanceAccount = (serializers.deserialize(
             value,
@@ -234,8 +232,8 @@ class ListStackInstanceResourceDriftsInputAwsQuerySerializer extends _i1
         case 'CallAs':
           result.callAs = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i4.CallAs),
-          ) as _i4.CallAs);
+            specifiedType: const FullType(CallAs),
+          ) as CallAs);
       }
     }
 
@@ -295,8 +293,8 @@ class ListStackInstanceResourceDriftsInputAwsQuerySerializer extends _i1
           serializers,
           stackInstanceResourceDriftStatuses,
           specifiedType: const FullType.nullable(
-            _i5.BuiltList,
-            [FullType(_i3.StackResourceDriftStatus)],
+            _i3.BuiltList,
+            [FullType(StackResourceDriftStatus)],
           ),
         ));
     }
@@ -323,7 +321,7 @@ class ListStackInstanceResourceDriftsInputAwsQuerySerializer extends _i1
         ..add(const _i1.XmlElementName('CallAs'))
         ..add(serializers.serialize(
           callAs,
-          specifiedType: const FullType.nullable(_i4.CallAs),
+          specifiedType: const FullType.nullable(CallAs),
         ));
     }
     return result$;

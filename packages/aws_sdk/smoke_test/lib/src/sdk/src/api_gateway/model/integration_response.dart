@@ -4,12 +4,11 @@
 library smoke_test.api_gateway.model.integration_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/content_handling_strategy.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/content_handling_strategy.dart';
 
 part 'integration_response.g.dart';
 
@@ -23,15 +22,15 @@ abstract class IntegrationResponse
     String? selectionPattern,
     Map<String, String>? responseParameters,
     Map<String, String>? responseTemplates,
-    _i2.ContentHandlingStrategy? contentHandling,
+    ContentHandlingStrategy? contentHandling,
   }) {
     return _$IntegrationResponse._(
       statusCode: statusCode,
       selectionPattern: selectionPattern,
       responseParameters:
-          responseParameters == null ? null : _i3.BuiltMap(responseParameters),
+          responseParameters == null ? null : _i2.BuiltMap(responseParameters),
       responseTemplates:
-          responseTemplates == null ? null : _i3.BuiltMap(responseTemplates),
+          responseTemplates == null ? null : _i2.BuiltMap(responseTemplates),
       contentHandling: contentHandling,
     );
   }
@@ -50,7 +49,7 @@ abstract class IntegrationResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<IntegrationResponse>> serializers = [
+  static const List<_i3.SmithySerializer<IntegrationResponse>> serializers = [
     IntegrationResponseRestJson1Serializer()
   ];
 
@@ -61,15 +60,15 @@ abstract class IntegrationResponse
   String? get selectionPattern;
 
   /// A key-value map specifying response parameters that are passed to the method response from the back end. The key is a method response header parameter name and the mapped value is an integration response header value, a static value enclosed within a pair of single quotes, or a JSON expression from the integration response body. The mapping key must match the pattern of `method.response.header.{name}`, where `name` is a valid and unique header name. The mapped non-static value must match the pattern of `integration.response.header.{name}` or `integration.response.body.{JSON-expression}`, where `name` is a valid and unique response header name and `JSON-expression` is a valid JSON expression without the `$` prefix.
-  _i3.BuiltMap<String, String>? get responseParameters;
+  _i2.BuiltMap<String, String>? get responseParameters;
 
   /// Specifies the templates used to transform the integration response body. Response templates are represented as a key/value map, with a content-type as the key and a template as the value.
-  _i3.BuiltMap<String, String>? get responseTemplates;
+  _i2.BuiltMap<String, String>? get responseTemplates;
 
   /// Specifies how to handle response payload content type conversions. Supported values are `CONVERT\_TO\_BINARY` and `CONVERT\_TO\_TEXT`, with the following behaviors:
   ///
   /// If this property is not defined, the response payload will be passed through from the integration response to the method response without modification.
-  _i2.ContentHandlingStrategy? get contentHandling;
+  ContentHandlingStrategy? get contentHandling;
   @override
   List<Object?> get props => [
         statusCode,
@@ -106,7 +105,7 @@ abstract class IntegrationResponse
 }
 
 class IntegrationResponseRestJson1Serializer
-    extends _i4.StructuredSmithySerializer<IntegrationResponse> {
+    extends _i3.StructuredSmithySerializer<IntegrationResponse> {
   const IntegrationResponseRestJson1Serializer() : super('IntegrationResponse');
 
   @override
@@ -115,8 +114,8 @@ class IntegrationResponseRestJson1Serializer
         _$IntegrationResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -140,30 +139,30 @@ class IntegrationResponseRestJson1Serializer
         case 'contentHandling':
           result.contentHandling = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.ContentHandlingStrategy),
-          ) as _i2.ContentHandlingStrategy);
+            specifiedType: const FullType(ContentHandlingStrategy),
+          ) as ContentHandlingStrategy);
         case 'responseParameters':
           result.responseParameters.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i3.BuiltMap<String, String>));
+          ) as _i2.BuiltMap<String, String>));
         case 'responseTemplates':
           result.responseTemplates.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i3.BuiltMap<String, String>));
+          ) as _i2.BuiltMap<String, String>));
         case 'selectionPattern':
           result.selectionPattern = (serializers.deserialize(
             value,
@@ -199,7 +198,7 @@ class IntegrationResponseRestJson1Serializer
         ..add('contentHandling')
         ..add(serializers.serialize(
           contentHandling,
-          specifiedType: const FullType(_i2.ContentHandlingStrategy),
+          specifiedType: const FullType(ContentHandlingStrategy),
         ));
     }
     if (responseParameters != null) {
@@ -208,7 +207,7 @@ class IntegrationResponseRestJson1Serializer
         ..add(serializers.serialize(
           responseParameters,
           specifiedType: const FullType(
-            _i3.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -222,7 +221,7 @@ class IntegrationResponseRestJson1Serializer
         ..add(serializers.serialize(
           responseTemplates,
           specifiedType: const FullType(
-            _i3.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
               FullType(String),

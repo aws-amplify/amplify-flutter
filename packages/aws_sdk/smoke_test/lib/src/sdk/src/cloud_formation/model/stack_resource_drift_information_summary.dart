@@ -6,9 +6,8 @@ library smoke_test.cloud_formation.model.stack_resource_drift_information_summar
 import 'package:aws_common/aws_common.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i3;
-import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_resource_drift_status.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i2;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_resource_drift_status.dart';
 
 part 'stack_resource_drift_information_summary.g.dart';
 
@@ -21,7 +20,7 @@ abstract class StackResourceDriftInformationSummary
             StackResourceDriftInformationSummaryBuilder> {
   /// Summarizes information about whether the resource's actual configuration differs, or has _drifted_, from its expected configuration.
   factory StackResourceDriftInformationSummary({
-    required _i2.StackResourceDriftStatus stackResourceDriftStatus,
+    required StackResourceDriftStatus stackResourceDriftStatus,
     DateTime? lastCheckTimestamp,
   }) {
     return _$StackResourceDriftInformationSummary._(
@@ -37,7 +36,7 @@ abstract class StackResourceDriftInformationSummary
 
   const StackResourceDriftInformationSummary._();
 
-  static const List<_i3.SmithySerializer<StackResourceDriftInformationSummary>>
+  static const List<_i2.SmithySerializer<StackResourceDriftInformationSummary>>
       serializers = [StackResourceDriftInformationSummaryAwsQuerySerializer()];
 
   /// Status of the resource's actual configuration compared to its expected configuration.
@@ -51,7 +50,7 @@ abstract class StackResourceDriftInformationSummary
   ///     Any resources that don't currently support drift detection have a status of `NOT_CHECKED`. For more information, see [Resources that Support Drift Detection](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html). If you performed an ContinueUpdateRollback operation on a stack, any resources included in `ResourcesToSkip` will also have a status of `NOT_CHECKED`. For more information about skipping resources during rollback operations, see [Continue Rolling Back an Update](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-continueupdaterollback.html) in the CloudFormation User Guide.
   ///
   /// *   `IN_SYNC`: The resource's actual configuration matches its expected configuration.
-  _i2.StackResourceDriftStatus get stackResourceDriftStatus;
+  StackResourceDriftStatus get stackResourceDriftStatus;
 
   /// When CloudFormation last checked if the resource had drifted from its expected configuration.
   DateTime? get lastCheckTimestamp;
@@ -76,7 +75,7 @@ abstract class StackResourceDriftInformationSummary
   }
 }
 
-class StackResourceDriftInformationSummaryAwsQuerySerializer extends _i3
+class StackResourceDriftInformationSummaryAwsQuerySerializer extends _i2
     .StructuredSmithySerializer<StackResourceDriftInformationSummary> {
   const StackResourceDriftInformationSummaryAwsQuerySerializer()
       : super('StackResourceDriftInformationSummary');
@@ -87,8 +86,8 @@ class StackResourceDriftInformationSummaryAwsQuerySerializer extends _i3
         _$StackResourceDriftInformationSummary,
       ];
   @override
-  Iterable<_i3.ShapeId> get supportedProtocols => const [
-        _i3.ShapeId(
+  Iterable<_i2.ShapeId> get supportedProtocols => const [
+        _i2.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsQuery',
         )
@@ -112,8 +111,8 @@ class StackResourceDriftInformationSummaryAwsQuerySerializer extends _i3
         case 'StackResourceDriftStatus':
           result.stackResourceDriftStatus = (serializers.deserialize(
             value,
-            specifiedType: const FullType(_i2.StackResourceDriftStatus),
-          ) as _i2.StackResourceDriftStatus);
+            specifiedType: const FullType(StackResourceDriftStatus),
+          ) as StackResourceDriftStatus);
         case 'LastCheckTimestamp':
           result.lastCheckTimestamp = (serializers.deserialize(
             value,
@@ -132,9 +131,9 @@ class StackResourceDriftInformationSummaryAwsQuerySerializer extends _i3
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[
-      const _i3.XmlElementName(
+      const _i2.XmlElementName(
         'StackResourceDriftInformationSummaryResponse',
-        _i3.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
+        _i2.XmlNamespace('http://cloudformation.amazonaws.com/doc/2010-05-15/'),
       )
     ];
     final StackResourceDriftInformationSummary(
@@ -142,14 +141,14 @@ class StackResourceDriftInformationSummaryAwsQuerySerializer extends _i3
       :lastCheckTimestamp
     ) = object;
     result$
-      ..add(const _i3.XmlElementName('StackResourceDriftStatus'))
+      ..add(const _i2.XmlElementName('StackResourceDriftStatus'))
       ..add(serializers.serialize(
         stackResourceDriftStatus,
-        specifiedType: const FullType.nullable(_i2.StackResourceDriftStatus),
+        specifiedType: const FullType.nullable(StackResourceDriftStatus),
       ));
     if (lastCheckTimestamp != null) {
       result$
-        ..add(const _i3.XmlElementName('LastCheckTimestamp'))
+        ..add(const _i2.XmlElementName('LastCheckTimestamp'))
         ..add(serializers.serialize(
           lastCheckTimestamp,
           specifiedType: const FullType.nullable(DateTime),

@@ -14,7 +14,7 @@ class _$StackResourceDrift extends StackResourceDrift {
   @override
   final String? physicalResourceId;
   @override
-  final _i6.BuiltList<_i2.PhysicalResourceIdContextKeyValuePair>?
+  final _i2.BuiltList<PhysicalResourceIdContextKeyValuePair>?
       physicalResourceIdContext;
   @override
   final String resourceType;
@@ -23,13 +23,13 @@ class _$StackResourceDrift extends StackResourceDrift {
   @override
   final String? actualProperties;
   @override
-  final _i6.BuiltList<_i3.PropertyDifference>? propertyDifferences;
+  final _i2.BuiltList<PropertyDifference>? propertyDifferences;
   @override
-  final _i4.StackResourceDriftStatus stackResourceDriftStatus;
+  final StackResourceDriftStatus stackResourceDriftStatus;
   @override
   final DateTime timestamp;
   @override
-  final _i5.ModuleInfo? moduleInfo;
+  final ModuleInfo? moduleInfo;
 
   factory _$StackResourceDrift(
           [void Function(StackResourceDriftBuilder)? updates]) =>
@@ -123,13 +123,13 @@ class StackResourceDriftBuilder
   set physicalResourceId(String? physicalResourceId) =>
       _$this._physicalResourceId = physicalResourceId;
 
-  _i6.ListBuilder<_i2.PhysicalResourceIdContextKeyValuePair>?
+  _i2.ListBuilder<PhysicalResourceIdContextKeyValuePair>?
       _physicalResourceIdContext;
-  _i6.ListBuilder<_i2.PhysicalResourceIdContextKeyValuePair>
+  _i2.ListBuilder<PhysicalResourceIdContextKeyValuePair>
       get physicalResourceIdContext => _$this._physicalResourceIdContext ??=
-          new _i6.ListBuilder<_i2.PhysicalResourceIdContextKeyValuePair>();
+          new _i2.ListBuilder<PhysicalResourceIdContextKeyValuePair>();
   set physicalResourceIdContext(
-          _i6.ListBuilder<_i2.PhysicalResourceIdContextKeyValuePair>?
+          _i2.ListBuilder<PhysicalResourceIdContextKeyValuePair>?
               physicalResourceIdContext) =>
       _$this._physicalResourceIdContext = physicalResourceIdContext;
 
@@ -147,29 +147,28 @@ class StackResourceDriftBuilder
   set actualProperties(String? actualProperties) =>
       _$this._actualProperties = actualProperties;
 
-  _i6.ListBuilder<_i3.PropertyDifference>? _propertyDifferences;
-  _i6.ListBuilder<_i3.PropertyDifference> get propertyDifferences =>
-      _$this._propertyDifferences ??=
-          new _i6.ListBuilder<_i3.PropertyDifference>();
+  _i2.ListBuilder<PropertyDifference>? _propertyDifferences;
+  _i2.ListBuilder<PropertyDifference> get propertyDifferences =>
+      _$this._propertyDifferences ??= new _i2.ListBuilder<PropertyDifference>();
   set propertyDifferences(
-          _i6.ListBuilder<_i3.PropertyDifference>? propertyDifferences) =>
+          _i2.ListBuilder<PropertyDifference>? propertyDifferences) =>
       _$this._propertyDifferences = propertyDifferences;
 
-  _i4.StackResourceDriftStatus? _stackResourceDriftStatus;
-  _i4.StackResourceDriftStatus? get stackResourceDriftStatus =>
+  StackResourceDriftStatus? _stackResourceDriftStatus;
+  StackResourceDriftStatus? get stackResourceDriftStatus =>
       _$this._stackResourceDriftStatus;
   set stackResourceDriftStatus(
-          _i4.StackResourceDriftStatus? stackResourceDriftStatus) =>
+          StackResourceDriftStatus? stackResourceDriftStatus) =>
       _$this._stackResourceDriftStatus = stackResourceDriftStatus;
 
   DateTime? _timestamp;
   DateTime? get timestamp => _$this._timestamp;
   set timestamp(DateTime? timestamp) => _$this._timestamp = timestamp;
 
-  _i5.ModuleInfoBuilder? _moduleInfo;
-  _i5.ModuleInfoBuilder get moduleInfo =>
-      _$this._moduleInfo ??= new _i5.ModuleInfoBuilder();
-  set moduleInfo(_i5.ModuleInfoBuilder? moduleInfo) =>
+  ModuleInfoBuilder? _moduleInfo;
+  ModuleInfoBuilder get moduleInfo =>
+      _$this._moduleInfo ??= new ModuleInfoBuilder();
+  set moduleInfo(ModuleInfoBuilder? moduleInfo) =>
       _$this._moduleInfo = moduleInfo;
 
   StackResourceDriftBuilder();

@@ -10,7 +10,7 @@ class _$TagUserRequest extends TagUserRequest {
   @override
   final String userName;
   @override
-  final _i4.BuiltList<_i3.Tag> tags;
+  final _i3.BuiltList<Tag> tags;
 
   factory _$TagUserRequest([void Function(TagUserRequestBuilder)? updates]) =>
       (new TagUserRequestBuilder()..update(updates))._build();
@@ -55,10 +55,9 @@ class TagUserRequestBuilder
   String? get userName => _$this._userName;
   set userName(String? userName) => _$this._userName = userName;
 
-  _i4.ListBuilder<_i3.Tag>? _tags;
-  _i4.ListBuilder<_i3.Tag> get tags =>
-      _$this._tags ??= new _i4.ListBuilder<_i3.Tag>();
-  set tags(_i4.ListBuilder<_i3.Tag>? tags) => _$this._tags = tags;
+  _i3.ListBuilder<Tag>? _tags;
+  _i3.ListBuilder<Tag> get tags => _$this._tags ??= new _i3.ListBuilder<Tag>();
+  set tags(_i3.ListBuilder<Tag>? tags) => _$this._tags = tags;
 
   TagUserRequestBuilder();
 

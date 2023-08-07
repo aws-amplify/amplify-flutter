@@ -8,7 +8,7 @@ part of 'sdk_types.dart';
 
 class _$SdkTypes extends SdkTypes {
   @override
-  final _i3.BuiltList<_i2.SdkType>? items;
+  final _i2.BuiltList<SdkType>? items;
 
   factory _$SdkTypes([void Function(SdkTypesBuilder)? updates]) =>
       (new SdkTypesBuilder()..update(updates))._build();
@@ -40,10 +40,10 @@ class _$SdkTypes extends SdkTypes {
 class SdkTypesBuilder implements Builder<SdkTypes, SdkTypesBuilder> {
   _$SdkTypes? _$v;
 
-  _i3.ListBuilder<_i2.SdkType>? _items;
-  _i3.ListBuilder<_i2.SdkType> get items =>
-      _$this._items ??= new _i3.ListBuilder<_i2.SdkType>();
-  set items(_i3.ListBuilder<_i2.SdkType>? items) => _$this._items = items;
+  _i2.ListBuilder<SdkType>? _items;
+  _i2.ListBuilder<SdkType> get items =>
+      _$this._items ??= new _i2.ListBuilder<SdkType>();
+  set items(_i2.ListBuilder<SdkType>? items) => _$this._items = items;
 
   SdkTypesBuilder();
 

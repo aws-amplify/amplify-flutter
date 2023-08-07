@@ -9,7 +9,7 @@ part of 'http_payload_with_member_xml_name_input_output.dart';
 class _$HttpPayloadWithMemberXmlNameInputOutput
     extends HttpPayloadWithMemberXmlNameInputOutput {
   @override
-  final _i2.PayloadWithXmlName? nested;
+  final PayloadWithXmlName? nested;
 
   factory _$HttpPayloadWithMemberXmlNameInputOutput(
           [void Function(HttpPayloadWithMemberXmlNameInputOutputBuilder)?
@@ -51,10 +51,10 @@ class HttpPayloadWithMemberXmlNameInputOutputBuilder
             HttpPayloadWithMemberXmlNameInputOutputBuilder> {
   _$HttpPayloadWithMemberXmlNameInputOutput? _$v;
 
-  _i2.PayloadWithXmlNameBuilder? _nested;
-  _i2.PayloadWithXmlNameBuilder get nested =>
-      _$this._nested ??= new _i2.PayloadWithXmlNameBuilder();
-  set nested(_i2.PayloadWithXmlNameBuilder? nested) => _$this._nested = nested;
+  PayloadWithXmlNameBuilder? _nested;
+  PayloadWithXmlNameBuilder get nested =>
+      _$this._nested ??= new PayloadWithXmlNameBuilder();
+  set nested(PayloadWithXmlNameBuilder? nested) => _$this._nested = nested;
 
   HttpPayloadWithMemberXmlNameInputOutputBuilder();
 

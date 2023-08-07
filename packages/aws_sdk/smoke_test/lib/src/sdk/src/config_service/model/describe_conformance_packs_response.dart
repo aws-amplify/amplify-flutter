@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.describe_conformance_packs_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
-import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_detail.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/conformance_pack_detail.dart';
 
 part 'describe_conformance_packs_response.g.dart';
 
@@ -20,13 +19,13 @@ abstract class DescribeConformancePacksResponse
         Built<DescribeConformancePacksResponse,
             DescribeConformancePacksResponseBuilder> {
   factory DescribeConformancePacksResponse({
-    List<_i2.ConformancePackDetail>? conformancePackDetails,
+    List<ConformancePackDetail>? conformancePackDetails,
     String? nextToken,
   }) {
     return _$DescribeConformancePacksResponse._(
       conformancePackDetails: conformancePackDetails == null
           ? null
-          : _i3.BuiltList(conformancePackDetails),
+          : _i2.BuiltList(conformancePackDetails),
       nextToken: nextToken,
     );
   }
@@ -44,11 +43,11 @@ abstract class DescribeConformancePacksResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer<DescribeConformancePacksResponse>>
+  static const List<_i3.SmithySerializer<DescribeConformancePacksResponse>>
       serializers = [DescribeConformancePacksResponseAwsJson11Serializer()];
 
   /// Returns a list of `ConformancePackDetail` objects.
-  _i3.BuiltList<_i2.ConformancePackDetail>? get conformancePackDetails;
+  _i2.BuiltList<ConformancePackDetail>? get conformancePackDetails;
 
   /// The `nextToken` string returned in a previous request that you use to request the next page of results in a paginated response.
   String? get nextToken;
@@ -74,7 +73,7 @@ abstract class DescribeConformancePacksResponse
 }
 
 class DescribeConformancePacksResponseAwsJson11Serializer
-    extends _i4.StructuredSmithySerializer<DescribeConformancePacksResponse> {
+    extends _i3.StructuredSmithySerializer<DescribeConformancePacksResponse> {
   const DescribeConformancePacksResponseAwsJson11Serializer()
       : super('DescribeConformancePacksResponse');
 
@@ -84,8 +83,8 @@ class DescribeConformancePacksResponseAwsJson11Serializer
         _$DescribeConformancePacksResponse,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_1',
         )
@@ -110,10 +109,10 @@ class DescribeConformancePacksResponseAwsJson11Serializer
           result.conformancePackDetails.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
-              [FullType(_i2.ConformancePackDetail)],
+              _i2.BuiltList,
+              [FullType(ConformancePackDetail)],
             ),
-          ) as _i3.BuiltList<_i2.ConformancePackDetail>));
+          ) as _i2.BuiltList<ConformancePackDetail>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -142,8 +141,8 @@ class DescribeConformancePacksResponseAwsJson11Serializer
         ..add(serializers.serialize(
           conformancePackDetails,
           specifiedType: const FullType(
-            _i3.BuiltList,
-            [FullType(_i2.ConformancePackDetail)],
+            _i2.BuiltList,
+            [FullType(ConformancePackDetail)],
           ),
         ));
     }

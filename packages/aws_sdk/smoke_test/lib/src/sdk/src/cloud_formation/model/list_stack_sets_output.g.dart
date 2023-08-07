@@ -8,7 +8,7 @@ part of 'list_stack_sets_output.dart';
 
 class _$ListStackSetsOutput extends ListStackSetsOutput {
   @override
-  final _i3.BuiltList<_i2.StackSetSummary>? summaries;
+  final _i2.BuiltList<StackSetSummary>? summaries;
   @override
   final String? nextToken;
 
@@ -49,10 +49,10 @@ class ListStackSetsOutputBuilder
     implements Builder<ListStackSetsOutput, ListStackSetsOutputBuilder> {
   _$ListStackSetsOutput? _$v;
 
-  _i3.ListBuilder<_i2.StackSetSummary>? _summaries;
-  _i3.ListBuilder<_i2.StackSetSummary> get summaries =>
-      _$this._summaries ??= new _i3.ListBuilder<_i2.StackSetSummary>();
-  set summaries(_i3.ListBuilder<_i2.StackSetSummary>? summaries) =>
+  _i2.ListBuilder<StackSetSummary>? _summaries;
+  _i2.ListBuilder<StackSetSummary> get summaries =>
+      _$this._summaries ??= new _i2.ListBuilder<StackSetSummary>();
+  set summaries(_i2.ListBuilder<StackSetSummary>? summaries) =>
       _$this._summaries = summaries;
 
   String? _nextToken;

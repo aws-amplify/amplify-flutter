@@ -4,14 +4,12 @@
 library smoke_test.api_gateway.model.method; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i2;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i5;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/integration.dart'
-    as _i3;
-import 'package:smoke_test/src/sdk/src/api_gateway/model/method_response.dart'
-    as _i2;
+import 'package:smithy/smithy.dart' as _i3;
+import 'package:smoke_test/src/sdk/src/api_gateway/model/integration.dart';
+import 'package:smoke_test/src/sdk/src/api_gateway/model/method_response.dart';
 
 part 'method.g.dart';
 
@@ -29,8 +27,8 @@ abstract class Method
     String? operationName,
     Map<String, bool>? requestParameters,
     Map<String, String>? requestModels,
-    Map<String, _i2.MethodResponse>? methodResponses,
-    _i3.Integration? methodIntegration,
+    Map<String, MethodResponse>? methodResponses,
+    Integration? methodIntegration,
     List<String>? authorizationScopes,
   }) {
     return _$Method._(
@@ -41,14 +39,14 @@ abstract class Method
       requestValidatorId: requestValidatorId,
       operationName: operationName,
       requestParameters:
-          requestParameters == null ? null : _i4.BuiltMap(requestParameters),
-      requestModels: requestModels == null ? null : _i4.BuiltMap(requestModels),
+          requestParameters == null ? null : _i2.BuiltMap(requestParameters),
+      requestModels: requestModels == null ? null : _i2.BuiltMap(requestModels),
       methodResponses:
-          methodResponses == null ? null : _i4.BuiltMap(methodResponses),
+          methodResponses == null ? null : _i2.BuiltMap(methodResponses),
       methodIntegration: methodIntegration,
       authorizationScopes: authorizationScopes == null
           ? null
-          : _i4.BuiltList(authorizationScopes),
+          : _i2.BuiltList(authorizationScopes),
     );
   }
 
@@ -64,7 +62,7 @@ abstract class Method
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer<Method>> serializers = [
+  static const List<_i3.SmithySerializer<Method>> serializers = [
     MethodRestJson1Serializer()
   ];
 
@@ -87,19 +85,19 @@ abstract class Method
   String? get operationName;
 
   /// A key-value map defining required or optional method request parameters that can be accepted by API Gateway. A key is a method request parameter name matching the pattern of `method.request.{location}.{name}`, where `location` is `querystring`, `path`, or `header` and `name` is a valid and unique parameter name. The value associated with the key is a Boolean flag indicating whether the parameter is required (`true`) or optional (`false`). The method request parameter names defined here are available in Integration to be mapped to integration request parameters or templates.
-  _i4.BuiltMap<String, bool>? get requestParameters;
+  _i2.BuiltMap<String, bool>? get requestParameters;
 
   /// A key-value map specifying data schemas, represented by Model resources, (as the mapped value) of the request payloads of given content types (as the mapping key).
-  _i4.BuiltMap<String, String>? get requestModels;
+  _i2.BuiltMap<String, String>? get requestModels;
 
   /// Gets a method response associated with a given HTTP status code.
-  _i4.BuiltMap<String, _i2.MethodResponse>? get methodResponses;
+  _i2.BuiltMap<String, MethodResponse>? get methodResponses;
 
   /// Gets the method's integration responsible for passing the client-submitted request to the back end and performing necessary transformations to make the request compliant with the back end.
-  _i3.Integration? get methodIntegration;
+  Integration? get methodIntegration;
 
   /// A list of authorization scopes configured on the method. The scopes are used with a `COGNITO\_USER\_POOLS` authorizer to authorize the method invocation. The authorization works by matching the method scopes against the scopes parsed from the access token in the incoming request. The method invocation is authorized if any method scopes matches a claimed scope in the access token. Otherwise, the invocation is not authorized. When the method scope is configured, the client must provide an access token instead of an identity token for authorization purposes.
-  _i4.BuiltList<String>? get authorizationScopes;
+  _i2.BuiltList<String>? get authorizationScopes;
   @override
   List<Object?> get props => [
         httpMethod,
@@ -165,7 +163,7 @@ abstract class Method
   }
 }
 
-class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
+class MethodRestJson1Serializer extends _i3.StructuredSmithySerializer<Method> {
   const MethodRestJson1Serializer() : super('Method');
 
   @override
@@ -174,8 +172,8 @@ class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
         _$Method,
       ];
   @override
-  Iterable<_i5.ShapeId> get supportedProtocols => const [
-        _i5.ShapeId(
+  Iterable<_i3.ShapeId> get supportedProtocols => const [
+        _i3.ShapeId(
           namespace: 'aws.protocols',
           shape: 'restJson1',
         )
@@ -205,10 +203,10 @@ class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
           result.authorizationScopes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
+              _i2.BuiltList,
               [FullType(String)],
             ),
-          ) as _i4.BuiltList<String>));
+          ) as _i2.BuiltList<String>));
         case 'authorizationType':
           result.authorizationType = (serializers.deserialize(
             value,
@@ -227,19 +225,19 @@ class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
         case 'methodIntegration':
           result.methodIntegration.replace((serializers.deserialize(
             value,
-            specifiedType: const FullType(_i3.Integration),
-          ) as _i3.Integration));
+            specifiedType: const FullType(Integration),
+          ) as Integration));
         case 'methodResponses':
           result.methodResponses.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
-                FullType(_i2.MethodResponse),
+                FullType(MethodResponse),
               ],
             ),
-          ) as _i4.BuiltMap<String, _i2.MethodResponse>));
+          ) as _i2.BuiltMap<String, MethodResponse>));
         case 'operationName':
           result.operationName = (serializers.deserialize(
             value,
@@ -249,24 +247,24 @@ class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
           result.requestModels.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i4.BuiltMap<String, String>));
+          ) as _i2.BuiltMap<String, String>));
         case 'requestParameters':
           result.requestParameters.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltMap,
+              _i2.BuiltMap,
               [
                 FullType(String),
                 FullType(bool),
               ],
             ),
-          ) as _i4.BuiltMap<String, bool>));
+          ) as _i2.BuiltMap<String, bool>));
         case 'requestValidatorId':
           result.requestValidatorId = (serializers.deserialize(
             value,
@@ -312,7 +310,7 @@ class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
         ..add(serializers.serialize(
           authorizationScopes,
           specifiedType: const FullType(
-            _i4.BuiltList,
+            _i2.BuiltList,
             [FullType(String)],
           ),
         ));
@@ -346,7 +344,7 @@ class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
         ..add('methodIntegration')
         ..add(serializers.serialize(
           methodIntegration,
-          specifiedType: const FullType(_i3.Integration),
+          specifiedType: const FullType(Integration),
         ));
     }
     if (methodResponses != null) {
@@ -355,10 +353,10 @@ class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
         ..add(serializers.serialize(
           methodResponses,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
-              FullType(_i2.MethodResponse),
+              FullType(MethodResponse),
             ],
           ),
         ));
@@ -377,7 +375,7 @@ class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
         ..add(serializers.serialize(
           requestModels,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -391,7 +389,7 @@ class MethodRestJson1Serializer extends _i5.StructuredSmithySerializer<Method> {
         ..add(serializers.serialize(
           requestParameters,
           specifiedType: const FullType(
-            _i4.BuiltMap,
+            _i2.BuiltMap,
             [
               FullType(String),
               FullType(bool),

@@ -4,12 +4,11 @@
 library smoke_test.config_service.model.get_compliance_details_by_resource_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i4;
+import 'package:built_collection/built_collection.dart' as _i3;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
-import 'package:smoke_test/src/sdk/src/config_service/model/compliance_type.dart'
-    as _i3;
+import 'package:smoke_test/src/sdk/src/config_service/model/compliance_type.dart';
 
 part 'get_compliance_details_by_resource_request.g.dart';
 
@@ -23,7 +22,7 @@ abstract class GetComplianceDetailsByResourceRequest
   factory GetComplianceDetailsByResourceRequest({
     String? resourceType,
     String? resourceId,
-    List<_i3.ComplianceType>? complianceTypes,
+    List<ComplianceType>? complianceTypes,
     String? nextToken,
     String? resourceEvaluationId,
   }) {
@@ -31,7 +30,7 @@ abstract class GetComplianceDetailsByResourceRequest
       resourceType: resourceType,
       resourceId: resourceId,
       complianceTypes:
-          complianceTypes == null ? null : _i4.BuiltList(complianceTypes),
+          complianceTypes == null ? null : _i3.BuiltList(complianceTypes),
       nextToken: nextToken,
       resourceEvaluationId: resourceEvaluationId,
     );
@@ -64,7 +63,7 @@ abstract class GetComplianceDetailsByResourceRequest
   /// Filters the results by compliance.
   ///
   /// `INSUFFICIENT_DATA` is a valid `ComplianceType` that is returned when an Config rule cannot be evaluated. However, `INSUFFICIENT_DATA` cannot be used as a `ComplianceType` for filtering results.
-  _i4.BuiltList<_i3.ComplianceType>? get complianceTypes;
+  _i3.BuiltList<ComplianceType>? get complianceTypes;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -158,10 +157,10 @@ class GetComplianceDetailsByResourceRequestAwsJson11Serializer extends _i1
           result.complianceTypes.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i4.BuiltList,
-              [FullType(_i3.ComplianceType)],
+              _i3.BuiltList,
+              [FullType(ComplianceType)],
             ),
-          ) as _i4.BuiltList<_i3.ComplianceType>));
+          ) as _i3.BuiltList<ComplianceType>));
         case 'NextToken':
           result.nextToken = (serializers.deserialize(
             value,
@@ -214,8 +213,8 @@ class GetComplianceDetailsByResourceRequestAwsJson11Serializer extends _i1
         ..add(serializers.serialize(
           complianceTypes,
           specifiedType: const FullType(
-            _i4.BuiltList,
-            [FullType(_i3.ComplianceType)],
+            _i3.BuiltList,
+            [FullType(ComplianceType)],
           ),
         ));
     }

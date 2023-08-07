@@ -8,7 +8,7 @@ part of 'create_access_key_response.dart';
 
 class _$CreateAccessKeyResponse extends CreateAccessKeyResponse {
   @override
-  final _i2.AccessKey accessKey;
+  final AccessKey accessKey;
 
   factory _$CreateAccessKeyResponse(
           [void Function(CreateAccessKeyResponseBuilder)? updates]) =>
@@ -48,11 +48,10 @@ class CreateAccessKeyResponseBuilder
         Builder<CreateAccessKeyResponse, CreateAccessKeyResponseBuilder> {
   _$CreateAccessKeyResponse? _$v;
 
-  _i2.AccessKeyBuilder? _accessKey;
-  _i2.AccessKeyBuilder get accessKey =>
-      _$this._accessKey ??= new _i2.AccessKeyBuilder();
-  set accessKey(_i2.AccessKeyBuilder? accessKey) =>
-      _$this._accessKey = accessKey;
+  AccessKeyBuilder? _accessKey;
+  AccessKeyBuilder get accessKey =>
+      _$this._accessKey ??= new AccessKeyBuilder();
+  set accessKey(AccessKeyBuilder? accessKey) => _$this._accessKey = accessKey;
 
   CreateAccessKeyResponseBuilder();
 

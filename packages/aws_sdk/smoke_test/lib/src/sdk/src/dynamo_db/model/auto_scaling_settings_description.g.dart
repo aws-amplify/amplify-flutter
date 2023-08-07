@@ -16,7 +16,7 @@ class _$AutoScalingSettingsDescription extends AutoScalingSettingsDescription {
   @override
   final String? autoScalingRoleArn;
   @override
-  final _i4.BuiltList<_i3.AutoScalingPolicyDescription>? scalingPolicies;
+  final _i3.BuiltList<AutoScalingPolicyDescription>? scalingPolicies;
 
   factory _$AutoScalingSettingsDescription(
           [void Function(AutoScalingSettingsDescriptionBuilder)? updates]) =>
@@ -89,12 +89,12 @@ class AutoScalingSettingsDescriptionBuilder
   set autoScalingRoleArn(String? autoScalingRoleArn) =>
       _$this._autoScalingRoleArn = autoScalingRoleArn;
 
-  _i4.ListBuilder<_i3.AutoScalingPolicyDescription>? _scalingPolicies;
-  _i4.ListBuilder<_i3.AutoScalingPolicyDescription> get scalingPolicies =>
+  _i3.ListBuilder<AutoScalingPolicyDescription>? _scalingPolicies;
+  _i3.ListBuilder<AutoScalingPolicyDescription> get scalingPolicies =>
       _$this._scalingPolicies ??=
-          new _i4.ListBuilder<_i3.AutoScalingPolicyDescription>();
+          new _i3.ListBuilder<AutoScalingPolicyDescription>();
   set scalingPolicies(
-          _i4.ListBuilder<_i3.AutoScalingPolicyDescription>? scalingPolicies) =>
+          _i3.ListBuilder<AutoScalingPolicyDescription>? scalingPolicies) =>
       _$this._scalingPolicies = scalingPolicies;
 
   AutoScalingSettingsDescriptionBuilder();
