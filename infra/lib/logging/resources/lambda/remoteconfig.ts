@@ -45,7 +45,7 @@ export const main: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent):
       return {
         statusCode: 400,
         headers: {},
-        body: JSON.stringify('Invalid Request')
+        body: 'Invalid Request'
       }
     }
   } catch (error: any) {
