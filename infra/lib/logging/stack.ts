@@ -78,7 +78,7 @@ export class LoggingIntegrationTestStackEnvironment extends IntegrationTestStack
         if (props.remoteConfig) {
 
             const loggingConfigLocation = 'lib/logging/resources/config/remoteloggingconstraints.json';
-            const lambdaConfig = 'lib/logging/resources/lambda/remoteconfig.js';
+            const lambdaConfig = 'lib/logging/resources/lambda/remoteconfig.ts';
             const configFileName = 'remoteloggingconstraints.json';
 
             // Create a bucket for the remote config
@@ -100,9 +100,9 @@ export class LoggingIntegrationTestStackEnvironment extends IntegrationTestStack
             });
 
             // Create a lambda function to handle the remote config
-            const handler = new lambda.Function(this,'AmplifyRemoteLogging-Handler', {
+            const handler = new lambda_node.NodejsFunction(this,'AmplifyRemoteLogging-Handler', {
                 runtime: lambda.Runtime.NODEJS_18_X,
-                code: lambda.Code.fromAsset(path.dirname(lambdaConfig)),
+                entry: lambdaConfig,
                 handler: 'remotelogging.main',
                 environment: {
                     BUCKET: bucketName,
