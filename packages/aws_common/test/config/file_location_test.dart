@@ -1,6 +1,6 @@
 // Generated with tool/generate_tests.dart. Do not modify by hand.
 
-import 'package:aws_common/aws_common.dart';
+import 'package:aws_common/src/config/aws_path_provider.dart';
 import 'package:os_detect/override.dart';
 import 'package:test/test.dart';
 
@@ -18,7 +18,7 @@ void main() {
               'HOME': r'/home/user',
               'USERPROFILE': r'ignored',
               'HOMEDRIVE': r'ignored',
-              'HOMEPATH': r'ignored',
+              'HOMEPATH': r'ignored'
             },
             () {
               expect(
@@ -46,7 +46,7 @@ void main() {
               'HOME': r'C:\users\user',
               'USERPROFILE': r'ignored',
               'HOMEDRIVE': r'ignored',
-              'HOMEPATH': r'ignored',
+              'HOMEPATH': r'ignored'
             },
             () {
               expect(
@@ -73,7 +73,7 @@ void main() {
             {
               'USERPROFILE': r'C:\users\user',
               'HOMEDRIVE': r'ignored',
-              'HOMEPATH': r'ignored',
+              'HOMEPATH': r'ignored'
             },
             () {
               expect(
@@ -151,7 +151,7 @@ void main() {
           overrideEnvironment(
             {
               'AWS_SHARED_CREDENTIALS_FILE': r'/other/path/credentials',
-              'HOME': r'/home/user',
+              'HOME': r'/home/user'
             },
             () {
               expect(
@@ -177,7 +177,7 @@ void main() {
           overrideEnvironment(
             {
               'AWS_CONFIG_FILE': r'C:\other\path\config',
-              'HOME': r'C:\users\user',
+              'HOME': r'C:\users\user'
             },
             () {
               expect(
@@ -203,7 +203,7 @@ void main() {
           overrideEnvironment(
             {
               'AWS_SHARED_CREDENTIALS_FILE': r'C:\other\path\credentials',
-              'HOME': r'C:\users\user',
+              'HOME': r'C:\users\user'
             },
             () {
               expect(

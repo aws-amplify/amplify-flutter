@@ -1,6 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+@internal
+library;
+
 import 'dart:async';
 
 import 'package:aws_common/aws_common.dart';
