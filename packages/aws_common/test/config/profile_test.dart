@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 // Generated with tool/generate_tests.dart. Do not modify by hand.
 
 import 'dart:convert';
