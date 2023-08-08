@@ -1,5 +1,4 @@
 import { S3Client, GetObjectCommand, GetObjectCommandOutput } from "@aws-sdk/client-s3"
-import { Cache } from "aws-cdk-lib/aws-codebuild"
 import type { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from "aws-lambda"
 
 const s3 = new S3Client({})
