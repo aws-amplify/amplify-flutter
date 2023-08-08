@@ -30,7 +30,7 @@ export const main: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent):
         // return 304 not modified if config has not changed
         return {
           statusCode: 304,
-          body: JSON.stringify('Not Modified'),
+          body: 'Not Modified',
         }
       } else {
         // return updated/modified config with latest ETag
