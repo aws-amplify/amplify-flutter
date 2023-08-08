@@ -16,7 +16,7 @@ let cachedConfig: CachedConfig = {
     config: ''
 }
 
-export const main: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent, context: any): Promise<APIGatewayProxyResult> => {
+export const main: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     if (event.httpMethod === "GET") {
       if (!cachedConfig.config || Date.now() > cachedConfig.expiresOn) {
