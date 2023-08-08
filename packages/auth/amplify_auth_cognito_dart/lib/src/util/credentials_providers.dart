@@ -21,6 +21,9 @@ final class AnonymousCredentialsProvider implements AWSCredentialsProvider {
   FutureOr<AWSCredentials> retrieve() {
     throw const AuthNotAuthorizedException('No credentials available');
   }
+
+  @override
+  String get runtimeTypeName => 'AnonymousCredentialsProvider';
 }
 
 /// {@template amplify_auth_cognito.inline_credentials_provider}
@@ -34,4 +37,7 @@ final class InlineCredentialsProvider implements AWSCredentialsProvider {
 
   @override
   FutureOr<AWSCredentials> retrieve() => _retrieve();
+
+  @override
+  String get runtimeTypeName => 'InlineCredentialsProvider';
 }
