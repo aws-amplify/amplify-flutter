@@ -1,4 +1,5 @@
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3"
+import type { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from "aws-lambda"
 
 const s3 = new S3Client({})
 const bucketName = process.env.BUCKET
@@ -9,7 +10,7 @@ let cachedConfig = {
     config: ''
 }
 
-export async function main (event: any, context: any): Promise<any> {
+export const main: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent, context: any): Promise<APIGatewayProxyResult> => {
   try {
     if (event.httpMethod === "GET") {
       if (!cachedConfig.config || Date.now() > cachedConfig.expiresOn) {
@@ -23,6 +24,7 @@ export async function main (event: any, context: any): Promise<any> {
         // return 304 not modified if config has not changed
         return {
           statusCode: 304,
+          body: JSON.stringify('Not Modified'),
         }
       } else {
         // return updated/modified config with latest ETag
@@ -31,6 +33,13 @@ export async function main (event: any, context: any): Promise<any> {
           headers: {"'If-None-Match'": cachedConfig.ETag },
           body: cachedConfig.config
         }
+      }
+    }
+    else {
+      return {
+        statusCode: 400,
+        headers: {},
+        body: JSON.stringify('Invalid Request')
       }
     }
   } catch(error: any) {
