@@ -36,7 +36,7 @@ export const main: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent):
         // return updated/modified config with latest ETag
         return {
           statusCode: 200,
-          headers: {"'If-None-Match'": cachedConfig.ETag },
+          headers: { 'If-None-Match': cachedConfig.ETag },
           body: cachedConfig.config
         }
       }
