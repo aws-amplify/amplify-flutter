@@ -259,7 +259,7 @@ class S3Client {
     Uri? baseUri,
     _i2.S3ClientConfig s3ClientConfig = const _i2.S3ClientConfig(),
     _i3.AWSCredentialsProvider credentialsProvider =
-        const _i3.AWSCredentialsProvider.environment(),
+        const _i3.AWSCredentialsProvider.defaultChain(),
     List<_i4.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i4.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _client = client,

@@ -277,7 +277,7 @@ class ConfigClient {
     required String region,
     Uri? baseUri,
     _i2.AWSCredentialsProvider credentialsProvider =
-        const _i2.AWSCredentialsProvider.environment(),
+        const _i2.AWSCredentialsProvider.defaultChain(),
     List<_i3.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i3.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _client = client,
