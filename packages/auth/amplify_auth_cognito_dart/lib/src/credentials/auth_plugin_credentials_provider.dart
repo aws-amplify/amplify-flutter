@@ -66,4 +66,7 @@ class AuthPluginCredentialsProviderImpl extends AuthPluginCredentialsProvider {
     final session = await _manager.loadSession();
     return session.credentialsResult.value;
   }
+
+  @override
+  String get runtimeTypeName => 'AuthPluginCredentialsProvider';
 }

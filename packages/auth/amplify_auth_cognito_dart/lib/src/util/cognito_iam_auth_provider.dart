@@ -72,4 +72,7 @@ final class CognitoIamAuthProvider extends AWSIamAmplifyAuthProvider {
           serviceConfiguration ?? const BaseServiceConfiguration(),
     );
   }
+
+  @override
+  String get runtimeTypeName => 'CognitoIamAuthProvider';
 }
