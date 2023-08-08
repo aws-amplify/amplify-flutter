@@ -1,10 +1,17 @@
-import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3"
+import { S3Client, GetObjectCommand, GetObjectCommandOutput } from "@aws-sdk/client-s3"
+import { Cache } from "aws-cdk-lib/aws-codebuild"
 import type { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from "aws-lambda"
 
 const s3 = new S3Client({})
 const bucketName = process.env.BUCKET
 const key = process.env.KEY
-let cachedConfig = {
+
+interface CachedConfig {
+  expiresOn: number;
+  ETag: string;
+  config: string;
+}
+let cachedConfig: CachedConfig = {
     expiresOn: 0, 
     ETag: '', 
     config: ''
@@ -52,10 +59,10 @@ export const main: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent, 
   }
 }
 
-const setCachedConfig = async (s3Resp: any) => {
+const setCachedConfig = async (s3Resp: GetObjectCommandOutput) => {
   cachedConfig = {
     expiresOn: Date.now() + 600 * 1000, //10 minutes
-    ETag: s3Resp.ETag.replace(/\"/gi, ''), //remove \" from string
-    config: await s3Resp.Body.transformToString()
+    ETag: s3Resp.ETag?.replace(/\"/gi, '') || '', //remove \" from string
+    config: (await s3Resp.Body?.transformToString()) || ''
   }
 }
