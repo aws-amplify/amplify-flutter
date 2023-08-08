@@ -694,7 +694,7 @@ extension OperationShapeUtil on OperationShape {
               ParameterLocation.clientMethod
           ..required = true
           ..defaultTo = DartTypes.awsSigV4.awsCredentialsProvider
-              .constInstanceNamed('environment', []).code,
+              .constInstanceNamed('defaultChain', []).code,
       );
     }
 
