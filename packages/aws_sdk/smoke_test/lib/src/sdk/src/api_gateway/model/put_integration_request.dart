@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.put_integration_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -118,12 +118,8 @@ abstract class PutIntegrationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutIntegrationRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutIntegrationRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<PutIntegrationRequestPayload>>
+      serializers = [PutIntegrationRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -241,75 +237,75 @@ abstract class PutIntegrationRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutIntegrationRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'httpMethod',
-      httpMethod,
-    );
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'integrationHttpMethod',
-      integrationHttpMethod,
-    );
-    helper.add(
-      'uri',
-      uri,
-    );
-    helper.add(
-      'connectionType',
-      connectionType,
-    );
-    helper.add(
-      'connectionId',
-      connectionId,
-    );
-    helper.add(
-      'credentials',
-      credentials,
-    );
-    helper.add(
-      'requestParameters',
-      requestParameters,
-    );
-    helper.add(
-      'requestTemplates',
-      requestTemplates,
-    );
-    helper.add(
-      'passthroughBehavior',
-      passthroughBehavior,
-    );
-    helper.add(
-      'cacheNamespace',
-      cacheNamespace,
-    );
-    helper.add(
-      'cacheKeyParameters',
-      cacheKeyParameters,
-    );
-    helper.add(
-      'contentHandling',
-      contentHandling,
-    );
-    helper.add(
-      'timeoutInMillis',
-      timeoutInMillis,
-    );
-    helper.add(
-      'tlsConfig',
-      tlsConfig,
-    );
+    final helper = newBuiltValueToStringHelper('PutIntegrationRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'httpMethod',
+        httpMethod,
+      )
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'integrationHttpMethod',
+        integrationHttpMethod,
+      )
+      ..add(
+        'uri',
+        uri,
+      )
+      ..add(
+        'connectionType',
+        connectionType,
+      )
+      ..add(
+        'connectionId',
+        connectionId,
+      )
+      ..add(
+        'credentials',
+        credentials,
+      )
+      ..add(
+        'requestParameters',
+        requestParameters,
+      )
+      ..add(
+        'requestTemplates',
+        requestTemplates,
+      )
+      ..add(
+        'passthroughBehavior',
+        passthroughBehavior,
+      )
+      ..add(
+        'cacheNamespace',
+        cacheNamespace,
+      )
+      ..add(
+        'cacheKeyParameters',
+        cacheKeyParameters,
+      )
+      ..add(
+        'contentHandling',
+        contentHandling,
+      )
+      ..add(
+        'timeoutInMillis',
+        timeoutInMillis,
+      )
+      ..add(
+        'tlsConfig',
+        tlsConfig,
+      );
     return helper.toString();
   }
 }
@@ -326,9 +322,6 @@ abstract class PutIntegrationRequestPayload
       _$PutIntegrationRequestPayload;
 
   const PutIntegrationRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutIntegrationRequestPayloadBuilder b) {}
 
   /// A list of request parameters whose values API Gateway caches. To be valid values for `cacheKeyParameters`, these parameters must also be specified for Method `requestParameters`.
   _i7.BuiltList<String>? get cacheKeyParameters;
@@ -392,63 +385,63 @@ abstract class PutIntegrationRequestPayload
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutIntegrationRequestPayload');
-    helper.add(
-      'cacheKeyParameters',
-      cacheKeyParameters,
-    );
-    helper.add(
-      'cacheNamespace',
-      cacheNamespace,
-    );
-    helper.add(
-      'connectionId',
-      connectionId,
-    );
-    helper.add(
-      'connectionType',
-      connectionType,
-    );
-    helper.add(
-      'contentHandling',
-      contentHandling,
-    );
-    helper.add(
-      'credentials',
-      credentials,
-    );
-    helper.add(
-      'integrationHttpMethod',
-      integrationHttpMethod,
-    );
-    helper.add(
-      'passthroughBehavior',
-      passthroughBehavior,
-    );
-    helper.add(
-      'requestParameters',
-      requestParameters,
-    );
-    helper.add(
-      'requestTemplates',
-      requestTemplates,
-    );
-    helper.add(
-      'timeoutInMillis',
-      timeoutInMillis,
-    );
-    helper.add(
-      'tlsConfig',
-      tlsConfig,
-    );
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'uri',
-      uri,
-    );
+    final helper = newBuiltValueToStringHelper('PutIntegrationRequestPayload')
+      ..add(
+        'cacheKeyParameters',
+        cacheKeyParameters,
+      )
+      ..add(
+        'cacheNamespace',
+        cacheNamespace,
+      )
+      ..add(
+        'connectionId',
+        connectionId,
+      )
+      ..add(
+        'connectionType',
+        connectionType,
+      )
+      ..add(
+        'contentHandling',
+        contentHandling,
+      )
+      ..add(
+        'credentials',
+        credentials,
+      )
+      ..add(
+        'integrationHttpMethod',
+        integrationHttpMethod,
+      )
+      ..add(
+        'passthroughBehavior',
+        passthroughBehavior,
+      )
+      ..add(
+        'requestParameters',
+        requestParameters,
+      )
+      ..add(
+        'requestTemplates',
+        requestTemplates,
+      )
+      ..add(
+        'timeoutInMillis',
+        timeoutInMillis,
+      )
+      ..add(
+        'tlsConfig',
+        tlsConfig,
+      )
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'uri',
+        uri,
+      );
     return helper.toString();
   }
 }

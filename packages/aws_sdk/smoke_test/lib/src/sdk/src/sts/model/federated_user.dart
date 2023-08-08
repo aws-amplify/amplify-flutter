@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.sts.model.federated_user; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,12 +31,9 @@ abstract class FederatedUser
 
   const FederatedUser._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<FederatedUser>> serializers = [
     FederatedUserAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(FederatedUserBuilder b) {}
 
   /// The string that identifies the federated user associated with the credentials, similar to the unique ID of an IAM user.
   String get federatedUserId;
@@ -50,15 +47,15 @@ abstract class FederatedUser
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('FederatedUser');
-    helper.add(
-      'federatedUserId',
-      federatedUserId,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
+    final helper = newBuiltValueToStringHelper('FederatedUser')
+      ..add(
+        'federatedUserId',
+        federatedUserId,
+      )
+      ..add(
+        'arn',
+        arn,
+      );
     return helper.toString();
   }
 }

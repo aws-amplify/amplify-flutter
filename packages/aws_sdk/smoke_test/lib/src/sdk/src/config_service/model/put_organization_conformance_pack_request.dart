@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.put_organization_conformance_pack_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -56,12 +56,10 @@ abstract class PutOrganizationConformancePackRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<PutOrganizationConformancePackRequest>>
+      serializers = [
     PutOrganizationConformancePackRequestAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutOrganizationConformancePackRequestBuilder b) {}
 
   /// Name of the organization conformance pack you want to create.
   String get organizationConformancePackName;
@@ -105,35 +103,35 @@ abstract class PutOrganizationConformancePackRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutOrganizationConformancePackRequest');
-    helper.add(
-      'organizationConformancePackName',
-      organizationConformancePackName,
-    );
-    helper.add(
-      'templateS3Uri',
-      templateS3Uri,
-    );
-    helper.add(
-      'templateBody',
-      templateBody,
-    );
-    helper.add(
-      'deliveryS3Bucket',
-      deliveryS3Bucket,
-    );
-    helper.add(
-      'deliveryS3KeyPrefix',
-      deliveryS3KeyPrefix,
-    );
-    helper.add(
-      'conformancePackInputParameters',
-      conformancePackInputParameters,
-    );
-    helper.add(
-      'excludedAccounts',
-      excludedAccounts,
-    );
+        newBuiltValueToStringHelper('PutOrganizationConformancePackRequest')
+          ..add(
+            'organizationConformancePackName',
+            organizationConformancePackName,
+          )
+          ..add(
+            'templateS3Uri',
+            templateS3Uri,
+          )
+          ..add(
+            'templateBody',
+            templateBody,
+          )
+          ..add(
+            'deliveryS3Bucket',
+            deliveryS3Bucket,
+          )
+          ..add(
+            'deliveryS3KeyPrefix',
+            deliveryS3KeyPrefix,
+          )
+          ..add(
+            'conformancePackInputParameters',
+            conformancePackInputParameters,
+          )
+          ..add(
+            'excludedAccounts',
+            excludedAccounts,
+          );
     return helper.toString();
   }
 }

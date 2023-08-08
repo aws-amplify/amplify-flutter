@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.access_key_last_used;
+part of 'access_key_last_used.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -76,9 +76,7 @@ class AccessKeyLastUsedBuilder
   String? get region => _$this._region;
   set region(String? region) => _$this._region = region;
 
-  AccessKeyLastUsedBuilder() {
-    AccessKeyLastUsed._init(this);
-  }
+  AccessKeyLastUsedBuilder();
 
   AccessKeyLastUsedBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.type_configuration_details;
+part of 'type_configuration_details.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -108,9 +108,7 @@ class TypeConfigurationDetailsBuilder
   set isDefaultConfiguration(bool? isDefaultConfiguration) =>
       _$this._isDefaultConfiguration = isDefaultConfiguration;
 
-  TypeConfigurationDetailsBuilder() {
-    TypeConfigurationDetails._init(this);
-  }
+  TypeConfigurationDetailsBuilder();
 
   TypeConfigurationDetailsBuilder get _$this {
     final $v = _$v;

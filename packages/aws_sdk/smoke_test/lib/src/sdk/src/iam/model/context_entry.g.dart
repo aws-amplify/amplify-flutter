@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.context_entry;
+part of 'context_entry.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -68,9 +68,7 @@ class ContextEntryBuilder
   set contextKeyType(_i2.ContextKeyTypeEnum? contextKeyType) =>
       _$this._contextKeyType = contextKeyType;
 
-  ContextEntryBuilder() {
-    ContextEntry._init(this);
-  }
+  ContextEntryBuilder();
 
   ContextEntryBuilder get _$this {
     final $v = _$v;

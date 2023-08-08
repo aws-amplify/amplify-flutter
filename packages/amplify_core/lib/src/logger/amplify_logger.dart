@@ -37,8 +37,12 @@ class AmplifyLogger extends AWSLogger {
     assert(name.isNotEmpty, 'Name should not be empty');
     return AmplifyLogger('$namespace.$name');
   }
+
+  @override
+  String get runtimeTypeName => 'AmplifyLogger';
 }
 
+/// @nodoc
 /// {@template amplify_core.logger.amplify_logger_plugin}
 /// A plugin to an [AmplifyLogger] which handles log entries emitted at the
 /// [LogLevel] of the logger instance.
@@ -48,6 +52,7 @@ abstract class AmplifyLoggerPlugin extends AWSLoggerPlugin {
   const AmplifyLoggerPlugin();
 }
 
+/// @nodoc
 /// Mixin providing an [AmplifyLogger] to Amplify classes.
 mixin AmplifyLoggerMixin on AWSDebuggable {
   /// The logger for this class.

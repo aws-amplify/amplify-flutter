@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.sse_specification; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,12 +34,9 @@ abstract class SseSpecification
 
   const SseSpecification._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<SseSpecification>> serializers = [
     SseSpecificationAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SseSpecificationBuilder b) {}
 
   /// Indicates whether server-side encryption is done using an Amazon Web Services managed key or an Amazon Web Services owned key. If enabled (true), server-side encryption type is set to `KMS` and an Amazon Web Services managed key is used (KMS charges apply). If disabled (false) or not specified, server-side encryption is set to Amazon Web Services owned key.
   bool? get enabled;
@@ -59,19 +56,19 @@ abstract class SseSpecification
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SseSpecification');
-    helper.add(
-      'enabled',
-      enabled,
-    );
-    helper.add(
-      'sseType',
-      sseType,
-    );
-    helper.add(
-      'kmsMasterKeyId',
-      kmsMasterKeyId,
-    );
+    final helper = newBuiltValueToStringHelper('SseSpecification')
+      ..add(
+        'enabled',
+        enabled,
+      )
+      ..add(
+        'sseType',
+        sseType,
+      )
+      ..add(
+        'kmsMasterKeyId',
+        kmsMasterKeyId,
+      );
     return helper.toString();
   }
 }

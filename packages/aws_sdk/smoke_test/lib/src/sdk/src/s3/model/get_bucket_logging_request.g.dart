@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_bucket_logging_request;
+part of 'get_bucket_logging_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class GetBucketLoggingRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetBucketLoggingRequestBuilder() {
-    GetBucketLoggingRequest._init(this);
-  }
+  GetBucketLoggingRequestBuilder();
 
   GetBucketLoggingRequestBuilder get _$this {
     final $v = _$v;
@@ -136,9 +134,7 @@ class GetBucketLoggingRequestPayloadBuilder
             GetBucketLoggingRequestPayloadBuilder> {
   _$GetBucketLoggingRequestPayload? _$v;
 
-  GetBucketLoggingRequestPayloadBuilder() {
-    GetBucketLoggingRequestPayload._init(this);
-  }
+  GetBucketLoggingRequestPayloadBuilder();
 
   @override
   void replace(GetBucketLoggingRequestPayload other) {

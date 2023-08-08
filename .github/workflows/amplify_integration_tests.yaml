@@ -7,6 +7,9 @@ on:
       - feat/**
       - fix/**
       - test/**
+  pull_request:
+    paths:
+      - ".github/workflows/amplify_integration_tests.yaml"
   schedule:
     # 6am pacific time daily, only runs on default branch
     - cron: "0 13 * * *"
@@ -44,13 +47,13 @@ jobs:
           - api-level: 33
             arch: x86_64
     steps:
-      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # 3.5.3
         with:
           persist-credentials: false
           submodules: true
 
       # Flutter requires Java 11 to build android apps with Gradle.
-      - uses: actions/setup-java@de1bb2b0c5634f0fc4438d7aa9944e68f9bf86cc # 3.6.0
+      - uses: actions/setup-java@cd89f46ac9d01407894225f350157564c9c7cee2 # 3.12.0
         with:
           distribution: "corretto" # Amazon Corretto Build of OpenJDK
           java-version: "11"
@@ -97,7 +100,7 @@ jobs:
           - "amplify_storage_s3_example"
           - "amplify_db_common_example"
     steps:
-      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # 3.5.3
         with:
           persist-credentials: false
           submodules: true
@@ -120,7 +123,7 @@ jobs:
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
       - name: Run integration tests
-        timeout-minutes: 30
+        timeout-minutes: 60
         run: aft exec --include=${{ matrix.scope }} -- small=true "<AFT_ROOT>/build-support/integ_test_ios.sh" -d test
 
   web:
@@ -141,7 +144,7 @@ jobs:
           - "amplify_storage_s3_example"
           - "amplify_db_common_example"
     steps:
-      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # 3.5.3
         with:
           persist-credentials: false
           submodules: true
@@ -160,10 +163,10 @@ jobs:
           scope: ${{ matrix.scope }}
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
-      - uses: nanasess/setup-chromedriver@7cbd35794f8ab317f778c3172fb86c1e9b2853f7 # 1.1.0
+      - uses: nanasess/setup-chromedriver@69cc01d772a1595b8aee87d52f53e71b3904d9d0 # 2.1.2
 
       - name: Run integration tests
-        timeout-minutes: 30
+        timeout-minutes: 60
         run: |
           chromedriver --port=4444 &
           aft exec --include=${{ matrix.scope }} -- "<AFT_ROOT>/build-support/integ_test.sh" -d web-server
@@ -187,7 +190,7 @@ jobs:
   #         - "amplify_storage_s3_example"
   #         - "amplify_db_common_example"
   #   steps:
-  #     - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
+  #     - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # 3.5.3
   #       with:
   #         persist-credentials: false
   #         submodules: true
@@ -229,7 +232,7 @@ jobs:
           - "amplify_storage_s3_example"
           - "amplify_db_common_example"
     steps:
-      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # 3.5.3
         with:
           persist-credentials: false
           submodules: true
@@ -249,7 +252,7 @@ jobs:
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
       - name: Run integration tests
-        timeout-minutes: 30
+        timeout-minutes: 60
         run: |
           flutter config --enable-linux-desktop
           aft exec --include=${{ matrix.scope }} -- "<AFT_ROOT>/build-support/integ_test.sh" -d linux
@@ -271,7 +274,7 @@ jobs:
           - "amplify_storage_s3_example"
           - "amplify_db_common_example"
     steps:
-      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # 3.1.0
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # 3.5.3
         with:
           persist-credentials: false
           submodules: true
@@ -294,7 +297,7 @@ jobs:
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
       - name: Run integration tests
-        timeout-minutes: 30
+        timeout-minutes: 60
         run: |
           flutter config --enable-windows-desktop
           dart pub global run aft exec --include=${{ matrix.scope }} -- flutter test integration_test/main_test.dart -d windows

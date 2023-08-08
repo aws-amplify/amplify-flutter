@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v2.rest_json_validation_protocol.model.pattern_union_override; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -12,15 +12,15 @@ sealed class PatternUnionOverride
   const PatternUnionOverride._();
 
   const factory PatternUnionOverride.first(String first) =
-      PatternUnionOverrideFirst;
+      PatternUnionOverrideFirst$;
 
   const factory PatternUnionOverride.second(String second) =
-      PatternUnionOverrideSecond;
+      PatternUnionOverrideSecond$;
 
   const factory PatternUnionOverride.sdkUnknown(
     String name,
     Object value,
-  ) = PatternUnionOverrideSdkUnknown;
+  ) = PatternUnionOverrideSdkUnknown$;
 
   static const List<_i1.SmithySerializer<PatternUnionOverride>> serializers = [
     PatternUnionOverrideRestJson1Serializer()
@@ -49,8 +49,8 @@ sealed class PatternUnionOverride
   }
 }
 
-final class PatternUnionOverrideFirst extends PatternUnionOverride {
-  const PatternUnionOverrideFirst(this.first) : super._();
+final class PatternUnionOverrideFirst$ extends PatternUnionOverride {
+  const PatternUnionOverrideFirst$(this.first) : super._();
 
   @override
   final String first;
@@ -59,8 +59,8 @@ final class PatternUnionOverrideFirst extends PatternUnionOverride {
   String get name => 'first';
 }
 
-final class PatternUnionOverrideSecond extends PatternUnionOverride {
-  const PatternUnionOverrideSecond(this.second) : super._();
+final class PatternUnionOverrideSecond$ extends PatternUnionOverride {
+  const PatternUnionOverrideSecond$(this.second) : super._();
 
   @override
   final String second;
@@ -69,8 +69,8 @@ final class PatternUnionOverrideSecond extends PatternUnionOverride {
   String get name => 'second';
 }
 
-final class PatternUnionOverrideSdkUnknown extends PatternUnionOverride {
-  const PatternUnionOverrideSdkUnknown(
+final class PatternUnionOverrideSdkUnknown$ extends PatternUnionOverride {
+  const PatternUnionOverrideSdkUnknown$(
     this.name,
     this.value,
   ) : super._();
@@ -90,8 +90,8 @@ class PatternUnionOverrideRestJson1Serializer
   @override
   Iterable<Type> get types => const [
         PatternUnionOverride,
-        PatternUnionOverrideFirst,
-        PatternUnionOverrideSecond,
+        PatternUnionOverrideFirst$,
+        PatternUnionOverrideSecond$,
       ];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
@@ -109,12 +109,12 @@ class PatternUnionOverrideRestJson1Serializer
     final [key as String, value as Object] = serialized.toList();
     switch (key) {
       case 'first':
-        return PatternUnionOverrideFirst((serializers.deserialize(
+        return PatternUnionOverrideFirst$((serializers.deserialize(
           value,
           specifiedType: const FullType(String),
         ) as String));
       case 'second':
-        return PatternUnionOverrideSecond((serializers.deserialize(
+        return PatternUnionOverrideSecond$((serializers.deserialize(
           value,
           specifiedType: const FullType(String),
         ) as String));
@@ -134,15 +134,15 @@ class PatternUnionOverrideRestJson1Serializer
     return [
       object.name,
       switch (object) {
-        PatternUnionOverrideFirst(:final value) => serializers.serialize(
+        PatternUnionOverrideFirst$(:final value) => serializers.serialize(
             value,
             specifiedType: const FullType(String),
           ),
-        PatternUnionOverrideSecond(:final value) => serializers.serialize(
+        PatternUnionOverrideSecond$(:final value) => serializers.serialize(
             value,
             specifiedType: const FullType(String),
           ),
-        PatternUnionOverrideSdkUnknown(:final value) => value,
+        PatternUnionOverrideSdkUnknown$(:final value) => value,
       },
     ];
   }

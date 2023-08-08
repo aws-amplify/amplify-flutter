@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.describe_compliance_by_resource_response;
+part of 'describe_compliance_by_resource_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -68,9 +68,7 @@ class DescribeComplianceByResourceResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeComplianceByResourceResponseBuilder() {
-    DescribeComplianceByResourceResponse._init(this);
-  }
+  DescribeComplianceByResourceResponseBuilder();
 
   DescribeComplianceByResourceResponseBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.type_not_found_exception;
+part of 'type_not_found_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class TypeNotFoundExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  TypeNotFoundExceptionBuilder() {
-    TypeNotFoundException._init(this);
-  }
+  TypeNotFoundExceptionBuilder();
 
   TypeNotFoundExceptionBuilder get _$this {
     final $v = _$v;

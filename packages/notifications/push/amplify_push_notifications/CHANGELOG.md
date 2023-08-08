@@ -1,3 +1,7 @@
+## 1.2.0
+
+- Minor bug fixes and improvements
+
 ## 1.1.0
 
 ### Features
@@ -6,6 +10,11 @@
 ### Fixes
 - fix(notifications): configure call hangs on Flutter app hot restart ([#3013](https://github.com/aws-amplify/amplify-flutter/pull/3013))
 - fix(repo): AGP 8.0 compatibility ([#2942](https://github.com/aws-amplify/amplify-flutter/pull/2942))
+
+## 1.0.1
+
+### Fixes
+- fix(repo): Flutter 3.3 support
 
 ## 1.0.0
 

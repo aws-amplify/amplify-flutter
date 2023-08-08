@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db_streams.model.get_shard_iterator_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,8 @@ abstract class GetShardIteratorOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetShardIteratorOutputAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetShardIteratorOutputBuilder b) {}
+  static const List<_i2.SmithySerializer<GetShardIteratorOutput>> serializers =
+      [GetShardIteratorOutputAwsJson10Serializer()];
 
   /// The position in the shard from which to start reading stream records sequentially. A shard iterator specifies this position using the sequence number of a stream record in a shard.
   String? get shardIterator;
@@ -46,11 +42,11 @@ abstract class GetShardIteratorOutput
   List<Object?> get props => [shardIterator];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetShardIteratorOutput');
-    helper.add(
-      'shardIterator',
-      shardIterator,
-    );
+    final helper = newBuiltValueToStringHelper('GetShardIteratorOutput')
+      ..add(
+        'shardIterator',
+        shardIterator,
+      );
     return helper.toString();
   }
 }

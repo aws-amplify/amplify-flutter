@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.describe_change_set_hooks_output;
+part of 'describe_change_set_hooks_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -109,9 +109,7 @@ class DescribeChangeSetHooksOutputBuilder
   String? get stackName => _$this._stackName;
   set stackName(String? stackName) => _$this._stackName = stackName;
 
-  DescribeChangeSetHooksOutputBuilder() {
-    DescribeChangeSetHooksOutput._init(this);
-  }
+  DescribeChangeSetHooksOutputBuilder();
 
   DescribeChangeSetHooksOutputBuilder get _$this {
     final $v = _$v;

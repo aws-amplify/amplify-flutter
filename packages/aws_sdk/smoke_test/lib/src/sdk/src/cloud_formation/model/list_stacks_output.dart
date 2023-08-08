@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.list_stacks_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,9 @@ abstract class ListStacksOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ListStacksOutput>> serializers = [
     ListStacksOutputAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListStacksOutputBuilder b) {}
 
   /// A list of `StackSummary` structures containing information about the specified stacks.
   _i3.BuiltList<_i2.StackSummary>? get stackSummaries;
@@ -61,15 +58,15 @@ abstract class ListStacksOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListStacksOutput');
-    helper.add(
-      'stackSummaries',
-      stackSummaries,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('ListStacksOutput')
+      ..add(
+        'stackSummaries',
+        stackSummaries,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

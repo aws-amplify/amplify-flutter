@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.stack_summary;
+part of 'stack_summary.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -155,9 +155,7 @@ class StackSummaryBuilder
           _i3.StackDriftInformationSummaryBuilder? driftInformation) =>
       _$this._driftInformation = driftInformation;
 
-  StackSummaryBuilder() {
-    StackSummary._init(this);
-  }
+  StackSummaryBuilder();
 
   StackSummaryBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.item_collection_metrics;
+part of 'item_collection_metrics.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -64,9 +64,7 @@ class ItemCollectionMetricsBuilder
   set sizeEstimateRangeGb(_i3.ListBuilder<double>? sizeEstimateRangeGb) =>
       _$this._sizeEstimateRangeGb = sizeEstimateRangeGb;
 
-  ItemCollectionMetricsBuilder() {
-    ItemCollectionMetrics._init(this);
-  }
+  ItemCollectionMetricsBuilder();
 
   ItemCollectionMetricsBuilder get _$this {
     final $v = _$v;

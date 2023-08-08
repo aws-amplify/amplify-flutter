@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.organization_all_features_not_enabled_exception;
+part of 'organization_all_features_not_enabled_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -69,9 +69,7 @@ class OrganizationAllFeaturesNotEnabledExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  OrganizationAllFeaturesNotEnabledExceptionBuilder() {
-    OrganizationAllFeaturesNotEnabledException._init(this);
-  }
+  OrganizationAllFeaturesNotEnabledExceptionBuilder();
 
   OrganizationAllFeaturesNotEnabledExceptionBuilder get _$this {
     final $v = _$v;

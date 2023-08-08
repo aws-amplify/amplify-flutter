@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.json_timestamps_input_output;
+part of 'json_timestamps_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -110,9 +110,7 @@ class JsonTimestampsInputOutputBuilder
   set httpDateOnTarget(DateTime? httpDateOnTarget) =>
       _$this._httpDateOnTarget = httpDateOnTarget;
 
-  JsonTimestampsInputOutputBuilder() {
-    JsonTimestampsInputOutput._init(this);
-  }
+  JsonTimestampsInputOutputBuilder();
 
   JsonTimestampsInputOutputBuilder get _$this {
     final $v = _$v;

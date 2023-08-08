@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.create_model_request;
+part of 'create_model_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -93,9 +93,7 @@ class CreateModelRequestBuilder
   String? get contentType => _$this._contentType;
   set contentType(String? contentType) => _$this._contentType = contentType;
 
-  CreateModelRequestBuilder() {
-    CreateModelRequest._init(this);
-  }
+  CreateModelRequestBuilder();
 
   CreateModelRequestBuilder get _$this {
     final $v = _$v;
@@ -218,9 +216,7 @@ class CreateModelRequestPayloadBuilder
   String? get schema => _$this._schema;
   set schema(String? schema) => _$this._schema = schema;
 
-  CreateModelRequestPayloadBuilder() {
-    CreateModelRequestPayload._init(this);
-  }
+  CreateModelRequestPayloadBuilder();
 
   CreateModelRequestPayloadBuilder get _$this {
     final $v = _$v;

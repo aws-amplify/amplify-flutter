@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library aws_json1_1_v2.machine_learning.model.predict_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,10 @@ abstract class PredictInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<PredictInput>> serializers = [
     PredictInputAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PredictInputBuilder b) {}
   String get mlModelId;
   _i3.BuiltMap<String, String> get record;
   String get predictEndpoint;
@@ -57,19 +55,19 @@ abstract class PredictInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PredictInput');
-    helper.add(
-      'mlModelId',
-      mlModelId,
-    );
-    helper.add(
-      'record',
-      record,
-    );
-    helper.add(
-      'predictEndpoint',
-      predictEndpoint,
-    );
+    final helper = newBuiltValueToStringHelper('PredictInput')
+      ..add(
+        'mlModelId',
+        mlModelId,
+      )
+      ..add(
+        'record',
+        record,
+      )
+      ..add(
+        'predictEndpoint',
+        predictEndpoint,
+      );
     return helper.toString();
   }
 }

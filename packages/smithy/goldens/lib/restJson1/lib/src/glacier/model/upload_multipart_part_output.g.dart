@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.glacier.model.upload_multipart_part_output;
+part of 'upload_multipart_part_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -49,9 +49,7 @@ class UploadMultipartPartOutputBuilder
   String? get checksum => _$this._checksum;
   set checksum(String? checksum) => _$this._checksum = checksum;
 
-  UploadMultipartPartOutputBuilder() {
-    UploadMultipartPartOutput._init(this);
-  }
+  UploadMultipartPartOutputBuilder();
 
   UploadMultipartPartOutputBuilder get _$this {
     final $v = _$v;
@@ -119,9 +117,7 @@ class UploadMultipartPartOutputPayloadBuilder
             UploadMultipartPartOutputPayloadBuilder> {
   _$UploadMultipartPartOutputPayload? _$v;
 
-  UploadMultipartPartOutputPayloadBuilder() {
-    UploadMultipartPartOutputPayload._init(this);
-  }
+  UploadMultipartPartOutputPayloadBuilder();
 
   @override
   void replace(UploadMultipartPartOutputPayload other) {

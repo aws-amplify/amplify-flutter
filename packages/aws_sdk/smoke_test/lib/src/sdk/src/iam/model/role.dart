@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.role; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -53,12 +53,9 @@ abstract class Role
 
   const Role._();
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer<Role>> serializers = [
     RoleAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RoleBuilder b) {}
 
   /// The path to the role. For more information about paths, see [IAM identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html) in the _IAM User Guide_.
   String get path;
@@ -92,7 +89,7 @@ abstract class Role
   /// A list of tags that are attached to the role. For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
   _i5.BuiltList<_i3.Tag>? get tags;
 
-  /// Contains information about the last time that an IAM role was used. This includes the date and time and the Region in which the role was last used. Activity is only reported for the trailing 400 days. This period can be shorter if your Region began supporting these features within the last year. The role might have been used more than 400 days ago. For more information, see [Regions where data is tracked](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period) in the _IAM User Guide_.
+  /// Contains information about the last time that an IAM role was used. This includes the date and time and the Region in which the role was last used. Activity is only reported for the trailing 400 days. This period can be shorter if your Region began supporting these features within the last year. The role might have been used more than 400 days ago. For more information, see [Regions where data is tracked](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period) in the _IAM user Guide_.
   _i4.RoleLastUsed? get roleLastUsed;
   @override
   List<Object?> get props => [
@@ -110,51 +107,51 @@ abstract class Role
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Role');
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'roleName',
-      roleName,
-    );
-    helper.add(
-      'roleId',
-      roleId,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'createDate',
-      createDate,
-    );
-    helper.add(
-      'assumeRolePolicyDocument',
-      assumeRolePolicyDocument,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'maxSessionDuration',
-      maxSessionDuration,
-    );
-    helper.add(
-      'permissionsBoundary',
-      permissionsBoundary,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'roleLastUsed',
-      roleLastUsed,
-    );
+    final helper = newBuiltValueToStringHelper('Role')
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'roleName',
+        roleName,
+      )
+      ..add(
+        'roleId',
+        roleId,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'createDate',
+        createDate,
+      )
+      ..add(
+        'assumeRolePolicyDocument',
+        assumeRolePolicyDocument,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'maxSessionDuration',
+        maxSessionDuration,
+      )
+      ..add(
+        'permissionsBoundary',
+        permissionsBoundary,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'roleLastUsed',
+        roleLastUsed,
+      );
     return helper.toString();
   }
 }

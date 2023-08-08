@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.invalid_configuration_recorder_name_exception;
+part of 'invalid_configuration_recorder_name_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -69,9 +69,7 @@ class InvalidConfigurationRecorderNameExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InvalidConfigurationRecorderNameExceptionBuilder() {
-    InvalidConfigurationRecorderNameException._init(this);
-  }
+  InvalidConfigurationRecorderNameExceptionBuilder();
 
   InvalidConfigurationRecorderNameExceptionBuilder get _$this {
     final $v = _$v;

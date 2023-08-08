@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.get_usage_plan_keys_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -62,12 +62,8 @@ abstract class GetUsagePlanKeysRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetUsagePlanKeysRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetUsagePlanKeysRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetUsagePlanKeysRequestPayload>>
+      serializers = [GetUsagePlanKeysRequestRestJson1Serializer()];
 
   /// The Id of the UsagePlan resource representing the usage plan containing the to-be-retrieved UsagePlanKey resource representing a plan customer.
   String get usagePlanId;
@@ -104,23 +100,23 @@ abstract class GetUsagePlanKeysRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetUsagePlanKeysRequest');
-    helper.add(
-      'usagePlanId',
-      usagePlanId,
-    );
-    helper.add(
-      'position',
-      position,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nameQuery',
-      nameQuery,
-    );
+    final helper = newBuiltValueToStringHelper('GetUsagePlanKeysRequest')
+      ..add(
+        'usagePlanId',
+        usagePlanId,
+      )
+      ..add(
+        'position',
+        position,
+      )
+      ..add(
+        'limit',
+        limit,
+      )
+      ..add(
+        'nameQuery',
+        nameQuery,
+      );
     return helper.toString();
   }
 }
@@ -139,8 +135,6 @@ abstract class GetUsagePlanKeysRequestPayload
 
   const GetUsagePlanKeysRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetUsagePlanKeysRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

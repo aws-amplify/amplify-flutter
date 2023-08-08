@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.aggregate_compliance_by_conformance_pack; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -47,12 +47,8 @@ abstract class AggregateComplianceByConformancePack
 
   const AggregateComplianceByConformancePack._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    AggregateComplianceByConformancePackAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AggregateComplianceByConformancePackBuilder b) {}
+  static const List<_i3.SmithySerializer<AggregateComplianceByConformancePack>>
+      serializers = [AggregateComplianceByConformancePackAwsJson11Serializer()];
 
   /// The name of the conformance pack.
   String? get conformancePackName;
@@ -75,23 +71,23 @@ abstract class AggregateComplianceByConformancePack
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('AggregateComplianceByConformancePack');
-    helper.add(
-      'conformancePackName',
-      conformancePackName,
-    );
-    helper.add(
-      'compliance',
-      compliance,
-    );
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'awsRegion',
-      awsRegion,
-    );
+        newBuiltValueToStringHelper('AggregateComplianceByConformancePack')
+          ..add(
+            'conformancePackName',
+            conformancePackName,
+          )
+          ..add(
+            'compliance',
+            compliance,
+          )
+          ..add(
+            'accountId',
+            accountId,
+          )
+          ..add(
+            'awsRegion',
+            awsRegion,
+          );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.put_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -28,12 +28,9 @@ abstract class PutRequest
 
   const PutRequest._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<PutRequest>> serializers = [
     PutRequestAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutRequestBuilder b) {}
 
   /// A map of attribute name to attribute values, representing the primary key of an item to be processed by `PutItem`. All of the table's primary key attributes must be specified, and their data types must match those of the table's key schema. If any attributes are present in the item that are part of an index key schema for the table, their types must match the index key schema.
   _i3.BuiltMap<String, _i2.AttributeValue> get item;
@@ -41,11 +38,11 @@ abstract class PutRequest
   List<Object?> get props => [item];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutRequest');
-    helper.add(
-      'item',
-      item,
-    );
+    final helper = newBuiltValueToStringHelper('PutRequest')
+      ..add(
+        'item',
+        item,
+      );
     return helper.toString();
   }
 }

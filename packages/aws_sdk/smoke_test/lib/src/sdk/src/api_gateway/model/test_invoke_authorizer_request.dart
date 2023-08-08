@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.test_invoke_authorizer_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -82,12 +82,8 @@ abstract class TestInvokeAuthorizerRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    TestInvokeAuthorizerRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TestInvokeAuthorizerRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<TestInvokeAuthorizerRequestPayload>>
+      serializers = [TestInvokeAuthorizerRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -157,39 +153,39 @@ abstract class TestInvokeAuthorizerRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TestInvokeAuthorizerRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'authorizerId',
-      authorizerId,
-    );
-    helper.add(
-      'headers',
-      headers,
-    );
-    helper.add(
-      'multiValueHeaders',
-      multiValueHeaders,
-    );
-    helper.add(
-      'pathWithQueryString',
-      pathWithQueryString,
-    );
-    helper.add(
-      'body',
-      body,
-    );
-    helper.add(
-      'stageVariables',
-      stageVariables,
-    );
-    helper.add(
-      'additionalContext',
-      additionalContext,
-    );
+    final helper = newBuiltValueToStringHelper('TestInvokeAuthorizerRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'authorizerId',
+        authorizerId,
+      )
+      ..add(
+        'headers',
+        headers,
+      )
+      ..add(
+        'multiValueHeaders',
+        multiValueHeaders,
+      )
+      ..add(
+        'pathWithQueryString',
+        pathWithQueryString,
+      )
+      ..add(
+        'body',
+        body,
+      )
+      ..add(
+        'stageVariables',
+        stageVariables,
+      )
+      ..add(
+        'additionalContext',
+        additionalContext,
+      );
     return helper.toString();
   }
 }
@@ -206,9 +202,6 @@ abstract class TestInvokeAuthorizerRequestPayload
       _$TestInvokeAuthorizerRequestPayload;
 
   const TestInvokeAuthorizerRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TestInvokeAuthorizerRequestPayloadBuilder b) {}
 
   /// A key-value map of additional context variables.
   _i3.BuiltMap<String, String>? get additionalContext;
@@ -239,31 +232,31 @@ abstract class TestInvokeAuthorizerRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('TestInvokeAuthorizerRequestPayload');
-    helper.add(
-      'additionalContext',
-      additionalContext,
-    );
-    helper.add(
-      'body',
-      body,
-    );
-    helper.add(
-      'headers',
-      headers,
-    );
-    helper.add(
-      'multiValueHeaders',
-      multiValueHeaders,
-    );
-    helper.add(
-      'pathWithQueryString',
-      pathWithQueryString,
-    );
-    helper.add(
-      'stageVariables',
-      stageVariables,
-    );
+        newBuiltValueToStringHelper('TestInvokeAuthorizerRequestPayload')
+          ..add(
+            'additionalContext',
+            additionalContext,
+          )
+          ..add(
+            'body',
+            body,
+          )
+          ..add(
+            'headers',
+            headers,
+          )
+          ..add(
+            'multiValueHeaders',
+            multiValueHeaders,
+          )
+          ..add(
+            'pathWithQueryString',
+            pathWithQueryString,
+          )
+          ..add(
+            'stageVariables',
+            stageVariables,
+          );
     return helper.toString();
   }
 }

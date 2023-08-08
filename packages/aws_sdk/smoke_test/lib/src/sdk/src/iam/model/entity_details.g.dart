@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.entity_details;
+part of 'entity_details.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -61,9 +61,7 @@ class EntityDetailsBuilder
   set lastAuthenticated(DateTime? lastAuthenticated) =>
       _$this._lastAuthenticated = lastAuthenticated;
 
-  EntityDetailsBuilder() {
-    EntityDetails._init(this);
-  }
+  EntityDetailsBuilder();
 
   EntityDetailsBuilder get _$this {
     final $v = _$v;

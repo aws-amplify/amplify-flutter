@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.target_grant; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,9 @@ abstract class TargetGrant
 
   const TargetGrant._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<TargetGrant>> serializers = [
     TargetGrantRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TargetGrantBuilder b) {}
 
   /// Container for the person being granted permissions.
   _i2.Grantee? get grantee;
@@ -59,15 +56,15 @@ abstract class TargetGrant
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TargetGrant');
-    helper.add(
-      'grantee',
-      grantee,
-    );
-    helper.add(
-      'permission',
-      permission,
-    );
+    final helper = newBuiltValueToStringHelper('TargetGrant')
+      ..add(
+        'grantee',
+        grantee,
+      )
+      ..add(
+        'permission',
+        permission,
+      );
     return helper.toString();
   }
 }

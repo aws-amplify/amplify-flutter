@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_bucket_policy_request;
+part of 'get_bucket_policy_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -62,9 +62,7 @@ class GetBucketPolicyRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetBucketPolicyRequestBuilder() {
-    GetBucketPolicyRequest._init(this);
-  }
+  GetBucketPolicyRequestBuilder();
 
   GetBucketPolicyRequestBuilder get _$this {
     final $v = _$v;
@@ -135,9 +133,7 @@ class GetBucketPolicyRequestPayloadBuilder
             GetBucketPolicyRequestPayloadBuilder> {
   _$GetBucketPolicyRequestPayload? _$v;
 
-  GetBucketPolicyRequestPayloadBuilder() {
-    GetBucketPolicyRequestPayload._init(this);
-  }
+  GetBucketPolicyRequestPayloadBuilder();
 
   @override
   void replace(GetBucketPolicyRequestPayload other) {

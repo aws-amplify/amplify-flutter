@@ -5,6 +5,7 @@
 
 import 'package:amplify_secure_storage_dart/amplify_secure_storage_dart.dart';
 import 'package:amplify_secure_storage_dart/src/platforms/amplify_secure_storage_cupertino.dart';
+import 'package:amplify_secure_storage_dart/src/ffi/cupertino/security.bindings.g.dart';
 import 'package:test/test.dart';
 
 const key1 = 'key_1';
@@ -80,5 +81,26 @@ void main() {
         expect(() => storage.removeAll(), returnsNormally);
       },
     );
+  });
+
+  group('SecurityError', () {
+    test('errSecInvalidOwnerEdit', () {
+      final error = SecurityFrameworkError.fromCode(errSecInvalidOwnerEdit);
+      expect(
+        error.message,
+        'Invalid attempt to change the owner of this item.',
+      );
+    });
+
+    test('no error', () {
+      final error = SecurityFrameworkError.fromCode(0);
+      expect(error.message, 'No error.');
+    });
+
+    test('invalid code', () {
+      const invalidCode = 1 << 20;
+      final error = SecurityFrameworkError.fromCode(invalidCode);
+      expect(error.message, 'OSStatus $invalidCode');
+    });
   });
 }

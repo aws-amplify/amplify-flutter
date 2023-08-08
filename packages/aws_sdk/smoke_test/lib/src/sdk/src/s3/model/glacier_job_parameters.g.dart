@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.glacier_job_parameters;
+part of 'glacier_job_parameters.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class GlacierJobParametersBuilder
   _i2.Tier? get tier => _$this._tier;
   set tier(_i2.Tier? tier) => _$this._tier = tier;
 
-  GlacierJobParametersBuilder() {
-    GlacierJobParameters._init(this);
-  }
+  GlacierJobParametersBuilder();
 
   GlacierJobParametersBuilder get _$this {
     final $v = _$v;

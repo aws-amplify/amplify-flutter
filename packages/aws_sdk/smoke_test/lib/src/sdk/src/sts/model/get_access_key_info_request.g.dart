@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.get_access_key_info_request;
+part of 'get_access_key_info_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -52,9 +52,7 @@ class GetAccessKeyInfoRequestBuilder
   String? get accessKeyId => _$this._accessKeyId;
   set accessKeyId(String? accessKeyId) => _$this._accessKeyId = accessKeyId;
 
-  GetAccessKeyInfoRequestBuilder() {
-    GetAccessKeyInfoRequest._init(this);
-  }
+  GetAccessKeyInfoRequestBuilder();
 
   GetAccessKeyInfoRequestBuilder get _$this {
     final $v = _$v;

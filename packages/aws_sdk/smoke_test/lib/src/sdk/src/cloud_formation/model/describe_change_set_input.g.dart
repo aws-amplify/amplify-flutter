@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.describe_change_set_input;
+part of 'describe_change_set_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -71,9 +71,7 @@ class DescribeChangeSetInputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeChangeSetInputBuilder() {
-    DescribeChangeSetInput._init(this);
-  }
+  DescribeChangeSetInputBuilder();
 
   DescribeChangeSetInputBuilder get _$this {
     final $v = _$v;

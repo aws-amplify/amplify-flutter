@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.update_api_key_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -55,12 +55,8 @@ abstract class UpdateApiKeyRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateApiKeyRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateApiKeyRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<UpdateApiKeyRequestPayload>>
+      serializers = [UpdateApiKeyRequestRestJson1Serializer()];
 
   /// The identifier of the ApiKey resource to be updated.
   String get apiKey;
@@ -92,15 +88,15 @@ abstract class UpdateApiKeyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateApiKeyRequest');
-    helper.add(
-      'apiKey',
-      apiKey,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateApiKeyRequest')
+      ..add(
+        'apiKey',
+        apiKey,
+      )
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }
@@ -116,20 +112,17 @@ abstract class UpdateApiKeyRequestPayload
 
   const UpdateApiKeyRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateApiKeyRequestPayloadBuilder b) {}
-
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
   @override
   List<Object?> get props => [patchOperations];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateApiKeyRequestPayload');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateApiKeyRequestPayload')
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }

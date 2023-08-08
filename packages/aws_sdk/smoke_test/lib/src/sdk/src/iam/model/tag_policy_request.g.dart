@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.tag_policy_request;
+part of 'tag_policy_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -62,9 +62,7 @@ class TagPolicyRequestBuilder
       _$this._tags ??= new _i4.ListBuilder<_i3.Tag>();
   set tags(_i4.ListBuilder<_i3.Tag>? tags) => _$this._tags = tags;
 
-  TagPolicyRequestBuilder() {
-    TagPolicyRequest._init(this);
-  }
+  TagPolicyRequestBuilder();
 
   TagPolicyRequestBuilder get _$this {
     final $v = _$v;

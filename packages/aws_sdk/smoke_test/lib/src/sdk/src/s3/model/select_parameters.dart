@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.select_parameters; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,9 @@ abstract class SelectParameters
 
   const SelectParameters._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<SelectParameters>> serializers = [
     SelectParametersRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SelectParametersBuilder b) {}
 
   /// Describes the serialization format of the object.
   _i2.InputSerialization get inputSerialization;
@@ -67,23 +64,23 @@ abstract class SelectParameters
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SelectParameters');
-    helper.add(
-      'inputSerialization',
-      inputSerialization,
-    );
-    helper.add(
-      'expressionType',
-      expressionType,
-    );
-    helper.add(
-      'expression',
-      expression,
-    );
-    helper.add(
-      'outputSerialization',
-      outputSerialization,
-    );
+    final helper = newBuiltValueToStringHelper('SelectParameters')
+      ..add(
+        'inputSerialization',
+        inputSerialization,
+      )
+      ..add(
+        'expressionType',
+        expressionType,
+      )
+      ..add(
+        'expression',
+        expression,
+      )
+      ..add(
+        'outputSerialization',
+        outputSerialization,
+      );
     return helper.toString();
   }
 }

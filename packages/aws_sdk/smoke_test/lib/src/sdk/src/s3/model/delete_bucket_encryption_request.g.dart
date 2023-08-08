@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.delete_bucket_encryption_request;
+part of 'delete_bucket_encryption_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class DeleteBucketEncryptionRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  DeleteBucketEncryptionRequestBuilder() {
-    DeleteBucketEncryptionRequest._init(this);
-  }
+  DeleteBucketEncryptionRequestBuilder();
 
   DeleteBucketEncryptionRequestBuilder get _$this {
     final $v = _$v;
@@ -141,9 +139,7 @@ class DeleteBucketEncryptionRequestPayloadBuilder
             DeleteBucketEncryptionRequestPayloadBuilder> {
   _$DeleteBucketEncryptionRequestPayload? _$v;
 
-  DeleteBucketEncryptionRequestPayloadBuilder() {
-    DeleteBucketEncryptionRequestPayload._init(this);
-  }
+  DeleteBucketEncryptionRequestPayloadBuilder();
 
   @override
   void replace(DeleteBucketEncryptionRequestPayload other) {

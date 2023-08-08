@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.list_signing_certificates_request;
+part of 'list_signing_certificates_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -69,9 +69,7 @@ class ListSigningCertificatesRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  ListSigningCertificatesRequestBuilder() {
-    ListSigningCertificatesRequest._init(this);
-  }
+  ListSigningCertificatesRequestBuilder();
 
   ListSigningCertificatesRequestBuilder get _$this {
     final $v = _$v;

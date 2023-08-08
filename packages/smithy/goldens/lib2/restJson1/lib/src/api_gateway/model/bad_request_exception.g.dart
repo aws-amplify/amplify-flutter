@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.api_gateway.model.bad_request_exception;
+part of 'bad_request_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class BadRequestExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  BadRequestExceptionBuilder() {
-    BadRequestException._init(this);
-  }
+  BadRequestExceptionBuilder();
 
   BadRequestExceptionBuilder get _$this {
     final $v = _$v;

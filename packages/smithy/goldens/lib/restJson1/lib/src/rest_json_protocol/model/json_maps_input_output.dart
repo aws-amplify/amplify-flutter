@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.rest_json_protocol.model.json_maps_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -74,12 +74,10 @@ abstract class JsonMapsInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<JsonMapsInputOutput>> serializers = [
     JsonMapsInputOutputRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(JsonMapsInputOutputBuilder b) {}
   _i4.BuiltMap<String, _i3.GreetingStruct>? get denseStructMap;
   _i4.BuiltMap<String, _i3.GreetingStruct?>? get sparseStructMap;
   _i4.BuiltMap<String, int>? get denseNumberMap;
@@ -107,47 +105,47 @@ abstract class JsonMapsInputOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('JsonMapsInputOutput');
-    helper.add(
-      'denseStructMap',
-      denseStructMap,
-    );
-    helper.add(
-      'sparseStructMap',
-      sparseStructMap,
-    );
-    helper.add(
-      'denseNumberMap',
-      denseNumberMap,
-    );
-    helper.add(
-      'denseBooleanMap',
-      denseBooleanMap,
-    );
-    helper.add(
-      'denseStringMap',
-      denseStringMap,
-    );
-    helper.add(
-      'sparseNumberMap',
-      sparseNumberMap,
-    );
-    helper.add(
-      'sparseBooleanMap',
-      sparseBooleanMap,
-    );
-    helper.add(
-      'sparseStringMap',
-      sparseStringMap,
-    );
-    helper.add(
-      'denseSetMap',
-      denseSetMap,
-    );
-    helper.add(
-      'sparseSetMap',
-      sparseSetMap,
-    );
+    final helper = newBuiltValueToStringHelper('JsonMapsInputOutput')
+      ..add(
+        'denseStructMap',
+        denseStructMap,
+      )
+      ..add(
+        'sparseStructMap',
+        sparseStructMap,
+      )
+      ..add(
+        'denseNumberMap',
+        denseNumberMap,
+      )
+      ..add(
+        'denseBooleanMap',
+        denseBooleanMap,
+      )
+      ..add(
+        'denseStringMap',
+        denseStringMap,
+      )
+      ..add(
+        'sparseNumberMap',
+        sparseNumberMap,
+      )
+      ..add(
+        'sparseBooleanMap',
+        sparseBooleanMap,
+      )
+      ..add(
+        'sparseStringMap',
+        sparseStringMap,
+      )
+      ..add(
+        'denseSetMap',
+        denseSetMap,
+      )
+      ..add(
+        'sparseSetMap',
+        sparseSetMap,
+      );
     return helper.toString();
   }
 }

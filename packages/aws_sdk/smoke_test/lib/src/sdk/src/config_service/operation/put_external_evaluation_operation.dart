@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.operation.put_external_evaluation_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -108,7 +108,8 @@ class PutExternalEvaluationOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InvalidParameterValueException,
+            _i9.InvalidParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidParameterValueException',
@@ -117,7 +118,8 @@ class PutExternalEvaluationOperation extends _i1.HttpOperation<
           _i9.InvalidParameterValueException,
           builder: _i9.InvalidParameterValueException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.NoSuchConfigRuleException,
+            _i10.NoSuchConfigRuleException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchConfigRuleException',
@@ -149,7 +151,7 @@ class PutExternalEvaluationOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

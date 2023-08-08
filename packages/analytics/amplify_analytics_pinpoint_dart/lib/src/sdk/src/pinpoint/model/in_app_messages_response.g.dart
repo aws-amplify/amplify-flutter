@@ -53,9 +53,7 @@ class InAppMessagesResponseBuilder
           _i3.ListBuilder<_i2.InAppMessageCampaign>? inAppMessageCampaigns) =>
       _$this._inAppMessageCampaigns = inAppMessageCampaigns;
 
-  InAppMessagesResponseBuilder() {
-    InAppMessagesResponse._init(this);
-  }
+  InAppMessagesResponseBuilder();
 
   InAppMessagesResponseBuilder get _$this {
     final $v = _$v;

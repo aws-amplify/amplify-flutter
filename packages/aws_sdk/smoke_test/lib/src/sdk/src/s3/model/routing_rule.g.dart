@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.routing_rule;
+part of 'routing_rule.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -58,9 +58,7 @@ class RoutingRuleBuilder implements Builder<RoutingRule, RoutingRuleBuilder> {
       _$this._redirect ??= new _i3.RedirectBuilder();
   set redirect(_i3.RedirectBuilder? redirect) => _$this._redirect = redirect;
 
-  RoutingRuleBuilder() {
-    RoutingRule._init(this);
-  }
+  RoutingRuleBuilder();
 
   RoutingRuleBuilder get _$this {
     final $v = _$v;

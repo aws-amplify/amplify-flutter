@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.list_tables_input;
+part of 'list_tables_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -56,9 +56,7 @@ class ListTablesInputBuilder
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
 
-  ListTablesInputBuilder() {
-    ListTablesInput._init(this);
-  }
+  ListTablesInputBuilder();
 
   ListTablesInputBuilder get _$this {
     final $v = _$v;

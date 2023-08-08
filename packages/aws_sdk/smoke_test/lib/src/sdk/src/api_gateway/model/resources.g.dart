@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.resources;
+part of 'resources.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class ResourcesBuilder implements Builder<Resources, ResourcesBuilder> {
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  ResourcesBuilder() {
-    Resources._init(this);
-  }
+  ResourcesBuilder();
 
   ResourcesBuilder get _$this {
     final $v = _$v;

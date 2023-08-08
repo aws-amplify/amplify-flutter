@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.update_table_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,6 +42,7 @@ abstract class UpdateTableInput
     _i8.SseSpecification? sseSpecification,
     List<_i9.ReplicationGroupUpdate>? replicaUpdates,
     _i10.TableClass? tableClass,
+    bool? deletionProtectionEnabled,
   }) {
     return _$UpdateTableInput._(
       attributeDefinitions: attributeDefinitions == null
@@ -58,6 +59,7 @@ abstract class UpdateTableInput
       replicaUpdates:
           replicaUpdates == null ? null : _i11.BuiltList(replicaUpdates),
       tableClass: tableClass,
+      deletionProtectionEnabled: deletionProtectionEnabled,
     );
   }
 
@@ -74,12 +76,9 @@ abstract class UpdateTableInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<UpdateTableInput>> serializers = [
     UpdateTableInputAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateTableInputBuilder b) {}
 
   /// An array of attributes that describe the key schema for the table and indexes. If you are adding a new global secondary index to the table, `AttributeDefinitions` must include the key element(s) of the new index.
   _i11.BuiltList<_i3.AttributeDefinition>? get attributeDefinitions;
@@ -122,11 +121,14 @@ abstract class UpdateTableInput
 
   /// A list of replica update actions (create, delete, or update) for the table.
   ///
-  /// This property only applies to [Version 2019.11.21](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
+  /// This property only applies to [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
   _i11.BuiltList<_i9.ReplicationGroupUpdate>? get replicaUpdates;
 
   /// The table class of the table to be updated. Valid values are `STANDARD` and `STANDARD\_INFREQUENT\_ACCESS`.
   _i10.TableClass? get tableClass;
+
+  /// Indicates whether deletion protection is to be enabled (true) or disabled (false) on the table.
+  bool? get deletionProtectionEnabled;
   @override
   UpdateTableInput getPayload() => this;
   @override
@@ -140,46 +142,51 @@ abstract class UpdateTableInput
         sseSpecification,
         replicaUpdates,
         tableClass,
+        deletionProtectionEnabled,
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateTableInput');
-    helper.add(
-      'attributeDefinitions',
-      attributeDefinitions,
-    );
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'billingMode',
-      billingMode,
-    );
-    helper.add(
-      'provisionedThroughput',
-      provisionedThroughput,
-    );
-    helper.add(
-      'globalSecondaryIndexUpdates',
-      globalSecondaryIndexUpdates,
-    );
-    helper.add(
-      'streamSpecification',
-      streamSpecification,
-    );
-    helper.add(
-      'sseSpecification',
-      sseSpecification,
-    );
-    helper.add(
-      'replicaUpdates',
-      replicaUpdates,
-    );
-    helper.add(
-      'tableClass',
-      tableClass,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateTableInput')
+      ..add(
+        'attributeDefinitions',
+        attributeDefinitions,
+      )
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'billingMode',
+        billingMode,
+      )
+      ..add(
+        'provisionedThroughput',
+        provisionedThroughput,
+      )
+      ..add(
+        'globalSecondaryIndexUpdates',
+        globalSecondaryIndexUpdates,
+      )
+      ..add(
+        'streamSpecification',
+        streamSpecification,
+      )
+      ..add(
+        'sseSpecification',
+        sseSpecification,
+      )
+      ..add(
+        'replicaUpdates',
+        replicaUpdates,
+      )
+      ..add(
+        'tableClass',
+        tableClass,
+      )
+      ..add(
+        'deletionProtectionEnabled',
+        deletionProtectionEnabled,
+      );
     return helper.toString();
   }
 }
@@ -270,6 +277,11 @@ class UpdateTableInputAwsJson10Serializer
             value,
             specifiedType: const FullType(_i10.TableClass),
           ) as _i10.TableClass);
+        case 'DeletionProtectionEnabled':
+          result.deletionProtectionEnabled = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -292,7 +304,8 @@ class UpdateTableInputAwsJson10Serializer
       :streamSpecification,
       :sseSpecification,
       :replicaUpdates,
-      :tableClass
+      :tableClass,
+      :deletionProtectionEnabled
     ) = object;
     result$.addAll([
       'TableName',
@@ -372,6 +385,14 @@ class UpdateTableInputAwsJson10Serializer
         ..add(serializers.serialize(
           tableClass,
           specifiedType: const FullType(_i10.TableClass),
+        ));
+    }
+    if (deletionProtectionEnabled != null) {
+      result$
+        ..add('DeletionProtectionEnabled')
+        ..add(serializers.serialize(
+          deletionProtectionEnabled,
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

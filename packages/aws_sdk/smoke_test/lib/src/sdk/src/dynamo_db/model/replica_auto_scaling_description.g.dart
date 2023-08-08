@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.replica_auto_scaling_description;
+part of 'replica_auto_scaling_description.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -120,9 +120,7 @@ class ReplicaAutoScalingDescriptionBuilder
   set replicaStatus(_i4.ReplicaStatus? replicaStatus) =>
       _$this._replicaStatus = replicaStatus;
 
-  ReplicaAutoScalingDescriptionBuilder() {
-    ReplicaAutoScalingDescription._init(this);
-  }
+  ReplicaAutoScalingDescriptionBuilder();
 
   ReplicaAutoScalingDescriptionBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.stack_event;
+part of 'stack_event.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -199,9 +199,7 @@ class StackEventBuilder implements Builder<StackEvent, StackEventBuilder> {
   set hookFailureMode(_i5.HookFailureMode? hookFailureMode) =>
       _$this._hookFailureMode = hookFailureMode;
 
-  StackEventBuilder() {
-    StackEvent._init(this);
-  }
+  StackEventBuilder();
 
   StackEventBuilder get _$this {
     final $v = _$v;

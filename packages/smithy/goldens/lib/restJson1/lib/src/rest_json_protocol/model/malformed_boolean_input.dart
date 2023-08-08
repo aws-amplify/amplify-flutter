@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.rest_json_protocol.model.malformed_boolean_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,11 +20,10 @@ abstract class MalformedBooleanInput
         _i1.HasPayload<MalformedBooleanInputPayload> {
   factory MalformedBooleanInput({
     bool? booleanInBody,
-    bool? booleanInPath,
+    required bool booleanInPath,
     bool? booleanInQuery,
     bool? booleanInHeader,
   }) {
-    booleanInPath ??= false;
     return _$MalformedBooleanInput._(
       booleanInBody: booleanInBody,
       booleanInPath: booleanInPath,
@@ -58,14 +57,8 @@ abstract class MalformedBooleanInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    MalformedBooleanInputRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedBooleanInputBuilder b) {
-    b.booleanInPath = false;
-  }
+  static const List<_i1.SmithySerializer<MalformedBooleanInputPayload>>
+      serializers = [MalformedBooleanInputRestJson1Serializer()];
 
   bool? get booleanInBody;
   bool get booleanInPath;
@@ -97,23 +90,23 @@ abstract class MalformedBooleanInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedBooleanInput');
-    helper.add(
-      'booleanInBody',
-      booleanInBody,
-    );
-    helper.add(
-      'booleanInPath',
-      booleanInPath,
-    );
-    helper.add(
-      'booleanInQuery',
-      booleanInQuery,
-    );
-    helper.add(
-      'booleanInHeader',
-      booleanInHeader,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedBooleanInput')
+      ..add(
+        'booleanInBody',
+        booleanInBody,
+      )
+      ..add(
+        'booleanInPath',
+        booleanInPath,
+      )
+      ..add(
+        'booleanInQuery',
+        booleanInQuery,
+      )
+      ..add(
+        'booleanInHeader',
+        booleanInHeader,
+      );
     return helper.toString();
   }
 }
@@ -131,18 +124,16 @@ abstract class MalformedBooleanInputPayload
 
   const MalformedBooleanInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedBooleanInputPayloadBuilder b) {}
   bool? get booleanInBody;
   @override
   List<Object?> get props => [booleanInBody];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedBooleanInputPayload');
-    helper.add(
-      'booleanInBody',
-      booleanInBody,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedBooleanInputPayload')
+      ..add(
+        'booleanInBody',
+        booleanInBody,
+      );
     return helper.toString();
   }
 }

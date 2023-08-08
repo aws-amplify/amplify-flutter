@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.progress;
+part of 'progress.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class ProgressBuilder implements Builder<Progress, ProgressBuilder> {
   set bytesReturned(_i2.Int64? bytesReturned) =>
       _$this._bytesReturned = bytesReturned;
 
-  ProgressBuilder() {
-    Progress._init(this);
-  }
+  ProgressBuilder();
 
   ProgressBuilder get _$this {
     final $v = _$v;

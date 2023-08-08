@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.list_policies_granting_service_access_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -25,6 +25,7 @@ abstract class ListPoliciesGrantingServiceAccessResponse
     bool? isTruncated,
     String? marker,
   }) {
+    isTruncated ??= false;
     return _$ListPoliciesGrantingServiceAccessResponse._(
       policiesGrantingServiceAccess:
           _i3.BuiltList(policiesGrantingServiceAccess),
@@ -46,19 +47,23 @@ abstract class ListPoliciesGrantingServiceAccessResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<
+          _i4.SmithySerializer<ListPoliciesGrantingServiceAccessResponse>>
+      serializers = [
     ListPoliciesGrantingServiceAccessResponseAwsQuerySerializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListPoliciesGrantingServiceAccessResponseBuilder b) {}
+  static void _init(ListPoliciesGrantingServiceAccessResponseBuilder b) {
+    b.isTruncated = false;
+  }
 
   /// A `ListPoliciesGrantingServiceAccess` object that contains details about the permissions policies attached to the specified identity (user, group, or role).
   _i3.BuiltList<_i2.ListPoliciesGrantingServiceAccessEntry>
       get policiesGrantingServiceAccess;
 
   /// A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the `Marker` request parameter to retrieve more items. We recommend that you check `IsTruncated` after every call to ensure that you receive all your results.
-  bool? get isTruncated;
+  bool get isTruncated;
 
   /// When `IsTruncated` is `true`, this element is present and contains the value to use for the `Marker` parameter in a subsequent pagination request.
   String? get marker;
@@ -70,20 +75,20 @@ abstract class ListPoliciesGrantingServiceAccessResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'ListPoliciesGrantingServiceAccessResponse');
-    helper.add(
-      'policiesGrantingServiceAccess',
-      policiesGrantingServiceAccess,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
+    final helper =
+        newBuiltValueToStringHelper('ListPoliciesGrantingServiceAccessResponse')
+          ..add(
+            'policiesGrantingServiceAccess',
+            policiesGrantingServiceAccess,
+          )
+          ..add(
+            'isTruncated',
+            isTruncated,
+          )
+          ..add(
+            'marker',
+            marker,
+          );
     return helper.toString();
   }
 }
@@ -178,14 +183,12 @@ class ListPoliciesGrantingServiceAccessResponseAwsQuerySerializer extends _i4
           [FullType(_i2.ListPoliciesGrantingServiceAccessEntry)],
         ),
       ));
-    if (isTruncated != null) {
-      result$
-        ..add(const _i4.XmlElementName('IsTruncated'))
-        ..add(serializers.serialize(
-          isTruncated,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result$
+      ..add(const _i4.XmlElementName('IsTruncated'))
+      ..add(serializers.serialize(
+        isTruncated,
+        specifiedType: const FullType(bool),
+      ));
     if (marker != null) {
       result$
         ..add(const _i4.XmlElementName('Marker'))

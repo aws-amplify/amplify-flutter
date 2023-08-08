@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.create_usage_plan_request;
+part of 'create_usage_plan_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -105,9 +105,7 @@ class CreateUsagePlanRequestBuilder
       _$this._tags ??= new _i6.MapBuilder<String, String>();
   set tags(_i6.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
-  CreateUsagePlanRequestBuilder() {
-    CreateUsagePlanRequest._init(this);
-  }
+  CreateUsagePlanRequestBuilder();
 
   CreateUsagePlanRequestBuilder get _$this {
     final $v = _$v;

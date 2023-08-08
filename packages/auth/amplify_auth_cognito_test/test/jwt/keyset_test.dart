@@ -62,7 +62,7 @@ void main() {
             keyId: '2011-04-29',
           ),
         ]),
-      )
+      ),
     ];
 
     for (var i = 0; i < tests.length; i++) {

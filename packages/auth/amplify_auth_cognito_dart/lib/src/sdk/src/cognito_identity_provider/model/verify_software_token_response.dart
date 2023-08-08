@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.verify_software_token_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,9 +39,8 @@ abstract class VerifySoftwareTokenResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    VerifySoftwareTokenResponseAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<VerifySoftwareTokenResponse>>
+      serializers = [VerifySoftwareTokenResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(VerifySoftwareTokenResponseBuilder b) {}
@@ -57,15 +57,15 @@ abstract class VerifySoftwareTokenResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('VerifySoftwareTokenResponse');
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'session',
-      session,
-    );
+    final helper = newBuiltValueToStringHelper('VerifySoftwareTokenResponse')
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'session',
+        session,
+      );
     return helper.toString();
   }
 }
@@ -99,24 +99,20 @@ class VerifySoftwareTokenResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Status':
-          if (value != null) {
-            result.status = (serializers.deserialize(
-              value,
-              specifiedType:
-                  const FullType(_i2.VerifySoftwareTokenResponseType),
-            ) as _i2.VerifySoftwareTokenResponseType);
-          }
-          break;
+          result.status = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.VerifySoftwareTokenResponseType),
+          ) as _i2.VerifySoftwareTokenResponseType);
         case 'Session':
-          if (value != null) {
-            result.session = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.session = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -126,27 +122,27 @@ class VerifySoftwareTokenResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    VerifySoftwareTokenResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as VerifySoftwareTokenResponse);
-    final result = <Object?>[];
-    if (payload.status != null) {
-      result
+    final result$ = <Object?>[];
+    final VerifySoftwareTokenResponse(:status, :session) = object;
+    if (status != null) {
+      result$
         ..add('Status')
         ..add(serializers.serialize(
-          payload.status!,
+          status,
           specifiedType: const FullType(_i2.VerifySoftwareTokenResponseType),
         ));
     }
-    if (payload.session != null) {
-      result
+    if (session != null) {
+      result$
         ..add('Session')
         ..add(serializers.serialize(
-          payload.session!,
+          session,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

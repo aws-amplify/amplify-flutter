@@ -191,6 +191,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
   // Send to sub bloc but also clean up in this bloc
   Stream<WebSocketState> _complete(SubscriptionComplete event) async* {
+    logger.verbose('Closing subscription ${event.subscriptionId}...');
     yield* _sendEventToSubBloc(event);
 
     _currentState.subscriptionBlocs.remove(event.subscriptionId);
@@ -198,6 +199,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     if (_currentState.subscriptionBlocs.isEmpty) {
       add(const ShutdownEvent());
     }
+    logger.verbose('Closed subscription ${event.subscriptionId}...');
   }
 
   /// Receives connection ack message from ws channel.
@@ -412,6 +414,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
 
   /// Shut down the bloc & clean up
   Stream<WebSocketState> _shutdown() async* {
+    logger.verbose('Shutting down bloc');
     yield _currentState.shutdown();
     // TODO(dnys1): Yield broken on web debug build.
     yield* const Stream.empty();
@@ -424,7 +427,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     if (_currentState is! ConnectedState) {
       return;
     }
-    await _currentState.service.unsubscribe(event.req.id);
+    await _currentState.service.unsubscribe(event.request.id);
     // TODO(dnys1): Yield broken on web debug build.
     yield* const Stream.empty();
   }
@@ -464,6 +467,7 @@ class WebSocketBloc with AWSDebuggable, AmplifyLoggerMixin {
     ]);
 
     done.complete();
+    logger.verbose('Successfully shut down bloc');
   }
 
   /// Connectivity stream monitors network availability on a hardware level.

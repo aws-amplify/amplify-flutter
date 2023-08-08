@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db_streams.model.stream_record; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -47,14 +47,11 @@ abstract class StreamRecord
 
   const StreamRecord._();
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer<StreamRecord>> serializers = [
     StreamRecordAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StreamRecordBuilder b) {}
-
-  /// The approximate date and time when the stream record was created, in [UNIX epoch time](http://www.epochconverter.com/) format.
+  /// The approximate date and time when the stream record was created, in [UNIX epoch time](http://www.epochconverter.com/) format and rounded down to the closest second.
   DateTime? get approximateCreationDateTime;
 
   /// The primary key attribute(s) for the DynamoDB item that was modified.
@@ -94,35 +91,35 @@ abstract class StreamRecord
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StreamRecord');
-    helper.add(
-      'approximateCreationDateTime',
-      approximateCreationDateTime,
-    );
-    helper.add(
-      'keys',
-      keys,
-    );
-    helper.add(
-      'newImage',
-      newImage,
-    );
-    helper.add(
-      'oldImage',
-      oldImage,
-    );
-    helper.add(
-      'sequenceNumber',
-      sequenceNumber,
-    );
-    helper.add(
-      'sizeBytes',
-      sizeBytes,
-    );
-    helper.add(
-      'streamViewType',
-      streamViewType,
-    );
+    final helper = newBuiltValueToStringHelper('StreamRecord')
+      ..add(
+        'approximateCreationDateTime',
+        approximateCreationDateTime,
+      )
+      ..add(
+        'keys',
+        keys,
+      )
+      ..add(
+        'newImage',
+        newImage,
+      )
+      ..add(
+        'oldImage',
+        oldImage,
+      )
+      ..add(
+        'sequenceNumber',
+        sequenceNumber,
+      )
+      ..add(
+        'sizeBytes',
+        sizeBytes,
+      )
+      ..add(
+        'streamViewType',
+        streamViewType,
+      );
     return helper.toString();
   }
 }

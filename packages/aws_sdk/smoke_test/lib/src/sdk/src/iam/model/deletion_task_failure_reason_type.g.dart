@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.deletion_task_failure_reason_type;
+part of 'deletion_task_failure_reason_type.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -62,9 +62,7 @@ class DeletionTaskFailureReasonTypeBuilder
   set roleUsageList(_i3.ListBuilder<_i2.RoleUsageType>? roleUsageList) =>
       _$this._roleUsageList = roleUsageList;
 
-  DeletionTaskFailureReasonTypeBuilder() {
-    DeletionTaskFailureReasonType._init(this);
-  }
+  DeletionTaskFailureReasonTypeBuilder();
 
   DeletionTaskFailureReasonTypeBuilder get _$this {
     final $v = _$v;

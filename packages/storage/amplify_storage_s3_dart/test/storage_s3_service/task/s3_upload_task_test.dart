@@ -6,6 +6,7 @@ import 'dart:typed_data';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
+import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart' as s3;
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/transfer/database/transfer_record.dart';
@@ -536,7 +537,7 @@ void main() {
           )}$testKey',
         );
         expect(request.contentType, await testLocalFile.contentType);
-        expect(await request.body?.toList(), equals([testBytes]));
+        expect(await request.body.toList(), equals([testBytes]));
       });
 
       test(
@@ -898,9 +899,9 @@ void main() {
               accessLevel: testUploadDataOptions.accessLevel!,
             )}$testKey',
           );
-          partNumbers.add(request.partNumber);
+          partNumbers.add(request.partNumber!);
           bytes.add(
-            await request.body!.toList().then(
+            await request.body.toList().then(
                   (collectedBytes) =>
                       collectedBytes.expand((bytes) => bytes).toList(),
                 ),
@@ -2052,6 +2053,35 @@ void main() {
           verify(uploadPartSmithyOperation2.cancel).called(1);
           verify(uploadPartSmithyOperation3.cancel).called(1);
         });
+      });
+    });
+
+    group('path style URL', () {
+      test('throw exception when attempt to use accelerate endpoint', () {
+        final uploadTask = S3UploadTask.fromAWSFile(
+          AWSFile.fromPath('fake/file.jpg'),
+          s3Client: s3Client,
+          defaultS3ClientConfig:
+              const smithy_aws.S3ClientConfig(usePathStyle: true),
+          prefixResolver: testPrefixResolver,
+          bucket: testBucket,
+          defaultAccessLevel: testDefaultAccessLevel,
+          key: 'fake-key',
+          options: const StorageUploadDataOptions(
+            pluginOptions: S3UploadDataPluginOptions(
+              useAccelerateEndpoint: true,
+            ),
+          ),
+          logger: logger,
+          transferDatabase: transferDatabase,
+        );
+
+        unawaited(uploadTask.start());
+
+        expect(
+          uploadTask.result,
+          throwsA(accelerateEndpointUnusable),
+        );
       });
     });
   });

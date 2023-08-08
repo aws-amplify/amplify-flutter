@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.get_custom_rule_policy_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,8 @@ abstract class GetCustomRulePolicyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetCustomRulePolicyRequestAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetCustomRulePolicyRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetCustomRulePolicyRequest>>
+      serializers = [GetCustomRulePolicyRequestAwsJson11Serializer()];
 
   /// The name of your Config Custom Policy rule.
   String? get configRuleName;
@@ -48,11 +44,11 @@ abstract class GetCustomRulePolicyRequest
   List<Object?> get props => [configRuleName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetCustomRulePolicyRequest');
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
+    final helper = newBuiltValueToStringHelper('GetCustomRulePolicyRequest')
+      ..add(
+        'configRuleName',
+        configRuleName,
+      );
     return helper.toString();
   }
 }

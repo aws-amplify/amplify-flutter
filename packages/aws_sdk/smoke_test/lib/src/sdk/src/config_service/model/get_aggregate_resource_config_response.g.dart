@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.get_aggregate_resource_config_response;
+part of 'get_aggregate_resource_config_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -56,9 +56,7 @@ class GetAggregateResourceConfigResponseBuilder
   set configurationItem(_i2.ConfigurationItemBuilder? configurationItem) =>
       _$this._configurationItem = configurationItem;
 
-  GetAggregateResourceConfigResponseBuilder() {
-    GetAggregateResourceConfigResponse._init(this);
-  }
+  GetAggregateResourceConfigResponseBuilder();
 
   GetAggregateResourceConfigResponseBuilder get _$this {
     final $v = _$v;

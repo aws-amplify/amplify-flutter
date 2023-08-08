@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.mutual_tls_authentication_input;
+part of 'mutual_tls_authentication_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -62,9 +62,7 @@ class MutualTlsAuthenticationInputBuilder
   set truststoreVersion(String? truststoreVersion) =>
       _$this._truststoreVersion = truststoreVersion;
 
-  MutualTlsAuthenticationInputBuilder() {
-    MutualTlsAuthenticationInput._init(this);
-  }
+  MutualTlsAuthenticationInputBuilder();
 
   MutualTlsAuthenticationInputBuilder get _$this {
     final $v = _$v;

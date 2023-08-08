@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.list_service_specific_credentials_request;
+part of 'list_service_specific_credentials_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -64,9 +64,7 @@ class ListServiceSpecificCredentialsRequestBuilder
   String? get serviceName => _$this._serviceName;
   set serviceName(String? serviceName) => _$this._serviceName = serviceName;
 
-  ListServiceSpecificCredentialsRequestBuilder() {
-    ListServiceSpecificCredentialsRequest._init(this);
-  }
+  ListServiceSpecificCredentialsRequestBuilder();
 
   ListServiceSpecificCredentialsRequestBuilder get _$this {
     final $v = _$v;

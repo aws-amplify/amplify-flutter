@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.list_bucket_analytics_configurations_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -56,17 +56,16 @@ abstract class ListBucketAnalyticsConfigurationsRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<ListBucketAnalyticsConfigurationsRequestPayload>>
+      serializers = [
     ListBucketAnalyticsConfigurationsRequestRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListBucketAnalyticsConfigurationsRequestBuilder b) {}
 
   /// The name of the bucket from which analytics configurations are retrieved.
   String get bucket;
 
-  /// The ContinuationToken that represents a placeholder from where this request should begin.
+  /// The `ContinuationToken` that represents a placeholder from where this request should begin.
   String? get continuationToken;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
@@ -95,19 +94,19 @@ abstract class ListBucketAnalyticsConfigurationsRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ListBucketAnalyticsConfigurationsRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'continuationToken',
-      continuationToken,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+        newBuiltValueToStringHelper('ListBucketAnalyticsConfigurationsRequest')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'continuationToken',
+            continuationToken,
+          )
+          ..add(
+            'expectedBucketOwner',
+            expectedBucketOwner,
+          );
     return helper.toString();
   }
 }
@@ -126,8 +125,6 @@ abstract class ListBucketAnalyticsConfigurationsRequestPayload
 
   const ListBucketAnalyticsConfigurationsRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListBucketAnalyticsConfigurationsRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

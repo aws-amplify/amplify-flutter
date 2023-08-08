@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.describe_stack_drift_detection_status_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -53,12 +53,11 @@ abstract class DescribeStackDriftDetectionStatusOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<
+          _i4.SmithySerializer<DescribeStackDriftDetectionStatusOutput>>
+      serializers = [
     DescribeStackDriftDetectionStatusOutputAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeStackDriftDetectionStatusOutputBuilder b) {}
 
   /// The ID of the stack.
   String get stackId;
@@ -111,35 +110,35 @@ abstract class DescribeStackDriftDetectionStatusOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DescribeStackDriftDetectionStatusOutput');
-    helper.add(
-      'stackId',
-      stackId,
-    );
-    helper.add(
-      'stackDriftDetectionId',
-      stackDriftDetectionId,
-    );
-    helper.add(
-      'stackDriftStatus',
-      stackDriftStatus,
-    );
-    helper.add(
-      'detectionStatus',
-      detectionStatus,
-    );
-    helper.add(
-      'detectionStatusReason',
-      detectionStatusReason,
-    );
-    helper.add(
-      'driftedStackResourceCount',
-      driftedStackResourceCount,
-    );
-    helper.add(
-      'timestamp',
-      timestamp,
-    );
+        newBuiltValueToStringHelper('DescribeStackDriftDetectionStatusOutput')
+          ..add(
+            'stackId',
+            stackId,
+          )
+          ..add(
+            'stackDriftDetectionId',
+            stackDriftDetectionId,
+          )
+          ..add(
+            'stackDriftStatus',
+            stackDriftStatus,
+          )
+          ..add(
+            'detectionStatus',
+            detectionStatus,
+          )
+          ..add(
+            'detectionStatusReason',
+            detectionStatusReason,
+          )
+          ..add(
+            'driftedStackResourceCount',
+            driftedStackResourceCount,
+          )
+          ..add(
+            'timestamp',
+            timestamp,
+          );
     return helper.toString();
   }
 }

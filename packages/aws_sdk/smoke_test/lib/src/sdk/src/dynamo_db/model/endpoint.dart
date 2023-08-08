@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.endpoint; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,7 +32,7 @@ abstract class Endpoint
 
   const Endpoint._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<Endpoint>> serializers = [
     EndpointAwsJson10Serializer()
   ];
 
@@ -53,15 +53,15 @@ abstract class Endpoint
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Endpoint');
-    helper.add(
-      'address',
-      address,
-    );
-    helper.add(
-      'cachePeriodInMinutes',
-      cachePeriodInMinutes,
-    );
+    final helper = newBuiltValueToStringHelper('Endpoint')
+      ..add(
+        'address',
+        address,
+      )
+      ..add(
+        'cachePeriodInMinutes',
+        cachePeriodInMinutes,
+      );
     return helper.toString();
   }
 }

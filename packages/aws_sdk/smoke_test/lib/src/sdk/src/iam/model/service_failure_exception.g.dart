@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.service_failure_exception;
+part of 'service_failure_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class ServiceFailureExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ServiceFailureExceptionBuilder() {
-    ServiceFailureException._init(this);
-  }
+  ServiceFailureExceptionBuilder();
 
   ServiceFailureExceptionBuilder get _$this {
     final $v = _$v;

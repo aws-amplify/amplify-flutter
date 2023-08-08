@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1_v2.json_protocol.model.null_operation_input_output;
+part of 'null_operation_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -72,9 +72,7 @@ class NullOperationInputOutputBuilder
   set sparseStringMap(_i3.MapBuilder<String, String?>? sparseStringMap) =>
       _$this._sparseStringMap = sparseStringMap;
 
-  NullOperationInputOutputBuilder() {
-    NullOperationInputOutput._init(this);
-  }
+  NullOperationInputOutputBuilder();
 
   NullOperationInputOutputBuilder get _$this {
     final $v = _$v;

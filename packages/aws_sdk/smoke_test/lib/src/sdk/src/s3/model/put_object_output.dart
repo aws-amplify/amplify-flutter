@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.put_object_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -123,12 +123,8 @@ abstract class PutObjectOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PutObjectOutputRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectOutputBuilder b) {}
+  static const List<_i2.SmithySerializer<PutObjectOutputPayload>> serializers =
+      [PutObjectOutputRestXmlSerializer()];
 
   /// If the expiration is configured for the object (see [PutBucketLifecycleConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycleConfiguration.html)), the response includes this header. It includes the `expiry-date` and `rule-id` key-value pairs that provide information about object expiration. The value of the `rule-id` is URL-encoded.
   String? get expiration;
@@ -148,7 +144,7 @@ abstract class PutObjectOutput
   /// The base64-encoded, 256-bit SHA-256 digest of the object. This will only be present if it was uploaded with the object. With multipart uploads, this may not be a checksum value of the object. For more information about how checksums are calculated with multipart uploads, see [Checking object integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html#large-object-checksums) in the _Amazon S3 User Guide_.
   String? get checksumSha256;
 
-  /// If you specified server-side encryption either with an Amazon Web Services KMS key or Amazon S3-managed encryption key in your PUT request, the response includes this header. It confirms the encryption algorithm that Amazon S3 used to encrypt the object.
+  /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`, `aws:kms:dsse`).
   _i3.ServerSideEncryption? get serverSideEncryption;
 
   /// Version of the object.
@@ -160,13 +156,13 @@ abstract class PutObjectOutput
   /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header to provide round-trip message integrity verification of the customer-provided encryption key.
   String? get sseCustomerKeyMd5;
 
-  /// If `x-amz-server-side-encryption` is present and has the value of `aws:kms`, this header specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric customer managed key that was used for the object.
+  /// If `x-amz-server-side-encryption` has a valid value of `aws:kms` or `aws:kms:dsse`, this header specifies the ID of the Key Management Service (KMS) symmetric encryption customer managed key that was used for the object.
   String? get ssekmsKeyId;
 
-  /// If present, specifies the Amazon Web Services KMS Encryption Context to use for object encryption. The value of this header is a base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs.
+  /// If present, specifies the Amazon Web Services KMS Encryption Context to use for object encryption. The value of this header is a base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs. This value is stored as object metadata and automatically gets passed on to Amazon Web Services KMS for future `GetObject` or `CopyObject` operations on this object.
   String? get ssekmsEncryptionContext;
 
-  /// Indicates whether the uploaded object uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
+  /// Indicates whether the uploaded object uses an S3 Bucket Key for server-side encryption with Key Management Service (KMS) keys (SSE-KMS).
   bool? get bucketKeyEnabled;
 
   /// If present, indicates that the requester was successfully charged for the request.
@@ -192,63 +188,63 @@ abstract class PutObjectOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutObjectOutput');
-    helper.add(
-      'expiration',
-      expiration,
-    );
-    helper.add(
-      'eTag',
-      eTag,
-    );
-    helper.add(
-      'checksumCrc32',
-      checksumCrc32,
-    );
-    helper.add(
-      'checksumCrc32C',
-      checksumCrc32C,
-    );
-    helper.add(
-      'checksumSha1',
-      checksumSha1,
-    );
-    helper.add(
-      'checksumSha256',
-      checksumSha256,
-    );
-    helper.add(
-      'serverSideEncryption',
-      serverSideEncryption,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'sseCustomerAlgorithm',
-      sseCustomerAlgorithm,
-    );
-    helper.add(
-      'sseCustomerKeyMd5',
-      sseCustomerKeyMd5,
-    );
-    helper.add(
-      'ssekmsKeyId',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'ssekmsEncryptionContext',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'bucketKeyEnabled',
-      bucketKeyEnabled,
-    );
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
+    final helper = newBuiltValueToStringHelper('PutObjectOutput')
+      ..add(
+        'expiration',
+        expiration,
+      )
+      ..add(
+        'eTag',
+        eTag,
+      )
+      ..add(
+        'checksumCrc32',
+        checksumCrc32,
+      )
+      ..add(
+        'checksumCrc32C',
+        checksumCrc32C,
+      )
+      ..add(
+        'checksumSha1',
+        checksumSha1,
+      )
+      ..add(
+        'checksumSha256',
+        checksumSha256,
+      )
+      ..add(
+        'serverSideEncryption',
+        serverSideEncryption,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'sseCustomerAlgorithm',
+        sseCustomerAlgorithm,
+      )
+      ..add(
+        'sseCustomerKeyMd5',
+        sseCustomerKeyMd5,
+      )
+      ..add(
+        'ssekmsKeyId',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'ssekmsEncryptionContext',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'bucketKeyEnabled',
+        bucketKeyEnabled,
+      )
+      ..add(
+        'requestCharged',
+        requestCharged,
+      );
     return helper.toString();
   }
 }
@@ -265,8 +261,6 @@ abstract class PutObjectOutputPayload
 
   const PutObjectOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

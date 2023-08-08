@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.operation.put_bucket_replication_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -28,13 +28,13 @@ import 'package:smoke_test/src/sdk/src/s3/model/replication_configuration.dart'
 ///
 /// For information about enabling versioning on a bucket, see [Using Versioning](https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html).
 ///
-/// **Handling Replication of Encrypted Objects**
+/// Handling Replication of Encrypted Objects
 ///
 /// By default, Amazon S3 doesn't replicate objects that are stored at rest using server-side encryption with KMS keys. To replicate Amazon Web Services KMS-encrypted objects, add the following: `SourceSelectionCriteria`, `SseKmsEncryptedObjects`, `Status`, `EncryptionConfiguration`, and `ReplicaKmsKeyID`. For information about replication configuration, see [Replicating Objects Created with SSE Using KMS keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-config-for-kms-objects.html).
 ///
 /// For information on `PutBucketReplication` errors, see [List of replication-related error codes](https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html#ReplicationErrorCodeList)
 ///
-/// **Permissions**
+/// Permissions
 ///
 /// To create a `PutBucketReplication` request, you must have `s3:PutReplicationConfiguration` permissions for the bucket.
 ///
@@ -64,13 +64,13 @@ class PutBucketReplicationOperation extends _i1.HttpOperation<
   ///
   /// For information about enabling versioning on a bucket, see [Using Versioning](https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html).
   ///
-  /// **Handling Replication of Encrypted Objects**
+  /// Handling Replication of Encrypted Objects
   ///
   /// By default, Amazon S3 doesn't replicate objects that are stored at rest using server-side encryption with KMS keys. To replicate Amazon Web Services KMS-encrypted objects, add the following: `SourceSelectionCriteria`, `SseKmsEncryptedObjects`, `Status`, `EncryptionConfiguration`, and `ReplicaKmsKeyID`. For information about replication configuration, see [Replicating Objects Created with SSE Using KMS keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-config-for-kms-objects.html).
   ///
   /// For information on `PutBucketReplication` errors, see [List of replication-related error codes](https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html#ReplicationErrorCodeList)
   ///
-  /// **Permissions**
+  /// Permissions
   ///
   /// To create a `PutBucketReplication` request, you must have `s3:PutReplicationConfiguration` permissions for the bucket.
   ///
@@ -222,7 +222,7 @@ class PutBucketReplicationOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

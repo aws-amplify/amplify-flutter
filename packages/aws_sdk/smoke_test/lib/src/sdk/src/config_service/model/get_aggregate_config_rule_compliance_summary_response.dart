@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.get_aggregate_config_rule_compliance_summary_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -46,12 +46,11 @@ abstract class GetAggregateConfigRuleComplianceSummaryResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<
+          _i4.SmithySerializer<GetAggregateConfigRuleComplianceSummaryResponse>>
+      serializers = [
     GetAggregateConfigRuleComplianceSummaryResponseAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetAggregateConfigRuleComplianceSummaryResponseBuilder b) {}
 
   /// Groups the result based on ACCOUNT\_ID or AWS\_REGION.
   String? get groupByKey;
@@ -70,19 +69,19 @@ abstract class GetAggregateConfigRuleComplianceSummaryResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'GetAggregateConfigRuleComplianceSummaryResponse');
-    helper.add(
-      'groupByKey',
-      groupByKey,
-    );
-    helper.add(
-      'aggregateComplianceCounts',
-      aggregateComplianceCounts,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        'GetAggregateConfigRuleComplianceSummaryResponse')
+      ..add(
+        'groupByKey',
+        groupByKey,
+      )
+      ..add(
+        'aggregateComplianceCounts',
+        aggregateComplianceCounts,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.operation.put_remediation_exceptions_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,17 +22,25 @@ import 'package:smoke_test/src/sdk/src/config_service/model/put_remediation_exce
 import 'package:smoke_test/src/sdk/src/config_service/model/put_remediation_exceptions_response.dart'
     as _i3;
 
-/// A remediation exception is when a specific resource is no longer considered for auto-remediation. This API adds a new exception or updates an existing exception for a specific resource with a specific Config rule.
+/// A remediation exception is when a specified resource is no longer considered for auto-remediation. This API adds a new exception or updates an existing exception for a specified resource with a specified Config rule.
 ///
-/// Config generates a remediation exception when a problem occurs executing a remediation action to a specific resource. Remediation exceptions blocks auto-remediation until the exception is cleared.
+/// Config generates a remediation exception when a problem occurs running a remediation action for a specified resource. Remediation exceptions blocks auto-remediation until the exception is cleared.
+///
+/// When placing an exception on an Amazon Web Services resource, it is recommended that remediation is set as manual remediation until the given Config rule for the specified resource evaluates the resource as `NON_COMPLIANT`. Once the resource has been evaluated as `NON_COMPLIANT`, you can add remediation exceptions and change the remediation type back from Manual to Auto if you want to use auto-remediation. Otherwise, using auto-remediation before a `NON_COMPLIANT` evaluation result can delete resources before the exception is applied.
+///
+/// Placing an exception can only be performed on resources that are `NON_COMPLIANT`. If you use this API for `COMPLIANT` resources or resources that are `NOT_APPLICABLE`, a remediation exception will not be generated. For more information on the conditions that initiate the possible Config evaluation results, see [Concepts | Config Rules](https://docs.aws.amazon.com/config/latest/developerguide/config-concepts.html#aws-config-rules) in the _Config Developer Guide_.
 class PutRemediationExceptionsOperation extends _i1.HttpOperation<
     _i2.PutRemediationExceptionsRequest,
     _i2.PutRemediationExceptionsRequest,
     _i3.PutRemediationExceptionsResponse,
     _i3.PutRemediationExceptionsResponse> {
-  /// A remediation exception is when a specific resource is no longer considered for auto-remediation. This API adds a new exception or updates an existing exception for a specific resource with a specific Config rule.
+  /// A remediation exception is when a specified resource is no longer considered for auto-remediation. This API adds a new exception or updates an existing exception for a specified resource with a specified Config rule.
   ///
-  /// Config generates a remediation exception when a problem occurs executing a remediation action to a specific resource. Remediation exceptions blocks auto-remediation until the exception is cleared.
+  /// Config generates a remediation exception when a problem occurs running a remediation action for a specified resource. Remediation exceptions blocks auto-remediation until the exception is cleared.
+  ///
+  /// When placing an exception on an Amazon Web Services resource, it is recommended that remediation is set as manual remediation until the given Config rule for the specified resource evaluates the resource as `NON_COMPLIANT`. Once the resource has been evaluated as `NON_COMPLIANT`, you can add remediation exceptions and change the remediation type back from Manual to Auto if you want to use auto-remediation. Otherwise, using auto-remediation before a `NON_COMPLIANT` evaluation result can delete resources before the exception is applied.
+  ///
+  /// Placing an exception can only be performed on resources that are `NON_COMPLIANT`. If you use this API for `COMPLIANT` resources or resources that are `NOT_APPLICABLE`, a remediation exception will not be generated. For more information on the conditions that initiate the possible Config evaluation results, see [Concepts | Config Rules](https://docs.aws.amazon.com/config/latest/developerguide/config-concepts.html#aws-config-rules) in the _Config Developer Guide_.
   PutRemediationExceptionsOperation({
     required String region,
     Uri? baseUri,
@@ -112,7 +120,8 @@ class PutRemediationExceptionsOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InsufficientPermissionsException,
+            _i9.InsufficientPermissionsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InsufficientPermissionsException',
@@ -121,7 +130,8 @@ class PutRemediationExceptionsOperation extends _i1.HttpOperation<
           _i9.InsufficientPermissionsException,
           builder: _i9.InsufficientPermissionsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidParameterValueException,
+            _i10.InvalidParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidParameterValueException',
@@ -153,7 +163,7 @@ class PutRemediationExceptionsOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

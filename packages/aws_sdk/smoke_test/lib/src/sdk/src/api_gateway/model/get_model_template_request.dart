@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.get_model_template_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -52,12 +52,8 @@ abstract class GetModelTemplateRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetModelTemplateRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetModelTemplateRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetModelTemplateRequestPayload>>
+      serializers = [GetModelTemplateRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -88,15 +84,15 @@ abstract class GetModelTemplateRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetModelTemplateRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'modelName',
-      modelName,
-    );
+    final helper = newBuiltValueToStringHelper('GetModelTemplateRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'modelName',
+        modelName,
+      );
     return helper.toString();
   }
 }
@@ -115,8 +111,6 @@ abstract class GetModelTemplateRequestPayload
 
   const GetModelTemplateRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetModelTemplateRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

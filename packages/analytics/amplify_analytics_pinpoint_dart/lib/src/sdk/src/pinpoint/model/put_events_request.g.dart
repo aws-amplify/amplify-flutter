@@ -66,9 +66,7 @@ class PutEventsRequestBuilder
   set eventsRequest(_i2.EventsRequestBuilder? eventsRequest) =>
       _$this._eventsRequest = eventsRequest;
 
-  PutEventsRequestBuilder() {
-    PutEventsRequest._init(this);
-  }
+  PutEventsRequestBuilder();
 
   PutEventsRequestBuilder get _$this {
     final $v = _$v;

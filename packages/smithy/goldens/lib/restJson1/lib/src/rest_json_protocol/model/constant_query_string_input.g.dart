@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_protocol.model.constant_query_string_input;
+part of 'constant_query_string_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -52,9 +52,7 @@ class ConstantQueryStringInputBuilder
   String? get hello => _$this._hello;
   set hello(String? hello) => _$this._hello = hello;
 
-  ConstantQueryStringInputBuilder() {
-    ConstantQueryStringInput._init(this);
-  }
+  ConstantQueryStringInputBuilder();
 
   ConstantQueryStringInputBuilder get _$this {
     final $v = _$v;
@@ -124,9 +122,7 @@ class ConstantQueryStringInputPayloadBuilder
             ConstantQueryStringInputPayloadBuilder> {
   _$ConstantQueryStringInputPayload? _$v;
 
-  ConstantQueryStringInputPayloadBuilder() {
-    ConstantQueryStringInputPayload._init(this);
-  }
+  ConstantQueryStringInputPayloadBuilder();
 
   @override
   void replace(ConstantQueryStringInputPayload other) {

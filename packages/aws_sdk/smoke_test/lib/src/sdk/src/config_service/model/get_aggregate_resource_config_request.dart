@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.get_aggregate_resource_config_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,8 @@ abstract class GetAggregateResourceConfigRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetAggregateResourceConfigRequestAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetAggregateResourceConfigRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetAggregateResourceConfigRequest>>
+      serializers = [GetAggregateResourceConfigRequestAwsJson11Serializer()];
 
   /// The name of the configuration aggregator.
   String get configurationAggregatorName;
@@ -64,15 +60,15 @@ abstract class GetAggregateResourceConfigRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetAggregateResourceConfigRequest');
-    helper.add(
-      'configurationAggregatorName',
-      configurationAggregatorName,
-    );
-    helper.add(
-      'resourceIdentifier',
-      resourceIdentifier,
-    );
+        newBuiltValueToStringHelper('GetAggregateResourceConfigRequest')
+          ..add(
+            'configurationAggregatorName',
+            configurationAggregatorName,
+          )
+          ..add(
+            'resourceIdentifier',
+            resourceIdentifier,
+          );
     return helper.toString();
   }
 }

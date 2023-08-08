@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v1.rest_xml_protocol.model.xml_timestamps_input_output;
+part of 'xml_timestamps_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -110,9 +110,7 @@ class XmlTimestampsInputOutputBuilder
   set httpDateOnTarget(DateTime? httpDateOnTarget) =>
       _$this._httpDateOnTarget = httpDateOnTarget;
 
-  XmlTimestampsInputOutputBuilder() {
-    XmlTimestampsInputOutput._init(this);
-  }
+  XmlTimestampsInputOutputBuilder();
 
   XmlTimestampsInputOutputBuilder get _$this {
     final $v = _$v;

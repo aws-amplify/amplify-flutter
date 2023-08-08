@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.operation.select_aggregate_resource_config_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -29,7 +29,7 @@ import 'package:smoke_test/src/sdk/src/config_service/model/select_aggregate_res
 
 /// Accepts a structured query language (SQL) SELECT command and an aggregator to query configuration state of Amazon Web Services resources across multiple accounts and regions, performs the corresponding search, and returns resource configurations matching the properties.
 ///
-/// For more information about query components, see the [**Query Components**](https://docs.aws.amazon.com/config/latest/developerguide/query-components.html) section in the Config Developer Guide.
+/// For more information about query components, see the [**Query Components**](https://docs.aws.amazon.com/config/latest/developerguide/query-components.html) section in the _Config Developer Guide_.
 ///
 /// If you run an aggregation query (i.e., using `GROUP BY` or using aggregate functions such as `COUNT`; e.g., `SELECT resourceId, COUNT(*) WHERE resourceType = 'AWS::IAM::Role' GROUP BY resourceId`) and do not specify the `MaxResults` or the `Limit` query parameters, the default page size is set to 500.
 ///
@@ -44,7 +44,7 @@ class SelectAggregateResourceConfigOperation extends _i1.PaginatedHttpOperation<
     _i4.BuiltList<String>> {
   /// Accepts a structured query language (SQL) SELECT command and an aggregator to query configuration state of Amazon Web Services resources across multiple accounts and regions, performs the corresponding search, and returns resource configurations matching the properties.
   ///
-  /// For more information about query components, see the [**Query Components**](https://docs.aws.amazon.com/config/latest/developerguide/query-components.html) section in the Config Developer Guide.
+  /// For more information about query components, see the [**Query Components**](https://docs.aws.amazon.com/config/latest/developerguide/query-components.html) section in the _Config Developer Guide_.
   ///
   /// If you run an aggregation query (i.e., using `GROUP BY` or using aggregate functions such as `COUNT`; e.g., `SELECT resourceId, COUNT(*) WHERE resourceType = 'AWS::IAM::Role' GROUP BY resourceId`) and do not specify the `MaxResults` or the `Limit` query parameters, the default page size is set to 500.
   ///
@@ -129,7 +129,8 @@ class SelectAggregateResourceConfigOperation extends _i1.PaginatedHttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidExpressionException,
+            _i10.InvalidExpressionException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidExpressionException',
@@ -138,7 +139,7 @@ class SelectAggregateResourceConfigOperation extends _i1.PaginatedHttpOperation<
           _i10.InvalidExpressionException,
           builder: _i10.InvalidExpressionException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidLimitException, _i11.InvalidLimitException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidLimitException',
@@ -147,7 +148,8 @@ class SelectAggregateResourceConfigOperation extends _i1.PaginatedHttpOperation<
           _i11.InvalidLimitException,
           builder: _i11.InvalidLimitException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.InvalidNextTokenException,
+            _i12.InvalidNextTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidNextTokenException',
@@ -156,7 +158,8 @@ class SelectAggregateResourceConfigOperation extends _i1.PaginatedHttpOperation<
           _i12.InvalidNextTokenException,
           builder: _i12.InvalidNextTokenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.NoSuchConfigurationAggregatorException,
+            _i13.NoSuchConfigurationAggregatorException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchConfigurationAggregatorException',
@@ -188,7 +191,7 @@ class SelectAggregateResourceConfigOperation extends _i1.PaginatedHttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)}
+        ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)},
       },
     );
   }
@@ -208,8 +211,6 @@ class SelectAggregateResourceConfigOperation extends _i1.PaginatedHttpOperation<
   ) =>
       input.rebuild((b) {
         b.nextToken = token;
-        if (pageSize != null) {
-          b.limit = pageSize;
-        }
+        b.limit = pageSize;
       });
 }

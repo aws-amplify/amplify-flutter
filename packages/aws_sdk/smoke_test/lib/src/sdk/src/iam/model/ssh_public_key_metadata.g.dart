@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.ssh_public_key_metadata;
+part of 'ssh_public_key_metadata.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -88,9 +88,7 @@ class SshPublicKeyMetadataBuilder
   DateTime? get uploadDate => _$this._uploadDate;
   set uploadDate(DateTime? uploadDate) => _$this._uploadDate = uploadDate;
 
-  SshPublicKeyMetadataBuilder() {
-    SshPublicKeyMetadata._init(this);
-  }
+  SshPublicKeyMetadataBuilder();
 
   SshPublicKeyMetadataBuilder get _$this {
     final $v = _$v;

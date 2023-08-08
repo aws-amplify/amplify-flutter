@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.get_template_input;
+part of 'get_template_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -67,9 +67,7 @@ class GetTemplateInputBuilder
   set templateStage(_i3.TemplateStage? templateStage) =>
       _$this._templateStage = templateStage;
 
-  GetTemplateInputBuilder() {
-    GetTemplateInput._init(this);
-  }
+  GetTemplateInputBuilder();
 
   GetTemplateInputBuilder get _$this {
     final $v = _$v;

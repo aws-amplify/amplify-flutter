@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.delete_open_id_connect_provider_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,12 +36,8 @@ abstract class DeleteOpenIdConnectProviderRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteOpenIdConnectProviderRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteOpenIdConnectProviderRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<DeleteOpenIdConnectProviderRequest>>
+      serializers = [DeleteOpenIdConnectProviderRequestAwsQuerySerializer()];
 
   /// The Amazon Resource Name (ARN) of the IAM OpenID Connect provider resource object to delete. You can get a list of OpenID Connect provider resource ARNs by using the ListOpenIDConnectProviders operation.
   String get openIdConnectProviderArn;
@@ -52,11 +48,11 @@ abstract class DeleteOpenIdConnectProviderRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeleteOpenIdConnectProviderRequest');
-    helper.add(
-      'openIdConnectProviderArn',
-      openIdConnectProviderArn,
-    );
+        newBuiltValueToStringHelper('DeleteOpenIdConnectProviderRequest')
+          ..add(
+            'openIdConnectProviderArn',
+            openIdConnectProviderArn,
+          );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.get_domain_name_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,12 +43,8 @@ abstract class GetDomainNameRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetDomainNameRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetDomainNameRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetDomainNameRequestPayload>>
+      serializers = [GetDomainNameRequestRestJson1Serializer()];
 
   /// The name of the DomainName resource.
   String get domainName;
@@ -70,11 +66,11 @@ abstract class GetDomainNameRequest
   List<Object?> get props => [domainName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetDomainNameRequest');
-    helper.add(
-      'domainName',
-      domainName,
-    );
+    final helper = newBuiltValueToStringHelper('GetDomainNameRequest')
+      ..add(
+        'domainName',
+        domainName,
+      );
     return helper.toString();
   }
 }
@@ -91,8 +87,6 @@ abstract class GetDomainNameRequestPayload
 
   const GetDomainNameRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetDomainNameRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

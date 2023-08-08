@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.tag_server_certificate_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,12 +41,8 @@ abstract class TagServerCertificateRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    TagServerCertificateRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TagServerCertificateRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<TagServerCertificateRequest>>
+      serializers = [TagServerCertificateRequestAwsQuerySerializer()];
 
   /// The name of the IAM server certificate to which you want to add tags.
   ///
@@ -64,15 +60,15 @@ abstract class TagServerCertificateRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TagServerCertificateRequest');
-    helper.add(
-      'serverCertificateName',
-      serverCertificateName,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('TagServerCertificateRequest')
+      ..add(
+        'serverCertificateName',
+        serverCertificateName,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

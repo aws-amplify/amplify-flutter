@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.rollback_trigger;
+part of 'rollback_trigger.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -56,9 +56,7 @@ class RollbackTriggerBuilder
   String? get type => _$this._type;
   set type(String? type) => _$this._type = type;
 
-  RollbackTriggerBuilder() {
-    RollbackTrigger._init(this);
-  }
+  RollbackTriggerBuilder();
 
   RollbackTriggerBuilder get _$this {
     final $v = _$v;

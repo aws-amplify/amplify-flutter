@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.module_info;
+part of 'module_info.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class ModuleInfoBuilder implements Builder<ModuleInfo, ModuleInfoBuilder> {
   set logicalIdHierarchy(String? logicalIdHierarchy) =>
       _$this._logicalIdHierarchy = logicalIdHierarchy;
 
-  ModuleInfoBuilder() {
-    ModuleInfo._init(this);
-  }
+  ModuleInfoBuilder();
 
   ModuleInfoBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.list_attached_user_policies_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,12 +44,8 @@ abstract class ListAttachedUserPoliciesRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListAttachedUserPoliciesRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListAttachedUserPoliciesRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<ListAttachedUserPoliciesRequest>>
+      serializers = [ListAttachedUserPoliciesRequestAwsQuerySerializer()];
 
   /// The name (friendly name, not ARN) of the user to list attached policies for.
   ///
@@ -80,23 +76,23 @@ abstract class ListAttachedUserPoliciesRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ListAttachedUserPoliciesRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'pathPrefix',
-      pathPrefix,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'maxItems',
-      maxItems,
-    );
+        newBuiltValueToStringHelper('ListAttachedUserPoliciesRequest')
+          ..add(
+            'userName',
+            userName,
+          )
+          ..add(
+            'pathPrefix',
+            pathPrefix,
+          )
+          ..add(
+            'marker',
+            marker,
+          )
+          ..add(
+            'maxItems',
+            maxItems,
+          );
     return helper.toString();
   }
 }

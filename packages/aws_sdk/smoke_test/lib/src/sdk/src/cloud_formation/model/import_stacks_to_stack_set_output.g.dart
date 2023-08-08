@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.import_stacks_to_stack_set_output;
+part of 'import_stacks_to_stack_set_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class ImportStacksToStackSetOutputBuilder
   String? get operationId => _$this._operationId;
   set operationId(String? operationId) => _$this._operationId = operationId;
 
-  ImportStacksToStackSetOutputBuilder() {
-    ImportStacksToStackSetOutput._init(this);
-  }
+  ImportStacksToStackSetOutputBuilder();
 
   ImportStacksToStackSetOutputBuilder get _$this {
     final $v = _$v;

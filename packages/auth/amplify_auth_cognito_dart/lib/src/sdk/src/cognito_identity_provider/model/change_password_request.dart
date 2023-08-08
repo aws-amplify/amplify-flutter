@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.change_password_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,7 +43,7 @@ abstract class ChangePasswordRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ChangePasswordRequest>> serializers = [
     ChangePasswordRequestAwsJson11Serializer()
   ];
 
@@ -67,19 +68,19 @@ abstract class ChangePasswordRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ChangePasswordRequest');
-    helper.add(
-      'previousPassword',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'proposedPassword',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'accessToken',
-      '***SENSITIVE***',
-    );
+    final helper = newBuiltValueToStringHelper('ChangePasswordRequest')
+      ..add(
+        'previousPassword',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'proposedPassword',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'accessToken',
+        '***SENSITIVE***',
+      );
     return helper.toString();
   }
 }
@@ -113,25 +114,25 @@ class ChangePasswordRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'PreviousPassword':
           result.previousPassword = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ProposedPassword':
           result.proposedPassword = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'AccessToken':
           result.accessToken = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -141,27 +142,32 @@ class ChangePasswordRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ChangePasswordRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ChangePasswordRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final ChangePasswordRequest(
+      :previousPassword,
+      :proposedPassword,
+      :accessToken
+    ) = object;
+    result$.addAll([
       'PreviousPassword',
       serializers.serialize(
-        payload.previousPassword,
+        previousPassword,
         specifiedType: const FullType(String),
       ),
       'ProposedPassword',
       serializers.serialize(
-        payload.proposedPassword,
+        proposedPassword,
         specifiedType: const FullType(String),
       ),
       'AccessToken',
       serializers.serialize(
-        payload.accessToken,
+        accessToken,
         specifiedType: const FullType(String),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

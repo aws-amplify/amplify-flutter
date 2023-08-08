@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.already_exists_exception;
+part of 'already_exists_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class AlreadyExistsExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  AlreadyExistsExceptionBuilder() {
-    AlreadyExistsException._init(this);
-  }
+  AlreadyExistsExceptionBuilder();
 
   AlreadyExistsExceptionBuilder get _$this {
     final $v = _$v;

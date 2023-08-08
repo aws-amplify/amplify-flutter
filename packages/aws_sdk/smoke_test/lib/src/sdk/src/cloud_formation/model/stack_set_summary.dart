@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.stack_set_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -55,12 +55,9 @@ abstract class StackSetSummary
 
   const StackSetSummary._();
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<_i7.SmithySerializer<StackSetSummary>> serializers = [
     StackSetSummaryAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackSetSummaryBuilder b) {}
 
   /// The name of the stack set.
   String? get stackSetName;
@@ -114,43 +111,43 @@ abstract class StackSetSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StackSetSummary');
-    helper.add(
-      'stackSetName',
-      stackSetName,
-    );
-    helper.add(
-      'stackSetId',
-      stackSetId,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'autoDeployment',
-      autoDeployment,
-    );
-    helper.add(
-      'permissionModel',
-      permissionModel,
-    );
-    helper.add(
-      'driftStatus',
-      driftStatus,
-    );
-    helper.add(
-      'lastDriftCheckTimestamp',
-      lastDriftCheckTimestamp,
-    );
-    helper.add(
-      'managedExecution',
-      managedExecution,
-    );
+    final helper = newBuiltValueToStringHelper('StackSetSummary')
+      ..add(
+        'stackSetName',
+        stackSetName,
+      )
+      ..add(
+        'stackSetId',
+        stackSetId,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'autoDeployment',
+        autoDeployment,
+      )
+      ..add(
+        'permissionModel',
+        permissionModel,
+      )
+      ..add(
+        'driftStatus',
+        driftStatus,
+      )
+      ..add(
+        'lastDriftCheckTimestamp',
+        lastDriftCheckTimestamp,
+      )
+      ..add(
+        'managedExecution',
+        managedExecution,
+      );
     return helper.toString();
   }
 }

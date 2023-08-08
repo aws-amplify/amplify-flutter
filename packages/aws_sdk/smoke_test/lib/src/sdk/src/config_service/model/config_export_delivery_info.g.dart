@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.config_export_delivery_info;
+part of 'config_export_delivery_info.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -103,9 +103,7 @@ class ConfigExportDeliveryInfoBuilder
   set nextDeliveryTime(DateTime? nextDeliveryTime) =>
       _$this._nextDeliveryTime = nextDeliveryTime;
 
-  ConfigExportDeliveryInfoBuilder() {
-    ConfigExportDeliveryInfo._init(this);
-  }
+  ConfigExportDeliveryInfoBuilder();
 
   ConfigExportDeliveryInfoBuilder get _$this {
     final $v = _$v;

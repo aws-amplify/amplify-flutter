@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.get_aggregate_compliance_details_by_config_rule_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,13 +44,11 @@ abstract class GetAggregateComplianceDetailsByConfigRuleResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<
+      _i4.SmithySerializer<
+          GetAggregateComplianceDetailsByConfigRuleResponse>> serializers = [
     GetAggregateComplianceDetailsByConfigRuleResponseAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      GetAggregateComplianceDetailsByConfigRuleResponseBuilder b) {}
 
   /// Returns an AggregateEvaluationResults object.
   _i3.BuiltList<_i2.AggregateEvaluationResult>? get aggregateEvaluationResults;
@@ -65,15 +63,15 @@ abstract class GetAggregateComplianceDetailsByConfigRuleResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'GetAggregateComplianceDetailsByConfigRuleResponse');
-    helper.add(
-      'aggregateEvaluationResults',
-      aggregateEvaluationResults,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        'GetAggregateComplianceDetailsByConfigRuleResponse')
+      ..add(
+        'aggregateEvaluationResults',
+        aggregateEvaluationResults,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

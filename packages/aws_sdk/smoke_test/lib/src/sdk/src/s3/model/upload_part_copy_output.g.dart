@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.upload_part_copy_output;
+part of 'upload_part_copy_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -123,9 +123,7 @@ class UploadPartCopyOutputBuilder
   set requestCharged(_i5.RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
-  UploadPartCopyOutputBuilder() {
-    UploadPartCopyOutput._init(this);
-  }
+  UploadPartCopyOutputBuilder();
 
   UploadPartCopyOutputBuilder get _$this {
     final $v = _$v;

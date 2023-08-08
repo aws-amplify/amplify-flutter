@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library custom_v2.s3.model.copy_object_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,12 +36,10 @@ abstract class CopyObjectOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<_i3.CopyObjectResult?>> serializers = [
     CopyObjectOutputRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CopyObjectOutputBuilder b) {}
   _i3.CopyObjectResult? get copyObjectResult;
   @override
   _i3.CopyObjectResult? getPayload() =>
@@ -50,11 +48,11 @@ abstract class CopyObjectOutput
   List<Object?> get props => [copyObjectResult];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CopyObjectOutput');
-    helper.add(
-      'copyObjectResult',
-      copyObjectResult,
-    );
+    final helper = newBuiltValueToStringHelper('CopyObjectOutput')
+      ..add(
+        'copyObjectResult',
+        copyObjectResult,
+      );
     return helper.toString();
   }
 }

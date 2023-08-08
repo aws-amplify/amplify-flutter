@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.events_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -28,12 +28,9 @@ abstract class EventsRequest
 
   const EventsRequest._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<EventsRequest>> serializers = [
     EventsRequestRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EventsRequestBuilder b) {}
 
   /// The batch of events to process. For each item in a batch, the endpoint ID acts as a key that has an EventsBatch object as its value.
   _i3.BuiltMap<String, _i2.EventsBatch> get batchItem;
@@ -41,11 +38,11 @@ abstract class EventsRequest
   List<Object?> get props => [batchItem];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EventsRequest');
-    helper.add(
-      'batchItem',
-      batchItem,
-    );
+    final helper = newBuiltValueToStringHelper('EventsRequest')
+      ..add(
+        'batchItem',
+        batchItem,
+      );
     return helper.toString();
   }
 }

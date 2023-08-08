@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1_v2.machine_learning.model.predict_output;
+part of 'predict_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -47,9 +47,7 @@ class PredictOutputBuilder
   set prediction(_i2.PredictionBuilder? prediction) =>
       _$this._prediction = prediction;
 
-  PredictOutputBuilder() {
-    PredictOutput._init(this);
-  }
+  PredictOutputBuilder();
 
   PredictOutputBuilder get _$this {
     final $v = _$v;

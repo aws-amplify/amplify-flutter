@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.delete_documentation_part_request;
+part of 'delete_documentation_part_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -67,9 +67,7 @@ class DeleteDocumentationPartRequestBuilder
   set documentationPartId(String? documentationPartId) =>
       _$this._documentationPartId = documentationPartId;
 
-  DeleteDocumentationPartRequestBuilder() {
-    DeleteDocumentationPartRequest._init(this);
-  }
+  DeleteDocumentationPartRequestBuilder();
 
   DeleteDocumentationPartRequestBuilder get _$this {
     final $v = _$v;
@@ -147,9 +145,7 @@ class DeleteDocumentationPartRequestPayloadBuilder
             DeleteDocumentationPartRequestPayloadBuilder> {
   _$DeleteDocumentationPartRequestPayload? _$v;
 
-  DeleteDocumentationPartRequestPayloadBuilder() {
-    DeleteDocumentationPartRequestPayload._init(this);
-  }
+  DeleteDocumentationPartRequestPayloadBuilder();
 
   @override
   void replace(DeleteDocumentationPartRequestPayload other) {

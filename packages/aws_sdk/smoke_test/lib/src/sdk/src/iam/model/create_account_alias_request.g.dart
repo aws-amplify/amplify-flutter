@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.create_account_alias_request;
+part of 'create_account_alias_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -53,9 +53,7 @@ class CreateAccountAliasRequestBuilder
   String? get accountAlias => _$this._accountAlias;
   set accountAlias(String? accountAlias) => _$this._accountAlias = accountAlias;
 
-  CreateAccountAliasRequestBuilder() {
-    CreateAccountAliasRequest._init(this);
-  }
+  CreateAccountAliasRequestBuilder();
 
   CreateAccountAliasRequestBuilder get _$this {
     final $v = _$v;

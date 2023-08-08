@@ -23,7 +23,8 @@ class RetryConfig with AWSEquatable<RetryConfig> {
 }
 
 @immutable
-class SmithyError with AWSEquatable<SmithyError> {
+class SmithyError<Payload extends Object?, T extends SmithyException>
+    with AWSEquatable<SmithyError<Payload, T>> {
   const SmithyError(
     this.shapeId,
     this.kind,
@@ -37,7 +38,11 @@ class SmithyError with AWSEquatable<SmithyError> {
   final ErrorKind kind;
   final Type type;
   final RetryConfig? retryConfig;
-  final Function builder;
+  final T Function(Payload, AWSBaseHttpResponse) builder;
+
+  T build(Object? payload, AWSBaseHttpResponse response) {
+    return builder(payload as Payload, response);
+  }
 
   final int? _statusCode;
   int get statusCode => _statusCode ?? (kind == ErrorKind.client ? 400 : 500);
@@ -182,28 +187,32 @@ class SmithyHttpRequest {
       },
     );
     Future<void>(() async {
-      final request = await transformRequest(
-        baseClient: client,
-        isCanceled: () => completer.isCanceled,
-      );
-      final operation = request.send(
-        // We extract the transformRequest/transformResponse methods of
-        // `client` when specified. To avoid calling them twice in `send`,
-        // send the request using its baseClient.
-        // TODO(dnys1): Invert? Add interceptors option to Smithy operations?
-        client: client is AWSBaseHttpClient ? client.baseClient : client,
-      );
-      unawaited(operation.requestProgress.forward(requestProgress));
-      unawaited(operation.responseProgress.forward(responseProgress));
-      completer.completeOperation(
-        operation.operation.then(
-          (response) => _transformResponse(
-            response,
-            baseClient: client,
-            isCanceled: () => completer.isCanceled,
+      try {
+        final request = await transformRequest(
+          baseClient: client,
+          isCanceled: () => completer.isCanceled,
+        );
+        final operation = request.send(
+          // We extract the transformRequest/transformResponse methods of
+          // `client` when specified. To avoid calling them twice in `send`,
+          // send the request using its baseClient.
+          // TODO(dnys1): Invert? Add interceptors option to Smithy operations?
+          client: client is AWSBaseHttpClient ? client.baseClient : client,
+        );
+        unawaited(operation.requestProgress.forward(requestProgress));
+        unawaited(operation.responseProgress.forward(responseProgress));
+        completer.completeOperation(
+          operation.operation.then(
+            (response) => _transformResponse(
+              response,
+              baseClient: client,
+              isCanceled: () => completer.isCanceled,
+            ),
           ),
-        ),
-      );
+        );
+      } on Object catch (e, st) {
+        completer.completeError(e, st);
+      }
     });
     return AWSHttpOperation(
       completer.operation,

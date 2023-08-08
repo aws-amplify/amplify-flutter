@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.sse_kms_encrypted_objects; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -29,12 +29,8 @@ abstract class SseKmsEncryptedObjects
 
   const SseKmsEncryptedObjects._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    SseKmsEncryptedObjectsRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SseKmsEncryptedObjectsBuilder b) {}
+  static const List<_i3.SmithySerializer<SseKmsEncryptedObjects>> serializers =
+      [SseKmsEncryptedObjectsRestXmlSerializer()];
 
   /// Specifies whether Amazon S3 replicates objects created with server-side encryption using an Amazon Web Services KMS key stored in Amazon Web Services Key Management Service.
   _i2.SseKmsEncryptedObjectsStatus get status;
@@ -42,11 +38,11 @@ abstract class SseKmsEncryptedObjects
   List<Object?> get props => [status];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SseKmsEncryptedObjects');
-    helper.add(
-      'status',
-      status,
-    );
+    final helper = newBuiltValueToStringHelper('SseKmsEncryptedObjects')
+      ..add(
+        'status',
+        status,
+      );
     return helper.toString();
   }
 }

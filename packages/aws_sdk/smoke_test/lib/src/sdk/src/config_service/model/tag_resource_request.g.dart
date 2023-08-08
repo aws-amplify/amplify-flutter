@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.tag_resource_request;
+part of 'tag_resource_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class TagResourceRequestBuilder
       _$this._tags ??= new _i4.ListBuilder<_i3.Tag>();
   set tags(_i4.ListBuilder<_i3.Tag>? tags) => _$this._tags = tags;
 
-  TagResourceRequestBuilder() {
-    TagResourceRequest._init(this);
-  }
+  TagResourceRequestBuilder();
 
   TagResourceRequestBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_protocol.model.test_no_payload_input_output;
+part of 'test_no_payload_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -49,9 +49,7 @@ class TestNoPayloadInputOutputBuilder
   String? get testId => _$this._testId;
   set testId(String? testId) => _$this._testId = testId;
 
-  TestNoPayloadInputOutputBuilder() {
-    TestNoPayloadInputOutput._init(this);
-  }
+  TestNoPayloadInputOutputBuilder();
 
   TestNoPayloadInputOutputBuilder get _$this {
     final $v = _$v;
@@ -118,9 +116,7 @@ class TestNoPayloadInputOutputPayloadBuilder
             TestNoPayloadInputOutputPayloadBuilder> {
   _$TestNoPayloadInputOutputPayload? _$v;
 
-  TestNoPayloadInputOutputPayloadBuilder() {
-    TestNoPayloadInputOutputPayload._init(this);
-  }
+  TestNoPayloadInputOutputPayloadBuilder();
 
   @override
   void replace(TestNoPayloadInputOutputPayload other) {

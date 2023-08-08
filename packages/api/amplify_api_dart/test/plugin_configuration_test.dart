@@ -20,11 +20,11 @@ const _expectedQuerySuccessResponseBody = {
         {
           'id': 'TEST_ID',
           'name': 'Test App Blog',
-          'createdAt': '2022-06-28T17:36:52.460Z'
+          'createdAt': '2022-06-28T17:36:52.460Z',
         }
-      ]
-    }
-  }
+      ],
+    },
+  },
 };
 
 /// Asserts user agent and API key present.

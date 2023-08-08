@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.create_stack_set_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -30,12 +30,9 @@ abstract class CreateStackSetOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<CreateStackSetOutput>> serializers = [
     CreateStackSetOutputAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateStackSetOutputBuilder b) {}
 
   /// The ID of the stack set that you're creating.
   String? get stackSetId;
@@ -43,11 +40,11 @@ abstract class CreateStackSetOutput
   List<Object?> get props => [stackSetId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateStackSetOutput');
-    helper.add(
-      'stackSetId',
-      stackSetId,
-    );
+    final helper = newBuiltValueToStringHelper('CreateStackSetOutput')
+      ..add(
+        'stackSetId',
+        stackSetId,
+      );
     return helper.toString();
   }
 }

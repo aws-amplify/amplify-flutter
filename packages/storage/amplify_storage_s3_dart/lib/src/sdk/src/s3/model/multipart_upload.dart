@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_storage_s3_dart.s3.model.multipart_upload; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -48,12 +48,9 @@ abstract class MultipartUpload
 
   const MultipartUpload._();
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer<MultipartUpload>> serializers = [
     MultipartUploadRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MultipartUploadBuilder b) {}
 
   /// Upload ID that identifies the multipart upload.
   String? get uploadId;
@@ -87,35 +84,35 @@ abstract class MultipartUpload
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MultipartUpload');
-    helper.add(
-      'uploadId',
-      uploadId,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'initiated',
-      initiated,
-    );
-    helper.add(
-      'storageClass',
-      storageClass,
-    );
-    helper.add(
-      'owner',
-      owner,
-    );
-    helper.add(
-      'initiator',
-      initiator,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
+    final helper = newBuiltValueToStringHelper('MultipartUpload')
+      ..add(
+        'uploadId',
+        uploadId,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'initiated',
+        initiated,
+      )
+      ..add(
+        'storageClass',
+        storageClass,
+      )
+      ..add(
+        'owner',
+        owner,
+      )
+      ..add(
+        'initiator',
+        initiator,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      );
     return helper.toString();
   }
 }

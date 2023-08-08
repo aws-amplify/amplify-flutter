@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.delete_change_set_output;
+part of 'delete_change_set_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -38,9 +38,7 @@ class DeleteChangeSetOutputBuilder
     implements Builder<DeleteChangeSetOutput, DeleteChangeSetOutputBuilder> {
   _$DeleteChangeSetOutput? _$v;
 
-  DeleteChangeSetOutputBuilder() {
-    DeleteChangeSetOutput._init(this);
-  }
+  DeleteChangeSetOutputBuilder();
 
   @override
   void replace(DeleteChangeSetOutput other) {

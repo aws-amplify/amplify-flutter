@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.no_such_remediation_exception_exception;
+part of 'no_such_remediation_exception_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -68,9 +68,7 @@ class NoSuchRemediationExceptionExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  NoSuchRemediationExceptionExceptionBuilder() {
-    NoSuchRemediationExceptionException._init(this);
-  }
+  NoSuchRemediationExceptionExceptionBuilder();
 
   NoSuchRemediationExceptionExceptionBuilder get _$this {
     final $v = _$v;

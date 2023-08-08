@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.execution_controls;
+part of 'execution_controls.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -49,9 +49,7 @@ class ExecutionControlsBuilder
   set ssmControls(_i2.SsmControlsBuilder? ssmControls) =>
       _$this._ssmControls = ssmControls;
 
-  ExecutionControlsBuilder() {
-    ExecutionControls._init(this);
-  }
+  ExecutionControlsBuilder();
 
   ExecutionControlsBuilder get _$this {
     final $v = _$v;

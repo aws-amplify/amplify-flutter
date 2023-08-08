@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.describe_publisher_output;
+part of 'describe_publisher_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -82,9 +82,7 @@ class DescribePublisherOutputBuilder
   set publisherProfile(String? publisherProfile) =>
       _$this._publisherProfile = publisherProfile;
 
-  DescribePublisherOutputBuilder() {
-    DescribePublisherOutput._init(this);
-  }
+  DescribePublisherOutputBuilder();
 
   DescribePublisherOutputBuilder get _$this {
     final $v = _$v;

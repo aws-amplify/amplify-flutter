@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.invalid_state_transition_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,9 @@ abstract class InvalidStateTransitionException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidStateTransitionExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidStateTransitionException>>
+      serializers = [InvalidStateTransitionExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidStateTransitionExceptionBuilder b) {}
   @override
   String? get message;
   @override
@@ -67,11 +64,11 @@ abstract class InvalidStateTransitionException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('InvalidStateTransitionException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('InvalidStateTransitionException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

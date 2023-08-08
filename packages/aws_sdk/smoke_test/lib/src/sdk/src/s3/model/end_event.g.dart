@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.end_event;
+part of 'end_event.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -34,9 +34,7 @@ class _$EndEvent extends EndEvent {
 class EndEventBuilder implements Builder<EndEvent, EndEventBuilder> {
   _$EndEvent? _$v;
 
-  EndEventBuilder() {
-    EndEvent._init(this);
-  }
+  EndEventBuilder();
 
   @override
   void replace(EndEvent other) {

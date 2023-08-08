@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.delete_stack_input;
+part of 'delete_stack_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -83,9 +83,7 @@ class DeleteStackInputBuilder
   set clientRequestToken(String? clientRequestToken) =>
       _$this._clientRequestToken = clientRequestToken;
 
-  DeleteStackInputBuilder() {
-    DeleteStackInput._init(this);
-  }
+  DeleteStackInputBuilder();
 
   DeleteStackInputBuilder get _$this {
     final $v = _$v;

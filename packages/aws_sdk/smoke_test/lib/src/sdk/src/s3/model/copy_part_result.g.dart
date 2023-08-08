@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.copy_part_result;
+part of 'copy_part_result.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -98,9 +98,7 @@ class CopyPartResultBuilder
   set checksumSha256(String? checksumSha256) =>
       _$this._checksumSha256 = checksumSha256;
 
-  CopyPartResultBuilder() {
-    CopyPartResult._init(this);
-  }
+  CopyPartResultBuilder();
 
   CopyPartResultBuilder get _$this {
     final $v = _$v;

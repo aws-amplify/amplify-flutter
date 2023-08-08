@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.update_contributor_insights_output;
+part of 'update_contributor_insights_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -73,9 +73,7 @@ class UpdateContributorInsightsOutputBuilder
           _i2.ContributorInsightsStatus? contributorInsightsStatus) =>
       _$this._contributorInsightsStatus = contributorInsightsStatus;
 
-  UpdateContributorInsightsOutputBuilder() {
-    UpdateContributorInsightsOutput._init(this);
-  }
+  UpdateContributorInsightsOutputBuilder();
 
   UpdateContributorInsightsOutputBuilder get _$this {
     final $v = _$v;

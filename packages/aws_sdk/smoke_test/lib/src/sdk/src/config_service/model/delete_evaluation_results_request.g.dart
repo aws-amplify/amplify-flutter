@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.delete_evaluation_results_request;
+part of 'delete_evaluation_results_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -56,9 +56,7 @@ class DeleteEvaluationResultsRequestBuilder
   set configRuleName(String? configRuleName) =>
       _$this._configRuleName = configRuleName;
 
-  DeleteEvaluationResultsRequestBuilder() {
-    DeleteEvaluationResultsRequest._init(this);
-  }
+  DeleteEvaluationResultsRequestBuilder();
 
   DeleteEvaluationResultsRequestBuilder get _$this {
     final $v = _$v;

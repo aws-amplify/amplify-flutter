@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.resource; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -46,12 +46,9 @@ abstract class Resource
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Resource>> serializers = [
     ResourceRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceBuilder b) {}
 
   /// The resource's identifier.
   String? get id;
@@ -77,27 +74,27 @@ abstract class Resource
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Resource');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'parentId',
-      parentId,
-    );
-    helper.add(
-      'pathPart',
-      pathPart,
-    );
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'resourceMethods',
-      resourceMethods,
-    );
+    final helper = newBuiltValueToStringHelper('Resource')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'parentId',
+        parentId,
+      )
+      ..add(
+        'pathPart',
+        pathPart,
+      )
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'resourceMethods',
+        resourceMethods,
+      );
     return helper.toString();
   }
 }

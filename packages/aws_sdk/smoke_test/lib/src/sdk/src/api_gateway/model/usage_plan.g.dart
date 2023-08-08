@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.usage_plan;
+part of 'usage_plan.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -116,9 +116,7 @@ class UsagePlanBuilder implements Builder<UsagePlan, UsagePlanBuilder> {
       _$this._tags ??= new _i5.MapBuilder<String, String>();
   set tags(_i5.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
-  UsagePlanBuilder() {
-    UsagePlan._init(this);
-  }
+  UsagePlanBuilder();
 
   UsagePlanBuilder get _$this {
     final $v = _$v;

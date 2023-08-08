@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.add_role_to_instance_profile_request;
+part of 'add_role_to_instance_profile_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -68,9 +68,7 @@ class AddRoleToInstanceProfileRequestBuilder
   String? get roleName => _$this._roleName;
   set roleName(String? roleName) => _$this._roleName = roleName;
 
-  AddRoleToInstanceProfileRequestBuilder() {
-    AddRoleToInstanceProfileRequest._init(this);
-  }
+  AddRoleToInstanceProfileRequestBuilder();
 
   AddRoleToInstanceProfileRequestBuilder get _$this {
     final $v = _$v;

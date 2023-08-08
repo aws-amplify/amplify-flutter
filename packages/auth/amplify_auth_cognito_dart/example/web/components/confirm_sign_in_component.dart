@@ -67,7 +67,7 @@ class ConfirmSignInComponent extends StatefulComponent {
               onClick: _confirmSignIn,
             ),
           ],
-        )
+        ),
       ],
     );
   }

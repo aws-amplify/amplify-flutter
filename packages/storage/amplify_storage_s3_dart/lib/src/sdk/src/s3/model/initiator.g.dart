@@ -53,9 +53,7 @@ class InitiatorBuilder implements Builder<Initiator, InitiatorBuilder> {
   String? get displayName => _$this._displayName;
   set displayName(String? displayName) => _$this._displayName = displayName;
 
-  InitiatorBuilder() {
-    Initiator._init(this);
-  }
+  InitiatorBuilder();
 
   InitiatorBuilder get _$this {
     final $v = _$v;

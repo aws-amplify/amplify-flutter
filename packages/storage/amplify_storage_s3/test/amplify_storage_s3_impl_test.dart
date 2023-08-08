@@ -18,7 +18,7 @@ void main() {
           S3PluginConfig.pluginKey: S3PluginConfig(
             bucket: '123',
             region: 'west-2',
-          )
+          ),
         },
       ),
     );

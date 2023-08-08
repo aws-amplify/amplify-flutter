@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.operation.put_object_acl_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -27,7 +27,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/put_object_acl_request.dart'
 ///
 /// If your bucket uses the bucket owner enforced setting for S3 Object Ownership, ACLs are disabled and no longer affect permissions. You must use policies to grant access to your bucket and the objects in it. Requests to set ACLs or update ACLs fail and return the `AccessControlListNotSupported` error code. Requests to read ACLs are still supported. For more information, see [Controlling object ownership](https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html) in the _Amazon S3 User Guide_.
 ///
-/// **Access Permissions**
+/// Permissions
 ///
 /// You can set access permissions using one of the following methods:
 ///
@@ -72,7 +72,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/put_object_acl_request.dart'
 ///
 /// You can use either a canned ACL or specify access permissions explicitly. You cannot do both.
 ///
-/// **Grantee Values**
+/// Grantee Values
 ///
 /// You can specify the person (grantee) to whom you're assigning access rights (using request elements) in the following ways:
 ///
@@ -114,11 +114,11 @@ import 'package:smoke_test/src/sdk/src/s3/model/put_object_acl_request.dart'
 ///     For a list of all the Amazon S3 supported Regions and endpoints, see [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region) in the Amazon Web Services General Reference.
 ///
 ///
-/// **Versioning**
+/// Versioning
 ///
 /// The ACL of an object is set at the object version level. By default, PUT sets the ACL of the current version of an object. To set the ACL of a different version, use the `versionId` subresource.
 ///
-/// **Related Resources**
+/// The following operations are related to `PutObjectAcl`:
 ///
 /// *   [CopyObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html)
 ///
@@ -136,7 +136,7 @@ class PutObjectAclOperation extends _i1.HttpOperation<
   ///
   /// If your bucket uses the bucket owner enforced setting for S3 Object Ownership, ACLs are disabled and no longer affect permissions. You must use policies to grant access to your bucket and the objects in it. Requests to set ACLs or update ACLs fail and return the `AccessControlListNotSupported` error code. Requests to read ACLs are still supported. For more information, see [Controlling object ownership](https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html) in the _Amazon S3 User Guide_.
   ///
-  /// **Access Permissions**
+  /// Permissions
   ///
   /// You can set access permissions using one of the following methods:
   ///
@@ -181,7 +181,7 @@ class PutObjectAclOperation extends _i1.HttpOperation<
   ///
   /// You can use either a canned ACL or specify access permissions explicitly. You cannot do both.
   ///
-  /// **Grantee Values**
+  /// Grantee Values
   ///
   /// You can specify the person (grantee) to whom you're assigning access rights (using request elements) in the following ways:
   ///
@@ -223,11 +223,11 @@ class PutObjectAclOperation extends _i1.HttpOperation<
   ///     For a list of all the Amazon S3 supported Regions and endpoints, see [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region) in the Amazon Web Services General Reference.
   ///
   ///
-  /// **Versioning**
+  /// Versioning
   ///
   /// The ACL of an object is set at the object version level. By default, PUT sets the ACL of the current version of an object. To set the ACL of a different version, use the `versionId` subresource.
   ///
-  /// **Related Resources**
+  /// The following operations are related to `PutObjectAcl`:
   ///
   /// *   [CopyObject](https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html)
   ///
@@ -368,7 +368,7 @@ class PutObjectAclOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.NoSuchKey, _i10.NoSuchKey>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.s3',
             shape: 'NoSuchKey',
@@ -416,7 +416,7 @@ class PutObjectAclOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)}
+        ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)},
       },
     );
   }

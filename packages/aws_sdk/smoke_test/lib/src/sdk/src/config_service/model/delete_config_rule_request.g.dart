@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.delete_config_rule_request;
+part of 'delete_config_rule_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class DeleteConfigRuleRequestBuilder
   set configRuleName(String? configRuleName) =>
       _$this._configRuleName = configRuleName;
 
-  DeleteConfigRuleRequestBuilder() {
-    DeleteConfigRuleRequest._init(this);
-  }
+  DeleteConfigRuleRequestBuilder();
 
   DeleteConfigRuleRequestBuilder get _$this {
     final $v = _$v;

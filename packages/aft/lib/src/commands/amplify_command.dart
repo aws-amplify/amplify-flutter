@@ -9,9 +9,9 @@ import 'package:aft/src/repo.dart';
 import 'package:args/command_runner.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:checked_yaml/checked_yaml.dart';
+import 'package:cli_util/cli_util.dart';
 import 'package:collection/collection.dart';
 import 'package:git/git.dart' as git;
-import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
@@ -60,6 +60,9 @@ abstract class AmplifyCommand extends Command<void>
       case LogLevel.none:
         break;
     }
+    if (logEntry.error case final error?) {
+      stderr.writeln(error);
+    }
   }
 
   /// Whether verbose logging is enabled.
@@ -76,10 +79,8 @@ abstract class AmplifyCommand extends Command<void>
     return Directory(directory);
   }();
 
-  _PubHttpClient? _httpClient;
-
   /// HTTP client for remote operations.
-  http.Client get httpClient => _httpClient ??= _PubHttpClient();
+  final AWSHttpClient httpClient = AWSHttpClient();
 
   /// The root directory of the Amplify Flutter repo.
   late final Directory rootDir = () {
@@ -211,7 +212,19 @@ abstract class AmplifyCommand extends Command<void>
   late final Map<String, String> environment = {
     ...Platform.environment,
     'AFT_ROOT': rootDir.uri.toFilePath(),
+    // Needed for running `dart doc` for Flutter packages.
+    if (flutterRoot != null) 'FLUTTER_ROOT': flutterRoot!,
   };
+
+  /// The path to the Flutter SDK, if installed.
+  late final String? flutterRoot = () {
+    final dartSdkPath = getSdkPath();
+    final flutterBin = p.dirname(p.dirname(dartSdkPath));
+    if (File(p.join(flutterBin, 'flutter')).existsSync()) {
+      return p.dirname(flutterBin);
+    }
+    return null;
+  }();
 
   late final Repo repo = Repo(
     aftConfig,
@@ -257,20 +270,22 @@ abstract class AmplifyCommand extends Command<void>
   Future<PubVersionInfo?> resolveVersionInfo(String package) async {
     // Get the currently published version of the package.
     final uri = Uri.parse('https://pub.dev/api/packages/$package');
-    final resp = await httpClient.get(
+    final request = AWSHttpRequest.get(
       uri,
-      headers: {AWSHeaders.accept: 'application/vnd.pub.v2+json'},
+      headers: const {AWSHeaders.accept: 'application/vnd.pub.v2+json'},
     );
+    final resp = await httpClient.send(request).response;
+    final body = await resp.decodeBody();
 
     // Package is unpublished
     if (resp.statusCode == 404) {
       return null;
     }
     if (resp.statusCode != 200) {
-      throw http.ClientException(resp.body, uri);
+      throw AWSHttpException(request, body);
     }
 
-    final respJson = jsonDecode(resp.body) as Map<String, Object?>;
+    final respJson = jsonDecode(body) as Map<String, Object?>;
     final versions = (respJson['versions'] as List<Object?>?) ?? <Object?>[];
     final semvers = <Version>[];
     for (final version in versions) {
@@ -297,30 +312,7 @@ abstract class AmplifyCommand extends Command<void>
   @override
   @mustCallSuper
   void close() {
-    _httpClient?._close();
-  }
-}
-
-/// An HTTP client which can be used by processes which call `client.close()`
-/// outside our control, like `pub`.
-class _PubHttpClient extends http.BaseClient {
-  _PubHttpClient([http.Client? inner]) : _inner = inner ?? http.Client();
-
-  final http.Client _inner;
-
-  @override
-  Future<http.StreamedResponse> send(http.BaseRequest request) {
-    return _inner.send(request);
-  }
-
-  @override
-  void close() {
-    // Do nothing
-  }
-
-  // Actually close
-  void _close() {
-    _inner.close();
+    httpClient.close();
   }
 }
 

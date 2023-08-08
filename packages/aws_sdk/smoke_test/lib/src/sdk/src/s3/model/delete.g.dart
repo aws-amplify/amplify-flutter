@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.delete;
+part of 'delete.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class DeleteBuilder implements Builder<Delete, DeleteBuilder> {
   bool? get quiet => _$this._quiet;
   set quiet(bool? quiet) => _$this._quiet = quiet;
 
-  DeleteBuilder() {
-    Delete._init(this);
-  }
+  DeleteBuilder();
 
   DeleteBuilder get _$this {
     final $v = _$v;

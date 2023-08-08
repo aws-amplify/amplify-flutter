@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.documentation_part_location; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,12 +41,8 @@ abstract class DocumentationPartLocation
 
   const DocumentationPartLocation._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    DocumentationPartLocationRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DocumentationPartLocationBuilder b) {}
+  static const List<_i3.SmithySerializer<DocumentationPartLocation>>
+      serializers = [DocumentationPartLocationRestJson1Serializer()];
 
   /// The type of API entity to which the documentation content applies. Valid values are `API`, `AUTHORIZER`, `MODEL`, `RESOURCE`, `METHOD`, `PATH_PARAMETER`, `QUERY_PARAMETER`, `REQUEST_HEADER`, `REQUEST_BODY`, `RESPONSE`, `RESPONSE_HEADER`, and `RESPONSE_BODY`. Content inheritance does not apply to any entity of the `API`, `AUTHORIZER`, `METHOD`, `MODEL`, `REQUEST_BODY`, or `RESOURCE` type.
   _i2.DocumentationPartType get type;
@@ -72,27 +68,27 @@ abstract class DocumentationPartLocation
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DocumentationPartLocation');
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'method',
-      method,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
-    );
-    helper.add(
-      'name',
-      name,
-    );
+    final helper = newBuiltValueToStringHelper('DocumentationPartLocation')
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'method',
+        method,
+      )
+      ..add(
+        'statusCode',
+        statusCode,
+      )
+      ..add(
+        'name',
+        name,
+      );
     return helper.toString();
   }
 }

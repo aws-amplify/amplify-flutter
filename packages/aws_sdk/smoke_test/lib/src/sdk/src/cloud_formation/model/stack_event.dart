@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.stack_event; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -67,12 +67,9 @@ abstract class StackEvent
 
   const StackEvent._();
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer<StackEvent>> serializers = [
     StackEventAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackEventBuilder b) {}
 
   /// The unique ID name of the instance of the stack.
   String get stackId;
@@ -150,71 +147,71 @@ abstract class StackEvent
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StackEvent');
-    helper.add(
-      'stackId',
-      stackId,
-    );
-    helper.add(
-      'eventId',
-      eventId,
-    );
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'logicalResourceId',
-      logicalResourceId,
-    );
-    helper.add(
-      'physicalResourceId',
-      physicalResourceId,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'timestamp',
-      timestamp,
-    );
-    helper.add(
-      'resourceStatus',
-      resourceStatus,
-    );
-    helper.add(
-      'resourceStatusReason',
-      resourceStatusReason,
-    );
-    helper.add(
-      'resourceProperties',
-      resourceProperties,
-    );
-    helper.add(
-      'clientRequestToken',
-      clientRequestToken,
-    );
-    helper.add(
-      'hookType',
-      hookType,
-    );
-    helper.add(
-      'hookStatus',
-      hookStatus,
-    );
-    helper.add(
-      'hookStatusReason',
-      hookStatusReason,
-    );
-    helper.add(
-      'hookInvocationPoint',
-      hookInvocationPoint,
-    );
-    helper.add(
-      'hookFailureMode',
-      hookFailureMode,
-    );
+    final helper = newBuiltValueToStringHelper('StackEvent')
+      ..add(
+        'stackId',
+        stackId,
+      )
+      ..add(
+        'eventId',
+        eventId,
+      )
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'logicalResourceId',
+        logicalResourceId,
+      )
+      ..add(
+        'physicalResourceId',
+        physicalResourceId,
+      )
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'timestamp',
+        timestamp,
+      )
+      ..add(
+        'resourceStatus',
+        resourceStatus,
+      )
+      ..add(
+        'resourceStatusReason',
+        resourceStatusReason,
+      )
+      ..add(
+        'resourceProperties',
+        resourceProperties,
+      )
+      ..add(
+        'clientRequestToken',
+        clientRequestToken,
+      )
+      ..add(
+        'hookType',
+        hookType,
+      )
+      ..add(
+        'hookStatus',
+        hookStatus,
+      )
+      ..add(
+        'hookStatusReason',
+        hookStatusReason,
+      )
+      ..add(
+        'hookInvocationPoint',
+        hookInvocationPoint,
+      )
+      ..add(
+        'hookFailureMode',
+        hookFailureMode,
+      );
     return helper.toString();
   }
 }

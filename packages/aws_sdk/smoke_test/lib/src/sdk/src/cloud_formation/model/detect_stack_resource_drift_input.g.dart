@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.detect_stack_resource_drift_input;
+part of 'detect_stack_resource_drift_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -67,9 +67,7 @@ class DetectStackResourceDriftInputBuilder
   set logicalResourceId(String? logicalResourceId) =>
       _$this._logicalResourceId = logicalResourceId;
 
-  DetectStackResourceDriftInputBuilder() {
-    DetectStackResourceDriftInput._init(this);
-  }
+  DetectStackResourceDriftInputBuilder();
 
   DetectStackResourceDriftInputBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.password_policy; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,6 +31,12 @@ abstract class PasswordPolicy
     int? passwordReusePrevention,
     bool? hardExpiry,
   }) {
+    requireSymbols ??= false;
+    requireNumbers ??= false;
+    requireUppercaseCharacters ??= false;
+    requireLowercaseCharacters ??= false;
+    allowUsersToChangePassword ??= false;
+    expirePasswords ??= false;
     return _$PasswordPolicy._(
       minimumPasswordLength: minimumPasswordLength,
       requireSymbols: requireSymbols,
@@ -53,12 +59,20 @@ abstract class PasswordPolicy
 
   const PasswordPolicy._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<PasswordPolicy>> serializers = [
     PasswordPolicyAwsQuerySerializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(PasswordPolicyBuilder b) {}
+  static void _init(PasswordPolicyBuilder b) {
+    b
+      ..requireSymbols = false
+      ..requireNumbers = false
+      ..requireUppercaseCharacters = false
+      ..requireLowercaseCharacters = false
+      ..allowUsersToChangePassword = false
+      ..expirePasswords = false;
+  }
 
   /// Minimum length to require for IAM user passwords.
   int? get minimumPasswordLength;
@@ -66,22 +80,22 @@ abstract class PasswordPolicy
   /// Specifies whether IAM user passwords must contain at least one of the following symbols:
   ///
   /// ! @ # $ % ^ & * ( ) _ + - = \[ \] { } | '
-  bool? get requireSymbols;
+  bool get requireSymbols;
 
   /// Specifies whether IAM user passwords must contain at least one numeric character (0 to 9).
-  bool? get requireNumbers;
+  bool get requireNumbers;
 
   /// Specifies whether IAM user passwords must contain at least one uppercase character (A to Z).
-  bool? get requireUppercaseCharacters;
+  bool get requireUppercaseCharacters;
 
   /// Specifies whether IAM user passwords must contain at least one lowercase character (a to z).
-  bool? get requireLowercaseCharacters;
+  bool get requireLowercaseCharacters;
 
   /// Specifies whether IAM users are allowed to change their own password. Gives IAM users permissions to `iam:ChangePassword` for only their user and to the `iam:GetAccountPasswordPolicy` action. This option does not attach a permissions policy to each user, rather the permissions are applied at the account-level for all users by IAM.
-  bool? get allowUsersToChangePassword;
+  bool get allowUsersToChangePassword;
 
   /// Indicates whether passwords in the account expire. Returns true if `MaxPasswordAge` contains a value greater than 0. Returns false if MaxPasswordAge is 0 or not present.
-  bool? get expirePasswords;
+  bool get expirePasswords;
 
   /// The number of days that an IAM user password is valid.
   int? get maxPasswordAge;
@@ -106,47 +120,47 @@ abstract class PasswordPolicy
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PasswordPolicy');
-    helper.add(
-      'minimumPasswordLength',
-      minimumPasswordLength,
-    );
-    helper.add(
-      'requireSymbols',
-      requireSymbols,
-    );
-    helper.add(
-      'requireNumbers',
-      requireNumbers,
-    );
-    helper.add(
-      'requireUppercaseCharacters',
-      requireUppercaseCharacters,
-    );
-    helper.add(
-      'requireLowercaseCharacters',
-      requireLowercaseCharacters,
-    );
-    helper.add(
-      'allowUsersToChangePassword',
-      allowUsersToChangePassword,
-    );
-    helper.add(
-      'expirePasswords',
-      expirePasswords,
-    );
-    helper.add(
-      'maxPasswordAge',
-      maxPasswordAge,
-    );
-    helper.add(
-      'passwordReusePrevention',
-      passwordReusePrevention,
-    );
-    helper.add(
-      'hardExpiry',
-      hardExpiry,
-    );
+    final helper = newBuiltValueToStringHelper('PasswordPolicy')
+      ..add(
+        'minimumPasswordLength',
+        minimumPasswordLength,
+      )
+      ..add(
+        'requireSymbols',
+        requireSymbols,
+      )
+      ..add(
+        'requireNumbers',
+        requireNumbers,
+      )
+      ..add(
+        'requireUppercaseCharacters',
+        requireUppercaseCharacters,
+      )
+      ..add(
+        'requireLowercaseCharacters',
+        requireLowercaseCharacters,
+      )
+      ..add(
+        'allowUsersToChangePassword',
+        allowUsersToChangePassword,
+      )
+      ..add(
+        'expirePasswords',
+        expirePasswords,
+      )
+      ..add(
+        'maxPasswordAge',
+        maxPasswordAge,
+      )
+      ..add(
+        'passwordReusePrevention',
+        passwordReusePrevention,
+      )
+      ..add(
+        'hardExpiry',
+        hardExpiry,
+      );
     return helper.toString();
   }
 }
@@ -271,54 +285,42 @@ class PasswordPolicyAwsQuerySerializer
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (requireSymbols != null) {
-      result$
-        ..add(const _i2.XmlElementName('RequireSymbols'))
-        ..add(serializers.serialize(
-          requireSymbols,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
-    if (requireNumbers != null) {
-      result$
-        ..add(const _i2.XmlElementName('RequireNumbers'))
-        ..add(serializers.serialize(
-          requireNumbers,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
-    if (requireUppercaseCharacters != null) {
-      result$
-        ..add(const _i2.XmlElementName('RequireUppercaseCharacters'))
-        ..add(serializers.serialize(
-          requireUppercaseCharacters,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
-    if (requireLowercaseCharacters != null) {
-      result$
-        ..add(const _i2.XmlElementName('RequireLowercaseCharacters'))
-        ..add(serializers.serialize(
-          requireLowercaseCharacters,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
-    if (allowUsersToChangePassword != null) {
-      result$
-        ..add(const _i2.XmlElementName('AllowUsersToChangePassword'))
-        ..add(serializers.serialize(
-          allowUsersToChangePassword,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
-    if (expirePasswords != null) {
-      result$
-        ..add(const _i2.XmlElementName('ExpirePasswords'))
-        ..add(serializers.serialize(
-          expirePasswords,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result$
+      ..add(const _i2.XmlElementName('RequireSymbols'))
+      ..add(serializers.serialize(
+        requireSymbols,
+        specifiedType: const FullType(bool),
+      ));
+    result$
+      ..add(const _i2.XmlElementName('RequireNumbers'))
+      ..add(serializers.serialize(
+        requireNumbers,
+        specifiedType: const FullType(bool),
+      ));
+    result$
+      ..add(const _i2.XmlElementName('RequireUppercaseCharacters'))
+      ..add(serializers.serialize(
+        requireUppercaseCharacters,
+        specifiedType: const FullType(bool),
+      ));
+    result$
+      ..add(const _i2.XmlElementName('RequireLowercaseCharacters'))
+      ..add(serializers.serialize(
+        requireLowercaseCharacters,
+        specifiedType: const FullType(bool),
+      ));
+    result$
+      ..add(const _i2.XmlElementName('AllowUsersToChangePassword'))
+      ..add(serializers.serialize(
+        allowUsersToChangePassword,
+        specifiedType: const FullType(bool),
+      ));
+    result$
+      ..add(const _i2.XmlElementName('ExpirePasswords'))
+      ..add(serializers.serialize(
+        expirePasswords,
+        specifiedType: const FullType(bool),
+      ));
     if (maxPasswordAge != null) {
       result$
         ..add(const _i2.XmlElementName('MaxPasswordAge'))

@@ -5,6 +5,7 @@ import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart' hide PaginatedResult;
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
+import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/storage_s3_service.dart';
 import 'package:aws_signature_v4/aws_signature_v4.dart';
@@ -60,6 +61,23 @@ void main() {
         logger: logger,
         dependencyManager: dependencyManager,
       );
+    });
+
+    test('log a warning when should use path style URLs', () {
+      StorageS3Service(
+        s3PluginConfig: const S3PluginConfig(
+          bucket: 'bucket.name.has.dots.com',
+          region: 'us-west-2',
+        ),
+        prefixResolver: testPrefixResolver,
+        credentialsProvider: TestIamAuthProvider(),
+        logger: logger,
+        dependencyManager: dependencyManager,
+      );
+
+      final message = verify(() => logger.warn(captureAny())).captured.last;
+
+      expect(message, contains('Since your bucket name contains dots'));
     });
 
     group('_getResolvedPrefix()', () {
@@ -603,7 +621,6 @@ void main() {
               ),
             ).thenAnswer((_) async => testUrl);
 
-            final comparingTime = DateTime.now();
             getUrlResult = await storageS3Service.getUrl(
               key: testKey,
               options: testOptions,
@@ -632,18 +649,6 @@ void main() {
               ),
             );
 
-            expect(capturedParams[1] is AWSCredentialScope, isTrue);
-            final credentialScopeParam =
-                capturedParams[1] as AWSCredentialScope;
-            expect(credentialScopeParam.region, testRegion);
-            expect(credentialScopeParam.service, AWSService.s3.service);
-            // assert the signer scope is always freshly initiated upon calling
-            // `getUrl`
-            expect(
-              comparingTime.isBefore(credentialScopeParam.dateTime.dateTime),
-              isTrue,
-            );
-
             expect(capturedParams[2] is S3ServiceConfiguration, isTrue);
             final configParam = capturedParams[2] as S3ServiceConfiguration;
             expect(configParam.signBody, false);
@@ -660,6 +665,56 @@ void main() {
       test('should return correct url result', () {
         expect(getUrlResult.url, testUrl);
         expect(getUrlResult.expiresAt, testBaseDateTime.add(testExpiresIn));
+      });
+
+      test('should create a new signer scope on every call of getUrl',
+          () async {
+        const testOptions = StorageGetUrlOptions();
+
+        when(
+          () => awsSigV4Signer.presign(
+            any(),
+            credentialScope: any(named: 'credentialScope'),
+            serviceConfiguration: any(named: 'serviceConfiguration'),
+            expiresIn: any(named: 'expiresIn'),
+          ),
+        ).thenAnswer((_) async => testUrl);
+
+        getUrlResult = await storageS3Service.getUrl(
+          key: testKey,
+          options: testOptions,
+        );
+        final capturedSignerScope1 = verify(
+          () => awsSigV4Signer.presign(
+            any(),
+            credentialScope:
+                captureAny<AWSCredentialScope>(named: 'credentialScope'),
+            expiresIn: any(named: 'expiresIn'),
+            serviceConfiguration: any(
+              named: 'serviceConfiguration',
+            ),
+          ),
+        ).captured.first;
+        expect(capturedSignerScope1, isA<AWSCredentialScope>());
+
+        getUrlResult = await storageS3Service.getUrl(
+          key: testKey,
+          options: testOptions,
+        );
+        final capturedSignerScope2 = verify(
+          () => awsSigV4Signer.presign(
+            any(),
+            credentialScope:
+                captureAny<AWSCredentialScope>(named: 'credentialScope'),
+            expiresIn: any(named: 'expiresIn'),
+            serviceConfiguration: any(
+              named: 'serviceConfiguration',
+            ),
+          ),
+        ).captured.first;
+        expect(capturedSignerScope2, isA<AWSCredentialScope>());
+
+        expect(capturedSignerScope1, isNot(equals(capturedSignerScope2)));
       });
 
       test(
@@ -789,6 +844,106 @@ void main() {
             'AWSHttpRequest URI',
             contains('.s3-accelerate.'),
           ),
+        );
+      });
+
+      group('bucket name has dots (".")', () {
+        late AWSSigV4Signer pathStyleAwsSigV4Signer;
+        late StorageS3Service pathStyleStorageS3Service;
+        const pathStyleBucket = 'bucket.name.has.dots.com';
+        const pathStyleRegion = 'west-2';
+        const pathStyleS3PluginConfig =
+            S3PluginConfig(bucket: pathStyleBucket, region: pathStyleRegion);
+        final pathStyleURL = Uri(
+          host: 's3.amazonaws.com',
+          path: '/bucket.name.has.dots.com/album/1.jpg',
+          scheme: 'https',
+        );
+
+        setUpAll(() {
+          pathStyleAwsSigV4Signer = MockAWSSigV4Signer();
+          dependencyManager = DependencyManager()
+            ..addInstance<S3Client>(MockS3Client())
+            ..addInstance<AWSSigV4Signer>(pathStyleAwsSigV4Signer);
+          pathStyleStorageS3Service = StorageS3Service(
+            s3PluginConfig: pathStyleS3PluginConfig,
+            prefixResolver: testPrefixResolver,
+            credentialsProvider: TestIamAuthProvider(),
+            logger: MockAWSLogger(),
+            dependencyManager: dependencyManager,
+          );
+        });
+
+        test(
+          'generate path style URL',
+          () async {
+            const testOptions = StorageGetUrlOptions();
+
+            when(
+              () => pathStyleAwsSigV4Signer.presign(
+                any(),
+                credentialScope: any(named: 'credentialScope'),
+                serviceConfiguration: any(named: 'serviceConfiguration'),
+                expiresIn: any(named: 'expiresIn'),
+              ),
+            ).thenAnswer((_) async => pathStyleURL);
+
+            getUrlResult = await pathStyleStorageS3Service.getUrl(
+              key: testKey,
+              options: testOptions,
+            );
+
+            final capturedRequest = verify(
+              () => pathStyleAwsSigV4Signer.presign(
+                captureAny<AWSHttpRequest>(),
+                credentialScope: any(named: 'credentialScope'),
+                expiresIn: any(named: 'expiresIn'),
+                serviceConfiguration: any(
+                  named: 'serviceConfiguration',
+                ),
+              ),
+            ).captured.first;
+
+            expect(
+              capturedRequest,
+              isA<AWSHttpRequest>()
+                  .having(
+                    (o) => o.host,
+                    'host',
+                    's3.${pathStyleS3PluginConfig.region}.amazonaws.com',
+                  )
+                  .having(
+                    (o) => o.path,
+                    'path',
+                    '/bucket.name.has.dots.com/public#some-object',
+                  ),
+            );
+          },
+        );
+
+        test(
+          'throw exception when attempt to use accelerate endpoint with path style URL',
+          () {
+            const testOptions = StorageGetUrlOptions(
+              pluginOptions: S3GetUrlPluginOptions(
+                useAccelerateEndpoint: true,
+              ),
+            );
+
+            expect(
+              pathStyleStorageS3Service.getUrl(
+                key: testKey,
+                options: testOptions,
+              ),
+              throwsA(
+                isA<ConfigurationError>().having(
+                  (o) => o.message,
+                  'message',
+                  equals(accelerateEndpointUnusable.message),
+                ),
+              ),
+            );
+          },
         );
       });
     });

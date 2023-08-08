@@ -75,9 +75,18 @@ const testApiKeyConfig = AWSApiConfig(
   authorizationType: APIAuthorizationType.apiKey,
   apiKey: 'abc-123',
 );
+const testApiKeyConfigCustomDomain = AWSApiConfig(
+  endpointType: EndpointType.graphQL,
+  endpoint: 'https://foo.bar.aws.dev/graphql ',
+  region: 'us-east-1',
+  authorizationType: APIAuthorizationType.apiKey,
+  apiKey: 'abc-123',
+);
 
 const expectedApiKeyWebSocketConnectionUrl =
     'wss://abc123.appsync-realtime-api.us-east-1.amazonaws.com/graphql?header=eyJBY2NlcHQiOiJhcHBsaWNhdGlvbi9qc29uLCB0ZXh0L2phdmFzY3JpcHQiLCJDb250ZW50LUVuY29kaW5nIjoiYW16LTEuMCIsIkNvbnRlbnQtVHlwZSI6ImFwcGxpY2F0aW9uL2pzb247IGNoYXJzZXQ9dXRmLTgiLCJYLUFwaS1LZXkiOiJhYmMtMTIzIiwiSG9zdCI6ImFiYzEyMy5hcHBzeW5jLWFwaS51cy1lYXN0LTEuYW1hem9uYXdzLmNvbSJ9&payload=e30%3D';
+const expectedApiKeyWebSocketConnectionUrlCustomDomain =
+    'wss://foo.bar.aws.dev/graphql/realtime?header=eyJBY2NlcHQiOiJhcHBsaWNhdGlvbi9qc29uLCB0ZXh0L2phdmFzY3JpcHQiLCJDb250ZW50LUVuY29kaW5nIjoiYW16LTEuMCIsIkNvbnRlbnQtVHlwZSI6ImFwcGxpY2F0aW9uL2pzb247IGNoYXJzZXQ9dXRmLTgiLCJYLUFwaS1LZXkiOiJhYmMtMTIzIiwiSG9zdCI6ImZvby5iYXIuYXdzLmRldiJ9&payload=e30%3D';
 
 AmplifyAuthProviderRepository getTestAuthProviderRepo() {
   final testAuthProviderRepo = AmplifyAuthProviderRepository()
@@ -104,14 +113,14 @@ const mockSubscriptionData = {
       'createdAt': '2022-08-15T18:22:15.164Z',
       'file': null,
       'files': null,
-      'updatedAt': '2022-08-15T18:22:15.164Z'
-    }
-  }
+      'updatedAt': '2022-08-15T18:22:15.164Z',
+    },
+  },
 };
 
 const mockAckMessage = {
   'type': 'connection_ack',
-  'payload': {'connectionTimeoutMs': 300000}
+  'payload': {'connectionTimeoutMs': 300000},
 };
 
 final isATestPost = isA<Post>().having(

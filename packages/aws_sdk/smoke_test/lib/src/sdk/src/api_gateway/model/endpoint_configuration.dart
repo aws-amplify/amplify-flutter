@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.endpoint_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,12 +36,9 @@ abstract class EndpointConfiguration
 
   const EndpointConfiguration._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<EndpointConfiguration>> serializers = [
     EndpointConfigurationRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EndpointConfigurationBuilder b) {}
 
   /// A list of endpoint types of an API (RestApi) or its custom domain name (DomainName). For an edge-optimized API and its custom domain name, the endpoint type is `"EDGE"`. For a regional API and its custom domain name, the endpoint type is `REGIONAL`. For a private API, the endpoint type is `PRIVATE`.
   _i3.BuiltList<_i2.EndpointType>? get types;
@@ -55,15 +52,15 @@ abstract class EndpointConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EndpointConfiguration');
-    helper.add(
-      'types',
-      types,
-    );
-    helper.add(
-      'vpcEndpointIds',
-      vpcEndpointIds,
-    );
+    final helper = newBuiltValueToStringHelper('EndpointConfiguration')
+      ..add(
+        'types',
+        types,
+      )
+      ..add(
+        'vpcEndpointIds',
+        vpcEndpointIds,
+      );
     return helper.toString();
   }
 }

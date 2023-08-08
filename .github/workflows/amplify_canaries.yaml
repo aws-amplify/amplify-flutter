@@ -1,5 +1,8 @@
 name: Amplify Canaries
 on:
+  pull_request:
+    paths:
+      - ".github/workflows/amplify_canaries.yaml"
   schedule:
     # 6am pacific time daily, only runs on default branch
     - cron: "0 13 * * *"
@@ -12,6 +15,10 @@ jobs:
   # Ensure an app pulling in published Amplify libraries can build properly
   build:
     runs-on: macos-latest
+    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+    permissions:
+      id-token: write
+      contents: read
     strategy:
       fail-fast: false
       matrix:
@@ -24,7 +31,7 @@ jobs:
           - channel: "stable"
             flutter-version: "3.10.1"
     steps:
-      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # 3.5.3
         with:
           persist-credentials: false
 
@@ -35,7 +42,7 @@ jobs:
           flutter-version: ${{ matrix.flutter-version }}
 
       # Flutter requires Java 11 to build android apps with Gradle.
-      - uses: actions/setup-java@860f60056505705214d223b91ed7a30f173f6142 # 3.3.0
+      - uses: actions/setup-java@cd89f46ac9d01407894225f350157564c9c7cee2 # 3.12.0
         with:
           distribution: "corretto" # Amazon Corretto Build of OpenJDK
           java-version: "11"
@@ -45,6 +52,25 @@ jobs:
 
       - name: Build Canary (Android)
         run: build-support/build_canary.sh apk
+
+      - name: Log failing builds
+        if: ${{ failure() }}
+        uses: ./.github/composite_actions/log_metric
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          metric-name: BuildCanaryTestFailure
+          value: 1
+          dimensions: channel=${{ matrix.channel }}
+      - name: Log succeeding builds
+        if: ${{ success() }}
+        uses: ./.github/composite_actions/log_metric
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          metric-name: BuildCanaryTestFailure
+          value: 0
+          dimensions: channel=${{ matrix.channel }}
 
   e2e-android:
     runs-on: macos-latest
@@ -64,7 +90,7 @@ jobs:
           - channel: "stable"
             flutter-version: "3.10.1"
     steps:
-      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # 3.5.3
         with:
           persist-credentials: false
           submodules: true
@@ -76,10 +102,15 @@ jobs:
           flutter-version: ${{ matrix.flutter-version }}
 
       # Flutter requires Java 11 to build android apps with Gradle.
-      - uses: actions/setup-java@860f60056505705214d223b91ed7a30f173f6142 # 3.3.0
+      - uses: actions/setup-java@cd89f46ac9d01407894225f350157564c9c7cee2 # 3.12.0
         with:
           distribution: "corretto" # Amazon Corretto Build of OpenJDK
           java-version: "11"
+
+      # Must be run before `fetch_backends` so that `pubspec.lock` is present.
+      - name: Pub Upgrade
+        working-directory: canaries
+        run: flutter pub upgrade
 
       - name: Fetch Amplify backend configurations
         uses: ./.github/composite_actions/fetch_backends
@@ -93,11 +124,30 @@ jobs:
         timeout-minutes: 45
         uses: ./.github/composite_actions/launch_android_emulator
         with:
-          script: |
-            cd canaries && flutter test -d emulator-5554 integration_test/main_test.dart
+          # Perform a build to reduce startup time of `flutter test` and prevent timeout
+          script: cd canaries && flutter build apk --debug && flutter test -d emulator-5554 integration_test/main_test.dart
+
+      - name: Log failing android runs
+        if: ${{ failure() }}
+        uses: ./.github/composite_actions/log_metric
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          metric-name: E2ECanaryTestFailure
+          value: 1
+          dimensions: channel=${{ matrix.channel }},platform=android
+      - name: Log succeeding android runs
+        if: ${{ success() }}
+        uses: ./.github/composite_actions/log_metric
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          metric-name: E2ECanaryTestFailure
+          value: 0
+          dimensions: channel=${{ matrix.channel }},platform=android
 
   e2e-ios:
-    runs-on: macos-latest
+    runs-on: macos-13
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
@@ -114,10 +164,10 @@ jobs:
           - channel: "stable"
             flutter-version: "3.10.1"
         ios-version:
-          - "13.7"
+          - "14.5"
           - "16"
     steps:
-      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # 2.4.0
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # 3.5.3
         with:
           persist-credentials: false
           submodules: true
@@ -125,7 +175,13 @@ jobs:
       - name: Install dependencies
         uses: ./.github/composite_actions/install_dependencies
         with:
+          channel: ${{ matrix.channel }}
           flutter-version: ${{ matrix.flutter-version }}
+
+      # Must be run before `fetch_backends` so that `pubspec.lock` is present.
+      - name: Pub Upgrade
+        working-directory: canaries
+        run: flutter pub upgrade
 
       - name: Fetch Amplify backend configurations
         uses: ./.github/composite_actions/fetch_backends
@@ -135,8 +191,20 @@ jobs:
           scope: amplified_todo
           secret-identifier: ${{ secrets.AWS_SECRET_IDENTIFIER }}
 
-      - name: Launch iOS simulator
+      # Launching the iOS simulator is flaky. Try twice and fail if both
+      # attempts timeout.
+      - name: Launch iOS simulator (attempt 1)
+        id: launch
         uses: ./.github/composite_actions/launch_ios_simulator
+        timeout-minutes: 15
+        continue-on-error: true
+        with:
+          ios-version: ${{ matrix.ios-version }}
+
+      - name: Launch iOS simulator (attempt 2)
+        if: steps.launch.outcome == 'failure'
+        uses: ./.github/composite_actions/launch_ios_simulator
+        timeout-minutes: 15
         with:
           ios-version: ${{ matrix.ios-version }}
 
@@ -144,5 +212,25 @@ jobs:
         timeout-minutes: 45
         working-directory: canaries
         run: |
+          # Perform a build to reduce startup time of `flutter test` and prevent timeout 
           flutter build ios --simulator --target=integration_test/main_test.dart
-          flutter test -d test integration_test/main_test.dart
+          flutter test -d test integration_test/main_test.dart --verbose
+
+      - name: Log failing ios runs
+        if: ${{ failure() }}
+        uses: ./.github/composite_actions/log_metric
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          metric-name: E2ECanaryTestFailure
+          value: 1
+          dimensions: channel=${{ matrix.channel }},platform=ios
+      - name: Log succeeding ios runs
+        if: ${{ success() }}
+        uses: ./.github/composite_actions/log_metric
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          metric-name: E2ECanaryTestFailure
+          value: 0
+          dimensions: channel=${{ matrix.channel }},platform=ios

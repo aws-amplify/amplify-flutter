@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.analytics_export_destination;
+part of 'analytics_export_destination.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -58,9 +58,7 @@ class AnalyticsExportDestinationBuilder
           _i2.AnalyticsS3BucketDestinationBuilder? s3BucketDestination) =>
       _$this._s3BucketDestination = s3BucketDestination;
 
-  AnalyticsExportDestinationBuilder() {
-    AnalyticsExportDestination._init(this);
-  }
+  AnalyticsExportDestinationBuilder();
 
   AnalyticsExportDestinationBuilder get _$this {
     final $v = _$v;

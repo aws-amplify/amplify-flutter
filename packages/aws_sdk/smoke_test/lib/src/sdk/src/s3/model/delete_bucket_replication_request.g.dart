@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.delete_bucket_replication_request;
+part of 'delete_bucket_replication_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class DeleteBucketReplicationRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  DeleteBucketReplicationRequestBuilder() {
-    DeleteBucketReplicationRequest._init(this);
-  }
+  DeleteBucketReplicationRequestBuilder();
 
   DeleteBucketReplicationRequestBuilder get _$this {
     final $v = _$v;
@@ -142,9 +140,7 @@ class DeleteBucketReplicationRequestPayloadBuilder
             DeleteBucketReplicationRequestPayloadBuilder> {
   _$DeleteBucketReplicationRequestPayload? _$v;
 
-  DeleteBucketReplicationRequestPayloadBuilder() {
-    DeleteBucketReplicationRequestPayload._init(this);
-  }
+  DeleteBucketReplicationRequestPayloadBuilder();
 
   @override
   void replace(DeleteBucketReplicationRequestPayload other) {

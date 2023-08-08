@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.delete_organization_conformance_pack_request;
+part of 'delete_organization_conformance_pack_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -66,9 +66,7 @@ class DeleteOrganizationConformancePackRequestBuilder
           String? organizationConformancePackName) =>
       _$this._organizationConformancePackName = organizationConformancePackName;
 
-  DeleteOrganizationConformancePackRequestBuilder() {
-    DeleteOrganizationConformancePackRequest._init(this);
-  }
+  DeleteOrganizationConformancePackRequestBuilder();
 
   DeleteOrganizationConformancePackRequestBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.query_params_as_string_list_map_input;
+part of 'query_params_as_string_list_map_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -61,9 +61,7 @@ class QueryParamsAsStringListMapInputBuilder
       _$this._foo ??= new _i3.ListMultimapBuilder<String, String>();
   set foo(_i3.ListMultimapBuilder<String, String>? foo) => _$this._foo = foo;
 
-  QueryParamsAsStringListMapInputBuilder() {
-    QueryParamsAsStringListMapInput._init(this);
-  }
+  QueryParamsAsStringListMapInputBuilder();
 
   QueryParamsAsStringListMapInputBuilder get _$this {
     final $v = _$v;
@@ -148,9 +146,7 @@ class QueryParamsAsStringListMapInputPayloadBuilder
             QueryParamsAsStringListMapInputPayloadBuilder> {
   _$QueryParamsAsStringListMapInputPayload? _$v;
 
-  QueryParamsAsStringListMapInputPayloadBuilder() {
-    QueryParamsAsStringListMapInputPayload._init(this);
-  }
+  QueryParamsAsStringListMapInputPayloadBuilder();
 
   @override
   void replace(QueryParamsAsStringListMapInputPayload other) {

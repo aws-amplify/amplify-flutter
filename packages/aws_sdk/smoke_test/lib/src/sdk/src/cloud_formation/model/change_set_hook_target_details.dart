@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.change_set_hook_target_details; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,12 +37,8 @@ abstract class ChangeSetHookTargetDetails
 
   const ChangeSetHookTargetDetails._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ChangeSetHookTargetDetailsAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ChangeSetHookTargetDetailsBuilder b) {}
+  static const List<_i4.SmithySerializer<ChangeSetHookTargetDetails>>
+      serializers = [ChangeSetHookTargetDetailsAwsQuerySerializer()];
 
   /// The name of the type.
   _i2.HookTargetType? get targetType;
@@ -56,15 +52,15 @@ abstract class ChangeSetHookTargetDetails
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ChangeSetHookTargetDetails');
-    helper.add(
-      'targetType',
-      targetType,
-    );
-    helper.add(
-      'resourceTargetDetails',
-      resourceTargetDetails,
-    );
+    final helper = newBuiltValueToStringHelper('ChangeSetHookTargetDetails')
+      ..add(
+        'targetType',
+        targetType,
+      )
+      ..add(
+        'resourceTargetDetails',
+        resourceTargetDetails,
+      );
     return helper.toString();
   }
 }

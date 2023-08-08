@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.remediation_execution_step;
+part of 'remediation_execution_step.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -84,9 +84,7 @@ class RemediationExecutionStepBuilder
   DateTime? get stopTime => _$this._stopTime;
   set stopTime(DateTime? stopTime) => _$this._stopTime = stopTime;
 
-  RemediationExecutionStepBuilder() {
-    RemediationExecutionStep._init(this);
-  }
+  RemediationExecutionStepBuilder();
 
   RemediationExecutionStepBuilder get _$this {
     final $v = _$v;

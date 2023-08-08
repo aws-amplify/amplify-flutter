@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.describe_endpoints_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,8 @@ abstract class DescribeEndpointsResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    DescribeEndpointsResponseAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeEndpointsResponseBuilder b) {}
+  static const List<_i4.SmithySerializer<DescribeEndpointsResponse>>
+      serializers = [DescribeEndpointsResponseAwsJson10Serializer()];
 
   /// List of endpoints.
   _i3.BuiltList<_i2.Endpoint> get endpoints;
@@ -46,11 +42,11 @@ abstract class DescribeEndpointsResponse
   List<Object?> get props => [endpoints];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeEndpointsResponse');
-    helper.add(
-      'endpoints',
-      endpoints,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeEndpointsResponse')
+      ..add(
+        'endpoints',
+        endpoints,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.update_deployment_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -60,12 +60,8 @@ abstract class UpdateDeploymentRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateDeploymentRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateDeploymentRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<UpdateDeploymentRequestPayload>>
+      serializers = [UpdateDeploymentRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -104,19 +100,19 @@ abstract class UpdateDeploymentRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateDeploymentRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'deploymentId',
-      deploymentId,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateDeploymentRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'deploymentId',
+        deploymentId,
+      )
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }
@@ -134,21 +130,17 @@ abstract class UpdateDeploymentRequestPayload
 
   const UpdateDeploymentRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateDeploymentRequestPayloadBuilder b) {}
-
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
   @override
   List<Object?> get props => [patchOperations];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('UpdateDeploymentRequestPayload');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateDeploymentRequestPayload')
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.upload_part_copy_request;
+part of 'upload_part_copy_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -24,7 +24,7 @@ class _$UploadPartCopyRequest extends UploadPartCopyRequest {
   @override
   final String key;
   @override
-  final int partNumber;
+  final int? partNumber;
   @override
   final String uploadId;
   @override
@@ -59,7 +59,7 @@ class _$UploadPartCopyRequest extends UploadPartCopyRequest {
       this.copySourceIfUnmodifiedSince,
       this.copySourceRange,
       required this.key,
-      required this.partNumber,
+      this.partNumber,
       required this.uploadId,
       this.sseCustomerAlgorithm,
       this.sseCustomerKey,
@@ -76,8 +76,6 @@ class _$UploadPartCopyRequest extends UploadPartCopyRequest {
     BuiltValueNullFieldError.checkNotNull(
         copySource, r'UploadPartCopyRequest', 'copySource');
     BuiltValueNullFieldError.checkNotNull(key, r'UploadPartCopyRequest', 'key');
-    BuiltValueNullFieldError.checkNotNull(
-        partNumber, r'UploadPartCopyRequest', 'partNumber');
     BuiltValueNullFieldError.checkNotNull(
         uploadId, r'UploadPartCopyRequest', 'uploadId');
   }
@@ -241,9 +239,7 @@ class UploadPartCopyRequestBuilder
   set expectedSourceBucketOwner(String? expectedSourceBucketOwner) =>
       _$this._expectedSourceBucketOwner = expectedSourceBucketOwner;
 
-  UploadPartCopyRequestBuilder() {
-    UploadPartCopyRequest._init(this);
-  }
+  UploadPartCopyRequestBuilder();
 
   UploadPartCopyRequestBuilder get _$this {
     final $v = _$v;
@@ -300,8 +296,7 @@ class UploadPartCopyRequestBuilder
             copySourceRange: copySourceRange,
             key: BuiltValueNullFieldError.checkNotNull(
                 key, r'UploadPartCopyRequest', 'key'),
-            partNumber: BuiltValueNullFieldError.checkNotNull(
-                partNumber, r'UploadPartCopyRequest', 'partNumber'),
+            partNumber: partNumber,
             uploadId: BuiltValueNullFieldError.checkNotNull(
                 uploadId, r'UploadPartCopyRequest', 'uploadId'),
             sseCustomerAlgorithm: sseCustomerAlgorithm,
@@ -352,9 +347,7 @@ class UploadPartCopyRequestPayloadBuilder
             UploadPartCopyRequestPayloadBuilder> {
   _$UploadPartCopyRequestPayload? _$v;
 
-  UploadPartCopyRequestPayloadBuilder() {
-    UploadPartCopyRequestPayload._init(this);
-  }
+  UploadPartCopyRequestPayloadBuilder();
 
   @override
   void replace(UploadPartCopyRequestPayload other) {

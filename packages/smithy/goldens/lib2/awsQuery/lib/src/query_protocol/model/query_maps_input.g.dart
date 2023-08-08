@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v2.query_protocol.model.query_maps_input;
+part of 'query_maps_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -132,9 +132,7 @@ class QueryMapsInputBuilder
           _i4.NestedStructWithMapBuilder? nestedStructWithMap) =>
       _$this._nestedStructWithMap = nestedStructWithMap;
 
-  QueryMapsInputBuilder() {
-    QueryMapsInput._init(this);
-  }
+  QueryMapsInputBuilder();
 
   QueryMapsInputBuilder get _$this {
     final $v = _$v;

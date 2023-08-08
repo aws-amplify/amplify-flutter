@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.create_service_linked_role_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,12 +34,8 @@ abstract class CreateServiceLinkedRoleResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    CreateServiceLinkedRoleResponseAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateServiceLinkedRoleResponseBuilder b) {}
+  static const List<_i3.SmithySerializer<CreateServiceLinkedRoleResponse>>
+      serializers = [CreateServiceLinkedRoleResponseAwsQuerySerializer()];
 
   /// A Role object that contains details about the newly created role.
   _i2.Role? get role;
@@ -48,11 +44,11 @@ abstract class CreateServiceLinkedRoleResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('CreateServiceLinkedRoleResponse');
-    helper.add(
-      'role',
-      role,
-    );
+        newBuiltValueToStringHelper('CreateServiceLinkedRoleResponse')
+          ..add(
+            'role',
+            role,
+          );
     return helper.toString();
   }
 }

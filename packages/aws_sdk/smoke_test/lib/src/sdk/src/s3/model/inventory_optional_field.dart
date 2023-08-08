@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.inventory_optional_field; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -7,17 +7,12 @@ import 'package:smithy/smithy.dart' as _i1;
 
 class InventoryOptionalField extends _i1.SmithyEnum<InventoryOptionalField> {
   const InventoryOptionalField._(
-    int index,
-    String name,
-    String value,
-  ) : super(
-          index,
-          name,
-          value,
-        );
+    super.index,
+    super.name,
+    super.value,
+  );
 
-  const InventoryOptionalField._sdkUnknown(String value)
-      : super.sdkUnknown(value);
+  const InventoryOptionalField._sdkUnknown(super.value) : super.sdkUnknown();
 
   static const bucketKeyStatus = InventoryOptionalField._(
     0,
@@ -61,38 +56,50 @@ class InventoryOptionalField extends _i1.SmithyEnum<InventoryOptionalField> {
     'LastModifiedDate',
   );
 
-  static const objectLockLegalHoldStatus = InventoryOptionalField._(
+  static const objectAccessControlList = InventoryOptionalField._(
     7,
+    'ObjectAccessControlList',
+    'ObjectAccessControlList',
+  );
+
+  static const objectLockLegalHoldStatus = InventoryOptionalField._(
+    8,
     'ObjectLockLegalHoldStatus',
     'ObjectLockLegalHoldStatus',
   );
 
   static const objectLockMode = InventoryOptionalField._(
-    8,
+    9,
     'ObjectLockMode',
     'ObjectLockMode',
   );
 
   static const objectLockRetainUntilDate = InventoryOptionalField._(
-    9,
+    10,
     'ObjectLockRetainUntilDate',
     'ObjectLockRetainUntilDate',
   );
 
+  static const objectOwner = InventoryOptionalField._(
+    11,
+    'ObjectOwner',
+    'ObjectOwner',
+  );
+
   static const replicationStatus = InventoryOptionalField._(
-    10,
+    12,
     'ReplicationStatus',
     'ReplicationStatus',
   );
 
   static const size = InventoryOptionalField._(
-    11,
+    13,
     'Size',
     'Size',
   );
 
   static const storageClass = InventoryOptionalField._(
-    12,
+    14,
     'StorageClass',
     'StorageClass',
   );
@@ -106,9 +113,11 @@ class InventoryOptionalField extends _i1.SmithyEnum<InventoryOptionalField> {
     InventoryOptionalField.intelligentTieringAccessTier,
     InventoryOptionalField.isMultipartUploaded,
     InventoryOptionalField.lastModifiedDate,
+    InventoryOptionalField.objectAccessControlList,
     InventoryOptionalField.objectLockLegalHoldStatus,
     InventoryOptionalField.objectLockMode,
     InventoryOptionalField.objectLockRetainUntilDate,
+    InventoryOptionalField.objectOwner,
     InventoryOptionalField.replicationStatus,
     InventoryOptionalField.size,
     InventoryOptionalField.storageClass,

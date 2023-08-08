@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.template_parameter; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,12 +35,9 @@ abstract class TemplateParameter
 
   const TemplateParameter._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<TemplateParameter>> serializers = [
     TemplateParameterAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TemplateParameterBuilder b) {}
 
   /// The name associated with the parameter.
   String? get parameterKey;
@@ -62,23 +59,23 @@ abstract class TemplateParameter
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TemplateParameter');
-    helper.add(
-      'parameterKey',
-      parameterKey,
-    );
-    helper.add(
-      'defaultValue',
-      defaultValue,
-    );
-    helper.add(
-      'noEcho',
-      noEcho,
-    );
-    helper.add(
-      'description',
-      description,
-    );
+    final helper = newBuiltValueToStringHelper('TemplateParameter')
+      ..add(
+        'parameterKey',
+        parameterKey,
+      )
+      ..add(
+        'defaultValue',
+        defaultValue,
+      )
+      ..add(
+        'noEcho',
+        noEcho,
+      )
+      ..add(
+        'description',
+        description,
+      );
     return helper.toString();
   }
 }

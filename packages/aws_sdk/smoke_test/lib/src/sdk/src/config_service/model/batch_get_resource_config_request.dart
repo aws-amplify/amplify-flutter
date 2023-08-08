@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.batch_get_resource_config_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,8 @@ abstract class BatchGetResourceConfigRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    BatchGetResourceConfigRequestAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BatchGetResourceConfigRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<BatchGetResourceConfigRequest>>
+      serializers = [BatchGetResourceConfigRequestAwsJson11Serializer()];
 
   /// A list of resource keys to be processed with the current request. Each element in the list consists of the resource type and resource ID.
   _i4.BuiltList<_i3.ResourceKey> get resourceKeys;
@@ -54,11 +50,11 @@ abstract class BatchGetResourceConfigRequest
   List<Object?> get props => [resourceKeys];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('BatchGetResourceConfigRequest');
-    helper.add(
-      'resourceKeys',
-      resourceKeys,
-    );
+    final helper = newBuiltValueToStringHelper('BatchGetResourceConfigRequest')
+      ..add(
+        'resourceKeys',
+        resourceKeys,
+      );
     return helper.toString();
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.config_snapshot_delivery_properties;
+part of 'config_snapshot_delivery_properties.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class ConfigSnapshotDeliveryPropertiesBuilder
   set deliveryFrequency(_i2.MaximumExecutionFrequency? deliveryFrequency) =>
       _$this._deliveryFrequency = deliveryFrequency;
 
-  ConfigSnapshotDeliveryPropertiesBuilder() {
-    ConfigSnapshotDeliveryProperties._init(this);
-  }
+  ConfigSnapshotDeliveryPropertiesBuilder();
 
   ConfigSnapshotDeliveryPropertiesBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.replica_global_secondary_index_auto_scaling_description;
+part of 'replica_global_secondary_index_auto_scaling_description.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -109,9 +109,7 @@ class ReplicaGlobalSecondaryIndexAutoScalingDescriptionBuilder
       _$this._provisionedWriteCapacityAutoScalingSettings =
           provisionedWriteCapacityAutoScalingSettings;
 
-  ReplicaGlobalSecondaryIndexAutoScalingDescriptionBuilder() {
-    ReplicaGlobalSecondaryIndexAutoScalingDescription._init(this);
-  }
+  ReplicaGlobalSecondaryIndexAutoScalingDescriptionBuilder();
 
   ReplicaGlobalSecondaryIndexAutoScalingDescriptionBuilder get _$this {
     final $v = _$v;

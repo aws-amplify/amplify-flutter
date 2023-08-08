@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1_v1.json_protocol.model.kitchen_sink;
+part of 'kitchen_sink.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -309,9 +309,7 @@ class KitchenSinkBuilder implements Builder<KitchenSink, KitchenSinkBuilder> {
   set unixTimestamp(DateTime? unixTimestamp) =>
       _$this._unixTimestamp = unixTimestamp;
 
-  KitchenSinkBuilder() {
-    KitchenSink._init(this);
-  }
+  KitchenSinkBuilder();
 
   KitchenSinkBuilder get _$this {
     final $v = _$v;

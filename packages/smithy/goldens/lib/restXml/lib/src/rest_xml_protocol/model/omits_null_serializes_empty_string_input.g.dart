@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v1.rest_xml_protocol.model.omits_null_serializes_empty_string_input;
+part of 'omits_null_serializes_empty_string_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class OmitsNullSerializesEmptyStringInputBuilder
   String? get emptyString => _$this._emptyString;
   set emptyString(String? emptyString) => _$this._emptyString = emptyString;
 
-  OmitsNullSerializesEmptyStringInputBuilder() {
-    OmitsNullSerializesEmptyStringInput._init(this);
-  }
+  OmitsNullSerializesEmptyStringInputBuilder();
 
   OmitsNullSerializesEmptyStringInputBuilder get _$this {
     final $v = _$v;
@@ -139,9 +137,7 @@ class OmitsNullSerializesEmptyStringInputPayloadBuilder
             OmitsNullSerializesEmptyStringInputPayloadBuilder> {
   _$OmitsNullSerializesEmptyStringInputPayload? _$v;
 
-  OmitsNullSerializesEmptyStringInputPayloadBuilder() {
-    OmitsNullSerializesEmptyStringInputPayload._init(this);
-  }
+  OmitsNullSerializesEmptyStringInputPayloadBuilder();
 
   @override
   void replace(OmitsNullSerializesEmptyStringInputPayload other) {

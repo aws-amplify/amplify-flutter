@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_validation_protocol.model.recursive_structures_input;
+part of 'recursive_structures_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -49,9 +49,7 @@ class RecursiveStructuresInputBuilder
   _i3.RecursiveUnionOne? get union => _$this._union;
   set union(_i3.RecursiveUnionOne? union) => _$this._union = union;
 
-  RecursiveStructuresInputBuilder() {
-    RecursiveStructuresInput._init(this);
-  }
+  RecursiveStructuresInputBuilder();
 
   RecursiveStructuresInputBuilder get _$this {
     final $v = _$v;

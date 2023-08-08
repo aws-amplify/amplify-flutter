@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.delete_service_specific_credential_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,11 @@ abstract class DeleteServiceSpecificCredentialRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<DeleteServiceSpecificCredentialRequest>>
+      serializers = [
     DeleteServiceSpecificCredentialRequestAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteServiceSpecificCredentialRequestBuilder b) {}
 
   /// The name of the IAM user associated with the service-specific credential. If this value is not specified, then the operation assumes the user whose credentials are used to call the operation.
   ///
@@ -66,15 +65,15 @@ abstract class DeleteServiceSpecificCredentialRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeleteServiceSpecificCredentialRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'serviceSpecificCredentialId',
-      serviceSpecificCredentialId,
-    );
+        newBuiltValueToStringHelper('DeleteServiceSpecificCredentialRequest')
+          ..add(
+            'userName',
+            userName,
+          )
+          ..add(
+            'serviceSpecificCredentialId',
+            serviceSpecificCredentialId,
+          );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.conformance_pack_compliance_filters; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,8 @@ abstract class ConformancePackComplianceFilters
 
   const ConformancePackComplianceFilters._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ConformancePackComplianceFiltersAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConformancePackComplianceFiltersBuilder b) {}
+  static const List<_i4.SmithySerializer<ConformancePackComplianceFilters>>
+      serializers = [ConformancePackComplianceFiltersAwsJson11Serializer()];
 
   /// Filters the results by Config rule names.
   _i3.BuiltList<String>? get configRuleNames;
@@ -61,15 +57,15 @@ abstract class ConformancePackComplianceFilters
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ConformancePackComplianceFilters');
-    helper.add(
-      'configRuleNames',
-      configRuleNames,
-    );
-    helper.add(
-      'complianceType',
-      complianceType,
-    );
+        newBuiltValueToStringHelper('ConformancePackComplianceFilters')
+          ..add(
+            'configRuleNames',
+            configRuleNames,
+          )
+          ..add(
+            'complianceType',
+            complianceType,
+          );
     return helper.toString();
   }
 }

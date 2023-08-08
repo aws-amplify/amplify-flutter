@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.type_configuration_identifier;
+part of 'type_configuration_identifier.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -91,9 +91,7 @@ class TypeConfigurationIdentifierBuilder
   String? get typeName => _$this._typeName;
   set typeName(String? typeName) => _$this._typeName = typeName;
 
-  TypeConfigurationIdentifierBuilder() {
-    TypeConfigurationIdentifier._init(this);
-  }
+  TypeConfigurationIdentifierBuilder();
 
   TypeConfigurationIdentifierBuilder get _$this {
     final $v = _$v;

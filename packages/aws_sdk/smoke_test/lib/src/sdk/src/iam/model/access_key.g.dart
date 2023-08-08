@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.access_key;
+part of 'access_key.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -91,9 +91,7 @@ class AccessKeyBuilder implements Builder<AccessKey, AccessKeyBuilder> {
   DateTime? get createDate => _$this._createDate;
   set createDate(DateTime? createDate) => _$this._createDate = createDate;
 
-  AccessKeyBuilder() {
-    AccessKey._init(this);
-  }
+  AccessKeyBuilder();
 
   AccessKeyBuilder get _$this {
     final $v = _$v;

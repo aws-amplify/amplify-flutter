@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.upload_server_certificate_request;
+part of 'upload_server_certificate_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -109,9 +109,7 @@ class UploadServerCertificateRequestBuilder
       _$this._tags ??= new _i4.ListBuilder<_i3.Tag>();
   set tags(_i4.ListBuilder<_i3.Tag>? tags) => _$this._tags = tags;
 
-  UploadServerCertificateRequestBuilder() {
-    UploadServerCertificateRequest._init(this);
-  }
+  UploadServerCertificateRequestBuilder();
 
   UploadServerCertificateRequestBuilder get _$this {
     final $v = _$v;

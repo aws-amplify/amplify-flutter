@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.glacier.model.upload_archive_input;
+part of 'upload_archive_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -93,9 +93,7 @@ class UploadArchiveInputBuilder
   _i2.Stream<List<int>>? get body => _$this._body;
   set body(_i2.Stream<List<int>>? body) => _$this._body = body;
 
-  UploadArchiveInputBuilder() {
-    UploadArchiveInput._init(this);
-  }
+  UploadArchiveInputBuilder();
 
   UploadArchiveInputBuilder get _$this {
     final $v = _$v;

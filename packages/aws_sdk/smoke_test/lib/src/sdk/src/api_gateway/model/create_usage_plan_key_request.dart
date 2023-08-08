@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.create_usage_plan_key_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -52,12 +52,8 @@ abstract class CreateUsagePlanKeyRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateUsagePlanKeyRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateUsagePlanKeyRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<CreateUsagePlanKeyRequestPayload>>
+      serializers = [CreateUsagePlanKeyRequestRestJson1Serializer()];
 
   /// The Id of the UsagePlan resource representing the usage plan containing the to-be-created UsagePlanKey resource representing a plan customer.
   String get usagePlanId;
@@ -93,19 +89,19 @@ abstract class CreateUsagePlanKeyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateUsagePlanKeyRequest');
-    helper.add(
-      'usagePlanId',
-      usagePlanId,
-    );
-    helper.add(
-      'keyId',
-      keyId,
-    );
-    helper.add(
-      'keyType',
-      keyType,
-    );
+    final helper = newBuiltValueToStringHelper('CreateUsagePlanKeyRequest')
+      ..add(
+        'usagePlanId',
+        usagePlanId,
+      )
+      ..add(
+        'keyId',
+        keyId,
+      )
+      ..add(
+        'keyType',
+        keyType,
+      );
     return helper.toString();
   }
 }
@@ -123,9 +119,6 @@ abstract class CreateUsagePlanKeyRequestPayload
 
   const CreateUsagePlanKeyRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateUsagePlanKeyRequestPayloadBuilder b) {}
-
   /// The identifier of a UsagePlanKey resource for a plan customer.
   String get keyId;
 
@@ -139,15 +132,15 @@ abstract class CreateUsagePlanKeyRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('CreateUsagePlanKeyRequestPayload');
-    helper.add(
-      'keyId',
-      keyId,
-    );
-    helper.add(
-      'keyType',
-      keyType,
-    );
+        newBuiltValueToStringHelper('CreateUsagePlanKeyRequestPayload')
+          ..add(
+            'keyId',
+            keyId,
+          )
+          ..add(
+            'keyType',
+            keyType,
+          );
     return helper.toString();
   }
 }

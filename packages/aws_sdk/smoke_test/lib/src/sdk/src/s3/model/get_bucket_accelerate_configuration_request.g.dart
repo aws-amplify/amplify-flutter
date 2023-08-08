@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_bucket_accelerate_configuration_request;
+part of 'get_bucket_accelerate_configuration_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -12,6 +12,8 @@ class _$GetBucketAccelerateConfigurationRequest
   final String bucket;
   @override
   final String? expectedBucketOwner;
+  @override
+  final _i3.RequestPayer? requestPayer;
 
   factory _$GetBucketAccelerateConfigurationRequest(
           [void Function(GetBucketAccelerateConfigurationRequestBuilder)?
@@ -20,7 +22,7 @@ class _$GetBucketAccelerateConfigurationRequest
           ._build();
 
   _$GetBucketAccelerateConfigurationRequest._(
-      {required this.bucket, this.expectedBucketOwner})
+      {required this.bucket, this.expectedBucketOwner, this.requestPayer})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'GetBucketAccelerateConfigurationRequest', 'bucket');
@@ -41,7 +43,8 @@ class _$GetBucketAccelerateConfigurationRequest
     if (identical(other, this)) return true;
     return other is GetBucketAccelerateConfigurationRequest &&
         bucket == other.bucket &&
-        expectedBucketOwner == other.expectedBucketOwner;
+        expectedBucketOwner == other.expectedBucketOwner &&
+        requestPayer == other.requestPayer;
   }
 
   @override
@@ -49,6 +52,7 @@ class _$GetBucketAccelerateConfigurationRequest
     var _$hash = 0;
     _$hash = $jc(_$hash, bucket.hashCode);
     _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
+    _$hash = $jc(_$hash, requestPayer.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -69,15 +73,19 @@ class GetBucketAccelerateConfigurationRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetBucketAccelerateConfigurationRequestBuilder() {
-    GetBucketAccelerateConfigurationRequest._init(this);
-  }
+  _i3.RequestPayer? _requestPayer;
+  _i3.RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(_i3.RequestPayer? requestPayer) =>
+      _$this._requestPayer = requestPayer;
+
+  GetBucketAccelerateConfigurationRequestBuilder();
 
   GetBucketAccelerateConfigurationRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _bucket = $v.bucket;
       _expectedBucketOwner = $v.expectedBucketOwner;
+      _requestPayer = $v.requestPayer;
       _$v = null;
     }
     return this;
@@ -103,7 +111,8 @@ class GetBucketAccelerateConfigurationRequestBuilder
         new _$GetBucketAccelerateConfigurationRequest._(
             bucket: BuiltValueNullFieldError.checkNotNull(
                 bucket, r'GetBucketAccelerateConfigurationRequest', 'bucket'),
-            expectedBucketOwner: expectedBucketOwner);
+            expectedBucketOwner: expectedBucketOwner,
+            requestPayer: requestPayer);
     replace(_$result);
     return _$result;
   }
@@ -149,9 +158,7 @@ class GetBucketAccelerateConfigurationRequestPayloadBuilder
             GetBucketAccelerateConfigurationRequestPayloadBuilder> {
   _$GetBucketAccelerateConfigurationRequestPayload? _$v;
 
-  GetBucketAccelerateConfigurationRequestPayloadBuilder() {
-    GetBucketAccelerateConfigurationRequestPayload._init(this);
-  }
+  GetBucketAccelerateConfigurationRequestPayloadBuilder();
 
   @override
   void replace(GetBucketAccelerateConfigurationRequestPayload other) {

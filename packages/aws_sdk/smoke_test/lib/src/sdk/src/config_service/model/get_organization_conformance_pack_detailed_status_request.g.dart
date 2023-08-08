@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.get_organization_conformance_pack_detailed_status_request;
+part of 'get_organization_conformance_pack_detailed_status_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -13,7 +13,7 @@ class _$GetOrganizationConformancePackDetailedStatusRequest
   @override
   final _i3.OrganizationResourceDetailedStatusFilters? filters;
   @override
-  final int? limit;
+  final int limit;
   @override
   final String? nextToken;
 
@@ -28,13 +28,15 @@ class _$GetOrganizationConformancePackDetailedStatusRequest
   _$GetOrganizationConformancePackDetailedStatusRequest._(
       {required this.organizationConformancePackName,
       this.filters,
-      this.limit,
+      required this.limit,
       this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         organizationConformancePackName,
         r'GetOrganizationConformancePackDetailedStatusRequest',
         'organizationConformancePackName');
+    BuiltValueNullFieldError.checkNotNull(
+        limit, r'GetOrganizationConformancePackDetailedStatusRequest', 'limit');
   }
 
   @override
@@ -143,7 +145,10 @@ class GetOrganizationConformancePackDetailedStatusRequestBuilder
                       r'GetOrganizationConformancePackDetailedStatusRequest',
                       'organizationConformancePackName'),
               filters: _filters?.build(),
-              limit: limit,
+              limit: BuiltValueNullFieldError.checkNotNull(
+                  limit,
+                  r'GetOrganizationConformancePackDetailedStatusRequest',
+                  'limit'),
               nextToken: nextToken);
     } catch (_) {
       late String _$failedField;

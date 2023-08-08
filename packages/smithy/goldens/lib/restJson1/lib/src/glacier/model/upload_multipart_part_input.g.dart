@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.glacier.model.upload_multipart_part_input;
+part of 'upload_multipart_part_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -104,9 +104,7 @@ class UploadMultipartPartInputBuilder
   _i2.Stream<List<int>>? get body => _$this._body;
   set body(_i2.Stream<List<int>>? body) => _$this._body = body;
 
-  UploadMultipartPartInputBuilder() {
-    UploadMultipartPartInput._init(this);
-  }
+  UploadMultipartPartInputBuilder();
 
   UploadMultipartPartInputBuilder get _$this {
     final $v = _$v;

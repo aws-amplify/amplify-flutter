@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.update_continuous_backups_input;
+part of 'update_continuous_backups_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -75,9 +75,7 @@ class UpdateContinuousBackupsInputBuilder
       _$this._pointInTimeRecoverySpecification =
           pointInTimeRecoverySpecification;
 
-  UpdateContinuousBackupsInputBuilder() {
-    UpdateContinuousBackupsInput._init(this);
-  }
+  UpdateContinuousBackupsInputBuilder();
 
   UpdateContinuousBackupsInputBuilder get _$this {
     final $v = _$v;

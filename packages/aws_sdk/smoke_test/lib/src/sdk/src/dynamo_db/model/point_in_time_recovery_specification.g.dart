@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.point_in_time_recovery_specification;
+part of 'point_in_time_recovery_specification.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -58,9 +58,7 @@ class PointInTimeRecoverySpecificationBuilder
   set pointInTimeRecoveryEnabled(bool? pointInTimeRecoveryEnabled) =>
       _$this._pointInTimeRecoveryEnabled = pointInTimeRecoveryEnabled;
 
-  PointInTimeRecoverySpecificationBuilder() {
-    PointInTimeRecoverySpecification._init(this);
-  }
+  PointInTimeRecoverySpecificationBuilder();
 
   PointInTimeRecoverySpecificationBuilder get _$this {
     final $v = _$v;

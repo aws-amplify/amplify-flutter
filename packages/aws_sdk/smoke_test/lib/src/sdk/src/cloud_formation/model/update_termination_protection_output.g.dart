@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.update_termination_protection_output;
+part of 'update_termination_protection_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -53,9 +53,7 @@ class UpdateTerminationProtectionOutputBuilder
   String? get stackId => _$this._stackId;
   set stackId(String? stackId) => _$this._stackId = stackId;
 
-  UpdateTerminationProtectionOutputBuilder() {
-    UpdateTerminationProtectionOutput._init(this);
-  }
+  UpdateTerminationProtectionOutputBuilder();
 
   UpdateTerminationProtectionOutputBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.role;
+part of 'role.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -152,9 +152,7 @@ class RoleBuilder implements Builder<Role, RoleBuilder> {
   set roleLastUsed(_i4.RoleLastUsedBuilder? roleLastUsed) =>
       _$this._roleLastUsed = roleLastUsed;
 
-  RoleBuilder() {
-    Role._init(this);
-  }
+  RoleBuilder();
 
   RoleBuilder get _$this {
     final $v = _$v;

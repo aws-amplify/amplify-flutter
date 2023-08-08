@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.expired_token_exception;
+part of 'expired_token_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class ExpiredTokenExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ExpiredTokenExceptionBuilder() {
-    ExpiredTokenException._init(this);
-  }
+  ExpiredTokenExceptionBuilder();
 
   ExpiredTokenExceptionBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.publish_type_output;
+part of 'publish_type_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -48,9 +48,7 @@ class PublishTypeOutputBuilder
   set publicTypeArn(String? publicTypeArn) =>
       _$this._publicTypeArn = publicTypeArn;
 
-  PublishTypeOutputBuilder() {
-    PublishTypeOutput._init(this);
-  }
+  PublishTypeOutputBuilder();
 
   PublishTypeOutputBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.public_access_block_configuration;
+part of 'public_access_block_configuration.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -84,9 +84,7 @@ class PublicAccessBlockConfigurationBuilder
   set restrictPublicBuckets(bool? restrictPublicBuckets) =>
       _$this._restrictPublicBuckets = restrictPublicBuckets;
 
-  PublicAccessBlockConfigurationBuilder() {
-    PublicAccessBlockConfiguration._init(this);
-  }
+  PublicAccessBlockConfigurationBuilder();
 
   PublicAccessBlockConfigurationBuilder get _$this {
     final $v = _$v;

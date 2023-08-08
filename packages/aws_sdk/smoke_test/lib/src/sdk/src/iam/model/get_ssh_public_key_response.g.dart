@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_ssh_public_key_response;
+part of 'get_ssh_public_key_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -52,9 +52,7 @@ class GetSshPublicKeyResponseBuilder
   set sshPublicKey(_i2.SshPublicKeyBuilder? sshPublicKey) =>
       _$this._sshPublicKey = sshPublicKey;
 
-  GetSshPublicKeyResponseBuilder() {
-    GetSshPublicKeyResponse._init(this);
-  }
+  GetSshPublicKeyResponseBuilder();
 
   GetSshPublicKeyResponseBuilder get _$this {
     final $v = _$v;

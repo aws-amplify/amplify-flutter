@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.upload_signing_certificate_request;
+part of 'upload_signing_certificate_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -66,9 +66,7 @@ class UploadSigningCertificateRequestBuilder
   set certificateBody(String? certificateBody) =>
       _$this._certificateBody = certificateBody;
 
-  UploadSigningCertificateRequestBuilder() {
-    UploadSigningCertificateRequest._init(this);
-  }
+  UploadSigningCertificateRequestBuilder();
 
   UploadSigningCertificateRequestBuilder get _$this {
     final $v = _$v;

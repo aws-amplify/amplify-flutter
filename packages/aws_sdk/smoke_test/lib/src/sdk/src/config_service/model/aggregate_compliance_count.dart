@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.aggregate_compliance_count; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,12 +35,8 @@ abstract class AggregateComplianceCount
 
   const AggregateComplianceCount._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    AggregateComplianceCountAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AggregateComplianceCountBuilder b) {}
+  static const List<_i3.SmithySerializer<AggregateComplianceCount>>
+      serializers = [AggregateComplianceCountAwsJson11Serializer()];
 
   /// The 12-digit account ID or region based on the GroupByKey value.
   String? get groupName;
@@ -54,15 +50,15 @@ abstract class AggregateComplianceCount
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AggregateComplianceCount');
-    helper.add(
-      'groupName',
-      groupName,
-    );
-    helper.add(
-      'complianceSummary',
-      complianceSummary,
-    );
+    final helper = newBuiltValueToStringHelper('AggregateComplianceCount')
+      ..add(
+        'groupName',
+        groupName,
+      )
+      ..add(
+        'complianceSummary',
+        complianceSummary,
+      );
     return helper.toString();
   }
 }

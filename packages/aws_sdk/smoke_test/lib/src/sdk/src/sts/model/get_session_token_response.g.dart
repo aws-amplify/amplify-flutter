@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.get_session_token_response;
+part of 'get_session_token_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class GetSessionTokenResponseBuilder
   set credentials(_i2.CredentialsBuilder? credentials) =>
       _$this._credentials = credentials;
 
-  GetSessionTokenResponseBuilder() {
-    GetSessionTokenResponse._init(this);
-  }
+  GetSessionTokenResponseBuilder();
 
   GetSessionTokenResponseBuilder get _$this {
     final $v = _$v;

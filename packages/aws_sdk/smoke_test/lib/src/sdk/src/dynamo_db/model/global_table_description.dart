@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.global_table_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,12 +44,8 @@ abstract class GlobalTableDescription
 
   const GlobalTableDescription._();
 
-  static const List<_i5.SmithySerializer> serializers = [
-    GlobalTableDescriptionAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GlobalTableDescriptionBuilder b) {}
+  static const List<_i5.SmithySerializer<GlobalTableDescription>> serializers =
+      [GlobalTableDescriptionAwsJson10Serializer()];
 
   /// The Regions where the global table has replicas.
   _i4.BuiltList<_i2.ReplicaDescription>? get replicationGroup;
@@ -83,27 +79,27 @@ abstract class GlobalTableDescription
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GlobalTableDescription');
-    helper.add(
-      'replicationGroup',
-      replicationGroup,
-    );
-    helper.add(
-      'globalTableArn',
-      globalTableArn,
-    );
-    helper.add(
-      'creationDateTime',
-      creationDateTime,
-    );
-    helper.add(
-      'globalTableStatus',
-      globalTableStatus,
-    );
-    helper.add(
-      'globalTableName',
-      globalTableName,
-    );
+    final helper = newBuiltValueToStringHelper('GlobalTableDescription')
+      ..add(
+        'replicationGroup',
+        replicationGroup,
+      )
+      ..add(
+        'globalTableArn',
+        globalTableArn,
+      )
+      ..add(
+        'creationDateTime',
+        creationDateTime,
+      )
+      ..add(
+        'globalTableStatus',
+        globalTableStatus,
+      )
+      ..add(
+        'globalTableName',
+        globalTableName,
+      );
     return helper.toString();
   }
 }

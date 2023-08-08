@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.tag_saml_provider_request;
+part of 'tag_saml_provider_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -66,9 +66,7 @@ class TagSamlProviderRequestBuilder
       _$this._tags ??= new _i4.ListBuilder<_i3.Tag>();
   set tags(_i4.ListBuilder<_i3.Tag>? tags) => _$this._tags = tags;
 
-  TagSamlProviderRequestBuilder() {
-    TagSamlProviderRequest._init(this);
-  }
+  TagSamlProviderRequestBuilder();
 
   TagSamlProviderRequestBuilder get _$this {
     final $v = _$v;

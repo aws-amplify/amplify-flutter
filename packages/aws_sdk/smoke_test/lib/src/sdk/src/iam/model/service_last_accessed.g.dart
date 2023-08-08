@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.service_last_accessed;
+part of 'service_last_accessed.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -121,9 +121,7 @@ class ServiceLastAccessedBuilder
               trackedActionsLastAccessed) =>
       _$this._trackedActionsLastAccessed = trackedActionsLastAccessed;
 
-  ServiceLastAccessedBuilder() {
-    ServiceLastAccessed._init(this);
-  }
+  ServiceLastAccessedBuilder();
 
   ServiceLastAccessedBuilder get _$this {
     final $v = _$v;

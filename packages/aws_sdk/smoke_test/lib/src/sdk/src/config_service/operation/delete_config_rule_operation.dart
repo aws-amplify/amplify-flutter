@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.operation.delete_config_rule_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -108,7 +108,8 @@ class DeleteConfigRuleOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.NoSuchConfigRuleException,
+            _i8.NoSuchConfigRuleException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchConfigRuleException',
@@ -117,7 +118,7 @@ class DeleteConfigRuleOperation extends _i1.HttpOperation<
           _i8.NoSuchConfigRuleException,
           builder: _i8.NoSuchConfigRuleException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ResourceInUseException, _i9.ResourceInUseException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ResourceInUseException',
@@ -149,7 +150,7 @@ class DeleteConfigRuleOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
+        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
       },
     );
   }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.update_stage_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -60,12 +60,8 @@ abstract class UpdateStageRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateStageRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateStageRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<UpdateStageRequestPayload>>
+      serializers = [UpdateStageRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -103,19 +99,19 @@ abstract class UpdateStageRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateStageRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'stageName',
-      stageName,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateStageRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'stageName',
+        stageName,
+      )
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }
@@ -131,20 +127,17 @@ abstract class UpdateStageRequestPayload
 
   const UpdateStageRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateStageRequestPayloadBuilder b) {}
-
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
   @override
   List<Object?> get props => [patchOperations];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateStageRequestPayload');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateStageRequestPayload')
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }

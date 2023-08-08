@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_storage_s3_dart.s3.model.upload_part_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,7 +43,7 @@ abstract class UploadPartRequest
     _i6.RequestPayer? requestPayer,
     String? expectedBucketOwner,
   }) {
-    partNumber ??= 0;
+    body ??= const _i2.Stream.empty();
     return _$UploadPartRequest._(
       body: body,
       bucket: bucket,
@@ -71,7 +71,7 @@ abstract class UploadPartRequest
   const UploadPartRequest._();
 
   factory UploadPartRequest.fromRequest(
-    _i2.Stream<List<int>>? payload,
+    _i2.Stream<List<int>> payload,
     _i3.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
@@ -138,23 +138,23 @@ abstract class UploadPartRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.Stream<List<int>>>> serializers = [
     UploadPartRequestRestXmlSerializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UploadPartRequestBuilder b) {
-    b.partNumber = 0;
+    b.body = const _i2.Stream.empty();
   }
 
   /// Object data.
-  _i2.Stream<List<int>>? get body;
+  _i2.Stream<List<int>> get body;
 
   /// The name of the bucket to which the multipart upload was initiated.
   ///
   /// When using this action with an access point, you must direct requests to the access point hostname. The access point hostname takes the form _AccessPointName_-_AccountId_.s3-accesspoint._Region_.amazonaws.com. When using this action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see [Using access points](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html) in the _Amazon S3 User Guide_.
   ///
-  /// When using this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When using this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [Using Amazon S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
+  /// When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [What is S3 on Outposts?](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
   String get bucket;
 
   /// Size of the body in bytes. This parameter is useful when the size of the body cannot be determined automatically.
@@ -186,7 +186,7 @@ abstract class UploadPartRequest
   String get key;
 
   /// Part number of part being uploaded. This is a positive integer between 1 and 10,000.
-  int get partNumber;
+  int? get partNumber;
 
   /// Upload ID identifying the multipart upload whose part is being uploaded.
   String get uploadId;
@@ -220,7 +220,7 @@ abstract class UploadPartRequest
   }
 
   @override
-  _i2.Stream<List<int>>? getPayload() => body;
+  _i2.Stream<List<int>> getPayload() => body;
   @override
   List<Object?> get props => [
         body,
@@ -243,75 +243,75 @@ abstract class UploadPartRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UploadPartRequest');
-    helper.add(
-      'body',
-      body,
-    );
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'contentLength',
-      contentLength,
-    );
-    helper.add(
-      'contentMd5',
-      contentMd5,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'checksumCrc32',
-      checksumCrc32,
-    );
-    helper.add(
-      'checksumCrc32C',
-      checksumCrc32C,
-    );
-    helper.add(
-      'checksumSha1',
-      checksumSha1,
-    );
-    helper.add(
-      'checksumSha256',
-      checksumSha256,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'partNumber',
-      partNumber,
-    );
-    helper.add(
-      'uploadId',
-      uploadId,
-    );
-    helper.add(
-      'sseCustomerAlgorithm',
-      sseCustomerAlgorithm,
-    );
-    helper.add(
-      'sseCustomerKey',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'sseCustomerKeyMd5',
-      sseCustomerKeyMd5,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('UploadPartRequest')
+      ..add(
+        'body',
+        body,
+      )
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'contentLength',
+        contentLength,
+      )
+      ..add(
+        'contentMd5',
+        contentMd5,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      )
+      ..add(
+        'checksumCrc32',
+        checksumCrc32,
+      )
+      ..add(
+        'checksumCrc32C',
+        checksumCrc32C,
+      )
+      ..add(
+        'checksumSha1',
+        checksumSha1,
+      )
+      ..add(
+        'checksumSha256',
+        checksumSha256,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'partNumber',
+        partNumber,
+      )
+      ..add(
+        'uploadId',
+        uploadId,
+      )
+      ..add(
+        'sseCustomerAlgorithm',
+        sseCustomerAlgorithm,
+      )
+      ..add(
+        'sseCustomerKey',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'sseCustomerKeyMd5',
+        sseCustomerKeyMd5,
+      )
+      ..add(
+        'requestPayer',
+        requestPayer,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

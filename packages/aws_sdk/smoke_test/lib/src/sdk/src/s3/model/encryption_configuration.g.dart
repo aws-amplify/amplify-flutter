@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.encryption_configuration;
+part of 'encryption_configuration.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class EncryptionConfigurationBuilder
   set replicaKmsKeyId(String? replicaKmsKeyId) =>
       _$this._replicaKmsKeyId = replicaKmsKeyId;
 
-  EncryptionConfigurationBuilder() {
-    EncryptionConfiguration._init(this);
-  }
+  EncryptionConfigurationBuilder();
 
   EncryptionConfigurationBuilder get _$this {
     final $v = _$v;

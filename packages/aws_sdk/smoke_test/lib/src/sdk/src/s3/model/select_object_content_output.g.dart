@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.select_object_content_output;
+part of 'select_object_content_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -50,9 +50,7 @@ class SelectObjectContentOutputBuilder
   set payload(_i3.SelectObjectContentEventStream? payload) =>
       _$this._payload = payload;
 
-  SelectObjectContentOutputBuilder() {
-    SelectObjectContentOutput._init(this);
-  }
+  SelectObjectContentOutputBuilder();
 
   SelectObjectContentOutputBuilder get _$this {
     final $v = _$v;

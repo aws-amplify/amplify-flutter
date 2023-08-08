@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.describe_stack_resource_input;
+part of 'describe_stack_resource_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -66,9 +66,7 @@ class DescribeStackResourceInputBuilder
   set logicalResourceId(String? logicalResourceId) =>
       _$this._logicalResourceId = logicalResourceId;
 
-  DescribeStackResourceInputBuilder() {
-    DescribeStackResourceInput._init(this);
-  }
+  DescribeStackResourceInputBuilder();
 
   DescribeStackResourceInputBuilder get _$this {
     final $v = _$v;

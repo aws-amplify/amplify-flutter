@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.restore_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -48,12 +48,9 @@ abstract class RestoreRequest
 
   const RestoreRequest._();
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<_i7.SmithySerializer<RestoreRequest>> serializers = [
     RestoreRequestRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RestoreRequestBuilder b) {}
 
   /// Lifetime of the active copy in days. Do not use with restores that specify `OutputLocation`.
   ///
@@ -89,35 +86,35 @@ abstract class RestoreRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RestoreRequest');
-    helper.add(
-      'days',
-      days,
-    );
-    helper.add(
-      'glacierJobParameters',
-      glacierJobParameters,
-    );
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'tier',
-      tier,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'selectParameters',
-      selectParameters,
-    );
-    helper.add(
-      'outputLocation',
-      outputLocation,
-    );
+    final helper = newBuiltValueToStringHelper('RestoreRequest')
+      ..add(
+        'days',
+        days,
+      )
+      ..add(
+        'glacierJobParameters',
+        glacierJobParameters,
+      )
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'tier',
+        tier,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'selectParameters',
+        selectParameters,
+      )
+      ..add(
+        'outputLocation',
+        outputLocation,
+      );
     return helper.toString();
   }
 }

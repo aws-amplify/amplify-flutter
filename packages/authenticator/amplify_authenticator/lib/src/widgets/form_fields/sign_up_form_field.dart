@@ -33,7 +33,7 @@ abstract class SignUpFormField<FieldValue extends Object>
   ///
   /// The look and behavior of this widget will depend on your app's auth configuration.
   /// The `usernameAttributes` will be used to determine if the field is a standard
-  /// username field, and email field, or a phone number field.
+  /// username field, an email field, or a phone number field.
   /// {@endtemplate}
   ///
   /// If your app is configured to use email or phone, the value provided for this widget

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.index_document; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -25,12 +25,9 @@ abstract class IndexDocument
 
   const IndexDocument._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<IndexDocument>> serializers = [
     IndexDocumentRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(IndexDocumentBuilder b) {}
 
   /// A suffix that is appended to a request that is for a directory on the website endpoint (for example,if the suffix is index.html and you make a request to samplebucket/images/ the data that is returned will be for the object with the key name images/index.html) The suffix must not be empty and must not include a slash character.
   ///
@@ -40,11 +37,11 @@ abstract class IndexDocument
   List<Object?> get props => [suffix];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('IndexDocument');
-    helper.add(
-      'suffix',
-      suffix,
-    );
+    final helper = newBuiltValueToStringHelper('IndexDocument')
+      ..add(
+        'suffix',
+        suffix,
+      );
     return helper.toString();
   }
 }

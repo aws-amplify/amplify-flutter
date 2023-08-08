@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.operation.delete_instance_profile_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -27,7 +27,7 @@ import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
 ///
 /// Make sure that you do not have any Amazon EC2 instances running with the instance profile you are about to delete. Deleting a role or instance profile that is associated with a running instance will break any applications running on the instance.
 ///
-/// For more information about instance profiles, see [About instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html).
+/// For more information about instance profiles, see [Using instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html) in the _IAM User Guide_.
 class DeleteInstanceProfileOperation extends _i1.HttpOperation<
     _i2.DeleteInstanceProfileRequest,
     _i2.DeleteInstanceProfileRequest,
@@ -37,7 +37,7 @@ class DeleteInstanceProfileOperation extends _i1.HttpOperation<
   ///
   /// Make sure that you do not have any Amazon EC2 instances running with the instance profile you are about to delete. Deleting a role or instance profile that is associated with a running instance will break any applications running on the instance.
   ///
-  /// For more information about instance profiles, see [About instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html).
+  /// For more information about instance profiles, see [Using instance profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html) in the _IAM User Guide_.
   DeleteInstanceProfileOperation({
     required String region,
     Uri? baseUri,
@@ -131,7 +131,8 @@ class DeleteInstanceProfileOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.DeleteConflictException,
+            _i8.DeleteConflictException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'DeleteConflictException',
@@ -141,7 +142,7 @@ class DeleteInstanceProfileOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i8.DeleteConflictException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.LimitExceededException, _i9.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'LimitExceededException',
@@ -151,7 +152,7 @@ class DeleteInstanceProfileOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i9.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.NoSuchEntityException, _i10.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
@@ -161,7 +162,8 @@ class DeleteInstanceProfileOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i10.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.ServiceFailureException,
+            _i11.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',
@@ -194,7 +196,7 @@ class DeleteInstanceProfileOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
+        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
       },
     );
   }

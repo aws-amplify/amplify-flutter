@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1_v2.machine_learning.model.internal_server_exception;
+part of 'internal_server_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class InternalServerExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InternalServerExceptionBuilder() {
-    InternalServerException._init(this);
-  }
+  InternalServerExceptionBuilder();
 
   InternalServerExceptionBuilder get _$this {
     final $v = _$v;

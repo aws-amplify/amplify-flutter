@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.checksum;
+part of 'checksum.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -77,9 +77,7 @@ class ChecksumBuilder implements Builder<Checksum, ChecksumBuilder> {
   set checksumSha256(String? checksumSha256) =>
       _$this._checksumSha256 = checksumSha256;
 
-  ChecksumBuilder() {
-    Checksum._init(this);
-  }
+  ChecksumBuilder();
 
   ChecksumBuilder get _$this {
     final $v = _$v;

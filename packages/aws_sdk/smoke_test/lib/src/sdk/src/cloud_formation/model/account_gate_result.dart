@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.account_gate_result; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -45,12 +45,9 @@ abstract class AccountGateResult
 
   const AccountGateResult._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<AccountGateResult>> serializers = [
     AccountGateResultAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AccountGateResultBuilder b) {}
 
   /// The status of the account gate function.
   ///
@@ -76,15 +73,15 @@ abstract class AccountGateResult
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AccountGateResult');
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'statusReason',
-      statusReason,
-    );
+    final helper = newBuiltValueToStringHelper('AccountGateResult')
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'statusReason',
+        statusReason,
+      );
     return helper.toString();
   }
 }

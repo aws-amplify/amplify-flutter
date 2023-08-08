@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.rest_xml_protocol.model.http_request_with_labels_input;
+part of 'http_request_with_labels_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -132,9 +132,7 @@ class HttpRequestWithLabelsInputBuilder
   DateTime? get timestamp => _$this._timestamp;
   set timestamp(DateTime? timestamp) => _$this._timestamp = timestamp;
 
-  HttpRequestWithLabelsInputBuilder() {
-    HttpRequestWithLabelsInput._init(this);
-  }
+  HttpRequestWithLabelsInputBuilder();
 
   HttpRequestWithLabelsInputBuilder get _$this {
     final $v = _$v;
@@ -226,9 +224,7 @@ class HttpRequestWithLabelsInputPayloadBuilder
             HttpRequestWithLabelsInputPayloadBuilder> {
   _$HttpRequestWithLabelsInputPayload? _$v;
 
-  HttpRequestWithLabelsInputPayloadBuilder() {
-    HttpRequestWithLabelsInputPayload._init(this);
-  }
+  HttpRequestWithLabelsInputPayloadBuilder();
 
   @override
   void replace(HttpRequestWithLabelsInputPayload other) {

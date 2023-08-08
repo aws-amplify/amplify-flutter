@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.delete_gateway_response_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -56,12 +56,8 @@ abstract class DeleteGatewayResponseRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteGatewayResponseRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteGatewayResponseRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<DeleteGatewayResponseRequestPayload>>
+      serializers = [DeleteGatewayResponseRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -92,15 +88,15 @@ abstract class DeleteGatewayResponseRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteGatewayResponseRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'responseType',
-      responseType,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteGatewayResponseRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'responseType',
+        responseType,
+      );
     return helper.toString();
   }
 }
@@ -119,8 +115,6 @@ abstract class DeleteGatewayResponseRequestPayload
 
   const DeleteGatewayResponseRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteGatewayResponseRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.fractional_seconds_output;
+part of 'fractional_seconds_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -58,9 +58,7 @@ class FractionalSecondsOutputBuilder
   DateTime? get httpdate => _$this._httpdate;
   set httpdate(DateTime? httpdate) => _$this._httpdate = httpdate;
 
-  FractionalSecondsOutputBuilder() {
-    FractionalSecondsOutput._init(this);
-  }
+  FractionalSecondsOutputBuilder();
 
   FractionalSecondsOutputBuilder get _$this {
     final $v = _$v;

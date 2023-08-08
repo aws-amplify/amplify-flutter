@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.expected_attribute_value; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -63,12 +63,8 @@ abstract class ExpectedAttributeValue
 
   const ExpectedAttributeValue._();
 
-  static const List<_i5.SmithySerializer> serializers = [
-    ExpectedAttributeValueAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ExpectedAttributeValueBuilder b) {}
+  static const List<_i5.SmithySerializer<ExpectedAttributeValue>> serializers =
+      [ExpectedAttributeValueAwsJson10Serializer()];
 
   /// Represents the data for the expected attribute.
   ///
@@ -177,23 +173,23 @@ abstract class ExpectedAttributeValue
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ExpectedAttributeValue');
-    helper.add(
-      'value',
-      value,
-    );
-    helper.add(
-      'exists',
-      exists,
-    );
-    helper.add(
-      'comparisonOperator',
-      comparisonOperator,
-    );
-    helper.add(
-      'attributeValueList',
-      attributeValueList,
-    );
+    final helper = newBuiltValueToStringHelper('ExpectedAttributeValue')
+      ..add(
+        'value',
+        value,
+      )
+      ..add(
+        'exists',
+        exists,
+      )
+      ..add(
+        'comparisonOperator',
+        comparisonOperator,
+      )
+      ..add(
+        'attributeValueList',
+        attributeValueList,
+      );
     return helper.toString();
   }
 }

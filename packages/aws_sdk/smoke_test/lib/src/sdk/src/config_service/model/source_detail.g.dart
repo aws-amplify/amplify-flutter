@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.source_detail;
+part of 'source_detail.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -69,9 +69,7 @@ class SourceDetailBuilder
           _i4.MaximumExecutionFrequency? maximumExecutionFrequency) =>
       _$this._maximumExecutionFrequency = maximumExecutionFrequency;
 
-  SourceDetailBuilder() {
-    SourceDetail._init(this);
-  }
+  SourceDetailBuilder();
 
   SourceDetailBuilder get _$this {
     final $v = _$v;

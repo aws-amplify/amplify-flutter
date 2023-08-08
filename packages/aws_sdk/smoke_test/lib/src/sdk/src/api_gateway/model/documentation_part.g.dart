@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.documentation_part;
+part of 'documentation_part.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -66,9 +66,7 @@ class DocumentationPartBuilder
   String? get properties => _$this._properties;
   set properties(String? properties) => _$this._properties = properties;
 
-  DocumentationPartBuilder() {
-    DocumentationPart._init(this);
-  }
+  DocumentationPartBuilder();
 
   DocumentationPartBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.describe_retention_configurations_response;
+part of 'describe_retention_configurations_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -70,9 +70,7 @@ class DescribeRetentionConfigurationsResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeRetentionConfigurationsResponseBuilder() {
-    DescribeRetentionConfigurationsResponse._init(this);
-  }
+  DescribeRetentionConfigurationsResponseBuilder();
 
   DescribeRetentionConfigurationsResponseBuilder get _$this {
     final $v = _$v;

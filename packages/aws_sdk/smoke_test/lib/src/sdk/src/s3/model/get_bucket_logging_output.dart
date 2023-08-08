@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.get_bucket_logging_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,12 +31,8 @@ abstract class GetBucketLoggingOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    GetBucketLoggingOutputRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketLoggingOutputBuilder b) {}
+  static const List<_i3.SmithySerializer<GetBucketLoggingOutput>> serializers =
+      [GetBucketLoggingOutputRestXmlSerializer()];
 
   /// Describes where logs are stored and the prefix that Amazon S3 assigns to all log object keys for a bucket. For more information, see [PUT Bucket logging](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTlogging.html) in the _Amazon S3 API Reference_.
   _i2.LoggingEnabled? get loggingEnabled;
@@ -44,11 +40,11 @@ abstract class GetBucketLoggingOutput
   List<Object?> get props => [loggingEnabled];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBucketLoggingOutput');
-    helper.add(
-      'loggingEnabled',
-      loggingEnabled,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketLoggingOutput')
+      ..add(
+        'loggingEnabled',
+        loggingEnabled,
+      );
     return helper.toString();
   }
 }

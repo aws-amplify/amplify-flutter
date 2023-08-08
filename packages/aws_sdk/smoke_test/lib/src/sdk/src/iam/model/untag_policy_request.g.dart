@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.untag_policy_request;
+part of 'untag_policy_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -64,9 +64,7 @@ class UntagPolicyRequestBuilder
       _$this._tagKeys ??= new _i3.ListBuilder<String>();
   set tagKeys(_i3.ListBuilder<String>? tagKeys) => _$this._tagKeys = tagKeys;
 
-  UntagPolicyRequestBuilder() {
-    UntagPolicyRequest._init(this);
-  }
+  UntagPolicyRequestBuilder();
 
   UntagPolicyRequestBuilder get _$this {
     final $v = _$v;

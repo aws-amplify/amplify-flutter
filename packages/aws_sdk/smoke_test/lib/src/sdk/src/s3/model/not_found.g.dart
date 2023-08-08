@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.not_found;
+part of 'not_found.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -47,9 +47,7 @@ class NotFoundBuilder implements Builder<NotFound, NotFoundBuilder> {
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  NotFoundBuilder() {
-    NotFound._init(this);
-  }
+  NotFoundBuilder();
 
   NotFoundBuilder get _$this {
     final $v = _$v;

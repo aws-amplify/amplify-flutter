@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.delete_base_path_mapping_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -53,12 +53,8 @@ abstract class DeleteBasePathMappingRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteBasePathMappingRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBasePathMappingRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<DeleteBasePathMappingRequestPayload>>
+      serializers = [DeleteBasePathMappingRequestRestJson1Serializer()];
 
   /// The domain name of the BasePathMapping resource to delete.
   String get domainName;
@@ -91,15 +87,15 @@ abstract class DeleteBasePathMappingRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteBasePathMappingRequest');
-    helper.add(
-      'domainName',
-      domainName,
-    );
-    helper.add(
-      'basePath',
-      basePath,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteBasePathMappingRequest')
+      ..add(
+        'domainName',
+        domainName,
+      )
+      ..add(
+        'basePath',
+        basePath,
+      );
     return helper.toString();
   }
 }
@@ -118,8 +114,6 @@ abstract class DeleteBasePathMappingRequestPayload
 
   const DeleteBasePathMappingRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBasePathMappingRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

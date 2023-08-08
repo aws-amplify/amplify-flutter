@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.operation.put_organization_config_rule_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,17 +36,19 @@ import 'package:smoke_test/src/sdk/src/config_service/model/validation_exception
 
 /// Adds or updates an Config rule for your entire organization to evaluate if your Amazon Web Services resources comply with your desired configurations. For information on how many organization Config rules you can have per account, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the _Config Developer Guide_.
 ///
-/// Only a master account and a delegated administrator can create or update an organization Config rule. When calling this API with a delegated administrator, you must ensure Organizations `ListDelegatedAdministrator` permissions are added. An organization can have up to 3 delegated administrators.
+/// Only a management account and a delegated administrator can create or update an organization Config rule. When calling this API with a delegated administrator, you must ensure Organizations `ListDelegatedAdministrator` permissions are added. An organization can have up to 3 delegated administrators.
 ///
-/// This API enables organization service access through the `EnableAWSServiceAccess` action and creates a service-linked role `AWSServiceRoleForConfigMultiAccountSetup` in the master or delegated administrator account of your organization. The service-linked role is created only when the role does not exist in the caller account. Config verifies the existence of role with `GetRole` action.
+/// This API enables organization service access through the `EnableAWSServiceAccess` action and creates a service-linked role `AWSServiceRoleForConfigMultiAccountSetup` in the management or delegated administrator account of your organization. The service-linked role is created only when the role does not exist in the caller account. Config verifies the existence of role with `GetRole` action.
 ///
 /// To use this API with delegated administrator, register a delegated administrator by calling Amazon Web Services Organization `register-delegated-administrator` for `config-multiaccountsetup.amazonaws.com`.
 ///
-/// There are two types of rules: Config Custom Rules and Config Managed Rules. You can use `PutOrganizationConfigRule` to create both Config custom rules and Config managed rules.
+/// There are two types of rules: _Config Managed Rules_ and _Config Custom Rules_. You can use `PutOrganizationConfigRule` to create both Config Managed Rules and Config Custom Rules.
 ///
-/// Custom rules are rules that you can create using either Guard or Lambda functions. Guard ([Guard GitHub Repository](https://github.com/aws-cloudformation/cloudformation-guard)) is a policy-as-code language that allows you to write policies that are enforced by Config Custom Policy rules. Lambda uses custom code that you upload to evaluate a custom rule. If you are adding a new Custom Lambda rule, you first need to create an Lambda function in the master account or a delegated administrator that the rule invokes to evaluate your resources. You also need to create an IAM role in the managed account that can be assumed by the Lambda function. When you use `PutOrganizationConfigRule` to add a Custom Lambda rule to Config, you must specify the Amazon Resource Name (ARN) that Lambda assigns to the function.
+/// Config Managed Rules are predefined, customizable rules created by Config. For a list of managed rules, see [List of Config Managed Rules](https://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html). If you are adding an Config managed rule, you must specify the rule's identifier for the `RuleIdentifier` key.
 ///
-/// Managed rules are predefined, customizable rules created by Config. For a list of managed rules, see [List of Config Managed Rules](https://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html). If you are adding an Config managed rule, you must specify the rule's identifier for the `RuleIdentifier` key.
+/// Config Custom Rules are rules that you create from scratch. There are two ways to create Config custom rules: with Lambda functions ( [Lambda Developer Guide](https://docs.aws.amazon.com/config/latest/developerguide/gettingstarted-concepts.html#gettingstarted-concepts-function)) and with Guard ([Guard GitHub Repository](https://github.com/aws-cloudformation/cloudformation-guard)), a policy-as-code language. Config custom rules created with Lambda are called _Config Custom Lambda Rules_ and Config custom rules created with Guard are called _Config Custom Policy Rules_.
+///
+/// If you are adding a new Config Custom Lambda rule, you first need to create an Lambda function in the management account or a delegated administrator that the rule invokes to evaluate your resources. You also need to create an IAM role in the managed account that can be assumed by the Lambda function. When you use `PutOrganizationConfigRule` to add a Custom Lambda rule to Config, you must specify the Amazon Resource Name (ARN) that Lambda assigns to the function.
 ///
 /// Prerequisite: Ensure you call `EnableAllFeatures` API to enable all features in an organization.
 ///
@@ -58,17 +60,19 @@ class PutOrganizationConfigRuleOperation extends _i1.HttpOperation<
     _i3.PutOrganizationConfigRuleResponse> {
   /// Adds or updates an Config rule for your entire organization to evaluate if your Amazon Web Services resources comply with your desired configurations. For information on how many organization Config rules you can have per account, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the _Config Developer Guide_.
   ///
-  /// Only a master account and a delegated administrator can create or update an organization Config rule. When calling this API with a delegated administrator, you must ensure Organizations `ListDelegatedAdministrator` permissions are added. An organization can have up to 3 delegated administrators.
+  /// Only a management account and a delegated administrator can create or update an organization Config rule. When calling this API with a delegated administrator, you must ensure Organizations `ListDelegatedAdministrator` permissions are added. An organization can have up to 3 delegated administrators.
   ///
-  /// This API enables organization service access through the `EnableAWSServiceAccess` action and creates a service-linked role `AWSServiceRoleForConfigMultiAccountSetup` in the master or delegated administrator account of your organization. The service-linked role is created only when the role does not exist in the caller account. Config verifies the existence of role with `GetRole` action.
+  /// This API enables organization service access through the `EnableAWSServiceAccess` action and creates a service-linked role `AWSServiceRoleForConfigMultiAccountSetup` in the management or delegated administrator account of your organization. The service-linked role is created only when the role does not exist in the caller account. Config verifies the existence of role with `GetRole` action.
   ///
   /// To use this API with delegated administrator, register a delegated administrator by calling Amazon Web Services Organization `register-delegated-administrator` for `config-multiaccountsetup.amazonaws.com`.
   ///
-  /// There are two types of rules: Config Custom Rules and Config Managed Rules. You can use `PutOrganizationConfigRule` to create both Config custom rules and Config managed rules.
+  /// There are two types of rules: _Config Managed Rules_ and _Config Custom Rules_. You can use `PutOrganizationConfigRule` to create both Config Managed Rules and Config Custom Rules.
   ///
-  /// Custom rules are rules that you can create using either Guard or Lambda functions. Guard ([Guard GitHub Repository](https://github.com/aws-cloudformation/cloudformation-guard)) is a policy-as-code language that allows you to write policies that are enforced by Config Custom Policy rules. Lambda uses custom code that you upload to evaluate a custom rule. If you are adding a new Custom Lambda rule, you first need to create an Lambda function in the master account or a delegated administrator that the rule invokes to evaluate your resources. You also need to create an IAM role in the managed account that can be assumed by the Lambda function. When you use `PutOrganizationConfigRule` to add a Custom Lambda rule to Config, you must specify the Amazon Resource Name (ARN) that Lambda assigns to the function.
+  /// Config Managed Rules are predefined, customizable rules created by Config. For a list of managed rules, see [List of Config Managed Rules](https://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html). If you are adding an Config managed rule, you must specify the rule's identifier for the `RuleIdentifier` key.
   ///
-  /// Managed rules are predefined, customizable rules created by Config. For a list of managed rules, see [List of Config Managed Rules](https://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html). If you are adding an Config managed rule, you must specify the rule's identifier for the `RuleIdentifier` key.
+  /// Config Custom Rules are rules that you create from scratch. There are two ways to create Config custom rules: with Lambda functions ( [Lambda Developer Guide](https://docs.aws.amazon.com/config/latest/developerguide/gettingstarted-concepts.html#gettingstarted-concepts-function)) and with Guard ([Guard GitHub Repository](https://github.com/aws-cloudformation/cloudformation-guard)), a policy-as-code language. Config custom rules created with Lambda are called _Config Custom Lambda Rules_ and Config custom rules created with Guard are called _Config Custom Policy Rules_.
+  ///
+  /// If you are adding a new Config Custom Lambda rule, you first need to create an Lambda function in the management account or a delegated administrator that the rule invokes to evaluate your resources. You also need to create an IAM role in the managed account that can be assumed by the Lambda function. When you use `PutOrganizationConfigRule` to add a Custom Lambda rule to Config, you must specify the Amazon Resource Name (ARN) that Lambda assigns to the function.
   ///
   /// Prerequisite: Ensure you call `EnableAllFeatures` API to enable all features in an organization.
   ///
@@ -152,7 +156,8 @@ class PutOrganizationConfigRuleOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InsufficientPermissionsException,
+            _i9.InsufficientPermissionsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InsufficientPermissionsException',
@@ -161,7 +166,8 @@ class PutOrganizationConfigRuleOperation extends _i1.HttpOperation<
           _i9.InsufficientPermissionsException,
           builder: _i9.InsufficientPermissionsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidParameterValueException,
+            _i10.InvalidParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidParameterValueException',
@@ -170,7 +176,9 @@ class PutOrganizationConfigRuleOperation extends _i1.HttpOperation<
           _i10.InvalidParameterValueException,
           builder: _i10.InvalidParameterValueException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<
+            _i11.MaxNumberOfOrganizationConfigRulesExceededException,
+            _i11.MaxNumberOfOrganizationConfigRulesExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'MaxNumberOfOrganizationConfigRulesExceededException',
@@ -180,7 +188,8 @@ class PutOrganizationConfigRuleOperation extends _i1.HttpOperation<
           builder: _i11
               .MaxNumberOfOrganizationConfigRulesExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.NoAvailableOrganizationException,
+            _i12.NoAvailableOrganizationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoAvailableOrganizationException',
@@ -189,7 +198,8 @@ class PutOrganizationConfigRuleOperation extends _i1.HttpOperation<
           _i12.NoAvailableOrganizationException,
           builder: _i12.NoAvailableOrganizationException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.OrganizationAccessDeniedException,
+            _i13.OrganizationAccessDeniedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'OrganizationAccessDeniedException',
@@ -198,7 +208,8 @@ class PutOrganizationConfigRuleOperation extends _i1.HttpOperation<
           _i13.OrganizationAccessDeniedException,
           builder: _i13.OrganizationAccessDeniedException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.OrganizationAllFeaturesNotEnabledException,
+            _i14.OrganizationAllFeaturesNotEnabledException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'OrganizationAllFeaturesNotEnabledException',
@@ -207,7 +218,8 @@ class PutOrganizationConfigRuleOperation extends _i1.HttpOperation<
           _i14.OrganizationAllFeaturesNotEnabledException,
           builder: _i14.OrganizationAllFeaturesNotEnabledException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.ResourceInUseException,
+            _i15.ResourceInUseException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ResourceInUseException',
@@ -216,7 +228,7 @@ class PutOrganizationConfigRuleOperation extends _i1.HttpOperation<
           _i15.ResourceInUseException,
           builder: _i15.ResourceInUseException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i16.ValidationException, _i16.ValidationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ValidationException',
@@ -248,7 +260,7 @@ class PutOrganizationConfigRuleOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

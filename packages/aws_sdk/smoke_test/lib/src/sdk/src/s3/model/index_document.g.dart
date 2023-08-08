@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.index_document;
+part of 'index_document.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -47,9 +47,7 @@ class IndexDocumentBuilder
   String? get suffix => _$this._suffix;
   set suffix(String? suffix) => _$this._suffix = suffix;
 
-  IndexDocumentBuilder() {
-    IndexDocument._init(this);
-  }
+  IndexDocumentBuilder();
 
   IndexDocumentBuilder get _$this {
     final $v = _$v;

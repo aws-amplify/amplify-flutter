@@ -58,9 +58,7 @@ class OutputSerializationBuilder
       _$this._json ??= new _i3.JsonOutputBuilder();
   set json(_i3.JsonOutputBuilder? json) => _$this._json = json;
 
-  OutputSerializationBuilder() {
-    OutputSerialization._init(this);
-  }
+  OutputSerializationBuilder();
 
   OutputSerializationBuilder get _$this {
     final $v = _$v;

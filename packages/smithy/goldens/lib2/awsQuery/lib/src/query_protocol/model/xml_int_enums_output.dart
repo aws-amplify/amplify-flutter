@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library aws_query_v2.query_protocol.model.xml_int_enums_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -45,12 +45,10 @@ abstract class XmlIntEnumsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<XmlIntEnumsOutput>> serializers = [
     XmlIntEnumsOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(XmlIntEnumsOutputBuilder b) {}
   _i2.IntegerEnum? get intEnum1;
   _i2.IntegerEnum? get intEnum2;
   _i2.IntegerEnum? get intEnum3;
@@ -68,31 +66,31 @@ abstract class XmlIntEnumsOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('XmlIntEnumsOutput');
-    helper.add(
-      'intEnum1',
-      intEnum1,
-    );
-    helper.add(
-      'intEnum2',
-      intEnum2,
-    );
-    helper.add(
-      'intEnum3',
-      intEnum3,
-    );
-    helper.add(
-      'intEnumList',
-      intEnumList,
-    );
-    helper.add(
-      'intEnumSet',
-      intEnumSet,
-    );
-    helper.add(
-      'intEnumMap',
-      intEnumMap,
-    );
+    final helper = newBuiltValueToStringHelper('XmlIntEnumsOutput')
+      ..add(
+        'intEnum1',
+        intEnum1,
+      )
+      ..add(
+        'intEnum2',
+        intEnum2,
+      )
+      ..add(
+        'intEnum3',
+        intEnum3,
+      )
+      ..add(
+        'intEnumList',
+        intEnumList,
+      )
+      ..add(
+        'intEnumSet',
+        intEnumSet,
+      )
+      ..add(
+        'intEnumMap',
+        intEnumMap,
+      );
     return helper.toString();
   }
 }

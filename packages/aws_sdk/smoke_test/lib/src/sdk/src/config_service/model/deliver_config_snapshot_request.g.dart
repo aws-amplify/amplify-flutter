@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.deliver_config_snapshot_request;
+part of 'deliver_config_snapshot_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -56,9 +56,7 @@ class DeliverConfigSnapshotRequestBuilder
   set deliveryChannelName(String? deliveryChannelName) =>
       _$this._deliveryChannelName = deliveryChannelName;
 
-  DeliverConfigSnapshotRequestBuilder() {
-    DeliverConfigSnapshotRequest._init(this);
-  }
+  DeliverConfigSnapshotRequestBuilder();
 
   DeliverConfigSnapshotRequestBuilder get _$this {
     final $v = _$v;

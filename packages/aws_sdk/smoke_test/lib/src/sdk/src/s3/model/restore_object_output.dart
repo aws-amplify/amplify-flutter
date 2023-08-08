@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.restore_object_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -49,12 +49,8 @@ abstract class RestoreObjectOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    RestoreObjectOutputRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RestoreObjectOutputBuilder b) {}
+  static const List<_i2.SmithySerializer<RestoreObjectOutputPayload>>
+      serializers = [RestoreObjectOutputRestXmlSerializer()];
 
   /// If present, indicates that the requester was successfully charged for the request.
   _i3.RequestCharged? get requestCharged;
@@ -70,15 +66,15 @@ abstract class RestoreObjectOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RestoreObjectOutput');
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
-    helper.add(
-      'restoreOutputPath',
-      restoreOutputPath,
-    );
+    final helper = newBuiltValueToStringHelper('RestoreObjectOutput')
+      ..add(
+        'requestCharged',
+        requestCharged,
+      )
+      ..add(
+        'restoreOutputPath',
+        restoreOutputPath,
+      );
     return helper.toString();
   }
 }
@@ -95,8 +91,6 @@ abstract class RestoreObjectOutputPayload
 
   const RestoreObjectOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RestoreObjectOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

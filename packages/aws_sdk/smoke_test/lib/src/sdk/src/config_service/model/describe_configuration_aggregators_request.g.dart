@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.describe_configuration_aggregators_request;
+part of 'describe_configuration_aggregators_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -13,7 +13,7 @@ class _$DescribeConfigurationAggregatorsRequest
   @override
   final String? nextToken;
   @override
-  final int? limit;
+  final int limit;
 
   factory _$DescribeConfigurationAggregatorsRequest(
           [void Function(DescribeConfigurationAggregatorsRequestBuilder)?
@@ -22,8 +22,11 @@ class _$DescribeConfigurationAggregatorsRequest
           ._build();
 
   _$DescribeConfigurationAggregatorsRequest._(
-      {this.configurationAggregatorNames, this.nextToken, this.limit})
-      : super._();
+      {this.configurationAggregatorNames, this.nextToken, required this.limit})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        limit, r'DescribeConfigurationAggregatorsRequest', 'limit');
+  }
 
   @override
   DescribeConfigurationAggregatorsRequest rebuild(
@@ -115,7 +118,8 @@ class DescribeConfigurationAggregatorsRequestBuilder
               configurationAggregatorNames:
                   _configurationAggregatorNames?.build(),
               nextToken: nextToken,
-              limit: limit);
+              limit: BuiltValueNullFieldError.checkNotNull(
+                  limit, r'DescribeConfigurationAggregatorsRequest', 'limit'));
     } catch (_) {
       late String _$failedField;
       try {

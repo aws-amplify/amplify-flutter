@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.start_remediation_execution_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,12 +43,8 @@ abstract class StartRemediationExecutionRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    StartRemediationExecutionRequestAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StartRemediationExecutionRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<StartRemediationExecutionRequest>>
+      serializers = [StartRemediationExecutionRequestAwsJson11Serializer()];
 
   /// The list of names of Config rules that you want to run remediation execution for.
   String get configRuleName;
@@ -65,15 +61,15 @@ abstract class StartRemediationExecutionRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('StartRemediationExecutionRequest');
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'resourceKeys',
-      resourceKeys,
-    );
+        newBuiltValueToStringHelper('StartRemediationExecutionRequest')
+          ..add(
+            'configRuleName',
+            configRuleName,
+          )
+          ..add(
+            'resourceKeys',
+            resourceKeys,
+          );
     return helper.toString();
   }
 }

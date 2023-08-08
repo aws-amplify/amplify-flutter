@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v2.query_protocol.model.recursive_xml_shapes_output;
+part of 'recursive_xml_shapes_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class RecursiveXmlShapesOutputBuilder
   set nested(_i2.RecursiveXmlShapesOutputNested1Builder? nested) =>
       _$this._nested = nested;
 
-  RecursiveXmlShapesOutputBuilder() {
-    RecursiveXmlShapesOutput._init(this);
-  }
+  RecursiveXmlShapesOutputBuilder();
 
   RecursiveXmlShapesOutputBuilder get _$this {
     final $v = _$v;

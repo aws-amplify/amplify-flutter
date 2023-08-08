@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.rest_json_protocol.model.http_prefix_headers_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -56,12 +56,9 @@ abstract class HttpPrefixHeadersInput
                 )));
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    HttpPrefixHeadersInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<HttpPrefixHeadersInputPayload>>
+      serializers = [HttpPrefixHeadersInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpPrefixHeadersInputBuilder b) {}
   String? get foo;
   _i3.BuiltMap<String, String>? get fooMap;
   @override
@@ -73,15 +70,15 @@ abstract class HttpPrefixHeadersInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('HttpPrefixHeadersInput');
-    helper.add(
-      'foo',
-      foo,
-    );
-    helper.add(
-      'fooMap',
-      fooMap,
-    );
+    final helper = newBuiltValueToStringHelper('HttpPrefixHeadersInput')
+      ..add(
+        'foo',
+        foo,
+      )
+      ..add(
+        'fooMap',
+        fooMap,
+      );
     return helper.toString();
   }
 }
@@ -100,8 +97,6 @@ abstract class HttpPrefixHeadersInputPayload
 
   const HttpPrefixHeadersInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpPrefixHeadersInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

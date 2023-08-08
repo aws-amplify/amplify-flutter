@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.select_aggregate_resource_config_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,12 +44,10 @@ abstract class SelectAggregateResourceConfigResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<SelectAggregateResourceConfigResponse>>
+      serializers = [
     SelectAggregateResourceConfigResponseAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SelectAggregateResourceConfigResponseBuilder b) {}
 
   /// Returns the results for the SQL query.
   _i3.BuiltList<String>? get results;
@@ -68,19 +66,19 @@ abstract class SelectAggregateResourceConfigResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('SelectAggregateResourceConfigResponse');
-    helper.add(
-      'results',
-      results,
-    );
-    helper.add(
-      'queryInfo',
-      queryInfo,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        newBuiltValueToStringHelper('SelectAggregateResourceConfigResponse')
+          ..add(
+            'results',
+            results,
+          )
+          ..add(
+            'queryInfo',
+            queryInfo,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          );
     return helper.toString();
   }
 }

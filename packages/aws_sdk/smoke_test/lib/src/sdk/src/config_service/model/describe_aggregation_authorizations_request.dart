@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.describe_aggregation_authorizations_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,6 +21,7 @@ abstract class DescribeAggregationAuthorizationsRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$DescribeAggregationAuthorizationsRequest._(
       limit: limit,
       nextToken: nextToken,
@@ -40,15 +41,19 @@ abstract class DescribeAggregationAuthorizationsRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<DescribeAggregationAuthorizationsRequest>>
+      serializers = [
     DescribeAggregationAuthorizationsRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeAggregationAuthorizationsRequestBuilder b) {}
+  static void _init(DescribeAggregationAuthorizationsRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The maximum number of AggregationAuthorizations returned on each page. The default is maximum. If you specify 0, Config uses the default.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -62,15 +67,15 @@ abstract class DescribeAggregationAuthorizationsRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DescribeAggregationAuthorizationsRequest');
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        newBuiltValueToStringHelper('DescribeAggregationAuthorizationsRequest')
+          ..add(
+            'limit',
+            limit,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          );
     return helper.toString();
   }
 }
@@ -132,14 +137,13 @@ class DescribeAggregationAuthorizationsRequestAwsJson11Serializer extends _i1
   }) {
     final result$ = <Object?>[];
     final DescribeAggregationAuthorizationsRequest(:limit, :nextToken) = object;
-    if (limit != null) {
-      result$
-        ..add('Limit')
-        ..add(serializers.serialize(
-          limit,
-          specifiedType: const FullType(int),
-        ));
-    }
+    result$.addAll([
+      'Limit',
+      serializers.serialize(
+        limit,
+        specifiedType: const FullType(int),
+      ),
+    ]);
     if (nextToken != null) {
       result$
         ..add('NextToken')

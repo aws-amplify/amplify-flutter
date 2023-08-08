@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v2.glacier.model.service_unavailable_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,9 @@ abstract class ServiceUnavailableException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ServiceUnavailableExceptionRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ServiceUnavailableException>>
+      serializers = [ServiceUnavailableExceptionRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ServiceUnavailableExceptionBuilder b) {}
   String? get type;
   String? get code;
   @override
@@ -75,19 +72,19 @@ abstract class ServiceUnavailableException
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ServiceUnavailableException');
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'code',
-      code,
-    );
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('ServiceUnavailableException')
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'code',
+        code,
+      )
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

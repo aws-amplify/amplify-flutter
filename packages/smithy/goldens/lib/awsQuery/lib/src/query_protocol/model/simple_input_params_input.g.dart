@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v1.query_protocol.model.simple_input_params_input;
+part of 'simple_input_params_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -123,9 +123,7 @@ class SimpleInputParamsInputBuilder
   int? get integerEnum => _$this._integerEnum;
   set integerEnum(int? integerEnum) => _$this._integerEnum = integerEnum;
 
-  SimpleInputParamsInputBuilder() {
-    SimpleInputParamsInput._init(this);
-  }
+  SimpleInputParamsInputBuilder();
 
   SimpleInputParamsInputBuilder get _$this {
     final $v = _$v;

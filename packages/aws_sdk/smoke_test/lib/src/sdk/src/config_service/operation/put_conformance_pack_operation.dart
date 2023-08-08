@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.operation.put_conformance_pack_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -28,21 +28,21 @@ import 'package:smoke_test/src/sdk/src/config_service/model/put_conformance_pack
 import 'package:smoke_test/src/sdk/src/config_service/model/resource_in_use_exception.dart'
     as _i13;
 
-/// Creates or updates a conformance pack. A conformance pack is a collection of Config rules that can be easily deployed in an account and a region and across Amazon Web Services Organization. For information on how many conformance packs you can have per account, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the Config Developer Guide.
+/// Creates or updates a conformance pack. A conformance pack is a collection of Config rules that can be easily deployed in an account and a region and across an organization. For information on how many conformance packs you can have per account, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the _Config Developer Guide_.
 ///
 /// This API creates a service-linked role `AWSServiceRoleForConfigConforms` in your account. The service-linked role is created only when the role does not exist in your account.
 ///
-/// You must specify one and only one of the`TemplateS3Uri`, `TemplateBody` or `TemplateSSMDocumentDetails` parameters.
+/// You must specify only one of the follow parameters: `TemplateS3Uri`, `TemplateBody` or `TemplateSSMDocumentDetails`.
 class PutConformancePackOperation extends _i1.HttpOperation<
     _i2.PutConformancePackRequest,
     _i2.PutConformancePackRequest,
     _i3.PutConformancePackResponse,
     _i3.PutConformancePackResponse> {
-  /// Creates or updates a conformance pack. A conformance pack is a collection of Config rules that can be easily deployed in an account and a region and across Amazon Web Services Organization. For information on how many conformance packs you can have per account, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the Config Developer Guide.
+  /// Creates or updates a conformance pack. A conformance pack is a collection of Config rules that can be easily deployed in an account and a region and across an organization. For information on how many conformance packs you can have per account, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the _Config Developer Guide_.
   ///
   /// This API creates a service-linked role `AWSServiceRoleForConfigConforms` in your account. The service-linked role is created only when the role does not exist in your account.
   ///
-  /// You must specify one and only one of the`TemplateS3Uri`, `TemplateBody` or `TemplateSSMDocumentDetails` parameters.
+  /// You must specify only one of the follow parameters: `TemplateS3Uri`, `TemplateBody` or `TemplateSSMDocumentDetails`.
   PutConformancePackOperation({
     required String region,
     Uri? baseUri,
@@ -122,7 +122,8 @@ class PutConformancePackOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ConformancePackTemplateValidationException,
+            _i9.ConformancePackTemplateValidationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ConformancePackTemplateValidationException',
@@ -131,7 +132,8 @@ class PutConformancePackOperation extends _i1.HttpOperation<
           _i9.ConformancePackTemplateValidationException,
           builder: _i9.ConformancePackTemplateValidationException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InsufficientPermissionsException,
+            _i10.InsufficientPermissionsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InsufficientPermissionsException',
@@ -140,7 +142,8 @@ class PutConformancePackOperation extends _i1.HttpOperation<
           _i10.InsufficientPermissionsException,
           builder: _i10.InsufficientPermissionsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidParameterValueException,
+            _i11.InvalidParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidParameterValueException',
@@ -149,7 +152,8 @@ class PutConformancePackOperation extends _i1.HttpOperation<
           _i11.InvalidParameterValueException,
           builder: _i11.InvalidParameterValueException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.MaxNumberOfConformancePacksExceededException,
+            _i12.MaxNumberOfConformancePacksExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'MaxNumberOfConformancePacksExceededException',
@@ -159,7 +163,8 @@ class PutConformancePackOperation extends _i1.HttpOperation<
           builder:
               _i12.MaxNumberOfConformancePacksExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.ResourceInUseException,
+            _i13.ResourceInUseException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ResourceInUseException',
@@ -191,7 +196,7 @@ class PutConformancePackOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

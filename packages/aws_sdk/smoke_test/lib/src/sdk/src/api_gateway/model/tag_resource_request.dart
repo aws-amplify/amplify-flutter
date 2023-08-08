@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.tag_resource_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -50,12 +50,8 @@ abstract class TagResourceRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    TagResourceRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TagResourceRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<TagResourceRequestPayload>>
+      serializers = [TagResourceRequestRestJson1Serializer()];
 
   /// The ARN of a resource that can be tagged.
   String get resourceArn;
@@ -85,15 +81,15 @@ abstract class TagResourceRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TagResourceRequest');
-    helper.add(
-      'resourceArn',
-      resourceArn,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('TagResourceRequest')
+      ..add(
+        'resourceArn',
+        resourceArn,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }
@@ -109,20 +105,17 @@ abstract class TagResourceRequestPayload
 
   const TagResourceRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TagResourceRequestPayloadBuilder b) {}
-
   /// The key-value map of strings. The valid character set is \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not start with `aws:`. The tag value can be up to 256 characters.
   _i3.BuiltMap<String, String> get tags;
   @override
   List<Object?> get props => [tags];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TagResourceRequestPayload');
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('TagResourceRequestPayload')
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

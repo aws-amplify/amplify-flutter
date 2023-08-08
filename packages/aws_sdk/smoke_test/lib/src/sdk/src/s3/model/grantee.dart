@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.grantee; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,9 @@ abstract class Grantee
 
   const Grantee._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<Grantee>> serializers = [
     GranteeRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GranteeBuilder b) {}
 
   /// Screen name of the grantee.
   String? get displayName;
@@ -90,27 +87,27 @@ abstract class Grantee
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Grantee');
-    helper.add(
-      'displayName',
-      displayName,
-    );
-    helper.add(
-      'emailAddress',
-      emailAddress,
-    );
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'uri',
-      uri,
-    );
-    helper.add(
-      'type',
-      type,
-    );
+    final helper = newBuiltValueToStringHelper('Grantee')
+      ..add(
+        'displayName',
+        displayName,
+      )
+      ..add(
+        'emailAddress',
+        emailAddress,
+      )
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'uri',
+        uri,
+      )
+      ..add(
+        'type',
+        type,
+      );
     return helper.toString();
   }
 }

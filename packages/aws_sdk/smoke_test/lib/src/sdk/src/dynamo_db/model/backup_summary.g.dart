@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.backup_summary;
+part of 'backup_summary.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -133,9 +133,7 @@ class BackupSummaryBuilder
   set backupSizeBytes(_i4.Int64? backupSizeBytes) =>
       _$this._backupSizeBytes = backupSizeBytes;
 
-  BackupSummaryBuilder() {
-    BackupSummary._init(this);
-  }
+  BackupSummaryBuilder();
 
   BackupSummaryBuilder get _$this {
     final $v = _$v;

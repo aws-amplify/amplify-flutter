@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library aws_query_v2.query_protocol.model.datetime_offsets_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -30,22 +30,20 @@ abstract class DatetimeOffsetsOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<DatetimeOffsetsOutput>> serializers = [
     DatetimeOffsetsOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DatetimeOffsetsOutputBuilder b) {}
   DateTime? get datetime;
   @override
   List<Object?> get props => [datetime];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DatetimeOffsetsOutput');
-    helper.add(
-      'datetime',
-      datetime,
-    );
+    final helper = newBuiltValueToStringHelper('DatetimeOffsetsOutput')
+      ..add(
+        'datetime',
+        datetime,
+      );
     return helper.toString();
   }
 }

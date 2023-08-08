@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.describe_type_registration_input;
+part of 'describe_type_registration_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -56,9 +56,7 @@ class DescribeTypeRegistrationInputBuilder
   set registrationToken(String? registrationToken) =>
       _$this._registrationToken = registrationToken;
 
-  DescribeTypeRegistrationInputBuilder() {
-    DescribeTypeRegistrationInput._init(this);
-  }
+  DescribeTypeRegistrationInputBuilder();
 
   DescribeTypeRegistrationInputBuilder get _$this {
     final $v = _$v;

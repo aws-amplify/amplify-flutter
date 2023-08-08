@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.validate_template_input;
+part of 'validate_template_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -57,9 +57,7 @@ class ValidateTemplateInputBuilder
   String? get templateUrl => _$this._templateUrl;
   set templateUrl(String? templateUrl) => _$this._templateUrl = templateUrl;
 
-  ValidateTemplateInputBuilder() {
-    ValidateTemplateInput._init(this);
-  }
+  ValidateTemplateInputBuilder();
 
   ValidateTemplateInputBuilder get _$this {
     final $v = _$v;

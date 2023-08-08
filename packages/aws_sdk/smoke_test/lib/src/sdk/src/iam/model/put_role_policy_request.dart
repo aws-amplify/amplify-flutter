@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.put_role_policy_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,9 @@ abstract class PutRolePolicyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<PutRolePolicyRequest>> serializers = [
     PutRolePolicyRequestAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutRolePolicyRequestBuilder b) {}
 
   /// The name of the role to associate the policy with.
   ///
@@ -79,19 +76,19 @@ abstract class PutRolePolicyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutRolePolicyRequest');
-    helper.add(
-      'roleName',
-      roleName,
-    );
-    helper.add(
-      'policyName',
-      policyName,
-    );
-    helper.add(
-      'policyDocument',
-      policyDocument,
-    );
+    final helper = newBuiltValueToStringHelper('PutRolePolicyRequest')
+      ..add(
+        'roleName',
+        roleName,
+      )
+      ..add(
+        'policyName',
+        policyName,
+      )
+      ..add(
+        'policyDocument',
+        policyDocument,
+      );
     return helper.toString();
   }
 }

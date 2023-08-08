@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.create_virtual_mfa_device_response;
+part of 'create_virtual_mfa_device_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -57,9 +57,7 @@ class CreateVirtualMfaDeviceResponseBuilder
   set virtualMfaDevice(_i2.VirtualMfaDeviceBuilder? virtualMfaDevice) =>
       _$this._virtualMfaDevice = virtualMfaDevice;
 
-  CreateVirtualMfaDeviceResponseBuilder() {
-    CreateVirtualMfaDeviceResponse._init(this);
-  }
+  CreateVirtualMfaDeviceResponseBuilder();
 
   CreateVirtualMfaDeviceResponseBuilder get _$this {
     final $v = _$v;

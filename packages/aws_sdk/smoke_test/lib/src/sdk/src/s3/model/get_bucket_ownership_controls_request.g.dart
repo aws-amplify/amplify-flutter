@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_bucket_ownership_controls_request;
+part of 'get_bucket_ownership_controls_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -67,9 +67,7 @@ class GetBucketOwnershipControlsRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetBucketOwnershipControlsRequestBuilder() {
-    GetBucketOwnershipControlsRequest._init(this);
-  }
+  GetBucketOwnershipControlsRequestBuilder();
 
   GetBucketOwnershipControlsRequestBuilder get _$this {
     final $v = _$v;
@@ -145,9 +143,7 @@ class GetBucketOwnershipControlsRequestPayloadBuilder
             GetBucketOwnershipControlsRequestPayloadBuilder> {
   _$GetBucketOwnershipControlsRequestPayload? _$v;
 
-  GetBucketOwnershipControlsRequestPayloadBuilder() {
-    GetBucketOwnershipControlsRequestPayload._init(this);
-  }
+  GetBucketOwnershipControlsRequestPayloadBuilder();
 
   @override
   void replace(GetBucketOwnershipControlsRequestPayload other) {

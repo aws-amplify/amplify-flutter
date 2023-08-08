@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v2.rest_json_validation_protocol.operation.malformed_pattern_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -78,7 +78,7 @@ class MalformedPatternOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i7.ValidationException, _i7.ValidationException>(
           _i1.ShapeId(
             namespace: 'smithy.framework',
             shape: 'ValidationException',
@@ -110,7 +110,7 @@ class MalformedPatternOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
+        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
       },
     );
   }

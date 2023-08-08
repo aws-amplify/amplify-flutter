@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.remove_client_id_from_open_id_connect_provider_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,11 @@ abstract class RemoveClientIdFromOpenIdConnectProviderRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<RemoveClientIdFromOpenIdConnectProviderRequest>>
+      serializers = [
     RemoveClientIdFromOpenIdConnectProviderRequestAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RemoveClientIdFromOpenIdConnectProviderRequestBuilder b) {}
 
   /// The Amazon Resource Name (ARN) of the IAM OIDC provider resource to remove the client ID from. You can get a list of OIDC provider ARNs by using the ListOpenIDConnectProviders operation.
   ///
@@ -64,15 +63,15 @@ abstract class RemoveClientIdFromOpenIdConnectProviderRequest
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'RemoveClientIdFromOpenIdConnectProviderRequest');
-    helper.add(
-      'openIdConnectProviderArn',
-      openIdConnectProviderArn,
-    );
-    helper.add(
-      'clientId',
-      clientId,
-    );
+        'RemoveClientIdFromOpenIdConnectProviderRequest')
+      ..add(
+        'openIdConnectProviderArn',
+        openIdConnectProviderArn,
+      )
+      ..add(
+        'clientId',
+        clientId,
+      );
     return helper.toString();
   }
 }

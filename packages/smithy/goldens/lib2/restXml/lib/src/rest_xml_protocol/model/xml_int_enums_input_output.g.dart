@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.rest_xml_protocol.model.xml_int_enums_input_output;
+part of 'xml_int_enums_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -102,9 +102,7 @@ class XmlIntEnumsInputOutputBuilder
   set intEnumMap(_i4.MapBuilder<String, _i3.IntegerEnum>? intEnumMap) =>
       _$this._intEnumMap = intEnumMap;
 
-  XmlIntEnumsInputOutputBuilder() {
-    XmlIntEnumsInputOutput._init(this);
-  }
+  XmlIntEnumsInputOutputBuilder();
 
   XmlIntEnumsInputOutputBuilder get _$this {
     final $v = _$v;

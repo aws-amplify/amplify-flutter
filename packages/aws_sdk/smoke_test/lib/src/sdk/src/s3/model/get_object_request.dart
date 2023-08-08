@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.get_object_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -169,12 +169,8 @@ abstract class GetObjectRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetObjectRequestRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetObjectRequestPayload>> serializers =
+      [GetObjectRequestRestXmlSerializer()];
 
   /// The bucket name containing the object.
   ///
@@ -182,7 +178,7 @@ abstract class GetObjectRequest
   ///
   /// When using an Object Lambda access point the hostname takes the form _AccessPointName_-_AccountId_.s3-object-lambda._Region_.amazonaws.com.
   ///
-  /// When using this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When using this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [Using Amazon S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
+  /// When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [What is S3 on Outposts?](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
   String get bucket;
 
   /// Return the object only if its entity tag (ETag) is the same as the one specified; otherwise, return a 412 (precondition failed) error.
@@ -200,7 +196,7 @@ abstract class GetObjectRequest
   /// Key of the object to get.
   String get key;
 
-  /// Downloads the specified range bytes of an object. For more information about the HTTP Range header, see [https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35).
+  /// Downloads the specified range bytes of an object. For more information about the HTTP Range header, see [https://www.rfc-editor.org/rfc/rfc9110.html#name-range](https://www.rfc-editor.org/rfc/rfc9110.html#name-range).
   ///
   /// Amazon S3 doesn't support retrieving multiple ranges of data per `GET` request.
   String? get range;
@@ -288,91 +284,91 @@ abstract class GetObjectRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'ifMatch',
-      ifMatch,
-    );
-    helper.add(
-      'ifModifiedSince',
-      ifModifiedSince,
-    );
-    helper.add(
-      'ifNoneMatch',
-      ifNoneMatch,
-    );
-    helper.add(
-      'ifUnmodifiedSince',
-      ifUnmodifiedSince,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'range',
-      range,
-    );
-    helper.add(
-      'responseCacheControl',
-      responseCacheControl,
-    );
-    helper.add(
-      'responseContentDisposition',
-      responseContentDisposition,
-    );
-    helper.add(
-      'responseContentEncoding',
-      responseContentEncoding,
-    );
-    helper.add(
-      'responseContentLanguage',
-      responseContentLanguage,
-    );
-    helper.add(
-      'responseContentType',
-      responseContentType,
-    );
-    helper.add(
-      'responseExpires',
-      responseExpires,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'sseCustomerAlgorithm',
-      sseCustomerAlgorithm,
-    );
-    helper.add(
-      'sseCustomerKey',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'sseCustomerKeyMd5',
-      sseCustomerKeyMd5,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
-    helper.add(
-      'partNumber',
-      partNumber,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
-      'checksumMode',
-      checksumMode,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'ifMatch',
+        ifMatch,
+      )
+      ..add(
+        'ifModifiedSince',
+        ifModifiedSince,
+      )
+      ..add(
+        'ifNoneMatch',
+        ifNoneMatch,
+      )
+      ..add(
+        'ifUnmodifiedSince',
+        ifUnmodifiedSince,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'range',
+        range,
+      )
+      ..add(
+        'responseCacheControl',
+        responseCacheControl,
+      )
+      ..add(
+        'responseContentDisposition',
+        responseContentDisposition,
+      )
+      ..add(
+        'responseContentEncoding',
+        responseContentEncoding,
+      )
+      ..add(
+        'responseContentLanguage',
+        responseContentLanguage,
+      )
+      ..add(
+        'responseContentType',
+        responseContentType,
+      )
+      ..add(
+        'responseExpires',
+        responseExpires,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'sseCustomerAlgorithm',
+        sseCustomerAlgorithm,
+      )
+      ..add(
+        'sseCustomerKey',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'sseCustomerKeyMd5',
+        sseCustomerKeyMd5,
+      )
+      ..add(
+        'requestPayer',
+        requestPayer,
+      )
+      ..add(
+        'partNumber',
+        partNumber,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      )
+      ..add(
+        'checksumMode',
+        checksumMode,
+      );
     return helper.toString();
   }
 }
@@ -389,8 +385,6 @@ abstract class GetObjectRequestPayload
 
   const GetObjectRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

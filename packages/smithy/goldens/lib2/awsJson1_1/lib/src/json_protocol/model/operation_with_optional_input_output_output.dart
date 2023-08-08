@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library aws_json1_1_v2.json_protocol.model.operation_with_optional_input_output_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,23 +33,23 @@ abstract class OperationWithOptionalInputOutputOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<OperationWithOptionalInputOutputOutput>>
+      serializers = [
     OperationWithOptionalInputOutputOutputAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OperationWithOptionalInputOutputOutputBuilder b) {}
   String? get value;
   @override
   List<Object?> get props => [value];
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('OperationWithOptionalInputOutputOutput');
-    helper.add(
-      'value',
-      value,
-    );
+        newBuiltValueToStringHelper('OperationWithOptionalInputOutputOutput')
+          ..add(
+            'value',
+            value,
+          );
     return helper.toString();
   }
 }

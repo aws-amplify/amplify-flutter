@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.delete_replication_group_member_action;
+part of 'delete_replication_group_member_action.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -58,9 +58,7 @@ class DeleteReplicationGroupMemberActionBuilder
   String? get regionName => _$this._regionName;
   set regionName(String? regionName) => _$this._regionName = regionName;
 
-  DeleteReplicationGroupMemberActionBuilder() {
-    DeleteReplicationGroupMemberAction._init(this);
-  }
+  DeleteReplicationGroupMemberActionBuilder();
 
   DeleteReplicationGroupMemberActionBuilder get _$this {
     final $v = _$v;

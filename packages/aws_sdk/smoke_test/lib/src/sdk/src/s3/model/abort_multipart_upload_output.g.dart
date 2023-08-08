@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.abort_multipart_upload_output;
+part of 'abort_multipart_upload_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class AbortMultipartUploadOutputBuilder
   set requestCharged(_i3.RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
-  AbortMultipartUploadOutputBuilder() {
-    AbortMultipartUploadOutput._init(this);
-  }
+  AbortMultipartUploadOutputBuilder();
 
   AbortMultipartUploadOutputBuilder get _$this {
     final $v = _$v;
@@ -122,9 +120,7 @@ class AbortMultipartUploadOutputPayloadBuilder
             AbortMultipartUploadOutputPayloadBuilder> {
   _$AbortMultipartUploadOutputPayload? _$v;
 
-  AbortMultipartUploadOutputPayloadBuilder() {
-    AbortMultipartUploadOutputPayload._init(this);
-  }
+  AbortMultipartUploadOutputPayloadBuilder();
 
   @override
   void replace(AbortMultipartUploadOutputPayload other) {

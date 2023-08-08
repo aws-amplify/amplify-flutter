@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.condition_check; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -49,12 +49,9 @@ abstract class ConditionCheck
 
   const ConditionCheck._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<ConditionCheck>> serializers = [
     ConditionCheckAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConditionCheckBuilder b) {}
 
   /// The primary key of the item to be checked. Each element consists of an attribute name and a value for that attribute.
   _i4.BuiltMap<String, _i2.AttributeValue> get key;
@@ -62,13 +59,13 @@ abstract class ConditionCheck
   /// Name of the table for the check item request.
   String get tableName;
 
-  /// A condition that must be satisfied in order for a conditional update to succeed.
+  /// A condition that must be satisfied in order for a conditional update to succeed. For more information, see [Condition expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ConditionExpressions.html) in the _Amazon DynamoDB Developer Guide_.
   String get conditionExpression;
 
-  /// One or more substitution tokens for attribute names in an expression.
+  /// One or more substitution tokens for attribute names in an expression. For more information, see [Expression attribute names](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ExpressionAttributeNames.html) in the _Amazon DynamoDB Developer Guide_.
   _i4.BuiltMap<String, String>? get expressionAttributeNames;
 
-  /// One or more values that can be substituted in an expression.
+  /// One or more values that can be substituted in an expression. For more information, see [Condition expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ConditionExpressions.html) in the _Amazon DynamoDB Developer Guide_.
   _i4.BuiltMap<String, _i2.AttributeValue>? get expressionAttributeValues;
 
   /// Use `ReturnValuesOnConditionCheckFailure` to get the item attributes if the `ConditionCheck` condition fails. For `ReturnValuesOnConditionCheckFailure`, the valid values are: NONE and ALL_OLD.
@@ -85,31 +82,31 @@ abstract class ConditionCheck
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConditionCheck');
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'conditionExpression',
-      conditionExpression,
-    );
-    helper.add(
-      'expressionAttributeNames',
-      expressionAttributeNames,
-    );
-    helper.add(
-      'expressionAttributeValues',
-      expressionAttributeValues,
-    );
-    helper.add(
-      'returnValuesOnConditionCheckFailure',
-      returnValuesOnConditionCheckFailure,
-    );
+    final helper = newBuiltValueToStringHelper('ConditionCheck')
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'conditionExpression',
+        conditionExpression,
+      )
+      ..add(
+        'expressionAttributeNames',
+        expressionAttributeNames,
+      )
+      ..add(
+        'expressionAttributeValues',
+        expressionAttributeValues,
+      )
+      ..add(
+        'returnValuesOnConditionCheckFailure',
+        returnValuesOnConditionCheckFailure,
+      );
     return helper.toString();
   }
 }

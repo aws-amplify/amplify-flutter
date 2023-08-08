@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.put_rest_api_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -28,6 +28,7 @@ abstract class PutRestApiRequest
     Map<String, String>? parameters,
     required _i2.Uint8List body,
   }) {
+    failOnWarnings ??= false;
     return _$PutRestApiRequest._(
       restApiId: restApiId,
       mode: mode,
@@ -62,12 +63,14 @@ abstract class PutRestApiRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.Uint8List>> serializers = [
     PutRestApiRequestRestJson1Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutRestApiRequestBuilder b) {}
+  static void _init(PutRestApiRequestBuilder b) {
+    b.failOnWarnings = false;
+  }
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -76,7 +79,7 @@ abstract class PutRestApiRequest
   _i4.PutMode? get mode;
 
   /// A query parameter to indicate whether to rollback the API update (`true`) or not (`false`) when a warning is encountered. The default value is `false`.
-  bool? get failOnWarnings;
+  bool get failOnWarnings;
 
   /// Custom header parameters as part of the request. For example, to exclude DocumentationParts from an imported API, set `ignore=documentation` as a `parameters` value, as in the AWS CLI command of `aws apigateway import-rest-api --parameters ignore=documentation --body 'file:///path/to/imported-api-body.json'`.
   _i5.BuiltMap<String, String>? get parameters;
@@ -107,27 +110,27 @@ abstract class PutRestApiRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutRestApiRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'mode',
-      mode,
-    );
-    helper.add(
-      'failOnWarnings',
-      failOnWarnings,
-    );
-    helper.add(
-      'parameters',
-      parameters,
-    );
-    helper.add(
-      'body',
-      body,
-    );
+    final helper = newBuiltValueToStringHelper('PutRestApiRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'mode',
+        mode,
+      )
+      ..add(
+        'failOnWarnings',
+        failOnWarnings,
+      )
+      ..add(
+        'parameters',
+        parameters,
+      )
+      ..add(
+        'body',
+        body,
+      );
     return helper.toString();
   }
 }

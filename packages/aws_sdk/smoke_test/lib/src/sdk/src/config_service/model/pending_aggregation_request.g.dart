@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.pending_aggregation_request;
+part of 'pending_aggregation_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -62,9 +62,7 @@ class PendingAggregationRequestBuilder
   set requesterAwsRegion(String? requesterAwsRegion) =>
       _$this._requesterAwsRegion = requesterAwsRegion;
 
-  PendingAggregationRequestBuilder() {
-    PendingAggregationRequest._init(this);
-  }
+  PendingAggregationRequestBuilder();
 
   PendingAggregationRequestBuilder get _$this {
     final $v = _$v;

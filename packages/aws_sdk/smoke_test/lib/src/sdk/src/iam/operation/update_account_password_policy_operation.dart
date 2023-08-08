@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.operation.update_account_password_policy_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -134,7 +134,7 @@ class UpdateAccountPasswordPolicyOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.LimitExceededException, _i8.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'LimitExceededException',
@@ -144,7 +144,8 @@ class UpdateAccountPasswordPolicyOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i8.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.MalformedPolicyDocumentException,
+            _i9.MalformedPolicyDocumentException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'MalformedPolicyDocumentException',
@@ -154,7 +155,7 @@ class UpdateAccountPasswordPolicyOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i9.MalformedPolicyDocumentException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.NoSuchEntityException, _i10.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
@@ -164,7 +165,8 @@ class UpdateAccountPasswordPolicyOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i10.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.ServiceFailureException,
+            _i11.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',
@@ -197,7 +199,7 @@ class UpdateAccountPasswordPolicyOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
+        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
       },
     );
   }

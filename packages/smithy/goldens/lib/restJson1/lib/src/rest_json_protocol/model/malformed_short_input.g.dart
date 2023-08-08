@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_protocol.model.malformed_short_input;
+part of 'malformed_short_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -82,9 +82,7 @@ class MalformedShortInputBuilder
   set shortInHeader(int? shortInHeader) =>
       _$this._shortInHeader = shortInHeader;
 
-  MalformedShortInputBuilder() {
-    MalformedShortInput._init(this);
-  }
+  MalformedShortInputBuilder();
 
   MalformedShortInputBuilder get _$this {
     final $v = _$v;
@@ -169,9 +167,7 @@ class MalformedShortInputPayloadBuilder
   int? get shortInBody => _$this._shortInBody;
   set shortInBody(int? shortInBody) => _$this._shortInBody = shortInBody;
 
-  MalformedShortInputPayloadBuilder() {
-    MalformedShortInputPayload._init(this);
-  }
+  MalformedShortInputPayloadBuilder();
 
   MalformedShortInputPayloadBuilder get _$this {
     final $v = _$v;

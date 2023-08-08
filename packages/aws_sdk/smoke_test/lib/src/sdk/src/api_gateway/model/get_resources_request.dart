@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.get_resources_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -65,12 +65,8 @@ abstract class GetResourcesRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetResourcesRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetResourcesRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetResourcesRequestPayload>>
+      serializers = [GetResourcesRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -106,23 +102,23 @@ abstract class GetResourcesRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetResourcesRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'position',
-      position,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'embed',
-      embed,
-    );
+    final helper = newBuiltValueToStringHelper('GetResourcesRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'position',
+        position,
+      )
+      ..add(
+        'limit',
+        limit,
+      )
+      ..add(
+        'embed',
+        embed,
+      );
     return helper.toString();
   }
 }
@@ -139,8 +135,6 @@ abstract class GetResourcesRequestPayload
 
   const GetResourcesRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetResourcesRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.operation.detect_stack_set_drift_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -26,22 +26,22 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_set_not_found
 
 /// Detect drift on a stack set. When CloudFormation performs drift detection on a stack set, it performs drift detection on the stack associated with each stack instance in the stack set. For more information, see [How CloudFormation performs drift detection on a stack set](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-drift.html).
 ///
-/// `DetectStackSetDrift` returns the `OperationId` of the stack set drift detection operation. Use this operation id with `DescribeStackSetOperation` to monitor the progress of the drift detection operation. The drift detection operation may take some time, depending on the number of stack instances included in the stack set, in addition to the number of resources included in each stack.
+/// `DetectStackSetDrift` returns the `OperationId` of the stack set drift detection operation. Use this operation id with DescribeStackSetOperation to monitor the progress of the drift detection operation. The drift detection operation may take some time, depending on the number of stack instances included in the stack set, in addition to the number of resources included in each stack.
 ///
 /// Once the operation has completed, use the following actions to return drift information:
 ///
-/// *   Use `DescribeStackSet` to return detailed information about the stack set, including detailed information about the last _completed_ drift operation performed on the stack set. (Information about drift operations that are in progress isn't included.)
+/// *   Use DescribeStackSet to return detailed information about the stack set, including detailed information about the last _completed_ drift operation performed on the stack set. (Information about drift operations that are in progress isn't included.)
 ///
-/// *   Use `ListStackInstances` to return a list of stack instances belonging to the stack set, including the drift status and last drift time checked of each instance.
+/// *   Use ListStackInstances to return a list of stack instances belonging to the stack set, including the drift status and last drift time checked of each instance.
 ///
-/// *   Use `DescribeStackInstance` to return detailed information about a specific stack instance, including its drift status and last drift time checked.
+/// *   Use DescribeStackInstance to return detailed information about a specific stack instance, including its drift status and last drift time checked.
 ///
 ///
 /// For more information about performing a drift detection operation on a stack set, see [Detecting unmanaged changes in stack sets](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-drift.html).
 ///
 /// You can only run a single drift detection operation on a given stack set at one time.
 ///
-/// To stop a drift detection stack set operation, use `StopStackSetOperation` .
+/// To stop a drift detection stack set operation, use StopStackSetOperation.
 class DetectStackSetDriftOperation extends _i1.HttpOperation<
     _i2.DetectStackSetDriftInput,
     _i2.DetectStackSetDriftInput,
@@ -49,22 +49,22 @@ class DetectStackSetDriftOperation extends _i1.HttpOperation<
     _i3.DetectStackSetDriftOutput> {
   /// Detect drift on a stack set. When CloudFormation performs drift detection on a stack set, it performs drift detection on the stack associated with each stack instance in the stack set. For more information, see [How CloudFormation performs drift detection on a stack set](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-drift.html).
   ///
-  /// `DetectStackSetDrift` returns the `OperationId` of the stack set drift detection operation. Use this operation id with `DescribeStackSetOperation` to monitor the progress of the drift detection operation. The drift detection operation may take some time, depending on the number of stack instances included in the stack set, in addition to the number of resources included in each stack.
+  /// `DetectStackSetDrift` returns the `OperationId` of the stack set drift detection operation. Use this operation id with DescribeStackSetOperation to monitor the progress of the drift detection operation. The drift detection operation may take some time, depending on the number of stack instances included in the stack set, in addition to the number of resources included in each stack.
   ///
   /// Once the operation has completed, use the following actions to return drift information:
   ///
-  /// *   Use `DescribeStackSet` to return detailed information about the stack set, including detailed information about the last _completed_ drift operation performed on the stack set. (Information about drift operations that are in progress isn't included.)
+  /// *   Use DescribeStackSet to return detailed information about the stack set, including detailed information about the last _completed_ drift operation performed on the stack set. (Information about drift operations that are in progress isn't included.)
   ///
-  /// *   Use `ListStackInstances` to return a list of stack instances belonging to the stack set, including the drift status and last drift time checked of each instance.
+  /// *   Use ListStackInstances to return a list of stack instances belonging to the stack set, including the drift status and last drift time checked of each instance.
   ///
-  /// *   Use `DescribeStackInstance` to return detailed information about a specific stack instance, including its drift status and last drift time checked.
+  /// *   Use DescribeStackInstance to return detailed information about a specific stack instance, including its drift status and last drift time checked.
   ///
   ///
   /// For more information about performing a drift detection operation on a stack set, see [Detecting unmanaged changes in stack sets](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-drift.html).
   ///
   /// You can only run a single drift detection operation on a given stack set at one time.
   ///
-  /// To stop a drift detection stack set operation, use `StopStackSetOperation` .
+  /// To stop a drift detection stack set operation, use StopStackSetOperation.
   DetectStackSetDriftOperation({
     required String region,
     Uri? baseUri,
@@ -159,7 +159,8 @@ class DetectStackSetDriftOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InvalidOperationException,
+            _i9.InvalidOperationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'InvalidOperationException',
@@ -169,7 +170,8 @@ class DetectStackSetDriftOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i9.InvalidOperationException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.OperationInProgressException,
+            _i10.OperationInProgressException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'OperationInProgressException',
@@ -179,7 +181,8 @@ class DetectStackSetDriftOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i10.OperationInProgressException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.StackSetNotFoundException,
+            _i11.StackSetNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'StackSetNotFoundException',
@@ -212,7 +215,7 @@ class DetectStackSetDriftOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

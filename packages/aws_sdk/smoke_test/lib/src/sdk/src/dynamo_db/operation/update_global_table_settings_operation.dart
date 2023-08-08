@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.operation.update_global_table_settings_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,16 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_global_table_setti
     as _i3;
 
 /// Updates settings for a global table.
+///
+/// This operation only applies to [Version 2017.11.29 (Legacy)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V1.html) of global tables. We recommend using [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) when creating new global tables, as it provides greater flexibility, higher efficiency and consumes less write capacity than 2017.11.29 (Legacy). To determine which version you are using, see [Determining the version](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.DetermineVersion.html). To update existing global tables from version 2017.11.29 (Legacy) to version 2019.11.21 (Current), see [Updating global tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/V2globaltables_upgrade.html).
 class UpdateGlobalTableSettingsOperation extends _i1.HttpOperation<
     _i2.UpdateGlobalTableSettingsInput,
     _i2.UpdateGlobalTableSettingsInput,
     _i3.UpdateGlobalTableSettingsOutput,
     _i3.UpdateGlobalTableSettingsOutput> {
   /// Updates settings for a global table.
+  ///
+  /// This operation only applies to [Version 2017.11.29 (Legacy)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V1.html) of global tables. We recommend using [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) when creating new global tables, as it provides greater flexibility, higher efficiency and consumes less write capacity than 2017.11.29 (Legacy). To determine which version you are using, see [Determining the version](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.DetermineVersion.html). To update existing global tables from version 2017.11.29 (Legacy) to version 2019.11.21 (Current), see [Updating global tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/V2globaltables_upgrade.html).
   UpdateGlobalTableSettingsOperation({
     required String region,
     Uri? baseUri,
@@ -118,7 +122,8 @@ class UpdateGlobalTableSettingsOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.GlobalTableNotFoundException,
+            _i9.GlobalTableNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'GlobalTableNotFoundException',
@@ -127,7 +132,8 @@ class UpdateGlobalTableSettingsOperation extends _i1.HttpOperation<
           _i9.GlobalTableNotFoundException,
           builder: _i9.GlobalTableNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.IndexNotFoundException,
+            _i10.IndexNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'IndexNotFoundException',
@@ -136,7 +142,7 @@ class UpdateGlobalTableSettingsOperation extends _i1.HttpOperation<
           _i10.IndexNotFoundException,
           builder: _i10.IndexNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InternalServerError, _i11.InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
@@ -145,7 +151,8 @@ class UpdateGlobalTableSettingsOperation extends _i1.HttpOperation<
           _i11.InternalServerError,
           builder: _i11.InternalServerError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.InvalidEndpointException,
+            _i12.InvalidEndpointException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InvalidEndpointException',
@@ -155,7 +162,8 @@ class UpdateGlobalTableSettingsOperation extends _i1.HttpOperation<
           statusCode: 421,
           builder: _i12.InvalidEndpointException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.LimitExceededException,
+            _i13.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'LimitExceededException',
@@ -164,7 +172,8 @@ class UpdateGlobalTableSettingsOperation extends _i1.HttpOperation<
           _i13.LimitExceededException,
           builder: _i13.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.ReplicaNotFoundException,
+            _i14.ReplicaNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ReplicaNotFoundException',
@@ -173,7 +182,8 @@ class UpdateGlobalTableSettingsOperation extends _i1.HttpOperation<
           _i14.ReplicaNotFoundException,
           builder: _i14.ReplicaNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.ResourceInUseException,
+            _i15.ResourceInUseException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ResourceInUseException',
@@ -205,7 +215,7 @@ class UpdateGlobalTableSettingsOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

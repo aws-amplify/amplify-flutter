@@ -117,7 +117,7 @@ class MultiRelatedRegistration extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("MultiRelatedRegistration {");
     buffer.write("id=" + "$id" + ", ");
@@ -187,7 +187,7 @@ class MultiRelatedRegistration extends amplify_core.Model {
       };
 
   static final amplify_core
-          .QueryModelIdentifier<MultiRelatedRegistrationModelIdentifier>
+      .QueryModelIdentifier<MultiRelatedRegistrationModelIdentifier>
       MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<
           MultiRelatedRegistrationModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
@@ -267,7 +267,7 @@ class MultiRelatedRegistrationModelIdentifier
     implements amplify_core.ModelIdentifier<MultiRelatedRegistration> {
   final String id;
 
-  /// Create an instance of MultiRelatedRegistrationModelIdentifier using [id] the primary key.
+  /** Create an instance of MultiRelatedRegistrationModelIdentifier using [id] the primary key. */
   const MultiRelatedRegistrationModelIdentifier({required this.id});
 
   @override

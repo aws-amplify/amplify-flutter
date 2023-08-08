@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.access_key_last_used; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,9 @@ abstract class AccessKeyLastUsed
 
   const AccessKeyLastUsed._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<AccessKeyLastUsed>> serializers = [
     AccessKeyLastUsedAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AccessKeyLastUsedBuilder b) {}
 
   /// The date and time, in [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the access key was most recently used. This field is null in the following situations:
   ///
@@ -83,19 +80,19 @@ abstract class AccessKeyLastUsed
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AccessKeyLastUsed');
-    helper.add(
-      'lastUsedDate',
-      lastUsedDate,
-    );
-    helper.add(
-      'serviceName',
-      serviceName,
-    );
-    helper.add(
-      'region',
-      region,
-    );
+    final helper = newBuiltValueToStringHelper('AccessKeyLastUsed')
+      ..add(
+        'lastUsedDate',
+        lastUsedDate,
+      )
+      ..add(
+        'serviceName',
+        serviceName,
+      )
+      ..add(
+        'region',
+        region,
+      );
     return helper.toString();
   }
 }

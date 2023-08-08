@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.create_documentation_version_request;
+part of 'create_documentation_version_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -88,9 +88,7 @@ class CreateDocumentationVersionRequestBuilder
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  CreateDocumentationVersionRequestBuilder() {
-    CreateDocumentationVersionRequest._init(this);
-  }
+  CreateDocumentationVersionRequestBuilder();
 
   CreateDocumentationVersionRequestBuilder get _$this {
     final $v = _$v;
@@ -206,9 +204,7 @@ class CreateDocumentationVersionRequestPayloadBuilder
   String? get stageName => _$this._stageName;
   set stageName(String? stageName) => _$this._stageName = stageName;
 
-  CreateDocumentationVersionRequestPayloadBuilder() {
-    CreateDocumentationVersionRequestPayload._init(this);
-  }
+  CreateDocumentationVersionRequestPayloadBuilder();
 
   CreateDocumentationVersionRequestPayloadBuilder get _$this {
     final $v = _$v;

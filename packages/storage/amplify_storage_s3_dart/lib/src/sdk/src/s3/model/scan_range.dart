@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_storage_s3_dart.s3.model.scan_range; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,12 +32,9 @@ abstract class ScanRange
 
   const ScanRange._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ScanRange>> serializers = [
     ScanRangeRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ScanRangeBuilder b) {}
 
   /// Specifies the start of the byte range. This parameter is optional. Valid values: non-negative integers. The default value is 0. If only `start` is supplied, it means scan from that point to the end of the file. For example, `50` means scan from byte 50 until the end of the file.
   _i2.Int64? get start;
@@ -51,15 +48,15 @@ abstract class ScanRange
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ScanRange');
-    helper.add(
-      'start',
-      start,
-    );
-    helper.add(
-      'end',
-      end,
-    );
+    final helper = newBuiltValueToStringHelper('ScanRange')
+      ..add(
+        'start',
+        start,
+      )
+      ..add(
+        'end',
+        end,
+      );
     return helper.toString();
   }
 }

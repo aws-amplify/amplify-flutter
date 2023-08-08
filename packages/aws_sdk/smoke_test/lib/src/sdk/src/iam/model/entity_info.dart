@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.entity_info; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -45,12 +45,9 @@ abstract class EntityInfo
 
   const EntityInfo._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<EntityInfo>> serializers = [
     EntityInfoAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EntityInfoBuilder b) {}
 
   /// The Amazon Resource Name (ARN). ARNs are unique identifiers for Amazon Web Services resources.
   ///
@@ -78,27 +75,27 @@ abstract class EntityInfo
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EntityInfo');
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'path',
-      path,
-    );
+    final helper = newBuiltValueToStringHelper('EntityInfo')
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'path',
+        path,
+      );
     return helper.toString();
   }
 }

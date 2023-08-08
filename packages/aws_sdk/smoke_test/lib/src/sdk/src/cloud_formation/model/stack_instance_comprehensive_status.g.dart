@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.stack_instance_comprehensive_status;
+part of 'stack_instance_comprehensive_status.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -53,9 +53,7 @@ class StackInstanceComprehensiveStatusBuilder
   set detailedStatus(_i2.StackInstanceDetailedStatus? detailedStatus) =>
       _$this._detailedStatus = detailedStatus;
 
-  StackInstanceComprehensiveStatusBuilder() {
-    StackInstanceComprehensiveStatus._init(this);
-  }
+  StackInstanceComprehensiveStatusBuilder();
 
   StackInstanceComprehensiveStatusBuilder get _$this {
     final $v = _$v;

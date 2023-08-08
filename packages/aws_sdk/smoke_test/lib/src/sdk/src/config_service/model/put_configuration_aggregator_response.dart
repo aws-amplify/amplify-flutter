@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.put_configuration_aggregator_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,12 +37,8 @@ abstract class PutConfigurationAggregatorResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    PutConfigurationAggregatorResponseAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutConfigurationAggregatorResponseBuilder b) {}
+  static const List<_i3.SmithySerializer<PutConfigurationAggregatorResponse>>
+      serializers = [PutConfigurationAggregatorResponseAwsJson11Serializer()];
 
   /// Returns a ConfigurationAggregator object.
   _i2.ConfigurationAggregator? get configurationAggregator;
@@ -51,11 +47,11 @@ abstract class PutConfigurationAggregatorResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutConfigurationAggregatorResponse');
-    helper.add(
-      'configurationAggregator',
-      configurationAggregator,
-    );
+        newBuiltValueToStringHelper('PutConfigurationAggregatorResponse')
+          ..add(
+            'configurationAggregator',
+            configurationAggregator,
+          );
     return helper.toString();
   }
 }

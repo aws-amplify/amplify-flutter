@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.object_already_in_active_tier_error;
+part of 'object_already_in_active_tier_error.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class ObjectAlreadyInActiveTierErrorBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ObjectAlreadyInActiveTierErrorBuilder() {
-    ObjectAlreadyInActiveTierError._init(this);
-  }
+  ObjectAlreadyInActiveTierErrorBuilder();
 
   ObjectAlreadyInActiveTierErrorBuilder get _$this {
     final $v = _$v;

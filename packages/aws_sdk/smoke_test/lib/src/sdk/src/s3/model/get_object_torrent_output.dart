@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.get_object_torrent_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,6 +22,7 @@ abstract class GetObjectTorrentOutput
     _i3.Stream<List<int>>? body,
     _i4.RequestCharged? requestCharged,
   }) {
+    body ??= const _i3.Stream.empty();
     return _$GetObjectTorrentOutput._(
       body: body,
       requestCharged: requestCharged,
@@ -36,7 +37,7 @@ abstract class GetObjectTorrentOutput
 
   /// Constructs a [GetObjectTorrentOutput] from a [payload] and [response].
   factory GetObjectTorrentOutput.fromResponse(
-    _i3.Stream<List<int>>? payload,
+    _i3.Stream<List<int>> payload,
     _i1.AWSBaseHttpResponse response,
   ) =>
       GetObjectTorrentOutput.build((b) {
@@ -47,20 +48,22 @@ abstract class GetObjectTorrentOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<_i3.Stream<List<int>>>> serializers = [
     GetObjectTorrentOutputRestXmlSerializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectTorrentOutputBuilder b) {}
+  static void _init(GetObjectTorrentOutputBuilder b) {
+    b.body = const _i3.Stream.empty();
+  }
 
   /// A Bencoded dictionary as defined by the BitTorrent specification
-  _i3.Stream<List<int>>? get body;
+  _i3.Stream<List<int>> get body;
 
   /// If present, indicates that the requester was successfully charged for the request.
   _i4.RequestCharged? get requestCharged;
   @override
-  _i3.Stream<List<int>>? getPayload() => body;
+  _i3.Stream<List<int>> getPayload() => body;
   @override
   List<Object?> get props => [
         body,
@@ -68,15 +71,15 @@ abstract class GetObjectTorrentOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectTorrentOutput');
-    helper.add(
-      'body',
-      body,
-    );
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectTorrentOutput')
+      ..add(
+        'body',
+        body,
+      )
+      ..add(
+        'requestCharged',
+        requestCharged,
+      );
     return helper.toString();
   }
 }

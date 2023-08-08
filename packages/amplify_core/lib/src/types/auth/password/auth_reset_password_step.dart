@@ -3,6 +3,7 @@
 
 import 'package:amplify_core/src/types/auth/password/reset_password_step.dart';
 
+/// {@category Auth}
 /// {@template amplify_core.auth.auth_reset_password_step}
 /// The current step in the reset password flow.
 /// {@endtemplate}

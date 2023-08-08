@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.get_export_request;
+part of 'get_export_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -95,9 +95,7 @@ class GetExportRequestBuilder
   String? get accepts => _$this._accepts;
   set accepts(String? accepts) => _$this._accepts = accepts;
 
-  GetExportRequestBuilder() {
-    GetExportRequest._init(this);
-  }
+  GetExportRequestBuilder();
 
   GetExportRequestBuilder get _$this {
     final $v = _$v;
@@ -188,9 +186,7 @@ class GetExportRequestPayloadBuilder
         Builder<GetExportRequestPayload, GetExportRequestPayloadBuilder> {
   _$GetExportRequestPayload? _$v;
 
-  GetExportRequestPayloadBuilder() {
-    GetExportRequestPayload._init(this);
-  }
+  GetExportRequestPayloadBuilder();
 
   @override
   void replace(GetExportRequestPayload other) {

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library aws_json1_1_v2.json_protocol.model.null_operation_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -51,12 +51,9 @@ abstract class NullOperationInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    NullOperationInputOutputAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<NullOperationInputOutput>>
+      serializers = [NullOperationInputOutputAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NullOperationInputOutputBuilder b) {}
   String? get string;
   _i3.BuiltList<String?>? get sparseStringList;
   _i3.BuiltMap<String, String?>? get sparseStringMap;
@@ -70,19 +67,19 @@ abstract class NullOperationInputOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('NullOperationInputOutput');
-    helper.add(
-      'string',
-      string,
-    );
-    helper.add(
-      'sparseStringList',
-      sparseStringList,
-    );
-    helper.add(
-      'sparseStringMap',
-      sparseStringMap,
-    );
+    final helper = newBuiltValueToStringHelper('NullOperationInputOutput')
+      ..add(
+        'string',
+        string,
+      )
+      ..add(
+        'sparseStringList',
+        sparseStringList,
+      )
+      ..add(
+        'sparseStringMap',
+        sparseStringMap,
+      );
     return helper.toString();
   }
 }

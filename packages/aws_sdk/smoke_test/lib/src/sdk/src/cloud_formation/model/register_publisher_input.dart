@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.register_publisher_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,8 @@ abstract class RegisterPublisherInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    RegisterPublisherInputAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RegisterPublisherInputBuilder b) {}
+  static const List<_i1.SmithySerializer<RegisterPublisherInput>> serializers =
+      [RegisterPublisherInputAwsQuerySerializer()];
 
   /// Whether you accept the [Terms and Conditions](https://cloudformation-registry-documents.s3.amazonaws.com/Terms_and_Conditions_for_AWS_CloudFormation_Registry_Publishers.pdf) for publishing extensions in the CloudFormation registry. You must accept the terms and conditions in order to register to publish public extensions to the CloudFormation registry.
   ///
@@ -63,15 +59,15 @@ abstract class RegisterPublisherInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RegisterPublisherInput');
-    helper.add(
-      'acceptTermsAndConditions',
-      acceptTermsAndConditions,
-    );
-    helper.add(
-      'connectionArn',
-      connectionArn,
-    );
+    final helper = newBuiltValueToStringHelper('RegisterPublisherInput')
+      ..add(
+        'acceptTermsAndConditions',
+        acceptTermsAndConditions,
+      )
+      ..add(
+        'connectionArn',
+        connectionArn,
+      );
     return helper.toString();
   }
 }

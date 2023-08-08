@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.put_delivery_channel_request;
+part of 'put_delivery_channel_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class PutDeliveryChannelRequestBuilder
   set deliveryChannel(_i3.DeliveryChannelBuilder? deliveryChannel) =>
       _$this._deliveryChannel = deliveryChannel;
 
-  PutDeliveryChannelRequestBuilder() {
-    PutDeliveryChannelRequest._init(this);
-  }
+  PutDeliveryChannelRequestBuilder();
 
   PutDeliveryChannelRequestBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.describe_backup_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,12 +32,9 @@ abstract class DescribeBackupInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<DescribeBackupInput>> serializers = [
     DescribeBackupInputAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeBackupInputBuilder b) {}
 
   /// The Amazon Resource Name (ARN) associated with the backup.
   String get backupArn;
@@ -47,11 +44,11 @@ abstract class DescribeBackupInput
   List<Object?> get props => [backupArn];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeBackupInput');
-    helper.add(
-      'backupArn',
-      backupArn,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeBackupInput')
+      ..add(
+        'backupArn',
+        backupArn,
+      );
     return helper.toString();
   }
 }

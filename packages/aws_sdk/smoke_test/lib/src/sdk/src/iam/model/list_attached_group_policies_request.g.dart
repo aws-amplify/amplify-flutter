@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.list_attached_group_policies_request;
+part of 'list_attached_group_policies_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -81,9 +81,7 @@ class ListAttachedGroupPoliciesRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  ListAttachedGroupPoliciesRequestBuilder() {
-    ListAttachedGroupPoliciesRequest._init(this);
-  }
+  ListAttachedGroupPoliciesRequestBuilder();
 
   ListAttachedGroupPoliciesRequestBuilder get _$this {
     final $v = _$v;

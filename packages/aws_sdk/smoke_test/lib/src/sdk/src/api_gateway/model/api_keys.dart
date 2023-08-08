@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.api_keys; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,12 +41,9 @@ abstract class ApiKeys
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ApiKeys>> serializers = [
     ApiKeysRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ApiKeysBuilder b) {}
 
   /// A list of warning messages logged during the import of API keys when the `failOnWarnings` option is set to true.
   _i3.BuiltList<String>? get warnings;
@@ -64,19 +61,19 @@ abstract class ApiKeys
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ApiKeys');
-    helper.add(
-      'warnings',
-      warnings,
-    );
-    helper.add(
-      'items',
-      items,
-    );
-    helper.add(
-      'position',
-      position,
-    );
+    final helper = newBuiltValueToStringHelper('ApiKeys')
+      ..add(
+        'warnings',
+        warnings,
+      )
+      ..add(
+        'items',
+        items,
+      )
+      ..add(
+        'position',
+        position,
+      );
     return helper.toString();
   }
 }

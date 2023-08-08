@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_object_attributes_parts;
+part of 'get_object_attributes_parts.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -101,9 +101,7 @@ class GetObjectAttributesPartsBuilder
       _$this._parts ??= new _i3.ListBuilder<_i2.ObjectPart>();
   set parts(_i3.ListBuilder<_i2.ObjectPart>? parts) => _$this._parts = parts;
 
-  GetObjectAttributesPartsBuilder() {
-    GetObjectAttributesParts._init(this);
-  }
+  GetObjectAttributesPartsBuilder();
 
   GetObjectAttributesPartsBuilder get _$this {
     final $v = _$v;

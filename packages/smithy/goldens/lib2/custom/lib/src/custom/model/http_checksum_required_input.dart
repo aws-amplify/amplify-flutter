@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library custom_v2.custom.model.http_checksum_required_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,10 @@ abstract class HttpChecksumRequiredInput
         b.content = payload;
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.Uint8List?>> serializers = [
     HttpChecksumRequiredInputRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpChecksumRequiredInputBuilder b) {}
   _i2.Uint8List? get content;
   @override
   _i2.Uint8List? getPayload() => content;
@@ -51,11 +49,11 @@ abstract class HttpChecksumRequiredInput
   List<Object?> get props => [content];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('HttpChecksumRequiredInput');
-    helper.add(
-      'content',
-      content,
-    );
+    final helper = newBuiltValueToStringHelper('HttpChecksumRequiredInput')
+      ..add(
+        'content',
+        content,
+      );
     return helper.toString();
   }
 }

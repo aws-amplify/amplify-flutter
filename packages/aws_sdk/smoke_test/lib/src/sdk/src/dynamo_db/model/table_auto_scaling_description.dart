@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.table_auto_scaling_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,8 @@ abstract class TableAutoScalingDescription
 
   const TableAutoScalingDescription._();
 
-  static const List<_i5.SmithySerializer> serializers = [
-    TableAutoScalingDescriptionAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TableAutoScalingDescriptionBuilder b) {}
+  static const List<_i5.SmithySerializer<TableAutoScalingDescription>>
+      serializers = [TableAutoScalingDescriptionAwsJson10Serializer()];
 
   /// The name of the table.
   String? get tableName;
@@ -71,19 +67,19 @@ abstract class TableAutoScalingDescription
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TableAutoScalingDescription');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'tableStatus',
-      tableStatus,
-    );
-    helper.add(
-      'replicas',
-      replicas,
-    );
+    final helper = newBuiltValueToStringHelper('TableAutoScalingDescription')
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'tableStatus',
+        tableStatus,
+      )
+      ..add(
+        'replicas',
+        replicas,
+      );
     return helper.toString();
   }
 }

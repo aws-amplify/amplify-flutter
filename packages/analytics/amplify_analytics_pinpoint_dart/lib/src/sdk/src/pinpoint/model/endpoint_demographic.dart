@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.endpoint_demographic; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,12 +44,9 @@ abstract class EndpointDemographic
 
   const EndpointDemographic._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<EndpointDemographic>> serializers = [
     EndpointDemographicRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EndpointDemographicBuilder b) {}
 
   /// The version of the app that's associated with the endpoint.
   String? get appVersion;
@@ -87,39 +84,39 @@ abstract class EndpointDemographic
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EndpointDemographic');
-    helper.add(
-      'appVersion',
-      appVersion,
-    );
-    helper.add(
-      'locale',
-      locale,
-    );
-    helper.add(
-      'make',
-      make,
-    );
-    helper.add(
-      'model',
-      model,
-    );
-    helper.add(
-      'modelVersion',
-      modelVersion,
-    );
-    helper.add(
-      'platform',
-      platform,
-    );
-    helper.add(
-      'platformVersion',
-      platformVersion,
-    );
-    helper.add(
-      'timezone',
-      timezone,
-    );
+    final helper = newBuiltValueToStringHelper('EndpointDemographic')
+      ..add(
+        'appVersion',
+        appVersion,
+      )
+      ..add(
+        'locale',
+        locale,
+      )
+      ..add(
+        'make',
+        make,
+      )
+      ..add(
+        'model',
+        model,
+      )
+      ..add(
+        'modelVersion',
+        modelVersion,
+      )
+      ..add(
+        'platform',
+        platform,
+      )
+      ..add(
+        'platformVersion',
+        platformVersion,
+      )
+      ..add(
+        'timezone',
+        timezone,
+      );
     return helper.toString();
   }
 }

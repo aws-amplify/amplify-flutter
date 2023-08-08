@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.api_gateway.model.get_rest_apis_request;
+part of 'get_rest_apis_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -57,9 +57,7 @@ class GetRestApisRequestBuilder
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
 
-  GetRestApisRequestBuilder() {
-    GetRestApisRequest._init(this);
-  }
+  GetRestApisRequestBuilder();
 
   GetRestApisRequestBuilder get _$this {
     final $v = _$v;
@@ -126,9 +124,7 @@ class GetRestApisRequestPayloadBuilder
         Builder<GetRestApisRequestPayload, GetRestApisRequestPayloadBuilder> {
   _$GetRestApisRequestPayload? _$v;
 
-  GetRestApisRequestPayloadBuilder() {
-    GetRestApisRequestPayload._init(this);
-  }
+  GetRestApisRequestPayloadBuilder();
 
   @override
   void replace(GetRestApisRequestPayload other) {

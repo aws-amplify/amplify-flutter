@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.tag_mfa_device_request;
+part of 'tag_mfa_device_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class TagMfaDeviceRequestBuilder
       _$this._tags ??= new _i4.ListBuilder<_i3.Tag>();
   set tags(_i4.ListBuilder<_i3.Tag>? tags) => _$this._tags = tags;
 
-  TagMfaDeviceRequestBuilder() {
-    TagMfaDeviceRequest._init(this);
-  }
+  TagMfaDeviceRequestBuilder();
 
   TagMfaDeviceRequestBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.sts.model.credentials; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,12 +35,9 @@ abstract class Credentials
 
   const Credentials._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Credentials>> serializers = [
     CredentialsAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CredentialsBuilder b) {}
 
   /// The access key ID that identifies the temporary security credentials.
   String get accessKeyId;
@@ -62,23 +59,23 @@ abstract class Credentials
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Credentials');
-    helper.add(
-      'accessKeyId',
-      accessKeyId,
-    );
-    helper.add(
-      'secretAccessKey',
-      secretAccessKey,
-    );
-    helper.add(
-      'sessionToken',
-      sessionToken,
-    );
-    helper.add(
-      'expiration',
-      expiration,
-    );
+    final helper = newBuiltValueToStringHelper('Credentials')
+      ..add(
+        'accessKeyId',
+        accessKeyId,
+      )
+      ..add(
+        'secretAccessKey',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'sessionToken',
+        sessionToken,
+      )
+      ..add(
+        'expiration',
+        expiration,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.describe_change_set_hooks_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,12 +43,8 @@ abstract class DescribeChangeSetHooksInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DescribeChangeSetHooksInputAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeChangeSetHooksInputBuilder b) {}
+  static const List<_i1.SmithySerializer<DescribeChangeSetHooksInput>>
+      serializers = [DescribeChangeSetHooksInputAwsQuerySerializer()];
 
   /// The name or Amazon Resource Name (ARN) of the change set that you want to describe.
   String get changeSetName;
@@ -72,23 +68,23 @@ abstract class DescribeChangeSetHooksInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeChangeSetHooksInput');
-    helper.add(
-      'changeSetName',
-      changeSetName,
-    );
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
-      'logicalResourceId',
-      logicalResourceId,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeChangeSetHooksInput')
+      ..add(
+        'changeSetName',
+        changeSetName,
+      )
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      )
+      ..add(
+        'logicalResourceId',
+        logicalResourceId,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.delete_vpc_link_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,12 +43,8 @@ abstract class DeleteVpcLinkRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteVpcLinkRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteVpcLinkRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<DeleteVpcLinkRequestPayload>>
+      serializers = [DeleteVpcLinkRequestRestJson1Serializer()];
 
   /// The identifier of the VpcLink. It is used in an Integration to reference this VpcLink.
   String get vpcLinkId;
@@ -70,11 +66,11 @@ abstract class DeleteVpcLinkRequest
   List<Object?> get props => [vpcLinkId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteVpcLinkRequest');
-    helper.add(
-      'vpcLinkId',
-      vpcLinkId,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteVpcLinkRequest')
+      ..add(
+        'vpcLinkId',
+        vpcLinkId,
+      );
     return helper.toString();
   }
 }
@@ -91,8 +87,6 @@ abstract class DeleteVpcLinkRequestPayload
 
   const DeleteVpcLinkRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteVpcLinkRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

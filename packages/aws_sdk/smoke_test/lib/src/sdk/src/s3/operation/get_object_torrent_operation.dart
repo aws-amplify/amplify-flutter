@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.operation.get_object_torrent_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,7 +16,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/get_object_torrent_output.dart'
 import 'package:smoke_test/src/sdk/src/s3/model/get_object_torrent_request.dart'
     as _i2;
 
-/// Returns torrent files from a bucket. BitTorrent can save you bandwidth when you're distributing large files. For more information about BitTorrent, see [Using BitTorrent with Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/S3Torrent.html).
+/// Returns torrent files from a bucket. BitTorrent can save you bandwidth when you're distributing large files.
 ///
 /// You can get torrent only for objects that are less than 5 GB in size, and that are not encrypted using server-side encryption with a customer-provided encryption key.
 ///
@@ -32,7 +32,7 @@ class GetObjectTorrentOperation extends _i1.HttpOperation<
     _i2.GetObjectTorrentRequest,
     _i3.Stream<List<int>>,
     _i4.GetObjectTorrentOutput> {
-  /// Returns torrent files from a bucket. BitTorrent can save you bandwidth when you're distributing large files. For more information about BitTorrent, see [Using BitTorrent with Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/S3Torrent.html).
+  /// Returns torrent files from a bucket. BitTorrent can save you bandwidth when you're distributing large files.
   ///
   /// You can get torrent only for objects that are less than 5 GB in size, and that are not encrypted using server-side encryption with a customer-provided encryption key.
   ///
@@ -127,7 +127,7 @@ class GetObjectTorrentOperation extends _i1.HttpOperation<
   int successCode([_i4.GetObjectTorrentOutput? output]) => 200;
   @override
   _i4.GetObjectTorrentOutput buildOutput(
-    _i3.Stream<List<int>>? payload,
+    _i3.Stream<List<int>> payload,
     _i8.AWSBaseHttpResponse response,
   ) =>
       _i4.GetObjectTorrentOutput.fromResponse(
@@ -174,7 +174,7 @@ class GetObjectTorrentOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)}
+        ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)},
       },
     );
   }

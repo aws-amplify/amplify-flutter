@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.default_button_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -26,7 +26,6 @@ abstract class DefaultButtonConfiguration
     required String text,
     String? textColor,
   }) {
-    borderRadius ??= 0;
     return _$DefaultButtonConfiguration._(
       backgroundColor: backgroundColor,
       borderRadius: borderRadius,
@@ -44,20 +43,14 @@ abstract class DefaultButtonConfiguration
 
   const DefaultButtonConfiguration._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    DefaultButtonConfigurationRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DefaultButtonConfigurationBuilder b) {
-    b.borderRadius = 0;
-  }
+  static const List<_i3.SmithySerializer<DefaultButtonConfiguration>>
+      serializers = [DefaultButtonConfigurationRestJson1Serializer()];
 
   /// The background color of the button.
   String? get backgroundColor;
 
   /// The border radius of the button.
-  int get borderRadius;
+  int? get borderRadius;
 
   /// Action triggered by the button.
   _i2.ButtonAction get buttonAction;
@@ -81,31 +74,31 @@ abstract class DefaultButtonConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DefaultButtonConfiguration');
-    helper.add(
-      'backgroundColor',
-      backgroundColor,
-    );
-    helper.add(
-      'borderRadius',
-      borderRadius,
-    );
-    helper.add(
-      'buttonAction',
-      buttonAction,
-    );
-    helper.add(
-      'link',
-      link,
-    );
-    helper.add(
-      'text',
-      text,
-    );
-    helper.add(
-      'textColor',
-      textColor,
-    );
+    final helper = newBuiltValueToStringHelper('DefaultButtonConfiguration')
+      ..add(
+        'backgroundColor',
+        backgroundColor,
+      )
+      ..add(
+        'borderRadius',
+        borderRadius,
+      )
+      ..add(
+        'buttonAction',
+        buttonAction,
+      )
+      ..add(
+        'link',
+        link,
+      )
+      ..add(
+        'text',
+        text,
+      )
+      ..add(
+        'textColor',
+        textColor,
+      );
     return helper.toString();
   }
 }
@@ -195,11 +188,6 @@ class DefaultButtonConfigurationRestJson1Serializer
       :textColor
     ) = object;
     result$.addAll([
-      'BorderRadius',
-      serializers.serialize(
-        borderRadius,
-        specifiedType: const FullType(int),
-      ),
       'ButtonAction',
       serializers.serialize(
         buttonAction,
@@ -217,6 +205,14 @@ class DefaultButtonConfigurationRestJson1Serializer
         ..add(serializers.serialize(
           backgroundColor,
           specifiedType: const FullType(String),
+        ));
+    }
+    if (borderRadius != null) {
+      result$
+        ..add('BorderRadius')
+        ..add(serializers.serialize(
+          borderRadius,
+          specifiedType: const FullType(int),
         ));
     }
     if (link != null) {

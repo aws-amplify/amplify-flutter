@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.complete_multipart_upload_request;
+part of 'complete_multipart_upload_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -178,9 +178,7 @@ class CompleteMultipartUploadRequestBuilder
   set sseCustomerKeyMd5(String? sseCustomerKeyMd5) =>
       _$this._sseCustomerKeyMd5 = sseCustomerKeyMd5;
 
-  CompleteMultipartUploadRequestBuilder() {
-    CompleteMultipartUploadRequest._init(this);
-  }
+  CompleteMultipartUploadRequestBuilder();
 
   CompleteMultipartUploadRequestBuilder get _$this {
     final $v = _$v;

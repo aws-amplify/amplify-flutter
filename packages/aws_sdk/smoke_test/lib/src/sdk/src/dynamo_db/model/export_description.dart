@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.export_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -72,12 +72,9 @@ abstract class ExportDescription
 
   const ExportDescription._();
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer<ExportDescription>> serializers = [
     ExportDescriptionAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ExportDescriptionBuilder b) {}
 
   /// The Amazon Resource Name (ARN) of the table export.
   String? get exportArn;
@@ -163,83 +160,83 @@ abstract class ExportDescription
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ExportDescription');
-    helper.add(
-      'exportArn',
-      exportArn,
-    );
-    helper.add(
-      'exportStatus',
-      exportStatus,
-    );
-    helper.add(
-      'startTime',
-      startTime,
-    );
-    helper.add(
-      'endTime',
-      endTime,
-    );
-    helper.add(
-      'exportManifest',
-      exportManifest,
-    );
-    helper.add(
-      'tableArn',
-      tableArn,
-    );
-    helper.add(
-      'tableId',
-      tableId,
-    );
-    helper.add(
-      'exportTime',
-      exportTime,
-    );
-    helper.add(
-      'clientToken',
-      clientToken,
-    );
-    helper.add(
-      's3Bucket',
-      s3Bucket,
-    );
-    helper.add(
-      's3BucketOwner',
-      s3BucketOwner,
-    );
-    helper.add(
-      's3Prefix',
-      s3Prefix,
-    );
-    helper.add(
-      's3SseAlgorithm',
-      s3SseAlgorithm,
-    );
-    helper.add(
-      's3SseKmsKeyId',
-      s3SseKmsKeyId,
-    );
-    helper.add(
-      'failureCode',
-      failureCode,
-    );
-    helper.add(
-      'failureMessage',
-      failureMessage,
-    );
-    helper.add(
-      'exportFormat',
-      exportFormat,
-    );
-    helper.add(
-      'billedSizeBytes',
-      billedSizeBytes,
-    );
-    helper.add(
-      'itemCount',
-      itemCount,
-    );
+    final helper = newBuiltValueToStringHelper('ExportDescription')
+      ..add(
+        'exportArn',
+        exportArn,
+      )
+      ..add(
+        'exportStatus',
+        exportStatus,
+      )
+      ..add(
+        'startTime',
+        startTime,
+      )
+      ..add(
+        'endTime',
+        endTime,
+      )
+      ..add(
+        'exportManifest',
+        exportManifest,
+      )
+      ..add(
+        'tableArn',
+        tableArn,
+      )
+      ..add(
+        'tableId',
+        tableId,
+      )
+      ..add(
+        'exportTime',
+        exportTime,
+      )
+      ..add(
+        'clientToken',
+        clientToken,
+      )
+      ..add(
+        's3Bucket',
+        s3Bucket,
+      )
+      ..add(
+        's3BucketOwner',
+        s3BucketOwner,
+      )
+      ..add(
+        's3Prefix',
+        s3Prefix,
+      )
+      ..add(
+        's3SseAlgorithm',
+        s3SseAlgorithm,
+      )
+      ..add(
+        's3SseKmsKeyId',
+        s3SseKmsKeyId,
+      )
+      ..add(
+        'failureCode',
+        failureCode,
+      )
+      ..add(
+        'failureMessage',
+        failureMessage,
+      )
+      ..add(
+        'exportFormat',
+        exportFormat,
+      )
+      ..add(
+        'billedSizeBytes',
+        billedSizeBytes,
+      )
+      ..add(
+        'itemCount',
+        itemCount,
+      );
     return helper.toString();
   }
 }

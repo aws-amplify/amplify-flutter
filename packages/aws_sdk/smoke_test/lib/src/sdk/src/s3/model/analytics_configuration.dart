@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.analytics_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,12 +37,8 @@ abstract class AnalyticsConfiguration
 
   const AnalyticsConfiguration._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    AnalyticsConfigurationRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AnalyticsConfigurationBuilder b) {}
+  static const List<_i4.SmithySerializer<AnalyticsConfiguration>> serializers =
+      [AnalyticsConfigurationRestXmlSerializer()];
 
   /// The ID that identifies the analytics configuration.
   String get id;
@@ -60,19 +56,19 @@ abstract class AnalyticsConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AnalyticsConfiguration');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'filter',
-      filter,
-    );
-    helper.add(
-      'storageClassAnalysis',
-      storageClassAnalysis,
-    );
+    final helper = newBuiltValueToStringHelper('AnalyticsConfiguration')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'filter',
+        filter,
+      )
+      ..add(
+        'storageClassAnalysis',
+        storageClassAnalysis,
+      );
     return helper.toString();
   }
 }

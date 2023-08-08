@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.list_open_id_connect_providers_request;
+part of 'list_open_id_connect_providers_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -42,9 +42,7 @@ class ListOpenIdConnectProvidersRequestBuilder
             ListOpenIdConnectProvidersRequestBuilder> {
   _$ListOpenIdConnectProvidersRequest? _$v;
 
-  ListOpenIdConnectProvidersRequestBuilder() {
-    ListOpenIdConnectProvidersRequest._init(this);
-  }
+  ListOpenIdConnectProvidersRequestBuilder();
 
   @override
   void replace(ListOpenIdConnectProvidersRequest other) {

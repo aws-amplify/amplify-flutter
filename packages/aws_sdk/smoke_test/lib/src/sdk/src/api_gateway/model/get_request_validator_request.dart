@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.get_request_validator_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -52,12 +52,8 @@ abstract class GetRequestValidatorRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetRequestValidatorRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetRequestValidatorRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetRequestValidatorRequestPayload>>
+      serializers = [GetRequestValidatorRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -88,15 +84,15 @@ abstract class GetRequestValidatorRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetRequestValidatorRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'requestValidatorId',
-      requestValidatorId,
-    );
+    final helper = newBuiltValueToStringHelper('GetRequestValidatorRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'requestValidatorId',
+        requestValidatorId,
+      );
     return helper.toString();
   }
 }
@@ -115,8 +111,6 @@ abstract class GetRequestValidatorRequestPayload
 
   const GetRequestValidatorRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetRequestValidatorRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

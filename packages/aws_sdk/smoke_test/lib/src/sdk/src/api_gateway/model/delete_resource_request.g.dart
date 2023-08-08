@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.delete_resource_request;
+part of 'delete_resource_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class DeleteResourceRequestBuilder
   String? get resourceId => _$this._resourceId;
   set resourceId(String? resourceId) => _$this._resourceId = resourceId;
 
-  DeleteResourceRequestBuilder() {
-    DeleteResourceRequest._init(this);
-  }
+  DeleteResourceRequestBuilder();
 
   DeleteResourceRequestBuilder get _$this {
     final $v = _$v;
@@ -137,9 +135,7 @@ class DeleteResourceRequestPayloadBuilder
             DeleteResourceRequestPayloadBuilder> {
   _$DeleteResourceRequestPayload? _$v;
 
-  DeleteResourceRequestPayloadBuilder() {
-    DeleteResourceRequestPayload._init(this);
-  }
+  DeleteResourceRequestPayloadBuilder();
 
   @override
   void replace(DeleteResourceRequestPayload other) {

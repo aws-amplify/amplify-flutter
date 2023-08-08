@@ -264,11 +264,19 @@ Future<void> runBuildRunner(
   PackageInfo package, {
   required AWSLogger logger,
   required bool verbose,
+  bool force = false,
 }) async {
-  if (!package.needsBuildRunner) {
+  if (!package.needsBuildRunner && !force) {
     return;
   }
-  logger.info('Running build_runner for ${package.name}...');
+  // Run `pub get` to ensure `build_runner` is available.
+  await runPub(
+    package.flavor,
+    ['get'],
+    package,
+    verbose: verbose,
+  );
+  logger.debug('Running build_runner for ${package.name}...');
   final buildRunnerCmd = await Process.start(
     package.flavor.entrypoint,
     [
@@ -278,6 +286,7 @@ Future<void> runBuildRunner(
       'build',
       '--delete-conflicting-outputs',
     ],
+    runInShell: true,
     workingDirectory: package.path,
   );
   final output = StringBuffer();

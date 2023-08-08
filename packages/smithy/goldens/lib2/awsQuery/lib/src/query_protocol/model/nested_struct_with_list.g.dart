@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v2.query_protocol.model.nested_struct_with_list;
+part of 'nested_struct_with_list.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -49,9 +49,7 @@ class NestedStructWithListBuilder
       _$this._listArg ??= new _i2.ListBuilder<String>();
   set listArg(_i2.ListBuilder<String>? listArg) => _$this._listArg = listArg;
 
-  NestedStructWithListBuilder() {
-    NestedStructWithList._init(this);
-  }
+  NestedStructWithListBuilder();
 
   NestedStructWithListBuilder get _$this {
     final $v = _$v;

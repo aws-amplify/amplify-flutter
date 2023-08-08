@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.describe_export_input;
+part of 'describe_export_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class DescribeExportInputBuilder
   String? get exportArn => _$this._exportArn;
   set exportArn(String? exportArn) => _$this._exportArn = exportArn;
 
-  DescribeExportInputBuilder() {
-    DescribeExportInput._init(this);
-  }
+  DescribeExportInputBuilder();
 
   DescribeExportInputBuilder get _$this {
     final $v = _$v;

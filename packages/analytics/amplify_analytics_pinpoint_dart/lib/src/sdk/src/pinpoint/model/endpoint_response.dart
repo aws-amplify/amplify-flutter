@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.endpoint_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -66,12 +66,9 @@ abstract class EndpointResponse
 
   const EndpointResponse._();
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<_i7.SmithySerializer<EndpointResponse>> serializers = [
     EndpointResponseRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EndpointResponseBuilder b) {}
 
   /// The destination address for messages or push notifications that you send to the endpoint. The address varies by channel. For example, the address for a push-notification channel is typically the token provided by a push notification service, such as an Apple Push Notification service (APNs) device token or a Firebase Cloud Messaging (FCM) registration token. The address for the SMS channel is a phone number in E.164 format, such as +12065550100. The address for the email channel is an email address.
   String? get address;
@@ -139,67 +136,67 @@ abstract class EndpointResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EndpointResponse');
-    helper.add(
-      'address',
-      address,
-    );
-    helper.add(
-      'applicationId',
-      applicationId,
-    );
-    helper.add(
-      'attributes',
-      attributes,
-    );
-    helper.add(
-      'channelType',
-      channelType,
-    );
-    helper.add(
-      'cohortId',
-      cohortId,
-    );
-    helper.add(
-      'creationDate',
-      creationDate,
-    );
-    helper.add(
-      'demographic',
-      demographic,
-    );
-    helper.add(
-      'effectiveDate',
-      effectiveDate,
-    );
-    helper.add(
-      'endpointStatus',
-      endpointStatus,
-    );
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'location',
-      location,
-    );
-    helper.add(
-      'metrics',
-      metrics,
-    );
-    helper.add(
-      'optOut',
-      optOut,
-    );
-    helper.add(
-      'requestId',
-      requestId,
-    );
-    helper.add(
-      'user',
-      user,
-    );
+    final helper = newBuiltValueToStringHelper('EndpointResponse')
+      ..add(
+        'address',
+        address,
+      )
+      ..add(
+        'applicationId',
+        applicationId,
+      )
+      ..add(
+        'attributes',
+        attributes,
+      )
+      ..add(
+        'channelType',
+        channelType,
+      )
+      ..add(
+        'cohortId',
+        cohortId,
+      )
+      ..add(
+        'creationDate',
+        creationDate,
+      )
+      ..add(
+        'demographic',
+        demographic,
+      )
+      ..add(
+        'effectiveDate',
+        effectiveDate,
+      )
+      ..add(
+        'endpointStatus',
+        endpointStatus,
+      )
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'location',
+        location,
+      )
+      ..add(
+        'metrics',
+        metrics,
+      )
+      ..add(
+        'optOut',
+        optOut,
+      )
+      ..add(
+        'requestId',
+        requestId,
+      )
+      ..add(
+        'user',
+        user,
+      );
     return helper.toString();
   }
 }

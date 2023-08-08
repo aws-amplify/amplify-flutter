@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_protocol.model.document_type_as_payload_input_output;
+part of 'document_type_as_payload_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -53,9 +53,7 @@ class DocumentTypeAsPayloadInputOutputBuilder
   set documentValue(_i2.JsonObject? documentValue) =>
       _$this._documentValue = documentValue;
 
-  DocumentTypeAsPayloadInputOutputBuilder() {
-    DocumentTypeAsPayloadInputOutput._init(this);
-  }
+  DocumentTypeAsPayloadInputOutputBuilder();
 
   DocumentTypeAsPayloadInputOutputBuilder get _$this {
     final $v = _$v;

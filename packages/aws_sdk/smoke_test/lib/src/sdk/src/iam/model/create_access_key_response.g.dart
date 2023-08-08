@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.create_access_key_response;
+part of 'create_access_key_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class CreateAccessKeyResponseBuilder
   set accessKey(_i2.AccessKeyBuilder? accessKey) =>
       _$this._accessKey = accessKey;
 
-  CreateAccessKeyResponseBuilder() {
-    CreateAccessKeyResponse._init(this);
-  }
+  CreateAccessKeyResponseBuilder();
 
   CreateAccessKeyResponseBuilder get _$this {
     final $v = _$v;

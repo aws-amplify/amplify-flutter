@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.describe_import_input;
+part of 'describe_import_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class DescribeImportInputBuilder
   String? get importArn => _$this._importArn;
   set importArn(String? importArn) => _$this._importArn = importArn;
 
-  DescribeImportInputBuilder() {
-    DescribeImportInput._init(this);
-  }
+  DescribeImportInputBuilder();
 
   DescribeImportInputBuilder get _$this {
     final $v = _$v;

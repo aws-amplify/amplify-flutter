@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.put_bucket_ownership_controls_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -61,12 +61,9 @@ abstract class PutBucketOwnershipControlsRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.OwnershipControls>> serializers = [
     PutBucketOwnershipControlsRequestRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketOwnershipControlsRequestBuilder b) {}
 
   /// The name of the Amazon S3 bucket whose `OwnershipControls` you want to set.
   String get bucket;
@@ -105,23 +102,23 @@ abstract class PutBucketOwnershipControlsRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutBucketOwnershipControlsRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'contentMd5',
-      contentMd5,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
-      'ownershipControls',
-      ownershipControls,
-    );
+        newBuiltValueToStringHelper('PutBucketOwnershipControlsRequest')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'contentMd5',
+            contentMd5,
+          )
+          ..add(
+            'expectedBucketOwner',
+            expectedBucketOwner,
+          )
+          ..add(
+            'ownershipControls',
+            ownershipControls,
+          );
     return helper.toString();
   }
 }

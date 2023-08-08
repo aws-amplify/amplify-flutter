@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_account_password_policy_response;
+part of 'get_account_password_policy_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -58,9 +58,7 @@ class GetAccountPasswordPolicyResponseBuilder
   set passwordPolicy(_i2.PasswordPolicyBuilder? passwordPolicy) =>
       _$this._passwordPolicy = passwordPolicy;
 
-  GetAccountPasswordPolicyResponseBuilder() {
-    GetAccountPasswordPolicyResponse._init(this);
-  }
+  GetAccountPasswordPolicyResponseBuilder();
 
   GetAccountPasswordPolicyResponseBuilder get _$this {
     final $v = _$v;

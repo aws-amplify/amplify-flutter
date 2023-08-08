@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.deliver_config_snapshot_response;
+part of 'deliver_config_snapshot_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -52,9 +52,7 @@ class DeliverConfigSnapshotResponseBuilder
   set configSnapshotId(String? configSnapshotId) =>
       _$this._configSnapshotId = configSnapshotId;
 
-  DeliverConfigSnapshotResponseBuilder() {
-    DeliverConfigSnapshotResponse._init(this);
-  }
+  DeliverConfigSnapshotResponseBuilder();
 
   DeliverConfigSnapshotResponseBuilder get _$this {
     final $v = _$v;

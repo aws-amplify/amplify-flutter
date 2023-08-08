@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.describe_limits_output;
+part of 'describe_limits_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -85,9 +85,7 @@ class DescribeLimitsOutputBuilder
   set tableMaxWriteCapacityUnits(_i2.Int64? tableMaxWriteCapacityUnits) =>
       _$this._tableMaxWriteCapacityUnits = tableMaxWriteCapacityUnits;
 
-  DescribeLimitsOutputBuilder() {
-    DescribeLimitsOutput._init(this);
-  }
+  DescribeLimitsOutputBuilder();
 
   DescribeLimitsOutputBuilder get _$this {
     final $v = _$v;

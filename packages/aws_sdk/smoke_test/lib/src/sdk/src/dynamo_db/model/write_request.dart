@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.write_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,12 +34,9 @@ abstract class WriteRequest
 
   const WriteRequest._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<WriteRequest>> serializers = [
     WriteRequestAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(WriteRequestBuilder b) {}
 
   /// A request to perform a `PutItem` operation.
   _i2.PutRequest? get putRequest;
@@ -53,15 +50,15 @@ abstract class WriteRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('WriteRequest');
-    helper.add(
-      'putRequest',
-      putRequest,
-    );
-    helper.add(
-      'deleteRequest',
-      deleteRequest,
-    );
+    final helper = newBuiltValueToStringHelper('WriteRequest')
+      ..add(
+        'putRequest',
+        putRequest,
+      )
+      ..add(
+        'deleteRequest',
+        deleteRequest,
+      );
     return helper.toString();
   }
 }

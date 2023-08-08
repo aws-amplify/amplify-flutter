@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.list_stack_resources_input;
+part of 'list_stack_resources_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -62,9 +62,7 @@ class ListStackResourcesInputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListStackResourcesInputBuilder() {
-    ListStackResourcesInput._init(this);
-  }
+  ListStackResourcesInputBuilder();
 
   ListStackResourcesInputBuilder get _$this {
     final $v = _$v;

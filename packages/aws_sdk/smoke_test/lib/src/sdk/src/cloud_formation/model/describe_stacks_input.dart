@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.describe_stacks_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,13 +41,16 @@ abstract class DescribeStacksInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<DescribeStacksInput>> serializers = [
     DescribeStacksInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeStacksInputBuilder b) {}
-
+  /// If you don't pass a parameter to `StackName`, the API returns a response that describes all resources in the account. This requires `ListStacks` and `DescribeStacks` permissions.
+  ///
+  /// The IAM policy below can be added to IAM policies when you want to limit resource-level permissions and avoid returning a response when no parameter is sent in the request:
+  ///
+  /// { "Version": "2012-10-17", "Statement": \[{ "Effect": "Deny", "Action": "cloudformation:DescribeStacks", "NotResource": "arn:aws:cloudformation:*:*:stack/*/*" }\] }
+  ///
   /// The name or the unique stack ID that's associated with the stack, which aren't always interchangeable:
   ///
   /// *   Running stacks: You can specify either the stack's name or its unique stack ID.
@@ -69,15 +72,15 @@ abstract class DescribeStacksInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeStacksInput');
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeStacksInput')
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

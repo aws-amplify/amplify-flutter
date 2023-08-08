@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.detect_stack_resource_drift_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,8 @@ abstract class DetectStackResourceDriftInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DetectStackResourceDriftInputAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DetectStackResourceDriftInputBuilder b) {}
+  static const List<_i1.SmithySerializer<DetectStackResourceDriftInput>>
+      serializers = [DetectStackResourceDriftInputAwsQuerySerializer()];
 
   /// The name of the stack to which the resource belongs.
   String get stackName;
@@ -61,15 +57,15 @@ abstract class DetectStackResourceDriftInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DetectStackResourceDriftInput');
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'logicalResourceId',
-      logicalResourceId,
-    );
+    final helper = newBuiltValueToStringHelper('DetectStackResourceDriftInput')
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'logicalResourceId',
+        logicalResourceId,
+      );
     return helper.toString();
   }
 }

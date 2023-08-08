@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.gateway_responses;
+part of 'gateway_responses.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -58,9 +58,7 @@ class GatewayResponsesBuilder
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  GatewayResponsesBuilder() {
-    GatewayResponses._init(this);
-  }
+  GatewayResponsesBuilder();
 
   GatewayResponsesBuilder get _$this {
     final $v = _$v;

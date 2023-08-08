@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.list_conformance_pack_compliance_scores_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -30,6 +30,7 @@ abstract class ListConformancePackComplianceScoresRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$ListConformancePackComplianceScoresRequest._(
       filters: filters,
       sortOrder: sortOrder,
@@ -52,30 +53,36 @@ abstract class ListConformancePackComplianceScoresRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<ListConformancePackComplianceScoresRequest>>
+      serializers = [
     ListConformancePackComplianceScoresRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListConformancePackComplianceScoresRequestBuilder b) {}
+  static void _init(ListConformancePackComplianceScoresRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// Filters the results based on the `ConformancePackComplianceScoresFilters`.
   _i3.ConformancePackComplianceScoresFilters? get filters;
 
   /// Determines the order in which conformance pack compliance scores are sorted. Either in ascending or descending order.
   ///
-  /// Conformance packs with a compliance score of `INSUFFICIENT_DATA` will be first when sorting by ascending order and last when sorting by descending order.
+  /// By default, conformance pack compliance scores are sorted in alphabetical order by name of the conformance pack. Conformance pack compliance scores are sorted in reverse alphabetical order if you enter `DESCENDING`.
+  ///
+  /// You can sort conformance pack compliance scores by the numerical value of the compliance score by entering `SCORE` in the `SortBy` action. When compliance scores are sorted by `SCORE`, conformance packs with a compliance score of `INSUFFICIENT_DATA` will be last when sorting by ascending order and first when sorting by descending order.
   _i4.SortOrder? get sortOrder;
 
   /// Sorts your conformance pack compliance scores in either ascending or descending order, depending on `SortOrder`.
   ///
-  /// By default, conformance pack compliance scores are sorted in ascending order by compliance score and alphabetically by name of the conformance pack if there is more than one conformance pack with the same compliance score.
+  /// By default, conformance pack compliance scores are sorted in alphabetical order by name of the conformance pack. Enter `SCORE`, to sort conformance pack compliance scores by the numerical value of the compliance score.
   _i5.SortBy? get sortBy;
 
   /// The maximum number of conformance pack compliance scores returned on each page.
-  int? get limit;
+  int get limit;
 
-  /// The `nextToken` string in a prior request that you can use to get the paginated response for next set of conformance pack compliance scores.
+  /// The `nextToken` string in a prior request that you can use to get the paginated response for the next set of conformance pack compliance scores.
   String? get nextToken;
   @override
   ListConformancePackComplianceScoresRequest getPayload() => this;
@@ -90,27 +97,27 @@ abstract class ListConformancePackComplianceScoresRequest
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'ListConformancePackComplianceScoresRequest');
-    helper.add(
-      'filters',
-      filters,
-    );
-    helper.add(
-      'sortOrder',
-      sortOrder,
-    );
-    helper.add(
-      'sortBy',
-      sortBy,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        'ListConformancePackComplianceScoresRequest')
+      ..add(
+        'filters',
+        filters,
+      )
+      ..add(
+        'sortOrder',
+        sortOrder,
+      )
+      ..add(
+        'sortBy',
+        sortBy,
+      )
+      ..add(
+        'limit',
+        limit,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }
@@ -194,6 +201,13 @@ class ListConformancePackComplianceScoresRequestAwsJson11Serializer extends _i1
       :limit,
       :nextToken
     ) = object;
+    result$.addAll([
+      'Limit',
+      serializers.serialize(
+        limit,
+        specifiedType: const FullType(int),
+      ),
+    ]);
     if (filters != null) {
       result$
         ..add('Filters')
@@ -217,14 +231,6 @@ class ListConformancePackComplianceScoresRequestAwsJson11Serializer extends _i1
         ..add(serializers.serialize(
           sortBy,
           specifiedType: const FullType(_i5.SortBy),
-        ));
-    }
-    if (limit != null) {
-      result$
-        ..add('Limit')
-        ..add(serializers.serialize(
-          limit,
-          specifiedType: const FullType(int),
         ));
     }
     if (nextToken != null) {

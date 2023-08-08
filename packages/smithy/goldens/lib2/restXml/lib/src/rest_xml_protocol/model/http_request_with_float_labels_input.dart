@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_xml_v2.rest_xml_protocol.model.http_request_with_float_labels_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,11 +21,9 @@ abstract class HttpRequestWithFloatLabelsInput
         _i1.EmptyPayload,
         _i1.HasPayload<HttpRequestWithFloatLabelsInputPayload> {
   factory HttpRequestWithFloatLabelsInput({
-    double? float,
-    double? double_,
+    required double float,
+    required double double_,
   }) {
-    float ??= 0;
-    double_ ??= 0;
     return _$HttpRequestWithFloatLabelsInput._(
       float: float,
       double_: double_,
@@ -52,15 +50,9 @@ abstract class HttpRequestWithFloatLabelsInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    HttpRequestWithFloatLabelsInputRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpRequestWithFloatLabelsInputBuilder b) {
-    b.float = 0;
-    b.double_ = 0;
-  }
+  static const List<
+          _i1.SmithySerializer<HttpRequestWithFloatLabelsInputPayload>>
+      serializers = [HttpRequestWithFloatLabelsInputRestXmlSerializer()];
 
   double get float;
   double get double_;
@@ -89,15 +81,15 @@ abstract class HttpRequestWithFloatLabelsInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('HttpRequestWithFloatLabelsInput');
-    helper.add(
-      'float',
-      float,
-    );
-    helper.add(
-      'double_',
-      double_,
-    );
+        newBuiltValueToStringHelper('HttpRequestWithFloatLabelsInput')
+          ..add(
+            'float',
+            float,
+          )
+          ..add(
+            'double_',
+            double_,
+          );
     return helper.toString();
   }
 }
@@ -116,8 +108,6 @@ abstract class HttpRequestWithFloatLabelsInputPayload
 
   const HttpRequestWithFloatLabelsInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpRequestWithFloatLabelsInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

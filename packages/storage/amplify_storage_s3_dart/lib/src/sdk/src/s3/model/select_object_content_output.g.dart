@@ -50,9 +50,7 @@ class SelectObjectContentOutputBuilder
   set payload(_i3.SelectObjectContentEventStream? payload) =>
       _$this._payload = payload;
 
-  SelectObjectContentOutputBuilder() {
-    SelectObjectContentOutput._init(this);
-  }
+  SelectObjectContentOutputBuilder();
 
   SelectObjectContentOutputBuilder get _$this {
     final $v = _$v;

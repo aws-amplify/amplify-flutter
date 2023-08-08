@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.rest_xml_protocol.model.flattened_xml_map_input_output;
+part of 'flattened_xml_map_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class FlattenedXmlMapInputOutputBuilder
   set myMap(_i4.MapBuilder<String, _i3.FooEnum>? myMap) =>
       _$this._myMap = myMap;
 
-  FlattenedXmlMapInputOutputBuilder() {
-    FlattenedXmlMapInputOutput._init(this);
-  }
+  FlattenedXmlMapInputOutputBuilder();
 
   FlattenedXmlMapInputOutputBuilder get _$this {
     final $v = _$v;

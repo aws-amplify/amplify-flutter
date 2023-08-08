@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.invalid_object_state;
+part of 'invalid_object_state.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -73,9 +73,7 @@ class InvalidObjectStateBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InvalidObjectStateBuilder() {
-    InvalidObjectState._init(this);
-  }
+  InvalidObjectStateBuilder();
 
   InvalidObjectStateBuilder get _$this {
     final $v = _$v;

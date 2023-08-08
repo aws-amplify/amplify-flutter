@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.revoke_token_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,7 +38,7 @@ abstract class RevokeTokenRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<RevokeTokenRequest>> serializers = [
     RevokeTokenRequestAwsJson11Serializer()
   ];
 
@@ -62,19 +63,19 @@ abstract class RevokeTokenRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RevokeTokenRequest');
-    helper.add(
-      'token',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'clientId',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'clientSecret',
-      '***SENSITIVE***',
-    );
+    final helper = newBuiltValueToStringHelper('RevokeTokenRequest')
+      ..add(
+        'token',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'clientId',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'clientSecret',
+        '***SENSITIVE***',
+      );
     return helper.toString();
   }
 }
@@ -107,27 +108,25 @@ class RevokeTokenRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Token':
           result.token = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ClientId':
           result.clientId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'ClientSecret':
-          if (value != null) {
-            result.clientSecret = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.clientSecret = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -137,30 +136,31 @@ class RevokeTokenRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RevokeTokenRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RevokeTokenRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final RevokeTokenRequest(:token, :clientId, :clientSecret) = object;
+    result$.addAll([
       'Token',
       serializers.serialize(
-        payload.token,
+        token,
         specifiedType: const FullType(String),
       ),
       'ClientId',
       serializers.serialize(
-        payload.clientId,
+        clientId,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.clientSecret != null) {
-      result
+    ]);
+    if (clientSecret != null) {
+      result$
         ..add('ClientSecret')
         ..add(serializers.serialize(
-          payload.clientSecret!,
+          clientSecret,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

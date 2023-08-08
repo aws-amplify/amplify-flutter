@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.type_filters;
+part of 'type_filters.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class TypeFiltersBuilder implements Builder<TypeFilters, TypeFiltersBuilder> {
   set typeNamePrefix(String? typeNamePrefix) =>
       _$this._typeNamePrefix = typeNamePrefix;
 
-  TypeFiltersBuilder() {
-    TypeFilters._init(this);
-  }
+  TypeFiltersBuilder();
 
   TypeFiltersBuilder get _$this {
     final $v = _$v;

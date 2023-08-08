@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.execute_statement_output;
+part of 'execute_statement_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -87,9 +87,7 @@ class ExecuteStatementOutputBuilder
           _i4.MapBuilder<String, _i2.AttributeValue>? lastEvaluatedKey) =>
       _$this._lastEvaluatedKey = lastEvaluatedKey;
 
-  ExecuteStatementOutputBuilder() {
-    ExecuteStatementOutput._init(this);
-  }
+  ExecuteStatementOutputBuilder();
 
   ExecuteStatementOutputBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.base_path_mapping; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,9 @@ abstract class BasePathMapping
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<BasePathMapping>> serializers = [
     BasePathMappingRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BasePathMappingBuilder b) {}
 
   /// The base path name that callers of the API must provide as part of the URL after the domain name.
   String? get basePath;
@@ -63,19 +60,19 @@ abstract class BasePathMapping
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('BasePathMapping');
-    helper.add(
-      'basePath',
-      basePath,
-    );
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'stage',
-      stage,
-    );
+    final helper = newBuiltValueToStringHelper('BasePathMapping')
+      ..add(
+        'basePath',
+        basePath,
+      )
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'stage',
+        stage,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v2.rest_json_protocol.model.streaming_traits_with_media_type_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,7 +38,7 @@ abstract class StreamingTraitsWithMediaTypeInputOutput
   const StreamingTraitsWithMediaTypeInputOutput._();
 
   factory StreamingTraitsWithMediaTypeInputOutput.fromRequest(
-    _i2.Stream<List<int>>? payload,
+    _i2.Stream<List<int>> payload,
     _i3.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
@@ -51,7 +51,7 @@ abstract class StreamingTraitsWithMediaTypeInputOutput
 
   /// Constructs a [StreamingTraitsWithMediaTypeInputOutput] from a [payload] and [response].
   factory StreamingTraitsWithMediaTypeInputOutput.fromResponse(
-    _i2.Stream<List<int>>? payload,
+    _i2.Stream<List<int>> payload,
     _i3.AWSBaseHttpResponse response,
   ) =>
       StreamingTraitsWithMediaTypeInputOutput.build((b) {
@@ -61,7 +61,7 @@ abstract class StreamingTraitsWithMediaTypeInputOutput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.Stream<List<int>>>> serializers = [
     StreamingTraitsWithMediaTypeInputOutputRestJson1Serializer()
   ];
 
@@ -71,9 +71,9 @@ abstract class StreamingTraitsWithMediaTypeInputOutput
   }
 
   String? get foo;
-  _i2.Stream<List<int>>? get blob;
+  _i2.Stream<List<int>> get blob;
   @override
-  _i2.Stream<List<int>>? getPayload() => blob;
+  _i2.Stream<List<int>> getPayload() => blob;
   @override
   List<Object?> get props => [
         foo,
@@ -82,15 +82,15 @@ abstract class StreamingTraitsWithMediaTypeInputOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('StreamingTraitsWithMediaTypeInputOutput');
-    helper.add(
-      'foo',
-      foo,
-    );
-    helper.add(
-      'blob',
-      blob,
-    );
+        newBuiltValueToStringHelper('StreamingTraitsWithMediaTypeInputOutput')
+          ..add(
+            'foo',
+            foo,
+          )
+          ..add(
+            'blob',
+            blob,
+          );
     return helper.toString();
   }
 }

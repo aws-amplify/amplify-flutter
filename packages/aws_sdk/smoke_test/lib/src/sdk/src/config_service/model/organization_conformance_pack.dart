@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.organization_conformance_pack; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -49,12 +49,8 @@ abstract class OrganizationConformancePack
 
   const OrganizationConformancePack._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    OrganizationConformancePackAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OrganizationConformancePackBuilder b) {}
+  static const List<_i4.SmithySerializer<OrganizationConformancePack>>
+      serializers = [OrganizationConformancePackAwsJson11Serializer()];
 
   /// The name you assign to an organization conformance pack.
   String get organizationConformancePackName;
@@ -93,35 +89,35 @@ abstract class OrganizationConformancePack
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('OrganizationConformancePack');
-    helper.add(
-      'organizationConformancePackName',
-      organizationConformancePackName,
-    );
-    helper.add(
-      'organizationConformancePackArn',
-      organizationConformancePackArn,
-    );
-    helper.add(
-      'deliveryS3Bucket',
-      deliveryS3Bucket,
-    );
-    helper.add(
-      'deliveryS3KeyPrefix',
-      deliveryS3KeyPrefix,
-    );
-    helper.add(
-      'conformancePackInputParameters',
-      conformancePackInputParameters,
-    );
-    helper.add(
-      'excludedAccounts',
-      excludedAccounts,
-    );
-    helper.add(
-      'lastUpdateTime',
-      lastUpdateTime,
-    );
+    final helper = newBuiltValueToStringHelper('OrganizationConformancePack')
+      ..add(
+        'organizationConformancePackName',
+        organizationConformancePackName,
+      )
+      ..add(
+        'organizationConformancePackArn',
+        organizationConformancePackArn,
+      )
+      ..add(
+        'deliveryS3Bucket',
+        deliveryS3Bucket,
+      )
+      ..add(
+        'deliveryS3KeyPrefix',
+        deliveryS3KeyPrefix,
+      )
+      ..add(
+        'conformancePackInputParameters',
+        conformancePackInputParameters,
+      )
+      ..add(
+        'excludedAccounts',
+        excludedAccounts,
+      )
+      ..add(
+        'lastUpdateTime',
+        lastUpdateTime,
+      );
     return helper.toString();
   }
 }

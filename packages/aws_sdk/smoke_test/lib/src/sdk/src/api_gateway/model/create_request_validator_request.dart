@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.create_request_validator_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -27,6 +27,8 @@ abstract class CreateRequestValidatorRequest
     bool? validateRequestBody,
     bool? validateRequestParameters,
   }) {
+    validateRequestBody ??= false;
+    validateRequestParameters ??= false;
     return _$CreateRequestValidatorRequest._(
       restApiId: restApiId,
       name: name,
@@ -56,12 +58,15 @@ abstract class CreateRequestValidatorRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateRequestValidatorRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<CreateRequestValidatorRequestPayload>>
+      serializers = [CreateRequestValidatorRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateRequestValidatorRequestBuilder b) {}
+  static void _init(CreateRequestValidatorRequestBuilder b) {
+    b
+      ..validateRequestBody = false
+      ..validateRequestParameters = false;
+  }
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -70,10 +75,10 @@ abstract class CreateRequestValidatorRequest
   String? get name;
 
   /// A Boolean flag to indicate whether to validate request body according to the configured model schema for the method (`true`) or not (`false`).
-  bool? get validateRequestBody;
+  bool get validateRequestBody;
 
   /// A Boolean flag to indicate whether to validate request parameters, `true`, or not `false`.
-  bool? get validateRequestParameters;
+  bool get validateRequestParameters;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -102,23 +107,23 @@ abstract class CreateRequestValidatorRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateRequestValidatorRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'validateRequestBody',
-      validateRequestBody,
-    );
-    helper.add(
-      'validateRequestParameters',
-      validateRequestParameters,
-    );
+    final helper = newBuiltValueToStringHelper('CreateRequestValidatorRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'validateRequestBody',
+        validateRequestBody,
+      )
+      ..add(
+        'validateRequestParameters',
+        validateRequestParameters,
+      );
     return helper.toString();
   }
 }
@@ -137,16 +142,20 @@ abstract class CreateRequestValidatorRequestPayload
   const CreateRequestValidatorRequestPayload._();
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateRequestValidatorRequestPayloadBuilder b) {}
+  static void _init(CreateRequestValidatorRequestPayloadBuilder b) {
+    b
+      ..validateRequestBody = false
+      ..validateRequestParameters = false;
+  }
 
   /// The name of the to-be-created RequestValidator.
   String? get name;
 
   /// A Boolean flag to indicate whether to validate request body according to the configured model schema for the method (`true`) or not (`false`).
-  bool? get validateRequestBody;
+  bool get validateRequestBody;
 
   /// A Boolean flag to indicate whether to validate request parameters, `true`, or not `false`.
-  bool? get validateRequestParameters;
+  bool get validateRequestParameters;
   @override
   List<Object?> get props => [
         name,
@@ -156,19 +165,19 @@ abstract class CreateRequestValidatorRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('CreateRequestValidatorRequestPayload');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'validateRequestBody',
-      validateRequestBody,
-    );
-    helper.add(
-      'validateRequestParameters',
-      validateRequestParameters,
-    );
+        newBuiltValueToStringHelper('CreateRequestValidatorRequestPayload')
+          ..add(
+            'name',
+            name,
+          )
+          ..add(
+            'validateRequestBody',
+            validateRequestBody,
+          )
+          ..add(
+            'validateRequestParameters',
+            validateRequestParameters,
+          );
     return helper.toString();
   }
 }
@@ -241,28 +250,24 @@ class CreateRequestValidatorRequestRestJson1Serializer extends _i1
       :validateRequestBody,
       :validateRequestParameters
     ) = object;
+    result$.addAll([
+      'validateRequestBody',
+      serializers.serialize(
+        validateRequestBody,
+        specifiedType: const FullType(bool),
+      ),
+      'validateRequestParameters',
+      serializers.serialize(
+        validateRequestParameters,
+        specifiedType: const FullType(bool),
+      ),
+    ]);
     if (name != null) {
       result$
         ..add('name')
         ..add(serializers.serialize(
           name,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (validateRequestBody != null) {
-      result$
-        ..add('validateRequestBody')
-        ..add(serializers.serialize(
-          validateRequestBody,
-          specifiedType: const FullType(bool),
-        ));
-    }
-    if (validateRequestParameters != null) {
-      result$
-        ..add('validateRequestParameters')
-        ..add(serializers.serialize(
-          validateRequestParameters,
-          specifiedType: const FullType(bool),
         ));
     }
     return result$;

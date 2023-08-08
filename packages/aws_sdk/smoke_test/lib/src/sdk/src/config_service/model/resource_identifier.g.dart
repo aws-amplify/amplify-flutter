@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.resource_identifier;
+part of 'resource_identifier.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -80,9 +80,7 @@ class ResourceIdentifierBuilder
   set resourceDeletionTime(DateTime? resourceDeletionTime) =>
       _$this._resourceDeletionTime = resourceDeletionTime;
 
-  ResourceIdentifierBuilder() {
-    ResourceIdentifier._init(this);
-  }
+  ResourceIdentifierBuilder();
 
   ResourceIdentifierBuilder get _$this {
     final $v = _$v;

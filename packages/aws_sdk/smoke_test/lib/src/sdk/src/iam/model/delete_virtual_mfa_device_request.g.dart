@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.delete_virtual_mfa_device_request;
+part of 'delete_virtual_mfa_device_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class DeleteVirtualMfaDeviceRequestBuilder
   String? get serialNumber => _$this._serialNumber;
   set serialNumber(String? serialNumber) => _$this._serialNumber = serialNumber;
 
-  DeleteVirtualMfaDeviceRequestBuilder() {
-    DeleteVirtualMfaDeviceRequest._init(this);
-  }
+  DeleteVirtualMfaDeviceRequestBuilder();
 
   DeleteVirtualMfaDeviceRequestBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.metrics_and_operator;
+part of 'metrics_and_operator.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -68,9 +68,7 @@ class MetricsAndOperatorBuilder
   set accessPointArn(String? accessPointArn) =>
       _$this._accessPointArn = accessPointArn;
 
-  MetricsAndOperatorBuilder() {
-    MetricsAndOperator._init(this);
-  }
+  MetricsAndOperatorBuilder();
 
   MetricsAndOperatorBuilder get _$this {
     final $v = _$v;

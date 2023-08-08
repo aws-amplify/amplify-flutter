@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.create_virtual_mfa_device_request;
+part of 'create_virtual_mfa_device_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -74,9 +74,7 @@ class CreateVirtualMfaDeviceRequestBuilder
       _$this._tags ??= new _i4.ListBuilder<_i3.Tag>();
   set tags(_i4.ListBuilder<_i3.Tag>? tags) => _$this._tags = tags;
 
-  CreateVirtualMfaDeviceRequestBuilder() {
-    CreateVirtualMfaDeviceRequest._init(this);
-  }
+  CreateVirtualMfaDeviceRequestBuilder();
 
   CreateVirtualMfaDeviceRequestBuilder get _$this {
     final $v = _$v;

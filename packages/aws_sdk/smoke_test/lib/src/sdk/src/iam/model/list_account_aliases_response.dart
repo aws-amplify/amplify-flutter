@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.list_account_aliases_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,6 +22,7 @@ abstract class ListAccountAliasesResponse
     bool? isTruncated,
     String? marker,
   }) {
+    isTruncated ??= false;
     return _$ListAccountAliasesResponse._(
       accountAliases: _i2.BuiltList(accountAliases),
       isTruncated: isTruncated,
@@ -43,18 +44,19 @@ abstract class ListAccountAliasesResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ListAccountAliasesResponseAwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<ListAccountAliasesResponse>>
+      serializers = [ListAccountAliasesResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListAccountAliasesResponseBuilder b) {}
+  static void _init(ListAccountAliasesResponseBuilder b) {
+    b.isTruncated = false;
+  }
 
   /// A list of aliases associated with the account. Amazon Web Services supports only one alias per account.
   _i2.BuiltList<String> get accountAliases;
 
   /// A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the `Marker` request parameter to retrieve more items. Note that IAM might return fewer than the `MaxItems` number of results even when there are more results available. We recommend that you check `IsTruncated` after every call to ensure that you receive all your results.
-  bool? get isTruncated;
+  bool get isTruncated;
 
   /// When `IsTruncated` is `true`, this element is present and contains the value to use for the `Marker` parameter in a subsequent pagination request.
   String? get marker;
@@ -66,19 +68,19 @@ abstract class ListAccountAliasesResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListAccountAliasesResponse');
-    helper.add(
-      'accountAliases',
-      accountAliases,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
+    final helper = newBuiltValueToStringHelper('ListAccountAliasesResponse')
+      ..add(
+        'accountAliases',
+        accountAliases,
+      )
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'marker',
+        marker,
+      );
     return helper.toString();
   }
 }
@@ -169,14 +171,12 @@ class ListAccountAliasesResponseAwsQuerySerializer
           [FullType(String)],
         ),
       ));
-    if (isTruncated != null) {
-      result$
-        ..add(const _i3.XmlElementName('IsTruncated'))
-        ..add(serializers.serialize(
-          isTruncated,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result$
+      ..add(const _i3.XmlElementName('IsTruncated'))
+      ..add(serializers.serialize(
+        isTruncated,
+        specifiedType: const FullType(bool),
+      ));
     if (marker != null) {
       result$
         ..add(const _i3.XmlElementName('Marker'))

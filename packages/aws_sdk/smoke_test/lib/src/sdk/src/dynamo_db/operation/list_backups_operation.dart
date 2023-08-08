@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.operation.list_backups_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -110,7 +110,7 @@ class ListBackupsOperation extends _i1.HttpOperation<_i2.ListBackupsInput,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InternalServerError, _i9.InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
@@ -119,7 +119,8 @@ class ListBackupsOperation extends _i1.HttpOperation<_i2.ListBackupsInput,
           _i9.InternalServerError,
           builder: _i9.InternalServerError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidEndpointException,
+            _i10.InvalidEndpointException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InvalidEndpointException',
@@ -152,7 +153,7 @@ class ListBackupsOperation extends _i1.HttpOperation<_i2.ListBackupsInput,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

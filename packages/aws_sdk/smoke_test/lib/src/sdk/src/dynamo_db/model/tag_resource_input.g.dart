@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.tag_resource_input;
+part of 'tag_resource_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -62,9 +62,7 @@ class TagResourceInputBuilder
       _$this._tags ??= new _i4.ListBuilder<_i3.Tag>();
   set tags(_i4.ListBuilder<_i3.Tag>? tags) => _$this._tags = tags;
 
-  TagResourceInputBuilder() {
-    TagResourceInput._init(this);
-  }
+  TagResourceInputBuilder();
 
   TagResourceInputBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.expected_attribute_value;
+part of 'expected_attribute_value.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -82,9 +82,7 @@ class ExpectedAttributeValueBuilder
           _i4.ListBuilder<_i2.AttributeValue>? attributeValueList) =>
       _$this._attributeValueList = attributeValueList;
 
-  ExpectedAttributeValueBuilder() {
-    ExpectedAttributeValue._init(this);
-  }
+  ExpectedAttributeValueBuilder();
 
   ExpectedAttributeValueBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.get_stored_query_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,12 +32,8 @@ abstract class GetStoredQueryResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    GetStoredQueryResponseAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetStoredQueryResponseBuilder b) {}
+  static const List<_i3.SmithySerializer<GetStoredQueryResponse>> serializers =
+      [GetStoredQueryResponseAwsJson11Serializer()];
 
   /// Returns a `StoredQuery` object.
   _i2.StoredQuery? get storedQuery;
@@ -45,11 +41,11 @@ abstract class GetStoredQueryResponse
   List<Object?> get props => [storedQuery];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetStoredQueryResponse');
-    helper.add(
-      'storedQuery',
-      storedQuery,
-    );
+    final helper = newBuiltValueToStringHelper('GetStoredQueryResponse')
+      ..add(
+        'storedQuery',
+        storedQuery,
+      );
     return helper.toString();
   }
 }

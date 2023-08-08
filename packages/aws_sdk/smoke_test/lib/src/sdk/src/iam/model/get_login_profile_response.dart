@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.get_login_profile_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,12 +34,8 @@ abstract class GetLoginProfileResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    GetLoginProfileResponseAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetLoginProfileResponseBuilder b) {}
+  static const List<_i3.SmithySerializer<GetLoginProfileResponse>> serializers =
+      [GetLoginProfileResponseAwsQuerySerializer()];
 
   /// A structure containing the user name and the profile creation date for the user.
   _i2.LoginProfile get loginProfile;
@@ -47,11 +43,11 @@ abstract class GetLoginProfileResponse
   List<Object?> get props => [loginProfile];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetLoginProfileResponse');
-    helper.add(
-      'loginProfile',
-      loginProfile,
-    );
+    final helper = newBuiltValueToStringHelper('GetLoginProfileResponse')
+      ..add(
+        'loginProfile',
+        loginProfile,
+      );
     return helper.toString();
   }
 }

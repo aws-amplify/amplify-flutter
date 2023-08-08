@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.stack_set; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -48,6 +48,7 @@ abstract class StackSet
     _i8.PermissionModels? permissionModel,
     List<String>? organizationalUnitIds,
     _i9.ManagedExecution? managedExecution,
+    List<String>? regions,
   }) {
     return _$StackSet._(
       stackSetName: stackSetName,
@@ -68,6 +69,7 @@ abstract class StackSet
           ? null
           : _i10.BuiltList(organizationalUnitIds),
       managedExecution: managedExecution,
+      regions: regions == null ? null : _i10.BuiltList(regions),
     );
   }
 
@@ -76,12 +78,9 @@ abstract class StackSet
 
   const StackSet._();
 
-  static const List<_i11.SmithySerializer> serializers = [
+  static const List<_i11.SmithySerializer<StackSet>> serializers = [
     StackSetAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackSetBuilder b) {}
 
   /// The name that's associated with the stack set.
   String? get stackSetName;
@@ -140,6 +139,9 @@ abstract class StackSet
 
   /// Describes whether StackSets performs non-conflicting operations concurrently and queues conflicting operations.
   _i9.ManagedExecution? get managedExecution;
+
+  /// Returns a list of all Amazon Web Services Regions the given StackSet has stack instances deployed in. The Amazon Web Services Regions list output is in no particular order.
+  _i10.BuiltList<String>? get regions;
   @override
   List<Object?> get props => [
         stackSetName,
@@ -158,74 +160,79 @@ abstract class StackSet
         permissionModel,
         organizationalUnitIds,
         managedExecution,
+        regions,
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StackSet');
-    helper.add(
-      'stackSetName',
-      stackSetName,
-    );
-    helper.add(
-      'stackSetId',
-      stackSetId,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'templateBody',
-      templateBody,
-    );
-    helper.add(
-      'parameters',
-      parameters,
-    );
-    helper.add(
-      'capabilities',
-      capabilities,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'stackSetArn',
-      stackSetArn,
-    );
-    helper.add(
-      'administrationRoleArn',
-      administrationRoleArn,
-    );
-    helper.add(
-      'executionRoleName',
-      executionRoleName,
-    );
-    helper.add(
-      'stackSetDriftDetectionDetails',
-      stackSetDriftDetectionDetails,
-    );
-    helper.add(
-      'autoDeployment',
-      autoDeployment,
-    );
-    helper.add(
-      'permissionModel',
-      permissionModel,
-    );
-    helper.add(
-      'organizationalUnitIds',
-      organizationalUnitIds,
-    );
-    helper.add(
-      'managedExecution',
-      managedExecution,
-    );
+    final helper = newBuiltValueToStringHelper('StackSet')
+      ..add(
+        'stackSetName',
+        stackSetName,
+      )
+      ..add(
+        'stackSetId',
+        stackSetId,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'templateBody',
+        templateBody,
+      )
+      ..add(
+        'parameters',
+        parameters,
+      )
+      ..add(
+        'capabilities',
+        capabilities,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'stackSetArn',
+        stackSetArn,
+      )
+      ..add(
+        'administrationRoleArn',
+        administrationRoleArn,
+      )
+      ..add(
+        'executionRoleName',
+        executionRoleName,
+      )
+      ..add(
+        'stackSetDriftDetectionDetails',
+        stackSetDriftDetectionDetails,
+      )
+      ..add(
+        'autoDeployment',
+        autoDeployment,
+      )
+      ..add(
+        'permissionModel',
+        permissionModel,
+      )
+      ..add(
+        'organizationalUnitIds',
+        organizationalUnitIds,
+      )
+      ..add(
+        'managedExecution',
+        managedExecution,
+      )
+      ..add(
+        'regions',
+        regions,
+      );
     return helper.toString();
   }
 }
@@ -367,6 +374,17 @@ class StackSetAwsQuerySerializer
             value,
             specifiedType: const FullType(_i9.ManagedExecution),
           ) as _i9.ManagedExecution));
+        case 'Regions':
+          result.regions.replace((const _i11.XmlBuiltListSerializer(
+                  indexer: _i11.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i10.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i10.BuiltList<String>));
       }
     }
 
@@ -402,7 +420,8 @@ class StackSetAwsQuerySerializer
       :autoDeployment,
       :permissionModel,
       :organizationalUnitIds,
-      :managedExecution
+      :managedExecution,
+      :regions
     ) = object;
     if (stackSetName != null) {
       result$
@@ -554,6 +573,20 @@ class StackSetAwsQuerySerializer
         ..add(serializers.serialize(
           managedExecution,
           specifiedType: const FullType(_i9.ManagedExecution),
+        ));
+    }
+    if (regions != null) {
+      result$
+        ..add(const _i11.XmlElementName('Regions'))
+        ..add(const _i11.XmlBuiltListSerializer(
+                indexer: _i11.XmlIndexer.awsQueryList)
+            .serialize(
+          serializers,
+          regions,
+          specifiedType: const FullType.nullable(
+            _i10.BuiltList,
+            [FullType(String)],
+          ),
         ));
     }
     return result$;

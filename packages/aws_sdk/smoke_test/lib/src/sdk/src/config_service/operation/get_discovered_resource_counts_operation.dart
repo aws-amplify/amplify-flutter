@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.operation.get_discovered_resource_counts_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -165,7 +165,7 @@ class GetDiscoveredResourceCountsOperation extends _i1.PaginatedHttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InvalidLimitException, _i9.InvalidLimitException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidLimitException',
@@ -174,7 +174,8 @@ class GetDiscoveredResourceCountsOperation extends _i1.PaginatedHttpOperation<
           _i9.InvalidLimitException,
           builder: _i9.InvalidLimitException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidNextTokenException,
+            _i10.InvalidNextTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidNextTokenException',
@@ -183,7 +184,7 @@ class GetDiscoveredResourceCountsOperation extends _i1.PaginatedHttpOperation<
           _i10.InvalidNextTokenException,
           builder: _i10.InvalidNextTokenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.ValidationException, _i11.ValidationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ValidationException',
@@ -215,7 +216,7 @@ class GetDiscoveredResourceCountsOperation extends _i1.PaginatedHttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }
@@ -235,8 +236,6 @@ class GetDiscoveredResourceCountsOperation extends _i1.PaginatedHttpOperation<
   ) =>
       input.rebuild((b) {
         b.nextToken = token;
-        if (pageSize != null) {
-          b.limit = pageSize;
-        }
+        b.limit = pageSize;
       });
 }

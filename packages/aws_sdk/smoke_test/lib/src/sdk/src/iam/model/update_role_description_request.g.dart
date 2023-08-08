@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.update_role_description_request;
+part of 'update_role_description_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -66,9 +66,7 @@ class UpdateRoleDescriptionRequestBuilder
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  UpdateRoleDescriptionRequestBuilder() {
-    UpdateRoleDescriptionRequest._init(this);
-  }
+  UpdateRoleDescriptionRequestBuilder();
 
   UpdateRoleDescriptionRequestBuilder get _$this {
     final $v = _$v;

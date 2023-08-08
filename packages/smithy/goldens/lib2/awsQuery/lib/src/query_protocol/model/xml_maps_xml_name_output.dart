@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library aws_query_v2.query_protocol.model.xml_maps_xml_name_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,22 +34,20 @@ abstract class XmlMapsXmlNameOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<XmlMapsXmlNameOutput>> serializers = [
     XmlMapsXmlNameOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(XmlMapsXmlNameOutputBuilder b) {}
   _i3.BuiltMap<String, _i2.GreetingStruct>? get myMap;
   @override
   List<Object?> get props => [myMap];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('XmlMapsXmlNameOutput');
-    helper.add(
-      'myMap',
-      myMap,
-    );
+    final helper = newBuiltValueToStringHelper('XmlMapsXmlNameOutput')
+      ..add(
+        'myMap',
+        myMap,
+      );
     return helper.toString();
   }
 }

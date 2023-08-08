@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.describe_contributor_insights_input;
+part of 'describe_contributor_insights_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class DescribeContributorInsightsInputBuilder
   String? get indexName => _$this._indexName;
   set indexName(String? indexName) => _$this._indexName = indexName;
 
-  DescribeContributorInsightsInputBuilder() {
-    DescribeContributorInsightsInput._init(this);
-  }
+  DescribeContributorInsightsInputBuilder();
 
   DescribeContributorInsightsInputBuilder get _$this {
     final $v = _$v;

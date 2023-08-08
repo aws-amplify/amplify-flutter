@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.put_conformance_pack_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,12 +32,8 @@ abstract class PutConformancePackResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PutConformancePackResponseAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutConformancePackResponseBuilder b) {}
+  static const List<_i2.SmithySerializer<PutConformancePackResponse>>
+      serializers = [PutConformancePackResponseAwsJson11Serializer()];
 
   /// ARN of the conformance pack.
   String? get conformancePackArn;
@@ -45,11 +41,11 @@ abstract class PutConformancePackResponse
   List<Object?> get props => [conformancePackArn];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutConformancePackResponse');
-    helper.add(
-      'conformancePackArn',
-      conformancePackArn,
-    );
+    final helper = newBuiltValueToStringHelper('PutConformancePackResponse')
+      ..add(
+        'conformancePackArn',
+        conformancePackArn,
+      );
     return helper.toString();
   }
 }

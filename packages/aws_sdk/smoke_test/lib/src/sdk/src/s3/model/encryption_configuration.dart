@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.encryption_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -26,24 +26,20 @@ abstract class EncryptionConfiguration
 
   const EncryptionConfiguration._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    EncryptionConfigurationRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<EncryptionConfiguration>> serializers =
+      [EncryptionConfigurationRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EncryptionConfigurationBuilder b) {}
-
-  /// Specifies the ID (Key ARN or Alias ARN) of the customer managed Amazon Web Services KMS key stored in Amazon Web Services Key Management Service (KMS) for the destination bucket. Amazon S3 uses this key to encrypt replica objects. Amazon S3 only supports symmetric, customer managed KMS keys. For more information, see [Using symmetric and asymmetric keys](https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html) in the _Amazon Web Services Key Management Service Developer Guide_.
+  /// Specifies the ID (Key ARN or Alias ARN) of the customer managed Amazon Web Services KMS key stored in Amazon Web Services Key Management Service (KMS) for the destination bucket. Amazon S3 uses this key to encrypt replica objects. Amazon S3 only supports symmetric encryption KMS keys. For more information, see [Asymmetric keys in Amazon Web Services KMS](https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html) in the _Amazon Web Services Key Management Service Developer Guide_.
   String? get replicaKmsKeyId;
   @override
   List<Object?> get props => [replicaKmsKeyId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EncryptionConfiguration');
-    helper.add(
-      'replicaKmsKeyId',
-      replicaKmsKeyId,
-    );
+    final helper = newBuiltValueToStringHelper('EncryptionConfiguration')
+      ..add(
+        'replicaKmsKeyId',
+        replicaKmsKeyId,
+      );
     return helper.toString();
   }
 }

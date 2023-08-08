@@ -102,6 +102,7 @@ const enumReservedWords = [
 ];
 
 const unionReservedWords = [
+  'name',
   'value',
   'sdkUnknown',
   'unknown',

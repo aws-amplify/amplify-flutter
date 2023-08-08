@@ -7,42 +7,33 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_secure_storage/amplify_secure_storage.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:amplify_storage_s3_example/amplifyconfiguration.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:path_provider/path_provider.dart';
 
 final AmplifyLogger _logger = AmplifyLogger('MyStorageApp');
 
 void main() {
   AmplifyLogger().logLevel = LogLevel.debug;
-  runApp(const MyApp());
+  runApp(
+    const MyApp(
+      title: 'Amplify Storage Example',
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class MyApp extends StatefulWidget {
+  const MyApp({super.key, required this.title});
 
   final String title;
 
+  // This widget is the root of your application.
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyApp> createState() => _MyAppState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyAppState extends State<MyApp> {
   static final _router = GoRouter(
     routes: [
       GoRoute(
@@ -76,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
       await Amplify.configure(amplifyconfig);
       _logger.debug('Successfully configured Amplify');
     } on Exception catch (error) {
-      _logger.debug('Something went wrong configuring Amplify: $error');
+      _logger.error('Something went wrong configuring Amplify: $error');
     }
   }
 
@@ -105,19 +96,244 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<StorageItem> list = [];
+  var imageUrl = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _checkAuthStatus();
+    _listAllPublicFiles();
+  }
+
+  // sign out of the app
+  Future<void> _signOut() async {
+    try {
+      await Amplify.Auth.signOut();
+      _logger.debug('Signed out');
+    } on AuthException catch (e) {
+      _logger.error('Could not sign out - ${e.message}');
+    }
+  }
+
+  // check if the user is signed in
+  Future<void> _checkAuthStatus() async {
+    try {
+      final session = await Amplify.Auth.fetchAuthSession();
+      _logger.debug('Signed in: ${session.isSignedIn}');
+    } on AuthException catch (e) {
+      _logger.error('Could not check auth status - ${e.message}');
+    }
+  }
+
+  // upload a file to the S3 bucket
+  Future<void> _uploadFile() async {
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'png'],
+      withReadStream: true,
+      withData: false,
+    );
+
+    if (result == null) {
+      _logger.debug('No file selected');
+      return;
+    }
+
+    final platformFile = result.files.single;
+
+    try {
+      await Amplify.Storage.uploadFile(
+        localFile: AWSFile.fromStream(
+          platformFile.readStream!,
+          size: platformFile.size,
+        ),
+        key: platformFile.name,
+        onProgress: (p) =>
+            _logger.debug('Uploading: ${p.transferredBytes}/${p.totalBytes}'),
+      ).result;
+      await _listAllPublicFiles();
+    } on StorageException catch (e) {
+      _logger.error('Error uploading file - ${e.message}');
+    }
+  }
+
+  // list all files in the S3 bucket
+  Future<void> _listAllPublicFiles() async {
+    try {
+      final result = await Amplify.Storage.list(
+        options: const StorageListOptions(
+          accessLevel: StorageAccessLevel.guest,
+          pluginOptions: S3ListPluginOptions.listAll(),
+        ),
+      ).result;
+      setState(() {
+        list = result.items;
+      });
+    } on StorageException catch (e) {
+      _logger.error('List error - ${e.message}');
+    }
+  }
+
+  // download file on mobile
+  Future<void> downloadFileMobile(String key) async {
+    final documentsDir = await getApplicationDocumentsDirectory();
+    final filepath = '${documentsDir.path}/$key';
+    try {
+      await Amplify.Storage.downloadFile(
+        key: key,
+        localFile: AWSFile.fromPath(filepath),
+        onProgress: (p0) => _logger
+            .debug('Progress: ${(p0.transferredBytes / p0.totalBytes) * 100}%'),
+      ).result;
+      await _listAllPublicFiles();
+    } on StorageException catch (e) {
+      _logger.error('Download error - ${e.message}');
+    }
+  }
+
+  // download file on web
+  Future<void> downloadFileWeb(String key) async {
+    try {
+      await Amplify.Storage.downloadFile(
+        key: key,
+        localFile: AWSFile.fromPath(key),
+        onProgress: (p0) => _logger
+            .debug('Progress: ${(p0.transferredBytes / p0.totalBytes) * 100}%'),
+      ).result;
+      await _listAllPublicFiles();
+    } on StorageException catch (e) {
+      _logger.error('Download error - ${e.message}');
+    }
+  }
+
+  // delete file from S3 bucket
+  Future<void> removeFile({
+    required String key,
+    required StorageAccessLevel accessLevel,
+  }) async {
+    try {
+      await Amplify.Storage.remove(
+        key: key,
+        options: StorageRemoveOptions(accessLevel: accessLevel),
+      ).result;
+      setState(() {
+        // set the imageUrl to empty if the deleted file is the one being displayed
+        imageUrl = '';
+      });
+      await _listAllPublicFiles();
+    } on StorageException catch (e) {
+      _logger.error('Delete error - ${e.message}');
+    }
+  }
+
+  // get the url of a file in the S3 bucket
+  Future<String> getUrl({
+    required String key,
+    required StorageAccessLevel accessLevel,
+  }) async {
+    try {
+      final result = await Amplify.Storage.getUrl(
+        key: key,
+        options: StorageGetUrlOptions(
+          accessLevel: accessLevel,
+          pluginOptions: const S3GetUrlPluginOptions(
+            validateObjectExistence: true,
+            expiresIn: Duration(minutes: 1),
+          ),
+        ),
+      ).result;
+      setState(() {
+        imageUrl = result.url.toString();
+      });
+      return result.url.toString();
+    } on StorageException catch (e) {
+      _logger.error('Get URL error - ${e.message}');
+      rethrow;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Amplify Storage Example'),
       ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('Examples are coming...'),
-          ],
-        ),
+      body: Stack(
+        children: [
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: ListView.builder(
+                itemCount: list.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final item = list[index];
+                  return ListTile(
+                    onTap: () {
+                      getUrl(
+                        key: item.key,
+                        accessLevel: StorageAccessLevel.guest,
+                      );
+                    },
+                    title: Text(item.key),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete),
+                      onPressed: () {
+                        removeFile(
+                          key: item.key,
+                          accessLevel: StorageAccessLevel.guest,
+                        );
+                      },
+                      color: Colors.red,
+                    ),
+                    leading: IconButton(
+                      icon: const Icon(Icons.download),
+                      onPressed: () {
+                        zIsWeb
+                            ? downloadFileWeb(item.key)
+                            : downloadFileMobile(item.key);
+                      },
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+          // display the image with the url
+          if (imageUrl != '')
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.all(80),
+                child: Image.network(imageUrl, height: 200),
+              ),
+            ),
+          // upload file button
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: ElevatedButton(
+                onPressed: _uploadFile,
+                child: const Text('Upload File'),
+              ),
+            ),
+          ),
+          // sign out button
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.red),
+                ),
+                onPressed: _signOut,
+                child: const Icon(Icons.logout, color: Colors.white),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

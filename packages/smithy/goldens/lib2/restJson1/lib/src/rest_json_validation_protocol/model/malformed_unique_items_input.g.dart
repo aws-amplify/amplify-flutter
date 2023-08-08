@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_validation_protocol.model.malformed_unique_items_input;
+part of 'malformed_unique_items_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -207,9 +207,7 @@ class MalformedUniqueItemsInputBuilder
   set unionList(_i9.SetBuilder<_i8.FooUnion>? unionList) =>
       _$this._unionList = unionList;
 
-  MalformedUniqueItemsInputBuilder() {
-    MalformedUniqueItemsInput._init(this);
-  }
+  MalformedUniqueItemsInputBuilder();
 
   MalformedUniqueItemsInputBuilder get _$this {
     final $v = _$v;

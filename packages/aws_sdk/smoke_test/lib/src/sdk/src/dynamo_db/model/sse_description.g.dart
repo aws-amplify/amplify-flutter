@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.sse_description;
+part of 'sse_description.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -80,9 +80,7 @@ class SseDescriptionBuilder
           DateTime? inaccessibleEncryptionDateTime) =>
       _$this._inaccessibleEncryptionDateTime = inaccessibleEncryptionDateTime;
 
-  SseDescriptionBuilder() {
-    SseDescription._init(this);
-  }
+  SseDescriptionBuilder();
 
   SseDescriptionBuilder get _$this {
     final $v = _$v;

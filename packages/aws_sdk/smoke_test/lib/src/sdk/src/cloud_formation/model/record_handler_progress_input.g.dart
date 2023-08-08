@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.record_handler_progress_input;
+part of 'record_handler_progress_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -118,9 +118,7 @@ class RecordHandlerProgressInputBuilder
   set clientRequestToken(String? clientRequestToken) =>
       _$this._clientRequestToken = clientRequestToken;
 
-  RecordHandlerProgressInputBuilder() {
-    RecordHandlerProgressInput._init(this);
-  }
+  RecordHandlerProgressInputBuilder();
 
   RecordHandlerProgressInputBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.get_account_request;
+part of 'get_account_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -37,9 +37,7 @@ class GetAccountRequestBuilder
     implements Builder<GetAccountRequest, GetAccountRequestBuilder> {
   _$GetAccountRequest? _$v;
 
-  GetAccountRequestBuilder() {
-    GetAccountRequest._init(this);
-  }
+  GetAccountRequestBuilder();
 
   @override
   void replace(GetAccountRequest other) {

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_xml_v2.s3.model.list_objects_v2_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -61,12 +61,10 @@ abstract class ListObjectsV2Output
   ) =>
       payload;
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer<ListObjectsV2Output>> serializers = [
     ListObjectsV2OutputRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListObjectsV2OutputBuilder b) {}
   bool? get isTruncated;
   _i5.BuiltList<_i2.S3Object>? get contents;
   String? get name;
@@ -96,55 +94,55 @@ abstract class ListObjectsV2Output
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListObjectsV2Output');
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'contents',
-      contents,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'prefix',
-      prefix,
-    );
-    helper.add(
-      'delimiter',
-      delimiter,
-    );
-    helper.add(
-      'maxKeys',
-      maxKeys,
-    );
-    helper.add(
-      'commonPrefixes',
-      commonPrefixes,
-    );
-    helper.add(
-      'encodingType',
-      encodingType,
-    );
-    helper.add(
-      'keyCount',
-      keyCount,
-    );
-    helper.add(
-      'continuationToken',
-      continuationToken,
-    );
-    helper.add(
-      'nextContinuationToken',
-      nextContinuationToken,
-    );
-    helper.add(
-      'startAfter',
-      startAfter,
-    );
+    final helper = newBuiltValueToStringHelper('ListObjectsV2Output')
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'contents',
+        contents,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'prefix',
+        prefix,
+      )
+      ..add(
+        'delimiter',
+        delimiter,
+      )
+      ..add(
+        'maxKeys',
+        maxKeys,
+      )
+      ..add(
+        'commonPrefixes',
+        commonPrefixes,
+      )
+      ..add(
+        'encodingType',
+        encodingType,
+      )
+      ..add(
+        'keyCount',
+        keyCount,
+      )
+      ..add(
+        'continuationToken',
+        continuationToken,
+      )
+      ..add(
+        'nextContinuationToken',
+        nextContinuationToken,
+      )
+      ..add(
+        'startAfter',
+        startAfter,
+      );
     return helper.toString();
   }
 }

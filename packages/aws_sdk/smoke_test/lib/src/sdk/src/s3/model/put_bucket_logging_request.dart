@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.put_bucket_logging_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -66,12 +66,8 @@ abstract class PutBucketLoggingRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutBucketLoggingRequestRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketLoggingRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<_i2.BucketLoggingStatus>> serializers =
+      [PutBucketLoggingRequestRestXmlSerializer()];
 
   /// The name of the bucket for which to set the logging parameters.
   String get bucket;
@@ -115,27 +111,27 @@ abstract class PutBucketLoggingRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutBucketLoggingRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'bucketLoggingStatus',
-      bucketLoggingStatus,
-    );
-    helper.add(
-      'contentMd5',
-      contentMd5,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('PutBucketLoggingRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'bucketLoggingStatus',
+        bucketLoggingStatus,
+      )
+      ..add(
+        'contentMd5',
+        contentMd5,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

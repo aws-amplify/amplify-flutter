@@ -23,7 +23,7 @@ class EnumGenerator extends LibraryGenerator<EnumShape> {
 
   late final List<MemberShape> sortedDefinitions = shape.enumValues.toList()
     ..sort((a, b) {
-      return a.variantName.compareTo(b.variantName);
+      return a.enumVariantName.compareTo(b.enumVariantName);
     });
 
   late final List<EnumValueTrait> sortedEnumValues = sortedDefinitions
@@ -81,27 +81,20 @@ class EnumGenerator extends LibraryGenerator<EnumShape> {
           ..requiredParameters.addAll([
             Parameter(
               (p) => p
-                ..name = 'index'
-                ..type = DartTypes.core.int,
+                ..toSuper = true
+                ..name = 'index',
             ),
             Parameter(
               (p) => p
-                ..name = 'name'
-                ..type = DartTypes.core.string,
+                ..toSuper = true
+                ..name = 'name',
             ),
             Parameter(
               (p) => p
-                ..name = 'value'
-                ..type = valueType,
+                ..toSuper = true
+                ..name = 'value',
             ),
-          ])
-          ..initializers.add(
-            refer('super').call([
-              refer('index'),
-              refer('name'),
-              refer('value'),
-            ]).code,
-          ),
+          ]),
       );
 
   /// The `sdkUnknown` constructor for values which do not match the
@@ -117,14 +110,12 @@ class EnumGenerator extends LibraryGenerator<EnumShape> {
           ..requiredParameters.add(
             Parameter(
               (p) => p
-                ..name = 'value'
-                ..type = valueType,
+                ..toSuper = true
+                ..name = 'value',
             ),
           )
           ..initializers.add(
-            refer('super').property('sdkUnknown').call([
-              refer('value'),
-            ]).code,
+            refer('super').property('sdkUnknown').call([]).code,
           ),
       );
 
@@ -140,7 +131,7 @@ class EnumGenerator extends LibraryGenerator<EnumShape> {
           f
             ..static = true
             ..modifier = FieldModifier.constant
-            ..name = definition.variantName
+            ..name = definition.enumVariantName
             ..assignment = symbol.newInstanceNamed('_', [
               literalNum(index),
               literalString(definition.memberName),
@@ -157,7 +148,7 @@ class EnumGenerator extends LibraryGenerator<EnumShape> {
           ..name = 'values'
           ..docs.add('/// All values of [$className].')
           ..assignment = literalList(
-            sortedDefinitions.map((e) => symbol.property(e.variantName)),
+            sortedDefinitions.map((e) => symbol.property(e.enumVariantName)),
             symbol,
           ).code,
       );
@@ -182,8 +173,8 @@ class EnumGenerator extends LibraryGenerator<EnumShape> {
             'supportedProtocols': literalConstList([
               for (final protocol in context.serviceProtocols)
                 if (!protocol.isSynthetic) protocol.shapeId.constructed,
-            ])
-          })
+            ]),
+          }),
         ]).code,
     );
   }
@@ -235,7 +226,7 @@ class EnumGenerator extends LibraryGenerator<EnumShape> {
                 ..returns = symbol
                 ..name = 'byValue'
                 ..docs.addAll([
-                  '/// Returns the value of [$className] whose value matches [value].'
+                  '/// Returns the value of [$className] whose value matches [value].',
                 ])
                 ..requiredParameters.add(
                   Parameter(
@@ -263,5 +254,6 @@ class EnumGenerator extends LibraryGenerator<EnumShape> {
 
 extension EnumVariantName on MemberShape {
   /// The name of the enum variant.
-  String get variantName => memberName.camelCase.nameEscaped(ShapeType.enum_);
+  String get enumVariantName =>
+      memberName.camelCase.nameEscaped(ShapeType.enum_);
 }

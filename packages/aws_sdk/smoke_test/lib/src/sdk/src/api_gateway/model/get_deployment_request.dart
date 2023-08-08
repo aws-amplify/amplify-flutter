@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.get_deployment_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -60,12 +60,8 @@ abstract class GetDeploymentRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetDeploymentRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetDeploymentRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetDeploymentRequestPayload>>
+      serializers = [GetDeploymentRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -99,19 +95,19 @@ abstract class GetDeploymentRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetDeploymentRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'deploymentId',
-      deploymentId,
-    );
-    helper.add(
-      'embed',
-      embed,
-    );
+    final helper = newBuiltValueToStringHelper('GetDeploymentRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'deploymentId',
+        deploymentId,
+      )
+      ..add(
+        'embed',
+        embed,
+      );
     return helper.toString();
   }
 }
@@ -128,8 +124,6 @@ abstract class GetDeploymentRequestPayload
 
   const GetDeploymentRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetDeploymentRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

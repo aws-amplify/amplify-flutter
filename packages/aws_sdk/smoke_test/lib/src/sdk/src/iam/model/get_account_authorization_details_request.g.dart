@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_account_authorization_details_request;
+part of 'get_account_authorization_details_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -75,9 +75,7 @@ class GetAccountAuthorizationDetailsRequestBuilder
   String? get marker => _$this._marker;
   set marker(String? marker) => _$this._marker = marker;
 
-  GetAccountAuthorizationDetailsRequestBuilder() {
-    GetAccountAuthorizationDetailsRequest._init(this);
-  }
+  GetAccountAuthorizationDetailsRequestBuilder();
 
   GetAccountAuthorizationDetailsRequestBuilder get _$this {
     final $v = _$v;

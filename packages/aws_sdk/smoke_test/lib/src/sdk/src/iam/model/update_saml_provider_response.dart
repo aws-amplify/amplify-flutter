@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.update_saml_provider_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,12 +34,8 @@ abstract class UpdateSamlProviderResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    UpdateSamlProviderResponseAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateSamlProviderResponseBuilder b) {}
+  static const List<_i2.SmithySerializer<UpdateSamlProviderResponse>>
+      serializers = [UpdateSamlProviderResponseAwsQuerySerializer()];
 
   /// The Amazon Resource Name (ARN) of the SAML provider that was updated.
   String? get samlProviderArn;
@@ -47,11 +43,11 @@ abstract class UpdateSamlProviderResponse
   List<Object?> get props => [samlProviderArn];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateSamlProviderResponse');
-    helper.add(
-      'samlProviderArn',
-      samlProviderArn,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateSamlProviderResponse')
+      ..add(
+        'samlProviderArn',
+        samlProviderArn,
+      );
     return helper.toString();
   }
 }

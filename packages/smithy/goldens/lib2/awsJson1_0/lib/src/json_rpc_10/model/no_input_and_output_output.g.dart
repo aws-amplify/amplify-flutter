@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_0_v2.json_rpc_10.model.no_input_and_output_output;
+part of 'no_input_and_output_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -38,9 +38,7 @@ class NoInputAndOutputOutputBuilder
     implements Builder<NoInputAndOutputOutput, NoInputAndOutputOutputBuilder> {
   _$NoInputAndOutputOutput? _$v;
 
-  NoInputAndOutputOutputBuilder() {
-    NoInputAndOutputOutput._init(this);
-  }
+  NoInputAndOutputOutputBuilder();
 
   @override
   void replace(NoInputAndOutputOutput other) {

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_user_policy_request;
+part of 'get_user_policy_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class GetUserPolicyRequestBuilder
   String? get policyName => _$this._policyName;
   set policyName(String? policyName) => _$this._policyName = policyName;
 
-  GetUserPolicyRequestBuilder() {
-    GetUserPolicyRequest._init(this);
-  }
+  GetUserPolicyRequestBuilder();
 
   GetUserPolicyRequestBuilder get _$this {
     final $v = _$v;

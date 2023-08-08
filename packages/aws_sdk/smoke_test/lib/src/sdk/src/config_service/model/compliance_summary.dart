@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.compliance_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,12 +35,9 @@ abstract class ComplianceSummary
 
   const ComplianceSummary._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ComplianceSummary>> serializers = [
     ComplianceSummaryAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ComplianceSummaryBuilder b) {}
 
   /// The number of Config rules or Amazon Web Services resources that are compliant, up to a maximum of 25 for rules and 100 for resources.
   _i2.ComplianceContributorCount? get compliantResourceCount;
@@ -58,19 +55,19 @@ abstract class ComplianceSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ComplianceSummary');
-    helper.add(
-      'compliantResourceCount',
-      compliantResourceCount,
-    );
-    helper.add(
-      'nonCompliantResourceCount',
-      nonCompliantResourceCount,
-    );
-    helper.add(
-      'complianceSummaryTimestamp',
-      complianceSummaryTimestamp,
-    );
+    final helper = newBuiltValueToStringHelper('ComplianceSummary')
+      ..add(
+        'compliantResourceCount',
+        compliantResourceCount,
+      )
+      ..add(
+        'nonCompliantResourceCount',
+        nonCompliantResourceCount,
+      )
+      ..add(
+        'complianceSummaryTimestamp',
+        complianceSummaryTimestamp,
+      );
     return helper.toString();
   }
 }

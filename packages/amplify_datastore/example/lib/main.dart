@@ -160,7 +160,7 @@ class _MyAppState extends State<MyApp> {
   void listenToHub() {
     setState(() {
       hubSubscription = Amplify.Hub.listen(HubChannel.DataStore, (msg) {
-        if (msg is NetworkStatusEvent) {
+        if (msg.type case DataStoreHubEventType.networkStatus) {
           print('Network status message: $msg');
           return;
         }
@@ -237,6 +237,24 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  void updateQueriesToView(String value) {
+    setState(() {
+      _queriesToView = value;
+    });
+  }
+
+  void updateSelectedBlogForNewPost(Blog value) {
+    setState(() {
+      _selectedBlogForNewPost = value;
+    });
+  }
+
+  void updateSelectedPostForNewComment(Post value) {
+    setState(() {
+      _selectedPostForNewComment = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     executeAfterBuild();
@@ -272,22 +290,30 @@ class _MyAppState extends State<MyApp> {
 
             // Row for saving post
             addPostWidget(
-                titleController: _titleController,
-                ratingController: _ratingController,
-                isAmplifyConfigured: _isAmplifyConfigured,
-                allBlogs: _blogs,
-                saveFn: savePost,
-                app: this,
-                defaultBlog: _selectedBlogForNewPost),
+              titleController: _titleController,
+              ratingController: _ratingController,
+              isAmplifyConfigured: _isAmplifyConfigured,
+              allBlogs: _blogs,
+              selectedBlog: _selectedBlogForNewPost,
+              saveFn: savePost,
+              updateSelectedBlogForNewPost: updateSelectedBlogForNewPost,
+            ),
 
             // Row for saving comment
-            addCommentWidget(_contentController, _isAmplifyConfigured,
-                _selectedPostForNewComment, _posts, saveComment, this),
+            addCommentWidget(
+                _contentController,
+                _isAmplifyConfigured,
+                _selectedPostForNewComment,
+                _posts,
+                _selectedPostForNewComment,
+                saveComment,
+                updateSelectedPostForNewComment),
 
             Padding(padding: EdgeInsets.all(10.0)),
 
             // Row for query buttons
-            displayQueryButtons(_isAmplifyConfigured, this),
+            displayQueryButtons(
+                _isAmplifyConfigured, _queriesToView, updateQueriesToView),
 
             Padding(padding: EdgeInsets.all(5.0)),
             Text("Listen to DataStore Hub"),

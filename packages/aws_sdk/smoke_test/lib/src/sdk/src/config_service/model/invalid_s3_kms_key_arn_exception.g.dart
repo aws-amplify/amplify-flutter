@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.invalid_s3_kms_key_arn_exception;
+part of 'invalid_s3_kms_key_arn_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class InvalidS3KmsKeyArnExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InvalidS3KmsKeyArnExceptionBuilder() {
-    InvalidS3KmsKeyArnException._init(this);
-  }
+  InvalidS3KmsKeyArnExceptionBuilder();
 
   InvalidS3KmsKeyArnExceptionBuilder get _$this {
     final $v = _$v;

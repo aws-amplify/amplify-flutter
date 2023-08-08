@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_xml_v2.rest_xml_protocol.model.xml_nested_union_struct; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,10 @@ abstract class XmlNestedUnionStruct
 
   const XmlNestedUnionStruct._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<XmlNestedUnionStruct>> serializers = [
     XmlNestedUnionStructRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(XmlNestedUnionStructBuilder b) {}
   String? get stringValue;
   bool? get booleanValue;
   int? get byteValue;
@@ -69,39 +67,39 @@ abstract class XmlNestedUnionStruct
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('XmlNestedUnionStruct');
-    helper.add(
-      'stringValue',
-      stringValue,
-    );
-    helper.add(
-      'booleanValue',
-      booleanValue,
-    );
-    helper.add(
-      'byteValue',
-      byteValue,
-    );
-    helper.add(
-      'shortValue',
-      shortValue,
-    );
-    helper.add(
-      'integerValue',
-      integerValue,
-    );
-    helper.add(
-      'longValue',
-      longValue,
-    );
-    helper.add(
-      'floatValue',
-      floatValue,
-    );
-    helper.add(
-      'doubleValue',
-      doubleValue,
-    );
+    final helper = newBuiltValueToStringHelper('XmlNestedUnionStruct')
+      ..add(
+        'stringValue',
+        stringValue,
+      )
+      ..add(
+        'booleanValue',
+        booleanValue,
+      )
+      ..add(
+        'byteValue',
+        byteValue,
+      )
+      ..add(
+        'shortValue',
+        shortValue,
+      )
+      ..add(
+        'integerValue',
+        integerValue,
+      )
+      ..add(
+        'longValue',
+        longValue,
+      )
+      ..add(
+        'floatValue',
+        floatValue,
+      )
+      ..add(
+        'doubleValue',
+        doubleValue,
+      );
     return helper.toString();
   }
 }

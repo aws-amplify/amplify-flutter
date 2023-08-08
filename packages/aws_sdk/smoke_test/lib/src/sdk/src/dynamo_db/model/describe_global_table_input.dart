@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.describe_global_table_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,8 @@ abstract class DescribeGlobalTableInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DescribeGlobalTableInputAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeGlobalTableInputBuilder b) {}
+  static const List<_i1.SmithySerializer<DescribeGlobalTableInput>>
+      serializers = [DescribeGlobalTableInputAwsJson10Serializer()];
 
   /// The name of the global table.
   String get globalTableName;
@@ -48,11 +44,11 @@ abstract class DescribeGlobalTableInput
   List<Object?> get props => [globalTableName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeGlobalTableInput');
-    helper.add(
-      'globalTableName',
-      globalTableName,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeGlobalTableInput')
+      ..add(
+        'globalTableName',
+        globalTableName,
+      );
     return helper.toString();
   }
 }

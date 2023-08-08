@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.detect_stack_drift_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,9 @@ abstract class DetectStackDriftInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<DetectStackDriftInput>> serializers = [
     DetectStackDriftInputAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DetectStackDriftInputBuilder b) {}
 
   /// The name of the stack for which you want to detect drift.
   String get stackName;
@@ -61,15 +58,15 @@ abstract class DetectStackDriftInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DetectStackDriftInput');
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'logicalResourceIds',
-      logicalResourceIds,
-    );
+    final helper = newBuiltValueToStringHelper('DetectStackDriftInput')
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'logicalResourceIds',
+        logicalResourceIds,
+      );
     return helper.toString();
   }
 }

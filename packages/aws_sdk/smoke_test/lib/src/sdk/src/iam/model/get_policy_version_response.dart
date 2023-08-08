@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.get_policy_version_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,12 +35,8 @@ abstract class GetPolicyVersionResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    GetPolicyVersionResponseAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetPolicyVersionResponseBuilder b) {}
+  static const List<_i3.SmithySerializer<GetPolicyVersionResponse>>
+      serializers = [GetPolicyVersionResponseAwsQuerySerializer()];
 
   /// A structure containing details about the policy version.
   _i2.PolicyVersion? get policyVersion;
@@ -48,11 +44,11 @@ abstract class GetPolicyVersionResponse
   List<Object?> get props => [policyVersion];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetPolicyVersionResponse');
-    helper.add(
-      'policyVersion',
-      policyVersion,
-    );
+    final helper = newBuiltValueToStringHelper('GetPolicyVersionResponse')
+      ..add(
+        'policyVersion',
+        policyVersion,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.access_control_translation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -28,12 +28,8 @@ abstract class AccessControlTranslation
 
   const AccessControlTranslation._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    AccessControlTranslationRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AccessControlTranslationBuilder b) {}
+  static const List<_i3.SmithySerializer<AccessControlTranslation>>
+      serializers = [AccessControlTranslationRestXmlSerializer()];
 
   /// Specifies the replica ownership. For default and valid values, see [PUT bucket replication](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTreplication.html) in the _Amazon S3 API Reference_.
   _i2.OwnerOverride get owner;
@@ -41,11 +37,11 @@ abstract class AccessControlTranslation
   List<Object?> get props => [owner];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AccessControlTranslation');
-    helper.add(
-      'owner',
-      owner,
-    );
+    final helper = newBuiltValueToStringHelper('AccessControlTranslation')
+      ..add(
+        'owner',
+        owner,
+      );
     return helper.toString();
   }
 }

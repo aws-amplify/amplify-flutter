@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.documentation_version; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,12 +41,9 @@ abstract class DocumentationVersion
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<DocumentationVersion>> serializers = [
     DocumentationVersionRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DocumentationVersionBuilder b) {}
 
   /// The version identifier of the API documentation snapshot.
   String? get version;
@@ -64,19 +61,19 @@ abstract class DocumentationVersion
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DocumentationVersion');
-    helper.add(
-      'version',
-      version,
-    );
-    helper.add(
-      'createdDate',
-      createdDate,
-    );
-    helper.add(
-      'description',
-      description,
-    );
+    final helper = newBuiltValueToStringHelper('DocumentationVersion')
+      ..add(
+        'version',
+        version,
+      )
+      ..add(
+        'createdDate',
+        createdDate,
+      )
+      ..add(
+        'description',
+        description,
+      );
     return helper.toString();
   }
 }

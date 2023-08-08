@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.start_remediation_execution_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,8 @@ abstract class StartRemediationExecutionResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    StartRemediationExecutionResponseAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StartRemediationExecutionResponseBuilder b) {}
+  static const List<_i4.SmithySerializer<StartRemediationExecutionResponse>>
+      serializers = [StartRemediationExecutionResponseAwsJson11Serializer()];
 
   /// Returns a failure message. For example, the resource is already compliant.
   String? get failureMessage;
@@ -62,15 +58,15 @@ abstract class StartRemediationExecutionResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('StartRemediationExecutionResponse');
-    helper.add(
-      'failureMessage',
-      failureMessage,
-    );
-    helper.add(
-      'failedItems',
-      failedItems,
-    );
+        newBuiltValueToStringHelper('StartRemediationExecutionResponse')
+          ..add(
+            'failureMessage',
+            failureMessage,
+          )
+          ..add(
+            'failedItems',
+            failedItems,
+          );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v2.rest_json_protocol.model.json_int_enums_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -59,12 +59,9 @@ abstract class JsonIntEnumsInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    JsonIntEnumsInputOutputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<JsonIntEnumsInputOutput>> serializers =
+      [JsonIntEnumsInputOutputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(JsonIntEnumsInputOutputBuilder b) {}
   _i3.IntegerEnum? get integerEnum1;
   _i3.IntegerEnum? get integerEnum2;
   _i3.IntegerEnum? get integerEnum3;
@@ -84,31 +81,31 @@ abstract class JsonIntEnumsInputOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('JsonIntEnumsInputOutput');
-    helper.add(
-      'integerEnum1',
-      integerEnum1,
-    );
-    helper.add(
-      'integerEnum2',
-      integerEnum2,
-    );
-    helper.add(
-      'integerEnum3',
-      integerEnum3,
-    );
-    helper.add(
-      'integerEnumList',
-      integerEnumList,
-    );
-    helper.add(
-      'integerEnumSet',
-      integerEnumSet,
-    );
-    helper.add(
-      'integerEnumMap',
-      integerEnumMap,
-    );
+    final helper = newBuiltValueToStringHelper('JsonIntEnumsInputOutput')
+      ..add(
+        'integerEnum1',
+        integerEnum1,
+      )
+      ..add(
+        'integerEnum2',
+        integerEnum2,
+      )
+      ..add(
+        'integerEnum3',
+        integerEnum3,
+      )
+      ..add(
+        'integerEnumList',
+        integerEnumList,
+      )
+      ..add(
+        'integerEnumSet',
+        integerEnumSet,
+      )
+      ..add(
+        'integerEnumMap',
+        integerEnumMap,
+      );
     return helper.toString();
   }
 }

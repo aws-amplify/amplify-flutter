@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.table_class_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,12 +32,9 @@ abstract class TableClassSummary
 
   const TableClassSummary._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<TableClassSummary>> serializers = [
     TableClassSummaryAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TableClassSummaryBuilder b) {}
 
   /// The table class of the specified table. Valid values are `STANDARD` and `STANDARD\_INFREQUENT\_ACCESS`.
   _i2.TableClass? get tableClass;
@@ -51,15 +48,15 @@ abstract class TableClassSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TableClassSummary');
-    helper.add(
-      'tableClass',
-      tableClass,
-    );
-    helper.add(
-      'lastUpdateDateTime',
-      lastUpdateDateTime,
-    );
+    final helper = newBuiltValueToStringHelper('TableClassSummary')
+      ..add(
+        'tableClass',
+        tableClass,
+      )
+      ..add(
+        'lastUpdateDateTime',
+        lastUpdateDateTime,
+      );
     return helper.toString();
   }
 }

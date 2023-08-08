@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.stop_stack_set_operation_output;
+part of 'stop_stack_set_operation_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -40,9 +40,7 @@ class StopStackSetOperationOutputBuilder
             StopStackSetOperationOutputBuilder> {
   _$StopStackSetOperationOutput? _$v;
 
-  StopStackSetOperationOutputBuilder() {
-    StopStackSetOperationOutput._init(this);
-  }
+  StopStackSetOperationOutputBuilder();
 
   @override
   void replace(StopStackSetOperationOutput other) {

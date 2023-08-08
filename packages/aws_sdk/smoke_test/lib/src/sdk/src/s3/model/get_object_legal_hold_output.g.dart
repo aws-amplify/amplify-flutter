@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_object_legal_hold_output;
+part of 'get_object_legal_hold_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class GetObjectLegalHoldOutputBuilder
   set legalHold(_i3.ObjectLockLegalHoldBuilder? legalHold) =>
       _$this._legalHold = legalHold;
 
-  GetObjectLegalHoldOutputBuilder() {
-    GetObjectLegalHoldOutput._init(this);
-  }
+  GetObjectLegalHoldOutputBuilder();
 
   GetObjectLegalHoldOutputBuilder get _$this {
     final $v = _$v;

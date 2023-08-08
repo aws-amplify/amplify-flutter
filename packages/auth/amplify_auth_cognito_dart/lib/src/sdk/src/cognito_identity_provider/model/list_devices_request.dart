@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.list_devices_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,7 +41,7 @@ abstract class ListDevicesRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ListDevicesRequest>> serializers = [
     ListDevicesRequestAwsJson11Serializer()
   ];
 
@@ -65,19 +66,19 @@ abstract class ListDevicesRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListDevicesRequest');
-    helper.add(
-      'accessToken',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'paginationToken',
-      paginationToken,
-    );
+    final helper = newBuiltValueToStringHelper('ListDevicesRequest')
+      ..add(
+        'accessToken',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'limit',
+        limit,
+      )
+      ..add(
+        'paginationToken',
+        paginationToken,
+      );
     return helper.toString();
   }
 }
@@ -110,29 +111,25 @@ class ListDevicesRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AccessToken':
           result.accessToken = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Limit':
-          if (value != null) {
-            result.limit = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(int),
-            ) as int);
-          }
-          break;
+          result.limit = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int);
         case 'PaginationToken':
-          if (value != null) {
-            result.paginationToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.paginationToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -142,33 +139,34 @@ class ListDevicesRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListDevicesRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListDevicesRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final ListDevicesRequest(:accessToken, :limit, :paginationToken) = object;
+    result$.addAll([
       'AccessToken',
       serializers.serialize(
-        payload.accessToken,
+        accessToken,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.limit != null) {
-      result
+    ]);
+    if (limit != null) {
+      result$
         ..add('Limit')
         ..add(serializers.serialize(
-          payload.limit!,
+          limit,
           specifiedType: const FullType(int),
         ));
     }
-    if (payload.paginationToken != null) {
-      result
+    if (paginationToken != null) {
+      result$
         ..add('PaginationToken')
         ..add(serializers.serialize(
-          payload.paginationToken!,
+          paginationToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

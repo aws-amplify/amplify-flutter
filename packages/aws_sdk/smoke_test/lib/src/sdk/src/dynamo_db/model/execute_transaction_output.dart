@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.execute_transaction_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,12 +43,8 @@ abstract class ExecuteTransactionOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
-    ExecuteTransactionOutputAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ExecuteTransactionOutputBuilder b) {}
+  static const List<_i5.SmithySerializer<ExecuteTransactionOutput>>
+      serializers = [ExecuteTransactionOutputAwsJson10Serializer()];
 
   /// The response to a PartiQL transaction.
   _i4.BuiltList<_i2.ItemResponse>? get responses;
@@ -62,15 +58,15 @@ abstract class ExecuteTransactionOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ExecuteTransactionOutput');
-    helper.add(
-      'responses',
-      responses,
-    );
-    helper.add(
-      'consumedCapacity',
-      consumedCapacity,
-    );
+    final helper = newBuiltValueToStringHelper('ExecuteTransactionOutput')
+      ..add(
+        'responses',
+        responses,
+      )
+      ..add(
+        'consumedCapacity',
+        consumedCapacity,
+      );
     return helper.toString();
   }
 }

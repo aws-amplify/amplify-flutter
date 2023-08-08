@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.execute_change_set_input;
+part of 'execute_change_set_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -84,9 +84,7 @@ class ExecuteChangeSetInputBuilder
   set disableRollback(bool? disableRollback) =>
       _$this._disableRollback = disableRollback;
 
-  ExecuteChangeSetInputBuilder() {
-    ExecuteChangeSetInput._init(this);
-  }
+  ExecuteChangeSetInputBuilder();
 
   ExecuteChangeSetInputBuilder get _$this {
     final $v = _$v;

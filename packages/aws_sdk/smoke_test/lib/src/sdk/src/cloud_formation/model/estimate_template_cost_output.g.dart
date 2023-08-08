@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.estimate_template_cost_output;
+part of 'estimate_template_cost_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -49,9 +49,7 @@ class EstimateTemplateCostOutputBuilder
   String? get url => _$this._url;
   set url(String? url) => _$this._url = url;
 
-  EstimateTemplateCostOutputBuilder() {
-    EstimateTemplateCostOutput._init(this);
-  }
+  EstimateTemplateCostOutputBuilder();
 
   EstimateTemplateCostOutputBuilder get _$this {
     final $v = _$v;

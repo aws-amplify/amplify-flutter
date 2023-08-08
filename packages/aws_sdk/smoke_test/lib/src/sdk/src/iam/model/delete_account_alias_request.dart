@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.delete_account_alias_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,8 @@ abstract class DeleteAccountAliasRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteAccountAliasRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteAccountAliasRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<DeleteAccountAliasRequest>>
+      serializers = [DeleteAccountAliasRequestAwsQuerySerializer()];
 
   /// The name of the account alias to delete.
   ///
@@ -50,11 +46,11 @@ abstract class DeleteAccountAliasRequest
   List<Object?> get props => [accountAlias];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteAccountAliasRequest');
-    helper.add(
-      'accountAlias',
-      accountAlias,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteAccountAliasRequest')
+      ..add(
+        'accountAlias',
+        accountAlias,
+      );
     return helper.toString();
   }
 }

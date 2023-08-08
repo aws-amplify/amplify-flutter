@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.delete_authorizer_request;
+part of 'delete_authorizer_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class DeleteAuthorizerRequestBuilder
   String? get authorizerId => _$this._authorizerId;
   set authorizerId(String? authorizerId) => _$this._authorizerId = authorizerId;
 
-  DeleteAuthorizerRequestBuilder() {
-    DeleteAuthorizerRequest._init(this);
-  }
+  DeleteAuthorizerRequestBuilder();
 
   DeleteAuthorizerRequestBuilder get _$this {
     final $v = _$v;
@@ -139,9 +137,7 @@ class DeleteAuthorizerRequestPayloadBuilder
             DeleteAuthorizerRequestPayloadBuilder> {
   _$DeleteAuthorizerRequestPayload? _$v;
 
-  DeleteAuthorizerRequestPayloadBuilder() {
-    DeleteAuthorizerRequestPayload._init(this);
-  }
+  DeleteAuthorizerRequestPayloadBuilder();
 
   @override
   void replace(DeleteAuthorizerRequestPayload other) {

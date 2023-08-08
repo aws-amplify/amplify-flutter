@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.list_saml_providers_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,12 +34,9 @@ abstract class ListSamlProvidersRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListSamlProvidersRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<ListSamlProvidersRequest>>
+      serializers = [ListSamlProvidersRequestAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListSamlProvidersRequestBuilder b) {}
   @override
   ListSamlProvidersRequest getPayload() => this;
   @override

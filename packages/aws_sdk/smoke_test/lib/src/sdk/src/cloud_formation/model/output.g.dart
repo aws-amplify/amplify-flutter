@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.output;
+part of 'output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -71,9 +71,7 @@ class OutputBuilder implements Builder<Output, OutputBuilder> {
   String? get exportName => _$this._exportName;
   set exportName(String? exportName) => _$this._exportName = exportName;
 
-  OutputBuilder() {
-    Output._init(this);
-  }
+  OutputBuilder();
 
   OutputBuilder get _$this {
     final $v = _$v;

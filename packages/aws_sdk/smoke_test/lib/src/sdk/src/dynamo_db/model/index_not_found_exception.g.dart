@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.index_not_found_exception;
+part of 'index_not_found_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -61,9 +61,7 @@ class IndexNotFoundExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  IndexNotFoundExceptionBuilder() {
-    IndexNotFoundException._init(this);
-  }
+  IndexNotFoundExceptionBuilder();
 
   IndexNotFoundExceptionBuilder get _$this {
     final $v = _$v;

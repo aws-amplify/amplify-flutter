@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.tag_mfa_device_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,9 @@ abstract class TagMfaDeviceRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<TagMfaDeviceRequest>> serializers = [
     TagMfaDeviceRequestAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TagMfaDeviceRequestBuilder b) {}
 
   /// The unique identifier for the IAM virtual MFA device to which you want to add tags. For virtual MFA devices, the serial number is the same as the ARN.
   ///
@@ -63,15 +60,15 @@ abstract class TagMfaDeviceRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TagMfaDeviceRequest');
-    helper.add(
-      'serialNumber',
-      serialNumber,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('TagMfaDeviceRequest')
+      ..add(
+        'serialNumber',
+        serialNumber,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

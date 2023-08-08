@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.resource_change_detail;
+part of 'resource_change_detail.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -80,9 +80,7 @@ class ResourceChangeDetailBuilder
   set causingEntity(String? causingEntity) =>
       _$this._causingEntity = causingEntity;
 
-  ResourceChangeDetailBuilder() {
-    ResourceChangeDetail._init(this);
-  }
+  ResourceChangeDetailBuilder();
 
   ResourceChangeDetailBuilder get _$this {
     final $v = _$v;

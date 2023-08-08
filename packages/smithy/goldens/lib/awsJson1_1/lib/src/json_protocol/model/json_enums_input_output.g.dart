@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1_v1.json_protocol.model.json_enums_input_output;
+part of 'json_enums_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -102,9 +102,7 @@ class JsonEnumsInputOutputBuilder
   set fooEnumMap(_i4.MapBuilder<String, _i3.FooEnum>? fooEnumMap) =>
       _$this._fooEnumMap = fooEnumMap;
 
-  JsonEnumsInputOutputBuilder() {
-    JsonEnumsInputOutput._init(this);
-  }
+  JsonEnumsInputOutputBuilder();
 
   JsonEnumsInputOutputBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.json_lists_input_output;
+part of 'json_lists_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -153,9 +153,7 @@ class JsonListsInputOutputBuilder
   set structureList(_i6.ListBuilder<_i5.StructureListMember>? structureList) =>
       _$this._structureList = structureList;
 
-  JsonListsInputOutputBuilder() {
-    JsonListsInputOutput._init(this);
-  }
+  JsonListsInputOutputBuilder();
 
   JsonListsInputOutputBuilder get _$this {
     final $v = _$v;

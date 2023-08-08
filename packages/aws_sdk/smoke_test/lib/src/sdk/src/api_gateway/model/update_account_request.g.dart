@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.update_account_request;
+part of 'update_account_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class UpdateAccountRequestBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateAccountRequestBuilder() {
-    UpdateAccountRequest._init(this);
-  }
+  UpdateAccountRequestBuilder();
 
   UpdateAccountRequestBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.untag_instance_profile_request;
+part of 'untag_instance_profile_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -68,9 +68,7 @@ class UntagInstanceProfileRequestBuilder
       _$this._tagKeys ??= new _i3.ListBuilder<String>();
   set tagKeys(_i3.ListBuilder<String>? tagKeys) => _$this._tagKeys = tagKeys;
 
-  UntagInstanceProfileRequestBuilder() {
-    UntagInstanceProfileRequest._init(this);
-  }
+  UntagInstanceProfileRequestBuilder();
 
   UntagInstanceProfileRequestBuilder get _$this {
     final $v = _$v;

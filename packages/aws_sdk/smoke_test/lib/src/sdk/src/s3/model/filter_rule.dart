@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.filter_rule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,12 +32,9 @@ abstract class FilterRule
 
   const FilterRule._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<FilterRule>> serializers = [
     FilterRuleRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(FilterRuleBuilder b) {}
 
   /// The object key name prefix or suffix identifying one or more objects to which the filtering rule applies. The maximum length is 1,024 characters. Overlapping prefixes and suffixes are not supported. For more information, see [Configuring Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) in the _Amazon S3 User Guide_.
   _i2.FilterRuleName? get name;
@@ -51,15 +48,15 @@ abstract class FilterRule
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('FilterRule');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'value',
-      value,
-    );
+    final helper = newBuiltValueToStringHelper('FilterRule')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'value',
+        value,
+      );
     return helper.toString();
   }
 }

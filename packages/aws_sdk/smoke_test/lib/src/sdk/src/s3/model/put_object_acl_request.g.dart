@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.put_object_acl_request;
+part of 'put_object_acl_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -180,9 +180,7 @@ class PutObjectAclRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  PutObjectAclRequestBuilder() {
-    PutObjectAclRequest._init(this);
-  }
+  PutObjectAclRequestBuilder();
 
   PutObjectAclRequestBuilder get _$this {
     final $v = _$v;

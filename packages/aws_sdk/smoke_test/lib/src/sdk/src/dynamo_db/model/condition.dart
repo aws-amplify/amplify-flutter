@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.condition; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -61,12 +61,9 @@ abstract class Condition
 
   const Condition._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<Condition>> serializers = [
     ConditionAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConditionBuilder b) {}
 
   /// One or more values to evaluate against the supplied attribute. The number of values in the list depends on the `ComparisonOperator` being used.
   ///
@@ -151,15 +148,15 @@ abstract class Condition
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Condition');
-    helper.add(
-      'attributeValueList',
-      attributeValueList,
-    );
-    helper.add(
-      'comparisonOperator',
-      comparisonOperator,
-    );
+    final helper = newBuiltValueToStringHelper('Condition')
+      ..add(
+        'attributeValueList',
+        attributeValueList,
+      )
+      ..add(
+        'comparisonOperator',
+        comparisonOperator,
+      );
     return helper.toString();
   }
 }

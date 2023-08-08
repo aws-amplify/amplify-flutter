@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.resource_identifier_summary;
+part of 'resource_identifier_summary.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -72,9 +72,7 @@ class ResourceIdentifierSummaryBuilder
   set resourceIdentifiers(_i2.ListBuilder<String>? resourceIdentifiers) =>
       _$this._resourceIdentifiers = resourceIdentifiers;
 
-  ResourceIdentifierSummaryBuilder() {
-    ResourceIdentifierSummary._init(this);
-  }
+  ResourceIdentifierSummaryBuilder();
 
   ResourceIdentifierSummaryBuilder get _$this {
     final $v = _$v;

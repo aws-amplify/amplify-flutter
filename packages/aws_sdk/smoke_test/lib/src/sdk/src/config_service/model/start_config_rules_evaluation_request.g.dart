@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.start_config_rules_evaluation_request;
+part of 'start_config_rules_evaluation_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class StartConfigRulesEvaluationRequestBuilder
   set configRuleNames(_i3.ListBuilder<String>? configRuleNames) =>
       _$this._configRuleNames = configRuleNames;
 
-  StartConfigRulesEvaluationRequestBuilder() {
-    StartConfigRulesEvaluationRequest._init(this);
-  }
+  StartConfigRulesEvaluationRequestBuilder();
 
   StartConfigRulesEvaluationRequestBuilder get _$this {
     final $v = _$v;

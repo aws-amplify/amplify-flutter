@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.no_available_configuration_recorder_exception;
+part of 'no_available_configuration_recorder_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -69,9 +69,7 @@ class NoAvailableConfigurationRecorderExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  NoAvailableConfigurationRecorderExceptionBuilder() {
-    NoAvailableConfigurationRecorderException._init(this);
-  }
+  NoAvailableConfigurationRecorderExceptionBuilder();
 
   NoAvailableConfigurationRecorderExceptionBuilder get _$this {
     final $v = _$v;

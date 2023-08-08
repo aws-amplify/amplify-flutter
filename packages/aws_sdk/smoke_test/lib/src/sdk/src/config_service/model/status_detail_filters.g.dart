@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.status_detail_filters;
+part of 'status_detail_filters.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -61,9 +61,7 @@ class StatusDetailFiltersBuilder
           _i2.MemberAccountRuleStatus? memberAccountRuleStatus) =>
       _$this._memberAccountRuleStatus = memberAccountRuleStatus;
 
-  StatusDetailFiltersBuilder() {
-    StatusDetailFilters._init(this);
-  }
+  StatusDetailFiltersBuilder();
 
   StatusDetailFiltersBuilder get _$this {
     final $v = _$v;

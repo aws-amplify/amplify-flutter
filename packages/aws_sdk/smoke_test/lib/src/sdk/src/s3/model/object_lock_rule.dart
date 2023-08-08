@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.object_lock_rule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -26,12 +26,9 @@ abstract class ObjectLockRule
 
   const ObjectLockRule._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ObjectLockRule>> serializers = [
     ObjectLockRuleRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ObjectLockRuleBuilder b) {}
 
   /// The default Object Lock retention mode and period that you want to apply to new objects placed in the specified bucket. Bucket settings require both a mode and a period. The period can be either `Days` or `Years` but you must select one. You cannot specify `Days` and `Years` at the same time.
   _i2.DefaultRetention? get defaultRetention;
@@ -39,11 +36,11 @@ abstract class ObjectLockRule
   List<Object?> get props => [defaultRetention];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ObjectLockRule');
-    helper.add(
-      'defaultRetention',
-      defaultRetention,
-    );
+    final helper = newBuiltValueToStringHelper('ObjectLockRule')
+      ..add(
+        'defaultRetention',
+        defaultRetention,
+      );
     return helper.toString();
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.describe_stack_drift_detection_status_input;
+part of 'describe_stack_drift_detection_status_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -61,9 +61,7 @@ class DescribeStackDriftDetectionStatusInputBuilder
   set stackDriftDetectionId(String? stackDriftDetectionId) =>
       _$this._stackDriftDetectionId = stackDriftDetectionId;
 
-  DescribeStackDriftDetectionStatusInputBuilder() {
-    DescribeStackDriftDetectionStatusInput._init(this);
-  }
+  DescribeStackDriftDetectionStatusInputBuilder();
 
   DescribeStackDriftDetectionStatusInputBuilder get _$this {
     final $v = _$v;

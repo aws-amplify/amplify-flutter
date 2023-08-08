@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.organization_access_denied_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,7 +21,7 @@ part 'organization_access_denied_exception.g.dart';
 /// *   You are not a registered delegated administrator for Config with permissions to call `ListDelegatedAdministrators` API. Ensure that the management account registers delagated administrator for Config service principle name before the delegated administrator creates an aggregator.
 ///
 ///
-/// For all `OrganizationConfigRule` and `OrganizationConformancePack` APIs, Config throws an exception if APIs are called from member accounts. All APIs must be called from organization master account.
+/// For all `OrganizationConfigRule` and `OrganizationConformancePack` APIs, Config throws an exception if APIs are called from member accounts. All APIs must be called from organization management account.
 abstract class OrganizationAccessDeniedException
     with
         _i1.AWSEquatable<OrganizationAccessDeniedException>
@@ -40,7 +40,7 @@ abstract class OrganizationAccessDeniedException
   /// *   You are not a registered delegated administrator for Config with permissions to call `ListDelegatedAdministrators` API. Ensure that the management account registers delagated administrator for Config service principle name before the delegated administrator creates an aggregator.
   ///
   ///
-  /// For all `OrganizationConfigRule` and `OrganizationConformancePack` APIs, Config throws an exception if APIs are called from member accounts. All APIs must be called from organization master account.
+  /// For all `OrganizationConfigRule` and `OrganizationConformancePack` APIs, Config throws an exception if APIs are called from member accounts. All APIs must be called from organization management account.
   factory OrganizationAccessDeniedException({String? message}) {
     return _$OrganizationAccessDeniedException._(message: message);
   }
@@ -56,7 +56,7 @@ abstract class OrganizationAccessDeniedException
   /// *   You are not a registered delegated administrator for Config with permissions to call `ListDelegatedAdministrators` API. Ensure that the management account registers delagated administrator for Config service principle name before the delegated administrator creates an aggregator.
   ///
   ///
-  /// For all `OrganizationConfigRule` and `OrganizationConformancePack` APIs, Config throws an exception if APIs are called from member accounts. All APIs must be called from organization master account.
+  /// For all `OrganizationConfigRule` and `OrganizationConformancePack` APIs, Config throws an exception if APIs are called from member accounts. All APIs must be called from organization management account.
   factory OrganizationAccessDeniedException.build(
           [void Function(OrganizationAccessDeniedExceptionBuilder) updates]) =
       _$OrganizationAccessDeniedException;
@@ -73,12 +73,8 @@ abstract class OrganizationAccessDeniedException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    OrganizationAccessDeniedExceptionAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OrganizationAccessDeniedExceptionBuilder b) {}
+  static const List<_i2.SmithySerializer<OrganizationAccessDeniedException>>
+      serializers = [OrganizationAccessDeniedExceptionAwsJson11Serializer()];
 
   /// Error executing the command
   @override
@@ -103,11 +99,11 @@ abstract class OrganizationAccessDeniedException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('OrganizationAccessDeniedException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('OrganizationAccessDeniedException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

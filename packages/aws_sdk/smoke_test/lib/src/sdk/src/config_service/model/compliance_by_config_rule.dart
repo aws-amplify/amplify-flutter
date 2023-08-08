@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.compliance_by_config_rule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,12 +34,8 @@ abstract class ComplianceByConfigRule
 
   const ComplianceByConfigRule._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ComplianceByConfigRuleAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ComplianceByConfigRuleBuilder b) {}
+  static const List<_i3.SmithySerializer<ComplianceByConfigRule>> serializers =
+      [ComplianceByConfigRuleAwsJson11Serializer()];
 
   /// The name of the Config rule.
   String? get configRuleName;
@@ -53,15 +49,15 @@ abstract class ComplianceByConfigRule
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ComplianceByConfigRule');
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'compliance',
-      compliance,
-    );
+    final helper = newBuiltValueToStringHelper('ComplianceByConfigRule')
+      ..add(
+        'configRuleName',
+        configRuleName,
+      )
+      ..add(
+        'compliance',
+        compliance,
+      );
     return helper.toString();
   }
 }

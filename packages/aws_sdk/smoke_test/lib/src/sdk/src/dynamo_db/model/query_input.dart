@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.query_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -83,12 +83,9 @@ abstract class QueryInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<QueryInput>> serializers = [
     QueryInputAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(QueryInputBuilder b) {}
 
   /// The name of the table containing the requested items.
   String get tableName;
@@ -102,7 +99,7 @@ abstract class QueryInput
   ///
   /// *   `ALL\_PROJECTED\_ATTRIBUTES` \- Allowed only when querying an index. Retrieves all attributes that have been projected into the index. If the index is configured to project all attributes, this return value is equivalent to specifying `ALL_ATTRIBUTES`.
   ///
-  /// *   `COUNT` \- Returns the number of matching items, rather than the matching items themselves.
+  /// *   `COUNT` \- Returns the number of matching items, rather than the matching items themselves. Note that this uses the same quantity of read capacity units as getting the items, and is subject to the same item size calculations.
   ///
   /// *   `SPECIFIC_ATTRIBUTES` \- Returns only the attributes listed in `ProjectionExpression`. This return value is equivalent to specifying `ProjectionExpression` without specifying any value for `Select`.
   ///
@@ -292,75 +289,75 @@ abstract class QueryInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('QueryInput');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'select',
-      select,
-    );
-    helper.add(
-      'attributesToGet',
-      attributesToGet,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'consistentRead',
-      consistentRead,
-    );
-    helper.add(
-      'keyConditions',
-      keyConditions,
-    );
-    helper.add(
-      'queryFilter',
-      queryFilter,
-    );
-    helper.add(
-      'conditionalOperator',
-      conditionalOperator,
-    );
-    helper.add(
-      'scanIndexForward',
-      scanIndexForward,
-    );
-    helper.add(
-      'exclusiveStartKey',
-      exclusiveStartKey,
-    );
-    helper.add(
-      'returnConsumedCapacity',
-      returnConsumedCapacity,
-    );
-    helper.add(
-      'projectionExpression',
-      projectionExpression,
-    );
-    helper.add(
-      'filterExpression',
-      filterExpression,
-    );
-    helper.add(
-      'keyConditionExpression',
-      keyConditionExpression,
-    );
-    helper.add(
-      'expressionAttributeNames',
-      expressionAttributeNames,
-    );
-    helper.add(
-      'expressionAttributeValues',
-      expressionAttributeValues,
-    );
+    final helper = newBuiltValueToStringHelper('QueryInput')
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'indexName',
+        indexName,
+      )
+      ..add(
+        'select',
+        select,
+      )
+      ..add(
+        'attributesToGet',
+        attributesToGet,
+      )
+      ..add(
+        'limit',
+        limit,
+      )
+      ..add(
+        'consistentRead',
+        consistentRead,
+      )
+      ..add(
+        'keyConditions',
+        keyConditions,
+      )
+      ..add(
+        'queryFilter',
+        queryFilter,
+      )
+      ..add(
+        'conditionalOperator',
+        conditionalOperator,
+      )
+      ..add(
+        'scanIndexForward',
+        scanIndexForward,
+      )
+      ..add(
+        'exclusiveStartKey',
+        exclusiveStartKey,
+      )
+      ..add(
+        'returnConsumedCapacity',
+        returnConsumedCapacity,
+      )
+      ..add(
+        'projectionExpression',
+        projectionExpression,
+      )
+      ..add(
+        'filterExpression',
+        filterExpression,
+      )
+      ..add(
+        'keyConditionExpression',
+        keyConditionExpression,
+      )
+      ..add(
+        'expressionAttributeNames',
+        expressionAttributeNames,
+      )
+      ..add(
+        'expressionAttributeValues',
+        expressionAttributeValues,
+      );
     return helper.toString();
   }
 }

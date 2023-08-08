@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.batch_get_aggregate_resource_config_response;
+part of 'batch_get_aggregate_resource_config_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -77,9 +77,7 @@ class BatchGetAggregateResourceConfigResponseBuilder
               unprocessedResourceIdentifiers) =>
       _$this._unprocessedResourceIdentifiers = unprocessedResourceIdentifiers;
 
-  BatchGetAggregateResourceConfigResponseBuilder() {
-    BatchGetAggregateResourceConfigResponse._init(this);
-  }
+  BatchGetAggregateResourceConfigResponseBuilder();
 
   BatchGetAggregateResourceConfigResponseBuilder get _$this {
     final $v = _$v;

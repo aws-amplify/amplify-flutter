@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.put_conformance_pack_response;
+part of 'put_conformance_pack_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class PutConformancePackResponseBuilder
   set conformancePackArn(String? conformancePackArn) =>
       _$this._conformancePackArn = conformancePackArn;
 
-  PutConformancePackResponseBuilder() {
-    PutConformancePackResponse._init(this);
-  }
+  PutConformancePackResponseBuilder();
 
   PutConformancePackResponseBuilder get _$this {
     final $v = _$v;

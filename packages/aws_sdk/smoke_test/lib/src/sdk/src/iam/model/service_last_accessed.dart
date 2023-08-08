@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.service_last_accessed; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -53,19 +53,16 @@ abstract class ServiceLastAccessed
 
   const ServiceLastAccessed._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ServiceLastAccessed>> serializers = [
     ServiceLastAccessedAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ServiceLastAccessedBuilder b) {}
 
   /// The name of the service in which access was attempted.
   String get serviceName;
 
   /// The date and time, in [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when an authenticated entity most recently attempted to access the service. Amazon Web Services does not report unauthenticated requests.
   ///
-  /// This field is null if no IAM entities attempted to access the service within the [reporting period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
+  /// This field is null if no IAM entities attempted to access the service within the [tracking period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
   DateTime? get lastAuthenticated;
 
   /// The namespace of the service in which access was attempted.
@@ -75,22 +72,22 @@ abstract class ServiceLastAccessed
 
   /// The ARN of the authenticated entity (user or role) that last attempted to access the service. Amazon Web Services does not report unauthenticated requests.
   ///
-  /// This field is null if no IAM entities attempted to access the service within the [reporting period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
+  /// This field is null if no IAM entities attempted to access the service within the [tracking period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
   String? get lastAuthenticatedEntity;
 
   /// The Region from which the authenticated entity (user or role) last attempted to access the service. Amazon Web Services does not report unauthenticated requests.
   ///
-  /// This field is null if no IAM entities attempted to access the service within the [reporting period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
+  /// This field is null if no IAM entities attempted to access the service within the [tracking period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
   String? get lastAuthenticatedRegion;
 
   /// The total number of authenticated principals (root user, IAM users, or IAM roles) that have attempted to access the service.
   ///
-  /// This field is null if no principals attempted to access the service within the [reporting period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
+  /// This field is null if no principals attempted to access the service within the [tracking period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
   int? get totalAuthenticatedEntities;
 
   /// An object that contains details about the most recent attempt to access a tracked action within the service.
   ///
-  /// This field is null if there no tracked actions or if the principal did not use the tracked actions within the [reporting period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period). This field is also null if the report was generated at the service level and not the action level. For more information, see the `Granularity` field in GenerateServiceLastAccessedDetails.
+  /// This field is null if there no tracked actions or if the principal did not use the tracked actions within the [tracking period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period). This field is also null if the report was generated at the service level and not the action level. For more information, see the `Granularity` field in GenerateServiceLastAccessedDetails.
   _i3.BuiltList<_i2.TrackedActionLastAccessed>? get trackedActionsLastAccessed;
   @override
   List<Object?> get props => [
@@ -104,35 +101,35 @@ abstract class ServiceLastAccessed
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ServiceLastAccessed');
-    helper.add(
-      'serviceName',
-      serviceName,
-    );
-    helper.add(
-      'lastAuthenticated',
-      lastAuthenticated,
-    );
-    helper.add(
-      'serviceNamespace',
-      serviceNamespace,
-    );
-    helper.add(
-      'lastAuthenticatedEntity',
-      lastAuthenticatedEntity,
-    );
-    helper.add(
-      'lastAuthenticatedRegion',
-      lastAuthenticatedRegion,
-    );
-    helper.add(
-      'totalAuthenticatedEntities',
-      totalAuthenticatedEntities,
-    );
-    helper.add(
-      'trackedActionsLastAccessed',
-      trackedActionsLastAccessed,
-    );
+    final helper = newBuiltValueToStringHelper('ServiceLastAccessed')
+      ..add(
+        'serviceName',
+        serviceName,
+      )
+      ..add(
+        'lastAuthenticated',
+        lastAuthenticated,
+      )
+      ..add(
+        'serviceNamespace',
+        serviceNamespace,
+      )
+      ..add(
+        'lastAuthenticatedEntity',
+        lastAuthenticatedEntity,
+      )
+      ..add(
+        'lastAuthenticatedRegion',
+        lastAuthenticatedRegion,
+      )
+      ..add(
+        'totalAuthenticatedEntities',
+        totalAuthenticatedEntities,
+      )
+      ..add(
+        'trackedActionsLastAccessed',
+        trackedActionsLastAccessed,
+      );
     return helper.toString();
   }
 }

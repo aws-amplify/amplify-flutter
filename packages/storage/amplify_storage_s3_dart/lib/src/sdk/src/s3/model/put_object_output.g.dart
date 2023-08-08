@@ -176,9 +176,7 @@ class PutObjectOutputBuilder
   set requestCharged(_i4.RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
-  PutObjectOutputBuilder() {
-    PutObjectOutput._init(this);
-  }
+  PutObjectOutputBuilder();
 
   PutObjectOutputBuilder get _$this {
     final $v = _$v;
@@ -270,9 +268,7 @@ class PutObjectOutputPayloadBuilder
     implements Builder<PutObjectOutputPayload, PutObjectOutputPayloadBuilder> {
   _$PutObjectOutputPayload? _$v;
 
-  PutObjectOutputPayloadBuilder() {
-    PutObjectOutputPayload._init(this);
-  }
+  PutObjectOutputPayloadBuilder();
 
   @override
   void replace(PutObjectOutputPayload other) {

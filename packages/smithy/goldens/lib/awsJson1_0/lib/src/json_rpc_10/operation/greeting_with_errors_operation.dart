@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library aws_json1_0_v1.json_rpc_10.operation.greeting_with_errors_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -96,7 +96,7 @@ class GreetingWithErrorsOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.ComplexError, _i8.ComplexError>(
           _i1.ShapeId(
             namespace: 'aws.protocoltests.json10',
             shape: 'ComplexError',
@@ -105,7 +105,7 @@ class GreetingWithErrorsOperation extends _i1.HttpOperation<
           _i8.ComplexError,
           builder: _i8.ComplexError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.FooError, _i9.FooError>(
           _i1.ShapeId(
             namespace: 'aws.protocoltests.json10',
             shape: 'FooError',
@@ -114,7 +114,7 @@ class GreetingWithErrorsOperation extends _i1.HttpOperation<
           _i9.FooError,
           builder: _i9.FooError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidGreeting, _i10.InvalidGreeting>(
           _i1.ShapeId(
             namespace: 'aws.protocoltests.json10',
             shape: 'InvalidGreeting',
@@ -146,7 +146,7 @@ class GreetingWithErrorsOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

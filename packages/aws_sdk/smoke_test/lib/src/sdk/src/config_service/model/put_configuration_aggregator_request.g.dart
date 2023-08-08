@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.put_configuration_aggregator_request;
+part of 'put_configuration_aggregator_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -98,9 +98,7 @@ class PutConfigurationAggregatorRequestBuilder
       _$this._tags ??= new _i6.ListBuilder<_i5.Tag>();
   set tags(_i6.ListBuilder<_i5.Tag>? tags) => _$this._tags = tags;
 
-  PutConfigurationAggregatorRequestBuilder() {
-    PutConfigurationAggregatorRequest._init(this);
-  }
+  PutConfigurationAggregatorRequestBuilder();
 
   PutConfigurationAggregatorRequestBuilder get _$this {
     final $v = _$v;

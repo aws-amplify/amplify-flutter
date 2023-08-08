@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.ownership_controls_rule;
+part of 'ownership_controls_rule.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -53,9 +53,7 @@ class OwnershipControlsRuleBuilder
   set objectOwnership(_i2.ObjectOwnership? objectOwnership) =>
       _$this._objectOwnership = objectOwnership;
 
-  OwnershipControlsRuleBuilder() {
-    OwnershipControlsRule._init(this);
-  }
+  OwnershipControlsRuleBuilder();
 
   OwnershipControlsRuleBuilder get _$this {
     final $v = _$v;

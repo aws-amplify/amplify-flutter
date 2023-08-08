@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.bucket;
+part of 'bucket.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class BucketBuilder implements Builder<Bucket, BucketBuilder> {
   set creationDate(DateTime? creationDate) =>
       _$this._creationDate = creationDate;
 
-  BucketBuilder() {
-    Bucket._init(this);
-  }
+  BucketBuilder();
 
   BucketBuilder get _$this {
     final $v = _$v;

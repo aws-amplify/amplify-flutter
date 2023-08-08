@@ -22,7 +22,7 @@ mixin AuthenticatorRadioField<FieldType extends Enum, FieldValue extends Object,
     final inputResolver = stringResolver.inputs;
     return Column(
       children: <Widget>[
-        for (var selection in selections)
+        for (final selection in selections)
           ListTile(
             key: Key('${selection.value}${widget.titleKey}'),
             horizontalTitleGap: 0,

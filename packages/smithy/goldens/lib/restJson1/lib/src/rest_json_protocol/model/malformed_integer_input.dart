@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.rest_json_protocol.model.malformed_integer_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,11 +20,10 @@ abstract class MalformedIntegerInput
         _i1.HasPayload<MalformedIntegerInputPayload> {
   factory MalformedIntegerInput({
     int? integerInBody,
-    int? integerInPath,
+    required int integerInPath,
     int? integerInQuery,
     int? integerInHeader,
   }) {
-    integerInPath ??= 0;
     return _$MalformedIntegerInput._(
       integerInBody: integerInBody,
       integerInPath: integerInPath,
@@ -58,14 +57,8 @@ abstract class MalformedIntegerInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    MalformedIntegerInputRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedIntegerInputBuilder b) {
-    b.integerInPath = 0;
-  }
+  static const List<_i1.SmithySerializer<MalformedIntegerInputPayload>>
+      serializers = [MalformedIntegerInputRestJson1Serializer()];
 
   int? get integerInBody;
   int get integerInPath;
@@ -97,23 +90,23 @@ abstract class MalformedIntegerInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedIntegerInput');
-    helper.add(
-      'integerInBody',
-      integerInBody,
-    );
-    helper.add(
-      'integerInPath',
-      integerInPath,
-    );
-    helper.add(
-      'integerInQuery',
-      integerInQuery,
-    );
-    helper.add(
-      'integerInHeader',
-      integerInHeader,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedIntegerInput')
+      ..add(
+        'integerInBody',
+        integerInBody,
+      )
+      ..add(
+        'integerInPath',
+        integerInPath,
+      )
+      ..add(
+        'integerInQuery',
+        integerInQuery,
+      )
+      ..add(
+        'integerInHeader',
+        integerInHeader,
+      );
     return helper.toString();
   }
 }
@@ -131,18 +124,16 @@ abstract class MalformedIntegerInputPayload
 
   const MalformedIntegerInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedIntegerInputPayloadBuilder b) {}
   int? get integerInBody;
   @override
   List<Object?> get props => [integerInBody];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedIntegerInputPayload');
-    helper.add(
-      'integerInBody',
-      integerInBody,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedIntegerInputPayload')
+      ..add(
+        'integerInBody',
+        integerInBody,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.organization_custom_policy_rule_metadata_no_policy; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,14 +15,14 @@ import 'package:smoke_test/src/sdk/src/config_service/model/organization_config_
 
 part 'organization_custom_policy_rule_metadata_no_policy.g.dart';
 
-/// An object that specifies metadata for your organization Config Custom Policy rule including the runtime system in use, which accounts have debug logging enabled, and other custom rule metadata such as resource type, resource ID of Amazon Web Services resource, and organization trigger types that trigger Config to evaluate Amazon Web Services resources against a rule.
+/// metadata for your organization Config Custom Policy rule including the runtime system in use, which accounts have debug logging enabled, and other custom rule metadata such as resource type, resource ID of Amazon Web Services resource, and organization trigger types that trigger Config to evaluate Amazon Web Services resources against a rule.
 abstract class OrganizationCustomPolicyRuleMetadataNoPolicy
     with
         _i1.AWSEquatable<OrganizationCustomPolicyRuleMetadataNoPolicy>
     implements
         Built<OrganizationCustomPolicyRuleMetadataNoPolicy,
             OrganizationCustomPolicyRuleMetadataNoPolicyBuilder> {
-  /// An object that specifies metadata for your organization Config Custom Policy rule including the runtime system in use, which accounts have debug logging enabled, and other custom rule metadata such as resource type, resource ID of Amazon Web Services resource, and organization trigger types that trigger Config to evaluate Amazon Web Services resources against a rule.
+  /// metadata for your organization Config Custom Policy rule including the runtime system in use, which accounts have debug logging enabled, and other custom rule metadata such as resource type, resource ID of Amazon Web Services resource, and organization trigger types that trigger Config to evaluate Amazon Web Services resources against a rule.
   factory OrganizationCustomPolicyRuleMetadataNoPolicy({
     String? description,
     List<_i2.OrganizationConfigRuleTriggerTypeNoSn>?
@@ -56,19 +56,18 @@ abstract class OrganizationCustomPolicyRuleMetadataNoPolicy
     );
   }
 
-  /// An object that specifies metadata for your organization Config Custom Policy rule including the runtime system in use, which accounts have debug logging enabled, and other custom rule metadata such as resource type, resource ID of Amazon Web Services resource, and organization trigger types that trigger Config to evaluate Amazon Web Services resources against a rule.
+  /// metadata for your organization Config Custom Policy rule including the runtime system in use, which accounts have debug logging enabled, and other custom rule metadata such as resource type, resource ID of Amazon Web Services resource, and organization trigger types that trigger Config to evaluate Amazon Web Services resources against a rule.
   factory OrganizationCustomPolicyRuleMetadataNoPolicy.build(
       [void Function(OrganizationCustomPolicyRuleMetadataNoPolicyBuilder)
           updates]) = _$OrganizationCustomPolicyRuleMetadataNoPolicy;
 
   const OrganizationCustomPolicyRuleMetadataNoPolicy._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<
+          _i5.SmithySerializer<OrganizationCustomPolicyRuleMetadataNoPolicy>>
+      serializers = [
     OrganizationCustomPolicyRuleMetadataNoPolicyAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OrganizationCustomPolicyRuleMetadataNoPolicyBuilder b) {}
 
   /// The description that you provide for your organization Config Custom Policy rule.
   String? get description;
@@ -120,47 +119,47 @@ abstract class OrganizationCustomPolicyRuleMetadataNoPolicy
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'OrganizationCustomPolicyRuleMetadataNoPolicy');
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'organizationConfigRuleTriggerTypes',
-      organizationConfigRuleTriggerTypes,
-    );
-    helper.add(
-      'inputParameters',
-      inputParameters,
-    );
-    helper.add(
-      'maximumExecutionFrequency',
-      maximumExecutionFrequency,
-    );
-    helper.add(
-      'resourceTypesScope',
-      resourceTypesScope,
-    );
-    helper.add(
-      'resourceIdScope',
-      resourceIdScope,
-    );
-    helper.add(
-      'tagKeyScope',
-      tagKeyScope,
-    );
-    helper.add(
-      'tagValueScope',
-      tagValueScope,
-    );
-    helper.add(
-      'policyRuntime',
-      policyRuntime,
-    );
-    helper.add(
-      'debugLogDeliveryAccounts',
-      debugLogDeliveryAccounts,
-    );
+        'OrganizationCustomPolicyRuleMetadataNoPolicy')
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'organizationConfigRuleTriggerTypes',
+        organizationConfigRuleTriggerTypes,
+      )
+      ..add(
+        'inputParameters',
+        inputParameters,
+      )
+      ..add(
+        'maximumExecutionFrequency',
+        maximumExecutionFrequency,
+      )
+      ..add(
+        'resourceTypesScope',
+        resourceTypesScope,
+      )
+      ..add(
+        'resourceIdScope',
+        resourceIdScope,
+      )
+      ..add(
+        'tagKeyScope',
+        tagKeyScope,
+      )
+      ..add(
+        'tagValueScope',
+        tagValueScope,
+      )
+      ..add(
+        'policyRuntime',
+        policyRuntime,
+      )
+      ..add(
+        'debugLogDeliveryAccounts',
+        debugLogDeliveryAccounts,
+      );
     return helper.toString();
   }
 }

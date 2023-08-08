@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.operation.create_global_table_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -30,7 +30,7 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/table_not_found_exception
 
 /// Creates a global table from an existing table. A global table creates a replication relationship between two or more DynamoDB tables with the same table name in the provided Regions.
 ///
-/// This operation only applies to [Version 2017.11.29](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V1.html) of global tables.
+/// This operation only applies to [Version 2017.11.29 (Legacy)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V1.html) of global tables. We recommend using [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) when creating new global tables, as it provides greater flexibility, higher efficiency and consumes less write capacity than 2017.11.29 (Legacy). To determine which version you are using, see [Determining the version](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.DetermineVersion.html). To update existing global tables from version 2017.11.29 (Legacy) to version 2019.11.21 (Current), see [Updating global tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/V2globaltables_upgrade.html).
 ///
 /// If you want to add a new replica table to a global table, each of the following conditions must be true:
 ///
@@ -67,7 +67,7 @@ class CreateGlobalTableOperation extends _i1.HttpOperation<
     _i3.CreateGlobalTableOutput> {
   /// Creates a global table from an existing table. A global table creates a replication relationship between two or more DynamoDB tables with the same table name in the provided Regions.
   ///
-  /// This operation only applies to [Version 2017.11.29](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V1.html) of global tables.
+  /// This operation only applies to [Version 2017.11.29 (Legacy)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V1.html) of global tables. We recommend using [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) when creating new global tables, as it provides greater flexibility, higher efficiency and consumes less write capacity than 2017.11.29 (Legacy). To determine which version you are using, see [Determining the version](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.DetermineVersion.html). To update existing global tables from version 2017.11.29 (Legacy) to version 2019.11.21 (Current), see [Updating global tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/V2globaltables_upgrade.html).
   ///
   /// If you want to add a new replica table to a global table, each of the following conditions must be true:
   ///
@@ -176,7 +176,8 @@ class CreateGlobalTableOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.GlobalTableAlreadyExistsException,
+            _i9.GlobalTableAlreadyExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'GlobalTableAlreadyExistsException',
@@ -185,7 +186,7 @@ class CreateGlobalTableOperation extends _i1.HttpOperation<
           _i9.GlobalTableAlreadyExistsException,
           builder: _i9.GlobalTableAlreadyExistsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InternalServerError, _i10.InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
@@ -194,7 +195,8 @@ class CreateGlobalTableOperation extends _i1.HttpOperation<
           _i10.InternalServerError,
           builder: _i10.InternalServerError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidEndpointException,
+            _i11.InvalidEndpointException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InvalidEndpointException',
@@ -204,7 +206,8 @@ class CreateGlobalTableOperation extends _i1.HttpOperation<
           statusCode: 421,
           builder: _i11.InvalidEndpointException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.LimitExceededException,
+            _i12.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'LimitExceededException',
@@ -213,7 +216,8 @@ class CreateGlobalTableOperation extends _i1.HttpOperation<
           _i12.LimitExceededException,
           builder: _i12.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.TableNotFoundException,
+            _i13.TableNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'TableNotFoundException',
@@ -245,7 +249,7 @@ class CreateGlobalTableOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

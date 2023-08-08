@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.execute_statement_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -48,12 +48,8 @@ abstract class ExecuteStatementOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
-    ExecuteStatementOutputAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ExecuteStatementOutputBuilder b) {}
+  static const List<_i5.SmithySerializer<ExecuteStatementOutput>> serializers =
+      [ExecuteStatementOutputAwsJson10Serializer()];
 
   /// If a read operation was used, this property will contain the result of the read operation; a map of attribute names and their values. For the write operations this value will be empty.
   _i4.BuiltList<_i4.BuiltMap<String, _i2.AttributeValue>>? get items;
@@ -75,23 +71,23 @@ abstract class ExecuteStatementOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ExecuteStatementOutput');
-    helper.add(
-      'items',
-      items,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
-      'consumedCapacity',
-      consumedCapacity,
-    );
-    helper.add(
-      'lastEvaluatedKey',
-      lastEvaluatedKey,
-    );
+    final helper = newBuiltValueToStringHelper('ExecuteStatementOutput')
+      ..add(
+        'items',
+        items,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      )
+      ..add(
+        'consumedCapacity',
+        consumedCapacity,
+      )
+      ..add(
+        'lastEvaluatedKey',
+        lastEvaluatedKey,
+      );
     return helper.toString();
   }
 }

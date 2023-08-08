@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.glacier.model.upload_archive_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -62,12 +62,9 @@ abstract class UploadArchiveInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UploadArchiveInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<_i2.Stream<List<int>>?>> serializers =
+      [UploadArchiveInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UploadArchiveInputBuilder b) {}
   String get vaultName;
   String get accountId;
   String? get archiveDescription;
@@ -99,27 +96,27 @@ abstract class UploadArchiveInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UploadArchiveInput');
-    helper.add(
-      'vaultName',
-      vaultName,
-    );
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'archiveDescription',
-      archiveDescription,
-    );
-    helper.add(
-      'checksum',
-      checksum,
-    );
-    helper.add(
-      'body',
-      body,
-    );
+    final helper = newBuiltValueToStringHelper('UploadArchiveInput')
+      ..add(
+        'vaultName',
+        vaultName,
+      )
+      ..add(
+        'accountId',
+        accountId,
+      )
+      ..add(
+        'archiveDescription',
+        archiveDescription,
+      )
+      ..add(
+        'checksum',
+        checksum,
+      )
+      ..add(
+        'body',
+        body,
+      );
     return helper.toString();
   }
 }

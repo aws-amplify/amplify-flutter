@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.config_rule;
+part of 'config_rule.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -27,6 +27,8 @@ class _$ConfigRule extends ConfigRule {
   final _i5.ConfigRuleState? configRuleState;
   @override
   final String? createdBy;
+  @override
+  final _i7.BuiltList<_i6.EvaluationModeConfiguration>? evaluationModes;
 
   factory _$ConfigRule([void Function(ConfigRuleBuilder)? updates]) =>
       (new ConfigRuleBuilder()..update(updates))._build();
@@ -41,7 +43,8 @@ class _$ConfigRule extends ConfigRule {
       this.inputParameters,
       this.maximumExecutionFrequency,
       this.configRuleState,
-      this.createdBy})
+      this.createdBy,
+      this.evaluationModes})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(source, r'ConfigRule', 'source');
   }
@@ -66,7 +69,8 @@ class _$ConfigRule extends ConfigRule {
         inputParameters == other.inputParameters &&
         maximumExecutionFrequency == other.maximumExecutionFrequency &&
         configRuleState == other.configRuleState &&
-        createdBy == other.createdBy;
+        createdBy == other.createdBy &&
+        evaluationModes == other.evaluationModes;
   }
 
   @override
@@ -82,6 +86,7 @@ class _$ConfigRule extends ConfigRule {
     _$hash = $jc(_$hash, maximumExecutionFrequency.hashCode);
     _$hash = $jc(_$hash, configRuleState.hashCode);
     _$hash = $jc(_$hash, createdBy.hashCode);
+    _$hash = $jc(_$hash, evaluationModes.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -137,9 +142,15 @@ class ConfigRuleBuilder implements Builder<ConfigRule, ConfigRuleBuilder> {
   String? get createdBy => _$this._createdBy;
   set createdBy(String? createdBy) => _$this._createdBy = createdBy;
 
-  ConfigRuleBuilder() {
-    ConfigRule._init(this);
-  }
+  _i7.ListBuilder<_i6.EvaluationModeConfiguration>? _evaluationModes;
+  _i7.ListBuilder<_i6.EvaluationModeConfiguration> get evaluationModes =>
+      _$this._evaluationModes ??=
+          new _i7.ListBuilder<_i6.EvaluationModeConfiguration>();
+  set evaluationModes(
+          _i7.ListBuilder<_i6.EvaluationModeConfiguration>? evaluationModes) =>
+      _$this._evaluationModes = evaluationModes;
+
+  ConfigRuleBuilder();
 
   ConfigRuleBuilder get _$this {
     final $v = _$v;
@@ -154,6 +165,7 @@ class ConfigRuleBuilder implements Builder<ConfigRule, ConfigRuleBuilder> {
       _maximumExecutionFrequency = $v.maximumExecutionFrequency;
       _configRuleState = $v.configRuleState;
       _createdBy = $v.createdBy;
+      _evaluationModes = $v.evaluationModes?.toBuilder();
       _$v = null;
     }
     return this;
@@ -187,7 +199,8 @@ class ConfigRuleBuilder implements Builder<ConfigRule, ConfigRuleBuilder> {
               inputParameters: inputParameters,
               maximumExecutionFrequency: maximumExecutionFrequency,
               configRuleState: configRuleState,
-              createdBy: createdBy);
+              createdBy: createdBy,
+              evaluationModes: _evaluationModes?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -195,6 +208,9 @@ class ConfigRuleBuilder implements Builder<ConfigRule, ConfigRuleBuilder> {
         _scope?.build();
         _$failedField = 'source';
         source.build();
+
+        _$failedField = 'evaluationModes';
+        _evaluationModes?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'ConfigRule', _$failedField, e.toString());

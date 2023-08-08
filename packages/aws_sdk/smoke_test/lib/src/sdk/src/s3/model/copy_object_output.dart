@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.copy_object_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -108,12 +108,9 @@ abstract class CopyObjectOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<_i3.CopyObjectResult?>> serializers = [
     CopyObjectOutputRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CopyObjectOutputBuilder b) {}
 
   /// Container for all response elements.
   _i3.CopyObjectResult? get copyObjectResult;
@@ -127,7 +124,7 @@ abstract class CopyObjectOutput
   /// Version ID of the newly created copy.
   String? get versionId;
 
-  /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
+  /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`, `aws:kms:dsse`).
   _i4.ServerSideEncryption? get serverSideEncryption;
 
   /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header confirming the encryption algorithm used.
@@ -136,13 +133,13 @@ abstract class CopyObjectOutput
   /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header to provide round-trip message integrity verification of the customer-provided encryption key.
   String? get sseCustomerKeyMd5;
 
-  /// If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric customer managed key that was used for the object.
+  /// If present, specifies the ID of the Key Management Service (KMS) symmetric encryption customer managed key that was used for the object.
   String? get ssekmsKeyId;
 
   /// If present, specifies the Amazon Web Services KMS Encryption Context to use for object encryption. The value of this header is a base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs.
   String? get ssekmsEncryptionContext;
 
-  /// Indicates whether the copied object uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
+  /// Indicates whether the copied object uses an S3 Bucket Key for server-side encryption with Key Management Service (KMS) keys (SSE-KMS).
   bool? get bucketKeyEnabled;
 
   /// If present, indicates that the requester was successfully charged for the request.
@@ -166,51 +163,51 @@ abstract class CopyObjectOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CopyObjectOutput');
-    helper.add(
-      'copyObjectResult',
-      copyObjectResult,
-    );
-    helper.add(
-      'expiration',
-      expiration,
-    );
-    helper.add(
-      'copySourceVersionId',
-      copySourceVersionId,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'serverSideEncryption',
-      serverSideEncryption,
-    );
-    helper.add(
-      'sseCustomerAlgorithm',
-      sseCustomerAlgorithm,
-    );
-    helper.add(
-      'sseCustomerKeyMd5',
-      sseCustomerKeyMd5,
-    );
-    helper.add(
-      'ssekmsKeyId',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'ssekmsEncryptionContext',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'bucketKeyEnabled',
-      bucketKeyEnabled,
-    );
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
+    final helper = newBuiltValueToStringHelper('CopyObjectOutput')
+      ..add(
+        'copyObjectResult',
+        copyObjectResult,
+      )
+      ..add(
+        'expiration',
+        expiration,
+      )
+      ..add(
+        'copySourceVersionId',
+        copySourceVersionId,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'serverSideEncryption',
+        serverSideEncryption,
+      )
+      ..add(
+        'sseCustomerAlgorithm',
+        sseCustomerAlgorithm,
+      )
+      ..add(
+        'sseCustomerKeyMd5',
+        sseCustomerKeyMd5,
+      )
+      ..add(
+        'ssekmsKeyId',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'ssekmsEncryptionContext',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'bucketKeyEnabled',
+        bucketKeyEnabled,
+      )
+      ..add(
+        'requestCharged',
+        requestCharged,
+      );
     return helper.toString();
   }
 }

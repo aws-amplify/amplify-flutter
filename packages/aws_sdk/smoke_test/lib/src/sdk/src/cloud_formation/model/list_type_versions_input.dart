@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.list_type_versions_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -52,12 +52,9 @@ abstract class ListTypeVersionsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ListTypeVersionsInput>> serializers = [
     ListTypeVersionsInputAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListTypeVersionsInputBuilder b) {}
 
   /// The kind of the extension.
   ///
@@ -110,35 +107,35 @@ abstract class ListTypeVersionsInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListTypeVersionsInput');
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'typeName',
-      typeName,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'maxResults',
-      maxResults,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
-      'deprecatedStatus',
-      deprecatedStatus,
-    );
-    helper.add(
-      'publisherId',
-      publisherId,
-    );
+    final helper = newBuiltValueToStringHelper('ListTypeVersionsInput')
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'typeName',
+        typeName,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'maxResults',
+        maxResults,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      )
+      ..add(
+        'deprecatedStatus',
+        deprecatedStatus,
+      )
+      ..add(
+        'publisherId',
+        publisherId,
+      );
     return helper.toString();
   }
 }

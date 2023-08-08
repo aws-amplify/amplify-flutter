@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v2.rest_json_protocol.model.complex_error; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -55,12 +55,10 @@ abstract class ComplexError
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ComplexErrorPayload>> serializers = [
     ComplexErrorRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ComplexErrorBuilder b) {}
   String? get header;
   String? get topLevel;
   _i3.ComplexNestedErrorData? get nested;
@@ -96,19 +94,19 @@ abstract class ComplexError
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ComplexError');
-    helper.add(
-      'header',
-      header,
-    );
-    helper.add(
-      'topLevel',
-      topLevel,
-    );
-    helper.add(
-      'nested',
-      nested,
-    );
+    final helper = newBuiltValueToStringHelper('ComplexError')
+      ..add(
+        'header',
+        header,
+      )
+      ..add(
+        'topLevel',
+        topLevel,
+      )
+      ..add(
+        'nested',
+        nested,
+      );
     return helper.toString();
   }
 }
@@ -123,8 +121,6 @@ abstract class ComplexErrorPayload
 
   const ComplexErrorPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ComplexErrorPayloadBuilder b) {}
   _i3.ComplexNestedErrorData? get nested;
   String? get topLevel;
   @override
@@ -134,15 +130,15 @@ abstract class ComplexErrorPayload
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ComplexErrorPayload');
-    helper.add(
-      'nested',
-      nested,
-    );
-    helper.add(
-      'topLevel',
-      topLevel,
-    );
+    final helper = newBuiltValueToStringHelper('ComplexErrorPayload')
+      ..add(
+        'nested',
+        nested,
+      )
+      ..add(
+        'topLevel',
+        topLevel,
+      );
     return helper.toString();
   }
 }

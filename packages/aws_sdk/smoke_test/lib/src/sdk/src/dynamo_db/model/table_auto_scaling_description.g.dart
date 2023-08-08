@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.table_auto_scaling_description;
+part of 'table_auto_scaling_description.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -73,9 +73,7 @@ class TableAutoScalingDescriptionBuilder
   set replicas(_i4.ListBuilder<_i3.ReplicaAutoScalingDescription>? replicas) =>
       _$this._replicas = replicas;
 
-  TableAutoScalingDescriptionBuilder() {
-    TableAutoScalingDescription._init(this);
-  }
+  TableAutoScalingDescriptionBuilder();
 
   TableAutoScalingDescriptionBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.list_bucket_analytics_configurations_output;
+part of 'list_bucket_analytics_configurations_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -91,9 +91,7 @@ class ListBucketAnalyticsConfigurationsOutputBuilder
               analyticsConfigurationList) =>
       _$this._analyticsConfigurationList = analyticsConfigurationList;
 
-  ListBucketAnalyticsConfigurationsOutputBuilder() {
-    ListBucketAnalyticsConfigurationsOutput._init(this);
-  }
+  ListBucketAnalyticsConfigurationsOutputBuilder();
 
   ListBucketAnalyticsConfigurationsOutputBuilder get _$this {
     final $v = _$v;

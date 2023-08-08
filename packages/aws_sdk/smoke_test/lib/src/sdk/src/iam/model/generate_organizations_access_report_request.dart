@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.generate_organizations_access_report_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,11 @@ abstract class GenerateOrganizationsAccessReportRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<GenerateOrganizationsAccessReportRequest>>
+      serializers = [
     GenerateOrganizationsAccessReportRequestAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GenerateOrganizationsAccessReportRequestBuilder b) {}
 
   /// The path of the Organizations entity (root, OU, or account). You can build an entity path using the known structure of your organization. For example, assume that your account ID is `123456789012` and its parent OU ID is `ou-rge0-awsabcde`. The organization root ID is `r-f6g7h8i9j0example` and your organization ID is `o-a1b2c3d4e5`. Your entity path is `o-a1b2c3d4e5/r-f6g7h8i9j0example/ou-rge0-awsabcde/123456789012`.
   String get entityPath;
@@ -64,15 +63,15 @@ abstract class GenerateOrganizationsAccessReportRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GenerateOrganizationsAccessReportRequest');
-    helper.add(
-      'entityPath',
-      entityPath,
-    );
-    helper.add(
-      'organizationsPolicyId',
-      organizationsPolicyId,
-    );
+        newBuiltValueToStringHelper('GenerateOrganizationsAccessReportRequest')
+          ..add(
+            'entityPath',
+            entityPath,
+          )
+          ..add(
+            'organizationsPolicyId',
+            organizationsPolicyId,
+          );
     return helper.toString();
   }
 }

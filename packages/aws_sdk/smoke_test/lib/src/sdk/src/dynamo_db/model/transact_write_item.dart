@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.transact_write_item; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,9 @@ abstract class TransactWriteItem
 
   const TransactWriteItem._();
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer<TransactWriteItem>> serializers = [
     TransactWriteItemAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TransactWriteItemBuilder b) {}
 
   /// A request to perform a check item operation.
   _i2.ConditionCheck? get conditionCheck;
@@ -67,23 +64,23 @@ abstract class TransactWriteItem
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TransactWriteItem');
-    helper.add(
-      'conditionCheck',
-      conditionCheck,
-    );
-    helper.add(
-      'put',
-      put,
-    );
-    helper.add(
-      'delete',
-      delete,
-    );
-    helper.add(
-      'update_',
-      update_,
-    );
+    final helper = newBuiltValueToStringHelper('TransactWriteItem')
+      ..add(
+        'conditionCheck',
+        conditionCheck,
+      )
+      ..add(
+        'put',
+        put,
+      )
+      ..add(
+        'delete',
+        delete,
+      )
+      ..add(
+        'update_',
+        update_,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.execute_change_set_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -45,12 +45,9 @@ abstract class ExecuteChangeSetInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ExecuteChangeSetInput>> serializers = [
     ExecuteChangeSetInputAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ExecuteChangeSetInputBuilder b) {}
 
   /// The name or Amazon Resource Name (ARN) of the change set that you want use to update the specified stack.
   String get changeSetName;
@@ -61,7 +58,12 @@ abstract class ExecuteChangeSetInput
   /// A unique identifier for this `ExecuteChangeSet` request. Specify this token if you plan to retry requests so that CloudFormation knows that you're not attempting to execute a change set to update a stack with the same name. You might retry `ExecuteChangeSet` requests to ensure that CloudFormation successfully received them.
   String? get clientRequestToken;
 
-  /// Preserves the state of previously provisioned resources when an operation fails.
+  /// Preserves the state of previously provisioned resources when an operation fails. This parameter can't be specified when the `OnStackFailure` parameter to the [CreateChangeSet](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html) API operation was specified.
+  ///
+  /// *   `True` \- if the stack creation fails, do nothing. This is equivalent to specifying `DO_NOTHING` for the `OnStackFailure` parameter to the [CreateChangeSet](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html) API operation.
+  ///
+  /// *   `False` \- if the stack creation fails, roll back the stack. This is equivalent to specifying `ROLLBACK` for the `OnStackFailure` parameter to the [CreateChangeSet](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html) API operation.
+  ///
   ///
   /// Default: `True`
   bool? get disableRollback;
@@ -76,23 +78,23 @@ abstract class ExecuteChangeSetInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ExecuteChangeSetInput');
-    helper.add(
-      'changeSetName',
-      changeSetName,
-    );
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'clientRequestToken',
-      clientRequestToken,
-    );
-    helper.add(
-      'disableRollback',
-      disableRollback,
-    );
+    final helper = newBuiltValueToStringHelper('ExecuteChangeSetInput')
+      ..add(
+        'changeSetName',
+        changeSetName,
+      )
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'clientRequestToken',
+        clientRequestToken,
+      )
+      ..add(
+        'disableRollback',
+        disableRollback,
+      );
     return helper.toString();
   }
 }

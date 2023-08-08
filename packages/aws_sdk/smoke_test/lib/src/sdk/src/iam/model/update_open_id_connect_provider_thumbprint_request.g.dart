@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.update_open_id_connect_provider_thumbprint_request;
+part of 'update_open_id_connect_provider_thumbprint_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -76,9 +76,7 @@ class UpdateOpenIdConnectProviderThumbprintRequestBuilder
   set thumbprintList(_i3.ListBuilder<String>? thumbprintList) =>
       _$this._thumbprintList = thumbprintList;
 
-  UpdateOpenIdConnectProviderThumbprintRequestBuilder() {
-    UpdateOpenIdConnectProviderThumbprintRequest._init(this);
-  }
+  UpdateOpenIdConnectProviderThumbprintRequestBuilder();
 
   UpdateOpenIdConnectProviderThumbprintRequestBuilder get _$this {
     final $v = _$v;

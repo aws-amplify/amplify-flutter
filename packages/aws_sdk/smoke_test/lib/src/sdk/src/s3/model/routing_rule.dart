@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.routing_rule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,9 @@ abstract class RoutingRule
 
   const RoutingRule._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<RoutingRule>> serializers = [
     RoutingRuleRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RoutingRuleBuilder b) {}
 
   /// A container for describing a condition that must be met for the specified redirect to apply. For example, 1. If request is for pages in the `/docs` folder, redirect to the `/documents` folder. 2. If request results in HTTP error 4xx, redirect request to another host where you might process the error.
   _i2.Condition? get condition;
@@ -52,15 +49,15 @@ abstract class RoutingRule
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RoutingRule');
-    helper.add(
-      'condition',
-      condition,
-    );
-    helper.add(
-      'redirect',
-      redirect,
-    );
+    final helper = newBuiltValueToStringHelper('RoutingRule')
+      ..add(
+        'condition',
+        condition,
+      )
+      ..add(
+        'redirect',
+        redirect,
+      );
     return helper.toString();
   }
 }

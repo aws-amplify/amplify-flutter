@@ -95,7 +95,7 @@ class HasManyChildBiDirectionalExplicit extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("HasManyChildBiDirectionalExplicit {");
     buffer.write("id=" + "$id" + ", ");
@@ -161,9 +161,9 @@ class HasManyChildBiDirectionalExplicit extends amplify_core.Model {
         'updatedAt': _updatedAt
       };
 
-  static final amplify_core.QueryModelIdentifier<
-          HasManyChildBiDirectionalExplicitModelIdentifier> MODEL_IDENTIFIER =
-      amplify_core.QueryModelIdentifier<
+  static final amplify_core
+      .QueryModelIdentifier<HasManyChildBiDirectionalExplicitModelIdentifier>
+      MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<
           HasManyChildBiDirectionalExplicitModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final NAME = amplify_core.QueryField(fieldName: "name");
@@ -235,7 +235,7 @@ class HasManyChildBiDirectionalExplicitModelIdentifier
     implements amplify_core.ModelIdentifier<HasManyChildBiDirectionalExplicit> {
   final String id;
 
-  /// Create an instance of HasManyChildBiDirectionalExplicitModelIdentifier using [id] the primary key.
+  /** Create an instance of HasManyChildBiDirectionalExplicitModelIdentifier using [id] the primary key. */
   const HasManyChildBiDirectionalExplicitModelIdentifier({required this.id});
 
   @override

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.forgot_password_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -54,7 +55,7 @@ abstract class ForgotPasswordRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ForgotPasswordRequest>> serializers = [
     ForgotPasswordRequestAwsJson11Serializer()
   ];
 
@@ -103,31 +104,31 @@ abstract class ForgotPasswordRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ForgotPasswordRequest');
-    helper.add(
-      'clientId',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'secretHash',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'userContextData',
-      userContextData,
-    );
-    helper.add(
-      'username',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'analyticsMetadata',
-      analyticsMetadata,
-    );
-    helper.add(
-      'clientMetadata',
-      clientMetadata,
-    );
+    final helper = newBuiltValueToStringHelper('ForgotPasswordRequest')
+      ..add(
+        'clientId',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'secretHash',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'userContextData',
+        userContextData,
+      )
+      ..add(
+        'username',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'analyticsMetadata',
+        analyticsMetadata,
+      )
+      ..add(
+        'clientMetadata',
+        clientMetadata,
+      );
     return helper.toString();
   }
 }
@@ -161,57 +162,46 @@ class ForgotPasswordRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ClientId':
           result.clientId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'SecretHash':
-          if (value != null) {
-            result.secretHash = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.secretHash = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'UserContextData':
-          if (value != null) {
-            result.userContextData.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.UserContextDataType),
-            ) as _i3.UserContextDataType));
-          }
-          break;
+          result.userContextData.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.UserContextDataType),
+          ) as _i3.UserContextDataType));
         case 'Username':
           result.username = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'AnalyticsMetadata':
-          if (value != null) {
-            result.analyticsMetadata.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.AnalyticsMetadataType),
-            ) as _i4.AnalyticsMetadataType));
-          }
-          break;
+          result.analyticsMetadata.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.AnalyticsMetadataType),
+          ) as _i4.AnalyticsMetadataType));
         case 'ClientMetadata':
-          if (value != null) {
-            result.clientMetadata.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i5.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i5.BuiltMap<String, String>));
-          }
-          break;
+          result.clientMetadata.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i5.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i5.BuiltMap<String, String>));
       }
     }
 
@@ -221,51 +211,59 @@ class ForgotPasswordRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ForgotPasswordRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ForgotPasswordRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final ForgotPasswordRequest(
+      :clientId,
+      :secretHash,
+      :userContextData,
+      :username,
+      :analyticsMetadata,
+      :clientMetadata
+    ) = object;
+    result$.addAll([
       'ClientId',
       serializers.serialize(
-        payload.clientId,
+        clientId,
         specifiedType: const FullType(String),
       ),
       'Username',
       serializers.serialize(
-        payload.username,
+        username,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.secretHash != null) {
-      result
+    ]);
+    if (secretHash != null) {
+      result$
         ..add('SecretHash')
         ..add(serializers.serialize(
-          payload.secretHash!,
+          secretHash,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.userContextData != null) {
-      result
+    if (userContextData != null) {
+      result$
         ..add('UserContextData')
         ..add(serializers.serialize(
-          payload.userContextData!,
+          userContextData,
           specifiedType: const FullType(_i3.UserContextDataType),
         ));
     }
-    if (payload.analyticsMetadata != null) {
-      result
+    if (analyticsMetadata != null) {
+      result$
         ..add('AnalyticsMetadata')
         ..add(serializers.serialize(
-          payload.analyticsMetadata!,
+          analyticsMetadata,
           specifiedType: const FullType(_i4.AnalyticsMetadataType),
         ));
     }
-    if (payload.clientMetadata != null) {
-      result
+    if (clientMetadata != null) {
+      result$
         ..add('ClientMetadata')
         ..add(serializers.serialize(
-          payload.clientMetadata!,
+          clientMetadata,
           specifiedType: const FullType(
             _i5.BuiltMap,
             [
@@ -275,6 +273,6 @@ class ForgotPasswordRequestAwsJson11Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

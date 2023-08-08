@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.global_table_description;
+part of 'global_table_description.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -95,9 +95,7 @@ class GlobalTableDescriptionBuilder
   set globalTableName(String? globalTableName) =>
       _$this._globalTableName = globalTableName;
 
-  GlobalTableDescriptionBuilder() {
-    GlobalTableDescription._init(this);
-  }
+  GlobalTableDescriptionBuilder();
 
   GlobalTableDescriptionBuilder get _$this {
     final $v = _$v;

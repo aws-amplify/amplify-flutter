@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.get_custom_rule_policy_response;
+part of 'get_custom_rule_policy_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class GetCustomRulePolicyResponseBuilder
   String? get policyText => _$this._policyText;
   set policyText(String? policyText) => _$this._policyText = policyText;
 
-  GetCustomRulePolicyResponseBuilder() {
-    GetCustomRulePolicyResponse._init(this);
-  }
+  GetCustomRulePolicyResponseBuilder();
 
   GetCustomRulePolicyResponseBuilder get _$this {
     final $v = _$v;

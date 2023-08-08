@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.query_info;
+part of 'query_info.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -46,9 +46,7 @@ class QueryInfoBuilder implements Builder<QueryInfo, QueryInfoBuilder> {
   set selectFields(_i3.ListBuilder<_i2.FieldInfo>? selectFields) =>
       _$this._selectFields = selectFields;
 
-  QueryInfoBuilder() {
-    QueryInfo._init(this);
-  }
+  QueryInfoBuilder();
 
   QueryInfoBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.integration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,6 +43,7 @@ abstract class Integration
     Map<String, _i5.IntegrationResponse>? integrationResponses,
     _i6.TlsConfig? tlsConfig,
   }) {
+    timeoutInMillis ??= 0;
     return _$Integration._(
       type: type,
       httpMethod: httpMethod,
@@ -80,12 +81,14 @@ abstract class Integration
   ) =>
       payload;
 
-  static const List<_i8.SmithySerializer> serializers = [
+  static const List<_i8.SmithySerializer<Integration>> serializers = [
     IntegrationRestJson1Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(IntegrationBuilder b) {}
+  static void _init(IntegrationBuilder b) {
+    b.timeoutInMillis = 0;
+  }
 
   /// Specifies an API method integration type. The valid value is one of the following:
   ///
@@ -124,7 +127,7 @@ abstract class Integration
   _i4.ContentHandlingStrategy? get contentHandling;
 
   /// Custom timeout between 50 and 29,000 milliseconds. The default value is 29,000 milliseconds or 29 seconds.
-  int? get timeoutInMillis;
+  int get timeoutInMillis;
 
   /// Specifies a group of related cached parameters. By default, API Gateway uses the resource ID as the `cacheNamespace`. You can specify the same `cacheNamespace` across resources to return the same cached data for requests to different resources.
   String? get cacheNamespace;
@@ -157,67 +160,67 @@ abstract class Integration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Integration');
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'httpMethod',
-      httpMethod,
-    );
-    helper.add(
-      'uri',
-      uri,
-    );
-    helper.add(
-      'connectionType',
-      connectionType,
-    );
-    helper.add(
-      'connectionId',
-      connectionId,
-    );
-    helper.add(
-      'credentials',
-      credentials,
-    );
-    helper.add(
-      'requestParameters',
-      requestParameters,
-    );
-    helper.add(
-      'requestTemplates',
-      requestTemplates,
-    );
-    helper.add(
-      'passthroughBehavior',
-      passthroughBehavior,
-    );
-    helper.add(
-      'contentHandling',
-      contentHandling,
-    );
-    helper.add(
-      'timeoutInMillis',
-      timeoutInMillis,
-    );
-    helper.add(
-      'cacheNamespace',
-      cacheNamespace,
-    );
-    helper.add(
-      'cacheKeyParameters',
-      cacheKeyParameters,
-    );
-    helper.add(
-      'integrationResponses',
-      integrationResponses,
-    );
-    helper.add(
-      'tlsConfig',
-      tlsConfig,
-    );
+    final helper = newBuiltValueToStringHelper('Integration')
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'httpMethod',
+        httpMethod,
+      )
+      ..add(
+        'uri',
+        uri,
+      )
+      ..add(
+        'connectionType',
+        connectionType,
+      )
+      ..add(
+        'connectionId',
+        connectionId,
+      )
+      ..add(
+        'credentials',
+        credentials,
+      )
+      ..add(
+        'requestParameters',
+        requestParameters,
+      )
+      ..add(
+        'requestTemplates',
+        requestTemplates,
+      )
+      ..add(
+        'passthroughBehavior',
+        passthroughBehavior,
+      )
+      ..add(
+        'contentHandling',
+        contentHandling,
+      )
+      ..add(
+        'timeoutInMillis',
+        timeoutInMillis,
+      )
+      ..add(
+        'cacheNamespace',
+        cacheNamespace,
+      )
+      ..add(
+        'cacheKeyParameters',
+        cacheKeyParameters,
+      )
+      ..add(
+        'integrationResponses',
+        integrationResponses,
+      )
+      ..add(
+        'tlsConfig',
+        tlsConfig,
+      );
     return helper.toString();
   }
 }
@@ -380,6 +383,13 @@ class IntegrationRestJson1Serializer
       :type,
       :uri
     ) = object;
+    result$.addAll([
+      'timeoutInMillis',
+      serializers.serialize(
+        timeoutInMillis,
+        specifiedType: const FullType(int),
+      ),
+    ]);
     if (cacheKeyParameters != null) {
       result$
         ..add('cacheKeyParameters')
@@ -487,14 +497,6 @@ class IntegrationRestJson1Serializer
               FullType(String),
             ],
           ),
-        ));
-    }
-    if (timeoutInMillis != null) {
-      result$
-        ..add('timeoutInMillis')
-        ..add(serializers.serialize(
-          timeoutInMillis,
-          specifiedType: const FullType(int),
         ));
     }
     if (tlsConfig != null) {

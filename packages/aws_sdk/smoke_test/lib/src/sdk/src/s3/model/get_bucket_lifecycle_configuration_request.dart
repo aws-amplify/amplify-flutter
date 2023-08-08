@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.get_bucket_lifecycle_configuration_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -51,12 +51,9 @@ abstract class GetBucketLifecycleConfigurationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetBucketLifecycleConfigurationRequestRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketLifecycleConfigurationRequestBuilder b) {}
+  static const List<
+          _i1.SmithySerializer<GetBucketLifecycleConfigurationRequestPayload>>
+      serializers = [GetBucketLifecycleConfigurationRequestRestXmlSerializer()];
 
   /// The name of the bucket for which to get the lifecycle information.
   String get bucket;
@@ -86,15 +83,15 @@ abstract class GetBucketLifecycleConfigurationRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetBucketLifecycleConfigurationRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+        newBuiltValueToStringHelper('GetBucketLifecycleConfigurationRequest')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'expectedBucketOwner',
+            expectedBucketOwner,
+          );
     return helper.toString();
   }
 }
@@ -113,8 +110,6 @@ abstract class GetBucketLifecycleConfigurationRequestPayload
 
   const GetBucketLifecycleConfigurationRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketLifecycleConfigurationRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.update_integration_response_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -71,12 +71,9 @@ abstract class UpdateIntegrationResponseRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateIntegrationResponseRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateIntegrationResponseRequestBuilder b) {}
+  static const List<
+          _i1.SmithySerializer<UpdateIntegrationResponseRequestPayload>>
+      serializers = [UpdateIntegrationResponseRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -128,27 +125,27 @@ abstract class UpdateIntegrationResponseRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateIntegrationResponseRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'httpMethod',
-      httpMethod,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+        newBuiltValueToStringHelper('UpdateIntegrationResponseRequest')
+          ..add(
+            'restApiId',
+            restApiId,
+          )
+          ..add(
+            'resourceId',
+            resourceId,
+          )
+          ..add(
+            'httpMethod',
+            httpMethod,
+          )
+          ..add(
+            'statusCode',
+            statusCode,
+          )
+          ..add(
+            'patchOperations',
+            patchOperations,
+          );
     return helper.toString();
   }
 }
@@ -166,9 +163,6 @@ abstract class UpdateIntegrationResponseRequestPayload
 
   const UpdateIntegrationResponseRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateIntegrationResponseRequestPayloadBuilder b) {}
-
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
   @override
@@ -176,11 +170,11 @@ abstract class UpdateIntegrationResponseRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateIntegrationResponseRequestPayload');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+        newBuiltValueToStringHelper('UpdateIntegrationResponseRequestPayload')
+          ..add(
+            'patchOperations',
+            patchOperations,
+          );
     return helper.toString();
   }
 }

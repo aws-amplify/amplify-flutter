@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.provisioned_throughput_override;
+part of 'provisioned_throughput_override.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -52,9 +52,7 @@ class ProvisionedThroughputOverrideBuilder
   set readCapacityUnits(_i2.Int64? readCapacityUnits) =>
       _$this._readCapacityUnits = readCapacityUnits;
 
-  ProvisionedThroughputOverrideBuilder() {
-    ProvisionedThroughputOverride._init(this);
-  }
+  ProvisionedThroughputOverrideBuilder();
 
   ProvisionedThroughputOverrideBuilder get _$this {
     final $v = _$v;

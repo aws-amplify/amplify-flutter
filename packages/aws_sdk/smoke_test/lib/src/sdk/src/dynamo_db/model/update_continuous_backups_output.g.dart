@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.update_continuous_backups_output;
+part of 'update_continuous_backups_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -57,9 +57,7 @@ class UpdateContinuousBackupsOutputBuilder
               continuousBackupsDescription) =>
       _$this._continuousBackupsDescription = continuousBackupsDescription;
 
-  UpdateContinuousBackupsOutputBuilder() {
-    UpdateContinuousBackupsOutput._init(this);
-  }
+  UpdateContinuousBackupsOutputBuilder();
 
   UpdateContinuousBackupsOutputBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.export_response;
+part of 'export_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class ExportResponseBuilder
   _i3.Uint8List? get body => _$this._body;
   set body(_i3.Uint8List? body) => _$this._body = body;
 
-  ExportResponseBuilder() {
-    ExportResponse._init(this);
-  }
+  ExportResponseBuilder();
 
   ExportResponseBuilder get _$this {
     final $v = _$v;

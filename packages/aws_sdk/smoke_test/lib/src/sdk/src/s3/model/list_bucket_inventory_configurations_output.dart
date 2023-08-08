@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.list_bucket_inventory_configurations_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -48,12 +48,11 @@ abstract class ListBucketInventoryConfigurationsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<
+          _i4.SmithySerializer<ListBucketInventoryConfigurationsOutput>>
+      serializers = [
     ListBucketInventoryConfigurationsOutputRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListBucketInventoryConfigurationsOutputBuilder b) {}
 
   /// If sent in the request, the marker that is used as a starting point for this inventory configuration list response.
   String? get continuationToken;
@@ -76,23 +75,23 @@ abstract class ListBucketInventoryConfigurationsOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ListBucketInventoryConfigurationsOutput');
-    helper.add(
-      'continuationToken',
-      continuationToken,
-    );
-    helper.add(
-      'inventoryConfigurationList',
-      inventoryConfigurationList,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'nextContinuationToken',
-      nextContinuationToken,
-    );
+        newBuiltValueToStringHelper('ListBucketInventoryConfigurationsOutput')
+          ..add(
+            'continuationToken',
+            continuationToken,
+          )
+          ..add(
+            'inventoryConfigurationList',
+            inventoryConfigurationList,
+          )
+          ..add(
+            'isTruncated',
+            isTruncated,
+          )
+          ..add(
+            'nextContinuationToken',
+            nextContinuationToken,
+          );
     return helper.toString();
   }
 }

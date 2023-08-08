@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.initiator;
+part of 'initiator.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -53,9 +53,7 @@ class InitiatorBuilder implements Builder<Initiator, InitiatorBuilder> {
   String? get displayName => _$this._displayName;
   set displayName(String? displayName) => _$this._displayName = displayName;
 
-  InitiatorBuilder() {
-    Initiator._init(this);
-  }
+  InitiatorBuilder();
 
   InitiatorBuilder get _$this {
     final $v = _$v;

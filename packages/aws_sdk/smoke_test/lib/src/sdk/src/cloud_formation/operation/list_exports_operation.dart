@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.operation.list_exports_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,7 +21,7 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_exports_input.
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/list_exports_output.dart'
     as _i3;
 
-/// Lists all exported output values in the account and Region in which you call this action. Use this action to see the exported output values that you can import into other stacks. To import values, use the [`Fn::ImportValue`](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-importvalue.html) function.
+/// Lists all exported output values in the account and Region in which you call this action. Use this action to see the exported output values that you can import into other stacks. To import values, use the [Fn::ImportValue](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-importvalue.html) function.
 ///
 /// For more information, see [CloudFormation export stack output values](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-exports.html).
 class ListExportsOperation extends _i1.PaginatedHttpOperation<
@@ -32,7 +32,7 @@ class ListExportsOperation extends _i1.PaginatedHttpOperation<
     String,
     void,
     _i4.BuiltList<_i5.Export>> {
-  /// Lists all exported output values in the account and Region in which you call this action. Use this action to see the exported output values that you can import into other stacks. To import values, use the [`Fn::ImportValue`](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-importvalue.html) function.
+  /// Lists all exported output values in the account and Region in which you call this action. Use this action to see the exported output values that you can import into other stacks. To import values, use the [Fn::ImportValue](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-importvalue.html) function.
   ///
   /// For more information, see [CloudFormation export stack output values](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-exports.html).
   ListExportsOperation({
@@ -131,7 +131,7 @@ class ListExportsOperation extends _i1.PaginatedHttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)}
+        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)},
       },
     );
   }

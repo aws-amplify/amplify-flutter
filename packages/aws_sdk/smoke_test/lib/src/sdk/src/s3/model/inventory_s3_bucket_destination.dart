@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.inventory_s3_bucket_destination; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,12 +44,8 @@ abstract class InventoryS3BucketDestination
 
   const InventoryS3BucketDestination._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    InventoryS3BucketDestinationRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InventoryS3BucketDestinationBuilder b) {}
+  static const List<_i4.SmithySerializer<InventoryS3BucketDestination>>
+      serializers = [InventoryS3BucketDestinationRestXmlSerializer()];
 
   /// The account ID that owns the destination S3 bucket. If no account ID is provided, the owner is not validated before exporting data.
   ///
@@ -77,27 +73,27 @@ abstract class InventoryS3BucketDestination
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InventoryS3BucketDestination');
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'format',
-      format,
-    );
-    helper.add(
-      'prefix',
-      prefix,
-    );
-    helper.add(
-      'encryption',
-      encryption,
-    );
+    final helper = newBuiltValueToStringHelper('InventoryS3BucketDestination')
+      ..add(
+        'accountId',
+        accountId,
+      )
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'format',
+        format,
+      )
+      ..add(
+        'prefix',
+        prefix,
+      )
+      ..add(
+        'encryption',
+        encryption,
+      );
     return helper.toString();
   }
 }

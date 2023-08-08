@@ -110,7 +110,7 @@ class PostTags extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("PostTags {");
     buffer.write("id=" + "$id" + ", ");
@@ -246,7 +246,7 @@ class PostTagsModelIdentifier
     implements amplify_core.ModelIdentifier<PostTags> {
   final String id;
 
-  /// Create an instance of PostTagsModelIdentifier using [id] the primary key.
+  /** Create an instance of PostTagsModelIdentifier using [id] the primary key. */
   const PostTagsModelIdentifier({required this.id});
 
   @override

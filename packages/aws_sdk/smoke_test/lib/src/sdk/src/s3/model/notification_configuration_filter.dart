@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.notification_configuration_filter; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -11,31 +11,27 @@ import 'package:smoke_test/src/sdk/src/s3/model/s3_key_filter.dart' as _i2;
 
 part 'notification_configuration_filter.g.dart';
 
-/// Specifies object key name filtering rules. For information about key name filtering, see [Configuring Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) in the _Amazon S3 User Guide_.
+/// Specifies object key name filtering rules. For information about key name filtering, see [Configuring event notifications using object key name filtering](https://docs.aws.amazon.com/AmazonS3/latest/userguide/notification-how-to-filtering.html) in the _Amazon S3 User Guide_.
 abstract class NotificationConfigurationFilter
     with
         _i1.AWSEquatable<NotificationConfigurationFilter>
     implements
         Built<NotificationConfigurationFilter,
             NotificationConfigurationFilterBuilder> {
-  /// Specifies object key name filtering rules. For information about key name filtering, see [Configuring Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) in the _Amazon S3 User Guide_.
+  /// Specifies object key name filtering rules. For information about key name filtering, see [Configuring event notifications using object key name filtering](https://docs.aws.amazon.com/AmazonS3/latest/userguide/notification-how-to-filtering.html) in the _Amazon S3 User Guide_.
   factory NotificationConfigurationFilter({_i2.S3KeyFilter? key}) {
     return _$NotificationConfigurationFilter._(key: key);
   }
 
-  /// Specifies object key name filtering rules. For information about key name filtering, see [Configuring Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) in the _Amazon S3 User Guide_.
+  /// Specifies object key name filtering rules. For information about key name filtering, see [Configuring event notifications using object key name filtering](https://docs.aws.amazon.com/AmazonS3/latest/userguide/notification-how-to-filtering.html) in the _Amazon S3 User Guide_.
   factory NotificationConfigurationFilter.build(
           [void Function(NotificationConfigurationFilterBuilder) updates]) =
       _$NotificationConfigurationFilter;
 
   const NotificationConfigurationFilter._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    NotificationConfigurationFilterRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NotificationConfigurationFilterBuilder b) {}
+  static const List<_i3.SmithySerializer<NotificationConfigurationFilter>>
+      serializers = [NotificationConfigurationFilterRestXmlSerializer()];
 
   /// A container for object key name prefix and suffix filtering rules.
   _i2.S3KeyFilter? get key;
@@ -44,11 +40,11 @@ abstract class NotificationConfigurationFilter
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('NotificationConfigurationFilter');
-    helper.add(
-      'key',
-      key,
-    );
+        newBuiltValueToStringHelper('NotificationConfigurationFilter')
+          ..add(
+            'key',
+            key,
+          );
     return helper.toString();
   }
 }

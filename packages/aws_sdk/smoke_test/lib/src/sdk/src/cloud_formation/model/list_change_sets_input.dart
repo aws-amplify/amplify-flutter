@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.list_change_sets_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,12 +41,9 @@ abstract class ListChangeSetsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ListChangeSetsInput>> serializers = [
     ListChangeSetsInputAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListChangeSetsInputBuilder b) {}
 
   /// The name or the Amazon Resource Name (ARN) of the stack for which you want to list change sets.
   String get stackName;
@@ -62,15 +59,15 @@ abstract class ListChangeSetsInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListChangeSetsInput');
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('ListChangeSetsInput')
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

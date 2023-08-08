@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v2.query_protocol.model.nested_struct_with_map;
+part of 'nested_struct_with_map.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -49,9 +49,7 @@ class NestedStructWithMapBuilder
       _$this._mapArg ??= new _i2.MapBuilder<String, String>();
   set mapArg(_i2.MapBuilder<String, String>? mapArg) => _$this._mapArg = mapArg;
 
-  NestedStructWithMapBuilder() {
-    NestedStructWithMap._init(this);
-  }
+  NestedStructWithMapBuilder();
 
   NestedStructWithMapBuilder get _$this {
     final $v = _$v;

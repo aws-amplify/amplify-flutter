@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.stages;
+part of 'stages.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -45,9 +45,7 @@ class StagesBuilder implements Builder<Stages, StagesBuilder> {
       _$this._item ??= new _i3.ListBuilder<_i2.Stage>();
   set item(_i3.ListBuilder<_i2.Stage>? item) => _$this._item = item;
 
-  StagesBuilder() {
-    Stages._init(this);
-  }
+  StagesBuilder();
 
   StagesBuilder get _$this {
     final $v = _$v;

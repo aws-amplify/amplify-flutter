@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.template_parameter;
+part of 'template_parameter.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -74,9 +74,7 @@ class TemplateParameterBuilder
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  TemplateParameterBuilder() {
-    TemplateParameter._init(this);
-  }
+  TemplateParameterBuilder();
 
   TemplateParameterBuilder get _$this {
     final $v = _$v;

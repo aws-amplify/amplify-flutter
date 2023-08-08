@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v2.query_protocol.model.custom_code_error;
+part of 'custom_code_error.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -59,9 +59,7 @@ class CustomCodeErrorBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  CustomCodeErrorBuilder() {
-    CustomCodeError._init(this);
-  }
+  CustomCodeErrorBuilder();
 
   CustomCodeErrorBuilder get _$this {
     final $v = _$v;

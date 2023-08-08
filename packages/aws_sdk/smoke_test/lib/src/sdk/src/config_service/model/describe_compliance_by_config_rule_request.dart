@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.describe_compliance_by_config_rule_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -47,19 +47,15 @@ abstract class DescribeComplianceByConfigRuleRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<DescribeComplianceByConfigRuleRequest>>
+      serializers = [
     DescribeComplianceByConfigRuleRequestAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeComplianceByConfigRuleRequestBuilder b) {}
 
   /// Specify one or more Config rule names to filter the results by rule.
   _i4.BuiltList<String>? get configRuleNames;
 
   /// Filters the results by compliance.
-  ///
-  /// The allowed values are `COMPLIANT` and `NON_COMPLIANT`.
   _i4.BuiltList<_i3.ComplianceType>? get complianceTypes;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
@@ -75,19 +71,19 @@ abstract class DescribeComplianceByConfigRuleRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DescribeComplianceByConfigRuleRequest');
-    helper.add(
-      'configRuleNames',
-      configRuleNames,
-    );
-    helper.add(
-      'complianceTypes',
-      complianceTypes,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        newBuiltValueToStringHelper('DescribeComplianceByConfigRuleRequest')
+          ..add(
+            'configRuleNames',
+            configRuleNames,
+          )
+          ..add(
+            'complianceTypes',
+            complianceTypes,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          );
     return helper.toString();
   }
 }

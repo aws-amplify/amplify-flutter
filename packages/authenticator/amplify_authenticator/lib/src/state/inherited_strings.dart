@@ -23,7 +23,7 @@ class InheritedStrings extends InheritedWidget {
           ErrorSummary('No InheritedStrings widget found.'),
           ErrorDescription(
             'Make sure your app is wrapped with an Authenticator widget.',
-          )
+          ),
         ]);
       }
       return true;

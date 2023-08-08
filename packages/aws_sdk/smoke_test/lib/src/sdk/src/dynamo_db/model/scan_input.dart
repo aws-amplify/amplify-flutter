@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.scan_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -81,12 +81,9 @@ abstract class ScanInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ScanInput>> serializers = [
     ScanInputAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ScanInputBuilder b) {}
 
   /// The name of the table containing the requested items; or, if you provide `IndexName`, the name of the table to which that index belongs.
   String get tableName;
@@ -106,7 +103,7 @@ abstract class ScanInput
   ///
   /// *   `ALL\_PROJECTED\_ATTRIBUTES` \- Allowed only when querying an index. Retrieves all attributes that have been projected into the index. If the index is configured to project all attributes, this return value is equivalent to specifying `ALL_ATTRIBUTES`.
   ///
-  /// *   `COUNT` \- Returns the number of matching items, rather than the matching items themselves.
+  /// *   `COUNT` \- Returns the number of matching items, rather than the matching items themselves. Note that this uses the same quantity of read capacity units as getting the items, and is subject to the same item size calculations.
   ///
   /// *   `SPECIFIC_ATTRIBUTES` \- Returns only the attributes listed in `ProjectionExpression`. This return value is equivalent to specifying `ProjectionExpression` without specifying any value for `Select`.
   ///
@@ -256,71 +253,71 @@ abstract class ScanInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ScanInput');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'attributesToGet',
-      attributesToGet,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'select',
-      select,
-    );
-    helper.add(
-      'scanFilter',
-      scanFilter,
-    );
-    helper.add(
-      'conditionalOperator',
-      conditionalOperator,
-    );
-    helper.add(
-      'exclusiveStartKey',
-      exclusiveStartKey,
-    );
-    helper.add(
-      'returnConsumedCapacity',
-      returnConsumedCapacity,
-    );
-    helper.add(
-      'totalSegments',
-      totalSegments,
-    );
-    helper.add(
-      'segment',
-      segment,
-    );
-    helper.add(
-      'projectionExpression',
-      projectionExpression,
-    );
-    helper.add(
-      'filterExpression',
-      filterExpression,
-    );
-    helper.add(
-      'expressionAttributeNames',
-      expressionAttributeNames,
-    );
-    helper.add(
-      'expressionAttributeValues',
-      expressionAttributeValues,
-    );
-    helper.add(
-      'consistentRead',
-      consistentRead,
-    );
+    final helper = newBuiltValueToStringHelper('ScanInput')
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'indexName',
+        indexName,
+      )
+      ..add(
+        'attributesToGet',
+        attributesToGet,
+      )
+      ..add(
+        'limit',
+        limit,
+      )
+      ..add(
+        'select',
+        select,
+      )
+      ..add(
+        'scanFilter',
+        scanFilter,
+      )
+      ..add(
+        'conditionalOperator',
+        conditionalOperator,
+      )
+      ..add(
+        'exclusiveStartKey',
+        exclusiveStartKey,
+      )
+      ..add(
+        'returnConsumedCapacity',
+        returnConsumedCapacity,
+      )
+      ..add(
+        'totalSegments',
+        totalSegments,
+      )
+      ..add(
+        'segment',
+        segment,
+      )
+      ..add(
+        'projectionExpression',
+        projectionExpression,
+      )
+      ..add(
+        'filterExpression',
+        filterExpression,
+      )
+      ..add(
+        'expressionAttributeNames',
+        expressionAttributeNames,
+      )
+      ..add(
+        'expressionAttributeValues',
+        expressionAttributeValues,
+      )
+      ..add(
+        'consistentRead',
+        consistentRead,
+      );
     return helper.toString();
   }
 }

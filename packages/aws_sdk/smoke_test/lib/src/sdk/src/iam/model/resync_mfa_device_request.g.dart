@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.resync_mfa_device_request;
+part of 'resync_mfa_device_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -89,9 +89,7 @@ class ResyncMfaDeviceRequestBuilder
   set authenticationCode2(String? authenticationCode2) =>
       _$this._authenticationCode2 = authenticationCode2;
 
-  ResyncMfaDeviceRequestBuilder() {
-    ResyncMfaDeviceRequest._init(this);
-  }
+  ResyncMfaDeviceRequestBuilder();
 
   ResyncMfaDeviceRequestBuilder get _$this {
     final $v = _$v;

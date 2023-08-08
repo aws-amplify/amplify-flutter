@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.describe_stack_resource_drifts_input;
+part of 'describe_stack_resource_drifts_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -93,9 +93,7 @@ class DescribeStackResourceDriftsInputBuilder
   int? get maxResults => _$this._maxResults;
   set maxResults(int? maxResults) => _$this._maxResults = maxResults;
 
-  DescribeStackResourceDriftsInputBuilder() {
-    DescribeStackResourceDriftsInput._init(this);
-  }
+  DescribeStackResourceDriftsInputBuilder();
 
   DescribeStackResourceDriftsInputBuilder get _$this {
     final $v = _$v;

@@ -125,6 +125,7 @@ class CognitoOAuthConfig
   Map<String, Object?> toJson() => _$CognitoOAuthConfigToJson(this);
 }
 
+/// @nodoc
 /// URI helpers for [CognitoOAuthConfig].
 extension CognitoOAuthConfigUris on CognitoOAuthConfig {
   /// The parsed list of sign in redirect URIs.

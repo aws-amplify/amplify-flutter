@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.list_open_id_connect_providers_response;
+part of 'list_open_id_connect_providers_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -62,9 +62,7 @@ class ListOpenIdConnectProvidersResponseBuilder
               openIdConnectProviderList) =>
       _$this._openIdConnectProviderList = openIdConnectProviderList;
 
-  ListOpenIdConnectProvidersResponseBuilder() {
-    ListOpenIdConnectProvidersResponse._init(this);
-  }
+  ListOpenIdConnectProvidersResponseBuilder();
 
   ListOpenIdConnectProvidersResponseBuilder get _$this {
     final $v = _$v;

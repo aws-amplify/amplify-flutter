@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.remediation_execution_status;
+part of 'remediation_execution_status.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -95,9 +95,7 @@ class RemediationExecutionStatusBuilder
   set lastUpdatedTime(DateTime? lastUpdatedTime) =>
       _$this._lastUpdatedTime = lastUpdatedTime;
 
-  RemediationExecutionStatusBuilder() {
-    RemediationExecutionStatus._init(this);
-  }
+  RemediationExecutionStatusBuilder();
 
   RemediationExecutionStatusBuilder get _$this {
     final $v = _$v;

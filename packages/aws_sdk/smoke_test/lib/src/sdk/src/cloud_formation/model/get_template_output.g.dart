@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.get_template_output;
+part of 'get_template_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -58,9 +58,7 @@ class GetTemplateOutputBuilder
   set stagesAvailable(_i3.ListBuilder<_i2.TemplateStage>? stagesAvailable) =>
       _$this._stagesAvailable = stagesAvailable;
 
-  GetTemplateOutputBuilder() {
-    GetTemplateOutput._init(this);
-  }
+  GetTemplateOutputBuilder();
 
   GetTemplateOutputBuilder get _$this {
     final $v = _$v;

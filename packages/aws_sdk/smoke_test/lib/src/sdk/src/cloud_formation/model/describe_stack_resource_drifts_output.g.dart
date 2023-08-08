@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.describe_stack_resource_drifts_output;
+part of 'describe_stack_resource_drifts_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -70,9 +70,7 @@ class DescribeStackResourceDriftsOutputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeStackResourceDriftsOutputBuilder() {
-    DescribeStackResourceDriftsOutput._init(this);
-  }
+  DescribeStackResourceDriftsOutputBuilder();
 
   DescribeStackResourceDriftsOutputBuilder get _$this {
     final $v = _$v;

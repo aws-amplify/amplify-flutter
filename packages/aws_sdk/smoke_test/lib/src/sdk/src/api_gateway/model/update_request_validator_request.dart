@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.update_request_validator_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -61,12 +61,8 @@ abstract class UpdateRequestValidatorRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateRequestValidatorRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateRequestValidatorRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<UpdateRequestValidatorRequestPayload>>
+      serializers = [UpdateRequestValidatorRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -105,19 +101,19 @@ abstract class UpdateRequestValidatorRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateRequestValidatorRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'requestValidatorId',
-      requestValidatorId,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateRequestValidatorRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'requestValidatorId',
+        requestValidatorId,
+      )
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }
@@ -135,9 +131,6 @@ abstract class UpdateRequestValidatorRequestPayload
 
   const UpdateRequestValidatorRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateRequestValidatorRequestPayloadBuilder b) {}
-
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
   @override
@@ -145,11 +138,11 @@ abstract class UpdateRequestValidatorRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateRequestValidatorRequestPayload');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+        newBuiltValueToStringHelper('UpdateRequestValidatorRequestPayload')
+          ..add(
+            'patchOperations',
+            patchOperations,
+          );
     return helper.toString();
   }
 }

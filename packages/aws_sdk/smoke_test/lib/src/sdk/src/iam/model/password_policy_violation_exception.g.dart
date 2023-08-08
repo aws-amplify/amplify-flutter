@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.password_policy_violation_exception;
+part of 'password_policy_violation_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -59,9 +59,7 @@ class PasswordPolicyViolationExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  PasswordPolicyViolationExceptionBuilder() {
-    PasswordPolicyViolationException._init(this);
-  }
+  PasswordPolicyViolationExceptionBuilder();
 
   PasswordPolicyViolationExceptionBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.export_table_to_point_in_time_output;
+part of 'export_table_to_point_in_time_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -53,9 +53,7 @@ class ExportTableToPointInTimeOutputBuilder
   set exportDescription(_i2.ExportDescriptionBuilder? exportDescription) =>
       _$this._exportDescription = exportDescription;
 
-  ExportTableToPointInTimeOutputBuilder() {
-    ExportTableToPointInTimeOutput._init(this);
-  }
+  ExportTableToPointInTimeOutputBuilder();
 
   ExportTableToPointInTimeOutputBuilder get _$this {
     final $v = _$v;

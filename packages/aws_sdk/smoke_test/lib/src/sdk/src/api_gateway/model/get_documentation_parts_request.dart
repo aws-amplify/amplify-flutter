@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.get_documentation_parts_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -84,12 +84,8 @@ abstract class GetDocumentationPartsRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetDocumentationPartsRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetDocumentationPartsRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetDocumentationPartsRequestPayload>>
+      serializers = [GetDocumentationPartsRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -138,35 +134,35 @@ abstract class GetDocumentationPartsRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetDocumentationPartsRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'nameQuery',
-      nameQuery,
-    );
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'position',
-      position,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'locationStatus',
-      locationStatus,
-    );
+    final helper = newBuiltValueToStringHelper('GetDocumentationPartsRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'nameQuery',
+        nameQuery,
+      )
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'position',
+        position,
+      )
+      ..add(
+        'limit',
+        limit,
+      )
+      ..add(
+        'locationStatus',
+        locationStatus,
+      );
     return helper.toString();
   }
 }
@@ -185,8 +181,6 @@ abstract class GetDocumentationPartsRequestPayload
 
   const GetDocumentationPartsRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetDocumentationPartsRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

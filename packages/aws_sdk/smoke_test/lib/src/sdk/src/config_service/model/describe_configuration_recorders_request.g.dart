@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.describe_configuration_recorders_request;
+part of 'describe_configuration_recorders_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -59,9 +59,7 @@ class DescribeConfigurationRecordersRequestBuilder
           _i3.ListBuilder<String>? configurationRecorderNames) =>
       _$this._configurationRecorderNames = configurationRecorderNames;
 
-  DescribeConfigurationRecordersRequestBuilder() {
-    DescribeConfigurationRecordersRequest._init(this);
-  }
+  DescribeConfigurationRecordersRequestBuilder();
 
   DescribeConfigurationRecordersRequestBuilder get _$this {
     final $v = _$v;

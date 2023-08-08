@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.stop_stack_set_operation_input;
+part of 'stop_stack_set_operation_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -73,9 +73,7 @@ class StopStackSetOperationInputBuilder
   _i3.CallAs? get callAs => _$this._callAs;
   set callAs(_i3.CallAs? callAs) => _$this._callAs = callAs;
 
-  StopStackSetOperationInputBuilder() {
-    StopStackSetOperationInput._init(this);
-  }
+  StopStackSetOperationInputBuilder();
 
   StopStackSetOperationInputBuilder get _$this {
     final $v = _$v;

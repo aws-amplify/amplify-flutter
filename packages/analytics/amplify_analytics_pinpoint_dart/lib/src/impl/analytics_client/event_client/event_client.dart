@@ -205,7 +205,7 @@ class EventClient implements Closeable {
       // These exceptions are always retryable.
       eventsToDelete.clear();
     } on SmithyHttpException catch (e) {
-      if (e.statusCode != null && _isRetryable(e.statusCode!)) {
+      if (e.statusCode != null && _isRetryable(e.statusCode)) {
         eventsToDelete.removeWhere((eventId, _) {
           final eventType = eventsToDelete[eventId]?.event.eventType ?? eventId;
           return _shouldRetryEvent(eventId, eventType);
@@ -243,9 +243,9 @@ class EventClient implements Closeable {
       ..warn('Will attempt to resend event batch');
   }
 
-  bool _isRetryable(int statusCode) {
+  bool _isRetryable(int? statusCode) {
     // Pinpoint service policy is for 500-599 status codes to be retryable
-    return statusCode >= 500 && statusCode < 600;
+    return statusCode != null && statusCode >= 500 && statusCode < 600;
   }
 
   bool _shouldRetryEvent(String eventId, String eventType) {

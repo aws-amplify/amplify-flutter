@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.remediation_execution_step; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,12 +41,8 @@ abstract class RemediationExecutionStep
 
   const RemediationExecutionStep._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    RemediationExecutionStepAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RemediationExecutionStepBuilder b) {}
+  static const List<_i3.SmithySerializer<RemediationExecutionStep>>
+      serializers = [RemediationExecutionStepAwsJson11Serializer()];
 
   /// The details of the step.
   String? get name;
@@ -72,27 +68,27 @@ abstract class RemediationExecutionStep
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RemediationExecutionStep');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'state',
-      state,
-    );
-    helper.add(
-      'errorMessage',
-      errorMessage,
-    );
-    helper.add(
-      'startTime',
-      startTime,
-    );
-    helper.add(
-      'stopTime',
-      stopTime,
-    );
+    final helper = newBuiltValueToStringHelper('RemediationExecutionStep')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'state',
+        state,
+      )
+      ..add(
+        'errorMessage',
+        errorMessage,
+      )
+      ..add(
+        'startTime',
+        startTime,
+      )
+      ..add(
+        'stopTime',
+        stopTime,
+      );
     return helper.toString();
   }
 }

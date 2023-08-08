@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.delete_configuration_recorder_request;
+part of 'delete_configuration_recorder_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -60,9 +60,7 @@ class DeleteConfigurationRecorderRequestBuilder
   set configurationRecorderName(String? configurationRecorderName) =>
       _$this._configurationRecorderName = configurationRecorderName;
 
-  DeleteConfigurationRecorderRequestBuilder() {
-    DeleteConfigurationRecorderRequest._init(this);
-  }
+  DeleteConfigurationRecorderRequestBuilder();
 
   DeleteConfigurationRecorderRequestBuilder get _$this {
     final $v = _$v;

@@ -8,6 +8,7 @@ import 'package:smithy/ast.dart';
 import 'package:smithy/smithy.dart';
 import 'package:smithy_codegen/src/generator/types.dart';
 import 'package:smithy_codegen/src/util/shape_ext.dart';
+import 'package:smithy_codegen/src/util/symbol_ext.dart';
 
 part 'protocol_traits.g.dart';
 
@@ -81,22 +82,27 @@ abstract class HttpErrorTraits
   ShapeId get shapeId;
   ErrorKind get kind;
   Reference get symbol;
+  Reference? get payloadSymbol;
   RetryConfig? get retryConfig;
   int? get statusCode;
 
   Expression get constInstance {
-    return DartTypes.smithy.smithyError.constInstance([
-      shapeId.constructed,
-      DartTypes.smithy.errorKind.property(kind.name),
-      symbol,
-    ], {
-      if (statusCode != null) 'statusCode': literalNum(statusCode!),
-      if (retryConfig != null)
-        'retryConfig': DartTypes.smithy.retryConfig.constInstance([], {
-          'isThrottlingError': literalBool(retryConfig!.isThrottlingError),
-        }),
-      'builder': symbol.property('fromResponse'),
-    });
+    return DartTypes.smithy.smithyError.constInstance(
+      [
+        shapeId.constructed,
+        DartTypes.smithy.errorKind.property(kind.name),
+        symbol,
+      ],
+      {
+        if (statusCode != null) 'statusCode': literalNum(statusCode!),
+        if (retryConfig != null)
+          'retryConfig': DartTypes.smithy.retryConfig.constInstance([], {
+            'isThrottlingError': literalBool(retryConfig!.isThrottlingError),
+          }),
+        'builder': symbol.property('fromResponse'),
+      },
+      [payloadSymbol ?? DartTypes.core.object.boxed, symbol],
+    );
   }
 }
 

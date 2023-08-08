@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.remove_role_from_instance_profile_request;
+part of 'remove_role_from_instance_profile_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -70,9 +70,7 @@ class RemoveRoleFromInstanceProfileRequestBuilder
   String? get roleName => _$this._roleName;
   set roleName(String? roleName) => _$this._roleName = roleName;
 
-  RemoveRoleFromInstanceProfileRequestBuilder() {
-    RemoveRoleFromInstanceProfileRequest._init(this);
-  }
+  RemoveRoleFromInstanceProfileRequestBuilder();
 
   RemoveRoleFromInstanceProfileRequestBuilder get _$this {
     final $v = _$v;

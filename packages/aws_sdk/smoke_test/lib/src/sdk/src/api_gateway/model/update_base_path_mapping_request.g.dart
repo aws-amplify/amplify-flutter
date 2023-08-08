@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.update_base_path_mapping_request;
+part of 'update_base_path_mapping_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -76,9 +76,7 @@ class UpdateBasePathMappingRequestBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateBasePathMappingRequestBuilder() {
-    UpdateBasePathMappingRequest._init(this);
-  }
+  UpdateBasePathMappingRequestBuilder();
 
   UpdateBasePathMappingRequestBuilder get _$this {
     final $v = _$v;
@@ -181,9 +179,7 @@ class UpdateBasePathMappingRequestPayloadBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateBasePathMappingRequestPayloadBuilder() {
-    UpdateBasePathMappingRequestPayload._init(this);
-  }
+  UpdateBasePathMappingRequestPayloadBuilder();
 
   UpdateBasePathMappingRequestPayloadBuilder get _$this {
     final $v = _$v;

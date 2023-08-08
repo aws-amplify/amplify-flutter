@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.resource_filters; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,12 +35,9 @@ abstract class ResourceFilters
 
   const ResourceFilters._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ResourceFilters>> serializers = [
     ResourceFiltersAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceFiltersBuilder b) {}
 
   /// The 12-digit source account ID.
   String? get accountId;
@@ -62,23 +59,23 @@ abstract class ResourceFilters
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResourceFilters');
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'resourceName',
-      resourceName,
-    );
-    helper.add(
-      'region',
-      region,
-    );
+    final helper = newBuiltValueToStringHelper('ResourceFilters')
+      ..add(
+        'accountId',
+        accountId,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'resourceName',
+        resourceName,
+      )
+      ..add(
+        'region',
+        region,
+      );
     return helper.toString();
   }
 }

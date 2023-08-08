@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.operation.attach_role_policy_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -29,9 +29,9 @@ import 'package:smoke_test/src/sdk/src/iam/model/unmodifiable_entity_exception.d
 
 /// Attaches the specified managed policy to the specified IAM role. When you attach a managed policy to a role, the managed policy becomes part of the role's permission (access) policy.
 ///
-/// You cannot use a managed policy as the role's trust policy. The role's trust policy is created at the same time as the role, using CreateRole. You can update a role's trust policy using UpdateAssumeRolePolicy.
+/// You cannot use a managed policy as the role's trust policy. The role's trust policy is created at the same time as the role, using [`CreateRole`](https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html) . You can update a role's trust policy using [`UpdateAssumerolePolicy`](https://docs.aws.amazon.com/IAM/latest/APIReference/API_UpdateAssumeRolePolicy.html) .
 ///
-/// Use this operation to attach a _managed_ policy to a role. To embed an inline policy in a role, use PutRolePolicy. For more information about policies, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
+/// Use this operation to attach a _managed_ policy to a role. To embed an inline policy in a role, use [`PutRolePolicy`](https://docs.aws.amazon.com/IAM/latest/APIReference/API_PutRolePolicy.html) . For more information about policies, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
 ///
 /// As a best practice, you can validate your IAM policies. To learn more, see [Validating IAM policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_policy-validator.html) in the _IAM User Guide_.
 class AttachRolePolicyOperation extends _i1.HttpOperation<
@@ -41,9 +41,9 @@ class AttachRolePolicyOperation extends _i1.HttpOperation<
     _i1.Unit> {
   /// Attaches the specified managed policy to the specified IAM role. When you attach a managed policy to a role, the managed policy becomes part of the role's permission (access) policy.
   ///
-  /// You cannot use a managed policy as the role's trust policy. The role's trust policy is created at the same time as the role, using CreateRole. You can update a role's trust policy using UpdateAssumeRolePolicy.
+  /// You cannot use a managed policy as the role's trust policy. The role's trust policy is created at the same time as the role, using [`CreateRole`](https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html) . You can update a role's trust policy using [`UpdateAssumerolePolicy`](https://docs.aws.amazon.com/IAM/latest/APIReference/API_UpdateAssumeRolePolicy.html) .
   ///
-  /// Use this operation to attach a _managed_ policy to a role. To embed an inline policy in a role, use PutRolePolicy. For more information about policies, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
+  /// Use this operation to attach a _managed_ policy to a role. To embed an inline policy in a role, use [`PutRolePolicy`](https://docs.aws.amazon.com/IAM/latest/APIReference/API_PutRolePolicy.html) . For more information about policies, see [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html) in the _IAM User Guide_.
   ///
   /// As a best practice, you can validate your IAM policies. To learn more, see [Validating IAM policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_policy-validator.html) in the _IAM User Guide_.
   AttachRolePolicyOperation({
@@ -149,7 +149,7 @@ class AttachRolePolicyOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.InvalidInputException, _i8.InvalidInputException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'InvalidInputException',
@@ -159,7 +159,7 @@ class AttachRolePolicyOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i8.InvalidInputException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.LimitExceededException, _i9.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'LimitExceededException',
@@ -169,7 +169,7 @@ class AttachRolePolicyOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i9.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.NoSuchEntityException, _i10.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
@@ -179,7 +179,8 @@ class AttachRolePolicyOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i10.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.PolicyNotAttachableException,
+            _i11.PolicyNotAttachableException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'PolicyNotAttachableException',
@@ -189,7 +190,8 @@ class AttachRolePolicyOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i11.PolicyNotAttachableException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.ServiceFailureException,
+            _i12.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',
@@ -199,7 +201,8 @@ class AttachRolePolicyOperation extends _i1.HttpOperation<
           statusCode: 500,
           builder: _i12.ServiceFailureException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.UnmodifiableEntityException,
+            _i13.UnmodifiableEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'UnmodifiableEntityException',
@@ -232,7 +235,7 @@ class AttachRolePolicyOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
+        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
       },
     );
   }

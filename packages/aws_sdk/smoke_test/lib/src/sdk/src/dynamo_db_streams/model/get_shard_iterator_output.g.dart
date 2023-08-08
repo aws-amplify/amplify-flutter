@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db_streams.model.get_shard_iterator_output;
+part of 'get_shard_iterator_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -50,9 +50,7 @@ class GetShardIteratorOutputBuilder
   set shardIterator(String? shardIterator) =>
       _$this._shardIterator = shardIterator;
 
-  GetShardIteratorOutputBuilder() {
-    GetShardIteratorOutput._init(this);
-  }
+  GetShardIteratorOutputBuilder();
 
   GetShardIteratorOutputBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_validation_protocol.model.malformed_length_query_string_input;
+part of 'malformed_length_query_string_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class MalformedLengthQueryStringInputBuilder
   String? get string => _$this._string;
   set string(String? string) => _$this._string = string;
 
-  MalformedLengthQueryStringInputBuilder() {
-    MalformedLengthQueryStringInput._init(this);
-  }
+  MalformedLengthQueryStringInputBuilder();
 
   MalformedLengthQueryStringInputBuilder get _$this {
     final $v = _$v;
@@ -124,9 +122,7 @@ class MalformedLengthQueryStringInputPayloadBuilder
             MalformedLengthQueryStringInputPayloadBuilder> {
   _$MalformedLengthQueryStringInputPayload? _$v;
 
-  MalformedLengthQueryStringInputPayloadBuilder() {
-    MalformedLengthQueryStringInputPayload._init(this);
-  }
+  MalformedLengthQueryStringInputPayloadBuilder();
 
   @override
   void replace(MalformedLengthQueryStringInputPayload other) {

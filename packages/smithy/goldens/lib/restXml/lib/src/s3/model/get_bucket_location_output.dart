@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_xml_v1.s3.model.get_bucket_location_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,12 +37,9 @@ abstract class GetBucketLocationOutput
         b.locationConstraint = payload;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetBucketLocationOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<_i3.BucketLocationConstraint?>>
+      serializers = [GetBucketLocationOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketLocationOutputBuilder b) {}
   _i3.BucketLocationConstraint? get locationConstraint;
   @override
   _i3.BucketLocationConstraint? getPayload() => locationConstraint;
@@ -50,11 +47,11 @@ abstract class GetBucketLocationOutput
   List<Object?> get props => [locationConstraint];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBucketLocationOutput');
-    helper.add(
-      'locationConstraint',
-      locationConstraint,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketLocationOutput')
+      ..add(
+        'locationConstraint',
+        locationConstraint,
+      );
     return helper.toString();
   }
 }

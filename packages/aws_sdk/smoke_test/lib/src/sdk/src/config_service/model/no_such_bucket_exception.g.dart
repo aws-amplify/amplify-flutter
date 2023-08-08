@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.no_such_bucket_exception;
+part of 'no_such_bucket_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -61,9 +61,7 @@ class NoSuchBucketExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  NoSuchBucketExceptionBuilder() {
-    NoSuchBucketException._init(this);
-  }
+  NoSuchBucketExceptionBuilder();
 
   NoSuchBucketExceptionBuilder get _$this {
     final $v = _$v;

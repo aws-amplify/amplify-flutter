@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.describe_type_input;
+part of 'describe_type_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -96,9 +96,7 @@ class DescribeTypeInputBuilder
   set publicVersionNumber(String? publicVersionNumber) =>
       _$this._publicVersionNumber = publicVersionNumber;
 
-  DescribeTypeInputBuilder() {
-    DescribeTypeInput._init(this);
-  }
+  DescribeTypeInputBuilder();
 
   DescribeTypeInputBuilder get _$this {
     final $v = _$v;

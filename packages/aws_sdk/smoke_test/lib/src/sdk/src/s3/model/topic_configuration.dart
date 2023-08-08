@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.topic_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,9 @@ abstract class TopicConfiguration
 
   const TopicConfiguration._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<TopicConfiguration>> serializers = [
     TopicConfigurationRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TopicConfigurationBuilder b) {}
 
   /// An optional unique identifier for configurations in a notification configuration. If you don't provide one, Amazon S3 will assign an ID.
   String? get id;
@@ -56,7 +53,7 @@ abstract class TopicConfiguration
   /// The Amazon S3 bucket event about which to send notifications. For more information, see [Supported Event Types](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) in the _Amazon S3 User Guide_.
   _i4.BuiltList<_i2.Event> get events;
 
-  /// Specifies object key name filtering rules. For information about key name filtering, see [Configuring Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) in the _Amazon S3 User Guide_.
+  /// Specifies object key name filtering rules. For information about key name filtering, see [Configuring event notifications using object key name filtering](https://docs.aws.amazon.com/AmazonS3/latest/userguide/notification-how-to-filtering.html) in the _Amazon S3 User Guide_.
   _i3.NotificationConfigurationFilter? get filter;
   @override
   List<Object?> get props => [
@@ -67,23 +64,23 @@ abstract class TopicConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TopicConfiguration');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'topicArn',
-      topicArn,
-    );
-    helper.add(
-      'events',
-      events,
-    );
-    helper.add(
-      'filter',
-      filter,
-    );
+    final helper = newBuiltValueToStringHelper('TopicConfiguration')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'topicArn',
+        topicArn,
+      )
+      ..add(
+        'events',
+        events,
+      )
+      ..add(
+        'filter',
+        filter,
+      );
     return helper.toString();
   }
 }

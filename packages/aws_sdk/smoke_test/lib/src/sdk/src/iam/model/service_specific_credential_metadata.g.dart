@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.service_specific_credential_metadata;
+part of 'service_specific_credential_metadata.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -116,9 +116,7 @@ class ServiceSpecificCredentialMetadataBuilder
   String? get serviceName => _$this._serviceName;
   set serviceName(String? serviceName) => _$this._serviceName = serviceName;
 
-  ServiceSpecificCredentialMetadataBuilder() {
-    ServiceSpecificCredentialMetadata._init(this);
-  }
+  ServiceSpecificCredentialMetadataBuilder();
 
   ServiceSpecificCredentialMetadataBuilder get _$this {
     final $v = _$v;

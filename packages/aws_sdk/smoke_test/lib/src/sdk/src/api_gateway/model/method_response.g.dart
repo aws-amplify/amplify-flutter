@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.method_response;
+part of 'method_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -69,9 +69,7 @@ class MethodResponseBuilder
   set responseModels(_i2.MapBuilder<String, String>? responseModels) =>
       _$this._responseModels = responseModels;
 
-  MethodResponseBuilder() {
-    MethodResponse._init(this);
-  }
+  MethodResponseBuilder();
 
   MethodResponseBuilder get _$this {
     final $v = _$v;

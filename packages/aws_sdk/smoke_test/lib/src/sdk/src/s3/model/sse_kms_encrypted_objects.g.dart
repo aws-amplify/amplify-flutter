@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.sse_kms_encrypted_objects;
+part of 'sse_kms_encrypted_objects.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -52,9 +52,7 @@ class SseKmsEncryptedObjectsBuilder
   set status(_i2.SseKmsEncryptedObjectsStatus? status) =>
       _$this._status = status;
 
-  SseKmsEncryptedObjectsBuilder() {
-    SseKmsEncryptedObjects._init(this);
-  }
+  SseKmsEncryptedObjectsBuilder();
 
   SseKmsEncryptedObjectsBuilder get _$this {
     final $v = _$v;

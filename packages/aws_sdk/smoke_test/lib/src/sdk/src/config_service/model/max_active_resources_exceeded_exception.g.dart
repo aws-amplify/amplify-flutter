@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.max_active_resources_exceeded_exception;
+part of 'max_active_resources_exceeded_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -68,9 +68,7 @@ class MaxActiveResourcesExceededExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  MaxActiveResourcesExceededExceptionBuilder() {
-    MaxActiveResourcesExceededException._init(this);
-  }
+  MaxActiveResourcesExceededExceptionBuilder();
 
   MaxActiveResourcesExceededExceptionBuilder get _$this {
     final $v = _$v;

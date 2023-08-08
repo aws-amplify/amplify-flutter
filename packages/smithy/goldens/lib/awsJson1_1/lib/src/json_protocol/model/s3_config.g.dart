@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1_v1.json_protocol.model.s3_config;
+part of 's3_config.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -68,9 +68,7 @@ class S3ConfigBuilder implements Builder<S3Config, S3ConfigBuilder> {
   set useDualstackEndpoint(bool? useDualstackEndpoint) =>
       _$this._useDualstackEndpoint = useDualstackEndpoint;
 
-  S3ConfigBuilder() {
-    S3Config._init(this);
-  }
+  S3ConfigBuilder();
 
   S3ConfigBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.replication_rule_and_operator; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -53,12 +53,8 @@ abstract class ReplicationRuleAndOperator
 
   const ReplicationRuleAndOperator._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ReplicationRuleAndOperatorRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicationRuleAndOperatorBuilder b) {}
+  static const List<_i4.SmithySerializer<ReplicationRuleAndOperator>>
+      serializers = [ReplicationRuleAndOperatorRestXmlSerializer()];
 
   /// An object key name prefix that identifies the subset of objects to which the rule applies.
   String? get prefix;
@@ -72,15 +68,15 @@ abstract class ReplicationRuleAndOperator
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ReplicationRuleAndOperator');
-    helper.add(
-      'prefix',
-      prefix,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('ReplicationRuleAndOperator')
+      ..add(
+        'prefix',
+        prefix,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

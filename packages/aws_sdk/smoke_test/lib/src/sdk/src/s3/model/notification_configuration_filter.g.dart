@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.notification_configuration_filter;
+part of 'notification_configuration_filter.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -52,9 +52,7 @@ class NotificationConfigurationFilterBuilder
       _$this._key ??= new _i2.S3KeyFilterBuilder();
   set key(_i2.S3KeyFilterBuilder? key) => _$this._key = key;
 
-  NotificationConfigurationFilterBuilder() {
-    NotificationConfigurationFilter._init(this);
-  }
+  NotificationConfigurationFilterBuilder();
 
   NotificationConfigurationFilterBuilder get _$this {
     final $v = _$v;

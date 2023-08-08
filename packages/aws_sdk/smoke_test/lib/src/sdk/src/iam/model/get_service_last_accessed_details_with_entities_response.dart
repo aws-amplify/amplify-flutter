@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.get_service_last_accessed_details_with_entities_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -29,6 +29,7 @@ abstract class GetServiceLastAccessedDetailsWithEntitiesResponse
     String? marker,
     _i4.ErrorDetails? error,
   }) {
+    isTruncated ??= false;
     return _$GetServiceLastAccessedDetailsWithEntitiesResponse._(
       jobStatus: jobStatus,
       jobCreationDate: jobCreationDate,
@@ -53,13 +54,17 @@ abstract class GetServiceLastAccessedDetailsWithEntitiesResponse
   ) =>
       payload;
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<
+      _i6.SmithySerializer<
+          GetServiceLastAccessedDetailsWithEntitiesResponse>> serializers = [
     GetServiceLastAccessedDetailsWithEntitiesResponseAwsQuerySerializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(
-      GetServiceLastAccessedDetailsWithEntitiesResponseBuilder b) {}
+      GetServiceLastAccessedDetailsWithEntitiesResponseBuilder b) {
+    b.isTruncated = false;
+  }
 
   /// The status of the job.
   _i2.JobStatusType get jobStatus;
@@ -76,7 +81,7 @@ abstract class GetServiceLastAccessedDetailsWithEntitiesResponse
   _i5.BuiltList<_i3.EntityDetails> get entityDetailsList;
 
   /// A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the `Marker` request parameter to retrieve more items. Note that IAM might return fewer than the `MaxItems` number of results even when there are more results available. We recommend that you check `IsTruncated` after every call to ensure that you receive all your results.
-  bool? get isTruncated;
+  bool get isTruncated;
 
   /// When `IsTruncated` is `true`, this element is present and contains the value to use for the `Marker` parameter in a subsequent pagination request.
   String? get marker;
@@ -96,35 +101,35 @@ abstract class GetServiceLastAccessedDetailsWithEntitiesResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'GetServiceLastAccessedDetailsWithEntitiesResponse');
-    helper.add(
-      'jobStatus',
-      jobStatus,
-    );
-    helper.add(
-      'jobCreationDate',
-      jobCreationDate,
-    );
-    helper.add(
-      'jobCompletionDate',
-      jobCompletionDate,
-    );
-    helper.add(
-      'entityDetailsList',
-      entityDetailsList,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'error',
-      error,
-    );
+        'GetServiceLastAccessedDetailsWithEntitiesResponse')
+      ..add(
+        'jobStatus',
+        jobStatus,
+      )
+      ..add(
+        'jobCreationDate',
+        jobCreationDate,
+      )
+      ..add(
+        'jobCompletionDate',
+        jobCompletionDate,
+      )
+      ..add(
+        'entityDetailsList',
+        entityDetailsList,
+      )
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'marker',
+        marker,
+      )
+      ..add(
+        'error',
+        error,
+      );
     return helper.toString();
   }
 }
@@ -261,14 +266,12 @@ class GetServiceLastAccessedDetailsWithEntitiesResponseAwsQuerySerializer
           [FullType(_i3.EntityDetails)],
         ),
       ));
-    if (isTruncated != null) {
-      result$
-        ..add(const _i6.XmlElementName('IsTruncated'))
-        ..add(serializers.serialize(
-          isTruncated,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result$
+      ..add(const _i6.XmlElementName('IsTruncated'))
+      ..add(serializers.serialize(
+        isTruncated,
+        specifiedType: const FullType(bool),
+      ));
     if (marker != null) {
       result$
         ..add(const _i6.XmlElementName('Marker'))

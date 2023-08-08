@@ -112,7 +112,7 @@ class CpkManyToManyTag extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("CpkManyToManyTag {");
     buffer.write("id=" + "$id" + ", ");
@@ -171,8 +171,7 @@ class CpkManyToManyTag extends amplify_core.Model {
       };
 
   static final amplify_core
-          .QueryModelIdentifier<CpkManyToManyTagModelIdentifier>
-      MODEL_IDENTIFIER =
+      .QueryModelIdentifier<CpkManyToManyTagModelIdentifier> MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<CpkManyToManyTagModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final LABEL = amplify_core.QueryField(fieldName: "label");
@@ -244,8 +243,10 @@ class CpkManyToManyTagModelIdentifier
   final String id;
   final String label;
 
-  /// Create an instance of CpkManyToManyTagModelIdentifier using [id] the primary key.
-  /// And [label] the sort key.
+  /**
+   * Create an instance of CpkManyToManyTagModelIdentifier using [id] the primary key.
+   * And [label] the sort key.
+   */
   const CpkManyToManyTagModelIdentifier(
       {required this.id, required this.label});
 

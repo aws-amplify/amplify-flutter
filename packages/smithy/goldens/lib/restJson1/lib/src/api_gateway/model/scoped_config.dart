@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.api_gateway.model.scoped_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -46,12 +46,9 @@ abstract class ScopedConfig
 
   const ScopedConfig._();
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<_i7.SmithySerializer<ScopedConfig>> serializers = [
     ScopedConfigRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ScopedConfigBuilder b) {}
 
   /// Config settings that can be set as environment variables.
   _i2.EnvironmentConfig? get environment;
@@ -77,27 +74,27 @@ abstract class ScopedConfig
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ScopedConfig');
-    helper.add(
-      'environment',
-      environment,
-    );
-    helper.add(
-      'configFile',
-      configFile,
-    );
-    helper.add(
-      'credentialsFile',
-      credentialsFile,
-    );
-    helper.add(
-      'client',
-      client,
-    );
-    helper.add(
-      'operation',
-      operation,
-    );
+    final helper = newBuiltValueToStringHelper('ScopedConfig')
+      ..add(
+        'environment',
+        environment,
+      )
+      ..add(
+        'configFile',
+        configFile,
+      )
+      ..add(
+        'credentialsFile',
+        credentialsFile,
+      )
+      ..add(
+        'client',
+        client,
+      )
+      ..add(
+        'operation',
+        operation,
+      );
     return helper.toString();
   }
 }

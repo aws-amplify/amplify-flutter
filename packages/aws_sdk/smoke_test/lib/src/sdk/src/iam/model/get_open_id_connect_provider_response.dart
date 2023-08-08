@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.get_open_id_connect_provider_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -51,12 +51,8 @@ abstract class GetOpenIdConnectProviderResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    GetOpenIdConnectProviderResponseAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetOpenIdConnectProviderResponseBuilder b) {}
+  static const List<_i4.SmithySerializer<GetOpenIdConnectProviderResponse>>
+      serializers = [GetOpenIdConnectProviderResponseAwsQuerySerializer()];
 
   /// The URL that the IAM OIDC provider resource object is associated with. For more information, see CreateOpenIDConnectProvider.
   String? get url;
@@ -83,27 +79,27 @@ abstract class GetOpenIdConnectProviderResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetOpenIdConnectProviderResponse');
-    helper.add(
-      'url',
-      url,
-    );
-    helper.add(
-      'clientIdList',
-      clientIdList,
-    );
-    helper.add(
-      'thumbprintList',
-      thumbprintList,
-    );
-    helper.add(
-      'createDate',
-      createDate,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+        newBuiltValueToStringHelper('GetOpenIdConnectProviderResponse')
+          ..add(
+            'url',
+            url,
+          )
+          ..add(
+            'clientIdList',
+            clientIdList,
+          )
+          ..add(
+            'thumbprintList',
+            thumbprintList,
+          )
+          ..add(
+            'createDate',
+            createDate,
+          )
+          ..add(
+            'tags',
+            tags,
+          );
     return helper.toString();
   }
 }

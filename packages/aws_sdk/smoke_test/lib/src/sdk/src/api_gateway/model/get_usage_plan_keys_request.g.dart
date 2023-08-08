@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.get_usage_plan_keys_request;
+part of 'get_usage_plan_keys_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -79,9 +79,7 @@ class GetUsagePlanKeysRequestBuilder
   String? get nameQuery => _$this._nameQuery;
   set nameQuery(String? nameQuery) => _$this._nameQuery = nameQuery;
 
-  GetUsagePlanKeysRequestBuilder() {
-    GetUsagePlanKeysRequest._init(this);
-  }
+  GetUsagePlanKeysRequestBuilder();
 
   GetUsagePlanKeysRequestBuilder get _$this {
     final $v = _$v;
@@ -156,9 +154,7 @@ class GetUsagePlanKeysRequestPayloadBuilder
             GetUsagePlanKeysRequestPayloadBuilder> {
   _$GetUsagePlanKeysRequestPayload? _$v;
 
-  GetUsagePlanKeysRequestPayloadBuilder() {
-    GetUsagePlanKeysRequestPayload._init(this);
-  }
+  GetUsagePlanKeysRequestPayloadBuilder();
 
   @override
   void replace(GetUsagePlanKeysRequestPayload other) {

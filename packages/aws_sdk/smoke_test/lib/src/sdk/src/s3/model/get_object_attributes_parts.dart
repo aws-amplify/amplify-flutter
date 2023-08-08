@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.get_object_attributes_parts; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,12 +43,8 @@ abstract class GetObjectAttributesParts
 
   const GetObjectAttributesParts._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    GetObjectAttributesPartsRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectAttributesPartsBuilder b) {}
+  static const List<_i4.SmithySerializer<GetObjectAttributesParts>>
+      serializers = [GetObjectAttributesPartsRestXmlSerializer()];
 
   /// The total number of parts.
   int? get totalPartsCount;
@@ -78,31 +74,31 @@ abstract class GetObjectAttributesParts
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectAttributesParts');
-    helper.add(
-      'totalPartsCount',
-      totalPartsCount,
-    );
-    helper.add(
-      'partNumberMarker',
-      partNumberMarker,
-    );
-    helper.add(
-      'nextPartNumberMarker',
-      nextPartNumberMarker,
-    );
-    helper.add(
-      'maxParts',
-      maxParts,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'parts',
-      parts,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectAttributesParts')
+      ..add(
+        'totalPartsCount',
+        totalPartsCount,
+      )
+      ..add(
+        'partNumberMarker',
+        partNumberMarker,
+      )
+      ..add(
+        'nextPartNumberMarker',
+        nextPartNumberMarker,
+      )
+      ..add(
+        'maxParts',
+        maxParts,
+      )
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'parts',
+        parts,
+      );
     return helper.toString();
   }
 }

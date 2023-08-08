@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library aws_json1_0_v2.json_rpc_10.model.complex_error; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -45,12 +45,10 @@ abstract class ComplexError
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ComplexError>> serializers = [
     ComplexErrorAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ComplexErrorBuilder b) {}
   String? get topLevel;
   _i3.ComplexNestedErrorData? get nested;
   @override
@@ -77,15 +75,15 @@ abstract class ComplexError
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ComplexError');
-    helper.add(
-      'topLevel',
-      topLevel,
-    );
-    helper.add(
-      'nested',
-      nested,
-    );
+    final helper = newBuiltValueToStringHelper('ComplexError')
+      ..add(
+        'topLevel',
+        topLevel,
+      )
+      ..add(
+        'nested',
+        nested,
+      );
     return helper.toString();
   }
 }

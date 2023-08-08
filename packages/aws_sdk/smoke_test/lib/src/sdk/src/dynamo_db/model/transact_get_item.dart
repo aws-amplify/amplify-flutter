@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.transact_get_item; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -26,12 +26,9 @@ abstract class TransactGetItem
 
   const TransactGetItem._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<TransactGetItem>> serializers = [
     TransactGetItemAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TransactGetItemBuilder b) {}
 
   /// Contains the primary key that identifies the item to get, together with the name of the table that contains the item, and optionally the specific attributes of the item to retrieve.
   _i2.Get get get;
@@ -39,11 +36,11 @@ abstract class TransactGetItem
   List<Object?> get props => [get];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TransactGetItem');
-    helper.add(
-      'get',
-      get,
-    );
+    final helper = newBuiltValueToStringHelper('TransactGetItem')
+      ..add(
+        'get',
+        get,
+      );
     return helper.toString();
   }
 }

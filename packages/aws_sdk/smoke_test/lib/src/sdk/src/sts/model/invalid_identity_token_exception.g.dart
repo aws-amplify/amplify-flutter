@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.invalid_identity_token_exception;
+part of 'invalid_identity_token_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -56,9 +56,7 @@ class InvalidIdentityTokenExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InvalidIdentityTokenExceptionBuilder() {
-    InvalidIdentityTokenException._init(this);
-  }
+  InvalidIdentityTokenExceptionBuilder();
 
   InvalidIdentityTokenExceptionBuilder get _$this {
     final $v = _$v;

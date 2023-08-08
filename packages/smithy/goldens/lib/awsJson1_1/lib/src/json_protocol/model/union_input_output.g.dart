@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1_v1.json_protocol.model.union_input_output;
+part of 'union_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -47,9 +47,7 @@ class UnionInputOutputBuilder
   _i3.MyUnion? get contents => _$this._contents;
   set contents(_i3.MyUnion? contents) => _$this._contents = contents;
 
-  UnionInputOutputBuilder() {
-    UnionInputOutput._init(this);
-  }
+  UnionInputOutputBuilder();
 
   UnionInputOutputBuilder get _$this {
     final $v = _$v;

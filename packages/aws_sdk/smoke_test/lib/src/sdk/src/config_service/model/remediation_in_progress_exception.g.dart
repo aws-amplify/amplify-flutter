@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.remediation_in_progress_exception;
+part of 'remediation_in_progress_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -64,9 +64,7 @@ class RemediationInProgressExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  RemediationInProgressExceptionBuilder() {
-    RemediationInProgressException._init(this);
-  }
+  RemediationInProgressExceptionBuilder();
 
   RemediationInProgressExceptionBuilder get _$this {
     final $v = _$v;

@@ -44,9 +44,7 @@ class JsonInputBuilder implements Builder<JsonInput, JsonInputBuilder> {
   _i2.JsonType? get type => _$this._type;
   set type(_i2.JsonType? type) => _$this._type = type;
 
-  JsonInputBuilder() {
-    JsonInput._init(this);
-  }
+  JsonInputBuilder();
 
   JsonInputBuilder get _$this {
     final $v = _$v;

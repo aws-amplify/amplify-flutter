@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.provisioned_throughput;
+part of 'provisioned_throughput.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -66,9 +66,7 @@ class ProvisionedThroughputBuilder
   set writeCapacityUnits(_i2.Int64? writeCapacityUnits) =>
       _$this._writeCapacityUnits = writeCapacityUnits;
 
-  ProvisionedThroughputBuilder() {
-    ProvisionedThroughput._init(this);
-  }
+  ProvisionedThroughputBuilder();
 
   ProvisionedThroughputBuilder get _$this {
     final $v = _$v;

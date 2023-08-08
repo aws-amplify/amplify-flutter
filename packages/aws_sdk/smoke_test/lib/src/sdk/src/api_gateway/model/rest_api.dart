@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.rest_api; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,6 +35,7 @@ abstract class RestApi
     Map<String, String>? tags,
     bool? disableExecuteApiEndpoint,
   }) {
+    disableExecuteApiEndpoint ??= false;
     return _$RestApi._(
       id: id,
       name: name,
@@ -65,12 +66,14 @@ abstract class RestApi
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<RestApi>> serializers = [
     RestApiRestJson1Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(RestApiBuilder b) {}
+  static void _init(RestApiBuilder b) {
+    b.disableExecuteApiEndpoint = false;
+  }
 
   /// The API's identifier. This identifier is unique across all of your APIs in API Gateway.
   String? get id;
@@ -109,7 +112,7 @@ abstract class RestApi
   _i4.BuiltMap<String, String>? get tags;
 
   /// Specifies whether clients can invoke your API by using the default `execute-api` endpoint. By default, clients can invoke your API with the default `https://{api_id}.execute-api.{region}.amazonaws.com` endpoint. To require that clients use a custom domain name to invoke your API, disable the default endpoint.
-  bool? get disableExecuteApiEndpoint;
+  bool get disableExecuteApiEndpoint;
   @override
   List<Object?> get props => [
         id,
@@ -128,59 +131,59 @@ abstract class RestApi
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RestApi');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'createdDate',
-      createdDate,
-    );
-    helper.add(
-      'version',
-      version,
-    );
-    helper.add(
-      'warnings',
-      warnings,
-    );
-    helper.add(
-      'binaryMediaTypes',
-      binaryMediaTypes,
-    );
-    helper.add(
-      'minimumCompressionSize',
-      minimumCompressionSize,
-    );
-    helper.add(
-      'apiKeySource',
-      apiKeySource,
-    );
-    helper.add(
-      'endpointConfiguration',
-      endpointConfiguration,
-    );
-    helper.add(
-      'policy',
-      policy,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'disableExecuteApiEndpoint',
-      disableExecuteApiEndpoint,
-    );
+    final helper = newBuiltValueToStringHelper('RestApi')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'createdDate',
+        createdDate,
+      )
+      ..add(
+        'version',
+        version,
+      )
+      ..add(
+        'warnings',
+        warnings,
+      )
+      ..add(
+        'binaryMediaTypes',
+        binaryMediaTypes,
+      )
+      ..add(
+        'minimumCompressionSize',
+        minimumCompressionSize,
+      )
+      ..add(
+        'apiKeySource',
+        apiKeySource,
+      )
+      ..add(
+        'endpointConfiguration',
+        endpointConfiguration,
+      )
+      ..add(
+        'policy',
+        policy,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'disableExecuteApiEndpoint',
+        disableExecuteApiEndpoint,
+      );
     return helper.toString();
   }
 }
@@ -322,6 +325,13 @@ class RestApiRestJson1Serializer
       :version,
       :warnings
     ) = object;
+    result$.addAll([
+      'disableExecuteApiEndpoint',
+      serializers.serialize(
+        disableExecuteApiEndpoint,
+        specifiedType: const FullType(bool),
+      ),
+    ]);
     if (apiKeySource != null) {
       result$
         ..add('apiKeySource')
@@ -355,14 +365,6 @@ class RestApiRestJson1Serializer
         ..add(serializers.serialize(
           description,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (disableExecuteApiEndpoint != null) {
-      result$
-        ..add('disableExecuteApiEndpoint')
-        ..add(serializers.serialize(
-          disableExecuteApiEndpoint,
-          specifiedType: const FullType(bool),
         ));
     }
     if (endpointConfiguration != null) {

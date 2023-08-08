@@ -3,6 +3,7 @@
 
 part of '../amplify_exception.dart';
 
+/// {@category Auth}
 /// {@template amplify_core.auth.user_cancelled_exception}
 /// Exception thrown when a requested operation could not be completed because
 /// it was cancelled by the user.

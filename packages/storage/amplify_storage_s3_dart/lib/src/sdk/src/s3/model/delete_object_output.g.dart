@@ -68,9 +68,7 @@ class DeleteObjectOutputBuilder
   set requestCharged(_i3.RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
-  DeleteObjectOutputBuilder() {
-    DeleteObjectOutput._init(this);
-  }
+  DeleteObjectOutputBuilder();
 
   DeleteObjectOutputBuilder get _$this {
     final $v = _$v;
@@ -141,9 +139,7 @@ class DeleteObjectOutputPayloadBuilder
         Builder<DeleteObjectOutputPayload, DeleteObjectOutputPayloadBuilder> {
   _$DeleteObjectOutputPayload? _$v;
 
-  DeleteObjectOutputPayloadBuilder() {
-    DeleteObjectOutputPayload._init(this);
-  }
+  DeleteObjectOutputPayloadBuilder();
 
   @override
   void replace(DeleteObjectOutputPayload other) {

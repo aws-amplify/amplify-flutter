@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.create_table_output;
+part of 'create_table_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -50,9 +50,7 @@ class CreateTableOutputBuilder
   set tableDescription(_i2.TableDescriptionBuilder? tableDescription) =>
       _$this._tableDescription = tableDescription;
 
-  CreateTableOutputBuilder() {
-    CreateTableOutput._init(this);
-  }
+  CreateTableOutputBuilder();
 
   CreateTableOutputBuilder get _$this {
     final $v = _$v;

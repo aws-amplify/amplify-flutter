@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.describe_type_output;
+part of 'describe_type_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -304,9 +304,7 @@ class DescribeTypeOutputBuilder
   bool? get autoUpdate => _$this._autoUpdate;
   set autoUpdate(bool? autoUpdate) => _$this._autoUpdate = autoUpdate;
 
-  DescribeTypeOutputBuilder() {
-    DescribeTypeOutput._init(this);
-  }
+  DescribeTypeOutputBuilder();
 
   DescribeTypeOutputBuilder get _$this {
     final $v = _$v;

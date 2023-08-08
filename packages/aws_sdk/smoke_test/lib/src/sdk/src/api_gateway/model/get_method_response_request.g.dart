@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.get_method_response_request;
+part of 'get_method_response_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -88,9 +88,7 @@ class GetMethodResponseRequestBuilder
   String? get statusCode => _$this._statusCode;
   set statusCode(String? statusCode) => _$this._statusCode = statusCode;
 
-  GetMethodResponseRequestBuilder() {
-    GetMethodResponseRequest._init(this);
-  }
+  GetMethodResponseRequestBuilder();
 
   GetMethodResponseRequestBuilder get _$this {
     final $v = _$v;
@@ -169,9 +167,7 @@ class GetMethodResponseRequestPayloadBuilder
             GetMethodResponseRequestPayloadBuilder> {
   _$GetMethodResponseRequestPayload? _$v;
 
-  GetMethodResponseRequestPayloadBuilder() {
-    GetMethodResponseRequestPayload._init(this);
-  }
+  GetMethodResponseRequestPayloadBuilder();
 
   @override
   void replace(GetMethodResponseRequestPayload other) {

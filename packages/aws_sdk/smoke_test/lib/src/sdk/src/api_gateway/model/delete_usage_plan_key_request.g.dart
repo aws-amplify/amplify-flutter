@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.delete_usage_plan_key_request;
+part of 'delete_usage_plan_key_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class DeleteUsagePlanKeyRequestBuilder
   String? get keyId => _$this._keyId;
   set keyId(String? keyId) => _$this._keyId = keyId;
 
-  DeleteUsagePlanKeyRequestBuilder() {
-    DeleteUsagePlanKeyRequest._init(this);
-  }
+  DeleteUsagePlanKeyRequestBuilder();
 
   DeleteUsagePlanKeyRequestBuilder get _$this {
     final $v = _$v;
@@ -140,9 +138,7 @@ class DeleteUsagePlanKeyRequestPayloadBuilder
             DeleteUsagePlanKeyRequestPayloadBuilder> {
   _$DeleteUsagePlanKeyRequestPayload? _$v;
 
-  DeleteUsagePlanKeyRequestPayloadBuilder() {
-    DeleteUsagePlanKeyRequestPayload._init(this);
-  }
+  DeleteUsagePlanKeyRequestPayloadBuilder();
 
   @override
   void replace(DeleteUsagePlanKeyRequestPayload other) {

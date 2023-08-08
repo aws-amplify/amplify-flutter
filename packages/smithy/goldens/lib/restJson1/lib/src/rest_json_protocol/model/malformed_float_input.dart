@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.rest_json_protocol.model.malformed_float_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,11 +20,10 @@ abstract class MalformedFloatInput
         _i1.HasPayload<MalformedFloatInputPayload> {
   factory MalformedFloatInput({
     double? floatInBody,
-    double? floatInPath,
+    required double floatInPath,
     double? floatInQuery,
     double? floatInHeader,
   }) {
-    floatInPath ??= 0;
     return _$MalformedFloatInput._(
       floatInBody: floatInBody,
       floatInPath: floatInPath,
@@ -58,14 +57,8 @@ abstract class MalformedFloatInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    MalformedFloatInputRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedFloatInputBuilder b) {
-    b.floatInPath = 0;
-  }
+  static const List<_i1.SmithySerializer<MalformedFloatInputPayload>>
+      serializers = [MalformedFloatInputRestJson1Serializer()];
 
   double? get floatInBody;
   double get floatInPath;
@@ -96,23 +89,23 @@ abstract class MalformedFloatInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedFloatInput');
-    helper.add(
-      'floatInBody',
-      floatInBody,
-    );
-    helper.add(
-      'floatInPath',
-      floatInPath,
-    );
-    helper.add(
-      'floatInQuery',
-      floatInQuery,
-    );
-    helper.add(
-      'floatInHeader',
-      floatInHeader,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedFloatInput')
+      ..add(
+        'floatInBody',
+        floatInBody,
+      )
+      ..add(
+        'floatInPath',
+        floatInPath,
+      )
+      ..add(
+        'floatInQuery',
+        floatInQuery,
+      )
+      ..add(
+        'floatInHeader',
+        floatInHeader,
+      );
     return helper.toString();
   }
 }
@@ -128,18 +121,16 @@ abstract class MalformedFloatInputPayload
 
   const MalformedFloatInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedFloatInputPayloadBuilder b) {}
   double? get floatInBody;
   @override
   List<Object?> get props => [floatInBody];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedFloatInputPayload');
-    helper.add(
-      'floatInBody',
-      floatInBody,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedFloatInputPayload')
+      ..add(
+        'floatInBody',
+        floatInBody,
+      );
     return helper.toString();
   }
 }

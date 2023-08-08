@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.describe_delivery_channels_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,8 @@ abstract class DescribeDeliveryChannelsResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    DescribeDeliveryChannelsResponseAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeDeliveryChannelsResponseBuilder b) {}
+  static const List<_i4.SmithySerializer<DescribeDeliveryChannelsResponse>>
+      serializers = [DescribeDeliveryChannelsResponseAwsJson11Serializer()];
 
   /// A list that contains the descriptions of the specified delivery channel.
   _i3.BuiltList<_i2.DeliveryChannel>? get deliveryChannels;
@@ -56,11 +52,11 @@ abstract class DescribeDeliveryChannelsResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DescribeDeliveryChannelsResponse');
-    helper.add(
-      'deliveryChannels',
-      deliveryChannels,
-    );
+        newBuiltValueToStringHelper('DescribeDeliveryChannelsResponse')
+          ..add(
+            'deliveryChannels',
+            deliveryChannels,
+          );
     return helper.toString();
   }
 }

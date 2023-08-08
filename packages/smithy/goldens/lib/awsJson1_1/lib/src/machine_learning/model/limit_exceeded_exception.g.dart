@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1_v1.machine_learning.model.limit_exceeded_exception;
+part of 'limit_exceeded_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -64,9 +64,7 @@ class LimitExceededExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  LimitExceededExceptionBuilder() {
-    LimitExceededException._init(this);
-  }
+  LimitExceededExceptionBuilder();
 
   LimitExceededExceptionBuilder get _$this {
     final $v = _$v;

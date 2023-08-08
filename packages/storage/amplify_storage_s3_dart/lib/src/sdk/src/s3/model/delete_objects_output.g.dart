@@ -70,9 +70,7 @@ class DeleteObjectsOutputBuilder
       _$this._errors ??= new _i6.ListBuilder<_i5.Error>();
   set errors(_i6.ListBuilder<_i5.Error>? errors) => _$this._errors = errors;
 
-  DeleteObjectsOutputBuilder() {
-    DeleteObjectsOutput._init(this);
-  }
+  DeleteObjectsOutputBuilder();
 
   DeleteObjectsOutputBuilder get _$this {
     final $v = _$v;
@@ -181,9 +179,7 @@ class DeleteObjectsOutputPayloadBuilder
       _$this._errors ??= new _i6.ListBuilder<_i5.Error>();
   set errors(_i6.ListBuilder<_i5.Error>? errors) => _$this._errors = errors;
 
-  DeleteObjectsOutputPayloadBuilder() {
-    DeleteObjectsOutputPayload._init(this);
-  }
+  DeleteObjectsOutputPayloadBuilder();
 
   DeleteObjectsOutputPayloadBuilder get _$this {
     final $v = _$v;

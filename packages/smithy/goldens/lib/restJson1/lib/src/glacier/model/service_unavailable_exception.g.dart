@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.glacier.model.service_unavailable_exception;
+part of 'service_unavailable_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -75,9 +75,7 @@ class ServiceUnavailableExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ServiceUnavailableExceptionBuilder() {
-    ServiceUnavailableException._init(this);
-  }
+  ServiceUnavailableExceptionBuilder();
 
   ServiceUnavailableExceptionBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.conformance_pack_evaluation_filters;
+part of 'conformance_pack_evaluation_filters.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -87,9 +87,7 @@ class ConformancePackEvaluationFiltersBuilder
   set resourceIds(_i3.ListBuilder<String>? resourceIds) =>
       _$this._resourceIds = resourceIds;
 
-  ConformancePackEvaluationFiltersBuilder() {
-    ConformancePackEvaluationFilters._init(this);
-  }
+  ConformancePackEvaluationFiltersBuilder();
 
   ConformancePackEvaluationFiltersBuilder get _$this {
     final $v = _$v;

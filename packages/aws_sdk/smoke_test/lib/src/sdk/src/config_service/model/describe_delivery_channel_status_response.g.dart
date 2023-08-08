@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.describe_delivery_channel_status_response;
+part of 'describe_delivery_channel_status_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -60,9 +60,7 @@ class DescribeDeliveryChannelStatusResponseBuilder
           _i3.ListBuilder<_i2.DeliveryChannelStatus>? deliveryChannelsStatus) =>
       _$this._deliveryChannelsStatus = deliveryChannelsStatus;
 
-  DescribeDeliveryChannelStatusResponseBuilder() {
-    DescribeDeliveryChannelStatusResponse._init(this);
-  }
+  DescribeDeliveryChannelStatusResponseBuilder();
 
   DescribeDeliveryChannelStatusResponseBuilder get _$this {
     final $v = _$v;

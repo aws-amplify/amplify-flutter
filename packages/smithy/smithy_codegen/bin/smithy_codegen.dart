@@ -25,7 +25,7 @@ void main(List<String> args) async {
 
   if (config.listen) {
     // Connect server at local port.
-    final server = Server([CodegenService()]);
+    final server = Server.create(services: [CodegenService()]);
     await server.serve(address: InternetAddress.loopbackIPv4, port: 0);
 
     // Write the port to stdout so that clients can connect.

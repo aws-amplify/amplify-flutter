@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 /// # Amazon Simple Storage Service
 ///
@@ -121,7 +121,8 @@ export 'package:smoke_test/src/sdk/src/s3/model/expression_type.dart';
 export 'package:smoke_test/src/sdk/src/s3/model/file_header_info.dart';
 export 'package:smoke_test/src/sdk/src/s3/model/filter_rule.dart';
 export 'package:smoke_test/src/sdk/src/s3/model/filter_rule_name.dart';
-export 'package:smoke_test/src/sdk/src/s3/model/get_bucket_accelerate_configuration_output.dart';
+export 'package:smoke_test/src/sdk/src/s3/model/get_bucket_accelerate_configuration_output.dart'
+    hide GetBucketAccelerateConfigurationOutputPayload;
 export 'package:smoke_test/src/sdk/src/s3/model/get_bucket_accelerate_configuration_request.dart'
     hide GetBucketAccelerateConfigurationRequestPayload;
 export 'package:smoke_test/src/sdk/src/s3/model/get_bucket_acl_output.dart';
@@ -260,16 +261,20 @@ export 'package:smoke_test/src/sdk/src/s3/model/list_bucket_metrics_configuratio
 export 'package:smoke_test/src/sdk/src/s3/model/list_bucket_metrics_configurations_request.dart'
     hide ListBucketMetricsConfigurationsRequestPayload;
 export 'package:smoke_test/src/sdk/src/s3/model/list_buckets_output.dart';
-export 'package:smoke_test/src/sdk/src/s3/model/list_multipart_uploads_output.dart';
+export 'package:smoke_test/src/sdk/src/s3/model/list_multipart_uploads_output.dart'
+    hide ListMultipartUploadsOutputPayload;
 export 'package:smoke_test/src/sdk/src/s3/model/list_multipart_uploads_request.dart'
     hide ListMultipartUploadsRequestPayload;
-export 'package:smoke_test/src/sdk/src/s3/model/list_object_versions_output.dart';
+export 'package:smoke_test/src/sdk/src/s3/model/list_object_versions_output.dart'
+    hide ListObjectVersionsOutputPayload;
 export 'package:smoke_test/src/sdk/src/s3/model/list_object_versions_request.dart'
     hide ListObjectVersionsRequestPayload;
-export 'package:smoke_test/src/sdk/src/s3/model/list_objects_output.dart';
+export 'package:smoke_test/src/sdk/src/s3/model/list_objects_output.dart'
+    hide ListObjectsOutputPayload;
 export 'package:smoke_test/src/sdk/src/s3/model/list_objects_request.dart'
     hide ListObjectsRequestPayload;
-export 'package:smoke_test/src/sdk/src/s3/model/list_objects_v2_output.dart';
+export 'package:smoke_test/src/sdk/src/s3/model/list_objects_v2_output.dart'
+    hide ListObjectsV2OutputPayload;
 export 'package:smoke_test/src/sdk/src/s3/model/list_objects_v2_request.dart'
     hide ListObjectsV2RequestPayload;
 export 'package:smoke_test/src/sdk/src/s3/model/list_parts_output.dart'
@@ -314,6 +319,7 @@ export 'package:smoke_test/src/sdk/src/s3/model/object_part.dart';
 export 'package:smoke_test/src/sdk/src/s3/model/object_storage_class.dart';
 export 'package:smoke_test/src/sdk/src/s3/model/object_version.dart';
 export 'package:smoke_test/src/sdk/src/s3/model/object_version_storage_class.dart';
+export 'package:smoke_test/src/sdk/src/s3/model/optional_object_attributes.dart';
 export 'package:smoke_test/src/sdk/src/s3/model/output_location.dart';
 export 'package:smoke_test/src/sdk/src/s3/model/output_serialization.dart';
 export 'package:smoke_test/src/sdk/src/s3/model/owner.dart';
@@ -391,6 +397,7 @@ export 'package:smoke_test/src/sdk/src/s3/model/restore_object_output.dart'
 export 'package:smoke_test/src/sdk/src/s3/model/restore_object_request.dart';
 export 'package:smoke_test/src/sdk/src/s3/model/restore_request.dart';
 export 'package:smoke_test/src/sdk/src/s3/model/restore_request_type.dart';
+export 'package:smoke_test/src/sdk/src/s3/model/restore_status.dart';
 export 'package:smoke_test/src/sdk/src/s3/model/routing_rule.dart';
 export 'package:smoke_test/src/sdk/src/s3/model/s3_key_filter.dart';
 export 'package:smoke_test/src/sdk/src/s3/model/s3_location.dart';

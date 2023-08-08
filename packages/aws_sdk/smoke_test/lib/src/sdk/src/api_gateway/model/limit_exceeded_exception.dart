@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.limit_exceeded_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -49,12 +49,9 @@ abstract class LimitExceededException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    LimitExceededExceptionRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<LimitExceededExceptionPayload>>
+      serializers = [LimitExceededExceptionRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(LimitExceededExceptionBuilder b) {}
   String? get retryAfterSeconds;
   @override
   String? get message;
@@ -85,15 +82,15 @@ abstract class LimitExceededException
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('LimitExceededException');
-    helper.add(
-      'retryAfterSeconds',
-      retryAfterSeconds,
-    );
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('LimitExceededException')
+      ..add(
+        'retryAfterSeconds',
+        retryAfterSeconds,
+      )
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }
@@ -111,18 +108,16 @@ abstract class LimitExceededExceptionPayload
 
   const LimitExceededExceptionPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(LimitExceededExceptionPayloadBuilder b) {}
   String? get message;
   @override
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('LimitExceededExceptionPayload');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('LimitExceededExceptionPayload')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

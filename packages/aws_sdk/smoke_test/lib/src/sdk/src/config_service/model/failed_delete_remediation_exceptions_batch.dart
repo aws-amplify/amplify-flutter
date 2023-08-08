@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.failed_delete_remediation_exceptions_batch; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,11 @@ abstract class FailedDeleteRemediationExceptionsBatch
 
   const FailedDeleteRemediationExceptionsBatch._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<
+          _i4.SmithySerializer<FailedDeleteRemediationExceptionsBatch>>
+      serializers = [
     FailedDeleteRemediationExceptionsBatchAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(FailedDeleteRemediationExceptionsBatchBuilder b) {}
 
   /// Returns a failure message for delete remediation exception. For example, Config creates an exception due to an internal error.
   String? get failureMessage;
@@ -58,15 +57,15 @@ abstract class FailedDeleteRemediationExceptionsBatch
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('FailedDeleteRemediationExceptionsBatch');
-    helper.add(
-      'failureMessage',
-      failureMessage,
-    );
-    helper.add(
-      'failedItems',
-      failedItems,
-    );
+        newBuiltValueToStringHelper('FailedDeleteRemediationExceptionsBatch')
+          ..add(
+            'failureMessage',
+            failureMessage,
+          )
+          ..add(
+            'failedItems',
+            failedItems,
+          );
     return helper.toString();
   }
 }

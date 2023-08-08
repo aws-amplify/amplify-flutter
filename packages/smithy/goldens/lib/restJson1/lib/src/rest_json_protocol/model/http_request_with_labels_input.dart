@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.rest_json_protocol.model.http_request_with_labels_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,20 +22,14 @@ abstract class HttpRequestWithLabelsInput
         _i1.HasPayload<HttpRequestWithLabelsInputPayload> {
   factory HttpRequestWithLabelsInput({
     required String string,
-    int? short,
-    int? integer,
-    _i3.Int64? long,
-    double? float,
-    double? double_,
-    bool? boolean,
+    required int short,
+    required int integer,
+    required _i3.Int64 long,
+    required double float,
+    required double double_,
+    required bool boolean,
     required DateTime timestamp,
   }) {
-    short ??= 0;
-    integer ??= 0;
-    long ??= _i3.Int64.ZERO;
-    float ??= 0;
-    double_ ??= 0;
-    boolean ??= false;
     return _$HttpRequestWithLabelsInput._(
       string: string,
       short: short,
@@ -89,19 +83,8 @@ abstract class HttpRequestWithLabelsInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    HttpRequestWithLabelsInputRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpRequestWithLabelsInputBuilder b) {
-    b.short = 0;
-    b.integer = 0;
-    b.long = _i3.Int64.ZERO;
-    b.float = 0;
-    b.double_ = 0;
-    b.boolean = false;
-  }
+  static const List<_i1.SmithySerializer<HttpRequestWithLabelsInputPayload>>
+      serializers = [HttpRequestWithLabelsInputRestJson1Serializer()];
 
   String get string;
   int get short;
@@ -159,39 +142,39 @@ abstract class HttpRequestWithLabelsInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('HttpRequestWithLabelsInput');
-    helper.add(
-      'string',
-      string,
-    );
-    helper.add(
-      'short',
-      short,
-    );
-    helper.add(
-      'integer',
-      integer,
-    );
-    helper.add(
-      'long',
-      long,
-    );
-    helper.add(
-      'float',
-      float,
-    );
-    helper.add(
-      'double_',
-      double_,
-    );
-    helper.add(
-      'boolean',
-      boolean,
-    );
-    helper.add(
-      'timestamp',
-      timestamp,
-    );
+    final helper = newBuiltValueToStringHelper('HttpRequestWithLabelsInput')
+      ..add(
+        'string',
+        string,
+      )
+      ..add(
+        'short',
+        short,
+      )
+      ..add(
+        'integer',
+        integer,
+      )
+      ..add(
+        'long',
+        long,
+      )
+      ..add(
+        'float',
+        float,
+      )
+      ..add(
+        'double_',
+        double_,
+      )
+      ..add(
+        'boolean',
+        boolean,
+      )
+      ..add(
+        'timestamp',
+        timestamp,
+      );
     return helper.toString();
   }
 }
@@ -210,8 +193,6 @@ abstract class HttpRequestWithLabelsInputPayload
 
   const HttpRequestWithLabelsInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpRequestWithLabelsInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

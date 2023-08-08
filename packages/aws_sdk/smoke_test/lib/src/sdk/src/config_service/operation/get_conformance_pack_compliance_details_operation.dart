@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.operation.get_conformance_pack_compliance_details_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -120,7 +120,7 @@ class GetConformancePackComplianceDetailsOperation
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InvalidLimitException, _i9.InvalidLimitException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidLimitException',
@@ -129,7 +129,8 @@ class GetConformancePackComplianceDetailsOperation
           _i9.InvalidLimitException,
           builder: _i9.InvalidLimitException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidNextTokenException,
+            _i10.InvalidNextTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidNextTokenException',
@@ -138,7 +139,8 @@ class GetConformancePackComplianceDetailsOperation
           _i10.InvalidNextTokenException,
           builder: _i10.InvalidNextTokenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidParameterValueException,
+            _i11.InvalidParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidParameterValueException',
@@ -147,7 +149,8 @@ class GetConformancePackComplianceDetailsOperation
           _i11.InvalidParameterValueException,
           builder: _i11.InvalidParameterValueException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.NoSuchConfigRuleInConformancePackException,
+            _i12.NoSuchConfigRuleInConformancePackException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchConfigRuleInConformancePackException',
@@ -156,7 +159,8 @@ class GetConformancePackComplianceDetailsOperation
           _i12.NoSuchConfigRuleInConformancePackException,
           builder: _i12.NoSuchConfigRuleInConformancePackException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.NoSuchConformancePackException,
+            _i13.NoSuchConformancePackException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchConformancePackException',
@@ -188,7 +192,7 @@ class GetConformancePackComplianceDetailsOperation
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }
@@ -208,8 +212,6 @@ class GetConformancePackComplianceDetailsOperation
   ) =>
       input.rebuild((b) {
         b.nextToken = token;
-        if (pageSize != null) {
-          b.limit = pageSize;
-        }
+        b.limit = pageSize;
       });
 }

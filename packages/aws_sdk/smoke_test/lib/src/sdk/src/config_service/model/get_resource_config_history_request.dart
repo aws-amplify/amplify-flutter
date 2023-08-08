@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.get_resource_config_history_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,6 +32,7 @@ abstract class GetResourceConfigHistoryRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$GetResourceConfigHistoryRequest._(
       resourceType: resourceType,
       resourceId: resourceId,
@@ -57,12 +58,13 @@ abstract class GetResourceConfigHistoryRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetResourceConfigHistoryRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetResourceConfigHistoryRequest>>
+      serializers = [GetResourceConfigHistoryRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetResourceConfigHistoryRequestBuilder b) {}
+  static void _init(GetResourceConfigHistoryRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The resource type.
   _i3.ResourceType get resourceType;
@@ -80,7 +82,7 @@ abstract class GetResourceConfigHistoryRequest
   _i4.ChronologicalOrder? get chronologicalOrder;
 
   /// The maximum number of configuration items returned on each page. The default is 10. You cannot specify a number greater than 100. If you specify 0, Config uses the default.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -99,35 +101,35 @@ abstract class GetResourceConfigHistoryRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetResourceConfigHistoryRequest');
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'laterTime',
-      laterTime,
-    );
-    helper.add(
-      'earlierTime',
-      earlierTime,
-    );
-    helper.add(
-      'chronologicalOrder',
-      chronologicalOrder,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        newBuiltValueToStringHelper('GetResourceConfigHistoryRequest')
+          ..add(
+            'resourceType',
+            resourceType,
+          )
+          ..add(
+            'resourceId',
+            resourceId,
+          )
+          ..add(
+            'laterTime',
+            laterTime,
+          )
+          ..add(
+            'earlierTime',
+            earlierTime,
+          )
+          ..add(
+            'chronologicalOrder',
+            chronologicalOrder,
+          )
+          ..add(
+            'limit',
+            limit,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          );
     return helper.toString();
   }
 }
@@ -233,6 +235,11 @@ class GetResourceConfigHistoryRequestAwsJson11Serializer
         resourceId,
         specifiedType: const FullType(String),
       ),
+      'limit',
+      serializers.serialize(
+        limit,
+        specifiedType: const FullType(int),
+      ),
     ]);
     if (laterTime != null) {
       result$
@@ -256,14 +263,6 @@ class GetResourceConfigHistoryRequestAwsJson11Serializer
         ..add(serializers.serialize(
           chronologicalOrder,
           specifiedType: const FullType(_i4.ChronologicalOrder),
-        ));
-    }
-    if (limit != null) {
-      result$
-        ..add('limit')
-        ..add(serializers.serialize(
-          limit,
-          specifiedType: const FullType(int),
         ));
     }
     if (nextToken != null) {

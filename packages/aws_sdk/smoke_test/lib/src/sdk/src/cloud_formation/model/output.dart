@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,12 +34,9 @@ abstract class Output
 
   const Output._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Output>> serializers = [
     OutputAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OutputBuilder b) {}
 
   /// The key associated with the output.
   String? get outputKey;
@@ -61,23 +58,23 @@ abstract class Output
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Output');
-    helper.add(
-      'outputKey',
-      outputKey,
-    );
-    helper.add(
-      'outputValue',
-      outputValue,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'exportName',
-      exportName,
-    );
+    final helper = newBuiltValueToStringHelper('Output')
+      ..add(
+        'outputKey',
+        outputKey,
+      )
+      ..add(
+        'outputValue',
+        outputValue,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'exportName',
+        exportName,
+      );
     return helper.toString();
   }
 }

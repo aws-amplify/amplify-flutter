@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.batch_execute_statement_output;
+part of 'batch_execute_statement_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class BatchExecuteStatementOutputBuilder
           _i4.ListBuilder<_i3.ConsumedCapacity>? consumedCapacity) =>
       _$this._consumedCapacity = consumedCapacity;
 
-  BatchExecuteStatementOutputBuilder() {
-    BatchExecuteStatementOutput._init(this);
-  }
+  BatchExecuteStatementOutputBuilder();
 
   BatchExecuteStatementOutputBuilder get _$this {
     final $v = _$v;

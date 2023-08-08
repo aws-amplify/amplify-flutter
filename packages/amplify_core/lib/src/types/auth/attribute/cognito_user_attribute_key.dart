@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:amplify_core/amplify_core.dart';
-import 'package:meta/meta.dart';
 
+/// {@category Auth}
 /// User attributes available for configuring via `Amplify.Auth.signUp`,
 /// or updating via `Amplify.Auth.updateUserAttribute` and
 /// `Amplify.Auth.updateUserAttributes`.
@@ -12,9 +12,8 @@ import 'package:meta/meta.dart';
 /// [here](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html).
 ///
 /// Use [CognitoUserAttributeKey.custom] to create a custom Cognito attribute.
-@immutable
-class CognitoUserAttributeKey extends AuthUserAttributeKey
-    with AWSEquatable<CognitoUserAttributeKey>, AWSDebuggable {
+/// {@hideConstantImplementations}
+class CognitoUserAttributeKey extends AuthUserAttributeKey {
   const CognitoUserAttributeKey._(this._key, {this.readOnly = false})
       : isCustom = false;
 
@@ -68,12 +67,6 @@ class CognitoUserAttributeKey extends AuthUserAttributeKey
 
   /// Whether this is a custom key.
   final bool isCustom;
-
-  @override
-  List<Object?> get props => [
-        // Cognito will lowercase these in API calls
-        key.toLowerCase(),
-      ];
 
   /// {@macro amplify_core.user_attribute.address}
   ///
@@ -210,13 +203,14 @@ class CognitoUserAttributeKey extends AuthUserAttributeKey
     sub,
     updatedAt,
     website,
-    zoneinfo
+    zoneinfo,
   ];
 
   @override
   String get runtimeTypeName => 'CognitoUserAttributeKey';
 }
 
+/// @nodoc
 extension ToCognitoUserAttributeKey on AuthUserAttributeKey {
   CognitoUserAttributeKey toCognitoUserAttributeKey() {
     if (this is CognitoUserAttributeKey) {

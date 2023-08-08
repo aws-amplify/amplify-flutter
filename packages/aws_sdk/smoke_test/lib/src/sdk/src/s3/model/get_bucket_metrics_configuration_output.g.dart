@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_bucket_metrics_configuration_output;
+part of 'get_bucket_metrics_configuration_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -58,9 +58,7 @@ class GetBucketMetricsConfigurationOutputBuilder
           _i3.MetricsConfigurationBuilder? metricsConfiguration) =>
       _$this._metricsConfiguration = metricsConfiguration;
 
-  GetBucketMetricsConfigurationOutputBuilder() {
-    GetBucketMetricsConfigurationOutput._init(this);
-  }
+  GetBucketMetricsConfigurationOutputBuilder();
 
   GetBucketMetricsConfigurationOutputBuilder get _$this {
     final $v = _$v;

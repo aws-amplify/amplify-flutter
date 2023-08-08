@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.usage; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -54,12 +54,9 @@ abstract class Usage
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Usage>> serializers = [
     UsageRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UsageBuilder b) {}
 
   /// The plan Id associated with this usage data.
   String? get usagePlanId;
@@ -85,27 +82,27 @@ abstract class Usage
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Usage');
-    helper.add(
-      'usagePlanId',
-      usagePlanId,
-    );
-    helper.add(
-      'startDate',
-      startDate,
-    );
-    helper.add(
-      'endDate',
-      endDate,
-    );
-    helper.add(
-      'items',
-      items,
-    );
-    helper.add(
-      'position',
-      position,
-    );
+    final helper = newBuiltValueToStringHelper('Usage')
+      ..add(
+        'usagePlanId',
+        usagePlanId,
+      )
+      ..add(
+        'startDate',
+        startDate,
+      )
+      ..add(
+        'endDate',
+        endDate,
+      )
+      ..add(
+        'items',
+        items,
+      )
+      ..add(
+        'position',
+        position,
+      );
     return helper.toString();
   }
 }

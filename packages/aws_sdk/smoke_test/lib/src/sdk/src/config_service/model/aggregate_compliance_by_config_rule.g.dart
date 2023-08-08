@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.aggregate_compliance_by_config_rule;
+part of 'aggregate_compliance_by_config_rule.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -81,9 +81,7 @@ class AggregateComplianceByConfigRuleBuilder
   String? get awsRegion => _$this._awsRegion;
   set awsRegion(String? awsRegion) => _$this._awsRegion = awsRegion;
 
-  AggregateComplianceByConfigRuleBuilder() {
-    AggregateComplianceByConfigRule._init(this);
-  }
+  AggregateComplianceByConfigRuleBuilder();
 
   AggregateComplianceByConfigRuleBuilder get _$this {
     final $v = _$v;

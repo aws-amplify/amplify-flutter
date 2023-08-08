@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.get_stack_policy_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,9 @@ abstract class GetStackPolicyOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<GetStackPolicyOutput>> serializers = [
     GetStackPolicyOutputAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetStackPolicyOutputBuilder b) {}
 
   /// Structure containing the stack policy body. (For more information, go to [Prevent Updates to Stack Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/protect-stack-resources.html) in the CloudFormation User Guide.)
   String? get stackPolicyBody;
@@ -46,11 +43,11 @@ abstract class GetStackPolicyOutput
   List<Object?> get props => [stackPolicyBody];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetStackPolicyOutput');
-    helper.add(
-      'stackPolicyBody',
-      stackPolicyBody,
-    );
+    final helper = newBuiltValueToStringHelper('GetStackPolicyOutput')
+      ..add(
+        'stackPolicyBody',
+        stackPolicyBody,
+      );
     return helper.toString();
   }
 }

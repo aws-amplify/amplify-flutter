@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.access_key; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -50,12 +50,9 @@ abstract class AccessKey
 
   const AccessKey._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<AccessKey>> serializers = [
     AccessKeyAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AccessKeyBuilder b) {}
 
   /// The name of the IAM user that the access key is associated with.
   String get userName;
@@ -81,27 +78,27 @@ abstract class AccessKey
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AccessKey');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'accessKeyId',
-      accessKeyId,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'secretAccessKey',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'createDate',
-      createDate,
-    );
+    final helper = newBuiltValueToStringHelper('AccessKey')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'accessKeyId',
+        accessKeyId,
+      )
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'secretAccessKey',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'createDate',
+        createDate,
+      );
     return helper.toString();
   }
 }

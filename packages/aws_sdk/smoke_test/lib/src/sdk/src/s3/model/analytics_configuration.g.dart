@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.analytics_configuration;
+part of 'analytics_configuration.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -74,9 +74,7 @@ class AnalyticsConfigurationBuilder
           _i3.StorageClassAnalysisBuilder? storageClassAnalysis) =>
       _$this._storageClassAnalysis = storageClassAnalysis;
 
-  AnalyticsConfigurationBuilder() {
-    AnalyticsConfiguration._init(this);
-  }
+  AnalyticsConfigurationBuilder();
 
   AnalyticsConfigurationBuilder get _$this {
     final $v = _$v;

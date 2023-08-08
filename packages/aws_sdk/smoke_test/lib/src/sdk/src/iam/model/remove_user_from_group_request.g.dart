@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.remove_user_from_group_request;
+part of 'remove_user_from_group_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class RemoveUserFromGroupRequestBuilder
   String? get userName => _$this._userName;
   set userName(String? userName) => _$this._userName = userName;
 
-  RemoveUserFromGroupRequestBuilder() {
-    RemoveUserFromGroupRequest._init(this);
-  }
+  RemoveUserFromGroupRequestBuilder();
 
   RemoveUserFromGroupRequestBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.get_compliance_summary_by_resource_type_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,11 @@ abstract class GetComplianceSummaryByResourceTypeResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<
+          _i4.SmithySerializer<GetComplianceSummaryByResourceTypeResponse>>
+      serializers = [
     GetComplianceSummaryByResourceTypeResponseAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetComplianceSummaryByResourceTypeResponseBuilder b) {}
 
   /// The number of resources that are compliant and the number that are noncompliant. If one or more resource types were provided with the request, the numbers are returned for each resource type. The maximum number returned is 100.
   _i3.BuiltList<_i2.ComplianceSummaryByResourceType>?
@@ -57,11 +56,11 @@ abstract class GetComplianceSummaryByResourceTypeResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'GetComplianceSummaryByResourceTypeResponse');
-    helper.add(
-      'complianceSummariesByResourceType',
-      complianceSummariesByResourceType,
-    );
+        'GetComplianceSummaryByResourceTypeResponse')
+      ..add(
+        'complianceSummariesByResourceType',
+        complianceSummariesByResourceType,
+      );
     return helper.toString();
   }
 }

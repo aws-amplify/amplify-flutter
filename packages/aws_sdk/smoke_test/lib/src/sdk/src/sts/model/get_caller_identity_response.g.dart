@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.get_caller_identity_response;
+part of 'get_caller_identity_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -67,9 +67,7 @@ class GetCallerIdentityResponseBuilder
   String? get arn => _$this._arn;
   set arn(String? arn) => _$this._arn = arn;
 
-  GetCallerIdentityResponseBuilder() {
-    GetCallerIdentityResponse._init(this);
-  }
+  GetCallerIdentityResponseBuilder();
 
   GetCallerIdentityResponseBuilder get _$this {
     final $v = _$v;

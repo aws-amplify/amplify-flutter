@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.list_stack_instances_input;
+part of 'list_stack_instances_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -113,9 +113,7 @@ class ListStackInstancesInputBuilder
   _i4.CallAs? get callAs => _$this._callAs;
   set callAs(_i4.CallAs? callAs) => _$this._callAs = callAs;
 
-  ListStackInstancesInputBuilder() {
-    ListStackInstancesInput._init(this);
-  }
+  ListStackInstancesInputBuilder();
 
   ListStackInstancesInputBuilder get _$this {
     final $v = _$v;

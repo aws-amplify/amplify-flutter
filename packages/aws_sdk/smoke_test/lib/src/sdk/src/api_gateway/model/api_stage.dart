@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.api_stage; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,12 +35,9 @@ abstract class ApiStage
 
   const ApiStage._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ApiStage>> serializers = [
     ApiStageRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ApiStageBuilder b) {}
 
   /// API Id of the associated API stage in a usage plan.
   String? get apiId;
@@ -58,19 +55,19 @@ abstract class ApiStage
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ApiStage');
-    helper.add(
-      'apiId',
-      apiId,
-    );
-    helper.add(
-      'stage',
-      stage,
-    );
-    helper.add(
-      'throttle',
-      throttle,
-    );
+    final helper = newBuiltValueToStringHelper('ApiStage')
+      ..add(
+        'apiId',
+        apiId,
+      )
+      ..add(
+        'stage',
+        stage,
+      )
+      ..add(
+        'throttle',
+        throttle,
+      );
     return helper.toString();
   }
 }

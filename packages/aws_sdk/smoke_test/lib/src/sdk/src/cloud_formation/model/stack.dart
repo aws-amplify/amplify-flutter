@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.stack; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -85,12 +85,9 @@ abstract class Stack
 
   const Stack._();
 
-  static const List<_i10.SmithySerializer> serializers = [
+  static const List<_i10.SmithySerializer<Stack>> serializers = [
     StackAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackBuilder b) {}
 
   /// Unique identifier of the stack.
   String? get stackId;
@@ -165,7 +162,7 @@ abstract class Stack
   /// For more information, see [Working with Nested Stacks](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html) in the _CloudFormation User Guide_.
   String? get rootId;
 
-  /// Information about whether a stack's actual configuration differs, or has _drifted_, from it's expected configuration, as defined in the stack template and any values specified as template parameters. For more information, see [Detecting Unregulated Configuration Changes to Stacks and Resources](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
+  /// Information about whether a stack's actual configuration differs, or has _drifted_, from its expected configuration, as defined in the stack template and any values specified as template parameters. For more information, see [Detecting Unregulated Configuration Changes to Stacks and Resources](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
   _i8.StackDriftInformation? get driftInformation;
   @override
   List<Object?> get props => [
@@ -194,95 +191,95 @@ abstract class Stack
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Stack');
-    helper.add(
-      'stackId',
-      stackId,
-    );
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'changeSetId',
-      changeSetId,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'parameters',
-      parameters,
-    );
-    helper.add(
-      'creationTime',
-      creationTime,
-    );
-    helper.add(
-      'deletionTime',
-      deletionTime,
-    );
-    helper.add(
-      'lastUpdatedTime',
-      lastUpdatedTime,
-    );
-    helper.add(
-      'rollbackConfiguration',
-      rollbackConfiguration,
-    );
-    helper.add(
-      'stackStatus',
-      stackStatus,
-    );
-    helper.add(
-      'stackStatusReason',
-      stackStatusReason,
-    );
-    helper.add(
-      'disableRollback',
-      disableRollback,
-    );
-    helper.add(
-      'notificationArNs',
-      notificationArNs,
-    );
-    helper.add(
-      'timeoutInMinutes',
-      timeoutInMinutes,
-    );
-    helper.add(
-      'capabilities',
-      capabilities,
-    );
-    helper.add(
-      'outputs',
-      outputs,
-    );
-    helper.add(
-      'roleArn',
-      roleArn,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'enableTerminationProtection',
-      enableTerminationProtection,
-    );
-    helper.add(
-      'parentId',
-      parentId,
-    );
-    helper.add(
-      'rootId',
-      rootId,
-    );
-    helper.add(
-      'driftInformation',
-      driftInformation,
-    );
+    final helper = newBuiltValueToStringHelper('Stack')
+      ..add(
+        'stackId',
+        stackId,
+      )
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'changeSetId',
+        changeSetId,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'parameters',
+        parameters,
+      )
+      ..add(
+        'creationTime',
+        creationTime,
+      )
+      ..add(
+        'deletionTime',
+        deletionTime,
+      )
+      ..add(
+        'lastUpdatedTime',
+        lastUpdatedTime,
+      )
+      ..add(
+        'rollbackConfiguration',
+        rollbackConfiguration,
+      )
+      ..add(
+        'stackStatus',
+        stackStatus,
+      )
+      ..add(
+        'stackStatusReason',
+        stackStatusReason,
+      )
+      ..add(
+        'disableRollback',
+        disableRollback,
+      )
+      ..add(
+        'notificationArNs',
+        notificationArNs,
+      )
+      ..add(
+        'timeoutInMinutes',
+        timeoutInMinutes,
+      )
+      ..add(
+        'capabilities',
+        capabilities,
+      )
+      ..add(
+        'outputs',
+        outputs,
+      )
+      ..add(
+        'roleArn',
+        roleArn,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'enableTerminationProtection',
+        enableTerminationProtection,
+      )
+      ..add(
+        'parentId',
+        parentId,
+      )
+      ..add(
+        'rootId',
+        rootId,
+      )
+      ..add(
+        'driftInformation',
+        driftInformation,
+      );
     return helper.toString();
   }
 }

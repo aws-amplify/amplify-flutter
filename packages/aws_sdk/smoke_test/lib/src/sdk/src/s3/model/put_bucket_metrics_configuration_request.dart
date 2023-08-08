@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.put_bucket_metrics_configuration_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -60,17 +60,13 @@ abstract class PutBucketMetricsConfigurationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutBucketMetricsConfigurationRequestRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketMetricsConfigurationRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<_i2.MetricsConfiguration>>
+      serializers = [PutBucketMetricsConfigurationRequestRestXmlSerializer()];
 
   /// The name of the bucket for which the metrics configuration is set.
   String get bucket;
 
-  /// The ID used to identify the metrics configuration.
+  /// The ID used to identify the metrics configuration. The ID has a 64 character limit and can only contain letters, numbers, periods, dashes, and underscores.
   String get id;
 
   /// Specifies the metrics configuration.
@@ -102,23 +98,23 @@ abstract class PutBucketMetricsConfigurationRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutBucketMetricsConfigurationRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'metricsConfiguration',
-      metricsConfiguration,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+        newBuiltValueToStringHelper('PutBucketMetricsConfigurationRequest')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'id',
+            id,
+          )
+          ..add(
+            'metricsConfiguration',
+            metricsConfiguration,
+          )
+          ..add(
+            'expectedBucketOwner',
+            expectedBucketOwner,
+          );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v2.api_gateway.model.aws_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -29,12 +29,9 @@ abstract class AwsConfig
 
   const AwsConfig._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<AwsConfig>> serializers = [
     AwsConfigRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AwsConfigBuilder b) {}
 
   /// This is the time that should be set during the course of the test. This is important for things like signing where the clock time impacts the result.
   DateTime? get clockTime;
@@ -48,15 +45,15 @@ abstract class AwsConfig
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AwsConfig');
-    helper.add(
-      'clockTime',
-      clockTime,
-    );
-    helper.add(
-      'scopedConfig',
-      scopedConfig,
-    );
+    final helper = newBuiltValueToStringHelper('AwsConfig')
+      ..add(
+        'clockTime',
+        clockTime,
+      )
+      ..add(
+        'scopedConfig',
+        scopedConfig,
+      );
     return helper.toString();
   }
 }

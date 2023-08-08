@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.domain_names; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,12 +41,9 @@ abstract class DomainNames
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<DomainNames>> serializers = [
     DomainNamesRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DomainNamesBuilder b) {}
 
   /// The current page of elements from this collection.
   _i3.BuiltList<_i2.DomainName>? get items;
@@ -60,15 +57,15 @@ abstract class DomainNames
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DomainNames');
-    helper.add(
-      'items',
-      items,
-    );
-    helper.add(
-      'position',
-      position,
-    );
+    final helper = newBuiltValueToStringHelper('DomainNames')
+      ..add(
+        'items',
+        items,
+      )
+      ..add(
+        'position',
+        position,
+      );
     return helper.toString();
   }
 }

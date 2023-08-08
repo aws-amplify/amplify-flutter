@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.replica_settings_update; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -51,12 +51,9 @@ abstract class ReplicaSettingsUpdate
 
   const ReplicaSettingsUpdate._();
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<_i7.SmithySerializer<ReplicaSettingsUpdate>> serializers = [
     ReplicaSettingsUpdateAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicaSettingsUpdateBuilder b) {}
 
   /// The Region of the replica to be added.
   String get regionName;
@@ -84,27 +81,27 @@ abstract class ReplicaSettingsUpdate
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ReplicaSettingsUpdate');
-    helper.add(
-      'regionName',
-      regionName,
-    );
-    helper.add(
-      'replicaProvisionedReadCapacityUnits',
-      replicaProvisionedReadCapacityUnits,
-    );
-    helper.add(
-      'replicaProvisionedReadCapacityAutoScalingSettingsUpdate',
-      replicaProvisionedReadCapacityAutoScalingSettingsUpdate,
-    );
-    helper.add(
-      'replicaGlobalSecondaryIndexSettingsUpdate',
-      replicaGlobalSecondaryIndexSettingsUpdate,
-    );
-    helper.add(
-      'replicaTableClass',
-      replicaTableClass,
-    );
+    final helper = newBuiltValueToStringHelper('ReplicaSettingsUpdate')
+      ..add(
+        'regionName',
+        regionName,
+      )
+      ..add(
+        'replicaProvisionedReadCapacityUnits',
+        replicaProvisionedReadCapacityUnits,
+      )
+      ..add(
+        'replicaProvisionedReadCapacityAutoScalingSettingsUpdate',
+        replicaProvisionedReadCapacityAutoScalingSettingsUpdate,
+      )
+      ..add(
+        'replicaGlobalSecondaryIndexSettingsUpdate',
+        replicaGlobalSecondaryIndexSettingsUpdate,
+      )
+      ..add(
+        'replicaTableClass',
+        replicaTableClass,
+      );
     return helper.toString();
   }
 }

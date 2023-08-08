@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.signing_certificate; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -45,12 +45,9 @@ abstract class SigningCertificate
 
   const SigningCertificate._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<SigningCertificate>> serializers = [
     SigningCertificateAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SigningCertificateBuilder b) {}
 
   /// The name of the user the signing certificate is associated with.
   String get userName;
@@ -76,27 +73,27 @@ abstract class SigningCertificate
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SigningCertificate');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'certificateId',
-      certificateId,
-    );
-    helper.add(
-      'certificateBody',
-      certificateBody,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'uploadDate',
-      uploadDate,
-    );
+    final helper = newBuiltValueToStringHelper('SigningCertificate')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'certificateId',
+        certificateId,
+      )
+      ..add(
+        'certificateBody',
+        certificateBody,
+      )
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'uploadDate',
+        uploadDate,
+      );
     return helper.toString();
   }
 }

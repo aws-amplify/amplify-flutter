@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.reset_service_specific_credential_response;
+part of 'reset_service_specific_credential_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -60,9 +60,7 @@ class ResetServiceSpecificCredentialResponseBuilder
           _i2.ServiceSpecificCredentialBuilder? serviceSpecificCredential) =>
       _$this._serviceSpecificCredential = serviceSpecificCredential;
 
-  ResetServiceSpecificCredentialResponseBuilder() {
-    ResetServiceSpecificCredentialResponse._init(this);
-  }
+  ResetServiceSpecificCredentialResponseBuilder();
 
   ResetServiceSpecificCredentialResponseBuilder get _$this {
     final $v = _$v;

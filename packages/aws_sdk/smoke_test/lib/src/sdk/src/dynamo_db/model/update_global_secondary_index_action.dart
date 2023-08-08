@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.update_global_secondary_index_action; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,12 +37,8 @@ abstract class UpdateGlobalSecondaryIndexAction
 
   const UpdateGlobalSecondaryIndexAction._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    UpdateGlobalSecondaryIndexActionAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateGlobalSecondaryIndexActionBuilder b) {}
+  static const List<_i3.SmithySerializer<UpdateGlobalSecondaryIndexAction>>
+      serializers = [UpdateGlobalSecondaryIndexActionAwsJson10Serializer()];
 
   /// The name of the global secondary index to be updated.
   String get indexName;
@@ -59,15 +55,15 @@ abstract class UpdateGlobalSecondaryIndexAction
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateGlobalSecondaryIndexAction');
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'provisionedThroughput',
-      provisionedThroughput,
-    );
+        newBuiltValueToStringHelper('UpdateGlobalSecondaryIndexAction')
+          ..add(
+            'indexName',
+            indexName,
+          )
+          ..add(
+            'provisionedThroughput',
+            provisionedThroughput,
+          );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.put_group_policy_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,9 @@ abstract class PutGroupPolicyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<PutGroupPolicyRequest>> serializers = [
     PutGroupPolicyRequestAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutGroupPolicyRequestBuilder b) {}
 
   /// The name of the group to associate the policy with.
   ///
@@ -59,7 +56,7 @@ abstract class PutGroupPolicyRequest
 
   /// The policy document.
   ///
-  /// You must provide policies in JSON format in IAM. However, for CloudFormation templates formatted in YAML, you can provide the policy in JSON or YAML format. CloudFormation always converts a YAML policy to JSON format before submitting it to = IAM.
+  /// You must provide policies in JSON format in IAM. However, for CloudFormation templates formatted in YAML, you can provide the policy in JSON or YAML format. CloudFormation always converts a YAML policy to JSON format before submitting it to IAM.
   ///
   /// The [regex pattern](http://wikipedia.org/wiki/regex) used to validate this parameter is a string of characters consisting of the following:
   ///
@@ -79,19 +76,19 @@ abstract class PutGroupPolicyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutGroupPolicyRequest');
-    helper.add(
-      'groupName',
-      groupName,
-    );
-    helper.add(
-      'policyName',
-      policyName,
-    );
-    helper.add(
-      'policyDocument',
-      policyDocument,
-    );
+    final helper = newBuiltValueToStringHelper('PutGroupPolicyRequest')
+      ..add(
+        'groupName',
+        groupName,
+      )
+      ..add(
+        'policyName',
+        policyName,
+      )
+      ..add(
+        'policyDocument',
+        policyDocument,
+      );
     return helper.toString();
   }
 }

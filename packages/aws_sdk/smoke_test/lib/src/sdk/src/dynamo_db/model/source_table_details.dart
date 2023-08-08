@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.source_table_details; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -54,12 +54,9 @@ abstract class SourceTableDetails
 
   const SourceTableDetails._();
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<_i7.SmithySerializer<SourceTableDetails>> serializers = [
     SourceTableDetailsAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SourceTableDetailsBuilder b) {}
 
   /// The name of the table for which the backup was created.
   String get tableName;
@@ -105,43 +102,43 @@ abstract class SourceTableDetails
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SourceTableDetails');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'tableId',
-      tableId,
-    );
-    helper.add(
-      'tableArn',
-      tableArn,
-    );
-    helper.add(
-      'tableSizeBytes',
-      tableSizeBytes,
-    );
-    helper.add(
-      'keySchema',
-      keySchema,
-    );
-    helper.add(
-      'tableCreationDateTime',
-      tableCreationDateTime,
-    );
-    helper.add(
-      'provisionedThroughput',
-      provisionedThroughput,
-    );
-    helper.add(
-      'itemCount',
-      itemCount,
-    );
-    helper.add(
-      'billingMode',
-      billingMode,
-    );
+    final helper = newBuiltValueToStringHelper('SourceTableDetails')
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'tableId',
+        tableId,
+      )
+      ..add(
+        'tableArn',
+        tableArn,
+      )
+      ..add(
+        'tableSizeBytes',
+        tableSizeBytes,
+      )
+      ..add(
+        'keySchema',
+        keySchema,
+      )
+      ..add(
+        'tableCreationDateTime',
+        tableCreationDateTime,
+      )
+      ..add(
+        'provisionedThroughput',
+        provisionedThroughput,
+      )
+      ..add(
+        'itemCount',
+        itemCount,
+      )
+      ..add(
+        'billingMode',
+        billingMode,
+      );
     return helper.toString();
   }
 }

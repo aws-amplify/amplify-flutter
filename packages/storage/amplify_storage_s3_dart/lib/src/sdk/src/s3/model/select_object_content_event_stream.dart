@@ -1,63 +1,71 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_storage_s3_dart.s3.model.select_object_content_event_stream; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
+import 'dart:typed_data' as _i2;
+
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/continuation_event.dart'
-    as _i5;
+    as _i8;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/end_event.dart'
+    as _i9;
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/progress.dart'
     as _i6;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/progress_event.dart'
-    as _i4;
+    as _i7;
 import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/records_event.dart'
-    as _i2;
-import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/stats_event.dart'
     as _i3;
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/stats.dart' as _i4;
+import 'package:amplify_storage_s3_dart/src/sdk/src/s3/model/stats_event.dart'
+    as _i5;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 
+/// The container for selecting objects from a content event stream.
 sealed class SelectObjectContentEventStream
     extends _i1.SmithyUnion<SelectObjectContentEventStream> {
   const SelectObjectContentEventStream._();
 
-  const factory SelectObjectContentEventStream.records(
-      _i2.RecordsEvent records) = SelectObjectContentEventStreamRecords;
+  factory SelectObjectContentEventStream.records({_i2.Uint8List? payload}) =>
+      SelectObjectContentEventStreamRecords$(
+          _i3.RecordsEvent(payload: payload));
 
-  const factory SelectObjectContentEventStream.stats(_i3.StatsEvent stats) =
-      SelectObjectContentEventStreamStats;
+  factory SelectObjectContentEventStream.stats({_i4.Stats? details}) =>
+      SelectObjectContentEventStreamStats$(_i5.StatsEvent(details: details));
 
-  const factory SelectObjectContentEventStream.progress(
-      _i4.ProgressEvent progress) = SelectObjectContentEventStreamProgress;
+  factory SelectObjectContentEventStream.progress({_i6.Progress? details}) =>
+      SelectObjectContentEventStreamProgress$(
+          _i7.ProgressEvent(details: details));
 
-  const factory SelectObjectContentEventStream.cont(
-      _i5.ContinuationEvent cont) = SelectObjectContentEventStreamCont;
+  factory SelectObjectContentEventStream.cont() =>
+      SelectObjectContentEventStreamCont$(_i8.ContinuationEvent());
 
-  const factory SelectObjectContentEventStream.end(_i6.EndEvent end) =
-      SelectObjectContentEventStreamEnd;
+  factory SelectObjectContentEventStream.end() =>
+      SelectObjectContentEventStreamEnd$(_i9.EndEvent());
 
   const factory SelectObjectContentEventStream.sdkUnknown(
     String name,
     Object value,
-  ) = SelectObjectContentEventStreamSdkUnknown;
+  ) = SelectObjectContentEventStreamSdkUnknown$;
 
   static const List<_i1.SmithySerializer<SelectObjectContentEventStream>>
       serializers = [SelectObjectContentEventStreamRestXmlSerializer()];
 
   /// The Records Event.
-  _i2.RecordsEvent? get records => null;
+  _i3.RecordsEvent? get records => null;
 
   /// The Stats Event.
-  _i3.StatsEvent? get stats => null;
+  _i5.StatsEvent? get stats => null;
 
   /// The Progress Event.
-  _i4.ProgressEvent? get progress => null;
+  _i7.ProgressEvent? get progress => null;
 
   /// The Continuation Event.
-  _i5.ContinuationEvent? get cont => null;
+  _i8.ContinuationEvent? get cont => null;
 
   /// The End Event.
-  _i6.EndEvent? get end => null;
+  _i9.EndEvent? get end => null;
   @override
   Object get value => (records ?? stats ?? progress ?? cont ?? end)!;
   @override
@@ -98,64 +106,64 @@ sealed class SelectObjectContentEventStream
   }
 }
 
-final class SelectObjectContentEventStreamRecords
+final class SelectObjectContentEventStreamRecords$
     extends SelectObjectContentEventStream {
-  const SelectObjectContentEventStreamRecords(this.records) : super._();
+  const SelectObjectContentEventStreamRecords$(this.records) : super._();
 
   @override
-  final _i2.RecordsEvent records;
+  final _i3.RecordsEvent records;
 
   @override
   String get name => 'Records';
 }
 
-final class SelectObjectContentEventStreamStats
+final class SelectObjectContentEventStreamStats$
     extends SelectObjectContentEventStream {
-  const SelectObjectContentEventStreamStats(this.stats) : super._();
+  const SelectObjectContentEventStreamStats$(this.stats) : super._();
 
   @override
-  final _i3.StatsEvent stats;
+  final _i5.StatsEvent stats;
 
   @override
   String get name => 'Stats';
 }
 
-final class SelectObjectContentEventStreamProgress
+final class SelectObjectContentEventStreamProgress$
     extends SelectObjectContentEventStream {
-  const SelectObjectContentEventStreamProgress(this.progress) : super._();
+  const SelectObjectContentEventStreamProgress$(this.progress) : super._();
 
   @override
-  final _i4.ProgressEvent progress;
+  final _i7.ProgressEvent progress;
 
   @override
   String get name => 'Progress';
 }
 
-final class SelectObjectContentEventStreamCont
+final class SelectObjectContentEventStreamCont$
     extends SelectObjectContentEventStream {
-  const SelectObjectContentEventStreamCont(this.cont) : super._();
+  const SelectObjectContentEventStreamCont$(this.cont) : super._();
 
   @override
-  final _i5.ContinuationEvent cont;
+  final _i8.ContinuationEvent cont;
 
   @override
   String get name => 'Cont';
 }
 
-final class SelectObjectContentEventStreamEnd
+final class SelectObjectContentEventStreamEnd$
     extends SelectObjectContentEventStream {
-  const SelectObjectContentEventStreamEnd(this.end) : super._();
+  const SelectObjectContentEventStreamEnd$(this.end) : super._();
 
   @override
-  final _i6.EndEvent end;
+  final _i9.EndEvent end;
 
   @override
   String get name => 'End';
 }
 
-final class SelectObjectContentEventStreamSdkUnknown
+final class SelectObjectContentEventStreamSdkUnknown$
     extends SelectObjectContentEventStream {
-  const SelectObjectContentEventStreamSdkUnknown(
+  const SelectObjectContentEventStreamSdkUnknown$(
     this.name,
     this.value,
   ) : super._();
@@ -175,11 +183,11 @@ class SelectObjectContentEventStreamRestXmlSerializer
   @override
   Iterable<Type> get types => const [
         SelectObjectContentEventStream,
-        SelectObjectContentEventStreamRecords,
-        SelectObjectContentEventStreamStats,
-        SelectObjectContentEventStreamProgress,
-        SelectObjectContentEventStreamCont,
-        SelectObjectContentEventStreamEnd,
+        SelectObjectContentEventStreamRecords$,
+        SelectObjectContentEventStreamStats$,
+        SelectObjectContentEventStreamProgress$,
+        SelectObjectContentEventStreamCont$,
+        SelectObjectContentEventStreamEnd$,
       ];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
@@ -197,30 +205,30 @@ class SelectObjectContentEventStreamRestXmlSerializer
     final [key as String, value as Object] = serialized.toList();
     switch (key) {
       case 'Records':
-        return SelectObjectContentEventStreamRecords((serializers.deserialize(
+        return SelectObjectContentEventStreamRecords$((serializers.deserialize(
           value,
-          specifiedType: const FullType(_i2.RecordsEvent),
-        ) as _i2.RecordsEvent));
+          specifiedType: const FullType(_i3.RecordsEvent),
+        ) as _i3.RecordsEvent));
       case 'Stats':
-        return SelectObjectContentEventStreamStats((serializers.deserialize(
+        return SelectObjectContentEventStreamStats$((serializers.deserialize(
           value,
-          specifiedType: const FullType(_i3.StatsEvent),
-        ) as _i3.StatsEvent));
+          specifiedType: const FullType(_i5.StatsEvent),
+        ) as _i5.StatsEvent));
       case 'Progress':
-        return SelectObjectContentEventStreamProgress((serializers.deserialize(
+        return SelectObjectContentEventStreamProgress$((serializers.deserialize(
           value,
-          specifiedType: const FullType(_i4.ProgressEvent),
-        ) as _i4.ProgressEvent));
+          specifiedType: const FullType(_i7.ProgressEvent),
+        ) as _i7.ProgressEvent));
       case 'Cont':
-        return SelectObjectContentEventStreamCont((serializers.deserialize(
+        return SelectObjectContentEventStreamCont$((serializers.deserialize(
           value,
-          specifiedType: const FullType(_i5.ContinuationEvent),
-        ) as _i5.ContinuationEvent));
+          specifiedType: const FullType(_i8.ContinuationEvent),
+        ) as _i8.ContinuationEvent));
       case 'End':
-        return SelectObjectContentEventStreamEnd((serializers.deserialize(
+        return SelectObjectContentEventStreamEnd$((serializers.deserialize(
           value,
-          specifiedType: const FullType(_i6.EndEvent),
-        ) as _i6.EndEvent));
+          specifiedType: const FullType(_i9.EndEvent),
+        ) as _i9.EndEvent));
     }
     return SelectObjectContentEventStream.sdkUnknown(
       key,
@@ -237,32 +245,32 @@ class SelectObjectContentEventStreamRestXmlSerializer
     return [
       object.name,
       switch (object) {
-        SelectObjectContentEventStreamRecords(:final value) =>
+        SelectObjectContentEventStreamRecords$(:final value) =>
           serializers.serialize(
             value,
-            specifiedType: const FullType(_i2.RecordsEvent),
+            specifiedType: const FullType(_i3.RecordsEvent),
           ),
-        SelectObjectContentEventStreamStats(:final value) =>
+        SelectObjectContentEventStreamStats$(:final value) =>
           serializers.serialize(
             value,
-            specifiedType: const FullType(_i3.StatsEvent),
+            specifiedType: const FullType(_i5.StatsEvent),
           ),
-        SelectObjectContentEventStreamProgress(:final value) =>
+        SelectObjectContentEventStreamProgress$(:final value) =>
           serializers.serialize(
             value,
-            specifiedType: const FullType(_i4.ProgressEvent),
+            specifiedType: const FullType(_i7.ProgressEvent),
           ),
-        SelectObjectContentEventStreamCont(:final value) =>
+        SelectObjectContentEventStreamCont$(:final value) =>
           serializers.serialize(
             value,
-            specifiedType: const FullType(_i5.ContinuationEvent),
+            specifiedType: const FullType(_i8.ContinuationEvent),
           ),
-        SelectObjectContentEventStreamEnd(:final value) =>
+        SelectObjectContentEventStreamEnd$(:final value) =>
           serializers.serialize(
             value,
-            specifiedType: const FullType(_i6.EndEvent),
+            specifiedType: const FullType(_i9.EndEvent),
           ),
-        SelectObjectContentEventStreamSdkUnknown(:final value) => value,
+        SelectObjectContentEventStreamSdkUnknown$(:final value) => value,
       },
     ];
   }

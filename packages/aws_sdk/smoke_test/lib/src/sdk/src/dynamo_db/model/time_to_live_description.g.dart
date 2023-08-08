@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.time_to_live_description;
+part of 'time_to_live_description.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -60,9 +60,7 @@ class TimeToLiveDescriptionBuilder
   set attributeName(String? attributeName) =>
       _$this._attributeName = attributeName;
 
-  TimeToLiveDescriptionBuilder() {
-    TimeToLiveDescription._init(this);
-  }
+  TimeToLiveDescriptionBuilder();
 
   TimeToLiveDescriptionBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.delete_user_permissions_boundary_request;
+part of 'delete_user_permissions_boundary_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -58,9 +58,7 @@ class DeleteUserPermissionsBoundaryRequestBuilder
   String? get userName => _$this._userName;
   set userName(String? userName) => _$this._userName = userName;
 
-  DeleteUserPermissionsBoundaryRequestBuilder() {
-    DeleteUserPermissionsBoundaryRequest._init(this);
-  }
+  DeleteUserPermissionsBoundaryRequestBuilder();
 
   DeleteUserPermissionsBoundaryRequestBuilder get _$this {
     final $v = _$v;

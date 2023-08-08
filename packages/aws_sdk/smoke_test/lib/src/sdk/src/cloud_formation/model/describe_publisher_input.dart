@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.describe_publisher_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,12 +32,8 @@ abstract class DescribePublisherInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DescribePublisherInputAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribePublisherInputBuilder b) {}
+  static const List<_i1.SmithySerializer<DescribePublisherInput>> serializers =
+      [DescribePublisherInputAwsQuerySerializer()];
 
   /// The ID of the extension publisher.
   ///
@@ -49,11 +45,11 @@ abstract class DescribePublisherInput
   List<Object?> get props => [publisherId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribePublisherInput');
-    helper.add(
-      'publisherId',
-      publisherId,
-    );
+    final helper = newBuiltValueToStringHelper('DescribePublisherInput')
+      ..add(
+        'publisherId',
+        publisherId,
+      );
     return helper.toString();
   }
 }

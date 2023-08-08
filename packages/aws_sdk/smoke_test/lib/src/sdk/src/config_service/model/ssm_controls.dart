@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.ssm_controls; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,12 +31,9 @@ abstract class SsmControls
 
   const SsmControls._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<SsmControls>> serializers = [
     SsmControlsAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SsmControlsBuilder b) {}
 
   /// The maximum percentage of remediation actions allowed to run in parallel on the non-compliant resources for that specific rule. You can specify a percentage, such as 10%. The default value is 10.
   int? get concurrentExecutionRatePercentage;
@@ -50,15 +47,15 @@ abstract class SsmControls
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SsmControls');
-    helper.add(
-      'concurrentExecutionRatePercentage',
-      concurrentExecutionRatePercentage,
-    );
-    helper.add(
-      'errorPercentage',
-      errorPercentage,
-    );
+    final helper = newBuiltValueToStringHelper('SsmControls')
+      ..add(
+        'concurrentExecutionRatePercentage',
+        concurrentExecutionRatePercentage,
+      )
+      ..add(
+        'errorPercentage',
+        errorPercentage,
+      );
     return helper.toString();
   }
 }

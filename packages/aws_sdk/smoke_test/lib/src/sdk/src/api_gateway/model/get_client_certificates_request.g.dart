@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.get_client_certificates_request;
+part of 'get_client_certificates_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -59,9 +59,7 @@ class GetClientCertificatesRequestBuilder
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
 
-  GetClientCertificatesRequestBuilder() {
-    GetClientCertificatesRequest._init(this);
-  }
+  GetClientCertificatesRequestBuilder();
 
   GetClientCertificatesRequestBuilder get _$this {
     final $v = _$v;
@@ -132,9 +130,7 @@ class GetClientCertificatesRequestPayloadBuilder
             GetClientCertificatesRequestPayloadBuilder> {
   _$GetClientCertificatesRequestPayload? _$v;
 
-  GetClientCertificatesRequestPayloadBuilder() {
-    GetClientCertificatesRequestPayload._init(this);
-  }
+  GetClientCertificatesRequestPayloadBuilder();
 
   @override
   void replace(GetClientCertificatesRequestPayload other) {

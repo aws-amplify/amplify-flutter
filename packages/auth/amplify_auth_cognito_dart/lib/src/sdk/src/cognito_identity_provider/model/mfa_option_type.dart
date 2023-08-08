@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.mfa_option_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,7 +33,7 @@ abstract class MfaOptionType
 
   const MfaOptionType._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<MfaOptionType>> serializers = [
     MfaOptionTypeAwsJson11Serializer()
   ];
 
@@ -51,15 +52,15 @@ abstract class MfaOptionType
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MfaOptionType');
-    helper.add(
-      'deliveryMedium',
-      deliveryMedium,
-    );
-    helper.add(
-      'attributeName',
-      attributeName,
-    );
+    final helper = newBuiltValueToStringHelper('MfaOptionType')
+      ..add(
+        'deliveryMedium',
+        deliveryMedium,
+      )
+      ..add(
+        'attributeName',
+        attributeName,
+      );
     return helper.toString();
   }
 }
@@ -92,23 +93,20 @@ class MfaOptionTypeAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'DeliveryMedium':
-          if (value != null) {
-            result.deliveryMedium = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.DeliveryMediumType),
-            ) as _i2.DeliveryMediumType);
-          }
-          break;
+          result.deliveryMedium = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.DeliveryMediumType),
+          ) as _i2.DeliveryMediumType);
         case 'AttributeName':
-          if (value != null) {
-            result.attributeName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.attributeName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -118,27 +116,27 @@ class MfaOptionTypeAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    MfaOptionType object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as MfaOptionType);
-    final result = <Object?>[];
-    if (payload.deliveryMedium != null) {
-      result
+    final result$ = <Object?>[];
+    final MfaOptionType(:deliveryMedium, :attributeName) = object;
+    if (deliveryMedium != null) {
+      result$
         ..add('DeliveryMedium')
         ..add(serializers.serialize(
-          payload.deliveryMedium!,
+          deliveryMedium,
           specifiedType: const FullType(_i2.DeliveryMediumType),
         ));
     }
-    if (payload.attributeName != null) {
-      result
+    if (attributeName != null) {
+      result$
         ..add('AttributeName')
         ..add(serializers.serialize(
-          payload.attributeName!,
+          attributeName,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

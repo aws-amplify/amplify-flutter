@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of custom_v2.s3.model.copy_object_error;
+part of 'copy_object_error.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -43,9 +43,7 @@ class CopyObjectErrorBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  CopyObjectErrorBuilder() {
-    CopyObjectError._init(this);
-  }
+  CopyObjectErrorBuilder();
 
   CopyObjectErrorBuilder get _$this {
     final $v = _$v;

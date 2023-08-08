@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_policy_version_request;
+part of 'get_policy_version_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class GetPolicyVersionRequestBuilder
   String? get versionId => _$this._versionId;
   set versionId(String? versionId) => _$this._versionId = versionId;
 
-  GetPolicyVersionRequestBuilder() {
-    GetPolicyVersionRequest._init(this);
-  }
+  GetPolicyVersionRequestBuilder();
 
   GetPolicyVersionRequestBuilder get _$this {
     final $v = _$v;

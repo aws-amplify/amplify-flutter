@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.conformance_pack_input_parameter; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,12 +35,8 @@ abstract class ConformancePackInputParameter
 
   const ConformancePackInputParameter._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ConformancePackInputParameterAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConformancePackInputParameterBuilder b) {}
+  static const List<_i2.SmithySerializer<ConformancePackInputParameter>>
+      serializers = [ConformancePackInputParameterAwsJson11Serializer()];
 
   /// One part of a key-value pair.
   String get parameterName;
@@ -54,15 +50,15 @@ abstract class ConformancePackInputParameter
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConformancePackInputParameter');
-    helper.add(
-      'parameterName',
-      parameterName,
-    );
-    helper.add(
-      'parameterValue',
-      parameterValue,
-    );
+    final helper = newBuiltValueToStringHelper('ConformancePackInputParameter')
+      ..add(
+        'parameterName',
+        parameterName,
+      )
+      ..add(
+        'parameterValue',
+        parameterValue,
+      );
     return helper.toString();
   }
 }

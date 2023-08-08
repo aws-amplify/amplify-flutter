@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.cancel_update_stack_input;
+part of 'cancel_update_stack_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -62,9 +62,7 @@ class CancelUpdateStackInputBuilder
   set clientRequestToken(String? clientRequestToken) =>
       _$this._clientRequestToken = clientRequestToken;
 
-  CancelUpdateStackInputBuilder() {
-    CancelUpdateStackInput._init(this);
-  }
+  CancelUpdateStackInputBuilder();
 
   CancelUpdateStackInputBuilder get _$this {
     final $v = _$v;

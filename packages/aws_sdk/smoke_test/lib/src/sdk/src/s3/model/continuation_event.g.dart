@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.continuation_event;
+part of 'continuation_event.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -37,9 +37,7 @@ class ContinuationEventBuilder
     implements Builder<ContinuationEvent, ContinuationEventBuilder> {
   _$ContinuationEvent? _$v;
 
-  ContinuationEventBuilder() {
-    ContinuationEvent._init(this);
-  }
+  ContinuationEventBuilder();
 
   @override
   void replace(ContinuationEvent other) {

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.list_saml_providers_response;
+part of 'list_saml_providers_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class ListSamlProvidersResponseBuilder
           _i3.ListBuilder<_i2.SamlProviderListEntry>? samlProviderList) =>
       _$this._samlProviderList = samlProviderList;
 
-  ListSamlProvidersResponseBuilder() {
-    ListSamlProvidersResponse._init(this);
-  }
+  ListSamlProvidersResponseBuilder();
 
   ListSamlProvidersResponseBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.delete_item_output;
+part of 'delete_item_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -73,9 +73,7 @@ class DeleteItemOutputBuilder
           _i4.ItemCollectionMetricsBuilder? itemCollectionMetrics) =>
       _$this._itemCollectionMetrics = itemCollectionMetrics;
 
-  DeleteItemOutputBuilder() {
-    DeleteItemOutput._init(this);
-  }
+  DeleteItemOutputBuilder();
 
   DeleteItemOutputBuilder get _$this {
     final $v = _$v;

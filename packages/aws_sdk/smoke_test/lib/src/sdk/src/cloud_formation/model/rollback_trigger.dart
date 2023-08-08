@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.rollback_trigger; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,12 +31,9 @@ abstract class RollbackTrigger
 
   const RollbackTrigger._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<RollbackTrigger>> serializers = [
     RollbackTriggerAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RollbackTriggerBuilder b) {}
 
   /// The Amazon Resource Name (ARN) of the rollback trigger.
   ///
@@ -52,15 +49,15 @@ abstract class RollbackTrigger
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RollbackTrigger');
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'type',
-      type,
-    );
+    final helper = newBuiltValueToStringHelper('RollbackTrigger')
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'type',
+        type,
+      );
     return helper.toString();
   }
 }

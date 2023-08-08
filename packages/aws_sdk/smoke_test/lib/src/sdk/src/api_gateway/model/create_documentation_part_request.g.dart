@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.create_documentation_part_request;
+part of 'create_documentation_part_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -80,9 +80,7 @@ class CreateDocumentationPartRequestBuilder
   String? get properties => _$this._properties;
   set properties(String? properties) => _$this._properties = properties;
 
-  CreateDocumentationPartRequestBuilder() {
-    CreateDocumentationPartRequest._init(this);
-  }
+  CreateDocumentationPartRequestBuilder();
 
   CreateDocumentationPartRequestBuilder get _$this {
     final $v = _$v;
@@ -201,9 +199,7 @@ class CreateDocumentationPartRequestPayloadBuilder
   String? get properties => _$this._properties;
   set properties(String? properties) => _$this._properties = properties;
 
-  CreateDocumentationPartRequestPayloadBuilder() {
-    CreateDocumentationPartRequestPayload._init(this);
-  }
+  CreateDocumentationPartRequestPayloadBuilder();
 
   CreateDocumentationPartRequestPayloadBuilder get _$this {
     final $v = _$v;

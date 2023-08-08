@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.operation.describe_stack_events_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -134,7 +134,7 @@ class DescribeStackEventsOperation extends _i1.PaginatedHttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)}
+        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)},
       },
     );
   }

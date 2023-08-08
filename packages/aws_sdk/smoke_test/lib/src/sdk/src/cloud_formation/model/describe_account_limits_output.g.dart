@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.describe_account_limits_output;
+part of 'describe_account_limits_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -62,9 +62,7 @@ class DescribeAccountLimitsOutputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeAccountLimitsOutputBuilder() {
-    DescribeAccountLimitsOutput._init(this);
-  }
+  DescribeAccountLimitsOutputBuilder();
 
   DescribeAccountLimitsOutputBuilder get _$this {
     final $v = _$v;

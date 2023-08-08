@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.rest_xml_protocol.model.xml_lists_input_output;
+part of 'xml_lists_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -215,9 +215,7 @@ class XmlListsInputOutputBuilder
           _i6.ListBuilder<_i5.StructureListMember>? flattenedStructureList) =>
       _$this._flattenedStructureList = flattenedStructureList;
 
-  XmlListsInputOutputBuilder() {
-    XmlListsInputOutput._init(this);
-  }
+  XmlListsInputOutputBuilder();
 
   XmlListsInputOutputBuilder get _$this {
     final $v = _$v;

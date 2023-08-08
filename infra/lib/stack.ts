@@ -42,7 +42,7 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
               aggregateKeyType: "IP",
               // The number of requests which can be performed by
               // a single IP in a 5-minute window.
-              limit: 1000,
+              limit: 3000,
             },
           },
           visibilityConfig: {
@@ -75,6 +75,8 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
     // The Analytics stack
     const analytics = new AnalyticsIntegrationTestStack(this, [
       { environmentName: "main" },
+      { environmentName: "no-unauth-access", allowUnauthAccess: false },
+      { environmentName: "no-unauth-identities", allowUnauthIdentites: false }
     ]);
 
     // The Auth stack
@@ -236,6 +238,12 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
       },
       {
         associateWithWaf,
+        type: "FULL",
+        environmentName: "asf-audit",
+        advancedSecurityMode: cognito.AdvancedSecurityMode.AUDIT,
+      },
+      {
+        associateWithWaf,
         type: "CUSTOM_AUTHORIZER_USER_POOLS",
         environmentName: "custom-authorizer-user-pools",
       },
@@ -249,9 +257,13 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
 
     // The Storage stack
     const storage = new StorageIntegrationTestStack(this, [
-      { environmentName: "main" },
+      {
+        environmentName: "main",
+        enableTransferAcceleration: true,
+      },
       {
         environmentName: "custom-prefix",
+        enableTransferAcceleration: true,
         prefixResolver(accessLevel, identityId) {
           switch (accessLevel) {
             case StorageAccessLevel.public:
@@ -267,6 +279,11 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
           [StorageAccessLevel.protected]: "shared",
           [StorageAccessLevel.private]: "private",
         },
+      },
+      {
+        environmentName: "dots-in-name",
+        enableTransferAcceleration: false,
+        bucketNamePrefix: "amplify.integ-test.stack",
       },
     ]);
 

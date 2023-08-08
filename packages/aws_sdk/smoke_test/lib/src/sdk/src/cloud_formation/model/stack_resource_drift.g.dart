@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.stack_resource_drift;
+part of 'stack_resource_drift.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -172,9 +172,7 @@ class StackResourceDriftBuilder
   set moduleInfo(_i5.ModuleInfoBuilder? moduleInfo) =>
       _$this._moduleInfo = moduleInfo;
 
-  StackResourceDriftBuilder() {
-    StackResourceDrift._init(this);
-  }
+  StackResourceDriftBuilder();
 
   StackResourceDriftBuilder get _$this {
     final $v = _$v;

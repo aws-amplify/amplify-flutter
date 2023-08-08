@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.get_caller_identity_request;
+part of 'get_caller_identity_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -39,9 +39,7 @@ class GetCallerIdentityRequestBuilder
         Builder<GetCallerIdentityRequest, GetCallerIdentityRequestBuilder> {
   _$GetCallerIdentityRequest? _$v;
 
-  GetCallerIdentityRequestBuilder() {
-    GetCallerIdentityRequest._init(this);
-  }
+  GetCallerIdentityRequestBuilder();
 
   @override
   void replace(GetCallerIdentityRequest other) {

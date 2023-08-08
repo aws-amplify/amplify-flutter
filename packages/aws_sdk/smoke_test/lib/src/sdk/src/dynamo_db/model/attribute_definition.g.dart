@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.attribute_definition;
+part of 'attribute_definition.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -66,9 +66,7 @@ class AttributeDefinitionBuilder
   set attributeType(_i2.ScalarAttributeType? attributeType) =>
       _$this._attributeType = attributeType;
 
-  AttributeDefinitionBuilder() {
-    AttributeDefinition._init(this);
-  }
+  AttributeDefinitionBuilder();
 
   AttributeDefinitionBuilder get _$this {
     final $v = _$v;

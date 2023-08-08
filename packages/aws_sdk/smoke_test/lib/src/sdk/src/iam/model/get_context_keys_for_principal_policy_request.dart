@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.get_context_keys_for_principal_policy_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,11 @@ abstract class GetContextKeysForPrincipalPolicyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<GetContextKeysForPrincipalPolicyRequest>>
+      serializers = [
     GetContextKeysForPrincipalPolicyRequestAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetContextKeysForPrincipalPolicyRequestBuilder b) {}
 
   /// The ARN of a user, group, or role whose policies contain the context keys that you want listed. If you specify a user, the list includes context keys that are found in all policies that are attached to the user. The list also includes all groups that the user is a member of. If you pick a group or a role, then it includes only those context keys that are found in policies attached to that entity. Note that all parameters are shown in unencoded form here for clarity, but must be URL encoded to be included as a part of a real HTML request.
   ///
@@ -74,15 +73,15 @@ abstract class GetContextKeysForPrincipalPolicyRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetContextKeysForPrincipalPolicyRequest');
-    helper.add(
-      'policySourceArn',
-      policySourceArn,
-    );
-    helper.add(
-      'policyInputList',
-      policyInputList,
-    );
+        newBuiltValueToStringHelper('GetContextKeysForPrincipalPolicyRequest')
+          ..add(
+            'policySourceArn',
+            policySourceArn,
+          )
+          ..add(
+            'policyInputList',
+            policyInputList,
+          );
     return helper.toString();
   }
 }

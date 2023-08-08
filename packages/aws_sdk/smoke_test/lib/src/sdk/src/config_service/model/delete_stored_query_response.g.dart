@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.delete_stored_query_response;
+part of 'delete_stored_query_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -39,9 +39,7 @@ class DeleteStoredQueryResponseBuilder
         Builder<DeleteStoredQueryResponse, DeleteStoredQueryResponseBuilder> {
   _$DeleteStoredQueryResponse? _$v;
 
-  DeleteStoredQueryResponseBuilder() {
-    DeleteStoredQueryResponse._init(this);
-  }
+  DeleteStoredQueryResponseBuilder();
 
   @override
   void replace(DeleteStoredQueryResponse other) {

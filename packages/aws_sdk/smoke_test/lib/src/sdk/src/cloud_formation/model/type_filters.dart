@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.type_filters; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,18 +35,15 @@ abstract class TypeFilters
 
   const TypeFilters._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<TypeFilters>> serializers = [
     TypeFiltersAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TypeFiltersBuilder b) {}
-
   /// The category of extensions to return.
   ///
-  /// *   `REGISTERED`: Private extensions that have been registered for this account and region.
+  /// *   `REGISTERED`: Private extensions that have been registered for this account and Region.
   ///
-  /// *   `ACTIVATED`: Public extensions that have been activated for this account and region.
+  /// *   `ACTIVATED`: Public extensions that have been activated for this account and Region.
   ///
   /// *   `THIRD_PARTY`: Extensions available for use from publishers other than Amazon. This includes:
   ///
@@ -72,19 +69,19 @@ abstract class TypeFilters
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TypeFilters');
-    helper.add(
-      'category',
-      category,
-    );
-    helper.add(
-      'publisherId',
-      publisherId,
-    );
-    helper.add(
-      'typeNamePrefix',
-      typeNamePrefix,
-    );
+    final helper = newBuiltValueToStringHelper('TypeFilters')
+      ..add(
+        'category',
+        category,
+      )
+      ..add(
+        'publisherId',
+        publisherId,
+      )
+      ..add(
+        'typeNamePrefix',
+        typeNamePrefix,
+      );
     return helper.toString();
   }
 }

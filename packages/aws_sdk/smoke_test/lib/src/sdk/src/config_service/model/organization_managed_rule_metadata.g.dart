@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.organization_managed_rule_metadata;
+part of 'organization_managed_rule_metadata.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -129,9 +129,7 @@ class OrganizationManagedRuleMetadataBuilder
   set tagValueScope(String? tagValueScope) =>
       _$this._tagValueScope = tagValueScope;
 
-  OrganizationManagedRuleMetadataBuilder() {
-    OrganizationManagedRuleMetadata._init(this);
-  }
+  OrganizationManagedRuleMetadataBuilder();
 
   OrganizationManagedRuleMetadataBuilder get _$this {
     final $v = _$v;

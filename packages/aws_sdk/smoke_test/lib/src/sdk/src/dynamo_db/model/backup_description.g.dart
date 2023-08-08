@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.backup_description;
+part of 'backup_description.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -76,9 +76,7 @@ class BackupDescriptionBuilder
           _i4.SourceTableFeatureDetailsBuilder? sourceTableFeatureDetails) =>
       _$this._sourceTableFeatureDetails = sourceTableFeatureDetails;
 
-  BackupDescriptionBuilder() {
-    BackupDescription._init(this);
-  }
+  BackupDescriptionBuilder();
 
   BackupDescriptionBuilder get _$this {
     final $v = _$v;

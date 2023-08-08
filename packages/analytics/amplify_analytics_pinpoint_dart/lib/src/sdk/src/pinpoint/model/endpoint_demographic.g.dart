@@ -115,9 +115,7 @@ class EndpointDemographicBuilder
   String? get timezone => _$this._timezone;
   set timezone(String? timezone) => _$this._timezone = timezone;
 
-  EndpointDemographicBuilder() {
-    EndpointDemographic._init(this);
-  }
+  EndpointDemographicBuilder();
 
   EndpointDemographicBuilder get _$this {
     final $v = _$v;

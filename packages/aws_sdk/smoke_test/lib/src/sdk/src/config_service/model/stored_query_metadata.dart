@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.stored_query_metadata; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,12 +36,9 @@ abstract class StoredQueryMetadata
 
   const StoredQueryMetadata._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<StoredQueryMetadata>> serializers = [
     StoredQueryMetadataAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StoredQueryMetadataBuilder b) {}
 
   /// The ID of the query.
   String get queryId;
@@ -63,23 +60,23 @@ abstract class StoredQueryMetadata
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StoredQueryMetadata');
-    helper.add(
-      'queryId',
-      queryId,
-    );
-    helper.add(
-      'queryArn',
-      queryArn,
-    );
-    helper.add(
-      'queryName',
-      queryName,
-    );
-    helper.add(
-      'description',
-      description,
-    );
+    final helper = newBuiltValueToStringHelper('StoredQueryMetadata')
+      ..add(
+        'queryId',
+        queryId,
+      )
+      ..add(
+        'queryArn',
+        queryArn,
+      )
+      ..add(
+        'queryName',
+        queryName,
+      )
+      ..add(
+        'description',
+        description,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.update_rest_api_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -55,12 +55,8 @@ abstract class UpdateRestApiRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateRestApiRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateRestApiRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<UpdateRestApiRequestPayload>>
+      serializers = [UpdateRestApiRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -92,15 +88,15 @@ abstract class UpdateRestApiRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateRestApiRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateRestApiRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }
@@ -116,20 +112,17 @@ abstract class UpdateRestApiRequestPayload
 
   const UpdateRestApiRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateRestApiRequestPayloadBuilder b) {}
-
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
   @override
   List<Object?> get props => [patchOperations];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateRestApiRequestPayload');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateRestApiRequestPayload')
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }

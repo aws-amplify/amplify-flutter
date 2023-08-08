@@ -66,9 +66,7 @@ class GetInAppMessagesRequestBuilder
   String? get endpointId => _$this._endpointId;
   set endpointId(String? endpointId) => _$this._endpointId = endpointId;
 
-  GetInAppMessagesRequestBuilder() {
-    GetInAppMessagesRequest._init(this);
-  }
+  GetInAppMessagesRequestBuilder();
 
   GetInAppMessagesRequestBuilder get _$this {
     final $v = _$v;
@@ -140,9 +138,7 @@ class GetInAppMessagesRequestPayloadBuilder
             GetInAppMessagesRequestPayloadBuilder> {
   _$GetInAppMessagesRequestPayload? _$v;
 
-  GetInAppMessagesRequestPayloadBuilder() {
-    GetInAppMessagesRequestPayload._init(this);
-  }
+  GetInAppMessagesRequestPayloadBuilder();
 
   @override
   void replace(GetInAppMessagesRequestPayload other) {

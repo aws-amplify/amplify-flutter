@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.export_description;
+part of 'export_description.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -220,9 +220,7 @@ class ExportDescriptionBuilder
   _i5.Int64? get itemCount => _$this._itemCount;
   set itemCount(_i5.Int64? itemCount) => _$this._itemCount = itemCount;
 
-  ExportDescriptionBuilder() {
-    ExportDescription._init(this);
-  }
+  ExportDescriptionBuilder();
 
   ExportDescriptionBuilder get _$this {
     final $v = _$v;

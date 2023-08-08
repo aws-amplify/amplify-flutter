@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.continuous_backups_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,8 @@ abstract class ContinuousBackupsDescription
 
   const ContinuousBackupsDescription._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ContinuousBackupsDescriptionAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ContinuousBackupsDescriptionBuilder b) {}
+  static const List<_i4.SmithySerializer<ContinuousBackupsDescription>>
+      serializers = [ContinuousBackupsDescriptionAwsJson10Serializer()];
 
   /// `ContinuousBackupsStatus` can be one of the following states: ENABLED, DISABLED
   _i2.ContinuousBackupsStatus get continuousBackupsStatus;
@@ -58,15 +54,15 @@ abstract class ContinuousBackupsDescription
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ContinuousBackupsDescription');
-    helper.add(
-      'continuousBackupsStatus',
-      continuousBackupsStatus,
-    );
-    helper.add(
-      'pointInTimeRecoveryDescription',
-      pointInTimeRecoveryDescription,
-    );
+    final helper = newBuiltValueToStringHelper('ContinuousBackupsDescription')
+      ..add(
+        'continuousBackupsStatus',
+        continuousBackupsStatus,
+      )
+      ..add(
+        'pointInTimeRecoveryDescription',
+        pointInTimeRecoveryDescription,
+      );
     return helper.toString();
   }
 }

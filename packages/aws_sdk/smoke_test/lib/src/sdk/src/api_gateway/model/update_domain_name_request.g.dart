@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.update_domain_name_request;
+part of 'update_domain_name_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -64,9 +64,7 @@ class UpdateDomainNameRequestBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateDomainNameRequestBuilder() {
-    UpdateDomainNameRequest._init(this);
-  }
+  UpdateDomainNameRequestBuilder();
 
   UpdateDomainNameRequestBuilder get _$this {
     final $v = _$v;
@@ -163,9 +161,7 @@ class UpdateDomainNameRequestPayloadBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateDomainNameRequestPayloadBuilder() {
-    UpdateDomainNameRequestPayload._init(this);
-  }
+  UpdateDomainNameRequestPayloadBuilder();
 
   UpdateDomainNameRequestPayloadBuilder get _$this {
     final $v = _$v;

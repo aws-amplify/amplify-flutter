@@ -5,6 +5,7 @@ import 'package:amplify_core/amplify_core.dart';
 
 part 'resend_user_attribute_confirmation_code_result.g.dart';
 
+/// {@category Auth}
 /// {@template amplify_core.resend_user_attribute_confirmation_code_result}
 /// Wraps the result of a resend user confirmation code operation.
 /// {@endtemplate}

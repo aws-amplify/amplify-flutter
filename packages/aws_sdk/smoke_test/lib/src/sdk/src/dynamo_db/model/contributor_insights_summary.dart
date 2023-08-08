@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.contributor_insights_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,12 +37,8 @@ abstract class ContributorInsightsSummary
 
   const ContributorInsightsSummary._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ContributorInsightsSummaryAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ContributorInsightsSummaryBuilder b) {}
+  static const List<_i3.SmithySerializer<ContributorInsightsSummary>>
+      serializers = [ContributorInsightsSummaryAwsJson10Serializer()];
 
   /// Name of the table associated with the summary.
   String? get tableName;
@@ -60,19 +56,19 @@ abstract class ContributorInsightsSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ContributorInsightsSummary');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'contributorInsightsStatus',
-      contributorInsightsStatus,
-    );
+    final helper = newBuiltValueToStringHelper('ContributorInsightsSummary')
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'indexName',
+        indexName,
+      )
+      ..add(
+        'contributorInsightsStatus',
+        contributorInsightsStatus,
+      );
     return helper.toString();
   }
 }

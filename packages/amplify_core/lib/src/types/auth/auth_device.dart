@@ -4,6 +4,7 @@
 import 'package:aws_common/aws_common.dart';
 import 'package:meta/meta.dart';
 
+/// {@category Auth}
 /// {@template amplify_auth_cognito.auth_device}
 /// Common interface for devices tracked by an authentication provider.
 /// {@endtemplate}

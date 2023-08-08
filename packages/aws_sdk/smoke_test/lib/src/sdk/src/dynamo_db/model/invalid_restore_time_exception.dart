@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.invalid_restore_time_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,9 @@ abstract class InvalidRestoreTimeException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidRestoreTimeExceptionAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidRestoreTimeException>>
+      serializers = [InvalidRestoreTimeExceptionAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidRestoreTimeExceptionBuilder b) {}
   @override
   String? get message;
   @override
@@ -65,11 +62,11 @@ abstract class InvalidRestoreTimeException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InvalidRestoreTimeException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidRestoreTimeException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

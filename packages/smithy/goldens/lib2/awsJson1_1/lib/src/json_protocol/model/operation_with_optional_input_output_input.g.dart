@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1_v2.json_protocol.model.operation_with_optional_input_output_input;
+part of 'operation_with_optional_input_output_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class OperationWithOptionalInputOutputInputBuilder
   String? get value => _$this._value;
   set value(String? value) => _$this._value = value;
 
-  OperationWithOptionalInputOutputInputBuilder() {
-    OperationWithOptionalInputOutputInput._init(this);
-  }
+  OperationWithOptionalInputOutputInputBuilder();
 
   OperationWithOptionalInputOutputInputBuilder get _$this {
     final $v = _$v;

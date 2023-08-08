@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.kinesis_streaming_destination_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,8 @@ abstract class KinesisStreamingDestinationInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    KinesisStreamingDestinationInputAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(KinesisStreamingDestinationInputBuilder b) {}
+  static const List<_i1.SmithySerializer<KinesisStreamingDestinationInput>>
+      serializers = [KinesisStreamingDestinationInputAwsJson10Serializer()];
 
   /// The name of the DynamoDB table.
   String get tableName;
@@ -62,15 +58,15 @@ abstract class KinesisStreamingDestinationInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('KinesisStreamingDestinationInput');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'streamArn',
-      streamArn,
-    );
+        newBuiltValueToStringHelper('KinesisStreamingDestinationInput')
+          ..add(
+            'tableName',
+            tableName,
+          )
+          ..add(
+            'streamArn',
+            streamArn,
+          );
     return helper.toString();
   }
 }

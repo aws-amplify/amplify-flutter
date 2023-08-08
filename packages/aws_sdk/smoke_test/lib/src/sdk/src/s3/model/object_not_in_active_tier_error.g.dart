@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.object_not_in_active_tier_error;
+part of 'object_not_in_active_tier_error.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -52,9 +52,7 @@ class ObjectNotInActiveTierErrorBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ObjectNotInActiveTierErrorBuilder() {
-    ObjectNotInActiveTierError._init(this);
-  }
+  ObjectNotInActiveTierErrorBuilder();
 
   ObjectNotInActiveTierErrorBuilder get _$this {
     final $v = _$v;

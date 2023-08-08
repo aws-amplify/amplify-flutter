@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.endpoint_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -58,12 +58,9 @@ abstract class EndpointRequest
 
   const EndpointRequest._();
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<_i7.SmithySerializer<EndpointRequest>> serializers = [
     EndpointRequestRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EndpointRequestBuilder b) {}
 
   /// The destination address for messages or push notifications that you send to the endpoint. The address varies by channel. For a push-notification channel, use the token provided by the push notification service, such as an Apple Push Notification service (APNs) device token or a Firebase Cloud Messaging (FCM) registration token. For the SMS channel, use a phone number in E.164 format, such as +12065550100. For the email channel, use an email address.
   String? get address;
@@ -117,51 +114,51 @@ abstract class EndpointRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EndpointRequest');
-    helper.add(
-      'address',
-      address,
-    );
-    helper.add(
-      'attributes',
-      attributes,
-    );
-    helper.add(
-      'channelType',
-      channelType,
-    );
-    helper.add(
-      'demographic',
-      demographic,
-    );
-    helper.add(
-      'effectiveDate',
-      effectiveDate,
-    );
-    helper.add(
-      'endpointStatus',
-      endpointStatus,
-    );
-    helper.add(
-      'location',
-      location,
-    );
-    helper.add(
-      'metrics',
-      metrics,
-    );
-    helper.add(
-      'optOut',
-      optOut,
-    );
-    helper.add(
-      'requestId',
-      requestId,
-    );
-    helper.add(
-      'user',
-      user,
-    );
+    final helper = newBuiltValueToStringHelper('EndpointRequest')
+      ..add(
+        'address',
+        address,
+      )
+      ..add(
+        'attributes',
+        attributes,
+      )
+      ..add(
+        'channelType',
+        channelType,
+      )
+      ..add(
+        'demographic',
+        demographic,
+      )
+      ..add(
+        'effectiveDate',
+        effectiveDate,
+      )
+      ..add(
+        'endpointStatus',
+        endpointStatus,
+      )
+      ..add(
+        'location',
+        location,
+      )
+      ..add(
+        'metrics',
+        metrics,
+      )
+      ..add(
+        'optOut',
+        optOut,
+      )
+      ..add(
+        'requestId',
+        requestId,
+      )
+      ..add(
+        'user',
+        user,
+      );
     return helper.toString();
   }
 }

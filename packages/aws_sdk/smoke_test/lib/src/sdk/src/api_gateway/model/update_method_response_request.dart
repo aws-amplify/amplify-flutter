@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.update_method_response_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -70,12 +70,8 @@ abstract class UpdateMethodResponseRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateMethodResponseRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateMethodResponseRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<UpdateMethodResponseRequestPayload>>
+      serializers = [UpdateMethodResponseRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -126,27 +122,27 @@ abstract class UpdateMethodResponseRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateMethodResponseRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'httpMethod',
-      httpMethod,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateMethodResponseRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'httpMethod',
+        httpMethod,
+      )
+      ..add(
+        'statusCode',
+        statusCode,
+      )
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }
@@ -164,9 +160,6 @@ abstract class UpdateMethodResponseRequestPayload
 
   const UpdateMethodResponseRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateMethodResponseRequestPayloadBuilder b) {}
-
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
   @override
@@ -174,11 +167,11 @@ abstract class UpdateMethodResponseRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateMethodResponseRequestPayload');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+        newBuiltValueToStringHelper('UpdateMethodResponseRequestPayload')
+          ..add(
+            'patchOperations',
+            patchOperations,
+          );
     return helper.toString();
   }
 }

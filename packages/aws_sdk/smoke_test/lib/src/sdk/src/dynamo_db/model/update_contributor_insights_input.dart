@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.update_contributor_insights_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,12 +44,8 @@ abstract class UpdateContributorInsightsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateContributorInsightsInputAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateContributorInsightsInputBuilder b) {}
+  static const List<_i1.SmithySerializer<UpdateContributorInsightsInput>>
+      serializers = [UpdateContributorInsightsInputAwsJson10Serializer()];
 
   /// The name of the table.
   String get tableName;
@@ -69,20 +65,19 @@ abstract class UpdateContributorInsightsInput
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('UpdateContributorInsightsInput');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'contributorInsightsAction',
-      contributorInsightsAction,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateContributorInsightsInput')
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'indexName',
+        indexName,
+      )
+      ..add(
+        'contributorInsightsAction',
+        contributorInsightsAction,
+      );
     return helper.toString();
   }
 }

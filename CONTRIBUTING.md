@@ -5,9 +5,11 @@ Thank you for your interest in contributing to our project! <3 Whether it's a bu
 - [Contributing Guidelines](#contributing-guidelines)
 - [Our History and Ethos](#our-history-and-ethos)
 - [Our Design](#our-design)
+  - [Semantic versioning](#semantic-versioning)
+    - [Semantic versioning and enumeration cases](#semantic-versioning-and-enumeration-cases)
 - [Development Process](#development-process)
   - [Setting up for local development](#setting-up-for-local-development)
-    - [Packages inside Amplify Flutter](#packages-inside-amplify-flutter)
+      - [Packages inside Amplify Flutter](#packages-inside-amplify-flutter)
     - [Platform Setup](#platform-setup)
       - [Linux](#linux)
   - [Steps towards contributions](#steps-towards-contributions)
@@ -43,6 +45,17 @@ As more and more modules were introduced to AWS Amplify, it became necessary to 
 Modular import prevents unnecessary code dependencies from being included with the app, and thus decreases the bundle size while enabling added new functionality without the risk of introducing errors related to unused code.
 
 Amplify has established the concepts of categories and plugins. A category is a collection of api calls that are exposed to the client to do things inside that category. For example, in the storage category, generally one wants to upload and download objects from storage so the apis exposed to the client will represent that functionality. Because Amplify is pluggable, a plugin of your choosing will provide the actual implementation behind that api interface. Using the same example of Storage, the plugin we choose might be AWSStoragePlugin which would then implement each api call from the category with a service call or set of service calls to S3, the underlying storage provider of the AWS plugin.
+
+## Semantic versioning
+
+We follow [semantic versioning](https://dart.dev/tools/pub/versioning#semantic-versions) for our releases.
+
+### Semantic versioning and enumeration cases
+
+When Amplify adds a new enumeration entry or sealed class subtype, we will publish a new **minor** version of the library.
+
+Applications that use a `switch` statement to evaluate all members of an enumerated type can add a `default` clause to prevent 
+new cases from causing compile warnings or errors.
 
 # Development Process
 

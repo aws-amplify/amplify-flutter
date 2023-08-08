@@ -1,14 +1,17 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.list_stack_set_operation_results_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
+import 'package:built_collection/built_collection.dart' as _i5;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart'
     as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/operation_result_filter.dart'
+    as _i4;
 
 part 'list_stack_set_operation_results_input.g.dart';
 
@@ -25,6 +28,7 @@ abstract class ListStackSetOperationResultsInput
     String? nextToken,
     int? maxResults,
     _i3.CallAs? callAs,
+    List<_i4.OperationResultFilter>? filters,
   }) {
     return _$ListStackSetOperationResultsInput._(
       stackSetName: stackSetName,
@@ -32,6 +36,7 @@ abstract class ListStackSetOperationResultsInput
       nextToken: nextToken,
       maxResults: maxResults,
       callAs: callAs,
+      filters: filters == null ? null : _i5.BuiltList(filters),
     );
   }
 
@@ -48,12 +53,8 @@ abstract class ListStackSetOperationResultsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListStackSetOperationResultsInputAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListStackSetOperationResultsInputBuilder b) {}
+  static const List<_i1.SmithySerializer<ListStackSetOperationResultsInput>>
+      serializers = [ListStackSetOperationResultsInputAwsQuerySerializer()];
 
   /// The name or unique ID of the stack set that you want to get operation results for.
   String get stackSetName;
@@ -77,6 +78,9 @@ abstract class ListStackSetOperationResultsInput
   ///
   ///     Your Amazon Web Services account must be registered as a delegated administrator in the management account. For more information, see [Register a delegated administrator](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html) in the _CloudFormation User Guide_.
   _i3.CallAs? get callAs;
+
+  /// The filter to apply to operation results.
+  _i5.BuiltList<_i4.OperationResultFilter>? get filters;
   @override
   ListStackSetOperationResultsInput getPayload() => this;
   @override
@@ -86,31 +90,36 @@ abstract class ListStackSetOperationResultsInput
         nextToken,
         maxResults,
         callAs,
+        filters,
       ];
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ListStackSetOperationResultsInput');
-    helper.add(
-      'stackSetName',
-      stackSetName,
-    );
-    helper.add(
-      'operationId',
-      operationId,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
-      'maxResults',
-      maxResults,
-    );
-    helper.add(
-      'callAs',
-      callAs,
-    );
+        newBuiltValueToStringHelper('ListStackSetOperationResultsInput')
+          ..add(
+            'stackSetName',
+            stackSetName,
+          )
+          ..add(
+            'operationId',
+            operationId,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          )
+          ..add(
+            'maxResults',
+            maxResults,
+          )
+          ..add(
+            'callAs',
+            callAs,
+          )
+          ..add(
+            'filters',
+            filters,
+          );
     return helper.toString();
   }
 }
@@ -173,6 +182,17 @@ class ListStackSetOperationResultsInputAwsQuerySerializer
             value,
             specifiedType: const FullType(_i3.CallAs),
           ) as _i3.CallAs);
+        case 'Filters':
+          result.filters.replace((const _i1.XmlBuiltListSerializer(
+                  indexer: _i1.XmlIndexer.awsQueryList)
+              .deserialize(
+            serializers,
+            value is String ? const [] : (value as Iterable<Object?>),
+            specifiedType: const FullType(
+              _i5.BuiltList,
+              [FullType(_i4.OperationResultFilter)],
+            ),
+          ) as _i5.BuiltList<_i4.OperationResultFilter>));
       }
     }
 
@@ -196,7 +216,8 @@ class ListStackSetOperationResultsInputAwsQuerySerializer
       :operationId,
       :nextToken,
       :maxResults,
-      :callAs
+      :callAs,
+      :filters
     ) = object;
     result$
       ..add(const _i1.XmlElementName('StackSetName'))
@@ -232,6 +253,20 @@ class ListStackSetOperationResultsInputAwsQuerySerializer
         ..add(serializers.serialize(
           callAs,
           specifiedType: const FullType.nullable(_i3.CallAs),
+        ));
+    }
+    if (filters != null) {
+      result$
+        ..add(const _i1.XmlElementName('Filters'))
+        ..add(const _i1.XmlBuiltListSerializer(
+                indexer: _i1.XmlIndexer.awsQueryList)
+            .serialize(
+          serializers,
+          filters,
+          specifiedType: const FullType.nullable(
+            _i5.BuiltList,
+            [FullType(_i4.OperationResultFilter)],
+          ),
         ));
     }
     return result$;

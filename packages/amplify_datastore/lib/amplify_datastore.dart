@@ -15,7 +15,8 @@ import 'package:meta/meta.dart';
 export 'package:amplify_core/src/types/datastore/datastore_types.dart'
     hide DateTimeParse;
 
-class AmplifyDataStore extends DataStorePluginInterface {
+class AmplifyDataStore extends DataStorePluginInterface
+    with AWSDebuggable, AmplifyLoggerMixin {
   /// Constructs an AmplifyDataStore plugin with mandatory [modelProvider]
   /// and optional datastore configuration properties including
   ///
@@ -77,16 +78,13 @@ class AmplifyDataStore extends DataStorePluginInterface {
       } on PlatformException catch (e) {
         if (e.code.contains('AmplifyAlreadyConfiguredException') ||
             e.code.contains('AlreadyConfiguredException')) {
-          throw const AmplifyAlreadyConfiguredException(
-            AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
-            recoverySuggestion:
-                AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion,
+          logger.debug('Ignoring Amplify Native already configured exception');
+        } else {
+          throw ConfigurationError(
+            e.message ?? 'An unknown error occurred',
+            underlyingException: e,
           );
         }
-        throw ConfigurationError(
-          e.message ?? 'An unknown error occurred',
-          underlyingException: e,
-        );
       }
       // Update the native cache for the current user on hub events.
       Future<void> updateCurrentUser(AuthUser? currentUser) async {
@@ -129,16 +127,13 @@ class AmplifyDataStore extends DataStorePluginInterface {
       } on PlatformException catch (e) {
         if (e.code.contains('AmplifyAlreadyConfiguredException') ||
             e.code.contains('AlreadyConfiguredException')) {
-          throw const AmplifyAlreadyConfiguredException(
-            AmplifyExceptionMessages.alreadyConfiguredDefaultMessage,
-            recoverySuggestion:
-                AmplifyExceptionMessages.alreadyConfiguredDefaultSuggestion,
+          logger.debug('Ignoring Amplify Native already configured exception');
+        } else {
+          throw ConfigurationError(
+            e.message ?? 'An unknown error occurred',
+            underlyingException: e,
           );
         }
-        throw ConfigurationError(
-          e.message ?? 'An unknown error occurred',
-          underlyingException: e,
-        );
       }
     }
 
@@ -154,6 +149,7 @@ class AmplifyDataStore extends DataStorePluginInterface {
           Map<String, String>.from(e.details as Map),
         );
       } else if (e.code == 'AmplifyAlreadyConfiguredException') {
+        logger.debug('Ignoring Amplify Native already configured exception');
         return;
       } else {
         // This shouldn't happen. All exceptions coming from platform for
@@ -253,6 +249,9 @@ class AmplifyDataStore extends DataStorePluginInterface {
       throttleOptions: throttleOptions,
     );
   }
+
+  @override
+  String get runtimeTypeName => 'AmplifyDataStore';
 }
 
 class _NativeAmplifyAuthCognito

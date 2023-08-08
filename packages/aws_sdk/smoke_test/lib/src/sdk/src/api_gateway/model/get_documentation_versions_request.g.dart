@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.get_documentation_versions_request;
+part of 'get_documentation_versions_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -73,9 +73,7 @@ class GetDocumentationVersionsRequestBuilder
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
 
-  GetDocumentationVersionsRequestBuilder() {
-    GetDocumentationVersionsRequest._init(this);
-  }
+  GetDocumentationVersionsRequestBuilder();
 
   GetDocumentationVersionsRequestBuilder get _$this {
     final $v = _$v;
@@ -152,9 +150,7 @@ class GetDocumentationVersionsRequestPayloadBuilder
             GetDocumentationVersionsRequestPayloadBuilder> {
   _$GetDocumentationVersionsRequestPayload? _$v;
 
-  GetDocumentationVersionsRequestPayloadBuilder() {
-    GetDocumentationVersionsRequestPayload._init(this);
-  }
+  GetDocumentationVersionsRequestPayloadBuilder();
 
   @override
   void replace(GetDocumentationVersionsRequestPayload other) {

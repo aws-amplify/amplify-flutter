@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.managed_execution; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -25,12 +25,9 @@ abstract class ManagedExecution
 
   const ManagedExecution._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ManagedExecution>> serializers = [
     ManagedExecutionAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ManagedExecutionBuilder b) {}
 
   /// When `true`, StackSets performs non-conflicting operations concurrently and queues conflicting operations. After conflicting operations finish, StackSets starts queued operations in request order.
   ///
@@ -44,11 +41,11 @@ abstract class ManagedExecution
   List<Object?> get props => [active];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ManagedExecution');
-    helper.add(
-      'active',
-      active,
-    );
+    final helper = newBuiltValueToStringHelper('ManagedExecution')
+      ..add(
+        'active',
+        active,
+      );
     return helper.toString();
   }
 }

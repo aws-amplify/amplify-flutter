@@ -69,9 +69,7 @@ class ErrorBuilder implements Builder<Error, ErrorBuilder> {
   String? get message => _$this._message;
   set message(String? message) => _$this._message = message;
 
-  ErrorBuilder() {
-    Error._init(this);
-  }
+  ErrorBuilder();
 
   ErrorBuilder get _$this {
     final $v = _$v;

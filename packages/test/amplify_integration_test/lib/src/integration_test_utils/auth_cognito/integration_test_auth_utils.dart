@@ -6,9 +6,26 @@ import 'dart:convert';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_integration_test/amplify_integration_test.dart';
+import 'package:amplify_integration_test/src/sdk/src/cognito_identity_provider/common/serializers.dart';
+import 'package:built_value/iso_8601_date_time_serializer.dart';
+import 'package:built_value/serializer.dart';
+import 'package:built_value/standard_json_plugin.dart';
 import 'package:collection/collection.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:test/scaffolding.dart';
+
+export 'package:amplify_integration_test/src/sdk/cognito_identity_provider.dart'
+    show
+        AuthEventType,
+        EventContextDataType,
+        EventFeedbackType,
+        EventType,
+        EventTypeHelpers,
+        EventResponseType,
+        EventResponseTypeHelpers,
+        EventRiskType,
+        RiskDecisionType,
+        RiskDecisionTypeHelpers;
 
 final _logger =
     AmplifyLogger.category(Category.auth).createChild('IntegrationTestUtils');
@@ -32,11 +49,51 @@ Future<Map<String, Object?>> _graphQL(
   return responseJson;
 }
 
+final Serializers _serializers = () {
+  final builder = Serializers().toBuilder()..addPlugin(StandardJsonPlugin());
+  for (final builderFactory in builderFactories.entries) {
+    builder.addBuilderFactory(builderFactory.key, builderFactory.value);
+  }
+  builder
+    ..addAll(serializers)
+    ..add(Iso8601DateTimeSerializer()); // since we're serializing JSON in JS
+  return builder.build();
+}();
+
+/// Lists auth events for the given [username].
+///
+/// This method only works in user pools with advanced security features (ASF)
+/// enabled.
+Future<List<AuthEventType>> adminListAuthEvents(String username) async {
+  final result = await _graphQL(
+    r'''
+query ListAuthEvents($username: String!) {
+  listAuthEvents(username: $username)
+}
+''',
+    variables: <String, dynamic>{
+      'username': username,
+    },
+  );
+
+  final eventsJson =
+      jsonDecode(result['listAuthEvents'] as String) as List<Object?>;
+  final events = <AuthEventType>[];
+  for (final eventJson in eventsJson) {
+    final event = _serializers.deserialize(
+      eventJson,
+      specifiedType: const FullType(AuthEventType),
+    ) as AuthEventType;
+    events.add(event);
+  }
+  return events;
+}
+
 /// Deletes a Cognito user in backend infrastructure.
 ///
 /// This method differs from the Auth.deleteUser API in that
 /// an access token is not required.
-Future<void> deleteUser(String username) async {
+Future<void> adminDeleteUser(String username) async {
   final result = await _graphQL(
     r'''
 mutation DeleteUser($username: String!) {
@@ -49,11 +106,14 @@ mutation DeleteUser($username: String!) {
       'username': username,
     },
   );
+  _logger.debug('Got deleteUser result: $result');
 
   final deleteError = (result['deleteUser'] as Map?)?['error'];
   if (deleteError != null) {
     throw Exception(deleteError);
   }
+
+  _logger.debug('Successfully deleted user "$username"');
 }
 
 /// Deletes a Cognito device identified by [deviceKey].
@@ -100,48 +160,36 @@ Future<String> adminCreateUser(
   bool autoConfirm = false,
   bool enableMfa = false,
   bool verifyAttributes = false,
+  bool autoFillAttributes = true,
   List<AuthUserAttribute> attributes = const [],
 }) async {
   final createUserParams = <String, dynamic>{
     'autoConfirm': autoConfirm,
     'email': attributes
-        .firstWhere(
-          (el) => el.userAttributeKey.key == AuthUserAttributeKey.email.key,
-          orElse: () => AuthUserAttribute(
-            userAttributeKey: AuthUserAttributeKey.email,
-            value: generateEmail(),
-          ),
-        )
-        .value,
+            .firstWhereOrNull(
+              (el) => el.userAttributeKey == AuthUserAttributeKey.email,
+            )
+            ?.value ??
+        (autoFillAttributes ? generateEmail() : null),
     'enableMFA': enableMfa,
     'givenName': attributes
-        .firstWhere(
-          (el) => el.userAttributeKey.key == AuthUserAttributeKey.givenName.key,
-          orElse: () => const AuthUserAttribute(
-            userAttributeKey: AuthUserAttributeKey.givenName,
-            value: 'default_given_name',
-          ),
-        )
-        .value,
+            .firstWhereOrNull(
+              (el) => el.userAttributeKey == AuthUserAttributeKey.givenName,
+            )
+            ?.value ??
+        (autoFillAttributes ? 'default_given_name' : null),
     'name': attributes
-        .firstWhere(
-          (el) => el.userAttributeKey.key == AuthUserAttributeKey.name.key,
-          orElse: () => const AuthUserAttribute(
-            userAttributeKey: AuthUserAttributeKey.name,
-            value: 'default_name',
-          ),
-        )
-        .value,
+            .firstWhereOrNull(
+              (el) => el.userAttributeKey == AuthUserAttributeKey.name,
+            )
+            ?.value ??
+        (autoFillAttributes ? 'default_name' : null),
     'phoneNumber': attributes
-        .firstWhere(
-          (el) =>
-              el.userAttributeKey.key == AuthUserAttributeKey.phoneNumber.key,
-          orElse: () => AuthUserAttribute(
-            userAttributeKey: AuthUserAttributeKey.phoneNumber,
-            value: generatePhoneNumber(),
-          ),
-        )
-        .value,
+            .firstWhereOrNull(
+              (el) => el.userAttributeKey == AuthUserAttributeKey.phoneNumber,
+            )
+            ?.value ??
+        (autoFillAttributes ? generatePhoneNumber() : null),
     'username': username,
     'verifyAttributes': verifyAttributes,
   };
@@ -164,7 +212,7 @@ Future<String> adminCreateUser(
       },
     },
   );
-  _logger.debug('Got result: $result');
+  _logger.debug('Got createUser result: $result');
 
   final createError = (result['createUser'] as Map?)?['error'];
   if (createError != null) {
@@ -178,13 +226,15 @@ Future<String> adminCreateUser(
     try {
       await _oneOf([
         // TODO(dnys1): Cognito cannot always delete a user by `cognitoUsername`. Why?
-        deleteUser(username),
-        deleteUser(cognitoUsername),
+        adminDeleteUser(username),
+        adminDeleteUser(cognitoUsername),
       ]);
     } on Exception catch (e) {
       _logger.debug('Error deleting user ($username / $cognitoUsername):', e);
     }
   });
+
+  _logger.debug('Successfully created user "$username"');
 
   return cognitoUsername;
 }

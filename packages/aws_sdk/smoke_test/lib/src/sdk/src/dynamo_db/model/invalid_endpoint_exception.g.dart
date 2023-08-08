@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.invalid_endpoint_exception;
+part of 'invalid_endpoint_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class InvalidEndpointExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InvalidEndpointExceptionBuilder() {
-    InvalidEndpointException._init(this);
-  }
+  InvalidEndpointExceptionBuilder();
 
   InvalidEndpointExceptionBuilder get _$this {
     final $v = _$v;

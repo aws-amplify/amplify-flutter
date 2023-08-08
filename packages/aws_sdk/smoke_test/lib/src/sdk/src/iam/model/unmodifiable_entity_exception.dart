@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.unmodifiable_entity_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -10,18 +10,18 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'unmodifiable_entity_exception.g.dart';
 
-/// The request was rejected because only the service that depends on the service-linked role can modify or delete the role on your behalf. The error message includes the name of the service that depends on this service-linked role. You must request the change through that service.
+/// The request was rejected because service-linked roles are protected Amazon Web Services resources. Only the service that depends on the service-linked role can modify or delete the role on your behalf. The error message includes the name of the service that depends on this service-linked role. You must request the change through that service.
 abstract class UnmodifiableEntityException
     with _i1.AWSEquatable<UnmodifiableEntityException>
     implements
         Built<UnmodifiableEntityException, UnmodifiableEntityExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// The request was rejected because only the service that depends on the service-linked role can modify or delete the role on your behalf. The error message includes the name of the service that depends on this service-linked role. You must request the change through that service.
+  /// The request was rejected because service-linked roles are protected Amazon Web Services resources. Only the service that depends on the service-linked role can modify or delete the role on your behalf. The error message includes the name of the service that depends on this service-linked role. You must request the change through that service.
   factory UnmodifiableEntityException({String? message}) {
     return _$UnmodifiableEntityException._(message: message);
   }
 
-  /// The request was rejected because only the service that depends on the service-linked role can modify or delete the role on your behalf. The error message includes the name of the service that depends on this service-linked role. You must request the change through that service.
+  /// The request was rejected because service-linked roles are protected Amazon Web Services resources. Only the service that depends on the service-linked role can modify or delete the role on your behalf. The error message includes the name of the service that depends on this service-linked role. You must request the change through that service.
   factory UnmodifiableEntityException.build(
           [void Function(UnmodifiableEntityExceptionBuilder) updates]) =
       _$UnmodifiableEntityException;
@@ -37,12 +37,9 @@ abstract class UnmodifiableEntityException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    UnmodifiableEntityExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<UnmodifiableEntityException>>
+      serializers = [UnmodifiableEntityExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UnmodifiableEntityExceptionBuilder b) {}
   @override
   String? get message;
   @override
@@ -64,11 +61,11 @@ abstract class UnmodifiableEntityException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UnmodifiableEntityException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('UnmodifiableEntityException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

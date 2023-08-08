@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.operation.list_conformance_pack_compliance_scores_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -24,7 +24,7 @@ import 'package:smoke_test/src/sdk/src/config_service/model/list_conformance_pac
 import 'package:smoke_test/src/sdk/src/config_service/model/list_conformance_pack_compliance_scores_response.dart'
     as _i3;
 
-/// Returns a list of conformance pack compliance scores. A compliance score is the percentage of the number of compliant rule-resource combinations in a conformance pack compared to the number of total possible rule-resource combinations in the conformance pack. This metric provides you with a high-level view of the compliance state of your conformance packs, and can be used to identify, investigate, and understand the level of compliance in your conformance packs.
+/// Returns a list of conformance pack compliance scores. A compliance score is the percentage of the number of compliant rule-resource combinations in a conformance pack compared to the number of total possible rule-resource combinations in the conformance pack. This metric provides you with a high-level view of the compliance state of your conformance packs. You can use it to identify, investigate, and understand the level of compliance in your conformance packs.
 ///
 /// Conformance packs with no evaluation results will have a compliance score of `INSUFFICIENT_DATA`.
 class ListConformancePackComplianceScoresOperation
@@ -36,7 +36,7 @@ class ListConformancePackComplianceScoresOperation
         String,
         int,
         _i3.ListConformancePackComplianceScoresResponse> {
-  /// Returns a list of conformance pack compliance scores. A compliance score is the percentage of the number of compliant rule-resource combinations in a conformance pack compared to the number of total possible rule-resource combinations in the conformance pack. This metric provides you with a high-level view of the compliance state of your conformance packs, and can be used to identify, investigate, and understand the level of compliance in your conformance packs.
+  /// Returns a list of conformance pack compliance scores. A compliance score is the percentage of the number of compliant rule-resource combinations in a conformance pack compared to the number of total possible rule-resource combinations in the conformance pack. This metric provides you with a high-level view of the compliance state of your conformance packs. You can use it to identify, investigate, and understand the level of compliance in your conformance packs.
   ///
   /// Conformance packs with no evaluation results will have a compliance score of `INSUFFICIENT_DATA`.
   ListConformancePackComplianceScoresOperation({
@@ -120,7 +120,7 @@ class ListConformancePackComplianceScoresOperation
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InvalidLimitException, _i9.InvalidLimitException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidLimitException',
@@ -129,7 +129,8 @@ class ListConformancePackComplianceScoresOperation
           _i9.InvalidLimitException,
           builder: _i9.InvalidLimitException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidNextTokenException,
+            _i10.InvalidNextTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidNextTokenException',
@@ -138,7 +139,8 @@ class ListConformancePackComplianceScoresOperation
           _i10.InvalidNextTokenException,
           builder: _i10.InvalidNextTokenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidParameterValueException,
+            _i11.InvalidParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidParameterValueException',
@@ -170,7 +172,7 @@ class ListConformancePackComplianceScoresOperation
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }
@@ -190,8 +192,6 @@ class ListConformancePackComplianceScoresOperation
   ) =>
       input.rebuild((b) {
         b.nextToken = token;
-        if (pageSize != null) {
-          b.limit = pageSize;
-        }
+        b.limit = pageSize;
       });
 }

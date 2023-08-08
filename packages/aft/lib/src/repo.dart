@@ -90,7 +90,7 @@ class Repo {
 
   /// Returns the directed graph of packages to the packages it depends on.
   ///
-  /// Will include dev dependencies if [includeDevDependencies] is true.
+  /// Will include dev dependencies if [includeDevDependencies] is `true`.
   Map<PackageInfo, List<PackageInfo>> getPackageGraph({
     bool includeDevDependencies = false,
   }) =>
@@ -114,8 +114,18 @@ class Repo {
   ///
   /// Provides a mapping from each packages to the packages which directly
   /// depend on it.
-  late final Map<PackageInfo, List<PackageInfo>> reversedPackageGraph = () {
-    final packageGraph = this.packageGraph;
+  late final Map<PackageInfo, List<PackageInfo>> reversedPackageGraph =
+      getReversedPackageGraph();
+
+  /// Returns the directed graph of packages to the packages which depend on it.
+  ///
+  /// Will include dev dependencies if [includeDevDependencies] is `true`.
+  Map<PackageInfo, List<PackageInfo>> getReversedPackageGraph({
+    bool includeDevDependencies = false,
+  }) {
+    final packageGraph = getPackageGraph(
+      includeDevDependencies: includeDevDependencies,
+    );
     final reversedPackageGraph = <PackageInfo, List<PackageInfo>>{
       for (final package in allPackages.values) package: [],
     };
@@ -125,7 +135,7 @@ class Repo {
       }
     }
     return UnmodifiableMapView(reversedPackageGraph);
-  }();
+  }
 
   /// The git diff between [oldTree] and [newTree].
   ///
@@ -333,6 +343,12 @@ class Repo {
         ['version'],
         newVersion.toString(),
       );
+      // Packages which depend on the package being bumped.
+      final packageDependents = allPackages.values.where(
+        (pkg) =>
+            pkg.pubspecInfo.pubspec.dependencies.keys.contains(package.name) ||
+            pkg.pubspecInfo.pubspec.devDependencies.keys.contains(package.name),
+      );
       if (commit.isBreakingChange) {
         // Back-propagate to all dependent packages for breaking changes.
         //
@@ -341,13 +357,7 @@ class Repo {
         logger.verbose(
           'Breaking change. Performing dfs on dependent packages...',
         );
-        for (final dependent in allPackages.values.where(
-          (pkg) =>
-              pkg.pubspecInfo.pubspec.dependencies.keys
-                  .contains(package.name) ||
-              pkg.pubspecInfo.pubspec.devDependencies.keys
-                  .contains(package.name),
-        )) {
+        for (final dependent in packageDependents) {
           logger.verbose('found dependent package ${dependent.name}');
           if (dependent.isPublishable && canBump(dependent)) {
             bumpVersion(
@@ -358,6 +368,12 @@ class Repo {
               includeInChangelog: false,
             );
           }
+          updateConstraint(package, dependent);
+        }
+      } else if (type == VersionBumpType.nonBreaking) {
+        // For non-breaking changes, we still need to update all constraints
+        // since we "pin" to minor versions.
+        for (final dependent in packageDependents) {
           updateConstraint(package, dependent);
         }
       }
@@ -433,7 +449,7 @@ class Repo {
       dependent.pubspecInfo.pubspecYamlEditor.update(
         [
           if (hasDependency) 'dependencies' else 'dev_dependencies',
-          package.name
+          package.name,
         ],
         newConstraint,
       );

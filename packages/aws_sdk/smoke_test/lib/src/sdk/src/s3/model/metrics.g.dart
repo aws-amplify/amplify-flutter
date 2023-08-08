@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.metrics;
+part of 'metrics.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -57,9 +57,7 @@ class MetricsBuilder implements Builder<Metrics, MetricsBuilder> {
   set eventThreshold(_i3.ReplicationTimeValueBuilder? eventThreshold) =>
       _$this._eventThreshold = eventThreshold;
 
-  MetricsBuilder() {
-    Metrics._init(this);
-  }
+  MetricsBuilder();
 
   MetricsBuilder get _$this {
     final $v = _$v;

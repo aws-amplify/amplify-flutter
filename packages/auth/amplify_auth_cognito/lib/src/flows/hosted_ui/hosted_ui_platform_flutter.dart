@@ -123,6 +123,9 @@ class HostedUiPlatformImpl extends io.HostedUiPlatformImpl {
     if (!_isMobile) {
       return super.signOut(options: options);
     }
+    // Launching the sign out url is not needed on iOS if isPreferPrivateSession
+    // is true.
+    if (Platform.isIOS && options.isPreferPrivateSession) return;
     final signOutUri = getSignOutUri();
     await _nativeAuthBridge.signOutWithUrl(
       signOutUri.toString(),

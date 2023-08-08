@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of custom_v2.s3.model.copy_object_output;
+part of 'copy_object_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -50,9 +50,7 @@ class CopyObjectOutputBuilder
   set copyObjectResult(_i3.CopyObjectResultBuilder? copyObjectResult) =>
       _$this._copyObjectResult = copyObjectResult;
 
-  CopyObjectOutputBuilder() {
-    CopyObjectOutput._init(this);
-  }
+  CopyObjectOutputBuilder();
 
   CopyObjectOutputBuilder get _$this {
     final $v = _$v;

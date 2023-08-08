@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.continue_update_rollback_output;
+part of 'continue_update_rollback_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -40,9 +40,7 @@ class ContinueUpdateRollbackOutputBuilder
             ContinueUpdateRollbackOutputBuilder> {
   _$ContinueUpdateRollbackOutput? _$v;
 
-  ContinueUpdateRollbackOutputBuilder() {
-    ContinueUpdateRollbackOutput._init(this);
-  }
+  ContinueUpdateRollbackOutputBuilder();
 
   @override
   void replace(ContinueUpdateRollbackOutput other) {

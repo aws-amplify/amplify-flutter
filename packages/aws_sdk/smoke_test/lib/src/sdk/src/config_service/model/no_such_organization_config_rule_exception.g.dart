@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.no_such_organization_config_rule_exception;
+part of 'no_such_organization_config_rule_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -69,9 +69,7 @@ class NoSuchOrganizationConfigRuleExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  NoSuchOrganizationConfigRuleExceptionBuilder() {
-    NoSuchOrganizationConfigRuleException._init(this);
-  }
+  NoSuchOrganizationConfigRuleExceptionBuilder();
 
   NoSuchOrganizationConfigRuleExceptionBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.delete_method_response_request;
+part of 'delete_method_response_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -89,9 +89,7 @@ class DeleteMethodResponseRequestBuilder
   String? get statusCode => _$this._statusCode;
   set statusCode(String? statusCode) => _$this._statusCode = statusCode;
 
-  DeleteMethodResponseRequestBuilder() {
-    DeleteMethodResponseRequest._init(this);
-  }
+  DeleteMethodResponseRequestBuilder();
 
   DeleteMethodResponseRequestBuilder get _$this {
     final $v = _$v;
@@ -172,9 +170,7 @@ class DeleteMethodResponseRequestPayloadBuilder
             DeleteMethodResponseRequestPayloadBuilder> {
   _$DeleteMethodResponseRequestPayload? _$v;
 
-  DeleteMethodResponseRequestPayloadBuilder() {
-    DeleteMethodResponseRequestPayload._init(this);
-  }
+  DeleteMethodResponseRequestPayloadBuilder();
 
   @override
   void replace(DeleteMethodResponseRequestPayload other) {

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.update_stack_set_output;
+part of 'update_stack_set_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -48,9 +48,7 @@ class UpdateStackSetOutputBuilder
   String? get operationId => _$this._operationId;
   set operationId(String? operationId) => _$this._operationId = operationId;
 
-  UpdateStackSetOutputBuilder() {
-    UpdateStackSetOutput._init(this);
-  }
+  UpdateStackSetOutputBuilder();
 
   UpdateStackSetOutputBuilder get _$this {
     final $v = _$v;

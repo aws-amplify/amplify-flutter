@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.replication_rule;
+part of 'replication_rule.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -139,9 +139,7 @@ class ReplicationRuleBuilder
           _i7.DeleteMarkerReplicationBuilder? deleteMarkerReplication) =>
       _$this._deleteMarkerReplication = deleteMarkerReplication;
 
-  ReplicationRuleBuilder() {
-    ReplicationRule._init(this);
-  }
+  ReplicationRuleBuilder();
 
   ReplicationRuleBuilder get _$this {
     final $v = _$v;

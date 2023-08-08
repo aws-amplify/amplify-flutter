@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.table_creation_parameters;
+part of 'table_creation_parameters.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -129,9 +129,7 @@ class TableCreationParametersBuilder
           _i8.ListBuilder<_i7.GlobalSecondaryIndex>? globalSecondaryIndexes) =>
       _$this._globalSecondaryIndexes = globalSecondaryIndexes;
 
-  TableCreationParametersBuilder() {
-    TableCreationParameters._init(this);
-  }
+  TableCreationParametersBuilder();
 
   TableCreationParametersBuilder get _$this {
     final $v = _$v;

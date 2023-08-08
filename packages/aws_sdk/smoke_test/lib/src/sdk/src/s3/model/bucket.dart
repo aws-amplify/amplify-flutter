@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.bucket; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -30,12 +30,9 @@ abstract class Bucket
 
   const Bucket._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Bucket>> serializers = [
     BucketRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BucketBuilder b) {}
 
   /// The name of the bucket.
   String? get name;
@@ -49,15 +46,15 @@ abstract class Bucket
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Bucket');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'creationDate',
-      creationDate,
-    );
+    final helper = newBuiltValueToStringHelper('Bucket')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'creationDate',
+        creationDate,
+      );
     return helper.toString();
   }
 }

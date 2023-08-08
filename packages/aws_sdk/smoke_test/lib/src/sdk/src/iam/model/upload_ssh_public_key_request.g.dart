@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.upload_ssh_public_key_request;
+part of 'upload_ssh_public_key_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -66,9 +66,7 @@ class UploadSshPublicKeyRequestBuilder
   set sshPublicKeyBody(String? sshPublicKeyBody) =>
       _$this._sshPublicKeyBody = sshPublicKeyBody;
 
-  UploadSshPublicKeyRequestBuilder() {
-    UploadSshPublicKeyRequest._init(this);
-  }
+  UploadSshPublicKeyRequestBuilder();
 
   UploadSshPublicKeyRequestBuilder get _$this {
     final $v = _$v;

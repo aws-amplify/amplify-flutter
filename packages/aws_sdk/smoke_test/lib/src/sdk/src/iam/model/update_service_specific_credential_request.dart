@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.update_service_specific_credential_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,12 +43,11 @@ abstract class UpdateServiceSpecificCredentialRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<UpdateServiceSpecificCredentialRequest>>
+      serializers = [
     UpdateServiceSpecificCredentialRequestAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateServiceSpecificCredentialRequestBuilder b) {}
 
   /// The name of the IAM user associated with the service-specific credential. If you do not specify this value, then the operation assumes the user whose credentials are used to call the operation.
   ///
@@ -73,19 +72,19 @@ abstract class UpdateServiceSpecificCredentialRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateServiceSpecificCredentialRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'serviceSpecificCredentialId',
-      serviceSpecificCredentialId,
-    );
-    helper.add(
-      'status',
-      status,
-    );
+        newBuiltValueToStringHelper('UpdateServiceSpecificCredentialRequest')
+          ..add(
+            'userName',
+            userName,
+          )
+          ..add(
+            'serviceSpecificCredentialId',
+            serviceSpecificCredentialId,
+          )
+          ..add(
+            'status',
+            status,
+          );
     return helper.toString();
   }
 }

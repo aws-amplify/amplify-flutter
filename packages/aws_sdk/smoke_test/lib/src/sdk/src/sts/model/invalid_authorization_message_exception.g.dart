@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.invalid_authorization_message_exception;
+part of 'invalid_authorization_message_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -61,9 +61,7 @@ class InvalidAuthorizationMessageExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InvalidAuthorizationMessageExceptionBuilder() {
-    InvalidAuthorizationMessageException._init(this);
-  }
+  InvalidAuthorizationMessageExceptionBuilder();
 
   InvalidAuthorizationMessageExceptionBuilder get _$this {
     final $v = _$v;

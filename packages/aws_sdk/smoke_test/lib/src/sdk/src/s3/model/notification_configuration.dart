@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.notification_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -59,12 +59,8 @@ abstract class NotificationConfiguration
   ) =>
       payload;
 
-  static const List<_i7.SmithySerializer> serializers = [
-    NotificationConfigurationRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NotificationConfigurationBuilder b) {}
+  static const List<_i7.SmithySerializer<NotificationConfiguration>>
+      serializers = [NotificationConfigurationRestXmlSerializer()];
 
   /// The topic to which notifications are sent and the events for which notifications are generated.
   _i6.BuiltList<_i2.TopicConfiguration>? get topicConfigurations;
@@ -87,23 +83,23 @@ abstract class NotificationConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('NotificationConfiguration');
-    helper.add(
-      'topicConfigurations',
-      topicConfigurations,
-    );
-    helper.add(
-      'queueConfigurations',
-      queueConfigurations,
-    );
-    helper.add(
-      'lambdaFunctionConfigurations',
-      lambdaFunctionConfigurations,
-    );
-    helper.add(
-      'eventBridgeConfiguration',
-      eventBridgeConfiguration,
-    );
+    final helper = newBuiltValueToStringHelper('NotificationConfiguration')
+      ..add(
+        'topicConfigurations',
+        topicConfigurations,
+      )
+      ..add(
+        'queueConfigurations',
+        queueConfigurations,
+      )
+      ..add(
+        'lambdaFunctionConfigurations',
+        lambdaFunctionConfigurations,
+      )
+      ..add(
+        'eventBridgeConfiguration',
+        eventBridgeConfiguration,
+      );
     return helper.toString();
   }
 }

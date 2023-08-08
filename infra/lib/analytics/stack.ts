@@ -1,10 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import * as cognito_identity from "@aws-cdk/aws-cognito-identitypool-alpha";
 import * as cdk from "aws-cdk-lib";
 import { Duration, Expiration, RemovalPolicy, Stack } from "aws-cdk-lib";
 import * as appsync from "aws-cdk-lib/aws-appsync";
-import * as cognito_identity from "@aws-cdk/aws-cognito-identitypool-alpha";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as kinesis from "aws-cdk-lib/aws-kinesis";
@@ -21,13 +21,29 @@ import {
   IntegrationTestStackEnvironmentProps
 } from "../common";
 
+export interface AnalyticsIntegrationTestStackEnvironmentProps extends IntegrationTestStackEnvironmentProps {
+  /**
+   * Whether unauthenticated users are allowed to access Pinpoint resources.
+   * 
+   * @default true
+   */
+  allowUnauthAccess?: boolean;
+
+  /**
+   * Whether the identity pool supports unauthenticated identities.
+   * 
+   * @default true
+   */
+  allowUnauthIdentites?: boolean;
+}
+
 export class AnalyticsIntegrationTestStack extends IntegrationTestStack<
-  IntegrationTestStackEnvironmentProps,
+  AnalyticsIntegrationTestStackEnvironmentProps,
   AnalyticsIntegrationTestStackEnvironment
 > {
   constructor(
     scope: Construct,
-    environments: IntegrationTestStackEnvironmentProps[],
+    environments: AnalyticsIntegrationTestStackEnvironmentProps[],
     props?: cdk.NestedStackProps
   ) {
     super({
@@ -39,7 +55,7 @@ export class AnalyticsIntegrationTestStack extends IntegrationTestStack<
   }
 
   protected buildEnvironments(
-    props: IntegrationTestStackEnvironmentProps[]
+    props: AnalyticsIntegrationTestStackEnvironmentProps[]
   ): AnalyticsIntegrationTestStackEnvironment[] {
     return props.map(
       (environment) =>
@@ -52,13 +68,15 @@ export class AnalyticsIntegrationTestStack extends IntegrationTestStack<
   }
 }
 
-class AnalyticsIntegrationTestStackEnvironment extends IntegrationTestStackEnvironment<IntegrationTestStackEnvironmentProps> {
+class AnalyticsIntegrationTestStackEnvironment extends IntegrationTestStackEnvironment<AnalyticsIntegrationTestStackEnvironmentProps> {
   constructor(
     scope: Construct,
     baseName: string,
-    props: IntegrationTestStackEnvironmentProps
+    props: AnalyticsIntegrationTestStackEnvironmentProps
   ) {
     super(scope, baseName, props);
+
+    const { allowUnauthAccess = true, allowUnauthIdentites = true } = props;
 
     const pinpointApp = new pinpoint.CfnApp(this, "PinpointApp", {
       name: this.name,
@@ -68,7 +86,7 @@ class AnalyticsIntegrationTestStackEnvironment extends IntegrationTestStackEnvir
     // to the `pinpointApp`.
 
     const identityPool = new cognito_identity.IdentityPool(this, "IdentityPool", {
-      allowUnauthenticatedIdentities: true,
+      allowUnauthenticatedIdentities: allowUnauthIdentites,
     });
 
     const pinpointStatement = new iam.PolicyStatement({
@@ -85,7 +103,9 @@ class AnalyticsIntegrationTestStackEnvironment extends IntegrationTestStackEnvir
         `${pinpointApp.attrArn}*`,
       ],
     });
-    identityPool.unauthenticatedRole.addToPrincipalPolicy(pinpointStatement);
+    if (allowUnauthAccess) {
+      identityPool.unauthenticatedRole.addToPrincipalPolicy(pinpointStatement);
+    }
 
     // Create a Kinesis Data Stream and configure Pinpoint to stream
     // events to it.

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.type_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -57,26 +57,23 @@ abstract class TypeSummary
 
   const TypeSummary._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<TypeSummary>> serializers = [
     TypeSummaryAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TypeSummaryBuilder b) {}
 
   /// The kind of extension.
   _i2.RegistryType? get type;
 
   /// The name of the extension.
   ///
-  /// If you specified a `TypeNameAlias` when you [activate this extension](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ActivateType.html) in your account and region, CloudFormation considers that alias as the type name.
+  /// If you specified a `TypeNameAlias` when you [activate this extension](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ActivateType.html) in your account and Region, CloudFormation considers that alias as the type name.
   String? get typeName;
 
   /// The ID of the default version of the extension. The default version is used when the extension version isn't specified.
   ///
   /// This applies only to private extensions you have registered in your account. For public extensions, both those provided by Amazon and published by third parties, CloudFormation returns `null`. For more information, see [RegisterType](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html).
   ///
-  /// To set the default version of an extension, use `SetTypeDefaultVersion` .
+  /// To set the default version of an extension, use SetTypeDefaultVersion.
   String? get defaultVersionId;
 
   /// The Amazon Resource Name (ARN) of the extension.
@@ -98,19 +95,19 @@ abstract class TypeSummary
   /// The ID of the extension publisher, if the extension is published by a third party. Extensions published by Amazon don't return a publisher ID.
   String? get publisherId;
 
-  /// For public extensions that have been activated for this account and region, the type name of the public extension.
+  /// For public extensions that have been activated for this account and Region, the type name of the public extension.
   ///
-  /// If you specified a `TypeNameAlias` when enabling the extension in this account and region, CloudFormation treats that alias as the extension's type name within the account and region, not the type name of the public extension. For more information, see [Specifying aliases to refer to extensions](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-public.html#registry-public-enable-alias) in the _CloudFormation User Guide_.
+  /// If you specified a `TypeNameAlias` when enabling the extension in this account and Region, CloudFormation treats that alias as the extension's type name within the account and Region, not the type name of the public extension. For more information, see [Specifying aliases to refer to extensions](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-public.html#registry-public-enable-alias) in the _CloudFormation User Guide_.
   String? get originalTypeName;
 
-  /// For public extensions that have been activated for this account and region, the version of the public extension to be used for CloudFormation operations in this account and Region.
+  /// For public extensions that have been activated for this account and Region, the version of the public extension to be used for CloudFormation operations in this account and Region.
   ///
-  /// How you specified `AutoUpdate` when enabling the extension affects whether CloudFormation automatically updates the extension in this account and region when a new version is released. For more information, see [Setting CloudFormation to automatically use new versions of extensions](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-public.html#registry-public-enable-auto) in the _CloudFormation User Guide_.
+  /// How you specified `AutoUpdate` when enabling the extension affects whether CloudFormation automatically updates the extension in this account and Region when a new version is released. For more information, see [Setting CloudFormation to automatically use new versions of extensions](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-public.html#registry-public-enable-auto) in the _CloudFormation User Guide_.
   String? get publicVersionNumber;
 
-  /// For public extensions that have been activated for this account and region, the latest version of the public extension _that is available_. For any extensions other than activated third-arty extensions, CloudFormation returns `null`.
+  /// For public extensions that have been activated for this account and Region, the latest version of the public extension _that is available_. For any extensions other than activated third-arty extensions, CloudFormation returns `null`.
   ///
-  /// How you specified `AutoUpdate` when enabling the extension affects whether CloudFormation automatically updates the extension in this account and region when a new version is released. For more information, see [Setting CloudFormation to automatically use new versions of extensions](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-public.html#registry-public-enable-auto) in the _CloudFormation User Guide_.
+  /// How you specified `AutoUpdate` when enabling the extension affects whether CloudFormation automatically updates the extension in this account and Region when a new version is released. For more information, see [Setting CloudFormation to automatically use new versions of extensions](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-public.html#registry-public-enable-auto) in the _CloudFormation User Guide_.
   String? get latestPublicVersion;
 
   /// The service used to verify the publisher identity.
@@ -121,7 +118,7 @@ abstract class TypeSummary
   /// The publisher name, as defined in the public profile for that publisher in the service used to verify the publisher identity.
   String? get publisherName;
 
-  /// Whether the extension is activated for this account and region.
+  /// Whether the extension is activated for this account and Region.
   ///
   /// This applies only to third-party public extensions. Extensions published by Amazon are activated by default.
   bool? get isActivated;
@@ -143,59 +140,59 @@ abstract class TypeSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TypeSummary');
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'typeName',
-      typeName,
-    );
-    helper.add(
-      'defaultVersionId',
-      defaultVersionId,
-    );
-    helper.add(
-      'typeArn',
-      typeArn,
-    );
-    helper.add(
-      'lastUpdated',
-      lastUpdated,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'publisherId',
-      publisherId,
-    );
-    helper.add(
-      'originalTypeName',
-      originalTypeName,
-    );
-    helper.add(
-      'publicVersionNumber',
-      publicVersionNumber,
-    );
-    helper.add(
-      'latestPublicVersion',
-      latestPublicVersion,
-    );
-    helper.add(
-      'publisherIdentity',
-      publisherIdentity,
-    );
-    helper.add(
-      'publisherName',
-      publisherName,
-    );
-    helper.add(
-      'isActivated',
-      isActivated,
-    );
+    final helper = newBuiltValueToStringHelper('TypeSummary')
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'typeName',
+        typeName,
+      )
+      ..add(
+        'defaultVersionId',
+        defaultVersionId,
+      )
+      ..add(
+        'typeArn',
+        typeArn,
+      )
+      ..add(
+        'lastUpdated',
+        lastUpdated,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'publisherId',
+        publisherId,
+      )
+      ..add(
+        'originalTypeName',
+        originalTypeName,
+      )
+      ..add(
+        'publicVersionNumber',
+        publicVersionNumber,
+      )
+      ..add(
+        'latestPublicVersion',
+        latestPublicVersion,
+      )
+      ..add(
+        'publisherIdentity',
+        publisherIdentity,
+      )
+      ..add(
+        'publisherName',
+        publisherName,
+      )
+      ..add(
+        'isActivated',
+        isActivated,
+      );
     return helper.toString();
   }
 }

@@ -73,9 +73,7 @@ class DeletedObjectBuilder
   set deleteMarkerVersionId(String? deleteMarkerVersionId) =>
       _$this._deleteMarkerVersionId = deleteMarkerVersionId;
 
-  DeletedObjectBuilder() {
-    DeletedObject._init(this);
-  }
+  DeletedObjectBuilder();
 
   DeletedObjectBuilder get _$this {
     final $v = _$v;

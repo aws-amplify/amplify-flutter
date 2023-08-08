@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.list_entities_for_policy_request;
+part of 'list_entities_for_policy_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -103,9 +103,7 @@ class ListEntitiesForPolicyRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  ListEntitiesForPolicyRequestBuilder() {
-    ListEntitiesForPolicyRequest._init(this);
-  }
+  ListEntitiesForPolicyRequestBuilder();
 
   ListEntitiesForPolicyRequestBuilder get _$this {
     final $v = _$v;

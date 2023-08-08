@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.delete_backup_output;
+part of 'delete_backup_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class DeleteBackupOutputBuilder
   set backupDescription(_i2.BackupDescriptionBuilder? backupDescription) =>
       _$this._backupDescription = backupDescription;
 
-  DeleteBackupOutputBuilder() {
-    DeleteBackupOutput._init(this);
-  }
+  DeleteBackupOutputBuilder();
 
   DeleteBackupOutputBuilder get _$this {
     final $v = _$v;

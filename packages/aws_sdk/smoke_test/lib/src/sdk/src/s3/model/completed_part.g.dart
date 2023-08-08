@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.completed_part;
+part of 'completed_part.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -96,9 +96,7 @@ class CompletedPartBuilder
   int? get partNumber => _$this._partNumber;
   set partNumber(int? partNumber) => _$this._partNumber = partNumber;
 
-  CompletedPartBuilder() {
-    CompletedPart._init(this);
-  }
+  CompletedPartBuilder();
 
   CompletedPartBuilder get _$this {
     final $v = _$v;

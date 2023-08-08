@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.invalid_state_transition_exception;
+part of 'invalid_state_transition_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -57,9 +57,7 @@ class InvalidStateTransitionExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InvalidStateTransitionExceptionBuilder() {
-    InvalidStateTransitionException._init(this);
-  }
+  InvalidStateTransitionExceptionBuilder();
 
   InvalidStateTransitionExceptionBuilder get _$this {
     final $v = _$v;

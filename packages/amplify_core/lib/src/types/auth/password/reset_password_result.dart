@@ -3,6 +3,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
+/// {@category Auth}
 /// {@template amplify_core.reset_password_result}
 /// The result of a password reset request.
 /// {@endtemplate}

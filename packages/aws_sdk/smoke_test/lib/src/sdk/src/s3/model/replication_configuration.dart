@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.replication_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,12 +35,8 @@ abstract class ReplicationConfiguration
 
   const ReplicationConfiguration._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ReplicationConfigurationRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicationConfigurationBuilder b) {}
+  static const List<_i4.SmithySerializer<ReplicationConfiguration>>
+      serializers = [ReplicationConfigurationRestXmlSerializer()];
 
   /// The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role that Amazon S3 assumes when replicating objects. For more information, see [How to Set Up Replication](https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-how-setup.html) in the _Amazon S3 User Guide_.
   String get role;
@@ -54,15 +50,15 @@ abstract class ReplicationConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ReplicationConfiguration');
-    helper.add(
-      'role',
-      role,
-    );
-    helper.add(
-      'rules',
-      rules,
-    );
+    final helper = newBuiltValueToStringHelper('ReplicationConfiguration')
+      ..add(
+        'role',
+        role,
+      )
+      ..add(
+        'rules',
+        rules,
+      );
     return helper.toString();
   }
 }

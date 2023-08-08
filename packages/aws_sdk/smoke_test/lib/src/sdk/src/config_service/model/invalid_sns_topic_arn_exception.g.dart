@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.invalid_sns_topic_arn_exception;
+part of 'invalid_sns_topic_arn_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class InvalidSnsTopicArnExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InvalidSnsTopicArnExceptionBuilder() {
-    InvalidSnsTopicArnException._init(this);
-  }
+  InvalidSnsTopicArnExceptionBuilder();
 
   InvalidSnsTopicArnExceptionBuilder get _$this {
     final $v = _$v;

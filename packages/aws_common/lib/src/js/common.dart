@@ -257,7 +257,10 @@ extension PropsMessagePort on MessagePort {
   ///
   /// Only needed when using `EventTarget.addEventListener`; it is implied when
   /// using [onMessage].
-  external void start();
+  void start() => _start();
+
+  @JS('start')
+  external void _start();
 
   /// Disconnects the port, so it is no longer active.
   external void close();

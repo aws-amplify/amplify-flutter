@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.describe_import_output;
+part of 'describe_import_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -56,9 +56,7 @@ class DescribeImportOutputBuilder
           _i2.ImportTableDescriptionBuilder? importTableDescription) =>
       _$this._importTableDescription = importTableDescription;
 
-  DescribeImportOutputBuilder() {
-    DescribeImportOutput._init(this);
-  }
+  DescribeImportOutputBuilder();
 
   DescribeImportOutputBuilder get _$this {
     final $v = _$v;

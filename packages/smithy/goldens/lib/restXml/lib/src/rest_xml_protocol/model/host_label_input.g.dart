@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v1.rest_xml_protocol.model.host_label_input;
+part of 'host_label_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -48,9 +48,7 @@ class HostLabelInputBuilder
   String? get label => _$this._label;
   set label(String? label) => _$this._label = label;
 
-  HostLabelInputBuilder() {
-    HostLabelInput._init(this);
-  }
+  HostLabelInputBuilder();
 
   HostLabelInputBuilder get _$this {
     final $v = _$v;

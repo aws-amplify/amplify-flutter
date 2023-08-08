@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.operation.delete_login_profile_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,7 +23,7 @@ import 'package:smoke_test/src/sdk/src/iam/model/no_such_entity_exception.dart'
 import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
     as _i11;
 
-/// Deletes the password for the specified IAM user, which terminates the user's ability to access Amazon Web Services services through the Amazon Web Services Management Console.
+/// Deletes the password for the specified IAM user, For more information, see [Managing passwords for IAM users](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_passwords_admin-change-user.html).
 ///
 /// You can use the CLI, the Amazon Web Services API, or the **Users** page in the IAM console to delete a password for any IAM user. You can use ChangePassword to update, but not delete, your own password in the **My Security Credentials** page in the Amazon Web Services Management Console.
 ///
@@ -33,7 +33,7 @@ class DeleteLoginProfileOperation extends _i1.HttpOperation<
     _i2.DeleteLoginProfileRequest,
     _i1.Unit,
     _i1.Unit> {
-  /// Deletes the password for the specified IAM user, which terminates the user's ability to access Amazon Web Services services through the Amazon Web Services Management Console.
+  /// Deletes the password for the specified IAM user, For more information, see [Managing passwords for IAM users](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_passwords_admin-change-user.html).
   ///
   /// You can use the CLI, the Amazon Web Services API, or the **Users** page in the IAM console to delete a password for any IAM user. You can use ChangePassword to update, but not delete, your own password in the **My Security Credentials** page in the Amazon Web Services Management Console.
   ///
@@ -131,7 +131,8 @@ class DeleteLoginProfileOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.EntityTemporarilyUnmodifiableException,
+            _i8.EntityTemporarilyUnmodifiableException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'EntityTemporarilyUnmodifiableException',
@@ -141,7 +142,7 @@ class DeleteLoginProfileOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i8.EntityTemporarilyUnmodifiableException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.LimitExceededException, _i9.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'LimitExceededException',
@@ -151,7 +152,7 @@ class DeleteLoginProfileOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i9.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.NoSuchEntityException, _i10.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
@@ -161,7 +162,8 @@ class DeleteLoginProfileOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i10.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.ServiceFailureException,
+            _i11.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',
@@ -194,7 +196,7 @@ class DeleteLoginProfileOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
+        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
       },
     );
   }

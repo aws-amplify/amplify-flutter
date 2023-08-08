@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.sts.model.get_federation_token_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,12 +44,8 @@ abstract class GetFederationTokenResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    GetFederationTokenResponseAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetFederationTokenResponseBuilder b) {}
+  static const List<_i4.SmithySerializer<GetFederationTokenResponse>>
+      serializers = [GetFederationTokenResponseAwsQuerySerializer()];
 
   /// The temporary security credentials, which include an access key ID, a secret access key, and a security (or session) token.
   ///
@@ -69,19 +65,19 @@ abstract class GetFederationTokenResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetFederationTokenResponse');
-    helper.add(
-      'credentials',
-      credentials,
-    );
-    helper.add(
-      'federatedUser',
-      federatedUser,
-    );
-    helper.add(
-      'packedPolicySize',
-      packedPolicySize,
-    );
+    final helper = newBuiltValueToStringHelper('GetFederationTokenResponse')
+      ..add(
+        'credentials',
+        credentials,
+      )
+      ..add(
+        'federatedUser',
+        federatedUser,
+      )
+      ..add(
+        'packedPolicySize',
+        packedPolicySize,
+      );
     return helper.toString();
   }
 }

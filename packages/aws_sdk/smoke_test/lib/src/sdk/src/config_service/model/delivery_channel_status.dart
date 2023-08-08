@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.delivery_channel_status; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -46,12 +46,9 @@ abstract class DeliveryChannelStatus
 
   const DeliveryChannelStatus._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<DeliveryChannelStatus>> serializers = [
     DeliveryChannelStatusAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeliveryChannelStatusBuilder b) {}
 
   /// The name of the delivery channel.
   String? get name;
@@ -73,23 +70,23 @@ abstract class DeliveryChannelStatus
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeliveryChannelStatus');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'configSnapshotDeliveryInfo',
-      configSnapshotDeliveryInfo,
-    );
-    helper.add(
-      'configHistoryDeliveryInfo',
-      configHistoryDeliveryInfo,
-    );
-    helper.add(
-      'configStreamDeliveryInfo',
-      configStreamDeliveryInfo,
-    );
+    final helper = newBuiltValueToStringHelper('DeliveryChannelStatus')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'configSnapshotDeliveryInfo',
+        configSnapshotDeliveryInfo,
+      )
+      ..add(
+        'configHistoryDeliveryInfo',
+        configHistoryDeliveryInfo,
+      )
+      ..add(
+        'configStreamDeliveryInfo',
+        configStreamDeliveryInfo,
+      );
     return helper.toString();
   }
 }

@@ -88,7 +88,7 @@ class MultiRelatedAttendee extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("MultiRelatedAttendee {");
     buffer.write("id=" + "$id" + ", ");
@@ -146,7 +146,7 @@ class MultiRelatedAttendee extends amplify_core.Model {
       };
 
   static final amplify_core
-          .QueryModelIdentifier<MultiRelatedAttendeeModelIdentifier>
+      .QueryModelIdentifier<MultiRelatedAttendeeModelIdentifier>
       MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<MultiRelatedAttendeeModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
@@ -211,7 +211,7 @@ class MultiRelatedAttendeeModelIdentifier
     implements amplify_core.ModelIdentifier<MultiRelatedAttendee> {
   final String id;
 
-  /// Create an instance of MultiRelatedAttendeeModelIdentifier using [id] the primary key.
+  /** Create an instance of MultiRelatedAttendeeModelIdentifier using [id] the primary key. */
   const MultiRelatedAttendeeModelIdentifier({required this.id});
 
   @override

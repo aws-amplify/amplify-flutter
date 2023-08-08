@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.global_table_global_secondary_index_settings_update;
+part of 'global_table_global_secondary_index_settings_update.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -92,9 +92,7 @@ class GlobalTableGlobalSecondaryIndexSettingsUpdateBuilder
       _$this._provisionedWriteCapacityAutoScalingSettingsUpdate =
           provisionedWriteCapacityAutoScalingSettingsUpdate;
 
-  GlobalTableGlobalSecondaryIndexSettingsUpdateBuilder() {
-    GlobalTableGlobalSecondaryIndexSettingsUpdate._init(this);
-  }
+  GlobalTableGlobalSecondaryIndexSettingsUpdateBuilder();
 
   GlobalTableGlobalSecondaryIndexSettingsUpdateBuilder get _$this {
     final $v = _$v;

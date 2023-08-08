@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.describe_remediation_configurations_response;
+part of 'describe_remediation_configurations_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -62,9 +62,7 @@ class DescribeRemediationConfigurationsResponseBuilder
               remediationConfigurations) =>
       _$this._remediationConfigurations = remediationConfigurations;
 
-  DescribeRemediationConfigurationsResponseBuilder() {
-    DescribeRemediationConfigurationsResponse._init(this);
-  }
+  DescribeRemediationConfigurationsResponseBuilder();
 
   DescribeRemediationConfigurationsResponseBuilder get _$this {
     final $v = _$v;

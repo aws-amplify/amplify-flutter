@@ -76,7 +76,7 @@ class ChangePasswordComponent extends StatefulComponent {
               onClick: _changePassword,
             ),
           ],
-        )
+        ),
       ],
     );
   }

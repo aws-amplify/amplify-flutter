@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.glacier.model.resource_not_found_exception;
+part of 'resource_not_found_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -74,9 +74,7 @@ class ResourceNotFoundExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ResourceNotFoundExceptionBuilder() {
-    ResourceNotFoundException._init(this);
-  }
+  ResourceNotFoundExceptionBuilder();
 
   ResourceNotFoundExceptionBuilder get _$this {
     final $v = _$v;

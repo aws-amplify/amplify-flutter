@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.global_secondary_index_info;
+part of 'global_secondary_index_info.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -86,9 +86,7 @@ class GlobalSecondaryIndexInfoBuilder
           _i4.ProvisionedThroughputBuilder? provisionedThroughput) =>
       _$this._provisionedThroughput = provisionedThroughput;
 
-  GlobalSecondaryIndexInfoBuilder() {
-    GlobalSecondaryIndexInfo._init(this);
-  }
+  GlobalSecondaryIndexInfoBuilder();
 
   GlobalSecondaryIndexInfoBuilder get _$this {
     final $v = _$v;

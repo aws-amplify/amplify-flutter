@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.last_delivery_channel_delete_failed_exception;
+part of 'last_delivery_channel_delete_failed_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -69,9 +69,7 @@ class LastDeliveryChannelDeleteFailedExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  LastDeliveryChannelDeleteFailedExceptionBuilder() {
-    LastDeliveryChannelDeleteFailedException._init(this);
-  }
+  LastDeliveryChannelDeleteFailedExceptionBuilder();
 
   LastDeliveryChannelDeleteFailedExceptionBuilder get _$this {
     final $v = _$v;

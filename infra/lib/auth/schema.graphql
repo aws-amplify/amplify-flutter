@@ -1,5 +1,6 @@
 type Query {
   listMFACodes: [MFACode] @aws_api_key
+  listAuthEvents(username: String): AWSJSON @aws_api_key
 }
 
 type Mutation {

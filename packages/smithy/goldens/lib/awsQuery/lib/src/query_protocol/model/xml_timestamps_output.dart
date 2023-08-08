@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library aws_query_v1.query_protocol.model.xml_timestamps_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -46,12 +46,10 @@ abstract class XmlTimestampsOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<XmlTimestampsOutput>> serializers = [
     XmlTimestampsOutputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(XmlTimestampsOutputBuilder b) {}
   DateTime? get normal;
   DateTime? get dateTime;
   DateTime? get dateTimeOnTarget;
@@ -71,35 +69,35 @@ abstract class XmlTimestampsOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('XmlTimestampsOutput');
-    helper.add(
-      'normal',
-      normal,
-    );
-    helper.add(
-      'dateTime',
-      dateTime,
-    );
-    helper.add(
-      'dateTimeOnTarget',
-      dateTimeOnTarget,
-    );
-    helper.add(
-      'epochSeconds',
-      epochSeconds,
-    );
-    helper.add(
-      'epochSecondsOnTarget',
-      epochSecondsOnTarget,
-    );
-    helper.add(
-      'httpDate',
-      httpDate,
-    );
-    helper.add(
-      'httpDateOnTarget',
-      httpDateOnTarget,
-    );
+    final helper = newBuiltValueToStringHelper('XmlTimestampsOutput')
+      ..add(
+        'normal',
+        normal,
+      )
+      ..add(
+        'dateTime',
+        dateTime,
+      )
+      ..add(
+        'dateTimeOnTarget',
+        dateTimeOnTarget,
+      )
+      ..add(
+        'epochSeconds',
+        epochSeconds,
+      )
+      ..add(
+        'epochSecondsOnTarget',
+        epochSecondsOnTarget,
+      )
+      ..add(
+        'httpDate',
+        httpDate,
+      )
+      ..add(
+        'httpDateOnTarget',
+        httpDateOnTarget,
+      );
     return helper.toString();
   }
 }

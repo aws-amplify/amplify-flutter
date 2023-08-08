@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.role_last_used;
+part of 'role_last_used.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class RoleLastUsedBuilder
   String? get region => _$this._region;
   set region(String? region) => _$this._region = region;
 
-  RoleLastUsedBuilder() {
-    RoleLastUsed._init(this);
-  }
+  RoleLastUsedBuilder();
 
   RoleLastUsedBuilder get _$this {
     final $v = _$v;

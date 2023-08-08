@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.copy_object_result; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,9 @@ abstract class CopyObjectResult
 
   const CopyObjectResult._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<CopyObjectResult>> serializers = [
     CopyObjectResultRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CopyObjectResultBuilder b) {}
 
   /// Returns the ETag of the new object. The ETag reflects only changes to the contents of an object, not its metadata.
   String? get eTag;
@@ -74,31 +71,31 @@ abstract class CopyObjectResult
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CopyObjectResult');
-    helper.add(
-      'eTag',
-      eTag,
-    );
-    helper.add(
-      'lastModified',
-      lastModified,
-    );
-    helper.add(
-      'checksumCrc32',
-      checksumCrc32,
-    );
-    helper.add(
-      'checksumCrc32C',
-      checksumCrc32C,
-    );
-    helper.add(
-      'checksumSha1',
-      checksumSha1,
-    );
-    helper.add(
-      'checksumSha256',
-      checksumSha256,
-    );
+    final helper = newBuiltValueToStringHelper('CopyObjectResult')
+      ..add(
+        'eTag',
+        eTag,
+      )
+      ..add(
+        'lastModified',
+        lastModified,
+      )
+      ..add(
+        'checksumCrc32',
+        checksumCrc32,
+      )
+      ..add(
+        'checksumCrc32C',
+        checksumCrc32C,
+      )
+      ..add(
+        'checksumSha1',
+        checksumSha1,
+      )
+      ..add(
+        'checksumSha256',
+        checksumSha256,
+      );
     return helper.toString();
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.delete_bucket_cors_request;
+part of 'delete_bucket_cors_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class DeleteBucketCorsRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  DeleteBucketCorsRequestBuilder() {
-    DeleteBucketCorsRequest._init(this);
-  }
+  DeleteBucketCorsRequestBuilder();
 
   DeleteBucketCorsRequestBuilder get _$this {
     final $v = _$v;
@@ -136,9 +134,7 @@ class DeleteBucketCorsRequestPayloadBuilder
             DeleteBucketCorsRequestPayloadBuilder> {
   _$DeleteBucketCorsRequestPayload? _$v;
 
-  DeleteBucketCorsRequestPayloadBuilder() {
-    DeleteBucketCorsRequestPayload._init(this);
-  }
+  DeleteBucketCorsRequestPayloadBuilder();
 
   @override
   void replace(DeleteBucketCorsRequestPayload other) {

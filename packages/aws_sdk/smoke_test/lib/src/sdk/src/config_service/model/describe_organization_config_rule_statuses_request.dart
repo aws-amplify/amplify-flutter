@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.describe_organization_config_rule_statuses_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,6 +23,7 @@ abstract class DescribeOrganizationConfigRuleStatusesRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$DescribeOrganizationConfigRuleStatusesRequest._(
       organizationConfigRuleNames: organizationConfigRuleNames == null
           ? null
@@ -45,18 +46,22 @@ abstract class DescribeOrganizationConfigRuleStatusesRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<DescribeOrganizationConfigRuleStatusesRequest>>
+      serializers = [
     DescribeOrganizationConfigRuleStatusesRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeOrganizationConfigRuleStatusesRequestBuilder b) {}
+  static void _init(DescribeOrganizationConfigRuleStatusesRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The names of organization Config rules for which you want status details. If you do not specify any names, Config returns details for all your organization Config rules.
   _i3.BuiltList<String>? get organizationConfigRuleNames;
 
   /// The maximum number of `OrganizationConfigRuleStatuses` returned on each page. If you do no specify a number, Config uses the default. The default is 100.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -71,19 +76,19 @@ abstract class DescribeOrganizationConfigRuleStatusesRequest
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'DescribeOrganizationConfigRuleStatusesRequest');
-    helper.add(
-      'organizationConfigRuleNames',
-      organizationConfigRuleNames,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        'DescribeOrganizationConfigRuleStatusesRequest')
+      ..add(
+        'organizationConfigRuleNames',
+        organizationConfigRuleNames,
+      )
+      ..add(
+        'limit',
+        limit,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }
@@ -158,6 +163,13 @@ class DescribeOrganizationConfigRuleStatusesRequestAwsJson11Serializer
       :limit,
       :nextToken
     ) = object;
+    result$.addAll([
+      'Limit',
+      serializers.serialize(
+        limit,
+        specifiedType: const FullType(int),
+      ),
+    ]);
     if (organizationConfigRuleNames != null) {
       result$
         ..add('OrganizationConfigRuleNames')
@@ -167,14 +179,6 @@ class DescribeOrganizationConfigRuleStatusesRequestAwsJson11Serializer
             _i3.BuiltList,
             [FullType(String)],
           ),
-        ));
-    }
-    if (limit != null) {
-      result$
-        ..add('Limit')
-        ..add(serializers.serialize(
-          limit,
-          specifiedType: const FullType(int),
         ));
     }
     if (nextToken != null) {

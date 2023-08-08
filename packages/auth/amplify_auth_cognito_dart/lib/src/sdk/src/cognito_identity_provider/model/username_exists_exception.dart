@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.username_exists_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,9 +37,8 @@ abstract class UsernameExistsException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    UsernameExistsExceptionAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<UsernameExistsException>> serializers =
+      [UsernameExistsExceptionAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UsernameExistsExceptionBuilder b) {}
@@ -65,11 +65,11 @@ abstract class UsernameExistsException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UsernameExistsException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('UsernameExistsException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }
@@ -103,15 +103,15 @@ class UsernameExistsExceptionAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'message':
-          if (value != null) {
-            result.message = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.message = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -121,19 +121,19 @@ class UsernameExistsExceptionAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UsernameExistsException object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UsernameExistsException);
-    final result = <Object?>[];
-    if (payload.message != null) {
-      result
+    final result$ = <Object?>[];
+    final UsernameExistsException(:message) = object;
+    if (message != null) {
+      result$
         ..add('message')
         ..add(serializers.serialize(
-          payload.message!,
+          message,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

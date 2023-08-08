@@ -9,7 +9,6 @@ enum TokenType { access, id }
 JsonWebToken createJwt({
   required TokenType type,
   required Duration expiration,
-  String? nonce,
 }) {
   return JsonWebToken(
     header: const JsonWebHeader(
@@ -21,7 +20,6 @@ JsonWebToken createJwt({
         if (type == TokenType.access) 'username': username,
         if (type == TokenType.id) 'cognito:username': username,
         'exp': (DateTime.now().add(expiration)).millisecondsSinceEpoch ~/ 1000,
-        if (nonce != null) 'nonce': nonce,
       },
     ),
     signature: const [],

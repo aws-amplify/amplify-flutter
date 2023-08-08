@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_bucket_encryption_request;
+part of 'get_bucket_encryption_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -64,9 +64,7 @@ class GetBucketEncryptionRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetBucketEncryptionRequestBuilder() {
-    GetBucketEncryptionRequest._init(this);
-  }
+  GetBucketEncryptionRequestBuilder();
 
   GetBucketEncryptionRequestBuilder get _$this {
     final $v = _$v;
@@ -139,9 +137,7 @@ class GetBucketEncryptionRequestPayloadBuilder
             GetBucketEncryptionRequestPayloadBuilder> {
   _$GetBucketEncryptionRequestPayload? _$v;
 
-  GetBucketEncryptionRequestPayloadBuilder() {
-    GetBucketEncryptionRequestPayload._init(this);
-  }
+  GetBucketEncryptionRequestPayloadBuilder();
 
   @override
   void replace(GetBucketEncryptionRequestPayload other) {

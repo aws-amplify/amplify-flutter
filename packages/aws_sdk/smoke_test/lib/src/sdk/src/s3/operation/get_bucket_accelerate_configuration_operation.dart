@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.operation.get_bucket_accelerate_configuration_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -26,13 +26,13 @@ import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_accelerate_configurat
 ///
 /// For more information about transfer acceleration, see [Transfer Acceleration](https://docs.aws.amazon.com/AmazonS3/latest/dev/transfer-acceleration.html) in the Amazon S3 User Guide.
 ///
-/// **Related Resources**
+/// The following operations are related to `GetBucketAccelerateConfiguration`:
 ///
 /// *   [PutBucketAccelerateConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketAccelerateConfiguration.html)
 class GetBucketAccelerateConfigurationOperation extends _i1.HttpOperation<
     _i2.GetBucketAccelerateConfigurationRequestPayload,
     _i2.GetBucketAccelerateConfigurationRequest,
-    _i3.GetBucketAccelerateConfigurationOutput,
+    _i3.GetBucketAccelerateConfigurationOutputPayload,
     _i3.GetBucketAccelerateConfigurationOutput> {
   /// This implementation of the GET action uses the `accelerate` subresource to return the Transfer Acceleration state of a bucket, which is either `Enabled` or `Suspended`. Amazon S3 Transfer Acceleration is a bucket-level feature that enables you to perform faster data transfers to and from Amazon S3.
   ///
@@ -44,7 +44,7 @@ class GetBucketAccelerateConfigurationOperation extends _i1.HttpOperation<
   ///
   /// For more information about transfer acceleration, see [Transfer Acceleration](https://docs.aws.amazon.com/AmazonS3/latest/dev/transfer-acceleration.html) in the Amazon S3 User Guide.
   ///
-  /// **Related Resources**
+  /// The following operations are related to `GetBucketAccelerateConfiguration`:
   ///
   /// *   [PutBucketAccelerateConfiguration](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketAccelerateConfiguration.html)
   GetBucketAccelerateConfigurationOperation({
@@ -67,7 +67,7 @@ class GetBucketAccelerateConfigurationOperation extends _i1.HttpOperation<
       _i1.HttpProtocol<
           _i2.GetBucketAccelerateConfigurationRequestPayload,
           _i2.GetBucketAccelerateConfigurationRequest,
-          _i3.GetBucketAccelerateConfigurationOutput,
+          _i3.GetBucketAccelerateConfigurationOutputPayload,
           _i3.GetBucketAccelerateConfigurationOutput>> protocols = [
     _i4.RestXmlProtocol(
       serializers: _i6.serializers,
@@ -124,12 +124,15 @@ class GetBucketAccelerateConfigurationOperation extends _i1.HttpOperation<
                 input.expectedBucketOwner!;
           }
         }
+        if (input.requestPayer != null) {
+          b.headers['x-amz-request-payer'] = input.requestPayer!.value;
+        }
       });
   @override
   int successCode([_i3.GetBucketAccelerateConfigurationOutput? output]) => 200;
   @override
   _i3.GetBucketAccelerateConfigurationOutput buildOutput(
-    _i3.GetBucketAccelerateConfigurationOutput payload,
+    _i3.GetBucketAccelerateConfigurationOutputPayload payload,
     _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.GetBucketAccelerateConfigurationOutput.fromResponse(
@@ -176,7 +179,7 @@ class GetBucketAccelerateConfigurationOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

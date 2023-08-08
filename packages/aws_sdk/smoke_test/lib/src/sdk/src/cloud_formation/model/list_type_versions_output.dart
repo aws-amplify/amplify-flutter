@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.list_type_versions_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,12 +41,8 @@ abstract class ListTypeVersionsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ListTypeVersionsOutputAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListTypeVersionsOutputBuilder b) {}
+  static const List<_i4.SmithySerializer<ListTypeVersionsOutput>> serializers =
+      [ListTypeVersionsOutputAwsQuerySerializer()];
 
   /// A list of `TypeVersionSummary` structures that contain information about the specified extension's versions.
   _i3.BuiltList<_i2.TypeVersionSummary>? get typeVersionSummaries;
@@ -60,15 +56,15 @@ abstract class ListTypeVersionsOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListTypeVersionsOutput');
-    helper.add(
-      'typeVersionSummaries',
-      typeVersionSummaries,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('ListTypeVersionsOutput')
+      ..add(
+        'typeVersionSummaries',
+        typeVersionSummaries,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

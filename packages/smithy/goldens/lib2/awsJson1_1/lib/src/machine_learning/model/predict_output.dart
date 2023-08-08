@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library aws_json1_1_v2.machine_learning.model.predict_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,22 +31,20 @@ abstract class PredictOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<PredictOutput>> serializers = [
     PredictOutputAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PredictOutputBuilder b) {}
   _i2.Prediction? get prediction;
   @override
   List<Object?> get props => [prediction];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PredictOutput');
-    helper.add(
-      'prediction',
-      prediction,
-    );
+    final helper = newBuiltValueToStringHelper('PredictOutput')
+      ..add(
+        'prediction',
+        prediction,
+      );
     return helper.toString();
   }
 }

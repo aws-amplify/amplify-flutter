@@ -64,7 +64,7 @@ class ForgotPasswordFormComponent extends StatefulComponent {
               onClick: _forgotPassword,
             ),
           ],
-        )
+        ),
       ],
     );
   }

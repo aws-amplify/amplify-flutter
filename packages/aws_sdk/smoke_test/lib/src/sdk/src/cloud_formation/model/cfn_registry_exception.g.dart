@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.cfn_registry_exception;
+part of 'cfn_registry_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class CfnRegistryExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  CfnRegistryExceptionBuilder() {
-    CfnRegistryException._init(this);
-  }
+  CfnRegistryExceptionBuilder();
 
   CfnRegistryExceptionBuilder get _$this {
     final $v = _$v;

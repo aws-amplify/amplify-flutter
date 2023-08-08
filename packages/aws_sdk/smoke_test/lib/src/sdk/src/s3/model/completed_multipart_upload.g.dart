@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.completed_multipart_upload;
+part of 'completed_multipart_upload.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -50,9 +50,7 @@ class CompletedMultipartUploadBuilder
       _$this._parts ??= new _i3.ListBuilder<_i2.CompletedPart>();
   set parts(_i3.ListBuilder<_i2.CompletedPart>? parts) => _$this._parts = parts;
 
-  CompletedMultipartUploadBuilder() {
-    CompletedMultipartUpload._init(this);
-  }
+  CompletedMultipartUploadBuilder();
 
   CompletedMultipartUploadBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_group_request;
+part of 'get_group_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -67,9 +67,7 @@ class GetGroupRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  GetGroupRequestBuilder() {
-    GetGroupRequest._init(this);
-  }
+  GetGroupRequestBuilder();
 
   GetGroupRequestBuilder get _$this {
     final $v = _$v;

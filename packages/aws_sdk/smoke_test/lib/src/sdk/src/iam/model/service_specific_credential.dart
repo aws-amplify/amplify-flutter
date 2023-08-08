@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.service_specific_credential; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,12 +44,8 @@ abstract class ServiceSpecificCredential
 
   const ServiceSpecificCredential._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ServiceSpecificCredentialAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ServiceSpecificCredentialBuilder b) {}
+  static const List<_i3.SmithySerializer<ServiceSpecificCredential>>
+      serializers = [ServiceSpecificCredentialAwsQuerySerializer()];
 
   /// The date and time, in [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the service-specific credential were created.
   DateTime get createDate;
@@ -83,35 +79,35 @@ abstract class ServiceSpecificCredential
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ServiceSpecificCredential');
-    helper.add(
-      'createDate',
-      createDate,
-    );
-    helper.add(
-      'serviceName',
-      serviceName,
-    );
-    helper.add(
-      'serviceUserName',
-      serviceUserName,
-    );
-    helper.add(
-      'servicePassword',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'serviceSpecificCredentialId',
-      serviceSpecificCredentialId,
-    );
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'status',
-      status,
-    );
+    final helper = newBuiltValueToStringHelper('ServiceSpecificCredential')
+      ..add(
+        'createDate',
+        createDate,
+      )
+      ..add(
+        'serviceName',
+        serviceName,
+      )
+      ..add(
+        'serviceUserName',
+        serviceUserName,
+      )
+      ..add(
+        'servicePassword',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'serviceSpecificCredentialId',
+        serviceSpecificCredentialId,
+      )
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'status',
+        status,
+      );
     return helper.toString();
   }
 }

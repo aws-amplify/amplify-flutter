@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.operation.test_type_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,11 +31,11 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/type_not_found_exce
 ///
 /// For more information, see [Testing your public extension prior to publishing](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/publish-extension.html#publish-extension-testing) in the _CloudFormation CLI User Guide_.
 ///
-/// If you don't specify a version, CloudFormation uses the default version of the extension in your account and region for testing.
+/// If you don't specify a version, CloudFormation uses the default version of the extension in your account and Region for testing.
 ///
-/// To perform testing, CloudFormation assumes the execution role specified when the type was registered. For more information, see [RegisterType](AWSCloudFormation/latest/APIReference/API_RegisterType.html).
+/// To perform testing, CloudFormation assumes the execution role specified when the type was registered. For more information, see [RegisterType](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html).
 ///
-/// Once you've initiated testing on an extension using `TestType`, you can use [DescribeType](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DescribeType.html) to monitor the current test status and test status description for the extension.
+/// Once you've initiated testing on an extension using `TestType`, you can pass the returned `TypeVersionArn` into [DescribeType](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DescribeType.html) to monitor the current test status and test status description for the extension.
 ///
 /// An extension must have a test status of `PASSED` before it can be published. For more information, see [Publishing extensions to make them available for public use](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-publish.html) in the _CloudFormation CLI User Guide_.
 class TestTypeOperation extends _i1.HttpOperation<_i2.TestTypeInput,
@@ -49,11 +49,11 @@ class TestTypeOperation extends _i1.HttpOperation<_i2.TestTypeInput,
   ///
   /// For more information, see [Testing your public extension prior to publishing](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/publish-extension.html#publish-extension-testing) in the _CloudFormation CLI User Guide_.
   ///
-  /// If you don't specify a version, CloudFormation uses the default version of the extension in your account and region for testing.
+  /// If you don't specify a version, CloudFormation uses the default version of the extension in your account and Region for testing.
   ///
-  /// To perform testing, CloudFormation assumes the execution role specified when the type was registered. For more information, see [RegisterType](AWSCloudFormation/latest/APIReference/API_RegisterType.html).
+  /// To perform testing, CloudFormation assumes the execution role specified when the type was registered. For more information, see [RegisterType](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html).
   ///
-  /// Once you've initiated testing on an extension using `TestType`, you can use [DescribeType](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DescribeType.html) to monitor the current test status and test status description for the extension.
+  /// Once you've initiated testing on an extension using `TestType`, you can pass the returned `TypeVersionArn` into [DescribeType](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DescribeType.html) to monitor the current test status and test status description for the extension.
   ///
   /// An extension must have a test status of `PASSED` before it can be published. For more information, see [Publishing extensions to make them available for public use](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-publish.html) in the _CloudFormation CLI User Guide_.
   TestTypeOperation({
@@ -141,7 +141,7 @@ class TestTypeOperation extends _i1.HttpOperation<_i2.TestTypeInput,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.CfnRegistryException, _i9.CfnRegistryException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'CFNRegistryException',
@@ -151,7 +151,7 @@ class TestTypeOperation extends _i1.HttpOperation<_i2.TestTypeInput,
           statusCode: 400,
           builder: _i9.CfnRegistryException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.TypeNotFoundException, _i10.TypeNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'TypeNotFoundException',
@@ -184,7 +184,7 @@ class TestTypeOperation extends _i1.HttpOperation<_i2.TestTypeInput,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

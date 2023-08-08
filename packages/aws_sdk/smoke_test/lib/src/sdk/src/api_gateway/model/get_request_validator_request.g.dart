@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.get_request_validator_request;
+part of 'get_request_validator_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -66,9 +66,7 @@ class GetRequestValidatorRequestBuilder
   set requestValidatorId(String? requestValidatorId) =>
       _$this._requestValidatorId = requestValidatorId;
 
-  GetRequestValidatorRequestBuilder() {
-    GetRequestValidatorRequest._init(this);
-  }
+  GetRequestValidatorRequestBuilder();
 
   GetRequestValidatorRequestBuilder get _$this {
     final $v = _$v;
@@ -144,9 +142,7 @@ class GetRequestValidatorRequestPayloadBuilder
             GetRequestValidatorRequestPayloadBuilder> {
   _$GetRequestValidatorRequestPayload? _$v;
 
-  GetRequestValidatorRequestPayloadBuilder() {
-    GetRequestValidatorRequestPayload._init(this);
-  }
+  GetRequestValidatorRequestPayloadBuilder();
 
   @override
   void replace(GetRequestValidatorRequestPayload other) {

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db_streams.model.shard; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,12 +34,9 @@ abstract class Shard
 
   const Shard._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<Shard>> serializers = [
     ShardAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ShardBuilder b) {}
 
   /// The system-generated identifier for this shard.
   String? get shardId;
@@ -57,19 +54,19 @@ abstract class Shard
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Shard');
-    helper.add(
-      'shardId',
-      shardId,
-    );
-    helper.add(
-      'sequenceNumberRange',
-      sequenceNumberRange,
-    );
-    helper.add(
-      'parentShardId',
-      parentShardId,
-    );
+    final helper = newBuiltValueToStringHelper('Shard')
+      ..add(
+        'shardId',
+        shardId,
+      )
+      ..add(
+        'sequenceNumberRange',
+        sequenceNumberRange,
+      )
+      ..add(
+        'parentShardId',
+        parentShardId,
+      );
     return helper.toString();
   }
 }

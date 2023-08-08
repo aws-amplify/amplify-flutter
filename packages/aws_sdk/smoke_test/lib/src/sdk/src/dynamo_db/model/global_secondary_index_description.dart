@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.global_secondary_index_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -58,12 +58,8 @@ abstract class GlobalSecondaryIndexDescription
 
   const GlobalSecondaryIndexDescription._();
 
-  static const List<_i8.SmithySerializer> serializers = [
-    GlobalSecondaryIndexDescriptionAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GlobalSecondaryIndexDescriptionBuilder b) {}
+  static const List<_i8.SmithySerializer<GlobalSecondaryIndexDescription>>
+      serializers = [GlobalSecondaryIndexDescriptionAwsJson10Serializer()];
 
   /// The name of the global secondary index.
   String? get indexName;
@@ -129,43 +125,43 @@ abstract class GlobalSecondaryIndexDescription
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GlobalSecondaryIndexDescription');
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'keySchema',
-      keySchema,
-    );
-    helper.add(
-      'projection',
-      projection,
-    );
-    helper.add(
-      'indexStatus',
-      indexStatus,
-    );
-    helper.add(
-      'backfilling',
-      backfilling,
-    );
-    helper.add(
-      'provisionedThroughput',
-      provisionedThroughput,
-    );
-    helper.add(
-      'indexSizeBytes',
-      indexSizeBytes,
-    );
-    helper.add(
-      'itemCount',
-      itemCount,
-    );
-    helper.add(
-      'indexArn',
-      indexArn,
-    );
+        newBuiltValueToStringHelper('GlobalSecondaryIndexDescription')
+          ..add(
+            'indexName',
+            indexName,
+          )
+          ..add(
+            'keySchema',
+            keySchema,
+          )
+          ..add(
+            'projection',
+            projection,
+          )
+          ..add(
+            'indexStatus',
+            indexStatus,
+          )
+          ..add(
+            'backfilling',
+            backfilling,
+          )
+          ..add(
+            'provisionedThroughput',
+            provisionedThroughput,
+          )
+          ..add(
+            'indexSizeBytes',
+            indexSizeBytes,
+          )
+          ..add(
+            'itemCount',
+            itemCount,
+          )
+          ..add(
+            'indexArn',
+            indexArn,
+          );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.context_entry; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,12 +43,9 @@ abstract class ContextEntry
 
   const ContextEntry._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ContextEntry>> serializers = [
     ContextEntryAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ContextEntryBuilder b) {}
 
   /// The full name of a condition context key, including the service prefix. For example, `aws:SourceIp` or `s3:VersionId`.
   String? get contextKeyName;
@@ -66,19 +63,19 @@ abstract class ContextEntry
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ContextEntry');
-    helper.add(
-      'contextKeyName',
-      contextKeyName,
-    );
-    helper.add(
-      'contextKeyValues',
-      contextKeyValues,
-    );
-    helper.add(
-      'contextKeyType',
-      contextKeyType,
-    );
+    final helper = newBuiltValueToStringHelper('ContextEntry')
+      ..add(
+        'contextKeyName',
+        contextKeyName,
+      )
+      ..add(
+        'contextKeyValues',
+        contextKeyValues,
+      )
+      ..add(
+        'contextKeyType',
+        contextKeyType,
+      );
     return helper.toString();
   }
 }

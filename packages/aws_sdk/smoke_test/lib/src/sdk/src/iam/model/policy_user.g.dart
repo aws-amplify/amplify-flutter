@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.policy_user;
+part of 'policy_user.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -53,9 +53,7 @@ class PolicyUserBuilder implements Builder<PolicyUser, PolicyUserBuilder> {
   String? get userId => _$this._userId;
   set userId(String? userId) => _$this._userId = userId;
 
-  PolicyUserBuilder() {
-    PolicyUser._init(this);
-  }
+  PolicyUserBuilder();
 
   PolicyUserBuilder get _$this {
     final $v = _$v;

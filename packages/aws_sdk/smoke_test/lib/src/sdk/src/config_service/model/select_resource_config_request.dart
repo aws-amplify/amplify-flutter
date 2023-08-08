@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.select_resource_config_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,6 +21,7 @@ abstract class SelectResourceConfigRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$SelectResourceConfigRequest._(
       expression: expression,
       limit: limit,
@@ -41,18 +42,19 @@ abstract class SelectResourceConfigRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    SelectResourceConfigRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<SelectResourceConfigRequest>>
+      serializers = [SelectResourceConfigRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(SelectResourceConfigRequestBuilder b) {}
+  static void _init(SelectResourceConfigRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The SQL query `SELECT` command.
   String get expression;
 
   /// The maximum number of query results returned on each page.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned in a previous request that you use to request the next page of results in a paginated response.
   String? get nextToken;
@@ -66,19 +68,19 @@ abstract class SelectResourceConfigRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SelectResourceConfigRequest');
-    helper.add(
-      'expression',
-      expression,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('SelectResourceConfigRequest')
+      ..add(
+        'expression',
+        expression,
+      )
+      ..add(
+        'limit',
+        limit,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }
@@ -151,15 +153,12 @@ class SelectResourceConfigRequestAwsJson11Serializer
         expression,
         specifiedType: const FullType(String),
       ),
+      'Limit',
+      serializers.serialize(
+        limit,
+        specifiedType: const FullType(int),
+      ),
     ]);
-    if (limit != null) {
-      result$
-        ..add('Limit')
-        ..add(serializers.serialize(
-          limit,
-          specifiedType: const FullType(int),
-        ));
-    }
     if (nextToken != null) {
       result$
         ..add('NextToken')

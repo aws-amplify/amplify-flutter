@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.redirect_all_requests_to;
+part of 'redirect_all_requests_to.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -61,9 +61,7 @@ class RedirectAllRequestsToBuilder
   _i2.Protocol? get protocol => _$this._protocol;
   set protocol(_i2.Protocol? protocol) => _$this._protocol = protocol;
 
-  RedirectAllRequestsToBuilder() {
-    RedirectAllRequestsTo._init(this);
-  }
+  RedirectAllRequestsToBuilder();
 
   RedirectAllRequestsToBuilder get _$this {
     final $v = _$v;

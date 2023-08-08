@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.compliance_summary;
+part of 'compliance_summary.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -78,9 +78,7 @@ class ComplianceSummaryBuilder
   set complianceSummaryTimestamp(DateTime? complianceSummaryTimestamp) =>
       _$this._complianceSummaryTimestamp = complianceSummaryTimestamp;
 
-  ComplianceSummaryBuilder() {
-    ComplianceSummary._init(this);
-  }
+  ComplianceSummaryBuilder();
 
   ComplianceSummaryBuilder get _$this {
     final $v = _$v;

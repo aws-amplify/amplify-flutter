@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.attach_role_policy_request;
+part of 'attach_role_policy_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -64,9 +64,7 @@ class AttachRolePolicyRequestBuilder
   String? get policyArn => _$this._policyArn;
   set policyArn(String? policyArn) => _$this._policyArn = policyArn;
 
-  AttachRolePolicyRequestBuilder() {
-    AttachRolePolicyRequest._init(this);
-  }
+  AttachRolePolicyRequestBuilder();
 
   AttachRolePolicyRequestBuilder get _$this {
     final $v = _$v;

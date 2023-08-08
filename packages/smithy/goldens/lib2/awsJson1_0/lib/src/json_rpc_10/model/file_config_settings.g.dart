@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_0_v2.json_rpc_10.model.file_config_settings;
+part of 'file_config_settings.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -108,9 +108,7 @@ class FileConfigSettingsBuilder
   int? get maxAttempts => _$this._maxAttempts;
   set maxAttempts(int? maxAttempts) => _$this._maxAttempts = maxAttempts;
 
-  FileConfigSettingsBuilder() {
-    FileConfigSettings._init(this);
-  }
+  FileConfigSettingsBuilder();
 
   FileConfigSettingsBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v2.query_protocol.model.query_lists_input;
+part of 'query_lists_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -107,9 +107,7 @@ class QueryListsInputBuilder
   set nestedWithList(_i4.NestedStructWithListBuilder? nestedWithList) =>
       _$this._nestedWithList = nestedWithList;
 
-  QueryListsInputBuilder() {
-    QueryListsInput._init(this);
-  }
+  QueryListsInputBuilder();
 
   QueryListsInputBuilder get _$this {
     final $v = _$v;

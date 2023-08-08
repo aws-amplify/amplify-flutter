@@ -46,9 +46,7 @@ class ProgressEventBuilder
       _$this._details ??= new _i2.ProgressBuilder();
   set details(_i2.ProgressBuilder? details) => _$this._details = details;
 
-  ProgressEventBuilder() {
-    ProgressEvent._init(this);
-  }
+  ProgressEventBuilder();
 
   ProgressEventBuilder get _$this {
     final $v = _$v;

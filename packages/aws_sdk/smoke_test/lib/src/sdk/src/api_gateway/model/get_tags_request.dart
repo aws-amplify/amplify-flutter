@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.get_tags_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -54,12 +54,9 @@ abstract class GetTagsRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<GetTagsRequestPayload>> serializers = [
     GetTagsRequestRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetTagsRequestBuilder b) {}
 
   /// The ARN of a resource that can be tagged.
   String get resourceArn;
@@ -91,19 +88,19 @@ abstract class GetTagsRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetTagsRequest');
-    helper.add(
-      'resourceArn',
-      resourceArn,
-    );
-    helper.add(
-      'position',
-      position,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
+    final helper = newBuiltValueToStringHelper('GetTagsRequest')
+      ..add(
+        'resourceArn',
+        resourceArn,
+      )
+      ..add(
+        'position',
+        position,
+      )
+      ..add(
+        'limit',
+        limit,
+      );
     return helper.toString();
   }
 }
@@ -120,8 +117,6 @@ abstract class GetTagsRequestPayload
 
   const GetTagsRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetTagsRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.ssekms; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -24,24 +24,21 @@ abstract class Ssekms
 
   const Ssekms._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Ssekms>> serializers = [
     SsekmsRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SsekmsBuilder b) {}
-
-  /// Specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric customer managed key to use for encrypting inventory reports.
+  /// Specifies the ID of the Key Management Service (KMS) symmetric encryption customer managed key to use for encrypting inventory reports.
   String get keyId;
   @override
   List<Object?> get props => [keyId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Ssekms');
-    helper.add(
-      'keyId',
-      '***SENSITIVE***',
-    );
+    final helper = newBuiltValueToStringHelper('Ssekms')
+      ..add(
+        'keyId',
+        '***SENSITIVE***',
+      );
     return helper.toString();
   }
 }

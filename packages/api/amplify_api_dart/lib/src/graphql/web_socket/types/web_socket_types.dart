@@ -109,8 +109,8 @@ class SubscriptionRegistrationPayload extends WebSocketMessagePayload {
         {'variables': request.variables, 'query': request.document},
       ),
       'extensions': <String, Map<String, String>>{
-        'authorization': authorizationHeaders
-      }
+        'authorization': authorizationHeaders,
+      },
     };
   }
 }

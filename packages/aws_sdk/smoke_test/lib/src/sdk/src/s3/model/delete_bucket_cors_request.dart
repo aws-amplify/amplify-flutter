@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.delete_bucket_cors_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -50,12 +50,8 @@ abstract class DeleteBucketCorsRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteBucketCorsRequestRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBucketCorsRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<DeleteBucketCorsRequestPayload>>
+      serializers = [DeleteBucketCorsRequestRestXmlSerializer()];
 
   /// Specifies the bucket whose `cors` configuration is being deleted.
   String get bucket;
@@ -84,15 +80,15 @@ abstract class DeleteBucketCorsRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteBucketCorsRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteBucketCorsRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }
@@ -111,8 +107,6 @@ abstract class DeleteBucketCorsRequestPayload
 
   const DeleteBucketCorsRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBucketCorsRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

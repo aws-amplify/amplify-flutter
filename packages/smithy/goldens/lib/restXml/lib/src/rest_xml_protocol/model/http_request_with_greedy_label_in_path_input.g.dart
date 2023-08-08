@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v1.rest_xml_protocol.model.http_request_with_greedy_label_in_path_input;
+part of 'http_request_with_greedy_label_in_path_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -70,9 +70,7 @@ class HttpRequestWithGreedyLabelInPathInputBuilder
   String? get baz => _$this._baz;
   set baz(String? baz) => _$this._baz = baz;
 
-  HttpRequestWithGreedyLabelInPathInputBuilder() {
-    HttpRequestWithGreedyLabelInPathInput._init(this);
-  }
+  HttpRequestWithGreedyLabelInPathInputBuilder();
 
   HttpRequestWithGreedyLabelInPathInputBuilder get _$this {
     final $v = _$v;
@@ -150,9 +148,7 @@ class HttpRequestWithGreedyLabelInPathInputPayloadBuilder
             HttpRequestWithGreedyLabelInPathInputPayloadBuilder> {
   _$HttpRequestWithGreedyLabelInPathInputPayload? _$v;
 
-  HttpRequestWithGreedyLabelInPathInputPayloadBuilder() {
-    HttpRequestWithGreedyLabelInPathInputPayload._init(this);
-  }
+  HttpRequestWithGreedyLabelInPathInputPayloadBuilder();
 
   @override
   void replace(HttpRequestWithGreedyLabelInPathInputPayload other) {

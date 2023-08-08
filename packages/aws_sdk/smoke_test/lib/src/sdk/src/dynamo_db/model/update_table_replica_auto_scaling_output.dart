@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.update_table_replica_auto_scaling_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,12 +37,8 @@ abstract class UpdateTableReplicaAutoScalingOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    UpdateTableReplicaAutoScalingOutputAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateTableReplicaAutoScalingOutputBuilder b) {}
+  static const List<_i3.SmithySerializer<UpdateTableReplicaAutoScalingOutput>>
+      serializers = [UpdateTableReplicaAutoScalingOutputAwsJson10Serializer()];
 
   /// Returns information about the auto scaling settings of a table with replicas.
   _i2.TableAutoScalingDescription? get tableAutoScalingDescription;
@@ -51,11 +47,11 @@ abstract class UpdateTableReplicaAutoScalingOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateTableReplicaAutoScalingOutput');
-    helper.add(
-      'tableAutoScalingDescription',
-      tableAutoScalingDescription,
-    );
+        newBuiltValueToStringHelper('UpdateTableReplicaAutoScalingOutput')
+          ..add(
+            'tableAutoScalingDescription',
+            tableAutoScalingDescription,
+          );
     return helper.toString();
   }
 }

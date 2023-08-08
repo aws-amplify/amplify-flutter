@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.rest_xml_protocol.model.body_with_xml_name_input_output;
+part of 'body_with_xml_name_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -50,9 +50,7 @@ class BodyWithXmlNameInputOutputBuilder
       _$this._nested ??= new _i3.PayloadWithXmlNameBuilder();
   set nested(_i3.PayloadWithXmlNameBuilder? nested) => _$this._nested = nested;
 
-  BodyWithXmlNameInputOutputBuilder() {
-    BodyWithXmlNameInputOutput._init(this);
-  }
+  BodyWithXmlNameInputOutputBuilder();
 
   BodyWithXmlNameInputOutputBuilder get _$this {
     final $v = _$v;

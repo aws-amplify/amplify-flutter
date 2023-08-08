@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.get_login_profile_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,12 +32,8 @@ abstract class GetLoginProfileRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetLoginProfileRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetLoginProfileRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetLoginProfileRequest>> serializers =
+      [GetLoginProfileRequestAwsQuerySerializer()];
 
   /// The name of the user whose login profile you want to retrieve.
   ///
@@ -49,11 +45,11 @@ abstract class GetLoginProfileRequest
   List<Object?> get props => [userName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetLoginProfileRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
+    final helper = newBuiltValueToStringHelper('GetLoginProfileRequest')
+      ..add(
+        'userName',
+        userName,
+      );
     return helper.toString();
   }
 }

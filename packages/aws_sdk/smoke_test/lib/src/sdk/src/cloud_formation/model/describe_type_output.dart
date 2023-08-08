@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.describe_type_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -103,12 +103,9 @@ abstract class DescribeTypeOutput
   ) =>
       payload;
 
-  static const List<_i10.SmithySerializer> serializers = [
+  static const List<_i10.SmithySerializer<DescribeTypeOutput>> serializers = [
     DescribeTypeOutputAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeTypeOutputBuilder b) {}
 
   /// The Amazon Resource Name (ARN) of the extension.
   String? get arn;
@@ -125,7 +122,7 @@ abstract class DescribeTypeOutput
   ///
   /// This applies only to private extensions you have registered in your account. For public extensions, both those provided by Amazon Web Services and published by third parties, CloudFormation returns `null`. For more information, see [RegisterType](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html).
   ///
-  /// To set the default version of an extension, use `SetTypeDefaultVersion` .
+  /// To set the default version of an extension, use SetTypeDefaultVersion.
   String? get defaultVersionId;
 
   /// Whether the specified extension version is set as the default version.
@@ -226,7 +223,7 @@ abstract class DescribeTypeOutput
   /// When the specified private extension version was registered or activated in your account.
   DateTime? get timeCreated;
 
-  /// A JSON string that represent the current configuration data for the extension in this account and region.
+  /// A JSON string that represent the current configuration data for the extension in this account and Region.
   ///
   /// To set the configuration data for an extension, use [SetTypeConfiguration](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_SetTypeConfiguration.html). For more information, see [Configuring extensions at the account level](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-register.html#registry-set-configuration) in the _CloudFormation User Guide_.
   String? get configurationSchema;
@@ -236,12 +233,12 @@ abstract class DescribeTypeOutput
   /// This applies only to public third-party extensions. For private registered extensions, and extensions provided by Amazon Web Services, CloudFormation returns `null`.
   String? get publisherId;
 
-  /// For public extensions that have been activated for this account and region, the type name of the public extension.
+  /// For public extensions that have been activated for this account and Region, the type name of the public extension.
   ///
-  /// If you specified a `TypeNameAlias` when enabling the extension in this account and region, CloudFormation treats that alias as the extension's type name within the account and region, not the type name of the public extension. For more information, see [Specifying aliases to refer to extensions](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-public.html#registry-public-enable-alias) in the _CloudFormation User Guide_.
+  /// If you specified a `TypeNameAlias` when enabling the extension in this account and Region, CloudFormation treats that alias as the extension's type name within the account and Region, not the type name of the public extension. For more information, see [Specifying aliases to refer to extensions](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-public.html#registry-public-enable-alias) in the _CloudFormation User Guide_.
   String? get originalTypeName;
 
-  /// For public extensions that have been activated for this account and region, the Amazon Resource Name (ARN) of the public extension.
+  /// For public extensions that have been activated for this account and Region, the Amazon Resource Name (ARN) of the public extension.
   String? get originalTypeArn;
 
   /// The version number of a public third-party extension.
@@ -254,12 +251,12 @@ abstract class DescribeTypeOutput
   /// This only applies if you specify a public extension, and you don't specify a version. For all other requests, CloudFormation returns `null`.
   String? get latestPublicVersion;
 
-  /// Whether the extension is activated in the account and region.
+  /// Whether the extension is activated in the account and Region.
   ///
   /// This only applies to public third-party extensions. For all other extensions, CloudFormation returns `null`.
   bool? get isActivated;
 
-  /// Whether CloudFormation automatically updates the extension in this account and region when a new _minor_ version is published by the extension publisher. Major versions released by the publisher must be manually updated. For more information, see [Activating public extensions for use in your account](AWSCloudFormation/latest/UserGuide/registry-public.html#registry-public-enable) in the _CloudFormation User Guide_.
+  /// Whether CloudFormation automatically updates the extension in this account and Region when a new _minor_ version is published by the extension publisher. Major versions released by the publisher must be manually updated. For more information, see [Activating public extensions for use in your account](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-public.html#registry-public-enable) in the _CloudFormation User Guide_.
   bool? get autoUpdate;
   @override
   List<Object?> get props => [
@@ -293,115 +290,115 @@ abstract class DescribeTypeOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeTypeOutput');
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'typeName',
-      typeName,
-    );
-    helper.add(
-      'defaultVersionId',
-      defaultVersionId,
-    );
-    helper.add(
-      'isDefaultVersion',
-      isDefaultVersion,
-    );
-    helper.add(
-      'typeTestsStatus',
-      typeTestsStatus,
-    );
-    helper.add(
-      'typeTestsStatusDescription',
-      typeTestsStatusDescription,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'schema',
-      schema,
-    );
-    helper.add(
-      'provisioningType',
-      provisioningType,
-    );
-    helper.add(
-      'deprecatedStatus',
-      deprecatedStatus,
-    );
-    helper.add(
-      'loggingConfig',
-      loggingConfig,
-    );
-    helper.add(
-      'requiredActivatedTypes',
-      requiredActivatedTypes,
-    );
-    helper.add(
-      'executionRoleArn',
-      executionRoleArn,
-    );
-    helper.add(
-      'visibility',
-      visibility,
-    );
-    helper.add(
-      'sourceUrl',
-      sourceUrl,
-    );
-    helper.add(
-      'documentationUrl',
-      documentationUrl,
-    );
-    helper.add(
-      'lastUpdated',
-      lastUpdated,
-    );
-    helper.add(
-      'timeCreated',
-      timeCreated,
-    );
-    helper.add(
-      'configurationSchema',
-      configurationSchema,
-    );
-    helper.add(
-      'publisherId',
-      publisherId,
-    );
-    helper.add(
-      'originalTypeName',
-      originalTypeName,
-    );
-    helper.add(
-      'originalTypeArn',
-      originalTypeArn,
-    );
-    helper.add(
-      'publicVersionNumber',
-      publicVersionNumber,
-    );
-    helper.add(
-      'latestPublicVersion',
-      latestPublicVersion,
-    );
-    helper.add(
-      'isActivated',
-      isActivated,
-    );
-    helper.add(
-      'autoUpdate',
-      autoUpdate,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeTypeOutput')
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'typeName',
+        typeName,
+      )
+      ..add(
+        'defaultVersionId',
+        defaultVersionId,
+      )
+      ..add(
+        'isDefaultVersion',
+        isDefaultVersion,
+      )
+      ..add(
+        'typeTestsStatus',
+        typeTestsStatus,
+      )
+      ..add(
+        'typeTestsStatusDescription',
+        typeTestsStatusDescription,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'schema',
+        schema,
+      )
+      ..add(
+        'provisioningType',
+        provisioningType,
+      )
+      ..add(
+        'deprecatedStatus',
+        deprecatedStatus,
+      )
+      ..add(
+        'loggingConfig',
+        loggingConfig,
+      )
+      ..add(
+        'requiredActivatedTypes',
+        requiredActivatedTypes,
+      )
+      ..add(
+        'executionRoleArn',
+        executionRoleArn,
+      )
+      ..add(
+        'visibility',
+        visibility,
+      )
+      ..add(
+        'sourceUrl',
+        sourceUrl,
+      )
+      ..add(
+        'documentationUrl',
+        documentationUrl,
+      )
+      ..add(
+        'lastUpdated',
+        lastUpdated,
+      )
+      ..add(
+        'timeCreated',
+        timeCreated,
+      )
+      ..add(
+        'configurationSchema',
+        configurationSchema,
+      )
+      ..add(
+        'publisherId',
+        publisherId,
+      )
+      ..add(
+        'originalTypeName',
+        originalTypeName,
+      )
+      ..add(
+        'originalTypeArn',
+        originalTypeArn,
+      )
+      ..add(
+        'publicVersionNumber',
+        publicVersionNumber,
+      )
+      ..add(
+        'latestPublicVersion',
+        latestPublicVersion,
+      )
+      ..add(
+        'isActivated',
+        isActivated,
+      )
+      ..add(
+        'autoUpdate',
+        autoUpdate,
+      );
     return helper.toString();
   }
 }

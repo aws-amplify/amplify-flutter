@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db_streams.model.stream; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,12 +32,9 @@ abstract class Stream
 
   const Stream._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Stream>> serializers = [
     StreamAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StreamBuilder b) {}
 
   /// The Amazon Resource Name (ARN) for the stream.
   String? get streamArn;
@@ -49,7 +46,7 @@ abstract class Stream
   ///
   /// Note that `LatestStreamLabel` is not a unique identifier for the stream, because it is possible that a stream from another table might have the same timestamp. However, the combination of the following three elements is guaranteed to be unique:
   ///
-  /// *   the AWS customer ID.
+  /// *   the Amazon Web Services customer ID.
   ///
   /// *   the table name
   ///
@@ -63,19 +60,19 @@ abstract class Stream
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Stream');
-    helper.add(
-      'streamArn',
-      streamArn,
-    );
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'streamLabel',
-      streamLabel,
-    );
+    final helper = newBuiltValueToStringHelper('Stream')
+      ..add(
+        'streamArn',
+        streamArn,
+      )
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'streamLabel',
+        streamLabel,
+      );
     return helper.toString();
   }
 }

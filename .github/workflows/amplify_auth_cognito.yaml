@@ -23,12 +23,8 @@ on:
       - 'packages/auth/amplify_auth_cognito/**/*.yaml'
       - 'packages/auth/amplify_auth_cognito/lib/**/*'
       - 'packages/auth/amplify_auth_cognito/test/**/*'
-      - 'packages/auth/amplify_auth_cognito_android/lib/**/*.dart'
-      - 'packages/auth/amplify_auth_cognito_android/pubspec.yaml'
       - 'packages/auth/amplify_auth_cognito_dart/lib/**/*.dart'
       - 'packages/auth/amplify_auth_cognito_dart/pubspec.yaml'
-      - 'packages/auth/amplify_auth_cognito_ios/lib/**/*.dart'
-      - 'packages/auth/amplify_auth_cognito_ios/pubspec.yaml'
       - 'packages/aws_common/lib/**/*.dart'
       - 'packages/aws_common/pubspec.yaml'
       - 'packages/aws_signature_v4/lib/**/*.dart'
@@ -62,4 +58,5 @@ jobs:
   test:
     uses: ./.github/workflows/flutter_vm.yaml
     with:
+      package-name: amplify_auth_cognito
       working-directory: packages/auth/amplify_auth_cognito

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.batch_execute_statement_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,12 +43,8 @@ abstract class BatchExecuteStatementOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
-    BatchExecuteStatementOutputAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BatchExecuteStatementOutputBuilder b) {}
+  static const List<_i5.SmithySerializer<BatchExecuteStatementOutput>>
+      serializers = [BatchExecuteStatementOutputAwsJson10Serializer()];
 
   /// The response to each PartiQL statement in the batch.
   _i4.BuiltList<_i2.BatchStatementResponse>? get responses;
@@ -62,15 +58,15 @@ abstract class BatchExecuteStatementOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('BatchExecuteStatementOutput');
-    helper.add(
-      'responses',
-      responses,
-    );
-    helper.add(
-      'consumedCapacity',
-      consumedCapacity,
-    );
+    final helper = newBuiltValueToStringHelper('BatchExecuteStatementOutput')
+      ..add(
+        'responses',
+        responses,
+      )
+      ..add(
+        'consumedCapacity',
+        consumedCapacity,
+      );
     return helper.toString();
   }
 }

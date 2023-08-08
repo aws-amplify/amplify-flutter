@@ -30,9 +30,9 @@ class XmlNumSerializer extends PrimitiveSmithySerializer<num> {
     }
     serialized as String;
     switch (specifiedType.root) {
-      case int:
+      case const (int):
         return int.parse(serialized);
-      case double:
+      case const (double):
         if (serialized == nan) {
           return double.nan;
         } else if (serialized == negativeInfinity) {

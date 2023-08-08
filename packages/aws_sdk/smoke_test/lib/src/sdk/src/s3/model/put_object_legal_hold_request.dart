@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.put_object_legal_hold_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -86,12 +86,8 @@ abstract class PutObjectLegalHoldRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutObjectLegalHoldRequestRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectLegalHoldRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<_i2.ObjectLockLegalHold?>>
+      serializers = [PutObjectLegalHoldRequestRestXmlSerializer()];
 
   /// The bucket name containing the object that you want to place a legal hold on.
   ///
@@ -152,39 +148,39 @@ abstract class PutObjectLegalHoldRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutObjectLegalHoldRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'legalHold',
-      legalHold,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'contentMd5',
-      contentMd5,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('PutObjectLegalHoldRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'legalHold',
+        legalHold,
+      )
+      ..add(
+        'requestPayer',
+        requestPayer,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'contentMd5',
+        contentMd5,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

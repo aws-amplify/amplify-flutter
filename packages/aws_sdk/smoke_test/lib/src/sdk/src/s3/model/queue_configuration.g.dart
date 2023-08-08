@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.queue_configuration;
+part of 'queue_configuration.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -83,9 +83,7 @@ class QueueConfigurationBuilder
   set filter(_i3.NotificationConfigurationFilterBuilder? filter) =>
       _$this._filter = filter;
 
-  QueueConfigurationBuilder() {
-    QueueConfiguration._init(this);
-  }
+  QueueConfigurationBuilder();
 
   QueueConfigurationBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v1.rest_xml_protocol.model.xml_namespaces_input_output;
+part of 'xml_namespaces_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -50,9 +50,7 @@ class XmlNamespacesInputOutputBuilder
       _$this._nested ??= new _i3.XmlNamespaceNestedBuilder();
   set nested(_i3.XmlNamespaceNestedBuilder? nested) => _$this._nested = nested;
 
-  XmlNamespacesInputOutputBuilder() {
-    XmlNamespacesInputOutput._init(this);
-  }
+  XmlNamespacesInputOutputBuilder();
 
   XmlNamespacesInputOutputBuilder get _$this {
     final $v = _$v;

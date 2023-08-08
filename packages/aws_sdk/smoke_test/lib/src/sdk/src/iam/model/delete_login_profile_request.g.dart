@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.delete_login_profile_request;
+part of 'delete_login_profile_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -52,9 +52,7 @@ class DeleteLoginProfileRequestBuilder
   String? get userName => _$this._userName;
   set userName(String? userName) => _$this._userName = userName;
 
-  DeleteLoginProfileRequestBuilder() {
-    DeleteLoginProfileRequest._init(this);
-  }
+  DeleteLoginProfileRequestBuilder();
 
   DeleteLoginProfileRequestBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v1.rest_xml_protocol.model.nested_xml_maps_input_output;
+part of 'nested_xml_maps_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -69,9 +69,7 @@ class NestedXmlMapsInputOutputBuilder
               flatNestedMap) =>
       _$this._flatNestedMap = flatNestedMap;
 
-  NestedXmlMapsInputOutputBuilder() {
-    NestedXmlMapsInputOutput._init(this);
-  }
+  NestedXmlMapsInputOutputBuilder();
 
   NestedXmlMapsInputOutputBuilder get _$this {
     final $v = _$v;

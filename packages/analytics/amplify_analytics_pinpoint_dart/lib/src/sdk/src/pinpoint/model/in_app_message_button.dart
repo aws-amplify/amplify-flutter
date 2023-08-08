@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.in_app_message_button; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,9 @@ abstract class InAppMessageButton
 
   const InAppMessageButton._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<InAppMessageButton>> serializers = [
     InAppMessageButtonRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InAppMessageButtonBuilder b) {}
 
   /// Default button content.
   _i2.OverrideButtonConfiguration? get android;
@@ -67,23 +64,23 @@ abstract class InAppMessageButton
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InAppMessageButton');
-    helper.add(
-      'android',
-      android,
-    );
-    helper.add(
-      'defaultConfig',
-      defaultConfig,
-    );
-    helper.add(
-      'ios',
-      ios,
-    );
-    helper.add(
-      'web',
-      web,
-    );
+    final helper = newBuiltValueToStringHelper('InAppMessageButton')
+      ..add(
+        'android',
+        android,
+      )
+      ..add(
+        'defaultConfig',
+        defaultConfig,
+      )
+      ..add(
+        'ios',
+        ios,
+      )
+      ..add(
+        'web',
+        web,
+      );
     return helper.toString();
   }
 }

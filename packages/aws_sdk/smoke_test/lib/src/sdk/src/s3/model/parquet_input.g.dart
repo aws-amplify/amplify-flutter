@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.parquet_input;
+part of 'parquet_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -35,9 +35,7 @@ class ParquetInputBuilder
     implements Builder<ParquetInput, ParquetInputBuilder> {
   _$ParquetInput? _$v;
 
-  ParquetInputBuilder() {
-    ParquetInput._init(this);
-  }
+  ParquetInputBuilder();
 
   @override
   void replace(ParquetInput other) {

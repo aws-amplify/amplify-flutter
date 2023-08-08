@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.delete_account_alias_request;
+part of 'delete_account_alias_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -53,9 +53,7 @@ class DeleteAccountAliasRequestBuilder
   String? get accountAlias => _$this._accountAlias;
   set accountAlias(String? accountAlias) => _$this._accountAlias = accountAlias;
 
-  DeleteAccountAliasRequestBuilder() {
-    DeleteAccountAliasRequest._init(this);
-  }
+  DeleteAccountAliasRequestBuilder();
 
   DeleteAccountAliasRequestBuilder get _$this {
     final $v = _$v;

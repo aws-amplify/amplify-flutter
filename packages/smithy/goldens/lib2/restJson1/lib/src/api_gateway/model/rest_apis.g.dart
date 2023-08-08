@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.api_gateway.model.rest_apis;
+part of 'rest_apis.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class RestApisBuilder implements Builder<RestApis, RestApisBuilder> {
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  RestApisBuilder() {
-    RestApis._init(this);
-  }
+  RestApisBuilder();
 
   RestApisBuilder get _$this {
     final $v = _$v;

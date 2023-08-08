@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.storage_class_analysis;
+part of 'storage_class_analysis.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -50,9 +50,7 @@ class StorageClassAnalysisBuilder
   set dataExport(_i2.StorageClassAnalysisDataExportBuilder? dataExport) =>
       _$this._dataExport = dataExport;
 
-  StorageClassAnalysisBuilder() {
-    StorageClassAnalysis._init(this);
-  }
+  StorageClassAnalysisBuilder();
 
   StorageClassAnalysisBuilder get _$this {
     final $v = _$v;

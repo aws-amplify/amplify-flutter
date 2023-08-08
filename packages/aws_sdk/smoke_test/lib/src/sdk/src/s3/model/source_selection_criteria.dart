@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.source_selection_criteria; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,12 +36,8 @@ abstract class SourceSelectionCriteria
 
   const SourceSelectionCriteria._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    SourceSelectionCriteriaRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SourceSelectionCriteriaBuilder b) {}
+  static const List<_i4.SmithySerializer<SourceSelectionCriteria>> serializers =
+      [SourceSelectionCriteriaRestXmlSerializer()];
 
   /// A container for filter information for the selection of Amazon S3 objects encrypted with Amazon Web Services KMS. If you include `SourceSelectionCriteria` in the replication configuration, this element is required.
   _i2.SseKmsEncryptedObjects? get sseKmsEncryptedObjects;
@@ -57,15 +53,15 @@ abstract class SourceSelectionCriteria
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SourceSelectionCriteria');
-    helper.add(
-      'sseKmsEncryptedObjects',
-      sseKmsEncryptedObjects,
-    );
-    helper.add(
-      'replicaModifications',
-      replicaModifications,
-    );
+    final helper = newBuiltValueToStringHelper('SourceSelectionCriteria')
+      ..add(
+        'sseKmsEncryptedObjects',
+        sseKmsEncryptedObjects,
+      )
+      ..add(
+        'replicaModifications',
+        replicaModifications,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.sts.model.assume_role_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -45,12 +45,9 @@ abstract class AssumeRoleResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<AssumeRoleResponse>> serializers = [
     AssumeRoleResponseAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AssumeRoleResponseBuilder b) {}
 
   /// The temporary security credentials, which include an access key ID, a secret access key, and a security (or session) token.
   ///
@@ -78,23 +75,23 @@ abstract class AssumeRoleResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AssumeRoleResponse');
-    helper.add(
-      'credentials',
-      credentials,
-    );
-    helper.add(
-      'assumedRoleUser',
-      assumedRoleUser,
-    );
-    helper.add(
-      'packedPolicySize',
-      packedPolicySize,
-    );
-    helper.add(
-      'sourceIdentity',
-      sourceIdentity,
-    );
+    final helper = newBuiltValueToStringHelper('AssumeRoleResponse')
+      ..add(
+        'credentials',
+        credentials,
+      )
+      ..add(
+        'assumedRoleUser',
+        assumedRoleUser,
+      )
+      ..add(
+        'packedPolicySize',
+        packedPolicySize,
+      )
+      ..add(
+        'sourceIdentity',
+        sourceIdentity,
+      );
     return helper.toString();
   }
 }

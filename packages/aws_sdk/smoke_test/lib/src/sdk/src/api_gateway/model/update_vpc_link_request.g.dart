@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.update_vpc_link_request;
+part of 'update_vpc_link_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class UpdateVpcLinkRequestBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateVpcLinkRequestBuilder() {
-    UpdateVpcLinkRequest._init(this);
-  }
+  UpdateVpcLinkRequestBuilder();
 
   UpdateVpcLinkRequestBuilder get _$this {
     final $v = _$v;
@@ -162,9 +160,7 @@ class UpdateVpcLinkRequestPayloadBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateVpcLinkRequestPayloadBuilder() {
-    UpdateVpcLinkRequestPayload._init(this);
-  }
+  UpdateVpcLinkRequestPayloadBuilder();
 
   UpdateVpcLinkRequestPayloadBuilder get _$this {
     final $v = _$v;

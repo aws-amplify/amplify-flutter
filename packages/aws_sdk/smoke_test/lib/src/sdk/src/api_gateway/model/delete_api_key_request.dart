@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.delete_api_key_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,12 +43,8 @@ abstract class DeleteApiKeyRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteApiKeyRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteApiKeyRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<DeleteApiKeyRequestPayload>>
+      serializers = [DeleteApiKeyRequestRestJson1Serializer()];
 
   /// The identifier of the ApiKey resource to be deleted.
   String get apiKey;
@@ -70,11 +66,11 @@ abstract class DeleteApiKeyRequest
   List<Object?> get props => [apiKey];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteApiKeyRequest');
-    helper.add(
-      'apiKey',
-      apiKey,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteApiKeyRequest')
+      ..add(
+        'apiKey',
+        apiKey,
+      );
     return helper.toString();
   }
 }
@@ -91,8 +87,6 @@ abstract class DeleteApiKeyRequestPayload
 
   const DeleteApiKeyRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteApiKeyRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

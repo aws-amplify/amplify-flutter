@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.external_evaluation;
+part of 'external_evaluation.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -100,9 +100,7 @@ class ExternalEvaluationBuilder
   set orderingTimestamp(DateTime? orderingTimestamp) =>
       _$this._orderingTimestamp = orderingTimestamp;
 
-  ExternalEvaluationBuilder() {
-    ExternalEvaluation._init(this);
-  }
+  ExternalEvaluationBuilder();
 
   ExternalEvaluationBuilder get _$this {
     final $v = _$v;

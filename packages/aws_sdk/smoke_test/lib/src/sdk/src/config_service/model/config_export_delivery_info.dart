@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.config_export_delivery_info; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,12 +43,8 @@ abstract class ConfigExportDeliveryInfo
 
   const ConfigExportDeliveryInfo._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ConfigExportDeliveryInfoAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConfigExportDeliveryInfoBuilder b) {}
+  static const List<_i3.SmithySerializer<ConfigExportDeliveryInfo>>
+      serializers = [ConfigExportDeliveryInfoAwsJson11Serializer()];
 
   /// Status of the last attempted delivery.
   _i2.DeliveryStatus? get lastStatus;
@@ -78,31 +74,31 @@ abstract class ConfigExportDeliveryInfo
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConfigExportDeliveryInfo');
-    helper.add(
-      'lastStatus',
-      lastStatus,
-    );
-    helper.add(
-      'lastErrorCode',
-      lastErrorCode,
-    );
-    helper.add(
-      'lastErrorMessage',
-      lastErrorMessage,
-    );
-    helper.add(
-      'lastAttemptTime',
-      lastAttemptTime,
-    );
-    helper.add(
-      'lastSuccessfulTime',
-      lastSuccessfulTime,
-    );
-    helper.add(
-      'nextDeliveryTime',
-      nextDeliveryTime,
-    );
+    final helper = newBuiltValueToStringHelper('ConfigExportDeliveryInfo')
+      ..add(
+        'lastStatus',
+        lastStatus,
+      )
+      ..add(
+        'lastErrorCode',
+        lastErrorCode,
+      )
+      ..add(
+        'lastErrorMessage',
+        lastErrorMessage,
+      )
+      ..add(
+        'lastAttemptTime',
+        lastAttemptTime,
+      )
+      ..add(
+        'lastSuccessfulTime',
+        lastSuccessfulTime,
+      )
+      ..add(
+        'nextDeliveryTime',
+        nextDeliveryTime,
+      );
     return helper.toString();
   }
 }

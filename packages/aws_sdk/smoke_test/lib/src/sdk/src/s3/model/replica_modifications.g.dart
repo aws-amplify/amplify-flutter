@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.replica_modifications;
+part of 'replica_modifications.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class ReplicaModificationsBuilder
   _i2.ReplicaModificationsStatus? get status => _$this._status;
   set status(_i2.ReplicaModificationsStatus? status) => _$this._status = status;
 
-  ReplicaModificationsBuilder() {
-    ReplicaModifications._init(this);
-  }
+  ReplicaModificationsBuilder();
 
   ReplicaModificationsBuilder get _$this {
     final $v = _$v;

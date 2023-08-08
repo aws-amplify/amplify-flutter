@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.max_number_of_configuration_recorders_exceeded_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -10,7 +10,7 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'max_number_of_configuration_recorders_exceeded_exception.g.dart';
 
-/// You have reached the limit of the number of recorders you can create.
+/// You have reached the limit of the number of configuration recorders you can create.
 abstract class MaxNumberOfConfigurationRecordersExceededException
     with
         _i1.AWSEquatable<MaxNumberOfConfigurationRecordersExceededException>
@@ -18,14 +18,14 @@ abstract class MaxNumberOfConfigurationRecordersExceededException
         Built<MaxNumberOfConfigurationRecordersExceededException,
             MaxNumberOfConfigurationRecordersExceededExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// You have reached the limit of the number of recorders you can create.
+  /// You have reached the limit of the number of configuration recorders you can create.
   factory MaxNumberOfConfigurationRecordersExceededException(
       {String? message}) {
     return _$MaxNumberOfConfigurationRecordersExceededException._(
         message: message);
   }
 
-  /// You have reached the limit of the number of recorders you can create.
+  /// You have reached the limit of the number of configuration recorders you can create.
   factory MaxNumberOfConfigurationRecordersExceededException.build(
       [void Function(MaxNumberOfConfigurationRecordersExceededExceptionBuilder)
           updates]) = _$MaxNumberOfConfigurationRecordersExceededException;
@@ -42,13 +42,11 @@ abstract class MaxNumberOfConfigurationRecordersExceededException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+      _i2.SmithySerializer<
+          MaxNumberOfConfigurationRecordersExceededException>> serializers = [
     MaxNumberOfConfigurationRecordersExceededExceptionAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      MaxNumberOfConfigurationRecordersExceededExceptionBuilder b) {}
 
   /// Error executing the command
   @override
@@ -73,11 +71,11 @@ abstract class MaxNumberOfConfigurationRecordersExceededException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'MaxNumberOfConfigurationRecordersExceededException');
-    helper.add(
-      'message',
-      message,
-    );
+        'MaxNumberOfConfigurationRecordersExceededException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

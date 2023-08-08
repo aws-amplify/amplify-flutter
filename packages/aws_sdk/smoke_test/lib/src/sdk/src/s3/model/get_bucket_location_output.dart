@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.get_bucket_location_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,12 +37,8 @@ abstract class GetBucketLocationOutput
         b.locationConstraint = payload;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetBucketLocationOutputRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketLocationOutputBuilder b) {}
+  static const List<_i2.SmithySerializer<_i3.BucketLocationConstraint?>>
+      serializers = [GetBucketLocationOutputRestXmlSerializer()];
 
   /// Specifies the Region where the bucket resides. For a list of all the Amazon S3 supported location constraints by Region, see [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region). Buckets in Region `us-east-1` have a LocationConstraint of `null`.
   _i3.BucketLocationConstraint? get locationConstraint;
@@ -52,11 +48,11 @@ abstract class GetBucketLocationOutput
   List<Object?> get props => [locationConstraint];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBucketLocationOutput');
-    helper.add(
-      'locationConstraint',
-      locationConstraint,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketLocationOutput')
+      ..add(
+        'locationConstraint',
+        locationConstraint,
+      );
     return helper.toString();
   }
 }

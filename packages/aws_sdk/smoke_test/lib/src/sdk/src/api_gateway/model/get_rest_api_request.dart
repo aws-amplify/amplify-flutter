@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.get_rest_api_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,8 @@ abstract class GetRestApiRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetRestApiRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetRestApiRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetRestApiRequestPayload>>
+      serializers = [GetRestApiRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -69,11 +65,11 @@ abstract class GetRestApiRequest
   List<Object?> get props => [restApiId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetRestApiRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
+    final helper = newBuiltValueToStringHelper('GetRestApiRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      );
     return helper.toString();
   }
 }
@@ -90,8 +86,6 @@ abstract class GetRestApiRequestPayload
 
   const GetRestApiRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetRestApiRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

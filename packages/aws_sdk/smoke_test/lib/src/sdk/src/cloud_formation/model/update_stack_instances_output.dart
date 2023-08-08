@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.update_stack_instances_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,12 +31,8 @@ abstract class UpdateStackInstancesOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    UpdateStackInstancesOutputAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateStackInstancesOutputBuilder b) {}
+  static const List<_i2.SmithySerializer<UpdateStackInstancesOutput>>
+      serializers = [UpdateStackInstancesOutputAwsQuerySerializer()];
 
   /// The unique identifier for this stack set operation.
   String? get operationId;
@@ -44,11 +40,11 @@ abstract class UpdateStackInstancesOutput
   List<Object?> get props => [operationId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateStackInstancesOutput');
-    helper.add(
-      'operationId',
-      operationId,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateStackInstancesOutput')
+      ..add(
+        'operationId',
+        operationId,
+      );
     return helper.toString();
   }
 }

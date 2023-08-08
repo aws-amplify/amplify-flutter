@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.s3_key_filter;
+part of 's3_key_filter.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -46,9 +46,7 @@ class S3KeyFilterBuilder implements Builder<S3KeyFilter, S3KeyFilterBuilder> {
   set filterRules(_i3.ListBuilder<_i2.FilterRule>? filterRules) =>
       _$this._filterRules = filterRules;
 
-  S3KeyFilterBuilder() {
-    S3KeyFilter._init(this);
-  }
+  S3KeyFilterBuilder();
 
   S3KeyFilterBuilder get _$this {
     final $v = _$v;

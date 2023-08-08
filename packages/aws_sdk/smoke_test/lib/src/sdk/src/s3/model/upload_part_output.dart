@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.upload_part_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -107,14 +107,10 @@ abstract class UploadPartOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    UploadPartOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<UploadPartOutputPayload>> serializers =
+      [UploadPartOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UploadPartOutputBuilder b) {}
-
-  /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
+  /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`).
   _i3.ServerSideEncryption? get serverSideEncryption;
 
   /// Entity tag for the uploaded object.
@@ -138,10 +134,10 @@ abstract class UploadPartOutput
   /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header to provide round-trip message integrity verification of the customer-provided encryption key.
   String? get sseCustomerKeyMd5;
 
-  /// If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric customer managed key was used for the object.
+  /// If present, specifies the ID of the Key Management Service (KMS) symmetric encryption customer managed key was used for the object.
   String? get ssekmsKeyId;
 
-  /// Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
+  /// Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with Key Management Service (KMS) keys (SSE-KMS).
   bool? get bucketKeyEnabled;
 
   /// If present, indicates that the requester was successfully charged for the request.
@@ -164,51 +160,51 @@ abstract class UploadPartOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UploadPartOutput');
-    helper.add(
-      'serverSideEncryption',
-      serverSideEncryption,
-    );
-    helper.add(
-      'eTag',
-      eTag,
-    );
-    helper.add(
-      'checksumCrc32',
-      checksumCrc32,
-    );
-    helper.add(
-      'checksumCrc32C',
-      checksumCrc32C,
-    );
-    helper.add(
-      'checksumSha1',
-      checksumSha1,
-    );
-    helper.add(
-      'checksumSha256',
-      checksumSha256,
-    );
-    helper.add(
-      'sseCustomerAlgorithm',
-      sseCustomerAlgorithm,
-    );
-    helper.add(
-      'sseCustomerKeyMd5',
-      sseCustomerKeyMd5,
-    );
-    helper.add(
-      'ssekmsKeyId',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'bucketKeyEnabled',
-      bucketKeyEnabled,
-    );
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
+    final helper = newBuiltValueToStringHelper('UploadPartOutput')
+      ..add(
+        'serverSideEncryption',
+        serverSideEncryption,
+      )
+      ..add(
+        'eTag',
+        eTag,
+      )
+      ..add(
+        'checksumCrc32',
+        checksumCrc32,
+      )
+      ..add(
+        'checksumCrc32C',
+        checksumCrc32C,
+      )
+      ..add(
+        'checksumSha1',
+        checksumSha1,
+      )
+      ..add(
+        'checksumSha256',
+        checksumSha256,
+      )
+      ..add(
+        'sseCustomerAlgorithm',
+        sseCustomerAlgorithm,
+      )
+      ..add(
+        'sseCustomerKeyMd5',
+        sseCustomerKeyMd5,
+      )
+      ..add(
+        'ssekmsKeyId',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'bucketKeyEnabled',
+        bucketKeyEnabled,
+      )
+      ..add(
+        'requestCharged',
+        requestCharged,
+      );
     return helper.toString();
   }
 }
@@ -225,8 +221,6 @@ abstract class UploadPartOutputPayload
 
   const UploadPartOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UploadPartOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

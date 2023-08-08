@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.conformance_pack_rule_compliance; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,19 +40,13 @@ abstract class ConformancePackRuleCompliance
 
   const ConformancePackRuleCompliance._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ConformancePackRuleComplianceAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConformancePackRuleComplianceBuilder b) {}
+  static const List<_i4.SmithySerializer<ConformancePackRuleCompliance>>
+      serializers = [ConformancePackRuleComplianceAwsJson11Serializer()];
 
   /// Name of the Config rule.
   String? get configRuleName;
 
   /// Compliance of the Config rule.
-  ///
-  /// The allowed values are `COMPLIANT`, `NON_COMPLIANT`, and `INSUFFICIENT_DATA`.
   _i2.ConformancePackComplianceType? get complianceType;
 
   /// Controls for the conformance pack. A control is a process to prevent or detect problems while meeting objectives. A control can align with a specific compliance regime or map to internal controls defined by an organization.
@@ -65,19 +59,19 @@ abstract class ConformancePackRuleCompliance
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConformancePackRuleCompliance');
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'complianceType',
-      complianceType,
-    );
-    helper.add(
-      'controls',
-      controls,
-    );
+    final helper = newBuiltValueToStringHelper('ConformancePackRuleCompliance')
+      ..add(
+        'configRuleName',
+        configRuleName,
+      )
+      ..add(
+        'complianceType',
+        complianceType,
+      )
+      ..add(
+        'controls',
+        controls,
+      );
     return helper.toString();
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.list_stack_instances_output;
+part of 'list_stack_instances_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -60,9 +60,7 @@ class ListStackInstancesOutputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListStackInstancesOutputBuilder() {
-    ListStackInstancesOutput._init(this);
-  }
+  ListStackInstancesOutputBuilder();
 
   ListStackInstancesOutputBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.restore_table_to_point_in_time_output;
+part of 'restore_table_to_point_in_time_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class RestoreTableToPointInTimeOutputBuilder
   set tableDescription(_i2.TableDescriptionBuilder? tableDescription) =>
       _$this._tableDescription = tableDescription;
 
-  RestoreTableToPointInTimeOutputBuilder() {
-    RestoreTableToPointInTimeOutput._init(this);
-  }
+  RestoreTableToPointInTimeOutputBuilder();
 
   RestoreTableToPointInTimeOutputBuilder get _$this {
     final $v = _$v;

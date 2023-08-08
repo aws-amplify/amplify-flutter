@@ -29,7 +29,7 @@ class _MyEnum extends SmithyEnum<_MyEnum> {
       values: values,
       sdkUnknown: _MyEnum._sdkUnknown,
       supportedProtocols: [],
-    )
+    ),
   ];
 }
 

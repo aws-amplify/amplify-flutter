@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_storage_s3_dart.s3.model.part; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,12 +43,9 @@ abstract class Part
 
   const Part._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<Part>> serializers = [
     PartRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PartBuilder b) {}
 
   /// Part number identifying the part. This is a positive integer between 1 and 10,000.
   int? get partNumber;
@@ -86,39 +83,39 @@ abstract class Part
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Part');
-    helper.add(
-      'partNumber',
-      partNumber,
-    );
-    helper.add(
-      'lastModified',
-      lastModified,
-    );
-    helper.add(
-      'eTag',
-      eTag,
-    );
-    helper.add(
-      'size',
-      size,
-    );
-    helper.add(
-      'checksumCrc32',
-      checksumCrc32,
-    );
-    helper.add(
-      'checksumCrc32C',
-      checksumCrc32C,
-    );
-    helper.add(
-      'checksumSha1',
-      checksumSha1,
-    );
-    helper.add(
-      'checksumSha256',
-      checksumSha256,
-    );
+    final helper = newBuiltValueToStringHelper('Part')
+      ..add(
+        'partNumber',
+        partNumber,
+      )
+      ..add(
+        'lastModified',
+        lastModified,
+      )
+      ..add(
+        'eTag',
+        eTag,
+      )
+      ..add(
+        'size',
+        size,
+      )
+      ..add(
+        'checksumCrc32',
+        checksumCrc32,
+      )
+      ..add(
+        'checksumCrc32C',
+        checksumCrc32C,
+      )
+      ..add(
+        'checksumSha1',
+        checksumSha1,
+      )
+      ..add(
+        'checksumSha256',
+        checksumSha256,
+      );
     return helper.toString();
   }
 }

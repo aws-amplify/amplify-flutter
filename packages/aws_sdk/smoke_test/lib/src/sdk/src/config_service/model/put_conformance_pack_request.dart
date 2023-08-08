@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.put_conformance_pack_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -56,24 +56,20 @@ abstract class PutConformancePackRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutConformancePackRequestAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutConformancePackRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<PutConformancePackRequest>>
+      serializers = [PutConformancePackRequestAwsJson11Serializer()];
 
   /// The unique name of the conformance pack you want to deploy.
   String get conformancePackName;
 
-  /// The location of the file containing the template body (`s3://bucketname/prefix`). The uri must point to a conformance pack template (max size: 300 KB) that is located in an Amazon S3 bucket in the same region as the conformance pack.
+  /// The location of the file containing the template body (`s3://bucketname/prefix`). The uri must point to a conformance pack template (max size: 300 KB) that is located in an Amazon S3 bucket in the same Region as the conformance pack.
   ///
   /// You must have access to read Amazon S3 bucket.
   String? get templateS3Uri;
 
   /// A string containing the full conformance pack template body. The structure containing the template body has a minimum length of 1 byte and a maximum length of 51,200 bytes.
   ///
-  /// You can only use a YAML template with two resource types: Config rule (`AWS::Config::ConfigRule`) and remediation action (`AWS::Config::RemediationConfiguration`).
+  /// You can use a YAML template with two resource types: Config rule (`AWS::Config::ConfigRule`) and remediation action (`AWS::Config::RemediationConfiguration`).
   String? get templateBody;
 
   /// The name of the Amazon S3 bucket where Config stores conformance pack templates.
@@ -106,35 +102,35 @@ abstract class PutConformancePackRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutConformancePackRequest');
-    helper.add(
-      'conformancePackName',
-      conformancePackName,
-    );
-    helper.add(
-      'templateS3Uri',
-      templateS3Uri,
-    );
-    helper.add(
-      'templateBody',
-      templateBody,
-    );
-    helper.add(
-      'deliveryS3Bucket',
-      deliveryS3Bucket,
-    );
-    helper.add(
-      'deliveryS3KeyPrefix',
-      deliveryS3KeyPrefix,
-    );
-    helper.add(
-      'conformancePackInputParameters',
-      conformancePackInputParameters,
-    );
-    helper.add(
-      'templateSsmDocumentDetails',
-      templateSsmDocumentDetails,
-    );
+    final helper = newBuiltValueToStringHelper('PutConformancePackRequest')
+      ..add(
+        'conformancePackName',
+        conformancePackName,
+      )
+      ..add(
+        'templateS3Uri',
+        templateS3Uri,
+      )
+      ..add(
+        'templateBody',
+        templateBody,
+      )
+      ..add(
+        'deliveryS3Bucket',
+        deliveryS3Bucket,
+      )
+      ..add(
+        'deliveryS3KeyPrefix',
+        deliveryS3KeyPrefix,
+      )
+      ..add(
+        'conformancePackInputParameters',
+        conformancePackInputParameters,
+      )
+      ..add(
+        'templateSsmDocumentDetails',
+        templateSsmDocumentDetails,
+      );
     return helper.toString();
   }
 }

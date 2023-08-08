@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.add_user_to_group_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,9 @@ abstract class AddUserToGroupRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<AddUserToGroupRequest>> serializers = [
     AddUserToGroupRequestAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AddUserToGroupRequestBuilder b) {}
 
   /// The name of the group to update.
   ///
@@ -63,15 +60,15 @@ abstract class AddUserToGroupRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AddUserToGroupRequest');
-    helper.add(
-      'groupName',
-      groupName,
-    );
-    helper.add(
-      'userName',
-      userName,
-    );
+    final helper = newBuiltValueToStringHelper('AddUserToGroupRequest')
+      ..add(
+        'groupName',
+        groupName,
+      )
+      ..add(
+        'userName',
+        userName,
+      );
     return helper.toString();
   }
 }

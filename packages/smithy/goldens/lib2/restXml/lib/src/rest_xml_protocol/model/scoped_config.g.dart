@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.rest_xml_protocol.model.scoped_config;
+part of 'scoped_config.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -96,9 +96,7 @@ class ScopedConfigBuilder
   set operation(_i5.OperationConfigBuilder? operation) =>
       _$this._operation = operation;
 
-  ScopedConfigBuilder() {
-    ScopedConfig._init(this);
-  }
+  ScopedConfigBuilder();
 
   ScopedConfigBuilder get _$this {
     final $v = _$v;

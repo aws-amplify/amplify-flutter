@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.delete; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,14 +32,11 @@ abstract class Delete
 
   const Delete._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Delete>> serializers = [
     DeleteRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBuilder b) {}
-
-  /// The objects to delete.
+  /// The object to delete.
   _i3.BuiltList<_i2.ObjectIdentifier> get objects;
 
   /// Element to enable quiet mode for the request. When you add this element, you must set its value to true.
@@ -51,15 +48,15 @@ abstract class Delete
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Delete');
-    helper.add(
-      'objects',
-      objects,
-    );
-    helper.add(
-      'quiet',
-      quiet,
-    );
+    final helper = newBuiltValueToStringHelper('Delete')
+      ..add(
+        'objects',
+        objects,
+      )
+      ..add(
+        'quiet',
+        quiet,
+      );
     return helper.toString();
   }
 }

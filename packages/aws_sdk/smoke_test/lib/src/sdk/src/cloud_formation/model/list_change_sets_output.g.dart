@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.list_change_sets_output;
+part of 'list_change_sets_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -59,9 +59,7 @@ class ListChangeSetsOutputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListChangeSetsOutputBuilder() {
-    ListChangeSetsOutput._init(this);
-  }
+  ListChangeSetsOutputBuilder();
 
   ListChangeSetsOutputBuilder get _$this {
     final $v = _$v;

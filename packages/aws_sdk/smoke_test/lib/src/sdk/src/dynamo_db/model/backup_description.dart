@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.backup_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,9 @@ abstract class BackupDescription
 
   const BackupDescription._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<BackupDescription>> serializers = [
     BackupDescriptionAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BackupDescriptionBuilder b) {}
 
   /// Contains the details of the backup created for the table.
   _i2.BackupDetails? get backupDetails;
@@ -62,19 +59,19 @@ abstract class BackupDescription
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('BackupDescription');
-    helper.add(
-      'backupDetails',
-      backupDetails,
-    );
-    helper.add(
-      'sourceTableDetails',
-      sourceTableDetails,
-    );
-    helper.add(
-      'sourceTableFeatureDetails',
-      sourceTableFeatureDetails,
-    );
+    final helper = newBuiltValueToStringHelper('BackupDescription')
+      ..add(
+        'backupDetails',
+        backupDetails,
+      )
+      ..add(
+        'sourceTableDetails',
+        sourceTableDetails,
+      )
+      ..add(
+        'sourceTableFeatureDetails',
+        sourceTableFeatureDetails,
+      );
     return helper.toString();
   }
 }

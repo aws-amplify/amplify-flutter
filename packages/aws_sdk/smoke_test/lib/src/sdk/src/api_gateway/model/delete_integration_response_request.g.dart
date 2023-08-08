@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.delete_integration_response_request;
+part of 'delete_integration_response_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -90,9 +90,7 @@ class DeleteIntegrationResponseRequestBuilder
   String? get statusCode => _$this._statusCode;
   set statusCode(String? statusCode) => _$this._statusCode = statusCode;
 
-  DeleteIntegrationResponseRequestBuilder() {
-    DeleteIntegrationResponseRequest._init(this);
-  }
+  DeleteIntegrationResponseRequestBuilder();
 
   DeleteIntegrationResponseRequestBuilder get _$this {
     final $v = _$v;
@@ -174,9 +172,7 @@ class DeleteIntegrationResponseRequestPayloadBuilder
             DeleteIntegrationResponseRequestPayloadBuilder> {
   _$DeleteIntegrationResponseRequestPayload? _$v;
 
-  DeleteIntegrationResponseRequestPayloadBuilder() {
-    DeleteIntegrationResponseRequestPayload._init(this);
-  }
+  DeleteIntegrationResponseRequestPayloadBuilder();
 
   @override
   void replace(DeleteIntegrationResponseRequestPayload other) {

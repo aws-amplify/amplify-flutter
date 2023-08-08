@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.list_role_tags_request;
+part of 'list_role_tags_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -69,9 +69,7 @@ class ListRoleTagsRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  ListRoleTagsRequestBuilder() {
-    ListRoleTagsRequest._init(this);
-  }
+  ListRoleTagsRequestBuilder();
 
   ListRoleTagsRequestBuilder get _$this {
     final $v = _$v;

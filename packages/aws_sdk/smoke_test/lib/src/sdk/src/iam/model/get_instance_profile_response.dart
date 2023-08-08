@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.get_instance_profile_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,12 +36,8 @@ abstract class GetInstanceProfileResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    GetInstanceProfileResponseAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetInstanceProfileResponseBuilder b) {}
+  static const List<_i3.SmithySerializer<GetInstanceProfileResponse>>
+      serializers = [GetInstanceProfileResponseAwsQuerySerializer()];
 
   /// A structure containing details about the instance profile.
   _i2.InstanceProfile get instanceProfile;
@@ -49,11 +45,11 @@ abstract class GetInstanceProfileResponse
   List<Object?> get props => [instanceProfile];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetInstanceProfileResponse');
-    helper.add(
-      'instanceProfile',
-      instanceProfile,
-    );
+    final helper = newBuiltValueToStringHelper('GetInstanceProfileResponse')
+      ..add(
+        'instanceProfile',
+        instanceProfile,
+      );
     return helper.toString();
   }
 }

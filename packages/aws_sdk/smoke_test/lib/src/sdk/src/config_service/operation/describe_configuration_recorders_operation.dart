@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.operation.describe_configuration_recorders_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,7 +22,7 @@ import 'package:smoke_test/src/sdk/src/config_service/model/no_such_configuratio
 
 /// Returns the details for the specified configuration recorders. If the configuration recorder is not specified, this action returns the details for all configuration recorders associated with the account.
 ///
-/// Currently, you can specify only one configuration recorder per region in your account.
+/// You can specify only one configuration recorder for each Amazon Web Services Region for each account.
 class DescribeConfigurationRecordersOperation extends _i1.HttpOperation<
     _i2.DescribeConfigurationRecordersRequest,
     _i2.DescribeConfigurationRecordersRequest,
@@ -30,7 +30,7 @@ class DescribeConfigurationRecordersOperation extends _i1.HttpOperation<
     _i3.DescribeConfigurationRecordersResponse> {
   /// Returns the details for the specified configuration recorders. If the configuration recorder is not specified, this action returns the details for all configuration recorders associated with the account.
   ///
-  /// Currently, you can specify only one configuration recorder per region in your account.
+  /// You can specify only one configuration recorder for each Amazon Web Services Region for each account.
   DescribeConfigurationRecordersOperation({
     required String region,
     Uri? baseUri,
@@ -111,7 +111,8 @@ class DescribeConfigurationRecordersOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.NoSuchConfigurationRecorderException,
+            _i9.NoSuchConfigurationRecorderException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchConfigurationRecorderException',
@@ -143,7 +144,7 @@ class DescribeConfigurationRecordersOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.type_version_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -46,12 +46,9 @@ abstract class TypeVersionSummary
 
   const TypeVersionSummary._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<TypeVersionSummary>> serializers = [
     TypeVersionSummaryAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TypeVersionSummaryBuilder b) {}
 
   /// The kind of extension.
   _i2.RegistryType? get type;
@@ -76,9 +73,9 @@ abstract class TypeVersionSummary
   /// The description of the extension version.
   String? get description;
 
-  /// For public extensions that have been activated for this account and region, the version of the public extension to be used for CloudFormation operations in this account and region. For any extensions other than activated third-arty extensions, CloudFormation returns `null`.
+  /// For public extensions that have been activated for this account and Region, the version of the public extension to be used for CloudFormation operations in this account and Region. For any extensions other than activated third-arty extensions, CloudFormation returns `null`.
   ///
-  /// How you specified `AutoUpdate` when enabling the extension affects whether CloudFormation automatically updates the extension in this account and region when a new version is released. For more information, see [Setting CloudFormation to automatically use new versions of extensions](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-public.html#registry-public-enable-auto) in the _CloudFormation User Guide_.
+  /// How you specified `AutoUpdate` when enabling the extension affects whether CloudFormation automatically updates the extension in this account and Region when a new version is released. For more information, see [Setting CloudFormation to automatically use new versions of extensions](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-public.html#registry-public-enable-auto) in the _CloudFormation User Guide_.
   String? get publicVersionNumber;
   @override
   List<Object?> get props => [
@@ -93,39 +90,39 @@ abstract class TypeVersionSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TypeVersionSummary');
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'typeName',
-      typeName,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'isDefaultVersion',
-      isDefaultVersion,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'timeCreated',
-      timeCreated,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'publicVersionNumber',
-      publicVersionNumber,
-    );
+    final helper = newBuiltValueToStringHelper('TypeVersionSummary')
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'typeName',
+        typeName,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'isDefaultVersion',
+        isDefaultVersion,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'timeCreated',
+        timeCreated,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'publicVersionNumber',
+        publicVersionNumber,
+      );
     return helper.toString();
   }
 }

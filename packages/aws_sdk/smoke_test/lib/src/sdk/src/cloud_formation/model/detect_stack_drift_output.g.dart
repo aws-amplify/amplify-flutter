@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.detect_stack_drift_output;
+part of 'detect_stack_drift_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class DetectStackDriftOutputBuilder
   set stackDriftDetectionId(String? stackDriftDetectionId) =>
       _$this._stackDriftDetectionId = stackDriftDetectionId;
 
-  DetectStackDriftOutputBuilder() {
-    DetectStackDriftOutput._init(this);
-  }
+  DetectStackDriftOutputBuilder();
 
   DetectStackDriftOutputBuilder get _$this {
     final $v = _$v;

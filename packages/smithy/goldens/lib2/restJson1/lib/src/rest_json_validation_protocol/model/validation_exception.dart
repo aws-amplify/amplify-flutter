@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v2.rest_json_validation_protocol.model.validation_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -47,12 +47,9 @@ abstract class ValidationException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ValidationException>> serializers = [
     ValidationExceptionRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ValidationExceptionBuilder b) {}
 
   /// A summary of the validation failure.
   @override
@@ -82,15 +79,15 @@ abstract class ValidationException
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ValidationException');
-    helper.add(
-      'message',
-      message,
-    );
-    helper.add(
-      'fieldList',
-      fieldList,
-    );
+    final helper = newBuiltValueToStringHelper('ValidationException')
+      ..add(
+        'message',
+        message,
+      )
+      ..add(
+        'fieldList',
+        fieldList,
+      );
     return helper.toString();
   }
 }

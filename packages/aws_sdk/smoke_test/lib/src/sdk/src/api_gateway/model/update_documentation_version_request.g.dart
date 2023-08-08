@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.update_documentation_version_request;
+part of 'update_documentation_version_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -81,9 +81,7 @@ class UpdateDocumentationVersionRequestBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateDocumentationVersionRequestBuilder() {
-    UpdateDocumentationVersionRequest._init(this);
-  }
+  UpdateDocumentationVersionRequestBuilder();
 
   UpdateDocumentationVersionRequestBuilder get _$this {
     final $v = _$v;
@@ -191,9 +189,7 @@ class UpdateDocumentationVersionRequestPayloadBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateDocumentationVersionRequestPayloadBuilder() {
-    UpdateDocumentationVersionRequestPayload._init(this);
-  }
+  UpdateDocumentationVersionRequestPayloadBuilder();
 
   UpdateDocumentationVersionRequestPayloadBuilder get _$this {
     final $v = _$v;

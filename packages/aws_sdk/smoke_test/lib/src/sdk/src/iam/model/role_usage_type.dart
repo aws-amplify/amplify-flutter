@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.role_usage_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,9 @@ abstract class RoleUsageType
 
   const RoleUsageType._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<RoleUsageType>> serializers = [
     RoleUsageTypeAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RoleUsageTypeBuilder b) {}
 
   /// The name of the Region where the service-linked role is being used.
   String? get region;
@@ -57,15 +54,15 @@ abstract class RoleUsageType
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RoleUsageType');
-    helper.add(
-      'region',
-      region,
-    );
-    helper.add(
-      'resources',
-      resources,
-    );
+    final helper = newBuiltValueToStringHelper('RoleUsageType')
+      ..add(
+        'region',
+        region,
+      )
+      ..add(
+        'resources',
+        resources,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.get_bucket_encryption_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -50,12 +50,8 @@ abstract class GetBucketEncryptionRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetBucketEncryptionRequestRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketEncryptionRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetBucketEncryptionRequestPayload>>
+      serializers = [GetBucketEncryptionRequestRestXmlSerializer()];
 
   /// The name of the bucket from which the server-side encryption configuration is retrieved.
   String get bucket;
@@ -84,15 +80,15 @@ abstract class GetBucketEncryptionRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBucketEncryptionRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketEncryptionRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }
@@ -111,8 +107,6 @@ abstract class GetBucketEncryptionRequestPayload
 
   const GetBucketEncryptionRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketEncryptionRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

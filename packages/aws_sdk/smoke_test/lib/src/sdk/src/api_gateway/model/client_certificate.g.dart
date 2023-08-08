@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.client_certificate;
+part of 'client_certificate.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -99,9 +99,7 @@ class ClientCertificateBuilder
       _$this._tags ??= new _i2.MapBuilder<String, String>();
   set tags(_i2.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
-  ClientCertificateBuilder() {
-    ClientCertificate._init(this);
-  }
+  ClientCertificateBuilder();
 
   ClientCertificateBuilder get _$this {
     final $v = _$v;

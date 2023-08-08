@@ -9,22 +9,30 @@ dependencies:
   async: ^2.10.0
   build_runner: ^2.4.0
   build_web_compilers: ^4.0.0
-  built_value: ">=8.5.0 <8.6.0"
-  built_value_generator: 8.5.0
-  code_builder: 4.4.0
+  built_value: ">=8.6.0 <8.7.0"
+  built_value_generator: 8.6.1
+  code_builder: 4.5.0
   connectivity_plus: ^4.0.1
-  dart_style: 2.3.1
-  drift: ">=2.4.0 <2.9.0"
+  dart_style: 2.3.2
+  device_info_plus: ^9.0.0
+  drift: ">=2.10.0 <2.11.0"
+  ffigen: ^9.0.0
+  file: ">=6.0.0 <8.0.0"
   flutter_plugin_android_lifecycle: ^2.0.9
-  json_annotation: ">=4.8.1 <4.9.0"
-  json_serializable: 6.7.0
+  graphs: ^2.1.0
+  http: ">=0.13.0 <2.0.0"
   intl: ">=0.18.0 <1.0.0"
+  json_annotation: ">=4.8.1 <4.9.0"
+  json_serializable: 6.7.1
   mime: ^1.0.0
+  oauth2: ^2.0.2
   package_info_plus: ^4.0.1
-  pigeon: ^9.2.4
+  pigeon: ^10.1.2
+  sqlite3: ^2.0.0
   source_gen: ^1.3.2
   stack_trace: ^1.10.0
   uuid: ">=3.0.6 <=3.0.7"
+  win32: ">=4.1.2 <6.0.0"
   xml: 6.3.0
   test: ^1.22.1
 
@@ -60,8 +68,6 @@ components:
       - amplify_analytics_pinpoint
       - amplify_api
       - amplify_auth_cognito
-      - amplify_auth_cognito_android
-      - amplify_auth_cognito_ios
       - amplify_storage_s3
       - amplify_push_notifications
       - amplify_push_notifications_pinpoint
@@ -148,30 +154,3 @@ scripts:
       if [ -d android ]; then
         flutter build apk --debug
       fi
-  build:docs:
-    description: Builds the documentation examples
-    run: |
-      if [ ! -f doc/build.yaml ]; then
-        echo "No documentation examples for {{ package.name }}" >&2
-        exit 0
-      fi
-
-      pushd doc
-      # All `doc` packages should allow `flutter` dependencies even if they 
-      # are subpackages of a Dart-only package. For example, we want to use 
-      # `amplify_flutter` in the `amplify_core` docs.
-      flutter pub get
-      flutter pub run build_runner build
-      popd
-
-      if [ "{{ package.flavor }}" == "flutter" ]; then
-        PUB="flutter pub"
-      else
-        PUB="dart"
-      fi
-
-      $PUB run code_excerpt_updater \
-        --fragment-dir-path=doc/.dart_tool/build/generated \
-        --yaml \
-        --write-in-place \
-        lib

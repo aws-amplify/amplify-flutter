@@ -105,7 +105,7 @@ void main() {
           'input': {
             'id': id,
             'name': name,
-          }
+          },
         };
         const expectedDoc =
             'mutation createBlog(\$input: CreateBlogInput!, \$condition:  ModelBlogConditionInput) { createBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
@@ -136,8 +136,8 @@ void main() {
             'id': postId,
             'title': title,
             'rating': rating,
-            'blogID': blogId
-          }
+            'blogID': blogId,
+          },
         };
         const expectedDoc =
             'mutation createPost(\$input: CreatePostInput!, \$condition:  ModelPostConditionInput) { createPost(input: \$input, condition: \$condition) { id title rating createdAt updatedAt blog { $blogSelectionSet } blogID owner } }';
@@ -169,7 +169,7 @@ void main() {
       test('query by ID', () {
         const blogId = 'blog-123';
         final expectedFilter = {
-          'id': {'eq': blogId}
+          'id': {'eq': blogId},
         };
 
         testQueryPredicateTranslation(
@@ -182,7 +182,7 @@ void main() {
       test('query child by parent ID', () {
         const blogId = 'blog-123';
         final expectedFilter = {
-          'blogID': {'eq': blogId}
+          'blogID': {'eq': blogId},
         };
 
         testQueryPredicateTranslation(
@@ -195,7 +195,7 @@ void main() {
       test('query by legacy QueryField definition', () {
         const blogId = 'blog-123';
         final expectedFilter = {
-          'id': {'eq': blogId}
+          'id': {'eq': blogId},
         };
 
         testQueryPredicateTranslation(

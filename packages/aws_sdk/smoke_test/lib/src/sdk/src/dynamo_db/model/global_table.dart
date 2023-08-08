@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.global_table; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,12 +34,9 @@ abstract class GlobalTable
 
   const GlobalTable._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<GlobalTable>> serializers = [
     GlobalTableAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GlobalTableBuilder b) {}
 
   /// The global table name.
   String? get globalTableName;
@@ -53,15 +50,15 @@ abstract class GlobalTable
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GlobalTable');
-    helper.add(
-      'globalTableName',
-      globalTableName,
-    );
-    helper.add(
-      'replicationGroup',
-      replicationGroup,
-    );
+    final helper = newBuiltValueToStringHelper('GlobalTable')
+      ..add(
+        'globalTableName',
+        globalTableName,
+      )
+      ..add(
+        'replicationGroup',
+        replicationGroup,
+      );
     return helper.toString();
   }
 }

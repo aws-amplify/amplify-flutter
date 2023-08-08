@@ -102,7 +102,7 @@ class HasManyChildExplicit extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("HasManyChildExplicit {");
     buffer.write("id=" + "$id" + ", ");
@@ -164,7 +164,7 @@ class HasManyChildExplicit extends amplify_core.Model {
       };
 
   static final amplify_core
-          .QueryModelIdentifier<HasManyChildExplicitModelIdentifier>
+      .QueryModelIdentifier<HasManyChildExplicitModelIdentifier>
       MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<HasManyChildExplicitModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
@@ -234,7 +234,7 @@ class HasManyChildExplicitModelIdentifier
     implements amplify_core.ModelIdentifier<HasManyChildExplicit> {
   final String id;
 
-  /// Create an instance of HasManyChildExplicitModelIdentifier using [id] the primary key.
+  /** Create an instance of HasManyChildExplicitModelIdentifier using [id] the primary key. */
   const HasManyChildExplicitModelIdentifier({required this.id});
 
   @override

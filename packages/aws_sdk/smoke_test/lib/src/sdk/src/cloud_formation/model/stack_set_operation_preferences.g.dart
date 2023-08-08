@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.stack_set_operation_preferences;
+part of 'stack_set_operation_preferences.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -106,9 +106,7 @@ class StackSetOperationPreferencesBuilder
   set maxConcurrentPercentage(int? maxConcurrentPercentage) =>
       _$this._maxConcurrentPercentage = maxConcurrentPercentage;
 
-  StackSetOperationPreferencesBuilder() {
-    StackSetOperationPreferences._init(this);
-  }
+  StackSetOperationPreferencesBuilder();
 
   StackSetOperationPreferencesBuilder get _$this {
     final $v = _$v;

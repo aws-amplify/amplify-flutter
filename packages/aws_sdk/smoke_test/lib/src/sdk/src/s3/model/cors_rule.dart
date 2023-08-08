@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.cors_rule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,12 +41,9 @@ abstract class CorsRule
 
   const CorsRule._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<CorsRule>> serializers = [
     CorsRuleRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CorsRuleBuilder b) {}
 
   /// Unique identifier for the rule. The value cannot be longer than 255 characters.
   String? get id;
@@ -76,31 +73,31 @@ abstract class CorsRule
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CorsRule');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'allowedHeaders',
-      allowedHeaders,
-    );
-    helper.add(
-      'allowedMethods',
-      allowedMethods,
-    );
-    helper.add(
-      'allowedOrigins',
-      allowedOrigins,
-    );
-    helper.add(
-      'exposeHeaders',
-      exposeHeaders,
-    );
-    helper.add(
-      'maxAgeSeconds',
-      maxAgeSeconds,
-    );
+    final helper = newBuiltValueToStringHelper('CorsRule')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'allowedHeaders',
+        allowedHeaders,
+      )
+      ..add(
+        'allowedMethods',
+        allowedMethods,
+      )
+      ..add(
+        'allowedOrigins',
+        allowedOrigins,
+      )
+      ..add(
+        'exposeHeaders',
+        exposeHeaders,
+      )
+      ..add(
+        'maxAgeSeconds',
+        maxAgeSeconds,
+      );
     return helper.toString();
   }
 }

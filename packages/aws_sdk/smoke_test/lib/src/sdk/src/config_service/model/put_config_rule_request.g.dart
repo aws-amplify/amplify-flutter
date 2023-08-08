@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.put_config_rule_request;
+part of 'put_config_rule_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class PutConfigRuleRequestBuilder
       _$this._tags ??= new _i5.ListBuilder<_i4.Tag>();
   set tags(_i5.ListBuilder<_i4.Tag>? tags) => _$this._tags = tags;
 
-  PutConfigRuleRequestBuilder() {
-    PutConfigRuleRequest._init(this);
-  }
+  PutConfigRuleRequestBuilder();
 
   PutConfigRuleRequestBuilder get _$this {
     final $v = _$v;

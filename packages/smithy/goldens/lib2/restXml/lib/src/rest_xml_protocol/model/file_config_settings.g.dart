@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.rest_xml_protocol.model.file_config_settings;
+part of 'file_config_settings.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -108,9 +108,7 @@ class FileConfigSettingsBuilder
   int? get maxAttempts => _$this._maxAttempts;
   set maxAttempts(int? maxAttempts) => _$this._maxAttempts = maxAttempts;
 
-  FileConfigSettingsBuilder() {
-    FileConfigSettings._init(this);
-  }
+  FileConfigSettingsBuilder();
 
   FileConfigSettingsBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.events_batch; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,12 +36,9 @@ abstract class EventsBatch
 
   const EventsBatch._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<EventsBatch>> serializers = [
     EventsBatchRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EventsBatchBuilder b) {}
 
   /// A set of properties and attributes that are associated with the endpoint.
   _i2.PublicEndpoint get endpoint;
@@ -55,15 +52,15 @@ abstract class EventsBatch
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EventsBatch');
-    helper.add(
-      'endpoint',
-      endpoint,
-    );
-    helper.add(
-      'events',
-      events,
-    );
+    final helper = newBuiltValueToStringHelper('EventsBatch')
+      ..add(
+        'endpoint',
+        endpoint,
+      )
+      ..add(
+        'events',
+        events,
+      );
     return helper.toString();
   }
 }

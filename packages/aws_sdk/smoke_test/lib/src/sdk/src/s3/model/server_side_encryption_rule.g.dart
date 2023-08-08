@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.server_side_encryption_rule;
+part of 'server_side_encryption_rule.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -69,9 +69,7 @@ class ServerSideEncryptionRuleBuilder
   set bucketKeyEnabled(bool? bucketKeyEnabled) =>
       _$this._bucketKeyEnabled = bucketKeyEnabled;
 
-  ServerSideEncryptionRuleBuilder() {
-    ServerSideEncryptionRule._init(this);
-  }
+  ServerSideEncryptionRuleBuilder();
 
   ServerSideEncryptionRuleBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.get_bucket_lifecycle_configuration_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,12 +37,8 @@ abstract class GetBucketLifecycleConfigurationOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    GetBucketLifecycleConfigurationOutputRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketLifecycleConfigurationOutputBuilder b) {}
+  static const List<_i4.SmithySerializer<GetBucketLifecycleConfigurationOutput>>
+      serializers = [GetBucketLifecycleConfigurationOutputRestXmlSerializer()];
 
   /// Container for a lifecycle rule.
   _i3.BuiltList<_i2.LifecycleRule>? get rules;
@@ -51,11 +47,11 @@ abstract class GetBucketLifecycleConfigurationOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetBucketLifecycleConfigurationOutput');
-    helper.add(
-      'rules',
-      rules,
-    );
+        newBuiltValueToStringHelper('GetBucketLifecycleConfigurationOutput')
+          ..add(
+            'rules',
+            rules,
+          );
     return helper.toString();
   }
 }

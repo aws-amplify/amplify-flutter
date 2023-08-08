@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.batch_describe_type_configurations_error; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,8 @@ abstract class BatchDescribeTypeConfigurationsError
 
   const BatchDescribeTypeConfigurationsError._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    BatchDescribeTypeConfigurationsErrorAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BatchDescribeTypeConfigurationsErrorBuilder b) {}
+  static const List<_i3.SmithySerializer<BatchDescribeTypeConfigurationsError>>
+      serializers = [BatchDescribeTypeConfigurationsErrorAwsQuerySerializer()];
 
   /// The error code.
   String? get errorCode;
@@ -63,19 +59,19 @@ abstract class BatchDescribeTypeConfigurationsError
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('BatchDescribeTypeConfigurationsError');
-    helper.add(
-      'errorCode',
-      errorCode,
-    );
-    helper.add(
-      'errorMessage',
-      errorMessage,
-    );
-    helper.add(
-      'typeConfigurationIdentifier',
-      typeConfigurationIdentifier,
-    );
+        newBuiltValueToStringHelper('BatchDescribeTypeConfigurationsError')
+          ..add(
+            'errorCode',
+            errorCode,
+          )
+          ..add(
+            'errorMessage',
+            errorMessage,
+          )
+          ..add(
+            'typeConfigurationIdentifier',
+            typeConfigurationIdentifier,
+          );
     return helper.toString();
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v1.query_protocol.model.struct_arg;
+part of 'struct_arg.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class StructArgBuilder implements Builder<StructArg, StructArgBuilder> {
   set recursiveArg(StructArgBuilder? recursiveArg) =>
       _$this._recursiveArg = recursiveArg;
 
-  StructArgBuilder() {
-    StructArg._init(this);
-  }
+  StructArgBuilder();
 
   StructArgBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.update_item_output;
+part of 'update_item_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -73,9 +73,7 @@ class UpdateItemOutputBuilder
           _i4.ItemCollectionMetricsBuilder? itemCollectionMetrics) =>
       _$this._itemCollectionMetrics = itemCollectionMetrics;
 
-  UpdateItemOutputBuilder() {
-    UpdateItemOutput._init(this);
-  }
+  UpdateItemOutputBuilder();
 
   UpdateItemOutputBuilder get _$this {
     final $v = _$v;

@@ -300,7 +300,7 @@ void main() {
         const expectedDocument =
             'query listBlogs(\$filter: ModelBlogFilterInput, \$limit: Int, \$nextToken: String) { listBlogs(filter: \$filter, limit: \$limit, nextToken: \$nextToken) { items { $blogSelectionSet } nextToken } }';
         const expectedFilter = {
-          'name': {'eq': expectedTitle}
+          'name': {'eq': expectedTitle},
         };
 
         final queryPredicate = Blog.NAME.eq(expectedTitle);
@@ -319,7 +319,7 @@ void main() {
         const limit = 2;
         const expectedTitle = 'Test Blog 1';
         const expectedFilter = {
-          'name': {'eq': expectedTitle}
+          'name': {'eq': expectedTitle},
         };
 
         final queryPredicate = Blog.NAME.eq(expectedTitle);
@@ -426,7 +426,7 @@ void main() {
 
         final Blog blog = Blog(id: id, name: name);
         final expectedVars = {
-          'input': {'id': id, 'name': name}
+          'input': {'id': id, 'name': name},
         };
         const expectedDoc =
             'mutation createBlog(\$input: CreateBlogInput!, \$condition:  ModelBlogConditionInput) { createBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
@@ -470,8 +470,8 @@ void main() {
             'title': title,
             'rating': rating,
             'created': null,
-            'blogID': blogId
-          }
+            'blogID': blogId,
+          },
         };
         const expectedDoc =
             'mutation createPost(\$input: CreatePostInput!, \$condition:  ModelPostConditionInput) { createPost(input: \$input, condition: \$condition) { id title rating created createdAt updatedAt blog { $blogSelectionSet } blogID } }';
@@ -523,7 +523,7 @@ void main() {
 
         final expectedVars = {
           'input': {'id': id},
-          'condition': null
+          'condition': null,
         };
         const expectedDoc =
             'mutation deleteBlog(\$input: DeleteBlogInput!, \$condition:  ModelBlogConditionInput) { deleteBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
@@ -559,7 +559,7 @@ void main() {
 
         final expectedVars = {
           'input': {'id': id},
-          'condition': null
+          'condition': null,
         };
         const expectedDoc =
             'mutation deleteBlog(\$input: DeleteBlogInput!, \$condition:  ModelBlogConditionInput) { deleteBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
@@ -601,7 +601,7 @@ void main() {
 
         final expectedVars = {
           'input': {'id': id, 'name': name},
-          'condition': null
+          'condition': null,
         };
         const expectedDoc =
             'mutation updateBlog(\$input: UpdateBlogInput!, \$condition:  ModelBlogConditionInput) { updateBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
@@ -633,9 +633,9 @@ void main() {
             'title': title,
             'rating': rating,
             'created': null,
-            'blogID': blogId
+            'blogID': blogId,
           },
-          'condition': null
+          'condition': null,
         };
         const expectedDoc =
             'mutation updatePost(\$input: UpdatePostInput!, \$condition:  ModelPostConditionInput) { updatePost(input: \$input, condition: \$condition) { id title rating created createdAt updatedAt blog { $blogSelectionSet } blogID } }';
@@ -656,8 +656,8 @@ void main() {
         final expectedVars = {
           'input': {'id': id, 'name': name},
           'condition': {
-            'name': {'lt': 'zzz'}
-          }
+            'name': {'lt': 'zzz'},
+          },
         };
         const expectedDoc =
             'mutation updateBlog(\$input: UpdateBlogInput!, \$condition:  ModelBlogConditionInput) { updateBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
@@ -694,8 +694,8 @@ void main() {
         final expectedVars = {
           'input': {'id': id},
           'condition': {
-            'name': {'lt': 'zzz'}
-          }
+            'name': {'lt': 'zzz'},
+          },
         };
         const expectedDoc =
             'mutation deleteBlog(\$input: DeleteBlogInput!, \$condition:  ModelBlogConditionInput) { deleteBlog(input: \$input, condition: \$condition) { $blogSelectionSet } }';
@@ -737,8 +737,8 @@ void main() {
               'cpkOneToOneBidirectionalParentCDImplicitChildId': null,
               'cpkOneToOneBidirectionalParentCDImplicitChildName': null,
               'cpkOneToOneBidirectionalParentCDExplicitChildId': null,
-              'cpkOneToOneBidirectionalParentCDExplicitChildName': null
-            }
+              'cpkOneToOneBidirectionalParentCDExplicitChildName': null,
+            },
           };
           expect(deepEquals(req.variables, expectedVars), isTrue);
         },
@@ -764,7 +764,7 @@ void main() {
             'name': child.name,
             'belongsToParentID': customParentId,
             'belongsToParentName': parent.name,
-          }
+          },
         };
         expect(deepEquals(req.variables, expectedVars), isTrue);
       });
@@ -797,8 +797,8 @@ void main() {
         );
         final expectedFilter = {
           'filter': {
-            'name': {'eq': 'sample'}
-          }
+            'name': {'eq': 'sample'},
+          },
         };
 
         expect(req.document, expected);
@@ -834,8 +834,8 @@ void main() {
         );
         final expectedFilter = {
           'filter': {
-            'name': {'eq': 'sample'}
-          }
+            'name': {'eq': 'sample'},
+          },
         };
 
         expect(req.apiName, _exampleApiName);
@@ -870,8 +870,8 @@ void main() {
         );
         final expectedFilter = {
           'filter': {
-            'name': {'eq': 'sample'}
-          }
+            'name': {'eq': 'sample'},
+          },
         };
 
         expect(req.apiName, _exampleApiName);

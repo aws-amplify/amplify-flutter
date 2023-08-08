@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.cancel_update_stack_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,13 +41,15 @@ abstract class CancelUpdateStackInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CancelUpdateStackInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<CancelUpdateStackInput>> serializers =
+      [CancelUpdateStackInputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CancelUpdateStackInputBuilder b) {}
-
+  /// If you don't pass a parameter to `StackName`, the API returns a response that describes all resources in the account.
+  ///
+  /// The IAM policy below can be added to IAM policies when you want to limit resource-level permissions and avoid returning a response when no parameter is sent in the request:
+  ///
+  /// `{ "Version": "2012-10-17", "Statement": \[{ "Effect": "Deny", "Action": "cloudformation:DescribeStacks", "NotResource": "arn:aws:cloudformation:*:*:stack/*/*" }\] }`
+  ///
   /// The name or the unique stack ID that's associated with the stack.
   String get stackName;
 
@@ -62,15 +64,15 @@ abstract class CancelUpdateStackInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CancelUpdateStackInput');
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'clientRequestToken',
-      clientRequestToken,
-    );
+    final helper = newBuiltValueToStringHelper('CancelUpdateStackInput')
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'clientRequestToken',
+        clientRequestToken,
+      );
     return helper.toString();
   }
 }

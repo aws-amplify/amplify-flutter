@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.get_bucket_replication_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,8 @@ abstract class GetBucketReplicationOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetBucketReplicationOutputRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketReplicationOutputBuilder b) {}
+  static const List<_i2.SmithySerializer<_i3.ReplicationConfiguration?>>
+      serializers = [GetBucketReplicationOutputRestXmlSerializer()];
 
   /// A container for replication rules. You can add up to 1,000 rules. The maximum size of a replication configuration is 2 MB.
   _i3.ReplicationConfiguration? get replicationConfiguration;
@@ -57,11 +53,11 @@ abstract class GetBucketReplicationOutput
   List<Object?> get props => [replicationConfiguration];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBucketReplicationOutput');
-    helper.add(
-      'replicationConfiguration',
-      replicationConfiguration,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketReplicationOutput')
+      ..add(
+        'replicationConfiguration',
+        replicationConfiguration,
+      );
     return helper.toString();
   }
 }

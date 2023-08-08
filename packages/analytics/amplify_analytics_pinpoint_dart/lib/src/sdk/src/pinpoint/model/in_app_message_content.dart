@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.in_app_message_content; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -46,12 +46,9 @@ abstract class InAppMessageContent
 
   const InAppMessageContent._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<InAppMessageContent>> serializers = [
     InAppMessageContentRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InAppMessageContentBuilder b) {}
 
   /// The background color for the message.
   String? get backgroundColor;
@@ -81,31 +78,31 @@ abstract class InAppMessageContent
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InAppMessageContent');
-    helper.add(
-      'backgroundColor',
-      backgroundColor,
-    );
-    helper.add(
-      'bodyConfig',
-      bodyConfig,
-    );
-    helper.add(
-      'headerConfig',
-      headerConfig,
-    );
-    helper.add(
-      'imageUrl',
-      imageUrl,
-    );
-    helper.add(
-      'primaryBtn',
-      primaryBtn,
-    );
-    helper.add(
-      'secondaryBtn',
-      secondaryBtn,
-    );
+    final helper = newBuiltValueToStringHelper('InAppMessageContent')
+      ..add(
+        'backgroundColor',
+        backgroundColor,
+      )
+      ..add(
+        'bodyConfig',
+        bodyConfig,
+      )
+      ..add(
+        'headerConfig',
+        headerConfig,
+      )
+      ..add(
+        'imageUrl',
+        imageUrl,
+      )
+      ..add(
+        'primaryBtn',
+        primaryBtn,
+      )
+      ..add(
+        'secondaryBtn',
+        secondaryBtn,
+      );
     return helper.toString();
   }
 }

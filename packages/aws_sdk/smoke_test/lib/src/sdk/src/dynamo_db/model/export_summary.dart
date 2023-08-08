@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.export_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,9 @@ abstract class ExportSummary
 
   const ExportSummary._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ExportSummary>> serializers = [
     ExportSummaryAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ExportSummaryBuilder b) {}
 
   /// The Amazon Resource Name (ARN) of the export.
   String? get exportArn;
@@ -52,15 +49,15 @@ abstract class ExportSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ExportSummary');
-    helper.add(
-      'exportArn',
-      exportArn,
-    );
-    helper.add(
-      'exportStatus',
-      exportStatus,
-    );
+    final helper = newBuiltValueToStringHelper('ExportSummary')
+      ..add(
+        'exportArn',
+        exportArn,
+      )
+      ..add(
+        'exportStatus',
+        exportStatus,
+      );
     return helper.toString();
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.replica_already_exists_exception;
+part of 'replica_already_exists_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -64,9 +64,7 @@ class ReplicaAlreadyExistsExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ReplicaAlreadyExistsExceptionBuilder() {
-    ReplicaAlreadyExistsException._init(this);
-  }
+  ReplicaAlreadyExistsExceptionBuilder();
 
   ReplicaAlreadyExistsExceptionBuilder get _$this {
     final $v = _$v;

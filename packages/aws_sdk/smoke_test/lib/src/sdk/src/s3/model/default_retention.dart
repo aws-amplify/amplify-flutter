@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.default_retention; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -47,12 +47,9 @@ abstract class DefaultRetention
 
   const DefaultRetention._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<DefaultRetention>> serializers = [
     DefaultRetentionRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DefaultRetentionBuilder b) {}
 
   /// The default Object Lock retention mode you want to apply to new objects placed in the specified bucket. Must be used with either `Days` or `Years`.
   _i2.ObjectLockRetentionMode? get mode;
@@ -70,19 +67,19 @@ abstract class DefaultRetention
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DefaultRetention');
-    helper.add(
-      'mode',
-      mode,
-    );
-    helper.add(
-      'days',
-      days,
-    );
-    helper.add(
-      'years',
-      years,
-    );
+    final helper = newBuiltValueToStringHelper('DefaultRetention')
+      ..add(
+        'mode',
+        mode,
+      )
+      ..add(
+        'days',
+        days,
+      )
+      ..add(
+        'years',
+        years,
+      );
     return helper.toString();
   }
 }

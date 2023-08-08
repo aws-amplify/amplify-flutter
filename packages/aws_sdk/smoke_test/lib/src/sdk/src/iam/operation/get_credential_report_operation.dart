@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.operation.get_credential_report_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -121,7 +121,8 @@ class GetCredentialReportOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.CredentialReportExpiredException,
+            _i8.CredentialReportExpiredException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'CredentialReportExpiredException',
@@ -131,7 +132,8 @@ class GetCredentialReportOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
           statusCode: 410,
           builder: _i8.CredentialReportExpiredException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.CredentialReportNotPresentException,
+            _i9.CredentialReportNotPresentException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'CredentialReportNotPresentException',
@@ -141,7 +143,8 @@ class GetCredentialReportOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
           statusCode: 410,
           builder: _i9.CredentialReportNotPresentException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.CredentialReportNotReadyException,
+            _i10.CredentialReportNotReadyException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'CredentialReportNotReadyException',
@@ -151,7 +154,8 @@ class GetCredentialReportOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
           statusCode: 404,
           builder: _i10.CredentialReportNotReadyException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.ServiceFailureException,
+            _i11.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',
@@ -184,7 +188,7 @@ class GetCredentialReportOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
+        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
       },
     );
   }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.deactivate_mfa_device_request;
+part of 'deactivate_mfa_device_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class DeactivateMfaDeviceRequestBuilder
   String? get serialNumber => _$this._serialNumber;
   set serialNumber(String? serialNumber) => _$this._serialNumber = serialNumber;
 
-  DeactivateMfaDeviceRequestBuilder() {
-    DeactivateMfaDeviceRequest._init(this);
-  }
+  DeactivateMfaDeviceRequestBuilder();
 
   DeactivateMfaDeviceRequestBuilder get _$this {
     final $v = _$v;

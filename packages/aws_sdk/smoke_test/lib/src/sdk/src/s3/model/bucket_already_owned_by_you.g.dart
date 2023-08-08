@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.bucket_already_owned_by_you;
+part of 'bucket_already_owned_by_you.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -52,9 +52,7 @@ class BucketAlreadyOwnedByYouBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  BucketAlreadyOwnedByYouBuilder() {
-    BucketAlreadyOwnedByYou._init(this);
-  }
+  BucketAlreadyOwnedByYouBuilder();
 
   BucketAlreadyOwnedByYouBuilder get _$this {
     final $v = _$v;

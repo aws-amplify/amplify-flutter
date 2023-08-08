@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.local_secondary_index_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -48,12 +48,8 @@ abstract class LocalSecondaryIndexDescription
 
   const LocalSecondaryIndexDescription._();
 
-  static const List<_i6.SmithySerializer> serializers = [
-    LocalSecondaryIndexDescriptionAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(LocalSecondaryIndexDescriptionBuilder b) {}
+  static const List<_i6.SmithySerializer<LocalSecondaryIndexDescription>>
+      serializers = [LocalSecondaryIndexDescriptionAwsJson10Serializer()];
 
   /// Represents the name of the local secondary index.
   String? get indexName;
@@ -92,32 +88,31 @@ abstract class LocalSecondaryIndexDescription
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('LocalSecondaryIndexDescription');
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'keySchema',
-      keySchema,
-    );
-    helper.add(
-      'projection',
-      projection,
-    );
-    helper.add(
-      'indexSizeBytes',
-      indexSizeBytes,
-    );
-    helper.add(
-      'itemCount',
-      itemCount,
-    );
-    helper.add(
-      'indexArn',
-      indexArn,
-    );
+    final helper = newBuiltValueToStringHelper('LocalSecondaryIndexDescription')
+      ..add(
+        'indexName',
+        indexName,
+      )
+      ..add(
+        'keySchema',
+        keySchema,
+      )
+      ..add(
+        'projection',
+        projection,
+      )
+      ..add(
+        'indexSizeBytes',
+        indexSizeBytes,
+      )
+      ..add(
+        'itemCount',
+        itemCount,
+      )
+      ..add(
+        'indexArn',
+        indexArn,
+      );
     return helper.toString();
   }
 }

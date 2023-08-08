@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.operation.get_account_password_policy_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -110,7 +110,7 @@ class GetAccountPasswordPolicyOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.NoSuchEntityException, _i8.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
@@ -120,7 +120,8 @@ class GetAccountPasswordPolicyOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i8.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ServiceFailureException,
+            _i9.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',
@@ -153,7 +154,7 @@ class GetAccountPasswordPolicyOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
+        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
       },
     );
   }

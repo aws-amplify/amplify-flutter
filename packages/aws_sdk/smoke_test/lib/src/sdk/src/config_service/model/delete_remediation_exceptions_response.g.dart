@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.delete_remediation_exceptions_response;
+part of 'delete_remediation_exceptions_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -60,9 +60,7 @@ class DeleteRemediationExceptionsResponseBuilder
               failedBatches) =>
       _$this._failedBatches = failedBatches;
 
-  DeleteRemediationExceptionsResponseBuilder() {
-    DeleteRemediationExceptionsResponse._init(this);
-  }
+  DeleteRemediationExceptionsResponseBuilder();
 
   DeleteRemediationExceptionsResponseBuilder get _$this {
     final $v = _$v;

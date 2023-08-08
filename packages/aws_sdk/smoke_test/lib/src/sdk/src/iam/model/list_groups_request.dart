@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.list_groups_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,12 +37,9 @@ abstract class ListGroupsRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ListGroupsRequest>> serializers = [
     ListGroupsRequestAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListGroupsRequestBuilder b) {}
 
   /// The path prefix for filtering the results. For example, the prefix `/division\_abc/subdivision\_xyz/` gets all groups whose path starts with `/division\_abc/subdivision\_xyz/`.
   ///
@@ -66,19 +63,19 @@ abstract class ListGroupsRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListGroupsRequest');
-    helper.add(
-      'pathPrefix',
-      pathPrefix,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'maxItems',
-      maxItems,
-    );
+    final helper = newBuiltValueToStringHelper('ListGroupsRequest')
+      ..add(
+        'pathPrefix',
+        pathPrefix,
+      )
+      ..add(
+        'marker',
+        marker,
+      )
+      ..add(
+        'maxItems',
+        maxItems,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.lifecycle_expiration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -11,10 +11,14 @@ import 'package:smithy/smithy.dart' as _i2;
 part 'lifecycle_expiration.g.dart';
 
 /// Container for the expiration for the lifecycle of the object.
+///
+/// For more information see, [Managing your storage lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) in the _Amazon S3 User Guide_.
 abstract class LifecycleExpiration
     with _i1.AWSEquatable<LifecycleExpiration>
     implements Built<LifecycleExpiration, LifecycleExpirationBuilder> {
   /// Container for the expiration for the lifecycle of the object.
+  ///
+  /// For more information see, [Managing your storage lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) in the _Amazon S3 User Guide_.
   factory LifecycleExpiration({
     DateTime? date,
     int? days,
@@ -28,20 +32,19 @@ abstract class LifecycleExpiration
   }
 
   /// Container for the expiration for the lifecycle of the object.
+  ///
+  /// For more information see, [Managing your storage lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) in the _Amazon S3 User Guide_.
   factory LifecycleExpiration.build(
           [void Function(LifecycleExpirationBuilder) updates]) =
       _$LifecycleExpiration;
 
   const LifecycleExpiration._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<LifecycleExpiration>> serializers = [
     LifecycleExpirationRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(LifecycleExpirationBuilder b) {}
-
-  /// Indicates at what date the object is to be moved or deleted. Should be in GMT ISO 8601 Format.
+  /// Indicates at what date the object is to be moved or deleted. The date value must conform to the ISO 8601 format. The time is always midnight UTC.
   DateTime? get date;
 
   /// Indicates the lifetime, in days, of the objects that are subject to the rule. The value must be a non-zero positive integer.
@@ -57,19 +60,19 @@ abstract class LifecycleExpiration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('LifecycleExpiration');
-    helper.add(
-      'date',
-      date,
-    );
-    helper.add(
-      'days',
-      days,
-    );
-    helper.add(
-      'expiredObjectDeleteMarker',
-      expiredObjectDeleteMarker,
-    );
+    final helper = newBuiltValueToStringHelper('LifecycleExpiration')
+      ..add(
+        'date',
+        date,
+      )
+      ..add(
+        'days',
+        days,
+      )
+      ..add(
+        'expiredObjectDeleteMarker',
+        expiredObjectDeleteMarker,
+      );
     return helper.toString();
   }
 }

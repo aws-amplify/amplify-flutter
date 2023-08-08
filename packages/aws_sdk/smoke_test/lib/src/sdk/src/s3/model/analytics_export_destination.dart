@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.analytics_export_destination; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,12 +31,8 @@ abstract class AnalyticsExportDestination
 
   const AnalyticsExportDestination._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    AnalyticsExportDestinationRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AnalyticsExportDestinationBuilder b) {}
+  static const List<_i3.SmithySerializer<AnalyticsExportDestination>>
+      serializers = [AnalyticsExportDestinationRestXmlSerializer()];
 
   /// A destination signifying output to an S3 bucket.
   _i2.AnalyticsS3BucketDestination get s3BucketDestination;
@@ -44,11 +40,11 @@ abstract class AnalyticsExportDestination
   List<Object?> get props => [s3BucketDestination];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AnalyticsExportDestination');
-    helper.add(
-      's3BucketDestination',
-      s3BucketDestination,
-    );
+    final helper = newBuiltValueToStringHelper('AnalyticsExportDestination')
+      ..add(
+        's3BucketDestination',
+        s3BucketDestination,
+      );
     return helper.toString();
   }
 }

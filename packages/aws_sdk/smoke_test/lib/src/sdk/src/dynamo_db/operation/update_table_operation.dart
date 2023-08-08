@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.operation.update_table_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -30,6 +30,8 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_table_output.dart'
 
 /// Modifies the provisioned throughput settings, global secondary indexes, or DynamoDB Streams settings for a given table.
 ///
+/// This operation only applies to [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
+///
 /// You can only perform one of the following operations at once:
 ///
 /// *   Modify the provisioned throughput settings of the table.
@@ -43,6 +45,8 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/update_table_output.dart'
 class UpdateTableOperation extends _i1.HttpOperation<_i2.UpdateTableInput,
     _i2.UpdateTableInput, _i3.UpdateTableOutput, _i3.UpdateTableOutput> {
   /// Modifies the provisioned throughput settings, global secondary indexes, or DynamoDB Streams settings for a given table.
+  ///
+  /// This operation only applies to [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
   ///
   /// You can only perform one of the following operations at once:
   ///
@@ -130,7 +134,7 @@ class UpdateTableOperation extends _i1.HttpOperation<_i2.UpdateTableInput,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InternalServerError, _i9.InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
@@ -139,7 +143,8 @@ class UpdateTableOperation extends _i1.HttpOperation<_i2.UpdateTableInput,
           _i9.InternalServerError,
           builder: _i9.InternalServerError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidEndpointException,
+            _i10.InvalidEndpointException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InvalidEndpointException',
@@ -149,7 +154,8 @@ class UpdateTableOperation extends _i1.HttpOperation<_i2.UpdateTableInput,
           statusCode: 421,
           builder: _i10.InvalidEndpointException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.LimitExceededException,
+            _i11.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'LimitExceededException',
@@ -158,7 +164,8 @@ class UpdateTableOperation extends _i1.HttpOperation<_i2.UpdateTableInput,
           _i11.LimitExceededException,
           builder: _i11.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.ResourceInUseException,
+            _i12.ResourceInUseException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ResourceInUseException',
@@ -167,7 +174,8 @@ class UpdateTableOperation extends _i1.HttpOperation<_i2.UpdateTableInput,
           _i12.ResourceInUseException,
           builder: _i12.ResourceInUseException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.ResourceNotFoundException,
+            _i13.ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ResourceNotFoundException',
@@ -199,7 +207,7 @@ class UpdateTableOperation extends _i1.HttpOperation<_i2.UpdateTableInput,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

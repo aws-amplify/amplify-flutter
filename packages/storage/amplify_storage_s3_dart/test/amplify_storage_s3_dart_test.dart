@@ -22,7 +22,7 @@ void main() {
           bucket: '123',
           region: 'west-2',
           defaultAccessLevel: testDefaultStorageAccessLevel,
-        )
+        ),
       },
     ),
   );
@@ -187,6 +187,8 @@ void main() {
         const testOptions = StorageListOptions(
           accessLevel: testAccessLevelProtected,
           pluginOptions: S3ListPluginOptions(excludeSubPaths: true),
+          nextToken: 'next-token-123',
+          pageSize: 2,
         );
 
         when(

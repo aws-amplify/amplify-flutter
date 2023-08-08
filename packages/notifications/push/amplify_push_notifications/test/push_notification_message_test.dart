@@ -20,6 +20,10 @@ void main() {
         'PINPOINT.NOTIFICATION',
       );
 
+      final parsedSimpleiOSMessage =
+          PushNotificationMessage.fromJson(simpleAlertiOSMessage);
+      expect(parsedSimpleiOSMessage.title, 'Hello, world');
+
       final parsediOSMessage =
           PushNotificationMessage.fromJson(standardiOSMessage);
       expect(parsediOSMessage.title, 'TITTLE');

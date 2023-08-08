@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.generate_client_certificate_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,12 +44,8 @@ abstract class GenerateClientCertificateRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GenerateClientCertificateRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GenerateClientCertificateRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GenerateClientCertificateRequest>>
+      serializers = [GenerateClientCertificateRequestRestJson1Serializer()];
 
   /// The description of the ClientCertificate.
   String? get description;
@@ -66,15 +62,15 @@ abstract class GenerateClientCertificateRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GenerateClientCertificateRequest');
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+        newBuiltValueToStringHelper('GenerateClientCertificateRequest')
+          ..add(
+            'description',
+            description,
+          )
+          ..add(
+            'tags',
+            tags,
+          );
     return helper.toString();
   }
 }

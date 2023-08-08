@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.conflict_exception;
+part of 'conflict_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -53,9 +53,7 @@ class ConflictExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ConflictExceptionBuilder() {
-    ConflictException._init(this);
-  }
+  ConflictExceptionBuilder();
 
   ConflictExceptionBuilder get _$this {
     final $v = _$v;

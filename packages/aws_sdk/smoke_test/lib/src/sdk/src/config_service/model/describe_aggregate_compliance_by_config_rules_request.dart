@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.describe_aggregate_compliance_by_config_rules_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -25,6 +25,7 @@ abstract class DescribeAggregateComplianceByConfigRulesRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$DescribeAggregateComplianceByConfigRulesRequest._(
       configurationAggregatorName: configurationAggregatorName,
       filters: filters,
@@ -46,12 +47,16 @@ abstract class DescribeAggregateComplianceByConfigRulesRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<DescribeAggregateComplianceByConfigRulesRequest>>
+      serializers = [
     DescribeAggregateComplianceByConfigRulesRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeAggregateComplianceByConfigRulesRequestBuilder b) {}
+  static void _init(DescribeAggregateComplianceByConfigRulesRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The name of the configuration aggregator.
   String get configurationAggregatorName;
@@ -60,7 +65,7 @@ abstract class DescribeAggregateComplianceByConfigRulesRequest
   _i3.ConfigRuleComplianceFilters? get filters;
 
   /// The maximum number of evaluation results returned on each page. The default is maximum. If you specify 0, Config uses the default.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -76,23 +81,23 @@ abstract class DescribeAggregateComplianceByConfigRulesRequest
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'DescribeAggregateComplianceByConfigRulesRequest');
-    helper.add(
-      'configurationAggregatorName',
-      configurationAggregatorName,
-    );
-    helper.add(
-      'filters',
-      filters,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        'DescribeAggregateComplianceByConfigRulesRequest')
+      ..add(
+        'configurationAggregatorName',
+        configurationAggregatorName,
+      )
+      ..add(
+        'filters',
+        filters,
+      )
+      ..add(
+        'limit',
+        limit,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }
@@ -176,6 +181,11 @@ class DescribeAggregateComplianceByConfigRulesRequestAwsJson11Serializer
         configurationAggregatorName,
         specifiedType: const FullType(String),
       ),
+      'Limit',
+      serializers.serialize(
+        limit,
+        specifiedType: const FullType(int),
+      ),
     ]);
     if (filters != null) {
       result$
@@ -183,14 +193,6 @@ class DescribeAggregateComplianceByConfigRulesRequestAwsJson11Serializer
         ..add(serializers.serialize(
           filters,
           specifiedType: const FullType(_i3.ConfigRuleComplianceFilters),
-        ));
-    }
-    if (limit != null) {
-      result$
-        ..add('Limit')
-        ..add(serializers.serialize(
-          limit,
-          specifiedType: const FullType(int),
         ));
     }
     if (nextToken != null) {

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.attach_group_policy_request;
+part of 'attach_group_policy_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class AttachGroupPolicyRequestBuilder
   String? get policyArn => _$this._policyArn;
   set policyArn(String? policyArn) => _$this._policyArn = policyArn;
 
-  AttachGroupPolicyRequestBuilder() {
-    AttachGroupPolicyRequest._init(this);
-  }
+  AttachGroupPolicyRequestBuilder();
 
   AttachGroupPolicyRequestBuilder get _$this {
     final $v = _$v;

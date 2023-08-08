@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.operation.cancel_update_stack_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -107,7 +107,8 @@ class CancelUpdateStackOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.TokenAlreadyExistsException,
+            _i8.TokenAlreadyExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'TokenAlreadyExistsException',
@@ -140,7 +141,7 @@ class CancelUpdateStackOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
+        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
       },
     );
   }

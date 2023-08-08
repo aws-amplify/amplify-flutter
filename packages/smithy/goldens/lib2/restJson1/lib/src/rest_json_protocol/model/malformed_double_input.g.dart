@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.malformed_double_input;
+part of 'malformed_double_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -83,9 +83,7 @@ class MalformedDoubleInputBuilder
   set doubleInHeader(double? doubleInHeader) =>
       _$this._doubleInHeader = doubleInHeader;
 
-  MalformedDoubleInputBuilder() {
-    MalformedDoubleInput._init(this);
-  }
+  MalformedDoubleInputBuilder();
 
   MalformedDoubleInputBuilder get _$this {
     final $v = _$v;
@@ -171,9 +169,7 @@ class MalformedDoubleInputPayloadBuilder
   double? get doubleInBody => _$this._doubleInBody;
   set doubleInBody(double? doubleInBody) => _$this._doubleInBody = doubleInBody;
 
-  MalformedDoubleInputPayloadBuilder() {
-    MalformedDoubleInputPayload._init(this);
-  }
+  MalformedDoubleInputPayloadBuilder();
 
   MalformedDoubleInputPayloadBuilder get _$this {
     final $v = _$v;

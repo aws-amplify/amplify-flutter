@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.get_item_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,17 +43,14 @@ abstract class GetItemOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<GetItemOutput>> serializers = [
     GetItemOutputAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetItemOutputBuilder b) {}
 
   /// A map of attribute names to `AttributeValue` objects, as specified by `ProjectionExpression`.
   _i4.BuiltMap<String, _i2.AttributeValue>? get item;
 
-  /// The capacity units consumed by the `GetItem` operation. The data returned includes the total provisioned throughput consumed, along with statistics for the table and any indexes involved in the operation. `ConsumedCapacity` is only returned if the `ReturnConsumedCapacity` parameter was specified. For more information, see [Read/Write Capacity Mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html) in the _Amazon DynamoDB Developer Guide_.
+  /// The capacity units consumed by the `GetItem` operation. The data returned includes the total provisioned throughput consumed, along with statistics for the table and any indexes involved in the operation. `ConsumedCapacity` is only returned if the `ReturnConsumedCapacity` parameter was specified. For more information, see [Provisioned Throughput](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughput.html#ItemSizeCalculations.Reads) in the _Amazon DynamoDB Developer Guide_.
   _i3.ConsumedCapacity? get consumedCapacity;
   @override
   List<Object?> get props => [
@@ -62,15 +59,15 @@ abstract class GetItemOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetItemOutput');
-    helper.add(
-      'item',
-      item,
-    );
-    helper.add(
-      'consumedCapacity',
-      consumedCapacity,
-    );
+    final helper = newBuiltValueToStringHelper('GetItemOutput')
+      ..add(
+        'item',
+        item,
+      )
+      ..add(
+        'consumedCapacity',
+        consumedCapacity,
+      );
     return helper.toString();
   }
 }

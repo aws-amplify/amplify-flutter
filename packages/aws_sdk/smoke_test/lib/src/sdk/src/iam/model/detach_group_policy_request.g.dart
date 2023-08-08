@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.detach_group_policy_request;
+part of 'detach_group_policy_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class DetachGroupPolicyRequestBuilder
   String? get policyArn => _$this._policyArn;
   set policyArn(String? policyArn) => _$this._policyArn = policyArn;
 
-  DetachGroupPolicyRequestBuilder() {
-    DetachGroupPolicyRequest._init(this);
-  }
+  DetachGroupPolicyRequestBuilder();
 
   DetachGroupPolicyRequestBuilder get _$this {
     final $v = _$v;

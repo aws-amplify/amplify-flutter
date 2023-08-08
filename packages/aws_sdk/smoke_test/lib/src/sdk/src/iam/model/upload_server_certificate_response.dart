@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.upload_server_certificate_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -46,12 +46,8 @@ abstract class UploadServerCertificateResponse
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
-    UploadServerCertificateResponseAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UploadServerCertificateResponseBuilder b) {}
+  static const List<_i5.SmithySerializer<UploadServerCertificateResponse>>
+      serializers = [UploadServerCertificateResponseAwsQuerySerializer()];
 
   /// The meta information of the uploaded server certificate without its certificate body, certificate chain, and private key.
   _i2.ServerCertificateMetadata? get serverCertificateMetadata;
@@ -66,15 +62,15 @@ abstract class UploadServerCertificateResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UploadServerCertificateResponse');
-    helper.add(
-      'serverCertificateMetadata',
-      serverCertificateMetadata,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+        newBuiltValueToStringHelper('UploadServerCertificateResponse')
+          ..add(
+            'serverCertificateMetadata',
+            serverCertificateMetadata,
+          )
+          ..add(
+            'tags',
+            tags,
+          );
     return helper.toString();
   }
 }

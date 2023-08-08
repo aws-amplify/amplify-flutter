@@ -157,7 +157,7 @@ void main() {
                     Map.fromEntries([
                       stringifiedBoolProperty,
                       stringProperty,
-                      secondStringProperty
+                      secondStringProperty,
                     ]),
                   ),
                 )

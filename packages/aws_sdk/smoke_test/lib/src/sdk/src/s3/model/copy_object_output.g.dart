@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.copy_object_output;
+part of 'copy_object_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -150,9 +150,7 @@ class CopyObjectOutputBuilder
   set requestCharged(_i5.RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
-  CopyObjectOutputBuilder() {
-    CopyObjectOutput._init(this);
-  }
+  CopyObjectOutputBuilder();
 
   CopyObjectOutputBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.get_aggregate_resource_config_request;
+part of 'get_aggregate_resource_config_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -75,9 +75,7 @@ class GetAggregateResourceConfigRequestBuilder
           _i3.AggregateResourceIdentifierBuilder? resourceIdentifier) =>
       _$this._resourceIdentifier = resourceIdentifier;
 
-  GetAggregateResourceConfigRequestBuilder() {
-    GetAggregateResourceConfigRequest._init(this);
-  }
+  GetAggregateResourceConfigRequestBuilder();
 
   GetAggregateResourceConfigRequestBuilder get _$this {
     final $v = _$v;

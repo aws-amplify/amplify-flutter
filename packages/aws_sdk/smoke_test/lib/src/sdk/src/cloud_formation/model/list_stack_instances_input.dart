@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.list_stack_instances_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -53,12 +53,8 @@ abstract class ListStackInstancesInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListStackInstancesInputAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListStackInstancesInputBuilder b) {}
+  static const List<_i1.SmithySerializer<ListStackInstancesInput>> serializers =
+      [ListStackInstancesInputAwsQuerySerializer()];
 
   /// The name or unique ID of the stack set that you want to list stack instances for.
   String get stackSetName;
@@ -69,7 +65,7 @@ abstract class ListStackInstancesInput
   /// The maximum number of results to be returned with a single call. If the number of available results exceeds this maximum, the response includes a `NextToken` value that you can assign to the `NextToken` request parameter to get the next set of results.
   int? get maxResults;
 
-  /// The status that stack instances are filtered by.
+  /// The filter to apply to stack instances
   _i5.BuiltList<_i3.StackInstanceFilter>? get filters;
 
   /// The name of the Amazon Web Services account that you want to list stack instances for.
@@ -102,35 +98,35 @@ abstract class ListStackInstancesInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListStackInstancesInput');
-    helper.add(
-      'stackSetName',
-      stackSetName,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
-      'maxResults',
-      maxResults,
-    );
-    helper.add(
-      'filters',
-      filters,
-    );
-    helper.add(
-      'stackInstanceAccount',
-      stackInstanceAccount,
-    );
-    helper.add(
-      'stackInstanceRegion',
-      stackInstanceRegion,
-    );
-    helper.add(
-      'callAs',
-      callAs,
-    );
+    final helper = newBuiltValueToStringHelper('ListStackInstancesInput')
+      ..add(
+        'stackSetName',
+        stackSetName,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      )
+      ..add(
+        'maxResults',
+        maxResults,
+      )
+      ..add(
+        'filters',
+        filters,
+      )
+      ..add(
+        'stackInstanceAccount',
+        stackInstanceAccount,
+      )
+      ..add(
+        'stackInstanceRegion',
+        stackInstanceRegion,
+      )
+      ..add(
+        'callAs',
+        callAs,
+      );
     return helper.toString();
   }
 }

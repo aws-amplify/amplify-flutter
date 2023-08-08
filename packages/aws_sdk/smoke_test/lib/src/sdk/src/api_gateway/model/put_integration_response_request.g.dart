@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.put_integration_response_request;
+part of 'put_integration_response_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -131,9 +131,7 @@ class PutIntegrationResponseRequestBuilder
   set contentHandling(_i3.ContentHandlingStrategy? contentHandling) =>
       _$this._contentHandling = contentHandling;
 
-  PutIntegrationResponseRequestBuilder() {
-    PutIntegrationResponseRequest._init(this);
-  }
+  PutIntegrationResponseRequestBuilder();
 
   PutIntegrationResponseRequestBuilder get _$this {
     final $v = _$v;
@@ -283,9 +281,7 @@ class PutIntegrationResponseRequestPayloadBuilder
   set selectionPattern(String? selectionPattern) =>
       _$this._selectionPattern = selectionPattern;
 
-  PutIntegrationResponseRequestPayloadBuilder() {
-    PutIntegrationResponseRequestPayload._init(this);
-  }
+  PutIntegrationResponseRequestPayloadBuilder();
 
   PutIntegrationResponseRequestPayloadBuilder get _$this {
     final $v = _$v;

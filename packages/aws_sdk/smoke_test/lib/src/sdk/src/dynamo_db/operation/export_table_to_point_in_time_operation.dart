@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.operation.export_table_to_point_in_time_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -116,7 +116,8 @@ class ExportTableToPointInTimeOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ExportConflictException,
+            _i9.ExportConflictException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ExportConflictException',
@@ -125,7 +126,7 @@ class ExportTableToPointInTimeOperation extends _i1.HttpOperation<
           _i9.ExportConflictException,
           builder: _i9.ExportConflictException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InternalServerError, _i10.InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
@@ -134,7 +135,8 @@ class ExportTableToPointInTimeOperation extends _i1.HttpOperation<
           _i10.InternalServerError,
           builder: _i10.InternalServerError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidExportTimeException,
+            _i11.InvalidExportTimeException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InvalidExportTimeException',
@@ -143,7 +145,8 @@ class ExportTableToPointInTimeOperation extends _i1.HttpOperation<
           _i11.InvalidExportTimeException,
           builder: _i11.InvalidExportTimeException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.LimitExceededException,
+            _i12.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'LimitExceededException',
@@ -152,7 +155,8 @@ class ExportTableToPointInTimeOperation extends _i1.HttpOperation<
           _i12.LimitExceededException,
           builder: _i12.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.PointInTimeRecoveryUnavailableException,
+            _i13.PointInTimeRecoveryUnavailableException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'PointInTimeRecoveryUnavailableException',
@@ -161,7 +165,8 @@ class ExportTableToPointInTimeOperation extends _i1.HttpOperation<
           _i13.PointInTimeRecoveryUnavailableException,
           builder: _i13.PointInTimeRecoveryUnavailableException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.TableNotFoundException,
+            _i14.TableNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'TableNotFoundException',
@@ -193,7 +198,7 @@ class ExportTableToPointInTimeOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

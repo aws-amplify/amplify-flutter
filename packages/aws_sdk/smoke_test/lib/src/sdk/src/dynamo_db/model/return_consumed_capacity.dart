@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.return_consumed_capacity; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,17 +16,12 @@ import 'package:smithy/smithy.dart' as _i1;
 /// *   `NONE` \- No `ConsumedCapacity` details are included in the response.
 class ReturnConsumedCapacity extends _i1.SmithyEnum<ReturnConsumedCapacity> {
   const ReturnConsumedCapacity._(
-    int index,
-    String name,
-    String value,
-  ) : super(
-          index,
-          name,
-          value,
-        );
+    super.index,
+    super.name,
+    super.value,
+  );
 
-  const ReturnConsumedCapacity._sdkUnknown(String value)
-      : super.sdkUnknown(value);
+  const ReturnConsumedCapacity._sdkUnknown(super.value) : super.sdkUnknown();
 
   static const indexes = ReturnConsumedCapacity._(
     0,

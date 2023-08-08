@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.resource_change;
+part of 'resource_change.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -130,9 +130,7 @@ class ResourceChangeBuilder
   set moduleInfo(_i6.ModuleInfoBuilder? moduleInfo) =>
       _$this._moduleInfo = moduleInfo;
 
-  ResourceChangeBuilder() {
-    ResourceChange._init(this);
-  }
+  ResourceChangeBuilder();
 
   ResourceChangeBuilder get _$this {
     final $v = _$v;

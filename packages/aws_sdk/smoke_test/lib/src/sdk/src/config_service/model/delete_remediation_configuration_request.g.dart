@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.delete_remediation_configuration_request;
+part of 'delete_remediation_configuration_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -69,9 +69,7 @@ class DeleteRemediationConfigurationRequestBuilder
   String? get resourceType => _$this._resourceType;
   set resourceType(String? resourceType) => _$this._resourceType = resourceType;
 
-  DeleteRemediationConfigurationRequestBuilder() {
-    DeleteRemediationConfigurationRequest._init(this);
-  }
+  DeleteRemediationConfigurationRequestBuilder();
 
   DeleteRemediationConfigurationRequestBuilder get _$this {
     final $v = _$v;

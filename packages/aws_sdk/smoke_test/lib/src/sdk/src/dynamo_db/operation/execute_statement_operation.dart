@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.operation.execute_statement_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,7 +38,7 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/transaction_conflict_exce
 ///
 /// For PartiQL reads (`SELECT` statement), if the total number of processed items exceeds the maximum dataset size limit of 1 MB, the read stops and results are returned to the user as a `LastEvaluatedKey` value to continue the read in a subsequent operation. If the filter criteria in `WHERE` clause does not match any data, the read will return an empty result set.
 ///
-/// A single `SELECT` statement response can return up to the maximum number of items (if using the Limit parameter) or a maximum of 1 MB of data (and then apply any filtering to the results using `WHERE` clause). If `LastEvaluatedKey` is present in the response, you need to paginate the result set.
+/// A single `SELECT` statement response can return up to the maximum number of items (if using the Limit parameter) or a maximum of 1 MB of data (and then apply any filtering to the results using `WHERE` clause). If `LastEvaluatedKey` is present in the response, you need to paginate the result set. If `NextToken` is present, you need to paginate the result set and include `NextToken`.
 class ExecuteStatementOperation extends _i1.HttpOperation<
     _i2.ExecuteStatementInput,
     _i2.ExecuteStatementInput,
@@ -48,7 +48,7 @@ class ExecuteStatementOperation extends _i1.HttpOperation<
   ///
   /// For PartiQL reads (`SELECT` statement), if the total number of processed items exceeds the maximum dataset size limit of 1 MB, the read stops and results are returned to the user as a `LastEvaluatedKey` value to continue the read in a subsequent operation. If the filter criteria in `WHERE` clause does not match any data, the read will return an empty result set.
   ///
-  /// A single `SELECT` statement response can return up to the maximum number of items (if using the Limit parameter) or a maximum of 1 MB of data (and then apply any filtering to the results using `WHERE` clause). If `LastEvaluatedKey` is present in the response, you need to paginate the result set.
+  /// A single `SELECT` statement response can return up to the maximum number of items (if using the Limit parameter) or a maximum of 1 MB of data (and then apply any filtering to the results using `WHERE` clause). If `LastEvaluatedKey` is present in the response, you need to paginate the result set. If `NextToken` is present, you need to paginate the result set and include `NextToken`.
   ExecuteStatementOperation({
     required String region,
     Uri? baseUri,
@@ -125,7 +125,8 @@ class ExecuteStatementOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ConditionalCheckFailedException,
+            _i9.ConditionalCheckFailedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ConditionalCheckFailedException',
@@ -134,7 +135,8 @@ class ExecuteStatementOperation extends _i1.HttpOperation<
           _i9.ConditionalCheckFailedException,
           builder: _i9.ConditionalCheckFailedException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.DuplicateItemException,
+            _i10.DuplicateItemException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'DuplicateItemException',
@@ -143,7 +145,7 @@ class ExecuteStatementOperation extends _i1.HttpOperation<
           _i10.DuplicateItemException,
           builder: _i10.DuplicateItemException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InternalServerError, _i11.InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
@@ -152,7 +154,8 @@ class ExecuteStatementOperation extends _i1.HttpOperation<
           _i11.InternalServerError,
           builder: _i11.InternalServerError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.ItemCollectionSizeLimitExceededException,
+            _i12.ItemCollectionSizeLimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ItemCollectionSizeLimitExceededException',
@@ -161,7 +164,8 @@ class ExecuteStatementOperation extends _i1.HttpOperation<
           _i12.ItemCollectionSizeLimitExceededException,
           builder: _i12.ItemCollectionSizeLimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.ProvisionedThroughputExceededException,
+            _i13.ProvisionedThroughputExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ProvisionedThroughputExceededException',
@@ -170,7 +174,7 @@ class ExecuteStatementOperation extends _i1.HttpOperation<
           _i13.ProvisionedThroughputExceededException,
           builder: _i13.ProvisionedThroughputExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.RequestLimitExceeded, _i14.RequestLimitExceeded>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'RequestLimitExceeded',
@@ -179,7 +183,8 @@ class ExecuteStatementOperation extends _i1.HttpOperation<
           _i14.RequestLimitExceeded,
           builder: _i14.RequestLimitExceeded.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.ResourceNotFoundException,
+            _i15.ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ResourceNotFoundException',
@@ -188,7 +193,8 @@ class ExecuteStatementOperation extends _i1.HttpOperation<
           _i15.ResourceNotFoundException,
           builder: _i15.ResourceNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i16.TransactionConflictException,
+            _i16.TransactionConflictException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'TransactionConflictException',
@@ -220,7 +226,7 @@ class ExecuteStatementOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

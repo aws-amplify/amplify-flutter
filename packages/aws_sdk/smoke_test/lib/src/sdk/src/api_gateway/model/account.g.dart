@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.account;
+part of 'account.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -80,9 +80,7 @@ class AccountBuilder implements Builder<Account, AccountBuilder> {
   set apiKeyVersion(String? apiKeyVersion) =>
       _$this._apiKeyVersion = apiKeyVersion;
 
-  AccountBuilder() {
-    Account._init(this);
-  }
+  AccountBuilder();
 
   AccountBuilder get _$this {
     final $v = _$v;

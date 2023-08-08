@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.replica_auto_scaling_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -55,12 +55,8 @@ abstract class ReplicaAutoScalingDescription
 
   const ReplicaAutoScalingDescription._();
 
-  static const List<_i6.SmithySerializer> serializers = [
-    ReplicaAutoScalingDescriptionAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicaAutoScalingDescriptionBuilder b) {}
+  static const List<_i6.SmithySerializer<ReplicaAutoScalingDescription>>
+      serializers = [ReplicaAutoScalingDescriptionAwsJson10Serializer()];
 
   /// The Region where the replica exists.
   String? get regionName;
@@ -97,27 +93,27 @@ abstract class ReplicaAutoScalingDescription
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ReplicaAutoScalingDescription');
-    helper.add(
-      'regionName',
-      regionName,
-    );
-    helper.add(
-      'globalSecondaryIndexes',
-      globalSecondaryIndexes,
-    );
-    helper.add(
-      'replicaProvisionedReadCapacityAutoScalingSettings',
-      replicaProvisionedReadCapacityAutoScalingSettings,
-    );
-    helper.add(
-      'replicaProvisionedWriteCapacityAutoScalingSettings',
-      replicaProvisionedWriteCapacityAutoScalingSettings,
-    );
-    helper.add(
-      'replicaStatus',
-      replicaStatus,
-    );
+    final helper = newBuiltValueToStringHelper('ReplicaAutoScalingDescription')
+      ..add(
+        'regionName',
+        regionName,
+      )
+      ..add(
+        'globalSecondaryIndexes',
+        globalSecondaryIndexes,
+      )
+      ..add(
+        'replicaProvisionedReadCapacityAutoScalingSettings',
+        replicaProvisionedReadCapacityAutoScalingSettings,
+      )
+      ..add(
+        'replicaProvisionedWriteCapacityAutoScalingSettings',
+        replicaProvisionedWriteCapacityAutoScalingSettings,
+      )
+      ..add(
+        'replicaStatus',
+        replicaStatus,
+      );
     return helper.toString();
   }
 }

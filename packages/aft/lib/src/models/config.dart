@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:aft/src/changelog/changelog.dart';
 import 'package:aft/src/models.dart';
+import 'package:aft/src/repo.dart';
 import 'package:aft/src/util.dart';
 import 'package:aws_common/aws_common.dart';
 import 'package:collection/collection.dart';
@@ -115,7 +116,10 @@ class AftComponent with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
 /// {@endtemplate}
 @yamlSerializable
 class PackageInfo
-    with AWSSerializable<Map<String, Object?>>, AWSDebuggable
+    with
+        AWSEquatable<PackageInfo>,
+        AWSSerializable<Map<String, Object?>>,
+        AWSDebuggable
     implements Comparable<PackageInfo> {
   /// {@macro amplify_tools.package_info}
   const PackageInfo({
@@ -124,6 +128,7 @@ class PackageInfo
     required this.pubspecInfo,
     required this.flavor,
     this.example,
+    this.docs,
   });
 
   factory PackageInfo.fromJson(Map<String, Object?> json) =>
@@ -154,12 +159,17 @@ class PackageInfo
       example ??= PackageInfo.fromDirectory(categoryExampleDir);
     }
 
+    // Look for docs package
+    final docsDir = Directory.fromUri(dir.uri.resolve('doc/'));
+    final docs = PackageInfo.fromDirectory(docsDir);
+
     return PackageInfo(
       name: pubspec.name,
       path: dir.path,
       pubspecInfo: pubspecInfo,
       flavor: pubspec.flavor,
       example: example,
+      docs: docs,
     );
   }
 
@@ -177,6 +187,9 @@ class PackageInfo
 
   /// The example for this package, if any.
   final PackageInfo? example;
+
+  /// The docs package, if any.
+  final PackageInfo? docs;
 
   /// The unit test directory within the enclosing directory, if any
   Directory? get unitTestDirectory {
@@ -223,6 +236,32 @@ class PackageInfo
         p.basename(path).contains('e2e');
   }
 
+  /// Whether [package] is a direct or transitive dependency of `this`.
+  bool dependsOn(PackageInfo package, Repo repo) {
+    var found = false;
+    dfs(
+      repo.getPackageGraph(includeDevDependencies: true),
+      root: this,
+      (pkg) {
+        if (pkg == package) found = true;
+      },
+    );
+    return found;
+  }
+
+  /// Whether [package] has `this` as a direct or transitive dependency.
+  bool isDependedOnBy(PackageInfo package, Repo repo) {
+    var found = false;
+    dfs(
+      repo.getReversedPackageGraph(includeDevDependencies: true),
+      root: this,
+      (pkg) {
+        if (pkg == package) found = true;
+      },
+    );
+    return found;
+  }
+
   /// The parsed `CHANGELOG.md`.
   Changelog get changelog {
     final changelogMd = File(p.join(path, 'CHANGELOG.md')).readAsStringSync();
@@ -246,6 +285,9 @@ class PackageInfo
         getEnv('FLUTTER_ROOT') == null &&
         flavor == PackageFlavor.flutter;
   }
+
+  @override
+  List<Object?> get props => [name];
 
   @override
   int compareTo(PackageInfo other) {

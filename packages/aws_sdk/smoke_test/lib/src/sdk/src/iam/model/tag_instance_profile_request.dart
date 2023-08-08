@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.tag_instance_profile_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,12 +41,8 @@ abstract class TagInstanceProfileRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    TagInstanceProfileRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TagInstanceProfileRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<TagInstanceProfileRequest>>
+      serializers = [TagInstanceProfileRequestAwsQuerySerializer()];
 
   /// The name of the IAM instance profile to which you want to add tags.
   ///
@@ -64,15 +60,15 @@ abstract class TagInstanceProfileRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TagInstanceProfileRequest');
-    helper.add(
-      'instanceProfileName',
-      instanceProfileName,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('TagInstanceProfileRequest')
+      ..add(
+        'instanceProfileName',
+        instanceProfileName,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.get_usage_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -71,12 +71,8 @@ abstract class GetUsageRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetUsageRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetUsageRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetUsageRequestPayload>> serializers =
+      [GetUsageRequestRestJson1Serializer()];
 
   /// The Id of the usage plan associated with the usage data.
   String get usagePlanId;
@@ -120,31 +116,31 @@ abstract class GetUsageRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetUsageRequest');
-    helper.add(
-      'usagePlanId',
-      usagePlanId,
-    );
-    helper.add(
-      'keyId',
-      keyId,
-    );
-    helper.add(
-      'startDate',
-      startDate,
-    );
-    helper.add(
-      'endDate',
-      endDate,
-    );
-    helper.add(
-      'position',
-      position,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
+    final helper = newBuiltValueToStringHelper('GetUsageRequest')
+      ..add(
+        'usagePlanId',
+        usagePlanId,
+      )
+      ..add(
+        'keyId',
+        keyId,
+      )
+      ..add(
+        'startDate',
+        startDate,
+      )
+      ..add(
+        'endDate',
+        endDate,
+      )
+      ..add(
+        'position',
+        position,
+      )
+      ..add(
+        'limit',
+        limit,
+      );
     return helper.toString();
   }
 }
@@ -161,8 +157,6 @@ abstract class GetUsageRequestPayload
 
   const GetUsageRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetUsageRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

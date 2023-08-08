@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.change_password_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,9 @@ abstract class ChangePasswordRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ChangePasswordRequest>> serializers = [
     ChangePasswordRequestAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ChangePasswordRequestBuilder b) {}
 
   /// The IAM user's current password.
   String get oldPassword;
@@ -61,15 +58,15 @@ abstract class ChangePasswordRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ChangePasswordRequest');
-    helper.add(
-      'oldPassword',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'newPassword',
-      '***SENSITIVE***',
-    );
+    final helper = newBuiltValueToStringHelper('ChangePasswordRequest')
+      ..add(
+        'oldPassword',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'newPassword',
+        '***SENSITIVE***',
+      );
     return helper.toString();
   }
 }

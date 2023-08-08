@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.batch_statement_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,8 @@ abstract class BatchStatementResponse
 
   const BatchStatementResponse._();
 
-  static const List<_i5.SmithySerializer> serializers = [
-    BatchStatementResponseAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BatchStatementResponseBuilder b) {}
+  static const List<_i5.SmithySerializer<BatchStatementResponse>> serializers =
+      [BatchStatementResponseAwsJson10Serializer()];
 
   /// The error associated with a failed PartiQL batch statement.
   _i2.BatchStatementError? get error;
@@ -62,19 +58,19 @@ abstract class BatchStatementResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('BatchStatementResponse');
-    helper.add(
-      'error',
-      error,
-    );
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'item',
-      item,
-    );
+    final helper = newBuiltValueToStringHelper('BatchStatementResponse')
+      ..add(
+        'error',
+        error,
+      )
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'item',
+        item,
+      );
     return helper.toString();
   }
 }

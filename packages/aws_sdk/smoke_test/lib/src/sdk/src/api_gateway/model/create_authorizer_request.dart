@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.create_authorizer_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -78,12 +78,8 @@ abstract class CreateAuthorizerRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateAuthorizerRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateAuthorizerRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<CreateAuthorizerRequestPayload>>
+      serializers = [CreateAuthorizerRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -156,47 +152,47 @@ abstract class CreateAuthorizerRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateAuthorizerRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'providerArNs',
-      providerArNs,
-    );
-    helper.add(
-      'authType',
-      authType,
-    );
-    helper.add(
-      'authorizerUri',
-      authorizerUri,
-    );
-    helper.add(
-      'authorizerCredentials',
-      authorizerCredentials,
-    );
-    helper.add(
-      'identitySource',
-      identitySource,
-    );
-    helper.add(
-      'identityValidationExpression',
-      identityValidationExpression,
-    );
-    helper.add(
-      'authorizerResultTtlInSeconds',
-      authorizerResultTtlInSeconds,
-    );
+    final helper = newBuiltValueToStringHelper('CreateAuthorizerRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'providerArNs',
+        providerArNs,
+      )
+      ..add(
+        'authType',
+        authType,
+      )
+      ..add(
+        'authorizerUri',
+        authorizerUri,
+      )
+      ..add(
+        'authorizerCredentials',
+        authorizerCredentials,
+      )
+      ..add(
+        'identitySource',
+        identitySource,
+      )
+      ..add(
+        'identityValidationExpression',
+        identityValidationExpression,
+      )
+      ..add(
+        'authorizerResultTtlInSeconds',
+        authorizerResultTtlInSeconds,
+      );
     return helper.toString();
   }
 }
@@ -213,9 +209,6 @@ abstract class CreateAuthorizerRequestPayload
       _$CreateAuthorizerRequestPayload;
 
   const CreateAuthorizerRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateAuthorizerRequestPayloadBuilder b) {}
 
   /// Optional customer-defined field, used in OpenAPI imports and exports without functional impact.
   String? get authType;
@@ -257,44 +250,43 @@ abstract class CreateAuthorizerRequestPayload
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('CreateAuthorizerRequestPayload');
-    helper.add(
-      'authType',
-      authType,
-    );
-    helper.add(
-      'authorizerCredentials',
-      authorizerCredentials,
-    );
-    helper.add(
-      'authorizerResultTtlInSeconds',
-      authorizerResultTtlInSeconds,
-    );
-    helper.add(
-      'authorizerUri',
-      authorizerUri,
-    );
-    helper.add(
-      'identitySource',
-      identitySource,
-    );
-    helper.add(
-      'identityValidationExpression',
-      identityValidationExpression,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'providerArNs',
-      providerArNs,
-    );
-    helper.add(
-      'type',
-      type,
-    );
+    final helper = newBuiltValueToStringHelper('CreateAuthorizerRequestPayload')
+      ..add(
+        'authType',
+        authType,
+      )
+      ..add(
+        'authorizerCredentials',
+        authorizerCredentials,
+      )
+      ..add(
+        'authorizerResultTtlInSeconds',
+        authorizerResultTtlInSeconds,
+      )
+      ..add(
+        'authorizerUri',
+        authorizerUri,
+      )
+      ..add(
+        'identitySource',
+        identitySource,
+      )
+      ..add(
+        'identityValidationExpression',
+        identityValidationExpression,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'providerArNs',
+        providerArNs,
+      )
+      ..add(
+        'type',
+        type,
+      );
     return helper.toString();
   }
 }

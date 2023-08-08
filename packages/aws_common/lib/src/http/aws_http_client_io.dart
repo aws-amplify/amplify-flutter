@@ -185,7 +185,7 @@ class AWSHttpClientImpl extends AWSHttpClient {
       'authorization',
       'www-authenticate',
       'cookie',
-      'cookie2'
+      'cookie2',
     ];
     return !nonRedirectHeaders.contains(headerKey.toLowerCase());
   }

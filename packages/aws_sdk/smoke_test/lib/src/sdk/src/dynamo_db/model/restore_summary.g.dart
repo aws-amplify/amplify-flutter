@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.restore_summary;
+part of 'restore_summary.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -85,9 +85,7 @@ class RestoreSummaryBuilder
   set restoreInProgress(bool? restoreInProgress) =>
       _$this._restoreInProgress = restoreInProgress;
 
-  RestoreSummaryBuilder() {
-    RestoreSummary._init(this);
-  }
+  RestoreSummaryBuilder();
 
   RestoreSummaryBuilder get _$this {
     final $v = _$v;

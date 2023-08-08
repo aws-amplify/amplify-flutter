@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.event_dimensions; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,9 @@ abstract class EventDimensions
 
   const EventDimensions._();
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer<EventDimensions>> serializers = [
     EventDimensionsRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EventDimensionsBuilder b) {}
 
   /// One or more custom attributes that your application reports to Amazon Pinpoint. You can use these attributes as selection criteria when you create an event filter.
   _i5.BuiltMap<String, _i2.AttributeDimension>? get attributes;
@@ -63,19 +60,19 @@ abstract class EventDimensions
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EventDimensions');
-    helper.add(
-      'attributes',
-      attributes,
-    );
-    helper.add(
-      'eventType',
-      eventType,
-    );
-    helper.add(
-      'metrics',
-      metrics,
-    );
+    final helper = newBuiltValueToStringHelper('EventDimensions')
+      ..add(
+        'attributes',
+        attributes,
+      )
+      ..add(
+        'eventType',
+        eventType,
+      )
+      ..add(
+        'metrics',
+        metrics,
+      );
     return helper.toString();
   }
 }

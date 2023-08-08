@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.set_dimension; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,12 +34,9 @@ abstract class SetDimension
 
   const SetDimension._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<SetDimension>> serializers = [
     SetDimensionRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SetDimensionBuilder b) {}
 
   /// The type of segment dimension to use. Valid values are: INCLUSIVE, endpoints that match the criteria are included in the segment; and, EXCLUSIVE, endpoints that match the criteria are excluded from the segment.
   _i2.DimensionType? get dimensionType;
@@ -53,15 +50,15 @@ abstract class SetDimension
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SetDimension');
-    helper.add(
-      'dimensionType',
-      dimensionType,
-    );
-    helper.add(
-      'values',
-      values,
-    );
+    final helper = newBuiltValueToStringHelper('SetDimension')
+      ..add(
+        'dimensionType',
+        dimensionType,
+      )
+      ..add(
+        'values',
+        values,
+      );
     return helper.toString();
   }
 }

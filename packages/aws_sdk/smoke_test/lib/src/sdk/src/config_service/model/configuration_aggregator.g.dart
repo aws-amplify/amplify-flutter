@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.configuration_aggregator;
+part of 'configuration_aggregator.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -121,9 +121,7 @@ class ConfigurationAggregatorBuilder
   String? get createdBy => _$this._createdBy;
   set createdBy(String? createdBy) => _$this._createdBy = createdBy;
 
-  ConfigurationAggregatorBuilder() {
-    ConfigurationAggregator._init(this);
-  }
+  ConfigurationAggregatorBuilder();
 
   ConfigurationAggregatorBuilder get _$this {
     final $v = _$v;

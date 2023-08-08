@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_bucket_acl_request;
+part of 'get_bucket_acl_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -62,9 +62,7 @@ class GetBucketAclRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetBucketAclRequestBuilder() {
-    GetBucketAclRequest._init(this);
-  }
+  GetBucketAclRequestBuilder();
 
   GetBucketAclRequestBuilder get _$this {
     final $v = _$v;
@@ -134,9 +132,7 @@ class GetBucketAclRequestPayloadBuilder
         Builder<GetBucketAclRequestPayload, GetBucketAclRequestPayloadBuilder> {
   _$GetBucketAclRequestPayload? _$v;
 
-  GetBucketAclRequestPayloadBuilder() {
-    GetBucketAclRequestPayload._init(this);
-  }
+  GetBucketAclRequestPayloadBuilder();
 
   @override
   void replace(GetBucketAclRequestPayload other) {

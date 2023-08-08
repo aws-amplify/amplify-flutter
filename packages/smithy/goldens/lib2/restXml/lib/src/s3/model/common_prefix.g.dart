@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.s3.model.common_prefix;
+part of 'common_prefix.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -45,9 +45,7 @@ class CommonPrefixBuilder
   String? get prefix => _$this._prefix;
   set prefix(String? prefix) => _$this._prefix = prefix;
 
-  CommonPrefixBuilder() {
-    CommonPrefix._init(this);
-  }
+  CommonPrefixBuilder();
 
   CommonPrefixBuilder get _$this {
     final $v = _$v;

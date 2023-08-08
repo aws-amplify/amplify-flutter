@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_service_last_accessed_details_request;
+part of 'get_service_last_accessed_details_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -75,9 +75,7 @@ class GetServiceLastAccessedDetailsRequestBuilder
   String? get marker => _$this._marker;
   set marker(String? marker) => _$this._marker = marker;
 
-  GetServiceLastAccessedDetailsRequestBuilder() {
-    GetServiceLastAccessedDetailsRequest._init(this);
-  }
+  GetServiceLastAccessedDetailsRequestBuilder();
 
   GetServiceLastAccessedDetailsRequestBuilder get _$this {
     final $v = _$v;

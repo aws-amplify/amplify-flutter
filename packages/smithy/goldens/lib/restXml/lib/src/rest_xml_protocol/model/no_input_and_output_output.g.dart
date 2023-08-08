@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v1.rest_xml_protocol.model.no_input_and_output_output;
+part of 'no_input_and_output_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -38,9 +38,7 @@ class NoInputAndOutputOutputBuilder
     implements Builder<NoInputAndOutputOutput, NoInputAndOutputOutputBuilder> {
   _$NoInputAndOutputOutput? _$v;
 
-  NoInputAndOutputOutputBuilder() {
-    NoInputAndOutputOutput._init(this);
-  }
+  NoInputAndOutputOutputBuilder();
 
   @override
   void replace(NoInputAndOutputOutput other) {

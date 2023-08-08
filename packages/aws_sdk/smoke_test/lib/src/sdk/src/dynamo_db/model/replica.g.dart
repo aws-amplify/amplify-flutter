@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.replica;
+part of 'replica.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -44,9 +44,7 @@ class ReplicaBuilder implements Builder<Replica, ReplicaBuilder> {
   String? get regionName => _$this._regionName;
   set regionName(String? regionName) => _$this._regionName = regionName;
 
-  ReplicaBuilder() {
-    Replica._init(this);
-  }
+  ReplicaBuilder();
 
   ReplicaBuilder get _$this {
     final $v = _$v;

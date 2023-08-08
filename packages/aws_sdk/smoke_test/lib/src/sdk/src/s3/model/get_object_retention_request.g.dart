@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_object_retention_request;
+part of 'get_object_retention_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -95,9 +95,7 @@ class GetObjectRetentionRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetObjectRetentionRequestBuilder() {
-    GetObjectRetentionRequest._init(this);
-  }
+  GetObjectRetentionRequestBuilder();
 
   GetObjectRetentionRequestBuilder get _$this {
     final $v = _$v;
@@ -176,9 +174,7 @@ class GetObjectRetentionRequestPayloadBuilder
             GetObjectRetentionRequestPayloadBuilder> {
   _$GetObjectRetentionRequestPayload? _$v;
 
-  GetObjectRetentionRequestPayloadBuilder() {
-    GetObjectRetentionRequestPayload._init(this);
-  }
+  GetObjectRetentionRequestPayloadBuilder();
 
   @override
   void replace(GetObjectRetentionRequestPayload other) {

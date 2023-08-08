@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.omits_serializing_empty_lists_input;
+part of 'omits_serializing_empty_lists_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -123,9 +123,7 @@ class OmitsSerializingEmptyListsInputBuilder
           _i5.ListBuilder<_i4.IntegerEnum>? queryIntegerEnumList) =>
       _$this._queryIntegerEnumList = queryIntegerEnumList;
 
-  OmitsSerializingEmptyListsInputBuilder() {
-    OmitsSerializingEmptyListsInput._init(this);
-  }
+  OmitsSerializingEmptyListsInputBuilder();
 
   OmitsSerializingEmptyListsInputBuilder get _$this {
     final $v = _$v;
@@ -234,9 +232,7 @@ class OmitsSerializingEmptyListsInputPayloadBuilder
             OmitsSerializingEmptyListsInputPayloadBuilder> {
   _$OmitsSerializingEmptyListsInputPayload? _$v;
 
-  OmitsSerializingEmptyListsInputPayloadBuilder() {
-    OmitsSerializingEmptyListsInputPayload._init(this);
-  }
+  OmitsSerializingEmptyListsInputPayloadBuilder();
 
   @override
   void replace(OmitsSerializingEmptyListsInputPayload other) {

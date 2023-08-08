@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_validation_protocol.model.malformed_enum_input;
+part of 'malformed_enum_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -77,9 +77,7 @@ class MalformedEnumInputBuilder
   _i4.EnumUnion? get union => _$this._union;
   set union(_i4.EnumUnion? union) => _$this._union = union;
 
-  MalformedEnumInputBuilder() {
-    MalformedEnumInput._init(this);
-  }
+  MalformedEnumInputBuilder();
 
   MalformedEnumInputBuilder get _$this {
     final $v = _$v;

@@ -293,3 +293,5 @@ const int errSecDuplicateItem = -25299;
 const int errSecItemNotFound = -25300;
 
 const int errSecInteractionRequired = -25315;
+
+const int errSecInvalidOwnerEdit = -25244;

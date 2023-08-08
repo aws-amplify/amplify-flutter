@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.aggregate_conformance_pack_compliance_filters;
+part of 'aggregate_conformance_pack_compliance_filters.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -87,9 +87,7 @@ class AggregateConformancePackComplianceFiltersBuilder
   String? get awsRegion => _$this._awsRegion;
   set awsRegion(String? awsRegion) => _$this._awsRegion = awsRegion;
 
-  AggregateConformancePackComplianceFiltersBuilder() {
-    AggregateConformancePackComplianceFilters._init(this);
-  }
+  AggregateConformancePackComplianceFiltersBuilder();
 
   AggregateConformancePackComplianceFiltersBuilder get _$this {
     final $v = _$v;

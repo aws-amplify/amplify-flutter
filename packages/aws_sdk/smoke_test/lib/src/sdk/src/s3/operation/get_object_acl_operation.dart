@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.operation.get_object_acl_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,8 +20,6 @@ import 'package:smoke_test/src/sdk/src/s3/model/no_such_key.dart' as _i9;
 /// Returns the access control list (ACL) of an object. To use this operation, you must have `s3:GetObjectAcl` permissions or `READ_ACP` access to the object. For more information, see [Mapping of ACL permissions and access policy permissions](https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#acl-access-policy-permission-mapping) in the _Amazon S3 User Guide_
 ///
 /// This action is not supported by Amazon S3 on Outposts.
-///
-/// **Versioning**
 ///
 /// By default, GET returns ACL information about the current version of an object. To return ACL information about a different version, use the versionId subresource.
 ///
@@ -44,8 +42,6 @@ class GetObjectAclOperation extends _i1.HttpOperation<
   /// Returns the access control list (ACL) of an object. To use this operation, you must have `s3:GetObjectAcl` permissions or `READ_ACP` access to the object. For more information, see [Mapping of ACL permissions and access policy permissions](https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#acl-access-policy-permission-mapping) in the _Amazon S3 User Guide_
   ///
   /// This action is not supported by Amazon S3 on Outposts.
-  ///
-  /// **Versioning**
   ///
   /// By default, GET returns ACL information about the current version of an object. To return ACL information about a different version, use the versionId subresource.
   ///
@@ -156,7 +152,7 @@ class GetObjectAclOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.NoSuchKey, _i9.NoSuchKey>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.s3',
             shape: 'NoSuchKey',
@@ -204,7 +200,7 @@ class GetObjectAclOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

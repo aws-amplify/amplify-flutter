@@ -6,7 +6,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
+import 'package:aft/src/options/glob_options.dart';
+import 'package:async/async.dart';
+import 'package:aws_common/aws_common.dart';
 import 'package:checked_yaml/checked_yaml.dart';
+import 'package:code_builder/code_builder.dart';
 import 'package:collection/collection.dart';
 import 'package:git/git.dart';
 import 'package:path/path.dart' as p;
@@ -16,15 +20,9 @@ import 'package:smithy_codegen/smithy_codegen.dart';
 import 'package:stream_transform/stream_transform.dart';
 
 /// Command for generating the AWS SDK for a given package and `sdk.yaml` file.
-class GenerateSdkCommand extends AmplifyCommand {
+class GenerateSdkCommand extends AmplifyCommand with GlobOptions {
   GenerateSdkCommand() {
     argParser
-      ..addOption(
-        'config',
-        abbr: 'c',
-        defaultsTo: 'sdk.yaml',
-        help: 'The SDK configuration file',
-      )
       ..addOption(
         'models',
         abbr: 'm',
@@ -53,23 +51,55 @@ class GenerateSdkCommand extends AmplifyCommand {
   @override
   bool get hidden => true;
 
+  /// The path to local Smithy models, if passed.
+  late final modelsPath = argResults!['models'] as String?;
+
+  /// The lib/-relative output path for the generated SDK.
+  late final outputPath = argResults!['output'] as String;
+
+  /// The package name to use in the generated SDK.
+  ///
+  /// If not provided, it will be read from the `pubspec.yaml`.
+  late final packageName = argResults!['package'] as String?;
+
+  /// Cache of organized models by git ref.
+  final _modelsCache = <String, Directory>{};
+  final _cloneMemo = AsyncMemoizer<Directory>();
+
   /// Downloads AWS models from GitHub into a temporary directory.
-  Future<Directory> _downloadModels(String ref) async {
-    final cloneDir = await Directory.systemTemp.createTemp('models');
-    logger
-      ..info('Downloading models...')
-      ..verbose('Cloning models to ${cloneDir.path}');
-    await runGit([
-      'clone',
-      'https://github.com/aws/aws-models.git',
-      cloneDir.path,
-    ]);
-    await runGit(
-      ['checkout', ref],
-      processWorkingDir: cloneDir.path,
-    );
-    logger.info('Successfully cloned models');
-    return cloneDir;
+  Future<Directory> _downloadModels() => _cloneMemo.runOnce(() async {
+        final cloneDir = await Directory.systemTemp.createTemp('models');
+        logger
+          ..info('Downloading models...')
+          ..verbose('Cloning models to ${cloneDir.path}');
+        await runGit(
+          [
+            'clone',
+            'https://github.com/aws/aws-models.git',
+            cloneDir.path,
+          ],
+          echoOutput: verbose,
+        );
+        logger.info('Successfully cloned models');
+        return cloneDir;
+      });
+
+  /// Checks out [ref] in [modelsDir].
+  Future<Directory> _checkoutModelsRef(Directory modelsDir, String ref) async {
+    final worktreeDir =
+        await Directory.systemTemp.createTemp('models_worktree_');
+    try {
+      await runGit(
+        ['worktree', 'add', worktreeDir.path, ref],
+        processWorkingDir: modelsDir.path,
+      );
+    } on Exception catch (e) {
+      if (e.toString().contains('already checked out')) {
+        return modelsDir;
+      }
+      rethrow;
+    }
+    return worktreeDir;
   }
 
   /// Organizes model files from [baseDir] into a new temporary directory.
@@ -96,40 +126,58 @@ class GenerateSdkCommand extends AmplifyCommand {
     return modelsDir;
   }
 
-  @override
-  Future<void> run() async {
-    await super.run();
-    final args = argResults!;
-    final configFilepath = args['config'] as String;
-    final configFile = File(configFilepath);
+  Future<Directory> _modelsDirForRef(String ref) async {
+    if (_modelsCache[ref] case final cachedDir?) {
+      return cachedDir;
+    }
+    Directory modelsDir;
+    if (modelsPath case final modelsPath?) {
+      modelsDir = Directory(modelsPath);
+      if (!await modelsDir.exists()) {
+        exitError('Model directory ($modelsDir) does not exist');
+      }
+      // Checkout models if modelsPath is a git repository.
+      if (File(p.join(modelsPath, '.git')).existsSync()) {
+        modelsDir = await _checkoutModelsRef(modelsDir, ref);
+      } else {
+        logger.warn(
+          'Unable to check out $ref since $modelsDir is not a git repo',
+        );
+      }
+      modelsDir = await _organizeModels(modelsDir);
+    } else {
+      modelsDir = await _downloadModels();
+      modelsDir = await _checkoutModelsRef(modelsDir, ref);
+      modelsDir = await _organizeModels(modelsDir);
+    }
+    return _modelsCache[ref] = modelsDir;
+  }
+
+  /// Generates the SDK for [package].
+  Future<void> _generateForPackage(PackageInfo package) async {
+    if (package.name == 'aws_common') {
+      return _generateAwsConfig(package);
+    }
+    final configFile = File(p.join(package.path, 'sdk.yaml'));
     if (!await configFile.exists()) {
-      exitError('Config file ($configFilepath) does not exist');
+      return;
     }
 
+    logger.info('Generating SDK for ${package.name}...');
     final configYaml = await configFile.readAsString();
     final config = checkedYamlDecode(configYaml, SdkConfig.fromJson);
     logger.verbose('Got config: $config');
 
-    final modelsPath = args['models'] as String?;
-    final Directory modelsDir;
-    if (modelsPath != null) {
-      modelsDir = await _organizeModels(Directory(modelsPath));
-      if (!await modelsDir.exists()) {
-        exitError('Model directory ($modelsDir) does not exist');
-      }
-    } else {
-      final cloneDir = await _downloadModels(config.ref);
-      modelsDir = await _organizeModels(cloneDir);
-    }
-
-    final outputPath = args['output'] as String;
-    final outputDir = Directory(p.join('lib', outputPath));
+    final outputDir = Directory(p.join(package.path, 'lib', outputPath));
     if (!await outputDir.exists()) {
       await outputDir.create(recursive: true);
     }
 
-    final smithyModel = SmithyAstBuilder();
+    final smithyModel = SmithyAstBuilder()
+      ..version = SmithyVersion.v2
+      ..shapes = ShapeMap({});
 
+    final modelsDir = await _modelsDirForRef(config.ref);
     final models = modelsDir.list().whereType<File>();
     await for (final model in models) {
       final serviceName = p.basenameWithoutExtension(model.path);
@@ -139,15 +187,14 @@ class GenerateSdkCommand extends AmplifyCommand {
       final astJson = await model.readAsString();
       final ast = parseAstJson(astJson);
 
-      smithyModel.shapes ??= ShapeMap({});
       smithyModel.shapes!.addAll(ast.shapes);
     }
 
     final smithyAst = smithyModel.build();
-    var packageName = args['package'] as String?;
+    var packageName = this.packageName;
     if (packageName == null) {
       // Read package name from pubspec.yaml
-      final pubspecFile = File('pubspec.yaml');
+      final pubspecFile = File(p.join(package.path, 'pubspec.yaml'));
       final pubspecYaml = await pubspecFile.readAsString();
       final pubspec = Pubspec.parse(pubspecYaml, sourceUrl: pubspecFile.uri);
       packageName = pubspec.name;
@@ -183,6 +230,7 @@ class GenerateSdkCommand extends AmplifyCommand {
     for (final library in output.values.expand((out) => out.libraries)) {
       final smithyLibrary = library.smithyLibrary;
       final outPath = p.join(
+        package.path,
         'lib',
         smithyLibrary.libRelativePath,
       );
@@ -212,7 +260,8 @@ class GenerateSdkCommand extends AmplifyCommand {
           plugin,
           jsonEncode(generatedAst),
         ],
-        mode: verbose ? ProcessStartMode.inheritStdio : ProcessStartMode.normal,
+        mode: ProcessStartMode.inheritStdio,
+        workingDirectory: package.path,
       );
       final exitCode = await pluginCmd.exitCode;
       if (exitCode != 0) {
@@ -221,6 +270,7 @@ class GenerateSdkCommand extends AmplifyCommand {
     }
 
     // Run built_value generator
+    logger.info('Running build_runner...');
     final buildRunnerCmd = await Process.start(
       'dart',
       [
@@ -230,17 +280,130 @@ class GenerateSdkCommand extends AmplifyCommand {
         '--delete-conflicting-outputs',
       ],
       mode: verbose ? ProcessStartMode.inheritStdio : ProcessStartMode.normal,
+      workingDirectory: package.path,
     );
     final exitCode = await buildRunnerCmd.exitCode;
     if (exitCode != 0) {
       exitError('`dart run build_runner build` failed: $exitCode.');
     }
+  }
 
-    logger
-      ..info('Successfully generated SDK')
-      ..verbose('Make sure to add the following dependencies:');
-    for (final dep in dependencies.toList()..sort()) {
-      logger.verbose('- $dep');
+  /// Generates common AWS configuration files, e.g. `aws_service.dart`.
+  Future<void> _generateAwsConfig(PackageInfo awsCommon) async {
+    logger.info('Generating AWS configuration files...');
+    const classDocs = '''
+    /// The enumeration of AWS services.
+    /// 
+    /// This enumeration is used to configure the SigV4 signer. To use a service
+    /// that is not listed here, call [AWSService.new] directly.''';
+    final builder = LibraryBuilder();
+    final awsService = ClassBuilder()
+      ..name = 'AWSService'
+      ..docs.add(classDocs)
+      ..constructors.add(
+        Constructor(
+          (c) => c
+            ..constant = true
+            ..docs.add(
+              '/// Creates a new [AWSService] instance which can be passed to a SigV4 signer.',
+            )
+            ..requiredParameters.addAll([
+              Parameter(
+                (p) => p
+                  ..toThis = true
+                  ..name = 'service',
+              )
+            ]),
+        ),
+      )
+      ..fields.addAll([
+        Field(
+          (f) => f
+            ..modifier = FieldModifier.final$
+            ..docs.add('/// The SigV4 service name, used in signing.')
+            ..name = 'service'
+            ..type = refer('String'),
+        )
+      ]);
+
+    final modelsDir = await _modelsDirForRef('master');
+    final models = modelsDir.list().whereType<File>();
+    final services = <Field>[];
+    await for (final model in models) {
+      final astJson = await model.readAsString();
+      final ast = parseAstJson(astJson);
+      final serviceShape = ast.shapes.values.whereType<ServiceShape>().single;
+      final sigV4Trait = serviceShape.getTrait<SigV4Trait>();
+      final serviceTrait = serviceShape.expectTrait<ServiceTrait>();
+      final serviceName = serviceTrait.sdkId.camelCase;
+      final sigV4Service = sigV4Trait?.name;
+      if (sigV4Service == null) {
+        logger.warn('Skipping $serviceName (no SigV4 service name)');
+        continue;
+      }
+      final title = serviceShape.getTrait<TitleTrait>()?.value;
+      logger.debug('Found AWS service "$serviceName"');
+      services.add(
+        Field(
+          (f) => f
+            ..static = true
+            ..modifier = FieldModifier.constant
+            ..docs.addAll([if (title != null) '/// $title'])
+            ..name = serviceName
+            ..assignment = refer('AWSService').constInstance([
+              literalString(sigV4Service),
+            ]).code,
+        ),
+      );
     }
+
+    awsService.fields.addAll(
+      services..sort((a, b) => a.name.compareTo(b.name)),
+    );
+    builder.body.add(awsService.build());
+
+    final library = builder.build();
+    final emitter = DartEmitter(
+      allocator: Allocator(),
+      orderDirectives: true,
+      useNullSafetySyntax: true,
+    );
+    final code = '''
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
+// Generated with `aft generate sdk`. Do not modify by hand.
+
+${library.accept(emitter)}
+''';
+
+    final output = File(
+      p.join(
+        awsCommon.path,
+        'lib',
+        'src',
+        'config',
+        'aws_service.dart',
+      ),
+    );
+    await output.writeAsString(code);
+    await Process.run(
+      'dart',
+      ['format', output.path],
+      workingDirectory: awsCommon.path,
+    );
+  }
+
+  @override
+  Future<void> run() async {
+    await super.run();
+    if (commandPackages.isEmpty) {
+      logger.info('Nothing to generate');
+      return;
+    }
+    for (final package in commandPackages.values) {
+      await _generateForPackage(package);
+    }
+    logger.info('Successfully generated SDK');
   }
 }

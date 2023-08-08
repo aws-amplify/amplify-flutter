@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.billing_mode_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -12,11 +12,15 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/billing_mode.dart'
 
 part 'billing_mode_summary.g.dart';
 
-/// Contains the details for the read/write capacity mode.
+/// Contains the details for the read/write capacity mode. This page talks about `PROVISIONED` and `PAY\_PER\_REQUEST` billing modes. For more information about these modes, see [Read/write capacity mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html).
+///
+/// You may need to switch to on-demand mode at least once in order to return a `BillingModeSummary` response.
 abstract class BillingModeSummary
     with _i1.AWSEquatable<BillingModeSummary>
     implements Built<BillingModeSummary, BillingModeSummaryBuilder> {
-  /// Contains the details for the read/write capacity mode.
+  /// Contains the details for the read/write capacity mode. This page talks about `PROVISIONED` and `PAY\_PER\_REQUEST` billing modes. For more information about these modes, see [Read/write capacity mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html).
+  ///
+  /// You may need to switch to on-demand mode at least once in order to return a `BillingModeSummary` response.
   factory BillingModeSummary({
     _i2.BillingMode? billingMode,
     DateTime? lastUpdateToPayPerRequestDateTime,
@@ -27,19 +31,18 @@ abstract class BillingModeSummary
     );
   }
 
-  /// Contains the details for the read/write capacity mode.
+  /// Contains the details for the read/write capacity mode. This page talks about `PROVISIONED` and `PAY\_PER\_REQUEST` billing modes. For more information about these modes, see [Read/write capacity mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html).
+  ///
+  /// You may need to switch to on-demand mode at least once in order to return a `BillingModeSummary` response.
   factory BillingModeSummary.build(
           [void Function(BillingModeSummaryBuilder) updates]) =
       _$BillingModeSummary;
 
   const BillingModeSummary._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<BillingModeSummary>> serializers = [
     BillingModeSummaryAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BillingModeSummaryBuilder b) {}
 
   /// Controls how you are charged for read and write throughput and how you manage capacity. This setting can be changed later.
   ///
@@ -57,15 +60,15 @@ abstract class BillingModeSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('BillingModeSummary');
-    helper.add(
-      'billingMode',
-      billingMode,
-    );
-    helper.add(
-      'lastUpdateToPayPerRequestDateTime',
-      lastUpdateToPayPerRequestDateTime,
-    );
+    final helper = newBuiltValueToStringHelper('BillingModeSummary')
+      ..add(
+        'billingMode',
+        billingMode,
+      )
+      ..add(
+        'lastUpdateToPayPerRequestDateTime',
+        lastUpdateToPayPerRequestDateTime,
+      );
     return helper.toString();
   }
 }

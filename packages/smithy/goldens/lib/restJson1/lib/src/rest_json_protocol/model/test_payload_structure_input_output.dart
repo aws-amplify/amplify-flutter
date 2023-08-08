@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.rest_json_protocol.model.test_payload_structure_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -64,12 +64,10 @@ abstract class TestPayloadStructureInputOutput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.PayloadConfig?>> serializers = [
     TestPayloadStructureInputOutputRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TestPayloadStructureInputOutputBuilder b) {}
   String? get testId;
   _i2.PayloadConfig? get payloadConfig;
   @override
@@ -82,15 +80,15 @@ abstract class TestPayloadStructureInputOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('TestPayloadStructureInputOutput');
-    helper.add(
-      'testId',
-      testId,
-    );
-    helper.add(
-      'payloadConfig',
-      payloadConfig,
-    );
+        newBuiltValueToStringHelper('TestPayloadStructureInputOutput')
+          ..add(
+            'testId',
+            testId,
+          )
+          ..add(
+            'payloadConfig',
+            payloadConfig,
+          );
     return helper.toString();
   }
 }

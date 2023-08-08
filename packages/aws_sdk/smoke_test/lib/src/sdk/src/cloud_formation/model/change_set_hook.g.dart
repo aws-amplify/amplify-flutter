@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.change_set_hook;
+part of 'change_set_hook.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -99,9 +99,7 @@ class ChangeSetHookBuilder
   set targetDetails(_i4.ChangeSetHookTargetDetailsBuilder? targetDetails) =>
       _$this._targetDetails = targetDetails;
 
-  ChangeSetHookBuilder() {
-    ChangeSetHook._init(this);
-  }
+  ChangeSetHookBuilder();
 
   ChangeSetHookBuilder get _$this {
     final $v = _$v;

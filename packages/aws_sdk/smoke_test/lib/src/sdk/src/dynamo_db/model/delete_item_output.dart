@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.delete_item_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -47,17 +47,14 @@ abstract class DeleteItemOutput
   ) =>
       payload;
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer<DeleteItemOutput>> serializers = [
     DeleteItemOutputAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteItemOutputBuilder b) {}
 
   /// A map of attribute names to `AttributeValue` objects, representing the item as it appeared before the `DeleteItem` operation. This map appears in the response only if `ReturnValues` was specified as `ALL_OLD` in the request.
   _i5.BuiltMap<String, _i2.AttributeValue>? get attributes;
 
-  /// The capacity units consumed by the `DeleteItem` operation. The data returned includes the total provisioned throughput consumed, along with statistics for the table and any indexes involved in the operation. `ConsumedCapacity` is only returned if the `ReturnConsumedCapacity` parameter was specified. For more information, see [Provisioned Mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html) in the _Amazon DynamoDB Developer Guide_.
+  /// The capacity units consumed by the `DeleteItem` operation. The data returned includes the total provisioned throughput consumed, along with statistics for the table and any indexes involved in the operation. `ConsumedCapacity` is only returned if the `ReturnConsumedCapacity` parameter was specified. For more information, see [Provisioned Throughput](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html) in the _Amazon DynamoDB Developer Guide_.
   _i3.ConsumedCapacity? get consumedCapacity;
 
   /// Information about item collections, if any, that were affected by the `DeleteItem` operation. `ItemCollectionMetrics` is only returned if the `ReturnItemCollectionMetrics` parameter was specified. If the table does not have any local secondary indexes, this information is not returned in the response.
@@ -78,19 +75,19 @@ abstract class DeleteItemOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteItemOutput');
-    helper.add(
-      'attributes',
-      attributes,
-    );
-    helper.add(
-      'consumedCapacity',
-      consumedCapacity,
-    );
-    helper.add(
-      'itemCollectionMetrics',
-      itemCollectionMetrics,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteItemOutput')
+      ..add(
+        'attributes',
+        attributes,
+      )
+      ..add(
+        'consumedCapacity',
+        consumedCapacity,
+      )
+      ..add(
+        'itemCollectionMetrics',
+        itemCollectionMetrics,
+      );
     return helper.toString();
   }
 }

@@ -44,4 +44,5 @@ jobs:
   test:
     uses: ./.github/workflows/flutter_vm.yaml
     with:
+      package-name: amplify_api
       working-directory: packages/api/amplify_api

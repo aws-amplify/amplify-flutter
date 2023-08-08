@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.list_stack_sets_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,12 +44,9 @@ abstract class ListStackSetsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ListStackSetsInput>> serializers = [
     ListStackSetsInputAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListStackSetsInputBuilder b) {}
 
   /// If the previous paginated request didn't return all the remaining results, the response object's `NextToken` parameter value is set to a token. To retrieve the next set of results, call `ListStackSets` again and assign that token to the request object's `NextToken` parameter. If there are no remaining results, the previous response object's `NextToken` parameter is set to `null`.
   String? get nextToken;
@@ -81,23 +78,23 @@ abstract class ListStackSetsInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListStackSetsInput');
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
-      'maxResults',
-      maxResults,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'callAs',
-      callAs,
-    );
+    final helper = newBuiltValueToStringHelper('ListStackSetsInput')
+      ..add(
+        'nextToken',
+        nextToken,
+      )
+      ..add(
+        'maxResults',
+        maxResults,
+      )
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'callAs',
+        callAs,
+      );
     return helper.toString();
   }
 }

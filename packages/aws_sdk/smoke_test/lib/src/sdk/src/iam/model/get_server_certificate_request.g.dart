@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_server_certificate_request;
+part of 'get_server_certificate_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -56,9 +56,7 @@ class GetServerCertificateRequestBuilder
   set serverCertificateName(String? serverCertificateName) =>
       _$this._serverCertificateName = serverCertificateName;
 
-  GetServerCertificateRequestBuilder() {
-    GetServerCertificateRequest._init(this);
-  }
+  GetServerCertificateRequestBuilder();
 
   GetServerCertificateRequestBuilder get _$this {
     final $v = _$v;

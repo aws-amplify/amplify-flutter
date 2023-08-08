@@ -122,7 +122,7 @@ class UserAttributeComponent extends StatefulComponent {
             ),
           ],
         ),
-        ButtonComponent(innerHtml: 'Submit', onClick: _save)
+        ButtonComponent(innerHtml: 'Submit', onClick: _save),
       ],
     );
   }

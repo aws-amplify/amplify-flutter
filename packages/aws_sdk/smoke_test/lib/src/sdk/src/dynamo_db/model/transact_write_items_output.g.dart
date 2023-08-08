@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.transact_write_items_output;
+part of 'transact_write_items_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -70,9 +70,7 @@ class TransactWriteItemsOutputBuilder
               itemCollectionMetrics) =>
       _$this._itemCollectionMetrics = itemCollectionMetrics;
 
-  TransactWriteItemsOutputBuilder() {
-    TransactWriteItemsOutput._init(this);
-  }
+  TransactWriteItemsOutputBuilder();
 
   TransactWriteItemsOutputBuilder get _$this {
     final $v = _$v;

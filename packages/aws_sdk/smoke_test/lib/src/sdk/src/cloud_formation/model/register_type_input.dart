@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.register_type_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -47,12 +47,9 @@ abstract class RegisterTypeInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<RegisterTypeInput>> serializers = [
     RegisterTypeInputAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RegisterTypeInputBuilder b) {}
 
   /// The kind of extension.
   _i3.RegistryType? get type;
@@ -95,7 +92,7 @@ abstract class RegisterTypeInput
 
   /// The Amazon Resource Name (ARN) of the IAM role for CloudFormation to assume when invoking the extension.
   ///
-  /// For CloudFormation to assume the specified execution role, the role must contain a trust relationship with the CloudFormation service principle (`resources.cloudformation.amazonaws.com`). For more information about adding trust relationships, see [Modifying a role trust policy](IAM/latest/UserGuide/roles-managingrole-editing-console.html#roles-managingrole_edit-trust-policy) in the _Identity and Access Management User Guide_.
+  /// For CloudFormation to assume the specified execution role, the role must contain a trust relationship with the CloudFormation service principle (`resources.cloudformation.amazonaws.com`). For more information about adding trust relationships, see [Modifying a role trust policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/roles-managingrole-editing-console.html#roles-managingrole_edit-trust-policy) in the _Identity and Access Management User Guide_.
   ///
   /// If your extension calls Amazon Web Services APIs in any of its handlers, you must create an _[IAM execution role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html)_ that includes the necessary permissions to call those Amazon Web Services APIs, and provision that execution role in your account. When CloudFormation needs to invoke the resource type handler, CloudFormation assumes this execution role to create a temporary session token, which it then passes to the resource type handler, thereby supplying your resource type with the appropriate credentials.
   String? get executionRoleArn;
@@ -115,31 +112,31 @@ abstract class RegisterTypeInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RegisterTypeInput');
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'typeName',
-      typeName,
-    );
-    helper.add(
-      'schemaHandlerPackage',
-      schemaHandlerPackage,
-    );
-    helper.add(
-      'loggingConfig',
-      loggingConfig,
-    );
-    helper.add(
-      'executionRoleArn',
-      executionRoleArn,
-    );
-    helper.add(
-      'clientRequestToken',
-      clientRequestToken,
-    );
+    final helper = newBuiltValueToStringHelper('RegisterTypeInput')
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'typeName',
+        typeName,
+      )
+      ..add(
+        'schemaHandlerPackage',
+        schemaHandlerPackage,
+      )
+      ..add(
+        'loggingConfig',
+        loggingConfig,
+      )
+      ..add(
+        'executionRoleArn',
+        executionRoleArn,
+      )
+      ..add(
+        'clientRequestToken',
+        clientRequestToken,
+      );
     return helper.toString();
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.list_bucket_intelligent_tiering_configurations_output;
+part of 'list_bucket_intelligent_tiering_configurations_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -99,9 +99,7 @@ class ListBucketIntelligentTieringConfigurationsOutputBuilder
       _$this._intelligentTieringConfigurationList =
           intelligentTieringConfigurationList;
 
-  ListBucketIntelligentTieringConfigurationsOutputBuilder() {
-    ListBucketIntelligentTieringConfigurationsOutput._init(this);
-  }
+  ListBucketIntelligentTieringConfigurationsOutputBuilder();
 
   ListBucketIntelligentTieringConfigurationsOutputBuilder get _$this {
     final $v = _$v;

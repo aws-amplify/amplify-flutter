@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.create_bucket_request;
+part of 'create_bucket_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -143,9 +143,7 @@ class CreateBucketRequestBuilder
   set objectOwnership(_i5.ObjectOwnership? objectOwnership) =>
       _$this._objectOwnership = objectOwnership;
 
-  CreateBucketRequestBuilder() {
-    CreateBucketRequest._init(this);
-  }
+  CreateBucketRequestBuilder();
 
   CreateBucketRequestBuilder get _$this {
     final $v = _$v;

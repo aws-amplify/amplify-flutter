@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.update_vpc_link_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -55,12 +55,8 @@ abstract class UpdateVpcLinkRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateVpcLinkRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateVpcLinkRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<UpdateVpcLinkRequestPayload>>
+      serializers = [UpdateVpcLinkRequestRestJson1Serializer()];
 
   /// The identifier of the VpcLink. It is used in an Integration to reference this VpcLink.
   String get vpcLinkId;
@@ -92,15 +88,15 @@ abstract class UpdateVpcLinkRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateVpcLinkRequest');
-    helper.add(
-      'vpcLinkId',
-      vpcLinkId,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateVpcLinkRequest')
+      ..add(
+        'vpcLinkId',
+        vpcLinkId,
+      )
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }
@@ -116,20 +112,17 @@ abstract class UpdateVpcLinkRequestPayload
 
   const UpdateVpcLinkRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateVpcLinkRequestPayloadBuilder b) {}
-
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
   @override
   List<Object?> get props => [patchOperations];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateVpcLinkRequestPayload');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateVpcLinkRequestPayload')
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }

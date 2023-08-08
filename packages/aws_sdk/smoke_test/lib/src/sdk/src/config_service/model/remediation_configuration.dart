@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.remediation_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,6 +38,7 @@ abstract class RemediationConfiguration
     String? arn,
     String? createdByService,
   }) {
+    automatic ??= false;
     return _$RemediationConfiguration._(
       configRuleName: configRuleName,
       targetType: targetType,
@@ -61,12 +62,13 @@ abstract class RemediationConfiguration
 
   const RemediationConfiguration._();
 
-  static const List<_i7.SmithySerializer> serializers = [
-    RemediationConfigurationAwsJson11Serializer()
-  ];
+  static const List<_i7.SmithySerializer<RemediationConfiguration>>
+      serializers = [RemediationConfigurationAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(RemediationConfigurationBuilder b) {}
+  static void _init(RemediationConfigurationBuilder b) {
+    b.automatic = false;
+  }
 
   /// The name of the Config rule.
   String get configRuleName;
@@ -74,7 +76,7 @@ abstract class RemediationConfiguration
   /// The type of the target. Target executes remediation. For example, SSM document.
   _i2.RemediationTargetType get targetType;
 
-  /// Target ID is the name of the public document.
+  /// Target ID is the name of the SSM document.
   String get targetId;
 
   /// Version of the target. For example, version of the SSM document.
@@ -89,7 +91,7 @@ abstract class RemediationConfiguration
   String? get resourceType;
 
   /// The remediation is triggered automatically.
-  bool? get automatic;
+  bool get automatic;
 
   /// An ExecutionControls object.
   _i4.ExecutionControls? get executionControls;
@@ -126,55 +128,55 @@ abstract class RemediationConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RemediationConfiguration');
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'targetType',
-      targetType,
-    );
-    helper.add(
-      'targetId',
-      targetId,
-    );
-    helper.add(
-      'targetVersion',
-      targetVersion,
-    );
-    helper.add(
-      'parameters',
-      parameters,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'automatic',
-      automatic,
-    );
-    helper.add(
-      'executionControls',
-      executionControls,
-    );
-    helper.add(
-      'maximumAutomaticAttempts',
-      maximumAutomaticAttempts,
-    );
-    helper.add(
-      'retryAttemptSeconds',
-      retryAttemptSeconds,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'createdByService',
-      createdByService,
-    );
+    final helper = newBuiltValueToStringHelper('RemediationConfiguration')
+      ..add(
+        'configRuleName',
+        configRuleName,
+      )
+      ..add(
+        'targetType',
+        targetType,
+      )
+      ..add(
+        'targetId',
+        targetId,
+      )
+      ..add(
+        'targetVersion',
+        targetVersion,
+      )
+      ..add(
+        'parameters',
+        parameters,
+      )
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'automatic',
+        automatic,
+      )
+      ..add(
+        'executionControls',
+        executionControls,
+      )
+      ..add(
+        'maximumAutomaticAttempts',
+        maximumAutomaticAttempts,
+      )
+      ..add(
+        'retryAttemptSeconds',
+        retryAttemptSeconds,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'createdByService',
+        createdByService,
+      );
     return helper.toString();
   }
 }
@@ -321,6 +323,11 @@ class RemediationConfigurationAwsJson11Serializer
         targetId,
         specifiedType: const FullType(String),
       ),
+      'Automatic',
+      serializers.serialize(
+        automatic,
+        specifiedType: const FullType(bool),
+      ),
     ]);
     if (targetVersion != null) {
       result$
@@ -350,14 +357,6 @@ class RemediationConfigurationAwsJson11Serializer
         ..add(serializers.serialize(
           resourceType,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (automatic != null) {
-      result$
-        ..add('Automatic')
-        ..add(serializers.serialize(
-          automatic,
-          specifiedType: const FullType(bool),
         ));
     }
     if (executionControls != null) {

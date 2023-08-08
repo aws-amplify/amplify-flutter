@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.update_saml_provider_request;
+part of 'update_saml_provider_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -67,9 +67,7 @@ class UpdateSamlProviderRequestBuilder
   set samlProviderArn(String? samlProviderArn) =>
       _$this._samlProviderArn = samlProviderArn;
 
-  UpdateSamlProviderRequestBuilder() {
-    UpdateSamlProviderRequest._init(this);
-  }
+  UpdateSamlProviderRequestBuilder();
 
   UpdateSamlProviderRequestBuilder get _$this {
     final $v = _$v;

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.attribute_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -30,7 +31,7 @@ abstract class AttributeType
 
   const AttributeType._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<AttributeType>> serializers = [
     AttributeTypeAwsJson11Serializer()
   ];
 
@@ -49,15 +50,15 @@ abstract class AttributeType
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AttributeType');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'value',
-      '***SENSITIVE***',
-    );
+    final helper = newBuiltValueToStringHelper('AttributeType')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'value',
+        '***SENSITIVE***',
+      );
     return helper.toString();
   }
 }
@@ -90,21 +91,20 @@ class AttributeTypeAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Name':
           result.name = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Value':
-          if (value != null) {
-            result.value = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.value = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -114,25 +114,26 @@ class AttributeTypeAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    AttributeType object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as AttributeType);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final AttributeType(:name, :value) = object;
+    result$.addAll([
       'Name',
       serializers.serialize(
-        payload.name,
+        name,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.value != null) {
-      result
+    ]);
+    if (value != null) {
+      result$
         ..add('Value')
         ..add(serializers.serialize(
-          payload.value!,
+          value,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.no_such_entity_exception;
+part of 'no_such_entity_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class NoSuchEntityExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  NoSuchEntityExceptionBuilder() {
-    NoSuchEntityException._init(this);
-  }
+  NoSuchEntityExceptionBuilder();
 
   NoSuchEntityExceptionBuilder get _$this {
     final $v = _$v;

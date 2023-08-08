@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.intelligent_tiering_filter;
+part of 'intelligent_tiering_filter.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -67,9 +67,7 @@ class IntelligentTieringFilterBuilder
       _$this._and ??= new _i3.IntelligentTieringAndOperatorBuilder();
   set and(_i3.IntelligentTieringAndOperatorBuilder? and) => _$this._and = and;
 
-  IntelligentTieringFilterBuilder() {
-    IntelligentTieringFilter._init(this);
-  }
+  IntelligentTieringFilterBuilder();
 
   IntelligentTieringFilterBuilder get _$this {
     final $v = _$v;

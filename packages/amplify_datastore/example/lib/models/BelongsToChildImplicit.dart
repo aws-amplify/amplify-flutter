@@ -22,6 +22,7 @@ import 'package:amplify_core/amplify_core.dart' as amplify_core;
 // ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
 import 'ModelProvider.dart';
+import 'package:amplify_core/amplify_core.dart' as amplify_core;
 
 /// This is an auto generated class representing the BelongsToChildImplicit type in your schema.
 class BelongsToChildImplicit extends amplify_core.Model {
@@ -93,7 +94,7 @@ class BelongsToChildImplicit extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("BelongsToChildImplicit {");
     buffer.write("id=" + "$id" + ", ");
@@ -161,7 +162,7 @@ class BelongsToChildImplicit extends amplify_core.Model {
       };
 
   static final amplify_core
-          .QueryModelIdentifier<BelongsToChildImplicitModelIdentifier>
+      .QueryModelIdentifier<BelongsToChildImplicitModelIdentifier>
       MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<
           BelongsToChildImplicitModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
@@ -229,7 +230,7 @@ class BelongsToChildImplicitModelIdentifier
     implements amplify_core.ModelIdentifier<BelongsToChildImplicit> {
   final String id;
 
-  /// Create an instance of BelongsToChildImplicitModelIdentifier using [id] the primary key.
+  /** Create an instance of BelongsToChildImplicitModelIdentifier using [id] the primary key. */
   const BelongsToChildImplicitModelIdentifier({required this.id});
 
   @override

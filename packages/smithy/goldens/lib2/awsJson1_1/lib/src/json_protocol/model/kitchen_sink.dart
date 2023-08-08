@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library aws_json1_1_v2.json_protocol.model.kitchen_sink; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -119,12 +119,10 @@ abstract class KitchenSink
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<KitchenSink>> serializers = [
     KitchenSinkAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(KitchenSinkBuilder b) {}
   _i3.Uint8List? get blob;
   bool? get boolean;
   double? get double_;
@@ -184,111 +182,111 @@ abstract class KitchenSink
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('KitchenSink');
-    helper.add(
-      'blob',
-      blob,
-    );
-    helper.add(
-      'boolean',
-      boolean,
-    );
-    helper.add(
-      'double_',
-      double_,
-    );
-    helper.add(
-      'emptyStruct',
-      emptyStruct,
-    );
-    helper.add(
-      'float',
-      float,
-    );
-    helper.add(
-      'httpdateTimestamp',
-      httpdateTimestamp,
-    );
-    helper.add(
-      'integer',
-      integer,
-    );
-    helper.add(
-      'iso8601Timestamp',
-      iso8601Timestamp,
-    );
-    helper.add(
-      'jsonValue',
-      jsonValue,
-    );
-    helper.add(
-      'listOfLists',
-      listOfLists,
-    );
-    helper.add(
-      'listOfMapsOfStrings',
-      listOfMapsOfStrings,
-    );
-    helper.add(
-      'listOfStrings',
-      listOfStrings,
-    );
-    helper.add(
-      'listOfStructs',
-      listOfStructs,
-    );
-    helper.add(
-      'long',
-      long,
-    );
-    helper.add(
-      'mapOfListsOfStrings',
-      mapOfListsOfStrings,
-    );
-    helper.add(
-      'mapOfMaps',
-      mapOfMaps,
-    );
-    helper.add(
-      'mapOfStrings',
-      mapOfStrings,
-    );
-    helper.add(
-      'mapOfStructs',
-      mapOfStructs,
-    );
-    helper.add(
-      'recursiveList',
-      recursiveList,
-    );
-    helper.add(
-      'recursiveMap',
-      recursiveMap,
-    );
-    helper.add(
-      'recursiveStruct',
-      recursiveStruct,
-    );
-    helper.add(
-      'simpleStruct',
-      simpleStruct,
-    );
-    helper.add(
-      'string',
-      string,
-    );
-    helper.add(
-      'structWithJsonName',
-      structWithJsonName,
-    );
-    helper.add(
-      'timestamp',
-      timestamp,
-    );
-    helper.add(
-      'unixTimestamp',
-      unixTimestamp,
-    );
+    final helper = newBuiltValueToStringHelper('KitchenSink')
+      ..add(
+        'blob',
+        blob,
+      )
+      ..add(
+        'boolean',
+        boolean,
+      )
+      ..add(
+        'double_',
+        double_,
+      )
+      ..add(
+        'emptyStruct',
+        emptyStruct,
+      )
+      ..add(
+        'float',
+        float,
+      )
+      ..add(
+        'httpdateTimestamp',
+        httpdateTimestamp,
+      )
+      ..add(
+        'integer',
+        integer,
+      )
+      ..add(
+        'iso8601Timestamp',
+        iso8601Timestamp,
+      )
+      ..add(
+        'jsonValue',
+        jsonValue,
+      )
+      ..add(
+        'listOfLists',
+        listOfLists,
+      )
+      ..add(
+        'listOfMapsOfStrings',
+        listOfMapsOfStrings,
+      )
+      ..add(
+        'listOfStrings',
+        listOfStrings,
+      )
+      ..add(
+        'listOfStructs',
+        listOfStructs,
+      )
+      ..add(
+        'long',
+        long,
+      )
+      ..add(
+        'mapOfListsOfStrings',
+        mapOfListsOfStrings,
+      )
+      ..add(
+        'mapOfMaps',
+        mapOfMaps,
+      )
+      ..add(
+        'mapOfStrings',
+        mapOfStrings,
+      )
+      ..add(
+        'mapOfStructs',
+        mapOfStructs,
+      )
+      ..add(
+        'recursiveList',
+        recursiveList,
+      )
+      ..add(
+        'recursiveMap',
+        recursiveMap,
+      )
+      ..add(
+        'recursiveStruct',
+        recursiveStruct,
+      )
+      ..add(
+        'simpleStruct',
+        simpleStruct,
+      )
+      ..add(
+        'string',
+        string,
+      )
+      ..add(
+        'structWithJsonName',
+        structWithJsonName,
+      )
+      ..add(
+        'timestamp',
+        timestamp,
+      )
+      ..add(
+        'unixTimestamp',
+        unixTimestamp,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.update_table_replica_auto_scaling_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -56,12 +56,8 @@ abstract class UpdateTableReplicaAutoScalingInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateTableReplicaAutoScalingInputAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateTableReplicaAutoScalingInputBuilder b) {}
+  static const List<_i1.SmithySerializer<UpdateTableReplicaAutoScalingInput>>
+      serializers = [UpdateTableReplicaAutoScalingInputAwsJson10Serializer()];
 
   /// Represents the auto scaling settings of the global secondary indexes of the replica to be updated.
   _i6.BuiltList<_i3.GlobalSecondaryIndexAutoScalingUpdate>?
@@ -87,23 +83,23 @@ abstract class UpdateTableReplicaAutoScalingInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateTableReplicaAutoScalingInput');
-    helper.add(
-      'globalSecondaryIndexUpdates',
-      globalSecondaryIndexUpdates,
-    );
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'provisionedWriteCapacityAutoScalingUpdate',
-      provisionedWriteCapacityAutoScalingUpdate,
-    );
-    helper.add(
-      'replicaUpdates',
-      replicaUpdates,
-    );
+        newBuiltValueToStringHelper('UpdateTableReplicaAutoScalingInput')
+          ..add(
+            'globalSecondaryIndexUpdates',
+            globalSecondaryIndexUpdates,
+          )
+          ..add(
+            'tableName',
+            tableName,
+          )
+          ..add(
+            'provisionedWriteCapacityAutoScalingUpdate',
+            provisionedWriteCapacityAutoScalingUpdate,
+          )
+          ..add(
+            'replicaUpdates',
+            replicaUpdates,
+          );
     return helper.toString();
   }
 }

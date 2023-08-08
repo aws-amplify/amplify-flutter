@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_protocol.model.response_code_required_output;
+part of 'response_code_required_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -53,9 +53,7 @@ class ResponseCodeRequiredOutputBuilder
   int? get responseCode => _$this._responseCode;
   set responseCode(int? responseCode) => _$this._responseCode = responseCode;
 
-  ResponseCodeRequiredOutputBuilder() {
-    ResponseCodeRequiredOutput._init(this);
-  }
+  ResponseCodeRequiredOutputBuilder();
 
   ResponseCodeRequiredOutputBuilder get _$this {
     final $v = _$v;
@@ -126,9 +124,7 @@ class ResponseCodeRequiredOutputPayloadBuilder
             ResponseCodeRequiredOutputPayloadBuilder> {
   _$ResponseCodeRequiredOutputPayload? _$v;
 
-  ResponseCodeRequiredOutputPayloadBuilder() {
-    ResponseCodeRequiredOutputPayload._init(this);
-  }
+  ResponseCodeRequiredOutputPayloadBuilder();
 
   @override
   void replace(ResponseCodeRequiredOutputPayload other) {

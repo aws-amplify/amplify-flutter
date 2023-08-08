@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.list_virtual_mfa_devices_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -26,6 +26,7 @@ abstract class ListVirtualMfaDevicesResponse
     bool? isTruncated,
     String? marker,
   }) {
+    isTruncated ??= false;
     return _$ListVirtualMfaDevicesResponse._(
       virtualMfaDevices: _i3.BuiltList(virtualMfaDevices),
       isTruncated: isTruncated,
@@ -47,18 +48,19 @@ abstract class ListVirtualMfaDevicesResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ListVirtualMfaDevicesResponseAwsQuerySerializer()
-  ];
+  static const List<_i4.SmithySerializer<ListVirtualMfaDevicesResponse>>
+      serializers = [ListVirtualMfaDevicesResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListVirtualMfaDevicesResponseBuilder b) {}
+  static void _init(ListVirtualMfaDevicesResponseBuilder b) {
+    b.isTruncated = false;
+  }
 
   /// The list of virtual MFA devices in the current account that match the `AssignmentStatus` value that was passed in the request.
   _i3.BuiltList<_i2.VirtualMfaDevice> get virtualMfaDevices;
 
   /// A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the `Marker` request parameter to retrieve more items. Note that IAM might return fewer than the `MaxItems` number of results even when there are more results available. We recommend that you check `IsTruncated` after every call to ensure that you receive all your results.
-  bool? get isTruncated;
+  bool get isTruncated;
 
   /// When `IsTruncated` is `true`, this element is present and contains the value to use for the `Marker` parameter in a subsequent pagination request.
   String? get marker;
@@ -70,19 +72,19 @@ abstract class ListVirtualMfaDevicesResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListVirtualMfaDevicesResponse');
-    helper.add(
-      'virtualMfaDevices',
-      virtualMfaDevices,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
+    final helper = newBuiltValueToStringHelper('ListVirtualMfaDevicesResponse')
+      ..add(
+        'virtualMfaDevices',
+        virtualMfaDevices,
+      )
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'marker',
+        marker,
+      );
     return helper.toString();
   }
 }
@@ -176,14 +178,12 @@ class ListVirtualMfaDevicesResponseAwsQuerySerializer
           [FullType(_i2.VirtualMfaDevice)],
         ),
       ));
-    if (isTruncated != null) {
-      result$
-        ..add(const _i4.XmlElementName('IsTruncated'))
-        ..add(serializers.serialize(
-          isTruncated,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result$
+      ..add(const _i4.XmlElementName('IsTruncated'))
+      ..add(serializers.serialize(
+        isTruncated,
+        specifiedType: const FullType(bool),
+      ));
     if (marker != null) {
       result$
         ..add(const _i4.XmlElementName('Marker'))

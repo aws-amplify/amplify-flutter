@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_context_keys_for_principal_policy_request;
+part of 'get_context_keys_for_principal_policy_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -71,9 +71,7 @@ class GetContextKeysForPrincipalPolicyRequestBuilder
   set policyInputList(_i3.ListBuilder<String>? policyInputList) =>
       _$this._policyInputList = policyInputList;
 
-  GetContextKeysForPrincipalPolicyRequestBuilder() {
-    GetContextKeysForPrincipalPolicyRequest._init(this);
-  }
+  GetContextKeysForPrincipalPolicyRequestBuilder();
 
   GetContextKeysForPrincipalPolicyRequestBuilder get _$this {
     final $v = _$v;

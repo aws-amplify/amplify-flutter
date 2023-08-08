@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.resource_in_use_exception;
+part of 'resource_in_use_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -61,9 +61,7 @@ class ResourceInUseExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ResourceInUseExceptionBuilder() {
-    ResourceInUseException._init(this);
-  }
+  ResourceInUseExceptionBuilder();
 
   ResourceInUseExceptionBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.enable_mfa_device_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,8 @@ abstract class EnableMfaDeviceRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    EnableMfaDeviceRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EnableMfaDeviceRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<EnableMfaDeviceRequest>> serializers =
+      [EnableMfaDeviceRequestAwsQuerySerializer()];
 
   /// The name of the IAM user for whom you want to enable the MFA device.
   ///
@@ -83,23 +79,23 @@ abstract class EnableMfaDeviceRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EnableMfaDeviceRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'serialNumber',
-      serialNumber,
-    );
-    helper.add(
-      'authenticationCode1',
-      authenticationCode1,
-    );
-    helper.add(
-      'authenticationCode2',
-      authenticationCode2,
-    );
+    final helper = newBuiltValueToStringHelper('EnableMfaDeviceRequest')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'serialNumber',
+        serialNumber,
+      )
+      ..add(
+        'authenticationCode1',
+        authenticationCode1,
+      )
+      ..add(
+        'authenticationCode2',
+        authenticationCode2,
+      );
     return helper.toString();
   }
 }

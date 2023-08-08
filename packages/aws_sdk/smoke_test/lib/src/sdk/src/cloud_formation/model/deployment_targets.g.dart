@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.deployment_targets;
+part of 'deployment_targets.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -82,9 +82,7 @@ class DeploymentTargetsBuilder
   set accountFilterType(_i2.AccountFilterType? accountFilterType) =>
       _$this._accountFilterType = accountFilterType;
 
-  DeploymentTargetsBuilder() {
-    DeploymentTargets._init(this);
-  }
+  DeploymentTargetsBuilder();
 
   DeploymentTargetsBuilder get _$this {
     final $v = _$v;

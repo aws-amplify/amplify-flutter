@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.request_validator; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,6 +21,8 @@ abstract class RequestValidator
     bool? validateRequestBody,
     bool? validateRequestParameters,
   }) {
+    validateRequestBody ??= false;
+    validateRequestParameters ??= false;
     return _$RequestValidator._(
       id: id,
       name: name,
@@ -42,12 +44,16 @@ abstract class RequestValidator
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<RequestValidator>> serializers = [
     RequestValidatorRestJson1Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(RequestValidatorBuilder b) {}
+  static void _init(RequestValidatorBuilder b) {
+    b
+      ..validateRequestBody = false
+      ..validateRequestParameters = false;
+  }
 
   /// The identifier of this RequestValidator.
   String? get id;
@@ -56,10 +62,10 @@ abstract class RequestValidator
   String? get name;
 
   /// A Boolean flag to indicate whether to validate a request body according to the configured Model schema.
-  bool? get validateRequestBody;
+  bool get validateRequestBody;
 
   /// A Boolean flag to indicate whether to validate request parameters (`true`) or not (`false`).
-  bool? get validateRequestParameters;
+  bool get validateRequestParameters;
   @override
   List<Object?> get props => [
         id,
@@ -69,23 +75,23 @@ abstract class RequestValidator
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RequestValidator');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'validateRequestBody',
-      validateRequestBody,
-    );
-    helper.add(
-      'validateRequestParameters',
-      validateRequestParameters,
-    );
+    final helper = newBuiltValueToStringHelper('RequestValidator')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'validateRequestBody',
+        validateRequestBody,
+      )
+      ..add(
+        'validateRequestParameters',
+        validateRequestParameters,
+      );
     return helper.toString();
   }
 }
@@ -161,6 +167,18 @@ class RequestValidatorRestJson1Serializer
       :validateRequestBody,
       :validateRequestParameters
     ) = object;
+    result$.addAll([
+      'validateRequestBody',
+      serializers.serialize(
+        validateRequestBody,
+        specifiedType: const FullType(bool),
+      ),
+      'validateRequestParameters',
+      serializers.serialize(
+        validateRequestParameters,
+        specifiedType: const FullType(bool),
+      ),
+    ]);
     if (id != null) {
       result$
         ..add('id')
@@ -175,22 +193,6 @@ class RequestValidatorRestJson1Serializer
         ..add(serializers.serialize(
           name,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (validateRequestBody != null) {
-      result$
-        ..add('validateRequestBody')
-        ..add(serializers.serialize(
-          validateRequestBody,
-          specifiedType: const FullType(bool),
-        ));
-    }
-    if (validateRequestParameters != null) {
-      result$
-        ..add('validateRequestParameters')
-        ..add(serializers.serialize(
-          validateRequestParameters,
-          specifiedType: const FullType(bool),
         ));
     }
     return result$;

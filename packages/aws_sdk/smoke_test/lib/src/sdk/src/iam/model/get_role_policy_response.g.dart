@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_role_policy_response;
+part of 'get_role_policy_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -77,9 +77,7 @@ class GetRolePolicyResponseBuilder
   set policyDocument(String? policyDocument) =>
       _$this._policyDocument = policyDocument;
 
-  GetRolePolicyResponseBuilder() {
-    GetRolePolicyResponse._init(this);
-  }
+  GetRolePolicyResponseBuilder();
 
   GetRolePolicyResponseBuilder get _$this {
     final $v = _$v;

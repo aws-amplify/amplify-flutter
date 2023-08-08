@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.storage_class_analysis_data_export; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,8 @@ abstract class StorageClassAnalysisDataExport
 
   const StorageClassAnalysisDataExport._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    StorageClassAnalysisDataExportRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StorageClassAnalysisDataExportBuilder b) {}
+  static const List<_i4.SmithySerializer<StorageClassAnalysisDataExport>>
+      serializers = [StorageClassAnalysisDataExportRestXmlSerializer()];
 
   /// The version of the output schema to use when exporting data. Must be `V_1`.
   _i2.StorageClassAnalysisSchemaVersion get outputSchemaVersion;
@@ -58,16 +54,15 @@ abstract class StorageClassAnalysisDataExport
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('StorageClassAnalysisDataExport');
-    helper.add(
-      'outputSchemaVersion',
-      outputSchemaVersion,
-    );
-    helper.add(
-      'destination',
-      destination,
-    );
+    final helper = newBuiltValueToStringHelper('StorageClassAnalysisDataExport')
+      ..add(
+        'outputSchemaVersion',
+        outputSchemaVersion,
+      )
+      ..add(
+        'destination',
+        destination,
+      );
     return helper.toString();
   }
 }

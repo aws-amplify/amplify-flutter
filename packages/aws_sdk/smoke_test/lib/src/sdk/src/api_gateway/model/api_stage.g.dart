@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.api_stage;
+part of 'api_stage.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class ApiStageBuilder implements Builder<ApiStage, ApiStageBuilder> {
   set throttle(_i3.MapBuilder<String, _i2.ThrottleSettings>? throttle) =>
       _$this._throttle = throttle;
 
-  ApiStageBuilder() {
-    ApiStage._init(this);
-  }
+  ApiStageBuilder();
 
   ApiStageBuilder get _$this {
     final $v = _$v;

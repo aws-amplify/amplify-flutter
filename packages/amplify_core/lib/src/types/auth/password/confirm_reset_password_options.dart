@@ -3,6 +3,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
+/// {@category Auth}
 /// {@template amplify_core.confirm_reset_password_options}
 /// The shared confirm reset password options among all Auth plugins.
 /// {@endtemplate}
@@ -25,6 +26,7 @@ class ConfirmResetPasswordOptions
   @override
   String get runtimeTypeName => 'ConfirmResetPasswordOptions';
 
+  /// @nodoc
   @Deprecated('Use toJson instead')
   Map<String, Object?> serializeAsMap() => toJson();
 
@@ -34,6 +36,7 @@ class ConfirmResetPasswordOptions
       };
 }
 
+/// @nodoc
 /// {@template amplify_core.auth.confirm_reset_password_plugin_options}
 /// Plugin-specific options for `Amplify.Auth.confirmResetPassword`.
 /// {@endtemplate}

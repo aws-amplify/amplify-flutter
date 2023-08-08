@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v2.rest_json_protocol.model.json_timestamps_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -56,12 +56,9 @@ abstract class JsonTimestampsInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    JsonTimestampsInputOutputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<JsonTimestampsInputOutput>>
+      serializers = [JsonTimestampsInputOutputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(JsonTimestampsInputOutputBuilder b) {}
   DateTime? get normal;
   DateTime? get dateTime;
   DateTime? get dateTimeOnTarget;
@@ -83,35 +80,35 @@ abstract class JsonTimestampsInputOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('JsonTimestampsInputOutput');
-    helper.add(
-      'normal',
-      normal,
-    );
-    helper.add(
-      'dateTime',
-      dateTime,
-    );
-    helper.add(
-      'dateTimeOnTarget',
-      dateTimeOnTarget,
-    );
-    helper.add(
-      'epochSeconds',
-      epochSeconds,
-    );
-    helper.add(
-      'epochSecondsOnTarget',
-      epochSecondsOnTarget,
-    );
-    helper.add(
-      'httpDate',
-      httpDate,
-    );
-    helper.add(
-      'httpDateOnTarget',
-      httpDateOnTarget,
-    );
+    final helper = newBuiltValueToStringHelper('JsonTimestampsInputOutput')
+      ..add(
+        'normal',
+        normal,
+      )
+      ..add(
+        'dateTime',
+        dateTime,
+      )
+      ..add(
+        'dateTimeOnTarget',
+        dateTimeOnTarget,
+      )
+      ..add(
+        'epochSeconds',
+        epochSeconds,
+      )
+      ..add(
+        'epochSecondsOnTarget',
+        epochSecondsOnTarget,
+      )
+      ..add(
+        'httpDate',
+        httpDate,
+      )
+      ..add(
+        'httpDateOnTarget',
+        httpDateOnTarget,
+      );
     return helper.toString();
   }
 }

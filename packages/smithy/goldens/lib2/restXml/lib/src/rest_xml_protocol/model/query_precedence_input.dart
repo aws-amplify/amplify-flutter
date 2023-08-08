@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_xml_v2.rest_xml_protocol.model.query_precedence_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -47,12 +47,9 @@ abstract class QueryPrecedenceInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    QueryPrecedenceInputRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<QueryPrecedenceInputPayload>>
+      serializers = [QueryPrecedenceInputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(QueryPrecedenceInputBuilder b) {}
   String? get foo;
   _i3.BuiltMap<String, String>? get baz;
   @override
@@ -64,15 +61,15 @@ abstract class QueryPrecedenceInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('QueryPrecedenceInput');
-    helper.add(
-      'foo',
-      foo,
-    );
-    helper.add(
-      'baz',
-      baz,
-    );
+    final helper = newBuiltValueToStringHelper('QueryPrecedenceInput')
+      ..add(
+        'foo',
+        foo,
+      )
+      ..add(
+        'baz',
+        baz,
+      );
     return helper.toString();
   }
 }
@@ -89,8 +86,6 @@ abstract class QueryPrecedenceInputPayload
 
   const QueryPrecedenceInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(QueryPrecedenceInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

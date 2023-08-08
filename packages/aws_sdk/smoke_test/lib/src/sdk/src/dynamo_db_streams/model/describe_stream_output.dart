@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db_streams.model.describe_stream_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,12 +35,9 @@ abstract class DescribeStreamOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<DescribeStreamOutput>> serializers = [
     DescribeStreamOutputAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeStreamOutputBuilder b) {}
 
   /// A complete description of the stream, including its creation date and time, the DynamoDB table associated with the stream, the shard IDs within the stream, and the beginning and ending sequence numbers of stream records within the shards.
   _i2.StreamDescription? get streamDescription;
@@ -48,11 +45,11 @@ abstract class DescribeStreamOutput
   List<Object?> get props => [streamDescription];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeStreamOutput');
-    helper.add(
-      'streamDescription',
-      streamDescription,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeStreamOutput')
+      ..add(
+        'streamDescription',
+        streamDescription,
+      );
     return helper.toString();
   }
 }

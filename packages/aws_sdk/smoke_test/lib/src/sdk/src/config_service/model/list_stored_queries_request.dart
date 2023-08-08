@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.list_stored_queries_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,8 @@ abstract class ListStoredQueriesRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListStoredQueriesRequestAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListStoredQueriesRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<ListStoredQueriesRequest>>
+      serializers = [ListStoredQueriesRequestAwsJson11Serializer()];
 
   /// The nextToken string returned in a previous request that you use to request the next page of results in a paginated response.
   String? get nextToken;
@@ -60,15 +56,15 @@ abstract class ListStoredQueriesRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListStoredQueriesRequest');
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
-      'maxResults',
-      maxResults,
-    );
+    final helper = newBuiltValueToStringHelper('ListStoredQueriesRequest')
+      ..add(
+        'nextToken',
+        nextToken,
+      )
+      ..add(
+        'maxResults',
+        maxResults,
+      );
     return helper.toString();
   }
 }

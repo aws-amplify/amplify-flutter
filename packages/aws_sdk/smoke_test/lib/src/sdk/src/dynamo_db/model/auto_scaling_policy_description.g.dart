@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.auto_scaling_policy_description;
+part of 'auto_scaling_policy_description.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -71,9 +71,7 @@ class AutoScalingPolicyDescriptionBuilder
       _$this._targetTrackingScalingPolicyConfiguration =
           targetTrackingScalingPolicyConfiguration;
 
-  AutoScalingPolicyDescriptionBuilder() {
-    AutoScalingPolicyDescription._init(this);
-  }
+  AutoScalingPolicyDescriptionBuilder();
 
   AutoScalingPolicyDescriptionBuilder get _$this {
     final $v = _$v;

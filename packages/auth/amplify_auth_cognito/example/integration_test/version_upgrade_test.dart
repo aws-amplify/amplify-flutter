@@ -17,6 +17,9 @@ import 'utils/validation_utils.dart';
 
 final usernameConfig = amplifyEnvironments['sign-in-with-username']!;
 
+AmplifyAuthCognito get plugin =>
+    Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey);
+
 void main() {
   testRunner.setupTests();
 
@@ -45,7 +48,7 @@ void main() {
 
       asyncTest('sign in with username', (_) async {
         // assert no user is signed in.
-        final session1 = await Amplify.Auth.fetchAuthSession();
+        final session1 = await plugin.fetchAuthSession();
         expect(session1.isSignedIn, isFalse);
 
         // sign a user in with the legacy plugin.
@@ -53,8 +56,6 @@ void main() {
 
         // reconfigure Amplify to trigger credential migration.
         await configureAmplify(usernameConfig);
-
-        final plugin = Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey);
 
         // assert a user is signed in and tokens have been migrated.
         final session2 = await plugin.fetchAuthSession();
@@ -78,9 +79,13 @@ void main() {
 Future<void> configureAmplify(String config) async {
   await clearCredentialStore();
   if (Amplify.isConfigured) {
+    await plugin.close();
     await Amplify.reset();
   }
-  await Amplify.addPlugins([AmplifyAPI(), AmplifyAuthTestPlugin()]);
+  await Amplify.addPlugins([
+    AmplifyAPI(),
+    AmplifyAuthTestPlugin(hasApiPlugin: true),
+  ]);
   await Amplify.configure(config);
 }
 

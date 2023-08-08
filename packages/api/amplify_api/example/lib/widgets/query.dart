@@ -96,8 +96,10 @@ class GraphQLQueryExamples extends StatelessWidget {
           'List',
           textAlign: TextAlign.left,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Wrap(
+          alignment: WrapAlignment.spaceBetween,
+          spacing: 12,
+          runSpacing: 12,
           children: [
             apiButton(
               onPressed: queryBlogs,

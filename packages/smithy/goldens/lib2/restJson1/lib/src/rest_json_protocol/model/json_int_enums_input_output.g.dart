@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.json_int_enums_input_output;
+part of 'json_int_enums_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -106,9 +106,7 @@ class JsonIntEnumsInputOutputBuilder
   set integerEnumMap(_i4.MapBuilder<String, _i3.IntegerEnum>? integerEnumMap) =>
       _$this._integerEnumMap = integerEnumMap;
 
-  JsonIntEnumsInputOutputBuilder() {
-    JsonIntEnumsInputOutput._init(this);
-  }
+  JsonIntEnumsInputOutputBuilder();
 
   JsonIntEnumsInputOutputBuilder get _$this {
     final $v = _$v;

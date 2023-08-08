@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v1.query_protocol.model.recursive_xml_shapes_output_nested2;
+part of 'recursive_xml_shapes_output_nested2.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class RecursiveXmlShapesOutputNested2Builder
           _i2.RecursiveXmlShapesOutputNested1Builder? recursiveMember) =>
       _$this._recursiveMember = recursiveMember;
 
-  RecursiveXmlShapesOutputNested2Builder() {
-    RecursiveXmlShapesOutputNested2._init(this);
-  }
+  RecursiveXmlShapesOutputNested2Builder();
 
   RecursiveXmlShapesOutputNested2Builder get _$this {
     final $v = _$v;

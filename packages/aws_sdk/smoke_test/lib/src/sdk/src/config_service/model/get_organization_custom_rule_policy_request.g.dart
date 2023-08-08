@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.get_organization_custom_rule_policy_request;
+part of 'get_organization_custom_rule_policy_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class GetOrganizationCustomRulePolicyRequestBuilder
   set organizationConfigRuleName(String? organizationConfigRuleName) =>
       _$this._organizationConfigRuleName = organizationConfigRuleName;
 
-  GetOrganizationCustomRulePolicyRequestBuilder() {
-    GetOrganizationCustomRulePolicyRequest._init(this);
-  }
+  GetOrganizationCustomRulePolicyRequestBuilder();
 
   GetOrganizationCustomRulePolicyRequestBuilder get _$this {
     final $v = _$v;

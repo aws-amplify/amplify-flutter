@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.conformance_pack_status_detail;
+part of 'conformance_pack_status_detail.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -138,9 +138,7 @@ class ConformancePackStatusDetailBuilder
   set lastUpdateCompletedTime(DateTime? lastUpdateCompletedTime) =>
       _$this._lastUpdateCompletedTime = lastUpdateCompletedTime;
 
-  ConformancePackStatusDetailBuilder() {
-    ConformancePackStatusDetail._init(this);
-  }
+  ConformancePackStatusDetailBuilder();
 
   ConformancePackStatusDetailBuilder get _$this {
     final $v = _$v;

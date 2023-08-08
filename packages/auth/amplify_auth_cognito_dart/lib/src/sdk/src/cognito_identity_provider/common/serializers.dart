@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.common.serializers; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -289,6 +290,13 @@ final Map<FullType, Function> builderFactories = {
     _i89.BuiltList,
     [FullType(String)],
   ): _i89.ListBuilder<String>.new,
+  const FullType(
+    _i89.BuiltMap,
+    [
+      FullType(String),
+      FullType.nullable(String),
+    ],
+  ): _i89.MapBuilder<String, String?>.new,
   const FullType(
     _i89.BuiltList,
     [FullType(_i49.DeviceType)],

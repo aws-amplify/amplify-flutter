@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.get_model_template_request;
+part of 'get_model_template_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class GetModelTemplateRequestBuilder
   String? get modelName => _$this._modelName;
   set modelName(String? modelName) => _$this._modelName = modelName;
 
-  GetModelTemplateRequestBuilder() {
-    GetModelTemplateRequest._init(this);
-  }
+  GetModelTemplateRequestBuilder();
 
   GetModelTemplateRequestBuilder get _$this {
     final $v = _$v;
@@ -139,9 +137,7 @@ class GetModelTemplateRequestPayloadBuilder
             GetModelTemplateRequestPayloadBuilder> {
   _$GetModelTemplateRequestPayload? _$v;
 
-  GetModelTemplateRequestPayloadBuilder() {
-    GetModelTemplateRequestPayload._init(this);
-  }
+  GetModelTemplateRequestPayloadBuilder();
 
   @override
   void replace(GetModelTemplateRequestPayload other) {

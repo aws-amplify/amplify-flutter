@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.glacier.model.upload_multipart_part_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -67,12 +67,9 @@ abstract class UploadMultipartPartInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UploadMultipartPartInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<_i2.Stream<List<int>>?>> serializers =
+      [UploadMultipartPartInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UploadMultipartPartInputBuilder b) {}
   String get accountId;
   String get vaultName;
   String get uploadId;
@@ -108,31 +105,31 @@ abstract class UploadMultipartPartInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UploadMultipartPartInput');
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'vaultName',
-      vaultName,
-    );
-    helper.add(
-      'uploadId',
-      uploadId,
-    );
-    helper.add(
-      'checksum',
-      checksum,
-    );
-    helper.add(
-      'range',
-      range,
-    );
-    helper.add(
-      'body',
-      body,
-    );
+    final helper = newBuiltValueToStringHelper('UploadMultipartPartInput')
+      ..add(
+        'accountId',
+        accountId,
+      )
+      ..add(
+        'vaultName',
+        vaultName,
+      )
+      ..add(
+        'uploadId',
+        uploadId,
+      )
+      ..add(
+        'checksum',
+        checksum,
+      )
+      ..add(
+        'range',
+        range,
+      )
+      ..add(
+        'body',
+        body,
+      );
     return helper.toString();
   }
 }

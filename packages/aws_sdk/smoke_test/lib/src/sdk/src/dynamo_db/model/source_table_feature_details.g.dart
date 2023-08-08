@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.source_table_feature_details;
+part of 'source_table_feature_details.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -105,9 +105,7 @@ class SourceTableFeatureDetailsBuilder
   set sseDescription(_i6.SseDescriptionBuilder? sseDescription) =>
       _$this._sseDescription = sseDescription;
 
-  SourceTableFeatureDetailsBuilder() {
-    SourceTableFeatureDetails._init(this);
-  }
+  SourceTableFeatureDetailsBuilder();
 
   SourceTableFeatureDetailsBuilder get _$this {
     final $v = _$v;

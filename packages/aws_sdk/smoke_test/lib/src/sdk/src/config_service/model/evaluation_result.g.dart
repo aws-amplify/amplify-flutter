@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.evaluation_result;
+part of 'evaluation_result.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -102,9 +102,7 @@ class EvaluationResultBuilder
   String? get resultToken => _$this._resultToken;
   set resultToken(String? resultToken) => _$this._resultToken = resultToken;
 
-  EvaluationResultBuilder() {
-    EvaluationResult._init(this);
-  }
+  EvaluationResultBuilder();
 
   EvaluationResultBuilder get _$this {
     final $v = _$v;

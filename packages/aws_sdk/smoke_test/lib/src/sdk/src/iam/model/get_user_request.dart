@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.get_user_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -29,12 +29,9 @@ abstract class GetUserRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<GetUserRequest>> serializers = [
     GetUserRequestAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetUserRequestBuilder b) {}
 
   /// The name of the user to get information about.
   ///
@@ -46,11 +43,11 @@ abstract class GetUserRequest
   List<Object?> get props => [userName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetUserRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
+    final helper = newBuiltValueToStringHelper('GetUserRequest')
+      ..add(
+        'userName',
+        userName,
+      );
     return helper.toString();
   }
 }

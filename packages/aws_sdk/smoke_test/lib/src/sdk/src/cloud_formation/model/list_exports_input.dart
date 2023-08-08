@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.list_exports_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -29,12 +29,9 @@ abstract class ListExportsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ListExportsInput>> serializers = [
     ListExportsInputAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListExportsInputBuilder b) {}
 
   /// A string (provided by the ListExports response output) that identifies the next page of exported output values that you asked to retrieve.
   String? get nextToken;
@@ -44,11 +41,11 @@ abstract class ListExportsInput
   List<Object?> get props => [nextToken];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListExportsInput');
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('ListExportsInput')
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.stack_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -53,12 +53,9 @@ abstract class StackSummary
 
   const StackSummary._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<StackSummary>> serializers = [
     StackSummaryAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackSummaryBuilder b) {}
 
   /// Unique stack identifier.
   String? get stackId;
@@ -94,7 +91,7 @@ abstract class StackSummary
   /// For more information, see [Working with Nested Stacks](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html) in the _CloudFormation User Guide_.
   String? get rootId;
 
-  /// Summarizes information about whether a stack's actual configuration differs, or has _drifted_, from it's expected configuration, as defined in the stack template and any values specified as template parameters. For more information, see [Detecting Unregulated Configuration Changes to Stacks and Resources](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
+  /// Summarizes information about whether a stack's actual configuration differs, or has _drifted_, from its expected configuration, as defined in the stack template and any values specified as template parameters. For more information, see [Detecting Unregulated Configuration Changes to Stacks and Resources](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
   _i3.StackDriftInformationSummary? get driftInformation;
   @override
   List<Object?> get props => [
@@ -112,51 +109,51 @@ abstract class StackSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StackSummary');
-    helper.add(
-      'stackId',
-      stackId,
-    );
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'templateDescription',
-      templateDescription,
-    );
-    helper.add(
-      'creationTime',
-      creationTime,
-    );
-    helper.add(
-      'lastUpdatedTime',
-      lastUpdatedTime,
-    );
-    helper.add(
-      'deletionTime',
-      deletionTime,
-    );
-    helper.add(
-      'stackStatus',
-      stackStatus,
-    );
-    helper.add(
-      'stackStatusReason',
-      stackStatusReason,
-    );
-    helper.add(
-      'parentId',
-      parentId,
-    );
-    helper.add(
-      'rootId',
-      rootId,
-    );
-    helper.add(
-      'driftInformation',
-      driftInformation,
-    );
+    final helper = newBuiltValueToStringHelper('StackSummary')
+      ..add(
+        'stackId',
+        stackId,
+      )
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'templateDescription',
+        templateDescription,
+      )
+      ..add(
+        'creationTime',
+        creationTime,
+      )
+      ..add(
+        'lastUpdatedTime',
+        lastUpdatedTime,
+      )
+      ..add(
+        'deletionTime',
+        deletionTime,
+      )
+      ..add(
+        'stackStatus',
+        stackStatus,
+      )
+      ..add(
+        'stackStatusReason',
+        stackStatusReason,
+      )
+      ..add(
+        'parentId',
+        parentId,
+      )
+      ..add(
+        'rootId',
+        rootId,
+      )
+      ..add(
+        'driftInformation',
+        driftInformation,
+      );
     return helper.toString();
   }
 }

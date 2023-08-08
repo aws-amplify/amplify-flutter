@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.resource_change; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -56,12 +56,9 @@ abstract class ResourceChange
 
   const ResourceChange._();
 
-  static const List<_i8.SmithySerializer> serializers = [
+  static const List<_i8.SmithySerializer<ResourceChange>> serializers = [
     ResourceChangeAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceChangeBuilder b) {}
 
   /// The action that CloudFormation takes on the resource, such as `Add` (adds a new resource), `Modify` (changes a resource), `Remove` (deletes a resource), `Import` (imports a resource), or `Dynamic` (exact action for the resource can't be determined).
   _i2.ChangeAction? get action;
@@ -105,43 +102,43 @@ abstract class ResourceChange
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResourceChange');
-    helper.add(
-      'action',
-      action,
-    );
-    helper.add(
-      'logicalResourceId',
-      logicalResourceId,
-    );
-    helper.add(
-      'physicalResourceId',
-      physicalResourceId,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'replacement',
-      replacement,
-    );
-    helper.add(
-      'scope',
-      scope,
-    );
-    helper.add(
-      'details',
-      details,
-    );
-    helper.add(
-      'changeSetId',
-      changeSetId,
-    );
-    helper.add(
-      'moduleInfo',
-      moduleInfo,
-    );
+    final helper = newBuiltValueToStringHelper('ResourceChange')
+      ..add(
+        'action',
+        action,
+      )
+      ..add(
+        'logicalResourceId',
+        logicalResourceId,
+      )
+      ..add(
+        'physicalResourceId',
+        physicalResourceId,
+      )
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'replacement',
+        replacement,
+      )
+      ..add(
+        'scope',
+        scope,
+      )
+      ..add(
+        'details',
+        details,
+      )
+      ..add(
+        'changeSetId',
+        changeSetId,
+      )
+      ..add(
+        'moduleInfo',
+        moduleInfo,
+      );
     return helper.toString();
   }
 }

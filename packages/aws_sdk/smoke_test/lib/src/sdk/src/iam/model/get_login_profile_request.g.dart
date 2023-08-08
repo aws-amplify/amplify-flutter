@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_login_profile_request;
+part of 'get_login_profile_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class GetLoginProfileRequestBuilder
   String? get userName => _$this._userName;
   set userName(String? userName) => _$this._userName = userName;
 
-  GetLoginProfileRequestBuilder() {
-    GetLoginProfileRequest._init(this);
-  }
+  GetLoginProfileRequestBuilder();
 
   GetLoginProfileRequestBuilder get _$this {
     final $v = _$v;

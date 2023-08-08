@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_storage_s3_dart.s3.model.error; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,12 +34,9 @@ abstract class Error
 
   const Error._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Error>> serializers = [
     ErrorRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ErrorBuilder b) {}
 
   /// The error key.
   String? get key;
@@ -47,9 +44,7 @@ abstract class Error
   /// The version ID of the error.
   String? get versionId;
 
-  /// The error code is a string that uniquely identifies an error condition. It is meant to be read and understood by programs that detect and handle errors by type.
-  ///
-  /// **Amazon S3 error codes**
+  /// The error code is a string that uniquely identifies an error condition. It is meant to be read and understood by programs that detect and handle errors by type. The following is a list of Amazon S3 error codes. For more information, see [Error responses](https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html).
   ///
   /// *   *   _Code:_ AccessDenied
   ///
@@ -693,7 +688,7 @@ abstract class Error
   ///
   /// *   *   _Code:_ ServiceUnavailable
   ///
-  ///     *   _Description:_ Reduce your request rate.
+  ///     *   _Description:_ Service is unable to handle request.
   ///
   ///     *   _HTTP Status Code:_ 503 Service Unavailable
   ///
@@ -767,23 +762,23 @@ abstract class Error
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Error');
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'code',
-      code,
-    );
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('Error')
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'code',
+        code,
+      )
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.delete_role_policy_request;
+part of 'delete_role_policy_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class DeleteRolePolicyRequestBuilder
   String? get policyName => _$this._policyName;
   set policyName(String? policyName) => _$this._policyName = policyName;
 
-  DeleteRolePolicyRequestBuilder() {
-    DeleteRolePolicyRequest._init(this);
-  }
+  DeleteRolePolicyRequestBuilder();
 
   DeleteRolePolicyRequestBuilder get _$this {
     final $v = _$v;

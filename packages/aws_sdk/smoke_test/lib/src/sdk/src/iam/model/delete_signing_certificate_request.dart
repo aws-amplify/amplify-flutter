@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.delete_signing_certificate_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,8 @@ abstract class DeleteSigningCertificateRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteSigningCertificateRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteSigningCertificateRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<DeleteSigningCertificateRequest>>
+      serializers = [DeleteSigningCertificateRequestAwsQuerySerializer()];
 
   /// The name of the user the signing certificate belongs to.
   ///
@@ -66,15 +62,15 @@ abstract class DeleteSigningCertificateRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeleteSigningCertificateRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'certificateId',
-      certificateId,
-    );
+        newBuiltValueToStringHelper('DeleteSigningCertificateRequest')
+          ..add(
+            'userName',
+            userName,
+          )
+          ..add(
+            'certificateId',
+            certificateId,
+          );
     return helper.toString();
   }
 }

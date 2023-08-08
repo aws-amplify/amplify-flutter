@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library aws_query_v1.query_protocol.model.recursive_xml_shapes_output_nested1; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,12 +34,9 @@ abstract class RecursiveXmlShapesOutputNested1
 
   const RecursiveXmlShapesOutputNested1._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    RecursiveXmlShapesOutputNested1AwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<RecursiveXmlShapesOutputNested1>>
+      serializers = [RecursiveXmlShapesOutputNested1AwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RecursiveXmlShapesOutputNested1Builder b) {}
   String? get foo;
   _i2.RecursiveXmlShapesOutputNested2? get nested;
   @override
@@ -50,15 +47,15 @@ abstract class RecursiveXmlShapesOutputNested1
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('RecursiveXmlShapesOutputNested1');
-    helper.add(
-      'foo',
-      foo,
-    );
-    helper.add(
-      'nested',
-      nested,
-    );
+        newBuiltValueToStringHelper('RecursiveXmlShapesOutputNested1')
+          ..add(
+            'foo',
+            foo,
+          )
+          ..add(
+            'nested',
+            nested,
+          );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.canary_settings; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,6 +22,8 @@ abstract class CanarySettings
     Map<String, String>? stageVariableOverrides,
     bool? useStageCache,
   }) {
+    percentTraffic ??= 0;
+    useStageCache ??= false;
     return _$CanarySettings._(
       percentTraffic: percentTraffic,
       deploymentId: deploymentId,
@@ -38,15 +40,19 @@ abstract class CanarySettings
 
   const CanarySettings._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<CanarySettings>> serializers = [
     CanarySettingsRestJson1Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CanarySettingsBuilder b) {}
+  static void _init(CanarySettingsBuilder b) {
+    b
+      ..percentTraffic = 0
+      ..useStageCache = false;
+  }
 
   /// The percent (0-100) of traffic diverted to a canary deployment.
-  double? get percentTraffic;
+  double get percentTraffic;
 
   /// The ID of the canary deployment.
   String? get deploymentId;
@@ -55,7 +61,7 @@ abstract class CanarySettings
   _i2.BuiltMap<String, String>? get stageVariableOverrides;
 
   /// A Boolean flag to indicate whether the canary deployment uses the stage cache or not.
-  bool? get useStageCache;
+  bool get useStageCache;
   @override
   List<Object?> get props => [
         percentTraffic,
@@ -65,23 +71,23 @@ abstract class CanarySettings
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CanarySettings');
-    helper.add(
-      'percentTraffic',
-      percentTraffic,
-    );
-    helper.add(
-      'deploymentId',
-      deploymentId,
-    );
-    helper.add(
-      'stageVariableOverrides',
-      stageVariableOverrides,
-    );
-    helper.add(
-      'useStageCache',
-      useStageCache,
-    );
+    final helper = newBuiltValueToStringHelper('CanarySettings')
+      ..add(
+        'percentTraffic',
+        percentTraffic,
+      )
+      ..add(
+        'deploymentId',
+        deploymentId,
+      )
+      ..add(
+        'stageVariableOverrides',
+        stageVariableOverrides,
+      )
+      ..add(
+        'useStageCache',
+        useStageCache,
+      );
     return helper.toString();
   }
 }
@@ -163,20 +169,24 @@ class CanarySettingsRestJson1Serializer
       :stageVariableOverrides,
       :useStageCache
     ) = object;
+    result$.addAll([
+      'percentTraffic',
+      serializers.serialize(
+        percentTraffic,
+        specifiedType: const FullType(double),
+      ),
+      'useStageCache',
+      serializers.serialize(
+        useStageCache,
+        specifiedType: const FullType(bool),
+      ),
+    ]);
     if (deploymentId != null) {
       result$
         ..add('deploymentId')
         ..add(serializers.serialize(
           deploymentId,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (percentTraffic != null) {
-      result$
-        ..add('percentTraffic')
-        ..add(serializers.serialize(
-          percentTraffic,
-          specifiedType: const FullType(double),
         ));
     }
     if (stageVariableOverrides != null) {
@@ -191,14 +201,6 @@ class CanarySettingsRestJson1Serializer
               FullType(String),
             ],
           ),
-        ));
-    }
-    if (useStageCache != null) {
-      result$
-        ..add('useStageCache')
-        ..add(serializers.serialize(
-          useStageCache,
-          specifiedType: const FullType(bool),
         ));
     }
     return result$;

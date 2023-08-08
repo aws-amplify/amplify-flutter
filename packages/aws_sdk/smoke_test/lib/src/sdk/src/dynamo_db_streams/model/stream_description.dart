@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db_streams.model.stream_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -54,12 +54,9 @@ abstract class StreamDescription
 
   const StreamDescription._();
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<_i7.SmithySerializer<StreamDescription>> serializers = [
     StreamDescriptionAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StreamDescriptionBuilder b) {}
 
   /// The Amazon Resource Name (ARN) for the stream.
   String? get streamArn;
@@ -68,7 +65,7 @@ abstract class StreamDescription
   ///
   /// Note that `LatestStreamLabel` is not a unique identifier for the stream, because it is possible that a stream from another table might have the same timestamp. However, the combination of the following three elements is guaranteed to be unique:
   ///
-  /// *   the AWS customer ID.
+  /// *   the Amazon Web Services customer ID.
   ///
   /// *   the table name
   ///
@@ -129,43 +126,43 @@ abstract class StreamDescription
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StreamDescription');
-    helper.add(
-      'streamArn',
-      streamArn,
-    );
-    helper.add(
-      'streamLabel',
-      streamLabel,
-    );
-    helper.add(
-      'streamStatus',
-      streamStatus,
-    );
-    helper.add(
-      'streamViewType',
-      streamViewType,
-    );
-    helper.add(
-      'creationRequestDateTime',
-      creationRequestDateTime,
-    );
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'keySchema',
-      keySchema,
-    );
-    helper.add(
-      'shards',
-      shards,
-    );
-    helper.add(
-      'lastEvaluatedShardId',
-      lastEvaluatedShardId,
-    );
+    final helper = newBuiltValueToStringHelper('StreamDescription')
+      ..add(
+        'streamArn',
+        streamArn,
+      )
+      ..add(
+        'streamLabel',
+        streamLabel,
+      )
+      ..add(
+        'streamStatus',
+        streamStatus,
+      )
+      ..add(
+        'streamViewType',
+        streamViewType,
+      )
+      ..add(
+        'creationRequestDateTime',
+        creationRequestDateTime,
+      )
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'keySchema',
+        keySchema,
+      )
+      ..add(
+        'shards',
+        shards,
+      )
+      ..add(
+        'lastEvaluatedShardId',
+        lastEvaluatedShardId,
+      );
     return helper.toString();
   }
 }

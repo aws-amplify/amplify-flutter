@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v1.query_protocol.model.xml_blobs_output;
+part of 'xml_blobs_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -46,9 +46,7 @@ class XmlBlobsOutputBuilder
   _i2.Uint8List? get data => _$this._data;
   set data(_i2.Uint8List? data) => _$this._data = data;
 
-  XmlBlobsOutputBuilder() {
-    XmlBlobsOutput._init(this);
-  }
+  XmlBlobsOutputBuilder();
 
   XmlBlobsOutputBuilder get _$this {
     final $v = _$v;

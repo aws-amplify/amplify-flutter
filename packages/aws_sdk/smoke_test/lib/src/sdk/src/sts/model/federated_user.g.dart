@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.federated_user;
+part of 'federated_user.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -60,9 +60,7 @@ class FederatedUserBuilder
   String? get arn => _$this._arn;
   set arn(String? arn) => _$this._arn = arn;
 
-  FederatedUserBuilder() {
-    FederatedUser._init(this);
-  }
+  FederatedUserBuilder();
 
   FederatedUserBuilder get _$this {
     final $v = _$v;

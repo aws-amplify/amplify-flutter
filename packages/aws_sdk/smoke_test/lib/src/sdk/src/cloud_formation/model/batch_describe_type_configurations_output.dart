@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.batch_describe_type_configurations_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -51,12 +51,8 @@ abstract class BatchDescribeTypeConfigurationsOutput
   ) =>
       payload;
 
-  static const List<_i6.SmithySerializer> serializers = [
-    BatchDescribeTypeConfigurationsOutputAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BatchDescribeTypeConfigurationsOutputBuilder b) {}
+  static const List<_i6.SmithySerializer<BatchDescribeTypeConfigurationsOutput>>
+      serializers = [BatchDescribeTypeConfigurationsOutputAwsQuerySerializer()];
 
   /// A list of information concerning any errors generated during the setting of the specified configurations.
   _i5.BuiltList<_i2.BatchDescribeTypeConfigurationsError>? get errors;
@@ -76,19 +72,19 @@ abstract class BatchDescribeTypeConfigurationsOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('BatchDescribeTypeConfigurationsOutput');
-    helper.add(
-      'errors',
-      errors,
-    );
-    helper.add(
-      'unprocessedTypeConfigurations',
-      unprocessedTypeConfigurations,
-    );
-    helper.add(
-      'typeConfigurations',
-      typeConfigurations,
-    );
+        newBuiltValueToStringHelper('BatchDescribeTypeConfigurationsOutput')
+          ..add(
+            'errors',
+            errors,
+          )
+          ..add(
+            'unprocessedTypeConfigurations',
+            unprocessedTypeConfigurations,
+          )
+          ..add(
+            'typeConfigurations',
+            typeConfigurations,
+          );
     return helper.toString();
   }
 }

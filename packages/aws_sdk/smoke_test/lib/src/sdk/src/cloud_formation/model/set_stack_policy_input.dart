@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.set_stack_policy_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,12 +43,9 @@ abstract class SetStackPolicyInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<SetStackPolicyInput>> serializers = [
     SetStackPolicyInputAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SetStackPolicyInputBuilder b) {}
 
   /// The name or unique stack ID that you want to associate a policy with.
   String get stackName;
@@ -68,19 +65,19 @@ abstract class SetStackPolicyInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SetStackPolicyInput');
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'stackPolicyBody',
-      stackPolicyBody,
-    );
-    helper.add(
-      'stackPolicyUrl',
-      stackPolicyUrl,
-    );
+    final helper = newBuiltValueToStringHelper('SetStackPolicyInput')
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'stackPolicyBody',
+        stackPolicyBody,
+      )
+      ..add(
+        'stackPolicyUrl',
+        stackPolicyUrl,
+      );
     return helper.toString();
   }
 }

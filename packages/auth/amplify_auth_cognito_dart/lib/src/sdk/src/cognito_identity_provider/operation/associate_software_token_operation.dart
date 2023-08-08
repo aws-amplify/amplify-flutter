@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.operation.associate_software_token_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -126,7 +127,8 @@ class AssociateSoftwareTokenOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ConcurrentModificationException,
+            _i9.ConcurrentModificationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'ConcurrentModificationException',
@@ -136,7 +138,7 @@ class AssociateSoftwareTokenOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i9.ConcurrentModificationException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.ForbiddenException, _i10.ForbiddenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'ForbiddenException',
@@ -146,7 +148,8 @@ class AssociateSoftwareTokenOperation extends _i1.HttpOperation<
           statusCode: 403,
           builder: _i10.ForbiddenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InternalErrorException,
+            _i11.InternalErrorException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'InternalErrorException',
@@ -155,7 +158,8 @@ class AssociateSoftwareTokenOperation extends _i1.HttpOperation<
           _i11.InternalErrorException,
           builder: _i11.InternalErrorException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.InvalidParameterException,
+            _i12.InvalidParameterException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'InvalidParameterException',
@@ -165,7 +169,8 @@ class AssociateSoftwareTokenOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i12.InvalidParameterException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.NotAuthorizedException,
+            _i13.NotAuthorizedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'NotAuthorizedException',
@@ -175,7 +180,8 @@ class AssociateSoftwareTokenOperation extends _i1.HttpOperation<
           statusCode: 403,
           builder: _i13.NotAuthorizedException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.ResourceNotFoundException,
+            _i14.ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'ResourceNotFoundException',
@@ -185,7 +191,8 @@ class AssociateSoftwareTokenOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i14.ResourceNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.SoftwareTokenMfaNotFoundException,
+            _i15.SoftwareTokenMfaNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'SoftwareTokenMFANotFoundException',
@@ -218,7 +225,7 @@ class AssociateSoftwareTokenOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

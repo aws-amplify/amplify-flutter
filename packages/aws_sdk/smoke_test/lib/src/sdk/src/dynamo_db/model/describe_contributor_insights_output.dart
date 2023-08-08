@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.describe_contributor_insights_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -54,12 +54,8 @@ abstract class DescribeContributorInsightsOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
-    DescribeContributorInsightsOutputAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeContributorInsightsOutputBuilder b) {}
+  static const List<_i5.SmithySerializer<DescribeContributorInsightsOutput>>
+      serializers = [DescribeContributorInsightsOutputAwsJson10Serializer()];
 
   /// The name of the table being described.
   String? get tableName;
@@ -100,31 +96,31 @@ abstract class DescribeContributorInsightsOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DescribeContributorInsightsOutput');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'contributorInsightsRuleList',
-      contributorInsightsRuleList,
-    );
-    helper.add(
-      'contributorInsightsStatus',
-      contributorInsightsStatus,
-    );
-    helper.add(
-      'lastUpdateDateTime',
-      lastUpdateDateTime,
-    );
-    helper.add(
-      'failureException',
-      failureException,
-    );
+        newBuiltValueToStringHelper('DescribeContributorInsightsOutput')
+          ..add(
+            'tableName',
+            tableName,
+          )
+          ..add(
+            'indexName',
+            indexName,
+          )
+          ..add(
+            'contributorInsightsRuleList',
+            contributorInsightsRuleList,
+          )
+          ..add(
+            'contributorInsightsStatus',
+            contributorInsightsStatus,
+          )
+          ..add(
+            'lastUpdateDateTime',
+            lastUpdateDateTime,
+          )
+          ..add(
+            'failureException',
+            failureException,
+          );
     return helper.toString();
   }
 }

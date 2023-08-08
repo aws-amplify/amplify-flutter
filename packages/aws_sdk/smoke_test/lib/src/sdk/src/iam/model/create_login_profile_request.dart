@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.create_login_profile_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,6 +21,7 @@ abstract class CreateLoginProfileRequest
     required String password,
     bool? passwordResetRequired,
   }) {
+    passwordResetRequired ??= false;
     return _$CreateLoginProfileRequest._(
       userName: userName,
       password: password,
@@ -41,12 +42,13 @@ abstract class CreateLoginProfileRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateLoginProfileRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<CreateLoginProfileRequest>>
+      serializers = [CreateLoginProfileRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateLoginProfileRequestBuilder b) {}
+  static void _init(CreateLoginProfileRequestBuilder b) {
+    b.passwordResetRequired = false;
+  }
 
   /// The name of the IAM user to create a password for. The user must already exist.
   ///
@@ -59,7 +61,7 @@ abstract class CreateLoginProfileRequest
   String get password;
 
   /// Specifies whether the user is required to set a new password on next sign-in.
-  bool? get passwordResetRequired;
+  bool get passwordResetRequired;
   @override
   CreateLoginProfileRequest getPayload() => this;
   @override
@@ -70,19 +72,19 @@ abstract class CreateLoginProfileRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateLoginProfileRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'password',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'passwordResetRequired',
-      passwordResetRequired,
-    );
+    final helper = newBuiltValueToStringHelper('CreateLoginProfileRequest')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'password',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'passwordResetRequired',
+        passwordResetRequired,
+      );
     return helper.toString();
   }
 }
@@ -170,14 +172,12 @@ class CreateLoginProfileRequestAwsQuerySerializer
         password,
         specifiedType: const FullType(String),
       ));
-    if (passwordResetRequired != null) {
-      result$
-        ..add(const _i1.XmlElementName('PasswordResetRequired'))
-        ..add(serializers.serialize(
-          passwordResetRequired,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result$
+      ..add(const _i1.XmlElementName('PasswordResetRequired'))
+      ..add(serializers.serialize(
+        passwordResetRequired,
+        specifiedType: const FullType(bool),
+      ));
     return result$;
   }
 }

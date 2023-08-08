@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.delivery_channel;
+part of 'delivery_channel.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -103,9 +103,7 @@ class DeliveryChannelBuilder
       _$this._configSnapshotDeliveryProperties =
           configSnapshotDeliveryProperties;
 
-  DeliveryChannelBuilder() {
-    DeliveryChannel._init(this);
-  }
+  DeliveryChannelBuilder();
 
   DeliveryChannelBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.list_policies_granting_service_access_request;
+part of 'list_policies_granting_service_access_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -80,9 +80,7 @@ class ListPoliciesGrantingServiceAccessRequestBuilder
   set serviceNamespaces(_i3.ListBuilder<String>? serviceNamespaces) =>
       _$this._serviceNamespaces = serviceNamespaces;
 
-  ListPoliciesGrantingServiceAccessRequestBuilder() {
-    ListPoliciesGrantingServiceAccessRequest._init(this);
-  }
+  ListPoliciesGrantingServiceAccessRequestBuilder();
 
   ListPoliciesGrantingServiceAccessRequestBuilder get _$this {
     final $v = _$v;

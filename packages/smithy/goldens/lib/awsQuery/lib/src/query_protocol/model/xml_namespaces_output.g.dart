@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v1.query_protocol.model.xml_namespaces_output;
+part of 'xml_namespaces_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -49,9 +49,7 @@ class XmlNamespacesOutputBuilder
       _$this._nested ??= new _i2.XmlNamespaceNestedBuilder();
   set nested(_i2.XmlNamespaceNestedBuilder? nested) => _$this._nested = nested;
 
-  XmlNamespacesOutputBuilder() {
-    XmlNamespacesOutput._init(this);
-  }
+  XmlNamespacesOutputBuilder();
 
   XmlNamespacesOutputBuilder get _$this {
     final $v = _$v;

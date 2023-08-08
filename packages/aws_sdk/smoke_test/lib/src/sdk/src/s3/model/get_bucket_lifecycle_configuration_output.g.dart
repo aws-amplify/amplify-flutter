@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_bucket_lifecycle_configuration_output;
+part of 'get_bucket_lifecycle_configuration_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -56,9 +56,7 @@ class GetBucketLifecycleConfigurationOutputBuilder
       _$this._rules ??= new _i3.ListBuilder<_i2.LifecycleRule>();
   set rules(_i3.ListBuilder<_i2.LifecycleRule>? rules) => _$this._rules = rules;
 
-  GetBucketLifecycleConfigurationOutputBuilder() {
-    GetBucketLifecycleConfigurationOutput._init(this);
-  }
+  GetBucketLifecycleConfigurationOutputBuilder();
 
   GetBucketLifecycleConfigurationOutputBuilder get _$this {
     final $v = _$v;

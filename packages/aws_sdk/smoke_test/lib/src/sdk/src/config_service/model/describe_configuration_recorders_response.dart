@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.describe_configuration_recorders_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,12 +43,11 @@ abstract class DescribeConfigurationRecordersResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<
+          _i4.SmithySerializer<DescribeConfigurationRecordersResponse>>
+      serializers = [
     DescribeConfigurationRecordersResponseAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeConfigurationRecordersResponseBuilder b) {}
 
   /// A list that contains the descriptions of the specified configuration recorders.
   _i3.BuiltList<_i2.ConfigurationRecorder>? get configurationRecorders;
@@ -57,11 +56,11 @@ abstract class DescribeConfigurationRecordersResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DescribeConfigurationRecordersResponse');
-    helper.add(
-      'configurationRecorders',
-      configurationRecorders,
-    );
+        newBuiltValueToStringHelper('DescribeConfigurationRecordersResponse')
+          ..add(
+            'configurationRecorders',
+            configurationRecorders,
+          );
     return helper.toString();
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.get_resources_request;
+part of 'get_resources_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -79,9 +79,7 @@ class GetResourcesRequestBuilder
       _$this._embed ??= new _i3.ListBuilder<String>();
   set embed(_i3.ListBuilder<String>? embed) => _$this._embed = embed;
 
-  GetResourcesRequestBuilder() {
-    GetResourcesRequest._init(this);
-  }
+  GetResourcesRequestBuilder();
 
   GetResourcesRequestBuilder get _$this {
     final $v = _$v;
@@ -168,9 +166,7 @@ class GetResourcesRequestPayloadBuilder
         Builder<GetResourcesRequestPayload, GetResourcesRequestPayloadBuilder> {
   _$GetResourcesRequestPayload? _$v;
 
-  GetResourcesRequestPayloadBuilder() {
-    GetResourcesRequestPayload._init(this);
-  }
+  GetResourcesRequestPayloadBuilder();
 
   @override
   void replace(GetResourcesRequestPayload other) {

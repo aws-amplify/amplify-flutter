@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.resource_to_import; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,12 +34,9 @@ abstract class ResourceToImport
 
   const ResourceToImport._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ResourceToImport>> serializers = [
     ResourceToImportAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceToImportBuilder b) {}
 
   /// The type of resource to import into your stack, such as `AWS::S3::Bucket`. For a list of supported resource types, see [Resources that support import operations](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resource-import-supported-resources.html) in the CloudFormation User Guide.
   String get resourceType;
@@ -57,19 +54,19 @@ abstract class ResourceToImport
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResourceToImport');
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'logicalResourceId',
-      logicalResourceId,
-    );
-    helper.add(
-      'resourceIdentifier',
-      resourceIdentifier,
-    );
+    final helper = newBuiltValueToStringHelper('ResourceToImport')
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'logicalResourceId',
+        logicalResourceId,
+      )
+      ..add(
+        'resourceIdentifier',
+        resourceIdentifier,
+      );
     return helper.toString();
   }
 }

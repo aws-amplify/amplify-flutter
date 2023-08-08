@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.server_side_encryption_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,8 @@ abstract class ServerSideEncryptionConfiguration
 
   const ServerSideEncryptionConfiguration._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ServerSideEncryptionConfigurationRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ServerSideEncryptionConfigurationBuilder b) {}
+  static const List<_i4.SmithySerializer<ServerSideEncryptionConfiguration>>
+      serializers = [ServerSideEncryptionConfigurationRestXmlSerializer()];
 
   /// Container for information about a particular server-side encryption configuration rule.
   _i3.BuiltList<_i2.ServerSideEncryptionRule> get rules;
@@ -47,11 +43,11 @@ abstract class ServerSideEncryptionConfiguration
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ServerSideEncryptionConfiguration');
-    helper.add(
-      'rules',
-      rules,
-    );
+        newBuiltValueToStringHelper('ServerSideEncryptionConfiguration')
+          ..add(
+            'rules',
+            rules,
+          );
     return helper.toString();
   }
 }

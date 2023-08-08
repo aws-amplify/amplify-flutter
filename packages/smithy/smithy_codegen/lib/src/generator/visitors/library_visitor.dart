@@ -176,7 +176,9 @@ class LibraryVisitor extends DefaultVisitor<Iterable<GeneratedLibrary>> {
     }
     seen.add(shape.shapeId);
 
-    yield _buildLibrary(shape, EnumGenerator(shape, context).generate());
+    if (!context.hasSymbolOverrideFor(shape)) {
+      yield _buildLibrary(shape, EnumGenerator(shape, context).generate());
+    }
   }
 
   @override
@@ -224,10 +226,13 @@ class LibraryVisitor extends DefaultVisitor<Iterable<GeneratedLibrary>> {
       return;
     }
     yield* _foreignMembers(shape.members.values.map((member) => member.target));
-    yield _buildLibrary(
-      shape,
-      StructureGenerator(shape, context).generate(),
-    );
+
+    if (!context.hasSymbolOverrideFor(shape)) {
+      yield _buildLibrary(
+        shape,
+        StructureGenerator(shape, context).generate(),
+      );
+    }
   }
 
   @override
@@ -241,7 +246,10 @@ class LibraryVisitor extends DefaultVisitor<Iterable<GeneratedLibrary>> {
     seen.add(shape.shapeId);
 
     yield* _foreignMembers(shape.members.values.map((member) => member.target));
-    yield _buildLibrary(shape, UnionGenerator(shape, context).generate());
+
+    if (!context.hasSymbolOverrideFor(shape)) {
+      yield _buildLibrary(shape, UnionGenerator(shape, context).generate());
+    }
   }
 
   Iterable<GeneratedLibrary> _foreignMembers(Iterable<ShapeId> shapeIds) {

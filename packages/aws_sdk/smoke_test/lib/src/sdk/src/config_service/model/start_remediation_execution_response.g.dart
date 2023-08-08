@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.start_remediation_execution_response;
+part of 'start_remediation_execution_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class StartRemediationExecutionResponseBuilder
   set failedItems(_i3.ListBuilder<_i2.ResourceKey>? failedItems) =>
       _$this._failedItems = failedItems;
 
-  StartRemediationExecutionResponseBuilder() {
-    StartRemediationExecutionResponse._init(this);
-  }
+  StartRemediationExecutionResponseBuilder();
 
   StartRemediationExecutionResponseBuilder get _$this {
     final $v = _$v;

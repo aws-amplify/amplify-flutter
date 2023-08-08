@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.quiet_time; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,12 +31,9 @@ abstract class QuietTime
 
   const QuietTime._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<QuietTime>> serializers = [
     QuietTimeRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(QuietTimeBuilder b) {}
 
   /// The specific time when quiet time ends. This value has to use 24-hour notation and be in HH:MM format, where HH is the hour (with a leading zero, if applicable) and MM is the minutes. For example, use 02:30 to represent 2:30 AM, or 14:30 to represent 2:30 PM.
   String? get end;
@@ -50,15 +47,15 @@ abstract class QuietTime
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('QuietTime');
-    helper.add(
-      'end',
-      end,
-    );
-    helper.add(
-      'start',
-      start,
-    );
+    final helper = newBuiltValueToStringHelper('QuietTime')
+      ..add(
+        'end',
+        end,
+      )
+      ..add(
+        'start',
+        start,
+      );
     return helper.toString();
   }
 }

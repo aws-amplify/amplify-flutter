@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.describe_remediation_execution_status_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -26,6 +26,7 @@ abstract class DescribeRemediationExecutionStatusRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$DescribeRemediationExecutionStatusRequest._(
       configRuleName: configRuleName,
       resourceKeys: resourceKeys == null ? null : _i4.BuiltList(resourceKeys),
@@ -47,12 +48,16 @@ abstract class DescribeRemediationExecutionStatusRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<DescribeRemediationExecutionStatusRequest>>
+      serializers = [
     DescribeRemediationExecutionStatusRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeRemediationExecutionStatusRequestBuilder b) {}
+  static void _init(DescribeRemediationExecutionStatusRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// A list of Config rule names.
   String get configRuleName;
@@ -61,7 +66,7 @@ abstract class DescribeRemediationExecutionStatusRequest
   _i4.BuiltList<_i3.ResourceKey>? get resourceKeys;
 
   /// The maximum number of RemediationExecutionStatuses returned on each page. The default is maximum. If you specify 0, Config uses the default.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -76,24 +81,24 @@ abstract class DescribeRemediationExecutionStatusRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'DescribeRemediationExecutionStatusRequest');
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'resourceKeys',
-      resourceKeys,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper =
+        newBuiltValueToStringHelper('DescribeRemediationExecutionStatusRequest')
+          ..add(
+            'configRuleName',
+            configRuleName,
+          )
+          ..add(
+            'resourceKeys',
+            resourceKeys,
+          )
+          ..add(
+            'limit',
+            limit,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          );
     return helper.toString();
   }
 }
@@ -179,6 +184,11 @@ class DescribeRemediationExecutionStatusRequestAwsJson11Serializer extends _i1
         configRuleName,
         specifiedType: const FullType(String),
       ),
+      'Limit',
+      serializers.serialize(
+        limit,
+        specifiedType: const FullType(int),
+      ),
     ]);
     if (resourceKeys != null) {
       result$
@@ -189,14 +199,6 @@ class DescribeRemediationExecutionStatusRequestAwsJson11Serializer extends _i1
             _i4.BuiltList,
             [FullType(_i3.ResourceKey)],
           ),
-        ));
-    }
-    if (limit != null) {
-      result$
-        ..add('Limit')
-        ..add(serializers.serialize(
-          limit,
-          specifiedType: const FullType(int),
         ));
     }
     if (nextToken != null) {

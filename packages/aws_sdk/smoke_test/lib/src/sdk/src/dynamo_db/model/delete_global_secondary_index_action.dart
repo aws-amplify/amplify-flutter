@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.delete_global_secondary_index_action; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -29,12 +29,8 @@ abstract class DeleteGlobalSecondaryIndexAction
 
   const DeleteGlobalSecondaryIndexAction._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    DeleteGlobalSecondaryIndexActionAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteGlobalSecondaryIndexActionBuilder b) {}
+  static const List<_i2.SmithySerializer<DeleteGlobalSecondaryIndexAction>>
+      serializers = [DeleteGlobalSecondaryIndexActionAwsJson10Serializer()];
 
   /// The name of the global secondary index to be deleted.
   String get indexName;
@@ -43,11 +39,11 @@ abstract class DeleteGlobalSecondaryIndexAction
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeleteGlobalSecondaryIndexAction');
-    helper.add(
-      'indexName',
-      indexName,
-    );
+        newBuiltValueToStringHelper('DeleteGlobalSecondaryIndexAction')
+          ..add(
+            'indexName',
+            indexName,
+          );
     return helper.toString();
   }
 }

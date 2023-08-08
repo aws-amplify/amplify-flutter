@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.malformed_request_body_input;
+part of 'malformed_request_body_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -58,9 +58,7 @@ class MalformedRequestBodyInputBuilder
   double? get float => _$this._float;
   set float(double? float) => _$this._float = float;
 
-  MalformedRequestBodyInputBuilder() {
-    MalformedRequestBodyInput._init(this);
-  }
+  MalformedRequestBodyInputBuilder();
 
   MalformedRequestBodyInputBuilder get _$this {
     final $v = _$v;

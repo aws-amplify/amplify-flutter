@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.describe_stack_resources_output;
+part of 'describe_stack_resources_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -53,9 +53,7 @@ class DescribeStackResourcesOutputBuilder
   set stackResources(_i3.ListBuilder<_i2.StackResource>? stackResources) =>
       _$this._stackResources = stackResources;
 
-  DescribeStackResourcesOutputBuilder() {
-    DescribeStackResourcesOutput._init(this);
-  }
+  DescribeStackResourcesOutputBuilder();
 
   DescribeStackResourcesOutputBuilder get _$this {
     final $v = _$v;

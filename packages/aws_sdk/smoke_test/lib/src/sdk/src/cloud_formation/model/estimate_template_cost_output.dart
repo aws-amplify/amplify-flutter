@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.estimate_template_cost_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,12 +34,8 @@ abstract class EstimateTemplateCostOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    EstimateTemplateCostOutputAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EstimateTemplateCostOutputBuilder b) {}
+  static const List<_i2.SmithySerializer<EstimateTemplateCostOutput>>
+      serializers = [EstimateTemplateCostOutputAwsQuerySerializer()];
 
   /// An Amazon Web Services Simple Monthly Calculator URL with a query string that describes the resources required to run the template.
   String? get url;
@@ -47,11 +43,11 @@ abstract class EstimateTemplateCostOutput
   List<Object?> get props => [url];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EstimateTemplateCostOutput');
-    helper.add(
-      'url',
-      url,
-    );
+    final helper = newBuiltValueToStringHelper('EstimateTemplateCostOutput')
+      ..add(
+        'url',
+        url,
+      );
     return helper.toString();
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.tag;
+part of 'tag.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class TagBuilder implements Builder<Tag, TagBuilder> {
   String? get value => _$this._value;
   set value(String? value) => _$this._value = value;
 
-  TagBuilder() {
-    Tag._init(this);
-  }
+  TagBuilder();
 
   TagBuilder get _$this {
     final $v = _$v;

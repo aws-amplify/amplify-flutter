@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_xml_v2.rest_xml_protocol.model.recursive_shapes_input_output_nested2; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,12 +34,9 @@ abstract class RecursiveShapesInputOutputNested2
 
   const RecursiveShapesInputOutputNested2._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    RecursiveShapesInputOutputNested2RestXmlSerializer()
-  ];
+  static const List<_i3.SmithySerializer<RecursiveShapesInputOutputNested2>>
+      serializers = [RecursiveShapesInputOutputNested2RestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RecursiveShapesInputOutputNested2Builder b) {}
   String? get bar;
   _i2.RecursiveShapesInputOutputNested1? get recursiveMember;
   @override
@@ -50,15 +47,15 @@ abstract class RecursiveShapesInputOutputNested2
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('RecursiveShapesInputOutputNested2');
-    helper.add(
-      'bar',
-      bar,
-    );
-    helper.add(
-      'recursiveMember',
-      recursiveMember,
-    );
+        newBuiltValueToStringHelper('RecursiveShapesInputOutputNested2')
+          ..add(
+            'bar',
+            bar,
+          )
+          ..add(
+            'recursiveMember',
+            recursiveMember,
+          );
     return helper.toString();
   }
 }

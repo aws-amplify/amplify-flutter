@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.restore_request;
+part of 'restore_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -110,9 +110,7 @@ class RestoreRequestBuilder
   set outputLocation(_i6.OutputLocationBuilder? outputLocation) =>
       _$this._outputLocation = outputLocation;
 
-  RestoreRequestBuilder() {
-    RestoreRequest._init(this);
-  }
+  RestoreRequestBuilder();
 
   RestoreRequestBuilder get _$this {
     final $v = _$v;

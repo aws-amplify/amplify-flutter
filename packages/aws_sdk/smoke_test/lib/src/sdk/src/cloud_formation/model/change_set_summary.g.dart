@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.change_set_summary;
+part of 'change_set_summary.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -155,9 +155,7 @@ class ChangeSetSummaryBuilder
   set rootChangeSetId(String? rootChangeSetId) =>
       _$this._rootChangeSetId = rootChangeSetId;
 
-  ChangeSetSummaryBuilder() {
-    ChangeSetSummary._init(this);
-  }
+  ChangeSetSummaryBuilder();
 
   ChangeSetSummaryBuilder get _$this {
     final $v = _$v;

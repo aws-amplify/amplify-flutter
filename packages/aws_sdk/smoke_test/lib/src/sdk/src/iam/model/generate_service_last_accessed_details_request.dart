@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.generate_service_last_accessed_details_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,11 @@ abstract class GenerateServiceLastAccessedDetailsRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<GenerateServiceLastAccessedDetailsRequest>>
+      serializers = [
     GenerateServiceLastAccessedDetailsRequestAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GenerateServiceLastAccessedDetailsRequestBuilder b) {}
 
   /// The ARN of the IAM resource (user, group, role, or managed policy) used to generate information about when the resource was last used in an attempt to access an Amazon Web Services service.
   String get arn;
@@ -63,16 +62,16 @@ abstract class GenerateServiceLastAccessedDetailsRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'GenerateServiceLastAccessedDetailsRequest');
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'granularity',
-      granularity,
-    );
+    final helper =
+        newBuiltValueToStringHelper('GenerateServiceLastAccessedDetailsRequest')
+          ..add(
+            'arn',
+            arn,
+          )
+          ..add(
+            'granularity',
+            granularity,
+          );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.test_type_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,12 +43,9 @@ abstract class TestTypeInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<TestTypeInput>> serializers = [
     TestTypeInputAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TestTypeInputBuilder b) {}
 
   /// The Amazon Resource Name (ARN) of the extension.
   ///
@@ -69,7 +66,7 @@ abstract class TestTypeInput
   ///
   /// You can specify the version id with either `Arn`, or with `TypeName` and `Type`.
   ///
-  /// If you don't specify a version, CloudFormation uses the default version of the extension in this account and region for testing.
+  /// If you don't specify a version, CloudFormation uses the default version of the extension in this account and Region for testing.
   String? get versionId;
 
   /// The S3 bucket to which CloudFormation delivers the contract test execution logs.
@@ -97,27 +94,27 @@ abstract class TestTypeInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TestTypeInput');
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'typeName',
-      typeName,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'logDeliveryBucket',
-      logDeliveryBucket,
-    );
+    final helper = newBuiltValueToStringHelper('TestTypeInput')
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'typeName',
+        typeName,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'logDeliveryBucket',
+        logDeliveryBucket,
+      );
     return helper.toString();
   }
 }

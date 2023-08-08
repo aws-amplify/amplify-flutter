@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_storage_s3_dart.s3.model.records_event; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -27,12 +27,9 @@ abstract class RecordsEvent
 
   const RecordsEvent._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<RecordsEvent>> serializers = [
     RecordsEventRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RecordsEventBuilder b) {}
 
   /// The byte array of partial, one or more result records.
   _i2.Uint8List? get payload;
@@ -40,11 +37,11 @@ abstract class RecordsEvent
   List<Object?> get props => [payload];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RecordsEvent');
-    helper.add(
-      'payload',
-      payload,
-    );
+    final helper = newBuiltValueToStringHelper('RecordsEvent')
+      ..add(
+        'payload',
+        payload,
+      );
     return helper.toString();
   }
 }

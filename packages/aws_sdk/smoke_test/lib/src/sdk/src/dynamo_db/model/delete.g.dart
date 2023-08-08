@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.delete;
+part of 'delete.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -113,9 +113,7 @@ class DeleteBuilder implements Builder<Delete, DeleteBuilder> {
       _$this._returnValuesOnConditionCheckFailure =
           returnValuesOnConditionCheckFailure;
 
-  DeleteBuilder() {
-    Delete._init(this);
-  }
+  DeleteBuilder();
 
   DeleteBuilder get _$this {
     final $v = _$v;

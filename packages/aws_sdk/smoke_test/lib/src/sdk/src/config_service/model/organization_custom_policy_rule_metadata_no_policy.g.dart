@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.organization_custom_policy_rule_metadata_no_policy;
+part of 'organization_custom_policy_rule_metadata_no_policy.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -161,9 +161,7 @@ class OrganizationCustomPolicyRuleMetadataNoPolicyBuilder
           _i4.ListBuilder<String>? debugLogDeliveryAccounts) =>
       _$this._debugLogDeliveryAccounts = debugLogDeliveryAccounts;
 
-  OrganizationCustomPolicyRuleMetadataNoPolicyBuilder() {
-    OrganizationCustomPolicyRuleMetadataNoPolicy._init(this);
-  }
+  OrganizationCustomPolicyRuleMetadataNoPolicyBuilder();
 
   OrganizationCustomPolicyRuleMetadataNoPolicyBuilder get _$this {
     final $v = _$v;

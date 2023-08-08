@@ -116,7 +116,7 @@ class HasManyParent extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("HasManyParent {");
     buffer.write("id=" + "$id" + ", ");
@@ -281,7 +281,7 @@ class HasManyParentModelIdentifier
     implements amplify_core.ModelIdentifier<HasManyParent> {
   final String id;
 
-  /// Create an instance of HasManyParentModelIdentifier using [id] the primary key.
+  /** Create an instance of HasManyParentModelIdentifier using [id] the primary key. */
   const HasManyParentModelIdentifier({required this.id});
 
   @override

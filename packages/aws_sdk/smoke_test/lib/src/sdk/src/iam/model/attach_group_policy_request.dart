@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.attach_group_policy_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,8 @@ abstract class AttachGroupPolicyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    AttachGroupPolicyRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AttachGroupPolicyRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<AttachGroupPolicyRequest>>
+      serializers = [AttachGroupPolicyRequestAwsQuerySerializer()];
 
   /// The name (friendly name, not ARN) of the group to attach the policy to.
   ///
@@ -64,15 +60,15 @@ abstract class AttachGroupPolicyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AttachGroupPolicyRequest');
-    helper.add(
-      'groupName',
-      groupName,
-    );
-    helper.add(
-      'policyArn',
-      policyArn,
-    );
+    final helper = newBuiltValueToStringHelper('AttachGroupPolicyRequest')
+      ..add(
+        'groupName',
+        groupName,
+      )
+      ..add(
+        'policyArn',
+        policyArn,
+      );
     return helper.toString();
   }
 }

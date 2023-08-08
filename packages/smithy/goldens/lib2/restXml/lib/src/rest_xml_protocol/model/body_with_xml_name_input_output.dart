@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_xml_v2.rest_xml_protocol.model.body_with_xml_name_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,9 @@ abstract class BodyWithXmlNameInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    BodyWithXmlNameInputOutputRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<BodyWithXmlNameInputOutput>>
+      serializers = [BodyWithXmlNameInputOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BodyWithXmlNameInputOutputBuilder b) {}
   _i3.PayloadWithXmlName? get nested;
   @override
   BodyWithXmlNameInputOutput getPayload() => this;
@@ -55,11 +52,11 @@ abstract class BodyWithXmlNameInputOutput
   List<Object?> get props => [nested];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('BodyWithXmlNameInputOutput');
-    helper.add(
-      'nested',
-      nested,
-    );
+    final helper = newBuiltValueToStringHelper('BodyWithXmlNameInputOutput')
+      ..add(
+        'nested',
+        nested,
+      );
     return helper.toString();
   }
 }

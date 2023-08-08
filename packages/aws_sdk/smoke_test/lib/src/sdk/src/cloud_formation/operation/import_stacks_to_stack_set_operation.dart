@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.operation.import_stacks_to_stack_set_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,16 +33,12 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/stale_request_excep
     as _i15;
 
 /// Import existing stacks into a new stack sets. Use the stack import operation to import up to 10 stacks into a new stack set in the same account as the source stack or in a different administrator account and Region, by specifying the stack ID of the stack you intend to import.
-///
-/// `ImportStacksToStackSet` is only supported by self-managed permissions.
 class ImportStacksToStackSetOperation extends _i1.HttpOperation<
     _i2.ImportStacksToStackSetInput,
     _i2.ImportStacksToStackSetInput,
     _i3.ImportStacksToStackSetOutput,
     _i3.ImportStacksToStackSetOutput> {
   /// Import existing stacks into a new stack sets. Use the stack import operation to import up to 10 stacks into a new stack set in the same account as the source stack or in a different administrator account and Region, by specifying the stack ID of the stack you intend to import.
-  ///
-  /// `ImportStacksToStackSet` is only supported by self-managed permissions.
   ImportStacksToStackSetOperation({
     required String region,
     Uri? baseUri,
@@ -157,7 +153,8 @@ class ImportStacksToStackSetOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InvalidOperationException,
+            _i9.InvalidOperationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'InvalidOperationException',
@@ -167,7 +164,8 @@ class ImportStacksToStackSetOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i9.InvalidOperationException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.LimitExceededException,
+            _i10.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'LimitExceededException',
@@ -177,7 +175,8 @@ class ImportStacksToStackSetOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i10.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.OperationIdAlreadyExistsException,
+            _i11.OperationIdAlreadyExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'OperationIdAlreadyExistsException',
@@ -187,7 +186,8 @@ class ImportStacksToStackSetOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i11.OperationIdAlreadyExistsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.OperationInProgressException,
+            _i12.OperationInProgressException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'OperationInProgressException',
@@ -197,7 +197,8 @@ class ImportStacksToStackSetOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i12.OperationInProgressException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.StackNotFoundException,
+            _i13.StackNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'StackNotFoundException',
@@ -207,7 +208,8 @@ class ImportStacksToStackSetOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i13.StackNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.StackSetNotFoundException,
+            _i14.StackSetNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'StackSetNotFoundException',
@@ -217,7 +219,7 @@ class ImportStacksToStackSetOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i14.StackSetNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.StaleRequestException, _i15.StaleRequestException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'StaleRequestException',
@@ -250,7 +252,7 @@ class ImportStacksToStackSetOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

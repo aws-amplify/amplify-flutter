@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.sign_up_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -61,7 +62,7 @@ abstract class SignUpRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<SignUpRequest>> serializers = [
     SignUpRequestAwsJson11Serializer()
   ];
 
@@ -124,43 +125,43 @@ abstract class SignUpRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SignUpRequest');
-    helper.add(
-      'clientId',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'secretHash',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'username',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'password',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'userAttributes',
-      userAttributes,
-    );
-    helper.add(
-      'validationData',
-      validationData,
-    );
-    helper.add(
-      'analyticsMetadata',
-      analyticsMetadata,
-    );
-    helper.add(
-      'userContextData',
-      userContextData,
-    );
-    helper.add(
-      'clientMetadata',
-      clientMetadata,
-    );
+    final helper = newBuiltValueToStringHelper('SignUpRequest')
+      ..add(
+        'clientId',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'secretHash',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'username',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'password',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'userAttributes',
+        userAttributes,
+      )
+      ..add(
+        'validationData',
+        validationData,
+      )
+      ..add(
+        'analyticsMetadata',
+        analyticsMetadata,
+      )
+      ..add(
+        'userContextData',
+        userContextData,
+      )
+      ..add(
+        'clientMetadata',
+        clientMetadata,
+      );
     return helper.toString();
   }
 }
@@ -193,85 +194,67 @@ class SignUpRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ClientId':
           result.clientId = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'SecretHash':
-          if (value != null) {
-            result.secretHash = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.secretHash = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'Username':
           result.username = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'Password':
           result.password = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'UserAttributes':
-          if (value != null) {
-            result.userAttributes.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i3.AttributeType)],
-              ),
-            ) as _i6.BuiltList<_i3.AttributeType>));
-          }
-          break;
+          result.userAttributes.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i3.AttributeType)],
+            ),
+          ) as _i6.BuiltList<_i3.AttributeType>));
         case 'ValidationData':
-          if (value != null) {
-            result.validationData.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltList,
-                [FullType(_i3.AttributeType)],
-              ),
-            ) as _i6.BuiltList<_i3.AttributeType>));
-          }
-          break;
+          result.validationData.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltList,
+              [FullType(_i3.AttributeType)],
+            ),
+          ) as _i6.BuiltList<_i3.AttributeType>));
         case 'AnalyticsMetadata':
-          if (value != null) {
-            result.analyticsMetadata.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i4.AnalyticsMetadataType),
-            ) as _i4.AnalyticsMetadataType));
-          }
-          break;
+          result.analyticsMetadata.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.AnalyticsMetadataType),
+          ) as _i4.AnalyticsMetadataType));
         case 'UserContextData':
-          if (value != null) {
-            result.userContextData.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i5.UserContextDataType),
-            ) as _i5.UserContextDataType));
-          }
-          break;
+          result.userContextData.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i5.UserContextDataType),
+          ) as _i5.UserContextDataType));
         case 'ClientMetadata':
-          if (value != null) {
-            result.clientMetadata.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i6.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i6.BuiltMap<String, String>));
-          }
-          break;
+          result.clientMetadata.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i6.BuiltMap,
+              [
+                FullType(String),
+                FullType(String),
+              ],
+            ),
+          ) as _i6.BuiltMap<String, String>));
       }
     }
 
@@ -281,78 +264,89 @@ class SignUpRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SignUpRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as SignUpRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final SignUpRequest(
+      :clientId,
+      :secretHash,
+      :username,
+      :password,
+      :userAttributes,
+      :validationData,
+      :analyticsMetadata,
+      :userContextData,
+      :clientMetadata
+    ) = object;
+    result$.addAll([
       'ClientId',
       serializers.serialize(
-        payload.clientId,
+        clientId,
         specifiedType: const FullType(String),
       ),
       'Username',
       serializers.serialize(
-        payload.username,
+        username,
         specifiedType: const FullType(String),
       ),
       'Password',
       serializers.serialize(
-        payload.password,
+        password,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.secretHash != null) {
-      result
+    ]);
+    if (secretHash != null) {
+      result$
         ..add('SecretHash')
         ..add(serializers.serialize(
-          payload.secretHash!,
+          secretHash,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.userAttributes != null) {
-      result
+    if (userAttributes != null) {
+      result$
         ..add('UserAttributes')
         ..add(serializers.serialize(
-          payload.userAttributes!,
+          userAttributes,
           specifiedType: const FullType(
             _i6.BuiltList,
             [FullType(_i3.AttributeType)],
           ),
         ));
     }
-    if (payload.validationData != null) {
-      result
+    if (validationData != null) {
+      result$
         ..add('ValidationData')
         ..add(serializers.serialize(
-          payload.validationData!,
+          validationData,
           specifiedType: const FullType(
             _i6.BuiltList,
             [FullType(_i3.AttributeType)],
           ),
         ));
     }
-    if (payload.analyticsMetadata != null) {
-      result
+    if (analyticsMetadata != null) {
+      result$
         ..add('AnalyticsMetadata')
         ..add(serializers.serialize(
-          payload.analyticsMetadata!,
+          analyticsMetadata,
           specifiedType: const FullType(_i4.AnalyticsMetadataType),
         ));
     }
-    if (payload.userContextData != null) {
-      result
+    if (userContextData != null) {
+      result$
         ..add('UserContextData')
         ..add(serializers.serialize(
-          payload.userContextData!,
+          userContextData,
           specifiedType: const FullType(_i5.UserContextDataType),
         ));
     }
-    if (payload.clientMetadata != null) {
-      result
+    if (clientMetadata != null) {
+      result$
         ..add('ClientMetadata')
         ..add(serializers.serialize(
-          payload.clientMetadata!,
+          clientMetadata,
           specifiedType: const FullType(
             _i6.BuiltMap,
             [
@@ -362,6 +356,6 @@ class SignUpRequestAwsJson11Serializer
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.object_part; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,9 @@ abstract class ObjectPart
 
   const ObjectPart._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ObjectPart>> serializers = [
     ObjectPartRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ObjectPartBuilder b) {}
 
   /// The part number identifying the part. This value is a positive integer between 1 and 10,000.
   int? get partNumber;
@@ -75,31 +72,31 @@ abstract class ObjectPart
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ObjectPart');
-    helper.add(
-      'partNumber',
-      partNumber,
-    );
-    helper.add(
-      'size',
-      size,
-    );
-    helper.add(
-      'checksumCrc32',
-      checksumCrc32,
-    );
-    helper.add(
-      'checksumCrc32C',
-      checksumCrc32C,
-    );
-    helper.add(
-      'checksumSha1',
-      checksumSha1,
-    );
-    helper.add(
-      'checksumSha256',
-      checksumSha256,
-    );
+    final helper = newBuiltValueToStringHelper('ObjectPart')
+      ..add(
+        'partNumber',
+        partNumber,
+      )
+      ..add(
+        'size',
+        size,
+      )
+      ..add(
+        'checksumCrc32',
+        checksumCrc32,
+      )
+      ..add(
+        'checksumCrc32C',
+        checksumCrc32C,
+      )
+      ..add(
+        'checksumSha1',
+        checksumSha1,
+      )
+      ..add(
+        'checksumSha256',
+        checksumSha256,
+      );
     return helper.toString();
   }
 }

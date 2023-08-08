@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.request_payment_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -28,12 +28,8 @@ abstract class RequestPaymentConfiguration
 
   const RequestPaymentConfiguration._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    RequestPaymentConfigurationRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RequestPaymentConfigurationBuilder b) {}
+  static const List<_i3.SmithySerializer<RequestPaymentConfiguration>>
+      serializers = [RequestPaymentConfigurationRestXmlSerializer()];
 
   /// Specifies who pays for the download and request fees.
   _i2.Payer get payer;
@@ -41,11 +37,11 @@ abstract class RequestPaymentConfiguration
   List<Object?> get props => [payer];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RequestPaymentConfiguration');
-    helper.add(
-      'payer',
-      payer,
-    );
+    final helper = newBuiltValueToStringHelper('RequestPaymentConfiguration')
+      ..add(
+        'payer',
+        payer,
+      );
     return helper.toString();
   }
 }

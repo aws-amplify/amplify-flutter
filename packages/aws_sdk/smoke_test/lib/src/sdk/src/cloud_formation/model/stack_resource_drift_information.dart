@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.stack_resource_drift_information; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,12 +37,8 @@ abstract class StackResourceDriftInformation
 
   const StackResourceDriftInformation._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    StackResourceDriftInformationAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackResourceDriftInformationBuilder b) {}
+  static const List<_i3.SmithySerializer<StackResourceDriftInformation>>
+      serializers = [StackResourceDriftInformationAwsQuerySerializer()];
 
   /// Status of the resource's actual configuration compared to its expected configuration
   ///
@@ -66,15 +62,15 @@ abstract class StackResourceDriftInformation
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StackResourceDriftInformation');
-    helper.add(
-      'stackResourceDriftStatus',
-      stackResourceDriftStatus,
-    );
-    helper.add(
-      'lastCheckTimestamp',
-      lastCheckTimestamp,
-    );
+    final helper = newBuiltValueToStringHelper('StackResourceDriftInformation')
+      ..add(
+        'stackResourceDriftStatus',
+        stackResourceDriftStatus,
+      )
+      ..add(
+        'lastCheckTimestamp',
+        lastCheckTimestamp,
+      );
     return helper.toString();
   }
 }

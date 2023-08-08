@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_user_request;
+part of 'get_user_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -46,9 +46,7 @@ class GetUserRequestBuilder
   String? get userName => _$this._userName;
   set userName(String? userName) => _$this._userName = userName;
 
-  GetUserRequestBuilder() {
-    GetUserRequest._init(this);
-  }
+  GetUserRequestBuilder();
 
   GetUserRequestBuilder get _$this {
     final $v = _$v;

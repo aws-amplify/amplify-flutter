@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_saml_provider_response;
+part of 'get_saml_provider_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -78,9 +78,7 @@ class GetSamlProviderResponseBuilder
       _$this._tags ??= new _i3.ListBuilder<_i2.Tag>();
   set tags(_i3.ListBuilder<_i2.Tag>? tags) => _$this._tags = tags;
 
-  GetSamlProviderResponseBuilder() {
-    GetSamlProviderResponse._init(this);
-  }
+  GetSamlProviderResponseBuilder();
 
   GetSamlProviderResponseBuilder get _$this {
     final $v = _$v;

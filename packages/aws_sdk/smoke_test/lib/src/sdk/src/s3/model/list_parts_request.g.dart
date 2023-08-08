@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.list_parts_request;
+part of 'list_parts_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -143,9 +143,7 @@ class ListPartsRequestBuilder
   set sseCustomerKeyMd5(String? sseCustomerKeyMd5) =>
       _$this._sseCustomerKeyMd5 = sseCustomerKeyMd5;
 
-  ListPartsRequestBuilder() {
-    ListPartsRequest._init(this);
-  }
+  ListPartsRequestBuilder();
 
   ListPartsRequestBuilder get _$this {
     final $v = _$v;
@@ -233,9 +231,7 @@ class ListPartsRequestPayloadBuilder
         Builder<ListPartsRequestPayload, ListPartsRequestPayloadBuilder> {
   _$ListPartsRequestPayload? _$v;
 
-  ListPartsRequestPayloadBuilder() {
-    ListPartsRequestPayload._init(this);
-  }
+  ListPartsRequestPayloadBuilder();
 
   @override
   void replace(ListPartsRequestPayload other) {

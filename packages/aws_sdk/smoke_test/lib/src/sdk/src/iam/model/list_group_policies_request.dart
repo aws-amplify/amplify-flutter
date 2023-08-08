@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.list_group_policies_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,12 +41,8 @@ abstract class ListGroupPoliciesRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListGroupPoliciesRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListGroupPoliciesRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<ListGroupPoliciesRequest>>
+      serializers = [ListGroupPoliciesRequestAwsQuerySerializer()];
 
   /// The name of the group to list policies for.
   ///
@@ -70,19 +66,19 @@ abstract class ListGroupPoliciesRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListGroupPoliciesRequest');
-    helper.add(
-      'groupName',
-      groupName,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'maxItems',
-      maxItems,
-    );
+    final helper = newBuiltValueToStringHelper('ListGroupPoliciesRequest')
+      ..add(
+        'groupName',
+        groupName,
+      )
+      ..add(
+        'marker',
+        marker,
+      )
+      ..add(
+        'maxItems',
+        maxItems,
+      );
     return helper.toString();
   }
 }

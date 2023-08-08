@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.entity_info;
+part of 'entity_info.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -88,9 +88,7 @@ class EntityInfoBuilder implements Builder<EntityInfo, EntityInfoBuilder> {
   String? get path => _$this._path;
   set path(String? path) => _$this._path = path;
 
-  EntityInfoBuilder() {
-    EntityInfo._init(this);
-  }
+  EntityInfoBuilder();
 
   EntityInfoBuilder get _$this {
     final $v = _$v;

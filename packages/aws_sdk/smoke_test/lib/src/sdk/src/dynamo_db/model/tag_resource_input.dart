@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.tag_resource_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,12 +37,9 @@ abstract class TagResourceInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<TagResourceInput>> serializers = [
     TagResourceInputAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TagResourceInputBuilder b) {}
 
   /// Identifies the Amazon DynamoDB resource to which tags should be added. This value is an Amazon Resource Name (ARN).
   String get resourceArn;
@@ -58,15 +55,15 @@ abstract class TagResourceInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TagResourceInput');
-    helper.add(
-      'resourceArn',
-      resourceArn,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('TagResourceInput')
+      ..add(
+        'resourceArn',
+        resourceArn,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

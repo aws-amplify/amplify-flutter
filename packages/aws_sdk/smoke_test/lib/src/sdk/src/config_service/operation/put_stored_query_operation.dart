@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.operation.put_stored_query_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -25,12 +25,16 @@ import 'package:smoke_test/src/sdk/src/config_service/model/validation_exception
     as _i11;
 
 /// Saves a new query or updates an existing saved query. The `QueryName` must be unique for a single Amazon Web Services account and a single Amazon Web Services Region. You can create upto 300 queries in a single Amazon Web Services account and a single Amazon Web Services Region.
+///
+/// `PutStoredQuery` is an idempotent API. Subsequent requests won’t create a duplicate resource if one was already created. If a following request has different `tags` values, Config will ignore these differences and treat it as an idempotent request of the previous. In this case, `tags` will not be updated, even if they are different.
 class PutStoredQueryOperation extends _i1.HttpOperation<
     _i2.PutStoredQueryRequest,
     _i2.PutStoredQueryRequest,
     _i3.PutStoredQueryResponse,
     _i3.PutStoredQueryResponse> {
   /// Saves a new query or updates an existing saved query. The `QueryName` must be unique for a single Amazon Web Services account and a single Amazon Web Services Region. You can create upto 300 queries in a single Amazon Web Services account and a single Amazon Web Services Region.
+  ///
+  /// `PutStoredQuery` is an idempotent API. Subsequent requests won’t create a duplicate resource if one was already created. If a following request has different `tags` values, Config will ignore these differences and treat it as an idempotent request of the previous. In this case, `tags` will not be updated, even if they are different.
   PutStoredQueryOperation({
     required String region,
     Uri? baseUri,
@@ -107,7 +111,8 @@ class PutStoredQueryOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ResourceConcurrentModificationException,
+            _i9.ResourceConcurrentModificationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ResourceConcurrentModificationException',
@@ -116,7 +121,7 @@ class PutStoredQueryOperation extends _i1.HttpOperation<
           _i9.ResourceConcurrentModificationException,
           builder: _i9.ResourceConcurrentModificationException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.TooManyTagsException, _i10.TooManyTagsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'TooManyTagsException',
@@ -125,7 +130,7 @@ class PutStoredQueryOperation extends _i1.HttpOperation<
           _i10.TooManyTagsException,
           builder: _i10.TooManyTagsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.ValidationException, _i11.ValidationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ValidationException',
@@ -157,7 +162,7 @@ class PutStoredQueryOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_xml_v1.rest_xml_protocol.model.nested_xml_maps_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -66,12 +66,9 @@ abstract class NestedXmlMapsInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    NestedXmlMapsInputOutputRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<NestedXmlMapsInputOutput>>
+      serializers = [NestedXmlMapsInputOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NestedXmlMapsInputOutputBuilder b) {}
   _i4.BuiltMap<String, _i4.BuiltMap<String, _i3.FooEnum>>? get nestedMap;
   _i4.BuiltMap<String, _i4.BuiltMap<String, _i3.FooEnum>>? get flatNestedMap;
   @override
@@ -83,15 +80,15 @@ abstract class NestedXmlMapsInputOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('NestedXmlMapsInputOutput');
-    helper.add(
-      'nestedMap',
-      nestedMap,
-    );
-    helper.add(
-      'flatNestedMap',
-      flatNestedMap,
-    );
+    final helper = newBuiltValueToStringHelper('NestedXmlMapsInputOutput')
+      ..add(
+        'nestedMap',
+        nestedMap,
+      )
+      ..add(
+        'flatNestedMap',
+        flatNestedMap,
+      );
     return helper.toString();
   }
 }

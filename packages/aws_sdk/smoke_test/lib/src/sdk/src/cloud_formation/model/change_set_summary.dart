@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.change_set_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -55,12 +55,9 @@ abstract class ChangeSetSummary
 
   const ChangeSetSummary._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ChangeSetSummary>> serializers = [
     ChangeSetSummaryAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ChangeSetSummaryBuilder b) {}
 
   /// The ID of the stack with which the change set is associated.
   String? get stackId;
@@ -114,55 +111,55 @@ abstract class ChangeSetSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ChangeSetSummary');
-    helper.add(
-      'stackId',
-      stackId,
-    );
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'changeSetId',
-      changeSetId,
-    );
-    helper.add(
-      'changeSetName',
-      changeSetName,
-    );
-    helper.add(
-      'executionStatus',
-      executionStatus,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'statusReason',
-      statusReason,
-    );
-    helper.add(
-      'creationTime',
-      creationTime,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'includeNestedStacks',
-      includeNestedStacks,
-    );
-    helper.add(
-      'parentChangeSetId',
-      parentChangeSetId,
-    );
-    helper.add(
-      'rootChangeSetId',
-      rootChangeSetId,
-    );
+    final helper = newBuiltValueToStringHelper('ChangeSetSummary')
+      ..add(
+        'stackId',
+        stackId,
+      )
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'changeSetId',
+        changeSetId,
+      )
+      ..add(
+        'changeSetName',
+        changeSetName,
+      )
+      ..add(
+        'executionStatus',
+        executionStatus,
+      )
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'statusReason',
+        statusReason,
+      )
+      ..add(
+        'creationTime',
+        creationTime,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'includeNestedStacks',
+        includeNestedStacks,
+      )
+      ..add(
+        'parentChangeSetId',
+        parentChangeSetId,
+      )
+      ..add(
+        'rootChangeSetId',
+        rootChangeSetId,
+      );
     return helper.toString();
   }
 }

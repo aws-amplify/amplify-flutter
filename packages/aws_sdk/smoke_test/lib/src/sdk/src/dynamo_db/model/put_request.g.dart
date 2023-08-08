@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.put_request;
+part of 'put_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -48,9 +48,7 @@ class PutRequestBuilder implements Builder<PutRequest, PutRequestBuilder> {
   set item(_i3.MapBuilder<String, _i2.AttributeValue>? item) =>
       _$this._item = item;
 
-  PutRequestBuilder() {
-    PutRequest._init(this);
-  }
+  PutRequestBuilder();
 
   PutRequestBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.operation_id_already_exists_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,9 @@ abstract class OperationIdAlreadyExistsException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    OperationIdAlreadyExistsExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<OperationIdAlreadyExistsException>>
+      serializers = [OperationIdAlreadyExistsExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OperationIdAlreadyExistsExceptionBuilder b) {}
   @override
   String? get message;
   @override
@@ -67,11 +64,11 @@ abstract class OperationIdAlreadyExistsException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('OperationIdAlreadyExistsException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('OperationIdAlreadyExistsException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

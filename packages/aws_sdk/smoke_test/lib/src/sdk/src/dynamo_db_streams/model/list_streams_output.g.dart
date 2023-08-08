@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db_streams.model.list_streams_output;
+part of 'list_streams_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -60,9 +60,7 @@ class ListStreamsOutputBuilder
   set lastEvaluatedStreamArn(String? lastEvaluatedStreamArn) =>
       _$this._lastEvaluatedStreamArn = lastEvaluatedStreamArn;
 
-  ListStreamsOutputBuilder() {
-    ListStreamsOutput._init(this);
-  }
+  ListStreamsOutputBuilder();
 
   ListStreamsOutputBuilder get _$this {
     final $v = _$v;

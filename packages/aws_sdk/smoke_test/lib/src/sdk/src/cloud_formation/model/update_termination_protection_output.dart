@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.update_termination_protection_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,8 @@ abstract class UpdateTerminationProtectionOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    UpdateTerminationProtectionOutputAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateTerminationProtectionOutputBuilder b) {}
+  static const List<_i2.SmithySerializer<UpdateTerminationProtectionOutput>>
+      serializers = [UpdateTerminationProtectionOutputAwsQuerySerializer()];
 
   /// The unique ID of the stack.
   String? get stackId;
@@ -47,11 +43,11 @@ abstract class UpdateTerminationProtectionOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateTerminationProtectionOutput');
-    helper.add(
-      'stackId',
-      stackId,
-    );
+        newBuiltValueToStringHelper('UpdateTerminationProtectionOutput')
+          ..add(
+            'stackId',
+            stackId,
+          );
     return helper.toString();
   }
 }

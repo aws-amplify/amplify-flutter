@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_protocol.model.malformed_content_type_with_generic_string_input;
+part of 'malformed_content_type_with_generic_string_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class MalformedContentTypeWithGenericStringInputBuilder
   String? get payload => _$this._payload;
   set payload(String? payload) => _$this._payload = payload;
 
-  MalformedContentTypeWithGenericStringInputBuilder() {
-    MalformedContentTypeWithGenericStringInput._init(this);
-  }
+  MalformedContentTypeWithGenericStringInputBuilder();
 
   MalformedContentTypeWithGenericStringInputBuilder get _$this {
     final $v = _$v;

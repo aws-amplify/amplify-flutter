@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.batch_write_item_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -53,14 +53,11 @@ abstract class BatchWriteItemOutput
   ) =>
       payload;
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer<BatchWriteItemOutput>> serializers = [
     BatchWriteItemOutputAwsJson10Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BatchWriteItemOutputBuilder b) {}
-
-  /// A map of tables and requests against those tables that were not processed. The `UnprocessedItems` value is in the same form as `RequestItems`, so you can provide this value directly to a subsequent `BatchGetItem` operation. For more information, see `RequestItems` in the Request Parameters section.
+  /// A map of tables and requests against those tables that were not processed. The `UnprocessedItems` value is in the same form as `RequestItems`, so you can provide this value directly to a subsequent `BatchWriteItem` operation. For more information, see `RequestItems` in the Request Parameters section.
   ///
   /// Each `UnprocessedItems` entry consists of a table name and, for that table, a list of operations to perform (`DeleteRequest` or `PutRequest`).
   ///
@@ -106,19 +103,19 @@ abstract class BatchWriteItemOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('BatchWriteItemOutput');
-    helper.add(
-      'unprocessedItems',
-      unprocessedItems,
-    );
-    helper.add(
-      'itemCollectionMetrics',
-      itemCollectionMetrics,
-    );
-    helper.add(
-      'consumedCapacity',
-      consumedCapacity,
-    );
+    final helper = newBuiltValueToStringHelper('BatchWriteItemOutput')
+      ..add(
+        'unprocessedItems',
+        unprocessedItems,
+      )
+      ..add(
+        'itemCollectionMetrics',
+        itemCollectionMetrics,
+      )
+      ..add(
+        'consumedCapacity',
+        consumedCapacity,
+      );
     return helper.toString();
   }
 }

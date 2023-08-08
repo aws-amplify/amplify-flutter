@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.import_table_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,9 @@ abstract class ImportTableOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ImportTableOutput>> serializers = [
     ImportTableOutputAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ImportTableOutputBuilder b) {}
 
   /// Represents the properties of the table created for the import, and parameters of the import. The import parameters include import status, how many items were processed, and how many errors were encountered.
   _i2.ImportTableDescription get importTableDescription;
@@ -46,11 +43,11 @@ abstract class ImportTableOutput
   List<Object?> get props => [importTableDescription];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ImportTableOutput');
-    helper.add(
-      'importTableDescription',
-      importTableDescription,
-    );
+    final helper = newBuiltValueToStringHelper('ImportTableOutput')
+      ..add(
+        'importTableDescription',
+        importTableDescription,
+      );
     return helper.toString();
   }
 }

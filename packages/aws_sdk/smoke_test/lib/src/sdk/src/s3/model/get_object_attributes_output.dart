@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.get_object_attributes_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -85,12 +85,8 @@ abstract class GetObjectAttributesOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetObjectAttributesOutputRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectAttributesOutputBuilder b) {}
+  static const List<_i2.SmithySerializer<GetObjectAttributesOutputPayload>>
+      serializers = [GetObjectAttributesOutputRestXmlSerializer()];
 
   /// Specifies whether the object retrieved was (`true`) or was not (`false`) a delete marker. If `false`, this response header does not appear in the response.
   bool? get deleteMarker;
@@ -147,43 +143,43 @@ abstract class GetObjectAttributesOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectAttributesOutput');
-    helper.add(
-      'deleteMarker',
-      deleteMarker,
-    );
-    helper.add(
-      'lastModified',
-      lastModified,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
-    helper.add(
-      'eTag',
-      eTag,
-    );
-    helper.add(
-      'checksum',
-      checksum,
-    );
-    helper.add(
-      'objectParts',
-      objectParts,
-    );
-    helper.add(
-      'storageClass',
-      storageClass,
-    );
-    helper.add(
-      'objectSize',
-      objectSize,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectAttributesOutput')
+      ..add(
+        'deleteMarker',
+        deleteMarker,
+      )
+      ..add(
+        'lastModified',
+        lastModified,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'requestCharged',
+        requestCharged,
+      )
+      ..add(
+        'eTag',
+        eTag,
+      )
+      ..add(
+        'checksum',
+        checksum,
+      )
+      ..add(
+        'objectParts',
+        objectParts,
+      )
+      ..add(
+        'storageClass',
+        storageClass,
+      )
+      ..add(
+        'objectSize',
+        objectSize,
+      );
     return helper.toString();
   }
 }
@@ -200,9 +196,6 @@ abstract class GetObjectAttributesOutputPayload
       _$GetObjectAttributesOutputPayload;
 
   const GetObjectAttributesOutputPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectAttributesOutputPayloadBuilder b) {}
 
   /// The checksum or digest of the object.
   _i4.Checksum? get checksum;
@@ -231,27 +224,27 @@ abstract class GetObjectAttributesOutputPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetObjectAttributesOutputPayload');
-    helper.add(
-      'checksum',
-      checksum,
-    );
-    helper.add(
-      'eTag',
-      eTag,
-    );
-    helper.add(
-      'objectParts',
-      objectParts,
-    );
-    helper.add(
-      'objectSize',
-      objectSize,
-    );
-    helper.add(
-      'storageClass',
-      storageClass,
-    );
+        newBuiltValueToStringHelper('GetObjectAttributesOutputPayload')
+          ..add(
+            'checksum',
+            checksum,
+          )
+          ..add(
+            'eTag',
+            eTag,
+          )
+          ..add(
+            'objectParts',
+            objectParts,
+          )
+          ..add(
+            'objectSize',
+            objectSize,
+          )
+          ..add(
+            'storageClass',
+            storageClass,
+          );
     return helper.toString();
   }
 }

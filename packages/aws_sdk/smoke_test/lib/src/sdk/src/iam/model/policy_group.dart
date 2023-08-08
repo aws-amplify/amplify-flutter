@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.policy_group; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,12 +43,9 @@ abstract class PolicyGroup
 
   const PolicyGroup._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<PolicyGroup>> serializers = [
     PolicyGroupAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PolicyGroupBuilder b) {}
 
   /// The name (friendly name, not ARN) identifying the group.
   String? get groupName;
@@ -62,15 +59,15 @@ abstract class PolicyGroup
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PolicyGroup');
-    helper.add(
-      'groupName',
-      groupName,
-    );
-    helper.add(
-      'groupId',
-      groupId,
-    );
+    final helper = newBuiltValueToStringHelper('PolicyGroup')
+      ..add(
+        'groupName',
+        groupName,
+      )
+      ..add(
+        'groupId',
+        groupId,
+      );
     return helper.toString();
   }
 }

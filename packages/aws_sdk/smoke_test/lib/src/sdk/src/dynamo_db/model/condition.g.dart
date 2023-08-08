@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.condition;
+part of 'condition.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -61,9 +61,7 @@ class ConditionBuilder implements Builder<Condition, ConditionBuilder> {
   set comparisonOperator(_i3.ComparisonOperator? comparisonOperator) =>
       _$this._comparisonOperator = comparisonOperator;
 
-  ConditionBuilder() {
-    Condition._init(this);
-  }
+  ConditionBuilder();
 
   ConditionBuilder get _$this {
     final $v = _$v;

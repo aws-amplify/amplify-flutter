@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.user; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -70,12 +70,9 @@ abstract class User
 
   const User._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<User>> serializers = [
     UserAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UserBuilder b) {}
 
   /// The path to the user. For more information about paths, see [IAM identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html) in the _IAM User Guide_.
   ///
@@ -124,39 +121,39 @@ abstract class User
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('User');
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'userId',
-      userId,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'createDate',
-      createDate,
-    );
-    helper.add(
-      'passwordLastUsed',
-      passwordLastUsed,
-    );
-    helper.add(
-      'permissionsBoundary',
-      permissionsBoundary,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('User')
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'userId',
+        userId,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'createDate',
+        createDate,
+      )
+      ..add(
+        'passwordLastUsed',
+        passwordLastUsed,
+      )
+      ..add(
+        'permissionsBoundary',
+        permissionsBoundary,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.get_public_access_block_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,8 @@ abstract class GetPublicAccessBlockOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetPublicAccessBlockOutputRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetPublicAccessBlockOutputBuilder b) {}
+  static const List<_i2.SmithySerializer<_i3.PublicAccessBlockConfiguration?>>
+      serializers = [GetPublicAccessBlockOutputRestXmlSerializer()];
 
   /// The `PublicAccessBlock` configuration currently in effect for this Amazon S3 bucket.
   _i3.PublicAccessBlockConfiguration? get publicAccessBlockConfiguration;
@@ -56,11 +52,11 @@ abstract class GetPublicAccessBlockOutput
   List<Object?> get props => [publicAccessBlockConfiguration];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetPublicAccessBlockOutput');
-    helper.add(
-      'publicAccessBlockConfiguration',
-      publicAccessBlockConfiguration,
-    );
+    final helper = newBuiltValueToStringHelper('GetPublicAccessBlockOutput')
+      ..add(
+        'publicAccessBlockConfiguration',
+        publicAccessBlockConfiguration,
+      );
     return helper.toString();
   }
 }

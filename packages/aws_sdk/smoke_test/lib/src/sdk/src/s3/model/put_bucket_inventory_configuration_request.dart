@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.put_bucket_inventory_configuration_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -68,12 +68,8 @@ abstract class PutBucketInventoryConfigurationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutBucketInventoryConfigurationRequestRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketInventoryConfigurationRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<_i2.InventoryConfiguration>>
+      serializers = [PutBucketInventoryConfigurationRequestRestXmlSerializer()];
 
   /// The name of the bucket where the inventory configuration will be stored.
   String get bucket;
@@ -110,23 +106,23 @@ abstract class PutBucketInventoryConfigurationRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutBucketInventoryConfigurationRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'inventoryConfiguration',
-      inventoryConfiguration,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+        newBuiltValueToStringHelper('PutBucketInventoryConfigurationRequest')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'id',
+            id,
+          )
+          ..add(
+            'inventoryConfiguration',
+            inventoryConfiguration,
+          )
+          ..add(
+            'expectedBucketOwner',
+            expectedBucketOwner,
+          );
     return helper.toString();
   }
 }
@@ -238,12 +234,14 @@ class PutBucketInventoryConfigurationRequestRestXmlSerializer
         destination,
         specifiedType: const FullType(_i4.InventoryDestination),
       ));
-    result$
-      ..add(const _i1.XmlElementName('IsEnabled'))
-      ..add(serializers.serialize(
-        isEnabled,
-        specifiedType: const FullType.nullable(bool),
-      ));
+    if (isEnabled != null) {
+      result$
+        ..add(const _i1.XmlElementName('IsEnabled'))
+        ..add(serializers.serialize(
+          isEnabled,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
     if (filter != null) {
       result$
         ..add(const _i1.XmlElementName('Filter'))

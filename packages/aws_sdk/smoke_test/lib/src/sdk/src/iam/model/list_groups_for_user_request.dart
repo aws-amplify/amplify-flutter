@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.list_groups_for_user_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,12 +41,8 @@ abstract class ListGroupsForUserRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListGroupsForUserRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListGroupsForUserRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<ListGroupsForUserRequest>>
+      serializers = [ListGroupsForUserRequestAwsQuerySerializer()];
 
   /// The name of the user to list groups for.
   ///
@@ -70,19 +66,19 @@ abstract class ListGroupsForUserRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListGroupsForUserRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'maxItems',
-      maxItems,
-    );
+    final helper = newBuiltValueToStringHelper('ListGroupsForUserRequest')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'marker',
+        marker,
+      )
+      ..add(
+        'maxItems',
+        maxItems,
+      );
     return helper.toString();
   }
 }

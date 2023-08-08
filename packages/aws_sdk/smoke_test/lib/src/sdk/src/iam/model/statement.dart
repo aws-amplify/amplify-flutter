@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.statement; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,12 +44,9 @@ abstract class Statement
 
   const Statement._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Statement>> serializers = [
     StatementAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StatementBuilder b) {}
 
   /// The identifier of the policy that was provided as an input.
   String? get sourcePolicyId;
@@ -71,23 +68,23 @@ abstract class Statement
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Statement');
-    helper.add(
-      'sourcePolicyId',
-      sourcePolicyId,
-    );
-    helper.add(
-      'sourcePolicyType',
-      sourcePolicyType,
-    );
-    helper.add(
-      'startPosition',
-      startPosition,
-    );
-    helper.add(
-      'endPosition',
-      endPosition,
-    );
+    final helper = newBuiltValueToStringHelper('Statement')
+      ..add(
+        'sourcePolicyId',
+        sourcePolicyId,
+      )
+      ..add(
+        'sourcePolicyType',
+        sourcePolicyType,
+      )
+      ..add(
+        'startPosition',
+        startPosition,
+      )
+      ..add(
+        'endPosition',
+        endPosition,
+      );
     return helper.toString();
   }
 }

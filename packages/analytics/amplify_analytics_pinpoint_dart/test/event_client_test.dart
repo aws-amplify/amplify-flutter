@@ -304,7 +304,7 @@ void main() {
                     '1': EventItemResponse(
                       message: 'Retryable Exception',
                       statusCode: 500,
-                    )
+                    ),
                   },
                 ),
               },
@@ -351,7 +351,7 @@ void main() {
                     '1': EventItemResponse(
                       message: 'ValidationException',
                       statusCode: 400,
-                    )
+                    ),
                   },
                 ),
               },

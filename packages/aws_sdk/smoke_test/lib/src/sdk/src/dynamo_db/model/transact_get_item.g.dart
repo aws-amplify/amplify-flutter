@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.transact_get_item;
+part of 'transact_get_item.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -48,9 +48,7 @@ class TransactGetItemBuilder
   _i2.GetBuilder get get => _$this._get ??= new _i2.GetBuilder();
   set get(_i2.GetBuilder? get) => _$this._get = get;
 
-  TransactGetItemBuilder() {
-    TransactGetItem._init(this);
-  }
+  TransactGetItemBuilder();
 
   TransactGetItemBuilder get _$this {
     final $v = _$v;

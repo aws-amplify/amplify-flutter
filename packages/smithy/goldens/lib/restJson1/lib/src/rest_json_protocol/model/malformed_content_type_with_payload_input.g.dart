@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_protocol.model.malformed_content_type_with_payload_input;
+part of 'malformed_content_type_with_payload_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class MalformedContentTypeWithPayloadInputBuilder
   _i2.Uint8List? get payload => _$this._payload;
   set payload(_i2.Uint8List? payload) => _$this._payload = payload;
 
-  MalformedContentTypeWithPayloadInputBuilder() {
-    MalformedContentTypeWithPayloadInput._init(this);
-  }
+  MalformedContentTypeWithPayloadInputBuilder();
 
   MalformedContentTypeWithPayloadInputBuilder get _$this {
     final $v = _$v;

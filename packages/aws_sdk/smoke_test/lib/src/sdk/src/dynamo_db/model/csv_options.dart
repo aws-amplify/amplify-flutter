@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.csv_options; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,12 +32,9 @@ abstract class CsvOptions
 
   const CsvOptions._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<CsvOptions>> serializers = [
     CsvOptionsAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CsvOptionsBuilder b) {}
 
   /// The delimiter used for separating items in the CSV file being imported.
   String? get delimiter;
@@ -51,15 +48,15 @@ abstract class CsvOptions
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CsvOptions');
-    helper.add(
-      'delimiter',
-      delimiter,
-    );
-    helper.add(
-      'headerList',
-      headerList,
-    );
+    final helper = newBuiltValueToStringHelper('CsvOptions')
+      ..add(
+        'delimiter',
+        delimiter,
+      )
+      ..add(
+        'headerList',
+        headerList,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.stack_instance_detailed_status; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -8,17 +8,13 @@ import 'package:smithy/smithy.dart' as _i1;
 class StackInstanceDetailedStatus
     extends _i1.SmithyEnum<StackInstanceDetailedStatus> {
   const StackInstanceDetailedStatus._(
-    int index,
-    String name,
-    String value,
-  ) : super(
-          index,
-          name,
-          value,
-        );
+    super.index,
+    super.name,
+    super.value,
+  );
 
-  const StackInstanceDetailedStatus._sdkUnknown(String value)
-      : super.sdkUnknown(value);
+  const StackInstanceDetailedStatus._sdkUnknown(super.value)
+      : super.sdkUnknown();
 
   static const cancelled = StackInstanceDetailedStatus._(
     0,
@@ -50,8 +46,14 @@ class StackInstanceDetailedStatus
     'RUNNING',
   );
 
-  static const succeeded = StackInstanceDetailedStatus._(
+  static const skippedSuspendedAccount = StackInstanceDetailedStatus._(
     5,
+    'SKIPPED_SUSPENDED_ACCOUNT',
+    'SKIPPED_SUSPENDED_ACCOUNT',
+  );
+
+  static const succeeded = StackInstanceDetailedStatus._(
+    6,
     'SUCCEEDED',
     'SUCCEEDED',
   );
@@ -63,6 +65,7 @@ class StackInstanceDetailedStatus
     StackInstanceDetailedStatus.inoperable,
     StackInstanceDetailedStatus.pending,
     StackInstanceDetailedStatus.running,
+    StackInstanceDetailedStatus.skippedSuspendedAccount,
     StackInstanceDetailedStatus.succeeded,
   ];
 

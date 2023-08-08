@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.organization_managed_rule_metadata; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -13,14 +13,14 @@ import 'package:smoke_test/src/sdk/src/config_service/model/maximum_execution_fr
 
 part 'organization_managed_rule_metadata.g.dart';
 
-/// An object that specifies organization managed rule metadata such as resource type and ID of Amazon Web Services resource along with the rule identifier. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic.
+/// organization managed rule metadata such as resource type and ID of Amazon Web Services resource along with the rule identifier. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic.
 abstract class OrganizationManagedRuleMetadata
     with
         _i1.AWSEquatable<OrganizationManagedRuleMetadata>
     implements
         Built<OrganizationManagedRuleMetadata,
             OrganizationManagedRuleMetadataBuilder> {
-  /// An object that specifies organization managed rule metadata such as resource type and ID of Amazon Web Services resource along with the rule identifier. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic.
+  /// organization managed rule metadata such as resource type and ID of Amazon Web Services resource along with the rule identifier. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic.
   factory OrganizationManagedRuleMetadata({
     String? description,
     required String ruleIdentifier,
@@ -44,19 +44,15 @@ abstract class OrganizationManagedRuleMetadata
     );
   }
 
-  /// An object that specifies organization managed rule metadata such as resource type and ID of Amazon Web Services resource along with the rule identifier. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic.
+  /// organization managed rule metadata such as resource type and ID of Amazon Web Services resource along with the rule identifier. It also provides the frequency with which you want Config to run evaluations for the rule if the trigger type is periodic.
   factory OrganizationManagedRuleMetadata.build(
           [void Function(OrganizationManagedRuleMetadataBuilder) updates]) =
       _$OrganizationManagedRuleMetadata;
 
   const OrganizationManagedRuleMetadata._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    OrganizationManagedRuleMetadataAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OrganizationManagedRuleMetadataBuilder b) {}
+  static const List<_i4.SmithySerializer<OrganizationManagedRuleMetadata>>
+      serializers = [OrganizationManagedRuleMetadataAwsJson11Serializer()];
 
   /// The description that you provide for your organization Config rule.
   String? get description;
@@ -97,39 +93,39 @@ abstract class OrganizationManagedRuleMetadata
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('OrganizationManagedRuleMetadata');
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'ruleIdentifier',
-      ruleIdentifier,
-    );
-    helper.add(
-      'inputParameters',
-      inputParameters,
-    );
-    helper.add(
-      'maximumExecutionFrequency',
-      maximumExecutionFrequency,
-    );
-    helper.add(
-      'resourceTypesScope',
-      resourceTypesScope,
-    );
-    helper.add(
-      'resourceIdScope',
-      resourceIdScope,
-    );
-    helper.add(
-      'tagKeyScope',
-      tagKeyScope,
-    );
-    helper.add(
-      'tagValueScope',
-      tagValueScope,
-    );
+        newBuiltValueToStringHelper('OrganizationManagedRuleMetadata')
+          ..add(
+            'description',
+            description,
+          )
+          ..add(
+            'ruleIdentifier',
+            ruleIdentifier,
+          )
+          ..add(
+            'inputParameters',
+            inputParameters,
+          )
+          ..add(
+            'maximumExecutionFrequency',
+            maximumExecutionFrequency,
+          )
+          ..add(
+            'resourceTypesScope',
+            resourceTypesScope,
+          )
+          ..add(
+            'resourceIdScope',
+            resourceIdScope,
+          )
+          ..add(
+            'tagKeyScope',
+            tagKeyScope,
+          )
+          ..add(
+            'tagValueScope',
+            tagValueScope,
+          );
     return helper.toString();
   }
 }

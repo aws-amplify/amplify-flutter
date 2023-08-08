@@ -88,9 +88,7 @@ class CsvOutputBuilder implements Builder<CsvOutput, CsvOutputBuilder> {
   set quoteCharacter(String? quoteCharacter) =>
       _$this._quoteCharacter = quoteCharacter;
 
-  CsvOutputBuilder() {
-    CsvOutput._init(this);
-  }
+  CsvOutputBuilder();
 
   CsvOutputBuilder get _$this {
     final $v = _$v;

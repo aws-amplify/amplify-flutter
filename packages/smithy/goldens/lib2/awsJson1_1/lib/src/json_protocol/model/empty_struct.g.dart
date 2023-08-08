@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1_v2.json_protocol.model.empty_struct;
+part of 'empty_struct.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -34,9 +34,7 @@ class _$EmptyStruct extends EmptyStruct {
 class EmptyStructBuilder implements Builder<EmptyStruct, EmptyStructBuilder> {
   _$EmptyStruct? _$v;
 
-  EmptyStructBuilder() {
-    EmptyStruct._init(this);
-  }
+  EmptyStructBuilder();
 
   @override
   void replace(EmptyStruct other) {

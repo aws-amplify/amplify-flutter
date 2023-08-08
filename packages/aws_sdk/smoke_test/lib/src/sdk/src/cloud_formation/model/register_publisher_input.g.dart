@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.register_publisher_input;
+part of 'register_publisher_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -61,9 +61,7 @@ class RegisterPublisherInputBuilder
   set connectionArn(String? connectionArn) =>
       _$this._connectionArn = connectionArn;
 
-  RegisterPublisherInputBuilder() {
-    RegisterPublisherInput._init(this);
-  }
+  RegisterPublisherInputBuilder();
 
   RegisterPublisherInputBuilder get _$this {
     final $v = _$v;

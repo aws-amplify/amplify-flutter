@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.sdk_response;
+part of 'sdk_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class SdkResponseBuilder implements Builder<SdkResponse, SdkResponseBuilder> {
   _i3.Uint8List? get body => _$this._body;
   set body(_i3.Uint8List? body) => _$this._body = body;
 
-  SdkResponseBuilder() {
-    SdkResponse._init(this);
-  }
+  SdkResponseBuilder();
 
   SdkResponseBuilder get _$this {
     final $v = _$v;

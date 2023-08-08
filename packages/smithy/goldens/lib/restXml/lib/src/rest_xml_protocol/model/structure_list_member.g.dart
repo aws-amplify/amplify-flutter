@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v1.rest_xml_protocol.model.structure_list_member;
+part of 'structure_list_member.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class StructureListMemberBuilder
   String? get b => _$this._b;
   set b(String? b) => _$this._b = b;
 
-  StructureListMemberBuilder() {
-    StructureListMember._init(this);
-  }
+  StructureListMemberBuilder();
 
   StructureListMemberBuilder get _$this {
     final $v = _$v;

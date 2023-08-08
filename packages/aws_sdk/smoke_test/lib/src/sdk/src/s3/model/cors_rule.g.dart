@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.cors_rule;
+part of 'cors_rule.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -106,9 +106,7 @@ class CorsRuleBuilder implements Builder<CorsRule, CorsRuleBuilder> {
   set maxAgeSeconds(int? maxAgeSeconds) =>
       _$this._maxAgeSeconds = maxAgeSeconds;
 
-  CorsRuleBuilder() {
-    CorsRule._init(this);
-  }
+  CorsRuleBuilder();
 
   CorsRuleBuilder get _$this {
     final $v = _$v;

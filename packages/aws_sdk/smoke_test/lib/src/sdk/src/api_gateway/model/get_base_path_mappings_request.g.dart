@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.get_base_path_mappings_request;
+part of 'get_base_path_mappings_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -71,9 +71,7 @@ class GetBasePathMappingsRequestBuilder
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
 
-  GetBasePathMappingsRequestBuilder() {
-    GetBasePathMappingsRequest._init(this);
-  }
+  GetBasePathMappingsRequestBuilder();
 
   GetBasePathMappingsRequestBuilder get _$this {
     final $v = _$v;
@@ -148,9 +146,7 @@ class GetBasePathMappingsRequestPayloadBuilder
             GetBasePathMappingsRequestPayloadBuilder> {
   _$GetBasePathMappingsRequestPayload? _$v;
 
-  GetBasePathMappingsRequestPayloadBuilder() {
-    GetBasePathMappingsRequestPayload._init(this);
-  }
+  GetBasePathMappingsRequestPayloadBuilder();
 
   @override
   void replace(GetBasePathMappingsRequestPayload other) {

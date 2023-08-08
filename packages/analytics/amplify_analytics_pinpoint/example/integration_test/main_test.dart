@@ -9,6 +9,7 @@ import 'auto_session_tracking_test.dart' as auto_session_tracking_tests;
 import 'enable_disable_test.dart' as enable_disable_tests;
 import 'events_test.dart' as events_tests;
 import 'identify_user_test.dart' as identify_user_tests;
+import 'no_unauth_test.dart' as no_unauth_access_tests;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -19,5 +20,6 @@ void main() {
     enable_disable_tests.main();
     events_tests.main();
     identify_user_tests.main();
+    no_unauth_access_tests.main();
   });
 }

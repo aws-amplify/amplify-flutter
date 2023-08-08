@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.stack_resource_drift_information;
+part of 'stack_resource_drift_information.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -68,9 +68,7 @@ class StackResourceDriftInformationBuilder
   set lastCheckTimestamp(DateTime? lastCheckTimestamp) =>
       _$this._lastCheckTimestamp = lastCheckTimestamp;
 
-  StackResourceDriftInformationBuilder() {
-    StackResourceDriftInformation._init(this);
-  }
+  StackResourceDriftInformationBuilder();
 
   StackResourceDriftInformationBuilder get _$this {
     final $v = _$v;

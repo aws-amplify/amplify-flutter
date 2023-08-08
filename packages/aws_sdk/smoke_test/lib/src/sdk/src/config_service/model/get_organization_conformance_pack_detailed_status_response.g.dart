@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.get_organization_conformance_pack_detailed_status_response;
+part of 'get_organization_conformance_pack_detailed_status_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -79,9 +79,7 @@ class GetOrganizationConformancePackDetailedStatusResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  GetOrganizationConformancePackDetailedStatusResponseBuilder() {
-    GetOrganizationConformancePackDetailedStatusResponse._init(this);
-  }
+  GetOrganizationConformancePackDetailedStatusResponseBuilder();
 
   GetOrganizationConformancePackDetailedStatusResponseBuilder get _$this {
     final $v = _$v;

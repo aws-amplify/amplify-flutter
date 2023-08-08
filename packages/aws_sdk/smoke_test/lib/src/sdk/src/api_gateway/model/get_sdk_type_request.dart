@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.get_sdk_type_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,8 @@ abstract class GetSdkTypeRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetSdkTypeRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetSdkTypeRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetSdkTypeRequestPayload>>
+      serializers = [GetSdkTypeRequestRestJson1Serializer()];
 
   /// The identifier of the queried SdkType instance.
   String get id;
@@ -69,11 +65,11 @@ abstract class GetSdkTypeRequest
   List<Object?> get props => [id];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetSdkTypeRequest');
-    helper.add(
-      'id',
-      id,
-    );
+    final helper = newBuiltValueToStringHelper('GetSdkTypeRequest')
+      ..add(
+        'id',
+        id,
+      );
     return helper.toString();
   }
 }
@@ -90,8 +86,6 @@ abstract class GetSdkTypeRequestPayload
 
   const GetSdkTypeRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetSdkTypeRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

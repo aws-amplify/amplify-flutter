@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.stream_specification; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,10 +18,9 @@ abstract class StreamSpecification
     implements Built<StreamSpecification, StreamSpecificationBuilder> {
   /// Represents the DynamoDB Streams configuration for a table in DynamoDB.
   factory StreamSpecification({
-    bool? streamEnabled,
+    required bool streamEnabled,
     _i2.StreamViewType? streamViewType,
   }) {
-    streamEnabled ??= false;
     return _$StreamSpecification._(
       streamEnabled: streamEnabled,
       streamViewType: streamViewType,
@@ -35,14 +34,9 @@ abstract class StreamSpecification
 
   const StreamSpecification._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<StreamSpecification>> serializers = [
     StreamSpecificationAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StreamSpecificationBuilder b) {
-    b.streamEnabled = false;
-  }
 
   /// Indicates whether DynamoDB Streams is enabled (true) or disabled (false) on the table.
   bool get streamEnabled;
@@ -64,15 +58,15 @@ abstract class StreamSpecification
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StreamSpecification');
-    helper.add(
-      'streamEnabled',
-      streamEnabled,
-    );
-    helper.add(
-      'streamViewType',
-      streamViewType,
-    );
+    final helper = newBuiltValueToStringHelper('StreamSpecification')
+      ..add(
+        'streamEnabled',
+        streamEnabled,
+      )
+      ..add(
+        'streamViewType',
+        streamViewType,
+      );
     return helper.toString();
   }
 }

@@ -188,9 +188,7 @@ class HeadObjectRequestBuilder
   set checksumMode(_i4.ChecksumMode? checksumMode) =>
       _$this._checksumMode = checksumMode;
 
-  HeadObjectRequestBuilder() {
-    HeadObjectRequest._init(this);
-  }
+  HeadObjectRequestBuilder();
 
   HeadObjectRequestBuilder get _$this {
     final $v = _$v;
@@ -287,9 +285,7 @@ class HeadObjectRequestPayloadBuilder
         Builder<HeadObjectRequestPayload, HeadObjectRequestPayloadBuilder> {
   _$HeadObjectRequestPayload? _$v;
 
-  HeadObjectRequestPayloadBuilder() {
-    HeadObjectRequestPayload._init(this);
-  }
+  HeadObjectRequestPayloadBuilder();
 
   @override
   void replace(HeadObjectRequestPayload other) {

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.list_entities_for_policy_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -50,12 +50,8 @@ abstract class ListEntitiesForPolicyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListEntitiesForPolicyRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListEntitiesForPolicyRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<ListEntitiesForPolicyRequest>>
+      serializers = [ListEntitiesForPolicyRequestAwsQuerySerializer()];
 
   /// The Amazon Resource Name (ARN) of the IAM policy for which you want the versions.
   ///
@@ -99,31 +95,31 @@ abstract class ListEntitiesForPolicyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListEntitiesForPolicyRequest');
-    helper.add(
-      'policyArn',
-      policyArn,
-    );
-    helper.add(
-      'entityFilter',
-      entityFilter,
-    );
-    helper.add(
-      'pathPrefix',
-      pathPrefix,
-    );
-    helper.add(
-      'policyUsageFilter',
-      policyUsageFilter,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'maxItems',
-      maxItems,
-    );
+    final helper = newBuiltValueToStringHelper('ListEntitiesForPolicyRequest')
+      ..add(
+        'policyArn',
+        policyArn,
+      )
+      ..add(
+        'entityFilter',
+        entityFilter,
+      )
+      ..add(
+        'pathPrefix',
+        pathPrefix,
+      )
+      ..add(
+        'policyUsageFilter',
+        policyUsageFilter,
+      )
+      ..add(
+        'marker',
+        marker,
+      )
+      ..add(
+        'maxItems',
+        maxItems,
+      );
     return helper.toString();
   }
 }

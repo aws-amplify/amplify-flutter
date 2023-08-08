@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.inventory_destination; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -29,12 +29,9 @@ abstract class InventoryDestination
 
   const InventoryDestination._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<InventoryDestination>> serializers = [
     InventoryDestinationRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InventoryDestinationBuilder b) {}
 
   /// Contains the bucket name, file format, bucket owner (optional), and prefix (optional) where inventory results are published.
   _i2.InventoryS3BucketDestination get s3BucketDestination;
@@ -42,11 +39,11 @@ abstract class InventoryDestination
   List<Object?> get props => [s3BucketDestination];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InventoryDestination');
-    helper.add(
-      's3BucketDestination',
-      s3BucketDestination,
-    );
+    final helper = newBuiltValueToStringHelper('InventoryDestination')
+      ..add(
+        's3BucketDestination',
+        s3BucketDestination,
+      );
     return helper.toString();
   }
 }

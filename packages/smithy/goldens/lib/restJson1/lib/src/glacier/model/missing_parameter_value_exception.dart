@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.glacier.model.missing_parameter_value_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,12 +44,9 @@ abstract class MissingParameterValueException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    MissingParameterValueExceptionRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<MissingParameterValueException>>
+      serializers = [MissingParameterValueExceptionRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MissingParameterValueExceptionBuilder b) {}
   String? get type;
   String? get code;
   @override
@@ -77,20 +74,19 @@ abstract class MissingParameterValueException
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('MissingParameterValueException');
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'code',
-      code,
-    );
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('MissingParameterValueException')
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'code',
+        code,
+      )
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

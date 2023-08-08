@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v1.query_protocol.model.xml_int_enums_output;
+part of 'xml_int_enums_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -101,9 +101,7 @@ class XmlIntEnumsOutputBuilder
   set intEnumMap(_i2.MapBuilder<String, int>? intEnumMap) =>
       _$this._intEnumMap = intEnumMap;
 
-  XmlIntEnumsOutputBuilder() {
-    XmlIntEnumsOutput._init(this);
-  }
+  XmlIntEnumsOutputBuilder();
 
   XmlIntEnumsOutputBuilder get _$this {
     final $v = _$v;

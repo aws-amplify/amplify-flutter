@@ -1,10 +1,10 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.delete_item_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i2;
-import 'package:built_collection/built_collection.dart' as _i9;
+import 'package:built_collection/built_collection.dart' as _i10;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
@@ -20,6 +20,8 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_item_collection_me
     as _i8;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_value.dart'
     as _i6;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_values_on_condition_check_failure.dart'
+    as _i9;
 
 part 'delete_item_input.g.dart';
 
@@ -39,11 +41,13 @@ abstract class DeleteItemInput
     String? conditionExpression,
     Map<String, String>? expressionAttributeNames,
     Map<String, _i3.AttributeValue>? expressionAttributeValues,
+    _i9.ReturnValuesOnConditionCheckFailure?
+        returnValuesOnConditionCheckFailure,
   }) {
     return _$DeleteItemInput._(
       tableName: tableName,
-      key: _i9.BuiltMap(key),
-      expected: expected == null ? null : _i9.BuiltMap(expected),
+      key: _i10.BuiltMap(key),
+      expected: expected == null ? null : _i10.BuiltMap(expected),
       conditionalOperator: conditionalOperator,
       returnValues: returnValues,
       returnConsumedCapacity: returnConsumedCapacity,
@@ -51,10 +55,11 @@ abstract class DeleteItemInput
       conditionExpression: conditionExpression,
       expressionAttributeNames: expressionAttributeNames == null
           ? null
-          : _i9.BuiltMap(expressionAttributeNames),
+          : _i10.BuiltMap(expressionAttributeNames),
       expressionAttributeValues: expressionAttributeValues == null
           ? null
-          : _i9.BuiltMap(expressionAttributeValues),
+          : _i10.BuiltMap(expressionAttributeValues),
+      returnValuesOnConditionCheckFailure: returnValuesOnConditionCheckFailure,
     );
   }
 
@@ -71,23 +76,20 @@ abstract class DeleteItemInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<DeleteItemInput>> serializers = [
     DeleteItemInputAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteItemInputBuilder b) {}
 
   /// The name of the table from which to delete the item.
   String get tableName;
 
   /// A map of attribute names to `AttributeValue` objects, representing the primary key of the item to delete.
   ///
-  /// For the primary key, you must provide all of the attributes. For example, with a simple primary key, you only need to provide a value for the partition key. For a composite primary key, you must provide values for both the partition key and the sort key.
-  _i9.BuiltMap<String, _i3.AttributeValue> get key;
+  /// For the primary key, you must provide all of the key attributes. For example, with a simple primary key, you only need to provide a value for the partition key. For a composite primary key, you must provide values for both the partition key and the sort key.
+  _i10.BuiltMap<String, _i3.AttributeValue> get key;
 
   /// This is a legacy parameter. Use `ConditionExpression` instead. For more information, see [Expected](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.Expected.html) in the _Amazon DynamoDB Developer Guide_.
-  _i9.BuiltMap<String, _i4.ExpectedAttributeValue>? get expected;
+  _i10.BuiltMap<String, _i4.ExpectedAttributeValue>? get expected;
 
   /// This is a legacy parameter. Use `ConditionExpression` instead. For more information, see [ConditionalOperator](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html) in the _Amazon DynamoDB Developer Guide_.
   _i5.ConditionalOperator? get conditionalOperator;
@@ -161,7 +163,7 @@ abstract class DeleteItemInput
   /// Tokens that begin with the **:** character are _expression attribute values_, which are placeholders for the actual value at runtime.
   ///
   /// For more information on expression attribute names, see [Specifying Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html) in the _Amazon DynamoDB Developer Guide_.
-  _i9.BuiltMap<String, String>? get expressionAttributeNames;
+  _i10.BuiltMap<String, String>? get expressionAttributeNames;
 
   /// One or more values that can be substituted in an expression.
   ///
@@ -178,7 +180,13 @@ abstract class DeleteItemInput
   /// `ProductStatus IN (:avail, :back, :disc)`
   ///
   /// For more information on expression attribute values, see [Condition Expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html) in the _Amazon DynamoDB Developer Guide_.
-  _i9.BuiltMap<String, _i3.AttributeValue>? get expressionAttributeValues;
+  _i10.BuiltMap<String, _i3.AttributeValue>? get expressionAttributeValues;
+
+  /// An optional parameter that returns the item attributes for a `DeleteItem` operation that failed a condition check.
+  ///
+  /// There is no additional cost associated with requesting a return value aside from the small network and processing overhead of receiving a larger response. No read capacity units are consumed.
+  _i9.ReturnValuesOnConditionCheckFailure?
+      get returnValuesOnConditionCheckFailure;
   @override
   DeleteItemInput getPayload() => this;
   @override
@@ -193,50 +201,55 @@ abstract class DeleteItemInput
         conditionExpression,
         expressionAttributeNames,
         expressionAttributeValues,
+        returnValuesOnConditionCheckFailure,
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteItemInput');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'expected',
-      expected,
-    );
-    helper.add(
-      'conditionalOperator',
-      conditionalOperator,
-    );
-    helper.add(
-      'returnValues',
-      returnValues,
-    );
-    helper.add(
-      'returnConsumedCapacity',
-      returnConsumedCapacity,
-    );
-    helper.add(
-      'returnItemCollectionMetrics',
-      returnItemCollectionMetrics,
-    );
-    helper.add(
-      'conditionExpression',
-      conditionExpression,
-    );
-    helper.add(
-      'expressionAttributeNames',
-      expressionAttributeNames,
-    );
-    helper.add(
-      'expressionAttributeValues',
-      expressionAttributeValues,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteItemInput')
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'expected',
+        expected,
+      )
+      ..add(
+        'conditionalOperator',
+        conditionalOperator,
+      )
+      ..add(
+        'returnValues',
+        returnValues,
+      )
+      ..add(
+        'returnConsumedCapacity',
+        returnConsumedCapacity,
+      )
+      ..add(
+        'returnItemCollectionMetrics',
+        returnItemCollectionMetrics,
+      )
+      ..add(
+        'conditionExpression',
+        conditionExpression,
+      )
+      ..add(
+        'expressionAttributeNames',
+        expressionAttributeNames,
+      )
+      ..add(
+        'expressionAttributeValues',
+        expressionAttributeValues,
+      )
+      ..add(
+        'returnValuesOnConditionCheckFailure',
+        returnValuesOnConditionCheckFailure,
+      );
     return helper.toString();
   }
 }
@@ -282,24 +295,24 @@ class DeleteItemInputAwsJson10Serializer
           result.key.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i9.BuiltMap,
+              _i10.BuiltMap,
               [
                 FullType(String),
                 FullType(_i3.AttributeValue),
               ],
             ),
-          ) as _i9.BuiltMap<String, _i3.AttributeValue>));
+          ) as _i10.BuiltMap<String, _i3.AttributeValue>));
         case 'Expected':
           result.expected.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i9.BuiltMap,
+              _i10.BuiltMap,
               [
                 FullType(String),
                 FullType(_i4.ExpectedAttributeValue),
               ],
             ),
-          ) as _i9.BuiltMap<String, _i4.ExpectedAttributeValue>));
+          ) as _i10.BuiltMap<String, _i4.ExpectedAttributeValue>));
         case 'ConditionalOperator':
           result.conditionalOperator = (serializers.deserialize(
             value,
@@ -329,24 +342,30 @@ class DeleteItemInputAwsJson10Serializer
           result.expressionAttributeNames.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i9.BuiltMap,
+              _i10.BuiltMap,
               [
                 FullType(String),
                 FullType(String),
               ],
             ),
-          ) as _i9.BuiltMap<String, String>));
+          ) as _i10.BuiltMap<String, String>));
         case 'ExpressionAttributeValues':
           result.expressionAttributeValues.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i9.BuiltMap,
+              _i10.BuiltMap,
               [
                 FullType(String),
                 FullType(_i3.AttributeValue),
               ],
             ),
-          ) as _i9.BuiltMap<String, _i3.AttributeValue>));
+          ) as _i10.BuiltMap<String, _i3.AttributeValue>));
+        case 'ReturnValuesOnConditionCheckFailure':
+          result.returnValuesOnConditionCheckFailure = (serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i9.ReturnValuesOnConditionCheckFailure),
+          ) as _i9.ReturnValuesOnConditionCheckFailure);
       }
     }
 
@@ -370,7 +389,8 @@ class DeleteItemInputAwsJson10Serializer
       :returnItemCollectionMetrics,
       :conditionExpression,
       :expressionAttributeNames,
-      :expressionAttributeValues
+      :expressionAttributeValues,
+      :returnValuesOnConditionCheckFailure
     ) = object;
     result$.addAll([
       'TableName',
@@ -382,7 +402,7 @@ class DeleteItemInputAwsJson10Serializer
       serializers.serialize(
         key,
         specifiedType: const FullType(
-          _i9.BuiltMap,
+          _i10.BuiltMap,
           [
             FullType(String),
             FullType(_i3.AttributeValue),
@@ -396,7 +416,7 @@ class DeleteItemInputAwsJson10Serializer
         ..add(serializers.serialize(
           expected,
           specifiedType: const FullType(
-            _i9.BuiltMap,
+            _i10.BuiltMap,
             [
               FullType(String),
               FullType(_i4.ExpectedAttributeValue),
@@ -450,7 +470,7 @@ class DeleteItemInputAwsJson10Serializer
         ..add(serializers.serialize(
           expressionAttributeNames,
           specifiedType: const FullType(
-            _i9.BuiltMap,
+            _i10.BuiltMap,
             [
               FullType(String),
               FullType(String),
@@ -464,12 +484,21 @@ class DeleteItemInputAwsJson10Serializer
         ..add(serializers.serialize(
           expressionAttributeValues,
           specifiedType: const FullType(
-            _i9.BuiltMap,
+            _i10.BuiltMap,
             [
               FullType(String),
               FullType(_i3.AttributeValue),
             ],
           ),
+        ));
+    }
+    if (returnValuesOnConditionCheckFailure != null) {
+      result$
+        ..add('ReturnValuesOnConditionCheckFailure')
+        ..add(serializers.serialize(
+          returnValuesOnConditionCheckFailure,
+          specifiedType:
+              const FullType(_i9.ReturnValuesOnConditionCheckFailure),
         ));
     }
     return result$;

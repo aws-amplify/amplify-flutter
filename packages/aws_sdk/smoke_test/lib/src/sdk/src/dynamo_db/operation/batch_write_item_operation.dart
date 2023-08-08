@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.operation.batch_write_item_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,7 +32,7 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/resource_not_found_except
 
 /// The `BatchWriteItem` operation puts or deletes multiple items in one or more tables. A single call to `BatchWriteItem` can transmit up to 16MB of data over the network, consisting of up to 25 item put or delete operations. While individual items can be up to 400 KB once stored, it's important to note that an item's representation might be greater than 400KB while being sent in DynamoDB's JSON format for the API call. For more details on this distinction, see [Naming Rules and Data Types](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html).
 ///
-/// `BatchWriteItem` cannot update items. To update items, use the `UpdateItem` action.
+/// `BatchWriteItem` cannot update items. If you perform a `BatchWriteItem` operation on an existing item, that item's values will be overwritten by the operation and it will appear like it was updated. To update items, we recommend you use the `UpdateItem` action.
 ///
 /// The individual `PutItem` and `DeleteItem` operations specified in `BatchWriteItem` are atomic; however `BatchWriteItem` as a whole is not. If any requested operations fail because the table's provisioned throughput is exceeded or an internal processing failure occurs, the failed operations are returned in the `UnprocessedItems` response parameter. You can investigate and optionally resend the requests. Typically, you would call `BatchWriteItem` in a loop. Each iteration would check for unprocessed items and submit a new `BatchWriteItem` request with those unprocessed items until all items have been processed.
 ///
@@ -70,7 +70,7 @@ class BatchWriteItemOperation extends _i1.HttpOperation<
     _i3.BatchWriteItemOutput> {
   /// The `BatchWriteItem` operation puts or deletes multiple items in one or more tables. A single call to `BatchWriteItem` can transmit up to 16MB of data over the network, consisting of up to 25 item put or delete operations. While individual items can be up to 400 KB once stored, it's important to note that an item's representation might be greater than 400KB while being sent in DynamoDB's JSON format for the API call. For more details on this distinction, see [Naming Rules and Data Types](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html).
   ///
-  /// `BatchWriteItem` cannot update items. To update items, use the `UpdateItem` action.
+  /// `BatchWriteItem` cannot update items. If you perform a `BatchWriteItem` operation on an existing item, that item's values will be overwritten by the operation and it will appear like it was updated. To update items, we recommend you use the `UpdateItem` action.
   ///
   /// The individual `PutItem` and `DeleteItem` operations specified in `BatchWriteItem` are atomic; however `BatchWriteItem` as a whole is not. If any requested operations fail because the table's provisioned throughput is exceeded or an internal processing failure occurs, the failed operations are returned in the `UnprocessedItems` response parameter. You can investigate and optionally resend the requests. Typically, you would call `BatchWriteItem` in a loop. Each iteration would check for unprocessed items and submit a new `BatchWriteItem` request with those unprocessed items until all items have been processed.
   ///
@@ -177,7 +177,7 @@ class BatchWriteItemOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InternalServerError, _i9.InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
@@ -186,7 +186,8 @@ class BatchWriteItemOperation extends _i1.HttpOperation<
           _i9.InternalServerError,
           builder: _i9.InternalServerError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidEndpointException,
+            _i10.InvalidEndpointException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InvalidEndpointException',
@@ -196,7 +197,8 @@ class BatchWriteItemOperation extends _i1.HttpOperation<
           statusCode: 421,
           builder: _i10.InvalidEndpointException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.ItemCollectionSizeLimitExceededException,
+            _i11.ItemCollectionSizeLimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ItemCollectionSizeLimitExceededException',
@@ -205,7 +207,8 @@ class BatchWriteItemOperation extends _i1.HttpOperation<
           _i11.ItemCollectionSizeLimitExceededException,
           builder: _i11.ItemCollectionSizeLimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.ProvisionedThroughputExceededException,
+            _i12.ProvisionedThroughputExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ProvisionedThroughputExceededException',
@@ -214,7 +217,7 @@ class BatchWriteItemOperation extends _i1.HttpOperation<
           _i12.ProvisionedThroughputExceededException,
           builder: _i12.ProvisionedThroughputExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.RequestLimitExceeded, _i13.RequestLimitExceeded>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'RequestLimitExceeded',
@@ -223,7 +226,8 @@ class BatchWriteItemOperation extends _i1.HttpOperation<
           _i13.RequestLimitExceeded,
           builder: _i13.RequestLimitExceeded.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.ResourceNotFoundException,
+            _i14.ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ResourceNotFoundException',
@@ -255,7 +259,7 @@ class BatchWriteItemOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

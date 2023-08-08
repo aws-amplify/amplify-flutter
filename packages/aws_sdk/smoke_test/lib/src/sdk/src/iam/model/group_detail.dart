@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.group_detail; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -53,12 +53,9 @@ abstract class GroupDetail
 
   const GroupDetail._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<GroupDetail>> serializers = [
     GroupDetailAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GroupDetailBuilder b) {}
 
   /// The path to the group. For more information about paths, see [IAM identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html) in the _IAM User Guide_.
   String? get path;
@@ -94,35 +91,35 @@ abstract class GroupDetail
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GroupDetail');
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'groupName',
-      groupName,
-    );
-    helper.add(
-      'groupId',
-      groupId,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'createDate',
-      createDate,
-    );
-    helper.add(
-      'groupPolicyList',
-      groupPolicyList,
-    );
-    helper.add(
-      'attachedManagedPolicies',
-      attachedManagedPolicies,
-    );
+    final helper = newBuiltValueToStringHelper('GroupDetail')
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'groupName',
+        groupName,
+      )
+      ..add(
+        'groupId',
+        groupId,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'createDate',
+        createDate,
+      )
+      ..add(
+        'groupPolicyList',
+        groupPolicyList,
+      )
+      ..add(
+        'attachedManagedPolicies',
+        attachedManagedPolicies,
+      );
     return helper.toString();
   }
 }

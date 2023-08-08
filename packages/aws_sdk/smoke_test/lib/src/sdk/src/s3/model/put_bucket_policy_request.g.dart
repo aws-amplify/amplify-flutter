@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.put_bucket_policy_request;
+part of 'put_bucket_policy_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -105,9 +105,7 @@ class PutBucketPolicyRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  PutBucketPolicyRequestBuilder() {
-    PutBucketPolicyRequest._init(this);
-  }
+  PutBucketPolicyRequestBuilder();
 
   PutBucketPolicyRequestBuilder get _$this {
     final $v = _$v;

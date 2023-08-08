@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.operation.get_compliance_details_by_resource_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,7 +23,7 @@ import 'package:smoke_test/src/sdk/src/config_service/model/get_compliance_detai
 import 'package:smoke_test/src/sdk/src/config_service/model/invalid_parameter_value_exception.dart'
     as _i11;
 
-/// Returns the evaluation results for the specified Amazon Web Services resource. The results indicate which Config rules were used to evaluate the resource, when each rule was last used, and whether the resource complies with each rule.
+/// Returns the evaluation results for the specified Amazon Web Services resource. The results indicate which Config rules were used to evaluate the resource, when each rule was last invoked, and whether the resource complies with each rule.
 class GetComplianceDetailsByResourceOperation
     extends _i1.PaginatedHttpOperation<
         _i2.GetComplianceDetailsByResourceRequest,
@@ -33,7 +33,7 @@ class GetComplianceDetailsByResourceOperation
         String,
         void,
         _i4.BuiltList<_i5.EvaluationResult>> {
-  /// Returns the evaluation results for the specified Amazon Web Services resource. The results indicate which Config rules were used to evaluate the resource, when each rule was last used, and whether the resource complies with each rule.
+  /// Returns the evaluation results for the specified Amazon Web Services resource. The results indicate which Config rules were used to evaluate the resource, when each rule was last invoked, and whether the resource complies with each rule.
   GetComplianceDetailsByResourceOperation({
     required String region,
     Uri? baseUri,
@@ -114,7 +114,8 @@ class GetComplianceDetailsByResourceOperation
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidParameterValueException,
+            _i11.InvalidParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidParameterValueException',
@@ -146,7 +147,7 @@ class GetComplianceDetailsByResourceOperation
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)}
+        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)},
       },
     );
   }

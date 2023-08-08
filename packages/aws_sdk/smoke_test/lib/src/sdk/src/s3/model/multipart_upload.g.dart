@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.multipart_upload;
+part of 'multipart_upload.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -107,9 +107,7 @@ class MultipartUploadBuilder
   set checksumAlgorithm(_i5.ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
-  MultipartUploadBuilder() {
-    MultipartUpload._init(this);
-  }
+  MultipartUploadBuilder();
 
   MultipartUploadBuilder get _$this {
     final $v = _$v;

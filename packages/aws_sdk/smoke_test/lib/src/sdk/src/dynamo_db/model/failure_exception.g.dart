@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.failure_exception;
+part of 'failure_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -59,9 +59,7 @@ class FailureExceptionBuilder
   set exceptionDescription(String? exceptionDescription) =>
       _$this._exceptionDescription = exceptionDescription;
 
-  FailureExceptionBuilder() {
-    FailureException._init(this);
-  }
+  FailureExceptionBuilder();
 
   FailureExceptionBuilder get _$this {
     final $v = _$v;

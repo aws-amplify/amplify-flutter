@@ -132,6 +132,12 @@ class S3DownloadTask {
 
     _state = StorageTransferState.inProgress;
 
+    if (_s3PluginOptions.useAccelerateEndpoint &&
+        _defaultS3ClientConfig.usePathStyle) {
+      await _completeDownloadWithError(s3_exception.accelerateEndpointUnusable);
+      return;
+    }
+
     try {
       await _preStart?.call();
     } on Exception catch (error, stackTrace) {

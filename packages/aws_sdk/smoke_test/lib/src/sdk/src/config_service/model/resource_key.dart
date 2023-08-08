@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.resource_key; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,9 @@ abstract class ResourceKey
 
   const ResourceKey._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ResourceKey>> serializers = [
     ResourceKeyAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceKeyBuilder b) {}
 
   /// The resource type.
   _i2.ResourceType get resourceType;
@@ -52,15 +49,15 @@ abstract class ResourceKey
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResourceKey');
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
+    final helper = newBuiltValueToStringHelper('ResourceKey')
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      );
     return helper.toString();
   }
 }

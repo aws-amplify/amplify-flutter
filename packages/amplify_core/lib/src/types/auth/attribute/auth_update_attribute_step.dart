@@ -3,6 +3,7 @@
 
 import 'package:amplify_core/src/types/auth/attribute/auth_next_update_attribute_step.dart';
 
+/// {@category Auth}
 /// {@template amplify_core.auth.auth_update_attribute_step}
 /// The current step in the attribute update flow.
 /// {@endtemplate}

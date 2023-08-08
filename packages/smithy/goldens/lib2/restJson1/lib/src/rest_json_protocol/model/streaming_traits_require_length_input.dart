@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v2.rest_json_protocol.model.streaming_traits_require_length_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,7 +38,7 @@ abstract class StreamingTraitsRequireLengthInput
   const StreamingTraitsRequireLengthInput._();
 
   factory StreamingTraitsRequireLengthInput.fromRequest(
-    _i2.Stream<List<int>>? payload,
+    _i2.Stream<List<int>> payload,
     _i3.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
@@ -49,7 +49,7 @@ abstract class StreamingTraitsRequireLengthInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.Stream<List<int>>>> serializers = [
     StreamingTraitsRequireLengthInputRestJson1Serializer()
   ];
 
@@ -59,9 +59,9 @@ abstract class StreamingTraitsRequireLengthInput
   }
 
   String? get foo;
-  _i2.Stream<List<int>>? get blob;
+  _i2.Stream<List<int>> get blob;
   @override
-  _i2.Stream<List<int>>? getPayload() => blob;
+  _i2.Stream<List<int>> getPayload() => blob;
   @override
   List<Object?> get props => [
         foo,
@@ -70,15 +70,15 @@ abstract class StreamingTraitsRequireLengthInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('StreamingTraitsRequireLengthInput');
-    helper.add(
-      'foo',
-      foo,
-    );
-    helper.add(
-      'blob',
-      blob,
-    );
+        newBuiltValueToStringHelper('StreamingTraitsRequireLengthInput')
+          ..add(
+            'foo',
+            foo,
+          )
+          ..add(
+            'blob',
+            blob,
+          );
     return helper.toString();
   }
 }

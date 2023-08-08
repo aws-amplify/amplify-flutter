@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.update_replication_group_member_action; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -49,12 +49,8 @@ abstract class UpdateReplicationGroupMemberAction
 
   const UpdateReplicationGroupMemberAction._();
 
-  static const List<_i6.SmithySerializer> serializers = [
-    UpdateReplicationGroupMemberActionAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateReplicationGroupMemberActionBuilder b) {}
+  static const List<_i6.SmithySerializer<UpdateReplicationGroupMemberAction>>
+      serializers = [UpdateReplicationGroupMemberActionAwsJson10Serializer()];
 
   /// The Region where the replica exists.
   String get regionName;
@@ -81,27 +77,27 @@ abstract class UpdateReplicationGroupMemberAction
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateReplicationGroupMemberAction');
-    helper.add(
-      'regionName',
-      regionName,
-    );
-    helper.add(
-      'kmsMasterKeyId',
-      kmsMasterKeyId,
-    );
-    helper.add(
-      'provisionedThroughputOverride',
-      provisionedThroughputOverride,
-    );
-    helper.add(
-      'globalSecondaryIndexes',
-      globalSecondaryIndexes,
-    );
-    helper.add(
-      'tableClassOverride',
-      tableClassOverride,
-    );
+        newBuiltValueToStringHelper('UpdateReplicationGroupMemberAction')
+          ..add(
+            'regionName',
+            regionName,
+          )
+          ..add(
+            'kmsMasterKeyId',
+            kmsMasterKeyId,
+          )
+          ..add(
+            'provisionedThroughputOverride',
+            provisionedThroughputOverride,
+          )
+          ..add(
+            'globalSecondaryIndexes',
+            globalSecondaryIndexes,
+          )
+          ..add(
+            'tableClassOverride',
+            tableClassOverride,
+          );
     return helper.toString();
   }
 }

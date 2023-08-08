@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.delete_bucket_policy_request;
+part of 'delete_bucket_policy_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -64,9 +64,7 @@ class DeleteBucketPolicyRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  DeleteBucketPolicyRequestBuilder() {
-    DeleteBucketPolicyRequest._init(this);
-  }
+  DeleteBucketPolicyRequestBuilder();
 
   DeleteBucketPolicyRequestBuilder get _$this {
     final $v = _$v;
@@ -138,9 +136,7 @@ class DeleteBucketPolicyRequestPayloadBuilder
             DeleteBucketPolicyRequestPayloadBuilder> {
   _$DeleteBucketPolicyRequestPayload? _$v;
 
-  DeleteBucketPolicyRequestPayloadBuilder() {
-    DeleteBucketPolicyRequestPayload._init(this);
-  }
+  DeleteBucketPolicyRequestPayloadBuilder();
 
   @override
   void replace(DeleteBucketPolicyRequestPayload other) {

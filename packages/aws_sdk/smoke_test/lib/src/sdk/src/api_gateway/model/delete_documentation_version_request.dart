@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.delete_documentation_version_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -53,12 +53,9 @@ abstract class DeleteDocumentationVersionRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteDocumentationVersionRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteDocumentationVersionRequestBuilder b) {}
+  static const List<
+          _i1.SmithySerializer<DeleteDocumentationVersionRequestPayload>>
+      serializers = [DeleteDocumentationVersionRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -90,15 +87,15 @@ abstract class DeleteDocumentationVersionRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeleteDocumentationVersionRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'documentationVersion',
-      documentationVersion,
-    );
+        newBuiltValueToStringHelper('DeleteDocumentationVersionRequest')
+          ..add(
+            'restApiId',
+            restApiId,
+          )
+          ..add(
+            'documentationVersion',
+            documentationVersion,
+          );
     return helper.toString();
   }
 }
@@ -117,8 +114,6 @@ abstract class DeleteDocumentationVersionRequestPayload
 
   const DeleteDocumentationVersionRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteDocumentationVersionRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

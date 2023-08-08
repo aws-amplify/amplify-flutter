@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.service_unavailable_exception;
+part of 'service_unavailable_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -68,9 +68,7 @@ class ServiceUnavailableExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ServiceUnavailableExceptionBuilder() {
-    ServiceUnavailableException._init(this);
-  }
+  ServiceUnavailableExceptionBuilder();
 
   ServiceUnavailableExceptionBuilder get _$this {
     final $v = _$v;
@@ -156,9 +154,7 @@ class ServiceUnavailableExceptionPayloadBuilder
   String? get message => _$this._message;
   set message(String? message) => _$this._message = message;
 
-  ServiceUnavailableExceptionPayloadBuilder() {
-    ServiceUnavailableExceptionPayload._init(this);
-  }
+  ServiceUnavailableExceptionPayloadBuilder();
 
   ServiceUnavailableExceptionPayloadBuilder get _$this {
     final $v = _$v;

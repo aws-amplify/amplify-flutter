@@ -5,6 +5,7 @@ import 'package:amplify_core/amplify_core.dart';
 
 part 'update_user_attribute_result.g.dart';
 
+/// {@category Auth}
 /// {@template amplify_core.update_user_attribute_result}
 /// Wraps the result of an update user attribute operation.
 /// {@endtemplate}

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.member_account_status; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,9 @@ abstract class MemberAccountStatus
 
   const MemberAccountStatus._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<MemberAccountStatus>> serializers = [
     MemberAccountStatusAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MemberAccountStatusBuilder b) {}
 
   /// The 12-digit account ID of a member account.
   String get accountId;
@@ -55,7 +52,7 @@ abstract class MemberAccountStatus
   /// The name of Config rule deployed in the member account.
   String get configRuleName;
 
-  /// Indicates deployment status for Config rule in the member account. When master account calls `PutOrganizationConfigRule` action for the first time, Config rule status is created in the member account. When master account calls `PutOrganizationConfigRule` action for the second time, Config rule status is updated in the member account. Config rule status is deleted when the master account deletes `OrganizationConfigRule` and disables service access for `config-multiaccountsetup.amazonaws.com`.
+  /// Indicates deployment status for Config rule in the member account. When management account calls `PutOrganizationConfigRule` action for the first time, Config rule status is created in the member account. When management account calls `PutOrganizationConfigRule` action for the second time, Config rule status is updated in the member account. Config rule status is deleted when the management account deletes `OrganizationConfigRule` and disables service access for `config-multiaccountsetup.amazonaws.com`.
   ///
   /// Config sets the state of the rule to:
   ///
@@ -97,31 +94,31 @@ abstract class MemberAccountStatus
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MemberAccountStatus');
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'memberAccountRuleStatus',
-      memberAccountRuleStatus,
-    );
-    helper.add(
-      'errorCode',
-      errorCode,
-    );
-    helper.add(
-      'errorMessage',
-      errorMessage,
-    );
-    helper.add(
-      'lastUpdateTime',
-      lastUpdateTime,
-    );
+    final helper = newBuiltValueToStringHelper('MemberAccountStatus')
+      ..add(
+        'accountId',
+        accountId,
+      )
+      ..add(
+        'configRuleName',
+        configRuleName,
+      )
+      ..add(
+        'memberAccountRuleStatus',
+        memberAccountRuleStatus,
+      )
+      ..add(
+        'errorCode',
+        errorCode,
+      )
+      ..add(
+        'errorMessage',
+        errorMessage,
+      )
+      ..add(
+        'lastUpdateTime',
+        lastUpdateTime,
+      );
     return helper.toString();
   }
 }

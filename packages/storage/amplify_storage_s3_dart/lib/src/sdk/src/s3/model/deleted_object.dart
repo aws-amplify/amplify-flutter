@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_storage_s3_dart.s3.model.deleted_object; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,12 +35,9 @@ abstract class DeletedObject
 
   const DeletedObject._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<DeletedObject>> serializers = [
     DeletedObjectRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeletedObjectBuilder b) {}
 
   /// The name of the deleted object.
   String? get key;
@@ -62,23 +59,23 @@ abstract class DeletedObject
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeletedObject');
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'deleteMarker',
-      deleteMarker,
-    );
-    helper.add(
-      'deleteMarkerVersionId',
-      deleteMarkerVersionId,
-    );
+    final helper = newBuiltValueToStringHelper('DeletedObject')
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'deleteMarker',
+        deleteMarker,
+      )
+      ..add(
+        'deleteMarkerVersionId',
+        deleteMarkerVersionId,
+      );
     return helper.toString();
   }
 }

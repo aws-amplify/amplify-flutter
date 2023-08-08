@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.update_stack_set_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -54,11 +54,6 @@ abstract class UpdateStackSetInput
     _i10.CallAs? callAs,
     _i11.ManagedExecution? managedExecution,
   }) {
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      operationId ??= '00000000-0000-4000-8000-000000000000';
-    } else {
-      operationId ??= _i2.uuid(secure: true);
-    }
     return _$UpdateStackSetInput._(
       stackSetName: stackSetName,
       description: description,
@@ -95,17 +90,15 @@ abstract class UpdateStackSetInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<UpdateStackSetInput>> serializers = [
     UpdateStackSetInputAwsQuerySerializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateStackSetInputBuilder b) {
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      b.operationId = '00000000-0000-4000-8000-000000000000';
-    } else {
-      b.operationId = _i2.uuid(secure: true);
-    }
+    b.operationId = const bool.hasEnvironment('SMITHY_TEST')
+        ? '00000000-0000-4000-8000-000000000000'
+        : _i2.uuid(secure: true);
   }
 
   /// The name or unique ID of the stack set that you want to update.
@@ -285,83 +278,83 @@ abstract class UpdateStackSetInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateStackSetInput');
-    helper.add(
-      'stackSetName',
-      stackSetName,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'templateBody',
-      templateBody,
-    );
-    helper.add(
-      'templateUrl',
-      templateUrl,
-    );
-    helper.add(
-      'usePreviousTemplate',
-      usePreviousTemplate,
-    );
-    helper.add(
-      'parameters',
-      parameters,
-    );
-    helper.add(
-      'capabilities',
-      capabilities,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'operationPreferences',
-      operationPreferences,
-    );
-    helper.add(
-      'administrationRoleArn',
-      administrationRoleArn,
-    );
-    helper.add(
-      'executionRoleName',
-      executionRoleName,
-    );
-    helper.add(
-      'deploymentTargets',
-      deploymentTargets,
-    );
-    helper.add(
-      'permissionModel',
-      permissionModel,
-    );
-    helper.add(
-      'autoDeployment',
-      autoDeployment,
-    );
-    helper.add(
-      'operationId',
-      operationId,
-    );
-    helper.add(
-      'accounts',
-      accounts,
-    );
-    helper.add(
-      'regions',
-      regions,
-    );
-    helper.add(
-      'callAs',
-      callAs,
-    );
-    helper.add(
-      'managedExecution',
-      managedExecution,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateStackSetInput')
+      ..add(
+        'stackSetName',
+        stackSetName,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'templateBody',
+        templateBody,
+      )
+      ..add(
+        'templateUrl',
+        templateUrl,
+      )
+      ..add(
+        'usePreviousTemplate',
+        usePreviousTemplate,
+      )
+      ..add(
+        'parameters',
+        parameters,
+      )
+      ..add(
+        'capabilities',
+        capabilities,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'operationPreferences',
+        operationPreferences,
+      )
+      ..add(
+        'administrationRoleArn',
+        administrationRoleArn,
+      )
+      ..add(
+        'executionRoleName',
+        executionRoleName,
+      )
+      ..add(
+        'deploymentTargets',
+        deploymentTargets,
+      )
+      ..add(
+        'permissionModel',
+        permissionModel,
+      )
+      ..add(
+        'autoDeployment',
+        autoDeployment,
+      )
+      ..add(
+        'operationId',
+        operationId,
+      )
+      ..add(
+        'accounts',
+        accounts,
+      )
+      ..add(
+        'regions',
+        regions,
+      )
+      ..add(
+        'callAs',
+        callAs,
+      )
+      ..add(
+        'managedExecution',
+        managedExecution,
+      );
     return helper.toString();
   }
 }

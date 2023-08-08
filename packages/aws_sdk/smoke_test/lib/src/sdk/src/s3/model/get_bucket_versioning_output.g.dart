@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_bucket_versioning_output;
+part of 'get_bucket_versioning_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -59,9 +59,7 @@ class GetBucketVersioningOutputBuilder
   set mfaDelete(_i3.MfaDeleteStatus? mfaDelete) =>
       _$this._mfaDelete = mfaDelete;
 
-  GetBucketVersioningOutputBuilder() {
-    GetBucketVersioningOutput._init(this);
-  }
+  GetBucketVersioningOutputBuilder();
 
   GetBucketVersioningOutputBuilder get _$this {
     final $v = _$v;

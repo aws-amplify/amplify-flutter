@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.get_account_authorization_details_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,6 +32,7 @@ abstract class GetAccountAuthorizationDetailsResponse
     bool? isTruncated,
     String? marker,
   }) {
+    isTruncated ??= false;
     return _$GetAccountAuthorizationDetailsResponse._(
       userDetailList:
           userDetailList == null ? null : _i6.BuiltList(userDetailList),
@@ -59,12 +60,16 @@ abstract class GetAccountAuthorizationDetailsResponse
   ) =>
       payload;
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<
+          _i7.SmithySerializer<GetAccountAuthorizationDetailsResponse>>
+      serializers = [
     GetAccountAuthorizationDetailsResponseAwsQuerySerializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetAccountAuthorizationDetailsResponseBuilder b) {}
+  static void _init(GetAccountAuthorizationDetailsResponseBuilder b) {
+    b.isTruncated = false;
+  }
 
   /// A list containing information about IAM users.
   _i6.BuiltList<_i2.UserDetail>? get userDetailList;
@@ -79,7 +84,7 @@ abstract class GetAccountAuthorizationDetailsResponse
   _i6.BuiltList<_i5.ManagedPolicyDetail>? get policies;
 
   /// A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the `Marker` request parameter to retrieve more items. Note that IAM might return fewer than the `MaxItems` number of results even when there are more results available. We recommend that you check `IsTruncated` after every call to ensure that you receive all your results.
-  bool? get isTruncated;
+  bool get isTruncated;
 
   /// When `IsTruncated` is `true`, this element is present and contains the value to use for the `Marker` parameter in a subsequent pagination request.
   String? get marker;
@@ -95,31 +100,31 @@ abstract class GetAccountAuthorizationDetailsResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetAccountAuthorizationDetailsResponse');
-    helper.add(
-      'userDetailList',
-      userDetailList,
-    );
-    helper.add(
-      'groupDetailList',
-      groupDetailList,
-    );
-    helper.add(
-      'roleDetailList',
-      roleDetailList,
-    );
-    helper.add(
-      'policies',
-      policies,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
+        newBuiltValueToStringHelper('GetAccountAuthorizationDetailsResponse')
+          ..add(
+            'userDetailList',
+            userDetailList,
+          )
+          ..add(
+            'groupDetailList',
+            groupDetailList,
+          )
+          ..add(
+            'roleDetailList',
+            roleDetailList,
+          )
+          ..add(
+            'policies',
+            policies,
+          )
+          ..add(
+            'isTruncated',
+            isTruncated,
+          )
+          ..add(
+            'marker',
+            marker,
+          );
     return helper.toString();
   }
 }
@@ -293,14 +298,12 @@ class GetAccountAuthorizationDetailsResponseAwsQuerySerializer extends _i7
           ),
         ));
     }
-    if (isTruncated != null) {
-      result$
-        ..add(const _i7.XmlElementName('IsTruncated'))
-        ..add(serializers.serialize(
-          isTruncated,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result$
+      ..add(const _i7.XmlElementName('IsTruncated'))
+      ..add(serializers.serialize(
+        isTruncated,
+        specifiedType: const FullType(bool),
+      ));
     if (marker != null) {
       result$
         ..add(const _i7.XmlElementName('Marker'))

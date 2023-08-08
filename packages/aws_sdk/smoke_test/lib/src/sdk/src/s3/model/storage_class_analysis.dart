@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.storage_class_analysis; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -29,12 +29,9 @@ abstract class StorageClassAnalysis
 
   const StorageClassAnalysis._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<StorageClassAnalysis>> serializers = [
     StorageClassAnalysisRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StorageClassAnalysisBuilder b) {}
 
   /// Specifies how data related to the storage class analysis for an Amazon S3 bucket should be exported.
   _i2.StorageClassAnalysisDataExport? get dataExport;
@@ -42,11 +39,11 @@ abstract class StorageClassAnalysis
   List<Object?> get props => [dataExport];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StorageClassAnalysis');
-    helper.add(
-      'dataExport',
-      dataExport,
-    );
+    final helper = newBuiltValueToStringHelper('StorageClassAnalysis')
+      ..add(
+        'dataExport',
+        dataExport,
+      );
     return helper.toString();
   }
 }

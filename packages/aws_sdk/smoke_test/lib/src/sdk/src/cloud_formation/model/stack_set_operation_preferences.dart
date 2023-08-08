@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.stack_set_operation_preferences; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -52,17 +52,13 @@ abstract class StackSetOperationPreferences
 
   const StackSetOperationPreferences._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    StackSetOperationPreferencesAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackSetOperationPreferencesBuilder b) {}
+  static const List<_i4.SmithySerializer<StackSetOperationPreferences>>
+      serializers = [StackSetOperationPreferencesAwsQuerySerializer()];
 
   /// The concurrency type of deploying StackSets operations in Regions, could be in parallel or one Region at a time.
   _i2.RegionConcurrencyType? get regionConcurrencyType;
 
-  /// The order of the Regions in where you want to perform the stack operation.
+  /// The order of the Regions where you want to perform the stack operation.
   _i3.BuiltList<String>? get regionOrder;
 
   /// The number of accounts, per Region, for which this operation can fail before CloudFormation stops the operation in that Region. If the operation is stopped in a Region, CloudFormation doesn't attempt the operation in any subsequent Regions.
@@ -111,31 +107,31 @@ abstract class StackSetOperationPreferences
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StackSetOperationPreferences');
-    helper.add(
-      'regionConcurrencyType',
-      regionConcurrencyType,
-    );
-    helper.add(
-      'regionOrder',
-      regionOrder,
-    );
-    helper.add(
-      'failureToleranceCount',
-      failureToleranceCount,
-    );
-    helper.add(
-      'failureTolerancePercentage',
-      failureTolerancePercentage,
-    );
-    helper.add(
-      'maxConcurrentCount',
-      maxConcurrentCount,
-    );
-    helper.add(
-      'maxConcurrentPercentage',
-      maxConcurrentPercentage,
-    );
+    final helper = newBuiltValueToStringHelper('StackSetOperationPreferences')
+      ..add(
+        'regionConcurrencyType',
+        regionConcurrencyType,
+      )
+      ..add(
+        'regionOrder',
+        regionOrder,
+      )
+      ..add(
+        'failureToleranceCount',
+        failureToleranceCount,
+      )
+      ..add(
+        'failureTolerancePercentage',
+        failureTolerancePercentage,
+      )
+      ..add(
+        'maxConcurrentCount',
+        maxConcurrentCount,
+      )
+      ..add(
+        'maxConcurrentPercentage',
+        maxConcurrentPercentage,
+      );
     return helper.toString();
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.source_table_details;
+part of 'source_table_details.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -142,9 +142,7 @@ class SourceTableDetailsBuilder
   set billingMode(_i5.BillingMode? billingMode) =>
       _$this._billingMode = billingMode;
 
-  SourceTableDetailsBuilder() {
-    SourceTableDetails._init(this);
-  }
+  SourceTableDetailsBuilder();
 
   SourceTableDetailsBuilder get _$this {
     final $v = _$v;

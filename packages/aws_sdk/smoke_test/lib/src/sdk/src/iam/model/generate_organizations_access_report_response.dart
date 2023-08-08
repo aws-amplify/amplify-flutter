@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.generate_organizations_access_report_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,11 @@ abstract class GenerateOrganizationsAccessReportResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<GenerateOrganizationsAccessReportResponse>>
+      serializers = [
     GenerateOrganizationsAccessReportResponseAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GenerateOrganizationsAccessReportResponseBuilder b) {}
 
   /// The job identifier that you can use in the GetOrganizationsAccessReport operation.
   String? get jobId;
@@ -46,12 +45,12 @@ abstract class GenerateOrganizationsAccessReportResponse
   List<Object?> get props => [jobId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'GenerateOrganizationsAccessReportResponse');
-    helper.add(
-      'jobId',
-      jobId,
-    );
+    final helper =
+        newBuiltValueToStringHelper('GenerateOrganizationsAccessReportResponse')
+          ..add(
+            'jobId',
+            jobId,
+          );
     return helper.toString();
   }
 }

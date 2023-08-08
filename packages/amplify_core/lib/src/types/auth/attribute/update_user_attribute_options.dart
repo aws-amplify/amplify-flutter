@@ -3,6 +3,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
+/// {@category Auth}
 /// {@template amplify_core.update_user_attribute_options}
 /// The shared update user attribute options among all Auth plugins.
 /// {@endtemplate}
@@ -25,6 +26,7 @@ class UpdateUserAttributeOptions
   @override
   String get runtimeTypeName => 'UpdateUserAttributeOptions';
 
+  /// @nodoc
   @Deprecated('Use toJson instead')
   Map<String, Object?> serializeAsMap() => toJson();
 
@@ -34,6 +36,7 @@ class UpdateUserAttributeOptions
       };
 }
 
+/// @nodoc
 /// {@template amplify_core.auth.update_user_attribute_plugin_options}
 /// Plugin-specific options for `Amplify.Auth.updateUserAttribute`.
 /// {@endtemplate}

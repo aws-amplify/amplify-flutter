@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.no_such_config_rule_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -10,18 +10,18 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'no_such_config_rule_exception.g.dart';
 
-/// The Config rule in the request is not valid. Verify that the rule is an Config Custom Policy rule, that the rule name is correct, and that valid Amazon Resouce Names (ARNs) are used before trying again.
+/// The Config rule in the request is not valid. Verify that the rule is an Config Process Check rule, that the rule name is correct, and that valid Amazon Resouce Names (ARNs) are used before trying again.
 abstract class NoSuchConfigRuleException
     with _i1.AWSEquatable<NoSuchConfigRuleException>
     implements
         Built<NoSuchConfigRuleException, NoSuchConfigRuleExceptionBuilder>,
         _i2.SmithyHttpException {
-  /// The Config rule in the request is not valid. Verify that the rule is an Config Custom Policy rule, that the rule name is correct, and that valid Amazon Resouce Names (ARNs) are used before trying again.
+  /// The Config rule in the request is not valid. Verify that the rule is an Config Process Check rule, that the rule name is correct, and that valid Amazon Resouce Names (ARNs) are used before trying again.
   factory NoSuchConfigRuleException({String? message}) {
     return _$NoSuchConfigRuleException._(message: message);
   }
 
-  /// The Config rule in the request is not valid. Verify that the rule is an Config Custom Policy rule, that the rule name is correct, and that valid Amazon Resouce Names (ARNs) are used before trying again.
+  /// The Config rule in the request is not valid. Verify that the rule is an Config Process Check rule, that the rule name is correct, and that valid Amazon Resouce Names (ARNs) are used before trying again.
   factory NoSuchConfigRuleException.build(
           [void Function(NoSuchConfigRuleExceptionBuilder) updates]) =
       _$NoSuchConfigRuleException;
@@ -38,12 +38,8 @@ abstract class NoSuchConfigRuleException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    NoSuchConfigRuleExceptionAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NoSuchConfigRuleExceptionBuilder b) {}
+  static const List<_i2.SmithySerializer<NoSuchConfigRuleException>>
+      serializers = [NoSuchConfigRuleExceptionAwsJson11Serializer()];
 
   /// Error executing the command
   @override
@@ -67,11 +63,11 @@ abstract class NoSuchConfigRuleException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('NoSuchConfigRuleException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('NoSuchConfigRuleException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

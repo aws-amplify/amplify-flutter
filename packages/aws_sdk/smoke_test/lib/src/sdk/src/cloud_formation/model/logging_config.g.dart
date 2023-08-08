@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.logging_config;
+part of 'logging_config.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -60,9 +60,7 @@ class LoggingConfigBuilder
   String? get logGroupName => _$this._logGroupName;
   set logGroupName(String? logGroupName) => _$this._logGroupName = logGroupName;
 
-  LoggingConfigBuilder() {
-    LoggingConfig._init(this);
-  }
+  LoggingConfigBuilder();
 
   LoggingConfigBuilder get _$this {
     final $v = _$v;

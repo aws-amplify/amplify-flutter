@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.get_bucket_analytics_configuration_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -45,12 +45,8 @@ abstract class GetBucketAnalyticsConfigurationOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetBucketAnalyticsConfigurationOutputRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketAnalyticsConfigurationOutputBuilder b) {}
+  static const List<_i2.SmithySerializer<_i3.AnalyticsConfiguration?>>
+      serializers = [GetBucketAnalyticsConfigurationOutputRestXmlSerializer()];
 
   /// The configuration and any analyses for the analytics filter.
   _i3.AnalyticsConfiguration? get analyticsConfiguration;
@@ -61,11 +57,11 @@ abstract class GetBucketAnalyticsConfigurationOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetBucketAnalyticsConfigurationOutput');
-    helper.add(
-      'analyticsConfiguration',
-      analyticsConfiguration,
-    );
+        newBuiltValueToStringHelper('GetBucketAnalyticsConfigurationOutput')
+          ..add(
+            'analyticsConfiguration',
+            analyticsConfiguration,
+          );
     return helper.toString();
   }
 }

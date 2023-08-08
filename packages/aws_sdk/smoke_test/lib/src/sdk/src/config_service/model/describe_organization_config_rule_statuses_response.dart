@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.describe_organization_config_rule_statuses_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,12 +44,11 @@ abstract class DescribeOrganizationConfigRuleStatusesResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<
+          _i4.SmithySerializer<DescribeOrganizationConfigRuleStatusesResponse>>
+      serializers = [
     DescribeOrganizationConfigRuleStatusesResponseAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeOrganizationConfigRuleStatusesResponseBuilder b) {}
 
   /// A list of `OrganizationConfigRuleStatus` objects.
   _i3.BuiltList<_i2.OrganizationConfigRuleStatus>?
@@ -65,15 +64,15 @@ abstract class DescribeOrganizationConfigRuleStatusesResponse
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'DescribeOrganizationConfigRuleStatusesResponse');
-    helper.add(
-      'organizationConfigRuleStatuses',
-      organizationConfigRuleStatuses,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        'DescribeOrganizationConfigRuleStatusesResponse')
+      ..add(
+        'organizationConfigRuleStatuses',
+        organizationConfigRuleStatuses,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

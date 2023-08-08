@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library aws_query_v1.query_protocol.model.xml_namespace_nested; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -30,12 +30,10 @@ abstract class XmlNamespaceNested
 
   const XmlNamespaceNested._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<XmlNamespaceNested>> serializers = [
     XmlNamespaceNestedAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(XmlNamespaceNestedBuilder b) {}
   String? get foo;
   _i2.BuiltList<String>? get values;
   @override
@@ -45,15 +43,15 @@ abstract class XmlNamespaceNested
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('XmlNamespaceNested');
-    helper.add(
-      'foo',
-      foo,
-    );
-    helper.add(
-      'values',
-      values,
-    );
+    final helper = newBuiltValueToStringHelper('XmlNamespaceNested')
+      ..add(
+        'foo',
+        foo,
+      )
+      ..add(
+        'values',
+        values,
+      );
     return helper.toString();
   }
 }

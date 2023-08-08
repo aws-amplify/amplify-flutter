@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.get_method_request;
+part of 'get_method_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -75,9 +75,7 @@ class GetMethodRequestBuilder
   String? get httpMethod => _$this._httpMethod;
   set httpMethod(String? httpMethod) => _$this._httpMethod = httpMethod;
 
-  GetMethodRequestBuilder() {
-    GetMethodRequest._init(this);
-  }
+  GetMethodRequestBuilder();
 
   GetMethodRequestBuilder get _$this {
     final $v = _$v;
@@ -151,9 +149,7 @@ class GetMethodRequestPayloadBuilder
         Builder<GetMethodRequestPayload, GetMethodRequestPayloadBuilder> {
   _$GetMethodRequestPayload? _$v;
 
-  GetMethodRequestPayloadBuilder() {
-    GetMethodRequestPayload._init(this);
-  }
+  GetMethodRequestPayloadBuilder();
 
   @override
   void replace(GetMethodRequestPayload other) {

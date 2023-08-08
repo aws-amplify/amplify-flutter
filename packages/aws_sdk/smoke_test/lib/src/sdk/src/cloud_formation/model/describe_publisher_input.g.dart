@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.describe_publisher_input;
+part of 'describe_publisher_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -48,9 +48,7 @@ class DescribePublisherInputBuilder
   String? get publisherId => _$this._publisherId;
   set publisherId(String? publisherId) => _$this._publisherId = publisherId;
 
-  DescribePublisherInputBuilder() {
-    DescribePublisherInput._init(this);
-  }
+  DescribePublisherInputBuilder();
 
   DescribePublisherInputBuilder get _$this {
     final $v = _$v;

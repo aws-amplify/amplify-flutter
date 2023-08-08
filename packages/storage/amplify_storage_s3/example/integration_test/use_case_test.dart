@@ -73,6 +73,7 @@ void main() {
       late String object1Etag;
       late String object2Etag;
       late String object3Etag;
+      final shouldTestTransferAcceleration = entry.key != 'dots-in-name';
 
       setUpAll(() async {
         if (entry.key == 'custom-prefix') {
@@ -455,31 +456,37 @@ void main() {
           expect(result.removedItem.key, testObject3CopyMoveKey);
         });
 
-        testContentTypeInferTest(
-          smallFileBytes: testBytes,
-          largeFileBytes: testLargeFileBytes,
-        );
+        group('content type infer', () {
+          testContentTypeInferTest(
+            smallFileBytes: testBytes,
+            largeFileBytes: testLargeFileBytes,
+          );
+        });
 
-        testTransferAcceleration(
-          dataPayloads: [
-            TestTransferAccelerationConfig(
-              targetKey: 'transfer-acceleration-datapayload-${uuid()}',
-              targetAccessLevel: StorageAccessLevel.guest,
-              uploadSource: S3DataPayload.bytes(
-                testBytes,
-              ),
-              referenceBytes: testBytes,
-            ),
-          ],
-          awsFiles: [
-            TestTransferAccelerationConfig(
-              targetKey: 'transfer-acceleration-awsfile-${uuid()}',
-              targetAccessLevel: StorageAccessLevel.private,
-              uploadSource: AWSFile.fromData(testLargeFileBytes),
-              referenceBytes: testLargeFileBytes,
-            )
-          ],
-        );
+        if (shouldTestTransferAcceleration) {
+          group('transfer acceleration', () {
+            testTransferAcceleration(
+              dataPayloads: [
+                TestTransferAccelerationConfig(
+                  targetKey: 'transfer-acceleration-datapayload-${uuid()}',
+                  targetAccessLevel: StorageAccessLevel.guest,
+                  uploadSource: S3DataPayload.bytes(
+                    testBytes,
+                  ),
+                  referenceBytes: testBytes,
+                ),
+              ],
+              awsFiles: [
+                TestTransferAccelerationConfig(
+                  targetKey: 'transfer-acceleration-awsfile-${uuid()}',
+                  targetAccessLevel: StorageAccessLevel.private,
+                  uploadSource: AWSFile.fromData(testLargeFileBytes),
+                  referenceBytes: testLargeFileBytes,
+                ),
+              ],
+            );
+          });
+        }
 
         testWidgets(
             'multiple fields of user defined metadata with non-ascii string values',
@@ -717,6 +724,101 @@ void main() {
             ).result;
 
             expect(result.copiedItem.eTag, isNotEmpty);
+          });
+
+          testWidgets('list respects pageSize', (WidgetTester tester) async {
+            const filesToUpload = 2;
+            const filesToList = 1;
+            const accessLevel = StorageAccessLevel.private;
+            final uploadedKeys = <String>[];
+            // Upload some files to test.
+            for (var i = filesToUpload; i > 0; i--) {
+              final fileKey = 'testObjectKey${uuid()}';
+              uploadedKeys.add(fileKey);
+              final fileNameTemp = 'userPrivate${uuid()}.txt';
+              await Amplify.Storage.uploadData(
+                data: S3DataPayload.bytes(
+                  testBytes,
+                  contentType: 'text/plain',
+                ),
+                key: fileKey,
+                options: StorageUploadDataOptions(
+                  accessLevel: accessLevel,
+                  metadata: {
+                    'filename': fileNameTemp,
+                  },
+                ),
+              ).result;
+            }
+
+            // Call list() and ensure length of result matches pageSize.
+            final listResult = await Amplify.Storage.list(
+              options: const StorageListOptions(
+                accessLevel: accessLevel,
+                pageSize: filesToList,
+              ),
+            ).result;
+            expect(listResult.nextToken?.isNotEmpty, isTrue);
+            expect(listResult.items.length, filesToList);
+            // Clean up files from this test.
+            await Amplify.Storage.removeMany(
+              keys: uploadedKeys,
+              options: const StorageRemoveManyOptions(
+                accessLevel: accessLevel,
+              ),
+            ).result;
+          });
+
+          testWidgets('list uses nextToken for pagination',
+              (WidgetTester tester) async {
+            const filesToUpload = 2;
+            const filesToList = 1;
+            const accessLevel = StorageAccessLevel.private;
+            final keyPrefix = 'testObjectList${uuid()}';
+            final uploadedKeys = <String>[];
+            // Upload some files to test.
+            for (var i = filesToUpload; i > 0; i--) {
+              final fileKey = '$keyPrefix/uploadToList${uuid()}';
+              uploadedKeys.add(fileKey);
+              final fileNameTemp = 'userPrivate${uuid()}.txt';
+              await Amplify.Storage.uploadData(
+                data: S3DataPayload.bytes(
+                  testBytes,
+                  contentType: 'text/plain',
+                ),
+                key: fileKey,
+                options: StorageUploadDataOptions(
+                  accessLevel: accessLevel,
+                  metadata: {
+                    'filename': fileNameTemp,
+                  },
+                ),
+              ).result;
+            }
+
+            String? lastNextToken;
+            var timesCalled = 0;
+            do {
+              // Call list() until nextToken is null and ensure we paginated expected times.
+              final listResult = await Amplify.Storage.list(
+                options: StorageListOptions(
+                  accessLevel: accessLevel,
+                  pageSize: filesToList,
+                  nextToken: lastNextToken,
+                ),
+                path: keyPrefix,
+              ).result;
+              lastNextToken = listResult.nextToken;
+              timesCalled++;
+            } while (lastNextToken != null);
+            expect(timesCalled, equals(filesToUpload));
+            // Clean up files from this test.
+            await Amplify.Storage.removeMany(
+              keys: uploadedKeys,
+              options: const StorageRemoveManyOptions(
+                accessLevel: accessLevel,
+              ),
+            ).result;
           });
 
           testWidgets(

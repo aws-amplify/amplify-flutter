@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.create_global_table_output;
+part of 'create_global_table_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class CreateGlobalTableOutputBuilder
           _i2.GlobalTableDescriptionBuilder? globalTableDescription) =>
       _$this._globalTableDescription = globalTableDescription;
 
-  CreateGlobalTableOutputBuilder() {
-    CreateGlobalTableOutput._init(this);
-  }
+  CreateGlobalTableOutputBuilder();
 
   CreateGlobalTableOutputBuilder get _$this {
     final $v = _$v;

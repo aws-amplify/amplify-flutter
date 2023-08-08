@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.describe_config_rule_evaluation_status_request;
+part of 'describe_config_rule_evaluation_status_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -13,7 +13,7 @@ class _$DescribeConfigRuleEvaluationStatusRequest
   @override
   final String? nextToken;
   @override
-  final int? limit;
+  final int limit;
 
   factory _$DescribeConfigRuleEvaluationStatusRequest(
           [void Function(DescribeConfigRuleEvaluationStatusRequestBuilder)?
@@ -22,8 +22,11 @@ class _$DescribeConfigRuleEvaluationStatusRequest
           ._build();
 
   _$DescribeConfigRuleEvaluationStatusRequest._(
-      {this.configRuleNames, this.nextToken, this.limit})
-      : super._();
+      {this.configRuleNames, this.nextToken, required this.limit})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        limit, r'DescribeConfigRuleEvaluationStatusRequest', 'limit');
+  }
 
   @override
   DescribeConfigRuleEvaluationStatusRequest rebuild(
@@ -113,7 +116,8 @@ class DescribeConfigRuleEvaluationStatusRequestBuilder
           new _$DescribeConfigRuleEvaluationStatusRequest._(
               configRuleNames: _configRuleNames?.build(),
               nextToken: nextToken,
-              limit: limit);
+              limit: BuiltValueNullFieldError.checkNotNull(limit,
+                  r'DescribeConfigRuleEvaluationStatusRequest', 'limit'));
     } catch (_) {
       late String _$failedField;
       try {

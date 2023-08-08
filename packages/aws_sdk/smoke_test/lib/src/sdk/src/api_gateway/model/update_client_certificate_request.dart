@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.update_client_certificate_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -56,12 +56,8 @@ abstract class UpdateClientCertificateRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateClientCertificateRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateClientCertificateRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<UpdateClientCertificateRequestPayload>>
+      serializers = [UpdateClientCertificateRequestRestJson1Serializer()];
 
   /// The identifier of the ClientCertificate resource to be updated.
   String get clientCertificateId;
@@ -94,16 +90,15 @@ abstract class UpdateClientCertificateRequest
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('UpdateClientCertificateRequest');
-    helper.add(
-      'clientCertificateId',
-      clientCertificateId,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateClientCertificateRequest')
+      ..add(
+        'clientCertificateId',
+        clientCertificateId,
+      )
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }
@@ -121,9 +116,6 @@ abstract class UpdateClientCertificateRequestPayload
 
   const UpdateClientCertificateRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateClientCertificateRequestPayloadBuilder b) {}
-
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
   @override
@@ -131,11 +123,11 @@ abstract class UpdateClientCertificateRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateClientCertificateRequestPayload');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+        newBuiltValueToStringHelper('UpdateClientCertificateRequestPayload')
+          ..add(
+            'patchOperations',
+            patchOperations,
+          );
     return helper.toString();
   }
 }

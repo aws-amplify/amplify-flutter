@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.malformed_accept_with_generic_string_output;
+part of 'malformed_accept_with_generic_string_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class MalformedAcceptWithGenericStringOutputBuilder
   String? get payload => _$this._payload;
   set payload(String? payload) => _$this._payload = payload;
 
-  MalformedAcceptWithGenericStringOutputBuilder() {
-    MalformedAcceptWithGenericStringOutput._init(this);
-  }
+  MalformedAcceptWithGenericStringOutputBuilder();
 
   MalformedAcceptWithGenericStringOutputBuilder get _$this {
     final $v = _$v;

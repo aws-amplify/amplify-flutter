@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.kinesis_streaming_destination_output;
+part of 'kinesis_streaming_destination_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -72,9 +72,7 @@ class KinesisStreamingDestinationOutputBuilder
   set destinationStatus(_i2.DestinationStatus? destinationStatus) =>
       _$this._destinationStatus = destinationStatus;
 
-  KinesisStreamingDestinationOutputBuilder() {
-    KinesisStreamingDestinationOutput._init(this);
-  }
+  KinesisStreamingDestinationOutputBuilder();
 
   KinesisStreamingDestinationOutputBuilder get _$this {
     final $v = _$v;

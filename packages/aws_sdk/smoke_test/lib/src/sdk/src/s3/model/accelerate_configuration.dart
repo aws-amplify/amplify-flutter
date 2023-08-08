@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.accelerate_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -28,12 +28,8 @@ abstract class AccelerateConfiguration
 
   const AccelerateConfiguration._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    AccelerateConfigurationRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AccelerateConfigurationBuilder b) {}
+  static const List<_i3.SmithySerializer<AccelerateConfiguration>> serializers =
+      [AccelerateConfigurationRestXmlSerializer()];
 
   /// Specifies the transfer acceleration status of the bucket.
   _i2.BucketAccelerateStatus? get status;
@@ -41,11 +37,11 @@ abstract class AccelerateConfiguration
   List<Object?> get props => [status];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AccelerateConfiguration');
-    helper.add(
-      'status',
-      status,
-    );
+    final helper = newBuiltValueToStringHelper('AccelerateConfiguration')
+      ..add(
+        'status',
+        status,
+      );
     return helper.toString();
   }
 }

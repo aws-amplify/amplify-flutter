@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.s3_location; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -51,12 +51,9 @@ abstract class S3Location
 
   const S3Location._();
 
-  static const List<_i9.SmithySerializer> serializers = [
+  static const List<_i9.SmithySerializer<S3Location>> serializers = [
     S3LocationRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(S3LocationBuilder b) {}
 
   /// The name of the bucket where the restore results will be placed.
   String get bucketName;
@@ -94,39 +91,39 @@ abstract class S3Location
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('S3Location');
-    helper.add(
-      'bucketName',
-      bucketName,
-    );
-    helper.add(
-      'prefix',
-      prefix,
-    );
-    helper.add(
-      'encryption',
-      encryption,
-    );
-    helper.add(
-      'cannedAcl',
-      cannedAcl,
-    );
-    helper.add(
-      'accessControlList',
-      accessControlList,
-    );
-    helper.add(
-      'tagging',
-      tagging,
-    );
-    helper.add(
-      'userMetadata',
-      userMetadata,
-    );
-    helper.add(
-      'storageClass',
-      storageClass,
-    );
+    final helper = newBuiltValueToStringHelper('S3Location')
+      ..add(
+        'bucketName',
+        bucketName,
+      )
+      ..add(
+        'prefix',
+        prefix,
+      )
+      ..add(
+        'encryption',
+        encryption,
+      )
+      ..add(
+        'cannedAcl',
+        cannedAcl,
+      )
+      ..add(
+        'accessControlList',
+        accessControlList,
+      )
+      ..add(
+        'tagging',
+        tagging,
+      )
+      ..add(
+        'userMetadata',
+        userMetadata,
+      )
+      ..add(
+        'storageClass',
+        storageClass,
+      );
     return helper.toString();
   }
 }

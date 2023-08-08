@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.get_endpoint_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,12 +37,9 @@ abstract class GetEndpointResponse
         b.endpointResponse.replace(payload);
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<_i3.EndpointResponse>> serializers = [
     GetEndpointResponseRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetEndpointResponseBuilder b) {}
 
   /// Provides information about the channel type and other settings for an endpoint.
   _i3.EndpointResponse get endpointResponse;
@@ -52,11 +49,11 @@ abstract class GetEndpointResponse
   List<Object?> get props => [endpointResponse];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetEndpointResponse');
-    helper.add(
-      'endpointResponse',
-      endpointResponse,
-    );
+    final helper = newBuiltValueToStringHelper('GetEndpointResponse')
+      ..add(
+        'endpointResponse',
+        endpointResponse,
+      );
     return helper.toString();
   }
 }

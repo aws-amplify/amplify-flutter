@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_validation_protocol.model.malformed_pattern_input;
+part of 'malformed_pattern_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -85,9 +85,7 @@ class MalformedPatternInputBuilder
   _i3.PatternUnion? get union => _$this._union;
   set union(_i3.PatternUnion? union) => _$this._union = union;
 
-  MalformedPatternInputBuilder() {
-    MalformedPatternInput._init(this);
-  }
+  MalformedPatternInputBuilder();
 
   MalformedPatternInputBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_0_v2.json_rpc_10.model.greeting_with_errors_input;
+part of 'greeting_with_errors_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -49,9 +49,7 @@ class GreetingWithErrorsInputBuilder
   String? get greeting => _$this._greeting;
   set greeting(String? greeting) => _$this._greeting = greeting;
 
-  GreetingWithErrorsInputBuilder() {
-    GreetingWithErrorsInput._init(this);
-  }
+  GreetingWithErrorsInputBuilder();
 
   GreetingWithErrorsInputBuilder get _$this {
     final $v = _$v;

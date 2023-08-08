@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.cancellation_reason; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,12 +37,9 @@ abstract class CancellationReason
 
   const CancellationReason._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<CancellationReason>> serializers = [
     CancellationReasonAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CancellationReasonBuilder b) {}
 
   /// Item in the request which caused the transaction to get cancelled.
   _i3.BuiltMap<String, _i2.AttributeValue>? get item;
@@ -60,19 +57,19 @@ abstract class CancellationReason
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CancellationReason');
-    helper.add(
-      'item',
-      item,
-    );
-    helper.add(
-      'code',
-      code,
-    );
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('CancellationReason')
+      ..add(
+        'item',
+        item,
+      )
+      ..add(
+        'code',
+        code,
+      )
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

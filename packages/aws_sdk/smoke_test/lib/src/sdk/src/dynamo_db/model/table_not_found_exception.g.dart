@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.table_not_found_exception;
+part of 'table_not_found_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -61,9 +61,7 @@ class TableNotFoundExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  TableNotFoundExceptionBuilder() {
-    TableNotFoundException._init(this);
-  }
+  TableNotFoundExceptionBuilder();
 
   TableNotFoundExceptionBuilder get _$this {
     final $v = _$v;

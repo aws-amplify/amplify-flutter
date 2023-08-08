@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.operation.delete_organization_config_rule_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -24,7 +24,7 @@ import 'package:smoke_test/src/sdk/src/config_service/model/resource_in_use_exce
 
 /// Deletes the specified organization Config rule and all of its evaluation results from all member accounts in that organization.
 ///
-/// Only a master account and a delegated administrator account can delete an organization Config rule. When calling this API with a delegated administrator, you must ensure Organizations `ListDelegatedAdministrator` permissions are added.
+/// Only a management account and a delegated administrator account can delete an organization Config rule. When calling this API with a delegated administrator, you must ensure Organizations `ListDelegatedAdministrator` permissions are added.
 ///
 /// Config sets the state of a rule to DELETE\_IN\_PROGRESS until the deletion is complete. You cannot update a rule while it is in this state.
 class DeleteOrganizationConfigRuleOperation extends _i1.HttpOperation<
@@ -34,7 +34,7 @@ class DeleteOrganizationConfigRuleOperation extends _i1.HttpOperation<
     _i1.Unit> {
   /// Deletes the specified organization Config rule and all of its evaluation results from all member accounts in that organization.
   ///
-  /// Only a master account and a delegated administrator account can delete an organization Config rule. When calling this API with a delegated administrator, you must ensure Organizations `ListDelegatedAdministrator` permissions are added.
+  /// Only a management account and a delegated administrator account can delete an organization Config rule. When calling this API with a delegated administrator, you must ensure Organizations `ListDelegatedAdministrator` permissions are added.
   ///
   /// Config sets the state of a rule to DELETE\_IN\_PROGRESS until the deletion is complete. You cannot update a rule while it is in this state.
   DeleteOrganizationConfigRuleOperation({
@@ -113,7 +113,8 @@ class DeleteOrganizationConfigRuleOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.NoSuchOrganizationConfigRuleException,
+            _i8.NoSuchOrganizationConfigRuleException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchOrganizationConfigRuleException',
@@ -122,7 +123,8 @@ class DeleteOrganizationConfigRuleOperation extends _i1.HttpOperation<
           _i8.NoSuchOrganizationConfigRuleException,
           builder: _i8.NoSuchOrganizationConfigRuleException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.OrganizationAccessDeniedException,
+            _i9.OrganizationAccessDeniedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'OrganizationAccessDeniedException',
@@ -131,7 +133,8 @@ class DeleteOrganizationConfigRuleOperation extends _i1.HttpOperation<
           _i9.OrganizationAccessDeniedException,
           builder: _i9.OrganizationAccessDeniedException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.ResourceInUseException,
+            _i10.ResourceInUseException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ResourceInUseException',
@@ -163,7 +166,7 @@ class DeleteOrganizationConfigRuleOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
+        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
       },
     );
   }

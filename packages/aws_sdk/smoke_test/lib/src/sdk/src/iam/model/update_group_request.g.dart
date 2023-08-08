@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.update_group_request;
+part of 'update_group_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -70,9 +70,7 @@ class UpdateGroupRequestBuilder
   String? get newGroupName => _$this._newGroupName;
   set newGroupName(String? newGroupName) => _$this._newGroupName = newGroupName;
 
-  UpdateGroupRequestBuilder() {
-    UpdateGroupRequest._init(this);
-  }
+  UpdateGroupRequestBuilder();
 
   UpdateGroupRequestBuilder get _$this {
     final $v = _$v;

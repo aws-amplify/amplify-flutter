@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.delete_policy_version_request;
+part of 'delete_policy_version_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class DeletePolicyVersionRequestBuilder
   String? get versionId => _$this._versionId;
   set versionId(String? versionId) => _$this._versionId = versionId;
 
-  DeletePolicyVersionRequestBuilder() {
-    DeletePolicyVersionRequest._init(this);
-  }
+  DeletePolicyVersionRequestBuilder();
 
   DeletePolicyVersionRequestBuilder get _$this {
     final $v = _$v;

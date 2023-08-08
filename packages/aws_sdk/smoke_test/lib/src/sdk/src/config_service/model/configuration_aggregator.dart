@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.configuration_aggregator; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -49,12 +49,8 @@ abstract class ConfigurationAggregator
 
   const ConfigurationAggregator._();
 
-  static const List<_i5.SmithySerializer> serializers = [
-    ConfigurationAggregatorAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConfigurationAggregatorBuilder b) {}
+  static const List<_i5.SmithySerializer<ConfigurationAggregator>> serializers =
+      [ConfigurationAggregatorAwsJson11Serializer()];
 
   /// The name of the aggregator.
   String? get configurationAggregatorName;
@@ -88,35 +84,35 @@ abstract class ConfigurationAggregator
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConfigurationAggregator');
-    helper.add(
-      'configurationAggregatorName',
-      configurationAggregatorName,
-    );
-    helper.add(
-      'configurationAggregatorArn',
-      configurationAggregatorArn,
-    );
-    helper.add(
-      'accountAggregationSources',
-      accountAggregationSources,
-    );
-    helper.add(
-      'organizationAggregationSource',
-      organizationAggregationSource,
-    );
-    helper.add(
-      'creationTime',
-      creationTime,
-    );
-    helper.add(
-      'lastUpdatedTime',
-      lastUpdatedTime,
-    );
-    helper.add(
-      'createdBy',
-      createdBy,
-    );
+    final helper = newBuiltValueToStringHelper('ConfigurationAggregator')
+      ..add(
+        'configurationAggregatorName',
+        configurationAggregatorName,
+      )
+      ..add(
+        'configurationAggregatorArn',
+        configurationAggregatorArn,
+      )
+      ..add(
+        'accountAggregationSources',
+        accountAggregationSources,
+      )
+      ..add(
+        'organizationAggregationSource',
+        organizationAggregationSource,
+      )
+      ..add(
+        'creationTime',
+        creationTime,
+      )
+      ..add(
+        'lastUpdatedTime',
+        lastUpdatedTime,
+      )
+      ..add(
+        'createdBy',
+        createdBy,
+      );
     return helper.toString();
   }
 }

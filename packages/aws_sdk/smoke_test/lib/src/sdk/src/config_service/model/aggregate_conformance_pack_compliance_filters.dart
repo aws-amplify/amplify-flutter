@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.aggregate_conformance_pack_compliance_filters; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,12 +41,11 @@ abstract class AggregateConformancePackComplianceFilters
 
   const AggregateConformancePackComplianceFilters._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<
+          _i3.SmithySerializer<AggregateConformancePackComplianceFilters>>
+      serializers = [
     AggregateConformancePackComplianceFiltersAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AggregateConformancePackComplianceFiltersBuilder b) {}
 
   /// The name of the conformance pack.
   String? get conformancePackName;
@@ -68,24 +67,24 @@ abstract class AggregateConformancePackComplianceFilters
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'AggregateConformancePackComplianceFilters');
-    helper.add(
-      'conformancePackName',
-      conformancePackName,
-    );
-    helper.add(
-      'complianceType',
-      complianceType,
-    );
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'awsRegion',
-      awsRegion,
-    );
+    final helper =
+        newBuiltValueToStringHelper('AggregateConformancePackComplianceFilters')
+          ..add(
+            'conformancePackName',
+            conformancePackName,
+          )
+          ..add(
+            'complianceType',
+            complianceType,
+          )
+          ..add(
+            'accountId',
+            accountId,
+          )
+          ..add(
+            'awsRegion',
+            awsRegion,
+          );
     return helper.toString();
   }
 }

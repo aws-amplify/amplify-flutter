@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.describe_stack_set_input;
+part of 'describe_stack_set_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -61,9 +61,7 @@ class DescribeStackSetInputBuilder
   _i3.CallAs? get callAs => _$this._callAs;
   set callAs(_i3.CallAs? callAs) => _$this._callAs = callAs;
 
-  DescribeStackSetInputBuilder() {
-    DescribeStackSetInput._init(this);
-  }
+  DescribeStackSetInputBuilder();
 
   DescribeStackSetInputBuilder get _$this {
     final $v = _$v;

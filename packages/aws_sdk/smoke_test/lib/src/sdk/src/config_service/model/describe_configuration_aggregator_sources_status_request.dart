@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.describe_configuration_aggregator_sources_status_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -26,6 +26,7 @@ abstract class DescribeConfigurationAggregatorSourcesStatusRequest
     String? nextToken,
     int? limit,
   }) {
+    limit ??= 0;
     return _$DescribeConfigurationAggregatorSourcesStatusRequest._(
       configurationAggregatorName: configurationAggregatorName,
       updateStatus: updateStatus == null ? null : _i4.BuiltList(updateStatus),
@@ -47,13 +48,17 @@ abstract class DescribeConfigurationAggregatorSourcesStatusRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+      _i1.SmithySerializer<
+          DescribeConfigurationAggregatorSourcesStatusRequest>> serializers = [
     DescribeConfigurationAggregatorSourcesStatusRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(
-      DescribeConfigurationAggregatorSourcesStatusRequestBuilder b) {}
+      DescribeConfigurationAggregatorSourcesStatusRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The name of the configuration aggregator.
   String get configurationAggregatorName;
@@ -71,7 +76,7 @@ abstract class DescribeConfigurationAggregatorSourcesStatusRequest
   String? get nextToken;
 
   /// The maximum number of AggregatorSourceStatus returned on each page. The default is maximum. If you specify 0, Config uses the default.
-  int? get limit;
+  int get limit;
   @override
   DescribeConfigurationAggregatorSourcesStatusRequest getPayload() => this;
   @override
@@ -84,23 +89,23 @@ abstract class DescribeConfigurationAggregatorSourcesStatusRequest
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'DescribeConfigurationAggregatorSourcesStatusRequest');
-    helper.add(
-      'configurationAggregatorName',
-      configurationAggregatorName,
-    );
-    helper.add(
-      'updateStatus',
-      updateStatus,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
+        'DescribeConfigurationAggregatorSourcesStatusRequest')
+      ..add(
+        'configurationAggregatorName',
+        configurationAggregatorName,
+      )
+      ..add(
+        'updateStatus',
+        updateStatus,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      )
+      ..add(
+        'limit',
+        limit,
+      );
     return helper.toString();
   }
 }
@@ -187,6 +192,11 @@ class DescribeConfigurationAggregatorSourcesStatusRequestAwsJson11Serializer
         configurationAggregatorName,
         specifiedType: const FullType(String),
       ),
+      'Limit',
+      serializers.serialize(
+        limit,
+        specifiedType: const FullType(int),
+      ),
     ]);
     if (updateStatus != null) {
       result$
@@ -205,14 +215,6 @@ class DescribeConfigurationAggregatorSourcesStatusRequestAwsJson11Serializer
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (limit != null) {
-      result$
-        ..add('Limit')
-        ..add(serializers.serialize(
-          limit,
-          specifiedType: const FullType(int),
         ));
     }
     return result$;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.get_compliance_details_by_config_rule_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -26,6 +26,7 @@ abstract class GetComplianceDetailsByConfigRuleRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$GetComplianceDetailsByConfigRuleRequest._(
       configRuleName: configRuleName,
       complianceTypes:
@@ -48,23 +49,27 @@ abstract class GetComplianceDetailsByConfigRuleRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<GetComplianceDetailsByConfigRuleRequest>>
+      serializers = [
     GetComplianceDetailsByConfigRuleRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetComplianceDetailsByConfigRuleRequestBuilder b) {}
+  static void _init(GetComplianceDetailsByConfigRuleRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The name of the Config rule for which you want compliance information.
   String get configRuleName;
 
   /// Filters the results by compliance.
   ///
-  /// The allowed values are `COMPLIANT`, `NON_COMPLIANT`, and `NOT_APPLICABLE`.
+  /// `INSUFFICIENT_DATA` is a valid `ComplianceType` that is returned when an Config rule cannot be evaluated. However, `INSUFFICIENT_DATA` cannot be used as a `ComplianceType` for filtering results.
   _i4.BuiltList<_i3.ComplianceType>? get complianceTypes;
 
   /// The maximum number of evaluation results returned on each page. The default is 10. You cannot specify a number greater than 100. If you specify 0, Config uses the default.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -80,23 +85,23 @@ abstract class GetComplianceDetailsByConfigRuleRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetComplianceDetailsByConfigRuleRequest');
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'complianceTypes',
-      complianceTypes,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        newBuiltValueToStringHelper('GetComplianceDetailsByConfigRuleRequest')
+          ..add(
+            'configRuleName',
+            configRuleName,
+          )
+          ..add(
+            'complianceTypes',
+            complianceTypes,
+          )
+          ..add(
+            'limit',
+            limit,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          );
     return helper.toString();
   }
 }
@@ -182,6 +187,11 @@ class GetComplianceDetailsByConfigRuleRequestAwsJson11Serializer extends _i1
         configRuleName,
         specifiedType: const FullType(String),
       ),
+      'Limit',
+      serializers.serialize(
+        limit,
+        specifiedType: const FullType(int),
+      ),
     ]);
     if (complianceTypes != null) {
       result$
@@ -192,14 +202,6 @@ class GetComplianceDetailsByConfigRuleRequestAwsJson11Serializer extends _i1
             _i4.BuiltList,
             [FullType(_i3.ComplianceType)],
           ),
-        ));
-    }
-    if (limit != null) {
-      result$
-        ..add('Limit')
-        ..add(serializers.serialize(
-          limit,
-          specifiedType: const FullType(int),
         ));
     }
     if (nextToken != null) {

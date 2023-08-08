@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_bucket_cors_request;
+part of 'get_bucket_cors_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -62,9 +62,7 @@ class GetBucketCorsRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetBucketCorsRequestBuilder() {
-    GetBucketCorsRequest._init(this);
-  }
+  GetBucketCorsRequestBuilder();
 
   GetBucketCorsRequestBuilder get _$this {
     final $v = _$v;
@@ -135,9 +133,7 @@ class GetBucketCorsRequestPayloadBuilder
             GetBucketCorsRequestPayloadBuilder> {
   _$GetBucketCorsRequestPayload? _$v;
 
-  GetBucketCorsRequestPayloadBuilder() {
-    GetBucketCorsRequestPayload._init(this);
-  }
+  GetBucketCorsRequestPayloadBuilder();
 
   @override
   void replace(GetBucketCorsRequestPayload other) {

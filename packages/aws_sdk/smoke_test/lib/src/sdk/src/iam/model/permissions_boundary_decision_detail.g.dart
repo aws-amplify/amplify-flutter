@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.permissions_boundary_decision_detail;
+part of 'permissions_boundary_decision_detail.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -9,15 +9,19 @@ part of smoke_test.iam.model.permissions_boundary_decision_detail;
 class _$PermissionsBoundaryDecisionDetail
     extends PermissionsBoundaryDecisionDetail {
   @override
-  final bool? allowedByPermissionsBoundary;
+  final bool allowedByPermissionsBoundary;
 
   factory _$PermissionsBoundaryDecisionDetail(
           [void Function(PermissionsBoundaryDecisionDetailBuilder)? updates]) =>
       (new PermissionsBoundaryDecisionDetailBuilder()..update(updates))
           ._build();
 
-  _$PermissionsBoundaryDecisionDetail._({this.allowedByPermissionsBoundary})
-      : super._();
+  _$PermissionsBoundaryDecisionDetail._(
+      {required this.allowedByPermissionsBoundary})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(allowedByPermissionsBoundary,
+        r'PermissionsBoundaryDecisionDetail', 'allowedByPermissionsBoundary');
+  }
 
   @override
   PermissionsBoundaryDecisionDetail rebuild(
@@ -87,7 +91,10 @@ class PermissionsBoundaryDecisionDetailBuilder
   _$PermissionsBoundaryDecisionDetail _build() {
     final _$result = _$v ??
         new _$PermissionsBoundaryDecisionDetail._(
-            allowedByPermissionsBoundary: allowedByPermissionsBoundary);
+            allowedByPermissionsBoundary: BuiltValueNullFieldError.checkNotNull(
+                allowedByPermissionsBoundary,
+                r'PermissionsBoundaryDecisionDetail',
+                'allowedByPermissionsBoundary'));
     replace(_$result);
     return _$result;
   }

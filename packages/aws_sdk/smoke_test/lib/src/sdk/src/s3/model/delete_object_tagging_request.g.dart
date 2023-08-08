@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.delete_object_tagging_request;
+part of 'delete_object_tagging_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -85,9 +85,7 @@ class DeleteObjectTaggingRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  DeleteObjectTaggingRequestBuilder() {
-    DeleteObjectTaggingRequest._init(this);
-  }
+  DeleteObjectTaggingRequestBuilder();
 
   DeleteObjectTaggingRequestBuilder get _$this {
     final $v = _$v;
@@ -165,9 +163,7 @@ class DeleteObjectTaggingRequestPayloadBuilder
             DeleteObjectTaggingRequestPayloadBuilder> {
   _$DeleteObjectTaggingRequestPayload? _$v;
 
-  DeleteObjectTaggingRequestPayloadBuilder() {
-    DeleteObjectTaggingRequestPayload._init(this);
-  }
+  DeleteObjectTaggingRequestPayloadBuilder();
 
   @override
   void replace(DeleteObjectTaggingRequestPayload other) {

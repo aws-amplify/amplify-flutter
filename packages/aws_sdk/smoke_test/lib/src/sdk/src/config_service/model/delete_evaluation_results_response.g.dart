@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.delete_evaluation_results_response;
+part of 'delete_evaluation_results_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -41,9 +41,7 @@ class DeleteEvaluationResultsResponseBuilder
             DeleteEvaluationResultsResponseBuilder> {
   _$DeleteEvaluationResultsResponse? _$v;
 
-  DeleteEvaluationResultsResponseBuilder() {
-    DeleteEvaluationResultsResponse._init(this);
-  }
+  DeleteEvaluationResultsResponseBuilder();
 
   @override
   void replace(DeleteEvaluationResultsResponse other) {

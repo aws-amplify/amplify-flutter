@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.create_stage_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,6 +38,8 @@ abstract class CreateStageRequest
     bool? tracingEnabled,
     Map<String, String>? tags,
   }) {
+    cacheClusterEnabled ??= false;
+    tracingEnabled ??= false;
     return _$CreateStageRequest._(
       restApiId: restApiId,
       stageName: stageName,
@@ -87,12 +89,15 @@ abstract class CreateStageRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateStageRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<CreateStageRequestPayload>>
+      serializers = [CreateStageRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateStageRequestBuilder b) {}
+  static void _init(CreateStageRequestBuilder b) {
+    b
+      ..cacheClusterEnabled = false
+      ..tracingEnabled = false;
+  }
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -107,9 +112,9 @@ abstract class CreateStageRequest
   String? get description;
 
   /// Whether cache clustering is enabled for the stage.
-  bool? get cacheClusterEnabled;
+  bool get cacheClusterEnabled;
 
-  /// The stage's cache cluster size.
+  /// The stage's cache capacity in GB. For more information about choosing a cache size, see [Enabling API caching to enhance responsiveness](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html).
   _i3.CacheClusterSize? get cacheClusterSize;
 
   /// A map that defines the stage variables for the new Stage resource. Variable names can have alphanumeric and underscore characters, and the values must match `\[A-Za-z0-9-._~:/?#&=,\]+`.
@@ -122,7 +127,7 @@ abstract class CreateStageRequest
   _i4.CanarySettings? get canarySettings;
 
   /// Specifies whether active tracing with X-ray is enabled for the Stage.
-  bool? get tracingEnabled;
+  bool get tracingEnabled;
 
   /// The key-value map of strings. The valid character set is \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not start with `aws:`. The tag value can be up to 256 characters.
   _i5.BuiltMap<String, String>? get tags;
@@ -173,51 +178,51 @@ abstract class CreateStageRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateStageRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'stageName',
-      stageName,
-    );
-    helper.add(
-      'deploymentId',
-      deploymentId,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'cacheClusterEnabled',
-      cacheClusterEnabled,
-    );
-    helper.add(
-      'cacheClusterSize',
-      cacheClusterSize,
-    );
-    helper.add(
-      'variables',
-      variables,
-    );
-    helper.add(
-      'documentationVersion',
-      documentationVersion,
-    );
-    helper.add(
-      'canarySettings',
-      canarySettings,
-    );
-    helper.add(
-      'tracingEnabled',
-      tracingEnabled,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('CreateStageRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'stageName',
+        stageName,
+      )
+      ..add(
+        'deploymentId',
+        deploymentId,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'cacheClusterEnabled',
+        cacheClusterEnabled,
+      )
+      ..add(
+        'cacheClusterSize',
+        cacheClusterSize,
+      )
+      ..add(
+        'variables',
+        variables,
+      )
+      ..add(
+        'documentationVersion',
+        documentationVersion,
+      )
+      ..add(
+        'canarySettings',
+        canarySettings,
+      )
+      ..add(
+        'tracingEnabled',
+        tracingEnabled,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }
@@ -234,12 +239,16 @@ abstract class CreateStageRequestPayload
   const CreateStageRequestPayload._();
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateStageRequestPayloadBuilder b) {}
+  static void _init(CreateStageRequestPayloadBuilder b) {
+    b
+      ..cacheClusterEnabled = false
+      ..tracingEnabled = false;
+  }
 
   /// Whether cache clustering is enabled for the stage.
-  bool? get cacheClusterEnabled;
+  bool get cacheClusterEnabled;
 
-  /// The stage's cache cluster size.
+  /// The stage's cache capacity in GB. For more information about choosing a cache size, see [Enabling API caching to enhance responsiveness](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html).
   _i3.CacheClusterSize? get cacheClusterSize;
 
   /// The canary deployment settings of this stage.
@@ -261,7 +270,7 @@ abstract class CreateStageRequestPayload
   _i5.BuiltMap<String, String>? get tags;
 
   /// Specifies whether active tracing with X-ray is enabled for the Stage.
-  bool? get tracingEnabled;
+  bool get tracingEnabled;
 
   /// A map that defines the stage variables for the new Stage resource. Variable names can have alphanumeric and underscore characters, and the values must match `\[A-Za-z0-9-._~:/?#&=,\]+`.
   _i5.BuiltMap<String, String>? get variables;
@@ -280,47 +289,47 @@ abstract class CreateStageRequestPayload
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateStageRequestPayload');
-    helper.add(
-      'cacheClusterEnabled',
-      cacheClusterEnabled,
-    );
-    helper.add(
-      'cacheClusterSize',
-      cacheClusterSize,
-    );
-    helper.add(
-      'canarySettings',
-      canarySettings,
-    );
-    helper.add(
-      'deploymentId',
-      deploymentId,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'documentationVersion',
-      documentationVersion,
-    );
-    helper.add(
-      'stageName',
-      stageName,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'tracingEnabled',
-      tracingEnabled,
-    );
-    helper.add(
-      'variables',
-      variables,
-    );
+    final helper = newBuiltValueToStringHelper('CreateStageRequestPayload')
+      ..add(
+        'cacheClusterEnabled',
+        cacheClusterEnabled,
+      )
+      ..add(
+        'cacheClusterSize',
+        cacheClusterSize,
+      )
+      ..add(
+        'canarySettings',
+        canarySettings,
+      )
+      ..add(
+        'deploymentId',
+        deploymentId,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'documentationVersion',
+        documentationVersion,
+      )
+      ..add(
+        'stageName',
+        stageName,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'tracingEnabled',
+        tracingEnabled,
+      )
+      ..add(
+        'variables',
+        variables,
+      );
     return helper.toString();
   }
 }
@@ -447,6 +456,11 @@ class CreateStageRequestRestJson1Serializer
       :variables
     ) = object;
     result$.addAll([
+      'cacheClusterEnabled',
+      serializers.serialize(
+        cacheClusterEnabled,
+        specifiedType: const FullType(bool),
+      ),
       'deploymentId',
       serializers.serialize(
         deploymentId,
@@ -457,15 +471,12 @@ class CreateStageRequestRestJson1Serializer
         stageName,
         specifiedType: const FullType(String),
       ),
+      'tracingEnabled',
+      serializers.serialize(
+        tracingEnabled,
+        specifiedType: const FullType(bool),
+      ),
     ]);
-    if (cacheClusterEnabled != null) {
-      result$
-        ..add('cacheClusterEnabled')
-        ..add(serializers.serialize(
-          cacheClusterEnabled,
-          specifiedType: const FullType(bool),
-        ));
-    }
     if (cacheClusterSize != null) {
       result$
         ..add('cacheClusterSize')
@@ -510,14 +521,6 @@ class CreateStageRequestRestJson1Serializer
               FullType(String),
             ],
           ),
-        ));
-    }
-    if (tracingEnabled != null) {
-      result$
-        ..add('tracingEnabled')
-        ..add(serializers.serialize(
-          tracingEnabled,
-          specifiedType: const FullType(bool),
         ));
     }
     if (variables != null) {

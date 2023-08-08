@@ -71,9 +71,7 @@ class EventDimensionsBuilder
   set metrics(_i5.MapBuilder<String, _i4.MetricDimension>? metrics) =>
       _$this._metrics = metrics;
 
-  EventDimensionsBuilder() {
-    EventDimensions._init(this);
-  }
+  EventDimensionsBuilder();
 
   EventDimensionsBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v2.rest_json_validation_protocol.model.malformed_unique_items_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -79,12 +79,9 @@ abstract class MalformedUniqueItemsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    MalformedUniqueItemsInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<MalformedUniqueItemsInput>>
+      serializers = [MalformedUniqueItemsInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedUniqueItemsInputBuilder b) {}
   _i9.BuiltSet<_i3.Uint8List>? get blobList;
   _i9.BuiltSet<bool>? get booleanList;
   _i9.BuiltSet<String>? get stringList;
@@ -122,67 +119,67 @@ abstract class MalformedUniqueItemsInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedUniqueItemsInput');
-    helper.add(
-      'blobList',
-      blobList,
-    );
-    helper.add(
-      'booleanList',
-      booleanList,
-    );
-    helper.add(
-      'stringList',
-      stringList,
-    );
-    helper.add(
-      'byteList',
-      byteList,
-    );
-    helper.add(
-      'shortList',
-      shortList,
-    );
-    helper.add(
-      'integerList',
-      integerList,
-    );
-    helper.add(
-      'longList',
-      longList,
-    );
-    helper.add(
-      'timestampList',
-      timestampList,
-    );
-    helper.add(
-      'dateTimeList',
-      dateTimeList,
-    );
-    helper.add(
-      'httpDateList',
-      httpDateList,
-    );
-    helper.add(
-      'enumList',
-      enumList,
-    );
-    helper.add(
-      'intEnumList',
-      intEnumList,
-    );
-    helper.add(
-      'listList',
-      listList,
-    );
-    helper.add(
-      'structureList',
-      structureList,
-    );
-    helper.add(
-      'unionList',
-      unionList,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedUniqueItemsInput')
+      ..add(
+        'blobList',
+        blobList,
+      )
+      ..add(
+        'booleanList',
+        booleanList,
+      )
+      ..add(
+        'stringList',
+        stringList,
+      )
+      ..add(
+        'byteList',
+        byteList,
+      )
+      ..add(
+        'shortList',
+        shortList,
+      )
+      ..add(
+        'integerList',
+        integerList,
+      )
+      ..add(
+        'longList',
+        longList,
+      )
+      ..add(
+        'timestampList',
+        timestampList,
+      )
+      ..add(
+        'dateTimeList',
+        dateTimeList,
+      )
+      ..add(
+        'httpDateList',
+        httpDateList,
+      )
+      ..add(
+        'enumList',
+        enumList,
+      )
+      ..add(
+        'intEnumList',
+        intEnumList,
+      )
+      ..add(
+        'listList',
+        listList,
+      )
+      ..add(
+        'structureList',
+        structureList,
+      )
+      ..add(
+        'unionList',
+        unionList,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_xml_v2.rest_xml_protocol.model.http_payload_with_xml_name_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -52,12 +52,9 @@ abstract class HttpPayloadWithXmlNameInputOutput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    HttpPayloadWithXmlNameInputOutputRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<_i2.PayloadWithXmlName?>> serializers =
+      [HttpPayloadWithXmlNameInputOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpPayloadWithXmlNameInputOutputBuilder b) {}
   _i2.PayloadWithXmlName? get nested;
   @override
   _i2.PayloadWithXmlName? getPayload() => nested ?? _i2.PayloadWithXmlName();
@@ -66,11 +63,11 @@ abstract class HttpPayloadWithXmlNameInputOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('HttpPayloadWithXmlNameInputOutput');
-    helper.add(
-      'nested',
-      nested,
-    );
+        newBuiltValueToStringHelper('HttpPayloadWithXmlNameInputOutput')
+          ..add(
+            'nested',
+            nested,
+          );
     return helper.toString();
   }
 }

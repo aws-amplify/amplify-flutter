@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.operation.list_objects_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,7 +35,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/no_such_bucket.dart' as _i9;
 class ListObjectsOperation extends _i1.HttpOperation<
     _i2.ListObjectsRequestPayload,
     _i2.ListObjectsRequest,
-    _i3.ListObjectsOutput,
+    _i3.ListObjectsOutputPayload,
     _i3.ListObjectsOutput> {
   /// Returns some or all (up to 1,000) of the objects in a bucket. You can use the request parameters as selection criteria to return a subset of the objects in a bucket. A 200 OK response can contain valid or invalid XML. Be sure to design your application to parse the contents of the response and handle it appropriately.
   ///
@@ -70,7 +70,7 @@ class ListObjectsOperation extends _i1.HttpOperation<
   @override
   late final List<
       _i1.HttpProtocol<_i2.ListObjectsRequestPayload, _i2.ListObjectsRequest,
-          _i3.ListObjectsOutput, _i3.ListObjectsOutput>> protocols = [
+          _i3.ListObjectsOutputPayload, _i3.ListObjectsOutput>> protocols = [
     _i4.RestXmlProtocol(
       serializers: _i6.serializers,
       builderFactories: _i6.builderFactories,
@@ -126,6 +126,15 @@ class ListObjectsOperation extends _i1.HttpOperation<
                 input.expectedBucketOwner!;
           }
         }
+        if (input.optionalObjectAttributes != null) {
+          if (input.optionalObjectAttributes!.isNotEmpty) {
+            b.headers['x-amz-optional-object-attributes'] = input
+                .optionalObjectAttributes!
+                .map((el) => el.value)
+                .map((el) => _i1.sanitizeHeader(el))
+                .join(', ');
+          }
+        }
         if (input.delimiter != null) {
           b.queryParameters.add(
             'delimiter',
@@ -161,7 +170,7 @@ class ListObjectsOperation extends _i1.HttpOperation<
   int successCode([_i3.ListObjectsOutput? output]) => 200;
   @override
   _i3.ListObjectsOutput buildOutput(
-    _i3.ListObjectsOutput payload,
+    _i3.ListObjectsOutputPayload payload,
     _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.ListObjectsOutput.fromResponse(
@@ -170,7 +179,7 @@ class ListObjectsOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.NoSuchBucket, _i9.NoSuchBucket>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.s3',
             shape: 'NoSuchBucket',
@@ -218,7 +227,7 @@ class ListObjectsOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

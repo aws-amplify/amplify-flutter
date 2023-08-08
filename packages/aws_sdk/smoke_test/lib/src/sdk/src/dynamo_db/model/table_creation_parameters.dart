@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.table_creation_parameters; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -57,12 +57,8 @@ abstract class TableCreationParameters
 
   const TableCreationParameters._();
 
-  static const List<_i9.SmithySerializer> serializers = [
-    TableCreationParametersAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TableCreationParametersBuilder b) {}
+  static const List<_i9.SmithySerializer<TableCreationParameters>> serializers =
+      [TableCreationParametersAwsJson10Serializer()];
 
   /// The name of the table created as part of the import operation.
   String get tableName;
@@ -98,35 +94,35 @@ abstract class TableCreationParameters
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TableCreationParameters');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'attributeDefinitions',
-      attributeDefinitions,
-    );
-    helper.add(
-      'keySchema',
-      keySchema,
-    );
-    helper.add(
-      'billingMode',
-      billingMode,
-    );
-    helper.add(
-      'provisionedThroughput',
-      provisionedThroughput,
-    );
-    helper.add(
-      'sseSpecification',
-      sseSpecification,
-    );
-    helper.add(
-      'globalSecondaryIndexes',
-      globalSecondaryIndexes,
-    );
+    final helper = newBuiltValueToStringHelper('TableCreationParameters')
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'attributeDefinitions',
+        attributeDefinitions,
+      )
+      ..add(
+        'keySchema',
+        keySchema,
+      )
+      ..add(
+        'billingMode',
+        billingMode,
+      )
+      ..add(
+        'provisionedThroughput',
+        provisionedThroughput,
+      )
+      ..add(
+        'sseSpecification',
+        sseSpecification,
+      )
+      ..add(
+        'globalSecondaryIndexes',
+        globalSecondaryIndexes,
+      );
     return helper.toString();
   }
 }

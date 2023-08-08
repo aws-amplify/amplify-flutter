@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.get_organizations_access_report_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,6 +31,7 @@ abstract class GetOrganizationsAccessReportResponse
     String? marker,
     _i4.ErrorDetails? errorDetails,
   }) {
+    isTruncated ??= false;
     return _$GetOrganizationsAccessReportResponse._(
       jobStatus: jobStatus,
       jobCreationDate: jobCreationDate,
@@ -58,12 +59,13 @@ abstract class GetOrganizationsAccessReportResponse
   ) =>
       payload;
 
-  static const List<_i6.SmithySerializer> serializers = [
-    GetOrganizationsAccessReportResponseAwsQuerySerializer()
-  ];
+  static const List<_i6.SmithySerializer<GetOrganizationsAccessReportResponse>>
+      serializers = [GetOrganizationsAccessReportResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetOrganizationsAccessReportResponseBuilder b) {}
+  static void _init(GetOrganizationsAccessReportResponseBuilder b) {
+    b.isTruncated = false;
+  }
 
   /// The status of the job.
   _i2.JobStatusType get jobStatus;
@@ -86,7 +88,7 @@ abstract class GetOrganizationsAccessReportResponse
   _i5.BuiltList<_i3.AccessDetail>? get accessDetails;
 
   /// A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the `Marker` request parameter to retrieve more items. Note that IAM might return fewer than the `MaxItems` number of results even when there are more results available. We recommend that you check `IsTruncated` after every call to ensure that you receive all your results.
-  bool? get isTruncated;
+  bool get isTruncated;
 
   /// When `IsTruncated` is `true`, this element is present and contains the value to use for the `Marker` parameter in a subsequent pagination request.
   String? get marker;
@@ -110,43 +112,43 @@ abstract class GetOrganizationsAccessReportResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetOrganizationsAccessReportResponse');
-    helper.add(
-      'jobStatus',
-      jobStatus,
-    );
-    helper.add(
-      'jobCreationDate',
-      jobCreationDate,
-    );
-    helper.add(
-      'jobCompletionDate',
-      jobCompletionDate,
-    );
-    helper.add(
-      'numberOfServicesAccessible',
-      numberOfServicesAccessible,
-    );
-    helper.add(
-      'numberOfServicesNotAccessed',
-      numberOfServicesNotAccessed,
-    );
-    helper.add(
-      'accessDetails',
-      accessDetails,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'errorDetails',
-      errorDetails,
-    );
+        newBuiltValueToStringHelper('GetOrganizationsAccessReportResponse')
+          ..add(
+            'jobStatus',
+            jobStatus,
+          )
+          ..add(
+            'jobCreationDate',
+            jobCreationDate,
+          )
+          ..add(
+            'jobCompletionDate',
+            jobCompletionDate,
+          )
+          ..add(
+            'numberOfServicesAccessible',
+            numberOfServicesAccessible,
+          )
+          ..add(
+            'numberOfServicesNotAccessed',
+            numberOfServicesNotAccessed,
+          )
+          ..add(
+            'accessDetails',
+            accessDetails,
+          )
+          ..add(
+            'isTruncated',
+            isTruncated,
+          )
+          ..add(
+            'marker',
+            marker,
+          )
+          ..add(
+            'errorDetails',
+            errorDetails,
+          );
     return helper.toString();
   }
 }
@@ -314,14 +316,12 @@ class GetOrganizationsAccessReportResponseAwsQuerySerializer extends _i6
           ),
         ));
     }
-    if (isTruncated != null) {
-      result$
-        ..add(const _i6.XmlElementName('IsTruncated'))
-        ..add(serializers.serialize(
-          isTruncated,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result$
+      ..add(const _i6.XmlElementName('IsTruncated'))
+      ..add(serializers.serialize(
+        isTruncated,
+        specifiedType: const FullType(bool),
+      ));
     if (marker != null) {
       result$
         ..add(const _i6.XmlElementName('Marker'))

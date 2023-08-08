@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.account_aggregation_source; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,6 +22,7 @@ abstract class AccountAggregationSource
     bool? allAwsRegions,
     List<String>? awsRegions,
   }) {
+    allAwsRegions ??= false;
     return _$AccountAggregationSource._(
       accountIds: _i2.BuiltList(accountIds),
       allAwsRegions: allAwsRegions,
@@ -36,18 +37,19 @@ abstract class AccountAggregationSource
 
   const AccountAggregationSource._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    AccountAggregationSourceAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<AccountAggregationSource>>
+      serializers = [AccountAggregationSourceAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(AccountAggregationSourceBuilder b) {}
+  static void _init(AccountAggregationSourceBuilder b) {
+    b.allAwsRegions = false;
+  }
 
   /// The 12-digit account ID of the account being aggregated.
   _i2.BuiltList<String> get accountIds;
 
   /// If true, aggregate existing Config regions and future regions.
-  bool? get allAwsRegions;
+  bool get allAwsRegions;
 
   /// The source regions being aggregated.
   _i2.BuiltList<String>? get awsRegions;
@@ -59,19 +61,19 @@ abstract class AccountAggregationSource
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AccountAggregationSource');
-    helper.add(
-      'accountIds',
-      accountIds,
-    );
-    helper.add(
-      'allAwsRegions',
-      allAwsRegions,
-    );
-    helper.add(
-      'awsRegions',
-      awsRegions,
-    );
+    final helper = newBuiltValueToStringHelper('AccountAggregationSource')
+      ..add(
+        'accountIds',
+        accountIds,
+      )
+      ..add(
+        'allAwsRegions',
+        allAwsRegions,
+      )
+      ..add(
+        'awsRegions',
+        awsRegions,
+      );
     return helper.toString();
   }
 }
@@ -154,15 +156,12 @@ class AccountAggregationSourceAwsJson11Serializer
           [FullType(String)],
         ),
       ),
+      'AllAwsRegions',
+      serializers.serialize(
+        allAwsRegions,
+        specifiedType: const FullType(bool),
+      ),
     ]);
-    if (allAwsRegions != null) {
-      result$
-        ..add('AllAwsRegions')
-        ..add(serializers.serialize(
-          allAwsRegions,
-          specifiedType: const FullType(bool),
-        ));
-    }
     if (awsRegions != null) {
       result$
         ..add('AwsRegions')

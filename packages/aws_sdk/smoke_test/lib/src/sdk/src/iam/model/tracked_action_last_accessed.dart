@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.tracked_action_last_accessed; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,12 +43,8 @@ abstract class TrackedActionLastAccessed
 
   const TrackedActionLastAccessed._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    TrackedActionLastAccessedAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TrackedActionLastAccessedBuilder b) {}
+  static const List<_i2.SmithySerializer<TrackedActionLastAccessed>>
+      serializers = [TrackedActionLastAccessedAwsQuerySerializer()];
 
   /// The name of the tracked action to which access was attempted. Tracked actions are actions that report activity to IAM.
   String? get actionName;
@@ -60,12 +56,12 @@ abstract class TrackedActionLastAccessed
 
   /// The date and time, in [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when an authenticated entity most recently attempted to access the tracked service. Amazon Web Services does not report unauthenticated requests.
   ///
-  /// This field is null if no IAM entities attempted to access the service within the [reporting period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
+  /// This field is null if no IAM entities attempted to access the service within the [tracking period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
   DateTime? get lastAccessedTime;
 
   /// The Region from which the authenticated entity (user or role) last attempted to access the tracked action. Amazon Web Services does not report unauthenticated requests.
   ///
-  /// This field is null if no IAM entities attempted to access the service within the [reporting period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
+  /// This field is null if no IAM entities attempted to access the service within the [tracking period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
   String? get lastAccessedRegion;
   @override
   List<Object?> get props => [
@@ -76,23 +72,23 @@ abstract class TrackedActionLastAccessed
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TrackedActionLastAccessed');
-    helper.add(
-      'actionName',
-      actionName,
-    );
-    helper.add(
-      'lastAccessedEntity',
-      lastAccessedEntity,
-    );
-    helper.add(
-      'lastAccessedTime',
-      lastAccessedTime,
-    );
-    helper.add(
-      'lastAccessedRegion',
-      lastAccessedRegion,
-    );
+    final helper = newBuiltValueToStringHelper('TrackedActionLastAccessed')
+      ..add(
+        'actionName',
+        actionName,
+      )
+      ..add(
+        'lastAccessedEntity',
+        lastAccessedEntity,
+      )
+      ..add(
+        'lastAccessedTime',
+        lastAccessedTime,
+      )
+      ..add(
+        'lastAccessedRegion',
+        lastAccessedRegion,
+      );
     return helper.toString();
   }
 }

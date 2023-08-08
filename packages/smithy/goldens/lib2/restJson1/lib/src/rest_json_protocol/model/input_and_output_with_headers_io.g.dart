@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.input_and_output_with_headers_io;
+part of 'input_and_output_with_headers_io.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -225,9 +225,7 @@ class InputAndOutputWithHeadersIoBuilder
           _i6.ListBuilder<_i5.IntegerEnum>? headerIntegerEnumList) =>
       _$this._headerIntegerEnumList = headerIntegerEnumList;
 
-  InputAndOutputWithHeadersIoBuilder() {
-    InputAndOutputWithHeadersIo._init(this);
-  }
+  InputAndOutputWithHeadersIoBuilder();
 
   InputAndOutputWithHeadersIoBuilder get _$this {
     final $v = _$v;
@@ -359,9 +357,7 @@ class InputAndOutputWithHeadersIoPayloadBuilder
             InputAndOutputWithHeadersIoPayloadBuilder> {
   _$InputAndOutputWithHeadersIoPayload? _$v;
 
-  InputAndOutputWithHeadersIoPayloadBuilder() {
-    InputAndOutputWithHeadersIoPayload._init(this);
-  }
+  InputAndOutputWithHeadersIoPayloadBuilder();
 
   @override
   void replace(InputAndOutputWithHeadersIoPayload other) {

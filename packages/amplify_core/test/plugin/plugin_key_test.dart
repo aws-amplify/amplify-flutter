@@ -35,6 +35,9 @@ class MockCategory<Value extends Object, P extends MockPluginInterface<Value>>
   @override
   Category get category => Category.analytics;
 
+  @override
+  Set<Category> get categoryDependencies => const {};
+
   MockCategory<GetValue, GetPlugin> getPlugin<GetValue extends Object,
           GetPlugin extends MockPluginInterface<GetValue>>(
     MockPluginKey<GetValue, GetPlugin> pluginKey,

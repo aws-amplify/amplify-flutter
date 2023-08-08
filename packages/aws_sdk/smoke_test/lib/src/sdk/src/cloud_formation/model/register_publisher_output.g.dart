@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.register_publisher_output;
+part of 'register_publisher_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -49,9 +49,7 @@ class RegisterPublisherOutputBuilder
   String? get publisherId => _$this._publisherId;
   set publisherId(String? publisherId) => _$this._publisherId = publisherId;
 
-  RegisterPublisherOutputBuilder() {
-    RegisterPublisherOutput._init(this);
-  }
+  RegisterPublisherOutputBuilder();
 
   RegisterPublisherOutputBuilder get _$this {
     final $v = _$v;

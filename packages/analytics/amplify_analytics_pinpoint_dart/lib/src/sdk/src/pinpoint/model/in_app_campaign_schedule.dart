@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.in_app_campaign_schedule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,9 @@ abstract class InAppCampaignSchedule
 
   const InAppCampaignSchedule._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<InAppCampaignSchedule>> serializers = [
     InAppCampaignScheduleRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InAppCampaignScheduleBuilder b) {}
 
   /// The scheduled time after which the in-app message should not be shown. Timestamp is in ISO 8601 format.
   String? get endDate;
@@ -61,19 +58,19 @@ abstract class InAppCampaignSchedule
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InAppCampaignSchedule');
-    helper.add(
-      'endDate',
-      endDate,
-    );
-    helper.add(
-      'eventFilter',
-      eventFilter,
-    );
-    helper.add(
-      'quietTime',
-      quietTime,
-    );
+    final helper = newBuiltValueToStringHelper('InAppCampaignSchedule')
+      ..add(
+        'endDate',
+        endDate,
+      )
+      ..add(
+        'eventFilter',
+        eventFilter,
+      )
+      ..add(
+        'quietTime',
+        quietTime,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.organization_config_rule_status; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,17 +43,13 @@ abstract class OrganizationConfigRuleStatus
 
   const OrganizationConfigRuleStatus._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    OrganizationConfigRuleStatusAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OrganizationConfigRuleStatusBuilder b) {}
+  static const List<_i3.SmithySerializer<OrganizationConfigRuleStatus>>
+      serializers = [OrganizationConfigRuleStatusAwsJson11Serializer()];
 
   /// The name that you assign to organization Config rule.
   String get organizationConfigRuleName;
 
-  /// Indicates deployment status of an organization Config rule. When master account calls PutOrganizationConfigRule action for the first time, Config rule status is created in all the member accounts. When master account calls PutOrganizationConfigRule action for the second time, Config rule status is updated in all the member accounts. Additionally, Config rule status is updated when one or more member accounts join or leave an organization. Config rule status is deleted when the master account deletes OrganizationConfigRule in all the member accounts and disables service access for `config-multiaccountsetup.amazonaws.com`.
+  /// Indicates deployment status of an organization Config rule. When management account calls PutOrganizationConfigRule action for the first time, Config rule status is created in all the member accounts. When management account calls PutOrganizationConfigRule action for the second time, Config rule status is updated in all the member accounts. Additionally, Config rule status is updated when one or more member accounts join or leave an organization. Config rule status is deleted when the management account deletes OrganizationConfigRule in all the member accounts and disables service access for `config-multiaccountsetup.amazonaws.com`.
   ///
   /// Config sets the state of the rule to:
   ///
@@ -94,27 +90,27 @@ abstract class OrganizationConfigRuleStatus
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('OrganizationConfigRuleStatus');
-    helper.add(
-      'organizationConfigRuleName',
-      organizationConfigRuleName,
-    );
-    helper.add(
-      'organizationRuleStatus',
-      organizationRuleStatus,
-    );
-    helper.add(
-      'errorCode',
-      errorCode,
-    );
-    helper.add(
-      'errorMessage',
-      errorMessage,
-    );
-    helper.add(
-      'lastUpdateTime',
-      lastUpdateTime,
-    );
+    final helper = newBuiltValueToStringHelper('OrganizationConfigRuleStatus')
+      ..add(
+        'organizationConfigRuleName',
+        organizationConfigRuleName,
+      )
+      ..add(
+        'organizationRuleStatus',
+        organizationRuleStatus,
+      )
+      ..add(
+        'errorCode',
+        errorCode,
+      )
+      ..add(
+        'errorMessage',
+        errorMessage,
+      )
+      ..add(
+        'lastUpdateTime',
+        lastUpdateTime,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.rest_json_validation_protocol.model.recursive_structures_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,12 +35,9 @@ abstract class RecursiveStructuresInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    RecursiveStructuresInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<RecursiveStructuresInput>>
+      serializers = [RecursiveStructuresInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RecursiveStructuresInputBuilder b) {}
   _i3.RecursiveUnionOne? get union;
   @override
   RecursiveStructuresInput getPayload() => this;
@@ -48,11 +45,11 @@ abstract class RecursiveStructuresInput
   List<Object?> get props => [union];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RecursiveStructuresInput');
-    helper.add(
-      'union',
-      union,
-    );
+    final helper = newBuiltValueToStringHelper('RecursiveStructuresInput')
+      ..add(
+        'union',
+        union,
+      );
     return helper.toString();
   }
 }

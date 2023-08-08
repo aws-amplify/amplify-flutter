@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.aggregate_resource_identifier; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,12 +41,8 @@ abstract class AggregateResourceIdentifier
 
   const AggregateResourceIdentifier._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    AggregateResourceIdentifierAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AggregateResourceIdentifierBuilder b) {}
+  static const List<_i3.SmithySerializer<AggregateResourceIdentifier>>
+      serializers = [AggregateResourceIdentifierAwsJson11Serializer()];
 
   /// The 12-digit account ID of the source account.
   String get sourceAccountId;
@@ -72,27 +68,27 @@ abstract class AggregateResourceIdentifier
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AggregateResourceIdentifier');
-    helper.add(
-      'sourceAccountId',
-      sourceAccountId,
-    );
-    helper.add(
-      'sourceRegion',
-      sourceRegion,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'resourceName',
-      resourceName,
-    );
+    final helper = newBuiltValueToStringHelper('AggregateResourceIdentifier')
+      ..add(
+        'sourceAccountId',
+        sourceAccountId,
+      )
+      ..add(
+        'sourceRegion',
+        sourceRegion,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'resourceName',
+        resourceName,
+      );
     return helper.toString();
   }
 }

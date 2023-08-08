@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.update_role_request;
+part of 'update_role_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -70,9 +70,7 @@ class UpdateRoleRequestBuilder
   set maxSessionDuration(int? maxSessionDuration) =>
       _$this._maxSessionDuration = maxSessionDuration;
 
-  UpdateRoleRequestBuilder() {
-    UpdateRoleRequest._init(this);
-  }
+  UpdateRoleRequestBuilder();
 
   UpdateRoleRequestBuilder get _$this {
     final $v = _$v;

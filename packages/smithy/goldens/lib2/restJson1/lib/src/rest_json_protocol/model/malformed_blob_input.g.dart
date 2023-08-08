@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.malformed_blob_input;
+part of 'malformed_blob_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -48,9 +48,7 @@ class MalformedBlobInputBuilder
   _i3.Uint8List? get blob => _$this._blob;
   set blob(_i3.Uint8List? blob) => _$this._blob = blob;
 
-  MalformedBlobInputBuilder() {
-    MalformedBlobInput._init(this);
-  }
+  MalformedBlobInputBuilder();
 
   MalformedBlobInputBuilder get _$this {
     final $v = _$v;

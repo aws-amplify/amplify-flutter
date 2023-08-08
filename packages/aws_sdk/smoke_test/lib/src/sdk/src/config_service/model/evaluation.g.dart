@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.evaluation;
+part of 'evaluation.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -96,9 +96,7 @@ class EvaluationBuilder implements Builder<Evaluation, EvaluationBuilder> {
   set orderingTimestamp(DateTime? orderingTimestamp) =>
       _$this._orderingTimestamp = orderingTimestamp;
 
-  EvaluationBuilder() {
-    Evaluation._init(this);
-  }
+  EvaluationBuilder();
 
   EvaluationBuilder get _$this {
     final $v = _$v;

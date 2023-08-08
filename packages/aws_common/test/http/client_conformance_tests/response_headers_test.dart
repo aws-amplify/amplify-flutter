@@ -38,7 +38,7 @@ void main() {
         headers: const {
           'field1': 'value1',
           'field2': 'value2',
-          'field3': 'value3'
+          'field3': 'value3',
         },
       );
       final response = await client().send(request).response;

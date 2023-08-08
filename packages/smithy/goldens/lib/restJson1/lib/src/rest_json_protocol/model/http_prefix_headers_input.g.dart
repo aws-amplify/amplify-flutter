@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_protocol.model.http_prefix_headers_input;
+part of 'http_prefix_headers_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -58,9 +58,7 @@ class HttpPrefixHeadersInputBuilder
       _$this._fooMap ??= new _i3.MapBuilder<String, String>();
   set fooMap(_i3.MapBuilder<String, String>? fooMap) => _$this._fooMap = fooMap;
 
-  HttpPrefixHeadersInputBuilder() {
-    HttpPrefixHeadersInput._init(this);
-  }
+  HttpPrefixHeadersInputBuilder();
 
   HttpPrefixHeadersInputBuilder get _$this {
     final $v = _$v;
@@ -141,9 +139,7 @@ class HttpPrefixHeadersInputPayloadBuilder
             HttpPrefixHeadersInputPayloadBuilder> {
   _$HttpPrefixHeadersInputPayload? _$v;
 
-  HttpPrefixHeadersInputPayloadBuilder() {
-    HttpPrefixHeadersInputPayload._init(this);
-  }
+  HttpPrefixHeadersInputPayloadBuilder();
 
   @override
   void replace(HttpPrefixHeadersInputPayload other) {

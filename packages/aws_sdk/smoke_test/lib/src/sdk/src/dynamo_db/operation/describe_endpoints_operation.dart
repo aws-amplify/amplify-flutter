@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.operation.describe_endpoints_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,13 +18,13 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_endpoints_reques
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/describe_endpoints_response.dart'
     as _i3;
 
-/// Returns the regional endpoint information.
+/// Returns the regional endpoint information. For more information on policy permissions, please see [Internetwork traffic privacy](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/inter-network-traffic-privacy.html#inter-network-traffic-DescribeEndpoints).
 class DescribeEndpointsOperation extends _i1.HttpOperation<
     _i2.DescribeEndpointsRequest,
     _i2.DescribeEndpointsRequest,
     _i3.DescribeEndpointsResponse,
     _i3.DescribeEndpointsResponse> {
-  /// Returns the regional endpoint information.
+  /// Returns the regional endpoint information. For more information on policy permissions, please see [Internetwork traffic privacy](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/inter-network-traffic-privacy.html#inter-network-traffic-DescribeEndpoints).
   DescribeEndpointsOperation({
     required String region,
     Uri? baseUri,
@@ -125,7 +125,7 @@ class DescribeEndpointsOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

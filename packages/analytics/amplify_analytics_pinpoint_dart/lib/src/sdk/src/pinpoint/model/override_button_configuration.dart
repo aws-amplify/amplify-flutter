@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.override_button_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,12 +35,8 @@ abstract class OverrideButtonConfiguration
 
   const OverrideButtonConfiguration._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    OverrideButtonConfigurationRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OverrideButtonConfigurationBuilder b) {}
+  static const List<_i3.SmithySerializer<OverrideButtonConfiguration>>
+      serializers = [OverrideButtonConfigurationRestJson1Serializer()];
 
   /// Action triggered by the button.
   _i2.ButtonAction get buttonAction;
@@ -54,15 +50,15 @@ abstract class OverrideButtonConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('OverrideButtonConfiguration');
-    helper.add(
-      'buttonAction',
-      buttonAction,
-    );
-    helper.add(
-      'link',
-      link,
-    );
+    final helper = newBuiltValueToStringHelper('OverrideButtonConfiguration')
+      ..add(
+        'buttonAction',
+        buttonAction,
+      )
+      ..add(
+        'link',
+        link,
+      );
     return helper.toString();
   }
 }

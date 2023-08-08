@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library aws_query_v2.query_protocol.model.query_maps_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -56,12 +56,10 @@ abstract class QueryMapsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<QueryMapsInput>> serializers = [
     QueryMapsInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(QueryMapsInputBuilder b) {}
   _i5.BuiltMap<String, String>? get mapArg;
   _i5.BuiltMap<String, String>? get renamedMapArg;
   _i5.BuiltMap<String, _i3.GreetingStruct>? get complexMapArg;
@@ -85,39 +83,39 @@ abstract class QueryMapsInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('QueryMapsInput');
-    helper.add(
-      'mapArg',
-      mapArg,
-    );
-    helper.add(
-      'renamedMapArg',
-      renamedMapArg,
-    );
-    helper.add(
-      'complexMapArg',
-      complexMapArg,
-    );
-    helper.add(
-      'mapWithXmlMemberName',
-      mapWithXmlMemberName,
-    );
-    helper.add(
-      'flattenedMap',
-      flattenedMap,
-    );
-    helper.add(
-      'flattenedMapWithXmlName',
-      flattenedMapWithXmlName,
-    );
-    helper.add(
-      'mapOfLists',
-      mapOfLists,
-    );
-    helper.add(
-      'nestedStructWithMap',
-      nestedStructWithMap,
-    );
+    final helper = newBuiltValueToStringHelper('QueryMapsInput')
+      ..add(
+        'mapArg',
+        mapArg,
+      )
+      ..add(
+        'renamedMapArg',
+        renamedMapArg,
+      )
+      ..add(
+        'complexMapArg',
+        complexMapArg,
+      )
+      ..add(
+        'mapWithXmlMemberName',
+        mapWithXmlMemberName,
+      )
+      ..add(
+        'flattenedMap',
+        flattenedMap,
+      )
+      ..add(
+        'flattenedMapWithXmlName',
+        flattenedMapWithXmlName,
+      )
+      ..add(
+        'mapOfLists',
+        mapOfLists,
+      )
+      ..add(
+        'nestedStructWithMap',
+        nestedStructWithMap,
+      );
     return helper.toString();
   }
 }

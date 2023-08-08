@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.stack_resource_summary;
+part of 'stack_resource_summary.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -134,9 +134,7 @@ class StackResourceSummaryBuilder
   set moduleInfo(_i4.ModuleInfoBuilder? moduleInfo) =>
       _$this._moduleInfo = moduleInfo;
 
-  StackResourceSummaryBuilder() {
-    StackResourceSummary._init(this);
-  }
+  StackResourceSummaryBuilder();
 
   StackResourceSummaryBuilder get _$this {
     final $v = _$v;

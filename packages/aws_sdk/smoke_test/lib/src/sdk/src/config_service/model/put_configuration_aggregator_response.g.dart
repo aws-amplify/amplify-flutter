@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.put_configuration_aggregator_response;
+part of 'put_configuration_aggregator_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -59,9 +59,7 @@ class PutConfigurationAggregatorResponseBuilder
           _i2.ConfigurationAggregatorBuilder? configurationAggregator) =>
       _$this._configurationAggregator = configurationAggregator;
 
-  PutConfigurationAggregatorResponseBuilder() {
-    PutConfigurationAggregatorResponse._init(this);
-  }
+  PutConfigurationAggregatorResponseBuilder();
 
   PutConfigurationAggregatorResponseBuilder get _$this {
     final $v = _$v;

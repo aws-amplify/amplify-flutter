@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.organization_conformance_pack_template_validation_exception;
+part of 'organization_conformance_pack_template_validation_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -73,9 +73,7 @@ class OrganizationConformancePackTemplateValidationExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  OrganizationConformancePackTemplateValidationExceptionBuilder() {
-    OrganizationConformancePackTemplateValidationException._init(this);
-  }
+  OrganizationConformancePackTemplateValidationExceptionBuilder();
 
   OrganizationConformancePackTemplateValidationExceptionBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.describe_table_replica_auto_scaling_input;
+part of 'describe_table_replica_auto_scaling_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -58,9 +58,7 @@ class DescribeTableReplicaAutoScalingInputBuilder
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
 
-  DescribeTableReplicaAutoScalingInputBuilder() {
-    DescribeTableReplicaAutoScalingInput._init(this);
-  }
+  DescribeTableReplicaAutoScalingInputBuilder();
 
   DescribeTableReplicaAutoScalingInputBuilder get _$this {
     final $v = _$v;

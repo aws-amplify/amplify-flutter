@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v2.query_protocol.model.xml_timestamps_output;
+part of 'xml_timestamps_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -109,9 +109,7 @@ class XmlTimestampsOutputBuilder
   set httpDateOnTarget(DateTime? httpDateOnTarget) =>
       _$this._httpDateOnTarget = httpDateOnTarget;
 
-  XmlTimestampsOutputBuilder() {
-    XmlTimestampsOutput._init(this);
-  }
+  XmlTimestampsOutputBuilder();
 
   XmlTimestampsOutputBuilder get _$this {
     final $v = _$v;

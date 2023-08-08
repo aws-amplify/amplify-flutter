@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.list_global_tables_input;
+part of 'list_global_tables_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -69,9 +69,7 @@ class ListGlobalTablesInputBuilder
   String? get regionName => _$this._regionName;
   set regionName(String? regionName) => _$this._regionName = regionName;
 
-  ListGlobalTablesInputBuilder() {
-    ListGlobalTablesInput._init(this);
-  }
+  ListGlobalTablesInputBuilder();
 
   ListGlobalTablesInputBuilder get _$this {
     final $v = _$v;

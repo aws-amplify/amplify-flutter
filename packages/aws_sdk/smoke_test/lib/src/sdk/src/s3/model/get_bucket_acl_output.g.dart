@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_bucket_acl_output;
+part of 'get_bucket_acl_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -58,9 +58,7 @@ class GetBucketAclOutputBuilder
       _$this._grants ??= new _i4.ListBuilder<_i3.Grant>();
   set grants(_i4.ListBuilder<_i3.Grant>? grants) => _$this._grants = grants;
 
-  GetBucketAclOutputBuilder() {
-    GetBucketAclOutput._init(this);
-  }
+  GetBucketAclOutputBuilder();
 
   GetBucketAclOutputBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library aws_json1_1_v2.json_protocol.model.error_with_members; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -53,12 +53,10 @@ abstract class ErrorWithMembers
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ErrorWithMembers>> serializers = [
     ErrorWithMembersAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ErrorWithMembersBuilder b) {}
   String? get code;
   _i3.KitchenSink? get complexData;
   int? get integerField;
@@ -96,35 +94,35 @@ abstract class ErrorWithMembers
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ErrorWithMembers');
-    helper.add(
-      'code',
-      code,
-    );
-    helper.add(
-      'complexData',
-      complexData,
-    );
-    helper.add(
-      'integerField',
-      integerField,
-    );
-    helper.add(
-      'listField',
-      listField,
-    );
-    helper.add(
-      'mapField',
-      mapField,
-    );
-    helper.add(
-      'message',
-      message,
-    );
-    helper.add(
-      'stringField',
-      stringField,
-    );
+    final helper = newBuiltValueToStringHelper('ErrorWithMembers')
+      ..add(
+        'code',
+        code,
+      )
+      ..add(
+        'complexData',
+        complexData,
+      )
+      ..add(
+        'integerField',
+        integerField,
+      )
+      ..add(
+        'listField',
+        listField,
+      )
+      ..add(
+        'mapField',
+        mapField,
+      )
+      ..add(
+        'message',
+        message,
+      )
+      ..add(
+        'stringField',
+        stringField,
+      );
     return helper.toString();
   }
 }

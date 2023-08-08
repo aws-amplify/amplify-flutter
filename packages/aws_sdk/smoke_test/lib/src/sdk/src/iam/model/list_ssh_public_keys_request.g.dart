@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.list_ssh_public_keys_request;
+part of 'list_ssh_public_keys_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -67,9 +67,7 @@ class ListSshPublicKeysRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  ListSshPublicKeysRequestBuilder() {
-    ListSshPublicKeysRequest._init(this);
-  }
+  ListSshPublicKeysRequestBuilder();
 
   ListSshPublicKeysRequestBuilder get _$this {
     final $v = _$v;

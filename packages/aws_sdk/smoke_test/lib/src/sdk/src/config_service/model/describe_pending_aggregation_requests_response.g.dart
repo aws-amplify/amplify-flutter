@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.describe_pending_aggregation_requests_response;
+part of 'describe_pending_aggregation_requests_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -71,9 +71,7 @@ class DescribePendingAggregationRequestsResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribePendingAggregationRequestsResponseBuilder() {
-    DescribePendingAggregationRequestsResponse._init(this);
-  }
+  DescribePendingAggregationRequestsResponseBuilder();
 
   DescribePendingAggregationRequestsResponseBuilder get _$this {
     final $v = _$v;

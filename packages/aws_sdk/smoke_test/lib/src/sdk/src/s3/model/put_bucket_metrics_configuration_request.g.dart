@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.put_bucket_metrics_configuration_request;
+part of 'put_bucket_metrics_configuration_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -94,9 +94,7 @@ class PutBucketMetricsConfigurationRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  PutBucketMetricsConfigurationRequestBuilder() {
-    PutBucketMetricsConfigurationRequest._init(this);
-  }
+  PutBucketMetricsConfigurationRequestBuilder();
 
   PutBucketMetricsConfigurationRequestBuilder get _$this {
     final $v = _$v;

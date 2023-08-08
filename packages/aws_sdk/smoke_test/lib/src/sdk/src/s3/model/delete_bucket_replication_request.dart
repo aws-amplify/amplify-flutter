@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.delete_bucket_replication_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -51,12 +51,8 @@ abstract class DeleteBucketReplicationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteBucketReplicationRequestRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBucketReplicationRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<DeleteBucketReplicationRequestPayload>>
+      serializers = [DeleteBucketReplicationRequestRestXmlSerializer()];
 
   /// The bucket name.
   String get bucket;
@@ -85,16 +81,15 @@ abstract class DeleteBucketReplicationRequest
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DeleteBucketReplicationRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteBucketReplicationRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }
@@ -113,8 +108,6 @@ abstract class DeleteBucketReplicationRequestPayload
 
   const DeleteBucketReplicationRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBucketReplicationRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

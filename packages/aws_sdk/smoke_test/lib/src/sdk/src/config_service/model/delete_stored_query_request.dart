@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.delete_stored_query_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,8 @@ abstract class DeleteStoredQueryRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteStoredQueryRequestAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteStoredQueryRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<DeleteStoredQueryRequest>>
+      serializers = [DeleteStoredQueryRequestAwsJson11Serializer()];
 
   /// The name of the query that you want to delete.
   String get queryName;
@@ -48,11 +44,11 @@ abstract class DeleteStoredQueryRequest
   List<Object?> get props => [queryName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteStoredQueryRequest');
-    helper.add(
-      'queryName',
-      queryName,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteStoredQueryRequest')
+      ..add(
+        'queryName',
+        queryName,
+      );
     return helper.toString();
   }
 }

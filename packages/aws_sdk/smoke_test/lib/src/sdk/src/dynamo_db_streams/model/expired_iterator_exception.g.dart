@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db_streams.model.expired_iterator_exception;
+part of 'expired_iterator_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -62,9 +62,7 @@ class ExpiredIteratorExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ExpiredIteratorExceptionBuilder() {
-    ExpiredIteratorException._init(this);
-  }
+  ExpiredIteratorExceptionBuilder();
 
   ExpiredIteratorExceptionBuilder get _$this {
     final $v = _$v;

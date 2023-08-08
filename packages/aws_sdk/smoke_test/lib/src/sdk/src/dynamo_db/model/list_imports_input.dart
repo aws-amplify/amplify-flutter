@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.list_imports_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,12 +37,9 @@ abstract class ListImportsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ListImportsInput>> serializers = [
     ListImportsInputAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListImportsInputBuilder b) {}
 
   /// The Amazon Resource Name (ARN) associated with the table that was imported to.
   String? get tableArn;
@@ -62,19 +59,19 @@ abstract class ListImportsInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListImportsInput');
-    helper.add(
-      'tableArn',
-      tableArn,
-    );
-    helper.add(
-      'pageSize',
-      pageSize,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('ListImportsInput')
+      ..add(
+        'tableArn',
+        tableArn,
+      )
+      ..add(
+        'pageSize',
+        pageSize,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

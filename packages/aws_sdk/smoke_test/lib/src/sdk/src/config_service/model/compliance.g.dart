@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.compliance;
+part of 'compliance.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -59,9 +59,7 @@ class ComplianceBuilder implements Builder<Compliance, ComplianceBuilder> {
           _i3.ComplianceContributorCountBuilder? complianceContributorCount) =>
       _$this._complianceContributorCount = complianceContributorCount;
 
-  ComplianceBuilder() {
-    Compliance._init(this);
-  }
+  ComplianceBuilder();
 
   ComplianceBuilder get _$this {
     final $v = _$v;

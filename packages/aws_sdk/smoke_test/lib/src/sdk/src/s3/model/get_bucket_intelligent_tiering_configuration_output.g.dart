@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_bucket_intelligent_tiering_configuration_output;
+part of 'get_bucket_intelligent_tiering_configuration_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -66,9 +66,7 @@ class GetBucketIntelligentTieringConfigurationOutputBuilder
               intelligentTieringConfiguration) =>
       _$this._intelligentTieringConfiguration = intelligentTieringConfiguration;
 
-  GetBucketIntelligentTieringConfigurationOutputBuilder() {
-    GetBucketIntelligentTieringConfigurationOutput._init(this);
-  }
+  GetBucketIntelligentTieringConfigurationOutputBuilder();
 
   GetBucketIntelligentTieringConfigurationOutputBuilder get _$this {
     final $v = _$v;

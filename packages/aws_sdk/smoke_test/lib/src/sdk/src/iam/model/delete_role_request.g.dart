@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.delete_role_request;
+part of 'delete_role_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -50,9 +50,7 @@ class DeleteRoleRequestBuilder
   String? get roleName => _$this._roleName;
   set roleName(String? roleName) => _$this._roleName = roleName;
 
-  DeleteRoleRequestBuilder() {
-    DeleteRoleRequest._init(this);
-  }
+  DeleteRoleRequestBuilder();
 
   DeleteRoleRequestBuilder get _$this {
     final $v = _$v;

@@ -53,9 +53,7 @@ class UpdateEndpointResponseBuilder
   set messageBody(_i3.MessageBodyBuilder? messageBody) =>
       _$this._messageBody = messageBody;
 
-  UpdateEndpointResponseBuilder() {
-    UpdateEndpointResponse._init(this);
-  }
+  UpdateEndpointResponseBuilder();
 
   UpdateEndpointResponseBuilder get _$this {
     final $v = _$v;

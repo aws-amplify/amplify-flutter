@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.idempotent_parameter_mismatch_exception;
+part of 'idempotent_parameter_mismatch_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -68,9 +68,7 @@ class IdempotentParameterMismatchExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  IdempotentParameterMismatchExceptionBuilder() {
-    IdempotentParameterMismatchException._init(this);
-  }
+  IdempotentParameterMismatchExceptionBuilder();
 
   IdempotentParameterMismatchExceptionBuilder get _$this {
     final $v = _$v;

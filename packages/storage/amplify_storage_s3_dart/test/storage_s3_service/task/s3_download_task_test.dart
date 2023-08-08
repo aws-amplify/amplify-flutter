@@ -5,6 +5,7 @@ import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_storage_s3_dart/amplify_storage_s3_dart.dart';
+import 'package:amplify_storage_s3_dart/src/exception/s3_storage_exception.dart';
 import 'package:amplify_storage_s3_dart/src/sdk/s3.dart';
 import 'package:amplify_storage_s3_dart/src/storage_s3_service/service/task/s3_download_task.dart';
 import 'package:mocktail/mocktail.dart';
@@ -236,6 +237,32 @@ void main() {
           throwsA(isA<StorageException>()),
         );
         expect(onErrorHasBeenCalled, isTrue);
+      });
+
+      test(
+          'throw exception when attempt to use accelerate endpoint with path style URL',
+          () {
+        final downloadTask = S3DownloadTask(
+          s3Client: s3Client,
+          defaultS3ClientConfig: const S3ClientConfig(usePathStyle: true),
+          prefixResolver: testPrefixResolver,
+          bucket: 'bucket.name.has.dots.com',
+          defaultAccessLevel: testDefaultAccessLevel,
+          key: testKey,
+          options: const StorageDownloadDataOptions(
+            pluginOptions: S3DownloadDataPluginOptions(
+              useAccelerateEndpoint: true,
+            ),
+          ),
+          logger: logger,
+        );
+
+        unawaited(downloadTask.start());
+
+        expect(
+          downloadTask.result,
+          throwsA(accelerateEndpointUnusable),
+        );
       });
     });
 

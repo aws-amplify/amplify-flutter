@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.field_info;
+part of 'field_info.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -44,9 +44,7 @@ class FieldInfoBuilder implements Builder<FieldInfo, FieldInfoBuilder> {
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
-  FieldInfoBuilder() {
-    FieldInfo._init(this);
-  }
+  FieldInfoBuilder();
 
   FieldInfoBuilder get _$this {
     final $v = _$v;

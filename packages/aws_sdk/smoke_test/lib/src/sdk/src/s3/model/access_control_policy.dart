@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.access_control_policy; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,12 +35,9 @@ abstract class AccessControlPolicy
 
   const AccessControlPolicy._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<AccessControlPolicy>> serializers = [
     AccessControlPolicyRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AccessControlPolicyBuilder b) {}
 
   /// A list of grants.
   _i4.BuiltList<_i2.Grant>? get grants;
@@ -54,15 +51,15 @@ abstract class AccessControlPolicy
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AccessControlPolicy');
-    helper.add(
-      'grants',
-      grants,
-    );
-    helper.add(
-      'owner',
-      owner,
-    );
+    final helper = newBuiltValueToStringHelper('AccessControlPolicy')
+      ..add(
+        'grants',
+        grants,
+      )
+      ..add(
+        'owner',
+        owner,
+      );
     return helper.toString();
   }
 }

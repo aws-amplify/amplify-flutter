@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.list_account_aliases_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,8 @@ abstract class ListAccountAliasesRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListAccountAliasesRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListAccountAliasesRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<ListAccountAliasesRequest>>
+      serializers = [ListAccountAliasesRequestAwsQuerySerializer()];
 
   /// Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the `Marker` element in the response that you received to indicate where the next call should start.
   String? get marker;
@@ -62,15 +58,15 @@ abstract class ListAccountAliasesRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListAccountAliasesRequest');
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'maxItems',
-      maxItems,
-    );
+    final helper = newBuiltValueToStringHelper('ListAccountAliasesRequest')
+      ..add(
+        'marker',
+        marker,
+      )
+      ..add(
+        'maxItems',
+        maxItems,
+      );
     return helper.toString();
   }
 }

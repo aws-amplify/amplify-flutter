@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_protocol.model.media_type_header_output;
+part of 'media_type_header_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -48,9 +48,7 @@ class MediaTypeHeaderOutputBuilder
   _i3.JsonObject? get json => _$this._json;
   set json(_i3.JsonObject? json) => _$this._json = json;
 
-  MediaTypeHeaderOutputBuilder() {
-    MediaTypeHeaderOutput._init(this);
-  }
+  MediaTypeHeaderOutputBuilder();
 
   MediaTypeHeaderOutputBuilder get _$this {
     final $v = _$v;
@@ -116,9 +114,7 @@ class MediaTypeHeaderOutputPayloadBuilder
             MediaTypeHeaderOutputPayloadBuilder> {
   _$MediaTypeHeaderOutputPayload? _$v;
 
-  MediaTypeHeaderOutputPayloadBuilder() {
-    MediaTypeHeaderOutputPayload._init(this);
-  }
+  MediaTypeHeaderOutputPayloadBuilder();
 
   @override
   void replace(MediaTypeHeaderOutputPayload other) {

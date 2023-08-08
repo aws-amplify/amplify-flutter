@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.put_stored_query_response;
+part of 'put_stored_query_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -48,9 +48,7 @@ class PutStoredQueryResponseBuilder
   String? get queryArn => _$this._queryArn;
   set queryArn(String? queryArn) => _$this._queryArn = queryArn;
 
-  PutStoredQueryResponseBuilder() {
-    PutStoredQueryResponse._init(this);
-  }
+  PutStoredQueryResponseBuilder();
 
   PutStoredQueryResponseBuilder get _$this {
     final $v = _$v;

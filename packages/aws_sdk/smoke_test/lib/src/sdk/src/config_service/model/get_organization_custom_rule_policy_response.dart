@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.get_organization_custom_rule_policy_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,11 @@ abstract class GetOrganizationCustomRulePolicyResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<GetOrganizationCustomRulePolicyResponse>>
+      serializers = [
     GetOrganizationCustomRulePolicyResponseAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetOrganizationCustomRulePolicyResponseBuilder b) {}
 
   /// The policy definition containing the logic for your organization Config Custom Policy rule.
   String? get policyText;
@@ -47,11 +46,11 @@ abstract class GetOrganizationCustomRulePolicyResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetOrganizationCustomRulePolicyResponse');
-    helper.add(
-      'policyText',
-      policyText,
-    );
+        newBuiltValueToStringHelper('GetOrganizationCustomRulePolicyResponse')
+          ..add(
+            'policyText',
+            policyText,
+          );
     return helper.toString();
   }
 }

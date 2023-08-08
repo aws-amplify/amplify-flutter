@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.record_handler_progress_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -53,12 +53,8 @@ abstract class RecordHandlerProgressInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    RecordHandlerProgressInputAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RecordHandlerProgressInputBuilder b) {}
+  static const List<_i1.SmithySerializer<RecordHandlerProgressInput>>
+      serializers = [RecordHandlerProgressInputAwsQuerySerializer()];
 
   /// Reserved for use by the [CloudFormation CLI](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/what-is-cloudformation-cli.html).
   String get bearerToken;
@@ -94,35 +90,35 @@ abstract class RecordHandlerProgressInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RecordHandlerProgressInput');
-    helper.add(
-      'bearerToken',
-      bearerToken,
-    );
-    helper.add(
-      'operationStatus',
-      operationStatus,
-    );
-    helper.add(
-      'currentOperationStatus',
-      currentOperationStatus,
-    );
-    helper.add(
-      'statusMessage',
-      statusMessage,
-    );
-    helper.add(
-      'errorCode',
-      errorCode,
-    );
-    helper.add(
-      'resourceModel',
-      resourceModel,
-    );
-    helper.add(
-      'clientRequestToken',
-      clientRequestToken,
-    );
+    final helper = newBuiltValueToStringHelper('RecordHandlerProgressInput')
+      ..add(
+        'bearerToken',
+        bearerToken,
+      )
+      ..add(
+        'operationStatus',
+        operationStatus,
+      )
+      ..add(
+        'currentOperationStatus',
+        currentOperationStatus,
+      )
+      ..add(
+        'statusMessage',
+        statusMessage,
+      )
+      ..add(
+        'errorCode',
+        errorCode,
+      )
+      ..add(
+        'resourceModel',
+        resourceModel,
+      )
+      ..add(
+        'clientRequestToken',
+        clientRequestToken,
+      );
     return helper.toString();
   }
 }

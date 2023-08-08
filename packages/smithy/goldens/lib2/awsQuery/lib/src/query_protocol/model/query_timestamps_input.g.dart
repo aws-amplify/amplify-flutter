@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v2.query_protocol.model.query_timestamps_input;
+part of 'query_timestamps_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -68,9 +68,7 @@ class QueryTimestampsInputBuilder
   DateTime? get epochTarget => _$this._epochTarget;
   set epochTarget(DateTime? epochTarget) => _$this._epochTarget = epochTarget;
 
-  QueryTimestampsInputBuilder() {
-    QueryTimestampsInput._init(this);
-  }
+  QueryTimestampsInputBuilder();
 
   QueryTimestampsInputBuilder get _$this {
     final $v = _$v;

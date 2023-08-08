@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.simulate_custom_policy_request;
+part of 'simulate_custom_policy_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -165,9 +165,7 @@ class SimulateCustomPolicyRequestBuilder
   String? get marker => _$this._marker;
   set marker(String? marker) => _$this._marker = marker;
 
-  SimulateCustomPolicyRequestBuilder() {
-    SimulateCustomPolicyRequest._init(this);
-  }
+  SimulateCustomPolicyRequestBuilder();
 
   SimulateCustomPolicyRequestBuilder get _$this {
     final $v = _$v;

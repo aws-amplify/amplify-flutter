@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.sts.model.tag; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -30,12 +30,9 @@ abstract class Tag
 
   const Tag._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Tag>> serializers = [
     TagAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TagBuilder b) {}
 
   /// The key for a session tag.
   ///
@@ -53,15 +50,15 @@ abstract class Tag
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Tag');
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'value',
-      value,
-    );
+    final helper = newBuiltValueToStringHelper('Tag')
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'value',
+        value,
+      );
     return helper.toString();
   }
 }

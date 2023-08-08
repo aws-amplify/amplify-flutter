@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.sts.model.get_session_token_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,8 @@ abstract class GetSessionTokenRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetSessionTokenRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetSessionTokenRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetSessionTokenRequest>> serializers =
+      [GetSessionTokenRequestAwsQuerySerializer()];
 
   /// The duration, in seconds, that the credentials should remain valid. Acceptable durations for IAM user sessions range from 900 seconds (15 minutes) to 129,600 seconds (36 hours), with 43,200 seconds (12 hours) as the default. Sessions for Amazon Web Services account owners are restricted to a maximum of 3,600 seconds (one hour). If the duration is longer than one hour, the session for Amazon Web Services account owners defaults to one hour.
   int? get durationSeconds;
@@ -69,19 +65,19 @@ abstract class GetSessionTokenRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetSessionTokenRequest');
-    helper.add(
-      'durationSeconds',
-      durationSeconds,
-    );
-    helper.add(
-      'serialNumber',
-      serialNumber,
-    );
-    helper.add(
-      'tokenCode',
-      tokenCode,
-    );
+    final helper = newBuiltValueToStringHelper('GetSessionTokenRequest')
+      ..add(
+        'durationSeconds',
+        durationSeconds,
+      )
+      ..add(
+        'serialNumber',
+        serialNumber,
+      )
+      ..add(
+        'tokenCode',
+        tokenCode,
+      );
     return helper.toString();
   }
 }

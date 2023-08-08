@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.provisioned_throughput_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,8 @@ abstract class ProvisionedThroughputDescription
 
   const ProvisionedThroughputDescription._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ProvisionedThroughputDescriptionAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ProvisionedThroughputDescriptionBuilder b) {}
+  static const List<_i3.SmithySerializer<ProvisionedThroughputDescription>>
+      serializers = [ProvisionedThroughputDescriptionAwsJson10Serializer()];
 
   /// The date and time of the last provisioned throughput increase for this table.
   DateTime? get lastIncreaseDateTime;
@@ -74,27 +70,27 @@ abstract class ProvisionedThroughputDescription
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ProvisionedThroughputDescription');
-    helper.add(
-      'lastIncreaseDateTime',
-      lastIncreaseDateTime,
-    );
-    helper.add(
-      'lastDecreaseDateTime',
-      lastDecreaseDateTime,
-    );
-    helper.add(
-      'numberOfDecreasesToday',
-      numberOfDecreasesToday,
-    );
-    helper.add(
-      'readCapacityUnits',
-      readCapacityUnits,
-    );
-    helper.add(
-      'writeCapacityUnits',
-      writeCapacityUnits,
-    );
+        newBuiltValueToStringHelper('ProvisionedThroughputDescription')
+          ..add(
+            'lastIncreaseDateTime',
+            lastIncreaseDateTime,
+          )
+          ..add(
+            'lastDecreaseDateTime',
+            lastDecreaseDateTime,
+          )
+          ..add(
+            'numberOfDecreasesToday',
+            numberOfDecreasesToday,
+          )
+          ..add(
+            'readCapacityUnits',
+            readCapacityUnits,
+          )
+          ..add(
+            'writeCapacityUnits',
+            writeCapacityUnits,
+          );
     return helper.toString();
   }
 }

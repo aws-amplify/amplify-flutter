@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.deployment;
+part of 'deployment.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -68,18 +68,15 @@ class DeploymentBuilder implements Builder<Deployment, DeploymentBuilder> {
   set createdDate(DateTime? createdDate) => _$this._createdDate = createdDate;
 
   _i3.MapBuilder<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>? _apiSummary;
-  _i3.MapBuilder<String,
-      _i3.BuiltMap<String, _i2.MethodSnapshot>> get apiSummary => _$this
-          ._apiSummary ??=
-      new _i3.MapBuilder<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>();
+  _i3.MapBuilder<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>
+      get apiSummary => _$this._apiSummary ??= new _i3
+          .MapBuilder<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>();
   set apiSummary(
           _i3.MapBuilder<String, _i3.BuiltMap<String, _i2.MethodSnapshot>>?
               apiSummary) =>
       _$this._apiSummary = apiSummary;
 
-  DeploymentBuilder() {
-    Deployment._init(this);
-  }
+  DeploymentBuilder();
 
   DeploymentBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.operation.put_bucket_intelligent_tiering_configuration_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,25 +35,23 @@ import 'package:smoke_test/src/sdk/src/s3/model/put_bucket_intelligent_tiering_c
 ///
 /// You only need S3 Intelligent-Tiering enabled on a bucket if you want to automatically move objects stored in the S3 Intelligent-Tiering storage class to the Archive Access or Deep Archive Access tier.
 ///
-/// **Special Errors**
+/// `PutBucketIntelligentTieringConfiguration` has the following special errors:
 ///
-/// *   **HTTP 400 Bad Request Error**
+/// HTTP 400 Bad Request Error
 ///
-///     *   _Code:_ InvalidArgument
+/// _Code:_ InvalidArgument
 ///
-///     *   _Cause:_ Invalid Argument
+/// _Cause:_ Invalid Argument
 ///
-/// *   **HTTP 400 Bad Request Error**
+/// HTTP 400 Bad Request Error
 ///
-///     *   _Code:_ TooManyConfigurations
+/// _Code:_ TooManyConfigurations
 ///
-///     *   _Cause:_ You are attempting to create a new configuration but have already reached the 1,000-configuration limit.
+/// _Cause:_ You are attempting to create a new configuration but have already reached the 1,000-configuration limit.
 ///
-/// *   **HTTP 403 Forbidden Error**
+/// HTTP 403 Forbidden Error
 ///
-///     *   _Code:_ AccessDenied
-///
-///     *   _Cause:_ You are not the owner of the specified bucket, or you do not have the `s3:PutIntelligentTieringConfiguration` bucket permission to set the configuration on the bucket.
+/// _Cause:_ You are not the owner of the specified bucket, or you do not have the `s3:PutIntelligentTieringConfiguration` bucket permission to set the configuration on the bucket.
 class PutBucketIntelligentTieringConfigurationOperation
     extends _i1.HttpOperation<
         _i2.IntelligentTieringConfiguration,
@@ -79,25 +77,23 @@ class PutBucketIntelligentTieringConfigurationOperation
   ///
   /// You only need S3 Intelligent-Tiering enabled on a bucket if you want to automatically move objects stored in the S3 Intelligent-Tiering storage class to the Archive Access or Deep Archive Access tier.
   ///
-  /// **Special Errors**
+  /// `PutBucketIntelligentTieringConfiguration` has the following special errors:
   ///
-  /// *   **HTTP 400 Bad Request Error**
+  /// HTTP 400 Bad Request Error
   ///
-  ///     *   _Code:_ InvalidArgument
+  /// _Code:_ InvalidArgument
   ///
-  ///     *   _Cause:_ Invalid Argument
+  /// _Cause:_ Invalid Argument
   ///
-  /// *   **HTTP 400 Bad Request Error**
+  /// HTTP 400 Bad Request Error
   ///
-  ///     *   _Code:_ TooManyConfigurations
+  /// _Code:_ TooManyConfigurations
   ///
-  ///     *   _Cause:_ You are attempting to create a new configuration but have already reached the 1,000-configuration limit.
+  /// _Cause:_ You are attempting to create a new configuration but have already reached the 1,000-configuration limit.
   ///
-  /// *   **HTTP 403 Forbidden Error**
+  /// HTTP 403 Forbidden Error
   ///
-  ///     *   _Code:_ AccessDenied
-  ///
-  ///     *   _Cause:_ You are not the owner of the specified bucket, or you do not have the `s3:PutIntelligentTieringConfiguration` bucket permission to set the configuration on the bucket.
+  /// _Cause:_ You are not the owner of the specified bucket, or you do not have the `s3:PutIntelligentTieringConfiguration` bucket permission to set the configuration on the bucket.
   PutBucketIntelligentTieringConfigurationOperation({
     required String region,
     Uri? baseUri,
@@ -223,7 +219,7 @@ class PutBucketIntelligentTieringConfigurationOperation
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

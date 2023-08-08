@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.abort_incomplete_multipart_upload;
+part of 'abort_incomplete_multipart_upload.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -52,9 +52,7 @@ class AbortIncompleteMultipartUploadBuilder
   set daysAfterInitiation(int? daysAfterInitiation) =>
       _$this._daysAfterInitiation = daysAfterInitiation;
 
-  AbortIncompleteMultipartUploadBuilder() {
-    AbortIncompleteMultipartUpload._init(this);
-  }
+  AbortIncompleteMultipartUploadBuilder();
 
   AbortIncompleteMultipartUploadBuilder get _$this {
     final $v = _$v;

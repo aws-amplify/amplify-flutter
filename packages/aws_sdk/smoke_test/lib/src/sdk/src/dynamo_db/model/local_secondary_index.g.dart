@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.local_secondary_index;
+part of 'local_secondary_index.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -80,9 +80,7 @@ class LocalSecondaryIndexBuilder
   set projection(_i3.ProjectionBuilder? projection) =>
       _$this._projection = projection;
 
-  LocalSecondaryIndexBuilder() {
-    LocalSecondaryIndex._init(this);
-  }
+  LocalSecondaryIndexBuilder();
 
   LocalSecondaryIndexBuilder get _$this {
     final $v = _$v;

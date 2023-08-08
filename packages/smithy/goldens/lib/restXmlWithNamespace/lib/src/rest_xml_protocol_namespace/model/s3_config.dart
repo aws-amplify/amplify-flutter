@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_xml_with_namespace_v1.rest_xml_protocol_namespace.model.s3_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,12 +34,9 @@ abstract class S3Config
 
   const S3Config._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<S3Config>> serializers = [
     S3ConfigRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(S3ConfigBuilder b) {}
 
   /// Controls the S3 addressing bucket style.
   _i2.S3AddressingStyle? get addressingStyle;
@@ -53,19 +50,19 @@ abstract class S3Config
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('S3Config');
-    helper.add(
-      'addressingStyle',
-      addressingStyle,
-    );
-    helper.add(
-      'useAccelerateEndpoint',
-      useAccelerateEndpoint,
-    );
-    helper.add(
-      'useDualstackEndpoint',
-      useDualstackEndpoint,
-    );
+    final helper = newBuiltValueToStringHelper('S3Config')
+      ..add(
+        'addressingStyle',
+        addressingStyle,
+      )
+      ..add(
+        'useAccelerateEndpoint',
+        useAccelerateEndpoint,
+      )
+      ..add(
+        'useDualstackEndpoint',
+        useDualstackEndpoint,
+      );
     return helper.toString();
   }
 }

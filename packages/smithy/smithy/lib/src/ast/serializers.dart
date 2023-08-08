@@ -39,7 +39,7 @@ part 'serializers.g.dart';
   StringEnumShape,
   StructureShape,
   TimestampShape,
-  UnionShape
+  UnionShape,
 ])
 @internal
 final Serializers serializers = (_$serializers.toBuilder()

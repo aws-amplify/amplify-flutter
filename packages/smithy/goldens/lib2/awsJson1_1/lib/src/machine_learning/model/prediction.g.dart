@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1_v2.machine_learning.model.prediction;
+part of 'prediction.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -80,9 +80,7 @@ class PredictionBuilder implements Builder<Prediction, PredictionBuilder> {
   set details(_i3.MapBuilder<_i2.DetailsAttributes, String>? details) =>
       _$this._details = details;
 
-  PredictionBuilder() {
-    Prediction._init(this);
-  }
+  PredictionBuilder();
 
   PredictionBuilder get _$this {
     final $v = _$v;

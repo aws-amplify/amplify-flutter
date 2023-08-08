@@ -114,7 +114,7 @@ class CpkOneToOneBidirectionalChildImplicitID extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("CpkOneToOneBidirectionalChildImplicitID {");
     buffer.write("id=" + "$id" + ", ");
@@ -260,8 +260,10 @@ class CpkOneToOneBidirectionalChildImplicitIDModelIdentifier
   final String id;
   final String name;
 
-  /// Create an instance of CpkOneToOneBidirectionalChildImplicitIDModelIdentifier using [id] the primary key.
-  /// And [name] the sort key.
+  /**
+   * Create an instance of CpkOneToOneBidirectionalChildImplicitIDModelIdentifier using [id] the primary key.
+   * And [name] the sort key.
+   */
   const CpkOneToOneBidirectionalChildImplicitIDModelIdentifier(
       {required this.id, required this.name});
 

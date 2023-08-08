@@ -123,11 +123,46 @@ class CoreFoundation {
       _CFStringCreateWithCStringPtr.asFunction<
           CFStringRef Function(CFAllocatorRef, ffi.Pointer<ffi.Char>, int)>();
 
+  int CFStringGetLength(
+    CFStringRef theString,
+  ) {
+    return _CFStringGetLength(
+      theString,
+    );
+  }
+
+  late final _CFStringGetLengthPtr =
+      _lookup<ffi.NativeFunction<CFIndex Function(CFStringRef)>>(
+          'CFStringGetLength');
+  late final _CFStringGetLength =
+      _CFStringGetLengthPtr.asFunction<int Function(CFStringRef)>();
+
+  int CFStringGetCString(
+    CFStringRef theString,
+    ffi.Pointer<ffi.Char> buffer,
+    int bufferSize,
+    int encoding,
+  ) {
+    return _CFStringGetCString(
+      theString,
+      buffer,
+      bufferSize,
+      encoding,
+    );
+  }
+
+  late final _CFStringGetCStringPtr = _lookup<
+      ffi.NativeFunction<
+          Boolean Function(CFStringRef, ffi.Pointer<ffi.Char>, CFIndex,
+              CFStringEncoding)>>('CFStringGetCString');
+  late final _CFStringGetCString = _CFStringGetCStringPtr.asFunction<
+      int Function(CFStringRef, ffi.Pointer<ffi.Char>, int, int)>();
+
   ffi.Pointer<ffi.Char> CFStringGetCStringPtr(
     CFStringRef theString,
     int encoding,
   ) {
-    return _CFStringGetCStringPtr(
+    return _CFStringGetCStringPtr1(
       theString,
       encoding,
     );
@@ -137,8 +172,25 @@ class CoreFoundation {
       ffi.NativeFunction<
           ffi.Pointer<ffi.Char> Function(
               CFStringRef, CFStringEncoding)>>('CFStringGetCStringPtr');
-  late final _CFStringGetCStringPtr = _CFStringGetCStringPtrPtr.asFunction<
+  late final _CFStringGetCStringPtr1 = _CFStringGetCStringPtrPtr.asFunction<
       ffi.Pointer<ffi.Char> Function(CFStringRef, int)>();
+
+  int CFStringGetMaximumSizeForEncoding(
+    int length,
+    int encoding,
+  ) {
+    return _CFStringGetMaximumSizeForEncoding(
+      length,
+      encoding,
+    );
+  }
+
+  late final _CFStringGetMaximumSizeForEncodingPtr =
+      _lookup<ffi.NativeFunction<CFIndex Function(CFIndex, CFStringEncoding)>>(
+          'CFStringGetMaximumSizeForEncoding');
+  late final _CFStringGetMaximumSizeForEncoding =
+      _CFStringGetMaximumSizeForEncodingPtr.asFunction<
+          int Function(int, int)>();
 }
 
 typedef CFTypeRef = ffi.Pointer<ffi.Void>;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.list_tags_of_resource_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,8 @@ abstract class ListTagsOfResourceOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ListTagsOfResourceOutputAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListTagsOfResourceOutputBuilder b) {}
+  static const List<_i4.SmithySerializer<ListTagsOfResourceOutput>>
+      serializers = [ListTagsOfResourceOutputAwsJson10Serializer()];
 
   /// The tags currently associated with the Amazon DynamoDB resource.
   _i3.BuiltList<_i2.Tag>? get tags;
@@ -58,15 +54,15 @@ abstract class ListTagsOfResourceOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListTagsOfResourceOutput');
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('ListTagsOfResourceOutput')
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

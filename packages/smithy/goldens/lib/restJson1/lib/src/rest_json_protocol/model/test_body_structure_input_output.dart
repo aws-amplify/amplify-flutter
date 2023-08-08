@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.rest_json_protocol.model.test_body_structure_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -65,12 +65,9 @@ abstract class TestBodyStructureInputOutput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    TestBodyStructureInputOutputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<TestBodyStructureInputOutputPayload>>
+      serializers = [TestBodyStructureInputOutputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TestBodyStructureInputOutputBuilder b) {}
   String? get testId;
   _i3.TestConfig? get testConfig;
   @override
@@ -87,15 +84,15 @@ abstract class TestBodyStructureInputOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TestBodyStructureInputOutput');
-    helper.add(
-      'testId',
-      testId,
-    );
-    helper.add(
-      'testConfig',
-      testConfig,
-    );
+    final helper = newBuiltValueToStringHelper('TestBodyStructureInputOutput')
+      ..add(
+        'testId',
+        testId,
+      )
+      ..add(
+        'testConfig',
+        testConfig,
+      );
     return helper.toString();
   }
 }
@@ -113,19 +110,17 @@ abstract class TestBodyStructureInputOutputPayload
 
   const TestBodyStructureInputOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TestBodyStructureInputOutputPayloadBuilder b) {}
   _i3.TestConfig? get testConfig;
   @override
   List<Object?> get props => [testConfig];
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('TestBodyStructureInputOutputPayload');
-    helper.add(
-      'testConfig',
-      testConfig,
-    );
+        newBuiltValueToStringHelper('TestBodyStructureInputOutputPayload')
+          ..add(
+            'testConfig',
+            testConfig,
+          );
     return helper.toString();
   }
 }

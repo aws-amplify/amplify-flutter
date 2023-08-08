@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db_streams.model.get_records_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,9 @@ abstract class GetRecordsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<GetRecordsInput>> serializers = [
     GetRecordsInputAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetRecordsInputBuilder b) {}
 
   /// A shard iterator that was retrieved from a previous GetShardIterator operation. This iterator can be used to access the stream records in this shard.
   String get shardIterator;
@@ -59,15 +56,15 @@ abstract class GetRecordsInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetRecordsInput');
-    helper.add(
-      'shardIterator',
-      shardIterator,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
+    final helper = newBuiltValueToStringHelper('GetRecordsInput')
+      ..add(
+        'shardIterator',
+        shardIterator,
+      )
+      ..add(
+        'limit',
+        limit,
+      );
     return helper.toString();
   }
 }

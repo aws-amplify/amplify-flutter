@@ -104,7 +104,7 @@ class HasManyParentBiDirectionalImplicit extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("HasManyParentBiDirectionalImplicit {");
     buffer.write("id=" + "$id" + ", ");
@@ -177,9 +177,9 @@ class HasManyParentBiDirectionalImplicit extends amplify_core.Model {
         'updatedAt': _updatedAt
       };
 
-  static final amplify_core.QueryModelIdentifier<
-          HasManyParentBiDirectionalImplicitModelIdentifier> MODEL_IDENTIFIER =
-      amplify_core.QueryModelIdentifier<
+  static final amplify_core
+      .QueryModelIdentifier<HasManyParentBiDirectionalImplicitModelIdentifier>
+      MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<
           HasManyParentBiDirectionalImplicitModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final NAME = amplify_core.QueryField(fieldName: "name");
@@ -247,7 +247,7 @@ class HasManyParentBiDirectionalImplicitModelIdentifier
         amplify_core.ModelIdentifier<HasManyParentBiDirectionalImplicit> {
   final String id;
 
-  /// Create an instance of HasManyParentBiDirectionalImplicitModelIdentifier using [id] the primary key.
+  /** Create an instance of HasManyParentBiDirectionalImplicitModelIdentifier using [id] the primary key. */
   const HasManyParentBiDirectionalImplicitModelIdentifier({required this.id});
 
   @override

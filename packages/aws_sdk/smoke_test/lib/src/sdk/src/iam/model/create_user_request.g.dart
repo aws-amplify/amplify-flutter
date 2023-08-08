@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.create_user_request;
+part of 'create_user_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -79,9 +79,7 @@ class CreateUserRequestBuilder
       _$this._tags ??= new _i4.ListBuilder<_i3.Tag>();
   set tags(_i4.ListBuilder<_i3.Tag>? tags) => _$this._tags = tags;
 
-  CreateUserRequestBuilder() {
-    CreateUserRequest._init(this);
-  }
+  CreateUserRequestBuilder();
 
   CreateUserRequestBuilder get _$this {
     final $v = _$v;

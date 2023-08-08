@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.put_bucket_versioning_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -73,12 +73,8 @@ abstract class PutBucketVersioningRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutBucketVersioningRequestRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketVersioningRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<_i2.VersioningConfiguration>>
+      serializers = [PutBucketVersioningRequestRestXmlSerializer()];
 
   /// The bucket name.
   String get bucket;
@@ -126,31 +122,31 @@ abstract class PutBucketVersioningRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutBucketVersioningRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'contentMd5',
-      contentMd5,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'mfa',
-      mfa,
-    );
-    helper.add(
-      'versioningConfiguration',
-      versioningConfiguration,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('PutBucketVersioningRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'contentMd5',
+        contentMd5,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      )
+      ..add(
+        'mfa',
+        mfa,
+      )
+      ..add(
+        'versioningConfiguration',
+        versioningConfiguration,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_xml_v2.rest_xml_protocol.model.query_params_as_string_list_map_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -48,12 +48,10 @@ abstract class QueryParamsAsStringListMapInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    QueryParamsAsStringListMapInputRestXmlSerializer()
-  ];
+  static const List<
+          _i1.SmithySerializer<QueryParamsAsStringListMapInputPayload>>
+      serializers = [QueryParamsAsStringListMapInputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(QueryParamsAsStringListMapInputBuilder b) {}
   String? get qux;
   _i3.BuiltListMultimap<String, String>? get foo;
   @override
@@ -67,15 +65,15 @@ abstract class QueryParamsAsStringListMapInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('QueryParamsAsStringListMapInput');
-    helper.add(
-      'qux',
-      qux,
-    );
-    helper.add(
-      'foo',
-      foo,
-    );
+        newBuiltValueToStringHelper('QueryParamsAsStringListMapInput')
+          ..add(
+            'qux',
+            qux,
+          )
+          ..add(
+            'foo',
+            foo,
+          );
     return helper.toString();
   }
 }
@@ -94,8 +92,6 @@ abstract class QueryParamsAsStringListMapInputPayload
 
   const QueryParamsAsStringListMapInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(QueryParamsAsStringListMapInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -64,9 +64,7 @@ class OverrideButtonConfigurationBuilder
   String? get link => _$this._link;
   set link(String? link) => _$this._link = link;
 
-  OverrideButtonConfigurationBuilder() {
-    OverrideButtonConfiguration._init(this);
-  }
+  OverrideButtonConfigurationBuilder();
 
   OverrideButtonConfigurationBuilder get _$this {
     final $v = _$v;

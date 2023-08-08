@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.put_object_lock_configuration_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,12 +43,9 @@ abstract class PutObjectLockConfigurationOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PutObjectLockConfigurationOutputRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectLockConfigurationOutputBuilder b) {}
+  static const List<
+          _i2.SmithySerializer<PutObjectLockConfigurationOutputPayload>>
+      serializers = [PutObjectLockConfigurationOutputRestXmlSerializer()];
 
   /// If present, indicates that the requester was successfully charged for the request.
   _i3.RequestCharged? get requestCharged;
@@ -60,11 +57,11 @@ abstract class PutObjectLockConfigurationOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutObjectLockConfigurationOutput');
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
+        newBuiltValueToStringHelper('PutObjectLockConfigurationOutput')
+          ..add(
+            'requestCharged',
+            requestCharged,
+          );
     return helper.toString();
   }
 }
@@ -83,8 +80,6 @@ abstract class PutObjectLockConfigurationOutputPayload
 
   const PutObjectLockConfigurationOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectLockConfigurationOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_core/src/amplify_class_impl.dart';
 import 'package:amplify_core/src/version.dart';
+import 'package:graphs/graphs.dart';
 import 'package:meta/meta.dart';
 
 /// {@template amplify_core.amplify_class}
@@ -56,7 +57,13 @@ abstract class AmplifyClass {
   @visibleForTesting
   late final DependencyManager dependencies = AmplifyDependencyManager();
 
+  @protected
+  @visibleForTesting
+  final AmplifyAuthProviderRepository authProviderRepo =
+      AmplifyAuthProviderRepository();
+
   var _configCompleter = Completer<AmplifyConfig>();
+  final _addPluginFutures = <Future<void>>[];
 
   /// Adds one plugin at a time. Note: this method can only
   /// be called before Amplify has been configured. Customers are expected
@@ -64,7 +71,11 @@ abstract class AmplifyClass {
   ///
   /// Throws AmplifyAlreadyConfiguredException if
   /// this method is called after configure (e.g. during hot reload).
-  Future<void> addPlugin(AmplifyPluginInterface plugin);
+  Future<void> addPlugin(AmplifyPluginInterface plugin) {
+    final future = addPluginPlatform(plugin);
+    _addPluginFutures.add(future);
+    return future;
+  }
 
   /// Adds multiple plugins at the same time. Note: this method can only
   /// be called before Amplify has been configured. Customers are expected
@@ -72,6 +83,10 @@ abstract class AmplifyClass {
   Future<void> addPlugins(List<AmplifyPluginInterface> plugins) {
     return Future.wait(plugins.map(addPlugin), eagerError: true);
   }
+
+  /// Adds the [plugin] in the platform-specific manner.
+  @protected
+  Future<void> addPluginPlatform(AmplifyPluginInterface plugin);
 
   /// Returns whether Amplify has been configured or not.
   bool get isConfigured => _configCompleter.isCompleted;
@@ -110,7 +125,7 @@ abstract class AmplifyClass {
               'the string is proper json',
         );
       }
-      await configurePlatform(configuration);
+      await _configurePlugins(amplifyConfig);
       _configCompleter.complete(amplifyConfig);
     } on ConfigurationError catch (e, st) {
       // Complete with the configuration error and reset the completer so
@@ -135,10 +150,35 @@ abstract class AmplifyClass {
     }
   }
 
-  /// Configures the platform-specific implementation of Amplify using the
-  /// registered [config].
-  @protected
-  Future<void> configurePlatform(String config);
+  /// Configures all plugins in topologically-sorted order.
+  Future<void> _configurePlugins(AmplifyConfig config) async {
+    await Future.wait(_addPluginFutures);
+    _addPluginFutures.clear();
+    final categories = <Category, AmplifyCategory>{
+      Category.analytics: Analytics,
+      Category.api: API,
+      Category.auth: Auth,
+      Category.dataStore: DataStore,
+      Category.pushNotifications: Notifications.Push,
+      Category.storage: Storage,
+    };
+    final sortedCategories = topologicalSort(
+      categories.keys,
+      (category) => categories[category]!.categoryDependencies,
+    ).reversed;
+    for (final category in sortedCategories) {
+      final plugins = categories[category]!.plugins;
+      await Future.wait(
+        eagerError: true,
+        plugins.map(
+          (plugin) => plugin.configure(
+            config: config,
+            authProviderRepo: authProviderRepo,
+          ),
+        ),
+      );
+    }
+  }
 
   /// The library version.
   String get version => packageVersion.split('+').first;
@@ -149,8 +189,17 @@ abstract class AmplifyClass {
   @mustCallSuper
   Future<void> reset() async {
     _configCompleter = Completer();
+    _addPluginFutures.clear();
+    await Future.wait([
+      Analytics.reset(),
+      API.reset(),
+      Auth.reset(),
+      DataStore.reset(),
+      Notifications.Push.reset(),
+      Storage.reset(),
+    ]);
     dependencies.close();
   }
 }
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_getters_setters
+// ignore_for_file: non_constant_identifier_names, unnecessary_getters_setters, invalid_use_of_visible_for_testing_member

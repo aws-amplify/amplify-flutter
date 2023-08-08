@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1_v2.json_protocol.model.error_without_members;
+part of 'error_without_members.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class ErrorWithoutMembersBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ErrorWithoutMembersBuilder() {
-    ErrorWithoutMembers._init(this);
-  }
+  ErrorWithoutMembersBuilder();
 
   ErrorWithoutMembersBuilder get _$this {
     final $v = _$v;

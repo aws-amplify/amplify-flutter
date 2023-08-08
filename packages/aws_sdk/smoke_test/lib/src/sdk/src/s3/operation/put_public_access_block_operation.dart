@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.operation.put_public_access_block_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,7 +22,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/put_public_access_block_request.
 ///
 /// For more information about when Amazon S3 considers a bucket or an object public, see [The Meaning of "Public"](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status).
 ///
-/// **Related Resources**
+/// The following operations are related to `PutPublicAccessBlock`:
 ///
 /// *   [GetPublicAccessBlock](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetPublicAccessBlock.html)
 ///
@@ -42,7 +42,7 @@ class PutPublicAccessBlockOperation extends _i1.HttpOperation<
   ///
   /// For more information about when Amazon S3 considers a bucket or an object public, see [The Meaning of "Public"](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status).
   ///
-  /// **Related Resources**
+  /// The following operations are related to `PutPublicAccessBlock`:
   ///
   /// *   [GetPublicAccessBlock](https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetPublicAccessBlock.html)
   ///
@@ -185,7 +185,7 @@ class PutPublicAccessBlockOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.http_request_with_labels_and_timestamp_format_input;
+part of 'http_request_with_labels_and_timestamp_format_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -134,9 +134,7 @@ class HttpRequestWithLabelsAndTimestampFormatInputBuilder
   set targetDateTime(DateTime? targetDateTime) =>
       _$this._targetDateTime = targetDateTime;
 
-  HttpRequestWithLabelsAndTimestampFormatInputBuilder() {
-    HttpRequestWithLabelsAndTimestampFormatInput._init(this);
-  }
+  HttpRequestWithLabelsAndTimestampFormatInputBuilder();
 
   HttpRequestWithLabelsAndTimestampFormatInputBuilder get _$this {
     final $v = _$v;
@@ -236,9 +234,7 @@ class HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder
             HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder> {
   _$HttpRequestWithLabelsAndTimestampFormatInputPayload? _$v;
 
-  HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder() {
-    HttpRequestWithLabelsAndTimestampFormatInputPayload._init(this);
-  }
+  HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder();
 
   @override
   void replace(HttpRequestWithLabelsAndTimestampFormatInputPayload other) {

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_credential_report_response;
+part of 'get_credential_report_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -71,9 +71,7 @@ class GetCredentialReportResponseBuilder
   set generatedTime(DateTime? generatedTime) =>
       _$this._generatedTime = generatedTime;
 
-  GetCredentialReportResponseBuilder() {
-    GetCredentialReportResponse._init(this);
-  }
+  GetCredentialReportResponseBuilder();
 
   GetCredentialReportResponseBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.condition; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,12 +31,9 @@ abstract class Condition
 
   const Condition._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Condition>> serializers = [
     ConditionRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConditionBuilder b) {}
 
   /// The HTTP error code when the redirect is applied. In the event of an error, if the error code equals this value, then the specified redirect is applied. Required when parent element `Condition` is specified and sibling `KeyPrefixEquals` is not specified. If both are specified, then both must be true for the redirect to be applied.
   String? get httpErrorCodeReturnedEquals;
@@ -52,15 +49,15 @@ abstract class Condition
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Condition');
-    helper.add(
-      'httpErrorCodeReturnedEquals',
-      httpErrorCodeReturnedEquals,
-    );
-    helper.add(
-      'keyPrefixEquals',
-      keyPrefixEquals,
-    );
+    final helper = newBuiltValueToStringHelper('Condition')
+      ..add(
+        'httpErrorCodeReturnedEquals',
+        httpErrorCodeReturnedEquals,
+      )
+      ..add(
+        'keyPrefixEquals',
+        keyPrefixEquals,
+      );
     return helper.toString();
   }
 }

@@ -50,9 +50,7 @@ class EventsRequestBuilder
   set batchItem(_i3.MapBuilder<String, _i2.EventsBatch>? batchItem) =>
       _$this._batchItem = batchItem;
 
-  EventsRequestBuilder() {
-    EventsRequest._init(this);
-  }
+  EventsRequestBuilder();
 
   EventsRequestBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_bucket_ownership_controls_output;
+part of 'get_bucket_ownership_controls_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class GetBucketOwnershipControlsOutputBuilder
   set ownershipControls(_i3.OwnershipControlsBuilder? ownershipControls) =>
       _$this._ownershipControls = ownershipControls;
 
-  GetBucketOwnershipControlsOutputBuilder() {
-    GetBucketOwnershipControlsOutput._init(this);
-  }
+  GetBucketOwnershipControlsOutputBuilder();
 
   GetBucketOwnershipControlsOutputBuilder get _$this {
     final $v = _$v;

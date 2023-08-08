@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.get_integration_response_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -63,12 +63,8 @@ abstract class GetIntegrationResponseRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetIntegrationResponseRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetIntegrationResponseRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetIntegrationResponseRequestPayload>>
+      serializers = [GetIntegrationResponseRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -111,23 +107,23 @@ abstract class GetIntegrationResponseRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetIntegrationResponseRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'httpMethod',
-      httpMethod,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
-    );
+    final helper = newBuiltValueToStringHelper('GetIntegrationResponseRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'httpMethod',
+        httpMethod,
+      )
+      ..add(
+        'statusCode',
+        statusCode,
+      );
     return helper.toString();
   }
 }
@@ -146,8 +142,6 @@ abstract class GetIntegrationResponseRequestPayload
 
   const GetIntegrationResponseRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetIntegrationResponseRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

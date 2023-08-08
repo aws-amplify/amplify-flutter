@@ -18,8 +18,8 @@ void main() {
         'auth': {
           'plugins': {
             customPluginName: customPluginConfig,
-          }
-        }
+          },
+        },
       };
 
       final config = AmplifyConfig.fromJson(json);

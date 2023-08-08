@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.vpc_link;
+part of 'vpc_link.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -105,9 +105,7 @@ class VpcLinkBuilder implements Builder<VpcLink, VpcLinkBuilder> {
       _$this._tags ??= new _i3.MapBuilder<String, String>();
   set tags(_i3.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
-  VpcLinkBuilder() {
-    VpcLink._init(this);
-  }
+  VpcLinkBuilder();
 
   VpcLinkBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.csv_options;
+part of 'csv_options.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class CsvOptionsBuilder implements Builder<CsvOptions, CsvOptionsBuilder> {
   set headerList(_i2.ListBuilder<String>? headerList) =>
       _$this._headerList = headerList;
 
-  CsvOptionsBuilder() {
-    CsvOptions._init(this);
-  }
+  CsvOptionsBuilder();
 
   CsvOptionsBuilder get _$this {
     final $v = _$v;

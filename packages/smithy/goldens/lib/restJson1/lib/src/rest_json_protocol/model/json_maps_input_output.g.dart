@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_protocol.model.json_maps_input_output;
+part of 'json_maps_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -156,9 +156,7 @@ class JsonMapsInputOutputBuilder
   set sparseSetMap(_i4.SetMultimapBuilder<String, String>? sparseSetMap) =>
       _$this._sparseSetMap = sparseSetMap;
 
-  JsonMapsInputOutputBuilder() {
-    JsonMapsInputOutput._init(this);
-  }
+  JsonMapsInputOutputBuilder();
 
   JsonMapsInputOutputBuilder get _$this {
     final $v = _$v;

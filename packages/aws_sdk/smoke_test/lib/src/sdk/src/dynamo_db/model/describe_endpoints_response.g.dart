@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.describe_endpoints_response;
+part of 'describe_endpoints_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class DescribeEndpointsResponseBuilder
   set endpoints(_i3.ListBuilder<_i2.Endpoint>? endpoints) =>
       _$this._endpoints = endpoints;
 
-  DescribeEndpointsResponseBuilder() {
-    DescribeEndpointsResponse._init(this);
-  }
+  DescribeEndpointsResponseBuilder();
 
   DescribeEndpointsResponseBuilder get _$this {
     final $v = _$v;

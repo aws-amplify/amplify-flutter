@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.delete_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -28,12 +28,9 @@ abstract class DeleteRequest
 
   const DeleteRequest._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<DeleteRequest>> serializers = [
     DeleteRequestAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteRequestBuilder b) {}
 
   /// A map of attribute name to attribute values, representing the primary key of the item to delete. All of the table's primary key attributes must be specified, and their data types must match those of the table's key schema.
   _i3.BuiltMap<String, _i2.AttributeValue> get key;
@@ -41,11 +38,11 @@ abstract class DeleteRequest
   List<Object?> get props => [key];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteRequest');
-    helper.add(
-      'key',
-      key,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteRequest')
+      ..add(
+        'key',
+        key,
+      );
     return helper.toString();
   }
 }

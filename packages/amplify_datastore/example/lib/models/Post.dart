@@ -159,7 +159,7 @@ class Post extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("Post {");
     buffer.write("id=" + "$id" + ", ");
@@ -372,7 +372,7 @@ class _PostModelType extends amplify_core.ModelType<Post> {
 class PostModelIdentifier implements amplify_core.ModelIdentifier<Post> {
   final String id;
 
-  /// Create an instance of PostModelIdentifier using [id] the primary key.
+  /** Create an instance of PostModelIdentifier using [id] the primary key. */
   const PostModelIdentifier({required this.id});
 
   @override

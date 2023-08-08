@@ -13,7 +13,10 @@ class MockStorageS3Service extends Mock implements StorageS3Service {}
 
 class MockS3Client extends Mock implements S3Client {}
 
-class MockAWSLogger extends Mock implements AWSLogger {}
+class MockAWSLogger extends Mock implements AWSLogger {
+  @override
+  String get runtimeTypeName => 'MockAWSLogger';
+}
 
 class MockAWSSigV4Signer extends Mock implements AWSSigV4Signer {}
 

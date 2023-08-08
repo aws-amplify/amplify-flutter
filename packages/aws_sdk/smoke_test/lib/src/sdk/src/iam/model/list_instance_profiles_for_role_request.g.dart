@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.list_instance_profiles_for_role_request;
+part of 'list_instance_profiles_for_role_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -75,9 +75,7 @@ class ListInstanceProfilesForRoleRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  ListInstanceProfilesForRoleRequestBuilder() {
-    ListInstanceProfilesForRoleRequest._init(this);
-  }
+  ListInstanceProfilesForRoleRequestBuilder();
 
   ListInstanceProfilesForRoleRequestBuilder get _$this {
     final $v = _$v;

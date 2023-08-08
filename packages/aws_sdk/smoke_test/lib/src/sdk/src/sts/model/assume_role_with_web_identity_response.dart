@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.sts.model.assume_role_with_web_identity_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -54,12 +54,8 @@ abstract class AssumeRoleWithWebIdentityResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    AssumeRoleWithWebIdentityResponseAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AssumeRoleWithWebIdentityResponseBuilder b) {}
+  static const List<_i4.SmithySerializer<AssumeRoleWithWebIdentityResponse>>
+      serializers = [AssumeRoleWithWebIdentityResponseAwsQuerySerializer()];
 
   /// The temporary security credentials, which include an access key ID, a secret access key, and a security token.
   ///
@@ -100,35 +96,35 @@ abstract class AssumeRoleWithWebIdentityResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('AssumeRoleWithWebIdentityResponse');
-    helper.add(
-      'credentials',
-      credentials,
-    );
-    helper.add(
-      'subjectFromWebIdentityToken',
-      subjectFromWebIdentityToken,
-    );
-    helper.add(
-      'assumedRoleUser',
-      assumedRoleUser,
-    );
-    helper.add(
-      'packedPolicySize',
-      packedPolicySize,
-    );
-    helper.add(
-      'provider',
-      provider,
-    );
-    helper.add(
-      'audience',
-      audience,
-    );
-    helper.add(
-      'sourceIdentity',
-      sourceIdentity,
-    );
+        newBuiltValueToStringHelper('AssumeRoleWithWebIdentityResponse')
+          ..add(
+            'credentials',
+            credentials,
+          )
+          ..add(
+            'subjectFromWebIdentityToken',
+            subjectFromWebIdentityToken,
+          )
+          ..add(
+            'assumedRoleUser',
+            assumedRoleUser,
+          )
+          ..add(
+            'packedPolicySize',
+            packedPolicySize,
+          )
+          ..add(
+            'provider',
+            provider,
+          )
+          ..add(
+            'audience',
+            audience,
+          )
+          ..add(
+            'sourceIdentity',
+            sourceIdentity,
+          );
     return helper.toString();
   }
 }

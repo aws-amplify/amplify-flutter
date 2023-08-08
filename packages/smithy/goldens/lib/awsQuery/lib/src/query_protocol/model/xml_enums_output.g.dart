@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v1.query_protocol.model.xml_enums_output;
+part of 'xml_enums_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -100,9 +100,7 @@ class XmlEnumsOutputBuilder
   set fooEnumMap(_i3.MapBuilder<String, _i2.FooEnum>? fooEnumMap) =>
       _$this._fooEnumMap = fooEnumMap;
 
-  XmlEnumsOutputBuilder() {
-    XmlEnumsOutput._init(this);
-  }
+  XmlEnumsOutputBuilder();
 
   XmlEnumsOutputBuilder get _$this {
     final $v = _$v;

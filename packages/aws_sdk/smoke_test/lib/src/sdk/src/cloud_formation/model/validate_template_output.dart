@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.validate_template_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -51,12 +51,8 @@ abstract class ValidateTemplateOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
-    ValidateTemplateOutputAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ValidateTemplateOutputBuilder b) {}
+  static const List<_i5.SmithySerializer<ValidateTemplateOutput>> serializers =
+      [ValidateTemplateOutputAwsQuerySerializer()];
 
   /// A list of `TemplateParameter` structures.
   _i4.BuiltList<_i2.TemplateParameter>? get parameters;
@@ -84,27 +80,27 @@ abstract class ValidateTemplateOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ValidateTemplateOutput');
-    helper.add(
-      'parameters',
-      parameters,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'capabilities',
-      capabilities,
-    );
-    helper.add(
-      'capabilitiesReason',
-      capabilitiesReason,
-    );
-    helper.add(
-      'declaredTransforms',
-      declaredTransforms,
-    );
+    final helper = newBuiltValueToStringHelper('ValidateTemplateOutput')
+      ..add(
+        'parameters',
+        parameters,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'capabilities',
+        capabilities,
+      )
+      ..add(
+        'capabilitiesReason',
+        capabilitiesReason,
+      )
+      ..add(
+        'declaredTransforms',
+        declaredTransforms,
+      );
     return helper.toString();
   }
 }

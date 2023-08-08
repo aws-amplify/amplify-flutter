@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.operation.put_organization_conformance_pack_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,11 +34,11 @@ import 'package:smoke_test/src/sdk/src/config_service/model/resource_in_use_exce
 import 'package:smoke_test/src/sdk/src/config_service/model/validation_exception.dart'
     as _i16;
 
-/// Deploys conformance packs across member accounts in an Amazon Web Services Organization. For information on how many organization conformance packs and how many Config rules you can have per account, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the Config Developer Guide.
+/// Deploys conformance packs across member accounts in an Amazon Web Services Organization. For information on how many organization conformance packs and how many Config rules you can have per account, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the _Config Developer Guide_.
 ///
-/// Only a master account and a delegated administrator can call this API. When calling this API with a delegated administrator, you must ensure Organizations `ListDelegatedAdministrator` permissions are added. An organization can have up to 3 delegated administrators.
+/// Only a management account and a delegated administrator can call this API. When calling this API with a delegated administrator, you must ensure Organizations `ListDelegatedAdministrator` permissions are added. An organization can have up to 3 delegated administrators.
 ///
-/// This API enables organization service access for `config-multiaccountsetup.amazonaws.com` through the `EnableAWSServiceAccess` action and creates a service-linked role `AWSServiceRoleForConfigMultiAccountSetup` in the master or delegated administrator account of your organization. The service-linked role is created only when the role does not exist in the caller account. To use this API with delegated administrator, register a delegated administrator by calling Amazon Web Services Organization `register-delegate-admin` for `config-multiaccountsetup.amazonaws.com`.
+/// This API enables organization service access for `config-multiaccountsetup.amazonaws.com` through the `EnableAWSServiceAccess` action and creates a service-linked role `AWSServiceRoleForConfigMultiAccountSetup` in the management or delegated administrator account of your organization. The service-linked role is created only when the role does not exist in the caller account. To use this API with delegated administrator, register a delegated administrator by calling Amazon Web Services Organization `register-delegate-admin` for `config-multiaccountsetup.amazonaws.com`.
 ///
 /// Prerequisite: Ensure you call `EnableAllFeatures` API to enable all features in an organization.
 ///
@@ -50,11 +50,11 @@ class PutOrganizationConformancePackOperation extends _i1.HttpOperation<
     _i2.PutOrganizationConformancePackRequest,
     _i3.PutOrganizationConformancePackResponse,
     _i3.PutOrganizationConformancePackResponse> {
-  /// Deploys conformance packs across member accounts in an Amazon Web Services Organization. For information on how many organization conformance packs and how many Config rules you can have per account, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the Config Developer Guide.
+  /// Deploys conformance packs across member accounts in an Amazon Web Services Organization. For information on how many organization conformance packs and how many Config rules you can have per account, see [**Service Limits**](https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html) in the _Config Developer Guide_.
   ///
-  /// Only a master account and a delegated administrator can call this API. When calling this API with a delegated administrator, you must ensure Organizations `ListDelegatedAdministrator` permissions are added. An organization can have up to 3 delegated administrators.
+  /// Only a management account and a delegated administrator can call this API. When calling this API with a delegated administrator, you must ensure Organizations `ListDelegatedAdministrator` permissions are added. An organization can have up to 3 delegated administrators.
   ///
-  /// This API enables organization service access for `config-multiaccountsetup.amazonaws.com` through the `EnableAWSServiceAccess` action and creates a service-linked role `AWSServiceRoleForConfigMultiAccountSetup` in the master or delegated administrator account of your organization. The service-linked role is created only when the role does not exist in the caller account. To use this API with delegated administrator, register a delegated administrator by calling Amazon Web Services Organization `register-delegate-admin` for `config-multiaccountsetup.amazonaws.com`.
+  /// This API enables organization service access for `config-multiaccountsetup.amazonaws.com` through the `EnableAWSServiceAccess` action and creates a service-linked role `AWSServiceRoleForConfigMultiAccountSetup` in the management or delegated administrator account of your organization. The service-linked role is created only when the role does not exist in the caller account. To use this API with delegated administrator, register a delegated administrator by calling Amazon Web Services Organization `register-delegate-admin` for `config-multiaccountsetup.amazonaws.com`.
   ///
   /// Prerequisite: Ensure you call `EnableAllFeatures` API to enable all features in an organization.
   ///
@@ -141,7 +141,8 @@ class PutOrganizationConformancePackOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InsufficientPermissionsException,
+            _i9.InsufficientPermissionsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InsufficientPermissionsException',
@@ -150,7 +151,9 @@ class PutOrganizationConformancePackOperation extends _i1.HttpOperation<
           _i9.InsufficientPermissionsException,
           builder: _i9.InsufficientPermissionsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<
+            _i10.MaxNumberOfOrganizationConformancePacksExceededException,
+            _i10.MaxNumberOfOrganizationConformancePacksExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'MaxNumberOfOrganizationConformancePacksExceededException',
@@ -160,7 +163,8 @@ class PutOrganizationConformancePackOperation extends _i1.HttpOperation<
           builder: _i10.MaxNumberOfOrganizationConformancePacksExceededException
               .fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.NoAvailableOrganizationException,
+            _i11.NoAvailableOrganizationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoAvailableOrganizationException',
@@ -169,7 +173,8 @@ class PutOrganizationConformancePackOperation extends _i1.HttpOperation<
           _i11.NoAvailableOrganizationException,
           builder: _i11.NoAvailableOrganizationException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.OrganizationAccessDeniedException,
+            _i12.OrganizationAccessDeniedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'OrganizationAccessDeniedException',
@@ -178,7 +183,8 @@ class PutOrganizationConformancePackOperation extends _i1.HttpOperation<
           _i12.OrganizationAccessDeniedException,
           builder: _i12.OrganizationAccessDeniedException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.OrganizationAllFeaturesNotEnabledException,
+            _i13.OrganizationAllFeaturesNotEnabledException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'OrganizationAllFeaturesNotEnabledException',
@@ -187,7 +193,9 @@ class PutOrganizationConformancePackOperation extends _i1.HttpOperation<
           _i13.OrganizationAllFeaturesNotEnabledException,
           builder: _i13.OrganizationAllFeaturesNotEnabledException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<
+            _i14.OrganizationConformancePackTemplateValidationException,
+            _i14.OrganizationConformancePackTemplateValidationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'OrganizationConformancePackTemplateValidationException',
@@ -197,7 +205,8 @@ class PutOrganizationConformancePackOperation extends _i1.HttpOperation<
           builder: _i14.OrganizationConformancePackTemplateValidationException
               .fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.ResourceInUseException,
+            _i15.ResourceInUseException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ResourceInUseException',
@@ -206,7 +215,7 @@ class PutOrganizationConformancePackOperation extends _i1.HttpOperation<
           _i15.ResourceInUseException,
           builder: _i15.ResourceInUseException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i16.ValidationException, _i16.ValidationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ValidationException',
@@ -238,7 +247,7 @@ class PutOrganizationConformancePackOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

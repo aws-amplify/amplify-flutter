@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.lifecycle_rule;
+part of 'lifecycle_rule.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -145,9 +145,7 @@ class LifecycleRuleBuilder
               abortIncompleteMultipartUpload) =>
       _$this._abortIncompleteMultipartUpload = abortIncompleteMultipartUpload;
 
-  LifecycleRuleBuilder() {
-    LifecycleRule._init(this);
-  }
+  LifecycleRuleBuilder();
 
   LifecycleRuleBuilder get _$this {
     final $v = _$v;

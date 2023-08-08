@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.conformance_pack_compliance_score;
+part of 'conformance_pack_compliance_score.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -71,9 +71,7 @@ class ConformancePackComplianceScoreBuilder
   set lastUpdatedTime(DateTime? lastUpdatedTime) =>
       _$this._lastUpdatedTime = lastUpdatedTime;
 
-  ConformancePackComplianceScoreBuilder() {
-    ConformancePackComplianceScore._init(this);
-  }
+  ConformancePackComplianceScoreBuilder();
 
   ConformancePackComplianceScoreBuilder get _$this {
     final $v = _$v;

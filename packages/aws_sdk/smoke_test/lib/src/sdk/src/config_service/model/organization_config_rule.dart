@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.organization_config_rule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -52,12 +52,8 @@ abstract class OrganizationConfigRule
 
   const OrganizationConfigRule._();
 
-  static const List<_i6.SmithySerializer> serializers = [
-    OrganizationConfigRuleAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OrganizationConfigRuleBuilder b) {}
+  static const List<_i6.SmithySerializer<OrganizationConfigRule>> serializers =
+      [OrganizationConfigRuleAwsJson11Serializer()];
 
   /// The name that you assign to organization Config rule.
   String get organizationConfigRuleName;
@@ -92,35 +88,35 @@ abstract class OrganizationConfigRule
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('OrganizationConfigRule');
-    helper.add(
-      'organizationConfigRuleName',
-      organizationConfigRuleName,
-    );
-    helper.add(
-      'organizationConfigRuleArn',
-      organizationConfigRuleArn,
-    );
-    helper.add(
-      'organizationManagedRuleMetadata',
-      organizationManagedRuleMetadata,
-    );
-    helper.add(
-      'organizationCustomRuleMetadata',
-      organizationCustomRuleMetadata,
-    );
-    helper.add(
-      'excludedAccounts',
-      excludedAccounts,
-    );
-    helper.add(
-      'lastUpdateTime',
-      lastUpdateTime,
-    );
-    helper.add(
-      'organizationCustomPolicyRuleMetadata',
-      organizationCustomPolicyRuleMetadata,
-    );
+    final helper = newBuiltValueToStringHelper('OrganizationConfigRule')
+      ..add(
+        'organizationConfigRuleName',
+        organizationConfigRuleName,
+      )
+      ..add(
+        'organizationConfigRuleArn',
+        organizationConfigRuleArn,
+      )
+      ..add(
+        'organizationManagedRuleMetadata',
+        organizationManagedRuleMetadata,
+      )
+      ..add(
+        'organizationCustomRuleMetadata',
+        organizationCustomRuleMetadata,
+      )
+      ..add(
+        'excludedAccounts',
+        excludedAccounts,
+      )
+      ..add(
+        'lastUpdateTime',
+        lastUpdateTime,
+      )
+      ..add(
+        'organizationCustomPolicyRuleMetadata',
+        organizationCustomPolicyRuleMetadata,
+      );
     return helper.toString();
   }
 }

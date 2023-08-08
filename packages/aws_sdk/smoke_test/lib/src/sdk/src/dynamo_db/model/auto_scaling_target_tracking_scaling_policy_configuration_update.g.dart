@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.auto_scaling_target_tracking_scaling_policy_configuration_update;
+part of 'auto_scaling_target_tracking_scaling_policy_configuration_update.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -97,9 +97,7 @@ class AutoScalingTargetTrackingScalingPolicyConfigurationUpdateBuilder
   double? get targetValue => _$this._targetValue;
   set targetValue(double? targetValue) => _$this._targetValue = targetValue;
 
-  AutoScalingTargetTrackingScalingPolicyConfigurationUpdateBuilder() {
-    AutoScalingTargetTrackingScalingPolicyConfigurationUpdate._init(this);
-  }
+  AutoScalingTargetTrackingScalingPolicyConfigurationUpdateBuilder();
 
   AutoScalingTargetTrackingScalingPolicyConfigurationUpdateBuilder get _$this {
     final $v = _$v;

@@ -103,7 +103,7 @@ class CpkManyToManyPost extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("CpkManyToManyPost {");
     buffer.write("id=" + "$id" + ", ");
@@ -165,8 +165,7 @@ class CpkManyToManyPost extends amplify_core.Model {
       };
 
   static final amplify_core
-          .QueryModelIdentifier<CpkManyToManyPostModelIdentifier>
-      MODEL_IDENTIFIER =
+      .QueryModelIdentifier<CpkManyToManyPostModelIdentifier> MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<CpkManyToManyPostModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final TITLE = amplify_core.QueryField(fieldName: "title");
@@ -233,7 +232,7 @@ class CpkManyToManyPostModelIdentifier
     implements amplify_core.ModelIdentifier<CpkManyToManyPost> {
   final String id;
 
-  /// Create an instance of CpkManyToManyPostModelIdentifier using [id] the primary key.
+  /** Create an instance of CpkManyToManyPostModelIdentifier using [id] the primary key. */
   const CpkManyToManyPostModelIdentifier({required this.id});
 
   @override

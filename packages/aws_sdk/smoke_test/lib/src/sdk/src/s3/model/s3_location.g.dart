@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.s3_location;
+part of 's3_location.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -123,9 +123,7 @@ class S3LocationBuilder implements Builder<S3Location, S3LocationBuilder> {
   set storageClass(_i7.StorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
-  S3LocationBuilder() {
-    S3Location._init(this);
-  }
+  S3LocationBuilder();
 
   S3LocationBuilder get _$this {
     final $v = _$v;

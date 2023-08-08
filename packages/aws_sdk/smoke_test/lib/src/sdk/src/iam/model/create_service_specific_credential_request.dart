@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.create_service_specific_credential_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,11 @@ abstract class CreateServiceSpecificCredentialRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<CreateServiceSpecificCredentialRequest>>
+      serializers = [
     CreateServiceSpecificCredentialRequestAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateServiceSpecificCredentialRequestBuilder b) {}
 
   /// The name of the IAM user that is to be associated with the credentials. The new service-specific credentials have the same permissions as the associated user except that they can be used only to access the specified service.
   ///
@@ -64,15 +63,15 @@ abstract class CreateServiceSpecificCredentialRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('CreateServiceSpecificCredentialRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'serviceName',
-      serviceName,
-    );
+        newBuiltValueToStringHelper('CreateServiceSpecificCredentialRequest')
+          ..add(
+            'userName',
+            userName,
+          )
+          ..add(
+            'serviceName',
+            serviceName,
+          );
     return helper.toString();
   }
 }

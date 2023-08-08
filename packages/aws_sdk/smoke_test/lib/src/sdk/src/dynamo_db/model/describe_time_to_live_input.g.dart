@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.describe_time_to_live_input;
+part of 'describe_time_to_live_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -52,9 +52,7 @@ class DescribeTimeToLiveInputBuilder
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
 
-  DescribeTimeToLiveInputBuilder() {
-    DescribeTimeToLiveInput._init(this);
-  }
+  DescribeTimeToLiveInputBuilder();
 
   DescribeTimeToLiveInputBuilder get _$this {
     final $v = _$v;

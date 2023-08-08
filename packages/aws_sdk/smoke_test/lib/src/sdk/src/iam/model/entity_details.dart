@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.entity_details; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,19 +38,16 @@ abstract class EntityDetails
 
   const EntityDetails._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<EntityDetails>> serializers = [
     EntityDetailsAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EntityDetailsBuilder b) {}
 
   /// The `EntityInfo` object that contains details about the entity (user or role).
   _i2.EntityInfo get entityInfo;
 
   /// The date and time, in [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the authenticated entity last attempted to access Amazon Web Services. Amazon Web Services does not report unauthenticated requests.
   ///
-  /// This field is null if no IAM entities attempted to access the service within the [reporting period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
+  /// This field is null if no IAM entities attempted to access the service within the [tracking period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
   DateTime? get lastAuthenticated;
   @override
   List<Object?> get props => [
@@ -59,15 +56,15 @@ abstract class EntityDetails
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EntityDetails');
-    helper.add(
-      'entityInfo',
-      entityInfo,
-    );
-    helper.add(
-      'lastAuthenticated',
-      lastAuthenticated,
-    );
+    final helper = newBuiltValueToStringHelper('EntityDetails')
+      ..add(
+        'entityInfo',
+        entityInfo,
+      )
+      ..add(
+        'lastAuthenticated',
+        lastAuthenticated,
+      );
     return helper.toString();
   }
 }

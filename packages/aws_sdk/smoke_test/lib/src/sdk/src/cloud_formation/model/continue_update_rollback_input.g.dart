@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.continue_update_rollback_input;
+part of 'continue_update_rollback_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -86,9 +86,7 @@ class ContinueUpdateRollbackInputBuilder
   set clientRequestToken(String? clientRequestToken) =>
       _$this._clientRequestToken = clientRequestToken;
 
-  ContinueUpdateRollbackInputBuilder() {
-    ContinueUpdateRollbackInput._init(this);
-  }
+  ContinueUpdateRollbackInputBuilder();
 
   ContinueUpdateRollbackInputBuilder get _$this {
     final $v = _$v;

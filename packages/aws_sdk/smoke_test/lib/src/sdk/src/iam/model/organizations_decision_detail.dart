@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.organizations_decision_detail; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,6 +17,7 @@ abstract class OrganizationsDecisionDetail
         Built<OrganizationsDecisionDetail, OrganizationsDecisionDetailBuilder> {
   /// Contains information about the effect that Organizations has on a policy simulation.
   factory OrganizationsDecisionDetail({bool? allowedByOrganizations}) {
+    allowedByOrganizations ??= false;
     return _$OrganizationsDecisionDetail._(
         allowedByOrganizations: allowedByOrganizations);
   }
@@ -28,24 +29,25 @@ abstract class OrganizationsDecisionDetail
 
   const OrganizationsDecisionDetail._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    OrganizationsDecisionDetailAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<OrganizationsDecisionDetail>>
+      serializers = [OrganizationsDecisionDetailAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(OrganizationsDecisionDetailBuilder b) {}
+  static void _init(OrganizationsDecisionDetailBuilder b) {
+    b.allowedByOrganizations = false;
+  }
 
   /// Specifies whether the simulated operation is allowed by the Organizations service control policies that impact the simulated user's account.
-  bool? get allowedByOrganizations;
+  bool get allowedByOrganizations;
   @override
   List<Object?> get props => [allowedByOrganizations];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('OrganizationsDecisionDetail');
-    helper.add(
-      'allowedByOrganizations',
-      allowedByOrganizations,
-    );
+    final helper = newBuiltValueToStringHelper('OrganizationsDecisionDetail')
+      ..add(
+        'allowedByOrganizations',
+        allowedByOrganizations,
+      );
     return helper.toString();
   }
 }
@@ -107,14 +109,12 @@ class OrganizationsDecisionDetailAwsQuerySerializer
       )
     ];
     final OrganizationsDecisionDetail(:allowedByOrganizations) = object;
-    if (allowedByOrganizations != null) {
-      result$
-        ..add(const _i2.XmlElementName('AllowedByOrganizations'))
-        ..add(serializers.serialize(
-          allowedByOrganizations,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result$
+      ..add(const _i2.XmlElementName('AllowedByOrganizations'))
+      ..add(serializers.serialize(
+        allowedByOrganizations,
+        specifiedType: const FullType(bool),
+      ));
     return result$;
   }
 }

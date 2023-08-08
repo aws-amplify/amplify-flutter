@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.put_events_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,12 +44,9 @@ abstract class PutEventsRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.EventsRequest>> serializers = [
     PutEventsRequestRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutEventsRequestBuilder b) {}
 
   /// The unique identifier for the application. This identifier is displayed as the **Project ID** on the Amazon Pinpoint console.
   String get applicationId;
@@ -77,15 +74,15 @@ abstract class PutEventsRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutEventsRequest');
-    helper.add(
-      'applicationId',
-      applicationId,
-    );
-    helper.add(
-      'eventsRequest',
-      eventsRequest,
-    );
+    final helper = newBuiltValueToStringHelper('PutEventsRequest')
+      ..add(
+        'applicationId',
+        applicationId,
+      )
+      ..add(
+        'eventsRequest',
+        eventsRequest,
+      );
     return helper.toString();
   }
 }

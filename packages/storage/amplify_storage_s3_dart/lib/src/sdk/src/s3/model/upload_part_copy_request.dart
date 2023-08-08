@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_storage_s3_dart.s3.model.upload_part_copy_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,7 +42,6 @@ abstract class UploadPartCopyRequest
     String? expectedBucketOwner,
     String? expectedSourceBucketOwner,
   }) {
-    partNumber ??= 0;
     return _$UploadPartCopyRequest._(
       bucket: bucket,
       copySource: copySource,
@@ -163,20 +162,14 @@ abstract class UploadPartCopyRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UploadPartCopyRequestRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UploadPartCopyRequestBuilder b) {
-    b.partNumber = 0;
-  }
+  static const List<_i1.SmithySerializer<UploadPartCopyRequestPayload>>
+      serializers = [UploadPartCopyRequestRestXmlSerializer()];
 
   /// The bucket name.
   ///
   /// When using this action with an access point, you must direct requests to the access point hostname. The access point hostname takes the form _AccessPointName_-_AccountId_.s3-accesspoint._Region_.amazonaws.com. When using this action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see [Using access points](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html) in the _Amazon S3 User Guide_.
   ///
-  /// When using this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When using this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [Using Amazon S3 on Outposts](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
+  /// When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form `_AccessPointName_-_AccountId_._outpostID_.s3-outposts._Region_.amazonaws.com`. When you use this action with S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see [What is S3 on Outposts?](https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html) in the _Amazon S3 User Guide_.
   String get bucket;
 
   /// Specifies the source object for the copy operation. You specify the value in one of two formats, depending on whether you want to access the source object through an [access point](https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-points.html):
@@ -212,7 +205,7 @@ abstract class UploadPartCopyRequest
   String get key;
 
   /// Part number of part being copied. This is a positive integer between 1 and 10,000.
-  int get partNumber;
+  int? get partNumber;
 
   /// Upload ID identifying the multipart upload whose part is being copied.
   String get uploadId;
@@ -283,83 +276,83 @@ abstract class UploadPartCopyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UploadPartCopyRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'copySource',
-      copySource,
-    );
-    helper.add(
-      'copySourceIfMatch',
-      copySourceIfMatch,
-    );
-    helper.add(
-      'copySourceIfModifiedSince',
-      copySourceIfModifiedSince,
-    );
-    helper.add(
-      'copySourceIfNoneMatch',
-      copySourceIfNoneMatch,
-    );
-    helper.add(
-      'copySourceIfUnmodifiedSince',
-      copySourceIfUnmodifiedSince,
-    );
-    helper.add(
-      'copySourceRange',
-      copySourceRange,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'partNumber',
-      partNumber,
-    );
-    helper.add(
-      'uploadId',
-      uploadId,
-    );
-    helper.add(
-      'sseCustomerAlgorithm',
-      sseCustomerAlgorithm,
-    );
-    helper.add(
-      'sseCustomerKey',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'sseCustomerKeyMd5',
-      sseCustomerKeyMd5,
-    );
-    helper.add(
-      'copySourceSseCustomerAlgorithm',
-      copySourceSseCustomerAlgorithm,
-    );
-    helper.add(
-      'copySourceSseCustomerKey',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'copySourceSseCustomerKeyMd5',
-      copySourceSseCustomerKeyMd5,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
-    helper.add(
-      'expectedSourceBucketOwner',
-      expectedSourceBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('UploadPartCopyRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'copySource',
+        copySource,
+      )
+      ..add(
+        'copySourceIfMatch',
+        copySourceIfMatch,
+      )
+      ..add(
+        'copySourceIfModifiedSince',
+        copySourceIfModifiedSince,
+      )
+      ..add(
+        'copySourceIfNoneMatch',
+        copySourceIfNoneMatch,
+      )
+      ..add(
+        'copySourceIfUnmodifiedSince',
+        copySourceIfUnmodifiedSince,
+      )
+      ..add(
+        'copySourceRange',
+        copySourceRange,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'partNumber',
+        partNumber,
+      )
+      ..add(
+        'uploadId',
+        uploadId,
+      )
+      ..add(
+        'sseCustomerAlgorithm',
+        sseCustomerAlgorithm,
+      )
+      ..add(
+        'sseCustomerKey',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'sseCustomerKeyMd5',
+        sseCustomerKeyMd5,
+      )
+      ..add(
+        'copySourceSseCustomerAlgorithm',
+        copySourceSseCustomerAlgorithm,
+      )
+      ..add(
+        'copySourceSseCustomerKey',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'copySourceSseCustomerKeyMd5',
+        copySourceSseCustomerKeyMd5,
+      )
+      ..add(
+        'requestPayer',
+        requestPayer,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      )
+      ..add(
+        'expectedSourceBucketOwner',
+        expectedSourceBucketOwner,
+      );
     return helper.toString();
   }
 }
@@ -378,8 +371,6 @@ abstract class UploadPartCopyRequestPayload
 
   const UploadPartCopyRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UploadPartCopyRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

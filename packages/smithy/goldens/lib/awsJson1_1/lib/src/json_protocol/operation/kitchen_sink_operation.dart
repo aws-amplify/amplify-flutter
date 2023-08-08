@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library aws_json1_1_v1.json_protocol.operation.kitchen_sink_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -97,7 +97,7 @@ class KitchenSinkOperation extends _i1.HttpOperation<_i2.KitchenSink,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.ErrorWithMembers, _i8.ErrorWithMembers>(
           _i1.ShapeId(
             namespace: 'aws.protocoltests.json',
             shape: 'ErrorWithMembers',
@@ -106,7 +106,7 @@ class KitchenSinkOperation extends _i1.HttpOperation<_i2.KitchenSink,
           _i8.ErrorWithMembers,
           builder: _i8.ErrorWithMembers.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ErrorWithoutMembers, _i9.ErrorWithoutMembers>(
           _i1.ShapeId(
             namespace: 'aws.protocoltests.json',
             shape: 'ErrorWithoutMembers',
@@ -138,7 +138,7 @@ class KitchenSinkOperation extends _i1.HttpOperation<_i2.KitchenSink,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
+        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
       },
     );
   }

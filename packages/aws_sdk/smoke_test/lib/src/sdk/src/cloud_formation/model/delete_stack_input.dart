@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.delete_stack_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,12 +44,9 @@ abstract class DeleteStackInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<DeleteStackInput>> serializers = [
     DeleteStackInputAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteStackInputBuilder b) {}
 
   /// The name or the unique stack ID that's associated with the stack.
   String get stackName;
@@ -81,23 +78,23 @@ abstract class DeleteStackInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteStackInput');
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'retainResources',
-      retainResources,
-    );
-    helper.add(
-      'roleArn',
-      roleArn,
-    );
-    helper.add(
-      'clientRequestToken',
-      clientRequestToken,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteStackInput')
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'retainResources',
+        retainResources,
+      )
+      ..add(
+        'roleArn',
+        roleArn,
+      )
+      ..add(
+        'clientRequestToken',
+        clientRequestToken,
+      );
     return helper.toString();
   }
 }

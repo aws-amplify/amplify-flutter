@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.rest_json_protocol.model.media_type_header_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -45,12 +45,9 @@ abstract class MediaTypeHeaderInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    MediaTypeHeaderInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<MediaTypeHeaderInputPayload>>
+      serializers = [MediaTypeHeaderInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MediaTypeHeaderInputBuilder b) {}
   _i3.JsonObject? get json;
   @override
   MediaTypeHeaderInputPayload getPayload() => MediaTypeHeaderInputPayload();
@@ -58,11 +55,11 @@ abstract class MediaTypeHeaderInput
   List<Object?> get props => [json];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MediaTypeHeaderInput');
-    helper.add(
-      'json',
-      json,
-    );
+    final helper = newBuiltValueToStringHelper('MediaTypeHeaderInput')
+      ..add(
+        'json',
+        json,
+      );
     return helper.toString();
   }
 }
@@ -79,8 +76,6 @@ abstract class MediaTypeHeaderInputPayload
 
   const MediaTypeHeaderInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MediaTypeHeaderInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

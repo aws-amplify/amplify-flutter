@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.record_handler_progress_output;
+part of 'record_handler_progress_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -40,9 +40,7 @@ class RecordHandlerProgressOutputBuilder
             RecordHandlerProgressOutputBuilder> {
   _$RecordHandlerProgressOutput? _$v;
 
-  RecordHandlerProgressOutputBuilder() {
-    RecordHandlerProgressOutput._init(this);
-  }
+  RecordHandlerProgressOutputBuilder();
 
   @override
   void replace(RecordHandlerProgressOutput other) {

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.output_location;
+part of 'output_location.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -46,9 +46,7 @@ class OutputLocationBuilder
   _i2.S3LocationBuilder get s3 => _$this._s3 ??= new _i2.S3LocationBuilder();
   set s3(_i2.S3LocationBuilder? s3) => _$this._s3 = s3;
 
-  OutputLocationBuilder() {
-    OutputLocation._init(this);
-  }
+  OutputLocationBuilder();
 
   OutputLocationBuilder get _$this {
     final $v = _$v;

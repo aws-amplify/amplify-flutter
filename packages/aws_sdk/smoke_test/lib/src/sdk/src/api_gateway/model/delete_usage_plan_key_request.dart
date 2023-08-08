@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.delete_usage_plan_key_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -52,12 +52,8 @@ abstract class DeleteUsagePlanKeyRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteUsagePlanKeyRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteUsagePlanKeyRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<DeleteUsagePlanKeyRequestPayload>>
+      serializers = [DeleteUsagePlanKeyRequestRestJson1Serializer()];
 
   /// The Id of the UsagePlan resource representing the usage plan containing the to-be-deleted UsagePlanKey resource representing a plan customer.
   String get usagePlanId;
@@ -88,15 +84,15 @@ abstract class DeleteUsagePlanKeyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteUsagePlanKeyRequest');
-    helper.add(
-      'usagePlanId',
-      usagePlanId,
-    );
-    helper.add(
-      'keyId',
-      keyId,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteUsagePlanKeyRequest')
+      ..add(
+        'usagePlanId',
+        usagePlanId,
+      )
+      ..add(
+        'keyId',
+        keyId,
+      );
     return helper.toString();
   }
 }
@@ -115,8 +111,6 @@ abstract class DeleteUsagePlanKeyRequestPayload
 
   const DeleteUsagePlanKeyRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteUsagePlanKeyRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

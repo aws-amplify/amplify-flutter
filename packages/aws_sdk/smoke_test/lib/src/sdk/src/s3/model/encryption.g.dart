@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.encryption;
+part of 'encryption.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -66,9 +66,7 @@ class EncryptionBuilder implements Builder<Encryption, EncryptionBuilder> {
   String? get kmsContext => _$this._kmsContext;
   set kmsContext(String? kmsContext) => _$this._kmsContext = kmsContext;
 
-  EncryptionBuilder() {
-    Encryption._init(this);
-  }
+  EncryptionBuilder();
 
   EncryptionBuilder get _$this {
     final $v = _$v;

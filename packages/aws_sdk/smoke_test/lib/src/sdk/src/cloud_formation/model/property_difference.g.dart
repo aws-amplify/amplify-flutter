@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.property_difference;
+part of 'property_difference.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -89,9 +89,7 @@ class PropertyDifferenceBuilder
   set differenceType(_i2.DifferenceType? differenceType) =>
       _$this._differenceType = differenceType;
 
-  PropertyDifferenceBuilder() {
-    PropertyDifference._init(this);
-  }
+  PropertyDifferenceBuilder();
 
   PropertyDifferenceBuilder get _$this {
     final $v = _$v;

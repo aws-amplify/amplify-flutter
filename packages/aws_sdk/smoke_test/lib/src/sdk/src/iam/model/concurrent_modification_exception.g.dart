@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.concurrent_modification_exception;
+part of 'concurrent_modification_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -57,9 +57,7 @@ class ConcurrentModificationExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ConcurrentModificationExceptionBuilder() {
-    ConcurrentModificationException._init(this);
-  }
+  ConcurrentModificationExceptionBuilder();
 
   ConcurrentModificationExceptionBuilder get _$this {
     final $v = _$v;

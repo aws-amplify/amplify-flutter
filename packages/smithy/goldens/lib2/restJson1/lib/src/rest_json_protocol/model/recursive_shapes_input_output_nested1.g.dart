@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.recursive_shapes_input_output_nested1;
+part of 'recursive_shapes_input_output_nested1.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class RecursiveShapesInputOutputNested1Builder
   set nested(_i2.RecursiveShapesInputOutputNested2Builder? nested) =>
       _$this._nested = nested;
 
-  RecursiveShapesInputOutputNested1Builder() {
-    RecursiveShapesInputOutputNested1._init(this);
-  }
+  RecursiveShapesInputOutputNested1Builder();
 
   RecursiveShapesInputOutputNested1Builder get _$this {
     final $v = _$v;

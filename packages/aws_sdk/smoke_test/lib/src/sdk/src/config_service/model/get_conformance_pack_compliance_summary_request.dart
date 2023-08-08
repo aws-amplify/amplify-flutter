@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.get_conformance_pack_compliance_summary_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,6 +23,7 @@ abstract class GetConformancePackComplianceSummaryRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$GetConformancePackComplianceSummaryRequest._(
       conformancePackNames: _i3.BuiltList(conformancePackNames),
       limit: limit,
@@ -43,18 +44,22 @@ abstract class GetConformancePackComplianceSummaryRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<GetConformancePackComplianceSummaryRequest>>
+      serializers = [
     GetConformancePackComplianceSummaryRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetConformancePackComplianceSummaryRequestBuilder b) {}
+  static void _init(GetConformancePackComplianceSummaryRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// Names of conformance packs.
   _i3.BuiltList<String> get conformancePackNames;
 
   /// The maximum number of conformance packs returned on each page.
-  int? get limit;
+  int get limit;
 
   /// The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -69,19 +74,19 @@ abstract class GetConformancePackComplianceSummaryRequest
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'GetConformancePackComplianceSummaryRequest');
-    helper.add(
-      'conformancePackNames',
-      conformancePackNames,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        'GetConformancePackComplianceSummaryRequest')
+      ..add(
+        'conformancePackNames',
+        conformancePackNames,
+      )
+      ..add(
+        'limit',
+        limit,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }
@@ -164,15 +169,12 @@ class GetConformancePackComplianceSummaryRequestAwsJson11Serializer extends _i1
           [FullType(String)],
         ),
       ),
+      'Limit',
+      serializers.serialize(
+        limit,
+        specifiedType: const FullType(int),
+      ),
     ]);
-    if (limit != null) {
-      result$
-        ..add('Limit')
-        ..add(serializers.serialize(
-          limit,
-          specifiedType: const FullType(int),
-        ));
-    }
     if (nextToken != null) {
       result$
         ..add('NextToken')

@@ -71,33 +71,47 @@ const amplifyEnvironments = <String, String>{};
     await super.run();
     await linkPackages();
 
-    final bootstrapPackages = commandPackages.values.where(
-      // Skip bootstrap for `aft` since it has already had `dart pub upgrade`
-      // run with the native command, and running it again with the embedded
-      // command could cause issues later on, esp. when the native `pub`
-      // command is significantly newer/older than the embedded one.
-      (pkg) => pkg.name != 'aft',
-    );
+    final bootstrapPackages = commandPackages.values
+        .where(
+          // Skip bootstrap for `aft` since it has already had `dart pub upgrade`
+          // run with the native command, and running it again with the embedded
+          // command could cause issues later on, esp. when the native `pub`
+          // command is significantly newer/older than the embedded one.
+          (pkg) => pkg.name != 'aft',
+        )
+        .expand((pkg) => [pkg, pkg.example, pkg.docs])
+        .nonNulls;
     for (final package in bootstrapPackages) {
       await pubAction(
         arguments: [if (upgrade) 'upgrade' else 'get'],
         package: package,
       );
     }
-    await Future.wait(
-      [for (final package in bootstrapPackages) _createEmptyConfig(package)],
-    );
+    await Future.wait([
+      for (final package in bootstrapPackages) _createEmptyConfig(package),
+    ]);
     if (build) {
+      final buildPackages = <PackageInfo>{};
+      final packageGraph = repo.getPackageGraph(includeDevDependencies: true);
       for (final package in bootstrapPackages) {
-        // Only run build_runner for packages which need it for development,
-        // i.e. those packages which specify worker JS files in their assets.
-        final needsBuild = package.needsBuildRunner &&
-            (package.pubspecInfo.pubspec.flutter?.containsKey('assets') ??
-                false) &&
-            package.flavor == PackageFlavor.dart;
-        if (needsBuild) {
-          await runBuildRunner(package, logger: logger, verbose: verbose);
-        }
+        dfs(
+          packageGraph,
+          root: package,
+          (package) {
+            // Only run build_runner for packages which need it for development,
+            // i.e. those packages which specify worker JS files in their assets.
+            final needsBuild = package.needsBuildRunner &&
+                (package.pubspecInfo.pubspec.flutter?.containsKey('assets') ??
+                    false) &&
+                package.flavor == PackageFlavor.dart;
+            if (needsBuild) {
+              buildPackages.add(package);
+            }
+          },
+        );
+      }
+      for (final package in buildPackages) {
+        await runBuildRunner(package, logger: logger, verbose: verbose);
       }
     }
 

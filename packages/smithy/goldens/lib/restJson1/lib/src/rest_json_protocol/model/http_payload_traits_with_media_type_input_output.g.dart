@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_protocol.model.http_payload_traits_with_media_type_input_output;
+part of 'http_payload_traits_with_media_type_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -64,9 +64,7 @@ class HttpPayloadTraitsWithMediaTypeInputOutputBuilder
   _i2.Uint8List? get blob => _$this._blob;
   set blob(_i2.Uint8List? blob) => _$this._blob = blob;
 
-  HttpPayloadTraitsWithMediaTypeInputOutputBuilder() {
-    HttpPayloadTraitsWithMediaTypeInputOutput._init(this);
-  }
+  HttpPayloadTraitsWithMediaTypeInputOutputBuilder();
 
   HttpPayloadTraitsWithMediaTypeInputOutputBuilder get _$this {
     final $v = _$v;

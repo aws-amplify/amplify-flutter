@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.create_bucket_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,8 @@ abstract class CreateBucketOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    CreateBucketOutputRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateBucketOutputBuilder b) {}
+  static const List<_i2.SmithySerializer<CreateBucketOutputPayload>>
+      serializers = [CreateBucketOutputRestXmlSerializer()];
 
   /// A forward slash followed by the name of the bucket.
   String? get location;
@@ -53,11 +49,11 @@ abstract class CreateBucketOutput
   List<Object?> get props => [location];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateBucketOutput');
-    helper.add(
-      'location',
-      location,
-    );
+    final helper = newBuiltValueToStringHelper('CreateBucketOutput')
+      ..add(
+        'location',
+        location,
+      );
     return helper.toString();
   }
 }
@@ -74,8 +70,6 @@ abstract class CreateBucketOutputPayload
 
   const CreateBucketOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateBucketOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

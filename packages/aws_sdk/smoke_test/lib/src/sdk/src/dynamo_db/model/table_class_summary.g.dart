@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.table_class_summary;
+part of 'table_class_summary.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -57,9 +57,7 @@ class TableClassSummaryBuilder
   set lastUpdateDateTime(DateTime? lastUpdateDateTime) =>
       _$this._lastUpdateDateTime = lastUpdateDateTime;
 
-  TableClassSummaryBuilder() {
-    TableClassSummary._init(this);
-  }
+  TableClassSummaryBuilder();
 
   TableClassSummaryBuilder get _$this {
     final $v = _$v;

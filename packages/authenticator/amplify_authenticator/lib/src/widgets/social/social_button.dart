@@ -58,7 +58,7 @@ class SocialSignInButtons extends StatelessAuthenticatorComponent {
 
         return Column(
           children: <Widget>[
-            for (var provider in providers)
+            for (final provider in providers)
               SocialSignInButton(provider: provider, maxWidth: maxWidth),
           ].spacedBy(const SizedBox(height: 12)),
         );

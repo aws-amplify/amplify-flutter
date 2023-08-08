@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.operation.put_resource_config_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -116,7 +116,8 @@ class PutResourceConfigOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.InsufficientPermissionsException,
+            _i8.InsufficientPermissionsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InsufficientPermissionsException',
@@ -125,7 +126,8 @@ class PutResourceConfigOperation extends _i1.HttpOperation<
           _i8.InsufficientPermissionsException,
           builder: _i8.InsufficientPermissionsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.MaxActiveResourcesExceededException,
+            _i9.MaxActiveResourcesExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'MaxActiveResourcesExceededException',
@@ -134,7 +136,8 @@ class PutResourceConfigOperation extends _i1.HttpOperation<
           _i9.MaxActiveResourcesExceededException,
           builder: _i9.MaxActiveResourcesExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.NoRunningConfigurationRecorderException,
+            _i10.NoRunningConfigurationRecorderException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoRunningConfigurationRecorderException',
@@ -143,7 +146,7 @@ class PutResourceConfigOperation extends _i1.HttpOperation<
           _i10.NoRunningConfigurationRecorderException,
           builder: _i10.NoRunningConfigurationRecorderException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.ValidationException, _i11.ValidationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ValidationException',
@@ -175,7 +178,7 @@ class PutResourceConfigOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
+        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
       },
     );
   }

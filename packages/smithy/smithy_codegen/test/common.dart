@@ -7,12 +7,13 @@ import 'package:smithy_codegen/smithy_codegen.dart';
 /// Creates a codegen context for test cases.
 CodegenContext createTestContext(
   List<Shape> shapes, {
+  SmithyVersion version = SmithyVersion.v2,
   String packageName = 'example',
   String serviceName = 'Test',
 }) {
   return CodegenContext(
-    smithyVersion: SmithyVersion.v2,
-    shapes: ShapeMap({for (var shape in shapes) shape.shapeId: shape}),
+    smithyVersion: version,
+    shapes: ShapeMap({for (final shape in shapes) shape.shapeId: shape}),
     packageName: packageName,
     serviceName: serviceName,
   );

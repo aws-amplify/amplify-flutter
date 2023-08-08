@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1_v1.json_protocol.model.complex_nested_error_data;
+part of 'complex_nested_error_data.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -48,9 +48,7 @@ class ComplexNestedErrorDataBuilder
   String? get foo => _$this._foo;
   set foo(String? foo) => _$this._foo = foo;
 
-  ComplexNestedErrorDataBuilder() {
-    ComplexNestedErrorData._init(this);
-  }
+  ComplexNestedErrorDataBuilder();
 
   ComplexNestedErrorDataBuilder get _$this {
     final $v = _$v;

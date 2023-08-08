@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.api_key; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -28,6 +28,7 @@ abstract class ApiKey
     List<String>? stageKeys,
     Map<String, String>? tags,
   }) {
+    enabled ??= false;
     return _$ApiKey._(
       id: id,
       value: value,
@@ -54,12 +55,14 @@ abstract class ApiKey
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ApiKey>> serializers = [
     ApiKeyRestJson1Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ApiKeyBuilder b) {}
+  static void _init(ApiKeyBuilder b) {
+    b.enabled = false;
+  }
 
   /// The identifier of the API Key.
   String? get id;
@@ -77,7 +80,7 @@ abstract class ApiKey
   String? get description;
 
   /// Specifies whether the API Key can be used by callers.
-  bool? get enabled;
+  bool get enabled;
 
   /// The timestamp when the API Key was created.
   DateTime? get createdDate;
@@ -105,47 +108,47 @@ abstract class ApiKey
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ApiKey');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'value',
-      value,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'customerId',
-      customerId,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'enabled',
-      enabled,
-    );
-    helper.add(
-      'createdDate',
-      createdDate,
-    );
-    helper.add(
-      'lastUpdatedDate',
-      lastUpdatedDate,
-    );
-    helper.add(
-      'stageKeys',
-      stageKeys,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('ApiKey')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'value',
+        value,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'customerId',
+        customerId,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'enabled',
+        enabled,
+      )
+      ..add(
+        'createdDate',
+        createdDate,
+      )
+      ..add(
+        'lastUpdatedDate',
+        lastUpdatedDate,
+      )
+      ..add(
+        'stageKeys',
+        stageKeys,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }
@@ -265,6 +268,13 @@ class ApiKeyRestJson1Serializer extends _i3.StructuredSmithySerializer<ApiKey> {
       :tags,
       :value
     ) = object;
+    result$.addAll([
+      'enabled',
+      serializers.serialize(
+        enabled,
+        specifiedType: const FullType(bool),
+      ),
+    ]);
     if (createdDate != null) {
       result$
         ..add('createdDate')
@@ -287,14 +297,6 @@ class ApiKeyRestJson1Serializer extends _i3.StructuredSmithySerializer<ApiKey> {
         ..add(serializers.serialize(
           description,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (enabled != null) {
-      result$
-        ..add('enabled')
-        ..add(serializers.serialize(
-          enabled,
-          specifiedType: const FullType(bool),
         ));
     }
     if (id != null) {

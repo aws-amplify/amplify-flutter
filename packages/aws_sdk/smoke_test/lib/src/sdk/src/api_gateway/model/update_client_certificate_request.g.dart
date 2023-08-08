@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.update_client_certificate_request;
+part of 'update_client_certificate_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -67,9 +67,7 @@ class UpdateClientCertificateRequestBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateClientCertificateRequestBuilder() {
-    UpdateClientCertificateRequest._init(this);
-  }
+  UpdateClientCertificateRequestBuilder();
 
   UpdateClientCertificateRequestBuilder get _$this {
     final $v = _$v;
@@ -172,9 +170,7 @@ class UpdateClientCertificateRequestPayloadBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateClientCertificateRequestPayloadBuilder() {
-    UpdateClientCertificateRequestPayload._init(this);
-  }
+  UpdateClientCertificateRequestPayloadBuilder();
 
   UpdateClientCertificateRequestPayloadBuilder get _$this {
     final $v = _$v;

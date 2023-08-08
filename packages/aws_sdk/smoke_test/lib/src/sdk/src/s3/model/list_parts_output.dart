@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.list_parts_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -103,14 +103,10 @@ abstract class ListPartsOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ListPartsOutputRestXmlSerializer()
-  ];
+  static const List<_i2.SmithySerializer<ListPartsOutputPayload>> serializers =
+      [ListPartsOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListPartsOutputBuilder b) {}
-
-  /// If the bucket has a lifecycle rule configured with an action to abort incomplete multipart uploads and the prefix in the lifecycle rule matches the object name in the request, then the response includes this header indicating when the initiated multipart upload will become eligible for abort operation. For more information, see [Aborting Incomplete Multipart Uploads Using a Bucket Lifecycle Policy](https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config).
+  /// If the bucket has a lifecycle rule configured with an action to abort incomplete multipart uploads and the prefix in the lifecycle rule matches the object name in the request, then the response includes this header indicating when the initiated multipart upload will become eligible for abort operation. For more information, see [Aborting Incomplete Multipart Uploads Using a Bucket Lifecycle Configuration](https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config).
   ///
   /// The response will also include the `x-amz-abort-rule-id` header that will provide the ID of the lifecycle configuration rule that defines this action.
   DateTime? get abortDate;
@@ -130,7 +126,7 @@ abstract class ListPartsOutput
   /// When a list is truncated, this element specifies the last part in the list, as well as the value to use for the part-number-marker request parameter in a subsequent request.
   String? get partNumberMarker;
 
-  /// When a list is truncated, this element specifies the last part in the list, as well as the value to use for the part-number-marker request parameter in a subsequent request.
+  /// When a list is truncated, this element specifies the last part in the list, as well as the value to use for the `part-number-marker` request parameter in a subsequent request.
   String? get nextPartNumberMarker;
 
   /// Maximum number of parts that were allowed in the response.
@@ -197,67 +193,67 @@ abstract class ListPartsOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListPartsOutput');
-    helper.add(
-      'abortDate',
-      abortDate,
-    );
-    helper.add(
-      'abortRuleId',
-      abortRuleId,
-    );
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'uploadId',
-      uploadId,
-    );
-    helper.add(
-      'partNumberMarker',
-      partNumberMarker,
-    );
-    helper.add(
-      'nextPartNumberMarker',
-      nextPartNumberMarker,
-    );
-    helper.add(
-      'maxParts',
-      maxParts,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'parts',
-      parts,
-    );
-    helper.add(
-      'initiator',
-      initiator,
-    );
-    helper.add(
-      'owner',
-      owner,
-    );
-    helper.add(
-      'storageClass',
-      storageClass,
-    );
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
+    final helper = newBuiltValueToStringHelper('ListPartsOutput')
+      ..add(
+        'abortDate',
+        abortDate,
+      )
+      ..add(
+        'abortRuleId',
+        abortRuleId,
+      )
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'uploadId',
+        uploadId,
+      )
+      ..add(
+        'partNumberMarker',
+        partNumberMarker,
+      )
+      ..add(
+        'nextPartNumberMarker',
+        nextPartNumberMarker,
+      )
+      ..add(
+        'maxParts',
+        maxParts,
+      )
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'parts',
+        parts,
+      )
+      ..add(
+        'initiator',
+        initiator,
+      )
+      ..add(
+        'owner',
+        owner,
+      )
+      ..add(
+        'storageClass',
+        storageClass,
+      )
+      ..add(
+        'requestCharged',
+        requestCharged,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      );
     return helper.toString();
   }
 }
@@ -271,9 +267,6 @@ abstract class ListPartsOutputPayload
       _$ListPartsOutputPayload;
 
   const ListPartsOutputPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListPartsOutputPayloadBuilder b) {}
 
   /// The name of the bucket to which the multipart upload was initiated. Does not return the access point ARN or access point alias if used.
   String? get bucket;
@@ -293,7 +286,7 @@ abstract class ListPartsOutputPayload
   /// Maximum number of parts that were allowed in the response.
   int? get maxParts;
 
-  /// When a list is truncated, this element specifies the last part in the list, as well as the value to use for the part-number-marker request parameter in a subsequent request.
+  /// When a list is truncated, this element specifies the last part in the list, as well as the value to use for the `part-number-marker` request parameter in a subsequent request.
   String? get nextPartNumberMarker;
 
   /// Container element that identifies the object owner, after the object is created. If multipart upload is initiated by an IAM user, this element provides the parent account ID and display name.
@@ -327,55 +320,55 @@ abstract class ListPartsOutputPayload
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListPartsOutputPayload');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'initiator',
-      initiator,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'maxParts',
-      maxParts,
-    );
-    helper.add(
-      'nextPartNumberMarker',
-      nextPartNumberMarker,
-    );
-    helper.add(
-      'owner',
-      owner,
-    );
-    helper.add(
-      'partNumberMarker',
-      partNumberMarker,
-    );
-    helper.add(
-      'parts',
-      parts,
-    );
-    helper.add(
-      'storageClass',
-      storageClass,
-    );
-    helper.add(
-      'uploadId',
-      uploadId,
-    );
+    final helper = newBuiltValueToStringHelper('ListPartsOutputPayload')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      )
+      ..add(
+        'initiator',
+        initiator,
+      )
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'maxParts',
+        maxParts,
+      )
+      ..add(
+        'nextPartNumberMarker',
+        nextPartNumberMarker,
+      )
+      ..add(
+        'owner',
+        owner,
+      )
+      ..add(
+        'partNumberMarker',
+        partNumberMarker,
+      )
+      ..add(
+        'parts',
+        parts,
+      )
+      ..add(
+        'storageClass',
+        storageClass,
+      )
+      ..add(
+        'uploadId',
+        uploadId,
+      );
     return helper.toString();
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.test_payload_structure_input_output;
+part of 'test_payload_structure_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class TestPayloadStructureInputOutputBuilder
   set payloadConfig(_i2.PayloadConfigBuilder? payloadConfig) =>
       _$this._payloadConfig = payloadConfig;
 
-  TestPayloadStructureInputOutputBuilder() {
-    TestPayloadStructureInputOutput._init(this);
-  }
+  TestPayloadStructureInputOutputBuilder();
 
   TestPayloadStructureInputOutputBuilder get _$this {
     final $v = _$v;

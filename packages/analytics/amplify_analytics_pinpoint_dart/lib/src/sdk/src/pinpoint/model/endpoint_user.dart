@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.endpoint_user; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,9 @@ abstract class EndpointUser
 
   const EndpointUser._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<EndpointUser>> serializers = [
     EndpointUserRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EndpointUserBuilder b) {}
 
   /// One or more custom attributes that describe the user by associating a name with an array of values. For example, the value of an attribute named Interests might be: \["Science", "Music", "Travel"\]. You can use these attributes as filter criteria when you create segments. Attribute names are case sensitive.
   ///
@@ -54,15 +51,15 @@ abstract class EndpointUser
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EndpointUser');
-    helper.add(
-      'userAttributes',
-      userAttributes,
-    );
-    helper.add(
-      'userId',
-      userId,
-    );
+    final helper = newBuiltValueToStringHelper('EndpointUser')
+      ..add(
+        'userAttributes',
+        userAttributes,
+      )
+      ..add(
+        'userId',
+        userId,
+      );
     return helper.toString();
   }
 }

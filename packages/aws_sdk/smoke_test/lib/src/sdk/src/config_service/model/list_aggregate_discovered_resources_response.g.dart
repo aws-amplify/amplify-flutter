@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.list_aggregate_discovered_resources_response;
+part of 'list_aggregate_discovered_resources_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -70,9 +70,7 @@ class ListAggregateDiscoveredResourcesResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListAggregateDiscoveredResourcesResponseBuilder() {
-    ListAggregateDiscoveredResourcesResponse._init(this);
-  }
+  ListAggregateDiscoveredResourcesResponseBuilder();
 
   ListAggregateDiscoveredResourcesResponseBuilder get _$this {
     final $v = _$v;

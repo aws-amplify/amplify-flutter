@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.attribute_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -7,16 +7,12 @@ import 'package:smithy/smithy.dart' as _i1;
 
 class AttributeType extends _i1.SmithyEnum<AttributeType> {
   const AttributeType._(
-    int index,
-    String name,
-    String value,
-  ) : super(
-          index,
-          name,
-          value,
-        );
+    super.index,
+    super.name,
+    super.value,
+  );
 
-  const AttributeType._sdkUnknown(String value) : super.sdkUnknown(value);
+  const AttributeType._sdkUnknown(super.value) : super.sdkUnknown();
 
   static const after = AttributeType._(
     0,

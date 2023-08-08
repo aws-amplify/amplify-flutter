@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.list_types_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,9 @@ abstract class ListTypesOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ListTypesOutput>> serializers = [
     ListTypesOutputAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListTypesOutputBuilder b) {}
 
   /// A list of `TypeSummary` structures that contain information about the specified extensions.
   _i3.BuiltList<_i2.TypeSummary>? get typeSummaries;
@@ -58,15 +55,15 @@ abstract class ListTypesOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListTypesOutput');
-    helper.add(
-      'typeSummaries',
-      typeSummaries,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('ListTypesOutput')
+      ..add(
+        'typeSummaries',
+        typeSummaries,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

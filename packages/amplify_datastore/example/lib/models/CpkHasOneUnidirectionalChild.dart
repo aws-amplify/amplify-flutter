@@ -99,7 +99,7 @@ class CpkHasOneUnidirectionalChild extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("CpkHasOneUnidirectionalChild {");
     buffer.write("id=" + "$id" + ", ");
@@ -147,7 +147,7 @@ class CpkHasOneUnidirectionalChild extends amplify_core.Model {
       };
 
   static final amplify_core
-          .QueryModelIdentifier<CpkHasOneUnidirectionalChildModelIdentifier>
+      .QueryModelIdentifier<CpkHasOneUnidirectionalChildModelIdentifier>
       MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<
           CpkHasOneUnidirectionalChildModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
@@ -209,8 +209,10 @@ class CpkHasOneUnidirectionalChildModelIdentifier
   final String id;
   final String name;
 
-  /// Create an instance of CpkHasOneUnidirectionalChildModelIdentifier using [id] the primary key.
-  /// And [name] the sort key.
+  /**
+   * Create an instance of CpkHasOneUnidirectionalChildModelIdentifier using [id] the primary key.
+   * And [name] the sort key.
+   */
   const CpkHasOneUnidirectionalChildModelIdentifier(
       {required this.id, required this.name});
 

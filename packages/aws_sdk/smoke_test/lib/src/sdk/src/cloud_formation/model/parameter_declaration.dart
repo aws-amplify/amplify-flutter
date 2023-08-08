@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.parameter_declaration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,9 @@ abstract class ParameterDeclaration
 
   const ParameterDeclaration._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ParameterDeclaration>> serializers = [
     ParameterDeclarationAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ParameterDeclarationBuilder b) {}
 
   /// The name that's associated with the parameter.
   String? get parameterKey;
@@ -77,31 +74,31 @@ abstract class ParameterDeclaration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ParameterDeclaration');
-    helper.add(
-      'parameterKey',
-      parameterKey,
-    );
-    helper.add(
-      'defaultValue',
-      defaultValue,
-    );
-    helper.add(
-      'parameterType',
-      parameterType,
-    );
-    helper.add(
-      'noEcho',
-      noEcho,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'parameterConstraints',
-      parameterConstraints,
-    );
+    final helper = newBuiltValueToStringHelper('ParameterDeclaration')
+      ..add(
+        'parameterKey',
+        parameterKey,
+      )
+      ..add(
+        'defaultValue',
+        defaultValue,
+      )
+      ..add(
+        'parameterType',
+        parameterType,
+      )
+      ..add(
+        'noEcho',
+        noEcho,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'parameterConstraints',
+        parameterConstraints,
+      );
     return helper.toString();
   }
 }

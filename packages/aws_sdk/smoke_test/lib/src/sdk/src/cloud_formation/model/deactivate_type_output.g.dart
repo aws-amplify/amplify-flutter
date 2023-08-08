@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.deactivate_type_output;
+part of 'deactivate_type_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -38,9 +38,7 @@ class DeactivateTypeOutputBuilder
     implements Builder<DeactivateTypeOutput, DeactivateTypeOutputBuilder> {
   _$DeactivateTypeOutput? _$v;
 
-  DeactivateTypeOutputBuilder() {
-    DeactivateTypeOutput._init(this);
-  }
+  DeactivateTypeOutputBuilder();
 
   @override
   void replace(DeactivateTypeOutput other) {

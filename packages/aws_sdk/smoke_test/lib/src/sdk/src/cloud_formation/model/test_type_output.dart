@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.test_type_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -29,12 +29,9 @@ abstract class TestTypeOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<TestTypeOutput>> serializers = [
     TestTypeOutputAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TestTypeOutputBuilder b) {}
 
   /// The Amazon Resource Name (ARN) of the extension.
   String? get typeVersionArn;
@@ -42,11 +39,11 @@ abstract class TestTypeOutput
   List<Object?> get props => [typeVersionArn];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TestTypeOutput');
-    helper.add(
-      'typeVersionArn',
-      typeVersionArn,
-    );
+    final helper = newBuiltValueToStringHelper('TestTypeOutput')
+      ..add(
+        'typeVersionArn',
+        typeVersionArn,
+      );
     return helper.toString();
   }
 }

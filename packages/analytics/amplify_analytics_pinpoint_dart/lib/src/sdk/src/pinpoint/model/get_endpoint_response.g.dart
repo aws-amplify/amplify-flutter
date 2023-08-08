@@ -54,9 +54,7 @@ class GetEndpointResponseBuilder
   set endpointResponse(_i3.EndpointResponseBuilder? endpointResponse) =>
       _$this._endpointResponse = endpointResponse;
 
-  GetEndpointResponseBuilder() {
-    GetEndpointResponse._init(this);
-  }
+  GetEndpointResponseBuilder();
 
   GetEndpointResponseBuilder get _$this {
     final $v = _$v;

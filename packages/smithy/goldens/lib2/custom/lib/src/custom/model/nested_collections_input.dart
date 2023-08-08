@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library custom_v2.custom.model.nested_collections_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -45,12 +45,9 @@ abstract class NestedCollectionsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    NestedCollectionsInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<NestedCollectionsInput>> serializers =
+      [NestedCollectionsInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NestedCollectionsInputBuilder b) {}
   _i3.BuiltListMultimap<String, _i3.BuiltListMultimap<String, String>?>?
       get mapOfListOfMapOfLists;
   @override
@@ -59,11 +56,11 @@ abstract class NestedCollectionsInput
   List<Object?> get props => [mapOfListOfMapOfLists];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('NestedCollectionsInput');
-    helper.add(
-      'mapOfListOfMapOfLists',
-      mapOfListOfMapOfLists,
-    );
+    final helper = newBuiltValueToStringHelper('NestedCollectionsInput')
+      ..add(
+        'mapOfListOfMapOfLists',
+        mapOfListOfMapOfLists,
+      );
     return helper.toString();
   }
 }

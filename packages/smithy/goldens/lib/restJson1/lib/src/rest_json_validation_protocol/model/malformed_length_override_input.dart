@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.rest_json_validation_protocol.model.malformed_length_override_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -51,12 +51,9 @@ abstract class MalformedLengthOverrideInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    MalformedLengthOverrideInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<MalformedLengthOverrideInput>>
+      serializers = [MalformedLengthOverrideInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedLengthOverrideInputBuilder b) {}
   _i3.Uint8List? get blob;
   String? get string;
   String? get minString;
@@ -76,31 +73,31 @@ abstract class MalformedLengthOverrideInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedLengthOverrideInput');
-    helper.add(
-      'blob',
-      blob,
-    );
-    helper.add(
-      'string',
-      string,
-    );
-    helper.add(
-      'minString',
-      minString,
-    );
-    helper.add(
-      'maxString',
-      maxString,
-    );
-    helper.add(
-      'list',
-      list,
-    );
-    helper.add(
-      'map',
-      map,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedLengthOverrideInput')
+      ..add(
+        'blob',
+        blob,
+      )
+      ..add(
+        'string',
+        string,
+      )
+      ..add(
+        'minString',
+        minString,
+      )
+      ..add(
+        'maxString',
+        maxString,
+      )
+      ..add(
+        'list',
+        list,
+      )
+      ..add(
+        'map',
+        map,
+      );
     return helper.toString();
   }
 }

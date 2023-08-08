@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.get_tags_request;
+part of 'get_tags_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -67,9 +67,7 @@ class GetTagsRequestBuilder
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
 
-  GetTagsRequestBuilder() {
-    GetTagsRequest._init(this);
-  }
+  GetTagsRequestBuilder();
 
   GetTagsRequestBuilder get _$this {
     final $v = _$v;
@@ -140,9 +138,7 @@ class GetTagsRequestPayloadBuilder
     implements Builder<GetTagsRequestPayload, GetTagsRequestPayloadBuilder> {
   _$GetTagsRequestPayload? _$v;
 
-  GetTagsRequestPayloadBuilder() {
-    GetTagsRequestPayload._init(this);
-  }
+  GetTagsRequestPayloadBuilder();
 
   @override
   void replace(GetTagsRequestPayload other) {

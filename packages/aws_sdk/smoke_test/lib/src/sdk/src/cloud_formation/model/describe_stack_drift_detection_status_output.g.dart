@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.describe_stack_drift_detection_status_output;
+part of 'describe_stack_drift_detection_status_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -125,9 +125,7 @@ class DescribeStackDriftDetectionStatusOutputBuilder
   DateTime? get timestamp => _$this._timestamp;
   set timestamp(DateTime? timestamp) => _$this._timestamp = timestamp;
 
-  DescribeStackDriftDetectionStatusOutputBuilder() {
-    DescribeStackDriftDetectionStatusOutput._init(this);
-  }
+  DescribeStackDriftDetectionStatusOutputBuilder();
 
   DescribeStackDriftDetectionStatusOutputBuilder get _$this {
     final $v = _$v;

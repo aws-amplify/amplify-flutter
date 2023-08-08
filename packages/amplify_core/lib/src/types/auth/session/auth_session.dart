@@ -3,6 +3,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
+/// {@category Auth}
 abstract class AuthSession with AWSSerializable<Map<String, Object?>> {
   const AuthSession({
     required this.isSignedIn,

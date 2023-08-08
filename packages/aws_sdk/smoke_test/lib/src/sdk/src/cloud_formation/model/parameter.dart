@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.parameter; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,12 +35,9 @@ abstract class Parameter
 
   const Parameter._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Parameter>> serializers = [
     ParameterAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ParameterBuilder b) {}
 
   /// The key associated with the parameter. If you don't specify a key and value for a particular parameter, CloudFormation uses the default value that's specified in your template.
   String? get parameterKey;
@@ -51,7 +48,7 @@ abstract class Parameter
   /// During a stack update, use the existing parameter value that the stack is using for a given parameter key. If you specify `true`, do not specify a parameter value.
   bool? get usePreviousValue;
 
-  /// Read-only. The value that corresponds to a SSM parameter key. This field is returned only for [`SSM`](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html#aws-ssm-parameter-types) parameter types in the template.
+  /// Read-only. The value that corresponds to a SSM parameter key. This field is returned only for [SSM](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html#aws-ssm-parameter-types) parameter types in the template.
   String? get resolvedValue;
   @override
   List<Object?> get props => [
@@ -62,23 +59,23 @@ abstract class Parameter
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Parameter');
-    helper.add(
-      'parameterKey',
-      parameterKey,
-    );
-    helper.add(
-      'parameterValue',
-      parameterValue,
-    );
-    helper.add(
-      'usePreviousValue',
-      usePreviousValue,
-    );
-    helper.add(
-      'resolvedValue',
-      resolvedValue,
-    );
+    final helper = newBuiltValueToStringHelper('Parameter')
+      ..add(
+        'parameterKey',
+        parameterKey,
+      )
+      ..add(
+        'parameterValue',
+        parameterValue,
+      )
+      ..add(
+        'usePreviousValue',
+        usePreviousValue,
+      )
+      ..add(
+        'resolvedValue',
+        resolvedValue,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.get_group_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -24,6 +24,7 @@ abstract class GetGroupResponse
     bool? isTruncated,
     String? marker,
   }) {
+    isTruncated ??= false;
     return _$GetGroupResponse._(
       group: group,
       users: _i4.BuiltList(users),
@@ -45,12 +46,14 @@ abstract class GetGroupResponse
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<GetGroupResponse>> serializers = [
     GetGroupResponseAwsQuerySerializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetGroupResponseBuilder b) {}
+  static void _init(GetGroupResponseBuilder b) {
+    b.isTruncated = false;
+  }
 
   /// A structure that contains details about the group.
   _i2.Group get group;
@@ -59,7 +62,7 @@ abstract class GetGroupResponse
   _i4.BuiltList<_i3.User> get users;
 
   /// A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the `Marker` request parameter to retrieve more items. Note that IAM might return fewer than the `MaxItems` number of results even when there are more results available. We recommend that you check `IsTruncated` after every call to ensure that you receive all your results.
-  bool? get isTruncated;
+  bool get isTruncated;
 
   /// When `IsTruncated` is `true`, this element is present and contains the value to use for the `Marker` parameter in a subsequent pagination request.
   String? get marker;
@@ -72,23 +75,23 @@ abstract class GetGroupResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetGroupResponse');
-    helper.add(
-      'group',
-      group,
-    );
-    helper.add(
-      'users',
-      users,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
+    final helper = newBuiltValueToStringHelper('GetGroupResponse')
+      ..add(
+        'group',
+        group,
+      )
+      ..add(
+        'users',
+        users,
+      )
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'marker',
+        marker,
+      );
     return helper.toString();
   }
 }
@@ -188,14 +191,12 @@ class GetGroupResponseAwsQuerySerializer
           [FullType(_i3.User)],
         ),
       ));
-    if (isTruncated != null) {
-      result$
-        ..add(const _i5.XmlElementName('IsTruncated'))
-        ..add(serializers.serialize(
-          isTruncated,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result$
+      ..add(const _i5.XmlElementName('IsTruncated'))
+      ..add(serializers.serialize(
+        isTruncated,
+        specifiedType: const FullType(bool),
+      ));
     if (marker != null) {
       result$
         ..add(const _i5.XmlElementName('Marker'))

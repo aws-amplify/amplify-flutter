@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.generate_organizations_access_report_response;
+part of 'generate_organizations_access_report_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class GenerateOrganizationsAccessReportResponseBuilder
   String? get jobId => _$this._jobId;
   set jobId(String? jobId) => _$this._jobId = jobId;
 
-  GenerateOrganizationsAccessReportResponseBuilder() {
-    GenerateOrganizationsAccessReportResponse._init(this);
-  }
+  GenerateOrganizationsAccessReportResponseBuilder();
 
   GenerateOrganizationsAccessReportResponseBuilder get _$this {
     final $v = _$v;

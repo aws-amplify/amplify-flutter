@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.aggregate_compliance_by_config_rule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -47,12 +47,8 @@ abstract class AggregateComplianceByConfigRule
 
   const AggregateComplianceByConfigRule._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    AggregateComplianceByConfigRuleAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AggregateComplianceByConfigRuleBuilder b) {}
+  static const List<_i3.SmithySerializer<AggregateComplianceByConfigRule>>
+      serializers = [AggregateComplianceByConfigRuleAwsJson11Serializer()];
 
   /// The name of the Config rule.
   String? get configRuleName;
@@ -75,23 +71,23 @@ abstract class AggregateComplianceByConfigRule
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('AggregateComplianceByConfigRule');
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'compliance',
-      compliance,
-    );
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'awsRegion',
-      awsRegion,
-    );
+        newBuiltValueToStringHelper('AggregateComplianceByConfigRule')
+          ..add(
+            'configRuleName',
+            configRuleName,
+          )
+          ..add(
+            'compliance',
+            compliance,
+          )
+          ..add(
+            'accountId',
+            accountId,
+          )
+          ..add(
+            'awsRegion',
+            awsRegion,
+          );
     return helper.toString();
   }
 }

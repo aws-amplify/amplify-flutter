@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.list_policy_versions_request;
+part of 'list_policy_versions_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -71,9 +71,7 @@ class ListPolicyVersionsRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  ListPolicyVersionsRequestBuilder() {
-    ListPolicyVersionsRequest._init(this);
-  }
+  ListPolicyVersionsRequestBuilder();
 
   ListPolicyVersionsRequestBuilder get _$this {
     final $v = _$v;

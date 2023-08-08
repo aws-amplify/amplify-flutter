@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.create_virtual_mfa_device_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,8 @@ abstract class CreateVirtualMfaDeviceResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    CreateVirtualMfaDeviceResponseAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateVirtualMfaDeviceResponseBuilder b) {}
+  static const List<_i3.SmithySerializer<CreateVirtualMfaDeviceResponse>>
+      serializers = [CreateVirtualMfaDeviceResponseAwsQuerySerializer()];
 
   /// A structure containing details about the new virtual MFA device.
   _i2.VirtualMfaDevice get virtualMfaDevice;
@@ -53,12 +49,11 @@ abstract class CreateVirtualMfaDeviceResponse
   List<Object?> get props => [virtualMfaDevice];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('CreateVirtualMfaDeviceResponse');
-    helper.add(
-      'virtualMfaDevice',
-      virtualMfaDevice,
-    );
+    final helper = newBuiltValueToStringHelper('CreateVirtualMfaDeviceResponse')
+      ..add(
+        'virtualMfaDevice',
+        virtualMfaDevice,
+      );
     return helper.toString();
   }
 }

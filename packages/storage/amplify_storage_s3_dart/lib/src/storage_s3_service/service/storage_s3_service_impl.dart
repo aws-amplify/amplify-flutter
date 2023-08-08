@@ -29,21 +29,58 @@ const testDateTimeNowOverride = #_testDateTimeNowOverride;
 /// {@endtemplate}
 class StorageS3Service {
   /// {@macro amplify_storage_s3.storage_s3_service}
-  StorageS3Service({
+  factory StorageS3Service({
     required S3PluginConfig s3PluginConfig,
     required S3PrefixResolver prefixResolver,
     required AWSIamAmplifyAuthProvider credentialsProvider,
     required AWSLogger logger,
-    String? delimiter,
     required DependencyManager dependencyManager,
+    String? delimiter,
+  }) {
+    final usePathStyle = s3PluginConfig.bucket.contains('.');
+
+    if (usePathStyle) {
+      logger.warn(
+          'Since your bucket name contains dots (`"."`), the StorageS3 plugin'
+          ' will use path style URLs to communicate with the S3 service. S3'
+          ' Transfer acceleration is not supported for path style URLs. For more'
+          ' information, refer to:'
+          ' https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html');
+    }
+
+    final s3ClientConfig = smithy_aws.S3ClientConfig(
+      signerConfiguration: _defaultS3SignerConfiguration,
+      usePathStyle: usePathStyle,
+    );
+
+    return StorageS3Service._(
+      s3PluginConfig: s3PluginConfig,
+      s3ClientConfig: s3ClientConfig,
+      prefixResolver: prefixResolver,
+      credentialsProvider: credentialsProvider,
+      logger: logger,
+      dependencyManager: dependencyManager,
+      delimiter: delimiter,
+    );
+  }
+
+  StorageS3Service._({
+    required S3PluginConfig s3PluginConfig,
+    required smithy_aws.S3ClientConfig s3ClientConfig,
+    required S3PrefixResolver prefixResolver,
+    required AWSIamAmplifyAuthProvider credentialsProvider,
+    required AWSLogger logger,
+    required DependencyManager dependencyManager,
+    String? delimiter,
   })  : _s3PluginConfig = s3PluginConfig,
         _delimiter = delimiter ?? '/',
+        _defaultS3ClientConfig = s3ClientConfig,
         // dependencyManager.get() => S3Client is used for unit tests
         _defaultS3Client = dependencyManager.get() ??
             s3.S3Client(
               region: s3PluginConfig.region,
               credentialsProvider: credentialsProvider,
-              s3ClientConfig: _defaultS3ClientConfig,
+              s3ClientConfig: s3ClientConfig,
               client: AmplifyHttpClient(dependencyManager)
                 ..supportedProtocols = SupportedProtocols.http1,
             ),
@@ -55,9 +92,6 @@ class StorageS3Service {
         _dependencyManager = dependencyManager,
         _serviceStartingTime = DateTime.now();
 
-  static final _defaultS3ClientConfig = smithy_aws.S3ClientConfig(
-    signerConfiguration: _defaultS3SignerConfiguration,
-  );
   // TODO(HuiSF): re-enable signPayload when the signer supports hashing on
   //  different threads.
   static final _defaultS3SignerConfiguration =
@@ -65,6 +99,7 @@ class StorageS3Service {
 
   final S3PluginConfig _s3PluginConfig;
   final String _delimiter;
+  final smithy_aws.S3ClientConfig _defaultS3ClientConfig;
   final s3.S3Client _defaultS3Client;
   final S3PrefixResolver _prefixResolver;
   final AWSLogger _logger;
@@ -210,6 +245,11 @@ class StorageS3Service {
     final s3PluginOptions = options.pluginOptions as S3GetUrlPluginOptions? ??
         const S3GetUrlPluginOptions();
 
+    if (s3PluginOptions.useAccelerateEndpoint &&
+        _defaultS3ClientConfig.usePathStyle) {
+      throw s3_exception.accelerateEndpointUnusable;
+    }
+
     if (s3PluginOptions.validateObjectExistence) {
       // make a HeadObject call for validating object existence
       // the validation may throw exceptions that are thrown from
@@ -244,7 +284,10 @@ class StorageS3Service {
     var host =
         '${_s3PluginConfig.bucket}.${_getS3EndpointHost(region: _s3PluginConfig.region)}';
 
-    if (s3PluginOptions.useAccelerateEndpoint) {
+    if (_defaultS3ClientConfig.usePathStyle) {
+      host = host.replaceFirst('${_s3PluginConfig.bucket}.', '');
+      keyToGetUrl = '/${_s3PluginConfig.bucket}$keyToGetUrl';
+    } else if (s3PluginOptions.useAccelerateEndpoint) {
       // https: //docs.aws.amazon.com/AmazonS3/latest/userguide/transfer-acceleration-getting-started.html
       host = host
           .replaceFirst(RegExp('${_s3PluginConfig.region}\\.'), '')
@@ -413,7 +456,7 @@ class StorageS3Service {
         logger: _logger,
         accessLevel: destination.accessLevel,
         identityId: destination.targetIdentityId,
-      )
+      ),
     ]);
     final sourceKey = '${resolvedPrefixes[0]}${source.storageItem.key}';
     final destinationKey =

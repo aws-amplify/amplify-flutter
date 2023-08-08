@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.role_detail; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -70,12 +70,9 @@ abstract class RoleDetail
 
   const RoleDetail._();
 
-  static const List<_i9.SmithySerializer> serializers = [
+  static const List<_i9.SmithySerializer<RoleDetail>> serializers = [
     RoleDetailAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RoleDetailBuilder b) {}
 
   /// The path to the role. For more information about paths, see [IAM identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html) in the _IAM User Guide_.
   String? get path;
@@ -133,55 +130,55 @@ abstract class RoleDetail
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RoleDetail');
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'roleName',
-      roleName,
-    );
-    helper.add(
-      'roleId',
-      roleId,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'createDate',
-      createDate,
-    );
-    helper.add(
-      'assumeRolePolicyDocument',
-      assumeRolePolicyDocument,
-    );
-    helper.add(
-      'instanceProfileList',
-      instanceProfileList,
-    );
-    helper.add(
-      'rolePolicyList',
-      rolePolicyList,
-    );
-    helper.add(
-      'attachedManagedPolicies',
-      attachedManagedPolicies,
-    );
-    helper.add(
-      'permissionsBoundary',
-      permissionsBoundary,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'roleLastUsed',
-      roleLastUsed,
-    );
+    final helper = newBuiltValueToStringHelper('RoleDetail')
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'roleName',
+        roleName,
+      )
+      ..add(
+        'roleId',
+        roleId,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'createDate',
+        createDate,
+      )
+      ..add(
+        'assumeRolePolicyDocument',
+        assumeRolePolicyDocument,
+      )
+      ..add(
+        'instanceProfileList',
+        instanceProfileList,
+      )
+      ..add(
+        'rolePolicyList',
+        rolePolicyList,
+      )
+      ..add(
+        'attachedManagedPolicies',
+        attachedManagedPolicies,
+      )
+      ..add(
+        'permissionsBoundary',
+        permissionsBoundary,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'roleLastUsed',
+        roleLastUsed,
+      );
     return helper.toString();
   }
 }

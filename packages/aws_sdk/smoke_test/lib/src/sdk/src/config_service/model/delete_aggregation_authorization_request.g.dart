@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.delete_aggregation_authorization_request;
+part of 'delete_aggregation_authorization_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -72,9 +72,7 @@ class DeleteAggregationAuthorizationRequestBuilder
   set authorizedAwsRegion(String? authorizedAwsRegion) =>
       _$this._authorizedAwsRegion = authorizedAwsRegion;
 
-  DeleteAggregationAuthorizationRequestBuilder() {
-    DeleteAggregationAuthorizationRequest._init(this);
-  }
+  DeleteAggregationAuthorizationRequestBuilder();
 
   DeleteAggregationAuthorizationRequestBuilder get _$this {
     final $v = _$v;

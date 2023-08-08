@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.sdk_type;
+part of 'sdk_type.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -79,9 +79,7 @@ class SdkTypeBuilder implements Builder<SdkType, SdkTypeBuilder> {
               configurationProperties) =>
       _$this._configurationProperties = configurationProperties;
 
-  SdkTypeBuilder() {
-    SdkType._init(this);
-  }
+  SdkTypeBuilder();
 
   SdkTypeBuilder get _$this {
     final $v = _$v;

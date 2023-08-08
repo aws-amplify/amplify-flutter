@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.item_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,12 +37,9 @@ abstract class ItemResponse
 
   const ItemResponse._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<ItemResponse>> serializers = [
     ItemResponseRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ItemResponseBuilder b) {}
 
   /// The response that was received after the endpoint data was accepted.
   _i2.EndpointItemResponse? get endpointItemResponse;
@@ -56,15 +53,15 @@ abstract class ItemResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ItemResponse');
-    helper.add(
-      'endpointItemResponse',
-      endpointItemResponse,
-    );
-    helper.add(
-      'eventsItemResponse',
-      eventsItemResponse,
-    );
+    final helper = newBuiltValueToStringHelper('ItemResponse')
+      ..add(
+        'endpointItemResponse',
+        endpointItemResponse,
+      )
+      ..add(
+        'eventsItemResponse',
+        eventsItemResponse,
+      );
     return helper.toString();
   }
 }

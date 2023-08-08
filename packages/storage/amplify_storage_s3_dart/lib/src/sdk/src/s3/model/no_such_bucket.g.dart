@@ -48,9 +48,7 @@ class NoSuchBucketBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  NoSuchBucketBuilder() {
-    NoSuchBucket._init(this);
-  }
+  NoSuchBucketBuilder();
 
   NoSuchBucketBuilder get _$this {
     final $v = _$v;

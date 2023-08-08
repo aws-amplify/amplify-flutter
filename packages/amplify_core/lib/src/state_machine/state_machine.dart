@@ -291,7 +291,7 @@ abstract class StateMachine<
     final stateMachineTrace = Trace.from(stackTrace);
     stackTrace = Chain([stateMachineTrace, eventTrace]);
 
-    logger.error('Emitted error', error, stackTrace);
+    logger.debug('Emitted error', error, stackTrace);
 
     final resolution = resolveError(error, stackTrace);
 

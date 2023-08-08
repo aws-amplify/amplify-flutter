@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.flush_stage_authorizers_cache_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -53,12 +53,9 @@ abstract class FlushStageAuthorizersCacheRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    FlushStageAuthorizersCacheRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(FlushStageAuthorizersCacheRequestBuilder b) {}
+  static const List<
+          _i1.SmithySerializer<FlushStageAuthorizersCacheRequestPayload>>
+      serializers = [FlushStageAuthorizersCacheRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -90,15 +87,15 @@ abstract class FlushStageAuthorizersCacheRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('FlushStageAuthorizersCacheRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'stageName',
-      stageName,
-    );
+        newBuiltValueToStringHelper('FlushStageAuthorizersCacheRequest')
+          ..add(
+            'restApiId',
+            restApiId,
+          )
+          ..add(
+            'stageName',
+            stageName,
+          );
     return helper.toString();
   }
 }
@@ -117,8 +114,6 @@ abstract class FlushStageAuthorizersCacheRequestPayload
 
   const FlushStageAuthorizersCacheRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(FlushStageAuthorizersCacheRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

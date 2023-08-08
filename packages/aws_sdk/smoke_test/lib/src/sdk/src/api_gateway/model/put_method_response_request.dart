@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.put_method_response_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -74,12 +74,8 @@ abstract class PutMethodResponseRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutMethodResponseRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutMethodResponseRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<PutMethodResponseRequestPayload>>
+      serializers = [PutMethodResponseRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -137,31 +133,31 @@ abstract class PutMethodResponseRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutMethodResponseRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'httpMethod',
-      httpMethod,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
-    );
-    helper.add(
-      'responseParameters',
-      responseParameters,
-    );
-    helper.add(
-      'responseModels',
-      responseModels,
-    );
+    final helper = newBuiltValueToStringHelper('PutMethodResponseRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'httpMethod',
+        httpMethod,
+      )
+      ..add(
+        'statusCode',
+        statusCode,
+      )
+      ..add(
+        'responseParameters',
+        responseParameters,
+      )
+      ..add(
+        'responseModels',
+        responseModels,
+      );
     return helper.toString();
   }
 }
@@ -179,9 +175,6 @@ abstract class PutMethodResponseRequestPayload
 
   const PutMethodResponseRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutMethodResponseRequestPayloadBuilder b) {}
-
   /// Specifies the Model resources used for the response's content type. Response models are represented as a key/value map, with a content type as the key and a Model name as the value.
   _i3.BuiltMap<String, String>? get responseModels;
 
@@ -195,15 +188,15 @@ abstract class PutMethodResponseRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutMethodResponseRequestPayload');
-    helper.add(
-      'responseModels',
-      responseModels,
-    );
-    helper.add(
-      'responseParameters',
-      responseParameters,
-    );
+        newBuiltValueToStringHelper('PutMethodResponseRequestPayload')
+          ..add(
+            'responseModels',
+            responseModels,
+          )
+          ..add(
+            'responseParameters',
+            responseParameters,
+          );
     return helper.toString();
   }
 }

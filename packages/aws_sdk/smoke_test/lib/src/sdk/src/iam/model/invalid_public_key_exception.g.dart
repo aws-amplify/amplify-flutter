@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.invalid_public_key_exception;
+part of 'invalid_public_key_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class InvalidPublicKeyExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InvalidPublicKeyExceptionBuilder() {
-    InvalidPublicKeyException._init(this);
-  }
+  InvalidPublicKeyExceptionBuilder();
 
   InvalidPublicKeyExceptionBuilder get _$this {
     final $v = _$v;

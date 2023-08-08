@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.replica_global_secondary_index_description;
+part of 'replica_global_secondary_index_description.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -70,9 +70,7 @@ class ReplicaGlobalSecondaryIndexDescriptionBuilder
               provisionedThroughputOverride) =>
       _$this._provisionedThroughputOverride = provisionedThroughputOverride;
 
-  ReplicaGlobalSecondaryIndexDescriptionBuilder() {
-    ReplicaGlobalSecondaryIndexDescription._init(this);
-  }
+  ReplicaGlobalSecondaryIndexDescriptionBuilder();
 
   ReplicaGlobalSecondaryIndexDescriptionBuilder get _$this {
     final $v = _$v;

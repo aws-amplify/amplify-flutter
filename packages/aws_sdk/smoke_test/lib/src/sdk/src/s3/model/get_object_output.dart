@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.get_object_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -65,6 +65,7 @@ abstract class GetObjectOutput
     DateTime? objectLockRetainUntilDate,
     _i10.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus,
   }) {
+    body ??= const _i3.Stream.empty();
     return _$GetObjectOutput._(
       body: body,
       deleteMarker: deleteMarker,
@@ -112,7 +113,7 @@ abstract class GetObjectOutput
 
   /// Constructs a [GetObjectOutput] from a [payload] and [response].
   factory GetObjectOutput.fromResponse(
-    _i3.Stream<List<int>>? payload,
+    _i3.Stream<List<int>> payload,
     _i1.AWSBaseHttpResponse response,
   ) =>
       GetObjectOutput.build((b) {
@@ -258,15 +259,17 @@ abstract class GetObjectOutput
                 )));
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<_i3.Stream<List<int>>>> serializers = [
     GetObjectOutputRestXmlSerializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectOutputBuilder b) {}
+  static void _init(GetObjectOutputBuilder b) {
+    b.body = const _i3.Stream.empty();
+  }
 
   /// Object data.
-  _i3.Stream<List<int>>? get body;
+  _i3.Stream<List<int>> get body;
 
   /// Specifies whether the object retrieved was (true) or was not (false) a Delete Marker. If false, this response header does not appear in the response.
   bool? get deleteMarker;
@@ -331,7 +334,7 @@ abstract class GetObjectOutput
   /// If the bucket is configured as a website, redirects requests for this object to another object in the same bucket or to an external URL. Amazon S3 stores the value of this header in the object metadata.
   String? get websiteRedirectLocation;
 
-  /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
+  /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`, `aws:kms:dsse`).
   _i5.ServerSideEncryption? get serverSideEncryption;
 
   /// A map of metadata to store with the object in S3.
@@ -343,10 +346,10 @@ abstract class GetObjectOutput
   /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header to provide round-trip message integrity verification of the customer-provided encryption key.
   String? get sseCustomerKeyMd5;
 
-  /// If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric customer managed key that was used for the object.
+  /// If present, specifies the ID of the Key Management Service (KMS) symmetric encryption customer managed key that was used for the object.
   String? get ssekmsKeyId;
 
-  /// Indicates whether the object uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
+  /// Indicates whether the object uses an S3 Bucket Key for server-side encryption with Key Management Service (KMS) keys (SSE-KMS).
   bool? get bucketKeyEnabled;
 
   /// Provides storage class information of the object. Amazon S3 returns this header for all objects except for S3 Standard storage class objects.
@@ -373,7 +376,7 @@ abstract class GetObjectOutput
   /// Indicates whether this object has an active legal hold. This field is only returned if you have permission to view an object's legal hold status.
   _i10.ObjectLockLegalHoldStatus? get objectLockLegalHoldStatus;
   @override
-  _i3.Stream<List<int>>? getPayload() => body;
+  _i3.Stream<List<int>> getPayload() => body;
   @override
   List<Object?> get props => [
         body,
@@ -415,151 +418,151 @@ abstract class GetObjectOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectOutput');
-    helper.add(
-      'body',
-      body,
-    );
-    helper.add(
-      'deleteMarker',
-      deleteMarker,
-    );
-    helper.add(
-      'acceptRanges',
-      acceptRanges,
-    );
-    helper.add(
-      'expiration',
-      expiration,
-    );
-    helper.add(
-      'restore',
-      restore,
-    );
-    helper.add(
-      'lastModified',
-      lastModified,
-    );
-    helper.add(
-      'contentLength',
-      contentLength,
-    );
-    helper.add(
-      'eTag',
-      eTag,
-    );
-    helper.add(
-      'checksumCrc32',
-      checksumCrc32,
-    );
-    helper.add(
-      'checksumCrc32C',
-      checksumCrc32C,
-    );
-    helper.add(
-      'checksumSha1',
-      checksumSha1,
-    );
-    helper.add(
-      'checksumSha256',
-      checksumSha256,
-    );
-    helper.add(
-      'missingMeta',
-      missingMeta,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'cacheControl',
-      cacheControl,
-    );
-    helper.add(
-      'contentDisposition',
-      contentDisposition,
-    );
-    helper.add(
-      'contentEncoding',
-      contentEncoding,
-    );
-    helper.add(
-      'contentLanguage',
-      contentLanguage,
-    );
-    helper.add(
-      'contentRange',
-      contentRange,
-    );
-    helper.add(
-      'contentType',
-      contentType,
-    );
-    helper.add(
-      'expires',
-      expires,
-    );
-    helper.add(
-      'websiteRedirectLocation',
-      websiteRedirectLocation,
-    );
-    helper.add(
-      'serverSideEncryption',
-      serverSideEncryption,
-    );
-    helper.add(
-      'metadata',
-      metadata,
-    );
-    helper.add(
-      'sseCustomerAlgorithm',
-      sseCustomerAlgorithm,
-    );
-    helper.add(
-      'sseCustomerKeyMd5',
-      sseCustomerKeyMd5,
-    );
-    helper.add(
-      'ssekmsKeyId',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'bucketKeyEnabled',
-      bucketKeyEnabled,
-    );
-    helper.add(
-      'storageClass',
-      storageClass,
-    );
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
-    helper.add(
-      'replicationStatus',
-      replicationStatus,
-    );
-    helper.add(
-      'partsCount',
-      partsCount,
-    );
-    helper.add(
-      'tagCount',
-      tagCount,
-    );
-    helper.add(
-      'objectLockMode',
-      objectLockMode,
-    );
-    helper.add(
-      'objectLockRetainUntilDate',
-      objectLockRetainUntilDate,
-    );
-    helper.add(
-      'objectLockLegalHoldStatus',
-      objectLockLegalHoldStatus,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectOutput')
+      ..add(
+        'body',
+        body,
+      )
+      ..add(
+        'deleteMarker',
+        deleteMarker,
+      )
+      ..add(
+        'acceptRanges',
+        acceptRanges,
+      )
+      ..add(
+        'expiration',
+        expiration,
+      )
+      ..add(
+        'restore',
+        restore,
+      )
+      ..add(
+        'lastModified',
+        lastModified,
+      )
+      ..add(
+        'contentLength',
+        contentLength,
+      )
+      ..add(
+        'eTag',
+        eTag,
+      )
+      ..add(
+        'checksumCrc32',
+        checksumCrc32,
+      )
+      ..add(
+        'checksumCrc32C',
+        checksumCrc32C,
+      )
+      ..add(
+        'checksumSha1',
+        checksumSha1,
+      )
+      ..add(
+        'checksumSha256',
+        checksumSha256,
+      )
+      ..add(
+        'missingMeta',
+        missingMeta,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'cacheControl',
+        cacheControl,
+      )
+      ..add(
+        'contentDisposition',
+        contentDisposition,
+      )
+      ..add(
+        'contentEncoding',
+        contentEncoding,
+      )
+      ..add(
+        'contentLanguage',
+        contentLanguage,
+      )
+      ..add(
+        'contentRange',
+        contentRange,
+      )
+      ..add(
+        'contentType',
+        contentType,
+      )
+      ..add(
+        'expires',
+        expires,
+      )
+      ..add(
+        'websiteRedirectLocation',
+        websiteRedirectLocation,
+      )
+      ..add(
+        'serverSideEncryption',
+        serverSideEncryption,
+      )
+      ..add(
+        'metadata',
+        metadata,
+      )
+      ..add(
+        'sseCustomerAlgorithm',
+        sseCustomerAlgorithm,
+      )
+      ..add(
+        'sseCustomerKeyMd5',
+        sseCustomerKeyMd5,
+      )
+      ..add(
+        'ssekmsKeyId',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'bucketKeyEnabled',
+        bucketKeyEnabled,
+      )
+      ..add(
+        'storageClass',
+        storageClass,
+      )
+      ..add(
+        'requestCharged',
+        requestCharged,
+      )
+      ..add(
+        'replicationStatus',
+        replicationStatus,
+      )
+      ..add(
+        'partsCount',
+        partsCount,
+      )
+      ..add(
+        'tagCount',
+        tagCount,
+      )
+      ..add(
+        'objectLockMode',
+        objectLockMode,
+      )
+      ..add(
+        'objectLockRetainUntilDate',
+        objectLockRetainUntilDate,
+      )
+      ..add(
+        'objectLockLegalHoldStatus',
+        objectLockLegalHoldStatus,
+      );
     return helper.toString();
   }
 }

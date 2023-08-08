@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.replica_global_secondary_index; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,12 +35,8 @@ abstract class ReplicaGlobalSecondaryIndex
 
   const ReplicaGlobalSecondaryIndex._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ReplicaGlobalSecondaryIndexAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicaGlobalSecondaryIndexBuilder b) {}
+  static const List<_i3.SmithySerializer<ReplicaGlobalSecondaryIndex>>
+      serializers = [ReplicaGlobalSecondaryIndexAwsJson10Serializer()];
 
   /// The name of the global secondary index.
   String get indexName;
@@ -54,15 +50,15 @@ abstract class ReplicaGlobalSecondaryIndex
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ReplicaGlobalSecondaryIndex');
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'provisionedThroughputOverride',
-      provisionedThroughputOverride,
-    );
+    final helper = newBuiltValueToStringHelper('ReplicaGlobalSecondaryIndex')
+      ..add(
+        'indexName',
+        indexName,
+      )
+      ..add(
+        'provisionedThroughputOverride',
+        provisionedThroughputOverride,
+      );
     return helper.toString();
   }
 }

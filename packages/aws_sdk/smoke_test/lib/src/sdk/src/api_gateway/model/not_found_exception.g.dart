@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.not_found_exception;
+part of 'not_found_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -53,9 +53,7 @@ class NotFoundExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  NotFoundExceptionBuilder() {
-    NotFoundException._init(this);
-  }
+  NotFoundExceptionBuilder();
 
   NotFoundExceptionBuilder get _$this {
     final $v = _$v;

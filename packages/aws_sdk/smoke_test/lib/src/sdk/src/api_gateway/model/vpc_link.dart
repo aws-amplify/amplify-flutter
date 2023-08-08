@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.vpc_link; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -50,12 +50,9 @@ abstract class VpcLink
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<VpcLink>> serializers = [
     VpcLinkRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(VpcLinkBuilder b) {}
 
   /// The identifier of the VpcLink. It is used in an Integration to reference this VpcLink.
   String? get id;
@@ -89,35 +86,35 @@ abstract class VpcLink
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('VpcLink');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'targetArns',
-      targetArns,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'statusMessage',
-      statusMessage,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('VpcLink')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'targetArns',
+        targetArns,
+      )
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'statusMessage',
+        statusMessage,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

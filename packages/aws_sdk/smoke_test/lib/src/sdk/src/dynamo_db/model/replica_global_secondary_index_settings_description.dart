@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.replica_global_secondary_index_settings_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -52,12 +52,11 @@ abstract class ReplicaGlobalSecondaryIndexSettingsDescription
 
   const ReplicaGlobalSecondaryIndexSettingsDescription._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<
+          _i5.SmithySerializer<ReplicaGlobalSecondaryIndexSettingsDescription>>
+      serializers = [
     ReplicaGlobalSecondaryIndexSettingsDescriptionAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicaGlobalSecondaryIndexSettingsDescriptionBuilder b) {}
 
   /// The name of the global secondary index. The name must be unique among all other indexes on this table.
   String get indexName;
@@ -98,31 +97,31 @@ abstract class ReplicaGlobalSecondaryIndexSettingsDescription
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'ReplicaGlobalSecondaryIndexSettingsDescription');
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'indexStatus',
-      indexStatus,
-    );
-    helper.add(
-      'provisionedReadCapacityUnits',
-      provisionedReadCapacityUnits,
-    );
-    helper.add(
-      'provisionedReadCapacityAutoScalingSettings',
-      provisionedReadCapacityAutoScalingSettings,
-    );
-    helper.add(
-      'provisionedWriteCapacityUnits',
-      provisionedWriteCapacityUnits,
-    );
-    helper.add(
-      'provisionedWriteCapacityAutoScalingSettings',
-      provisionedWriteCapacityAutoScalingSettings,
-    );
+        'ReplicaGlobalSecondaryIndexSettingsDescription')
+      ..add(
+        'indexName',
+        indexName,
+      )
+      ..add(
+        'indexStatus',
+        indexStatus,
+      )
+      ..add(
+        'provisionedReadCapacityUnits',
+        provisionedReadCapacityUnits,
+      )
+      ..add(
+        'provisionedReadCapacityAutoScalingSettings',
+        provisionedReadCapacityAutoScalingSettings,
+      )
+      ..add(
+        'provisionedWriteCapacityUnits',
+        provisionedWriteCapacityUnits,
+      )
+      ..add(
+        'provisionedWriteCapacityAutoScalingSettings',
+        provisionedWriteCapacityAutoScalingSettings,
+      );
     return helper.toString();
   }
 }

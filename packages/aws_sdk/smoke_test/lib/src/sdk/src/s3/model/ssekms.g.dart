@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.ssekms;
+part of 'ssekms.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -46,9 +46,7 @@ class SsekmsBuilder implements Builder<Ssekms, SsekmsBuilder> {
   String? get keyId => _$this._keyId;
   set keyId(String? keyId) => _$this._keyId = keyId;
 
-  SsekmsBuilder() {
-    Ssekms._init(this);
-  }
+  SsekmsBuilder();
 
   SsekmsBuilder get _$this {
     final $v = _$v;

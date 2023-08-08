@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_bucket_replication_output;
+part of 'get_bucket_replication_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class GetBucketReplicationOutputBuilder
           _i3.ReplicationConfigurationBuilder? replicationConfiguration) =>
       _$this._replicationConfiguration = replicationConfiguration;
 
-  GetBucketReplicationOutputBuilder() {
-    GetBucketReplicationOutput._init(this);
-  }
+  GetBucketReplicationOutputBuilder();
 
   GetBucketReplicationOutputBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1_v2.json_protocol.model.error_with_members;
+part of 'error_with_members.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -124,9 +124,7 @@ class ErrorWithMembersBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ErrorWithMembersBuilder() {
-    ErrorWithMembers._init(this);
-  }
+  ErrorWithMembersBuilder();
 
   ErrorWithMembersBuilder get _$this {
     final $v = _$v;

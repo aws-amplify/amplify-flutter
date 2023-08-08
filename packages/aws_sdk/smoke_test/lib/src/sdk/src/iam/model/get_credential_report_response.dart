@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.get_credential_report_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -46,12 +46,8 @@ abstract class GetCredentialReportResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    GetCredentialReportResponseAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetCredentialReportResponseBuilder b) {}
+  static const List<_i4.SmithySerializer<GetCredentialReportResponse>>
+      serializers = [GetCredentialReportResponseAwsQuerySerializer()];
 
   /// Contains the credential report. The report is Base64-encoded.
   _i2.Uint8List? get content;
@@ -69,19 +65,19 @@ abstract class GetCredentialReportResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetCredentialReportResponse');
-    helper.add(
-      'content',
-      content,
-    );
-    helper.add(
-      'reportFormat',
-      reportFormat,
-    );
-    helper.add(
-      'generatedTime',
-      generatedTime,
-    );
+    final helper = newBuiltValueToStringHelper('GetCredentialReportResponse')
+      ..add(
+        'content',
+        content,
+      )
+      ..add(
+        'reportFormat',
+        reportFormat,
+      )
+      ..add(
+        'generatedTime',
+        generatedTime,
+      );
     return helper.toString();
   }
 }

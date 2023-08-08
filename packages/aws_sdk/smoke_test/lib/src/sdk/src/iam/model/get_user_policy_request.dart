@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.get_user_policy_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,9 @@ abstract class GetUserPolicyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<GetUserPolicyRequest>> serializers = [
     GetUserPolicyRequestAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetUserPolicyRequestBuilder b) {}
 
   /// The name of the user who the policy is associated with.
   ///
@@ -63,15 +60,15 @@ abstract class GetUserPolicyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetUserPolicyRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'policyName',
-      policyName,
-    );
+    final helper = newBuiltValueToStringHelper('GetUserPolicyRequest')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'policyName',
+        policyName,
+      );
     return helper.toString();
   }
 }

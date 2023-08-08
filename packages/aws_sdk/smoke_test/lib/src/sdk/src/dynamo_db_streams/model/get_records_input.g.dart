@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db_streams.model.get_records_input;
+part of 'get_records_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -59,9 +59,7 @@ class GetRecordsInputBuilder
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
 
-  GetRecordsInputBuilder() {
-    GetRecordsInput._init(this);
-  }
+  GetRecordsInputBuilder();
 
   GetRecordsInputBuilder get _$this {
     final $v = _$v;

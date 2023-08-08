@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.glacier.model.missing_parameter_value_exception;
+part of 'missing_parameter_value_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -75,9 +75,7 @@ class MissingParameterValueExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  MissingParameterValueExceptionBuilder() {
-    MissingParameterValueException._init(this);
-  }
+  MissingParameterValueExceptionBuilder();
 
   MissingParameterValueExceptionBuilder get _$this {
     final $v = _$v;

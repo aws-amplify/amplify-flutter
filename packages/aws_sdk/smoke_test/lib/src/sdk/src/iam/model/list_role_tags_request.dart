@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.list_role_tags_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,9 @@ abstract class ListRoleTagsRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ListRoleTagsRequest>> serializers = [
     ListRoleTagsRequestAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListRoleTagsRequestBuilder b) {}
 
   /// The name of the IAM role for which you want to see the list of tags.
   ///
@@ -69,19 +66,19 @@ abstract class ListRoleTagsRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListRoleTagsRequest');
-    helper.add(
-      'roleName',
-      roleName,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'maxItems',
-      maxItems,
-    );
+    final helper = newBuiltValueToStringHelper('ListRoleTagsRequest')
+      ..add(
+        'roleName',
+        roleName,
+      )
+      ..add(
+        'marker',
+        marker,
+      )
+      ..add(
+        'maxItems',
+        maxItems,
+      );
     return helper.toString();
   }
 }

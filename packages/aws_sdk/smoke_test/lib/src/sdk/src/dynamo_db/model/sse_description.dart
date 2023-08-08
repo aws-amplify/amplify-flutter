@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.sse_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,12 +37,9 @@ abstract class SseDescription
 
   const SseDescription._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<SseDescription>> serializers = [
     SseDescriptionAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SseDescriptionBuilder b) {}
 
   /// Represents the current state of server-side encryption. The only supported values are:
   ///
@@ -70,23 +67,23 @@ abstract class SseDescription
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SseDescription');
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'sseType',
-      sseType,
-    );
-    helper.add(
-      'kmsMasterKeyArn',
-      kmsMasterKeyArn,
-    );
-    helper.add(
-      'inaccessibleEncryptionDateTime',
-      inaccessibleEncryptionDateTime,
-    );
+    final helper = newBuiltValueToStringHelper('SseDescription')
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'sseType',
+        sseType,
+      )
+      ..add(
+        'kmsMasterKeyArn',
+        kmsMasterKeyArn,
+      )
+      ..add(
+        'inaccessibleEncryptionDateTime',
+        inaccessibleEncryptionDateTime,
+      );
     return helper.toString();
   }
 }

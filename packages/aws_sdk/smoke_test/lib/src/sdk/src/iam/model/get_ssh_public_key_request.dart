@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.get_ssh_public_key_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,12 +41,8 @@ abstract class GetSshPublicKeyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetSshPublicKeyRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetSshPublicKeyRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetSshPublicKeyRequest>> serializers =
+      [GetSshPublicKeyRequestAwsQuerySerializer()];
 
   /// The name of the IAM user associated with the SSH public key.
   ///
@@ -70,19 +66,19 @@ abstract class GetSshPublicKeyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetSshPublicKeyRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'sshPublicKeyId',
-      sshPublicKeyId,
-    );
-    helper.add(
-      'encoding',
-      encoding,
-    );
+    final helper = newBuiltValueToStringHelper('GetSshPublicKeyRequest')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'sshPublicKeyId',
+        sshPublicKeyId,
+      )
+      ..add(
+        'encoding',
+        encoding,
+      );
     return helper.toString();
   }
 }

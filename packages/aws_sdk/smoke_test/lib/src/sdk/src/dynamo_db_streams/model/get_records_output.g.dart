@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db_streams.model.get_records_output;
+part of 'get_records_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -59,9 +59,7 @@ class GetRecordsOutputBuilder
   set nextShardIterator(String? nextShardIterator) =>
       _$this._nextShardIterator = nextShardIterator;
 
-  GetRecordsOutputBuilder() {
-    GetRecordsOutput._init(this);
-  }
+  GetRecordsOutputBuilder();
 
   GetRecordsOutputBuilder get _$this {
     final $v = _$v;

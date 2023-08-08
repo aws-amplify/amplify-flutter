@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.operation.put_item_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,7 +36,7 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/transaction_conflict_exce
 
 /// Creates a new item, or replaces an old item with a new item. If an item that has the same primary key as the new item already exists in the specified table, the new item completely replaces the existing item. You can perform a conditional put operation (add a new item if one with the specified primary key doesn't exist), or replace an existing item if it has certain attribute values. You can return the item's attribute values in the same operation, using the `ReturnValues` parameter.
 ///
-/// When you add an item, the primary key attributes are the only required attributes. Attribute values cannot be null.
+/// When you add an item, the primary key attributes are the only required attributes.
 ///
 /// Empty String and Binary attribute values are allowed. Attribute values of type String and Binary must have a length greater than zero if the attribute is used as a key attribute for a table or index. Set type attributes cannot be empty.
 ///
@@ -49,7 +49,7 @@ class PutItemOperation extends _i1.HttpOperation<_i2.PutItemInput,
     _i2.PutItemInput, _i3.PutItemOutput, _i3.PutItemOutput> {
   /// Creates a new item, or replaces an old item with a new item. If an item that has the same primary key as the new item already exists in the specified table, the new item completely replaces the existing item. You can perform a conditional put operation (add a new item if one with the specified primary key doesn't exist), or replace an existing item if it has certain attribute values. You can return the item's attribute values in the same operation, using the `ReturnValues` parameter.
   ///
-  /// When you add an item, the primary key attributes are the only required attributes. Attribute values cannot be null.
+  /// When you add an item, the primary key attributes are the only required attributes.
   ///
   /// Empty String and Binary attribute values are allowed. Attribute values of type String and Binary must have a length greater than zero if the attribute is used as a key attribute for a table or index. Set type attributes cannot be empty.
   ///
@@ -133,7 +133,8 @@ class PutItemOperation extends _i1.HttpOperation<_i2.PutItemInput,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ConditionalCheckFailedException,
+            _i9.ConditionalCheckFailedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ConditionalCheckFailedException',
@@ -142,7 +143,7 @@ class PutItemOperation extends _i1.HttpOperation<_i2.PutItemInput,
           _i9.ConditionalCheckFailedException,
           builder: _i9.ConditionalCheckFailedException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InternalServerError, _i10.InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
@@ -151,7 +152,8 @@ class PutItemOperation extends _i1.HttpOperation<_i2.PutItemInput,
           _i10.InternalServerError,
           builder: _i10.InternalServerError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidEndpointException,
+            _i11.InvalidEndpointException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InvalidEndpointException',
@@ -161,7 +163,8 @@ class PutItemOperation extends _i1.HttpOperation<_i2.PutItemInput,
           statusCode: 421,
           builder: _i11.InvalidEndpointException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.ItemCollectionSizeLimitExceededException,
+            _i12.ItemCollectionSizeLimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ItemCollectionSizeLimitExceededException',
@@ -170,7 +173,8 @@ class PutItemOperation extends _i1.HttpOperation<_i2.PutItemInput,
           _i12.ItemCollectionSizeLimitExceededException,
           builder: _i12.ItemCollectionSizeLimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.ProvisionedThroughputExceededException,
+            _i13.ProvisionedThroughputExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ProvisionedThroughputExceededException',
@@ -179,7 +183,7 @@ class PutItemOperation extends _i1.HttpOperation<_i2.PutItemInput,
           _i13.ProvisionedThroughputExceededException,
           builder: _i13.ProvisionedThroughputExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.RequestLimitExceeded, _i14.RequestLimitExceeded>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'RequestLimitExceeded',
@@ -188,7 +192,8 @@ class PutItemOperation extends _i1.HttpOperation<_i2.PutItemInput,
           _i14.RequestLimitExceeded,
           builder: _i14.RequestLimitExceeded.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.ResourceNotFoundException,
+            _i15.ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ResourceNotFoundException',
@@ -197,7 +202,8 @@ class PutItemOperation extends _i1.HttpOperation<_i2.PutItemInput,
           _i15.ResourceNotFoundException,
           builder: _i15.ResourceNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i16.TransactionConflictException,
+            _i16.TransactionConflictException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'TransactionConflictException',
@@ -229,7 +235,7 @@ class PutItemOperation extends _i1.HttpOperation<_i2.PutItemInput,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.create_access_key_request;
+part of 'create_access_key_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -48,9 +48,7 @@ class CreateAccessKeyRequestBuilder
   String? get userName => _$this._userName;
   set userName(String? userName) => _$this._userName = userName;
 
-  CreateAccessKeyRequestBuilder() {
-    CreateAccessKeyRequest._init(this);
-  }
+  CreateAccessKeyRequestBuilder();
 
   CreateAccessKeyRequestBuilder get _$this {
     final $v = _$v;

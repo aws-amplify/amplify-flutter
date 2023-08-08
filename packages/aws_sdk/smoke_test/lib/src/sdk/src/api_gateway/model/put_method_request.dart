@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.put_method_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,6 +34,7 @@ abstract class PutMethodRequest
     String? requestValidatorId,
     List<String>? authorizationScopes,
   }) {
+    apiKeyRequired ??= false;
     return _$PutMethodRequest._(
       restApiId: restApiId,
       resourceId: resourceId,
@@ -89,12 +90,13 @@ abstract class PutMethodRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutMethodRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<PutMethodRequestPayload>> serializers =
+      [PutMethodRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutMethodRequestBuilder b) {}
+  static void _init(PutMethodRequestBuilder b) {
+    b.apiKeyRequired = false;
+  }
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -112,7 +114,7 @@ abstract class PutMethodRequest
   String? get authorizerId;
 
   /// Specifies whether the method required a valid ApiKey.
-  bool? get apiKeyRequired;
+  bool get apiKeyRequired;
 
   /// A human-friendly operation identifier for the method. For example, you can assign the `operationName` of `ListPets` for the `GET /pets` method in the `PetStore` example.
   String? get operationName;
@@ -177,51 +179,51 @@ abstract class PutMethodRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutMethodRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'httpMethod',
-      httpMethod,
-    );
-    helper.add(
-      'authorizationType',
-      authorizationType,
-    );
-    helper.add(
-      'authorizerId',
-      authorizerId,
-    );
-    helper.add(
-      'apiKeyRequired',
-      apiKeyRequired,
-    );
-    helper.add(
-      'operationName',
-      operationName,
-    );
-    helper.add(
-      'requestParameters',
-      requestParameters,
-    );
-    helper.add(
-      'requestModels',
-      requestModels,
-    );
-    helper.add(
-      'requestValidatorId',
-      requestValidatorId,
-    );
-    helper.add(
-      'authorizationScopes',
-      authorizationScopes,
-    );
+    final helper = newBuiltValueToStringHelper('PutMethodRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'httpMethod',
+        httpMethod,
+      )
+      ..add(
+        'authorizationType',
+        authorizationType,
+      )
+      ..add(
+        'authorizerId',
+        authorizerId,
+      )
+      ..add(
+        'apiKeyRequired',
+        apiKeyRequired,
+      )
+      ..add(
+        'operationName',
+        operationName,
+      )
+      ..add(
+        'requestParameters',
+        requestParameters,
+      )
+      ..add(
+        'requestModels',
+        requestModels,
+      )
+      ..add(
+        'requestValidatorId',
+        requestValidatorId,
+      )
+      ..add(
+        'authorizationScopes',
+        authorizationScopes,
+      );
     return helper.toString();
   }
 }
@@ -237,10 +239,12 @@ abstract class PutMethodRequestPayload
   const PutMethodRequestPayload._();
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutMethodRequestPayloadBuilder b) {}
+  static void _init(PutMethodRequestPayloadBuilder b) {
+    b.apiKeyRequired = false;
+  }
 
   /// Specifies whether the method required a valid ApiKey.
-  bool? get apiKeyRequired;
+  bool get apiKeyRequired;
 
   /// A list of authorization scopes configured on the method. The scopes are used with a `COGNITO\_USER\_POOLS` authorizer to authorize the method invocation. The authorization works by matching the method scopes against the scopes parsed from the access token in the incoming request. The method invocation is authorized if any method scopes matches a claimed scope in the access token. Otherwise, the invocation is not authorized. When the method scope is configured, the client must provide an access token instead of an identity token for authorization purposes.
   _i3.BuiltList<String>? get authorizationScopes;
@@ -275,39 +279,39 @@ abstract class PutMethodRequestPayload
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutMethodRequestPayload');
-    helper.add(
-      'apiKeyRequired',
-      apiKeyRequired,
-    );
-    helper.add(
-      'authorizationScopes',
-      authorizationScopes,
-    );
-    helper.add(
-      'authorizationType',
-      authorizationType,
-    );
-    helper.add(
-      'authorizerId',
-      authorizerId,
-    );
-    helper.add(
-      'operationName',
-      operationName,
-    );
-    helper.add(
-      'requestModels',
-      requestModels,
-    );
-    helper.add(
-      'requestParameters',
-      requestParameters,
-    );
-    helper.add(
-      'requestValidatorId',
-      requestValidatorId,
-    );
+    final helper = newBuiltValueToStringHelper('PutMethodRequestPayload')
+      ..add(
+        'apiKeyRequired',
+        apiKeyRequired,
+      )
+      ..add(
+        'authorizationScopes',
+        authorizationScopes,
+      )
+      ..add(
+        'authorizationType',
+        authorizationType,
+      )
+      ..add(
+        'authorizerId',
+        authorizerId,
+      )
+      ..add(
+        'operationName',
+        operationName,
+      )
+      ..add(
+        'requestModels',
+        requestModels,
+      )
+      ..add(
+        'requestParameters',
+        requestParameters,
+      )
+      ..add(
+        'requestValidatorId',
+        requestValidatorId,
+      );
     return helper.toString();
   }
 }
@@ -425,20 +429,17 @@ class PutMethodRequestRestJson1Serializer
       :requestValidatorId
     ) = object;
     result$.addAll([
+      'apiKeyRequired',
+      serializers.serialize(
+        apiKeyRequired,
+        specifiedType: const FullType(bool),
+      ),
       'authorizationType',
       serializers.serialize(
         authorizationType,
         specifiedType: const FullType(String),
       ),
     ]);
-    if (apiKeyRequired != null) {
-      result$
-        ..add('apiKeyRequired')
-        ..add(serializers.serialize(
-          apiKeyRequired,
-          specifiedType: const FullType(bool),
-        ));
-    }
     if (authorizationScopes != null) {
       result$
         ..add('authorizationScopes')

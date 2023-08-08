@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.delete_open_id_connect_provider_request;
+part of 'delete_open_id_connect_provider_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -60,9 +60,7 @@ class DeleteOpenIdConnectProviderRequestBuilder
   set openIdConnectProviderArn(String? openIdConnectProviderArn) =>
       _$this._openIdConnectProviderArn = openIdConnectProviderArn;
 
-  DeleteOpenIdConnectProviderRequestBuilder() {
-    DeleteOpenIdConnectProviderRequest._init(this);
-  }
+  DeleteOpenIdConnectProviderRequestBuilder();
 
   DeleteOpenIdConnectProviderRequestBuilder get _$this {
     final $v = _$v;

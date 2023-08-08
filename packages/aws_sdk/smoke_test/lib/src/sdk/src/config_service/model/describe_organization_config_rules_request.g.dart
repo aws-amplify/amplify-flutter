@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.describe_organization_config_rules_request;
+part of 'describe_organization_config_rules_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -11,7 +11,7 @@ class _$DescribeOrganizationConfigRulesRequest
   @override
   final _i3.BuiltList<String>? organizationConfigRuleNames;
   @override
-  final int? limit;
+  final int limit;
   @override
   final String? nextToken;
 
@@ -22,8 +22,11 @@ class _$DescribeOrganizationConfigRulesRequest
           ._build();
 
   _$DescribeOrganizationConfigRulesRequest._(
-      {this.organizationConfigRuleNames, this.limit, this.nextToken})
-      : super._();
+      {this.organizationConfigRuleNames, required this.limit, this.nextToken})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        limit, r'DescribeOrganizationConfigRulesRequest', 'limit');
+  }
 
   @override
   DescribeOrganizationConfigRulesRequest rebuild(
@@ -114,7 +117,8 @@ class DescribeOrganizationConfigRulesRequestBuilder
           new _$DescribeOrganizationConfigRulesRequest._(
               organizationConfigRuleNames:
                   _organizationConfigRuleNames?.build(),
-              limit: limit,
+              limit: BuiltValueNullFieldError.checkNotNull(
+                  limit, r'DescribeOrganizationConfigRulesRequest', 'limit'),
               nextToken: nextToken);
     } catch (_) {
       late String _$failedField;

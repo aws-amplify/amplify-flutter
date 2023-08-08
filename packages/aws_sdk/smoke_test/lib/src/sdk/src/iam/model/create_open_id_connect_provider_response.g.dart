@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.create_open_id_connect_provider_response;
+part of 'create_open_id_connect_provider_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -66,9 +66,7 @@ class CreateOpenIdConnectProviderResponseBuilder
       _$this._tags ??= new _i3.ListBuilder<_i2.Tag>();
   set tags(_i3.ListBuilder<_i2.Tag>? tags) => _$this._tags = tags;
 
-  CreateOpenIdConnectProviderResponseBuilder() {
-    CreateOpenIdConnectProviderResponse._init(this);
-  }
+  CreateOpenIdConnectProviderResponseBuilder();
 
   CreateOpenIdConnectProviderResponseBuilder get _$this {
     final $v = _$v;

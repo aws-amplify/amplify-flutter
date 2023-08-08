@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.update_usage_plan_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -55,12 +55,8 @@ abstract class UpdateUsagePlanRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateUsagePlanRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateUsagePlanRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<UpdateUsagePlanRequestPayload>>
+      serializers = [UpdateUsagePlanRequestRestJson1Serializer()];
 
   /// The Id of the to-be-updated usage plan.
   String get usagePlanId;
@@ -93,15 +89,15 @@ abstract class UpdateUsagePlanRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateUsagePlanRequest');
-    helper.add(
-      'usagePlanId',
-      usagePlanId,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateUsagePlanRequest')
+      ..add(
+        'usagePlanId',
+        usagePlanId,
+      )
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }
@@ -119,20 +115,17 @@ abstract class UpdateUsagePlanRequestPayload
 
   const UpdateUsagePlanRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateUsagePlanRequestPayloadBuilder b) {}
-
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
   @override
   List<Object?> get props => [patchOperations];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateUsagePlanRequestPayload');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateUsagePlanRequestPayload')
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }

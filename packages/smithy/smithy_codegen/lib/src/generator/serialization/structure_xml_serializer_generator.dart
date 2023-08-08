@@ -192,8 +192,8 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
           [
             DartTypes.smithy.xmlElementName.constInstance([
               literalString(payloadResponseName),
-              if (namespace != null) namespace.constructedInstance
-            ])
+              if (namespace != null) namespace.constructedInstance,
+            ]),
           ],
           DartTypes.core.object.boxed,
         ),
@@ -356,12 +356,7 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
       final wireName = memberWireName(member);
       var memberSymbol = memberSymbols[member]!;
       final targetShape = context.shapeFor(member.target);
-      final hasNestedBuilder = [
-        ShapeType.map,
-        ShapeType.list,
-        ShapeType.set,
-        ShapeType.structure,
-      ].contains(targetShape.getType());
+      final hasNestedBuilder = targetShape.hasNestedBuilder;
       final isFlattened = flattenedMembers.contains(member);
       var targetMember = member;
       var nestedMethod = 'replace';

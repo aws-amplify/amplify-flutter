@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v2.query_protocol.model.ignores_wrapping_xml_name_output;
+part of 'ignores_wrapping_xml_name_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -50,9 +50,7 @@ class IgnoresWrappingXmlNameOutputBuilder
   String? get foo => _$this._foo;
   set foo(String? foo) => _$this._foo = foo;
 
-  IgnoresWrappingXmlNameOutputBuilder() {
-    IgnoresWrappingXmlNameOutput._init(this);
-  }
+  IgnoresWrappingXmlNameOutputBuilder();
 
   IgnoresWrappingXmlNameOutputBuilder get _$this {
     final $v = _$v;

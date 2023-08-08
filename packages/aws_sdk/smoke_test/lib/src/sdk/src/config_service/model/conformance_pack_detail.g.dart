@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.conformance_pack_detail;
+part of 'conformance_pack_detail.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -149,9 +149,7 @@ class ConformancePackDetailBuilder
           _i3.TemplateSsmDocumentDetailsBuilder? templateSsmDocumentDetails) =>
       _$this._templateSsmDocumentDetails = templateSsmDocumentDetails;
 
-  ConformancePackDetailBuilder() {
-    ConformancePackDetail._init(this);
-  }
+  ConformancePackDetailBuilder();
 
   ConformancePackDetailBuilder get _$this {
     final $v = _$v;

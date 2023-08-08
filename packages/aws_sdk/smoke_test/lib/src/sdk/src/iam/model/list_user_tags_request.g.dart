@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.list_user_tags_request;
+part of 'list_user_tags_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -69,9 +69,7 @@ class ListUserTagsRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  ListUserTagsRequestBuilder() {
-    ListUserTagsRequest._init(this);
-  }
+  ListUserTagsRequestBuilder();
 
   ListUserTagsRequestBuilder get _$this {
     final $v = _$v;

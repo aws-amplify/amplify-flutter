@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.target_grant;
+part of 'target_grant.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class TargetGrantBuilder implements Builder<TargetGrant, TargetGrantBuilder> {
   set permission(_i3.BucketLogsPermission? permission) =>
       _$this._permission = permission;
 
-  TargetGrantBuilder() {
-    TargetGrant._init(this);
-  }
+  TargetGrantBuilder();
 
   TargetGrantBuilder get _$this {
     final $v = _$v;

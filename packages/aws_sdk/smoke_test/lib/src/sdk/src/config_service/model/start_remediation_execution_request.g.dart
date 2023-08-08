@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.start_remediation_execution_request;
+part of 'start_remediation_execution_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -70,9 +70,7 @@ class StartRemediationExecutionRequestBuilder
   set resourceKeys(_i4.ListBuilder<_i3.ResourceKey>? resourceKeys) =>
       _$this._resourceKeys = resourceKeys;
 
-  StartRemediationExecutionRequestBuilder() {
-    StartRemediationExecutionRequest._init(this);
-  }
+  StartRemediationExecutionRequestBuilder();
 
   StartRemediationExecutionRequestBuilder get _$this {
     final $v = _$v;

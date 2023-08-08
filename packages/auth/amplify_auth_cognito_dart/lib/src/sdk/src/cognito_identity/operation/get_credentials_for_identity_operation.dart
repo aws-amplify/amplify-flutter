@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity.operation.get_credentials_for_identity_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -124,7 +125,8 @@ class GetCredentialsForIdentityOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ExternalServiceException,
+            _i9.ExternalServiceException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentity',
             shape: 'ExternalServiceException',
@@ -134,7 +136,8 @@ class GetCredentialsForIdentityOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i9.ExternalServiceException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InternalErrorException,
+            _i10.InternalErrorException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentity',
             shape: 'InternalErrorException',
@@ -143,7 +146,8 @@ class GetCredentialsForIdentityOperation extends _i1.HttpOperation<
           _i10.InternalErrorException,
           builder: _i10.InternalErrorException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidIdentityPoolConfigurationException,
+            _i11.InvalidIdentityPoolConfigurationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentity',
             shape: 'InvalidIdentityPoolConfigurationException',
@@ -153,7 +157,8 @@ class GetCredentialsForIdentityOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i11.InvalidIdentityPoolConfigurationException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.InvalidParameterException,
+            _i12.InvalidParameterException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentity',
             shape: 'InvalidParameterException',
@@ -163,7 +168,8 @@ class GetCredentialsForIdentityOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i12.InvalidParameterException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.NotAuthorizedException,
+            _i13.NotAuthorizedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentity',
             shape: 'NotAuthorizedException',
@@ -173,7 +179,8 @@ class GetCredentialsForIdentityOperation extends _i1.HttpOperation<
           statusCode: 403,
           builder: _i13.NotAuthorizedException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.ResourceConflictException,
+            _i14.ResourceConflictException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentity',
             shape: 'ResourceConflictException',
@@ -183,7 +190,8 @@ class GetCredentialsForIdentityOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i14.ResourceConflictException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.ResourceNotFoundException,
+            _i15.ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentity',
             shape: 'ResourceNotFoundException',
@@ -193,7 +201,8 @@ class GetCredentialsForIdentityOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i15.ResourceNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i16.TooManyRequestsException,
+            _i16.TooManyRequestsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentity',
             shape: 'TooManyRequestsException',
@@ -226,7 +235,7 @@ class GetCredentialsForIdentityOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

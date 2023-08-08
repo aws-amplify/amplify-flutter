@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.describe_contributor_insights_output;
+part of 'describe_contributor_insights_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -109,9 +109,7 @@ class DescribeContributorInsightsOutputBuilder
   set failureException(_i3.FailureExceptionBuilder? failureException) =>
       _$this._failureException = failureException;
 
-  DescribeContributorInsightsOutputBuilder() {
-    DescribeContributorInsightsOutput._init(this);
-  }
+  DescribeContributorInsightsOutputBuilder();
 
   DescribeContributorInsightsOutputBuilder get _$this {
     final $v = _$v;

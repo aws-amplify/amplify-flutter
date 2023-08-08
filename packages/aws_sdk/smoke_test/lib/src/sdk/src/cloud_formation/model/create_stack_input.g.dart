@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.create_stack_input;
+part of 'create_stack_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -215,9 +215,7 @@ class CreateStackInputBuilder
   set enableTerminationProtection(bool? enableTerminationProtection) =>
       _$this._enableTerminationProtection = enableTerminationProtection;
 
-  CreateStackInputBuilder() {
-    CreateStackInput._init(this);
-  }
+  CreateStackInputBuilder();
 
   CreateStackInputBuilder get _$this {
     final $v = _$v;

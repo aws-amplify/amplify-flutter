@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_xml_v2.rest_xml_protocol.model.xml_int_enums_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -56,12 +56,9 @@ abstract class XmlIntEnumsInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    XmlIntEnumsInputOutputRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<XmlIntEnumsInputOutput>> serializers =
+      [XmlIntEnumsInputOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(XmlIntEnumsInputOutputBuilder b) {}
   _i3.IntegerEnum? get intEnum1;
   _i3.IntegerEnum? get intEnum2;
   _i3.IntegerEnum? get intEnum3;
@@ -81,31 +78,31 @@ abstract class XmlIntEnumsInputOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('XmlIntEnumsInputOutput');
-    helper.add(
-      'intEnum1',
-      intEnum1,
-    );
-    helper.add(
-      'intEnum2',
-      intEnum2,
-    );
-    helper.add(
-      'intEnum3',
-      intEnum3,
-    );
-    helper.add(
-      'intEnumList',
-      intEnumList,
-    );
-    helper.add(
-      'intEnumSet',
-      intEnumSet,
-    );
-    helper.add(
-      'intEnumMap',
-      intEnumMap,
-    );
+    final helper = newBuiltValueToStringHelper('XmlIntEnumsInputOutput')
+      ..add(
+        'intEnum1',
+        intEnum1,
+      )
+      ..add(
+        'intEnum2',
+        intEnum2,
+      )
+      ..add(
+        'intEnum3',
+        intEnum3,
+      )
+      ..add(
+        'intEnumList',
+        intEnumList,
+      )
+      ..add(
+        'intEnumSet',
+        intEnumSet,
+      )
+      ..add(
+        'intEnumMap',
+        intEnumMap,
+      );
     return helper.toString();
   }
 }

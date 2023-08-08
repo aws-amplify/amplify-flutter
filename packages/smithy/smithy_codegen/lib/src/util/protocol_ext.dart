@@ -125,7 +125,7 @@ extension ProtocolUtils on ProtocolDefinitionTrait {
               context.service!.shapeId.shape,
               shape.shapeId.shape,
             ].join('.'),
-          )
+          ),
         ]);
       case RestJson1Trait _:
         // Empty payloads should not contain `Content-Length` and `Content-Type`

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.restore_table_from_backup_output;
+part of 'restore_table_from_backup_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -53,9 +53,7 @@ class RestoreTableFromBackupOutputBuilder
   set tableDescription(_i2.TableDescriptionBuilder? tableDescription) =>
       _$this._tableDescription = tableDescription;
 
-  RestoreTableFromBackupOutputBuilder() {
-    RestoreTableFromBackupOutput._init(this);
-  }
+  RestoreTableFromBackupOutputBuilder();
 
   RestoreTableFromBackupOutputBuilder get _$this {
     final $v = _$v;

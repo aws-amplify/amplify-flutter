@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.aggregated_source_status;
+part of 'aggregated_source_status.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -111,9 +111,7 @@ class AggregatedSourceStatusBuilder
   set lastErrorMessage(String? lastErrorMessage) =>
       _$this._lastErrorMessage = lastErrorMessage;
 
-  AggregatedSourceStatusBuilder() {
-    AggregatedSourceStatus._init(this);
-  }
+  AggregatedSourceStatusBuilder();
 
   AggregatedSourceStatusBuilder get _$this {
     final $v = _$v;

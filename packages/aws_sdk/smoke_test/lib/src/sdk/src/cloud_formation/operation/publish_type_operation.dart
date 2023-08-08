@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.operation.publish_type_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,12 +22,12 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/publish_type_output
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/type_not_found_exception.dart'
     as _i10;
 
-/// Publishes the specified extension to the CloudFormation registry as a public extension in this region. Public extensions are available for use by all CloudFormation users. For more information about publishing extensions, see [Publishing extensions to make them available for public use](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/publish-extension.html) in the _CloudFormation CLI User Guide_.
+/// Publishes the specified extension to the CloudFormation registry as a public extension in this Region. Public extensions are available for use by all CloudFormation users. For more information about publishing extensions, see [Publishing extensions to make them available for public use](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/publish-extension.html) in the _CloudFormation CLI User Guide_.
 ///
 /// To publish an extension, you must be registered as a publisher with CloudFormation. For more information, see [RegisterPublisher](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterPublisher.html).
 class PublishTypeOperation extends _i1.HttpOperation<_i2.PublishTypeInput,
     _i2.PublishTypeInput, _i3.PublishTypeOutput, _i3.PublishTypeOutput> {
-  /// Publishes the specified extension to the CloudFormation registry as a public extension in this region. Public extensions are available for use by all CloudFormation users. For more information about publishing extensions, see [Publishing extensions to make them available for public use](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/publish-extension.html) in the _CloudFormation CLI User Guide_.
+  /// Publishes the specified extension to the CloudFormation registry as a public extension in this Region. Public extensions are available for use by all CloudFormation users. For more information about publishing extensions, see [Publishing extensions to make them available for public use](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/publish-extension.html) in the _CloudFormation CLI User Guide_.
   ///
   /// To publish an extension, you must be registered as a publisher with CloudFormation. For more information, see [RegisterPublisher](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterPublisher.html).
   PublishTypeOperation({
@@ -116,7 +116,7 @@ class PublishTypeOperation extends _i1.HttpOperation<_i2.PublishTypeInput,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.CfnRegistryException, _i9.CfnRegistryException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'CFNRegistryException',
@@ -126,7 +126,7 @@ class PublishTypeOperation extends _i1.HttpOperation<_i2.PublishTypeInput,
           statusCode: 400,
           builder: _i9.CfnRegistryException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.TypeNotFoundException, _i10.TypeNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'TypeNotFoundException',
@@ -159,7 +159,7 @@ class PublishTypeOperation extends _i1.HttpOperation<_i2.PublishTypeInput,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

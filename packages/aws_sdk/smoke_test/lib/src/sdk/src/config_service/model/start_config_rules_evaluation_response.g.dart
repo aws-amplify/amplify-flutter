@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.start_config_rules_evaluation_response;
+part of 'start_config_rules_evaluation_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -43,9 +43,7 @@ class StartConfigRulesEvaluationResponseBuilder
             StartConfigRulesEvaluationResponseBuilder> {
   _$StartConfigRulesEvaluationResponse? _$v;
 
-  StartConfigRulesEvaluationResponseBuilder() {
-    StartConfigRulesEvaluationResponse._init(this);
-  }
+  StartConfigRulesEvaluationResponseBuilder();
 
   @override
   void replace(StartConfigRulesEvaluationResponse other) {

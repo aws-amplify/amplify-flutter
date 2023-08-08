@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.update_model_request;
+part of 'update_model_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -74,9 +74,7 @@ class UpdateModelRequestBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateModelRequestBuilder() {
-    UpdateModelRequest._init(this);
-  }
+  UpdateModelRequestBuilder();
 
   UpdateModelRequestBuilder get _$this {
     final $v = _$v;
@@ -175,9 +173,7 @@ class UpdateModelRequestPayloadBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateModelRequestPayloadBuilder() {
-    UpdateModelRequestPayload._init(this);
-  }
+  UpdateModelRequestPayloadBuilder();
 
   UpdateModelRequestPayloadBuilder get _$this {
     final $v = _$v;

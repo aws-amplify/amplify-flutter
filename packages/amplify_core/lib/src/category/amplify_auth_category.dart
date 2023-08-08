@@ -4,6 +4,7 @@
 import 'dart:async';
 
 import 'package:amplify_core/amplify_core.dart';
+import 'package:amplify_core/src/http/amplify_category_method.dart';
 import 'package:meta/meta.dart';
 
 /// {@category Auth}
@@ -21,6 +22,10 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   @override
   @nonVirtual
   Category get category => Category.auth;
+
+  @override
+  @nonVirtual
+  Set<Category> get categoryDependencies => const {};
 
   /// Gets the registered plugin of type [Plugin] as provided by a [pluginKey], e.g.
   ///
@@ -104,10 +109,8 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///     case AuthSignUpStep.confirmSignUp:
   ///       final codeDeliveryDetails = result.nextStep.codeDeliveryDetails!;
   ///       _handleCodeDelivery(codeDeliveryDetails);
-  ///       break;
   ///     case AuthSignUpStep.done:
   ///       safePrint('Sign up is complete');
-  ///       break;
   ///   }
   /// }
   /// ```
@@ -130,10 +133,13 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
     required String password,
     SignUpOptions? options,
   }) =>
-      defaultPlugin.signUp(
-        username: username,
-        password: password,
-        options: options,
+      identifyCall(
+        AuthCategoryMethod.signUp,
+        () => defaultPlugin.signUp(
+          username: username,
+          password: password,
+          options: options,
+        ),
       );
 
   /// {@template amplify_core.amplify_auth_category.confirm_sign_up}
@@ -182,10 +188,8 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///     case AuthSignUpStep.confirmSignUp:
   ///       final codeDeliveryDetails = result.nextStep.codeDeliveryDetails!;
   ///       _handleCodeDelivery(codeDeliveryDetails);
-  ///       break;
   ///     case AuthSignUpStep.done:
   ///       safePrint('Sign up is complete');
-  ///       break;
   ///   }
   /// }
   /// ```
@@ -208,10 +212,13 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
     required String confirmationCode,
     ConfirmSignUpOptions? options,
   }) =>
-      defaultPlugin.confirmSignUp(
-        username: username,
-        confirmationCode: confirmationCode,
-        options: options,
+      identifyCall(
+        AuthCategoryMethod.confirmSignUp,
+        () => defaultPlugin.confirmSignUp(
+          username: username,
+          confirmationCode: confirmationCode,
+          options: options,
+        ),
       );
 
   /// {@template amplify_core.amplify_auth_category.resend_sign_up_code}
@@ -264,9 +271,12 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
     required String username,
     ResendSignUpCodeOptions? options,
   }) =>
-      defaultPlugin.resendSignUpCode(
-        username: username,
-        options: options,
+      identifyCall(
+        AuthCategoryMethod.resendSignUpCode,
+        () => defaultPlugin.resendSignUpCode(
+          username: username,
+          options: options,
+        ),
       );
 
   /// {@template amplify_core.amplify_auth_category.sign_in}
@@ -323,7 +333,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///     case AuthSignInStep.confirmSignInWithSmsMfaCode:
   ///       final codeDeliveryDetails = result.nextStep.codeDeliveryDetails!;
   ///       _handleCodeDelivery(codeDeliveryDetails);
-  ///       break;
   ///     // ···
   ///   }
   /// }
@@ -349,7 +358,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///     // ···
   ///     case AuthSignInStep.confirmSignInWithNewPassword:
   ///       safePrint('Enter a new password to continue signing in');
-  ///       break;
   ///     // ···
   ///   }
   /// }
@@ -369,7 +377,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///       final parameters = result.nextStep.additionalInfo;
   ///       final prompt = parameters['prompt']!;
   ///       safePrint(prompt);
-  ///       break;
   ///     // ···
   ///   }
   /// }
@@ -389,7 +396,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///         username: username,
   ///       );
   ///       await _handleResetPasswordResult(resetResult);
-  ///       break;
   ///     // ···
   ///   }
   /// }
@@ -402,10 +408,8 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///     case AuthResetPasswordStep.confirmResetPasswordWithCode:
   ///       final codeDeliveryDetails = result.nextStep.codeDeliveryDetails!;
   ///       _handleCodeDelivery(codeDeliveryDetails);
-  ///       break;
   ///     case AuthResetPasswordStep.done:
   ///       safePrint('Successfully reset password');
-  ///       break;
   ///   }
   /// }
   /// ```
@@ -425,7 +429,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///         username: username,
   ///       );
   ///       _handleCodeDelivery(resendResult.codeDeliveryDetails);
-  ///       break;
   ///     // ···
   ///   }
   /// }
@@ -451,7 +454,6 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///     // ···
   ///     case AuthSignInStep.done:
   ///       safePrint('Sign in is complete');
-  ///       break;
   ///     // ···
   ///   }
   /// }
@@ -462,10 +464,13 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
     String? password,
     SignInOptions? options,
   }) =>
-      defaultPlugin.signIn(
-        username: username,
-        password: password,
-        options: options,
+      identifyCall(
+        AuthCategoryMethod.signIn,
+        () => defaultPlugin.signIn(
+          username: username,
+          password: password,
+          options: options,
+        ),
       );
 
   /// {@template amplify_core.amplify_auth_category.confirm_sign_in}
@@ -517,9 +522,12 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
     required String confirmationValue,
     ConfirmSignInOptions? options,
   }) =>
-      defaultPlugin.confirmSignIn(
-        confirmationValue: confirmationValue,
-        options: options,
+      identifyCall(
+        AuthCategoryMethod.confirmSignIn,
+        () => defaultPlugin.confirmSignIn(
+          confirmationValue: confirmationValue,
+          options: options,
+        ),
       );
 
   /// {@template amplify_core.amplify_auth_category.sign_out}
@@ -584,7 +592,10 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   Future<SignOutResult> signOut({
     SignOutOptions? options,
   }) =>
-      defaultPlugin.signOut(options: options);
+      identifyCall(
+        AuthCategoryMethod.signOut,
+        () => defaultPlugin.signOut(options: options),
+      );
 
   /// {@template amplify_core.amplify_auth_category.update_password}
   /// Update the password of the current user.
@@ -627,10 +638,13 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
     required String newPassword,
     UpdatePasswordOptions? options,
   }) =>
-      defaultPlugin.updatePassword(
-        oldPassword: oldPassword,
-        newPassword: newPassword,
-        options: options,
+      identifyCall(
+        AuthCategoryMethod.updatePassword,
+        () => defaultPlugin.updatePassword(
+          oldPassword: oldPassword,
+          newPassword: newPassword,
+          options: options,
+        ),
       );
 
   /// {@template amplify_core.amplify_auth_category.reset_password}
@@ -678,10 +692,8 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///     case AuthResetPasswordStep.confirmResetPasswordWithCode:
   ///       final codeDeliveryDetails = result.nextStep.codeDeliveryDetails!;
   ///       _handleCodeDelivery(codeDeliveryDetails);
-  ///       break;
   ///     case AuthResetPasswordStep.done:
   ///       safePrint('Successfully reset password');
-  ///       break;
   ///   }
   /// }
   /// ```
@@ -724,9 +736,12 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
     required String username,
     ResetPasswordOptions? options,
   }) =>
-      defaultPlugin.resetPassword(
-        username: username,
-        options: options,
+      identifyCall(
+        AuthCategoryMethod.resetPassword,
+        () => defaultPlugin.resetPassword(
+          username: username,
+          options: options,
+        ),
       );
 
   /// {@template amplify_core.amplify_auth_category.confirm_reset_password}
@@ -777,11 +792,14 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
     required String confirmationCode,
     ConfirmResetPasswordOptions? options,
   }) =>
-      defaultPlugin.confirmResetPassword(
-        username: username,
-        newPassword: newPassword,
-        confirmationCode: confirmationCode,
-        options: options,
+      identifyCall(
+        AuthCategoryMethod.confirmResetPassword,
+        () => defaultPlugin.confirmResetPassword(
+          username: username,
+          newPassword: newPassword,
+          confirmationCode: confirmationCode,
+          options: options,
+        ),
       );
 
   /// {@template amplify_core.amplify_auth_category.get_current_user}
@@ -817,7 +835,10 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   Future<AuthUser> getCurrentUser({
     GetCurrentUserOptions? options,
   }) =>
-      defaultPlugin.getCurrentUser(options: options);
+      identifyCall(
+        AuthCategoryMethod.getCurrentUser,
+        () => defaultPlugin.getCurrentUser(options: options),
+      );
 
   /// {@template amplify_core.amplify_auth_category.fetch_user_attributes}
   /// Fetch all user attributes associated with the current user.
@@ -853,7 +874,10 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   Future<List<AuthUserAttribute>> fetchUserAttributes({
     FetchUserAttributesOptions? options,
   }) =>
-      defaultPlugin.fetchUserAttributes(options: options);
+      identifyCall(
+        AuthCategoryMethod.fetchUserAttributes,
+        () => defaultPlugin.fetchUserAttributes(options: options),
+      );
 
   /// {@template amplify_core.amplify_auth_category.fetch_auth_session}
   /// Fetch the current auth session.
@@ -906,7 +930,10 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   Future<AuthSession> fetchAuthSession({
     FetchAuthSessionOptions? options,
   }) =>
-      defaultPlugin.fetchAuthSession(options: options);
+      identifyCall(
+        AuthCategoryMethod.fetchAuthSession,
+        () => defaultPlugin.fetchAuthSession(options: options),
+      );
 
   /// {@template amplify_core.amplify_auth_category.sign_in_with_web_ui}
   /// Initiate sign in for a web-based flow, e.g. a social provider like Facebook,
@@ -948,9 +975,12 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
     AuthProvider? provider,
     SignInWithWebUIOptions? options,
   }) =>
-      defaultPlugin.signInWithWebUI(
-        provider: provider,
-        options: options,
+      identifyCall(
+        AuthCategoryMethod.signInWithWebUI,
+        () => defaultPlugin.signInWithWebUI(
+          provider: provider,
+          options: options,
+        ),
       );
 
   /// {@template amplify_core.amplify_auth_category.update_user_attribute}
@@ -1001,10 +1031,8 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///     case AuthUpdateAttributeStep.confirmAttributeWithCode:
   ///       final codeDeliveryDetails = result.nextStep.codeDeliveryDetails!;
   ///       _handleCodeDelivery(codeDeliveryDetails);
-  ///       break;
   ///     case AuthUpdateAttributeStep.done:
   ///       safePrint('Successfully updated attribute');
-  ///       break;
   ///   }
   /// }
   /// ```
@@ -1016,10 +1044,13 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
     required String value,
     UpdateUserAttributeOptions? options,
   }) =>
-      defaultPlugin.updateUserAttribute(
-        userAttributeKey: userAttributeKey,
-        value: value,
-        options: options,
+      identifyCall(
+        AuthCategoryMethod.updateUserAttribute,
+        () => defaultPlugin.updateUserAttribute(
+          userAttributeKey: userAttributeKey,
+          value: value,
+          options: options,
+        ),
       );
 
   /// {@template amplify_core.amplify_auth_category.update_user_attributes}
@@ -1061,10 +1092,8 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   ///         case AuthUpdateAttributeStep.confirmAttributeWithCode:
   ///           final destination = value.nextStep.codeDeliveryDetails?.destination;
   ///           safePrint('Confirmation code sent to $destination for $key');
-  ///           break;
   ///         case AuthUpdateAttributeStep.done:
   ///           safePrint('Update completed for $key');
-  ///           break;
   ///       }
   ///     });
   ///   } on AuthException catch (e) {
@@ -1078,9 +1107,12 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
     required List<AuthUserAttribute> attributes,
     UpdateUserAttributesOptions? options,
   }) =>
-          defaultPlugin.updateUserAttributes(
-            attributes: attributes,
-            options: options,
+          identifyCall(
+            AuthCategoryMethod.updateUserAttributes,
+            () => defaultPlugin.updateUserAttributes(
+              attributes: attributes,
+              options: options,
+            ),
           );
 
   /// {@template amplify_core.amplify_auth_category.confirm_user_attribute}
@@ -1120,10 +1152,13 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
     required String confirmationCode,
     ConfirmUserAttributeOptions? options,
   }) =>
-      defaultPlugin.confirmUserAttribute(
-        userAttributeKey: userAttributeKey,
-        confirmationCode: confirmationCode,
-        options: options,
+      identifyCall(
+        AuthCategoryMethod.confirmUserAttribute,
+        () => defaultPlugin.confirmUserAttribute(
+          userAttributeKey: userAttributeKey,
+          confirmationCode: confirmationCode,
+          options: options,
+        ),
       );
 
   /// {@template amplify_core.amplify_auth_category.resend_user_attribute_confirmation_code}
@@ -1180,9 +1215,12 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
     required AuthUserAttributeKey userAttributeKey,
     ResendUserAttributeConfirmationCodeOptions? options,
   }) =>
-          defaultPlugin.resendUserAttributeConfirmationCode(
-            userAttributeKey: userAttributeKey,
-            options: options,
+          identifyCall(
+            AuthCategoryMethod.resendUserAttributeConfirmationCode,
+            () => defaultPlugin.resendUserAttributeConfirmationCode(
+              userAttributeKey: userAttributeKey,
+              options: options,
+            ),
           );
 
   /// {@template amplify_core.amplify_auth_category.remember_device}
@@ -1211,7 +1249,10 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// }
   /// ```
   /// {@endtemplate}
-  Future<void> rememberDevice() => defaultPlugin.rememberDevice();
+  Future<void> rememberDevice() => identifyCall(
+        AuthCategoryMethod.rememberDevice,
+        () => defaultPlugin.rememberDevice(),
+      );
 
   /// {@template amplify_core.amplify_auth_category.forget_device}
   /// Forgets the current device.
@@ -1254,8 +1295,10 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// }
   /// ```
   /// {@endtemplate}
-  Future<void> forgetDevice([AuthDevice? device]) =>
-      defaultPlugin.forgetDevice(device);
+  Future<void> forgetDevice([AuthDevice? device]) => identifyCall(
+        AuthCategoryMethod.forgetDevice,
+        () => defaultPlugin.forgetDevice(device),
+      );
 
   /// {@template amplify_core.amplify_auth_category.fetch_devices}
   /// Retrieves all tracked devices for the current user.
@@ -1285,7 +1328,10 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// }
   /// ```
   /// {@endtemplate}
-  Future<List<AuthDevice>> fetchDevices() => defaultPlugin.fetchDevices();
+  Future<List<AuthDevice>> fetchDevices() => identifyCall(
+        AuthCategoryMethod.fetchDevices,
+        () => defaultPlugin.fetchDevices(),
+      );
 
   /// {@template amplify_core.amplify_auth_category.delete_user}
   /// Deletes the current authenticated user.
@@ -1313,5 +1359,8 @@ class AuthCategory extends AmplifyCategory<AuthPluginInterface> {
   /// }
   /// ```
   /// {@endtemplate}
-  Future<void> deleteUser() => defaultPlugin.deleteUser();
+  Future<void> deleteUser() => identifyCall(
+        AuthCategoryMethod.deleteUser,
+        () => defaultPlugin.deleteUser(),
+      );
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db_streams.model.get_shard_iterator_input;
+part of 'get_shard_iterator_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -87,9 +87,7 @@ class GetShardIteratorInputBuilder
   set sequenceNumber(String? sequenceNumber) =>
       _$this._sequenceNumber = sequenceNumber;
 
-  GetShardIteratorInputBuilder() {
-    GetShardIteratorInput._init(this);
-  }
+  GetShardIteratorInputBuilder();
 
   GetShardIteratorInputBuilder get _$this {
     final $v = _$v;

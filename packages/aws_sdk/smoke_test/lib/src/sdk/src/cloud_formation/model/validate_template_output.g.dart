@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.validate_template_output;
+part of 'validate_template_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -94,9 +94,7 @@ class ValidateTemplateOutputBuilder
   set declaredTransforms(_i4.ListBuilder<String>? declaredTransforms) =>
       _$this._declaredTransforms = declaredTransforms;
 
-  ValidateTemplateOutputBuilder() {
-    ValidateTemplateOutput._init(this);
-  }
+  ValidateTemplateOutputBuilder();
 
   ValidateTemplateOutputBuilder get _$this {
     final $v = _$v;

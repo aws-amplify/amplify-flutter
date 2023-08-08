@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.conformance_pack_compliance_scores_filters;
+part of 'conformance_pack_compliance_scores_filters.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -62,9 +62,7 @@ class ConformancePackComplianceScoresFiltersBuilder
   set conformancePackNames(_i2.ListBuilder<String>? conformancePackNames) =>
       _$this._conformancePackNames = conformancePackNames;
 
-  ConformancePackComplianceScoresFiltersBuilder() {
-    ConformancePackComplianceScoresFilters._init(this);
-  }
+  ConformancePackComplianceScoresFiltersBuilder();
 
   ConformancePackComplianceScoresFiltersBuilder get _$this {
     final $v = _$v;

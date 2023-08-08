@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.remediation_parameter_value; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,12 +37,8 @@ abstract class RemediationParameterValue
 
   const RemediationParameterValue._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    RemediationParameterValueAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RemediationParameterValueBuilder b) {}
+  static const List<_i4.SmithySerializer<RemediationParameterValue>>
+      serializers = [RemediationParameterValueAwsJson11Serializer()];
 
   /// The value is dynamic and changes at run-time.
   _i2.ResourceValue? get resourceValue;
@@ -56,15 +52,15 @@ abstract class RemediationParameterValue
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RemediationParameterValue');
-    helper.add(
-      'resourceValue',
-      resourceValue,
-    );
-    helper.add(
-      'staticValue',
-      staticValue,
-    );
+    final helper = newBuiltValueToStringHelper('RemediationParameterValue')
+      ..add(
+        'resourceValue',
+        resourceValue,
+      )
+      ..add(
+        'staticValue',
+        staticValue,
+      );
     return helper.toString();
   }
 }

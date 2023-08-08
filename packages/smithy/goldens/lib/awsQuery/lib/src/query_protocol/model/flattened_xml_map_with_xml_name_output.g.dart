@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v1.query_protocol.model.flattened_xml_map_with_xml_name_output;
+part of 'flattened_xml_map_with_xml_name_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -52,9 +52,7 @@ class FlattenedXmlMapWithXmlNameOutputBuilder
       _$this._myMap ??= new _i2.MapBuilder<String, String>();
   set myMap(_i2.MapBuilder<String, String>? myMap) => _$this._myMap = myMap;
 
-  FlattenedXmlMapWithXmlNameOutputBuilder() {
-    FlattenedXmlMapWithXmlNameOutput._init(this);
-  }
+  FlattenedXmlMapWithXmlNameOutputBuilder();
 
   FlattenedXmlMapWithXmlNameOutputBuilder get _$this {
     final $v = _$v;

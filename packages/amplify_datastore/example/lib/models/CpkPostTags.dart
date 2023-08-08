@@ -117,7 +117,7 @@ class CpkPostTags extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("CpkPostTags {");
     buffer.write("id=" + "$id" + ", ");
@@ -271,7 +271,7 @@ class CpkPostTagsModelIdentifier
     implements amplify_core.ModelIdentifier<CpkPostTags> {
   final String id;
 
-  /// Create an instance of CpkPostTagsModelIdentifier using [id] the primary key.
+  /** Create an instance of CpkPostTagsModelIdentifier using [id] the primary key. */
   const CpkPostTagsModelIdentifier({required this.id});
 
   @override

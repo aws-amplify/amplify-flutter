@@ -1,7 +1,25 @@
+## 1.2.0
+
+### Fixes
+- fix(auth): Attribute key equality ([#3136](https://github.com/aws-amplify/amplify-flutter/pull/3136))
+- fix(auth): `signOut` after user deletion ([#3162](https://github.com/aws-amplify/amplify-flutter/pull/3162))
+
+## 1.1.1
+
+### Fixes
+- fix(auth): remove duplicate continuation call for hosted UI ([#3112](https://github.com/aws-amplify/amplify-flutter/pull/3112))
+- fix: suppress browser on sign out when preferPrivateSession is true ([#3099](https://github.com/aws-amplify/amplify-flutter/pull/3099))
+- fix(auth): User attribute serialization
+
 ## 1.1.0
 
 ### Features
 - Dart 3 support (must update Dart SDK constraint to `^3.0.0`)
+
+## 1.0.1
+
+### Fixes
+- fix(repo): Flutter 3.3 support
 
 ## 1.0.0
 

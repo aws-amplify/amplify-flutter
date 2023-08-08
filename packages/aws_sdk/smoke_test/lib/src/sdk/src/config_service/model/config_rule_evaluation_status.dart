@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.config_rule_evaluation_status; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,6 +37,7 @@ abstract class ConfigRuleEvaluationStatus
     String? lastDebugLogDeliveryStatusReason,
     DateTime? lastDebugLogDeliveryTime,
   }) {
+    firstEvaluationStarted ??= false;
     return _$ConfigRuleEvaluationStatus._(
       configRuleName: configRuleName,
       configRuleArn: configRuleArn,
@@ -65,12 +66,13 @@ abstract class ConfigRuleEvaluationStatus
 
   const ConfigRuleEvaluationStatus._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ConfigRuleEvaluationStatusAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ConfigRuleEvaluationStatus>>
+      serializers = [ConfigRuleEvaluationStatusAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConfigRuleEvaluationStatusBuilder b) {}
+  static void _init(ConfigRuleEvaluationStatusBuilder b) {
+    b.firstEvaluationStarted = false;
+  }
 
   /// The name of the Config rule.
   String? get configRuleName;
@@ -110,7 +112,7 @@ abstract class ConfigRuleEvaluationStatus
   /// *   `true` \- Config has evaluated your Amazon Web Services resources against the rule at least once.
   ///
   /// *   `false` \- Config has not finished evaluating your Amazon Web Services resources against the rule at least once.
-  bool? get firstEvaluationStarted;
+  bool get firstEvaluationStarted;
 
   /// The status of the last attempted delivery of a debug log for your Config Custom Policy rules. Either `Successful` or `Failed`.
   String? get lastDebugLogDeliveryStatus;
@@ -140,67 +142,67 @@ abstract class ConfigRuleEvaluationStatus
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConfigRuleEvaluationStatus');
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'configRuleArn',
-      configRuleArn,
-    );
-    helper.add(
-      'configRuleId',
-      configRuleId,
-    );
-    helper.add(
-      'lastSuccessfulInvocationTime',
-      lastSuccessfulInvocationTime,
-    );
-    helper.add(
-      'lastFailedInvocationTime',
-      lastFailedInvocationTime,
-    );
-    helper.add(
-      'lastSuccessfulEvaluationTime',
-      lastSuccessfulEvaluationTime,
-    );
-    helper.add(
-      'lastFailedEvaluationTime',
-      lastFailedEvaluationTime,
-    );
-    helper.add(
-      'firstActivatedTime',
-      firstActivatedTime,
-    );
-    helper.add(
-      'lastDeactivatedTime',
-      lastDeactivatedTime,
-    );
-    helper.add(
-      'lastErrorCode',
-      lastErrorCode,
-    );
-    helper.add(
-      'lastErrorMessage',
-      lastErrorMessage,
-    );
-    helper.add(
-      'firstEvaluationStarted',
-      firstEvaluationStarted,
-    );
-    helper.add(
-      'lastDebugLogDeliveryStatus',
-      lastDebugLogDeliveryStatus,
-    );
-    helper.add(
-      'lastDebugLogDeliveryStatusReason',
-      lastDebugLogDeliveryStatusReason,
-    );
-    helper.add(
-      'lastDebugLogDeliveryTime',
-      lastDebugLogDeliveryTime,
-    );
+    final helper = newBuiltValueToStringHelper('ConfigRuleEvaluationStatus')
+      ..add(
+        'configRuleName',
+        configRuleName,
+      )
+      ..add(
+        'configRuleArn',
+        configRuleArn,
+      )
+      ..add(
+        'configRuleId',
+        configRuleId,
+      )
+      ..add(
+        'lastSuccessfulInvocationTime',
+        lastSuccessfulInvocationTime,
+      )
+      ..add(
+        'lastFailedInvocationTime',
+        lastFailedInvocationTime,
+      )
+      ..add(
+        'lastSuccessfulEvaluationTime',
+        lastSuccessfulEvaluationTime,
+      )
+      ..add(
+        'lastFailedEvaluationTime',
+        lastFailedEvaluationTime,
+      )
+      ..add(
+        'firstActivatedTime',
+        firstActivatedTime,
+      )
+      ..add(
+        'lastDeactivatedTime',
+        lastDeactivatedTime,
+      )
+      ..add(
+        'lastErrorCode',
+        lastErrorCode,
+      )
+      ..add(
+        'lastErrorMessage',
+        lastErrorMessage,
+      )
+      ..add(
+        'firstEvaluationStarted',
+        firstEvaluationStarted,
+      )
+      ..add(
+        'lastDebugLogDeliveryStatus',
+        lastDebugLogDeliveryStatus,
+      )
+      ..add(
+        'lastDebugLogDeliveryStatusReason',
+        lastDebugLogDeliveryStatusReason,
+      )
+      ..add(
+        'lastDebugLogDeliveryTime',
+        lastDebugLogDeliveryTime,
+      );
     return helper.toString();
   }
 }
@@ -343,6 +345,13 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
       :lastDebugLogDeliveryStatusReason,
       :lastDebugLogDeliveryTime
     ) = object;
+    result$.addAll([
+      'FirstEvaluationStarted',
+      serializers.serialize(
+        firstEvaluationStarted,
+        specifiedType: const FullType(bool),
+      ),
+    ]);
     if (configRuleName != null) {
       result$
         ..add('ConfigRuleName')
@@ -429,14 +438,6 @@ class ConfigRuleEvaluationStatusAwsJson11Serializer
         ..add(serializers.serialize(
           lastErrorMessage,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (firstEvaluationStarted != null) {
-      result$
-        ..add('FirstEvaluationStarted')
-        ..add(serializers.serialize(
-          firstEvaluationStarted,
-          specifiedType: const FullType(bool),
         ));
     }
     if (lastDebugLogDeliveryStatus != null) {

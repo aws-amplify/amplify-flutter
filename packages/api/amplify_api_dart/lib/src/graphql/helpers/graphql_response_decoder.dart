@@ -86,7 +86,7 @@ class GraphQLResponseDecoder {
       if (resultNextToken != null) {
         final variablesWithNextToken = <String, dynamic>{
           ...request.variables,
-          _nextToken: resultNextToken
+          _nextToken: resultNextToken,
         };
         requestForNextResult = GraphQLRequest<T>(
           document: request.document,

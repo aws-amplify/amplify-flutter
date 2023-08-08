@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_bucket_website_output;
+part of 'get_bucket_website_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -87,9 +87,7 @@ class GetBucketWebsiteOutputBuilder
   set routingRules(_i6.ListBuilder<_i5.RoutingRule>? routingRules) =>
       _$this._routingRules = routingRules;
 
-  GetBucketWebsiteOutputBuilder() {
-    GetBucketWebsiteOutput._init(this);
-  }
+  GetBucketWebsiteOutputBuilder();
 
   GetBucketWebsiteOutputBuilder get _$this {
     final $v = _$v;

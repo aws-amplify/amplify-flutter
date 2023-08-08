@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_validation_protocol.model.greeting_struct;
+part of 'greeting_struct.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -46,9 +46,7 @@ class GreetingStructBuilder
   String? get hi => _$this._hi;
   set hi(String? hi) => _$this._hi = hi;
 
-  GreetingStructBuilder() {
-    GreetingStruct._init(this);
-  }
+  GreetingStructBuilder();
 
   GreetingStructBuilder get _$this {
     final $v = _$v;

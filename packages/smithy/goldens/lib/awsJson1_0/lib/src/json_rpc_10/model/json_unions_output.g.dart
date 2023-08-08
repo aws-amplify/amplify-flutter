@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_0_v1.json_rpc_10.model.json_unions_output;
+part of 'json_unions_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -47,9 +47,7 @@ class JsonUnionsOutputBuilder
   _i2.MyUnion? get contents => _$this._contents;
   set contents(_i2.MyUnion? contents) => _$this._contents = contents;
 
-  JsonUnionsOutputBuilder() {
-    JsonUnionsOutput._init(this);
-  }
+  JsonUnionsOutputBuilder();
 
   JsonUnionsOutputBuilder get _$this {
     final $v = _$v;

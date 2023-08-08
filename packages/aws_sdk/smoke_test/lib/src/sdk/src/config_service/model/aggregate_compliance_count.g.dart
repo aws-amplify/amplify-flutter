@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.aggregate_compliance_count;
+part of 'aggregate_compliance_count.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -61,9 +61,7 @@ class AggregateComplianceCountBuilder
   set complianceSummary(_i2.ComplianceSummaryBuilder? complianceSummary) =>
       _$this._complianceSummary = complianceSummary;
 
-  AggregateComplianceCountBuilder() {
-    AggregateComplianceCount._init(this);
-  }
+  AggregateComplianceCountBuilder();
 
   AggregateComplianceCountBuilder get _$this {
     final $v = _$v;

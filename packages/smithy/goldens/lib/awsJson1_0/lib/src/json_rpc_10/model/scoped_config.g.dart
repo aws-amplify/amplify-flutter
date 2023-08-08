@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_0_v1.json_rpc_10.model.scoped_config;
+part of 'scoped_config.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -96,9 +96,7 @@ class ScopedConfigBuilder
   set operation(_i5.OperationConfigBuilder? operation) =>
       _$this._operation = operation;
 
-  ScopedConfigBuilder() {
-    ScopedConfig._init(this);
-  }
+  ScopedConfigBuilder();
 
   ScopedConfigBuilder get _$this {
     final $v = _$v;

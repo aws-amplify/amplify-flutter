@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.template_ssm_document_details; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -10,14 +10,14 @@ import 'package:smithy/smithy.dart' as _i2;
 
 part 'template_ssm_document_details.g.dart';
 
-/// This API allows you to create a conformance pack template with an Amazon Web Services Systems Manager document (SSM document). To deploy a conformance pack using an SSM document, you first create an SSM document with conformance pack content, and then provide the `DocumentName` (and optionally `DocumentVersion`) in the [PutConformancePack API](https://docs.aws.amazon.com/config/latest/APIReference/API_PutConformancePack.html).
+/// This API allows you to create a conformance pack template with an Amazon Web Services Systems Manager document (SSM document). To deploy a conformance pack using an SSM document, first create an SSM document with conformance pack content, and then provide the `DocumentName` in the [PutConformancePack API](https://docs.aws.amazon.com/config/latest/APIReference/API_PutConformancePack.html). You can also provide the `DocumentVersion`.
 ///
 /// The `TemplateSSMDocumentDetails` object contains the name of the SSM document and the version of the SSM document.
 abstract class TemplateSsmDocumentDetails
     with _i1.AWSEquatable<TemplateSsmDocumentDetails>
     implements
         Built<TemplateSsmDocumentDetails, TemplateSsmDocumentDetailsBuilder> {
-  /// This API allows you to create a conformance pack template with an Amazon Web Services Systems Manager document (SSM document). To deploy a conformance pack using an SSM document, you first create an SSM document with conformance pack content, and then provide the `DocumentName` (and optionally `DocumentVersion`) in the [PutConformancePack API](https://docs.aws.amazon.com/config/latest/APIReference/API_PutConformancePack.html).
+  /// This API allows you to create a conformance pack template with an Amazon Web Services Systems Manager document (SSM document). To deploy a conformance pack using an SSM document, first create an SSM document with conformance pack content, and then provide the `DocumentName` in the [PutConformancePack API](https://docs.aws.amazon.com/config/latest/APIReference/API_PutConformancePack.html). You can also provide the `DocumentVersion`.
   ///
   /// The `TemplateSSMDocumentDetails` object contains the name of the SSM document and the version of the SSM document.
   factory TemplateSsmDocumentDetails({
@@ -30,7 +30,7 @@ abstract class TemplateSsmDocumentDetails
     );
   }
 
-  /// This API allows you to create a conformance pack template with an Amazon Web Services Systems Manager document (SSM document). To deploy a conformance pack using an SSM document, you first create an SSM document with conformance pack content, and then provide the `DocumentName` (and optionally `DocumentVersion`) in the [PutConformancePack API](https://docs.aws.amazon.com/config/latest/APIReference/API_PutConformancePack.html).
+  /// This API allows you to create a conformance pack template with an Amazon Web Services Systems Manager document (SSM document). To deploy a conformance pack using an SSM document, first create an SSM document with conformance pack content, and then provide the `DocumentName` in the [PutConformancePack API](https://docs.aws.amazon.com/config/latest/APIReference/API_PutConformancePack.html). You can also provide the `DocumentVersion`.
   ///
   /// The `TemplateSSMDocumentDetails` object contains the name of the SSM document and the version of the SSM document.
   factory TemplateSsmDocumentDetails.build(
@@ -39,14 +39,10 @@ abstract class TemplateSsmDocumentDetails
 
   const TemplateSsmDocumentDetails._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    TemplateSsmDocumentDetailsAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<TemplateSsmDocumentDetails>>
+      serializers = [TemplateSsmDocumentDetailsAwsJson11Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TemplateSsmDocumentDetailsBuilder b) {}
-
-  /// The name or Amazon Resource Name (ARN) of the SSM document to use to create a conformance pack. If you use the Document Name, Config checks only your account and region for the SSM document. If you want to use an SSM document from another region or account, you must provide the ARN.
+  /// The name or Amazon Resource Name (ARN) of the SSM document to use to create a conformance pack. If you use the document name, Config checks only your account and Amazon Web Services Region for the SSM document. If you want to use an SSM document from another Region or account, you must provide the ARN.
   String get documentName;
 
   /// The version of the SSM document to use to create a conformance pack. By default, Config uses the latest version.
@@ -60,15 +56,15 @@ abstract class TemplateSsmDocumentDetails
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TemplateSsmDocumentDetails');
-    helper.add(
-      'documentName',
-      documentName,
-    );
-    helper.add(
-      'documentVersion',
-      documentVersion,
-    );
+    final helper = newBuiltValueToStringHelper('TemplateSsmDocumentDetails')
+      ..add(
+        'documentName',
+        documentName,
+      )
+      ..add(
+        'documentVersion',
+        documentVersion,
+      );
     return helper.toString();
   }
 }

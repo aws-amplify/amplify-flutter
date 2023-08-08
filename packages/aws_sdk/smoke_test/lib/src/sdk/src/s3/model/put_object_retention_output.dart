@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.put_object_retention_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,8 @@ abstract class PutObjectRetentionOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PutObjectRetentionOutputRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectRetentionOutputBuilder b) {}
+  static const List<_i2.SmithySerializer<PutObjectRetentionOutputPayload>>
+      serializers = [PutObjectRetentionOutputRestXmlSerializer()];
 
   /// If present, indicates that the requester was successfully charged for the request.
   _i3.RequestCharged? get requestCharged;
@@ -56,11 +52,11 @@ abstract class PutObjectRetentionOutput
   List<Object?> get props => [requestCharged];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutObjectRetentionOutput');
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
+    final helper = newBuiltValueToStringHelper('PutObjectRetentionOutput')
+      ..add(
+        'requestCharged',
+        requestCharged,
+      );
     return helper.toString();
   }
 }
@@ -79,8 +75,6 @@ abstract class PutObjectRetentionOutputPayload
 
   const PutObjectRetentionOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectRetentionOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

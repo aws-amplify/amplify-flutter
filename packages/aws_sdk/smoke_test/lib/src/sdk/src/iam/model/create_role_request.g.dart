@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.create_role_request;
+part of 'create_role_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -113,9 +113,7 @@ class CreateRoleRequestBuilder
       _$this._tags ??= new _i4.ListBuilder<_i3.Tag>();
   set tags(_i4.ListBuilder<_i3.Tag>? tags) => _$this._tags = tags;
 
-  CreateRoleRequestBuilder() {
-    CreateRoleRequest._init(this);
-  }
+  CreateRoleRequestBuilder();
 
   CreateRoleRequestBuilder get _$this {
     final $v = _$v;

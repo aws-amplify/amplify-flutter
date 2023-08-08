@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.ssh_public_key;
+part of 'ssh_public_key.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -105,9 +105,7 @@ class SshPublicKeyBuilder
   DateTime? get uploadDate => _$this._uploadDate;
   set uploadDate(DateTime? uploadDate) => _$this._uploadDate = uploadDate;
 
-  SshPublicKeyBuilder() {
-    SshPublicKey._init(this);
-  }
+  SshPublicKeyBuilder();
 
   SshPublicKeyBuilder get _$this {
     final $v = _$v;

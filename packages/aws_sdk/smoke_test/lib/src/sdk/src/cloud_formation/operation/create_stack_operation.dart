@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.operation.create_stack_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -26,10 +26,10 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/limit_exceeded_exce
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/token_already_exists_exception.dart'
     as _i12;
 
-/// Creates a stack as specified in the template. After the call completes successfully, the stack creation starts. You can check the status of the stack through the DescribeStacksoperation.
+/// Creates a stack as specified in the template. After the call completes successfully, the stack creation starts. You can check the status of the stack through the DescribeStacks operation.
 class CreateStackOperation extends _i1.HttpOperation<_i2.CreateStackInput,
     _i2.CreateStackInput, _i3.CreateStackOutput, _i3.CreateStackOutput> {
-  /// Creates a stack as specified in the template. After the call completes successfully, the stack creation starts. You can check the status of the stack through the DescribeStacksoperation.
+  /// Creates a stack as specified in the template. After the call completes successfully, the stack creation starts. You can check the status of the stack through the DescribeStacks operation.
   CreateStackOperation({
     required String region,
     Uri? baseUri,
@@ -126,7 +126,7 @@ class CreateStackOperation extends _i1.HttpOperation<_i2.CreateStackInput,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.AlreadyExistsException, _i9.AlreadyExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'AlreadyExistsException',
@@ -136,7 +136,8 @@ class CreateStackOperation extends _i1.HttpOperation<_i2.CreateStackInput,
           statusCode: 400,
           builder: _i9.AlreadyExistsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InsufficientCapabilitiesException,
+            _i10.InsufficientCapabilitiesException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'InsufficientCapabilitiesException',
@@ -146,7 +147,8 @@ class CreateStackOperation extends _i1.HttpOperation<_i2.CreateStackInput,
           statusCode: 400,
           builder: _i10.InsufficientCapabilitiesException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.LimitExceededException,
+            _i11.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'LimitExceededException',
@@ -156,7 +158,8 @@ class CreateStackOperation extends _i1.HttpOperation<_i2.CreateStackInput,
           statusCode: 400,
           builder: _i11.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.TokenAlreadyExistsException,
+            _i12.TokenAlreadyExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'TokenAlreadyExistsException',
@@ -189,7 +192,7 @@ class CreateStackOperation extends _i1.HttpOperation<_i2.CreateStackInput,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

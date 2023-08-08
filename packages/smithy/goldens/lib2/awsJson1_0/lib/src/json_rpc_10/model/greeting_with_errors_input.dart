@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library aws_json1_0_v2.json_rpc_10.model.greeting_with_errors_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,12 +32,9 @@ abstract class GreetingWithErrorsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GreetingWithErrorsInputAwsJson10Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GreetingWithErrorsInput>> serializers =
+      [GreetingWithErrorsInputAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GreetingWithErrorsInputBuilder b) {}
   String? get greeting;
   @override
   GreetingWithErrorsInput getPayload() => this;
@@ -45,11 +42,11 @@ abstract class GreetingWithErrorsInput
   List<Object?> get props => [greeting];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GreetingWithErrorsInput');
-    helper.add(
-      'greeting',
-      greeting,
-    );
+    final helper = newBuiltValueToStringHelper('GreetingWithErrorsInput')
+      ..add(
+        'greeting',
+        greeting,
+      );
     return helper.toString();
   }
 }

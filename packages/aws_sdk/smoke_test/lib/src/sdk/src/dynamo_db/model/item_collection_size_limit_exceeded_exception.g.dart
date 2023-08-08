@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.item_collection_size_limit_exceeded_exception;
+part of 'item_collection_size_limit_exceeded_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -69,9 +69,7 @@ class ItemCollectionSizeLimitExceededExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ItemCollectionSizeLimitExceededExceptionBuilder() {
-    ItemCollectionSizeLimitExceededException._init(this);
-  }
+  ItemCollectionSizeLimitExceededExceptionBuilder();
 
   ItemCollectionSizeLimitExceededExceptionBuilder get _$this {
     final $v = _$v;

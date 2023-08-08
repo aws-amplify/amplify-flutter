@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.get_compliance_details_by_config_rule_request;
+part of 'get_compliance_details_by_config_rule_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -13,7 +13,7 @@ class _$GetComplianceDetailsByConfigRuleRequest
   @override
   final _i4.BuiltList<_i3.ComplianceType>? complianceTypes;
   @override
-  final int? limit;
+  final int limit;
   @override
   final String? nextToken;
 
@@ -26,11 +26,13 @@ class _$GetComplianceDetailsByConfigRuleRequest
   _$GetComplianceDetailsByConfigRuleRequest._(
       {required this.configRuleName,
       this.complianceTypes,
-      this.limit,
+      required this.limit,
       this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(configRuleName,
         r'GetComplianceDetailsByConfigRuleRequest', 'configRuleName');
+    BuiltValueNullFieldError.checkNotNull(
+        limit, r'GetComplianceDetailsByConfigRuleRequest', 'limit');
   }
 
   @override
@@ -131,7 +133,8 @@ class GetComplianceDetailsByConfigRuleRequestBuilder
                   r'GetComplianceDetailsByConfigRuleRequest',
                   'configRuleName'),
               complianceTypes: _complianceTypes?.build(),
-              limit: limit,
+              limit: BuiltValueNullFieldError.checkNotNull(
+                  limit, r'GetComplianceDetailsByConfigRuleRequest', 'limit'),
               nextToken: nextToken);
     } catch (_) {
       late String _$failedField;

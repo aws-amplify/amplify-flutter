@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.list_change_sets_input;
+part of 'list_change_sets_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -61,9 +61,7 @@ class ListChangeSetsInputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListChangeSetsInputBuilder() {
-    ListChangeSetsInput._init(this);
-  }
+  ListChangeSetsInputBuilder();
 
   ListChangeSetsInputBuilder get _$this {
     final $v = _$v;

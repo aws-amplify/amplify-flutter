@@ -35,8 +35,8 @@ void main() {
     'onCreateBlog': {
       'id': '<blog id>',
       'name': 'Unit Test Blog',
-      'createdAt': '2022-09-12T18:03:36.230Z'
-    }
+      'createdAt': '2022-09-12T18:03:36.230Z',
+    },
   };
 
   final mockDataString = jsonEncode({

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.scan_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -27,6 +27,8 @@ abstract class ScanOutput
     Map<String, _i2.AttributeValue>? lastEvaluatedKey,
     _i3.ConsumedCapacity? consumedCapacity,
   }) {
+    count ??= 0;
+    scannedCount ??= 0;
     return _$ScanOutput._(
       items: items == null
           ? null
@@ -52,12 +54,16 @@ abstract class ScanOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<ScanOutput>> serializers = [
     ScanOutputAwsJson10Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ScanOutputBuilder b) {}
+  static void _init(ScanOutputBuilder b) {
+    b
+      ..count = 0
+      ..scannedCount = 0;
+  }
 
   /// An array of item attributes that match the scan criteria. Each element in this array consists of an attribute name and the value for that attribute.
   _i4.BuiltList<_i4.BuiltMap<String, _i2.AttributeValue>>? get items;
@@ -67,12 +73,12 @@ abstract class ScanOutput
   /// If you set `ScanFilter` in the request, then `Count` is the number of items returned after the filter was applied, and `ScannedCount` is the number of matching items before the filter was applied.
   ///
   /// If you did not use a filter in the request, then `Count` is the same as `ScannedCount`.
-  int? get count;
+  int get count;
 
   /// The number of items evaluated, before any `ScanFilter` is applied. A high `ScannedCount` value with few, or no, `Count` results indicates an inefficient `Scan` operation. For more information, see [Count and ScannedCount](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#Count) in the _Amazon DynamoDB Developer Guide_.
   ///
   /// If you did not use a filter in the request, then `ScannedCount` is the same as `Count`.
-  int? get scannedCount;
+  int get scannedCount;
 
   /// The primary key of the item where the operation stopped, inclusive of the previous result set. Use this value to start a new operation, excluding this value in the new request.
   ///
@@ -81,7 +87,7 @@ abstract class ScanOutput
   /// If `LastEvaluatedKey` is not empty, it does not necessarily mean that there is more data in the result set. The only way to know when you have reached the end of the result set is when `LastEvaluatedKey` is empty.
   _i4.BuiltMap<String, _i2.AttributeValue>? get lastEvaluatedKey;
 
-  /// The capacity units consumed by the `Scan` operation. The data returned includes the total provisioned throughput consumed, along with statistics for the table and any indexes involved in the operation. `ConsumedCapacity` is only returned if the `ReturnConsumedCapacity` parameter was specified. For more information, see [Provisioned Throughput](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html) in the _Amazon DynamoDB Developer Guide_.
+  /// The capacity units consumed by the `Scan` operation. The data returned includes the total provisioned throughput consumed, along with statistics for the table and any indexes involved in the operation. `ConsumedCapacity` is only returned if the `ReturnConsumedCapacity` parameter was specified. For more information, see [Provisioned Throughput](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughput.html#ItemSizeCalculations.Reads) in the _Amazon DynamoDB Developer Guide_.
   _i3.ConsumedCapacity? get consumedCapacity;
   @override
   List<Object?> get props => [
@@ -93,27 +99,27 @@ abstract class ScanOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ScanOutput');
-    helper.add(
-      'items',
-      items,
-    );
-    helper.add(
-      'count',
-      count,
-    );
-    helper.add(
-      'scannedCount',
-      scannedCount,
-    );
-    helper.add(
-      'lastEvaluatedKey',
-      lastEvaluatedKey,
-    );
-    helper.add(
-      'consumedCapacity',
-      consumedCapacity,
-    );
+    final helper = newBuiltValueToStringHelper('ScanOutput')
+      ..add(
+        'items',
+        items,
+      )
+      ..add(
+        'count',
+        count,
+      )
+      ..add(
+        'scannedCount',
+        scannedCount,
+      )
+      ..add(
+        'lastEvaluatedKey',
+        lastEvaluatedKey,
+      )
+      ..add(
+        'consumedCapacity',
+        consumedCapacity,
+      );
     return helper.toString();
   }
 }
@@ -212,6 +218,18 @@ class ScanOutputAwsJson10Serializer
       :lastEvaluatedKey,
       :consumedCapacity
     ) = object;
+    result$.addAll([
+      'Count',
+      serializers.serialize(
+        count,
+        specifiedType: const FullType(int),
+      ),
+      'ScannedCount',
+      serializers.serialize(
+        scannedCount,
+        specifiedType: const FullType(int),
+      ),
+    ]);
     if (items != null) {
       result$
         ..add('Items')
@@ -229,22 +247,6 @@ class ScanOutputAwsJson10Serializer
               )
             ],
           ),
-        ));
-    }
-    if (count != null) {
-      result$
-        ..add('Count')
-        ..add(serializers.serialize(
-          count,
-          specifiedType: const FullType(int),
-        ));
-    }
-    if (scannedCount != null) {
-      result$
-        ..add('ScannedCount')
-        ..add(serializers.serialize(
-          scannedCount,
-          specifiedType: const FullType(int),
         ));
     }
     if (lastEvaluatedKey != null) {

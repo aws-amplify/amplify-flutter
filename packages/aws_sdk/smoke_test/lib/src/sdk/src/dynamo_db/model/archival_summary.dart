@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.archival_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,9 @@ abstract class ArchivalSummary
 
   const ArchivalSummary._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ArchivalSummary>> serializers = [
     ArchivalSummaryAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ArchivalSummaryBuilder b) {}
 
   /// The date and time when table archival was initiated by DynamoDB, in UNIX epoch time format.
   DateTime? get archivalDateTime;
@@ -58,19 +55,19 @@ abstract class ArchivalSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ArchivalSummary');
-    helper.add(
-      'archivalDateTime',
-      archivalDateTime,
-    );
-    helper.add(
-      'archivalReason',
-      archivalReason,
-    );
-    helper.add(
-      'archivalBackupArn',
-      archivalBackupArn,
-    );
+    final helper = newBuiltValueToStringHelper('ArchivalSummary')
+      ..add(
+        'archivalDateTime',
+        archivalDateTime,
+      )
+      ..add(
+        'archivalReason',
+        archivalReason,
+      )
+      ..add(
+        'archivalBackupArn',
+        archivalBackupArn,
+      );
     return helper.toString();
   }
 }

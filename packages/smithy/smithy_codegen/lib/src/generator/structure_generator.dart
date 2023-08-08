@@ -88,10 +88,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
             if (shape.isOutputShape || shape.isError) fromResponseConstructor,
           ])
           ..methods.addAll([
-            defaultValues(
-              members: members,
-              builderSymbol: builderSymbol,
-            ),
+            if (_initializer case final init?) init,
             ..._fieldGetters(isPayload: false),
             ..._httpInputOverrides,
             if (shape.isInputShape || hasPayload) _getPayload,
@@ -128,10 +125,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
             _privateConstructor,
           ])
           ..methods.addAll([
-            defaultValues(
-              members: payloadMembers,
-              builderSymbol: payloadBuilderSymbol,
-            ),
+            if (_payloadInitializer case final init?) init,
             ..._fieldGetters(isPayload: true),
             _props(payloadMembers),
             _toString(isPayload: true),
@@ -151,16 +145,31 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
       final memberExpressions = <String, Expression>{};
       for (final member in members) {
         final propertyName = member.dartName(ShapeType.structure);
-        final memberSymbol = memberSymbols[member]!;
-        final defaultValue = _defaultValueAssignment(member);
+        final targetShape = context.shapeFor(member.target);
+        final symbolOverrides =
+            context.overridesFor(member) ?? context.overridesFor(targetShape);
+        var defaultValue = member.defaultValue(context);
+        if (defaultValue != null && symbolOverrides != null) {
+          final (value, isConst) = defaultValue;
+          defaultValue = (
+            symbolOverrides.transformToFriendly(
+              value,
+              isNullable: false,
+              isConst: isConst,
+            ),
+            isConst
+          );
+        }
         final isNullable =
-            memberSymbol.typeRef.isNullable! && defaultValue == null;
-        memberExpressions[propertyName] = memberSymbol.transformToInternal(
+            member.isNullable(context, shape) && defaultValue == null;
+        memberExpressions[propertyName] = member.transformFromFriendly(
           name: propertyName,
           isNullable: isNullable,
         );
         if (defaultValue != null) {
-          b.statements.add(defaultValue);
+          b.addExpression(
+            refer(propertyName).assignNullAware(defaultValue.$1),
+          );
         }
       }
       b.addExpression(
@@ -179,7 +188,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
         ..docs.addAll([
           if (shape.hasDocs(context)) shape.formattedDocs(context),
         ])
-        ..optionalParameters.addAll(members.map(_memberParameter))
+        ..optionalParameters.addAll(members.map(memberParameter))
         ..body = body,
     );
   }
@@ -210,12 +219,13 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
       );
 
   /// Creates a constructor [Parameter] for [member].
-  Parameter _memberParameter(MemberShape member) {
-    final deprecatedAnnotation = member.deprecatedAnnotation ??
-        context.shapeFor(member.target).deprecatedAnnotation;
-    final symbol = memberSymbols[member]!.transformFromInternal();
+  Parameter memberParameter(MemberShape member) {
+    final targetShape = context.shapeFor(member.target);
+    final deprecatedAnnotation =
+        member.deprecatedAnnotation ?? targetShape.deprecatedAnnotation;
+    final symbol = member.friendlySymbol;
     final defaultValue = member.defaultValue(context);
-    final isNullable = symbol.typeRef.isNullable! ||
+    final isNullable = member.isNullable(context, shape) ||
         defaultValue != null ||
         _defaultValueAssignment(member) != null;
 
@@ -300,7 +310,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
   Constructor get fromResponseConstructor {
     final Code output;
     if (payloadSymbol == symbol) {
-      if (httpErrorTraits == null) {
+      if (!shape.isError) {
         output = refer('payload').code;
       } else {
         output = refer('payload').property('rebuild').call([
@@ -359,20 +369,39 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
           ]).code,
       );
 
+  /// The initializer (bv `_init` method) for the main struct.
+  Method? get _initializer => defaultValues(
+        members: members,
+        builderSymbol: builderSymbol,
+      );
+
+  /// The initializer (bv `_init` method) for the payload struct.
+  Method? get _payloadInitializer => defaultValues(
+        members: payloadMembers,
+        builderSymbol: payloadBuilderSymbol,
+      );
+
   /// Adds default values to relevant properties.
-  Method defaultValues({
+  Method? defaultValues({
     required List<MemberShape> members,
     required Reference builderSymbol,
   }) {
-    final block = Block((b) {
-      for (final member in members) {
-        final defaultValue =
-            _defaultValueAssignment(member, builder: refer('b'));
-        if (defaultValue != null) {
-          b.statements.add(defaultValue);
-        }
+    final block = BlockBuilder();
+    Expression? currentExpresson;
+    for (final member in members) {
+      final defaultValue = _defaultValueAssignment(
+        member,
+        builder: currentExpresson ?? refer('b'),
+        cascade: members.length > 1,
+      );
+      if (defaultValue != null) {
+        currentExpresson = defaultValue;
       }
-    });
+    }
+    if (currentExpresson == null) {
+      return null;
+    }
+    block.addExpression(currentExpresson);
     return Method.returnsVoid(
       (m) => m
         ..annotations.add(
@@ -388,44 +417,46 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
               ..name = 'b',
           ),
         )
-        ..body = block,
+        ..body = block.build(),
     );
   }
 
-  Code? _defaultValueAssignment(
+  Expression? _defaultValueAssignment(
     MemberShape member, {
-    Reference? builder,
+    Expression? builder,
+    bool cascade = false,
   }) {
-    final useBuilder = builder != null;
     final propertyName = member.dartName(ShapeType.structure);
-    final assign = useBuilder
-        ? builder.property(propertyName).assign
-        : refer(propertyName).assignNullAware;
+    final targetShape = context.shapeFor(member.target);
+    final assign = switch ((builder, cascade, targetShape)) {
+      (final builder?, false, ListShape _ || MapShape _) => (Expression v) =>
+          builder.property(propertyName).property('addAll').call([v]),
+      (final builder?, false, _) => builder.property(propertyName).assign,
+      (final builder?, true, ListShape _ || MapShape _) => (Expression v) =>
+          builder.cascade(propertyName).property('addAll').call([v]),
+      (final builder?, true, _) => builder.cascade(propertyName).assign,
+      _ => refer(propertyName).assignNullAware,
+    };
     // In tests, client implementations that automatically provide values for
     // members marked with the idempotencyToken trait MUST use a constant value
     // of `00000000-0000-4000-8000-000000000000`.
     //
     // https://awslabs.github.io/smithy/1.0/spec/http-protocol-compliance-tests.html#parameter-format
     if (member.isIdempotencyToken) {
-      return Block.of([
-        assign(literalString('00000000-0000-4000-8000-000000000000'))
-            .wrapWithBlockIf(
-          DartTypes.core.bool.constInstanceNamed('hasEnvironment', [
-            literalString('SMITHY_TEST'),
-          ]),
+      return assign(
+        DartTypes.core.bool.constInstanceNamed('hasEnvironment', [
+          literalString('SMITHY_TEST'),
+        ]).conditional(
+          literalString('00000000-0000-4000-8000-000000000000'),
+          DartTypes.awsCommon.uuid(),
         ),
-        const Code('else {'),
-        assign(DartTypes.awsCommon.uuid()).statement,
-        const Code('}'),
-      ]);
+      );
     }
-    final targetShape = context.shapeFor(member.target);
-    final defaultValue =
-        member.defaultValue(context) ?? targetShape.defaultValue(context);
+    final defaultValue = member.defaultValue(context);
     if (defaultValue == null) {
       return null;
     }
-    return assign(defaultValue).statement;
+    return assign(defaultValue.$1);
   }
 
   /// Fields for this type.
@@ -509,7 +540,10 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
       if (hasNestedBuilder) {
         block.statements.add(
           builder.property(memberName).property('replace').call([
-            if (isNullable) refer(memberName).nullChecked else refer(memberName)
+            if (isNullable)
+              refer(memberName).nullChecked
+            else
+              refer(memberName),
           ]).wrapWithBlockIf(
             refer(memberName).notEqualTo(literalNull),
             isNullable,
@@ -584,7 +618,9 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
         (f) => f
           ..static = true
           ..modifier = FieldModifier.constant
-          ..type = DartTypes.core.list(DartTypes.smithy.smithySerializer())
+          ..type = DartTypes.core.list(
+            DartTypes.smithy.smithySerializer(payloadSymbol),
+          )
           ..name = 'serializers'
           ..assignment = literalList(
             serializerClasses.map((name) => refer(name).newInstance([])),
@@ -666,7 +702,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
               DartTypes.core.override,
               DartTypes.builtValue.builtValueField.newInstance([], {
                 'compare': literalFalse,
-              })
+              }),
             ])
             ..returns = DartTypes.core.int.withBoxed(statusCode == null)
             ..type = MethodType.getter
@@ -685,7 +721,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
           DartTypes.core.override,
           DartTypes.builtValue.builtValueField.newInstance([], {
             'compare': literalFalse,
-          })
+          }),
         ])
         ..returns = DartTypes.core
             .map(
@@ -720,7 +756,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
         ShapeType.map,
         ShapeType.list,
         ShapeType.set,
-        ShapeType.structure
+        ShapeType.structure,
       ].contains(targetShapeType);
       if (isNestedBuilder) {
         final isNullable = member.isNullable(context, shape);
@@ -731,7 +767,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
               if (isNullable && member != payloadShape)
                 payloadProp.nullChecked
               else
-                payloadProp
+                payloadProp,
             ])
             .statement
             .wrapWithBlockIf(payloadProp.notEqualTo(literalNull), isNullable);
@@ -791,7 +827,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
                         .property('key')
                         .property('startsWith')
                         .call([literalString(prefixHeaders.trait.value)]).code,
-                ).closure
+                ).closure,
               ])
               .property('map')
               .call([
@@ -810,7 +846,7 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
                       refer('el').property('value'),
                     ]).code,
                 ).closure,
-              ])
+              ]),
       ]).statement;
     }
 
@@ -920,12 +956,8 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
   Method _toString({required bool isPayload}) {
     final builder = BlockBuilder();
     final helper = refer('helper');
-    builder.addExpression(
-      declareFinal('helper').assign(
-        DartTypes.builtValue.newBuiltValueToStringHelper
-            .call([literalString(isPayload ? payloadClassName! : className)]),
-      ),
-    );
+    var helperExpression = DartTypes.builtValue.newBuiltValueToStringHelper
+        .call([literalString(isPayload ? payloadClassName! : className)]);
     final members = isPayload ? payloadMembers : this.members;
     for (final member in members) {
       final dartName = member.dartName(ShapeType.structure);
@@ -934,14 +966,16 @@ class StructureGenerator extends LibraryGenerator<StructureShape>
           context.shapeFor(member.target).hasTrait<SensitiveTrait>();
       final stringValue =
           isSensitive ? literalString('***SENSITIVE***') : refer(dartName);
-      builder.addExpression(
-        helper.property('add').call([
-          literalString(dartName),
-          stringValue,
-        ]),
-      );
+      helperExpression = helperExpression.cascade('add').call([
+        literalString(dartName),
+        stringValue,
+      ]);
     }
-    builder.addExpression(helper.property('toString').call([]).returned);
+    builder
+      ..addExpression(
+        declareFinal('helper').assign(helperExpression),
+      )
+      ..addExpression(helper.property('toString').call([]).returned);
     return Method(
       (m) => m
         ..annotations.add(DartTypes.core.override)

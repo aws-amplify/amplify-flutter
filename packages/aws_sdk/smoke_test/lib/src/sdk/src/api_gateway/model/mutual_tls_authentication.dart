@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.mutual_tls_authentication; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,12 +36,8 @@ abstract class MutualTlsAuthentication
 
   const MutualTlsAuthentication._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    MutualTlsAuthenticationRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MutualTlsAuthenticationBuilder b) {}
+  static const List<_i3.SmithySerializer<MutualTlsAuthentication>> serializers =
+      [MutualTlsAuthenticationRestJson1Serializer()];
 
   /// An Amazon S3 URL that specifies the truststore for mutual TLS authentication, for example `s3://bucket-name/key-name`. The truststore can contain certificates from public or private certificate authorities. To update the truststore, upload a new version to S3, and then update your custom domain name to use the new version. To update the truststore, you must have permissions to access the S3 object.
   String? get truststoreUri;
@@ -59,19 +55,19 @@ abstract class MutualTlsAuthentication
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MutualTlsAuthentication');
-    helper.add(
-      'truststoreUri',
-      truststoreUri,
-    );
-    helper.add(
-      'truststoreVersion',
-      truststoreVersion,
-    );
-    helper.add(
-      'truststoreWarnings',
-      truststoreWarnings,
-    );
+    final helper = newBuiltValueToStringHelper('MutualTlsAuthentication')
+      ..add(
+        'truststoreUri',
+        truststoreUri,
+      )
+      ..add(
+        'truststoreVersion',
+        truststoreVersion,
+      )
+      ..add(
+        'truststoreWarnings',
+        truststoreWarnings,
+      );
     return helper.toString();
   }
 }

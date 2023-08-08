@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.get_object_acl_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -56,12 +56,8 @@ abstract class GetObjectAclOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetObjectAclOutputRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectAclOutputBuilder b) {}
+  static const List<_i2.SmithySerializer<GetObjectAclOutputPayload>>
+      serializers = [GetObjectAclOutputRestXmlSerializer()];
 
   /// Container for the bucket owner's display name and ID.
   _i3.Owner? get owner;
@@ -88,19 +84,19 @@ abstract class GetObjectAclOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectAclOutput');
-    helper.add(
-      'owner',
-      owner,
-    );
-    helper.add(
-      'grants',
-      grants,
-    );
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectAclOutput')
+      ..add(
+        'owner',
+        owner,
+      )
+      ..add(
+        'grants',
+        grants,
+      )
+      ..add(
+        'requestCharged',
+        requestCharged,
+      );
     return helper.toString();
   }
 }
@@ -116,9 +112,6 @@ abstract class GetObjectAclOutputPayload
 
   const GetObjectAclOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectAclOutputPayloadBuilder b) {}
-
   /// A list of grants.
   _i6.BuiltList<_i4.Grant>? get grants;
 
@@ -131,15 +124,15 @@ abstract class GetObjectAclOutputPayload
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectAclOutputPayload');
-    helper.add(
-      'grants',
-      grants,
-    );
-    helper.add(
-      'owner',
-      owner,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectAclOutputPayload')
+      ..add(
+        'grants',
+        grants,
+      )
+      ..add(
+        'owner',
+        owner,
+      );
     return helper.toString();
   }
 }

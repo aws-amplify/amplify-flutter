@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_role_request;
+part of 'get_role_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -49,9 +49,7 @@ class GetRoleRequestBuilder
   String? get roleName => _$this._roleName;
   set roleName(String? roleName) => _$this._roleName = roleName;
 
-  GetRoleRequestBuilder() {
-    GetRoleRequest._init(this);
-  }
+  GetRoleRequestBuilder();
 
   GetRoleRequestBuilder get _$this {
     final $v = _$v;

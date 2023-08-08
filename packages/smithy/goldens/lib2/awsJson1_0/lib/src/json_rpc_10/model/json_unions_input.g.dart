@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_0_v2.json_rpc_10.model.json_unions_input;
+part of 'json_unions_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -46,9 +46,7 @@ class JsonUnionsInputBuilder
   _i3.MyUnion? get contents => _$this._contents;
   set contents(_i3.MyUnion? contents) => _$this._contents = contents;
 
-  JsonUnionsInputBuilder() {
-    JsonUnionsInput._init(this);
-  }
+  JsonUnionsInputBuilder();
 
   JsonUnionsInputBuilder get _$this {
     final $v = _$v;

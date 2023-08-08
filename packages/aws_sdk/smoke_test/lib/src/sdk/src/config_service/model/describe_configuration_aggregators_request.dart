@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.describe_configuration_aggregators_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,6 +23,7 @@ abstract class DescribeConfigurationAggregatorsRequest
     String? nextToken,
     int? limit,
   }) {
+    limit ??= 0;
     return _$DescribeConfigurationAggregatorsRequest._(
       configurationAggregatorNames: configurationAggregatorNames == null
           ? null
@@ -45,12 +46,16 @@ abstract class DescribeConfigurationAggregatorsRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<DescribeConfigurationAggregatorsRequest>>
+      serializers = [
     DescribeConfigurationAggregatorsRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeConfigurationAggregatorsRequestBuilder b) {}
+  static void _init(DescribeConfigurationAggregatorsRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The name of the configuration aggregators.
   _i3.BuiltList<String>? get configurationAggregatorNames;
@@ -59,7 +64,7 @@ abstract class DescribeConfigurationAggregatorsRequest
   String? get nextToken;
 
   /// The maximum number of configuration aggregators returned on each page. The default is maximum. If you specify 0, Config uses the default.
-  int? get limit;
+  int get limit;
   @override
   DescribeConfigurationAggregatorsRequest getPayload() => this;
   @override
@@ -71,19 +76,19 @@ abstract class DescribeConfigurationAggregatorsRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DescribeConfigurationAggregatorsRequest');
-    helper.add(
-      'configurationAggregatorNames',
-      configurationAggregatorNames,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
+        newBuiltValueToStringHelper('DescribeConfigurationAggregatorsRequest')
+          ..add(
+            'configurationAggregatorNames',
+            configurationAggregatorNames,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          )
+          ..add(
+            'limit',
+            limit,
+          );
     return helper.toString();
   }
 }
@@ -157,6 +162,13 @@ class DescribeConfigurationAggregatorsRequestAwsJson11Serializer extends _i1
       :nextToken,
       :limit
     ) = object;
+    result$.addAll([
+      'Limit',
+      serializers.serialize(
+        limit,
+        specifiedType: const FullType(int),
+      ),
+    ]);
     if (configurationAggregatorNames != null) {
       result$
         ..add('ConfigurationAggregatorNames')
@@ -174,14 +186,6 @@ class DescribeConfigurationAggregatorsRequestAwsJson11Serializer extends _i1
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (limit != null) {
-      result$
-        ..add('Limit')
-        ..add(serializers.serialize(
-          limit,
-          specifiedType: const FullType(int),
         ));
     }
     return result$;

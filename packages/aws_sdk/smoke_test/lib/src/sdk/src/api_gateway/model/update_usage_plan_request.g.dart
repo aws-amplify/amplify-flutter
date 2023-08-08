@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.update_usage_plan_request;
+part of 'update_usage_plan_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class UpdateUsagePlanRequestBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateUsagePlanRequestBuilder() {
-    UpdateUsagePlanRequest._init(this);
-  }
+  UpdateUsagePlanRequestBuilder();
 
   UpdateUsagePlanRequestBuilder get _$this {
     final $v = _$v;
@@ -162,9 +160,7 @@ class UpdateUsagePlanRequestPayloadBuilder
   set patchOperations(_i4.ListBuilder<_i3.PatchOperation>? patchOperations) =>
       _$this._patchOperations = patchOperations;
 
-  UpdateUsagePlanRequestPayloadBuilder() {
-    UpdateUsagePlanRequestPayload._init(this);
-  }
+  UpdateUsagePlanRequestPayloadBuilder();
 
   UpdateUsagePlanRequestPayloadBuilder get _$this {
     final $v = _$v;

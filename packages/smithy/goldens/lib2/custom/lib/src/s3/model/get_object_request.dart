@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library custom_v2.s3.model.get_object_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -53,12 +53,9 @@ abstract class GetObjectRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetObjectRequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<GetObjectRequestPayload>> serializers =
+      [GetObjectRequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectRequestBuilder b) {}
   String get bucket;
   String get key;
   String? get range;
@@ -86,19 +83,19 @@ abstract class GetObjectRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'range',
-      range,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'range',
+        range,
+      );
     return helper.toString();
   }
 }
@@ -115,8 +112,6 @@ abstract class GetObjectRequestPayload
 
   const GetObjectRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

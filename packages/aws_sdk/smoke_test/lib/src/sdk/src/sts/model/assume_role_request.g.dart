@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.assume_role_request;
+part of 'assume_role_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -153,9 +153,7 @@ class AssumeRoleRequestBuilder
   set sourceIdentity(String? sourceIdentity) =>
       _$this._sourceIdentity = sourceIdentity;
 
-  AssumeRoleRequestBuilder() {
-    AssumeRoleRequest._init(this);
-  }
+  AssumeRoleRequestBuilder();
 
   AssumeRoleRequestBuilder get _$this {
     final $v = _$v;

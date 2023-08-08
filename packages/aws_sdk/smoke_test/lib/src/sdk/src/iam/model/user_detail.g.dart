@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.user_detail;
+part of 'user_detail.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -141,9 +141,7 @@ class UserDetailBuilder implements Builder<UserDetail, UserDetailBuilder> {
       _$this._tags ??= new _i6.ListBuilder<_i5.Tag>();
   set tags(_i6.ListBuilder<_i5.Tag>? tags) => _$this._tags = tags;
 
-  UserDetailBuilder() {
-    UserDetail._init(this);
-  }
+  UserDetailBuilder();
 
   UserDetailBuilder get _$this {
     final $v = _$v;

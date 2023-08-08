@@ -5,6 +5,7 @@ import 'package:amplify_core/amplify_core.dart';
 
 part 'sign_up_result.g.dart';
 
+/// {@category Auth}
 @zAmplifySerializable
 class SignUpResult
     with

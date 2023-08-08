@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1_v2.machine_learning.model.invalid_input_exception;
+part of 'invalid_input_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -64,9 +64,7 @@ class InvalidInputExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InvalidInputExceptionBuilder() {
-    InvalidInputException._init(this);
-  }
+  InvalidInputExceptionBuilder();
 
   InvalidInputExceptionBuilder get _$this {
     final $v = _$v;

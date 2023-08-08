@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.put_integration_request;
+part of 'put_integration_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -218,9 +218,7 @@ class PutIntegrationRequestBuilder
   set tlsConfig(_i6.TlsConfigBuilder? tlsConfig) =>
       _$this._tlsConfig = tlsConfig;
 
-  PutIntegrationRequestBuilder() {
-    PutIntegrationRequest._init(this);
-  }
+  PutIntegrationRequestBuilder();
 
   PutIntegrationRequestBuilder get _$this {
     final $v = _$v;
@@ -492,9 +490,7 @@ class PutIntegrationRequestPayloadBuilder
   String? get uri => _$this._uri;
   set uri(String? uri) => _$this._uri = uri;
 
-  PutIntegrationRequestPayloadBuilder() {
-    PutIntegrationRequestPayload._init(this);
-  }
+  PutIntegrationRequestPayloadBuilder();
 
   PutIntegrationRequestPayloadBuilder get _$this {
     final $v = _$v;

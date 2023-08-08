@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.describe_global_table_settings_input;
+part of 'describe_global_table_settings_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -57,9 +57,7 @@ class DescribeGlobalTableSettingsInputBuilder
   set globalTableName(String? globalTableName) =>
       _$this._globalTableName = globalTableName;
 
-  DescribeGlobalTableSettingsInputBuilder() {
-    DescribeGlobalTableSettingsInput._init(this);
-  }
+  DescribeGlobalTableSettingsInputBuilder();
 
   DescribeGlobalTableSettingsInputBuilder get _$this {
     final $v = _$v;

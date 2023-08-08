@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.payload_config;
+part of 'payload_config.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -45,9 +45,7 @@ class PayloadConfigBuilder
   int? get data => _$this._data;
   set data(int? data) => _$this._data = data;
 
-  PayloadConfigBuilder() {
-    PayloadConfig._init(this);
-  }
+  PayloadConfigBuilder();
 
   PayloadConfigBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.head_object_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -252,12 +252,8 @@ abstract class HeadObjectOutput
                 )));
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    HeadObjectOutputRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HeadObjectOutputBuilder b) {}
+  static const List<_i2.SmithySerializer<HeadObjectOutputPayload>> serializers =
+      [HeadObjectOutputRestXmlSerializer()];
 
   /// Specifies whether the object retrieved was (true) or was not (false) a Delete Marker. If false, this response header does not appear in the response.
   bool? get deleteMarker;
@@ -330,7 +326,7 @@ abstract class HeadObjectOutput
   /// If the bucket is configured as a website, redirects requests for this object to another object in the same bucket or to an external URL. Amazon S3 stores the value of this header in the object metadata.
   String? get websiteRedirectLocation;
 
-  /// If the object is stored using server-side encryption either with an Amazon Web Services KMS key or an Amazon S3-managed encryption key, the response includes this header with the value of the server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).
+  /// The server-side encryption algorithm used when storing this object in Amazon S3 (for example, `AES256`, `aws:kms`, `aws:kms:dsse`).
   _i5.ServerSideEncryption? get serverSideEncryption;
 
   /// A map of metadata to store with the object in S3.
@@ -342,10 +338,10 @@ abstract class HeadObjectOutput
   /// If server-side encryption with a customer-provided encryption key was requested, the response will include this header to provide round-trip message integrity verification of the customer-provided encryption key.
   String? get sseCustomerKeyMd5;
 
-  /// If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric customer managed key that was used for the object.
+  /// If present, specifies the ID of the Key Management Service (KMS) symmetric encryption customer managed key that was used for the object.
   String? get ssekmsKeyId;
 
-  /// Indicates whether the object uses an S3 Bucket Key for server-side encryption with Amazon Web Services KMS (SSE-KMS).
+  /// Indicates whether the object uses an S3 Bucket Key for server-side encryption with Key Management Service (KMS) keys (SSE-KMS).
   bool? get bucketKeyEnabled;
 
   /// Provides storage class information of the object. Amazon S3 returns this header for all objects except for S3 Standard storage class objects.
@@ -424,143 +420,143 @@ abstract class HeadObjectOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('HeadObjectOutput');
-    helper.add(
-      'deleteMarker',
-      deleteMarker,
-    );
-    helper.add(
-      'acceptRanges',
-      acceptRanges,
-    );
-    helper.add(
-      'expiration',
-      expiration,
-    );
-    helper.add(
-      'restore',
-      restore,
-    );
-    helper.add(
-      'archiveStatus',
-      archiveStatus,
-    );
-    helper.add(
-      'lastModified',
-      lastModified,
-    );
-    helper.add(
-      'contentLength',
-      contentLength,
-    );
-    helper.add(
-      'checksumCrc32',
-      checksumCrc32,
-    );
-    helper.add(
-      'checksumCrc32C',
-      checksumCrc32C,
-    );
-    helper.add(
-      'checksumSha1',
-      checksumSha1,
-    );
-    helper.add(
-      'checksumSha256',
-      checksumSha256,
-    );
-    helper.add(
-      'eTag',
-      eTag,
-    );
-    helper.add(
-      'missingMeta',
-      missingMeta,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'cacheControl',
-      cacheControl,
-    );
-    helper.add(
-      'contentDisposition',
-      contentDisposition,
-    );
-    helper.add(
-      'contentEncoding',
-      contentEncoding,
-    );
-    helper.add(
-      'contentLanguage',
-      contentLanguage,
-    );
-    helper.add(
-      'contentType',
-      contentType,
-    );
-    helper.add(
-      'expires',
-      expires,
-    );
-    helper.add(
-      'websiteRedirectLocation',
-      websiteRedirectLocation,
-    );
-    helper.add(
-      'serverSideEncryption',
-      serverSideEncryption,
-    );
-    helper.add(
-      'metadata',
-      metadata,
-    );
-    helper.add(
-      'sseCustomerAlgorithm',
-      sseCustomerAlgorithm,
-    );
-    helper.add(
-      'sseCustomerKeyMd5',
-      sseCustomerKeyMd5,
-    );
-    helper.add(
-      'ssekmsKeyId',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'bucketKeyEnabled',
-      bucketKeyEnabled,
-    );
-    helper.add(
-      'storageClass',
-      storageClass,
-    );
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
-    helper.add(
-      'replicationStatus',
-      replicationStatus,
-    );
-    helper.add(
-      'partsCount',
-      partsCount,
-    );
-    helper.add(
-      'objectLockMode',
-      objectLockMode,
-    );
-    helper.add(
-      'objectLockRetainUntilDate',
-      objectLockRetainUntilDate,
-    );
-    helper.add(
-      'objectLockLegalHoldStatus',
-      objectLockLegalHoldStatus,
-    );
+    final helper = newBuiltValueToStringHelper('HeadObjectOutput')
+      ..add(
+        'deleteMarker',
+        deleteMarker,
+      )
+      ..add(
+        'acceptRanges',
+        acceptRanges,
+      )
+      ..add(
+        'expiration',
+        expiration,
+      )
+      ..add(
+        'restore',
+        restore,
+      )
+      ..add(
+        'archiveStatus',
+        archiveStatus,
+      )
+      ..add(
+        'lastModified',
+        lastModified,
+      )
+      ..add(
+        'contentLength',
+        contentLength,
+      )
+      ..add(
+        'checksumCrc32',
+        checksumCrc32,
+      )
+      ..add(
+        'checksumCrc32C',
+        checksumCrc32C,
+      )
+      ..add(
+        'checksumSha1',
+        checksumSha1,
+      )
+      ..add(
+        'checksumSha256',
+        checksumSha256,
+      )
+      ..add(
+        'eTag',
+        eTag,
+      )
+      ..add(
+        'missingMeta',
+        missingMeta,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'cacheControl',
+        cacheControl,
+      )
+      ..add(
+        'contentDisposition',
+        contentDisposition,
+      )
+      ..add(
+        'contentEncoding',
+        contentEncoding,
+      )
+      ..add(
+        'contentLanguage',
+        contentLanguage,
+      )
+      ..add(
+        'contentType',
+        contentType,
+      )
+      ..add(
+        'expires',
+        expires,
+      )
+      ..add(
+        'websiteRedirectLocation',
+        websiteRedirectLocation,
+      )
+      ..add(
+        'serverSideEncryption',
+        serverSideEncryption,
+      )
+      ..add(
+        'metadata',
+        metadata,
+      )
+      ..add(
+        'sseCustomerAlgorithm',
+        sseCustomerAlgorithm,
+      )
+      ..add(
+        'sseCustomerKeyMd5',
+        sseCustomerKeyMd5,
+      )
+      ..add(
+        'ssekmsKeyId',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'bucketKeyEnabled',
+        bucketKeyEnabled,
+      )
+      ..add(
+        'storageClass',
+        storageClass,
+      )
+      ..add(
+        'requestCharged',
+        requestCharged,
+      )
+      ..add(
+        'replicationStatus',
+        replicationStatus,
+      )
+      ..add(
+        'partsCount',
+        partsCount,
+      )
+      ..add(
+        'objectLockMode',
+        objectLockMode,
+      )
+      ..add(
+        'objectLockRetainUntilDate',
+        objectLockRetainUntilDate,
+      )
+      ..add(
+        'objectLockLegalHoldStatus',
+        objectLockLegalHoldStatus,
+      );
     return helper.toString();
   }
 }
@@ -577,8 +573,6 @@ abstract class HeadObjectOutputPayload
 
   const HeadObjectOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HeadObjectOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

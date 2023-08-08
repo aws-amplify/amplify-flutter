@@ -15,7 +15,7 @@ class TraitMap extends DelegatingMap<ShapeId, Trait> {
 
   /// Creates a [TraitMap] from [traits].
   factory TraitMap.fromTraits(Iterable<Trait> traits) =>
-      TraitMap({for (var trait in traits) trait.shapeId: trait});
+      TraitMap({for (final trait in traits) trait.shapeId: trait});
 
   /// Returns the trait of type [T], if it exists on the shape.
   T? getTrait<T extends Trait>() => values.whereType<T>().firstOrNull;

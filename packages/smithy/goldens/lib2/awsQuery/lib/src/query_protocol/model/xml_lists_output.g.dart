@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v2.query_protocol.model.xml_lists_output;
+part of 'xml_lists_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -200,9 +200,7 @@ class XmlListsOutputBuilder
   set structureList(_i5.ListBuilder<_i4.StructureListMember>? structureList) =>
       _$this._structureList = structureList;
 
-  XmlListsOutputBuilder() {
-    XmlListsOutput._init(this);
-  }
+  XmlListsOutputBuilder();
 
   XmlListsOutputBuilder get _$this {
     final $v = _$v;

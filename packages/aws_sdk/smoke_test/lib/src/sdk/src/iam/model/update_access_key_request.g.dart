@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.update_access_key_request;
+part of 'update_access_key_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -72,9 +72,7 @@ class UpdateAccessKeyRequestBuilder
   _i3.StatusType? get status => _$this._status;
   set status(_i3.StatusType? status) => _$this._status = status;
 
-  UpdateAccessKeyRequestBuilder() {
-    UpdateAccessKeyRequest._init(this);
-  }
+  UpdateAccessKeyRequestBuilder();
 
   UpdateAccessKeyRequestBuilder get _$this {
     final $v = _$v;

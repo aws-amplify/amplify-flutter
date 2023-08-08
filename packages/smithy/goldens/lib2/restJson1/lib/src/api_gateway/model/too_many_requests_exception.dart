@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v2.api_gateway.model.too_many_requests_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -46,12 +46,9 @@ abstract class TooManyRequestsException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    TooManyRequestsExceptionRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<TooManyRequestsExceptionPayload>>
+      serializers = [TooManyRequestsExceptionRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TooManyRequestsExceptionBuilder b) {}
   String? get retryAfterSeconds;
   @override
   String? get message;
@@ -82,15 +79,15 @@ abstract class TooManyRequestsException
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TooManyRequestsException');
-    helper.add(
-      'retryAfterSeconds',
-      retryAfterSeconds,
-    );
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('TooManyRequestsException')
+      ..add(
+        'retryAfterSeconds',
+        retryAfterSeconds,
+      )
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }
@@ -108,19 +105,17 @@ abstract class TooManyRequestsExceptionPayload
 
   const TooManyRequestsExceptionPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TooManyRequestsExceptionPayloadBuilder b) {}
   String? get message;
   @override
   List<Object?> get props => [message];
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('TooManyRequestsExceptionPayload');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('TooManyRequestsExceptionPayload')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

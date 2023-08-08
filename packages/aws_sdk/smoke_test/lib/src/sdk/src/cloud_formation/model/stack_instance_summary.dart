@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.stack_instance_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,6 +32,7 @@ abstract class StackInstanceSummary
     String? organizationalUnitId,
     _i4.StackDriftStatus? driftStatus,
     DateTime? lastDriftCheckTimestamp,
+    String? lastOperationId,
   }) {
     return _$StackInstanceSummary._(
       stackSetId: stackSetId,
@@ -44,6 +45,7 @@ abstract class StackInstanceSummary
       organizationalUnitId: organizationalUnitId,
       driftStatus: driftStatus,
       lastDriftCheckTimestamp: lastDriftCheckTimestamp,
+      lastOperationId: lastOperationId,
     );
   }
 
@@ -54,12 +56,9 @@ abstract class StackInstanceSummary
 
   const StackInstanceSummary._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<StackInstanceSummary>> serializers = [
     StackInstanceSummaryAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackInstanceSummaryBuilder b) {}
 
   /// The name or unique ID of the stack set that the stack instance is associated with.
   String? get stackSetId;
@@ -108,6 +107,9 @@ abstract class StackInstanceSummary
 
   /// Most recent time when CloudFormation performed a drift detection operation on the stack instance. This value will be `NULL` for any stack instance on which drift detection hasn't yet been performed.
   DateTime? get lastDriftCheckTimestamp;
+
+  /// The last unique ID of a StackSet operation performed on a stack instance.
+  String? get lastOperationId;
   @override
   List<Object?> get props => [
         stackSetId,
@@ -120,50 +122,55 @@ abstract class StackInstanceSummary
         organizationalUnitId,
         driftStatus,
         lastDriftCheckTimestamp,
+        lastOperationId,
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StackInstanceSummary');
-    helper.add(
-      'stackSetId',
-      stackSetId,
-    );
-    helper.add(
-      'region',
-      region,
-    );
-    helper.add(
-      'account',
-      account,
-    );
-    helper.add(
-      'stackId',
-      stackId,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'statusReason',
-      statusReason,
-    );
-    helper.add(
-      'stackInstanceStatus',
-      stackInstanceStatus,
-    );
-    helper.add(
-      'organizationalUnitId',
-      organizationalUnitId,
-    );
-    helper.add(
-      'driftStatus',
-      driftStatus,
-    );
-    helper.add(
-      'lastDriftCheckTimestamp',
-      lastDriftCheckTimestamp,
-    );
+    final helper = newBuiltValueToStringHelper('StackInstanceSummary')
+      ..add(
+        'stackSetId',
+        stackSetId,
+      )
+      ..add(
+        'region',
+        region,
+      )
+      ..add(
+        'account',
+        account,
+      )
+      ..add(
+        'stackId',
+        stackId,
+      )
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'statusReason',
+        statusReason,
+      )
+      ..add(
+        'stackInstanceStatus',
+        stackInstanceStatus,
+      )
+      ..add(
+        'organizationalUnitId',
+        organizationalUnitId,
+      )
+      ..add(
+        'driftStatus',
+        driftStatus,
+      )
+      ..add(
+        'lastDriftCheckTimestamp',
+        lastDriftCheckTimestamp,
+      )
+      ..add(
+        'lastOperationId',
+        lastOperationId,
+      );
     return helper.toString();
   }
 }
@@ -251,6 +258,11 @@ class StackInstanceSummaryAwsQuerySerializer
             value,
             specifiedType: const FullType(DateTime),
           ) as DateTime);
+        case 'LastOperationId':
+          result.lastOperationId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -279,7 +291,8 @@ class StackInstanceSummaryAwsQuerySerializer
       :stackInstanceStatus,
       :organizationalUnitId,
       :driftStatus,
-      :lastDriftCheckTimestamp
+      :lastDriftCheckTimestamp,
+      :lastOperationId
     ) = object;
     if (stackSetId != null) {
       result$
@@ -359,6 +372,14 @@ class StackInstanceSummaryAwsQuerySerializer
         ..add(serializers.serialize(
           lastDriftCheckTimestamp,
           specifiedType: const FullType.nullable(DateTime),
+        ));
+    }
+    if (lastOperationId != null) {
+      result$
+        ..add(const _i5.XmlElementName('LastOperationId'))
+        ..add(serializers.serialize(
+          lastOperationId,
+          specifiedType: const FullType(String),
         ));
     }
     return result$;

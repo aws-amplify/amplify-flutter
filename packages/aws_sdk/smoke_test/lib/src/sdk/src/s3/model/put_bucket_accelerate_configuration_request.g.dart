@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.put_bucket_accelerate_configuration_request;
+part of 'put_bucket_accelerate_configuration_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -95,9 +95,7 @@ class PutBucketAccelerateConfigurationRequestBuilder
   set checksumAlgorithm(_i4.ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
-  PutBucketAccelerateConfigurationRequestBuilder() {
-    PutBucketAccelerateConfigurationRequest._init(this);
-  }
+  PutBucketAccelerateConfigurationRequestBuilder();
 
   PutBucketAccelerateConfigurationRequestBuilder get _$this {
     final $v = _$v;

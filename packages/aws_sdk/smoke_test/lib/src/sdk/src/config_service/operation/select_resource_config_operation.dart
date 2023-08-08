@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.operation.select_resource_config_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -118,7 +118,8 @@ class SelectResourceConfigOperation extends _i1.PaginatedHttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidExpressionException,
+            _i10.InvalidExpressionException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidExpressionException',
@@ -127,7 +128,7 @@ class SelectResourceConfigOperation extends _i1.PaginatedHttpOperation<
           _i10.InvalidExpressionException,
           builder: _i10.InvalidExpressionException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidLimitException, _i11.InvalidLimitException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidLimitException',
@@ -136,7 +137,8 @@ class SelectResourceConfigOperation extends _i1.PaginatedHttpOperation<
           _i11.InvalidLimitException,
           builder: _i11.InvalidLimitException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.InvalidNextTokenException,
+            _i12.InvalidNextTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidNextTokenException',
@@ -168,7 +170,7 @@ class SelectResourceConfigOperation extends _i1.PaginatedHttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)}
+        ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)},
       },
     );
   }
@@ -186,8 +188,6 @@ class SelectResourceConfigOperation extends _i1.PaginatedHttpOperation<
   ) =>
       input.rebuild((b) {
         b.nextToken = token;
-        if (pageSize != null) {
-          b.limit = pageSize;
-        }
+        b.limit = pageSize;
       });
 }

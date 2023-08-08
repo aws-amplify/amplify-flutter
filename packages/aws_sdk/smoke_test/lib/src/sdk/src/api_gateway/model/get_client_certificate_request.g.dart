@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.get_client_certificate_request;
+part of 'get_client_certificate_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -56,9 +56,7 @@ class GetClientCertificateRequestBuilder
   set clientCertificateId(String? clientCertificateId) =>
       _$this._clientCertificateId = clientCertificateId;
 
-  GetClientCertificateRequestBuilder() {
-    GetClientCertificateRequest._init(this);
-  }
+  GetClientCertificateRequestBuilder();
 
   GetClientCertificateRequestBuilder get _$this {
     final $v = _$v;
@@ -132,9 +130,7 @@ class GetClientCertificateRequestPayloadBuilder
             GetClientCertificateRequestPayloadBuilder> {
   _$GetClientCertificateRequestPayload? _$v;
 
-  GetClientCertificateRequestPayloadBuilder() {
-    GetClientCertificateRequestPayload._init(this);
-  }
+  GetClientCertificateRequestPayloadBuilder();
 
   @override
   void replace(GetClientCertificateRequestPayload other) {

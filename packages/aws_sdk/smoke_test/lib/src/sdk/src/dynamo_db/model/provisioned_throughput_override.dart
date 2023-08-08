@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.provisioned_throughput_override; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,12 +31,8 @@ abstract class ProvisionedThroughputOverride
 
   const ProvisionedThroughputOverride._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ProvisionedThroughputOverrideAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ProvisionedThroughputOverrideBuilder b) {}
+  static const List<_i3.SmithySerializer<ProvisionedThroughputOverride>>
+      serializers = [ProvisionedThroughputOverrideAwsJson10Serializer()];
 
   /// Replica-specific read capacity units. If not specified, uses the source table's read capacity settings.
   _i2.Int64? get readCapacityUnits;
@@ -44,11 +40,11 @@ abstract class ProvisionedThroughputOverride
   List<Object?> get props => [readCapacityUnits];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ProvisionedThroughputOverride');
-    helper.add(
-      'readCapacityUnits',
-      readCapacityUnits,
-    );
+    final helper = newBuiltValueToStringHelper('ProvisionedThroughputOverride')
+      ..add(
+        'readCapacityUnits',
+        readCapacityUnits,
+      );
     return helper.toString();
   }
 }

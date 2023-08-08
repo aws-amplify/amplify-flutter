@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.export_summary;
+part of 'export_summary.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class ExportSummaryBuilder
   set exportStatus(_i2.ExportStatus? exportStatus) =>
       _$this._exportStatus = exportStatus;
 
-  ExportSummaryBuilder() {
-    ExportSummary._init(this);
-  }
+  ExportSummaryBuilder();
 
   ExportSummaryBuilder get _$this {
     final $v = _$v;

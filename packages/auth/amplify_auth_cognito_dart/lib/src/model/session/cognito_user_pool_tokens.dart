@@ -75,18 +75,12 @@ abstract class CognitoUserPoolTokens
   String get username => CognitoIdToken(idToken).username;
 
   /// Validates the tokens against the client state.
-  void validate({
-    String? nonce,
-  }) {
-    // Missing nonce values or nonce mismatches should throw exceptions,
-    // indicating the tokens cannot be used.
-    final idTokenNonce = idToken.nonce;
-    if (nonce == null || idTokenNonce == null) {
-      throw const InvalidStateException('Missing nonce');
-    }
-    if (nonce != idTokenNonce) {
-      throw const InvalidStateException('Nonce values do not match');
-    }
+  void validate() {
+    // This method used to validate the `nonce` claim against the value
+    // passed as part of the /authorize call. However, it has since been
+    // removed since it is only relevant to the implicit grant flow (which
+    // we do not support) and interferes with custom Hosted UI implementations.
+    // See: https://github.com/aws-amplify/amplify-flutter/issues/3129
   }
 
   @override

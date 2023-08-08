@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.lifecycle_rule_and_operator;
+part of 'lifecycle_rule_and_operator.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -82,9 +82,7 @@ class LifecycleRuleAndOperatorBuilder
   set objectSizeLessThan(_i3.Int64? objectSizeLessThan) =>
       _$this._objectSizeLessThan = objectSizeLessThan;
 
-  LifecycleRuleAndOperatorBuilder() {
-    LifecycleRuleAndOperator._init(this);
-  }
+  LifecycleRuleAndOperatorBuilder();
 
   LifecycleRuleAndOperatorBuilder get _$this {
     final $v = _$v;

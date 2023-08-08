@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_protocol.model.streaming_traits_with_media_type_input_output;
+part of 'streaming_traits_with_media_type_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -64,9 +64,7 @@ class StreamingTraitsWithMediaTypeInputOutputBuilder
   _i2.Stream<List<int>>? get blob => _$this._blob;
   set blob(_i2.Stream<List<int>>? blob) => _$this._blob = blob;
 
-  StreamingTraitsWithMediaTypeInputOutputBuilder() {
-    StreamingTraitsWithMediaTypeInputOutput._init(this);
-  }
+  StreamingTraitsWithMediaTypeInputOutputBuilder();
 
   StreamingTraitsWithMediaTypeInputOutputBuilder get _$this {
     final $v = _$v;

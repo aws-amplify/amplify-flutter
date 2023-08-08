@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.input_serialization; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,9 @@ abstract class InputSerialization
 
   const InputSerialization._();
 
-  static const List<_i6.SmithySerializer> serializers = [
+  static const List<_i6.SmithySerializer<InputSerialization>> serializers = [
     InputSerializationRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InputSerializationBuilder b) {}
 
   /// Describes the serialization of a CSV-encoded object.
   _i2.CsvInput? get csv;
@@ -67,23 +64,23 @@ abstract class InputSerialization
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InputSerialization');
-    helper.add(
-      'csv',
-      csv,
-    );
-    helper.add(
-      'compressionType',
-      compressionType,
-    );
-    helper.add(
-      'json',
-      json,
-    );
-    helper.add(
-      'parquet',
-      parquet,
-    );
+    final helper = newBuiltValueToStringHelper('InputSerialization')
+      ..add(
+        'csv',
+        csv,
+      )
+      ..add(
+        'compressionType',
+        compressionType,
+      )
+      ..add(
+        'json',
+        json,
+      )
+      ..add(
+        'parquet',
+        parquet,
+      );
     return helper.toString();
   }
 }

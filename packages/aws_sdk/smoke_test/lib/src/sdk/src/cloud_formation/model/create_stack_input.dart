@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.create_stack_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -80,12 +80,9 @@ abstract class CreateStackInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<CreateStackInput>> serializers = [
     CreateStackInputAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateStackInputBuilder b) {}
 
   /// The name that's associated with the stack. The name must be unique in the Region in which you are creating the stack.
   ///
@@ -225,75 +222,75 @@ abstract class CreateStackInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateStackInput');
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'templateBody',
-      templateBody,
-    );
-    helper.add(
-      'templateUrl',
-      templateUrl,
-    );
-    helper.add(
-      'parameters',
-      parameters,
-    );
-    helper.add(
-      'disableRollback',
-      disableRollback,
-    );
-    helper.add(
-      'rollbackConfiguration',
-      rollbackConfiguration,
-    );
-    helper.add(
-      'timeoutInMinutes',
-      timeoutInMinutes,
-    );
-    helper.add(
-      'notificationArNs',
-      notificationArNs,
-    );
-    helper.add(
-      'capabilities',
-      capabilities,
-    );
-    helper.add(
-      'resourceTypes',
-      resourceTypes,
-    );
-    helper.add(
-      'roleArn',
-      roleArn,
-    );
-    helper.add(
-      'onFailure',
-      onFailure,
-    );
-    helper.add(
-      'stackPolicyBody',
-      stackPolicyBody,
-    );
-    helper.add(
-      'stackPolicyUrl',
-      stackPolicyUrl,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'clientRequestToken',
-      clientRequestToken,
-    );
-    helper.add(
-      'enableTerminationProtection',
-      enableTerminationProtection,
-    );
+    final helper = newBuiltValueToStringHelper('CreateStackInput')
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'templateBody',
+        templateBody,
+      )
+      ..add(
+        'templateUrl',
+        templateUrl,
+      )
+      ..add(
+        'parameters',
+        parameters,
+      )
+      ..add(
+        'disableRollback',
+        disableRollback,
+      )
+      ..add(
+        'rollbackConfiguration',
+        rollbackConfiguration,
+      )
+      ..add(
+        'timeoutInMinutes',
+        timeoutInMinutes,
+      )
+      ..add(
+        'notificationArNs',
+        notificationArNs,
+      )
+      ..add(
+        'capabilities',
+        capabilities,
+      )
+      ..add(
+        'resourceTypes',
+        resourceTypes,
+      )
+      ..add(
+        'roleArn',
+        roleArn,
+      )
+      ..add(
+        'onFailure',
+        onFailure,
+      )
+      ..add(
+        'stackPolicyBody',
+        stackPolicyBody,
+      )
+      ..add(
+        'stackPolicyUrl',
+        stackPolicyUrl,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'clientRequestToken',
+        clientRequestToken,
+      )
+      ..add(
+        'enableTerminationProtection',
+        enableTerminationProtection,
+      );
     return helper.toString();
   }
 }

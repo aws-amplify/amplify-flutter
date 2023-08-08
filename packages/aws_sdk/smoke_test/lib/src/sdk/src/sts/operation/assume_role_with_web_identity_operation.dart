@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.sts.operation.assume_role_with_web_identity_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,7 +35,7 @@ import 'package:smoke_test/src/sdk/src/sts/model/region_disabled_exception.dart'
 ///
 /// For mobile applications, we recommend that you use Amazon Cognito. You can use Amazon Cognito with the [Amazon Web Services SDK for iOS Developer Guide](http://aws.amazon.com/sdkforios/) and the [Amazon Web Services SDK for Android Developer Guide](http://aws.amazon.com/sdkforandroid/) to uniquely identify a user. You can also supply the user with a consistent identity throughout the lifetime of an application.
 ///
-/// To learn more about Amazon Cognito, see [Amazon Cognito Overview](https://docs.aws.amazon.com/mobile/sdkforandroid/developerguide/cognito-auth.html#d0e840) in _Amazon Web Services SDK for Android Developer Guide_ and [Amazon Cognito Overview](https://docs.aws.amazon.com/mobile/sdkforios/developerguide/cognito-auth.html#d0e664) in the _Amazon Web Services SDK for iOS Developer Guide_.
+/// To learn more about Amazon Cognito, see [Amazon Cognito identity pools](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html) in _Amazon Cognito Developer Guide_.
 ///
 /// Calling `AssumeRoleWithWebIdentity` does not require the use of Amazon Web Services security credentials. Therefore, you can distribute an application (for example, on mobile devices) that requests temporary security credentials without including long-term Amazon Web Services credentials in the application. You also don't need to deploy server-based proxy services that use long-term Amazon Web Services credentials. Instead, the identity of the caller is validated by using a token from the web identity provider. For a comparison of `AssumeRoleWithWebIdentity` with the other API operations that produce temporary credentials, see [Requesting Temporary Security Credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html) and [Comparing the Amazon Web Services STS API operations](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#stsapi_comparison) in the _IAM User Guide_.
 ///
@@ -49,7 +49,7 @@ import 'package:smoke_test/src/sdk/src/sts/model/region_disabled_exception.dart'
 ///
 /// The temporary security credentials created by `AssumeRoleWithWebIdentity` can be used to make API calls to any Amazon Web Services service with the following exception: you cannot call the STS `GetFederationToken` or `GetSessionToken` API operations.
 ///
-/// (Optional) You can pass inline or managed [session policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session) to this operation. You can pass a single JSON policy document to use as an inline session policy. You can also specify up to 10 managed policies to use as managed session policies. The plaintext that you use for both inline and managed session policies can't exceed 2,048 characters. Passing policies to this operation returns new temporary credentials. The resulting session's permissions are the intersection of the role's identity-based policy and the session policies. You can use the role's temporary credentials in subsequent Amazon Web Services API calls to access resources in the account that owns the role. You cannot use session policies to grant more permissions than those allowed by the identity-based policy of the role that is being assumed. For more information, see [Session Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session) in the _IAM User Guide_.
+/// (Optional) You can pass inline or managed [session policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session) to this operation. You can pass a single JSON policy document to use as an inline session policy. You can also specify up to 10 managed policy Amazon Resource Names (ARNs) to use as managed session policies. The plaintext that you use for both inline and managed session policies can't exceed 2,048 characters. Passing policies to this operation returns new temporary credentials. The resulting session's permissions are the intersection of the role's identity-based policy and the session policies. You can use the role's temporary credentials in subsequent Amazon Web Services API calls to access resources in the account that owns the role. You cannot use session policies to grant more permissions than those allowed by the identity-based policy of the role that is being assumed. For more information, see [Session Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session) in the _IAM User Guide_.
 ///
 /// **Tags**
 ///
@@ -57,7 +57,7 @@ import 'package:smoke_test/src/sdk/src/sts/model/region_disabled_exception.dart'
 ///
 /// You can pass up to 50 session tags. The plaintext session tag keys can’t exceed 128 characters and the values can’t exceed 256 characters. For these and additional limits, see [IAM and STS Character Limits](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html#reference_iam-limits-entity-length) in the _IAM User Guide_.
 ///
-/// An Amazon Web Services conversion compresses the passed session policies and session tags into a packed binary format that has a separate limit. Your request can fail for this limit even if your plaintext meets the other requirements. The `PackedPolicySize` response element indicates by percentage how close the policies and tags for your request are to the upper size limit.
+/// An Amazon Web Services conversion compresses the passed inline session policy, managed policy ARNs, and session tags into a packed binary format that has a separate limit. Your request can fail for this limit even if your plaintext meets the other requirements. The `PackedPolicySize` response element indicates by percentage how close the policies and tags for your request are to the upper size limit.
 ///
 /// You can pass a session tag with the same key as a tag that is attached to the role. When you do, the session tag overrides the role tag with the same key.
 ///
@@ -89,7 +89,7 @@ class AssumeRoleWithWebIdentityOperation extends _i1.HttpOperation<
   ///
   /// For mobile applications, we recommend that you use Amazon Cognito. You can use Amazon Cognito with the [Amazon Web Services SDK for iOS Developer Guide](http://aws.amazon.com/sdkforios/) and the [Amazon Web Services SDK for Android Developer Guide](http://aws.amazon.com/sdkforandroid/) to uniquely identify a user. You can also supply the user with a consistent identity throughout the lifetime of an application.
   ///
-  /// To learn more about Amazon Cognito, see [Amazon Cognito Overview](https://docs.aws.amazon.com/mobile/sdkforandroid/developerguide/cognito-auth.html#d0e840) in _Amazon Web Services SDK for Android Developer Guide_ and [Amazon Cognito Overview](https://docs.aws.amazon.com/mobile/sdkforios/developerguide/cognito-auth.html#d0e664) in the _Amazon Web Services SDK for iOS Developer Guide_.
+  /// To learn more about Amazon Cognito, see [Amazon Cognito identity pools](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html) in _Amazon Cognito Developer Guide_.
   ///
   /// Calling `AssumeRoleWithWebIdentity` does not require the use of Amazon Web Services security credentials. Therefore, you can distribute an application (for example, on mobile devices) that requests temporary security credentials without including long-term Amazon Web Services credentials in the application. You also don't need to deploy server-based proxy services that use long-term Amazon Web Services credentials. Instead, the identity of the caller is validated by using a token from the web identity provider. For a comparison of `AssumeRoleWithWebIdentity` with the other API operations that produce temporary credentials, see [Requesting Temporary Security Credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html) and [Comparing the Amazon Web Services STS API operations](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#stsapi_comparison) in the _IAM User Guide_.
   ///
@@ -103,7 +103,7 @@ class AssumeRoleWithWebIdentityOperation extends _i1.HttpOperation<
   ///
   /// The temporary security credentials created by `AssumeRoleWithWebIdentity` can be used to make API calls to any Amazon Web Services service with the following exception: you cannot call the STS `GetFederationToken` or `GetSessionToken` API operations.
   ///
-  /// (Optional) You can pass inline or managed [session policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session) to this operation. You can pass a single JSON policy document to use as an inline session policy. You can also specify up to 10 managed policies to use as managed session policies. The plaintext that you use for both inline and managed session policies can't exceed 2,048 characters. Passing policies to this operation returns new temporary credentials. The resulting session's permissions are the intersection of the role's identity-based policy and the session policies. You can use the role's temporary credentials in subsequent Amazon Web Services API calls to access resources in the account that owns the role. You cannot use session policies to grant more permissions than those allowed by the identity-based policy of the role that is being assumed. For more information, see [Session Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session) in the _IAM User Guide_.
+  /// (Optional) You can pass inline or managed [session policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session) to this operation. You can pass a single JSON policy document to use as an inline session policy. You can also specify up to 10 managed policy Amazon Resource Names (ARNs) to use as managed session policies. The plaintext that you use for both inline and managed session policies can't exceed 2,048 characters. Passing policies to this operation returns new temporary credentials. The resulting session's permissions are the intersection of the role's identity-based policy and the session policies. You can use the role's temporary credentials in subsequent Amazon Web Services API calls to access resources in the account that owns the role. You cannot use session policies to grant more permissions than those allowed by the identity-based policy of the role that is being assumed. For more information, see [Session Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session) in the _IAM User Guide_.
   ///
   /// **Tags**
   ///
@@ -111,7 +111,7 @@ class AssumeRoleWithWebIdentityOperation extends _i1.HttpOperation<
   ///
   /// You can pass up to 50 session tags. The plaintext session tag keys can’t exceed 128 characters and the values can’t exceed 256 characters. For these and additional limits, see [IAM and STS Character Limits](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html#reference_iam-limits-entity-length) in the _IAM User Guide_.
   ///
-  /// An Amazon Web Services conversion compresses the passed session policies and session tags into a packed binary format that has a separate limit. Your request can fail for this limit even if your plaintext meets the other requirements. The `PackedPolicySize` response element indicates by percentage how close the policies and tags for your request are to the upper size limit.
+  /// An Amazon Web Services conversion compresses the passed inline session policy, managed policy ARNs, and session tags into a packed binary format that has a separate limit. Your request can fail for this limit even if your plaintext meets the other requirements. The `PackedPolicySize` response element indicates by percentage how close the policies and tags for your request are to the upper size limit.
   ///
   /// You can pass a session tag with the same key as a tag that is attached to the role. When you do, the session tag overrides the role tag with the same key.
   ///
@@ -248,7 +248,7 @@ class AssumeRoleWithWebIdentityOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ExpiredTokenException, _i9.ExpiredTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'ExpiredTokenException',
@@ -258,7 +258,8 @@ class AssumeRoleWithWebIdentityOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i9.ExpiredTokenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.IdpCommunicationErrorException,
+            _i10.IdpCommunicationErrorException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'IDPCommunicationErrorException',
@@ -268,7 +269,8 @@ class AssumeRoleWithWebIdentityOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i10.IdpCommunicationErrorException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.IdpRejectedClaimException,
+            _i11.IdpRejectedClaimException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'IDPRejectedClaimException',
@@ -278,7 +280,8 @@ class AssumeRoleWithWebIdentityOperation extends _i1.HttpOperation<
           statusCode: 403,
           builder: _i11.IdpRejectedClaimException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.InvalidIdentityTokenException,
+            _i12.InvalidIdentityTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'InvalidIdentityTokenException',
@@ -288,7 +291,8 @@ class AssumeRoleWithWebIdentityOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i12.InvalidIdentityTokenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.MalformedPolicyDocumentException,
+            _i13.MalformedPolicyDocumentException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'MalformedPolicyDocumentException',
@@ -298,7 +302,8 @@ class AssumeRoleWithWebIdentityOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i13.MalformedPolicyDocumentException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.PackedPolicyTooLargeException,
+            _i14.PackedPolicyTooLargeException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'PackedPolicyTooLargeException',
@@ -308,7 +313,8 @@ class AssumeRoleWithWebIdentityOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i14.PackedPolicyTooLargeException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.RegionDisabledException,
+            _i15.RegionDisabledException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.sts',
             shape: 'RegionDisabledException',
@@ -341,7 +347,7 @@ class AssumeRoleWithWebIdentityOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

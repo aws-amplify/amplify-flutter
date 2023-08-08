@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.describe_stack_resource_drifts_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,8 @@ abstract class DescribeStackResourceDriftsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    DescribeStackResourceDriftsOutputAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeStackResourceDriftsOutputBuilder b) {}
+  static const List<_i4.SmithySerializer<DescribeStackResourceDriftsOutput>>
+      serializers = [DescribeStackResourceDriftsOutputAwsQuerySerializer()];
 
   /// Drift information for the resources that have been checked for drift in the specified stack. This includes actual and expected configuration values for resources where CloudFormation detects drift.
   ///
@@ -64,15 +60,15 @@ abstract class DescribeStackResourceDriftsOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DescribeStackResourceDriftsOutput');
-    helper.add(
-      'stackResourceDrifts',
-      stackResourceDrifts,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        newBuiltValueToStringHelper('DescribeStackResourceDriftsOutput')
+          ..add(
+            'stackResourceDrifts',
+            stackResourceDrifts,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          );
     return helper.toString();
   }
 }

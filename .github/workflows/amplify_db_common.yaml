@@ -34,4 +34,5 @@ jobs:
   test:
     uses: ./.github/workflows/flutter_vm.yaml
     with:
+      package-name: amplify_db_common
       working-directory: packages/common/amplify_db_common

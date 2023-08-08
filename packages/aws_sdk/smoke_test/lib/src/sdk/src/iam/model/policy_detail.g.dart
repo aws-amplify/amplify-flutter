@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.policy_detail;
+part of 'policy_detail.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class PolicyDetailBuilder
   set policyDocument(String? policyDocument) =>
       _$this._policyDocument = policyDocument;
 
-  PolicyDetailBuilder() {
-    PolicyDetail._init(this);
-  }
+  PolicyDetailBuilder();
 
   PolicyDetailBuilder get _$this {
     final $v = _$v;

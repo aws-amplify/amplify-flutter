@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.compliance; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,12 +35,9 @@ abstract class Compliance
 
   const Compliance._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Compliance>> serializers = [
     ComplianceAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ComplianceBuilder b) {}
 
   /// Indicates whether an Amazon Web Services resource or Config rule is compliant.
   ///
@@ -62,15 +59,15 @@ abstract class Compliance
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Compliance');
-    helper.add(
-      'complianceType',
-      complianceType,
-    );
-    helper.add(
-      'complianceContributorCount',
-      complianceContributorCount,
-    );
+    final helper = newBuiltValueToStringHelper('Compliance')
+      ..add(
+        'complianceType',
+        complianceType,
+      )
+      ..add(
+        'complianceContributorCount',
+        complianceContributorCount,
+      );
     return helper.toString();
   }
 }

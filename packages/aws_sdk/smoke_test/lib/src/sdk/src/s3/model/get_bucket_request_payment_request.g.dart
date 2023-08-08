@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_bucket_request_payment_request;
+part of 'get_bucket_request_payment_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class GetBucketRequestPaymentRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetBucketRequestPaymentRequestBuilder() {
-    GetBucketRequestPaymentRequest._init(this);
-  }
+  GetBucketRequestPaymentRequestBuilder();
 
   GetBucketRequestPaymentRequestBuilder get _$this {
     final $v = _$v;
@@ -142,9 +140,7 @@ class GetBucketRequestPaymentRequestPayloadBuilder
             GetBucketRequestPaymentRequestPayloadBuilder> {
   _$GetBucketRequestPaymentRequestPayload? _$v;
 
-  GetBucketRequestPaymentRequestPayloadBuilder() {
-    GetBucketRequestPaymentRequestPayload._init(this);
-  }
+  GetBucketRequestPaymentRequestPayloadBuilder();
 
   @override
   void replace(GetBucketRequestPaymentRequestPayload other) {

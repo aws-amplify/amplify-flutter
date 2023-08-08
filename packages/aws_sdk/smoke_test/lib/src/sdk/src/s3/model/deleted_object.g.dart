@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.deleted_object;
+part of 'deleted_object.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -73,9 +73,7 @@ class DeletedObjectBuilder
   set deleteMarkerVersionId(String? deleteMarkerVersionId) =>
       _$this._deleteMarkerVersionId = deleteMarkerVersionId;
 
-  DeletedObjectBuilder() {
-    DeletedObject._init(this);
-  }
+  DeletedObjectBuilder();
 
   DeletedObjectBuilder get _$this {
     final $v = _$v;

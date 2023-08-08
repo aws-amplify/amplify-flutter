@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.put_role_permissions_boundary_request;
+part of 'put_role_permissions_boundary_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -69,9 +69,7 @@ class PutRolePermissionsBoundaryRequestBuilder
   set permissionsBoundary(String? permissionsBoundary) =>
       _$this._permissionsBoundary = permissionsBoundary;
 
-  PutRolePermissionsBoundaryRequestBuilder() {
-    PutRolePermissionsBoundaryRequest._init(this);
-  }
+  PutRolePermissionsBoundaryRequestBuilder();
 
   PutRolePermissionsBoundaryRequestBuilder get _$this {
     final $v = _$v;

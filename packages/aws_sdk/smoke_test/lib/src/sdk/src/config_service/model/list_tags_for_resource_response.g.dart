@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.list_tags_for_resource_response;
+part of 'list_tags_for_resource_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -60,9 +60,7 @@ class ListTagsForResourceResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListTagsForResourceResponseBuilder() {
-    ListTagsForResourceResponse._init(this);
-  }
+  ListTagsForResourceResponseBuilder();
 
   ListTagsForResourceResponseBuilder get _$this {
     final $v = _$v;

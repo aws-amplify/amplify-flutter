@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.redirect_all_requests_to; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,9 @@ abstract class RedirectAllRequestsTo
 
   const RedirectAllRequestsTo._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<RedirectAllRequestsTo>> serializers = [
     RedirectAllRequestsToRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RedirectAllRequestsToBuilder b) {}
 
   /// Name of the host where requests are redirected.
   String get hostName;
@@ -52,15 +49,15 @@ abstract class RedirectAllRequestsTo
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RedirectAllRequestsTo');
-    helper.add(
-      'hostName',
-      hostName,
-    );
-    helper.add(
-      'protocol',
-      protocol,
-    );
+    final helper = newBuiltValueToStringHelper('RedirectAllRequestsTo')
+      ..add(
+        'hostName',
+        hostName,
+      )
+      ..add(
+        'protocol',
+        protocol,
+      );
     return helper.toString();
   }
 }

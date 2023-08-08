@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.policy_role;
+part of 'policy_role.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -53,9 +53,7 @@ class PolicyRoleBuilder implements Builder<PolicyRole, PolicyRoleBuilder> {
   String? get roleId => _$this._roleId;
   set roleId(String? roleId) => _$this._roleId = roleId;
 
-  PolicyRoleBuilder() {
-    PolicyRole._init(this);
-  }
+  PolicyRoleBuilder();
 
   PolicyRoleBuilder get _$this {
     final $v = _$v;

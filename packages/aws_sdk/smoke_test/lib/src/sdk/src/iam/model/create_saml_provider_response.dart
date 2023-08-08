@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.create_saml_provider_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,8 @@ abstract class CreateSamlProviderResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    CreateSamlProviderResponseAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateSamlProviderResponseBuilder b) {}
+  static const List<_i4.SmithySerializer<CreateSamlProviderResponse>>
+      serializers = [CreateSamlProviderResponseAwsQuerySerializer()];
 
   /// The Amazon Resource Name (ARN) of the new SAML provider resource in IAM.
   String? get samlProviderArn;
@@ -61,15 +57,15 @@ abstract class CreateSamlProviderResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateSamlProviderResponse');
-    helper.add(
-      'samlProviderArn',
-      samlProviderArn,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('CreateSamlProviderResponse')
+      ..add(
+        'samlProviderArn',
+        samlProviderArn,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

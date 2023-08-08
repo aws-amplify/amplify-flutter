@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.delete_backup_input;
+part of 'delete_backup_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -50,9 +50,7 @@ class DeleteBackupInputBuilder
   String? get backupArn => _$this._backupArn;
   set backupArn(String? backupArn) => _$this._backupArn = backupArn;
 
-  DeleteBackupInputBuilder() {
-    DeleteBackupInput._init(this);
-  }
+  DeleteBackupInputBuilder();
 
   DeleteBackupInputBuilder get _$this {
     final $v = _$v;

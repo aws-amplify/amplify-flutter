@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.sign_up_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,7 +43,7 @@ abstract class SignUpResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<SignUpResponse>> serializers = [
     SignUpResponseAwsJson11Serializer()
   ];
 
@@ -67,19 +68,19 @@ abstract class SignUpResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SignUpResponse');
-    helper.add(
-      'userConfirmed',
-      userConfirmed,
-    );
-    helper.add(
-      'codeDeliveryDetails',
-      codeDeliveryDetails,
-    );
-    helper.add(
-      'userSub',
-      userSub,
-    );
+    final helper = newBuiltValueToStringHelper('SignUpResponse')
+      ..add(
+        'userConfirmed',
+        userConfirmed,
+      )
+      ..add(
+        'codeDeliveryDetails',
+        codeDeliveryDetails,
+      )
+      ..add(
+        'userSub',
+        userSub,
+      );
     return helper.toString();
   }
 }
@@ -112,27 +113,25 @@ class SignUpResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'UserConfirmed':
           result.userConfirmed = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(bool),
           ) as bool);
-          break;
         case 'CodeDeliveryDetails':
-          if (value != null) {
-            result.codeDeliveryDetails.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.CodeDeliveryDetailsType),
-            ) as _i2.CodeDeliveryDetailsType));
-          }
-          break;
+          result.codeDeliveryDetails.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.CodeDeliveryDetailsType),
+          ) as _i2.CodeDeliveryDetailsType));
         case 'UserSub':
           result.userSub = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
       }
     }
 
@@ -142,30 +141,32 @@ class SignUpResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    SignUpResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as SignUpResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final SignUpResponse(:userConfirmed, :codeDeliveryDetails, :userSub) =
+        object;
+    result$.addAll([
       'UserConfirmed',
       serializers.serialize(
-        payload.userConfirmed,
+        userConfirmed,
         specifiedType: const FullType(bool),
       ),
       'UserSub',
       serializers.serialize(
-        payload.userSub,
+        userSub,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.codeDeliveryDetails != null) {
-      result
+    ]);
+    if (codeDeliveryDetails != null) {
+      result$
         ..add('CodeDeliveryDetails')
         ..add(serializers.serialize(
-          payload.codeDeliveryDetails!,
+          codeDeliveryDetails,
           specifiedType: const FullType(_i2.CodeDeliveryDetailsType),
         ));
     }
-    return result;
+    return result$;
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.delete_service_linked_role_response;
+part of 'delete_service_linked_role_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -57,9 +57,7 @@ class DeleteServiceLinkedRoleResponseBuilder
   set deletionTaskId(String? deletionTaskId) =>
       _$this._deletionTaskId = deletionTaskId;
 
-  DeleteServiceLinkedRoleResponseBuilder() {
-    DeleteServiceLinkedRoleResponse._init(this);
-  }
+  DeleteServiceLinkedRoleResponseBuilder();
 
   DeleteServiceLinkedRoleResponseBuilder get _$this {
     final $v = _$v;

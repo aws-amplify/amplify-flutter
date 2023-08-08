@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.list_exports_input;
+part of 'list_exports_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class ListExportsInputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListExportsInputBuilder() {
-    ListExportsInput._init(this);
-  }
+  ListExportsInputBuilder();
 
   ListExportsInputBuilder get _$this {
     final $v = _$v;

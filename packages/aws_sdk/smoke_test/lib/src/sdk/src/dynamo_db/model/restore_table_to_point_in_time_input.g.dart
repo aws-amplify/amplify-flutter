@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.restore_table_to_point_in_time_input;
+part of 'restore_table_to_point_in_time_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -160,9 +160,7 @@ class RestoreTableToPointInTimeInputBuilder
           _i7.SseSpecificationBuilder? sseSpecificationOverride) =>
       _$this._sseSpecificationOverride = sseSpecificationOverride;
 
-  RestoreTableToPointInTimeInputBuilder() {
-    RestoreTableToPointInTimeInput._init(this);
-  }
+  RestoreTableToPointInTimeInputBuilder();
 
   RestoreTableToPointInTimeInputBuilder get _$this {
     final $v = _$v;

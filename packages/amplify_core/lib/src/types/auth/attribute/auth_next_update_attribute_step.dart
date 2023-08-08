@@ -5,6 +5,7 @@ import 'package:amplify_core/amplify_core.dart';
 
 part 'auth_next_update_attribute_step.g.dart';
 
+/// {@category Auth}
 /// {@template amplify_core.auth_next_update_attribute_step}
 /// This wraps all the details around the next step in the user attribute update process.
 ///

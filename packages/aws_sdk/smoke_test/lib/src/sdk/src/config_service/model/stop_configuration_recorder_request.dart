@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.stop_configuration_recorder_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,8 @@ abstract class StopConfigurationRecorderRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    StopConfigurationRecorderRequestAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StopConfigurationRecorderRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<StopConfigurationRecorderRequest>>
+      serializers = [StopConfigurationRecorderRequestAwsJson11Serializer()];
 
   /// The name of the recorder object that records each configuration change made to the resources.
   String get configurationRecorderName;
@@ -55,11 +51,11 @@ abstract class StopConfigurationRecorderRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('StopConfigurationRecorderRequest');
-    helper.add(
-      'configurationRecorderName',
-      configurationRecorderName,
-    );
+        newBuiltValueToStringHelper('StopConfigurationRecorderRequest')
+          ..add(
+            'configurationRecorderName',
+            configurationRecorderName,
+          );
     return helper.toString();
   }
 }

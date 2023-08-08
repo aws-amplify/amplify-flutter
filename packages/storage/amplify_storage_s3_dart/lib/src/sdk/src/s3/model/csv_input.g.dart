@@ -107,9 +107,7 @@ class CsvInputBuilder implements Builder<CsvInput, CsvInputBuilder> {
   set allowQuotedRecordDelimiter(bool? allowQuotedRecordDelimiter) =>
       _$this._allowQuotedRecordDelimiter = allowQuotedRecordDelimiter;
 
-  CsvInputBuilder() {
-    CsvInput._init(this);
-  }
+  CsvInputBuilder();
 
   CsvInputBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v2.rest_json_protocol.model.simple_scalar_properties_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -92,12 +92,10 @@ abstract class SimpleScalarPropertiesInputOutput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    SimpleScalarPropertiesInputOutputRestJson1Serializer()
-  ];
+  static const List<
+          _i1.SmithySerializer<SimpleScalarPropertiesInputOutputPayload>>
+      serializers = [SimpleScalarPropertiesInputOutputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SimpleScalarPropertiesInputOutputBuilder b) {}
   String? get foo;
   String? get stringValue;
   bool? get trueBooleanValue;
@@ -137,47 +135,47 @@ abstract class SimpleScalarPropertiesInputOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('SimpleScalarPropertiesInputOutput');
-    helper.add(
-      'foo',
-      foo,
-    );
-    helper.add(
-      'stringValue',
-      stringValue,
-    );
-    helper.add(
-      'trueBooleanValue',
-      trueBooleanValue,
-    );
-    helper.add(
-      'falseBooleanValue',
-      falseBooleanValue,
-    );
-    helper.add(
-      'byteValue',
-      byteValue,
-    );
-    helper.add(
-      'shortValue',
-      shortValue,
-    );
-    helper.add(
-      'integerValue',
-      integerValue,
-    );
-    helper.add(
-      'longValue',
-      longValue,
-    );
-    helper.add(
-      'floatValue',
-      floatValue,
-    );
-    helper.add(
-      'doubleValue',
-      doubleValue,
-    );
+        newBuiltValueToStringHelper('SimpleScalarPropertiesInputOutput')
+          ..add(
+            'foo',
+            foo,
+          )
+          ..add(
+            'stringValue',
+            stringValue,
+          )
+          ..add(
+            'trueBooleanValue',
+            trueBooleanValue,
+          )
+          ..add(
+            'falseBooleanValue',
+            falseBooleanValue,
+          )
+          ..add(
+            'byteValue',
+            byteValue,
+          )
+          ..add(
+            'shortValue',
+            shortValue,
+          )
+          ..add(
+            'integerValue',
+            integerValue,
+          )
+          ..add(
+            'longValue',
+            longValue,
+          )
+          ..add(
+            'floatValue',
+            floatValue,
+          )
+          ..add(
+            'doubleValue',
+            doubleValue,
+          );
     return helper.toString();
   }
 }
@@ -195,8 +193,6 @@ abstract class SimpleScalarPropertiesInputOutputPayload
 
   const SimpleScalarPropertiesInputOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SimpleScalarPropertiesInputOutputPayloadBuilder b) {}
   int? get byteValue;
   double? get doubleValue;
   bool? get falseBooleanValue;
@@ -221,43 +217,43 @@ abstract class SimpleScalarPropertiesInputOutputPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('SimpleScalarPropertiesInputOutputPayload');
-    helper.add(
-      'byteValue',
-      byteValue,
-    );
-    helper.add(
-      'doubleValue',
-      doubleValue,
-    );
-    helper.add(
-      'falseBooleanValue',
-      falseBooleanValue,
-    );
-    helper.add(
-      'floatValue',
-      floatValue,
-    );
-    helper.add(
-      'integerValue',
-      integerValue,
-    );
-    helper.add(
-      'longValue',
-      longValue,
-    );
-    helper.add(
-      'shortValue',
-      shortValue,
-    );
-    helper.add(
-      'stringValue',
-      stringValue,
-    );
-    helper.add(
-      'trueBooleanValue',
-      trueBooleanValue,
-    );
+        newBuiltValueToStringHelper('SimpleScalarPropertiesInputOutputPayload')
+          ..add(
+            'byteValue',
+            byteValue,
+          )
+          ..add(
+            'doubleValue',
+            doubleValue,
+          )
+          ..add(
+            'falseBooleanValue',
+            falseBooleanValue,
+          )
+          ..add(
+            'floatValue',
+            floatValue,
+          )
+          ..add(
+            'integerValue',
+            integerValue,
+          )
+          ..add(
+            'longValue',
+            longValue,
+          )
+          ..add(
+            'shortValue',
+            shortValue,
+          )
+          ..add(
+            'stringValue',
+            stringValue,
+          )
+          ..add(
+            'trueBooleanValue',
+            trueBooleanValue,
+          );
     return helper.toString();
   }
 }

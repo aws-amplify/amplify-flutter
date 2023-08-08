@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.list_attached_role_policies_response;
+part of 'list_attached_role_policies_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -11,7 +11,7 @@ class _$ListAttachedRolePoliciesResponse
   @override
   final _i3.BuiltList<_i2.AttachedPolicy>? attachedPolicies;
   @override
-  final bool? isTruncated;
+  final bool isTruncated;
   @override
   final String? marker;
 
@@ -20,8 +20,11 @@ class _$ListAttachedRolePoliciesResponse
       (new ListAttachedRolePoliciesResponseBuilder()..update(updates))._build();
 
   _$ListAttachedRolePoliciesResponse._(
-      {this.attachedPolicies, this.isTruncated, this.marker})
-      : super._();
+      {this.attachedPolicies, required this.isTruncated, this.marker})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        isTruncated, r'ListAttachedRolePoliciesResponse', 'isTruncated');
+  }
 
   @override
   ListAttachedRolePoliciesResponse rebuild(
@@ -107,7 +110,8 @@ class ListAttachedRolePoliciesResponseBuilder
       _$result = _$v ??
           new _$ListAttachedRolePoliciesResponse._(
               attachedPolicies: _attachedPolicies?.build(),
-              isTruncated: isTruncated,
+              isTruncated: BuiltValueNullFieldError.checkNotNull(isTruncated,
+                  r'ListAttachedRolePoliciesResponse', 'isTruncated'),
               marker: marker);
     } catch (_) {
       late String _$failedField;

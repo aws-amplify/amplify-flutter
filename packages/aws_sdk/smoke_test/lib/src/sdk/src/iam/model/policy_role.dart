@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.policy_role; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,12 +43,9 @@ abstract class PolicyRole
 
   const PolicyRole._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<PolicyRole>> serializers = [
     PolicyRoleAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PolicyRoleBuilder b) {}
 
   /// The name (friendly name, not ARN) identifying the role.
   String? get roleName;
@@ -62,15 +59,15 @@ abstract class PolicyRole
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PolicyRole');
-    helper.add(
-      'roleName',
-      roleName,
-    );
-    helper.add(
-      'roleId',
-      roleId,
-    );
+    final helper = newBuiltValueToStringHelper('PolicyRole')
+      ..add(
+        'roleName',
+        roleName,
+      )
+      ..add(
+        'roleId',
+        roleId,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.operation.put_rest_api_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -102,12 +102,10 @@ class PutRestApiOperation extends _i1.HttpOperation<_i2.Uint8List,
             input.mode!.value,
           );
         }
-        if (input.failOnWarnings != null) {
-          b.queryParameters.add(
-            'failonwarnings',
-            input.failOnWarnings!.toString(),
-          );
-        }
+        b.queryParameters.add(
+          'failonwarnings',
+          input.failOnWarnings.toString(),
+        );
         if (input.parameters != null) {
           for (var entry in input.parameters!.toMap().entries) {
             b.queryParameters.add(
@@ -130,7 +128,7 @@ class PutRestApiOperation extends _i1.HttpOperation<_i2.Uint8List,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.BadRequestException, _i10.BadRequestException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'BadRequestException',
@@ -140,7 +138,7 @@ class PutRestApiOperation extends _i1.HttpOperation<_i2.Uint8List,
           statusCode: 400,
           builder: _i10.BadRequestException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.ConflictException, _i11.ConflictException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'ConflictException',
@@ -150,7 +148,8 @@ class PutRestApiOperation extends _i1.HttpOperation<_i2.Uint8List,
           statusCode: 409,
           builder: _i11.ConflictException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.LimitExceededExceptionPayload,
+            _i12.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'LimitExceededException',
@@ -160,7 +159,7 @@ class PutRestApiOperation extends _i1.HttpOperation<_i2.Uint8List,
           statusCode: 429,
           builder: _i12.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.NotFoundException, _i13.NotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'NotFoundException',
@@ -170,7 +169,8 @@ class PutRestApiOperation extends _i1.HttpOperation<_i2.Uint8List,
           statusCode: 404,
           builder: _i13.NotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.TooManyRequestsExceptionPayload,
+            _i14.TooManyRequestsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'TooManyRequestsException',
@@ -180,7 +180,7 @@ class PutRestApiOperation extends _i1.HttpOperation<_i2.Uint8List,
           statusCode: 429,
           builder: _i14.TooManyRequestsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.UnauthorizedException, _i15.UnauthorizedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'UnauthorizedException',
@@ -213,7 +213,7 @@ class PutRestApiOperation extends _i1.HttpOperation<_i2.Uint8List,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)}
+        ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)},
       },
     );
   }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.list_exports_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,9 @@ abstract class ListExportsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ListExportsOutput>> serializers = [
     ListExportsOutputAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListExportsOutputBuilder b) {}
 
   /// A list of `ExportSummary` objects.
   _i3.BuiltList<_i2.ExportSummary>? get exportSummaries;
@@ -58,15 +55,15 @@ abstract class ListExportsOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListExportsOutput');
-    helper.add(
-      'exportSummaries',
-      exportSummaries,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('ListExportsOutput')
+      ..add(
+        'exportSummaries',
+        exportSummaries,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

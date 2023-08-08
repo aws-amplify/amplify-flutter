@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_user_response;
+part of 'get_user_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -48,9 +48,7 @@ class GetUserResponseBuilder
   _i2.UserBuilder get user => _$this._user ??= new _i2.UserBuilder();
   set user(_i2.UserBuilder? user) => _$this._user = user;
 
-  GetUserResponseBuilder() {
-    GetUserResponse._init(this);
-  }
+  GetUserResponseBuilder();
 
   GetUserResponseBuilder get _$this {
     final $v = _$v;

@@ -28,11 +28,13 @@ QueryExecutor connect({
   return LazyDatabase(() async {
     final sqlite3Bytes = await loadSqlite3(client);
     final fs = await IndexedDbFileSystem.open(dbName: 'com.amplify.$name');
-    final sqlite3 = await WasmSqlite3.load(
-      sqlite3Bytes,
-      SqliteEnvironment(fileSystem: fs),
+    final sqlite3 = await WasmSqlite3.load(sqlite3Bytes);
+    sqlite3.registerVirtualFileSystem(fs, makeDefault: true);
+    return WasmDatabase(
+      sqlite3: sqlite3,
+      fileSystem: fs,
+      path: '/drift/$name.db',
     );
-    return WasmDatabase(sqlite3: sqlite3, path: '/drift/$name.db');
   });
 }
 

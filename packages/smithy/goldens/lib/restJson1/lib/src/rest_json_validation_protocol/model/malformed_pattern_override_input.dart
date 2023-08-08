@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.rest_json_validation_protocol.model.malformed_pattern_override_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -47,12 +47,9 @@ abstract class MalformedPatternOverrideInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    MalformedPatternOverrideInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<MalformedPatternOverrideInput>>
+      serializers = [MalformedPatternOverrideInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedPatternOverrideInputBuilder b) {}
   String? get string;
   _i4.BuiltList<String>? get list;
   _i4.BuiltMap<String, String>? get map;
@@ -68,23 +65,23 @@ abstract class MalformedPatternOverrideInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedPatternOverrideInput');
-    helper.add(
-      'string',
-      string,
-    );
-    helper.add(
-      'list',
-      list,
-    );
-    helper.add(
-      'map',
-      map,
-    );
-    helper.add(
-      'union',
-      union,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedPatternOverrideInput')
+      ..add(
+        'string',
+        string,
+      )
+      ..add(
+        'list',
+        list,
+      )
+      ..add(
+        'map',
+        map,
+      )
+      ..add(
+        'union',
+        union,
+      );
     return helper.toString();
   }
 }

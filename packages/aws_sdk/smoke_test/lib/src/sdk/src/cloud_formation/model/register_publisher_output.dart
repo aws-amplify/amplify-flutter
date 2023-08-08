@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.register_publisher_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -30,12 +30,8 @@ abstract class RegisterPublisherOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    RegisterPublisherOutputAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RegisterPublisherOutputBuilder b) {}
+  static const List<_i2.SmithySerializer<RegisterPublisherOutput>> serializers =
+      [RegisterPublisherOutputAwsQuerySerializer()];
 
   /// The ID assigned this account by CloudFormation for publishing extensions.
   String? get publisherId;
@@ -43,11 +39,11 @@ abstract class RegisterPublisherOutput
   List<Object?> get props => [publisherId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RegisterPublisherOutput');
-    helper.add(
-      'publisherId',
-      publisherId,
-    );
+    final helper = newBuiltValueToStringHelper('RegisterPublisherOutput')
+      ..add(
+        'publisherId',
+        publisherId,
+      );
     return helper.toString();
   }
 }

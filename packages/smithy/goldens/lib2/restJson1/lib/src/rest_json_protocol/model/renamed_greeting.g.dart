@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.renamed_greeting;
+part of 'renamed_greeting.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -46,9 +46,7 @@ class RenamedGreetingBuilder
   String? get salutation => _$this._salutation;
   set salutation(String? salutation) => _$this._salutation = salutation;
 
-  RenamedGreetingBuilder() {
-    RenamedGreeting._init(this);
-  }
+  RenamedGreetingBuilder();
 
   RenamedGreetingBuilder get _$this {
     final $v = _$v;

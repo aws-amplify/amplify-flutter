@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.describe_organization_conformance_packs_request;
+part of 'describe_organization_conformance_packs_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -11,7 +11,7 @@ class _$DescribeOrganizationConformancePacksRequest
   @override
   final _i3.BuiltList<String>? organizationConformancePackNames;
   @override
-  final int? limit;
+  final int limit;
   @override
   final String? nextToken;
 
@@ -23,8 +23,13 @@ class _$DescribeOrganizationConformancePacksRequest
           ._build();
 
   _$DescribeOrganizationConformancePacksRequest._(
-      {this.organizationConformancePackNames, this.limit, this.nextToken})
-      : super._();
+      {this.organizationConformancePackNames,
+      required this.limit,
+      this.nextToken})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        limit, r'DescribeOrganizationConformancePacksRequest', 'limit');
+  }
 
   @override
   DescribeOrganizationConformancePacksRequest rebuild(
@@ -119,7 +124,8 @@ class DescribeOrganizationConformancePacksRequestBuilder
           new _$DescribeOrganizationConformancePacksRequest._(
               organizationConformancePackNames:
                   _organizationConformancePackNames?.build(),
-              limit: limit,
+              limit: BuiltValueNullFieldError.checkNotNull(limit,
+                  r'DescribeOrganizationConformancePacksRequest', 'limit'),
               nextToken: nextToken);
     } catch (_) {
       late String _$failedField;

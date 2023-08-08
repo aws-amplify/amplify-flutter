@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.describe_stack_instance_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,8 @@ abstract class DescribeStackInstanceOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    DescribeStackInstanceOutputAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeStackInstanceOutputBuilder b) {}
+  static const List<_i3.SmithySerializer<DescribeStackInstanceOutput>>
+      serializers = [DescribeStackInstanceOutputAwsQuerySerializer()];
 
   /// The stack instance that matches the specified request parameters.
   _i2.StackInstance? get stackInstance;
@@ -46,11 +42,11 @@ abstract class DescribeStackInstanceOutput
   List<Object?> get props => [stackInstance];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeStackInstanceOutput');
-    helper.add(
-      'stackInstance',
-      stackInstance,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeStackInstanceOutput')
+      ..add(
+        'stackInstance',
+        stackInstance,
+      );
     return helper.toString();
   }
 }

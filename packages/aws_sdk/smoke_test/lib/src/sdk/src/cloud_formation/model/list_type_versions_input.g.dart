@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.list_type_versions_input;
+part of 'list_type_versions_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -106,9 +106,7 @@ class ListTypeVersionsInputBuilder
   String? get publisherId => _$this._publisherId;
   set publisherId(String? publisherId) => _$this._publisherId = publisherId;
 
-  ListTypeVersionsInputBuilder() {
-    ListTypeVersionsInput._init(this);
-  }
+  ListTypeVersionsInputBuilder();
 
   ListTypeVersionsInputBuilder get _$this {
     final $v = _$v;

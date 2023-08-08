@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.delete_marker_entry; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,9 @@ abstract class DeleteMarkerEntry
 
   const DeleteMarkerEntry._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<DeleteMarkerEntry>> serializers = [
     DeleteMarkerEntryRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteMarkerEntryBuilder b) {}
 
   /// The account that created the delete marker.>
   _i2.Owner? get owner;
@@ -69,27 +66,27 @@ abstract class DeleteMarkerEntry
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteMarkerEntry');
-    helper.add(
-      'owner',
-      owner,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'isLatest',
-      isLatest,
-    );
-    helper.add(
-      'lastModified',
-      lastModified,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteMarkerEntry')
+      ..add(
+        'owner',
+        owner,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'isLatest',
+        isLatest,
+      )
+      ..add(
+        'lastModified',
+        lastModified,
+      );
     return helper.toString();
   }
 }

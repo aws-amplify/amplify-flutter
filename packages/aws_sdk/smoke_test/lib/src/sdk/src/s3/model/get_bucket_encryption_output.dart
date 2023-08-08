@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.get_bucket_encryption_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,12 +44,9 @@ abstract class GetBucketEncryptionOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetBucketEncryptionOutputRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketEncryptionOutputBuilder b) {}
+  static const List<
+          _i2.SmithySerializer<_i3.ServerSideEncryptionConfiguration?>>
+      serializers = [GetBucketEncryptionOutputRestXmlSerializer()];
 
   /// Specifies the default server-side-encryption configuration.
   _i3.ServerSideEncryptionConfiguration? get serverSideEncryptionConfiguration;
@@ -60,11 +57,11 @@ abstract class GetBucketEncryptionOutput
   List<Object?> get props => [serverSideEncryptionConfiguration];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetBucketEncryptionOutput');
-    helper.add(
-      'serverSideEncryptionConfiguration',
-      serverSideEncryptionConfiguration,
-    );
+    final helper = newBuiltValueToStringHelper('GetBucketEncryptionOutput')
+      ..add(
+        'serverSideEncryptionConfiguration',
+        serverSideEncryptionConfiguration,
+      );
     return helper.toString();
   }
 }

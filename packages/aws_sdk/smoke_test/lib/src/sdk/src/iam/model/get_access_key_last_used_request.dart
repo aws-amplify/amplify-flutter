@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.get_access_key_last_used_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,8 @@ abstract class GetAccessKeyLastUsedRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetAccessKeyLastUsedRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetAccessKeyLastUsedRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetAccessKeyLastUsedRequest>>
+      serializers = [GetAccessKeyLastUsedRequestAwsQuerySerializer()];
 
   /// The identifier of an access key.
   ///
@@ -50,11 +46,11 @@ abstract class GetAccessKeyLastUsedRequest
   List<Object?> get props => [accessKeyId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetAccessKeyLastUsedRequest');
-    helper.add(
-      'accessKeyId',
-      accessKeyId,
-    );
+    final helper = newBuiltValueToStringHelper('GetAccessKeyLastUsedRequest')
+      ..add(
+        'accessKeyId',
+        accessKeyId,
+      );
     return helper.toString();
   }
 }

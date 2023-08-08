@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.describe_config_rules_response;
+part of 'describe_config_rules_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -62,9 +62,7 @@ class DescribeConfigRulesResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeConfigRulesResponseBuilder() {
-    DescribeConfigRulesResponse._init(this);
-  }
+  DescribeConfigRulesResponseBuilder();
 
   DescribeConfigRulesResponseBuilder get _$this {
     final $v = _$v;

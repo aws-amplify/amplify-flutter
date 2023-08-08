@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.update_gateway_response_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -64,12 +64,8 @@ abstract class UpdateGatewayResponseRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateGatewayResponseRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateGatewayResponseRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<UpdateGatewayResponseRequestPayload>>
+      serializers = [UpdateGatewayResponseRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -108,19 +104,19 @@ abstract class UpdateGatewayResponseRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateGatewayResponseRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'responseType',
-      responseType,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateGatewayResponseRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'responseType',
+        responseType,
+      )
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }
@@ -138,9 +134,6 @@ abstract class UpdateGatewayResponseRequestPayload
 
   const UpdateGatewayResponseRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateGatewayResponseRequestPayloadBuilder b) {}
-
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i5.BuiltList<_i4.PatchOperation>? get patchOperations;
   @override
@@ -148,11 +141,11 @@ abstract class UpdateGatewayResponseRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateGatewayResponseRequestPayload');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+        newBuiltValueToStringHelper('UpdateGatewayResponseRequestPayload')
+          ..add(
+            'patchOperations',
+            patchOperations,
+          );
     return helper.toString();
   }
 }

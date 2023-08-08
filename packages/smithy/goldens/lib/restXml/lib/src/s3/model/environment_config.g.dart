@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v1.s3.model.environment_config;
+part of 'environment_config.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -100,9 +100,7 @@ class EnvironmentConfigBuilder
   String? get awsProfile => _$this._awsProfile;
   set awsProfile(String? awsProfile) => _$this._awsProfile = awsProfile;
 
-  EnvironmentConfigBuilder() {
-    EnvironmentConfig._init(this);
-  }
+  EnvironmentConfigBuilder();
 
   EnvironmentConfigBuilder get _$this {
     final $v = _$v;

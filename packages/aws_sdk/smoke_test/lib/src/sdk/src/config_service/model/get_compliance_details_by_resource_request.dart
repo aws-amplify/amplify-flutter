@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.get_compliance_details_by_resource_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,10 +21,11 @@ abstract class GetComplianceDetailsByResourceRequest
         Built<GetComplianceDetailsByResourceRequest,
             GetComplianceDetailsByResourceRequestBuilder> {
   factory GetComplianceDetailsByResourceRequest({
-    required String resourceType,
-    required String resourceId,
+    String? resourceType,
+    String? resourceId,
     List<_i3.ComplianceType>? complianceTypes,
     String? nextToken,
+    String? resourceEvaluationId,
   }) {
     return _$GetComplianceDetailsByResourceRequest._(
       resourceType: resourceType,
@@ -32,6 +33,7 @@ abstract class GetComplianceDetailsByResourceRequest
       complianceTypes:
           complianceTypes == null ? null : _i4.BuiltList(complianceTypes),
       nextToken: nextToken,
+      resourceEvaluationId: resourceEvaluationId,
     );
   }
 
@@ -48,26 +50,29 @@ abstract class GetComplianceDetailsByResourceRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<GetComplianceDetailsByResourceRequest>>
+      serializers = [
     GetComplianceDetailsByResourceRequestAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetComplianceDetailsByResourceRequestBuilder b) {}
-
   /// The type of the Amazon Web Services resource for which you want compliance information.
-  String get resourceType;
+  String? get resourceType;
 
   /// The ID of the Amazon Web Services resource for which you want compliance information.
-  String get resourceId;
+  String? get resourceId;
 
   /// Filters the results by compliance.
   ///
-  /// The allowed values are `COMPLIANT`, `NON_COMPLIANT`, and `NOT_APPLICABLE`.
+  /// `INSUFFICIENT_DATA` is a valid `ComplianceType` that is returned when an Config rule cannot be evaluated. However, `INSUFFICIENT_DATA` cannot be used as a `ComplianceType` for filtering results.
   _i4.BuiltList<_i3.ComplianceType>? get complianceTypes;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
+
+  /// The unique ID of Amazon Web Services resource execution for which you want to retrieve evaluation results.
+  ///
+  /// You need to only provide either a `ResourceEvaluationID` or a `ResourceID` and `ResourceType`.
+  String? get resourceEvaluationId;
   @override
   GetComplianceDetailsByResourceRequest getPayload() => this;
   @override
@@ -76,27 +81,32 @@ abstract class GetComplianceDetailsByResourceRequest
         resourceId,
         complianceTypes,
         nextToken,
+        resourceEvaluationId,
       ];
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetComplianceDetailsByResourceRequest');
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'complianceTypes',
-      complianceTypes,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        newBuiltValueToStringHelper('GetComplianceDetailsByResourceRequest')
+          ..add(
+            'resourceType',
+            resourceType,
+          )
+          ..add(
+            'resourceId',
+            resourceId,
+          )
+          ..add(
+            'complianceTypes',
+            complianceTypes,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          )
+          ..add(
+            'resourceEvaluationId',
+            resourceEvaluationId,
+          );
     return helper.toString();
   }
 }
@@ -157,6 +167,11 @@ class GetComplianceDetailsByResourceRequestAwsJson11Serializer extends _i1
             value,
             specifiedType: const FullType(String),
           ) as String);
+        case 'ResourceEvaluationId':
+          result.resourceEvaluationId = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -174,20 +189,25 @@ class GetComplianceDetailsByResourceRequestAwsJson11Serializer extends _i1
       :resourceType,
       :resourceId,
       :complianceTypes,
-      :nextToken
+      :nextToken,
+      :resourceEvaluationId
     ) = object;
-    result$.addAll([
-      'ResourceType',
-      serializers.serialize(
-        resourceType,
-        specifiedType: const FullType(String),
-      ),
-      'ResourceId',
-      serializers.serialize(
-        resourceId,
-        specifiedType: const FullType(String),
-      ),
-    ]);
+    if (resourceType != null) {
+      result$
+        ..add('ResourceType')
+        ..add(serializers.serialize(
+          resourceType,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (resourceId != null) {
+      result$
+        ..add('ResourceId')
+        ..add(serializers.serialize(
+          resourceId,
+          specifiedType: const FullType(String),
+        ));
+    }
     if (complianceTypes != null) {
       result$
         ..add('ComplianceTypes')
@@ -204,6 +224,14 @@ class GetComplianceDetailsByResourceRequestAwsJson11Serializer extends _i1
         ..add('NextToken')
         ..add(serializers.serialize(
           nextToken,
+          specifiedType: const FullType(String),
+        ));
+    }
+    if (resourceEvaluationId != null) {
+      result$
+        ..add('ResourceEvaluationId')
+        ..add(serializers.serialize(
+          resourceEvaluationId,
           specifiedType: const FullType(String),
         ));
     }

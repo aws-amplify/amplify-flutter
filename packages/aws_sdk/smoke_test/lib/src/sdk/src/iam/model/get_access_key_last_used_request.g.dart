@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_access_key_last_used_request;
+part of 'get_access_key_last_used_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class GetAccessKeyLastUsedRequestBuilder
   String? get accessKeyId => _$this._accessKeyId;
   set accessKeyId(String? accessKeyId) => _$this._accessKeyId = accessKeyId;
 
-  GetAccessKeyLastUsedRequestBuilder() {
-    GetAccessKeyLastUsedRequest._init(this);
-  }
+  GetAccessKeyLastUsedRequestBuilder();
 
   GetAccessKeyLastUsedRequestBuilder get _$this {
     final $v = _$v;

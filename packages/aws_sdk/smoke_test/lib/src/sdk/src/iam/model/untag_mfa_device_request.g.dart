@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.untag_mfa_device_request;
+part of 'untag_mfa_device_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -64,9 +64,7 @@ class UntagMfaDeviceRequestBuilder
       _$this._tagKeys ??= new _i3.ListBuilder<String>();
   set tagKeys(_i3.ListBuilder<String>? tagKeys) => _$this._tagKeys = tagKeys;
 
-  UntagMfaDeviceRequestBuilder() {
-    UntagMfaDeviceRequest._init(this);
-  }
+  UntagMfaDeviceRequestBuilder();
 
   UntagMfaDeviceRequestBuilder get _$this {
     final $v = _$v;

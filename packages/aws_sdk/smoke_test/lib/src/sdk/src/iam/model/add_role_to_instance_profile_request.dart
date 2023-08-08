@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.add_role_to_instance_profile_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,8 @@ abstract class AddRoleToInstanceProfileRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    AddRoleToInstanceProfileRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AddRoleToInstanceProfileRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<AddRoleToInstanceProfileRequest>>
+      serializers = [AddRoleToInstanceProfileRequestAwsQuerySerializer()];
 
   /// The name of the instance profile to update.
   ///
@@ -66,15 +62,15 @@ abstract class AddRoleToInstanceProfileRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('AddRoleToInstanceProfileRequest');
-    helper.add(
-      'instanceProfileName',
-      instanceProfileName,
-    );
-    helper.add(
-      'roleName',
-      roleName,
-    );
+        newBuiltValueToStringHelper('AddRoleToInstanceProfileRequest')
+          ..add(
+            'instanceProfileName',
+            instanceProfileName,
+          )
+          ..add(
+            'roleName',
+            roleName,
+          );
     return helper.toString();
   }
 }

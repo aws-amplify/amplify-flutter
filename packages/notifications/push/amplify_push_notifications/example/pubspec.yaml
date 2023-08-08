@@ -1,0 +1,22 @@
+name: amplify_push_notifications_example
+description: A new Flutter project.
+publish_to: "none"
+version: 0.1.0
+
+environment:
+  flutter: ">=3.10.0"
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  amplify_push_notifications:
+    path: ../
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  amplify_lints: ^3.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true

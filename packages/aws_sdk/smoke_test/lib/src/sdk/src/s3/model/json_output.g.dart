@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.json_output;
+part of 'json_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -45,9 +45,7 @@ class JsonOutputBuilder implements Builder<JsonOutput, JsonOutputBuilder> {
   set recordDelimiter(String? recordDelimiter) =>
       _$this._recordDelimiter = recordDelimiter;
 
-  JsonOutputBuilder() {
-    JsonOutput._init(this);
-  }
+  JsonOutputBuilder();
 
   JsonOutputBuilder get _$this {
     final $v = _$v;

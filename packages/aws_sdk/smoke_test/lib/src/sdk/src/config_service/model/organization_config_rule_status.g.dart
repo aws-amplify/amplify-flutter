@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.organization_config_rule_status;
+part of 'organization_config_rule_status.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -99,9 +99,7 @@ class OrganizationConfigRuleStatusBuilder
   set lastUpdateTime(DateTime? lastUpdateTime) =>
       _$this._lastUpdateTime = lastUpdateTime;
 
-  OrganizationConfigRuleStatusBuilder() {
-    OrganizationConfigRuleStatus._init(this);
-  }
+  OrganizationConfigRuleStatusBuilder();
 
   OrganizationConfigRuleStatusBuilder get _$this {
     final $v = _$v;

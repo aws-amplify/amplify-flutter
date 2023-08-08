@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.replication_configuration;
+part of 'replication_configuration.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -66,9 +66,7 @@ class ReplicationConfigurationBuilder
   set rules(_i3.ListBuilder<_i2.ReplicationRule>? rules) =>
       _$this._rules = rules;
 
-  ReplicationConfigurationBuilder() {
-    ReplicationConfiguration._init(this);
-  }
+  ReplicationConfigurationBuilder();
 
   ReplicationConfigurationBuilder get _$this {
     final $v = _$v;

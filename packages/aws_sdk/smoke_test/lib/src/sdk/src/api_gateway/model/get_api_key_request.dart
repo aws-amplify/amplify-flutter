@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.get_api_key_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -51,12 +51,8 @@ abstract class GetApiKeyRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetApiKeyRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetApiKeyRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetApiKeyRequestPayload>> serializers =
+      [GetApiKeyRequestRestJson1Serializer()];
 
   /// The identifier of the ApiKey resource.
   String get apiKey;
@@ -84,15 +80,15 @@ abstract class GetApiKeyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetApiKeyRequest');
-    helper.add(
-      'apiKey',
-      apiKey,
-    );
-    helper.add(
-      'includeValue',
-      includeValue,
-    );
+    final helper = newBuiltValueToStringHelper('GetApiKeyRequest')
+      ..add(
+        'apiKey',
+        apiKey,
+      )
+      ..add(
+        'includeValue',
+        includeValue,
+      );
     return helper.toString();
   }
 }
@@ -109,8 +105,6 @@ abstract class GetApiKeyRequestPayload
 
   const GetApiKeyRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetApiKeyRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.publish_type_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -29,12 +29,9 @@ abstract class PublishTypeOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<PublishTypeOutput>> serializers = [
     PublishTypeOutputAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PublishTypeOutputBuilder b) {}
 
   /// The Amazon Resource Name (ARN) assigned to the public extension upon publication.
   String? get publicTypeArn;
@@ -42,11 +39,11 @@ abstract class PublishTypeOutput
   List<Object?> get props => [publicTypeArn];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PublishTypeOutput');
-    helper.add(
-      'publicTypeArn',
-      publicTypeArn,
-    );
+    final helper = newBuiltValueToStringHelper('PublishTypeOutput')
+      ..add(
+        'publicTypeArn',
+        publicTypeArn,
+      );
     return helper.toString();
   }
 }

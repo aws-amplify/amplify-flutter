@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.update_table_replica_auto_scaling_input;
+part of 'update_table_replica_auto_scaling_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -107,9 +107,7 @@ class UpdateTableReplicaAutoScalingInputBuilder
           _i6.ListBuilder<_i5.ReplicaAutoScalingUpdate>? replicaUpdates) =>
       _$this._replicaUpdates = replicaUpdates;
 
-  UpdateTableReplicaAutoScalingInputBuilder() {
-    UpdateTableReplicaAutoScalingInput._init(this);
-  }
+  UpdateTableReplicaAutoScalingInputBuilder();
 
   UpdateTableReplicaAutoScalingInputBuilder get _$this {
     final $v = _$v;

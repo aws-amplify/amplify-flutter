@@ -70,9 +70,7 @@ class UpdateEndpointsBatchRequestBuilder
           _i2.EndpointBatchRequestBuilder? endpointBatchRequest) =>
       _$this._endpointBatchRequest = endpointBatchRequest;
 
-  UpdateEndpointsBatchRequestBuilder() {
-    UpdateEndpointsBatchRequest._init(this);
-  }
+  UpdateEndpointsBatchRequestBuilder();
 
   UpdateEndpointsBatchRequestBuilder get _$this {
     final $v = _$v;

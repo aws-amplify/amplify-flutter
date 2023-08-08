@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.global_secondary_index_info; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,12 +43,8 @@ abstract class GlobalSecondaryIndexInfo
 
   const GlobalSecondaryIndexInfo._();
 
-  static const List<_i6.SmithySerializer> serializers = [
-    GlobalSecondaryIndexInfoAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GlobalSecondaryIndexInfoBuilder b) {}
+  static const List<_i6.SmithySerializer<GlobalSecondaryIndexInfo>>
+      serializers = [GlobalSecondaryIndexInfoAwsJson10Serializer()];
 
   /// The name of the global secondary index.
   String? get indexName;
@@ -79,23 +75,23 @@ abstract class GlobalSecondaryIndexInfo
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GlobalSecondaryIndexInfo');
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'keySchema',
-      keySchema,
-    );
-    helper.add(
-      'projection',
-      projection,
-    );
-    helper.add(
-      'provisionedThroughput',
-      provisionedThroughput,
-    );
+    final helper = newBuiltValueToStringHelper('GlobalSecondaryIndexInfo')
+      ..add(
+        'indexName',
+        indexName,
+      )
+      ..add(
+        'keySchema',
+        keySchema,
+      )
+      ..add(
+        'projection',
+        projection,
+      )
+      ..add(
+        'provisionedThroughput',
+        provisionedThroughput,
+      );
     return helper.toString();
   }
 }

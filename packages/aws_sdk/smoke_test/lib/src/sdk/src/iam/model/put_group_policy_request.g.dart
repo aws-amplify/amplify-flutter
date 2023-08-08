@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.put_group_policy_request;
+part of 'put_group_policy_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -77,9 +77,7 @@ class PutGroupPolicyRequestBuilder
   set policyDocument(String? policyDocument) =>
       _$this._policyDocument = policyDocument;
 
-  PutGroupPolicyRequestBuilder() {
-    PutGroupPolicyRequest._init(this);
-  }
+  PutGroupPolicyRequestBuilder();
 
   PutGroupPolicyRequestBuilder get _$this {
     final $v = _$v;

@@ -24,4 +24,5 @@ jobs:
   test:
     uses: ./.github/workflows/dart_vm.yaml
     with:
+      package-name: amplify_lints
       working-directory: packages/amplify_lints

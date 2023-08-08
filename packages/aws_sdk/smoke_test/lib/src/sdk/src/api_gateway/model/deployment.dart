@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.deployment; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -54,12 +54,9 @@ abstract class Deployment
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Deployment>> serializers = [
     DeploymentRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeploymentBuilder b) {}
 
   /// The identifier for the deployment resource.
   String? get id;
@@ -82,23 +79,23 @@ abstract class Deployment
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Deployment');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'createdDate',
-      createdDate,
-    );
-    helper.add(
-      'apiSummary',
-      apiSummary,
-    );
+    final helper = newBuiltValueToStringHelper('Deployment')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'createdDate',
+        createdDate,
+      )
+      ..add(
+        'apiSummary',
+        apiSummary,
+      );
     return helper.toString();
   }
 }

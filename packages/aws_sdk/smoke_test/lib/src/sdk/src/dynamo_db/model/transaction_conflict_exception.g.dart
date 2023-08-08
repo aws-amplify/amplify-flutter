@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.transaction_conflict_exception;
+part of 'transaction_conflict_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -64,9 +64,7 @@ class TransactionConflictExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  TransactionConflictExceptionBuilder() {
-    TransactionConflictException._init(this);
-  }
+  TransactionConflictExceptionBuilder();
 
   TransactionConflictExceptionBuilder get _$this {
     final $v = _$v;

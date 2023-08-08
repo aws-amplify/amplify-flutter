@@ -23,7 +23,7 @@ class SmithyJsonPlugin extends StandardJsonPlugin {
     // the standard JSON plugin since it will be serialized to a map.
     final types = [
       specifiedType.root,
-      ...specifiedType.parameters.map((p) => p.root)
+      ...specifiedType.parameters.map((p) => p.root),
     ];
     if (object is List &&
         (types.contains(BuiltList) ||

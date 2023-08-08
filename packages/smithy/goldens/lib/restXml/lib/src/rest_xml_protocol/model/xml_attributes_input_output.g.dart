@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v1.rest_xml_protocol.model.xml_attributes_input_output;
+part of 'xml_attributes_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -58,9 +58,7 @@ class XmlAttributesInputOutputBuilder
   String? get attr => _$this._attr;
   set attr(String? attr) => _$this._attr = attr;
 
-  XmlAttributesInputOutputBuilder() {
-    XmlAttributesInputOutput._init(this);
-  }
+  XmlAttributesInputOutputBuilder();
 
   XmlAttributesInputOutputBuilder get _$this {
     final $v = _$v;

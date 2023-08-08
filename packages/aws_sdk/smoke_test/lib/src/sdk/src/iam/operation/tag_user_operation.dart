@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.operation.tag_user_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -30,7 +30,7 @@ import 'package:smoke_test/src/sdk/src/iam/model/tag_user_request.dart' as _i2;
 ///
 /// *   **Administrative grouping and discovery** \- Attach tags to resources to aid in organization and search. For example, you could search for all resources with the key name _Project_ and the value _MyImportantProject_. Or search for all resources with the key name _Cost Center_ and the value _41200_.
 ///
-/// *   **Access control** \- Include tags in IAM user-based and resource-based policies. You can use tags to restrict access to only an IAM requesting user that has a specified tag attached. You can also restrict access to only those resources that have a certain tag attached. For examples of policies that show how to use tags to control access, see [Control access using IAM tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html) in the _IAM User Guide_.
+/// *   **Access control** \- Include tags in IAM identity-based and resource-based policies. You can use tags to restrict access to only an IAM requesting user that has a specified tag attached. You can also restrict access to only those resources that have a certain tag attached. For examples of policies that show how to use tags to control access, see [Control access using IAM tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html) in the _IAM User Guide_.
 ///
 /// *   **Cost allocation** \- Use tags to help track which individuals and teams are using which Amazon Web Services resources.
 ///
@@ -49,7 +49,7 @@ class TagUserOperation extends _i1
   ///
   /// *   **Administrative grouping and discovery** \- Attach tags to resources to aid in organization and search. For example, you could search for all resources with the key name _Project_ and the value _MyImportantProject_. Or search for all resources with the key name _Cost Center_ and the value _41200_.
   ///
-  /// *   **Access control** \- Include tags in IAM user-based and resource-based policies. You can use tags to restrict access to only an IAM requesting user that has a specified tag attached. You can also restrict access to only those resources that have a certain tag attached. For examples of policies that show how to use tags to control access, see [Control access using IAM tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html) in the _IAM User Guide_.
+  /// *   **Access control** \- Include tags in IAM identity-based and resource-based policies. You can use tags to restrict access to only an IAM requesting user that has a specified tag attached. You can also restrict access to only those resources that have a certain tag attached. For examples of policies that show how to use tags to control access, see [Control access using IAM tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html) in the _IAM User Guide_.
   ///
   /// *   **Cost allocation** \- Use tags to help track which individuals and teams are using which Amazon Web Services resources.
   ///
@@ -158,7 +158,8 @@ class TagUserOperation extends _i1
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.ConcurrentModificationException,
+            _i8.ConcurrentModificationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ConcurrentModificationException',
@@ -168,7 +169,7 @@ class TagUserOperation extends _i1
           statusCode: 409,
           builder: _i8.ConcurrentModificationException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InvalidInputException, _i9.InvalidInputException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'InvalidInputException',
@@ -178,7 +179,8 @@ class TagUserOperation extends _i1
           statusCode: 400,
           builder: _i9.InvalidInputException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.LimitExceededException,
+            _i10.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'LimitExceededException',
@@ -188,7 +190,7 @@ class TagUserOperation extends _i1
           statusCode: 409,
           builder: _i10.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.NoSuchEntityException, _i11.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
@@ -198,7 +200,8 @@ class TagUserOperation extends _i1
           statusCode: 404,
           builder: _i11.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.ServiceFailureException,
+            _i12.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',
@@ -231,7 +234,7 @@ class TagUserOperation extends _i1
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
+        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
       },
     );
   }

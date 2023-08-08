@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.operation.batch_execute_statement_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -116,7 +116,7 @@ class BatchExecuteStatementOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InternalServerError, _i9.InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
@@ -125,7 +125,7 @@ class BatchExecuteStatementOperation extends _i1.HttpOperation<
           _i9.InternalServerError,
           builder: _i9.InternalServerError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.RequestLimitExceeded, _i10.RequestLimitExceeded>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'RequestLimitExceeded',
@@ -157,7 +157,7 @@ class BatchExecuteStatementOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

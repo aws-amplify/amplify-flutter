@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.update_device_status_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -45,9 +46,8 @@ abstract class UpdateDeviceStatusRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateDeviceStatusRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<UpdateDeviceStatusRequest>>
+      serializers = [UpdateDeviceStatusRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateDeviceStatusRequestBuilder b) {}
@@ -70,19 +70,19 @@ abstract class UpdateDeviceStatusRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateDeviceStatusRequest');
-    helper.add(
-      'accessToken',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'deviceKey',
-      deviceKey,
-    );
-    helper.add(
-      'deviceRememberedStatus',
-      deviceRememberedStatus,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateDeviceStatusRequest')
+      ..add(
+        'accessToken',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'deviceKey',
+        deviceKey,
+      )
+      ..add(
+        'deviceRememberedStatus',
+        deviceRememberedStatus,
+      );
     return helper.toString();
   }
 }
@@ -116,27 +116,25 @@ class UpdateDeviceStatusRequestAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'AccessToken':
           result.accessToken = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'DeviceKey':
           result.deviceKey = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'DeviceRememberedStatus':
-          if (value != null) {
-            result.deviceRememberedStatus = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.DeviceRememberedStatusType),
-            ) as _i3.DeviceRememberedStatusType);
-          }
-          break;
+          result.deviceRememberedStatus = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.DeviceRememberedStatusType),
+          ) as _i3.DeviceRememberedStatusType);
       }
     }
 
@@ -146,30 +144,35 @@ class UpdateDeviceStatusRequestAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateDeviceStatusRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UpdateDeviceStatusRequest);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final UpdateDeviceStatusRequest(
+      :accessToken,
+      :deviceKey,
+      :deviceRememberedStatus
+    ) = object;
+    result$.addAll([
       'AccessToken',
       serializers.serialize(
-        payload.accessToken,
+        accessToken,
         specifiedType: const FullType(String),
       ),
       'DeviceKey',
       serializers.serialize(
-        payload.deviceKey,
+        deviceKey,
         specifiedType: const FullType(String),
       ),
-    ];
-    if (payload.deviceRememberedStatus != null) {
-      result
+    ]);
+    if (deviceRememberedStatus != null) {
+      result$
         ..add('DeviceRememberedStatus')
         ..add(serializers.serialize(
-          payload.deviceRememberedStatus!,
+          deviceRememberedStatus,
           specifiedType: const FullType(_i3.DeviceRememberedStatusType),
         ));
     }
-    return result;
+    return result$;
   }
 }

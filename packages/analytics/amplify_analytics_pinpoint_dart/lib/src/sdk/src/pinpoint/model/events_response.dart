@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.events_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -29,12 +29,9 @@ abstract class EventsResponse
 
   const EventsResponse._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<EventsResponse>> serializers = [
     EventsResponseRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EventsResponseBuilder b) {}
 
   /// A map that contains a multipart response for each endpoint. For each item in this object, the endpoint ID is the key and the item response is the value. If no item response exists, the value can also be one of the following: 202, the request was processed successfully; or 400, the payload wasn't valid or required fields were missing.
   _i3.BuiltMap<String, _i2.ItemResponse>? get results;
@@ -42,11 +39,11 @@ abstract class EventsResponse
   List<Object?> get props => [results];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EventsResponse');
-    helper.add(
-      'results',
-      results,
-    );
+    final helper = newBuiltValueToStringHelper('EventsResponse')
+      ..add(
+        'results',
+        results,
+      );
     return helper.toString();
   }
 }

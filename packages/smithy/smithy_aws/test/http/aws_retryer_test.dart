@@ -67,7 +67,7 @@ class TestSuiteGiven {
         initialRetryTokens,
         exponentialBase,
         exponentialPower,
-        maxBackoffTime
+        maxBackoffTime,
       ].join('|');
 }
 

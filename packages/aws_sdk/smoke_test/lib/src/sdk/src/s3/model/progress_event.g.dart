@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.progress_event;
+part of 'progress_event.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -46,9 +46,7 @@ class ProgressEventBuilder
       _$this._details ??= new _i2.ProgressBuilder();
   set details(_i2.ProgressBuilder? details) => _$this._details = details;
 
-  ProgressEventBuilder() {
-    ProgressEvent._init(this);
-  }
+  ProgressEventBuilder();
 
   ProgressEventBuilder get _$this {
     final $v = _$v;

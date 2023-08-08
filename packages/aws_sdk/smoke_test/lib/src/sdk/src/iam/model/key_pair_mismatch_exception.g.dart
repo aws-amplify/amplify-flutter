@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.key_pair_mismatch_exception;
+part of 'key_pair_mismatch_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class KeyPairMismatchExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  KeyPairMismatchExceptionBuilder() {
-    KeyPairMismatchException._init(this);
-  }
+  KeyPairMismatchExceptionBuilder();
 
   KeyPairMismatchExceptionBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_bucket_policy_status_output;
+part of 'get_bucket_policy_status_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -53,9 +53,7 @@ class GetBucketPolicyStatusOutputBuilder
   set policyStatus(_i3.PolicyStatusBuilder? policyStatus) =>
       _$this._policyStatus = policyStatus;
 
-  GetBucketPolicyStatusOutputBuilder() {
-    GetBucketPolicyStatusOutput._init(this);
-  }
+  GetBucketPolicyStatusOutputBuilder();
 
   GetBucketPolicyStatusOutputBuilder get _$this {
     final $v = _$v;

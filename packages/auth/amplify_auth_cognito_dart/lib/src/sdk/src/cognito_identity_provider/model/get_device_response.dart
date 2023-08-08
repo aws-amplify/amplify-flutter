@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.get_device_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,7 +34,7 @@ abstract class GetDeviceResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<GetDeviceResponse>> serializers = [
     GetDeviceResponseAwsJson11Serializer()
   ];
 
@@ -46,11 +47,11 @@ abstract class GetDeviceResponse
   List<Object?> get props => [device];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetDeviceResponse');
-    helper.add(
-      'device',
-      device,
-    );
+    final helper = newBuiltValueToStringHelper('GetDeviceResponse')
+      ..add(
+        'device',
+        device,
+      );
     return helper.toString();
   }
 }
@@ -83,13 +84,15 @@ class GetDeviceResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Device':
           result.device.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(_i2.DeviceType),
           ) as _i2.DeviceType));
-          break;
       }
     }
 
@@ -99,17 +102,18 @@ class GetDeviceResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetDeviceResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetDeviceResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final GetDeviceResponse(:device) = object;
+    result$.addAll([
       'Device',
       serializers.serialize(
-        payload.device,
+        device,
         specifiedType: const FullType(_i2.DeviceType),
       ),
-    ];
-    return result;
+    ]);
+    return result$;
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library aws_json1_1_v1.machine_learning.model.prediction; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,12 +36,10 @@ abstract class Prediction
 
   const Prediction._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Prediction>> serializers = [
     PredictionAwsJson11Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PredictionBuilder b) {}
   String? get predictedLabel;
   double? get predictedValue;
   _i3.BuiltMap<String, double>? get predictedScores;
@@ -55,23 +53,23 @@ abstract class Prediction
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Prediction');
-    helper.add(
-      'predictedLabel',
-      predictedLabel,
-    );
-    helper.add(
-      'predictedValue',
-      predictedValue,
-    );
-    helper.add(
-      'predictedScores',
-      predictedScores,
-    );
-    helper.add(
-      'details',
-      details,
-    );
+    final helper = newBuiltValueToStringHelper('Prediction')
+      ..add(
+        'predictedLabel',
+        predictedLabel,
+      )
+      ..add(
+        'predictedValue',
+        predictedValue,
+      )
+      ..add(
+        'predictedScores',
+        predictedScores,
+      )
+      ..add(
+        'details',
+        details,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.operation.describe_table_replica_auto_scaling_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -24,7 +24,7 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/resource_not_found_except
 
 /// Describes auto scaling settings across replicas of the global table at once.
 ///
-/// This operation only applies to [Version 2019.11.21](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
+/// This operation only applies to [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
 class DescribeTableReplicaAutoScalingOperation extends _i1.HttpOperation<
     _i2.DescribeTableReplicaAutoScalingInput,
     _i2.DescribeTableReplicaAutoScalingInput,
@@ -32,7 +32,7 @@ class DescribeTableReplicaAutoScalingOperation extends _i1.HttpOperation<
     _i3.DescribeTableReplicaAutoScalingOutput> {
   /// Describes auto scaling settings across replicas of the global table at once.
   ///
-  /// This operation only applies to [Version 2019.11.21](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
+  /// This operation only applies to [Version 2019.11.21 (Current)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables.V2.html) of global tables.
   DescribeTableReplicaAutoScalingOperation({
     required String region,
     Uri? baseUri,
@@ -113,7 +113,7 @@ class DescribeTableReplicaAutoScalingOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InternalServerError, _i9.InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
@@ -122,7 +122,8 @@ class DescribeTableReplicaAutoScalingOperation extends _i1.HttpOperation<
           _i9.InternalServerError,
           builder: _i9.InternalServerError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.ResourceNotFoundException,
+            _i10.ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ResourceNotFoundException',
@@ -154,7 +155,7 @@ class DescribeTableReplicaAutoScalingOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

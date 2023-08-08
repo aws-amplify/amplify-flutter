@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.metrics_and_operator; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,12 +36,9 @@ abstract class MetricsAndOperator
 
   const MetricsAndOperator._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<MetricsAndOperator>> serializers = [
     MetricsAndOperatorRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MetricsAndOperatorBuilder b) {}
 
   /// The prefix used when evaluating an AND predicate.
   String? get prefix;
@@ -59,19 +56,19 @@ abstract class MetricsAndOperator
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MetricsAndOperator');
-    helper.add(
-      'prefix',
-      prefix,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'accessPointArn',
-      accessPointArn,
-    );
+    final helper = newBuiltValueToStringHelper('MetricsAndOperator')
+      ..add(
+        'prefix',
+        prefix,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'accessPointArn',
+        accessPointArn,
+      );
     return helper.toString();
   }
 }

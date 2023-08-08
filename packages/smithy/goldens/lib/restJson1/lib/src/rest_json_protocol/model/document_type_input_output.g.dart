@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_protocol.model.document_type_input_output;
+part of 'document_type_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -60,9 +60,7 @@ class DocumentTypeInputOutputBuilder
   set documentValue(_i3.JsonObject? documentValue) =>
       _$this._documentValue = documentValue;
 
-  DocumentTypeInputOutputBuilder() {
-    DocumentTypeInputOutput._init(this);
-  }
+  DocumentTypeInputOutputBuilder();
 
   DocumentTypeInputOutputBuilder get _$this {
     final $v = _$v;

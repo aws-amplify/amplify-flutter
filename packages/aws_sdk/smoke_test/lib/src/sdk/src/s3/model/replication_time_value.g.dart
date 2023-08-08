@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.replication_time_value;
+part of 'replication_time_value.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -48,9 +48,7 @@ class ReplicationTimeValueBuilder
   int? get minutes => _$this._minutes;
   set minutes(int? minutes) => _$this._minutes = minutes;
 
-  ReplicationTimeValueBuilder() {
-    ReplicationTimeValue._init(this);
-  }
+  ReplicationTimeValueBuilder();
 
   ReplicationTimeValueBuilder get _$this {
     final $v = _$v;

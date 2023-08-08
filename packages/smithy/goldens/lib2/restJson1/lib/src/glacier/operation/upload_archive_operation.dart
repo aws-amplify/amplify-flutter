@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v2.glacier.operation.upload_archive_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -115,7 +115,8 @@ class UploadArchiveOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidParameterValueException,
+            _i10.InvalidParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.glacier',
             shape: 'InvalidParameterValueException',
@@ -125,7 +126,8 @@ class UploadArchiveOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i10.InvalidParameterValueException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.MissingParameterValueException,
+            _i11.MissingParameterValueException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.glacier',
             shape: 'MissingParameterValueException',
@@ -135,7 +137,8 @@ class UploadArchiveOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i11.MissingParameterValueException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.RequestTimeoutException,
+            _i12.RequestTimeoutException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.glacier',
             shape: 'RequestTimeoutException',
@@ -145,7 +148,8 @@ class UploadArchiveOperation extends _i1.HttpOperation<
           statusCode: 408,
           builder: _i12.RequestTimeoutException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.ResourceNotFoundException,
+            _i13.ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.glacier',
             shape: 'ResourceNotFoundException',
@@ -155,7 +159,8 @@ class UploadArchiveOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i13.ResourceNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.ServiceUnavailableException,
+            _i14.ServiceUnavailableException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.glacier',
             shape: 'ServiceUnavailableException',
@@ -188,7 +193,7 @@ class UploadArchiveOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)}
+        ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)},
       },
     );
   }

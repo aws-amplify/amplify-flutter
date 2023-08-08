@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.get_object_legal_hold_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -67,12 +67,8 @@ abstract class GetObjectLegalHoldRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetObjectLegalHoldRequestRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectLegalHoldRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetObjectLegalHoldRequestPayload>>
+      serializers = [GetObjectLegalHoldRequestRestXmlSerializer()];
 
   /// The bucket name containing the object whose legal hold status you want to retrieve.
   ///
@@ -117,27 +113,27 @@ abstract class GetObjectLegalHoldRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectLegalHoldRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectLegalHoldRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'requestPayer',
+        requestPayer,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }
@@ -156,8 +152,6 @@ abstract class GetObjectLegalHoldRequestPayload
 
   const GetObjectLegalHoldRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectLegalHoldRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

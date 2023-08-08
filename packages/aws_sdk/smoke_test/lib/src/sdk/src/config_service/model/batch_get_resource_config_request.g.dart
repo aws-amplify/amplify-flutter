@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.batch_get_resource_config_request;
+part of 'batch_get_resource_config_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -56,9 +56,7 @@ class BatchGetResourceConfigRequestBuilder
   set resourceKeys(_i4.ListBuilder<_i3.ResourceKey>? resourceKeys) =>
       _$this._resourceKeys = resourceKeys;
 
-  BatchGetResourceConfigRequestBuilder() {
-    BatchGetResourceConfigRequest._init(this);
-  }
+  BatchGetResourceConfigRequestBuilder();
 
   BatchGetResourceConfigRequestBuilder get _$this {
     final $v = _$v;

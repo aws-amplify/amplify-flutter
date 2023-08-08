@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.resource;
+part of 'resource.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -81,9 +81,7 @@ class ResourceBuilder implements Builder<Resource, ResourceBuilder> {
   set resourceMethods(_i3.MapBuilder<String, _i2.Method>? resourceMethods) =>
       _$this._resourceMethods = resourceMethods;
 
-  ResourceBuilder() {
-    Resource._init(this);
-  }
+  ResourceBuilder();
 
   ResourceBuilder get _$this {
     final $v = _$v;

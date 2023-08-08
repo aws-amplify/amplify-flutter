@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.put;
+part of 'put.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -114,9 +114,7 @@ class PutBuilder implements Builder<Put, PutBuilder> {
       _$this._returnValuesOnConditionCheckFailure =
           returnValuesOnConditionCheckFailure;
 
-  PutBuilder() {
-    Put._init(this);
-  }
+  PutBuilder();
 
   PutBuilder get _$this {
     final $v = _$v;

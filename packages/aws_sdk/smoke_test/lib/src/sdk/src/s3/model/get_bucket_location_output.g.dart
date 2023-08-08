@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_bucket_location_output;
+part of 'get_bucket_location_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -52,9 +52,7 @@ class GetBucketLocationOutputBuilder
   set locationConstraint(_i3.BucketLocationConstraint? locationConstraint) =>
       _$this._locationConstraint = locationConstraint;
 
-  GetBucketLocationOutputBuilder() {
-    GetBucketLocationOutput._init(this);
-  }
+  GetBucketLocationOutputBuilder();
 
   GetBucketLocationOutputBuilder get _$this {
     final $v = _$v;

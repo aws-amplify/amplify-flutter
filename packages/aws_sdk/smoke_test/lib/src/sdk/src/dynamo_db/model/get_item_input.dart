@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.get_item_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -56,12 +56,9 @@ abstract class GetItemInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<GetItemInput>> serializers = [
     GetItemInputAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetItemInputBuilder b) {}
 
   /// The name of the table containing the requested item.
   String get tableName;
@@ -137,35 +134,35 @@ abstract class GetItemInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetItemInput');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'attributesToGet',
-      attributesToGet,
-    );
-    helper.add(
-      'consistentRead',
-      consistentRead,
-    );
-    helper.add(
-      'returnConsumedCapacity',
-      returnConsumedCapacity,
-    );
-    helper.add(
-      'projectionExpression',
-      projectionExpression,
-    );
-    helper.add(
-      'expressionAttributeNames',
-      expressionAttributeNames,
-    );
+    final helper = newBuiltValueToStringHelper('GetItemInput')
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'attributesToGet',
+        attributesToGet,
+      )
+      ..add(
+        'consistentRead',
+        consistentRead,
+      )
+      ..add(
+        'returnConsumedCapacity',
+        returnConsumedCapacity,
+      )
+      ..add(
+        'projectionExpression',
+        projectionExpression,
+      )
+      ..add(
+        'expressionAttributeNames',
+        expressionAttributeNames,
+      );
     return helper.toString();
   }
 }

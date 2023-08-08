@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.no_such_key;
+part of 'no_such_key.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -47,9 +47,7 @@ class NoSuchKeyBuilder implements Builder<NoSuchKey, NoSuchKeyBuilder> {
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  NoSuchKeyBuilder() {
-    NoSuchKey._init(this);
-  }
+  NoSuchKeyBuilder();
 
   NoSuchKeyBuilder get _$this {
     final $v = _$v;

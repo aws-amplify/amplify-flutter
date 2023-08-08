@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.managed_execution;
+part of 'managed_execution.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -47,9 +47,7 @@ class ManagedExecutionBuilder
   bool? get active => _$this._active;
   set active(bool? active) => _$this._active = active;
 
-  ManagedExecutionBuilder() {
-    ManagedExecution._init(this);
-  }
+  ManagedExecutionBuilder();
 
   ManagedExecutionBuilder get _$this {
     final $v = _$v;

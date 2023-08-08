@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.unrecognized_public_key_encoding_exception;
+part of 'unrecognized_public_key_encoding_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -62,9 +62,7 @@ class UnrecognizedPublicKeyEncodingExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  UnrecognizedPublicKeyEncodingExceptionBuilder() {
-    UnrecognizedPublicKeyEncodingException._init(this);
-  }
+  UnrecognizedPublicKeyEncodingExceptionBuilder();
 
   UnrecognizedPublicKeyEncodingExceptionBuilder get _$this {
     final $v = _$v;

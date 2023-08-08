@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.invalid_delivery_channel_name_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,8 @@ abstract class InvalidDeliveryChannelNameException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidDeliveryChannelNameExceptionAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidDeliveryChannelNameExceptionBuilder b) {}
+  static const List<_i2.SmithySerializer<InvalidDeliveryChannelNameException>>
+      serializers = [InvalidDeliveryChannelNameExceptionAwsJson11Serializer()];
 
   /// Error executing the command
   @override
@@ -70,11 +66,11 @@ abstract class InvalidDeliveryChannelNameException
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('InvalidDeliveryChannelNameException');
-    helper.add(
-      'message',
-      message,
-    );
+        newBuiltValueToStringHelper('InvalidDeliveryChannelNameException')
+          ..add(
+            'message',
+            message,
+          );
     return helper.toString();
   }
 }

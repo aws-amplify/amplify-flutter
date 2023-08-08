@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.import_documentation_parts_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -29,6 +29,7 @@ abstract class ImportDocumentationPartsRequest
     bool? failOnWarnings,
     required _i2.Uint8List body,
   }) {
+    failOnWarnings ??= false;
     return _$ImportDocumentationPartsRequest._(
       restApiId: restApiId,
       mode: mode,
@@ -63,12 +64,14 @@ abstract class ImportDocumentationPartsRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.Uint8List>> serializers = [
     ImportDocumentationPartsRequestRestJson1Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ImportDocumentationPartsRequestBuilder b) {}
+  static void _init(ImportDocumentationPartsRequestBuilder b) {
+    b.failOnWarnings = false;
+  }
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -77,7 +80,7 @@ abstract class ImportDocumentationPartsRequest
   _i4.PutMode? get mode;
 
   /// A query parameter to specify whether to rollback the documentation importation (`true`) or not (`false`) when a warning is encountered. The default value is `false`.
-  bool? get failOnWarnings;
+  bool get failOnWarnings;
 
   /// Raw byte array representing the to-be-imported documentation parts. To import from an OpenAPI file, this is a JSON object.
   _i2.Uint8List get body;
@@ -105,23 +108,23 @@ abstract class ImportDocumentationPartsRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ImportDocumentationPartsRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'mode',
-      mode,
-    );
-    helper.add(
-      'failOnWarnings',
-      failOnWarnings,
-    );
-    helper.add(
-      'body',
-      body,
-    );
+        newBuiltValueToStringHelper('ImportDocumentationPartsRequest')
+          ..add(
+            'restApiId',
+            restApiId,
+          )
+          ..add(
+            'mode',
+            mode,
+          )
+          ..add(
+            'failOnWarnings',
+            failOnWarnings,
+          )
+          ..add(
+            'body',
+            body,
+          );
     return helper.toString();
   }
 }

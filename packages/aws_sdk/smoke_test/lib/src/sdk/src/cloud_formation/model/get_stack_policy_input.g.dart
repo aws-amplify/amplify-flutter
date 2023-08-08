@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.get_stack_policy_input;
+part of 'get_stack_policy_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class GetStackPolicyInputBuilder
   String? get stackName => _$this._stackName;
   set stackName(String? stackName) => _$this._stackName = stackName;
 
-  GetStackPolicyInputBuilder() {
-    GetStackPolicyInput._init(this);
-  }
+  GetStackPolicyInputBuilder();
 
   GetStackPolicyInputBuilder get _$this {
     final $v = _$v;

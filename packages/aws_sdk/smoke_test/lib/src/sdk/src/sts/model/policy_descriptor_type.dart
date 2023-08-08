@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.sts.model.policy_descriptor_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -26,12 +26,9 @@ abstract class PolicyDescriptorType
 
   const PolicyDescriptorType._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<PolicyDescriptorType>> serializers = [
     PolicyDescriptorTypeAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PolicyDescriptorTypeBuilder b) {}
 
   /// The Amazon Resource Name (ARN) of the IAM managed policy to use as a session policy for the role. For more information about ARNs, see [Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) in the _Amazon Web Services General Reference_.
   String? get arn;
@@ -39,11 +36,11 @@ abstract class PolicyDescriptorType
   List<Object?> get props => [arn];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PolicyDescriptorType');
-    helper.add(
-      'arn',
-      arn,
-    );
+    final helper = newBuiltValueToStringHelper('PolicyDescriptorType')
+      ..add(
+        'arn',
+        arn,
+      );
     return helper.toString();
   }
 }

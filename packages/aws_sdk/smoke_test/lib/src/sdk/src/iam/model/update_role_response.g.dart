@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.update_role_response;
+part of 'update_role_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -38,9 +38,7 @@ class UpdateRoleResponseBuilder
     implements Builder<UpdateRoleResponse, UpdateRoleResponseBuilder> {
   _$UpdateRoleResponse? _$v;
 
-  UpdateRoleResponseBuilder() {
-    UpdateRoleResponse._init(this);
-  }
+  UpdateRoleResponseBuilder();
 
   @override
   void replace(UpdateRoleResponse other) {

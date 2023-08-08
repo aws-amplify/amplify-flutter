@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.get_stored_query_response;
+part of 'get_stored_query_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -50,9 +50,7 @@ class GetStoredQueryResponseBuilder
   set storedQuery(_i2.StoredQueryBuilder? storedQuery) =>
       _$this._storedQuery = storedQuery;
 
-  GetStoredQueryResponseBuilder() {
-    GetStoredQueryResponse._init(this);
-  }
+  GetStoredQueryResponseBuilder();
 
   GetStoredQueryResponseBuilder get _$this {
     final $v = _$v;

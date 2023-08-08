@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.list_backups_output;
+part of 'list_backups_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -60,9 +60,7 @@ class ListBackupsOutputBuilder
   set lastEvaluatedBackupArn(String? lastEvaluatedBackupArn) =>
       _$this._lastEvaluatedBackupArn = lastEvaluatedBackupArn;
 
-  ListBackupsOutputBuilder() {
-    ListBackupsOutput._init(this);
-  }
+  ListBackupsOutputBuilder();
 
   ListBackupsOutputBuilder get _$this {
     final $v = _$v;

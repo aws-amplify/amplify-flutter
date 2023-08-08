@@ -19,6 +19,9 @@ class NetworkException extends AmplifyException
     super.recoverySuggestion,
     super.underlyingException,
   });
+
+  @override
+  String get runtimeTypeName => 'NetworkException';
 }
 
 extension AWSHttpExceptionToAmplifyException on AWSHttpException {

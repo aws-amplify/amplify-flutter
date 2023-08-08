@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.untag_server_certificate_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,12 +41,8 @@ abstract class UntagServerCertificateRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UntagServerCertificateRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UntagServerCertificateRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<UntagServerCertificateRequest>>
+      serializers = [UntagServerCertificateRequestAwsQuerySerializer()];
 
   /// The name of the IAM server certificate from which you want to remove tags.
   ///
@@ -64,15 +60,15 @@ abstract class UntagServerCertificateRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UntagServerCertificateRequest');
-    helper.add(
-      'serverCertificateName',
-      serverCertificateName,
-    );
-    helper.add(
-      'tagKeys',
-      tagKeys,
-    );
+    final helper = newBuiltValueToStringHelper('UntagServerCertificateRequest')
+      ..add(
+        'serverCertificateName',
+        serverCertificateName,
+      )
+      ..add(
+        'tagKeys',
+        tagKeys,
+      );
     return helper.toString();
   }
 }

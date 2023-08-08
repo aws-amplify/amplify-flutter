@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.api_gateway.model.unauthorized_exception;
+part of 'unauthorized_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class UnauthorizedExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  UnauthorizedExceptionBuilder() {
-    UnauthorizedException._init(this);
-  }
+  UnauthorizedExceptionBuilder();
 
   UnauthorizedExceptionBuilder get _$this {
     final $v = _$v;

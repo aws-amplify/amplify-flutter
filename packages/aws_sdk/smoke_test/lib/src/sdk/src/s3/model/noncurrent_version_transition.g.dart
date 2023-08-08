@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.noncurrent_version_transition;
+part of 'noncurrent_version_transition.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -72,9 +72,7 @@ class NoncurrentVersionTransitionBuilder
   set newerNoncurrentVersions(int? newerNoncurrentVersions) =>
       _$this._newerNoncurrentVersions = newerNoncurrentVersions;
 
-  NoncurrentVersionTransitionBuilder() {
-    NoncurrentVersionTransition._init(this);
-  }
+  NoncurrentVersionTransitionBuilder();
 
   NoncurrentVersionTransitionBuilder get _$this {
     final $v = _$v;

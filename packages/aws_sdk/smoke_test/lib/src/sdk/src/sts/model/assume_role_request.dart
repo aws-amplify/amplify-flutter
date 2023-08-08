@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.sts.model.assume_role_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -58,12 +58,9 @@ abstract class AssumeRoleRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<AssumeRoleRequest>> serializers = [
     AssumeRoleRequestAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AssumeRoleRequestBuilder b) {}
 
   /// The Amazon Resource Name (ARN) of the role to assume.
   String get roleArn;
@@ -79,7 +76,7 @@ abstract class AssumeRoleRequest
   ///
   /// This parameter is optional. You can provide up to 10 managed policy ARNs. However, the plaintext that you use for both inline and managed session policies can't exceed 2,048 characters. For more information about ARNs, see [Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) in the Amazon Web Services General Reference.
   ///
-  /// An Amazon Web Services conversion compresses the passed session policies and session tags into a packed binary format that has a separate limit. Your request can fail for this limit even if your plaintext meets the other requirements. The `PackedPolicySize` response element indicates by percentage how close the policies and tags for your request are to the upper size limit.
+  /// An Amazon Web Services conversion compresses the passed inline session policy, managed policy ARNs, and session tags into a packed binary format that has a separate limit. Your request can fail for this limit even if your plaintext meets the other requirements. The `PackedPolicySize` response element indicates by percentage how close the policies and tags for your request are to the upper size limit.
   ///
   /// Passing policies to this operation returns new temporary credentials. The resulting session's permissions are the intersection of the role's identity-based policy and the session policies. You can use the role's temporary credentials in subsequent Amazon Web Services API calls to access resources in the account that owns the role. You cannot use session policies to grant more permissions than those allowed by the identity-based policy of the role that is being assumed. For more information, see [Session Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session) in the _IAM User Guide_.
   _i5.BuiltList<_i3.PolicyDescriptorType>? get policyArns;
@@ -90,7 +87,7 @@ abstract class AssumeRoleRequest
   ///
   /// The plaintext that you use for both inline and managed session policies can't exceed 2,048 characters. The JSON policy characters can be any ASCII character from the space character to the end of the valid character list (\\u0020 through \\u00FF). It can also include the tab (\\u0009), linefeed (\\u000A), and carriage return (\\u000D) characters.
   ///
-  /// An Amazon Web Services conversion compresses the passed session policies and session tags into a packed binary format that has a separate limit. Your request can fail for this limit even if your plaintext meets the other requirements. The `PackedPolicySize` response element indicates by percentage how close the policies and tags for your request are to the upper size limit.
+  /// An Amazon Web Services conversion compresses the passed inline session policy, managed policy ARNs, and session tags into a packed binary format that has a separate limit. Your request can fail for this limit even if your plaintext meets the other requirements. The `PackedPolicySize` response element indicates by percentage how close the policies and tags for your request are to the upper size limit.
   String? get policy;
 
   /// The duration, in seconds, of the role session. The value specified can range from 900 seconds (15 minutes) up to the maximum session duration set for the role. The maximum session duration setting can have a value from 1 hour to 12 hours. If you specify a value higher than this setting or the administrator setting (whichever is lower), the operation fails. For example, if you specify a session duration of 12 hours, but your administrator set the maximum session duration to 6 hours, your operation fails.
@@ -106,7 +103,7 @@ abstract class AssumeRoleRequest
   ///
   /// This parameter is optional. You can pass up to 50 session tags. The plaintext session tag keys can’t exceed 128 characters, and the values can’t exceed 256 characters. For these and additional limits, see [IAM and STS Character Limits](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html#reference_iam-limits-entity-length) in the _IAM User Guide_.
   ///
-  /// An Amazon Web Services conversion compresses the passed session policies and session tags into a packed binary format that has a separate limit. Your request can fail for this limit even if your plaintext meets the other requirements. The `PackedPolicySize` response element indicates by percentage how close the policies and tags for your request are to the upper size limit.
+  /// An Amazon Web Services conversion compresses the passed inline session policy, managed policy ARNs, and session tags into a packed binary format that has a separate limit. Your request can fail for this limit even if your plaintext meets the other requirements. The `PackedPolicySize` response element indicates by percentage how close the policies and tags for your request are to the upper size limit.
   ///
   /// You can pass a session tag with the same key as a tag that is already attached to the role. When you do, session tags override a role tag with the same key.
   ///
@@ -161,51 +158,51 @@ abstract class AssumeRoleRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AssumeRoleRequest');
-    helper.add(
-      'roleArn',
-      roleArn,
-    );
-    helper.add(
-      'roleSessionName',
-      roleSessionName,
-    );
-    helper.add(
-      'policyArns',
-      policyArns,
-    );
-    helper.add(
-      'policy',
-      policy,
-    );
-    helper.add(
-      'durationSeconds',
-      durationSeconds,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'transitiveTagKeys',
-      transitiveTagKeys,
-    );
-    helper.add(
-      'externalId',
-      externalId,
-    );
-    helper.add(
-      'serialNumber',
-      serialNumber,
-    );
-    helper.add(
-      'tokenCode',
-      tokenCode,
-    );
-    helper.add(
-      'sourceIdentity',
-      sourceIdentity,
-    );
+    final helper = newBuiltValueToStringHelper('AssumeRoleRequest')
+      ..add(
+        'roleArn',
+        roleArn,
+      )
+      ..add(
+        'roleSessionName',
+        roleSessionName,
+      )
+      ..add(
+        'policyArns',
+        policyArns,
+      )
+      ..add(
+        'policy',
+        policy,
+      )
+      ..add(
+        'durationSeconds',
+        durationSeconds,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'transitiveTagKeys',
+        transitiveTagKeys,
+      )
+      ..add(
+        'externalId',
+        externalId,
+      )
+      ..add(
+        'serialNumber',
+        serialNumber,
+      )
+      ..add(
+        'tokenCode',
+        tokenCode,
+      )
+      ..add(
+        'sourceIdentity',
+        sourceIdentity,
+      );
     return helper.toString();
   }
 }

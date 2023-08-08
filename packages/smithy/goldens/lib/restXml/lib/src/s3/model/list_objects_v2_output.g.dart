@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v1.s3.model.list_objects_v2_output;
+part of 'list_objects_v2_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -157,9 +157,7 @@ class ListObjectsV2OutputBuilder
   String? get startAfter => _$this._startAfter;
   set startAfter(String? startAfter) => _$this._startAfter = startAfter;
 
-  ListObjectsV2OutputBuilder() {
-    ListObjectsV2Output._init(this);
-  }
+  ListObjectsV2OutputBuilder();
 
   ListObjectsV2OutputBuilder get _$this {
     final $v = _$v;

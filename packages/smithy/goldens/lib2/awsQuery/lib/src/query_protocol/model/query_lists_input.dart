@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library aws_query_v2.query_protocol.model.query_lists_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -54,12 +54,10 @@ abstract class QueryListsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<QueryListsInput>> serializers = [
     QueryListsInputAwsQuerySerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(QueryListsInputBuilder b) {}
   _i5.BuiltList<String>? get listArg;
   _i5.BuiltList<_i3.GreetingStruct>? get complexListArg;
   _i5.BuiltList<String>? get flattenedListArg;
@@ -79,31 +77,31 @@ abstract class QueryListsInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('QueryListsInput');
-    helper.add(
-      'listArg',
-      listArg,
-    );
-    helper.add(
-      'complexListArg',
-      complexListArg,
-    );
-    helper.add(
-      'flattenedListArg',
-      flattenedListArg,
-    );
-    helper.add(
-      'listArgWithXmlNameMember',
-      listArgWithXmlNameMember,
-    );
-    helper.add(
-      'flattenedListArgWithXmlName',
-      flattenedListArgWithXmlName,
-    );
-    helper.add(
-      'nestedWithList',
-      nestedWithList,
-    );
+    final helper = newBuiltValueToStringHelper('QueryListsInput')
+      ..add(
+        'listArg',
+        listArg,
+      )
+      ..add(
+        'complexListArg',
+        complexListArg,
+      )
+      ..add(
+        'flattenedListArg',
+        flattenedListArg,
+      )
+      ..add(
+        'listArgWithXmlNameMember',
+        listArgWithXmlNameMember,
+      )
+      ..add(
+        'flattenedListArgWithXmlName',
+        flattenedListArgWithXmlName,
+      )
+      ..add(
+        'nestedWithList',
+        nestedWithList,
+      );
     return helper.toString();
   }
 }

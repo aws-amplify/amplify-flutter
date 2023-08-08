@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.delivery_channel; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,12 +41,9 @@ abstract class DeliveryChannel
 
   const DeliveryChannel._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<DeliveryChannel>> serializers = [
     DeliveryChannelAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeliveryChannelBuilder b) {}
 
   /// The name of the delivery channel. By default, Config assigns the name "default" when creating the delivery channel. To change the delivery channel name, you must use the DeleteDeliveryChannel action to delete your current delivery channel, and then you must use the PutDeliveryChannel command to create a delivery channel that has the desired name.
   String? get name;
@@ -80,31 +77,31 @@ abstract class DeliveryChannel
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeliveryChannel');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      's3BucketName',
-      s3BucketName,
-    );
-    helper.add(
-      's3KeyPrefix',
-      s3KeyPrefix,
-    );
-    helper.add(
-      's3KmsKeyArn',
-      s3KmsKeyArn,
-    );
-    helper.add(
-      'snsTopicArn',
-      snsTopicArn,
-    );
-    helper.add(
-      'configSnapshotDeliveryProperties',
-      configSnapshotDeliveryProperties,
-    );
+    final helper = newBuiltValueToStringHelper('DeliveryChannel')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        's3BucketName',
+        s3BucketName,
+      )
+      ..add(
+        's3KeyPrefix',
+        s3KeyPrefix,
+      )
+      ..add(
+        's3KmsKeyArn',
+        s3KmsKeyArn,
+      )
+      ..add(
+        'snsTopicArn',
+        snsTopicArn,
+      )
+      ..add(
+        'configSnapshotDeliveryProperties',
+        configSnapshotDeliveryProperties,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.operation.activate_type_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -24,12 +24,12 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/type_not_found_exce
 
 /// Activates a public third-party extension, making it available for use in stack templates. For more information, see [Using public extensions](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-public.html) in the _CloudFormation User Guide_.
 ///
-/// Once you have activated a public third-party extension in your account and region, use [SetTypeConfiguration](AWSCloudFormation/latest/APIReference/API_SetTypeConfiguration.html) to specify configuration properties for the extension. For more information, see [Configuring extensions at the account level](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-register.html#registry-set-configuration) in the _CloudFormation User Guide_.
+/// Once you have activated a public third-party extension in your account and Region, use [SetTypeConfiguration](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_SetTypeConfiguration.html) to specify configuration properties for the extension. For more information, see [Configuring extensions at the account level](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-register.html#registry-set-configuration) in the _CloudFormation User Guide_.
 class ActivateTypeOperation extends _i1.HttpOperation<_i2.ActivateTypeInput,
     _i2.ActivateTypeInput, _i3.ActivateTypeOutput, _i3.ActivateTypeOutput> {
   /// Activates a public third-party extension, making it available for use in stack templates. For more information, see [Using public extensions](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-public.html) in the _CloudFormation User Guide_.
   ///
-  /// Once you have activated a public third-party extension in your account and region, use [SetTypeConfiguration](AWSCloudFormation/latest/APIReference/API_SetTypeConfiguration.html) to specify configuration properties for the extension. For more information, see [Configuring extensions at the account level](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-register.html#registry-set-configuration) in the _CloudFormation User Guide_.
+  /// Once you have activated a public third-party extension in your account and Region, use [SetTypeConfiguration](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_SetTypeConfiguration.html) to specify configuration properties for the extension. For more information, see [Configuring extensions at the account level](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/registry-register.html#registry-set-configuration) in the _CloudFormation User Guide_.
   ActivateTypeOperation({
     required String region,
     Uri? baseUri,
@@ -116,7 +116,7 @@ class ActivateTypeOperation extends _i1.HttpOperation<_i2.ActivateTypeInput,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.CfnRegistryException, _i9.CfnRegistryException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'CFNRegistryException',
@@ -126,7 +126,7 @@ class ActivateTypeOperation extends _i1.HttpOperation<_i2.ActivateTypeInput,
           statusCode: 400,
           builder: _i9.CfnRegistryException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.TypeNotFoundException, _i10.TypeNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'TypeNotFoundException',
@@ -159,7 +159,7 @@ class ActivateTypeOperation extends _i1.HttpOperation<_i2.ActivateTypeInput,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

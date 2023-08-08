@@ -142,7 +142,7 @@ class ServiceClientGenerator extends LibraryGenerator<ServiceShape> {
                 (p) => p
                   ..type = operationInput
                   ..name = 'input',
-              )
+              ),
           ])
           ..optionalParameters.addAll(
             operationParameters.where((p) => p.location.inClientMethod).map(
@@ -166,7 +166,7 @@ class ServiceClientGenerator extends LibraryGenerator<ServiceShape> {
                       ? refer(param.name).ifNullThen(refer(private(param.name)))
                       : param.location.inClientConstructor
                           ? refer(private(param.name))
-                          : refer(param.name)
+                          : refer(param.name),
               })
               .property(isPaginated ? 'runPaginated' : 'run')
               .call([
@@ -180,7 +180,7 @@ class ServiceClientGenerator extends LibraryGenerator<ServiceShape> {
                 ))
                   param.name: param.location.inClientConstructor
                       ? refer(param.name).ifNullThen(refer(private(param.name)))
-                      : refer(param.name)
+                      : refer(param.name),
               })
               .returned
               .statement,

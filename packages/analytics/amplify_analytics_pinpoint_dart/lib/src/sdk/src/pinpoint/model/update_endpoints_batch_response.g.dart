@@ -56,9 +56,7 @@ class UpdateEndpointsBatchResponseBuilder
   set messageBody(_i3.MessageBodyBuilder? messageBody) =>
       _$this._messageBody = messageBody;
 
-  UpdateEndpointsBatchResponseBuilder() {
-    UpdateEndpointsBatchResponse._init(this);
-  }
+  UpdateEndpointsBatchResponseBuilder();
 
   UpdateEndpointsBatchResponseBuilder get _$this {
     final $v = _$v;

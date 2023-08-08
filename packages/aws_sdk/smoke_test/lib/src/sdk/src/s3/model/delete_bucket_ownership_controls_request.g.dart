@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.delete_bucket_ownership_controls_request;
+part of 'delete_bucket_ownership_controls_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -68,9 +68,7 @@ class DeleteBucketOwnershipControlsRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  DeleteBucketOwnershipControlsRequestBuilder() {
-    DeleteBucketOwnershipControlsRequest._init(this);
-  }
+  DeleteBucketOwnershipControlsRequestBuilder();
 
   DeleteBucketOwnershipControlsRequestBuilder get _$this {
     final $v = _$v;
@@ -147,9 +145,7 @@ class DeleteBucketOwnershipControlsRequestPayloadBuilder
             DeleteBucketOwnershipControlsRequestPayloadBuilder> {
   _$DeleteBucketOwnershipControlsRequestPayload? _$v;
 
-  DeleteBucketOwnershipControlsRequestPayloadBuilder() {
-    DeleteBucketOwnershipControlsRequestPayload._init(this);
-  }
+  DeleteBucketOwnershipControlsRequestPayloadBuilder();
 
   @override
   void replace(DeleteBucketOwnershipControlsRequestPayload other) {

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.assume_role_with_saml_response;
+part of 'assume_role_with_saml_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -131,9 +131,7 @@ class AssumeRoleWithSamlResponseBuilder
   set sourceIdentity(String? sourceIdentity) =>
       _$this._sourceIdentity = sourceIdentity;
 
-  AssumeRoleWithSamlResponseBuilder() {
-    AssumeRoleWithSamlResponse._init(this);
-  }
+  AssumeRoleWithSamlResponseBuilder();
 
   AssumeRoleWithSamlResponseBuilder get _$this {
     final $v = _$v;

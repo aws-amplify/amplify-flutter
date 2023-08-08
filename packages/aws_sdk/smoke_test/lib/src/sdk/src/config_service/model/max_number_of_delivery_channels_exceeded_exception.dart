@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.max_number_of_delivery_channels_exceeded_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,11 @@ abstract class MaxNumberOfDeliveryChannelsExceededException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+          _i2.SmithySerializer<MaxNumberOfDeliveryChannelsExceededException>>
+      serializers = [
     MaxNumberOfDeliveryChannelsExceededExceptionAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MaxNumberOfDeliveryChannelsExceededExceptionBuilder b) {}
 
   /// Error executing the command
   @override
@@ -70,11 +69,11 @@ abstract class MaxNumberOfDeliveryChannelsExceededException
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'MaxNumberOfDeliveryChannelsExceededException');
-    helper.add(
-      'message',
-      message,
-    );
+        'MaxNumberOfDeliveryChannelsExceededException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

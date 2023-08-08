@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.scope; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,12 +37,9 @@ abstract class Scope
 
   const Scope._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<Scope>> serializers = [
     ScopeAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ScopeBuilder b) {}
 
   /// The resource types of only those Amazon Web Services resources that you want to trigger an evaluation for the rule. You can only specify one type if you also specify a resource ID for `ComplianceResourceId`.
   _i2.BuiltList<String>? get complianceResourceTypes;
@@ -64,23 +61,23 @@ abstract class Scope
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Scope');
-    helper.add(
-      'complianceResourceTypes',
-      complianceResourceTypes,
-    );
-    helper.add(
-      'tagKey',
-      tagKey,
-    );
-    helper.add(
-      'tagValue',
-      tagValue,
-    );
-    helper.add(
-      'complianceResourceId',
-      complianceResourceId,
-    );
+    final helper = newBuiltValueToStringHelper('Scope')
+      ..add(
+        'complianceResourceTypes',
+        complianceResourceTypes,
+      )
+      ..add(
+        'tagKey',
+        tagKey,
+      )
+      ..add(
+        'tagValue',
+        tagValue,
+      )
+      ..add(
+        'complianceResourceId',
+        complianceResourceId,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library aws_json1_0_v1.json_rpc_10.model.complex_nested_error_data; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,22 +23,19 @@ abstract class ComplexNestedErrorData
 
   const ComplexNestedErrorData._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ComplexNestedErrorDataAwsJson10Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ComplexNestedErrorData>> serializers =
+      [ComplexNestedErrorDataAwsJson10Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ComplexNestedErrorDataBuilder b) {}
   String? get foo;
   @override
   List<Object?> get props => [foo];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ComplexNestedErrorData');
-    helper.add(
-      'foo',
-      foo,
-    );
+    final helper = newBuiltValueToStringHelper('ComplexNestedErrorData')
+      ..add(
+        'foo',
+        foo,
+      );
     return helper.toString();
   }
 }

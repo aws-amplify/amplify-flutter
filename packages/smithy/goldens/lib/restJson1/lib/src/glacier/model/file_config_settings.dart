@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.glacier.model.file_config_settings; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,12 +44,10 @@ abstract class FileConfigSettings
 
   const FileConfigSettings._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<FileConfigSettings>> serializers = [
     FileConfigSettingsRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(FileConfigSettingsBuilder b) {}
   String? get awsAccessKeyId;
   String? get awsSecretAccessKey;
   String? get awsSessionToken;
@@ -73,35 +71,35 @@ abstract class FileConfigSettings
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('FileConfigSettings');
-    helper.add(
-      'awsAccessKeyId',
-      awsAccessKeyId,
-    );
-    helper.add(
-      'awsSecretAccessKey',
-      awsSecretAccessKey,
-    );
-    helper.add(
-      'awsSessionToken',
-      awsSessionToken,
-    );
-    helper.add(
-      'region',
-      region,
-    );
-    helper.add(
-      's3',
-      s3,
-    );
-    helper.add(
-      'retryMode',
-      retryMode,
-    );
-    helper.add(
-      'maxAttempts',
-      maxAttempts,
-    );
+    final helper = newBuiltValueToStringHelper('FileConfigSettings')
+      ..add(
+        'awsAccessKeyId',
+        awsAccessKeyId,
+      )
+      ..add(
+        'awsSecretAccessKey',
+        awsSecretAccessKey,
+      )
+      ..add(
+        'awsSessionToken',
+        awsSessionToken,
+      )
+      ..add(
+        'region',
+        region,
+      )
+      ..add(
+        's3',
+        s3,
+      )
+      ..add(
+        'retryMode',
+        retryMode,
+      )
+      ..add(
+        'maxAttempts',
+        maxAttempts,
+      );
     return helper.toString();
   }
 }

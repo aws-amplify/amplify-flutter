@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.put_object_tagging_request;
+part of 'put_object_tagging_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -126,9 +126,7 @@ class PutObjectTaggingRequestBuilder
   set requestPayer(_i5.RequestPayer? requestPayer) =>
       _$this._requestPayer = requestPayer;
 
-  PutObjectTaggingRequestBuilder() {
-    PutObjectTaggingRequest._init(this);
-  }
+  PutObjectTaggingRequestBuilder();
 
   PutObjectTaggingRequestBuilder get _$this {
     final $v = _$v;

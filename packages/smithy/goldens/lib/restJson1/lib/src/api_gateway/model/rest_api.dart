@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.api_gateway.model.rest_api; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -55,12 +55,10 @@ abstract class RestApi
 
   const RestApi._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<RestApi>> serializers = [
     RestApiRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RestApiBuilder b) {}
   String? get id;
   String? get name;
   String? get description;
@@ -92,59 +90,59 @@ abstract class RestApi
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RestApi');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'createdDate',
-      createdDate,
-    );
-    helper.add(
-      'version',
-      version,
-    );
-    helper.add(
-      'warnings',
-      warnings,
-    );
-    helper.add(
-      'binaryMediaTypes',
-      binaryMediaTypes,
-    );
-    helper.add(
-      'minimumCompressionSize',
-      minimumCompressionSize,
-    );
-    helper.add(
-      'apiKeySource',
-      apiKeySource,
-    );
-    helper.add(
-      'endpointConfiguration',
-      endpointConfiguration,
-    );
-    helper.add(
-      'policy',
-      policy,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'disableExecuteApiEndpoint',
-      disableExecuteApiEndpoint,
-    );
+    final helper = newBuiltValueToStringHelper('RestApi')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'createdDate',
+        createdDate,
+      )
+      ..add(
+        'version',
+        version,
+      )
+      ..add(
+        'warnings',
+        warnings,
+      )
+      ..add(
+        'binaryMediaTypes',
+        binaryMediaTypes,
+      )
+      ..add(
+        'minimumCompressionSize',
+        minimumCompressionSize,
+      )
+      ..add(
+        'apiKeySource',
+        apiKeySource,
+      )
+      ..add(
+        'endpointConfiguration',
+        endpointConfiguration,
+      )
+      ..add(
+        'policy',
+        policy,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'disableExecuteApiEndpoint',
+        disableExecuteApiEndpoint,
+      );
     return helper.toString();
   }
 }

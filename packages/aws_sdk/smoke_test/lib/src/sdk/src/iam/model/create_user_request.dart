@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.create_user_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,12 +41,9 @@ abstract class CreateUserRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<CreateUserRequest>> serializers = [
     CreateUserRequestAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateUserRequestBuilder b) {}
 
   /// The path for the user name. For more information about paths, see [IAM identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html) in the _IAM User Guide_.
   ///
@@ -60,7 +57,11 @@ abstract class CreateUserRequest
   /// IAM user, group, role, and policy names must be unique within the account. Names are not distinguished by case. For example, you cannot create resources named both "MyResource" and "myresource".
   String get userName;
 
-  /// The ARN of the policy that is used to set the permissions boundary for the user.
+  /// The ARN of the managed policy that is used to set the permissions boundary for the user.
+  ///
+  /// A permissions boundary policy defines the maximum permissions that identity-based policies can grant to an entity, but does not grant permissions. Permissions boundaries do not define the maximum permissions that a resource-based policy can grant to an entity. To learn more, see [Permissions boundaries for IAM entities](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html) in the _IAM User Guide_.
+  ///
+  /// For more information about policy types, see [Policy types](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#access_policy-types) in the _IAM User Guide_.
   String? get permissionsBoundary;
 
   /// A list of tags that you want to attach to the new user. Each tag consists of a key name and an associated value. For more information about tagging, see [Tagging IAM resources](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html) in the _IAM User Guide_.
@@ -78,23 +79,23 @@ abstract class CreateUserRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateUserRequest');
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'permissionsBoundary',
-      permissionsBoundary,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('CreateUserRequest')
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'permissionsBoundary',
+        permissionsBoundary,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

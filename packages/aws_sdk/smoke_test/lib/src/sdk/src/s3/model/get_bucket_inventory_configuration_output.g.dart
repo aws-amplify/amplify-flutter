@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_bucket_inventory_configuration_output;
+part of 'get_bucket_inventory_configuration_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -60,9 +60,7 @@ class GetBucketInventoryConfigurationOutputBuilder
           _i3.InventoryConfigurationBuilder? inventoryConfiguration) =>
       _$this._inventoryConfiguration = inventoryConfiguration;
 
-  GetBucketInventoryConfigurationOutputBuilder() {
-    GetBucketInventoryConfigurationOutput._init(this);
-  }
+  GetBucketInventoryConfigurationOutputBuilder();
 
   GetBucketInventoryConfigurationOutputBuilder get _$this {
     final $v = _$v;

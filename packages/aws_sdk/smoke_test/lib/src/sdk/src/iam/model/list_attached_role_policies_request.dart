@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.list_attached_role_policies_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,12 +44,8 @@ abstract class ListAttachedRolePoliciesRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListAttachedRolePoliciesRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListAttachedRolePoliciesRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<ListAttachedRolePoliciesRequest>>
+      serializers = [ListAttachedRolePoliciesRequestAwsQuerySerializer()];
 
   /// The name (friendly name, not ARN) of the role to list attached policies for.
   ///
@@ -80,23 +76,23 @@ abstract class ListAttachedRolePoliciesRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ListAttachedRolePoliciesRequest');
-    helper.add(
-      'roleName',
-      roleName,
-    );
-    helper.add(
-      'pathPrefix',
-      pathPrefix,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'maxItems',
-      maxItems,
-    );
+        newBuiltValueToStringHelper('ListAttachedRolePoliciesRequest')
+          ..add(
+            'roleName',
+            roleName,
+          )
+          ..add(
+            'pathPrefix',
+            pathPrefix,
+          )
+          ..add(
+            'marker',
+            marker,
+          )
+          ..add(
+            'maxItems',
+            maxItems,
+          );
     return helper.toString();
   }
 }

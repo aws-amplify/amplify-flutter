@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.get_documentation_version_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -53,12 +53,8 @@ abstract class GetDocumentationVersionRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetDocumentationVersionRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetDocumentationVersionRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetDocumentationVersionRequestPayload>>
+      serializers = [GetDocumentationVersionRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -89,16 +85,15 @@ abstract class GetDocumentationVersionRequest
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('GetDocumentationVersionRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'documentationVersion',
-      documentationVersion,
-    );
+    final helper = newBuiltValueToStringHelper('GetDocumentationVersionRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'documentationVersion',
+        documentationVersion,
+      );
     return helper.toString();
   }
 }
@@ -117,8 +112,6 @@ abstract class GetDocumentationVersionRequestPayload
 
   const GetDocumentationVersionRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetDocumentationVersionRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

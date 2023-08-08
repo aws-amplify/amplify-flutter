@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.delete_role_permissions_boundary_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,12 +34,8 @@ abstract class DeleteRolePermissionsBoundaryRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteRolePermissionsBoundaryRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteRolePermissionsBoundaryRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<DeleteRolePermissionsBoundaryRequest>>
+      serializers = [DeleteRolePermissionsBoundaryRequestAwsQuerySerializer()];
 
   /// The name (friendly name, not ARN) of the IAM role from which you want to remove the permissions boundary.
   String get roleName;
@@ -50,11 +46,11 @@ abstract class DeleteRolePermissionsBoundaryRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeleteRolePermissionsBoundaryRequest');
-    helper.add(
-      'roleName',
-      roleName,
-    );
+        newBuiltValueToStringHelper('DeleteRolePermissionsBoundaryRequest')
+          ..add(
+            'roleName',
+            roleName,
+          );
     return helper.toString();
   }
 }

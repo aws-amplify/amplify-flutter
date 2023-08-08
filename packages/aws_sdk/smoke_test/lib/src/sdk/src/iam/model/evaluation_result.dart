@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.evaluation_result; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -68,12 +68,9 @@ abstract class EvaluationResult
 
   const EvaluationResult._();
 
-  static const List<_i8.SmithySerializer> serializers = [
+  static const List<_i8.SmithySerializer<EvaluationResult>> serializers = [
     EvaluationResultAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EvaluationResultBuilder b) {}
 
   /// The name of the API operation tested on the indicated resource.
   String get evalActionName;
@@ -122,43 +119,43 @@ abstract class EvaluationResult
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('EvaluationResult');
-    helper.add(
-      'evalActionName',
-      evalActionName,
-    );
-    helper.add(
-      'evalResourceName',
-      evalResourceName,
-    );
-    helper.add(
-      'evalDecision',
-      evalDecision,
-    );
-    helper.add(
-      'matchedStatements',
-      matchedStatements,
-    );
-    helper.add(
-      'missingContextValues',
-      missingContextValues,
-    );
-    helper.add(
-      'organizationsDecisionDetail',
-      organizationsDecisionDetail,
-    );
-    helper.add(
-      'permissionsBoundaryDecisionDetail',
-      permissionsBoundaryDecisionDetail,
-    );
-    helper.add(
-      'evalDecisionDetails',
-      evalDecisionDetails,
-    );
-    helper.add(
-      'resourceSpecificResults',
-      resourceSpecificResults,
-    );
+    final helper = newBuiltValueToStringHelper('EvaluationResult')
+      ..add(
+        'evalActionName',
+        evalActionName,
+      )
+      ..add(
+        'evalResourceName',
+        evalResourceName,
+      )
+      ..add(
+        'evalDecision',
+        evalDecision,
+      )
+      ..add(
+        'matchedStatements',
+        matchedStatements,
+      )
+      ..add(
+        'missingContextValues',
+        missingContextValues,
+      )
+      ..add(
+        'organizationsDecisionDetail',
+        organizationsDecisionDetail,
+      )
+      ..add(
+        'permissionsBoundaryDecisionDetail',
+        permissionsBoundaryDecisionDetail,
+      )
+      ..add(
+        'evalDecisionDetails',
+        evalDecisionDetails,
+      )
+      ..add(
+        'resourceSpecificResults',
+        resourceSpecificResults,
+      );
     return helper.toString();
   }
 }

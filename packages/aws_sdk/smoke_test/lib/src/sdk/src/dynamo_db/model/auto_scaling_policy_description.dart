@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.auto_scaling_policy_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,8 @@ abstract class AutoScalingPolicyDescription
 
   const AutoScalingPolicyDescription._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    AutoScalingPolicyDescriptionAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AutoScalingPolicyDescriptionBuilder b) {}
+  static const List<_i3.SmithySerializer<AutoScalingPolicyDescription>>
+      serializers = [AutoScalingPolicyDescriptionAwsJson10Serializer()];
 
   /// The name of the scaling policy.
   String? get policyName;
@@ -59,15 +55,15 @@ abstract class AutoScalingPolicyDescription
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AutoScalingPolicyDescription');
-    helper.add(
-      'policyName',
-      policyName,
-    );
-    helper.add(
-      'targetTrackingScalingPolicyConfiguration',
-      targetTrackingScalingPolicyConfiguration,
-    );
+    final helper = newBuiltValueToStringHelper('AutoScalingPolicyDescription')
+      ..add(
+        'policyName',
+        policyName,
+      )
+      ..add(
+        'targetTrackingScalingPolicyConfiguration',
+        targetTrackingScalingPolicyConfiguration,
+      );
     return helper.toString();
   }
 }

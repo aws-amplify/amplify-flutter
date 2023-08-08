@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.rest_xml_protocol.model.http_payload_traits_input_output;
+part of 'http_payload_traits_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -59,9 +59,7 @@ class HttpPayloadTraitsInputOutputBuilder
   _i2.Uint8List? get blob => _$this._blob;
   set blob(_i2.Uint8List? blob) => _$this._blob = blob;
 
-  HttpPayloadTraitsInputOutputBuilder() {
-    HttpPayloadTraitsInputOutput._init(this);
-  }
+  HttpPayloadTraitsInputOutputBuilder();
 
   HttpPayloadTraitsInputOutputBuilder get _$this {
     final $v = _$v;

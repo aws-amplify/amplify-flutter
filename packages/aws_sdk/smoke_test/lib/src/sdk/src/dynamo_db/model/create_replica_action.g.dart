@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.create_replica_action;
+part of 'create_replica_action.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class CreateReplicaActionBuilder
   String? get regionName => _$this._regionName;
   set regionName(String? regionName) => _$this._regionName = regionName;
 
-  CreateReplicaActionBuilder() {
-    CreateReplicaAction._init(this);
-  }
+  CreateReplicaActionBuilder();
 
   CreateReplicaActionBuilder get _$this {
     final $v = _$v;

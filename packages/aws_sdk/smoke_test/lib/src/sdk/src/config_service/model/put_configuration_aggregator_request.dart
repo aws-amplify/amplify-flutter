@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.put_configuration_aggregator_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -52,12 +52,8 @@ abstract class PutConfigurationAggregatorRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutConfigurationAggregatorRequestAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutConfigurationAggregatorRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<PutConfigurationAggregatorRequest>>
+      serializers = [PutConfigurationAggregatorRequestAwsJson11Serializer()];
 
   /// The name of the configuration aggregator.
   String get configurationAggregatorName;
@@ -82,23 +78,23 @@ abstract class PutConfigurationAggregatorRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutConfigurationAggregatorRequest');
-    helper.add(
-      'configurationAggregatorName',
-      configurationAggregatorName,
-    );
-    helper.add(
-      'accountAggregationSources',
-      accountAggregationSources,
-    );
-    helper.add(
-      'organizationAggregationSource',
-      organizationAggregationSource,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+        newBuiltValueToStringHelper('PutConfigurationAggregatorRequest')
+          ..add(
+            'configurationAggregatorName',
+            configurationAggregatorName,
+          )
+          ..add(
+            'accountAggregationSources',
+            accountAggregationSources,
+          )
+          ..add(
+            'organizationAggregationSource',
+            organizationAggregationSource,
+          )
+          ..add(
+            'tags',
+            tags,
+          );
     return helper.toString();
   }
 }

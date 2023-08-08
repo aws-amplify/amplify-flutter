@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.source_selection_criteria;
+part of 'source_selection_criteria.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -67,9 +67,7 @@ class SourceSelectionCriteriaBuilder
           _i3.ReplicaModificationsBuilder? replicaModifications) =>
       _$this._replicaModifications = replicaModifications;
 
-  SourceSelectionCriteriaBuilder() {
-    SourceSelectionCriteria._init(this);
-  }
+  SourceSelectionCriteriaBuilder();
 
   SourceSelectionCriteriaBuilder get _$this {
     final $v = _$v;

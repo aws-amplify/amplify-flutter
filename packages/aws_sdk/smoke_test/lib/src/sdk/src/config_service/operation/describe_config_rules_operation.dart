@@ -1,9 +1,9 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.operation.describe_config_rules_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
-import 'dart:async' as _i13;
+import 'dart:async' as _i14;
 
 import 'package:aws_common/aws_common.dart' as _i9;
 import 'package:aws_signature_v4/aws_signature_v4.dart' as _i6;
@@ -22,8 +22,10 @@ import 'package:smoke_test/src/sdk/src/config_service/model/describe_config_rule
     as _i3;
 import 'package:smoke_test/src/sdk/src/config_service/model/invalid_next_token_exception.dart'
     as _i11;
-import 'package:smoke_test/src/sdk/src/config_service/model/no_such_config_rule_exception.dart'
+import 'package:smoke_test/src/sdk/src/config_service/model/invalid_parameter_value_exception.dart'
     as _i12;
+import 'package:smoke_test/src/sdk/src/config_service/model/no_such_config_rule_exception.dart'
+    as _i13;
 
 /// Returns details about your Config rules.
 class DescribeConfigRulesOperation extends _i1.PaginatedHttpOperation<
@@ -114,7 +116,8 @@ class DescribeConfigRulesOperation extends _i1.PaginatedHttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidNextTokenException,
+            _i11.InvalidNextTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidNextTokenException',
@@ -123,14 +126,25 @@ class DescribeConfigRulesOperation extends _i1.PaginatedHttpOperation<
           _i11.InvalidNextTokenException,
           builder: _i11.InvalidNextTokenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.InvalidParameterValueException,
+            _i12.InvalidParameterValueException>(
+          _i1.ShapeId(
+            namespace: 'com.amazonaws.configservice',
+            shape: 'InvalidParameterValueException',
+          ),
+          _i1.ErrorKind.client,
+          _i12.InvalidParameterValueException,
+          builder: _i12.InvalidParameterValueException.fromResponse,
+        ),
+        _i1.SmithyError<_i13.NoSuchConfigRuleException,
+            _i13.NoSuchConfigRuleException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchConfigRuleException',
           ),
           _i1.ErrorKind.client,
-          _i12.NoSuchConfigRuleException,
-          builder: _i12.NoSuchConfigRuleException.fromResponse,
+          _i13.NoSuchConfigRuleException,
+          builder: _i13.NoSuchConfigRuleException.fromResponse,
         ),
       ];
   @override
@@ -147,7 +161,7 @@ class DescribeConfigRulesOperation extends _i1.PaginatedHttpOperation<
     _i9.AWSHttpClient? client,
     _i1.ShapeId? useProtocol,
   }) {
-    return _i13.runZoned(
+    return _i14.runZoned(
       () => super.run(
         input,
         client: client,
@@ -155,7 +169,7 @@ class DescribeConfigRulesOperation extends _i1.PaginatedHttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)}
+        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)},
       },
     );
   }

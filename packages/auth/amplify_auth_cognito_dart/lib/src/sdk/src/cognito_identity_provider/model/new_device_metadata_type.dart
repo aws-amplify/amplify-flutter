@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.new_device_metadata_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,7 +32,7 @@ abstract class NewDeviceMetadataType
 
   const NewDeviceMetadataType._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<NewDeviceMetadataType>> serializers = [
     NewDeviceMetadataTypeAwsJson11Serializer()
   ];
 
@@ -50,15 +51,15 @@ abstract class NewDeviceMetadataType
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('NewDeviceMetadataType');
-    helper.add(
-      'deviceKey',
-      deviceKey,
-    );
-    helper.add(
-      'deviceGroupKey',
-      deviceGroupKey,
-    );
+    final helper = newBuiltValueToStringHelper('NewDeviceMetadataType')
+      ..add(
+        'deviceKey',
+        deviceKey,
+      )
+      ..add(
+        'deviceGroupKey',
+        deviceGroupKey,
+      );
     return helper.toString();
   }
 }
@@ -92,23 +93,20 @@ class NewDeviceMetadataTypeAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'DeviceKey':
-          if (value != null) {
-            result.deviceKey = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.deviceKey = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'DeviceGroupKey':
-          if (value != null) {
-            result.deviceGroupKey = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.deviceGroupKey = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -118,27 +116,27 @@ class NewDeviceMetadataTypeAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    NewDeviceMetadataType object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as NewDeviceMetadataType);
-    final result = <Object?>[];
-    if (payload.deviceKey != null) {
-      result
+    final result$ = <Object?>[];
+    final NewDeviceMetadataType(:deviceKey, :deviceGroupKey) = object;
+    if (deviceKey != null) {
+      result$
         ..add('DeviceKey')
         ..add(serializers.serialize(
-          payload.deviceKey!,
+          deviceKey,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.deviceGroupKey != null) {
-      result
+    if (deviceGroupKey != null) {
+      result$
         ..add('DeviceGroupKey')
         ..add(serializers.serialize(
-          payload.deviceGroupKey!,
+          deviceGroupKey,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

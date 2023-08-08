@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.attached_policy;
+part of 'attached_policy.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class AttachedPolicyBuilder
   String? get policyArn => _$this._policyArn;
   set policyArn(String? policyArn) => _$this._policyArn = policyArn;
 
-  AttachedPolicyBuilder() {
-    AttachedPolicy._init(this);
-  }
+  AttachedPolicyBuilder();
 
   AttachedPolicyBuilder get _$this {
     final $v = _$v;

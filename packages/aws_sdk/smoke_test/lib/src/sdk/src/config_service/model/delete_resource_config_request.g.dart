@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.delete_resource_config_request;
+part of 'delete_resource_config_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -66,9 +66,7 @@ class DeleteResourceConfigRequestBuilder
   String? get resourceId => _$this._resourceId;
   set resourceId(String? resourceId) => _$this._resourceId = resourceId;
 
-  DeleteResourceConfigRequestBuilder() {
-    DeleteResourceConfigRequest._init(this);
-  }
+  DeleteResourceConfigRequestBuilder();
 
   DeleteResourceConfigRequestBuilder get _$this {
     final $v = _$v;

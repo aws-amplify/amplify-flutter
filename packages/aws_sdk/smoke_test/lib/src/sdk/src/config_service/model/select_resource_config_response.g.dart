@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.select_resource_config_response;
+part of 'select_resource_config_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -72,9 +72,7 @@ class SelectResourceConfigResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  SelectResourceConfigResponseBuilder() {
-    SelectResourceConfigResponse._init(this);
-  }
+  SelectResourceConfigResponseBuilder();
 
   SelectResourceConfigResponseBuilder get _$this {
     final $v = _$v;

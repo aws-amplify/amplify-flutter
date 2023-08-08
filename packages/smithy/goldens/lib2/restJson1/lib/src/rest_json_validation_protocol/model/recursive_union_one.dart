@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v2.rest_json_validation_protocol.model.recursive_union_one; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,15 +15,15 @@ sealed class RecursiveUnionOne extends _i1.SmithyUnion<RecursiveUnionOne> {
   const RecursiveUnionOne._();
 
   const factory RecursiveUnionOne.string(_i2.RecursiveEnumString string) =
-      RecursiveUnionOneString;
+      RecursiveUnionOneString$;
 
   const factory RecursiveUnionOne.union(_i3.RecursiveUnionTwo union) =
-      RecursiveUnionOneUnion;
+      RecursiveUnionOneUnion$;
 
   const factory RecursiveUnionOne.sdkUnknown(
     String name,
     Object value,
-  ) = RecursiveUnionOneSdkUnknown;
+  ) = RecursiveUnionOneSdkUnknown$;
 
   static const List<_i1.SmithySerializer<RecursiveUnionOne>> serializers = [
     RecursiveUnionOneRestJson1Serializer()
@@ -52,8 +52,8 @@ sealed class RecursiveUnionOne extends _i1.SmithyUnion<RecursiveUnionOne> {
   }
 }
 
-final class RecursiveUnionOneString extends RecursiveUnionOne {
-  const RecursiveUnionOneString(this.string) : super._();
+final class RecursiveUnionOneString$ extends RecursiveUnionOne {
+  const RecursiveUnionOneString$(this.string) : super._();
 
   @override
   final _i2.RecursiveEnumString string;
@@ -62,8 +62,8 @@ final class RecursiveUnionOneString extends RecursiveUnionOne {
   String get name => 'string';
 }
 
-final class RecursiveUnionOneUnion extends RecursiveUnionOne {
-  const RecursiveUnionOneUnion(this.union) : super._();
+final class RecursiveUnionOneUnion$ extends RecursiveUnionOne {
+  const RecursiveUnionOneUnion$(this.union) : super._();
 
   @override
   final _i3.RecursiveUnionTwo union;
@@ -72,8 +72,8 @@ final class RecursiveUnionOneUnion extends RecursiveUnionOne {
   String get name => 'union';
 }
 
-final class RecursiveUnionOneSdkUnknown extends RecursiveUnionOne {
-  const RecursiveUnionOneSdkUnknown(
+final class RecursiveUnionOneSdkUnknown$ extends RecursiveUnionOne {
+  const RecursiveUnionOneSdkUnknown$(
     this.name,
     this.value,
   ) : super._();
@@ -92,8 +92,8 @@ class RecursiveUnionOneRestJson1Serializer
   @override
   Iterable<Type> get types => const [
         RecursiveUnionOne,
-        RecursiveUnionOneString,
-        RecursiveUnionOneUnion,
+        RecursiveUnionOneString$,
+        RecursiveUnionOneUnion$,
       ];
   @override
   Iterable<_i1.ShapeId> get supportedProtocols => const [
@@ -111,12 +111,12 @@ class RecursiveUnionOneRestJson1Serializer
     final [key as String, value as Object] = serialized.toList();
     switch (key) {
       case 'string':
-        return RecursiveUnionOneString((serializers.deserialize(
+        return RecursiveUnionOneString$((serializers.deserialize(
           value,
           specifiedType: const FullType(_i2.RecursiveEnumString),
         ) as _i2.RecursiveEnumString));
       case 'union':
-        return RecursiveUnionOneUnion((serializers.deserialize(
+        return RecursiveUnionOneUnion$((serializers.deserialize(
           value,
           specifiedType: const FullType(_i3.RecursiveUnionTwo),
         ) as _i3.RecursiveUnionTwo));
@@ -136,15 +136,15 @@ class RecursiveUnionOneRestJson1Serializer
     return [
       object.name,
       switch (object) {
-        RecursiveUnionOneString(:final value) => serializers.serialize(
+        RecursiveUnionOneString$(:final value) => serializers.serialize(
             value,
             specifiedType: const FullType(_i2.RecursiveEnumString),
           ),
-        RecursiveUnionOneUnion(:final value) => serializers.serialize(
+        RecursiveUnionOneUnion$(:final value) => serializers.serialize(
             value,
             specifiedType: const FullType(_i3.RecursiveUnionTwo),
           ),
-        RecursiveUnionOneSdkUnknown(:final value) => value,
+        RecursiveUnionOneSdkUnknown$(:final value) => value,
       },
     ];
   }

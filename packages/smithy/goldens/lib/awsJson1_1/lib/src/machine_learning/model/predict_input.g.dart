@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1_v1.machine_learning.model.predict_input;
+part of 'predict_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -74,9 +74,7 @@ class PredictInputBuilder
   set predictEndpoint(String? predictEndpoint) =>
       _$this._predictEndpoint = predictEndpoint;
 
-  PredictInputBuilder() {
-    PredictInput._init(this);
-  }
+  PredictInputBuilder();
 
   PredictInputBuilder get _$this {
     final $v = _$v;

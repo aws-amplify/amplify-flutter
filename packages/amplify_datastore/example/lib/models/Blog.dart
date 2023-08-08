@@ -102,7 +102,7 @@ class Blog extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("Blog {");
     buffer.write("id=" + "$id" + ", ");
@@ -228,7 +228,7 @@ class _BlogModelType extends amplify_core.ModelType<Blog> {
 class BlogModelIdentifier implements amplify_core.ModelIdentifier<Blog> {
   final String id;
 
-  /// Create an instance of BlogModelIdentifier using [id] the primary key.
+  /** Create an instance of BlogModelIdentifier using [id] the primary key. */
   const BlogModelIdentifier({required this.id});
 
   @override

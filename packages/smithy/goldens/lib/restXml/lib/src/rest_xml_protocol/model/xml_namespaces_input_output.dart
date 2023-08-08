@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_xml_v1.rest_xml_protocol.model.xml_namespaces_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,9 @@ abstract class XmlNamespacesInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    XmlNamespacesInputOutputRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<XmlNamespacesInputOutput>>
+      serializers = [XmlNamespacesInputOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(XmlNamespacesInputOutputBuilder b) {}
   _i3.XmlNamespaceNested? get nested;
   @override
   XmlNamespacesInputOutput getPayload() => this;
@@ -55,11 +52,11 @@ abstract class XmlNamespacesInputOutput
   List<Object?> get props => [nested];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('XmlNamespacesInputOutput');
-    helper.add(
-      'nested',
-      nested,
-    );
+    final helper = newBuiltValueToStringHelper('XmlNamespacesInputOutput')
+      ..add(
+        'nested',
+        nested,
+      );
     return helper.toString();
   }
 }

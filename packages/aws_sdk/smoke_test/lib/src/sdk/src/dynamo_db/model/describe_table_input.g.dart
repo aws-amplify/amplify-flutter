@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.describe_table_input;
+part of 'describe_table_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class DescribeTableInputBuilder
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
 
-  DescribeTableInputBuilder() {
-    DescribeTableInput._init(this);
-  }
+  DescribeTableInputBuilder();
 
   DescribeTableInputBuilder get _$this {
     final $v = _$v;

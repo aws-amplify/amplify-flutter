@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.update_domain_name_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -55,12 +55,8 @@ abstract class UpdateDomainNameRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateDomainNameRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateDomainNameRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<UpdateDomainNameRequestPayload>>
+      serializers = [UpdateDomainNameRequestRestJson1Serializer()];
 
   /// The name of the DomainName resource to be changed.
   String get domainName;
@@ -93,15 +89,15 @@ abstract class UpdateDomainNameRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateDomainNameRequest');
-    helper.add(
-      'domainName',
-      domainName,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateDomainNameRequest')
+      ..add(
+        'domainName',
+        domainName,
+      )
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }
@@ -119,21 +115,17 @@ abstract class UpdateDomainNameRequestPayload
 
   const UpdateDomainNameRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateDomainNameRequestPayloadBuilder b) {}
-
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
   @override
   List<Object?> get props => [patchOperations];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('UpdateDomainNameRequestPayload');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateDomainNameRequestPayload')
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }

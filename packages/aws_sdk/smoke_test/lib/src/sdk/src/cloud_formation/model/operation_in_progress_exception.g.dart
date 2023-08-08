@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.operation_in_progress_exception;
+part of 'operation_in_progress_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -56,9 +56,7 @@ class OperationInProgressExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  OperationInProgressExceptionBuilder() {
-    OperationInProgressException._init(this);
-  }
+  OperationInProgressExceptionBuilder();
 
   OperationInProgressExceptionBuilder get _$this {
     final $v = _$v;

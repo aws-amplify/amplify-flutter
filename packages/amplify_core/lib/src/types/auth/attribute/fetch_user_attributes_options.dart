@@ -3,6 +3,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 
+/// {@category Auth}
 /// {@template amplify_core.fetch_user_attributes_options}
 /// The shared fetch user attributes options among all Auth plugins.
 /// {@endtemplate}
@@ -25,6 +26,7 @@ class FetchUserAttributesOptions
   @override
   String get runtimeTypeName => 'FetchUserAttributesOptions';
 
+  /// @nodoc
   @Deprecated('Use toJson instead')
   Map<String, Object?> serializeAsMap() => toJson();
 
@@ -34,6 +36,7 @@ class FetchUserAttributesOptions
       };
 }
 
+/// @nodoc
 /// {@template amplify_core.auth.fetch_user_attributes_plugin_options}
 /// Plugin-specific options for `Amplify.Auth.fetchUserAttributes`.
 /// {@endtemplate}

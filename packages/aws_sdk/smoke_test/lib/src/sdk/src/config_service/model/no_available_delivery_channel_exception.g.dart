@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.no_available_delivery_channel_exception;
+part of 'no_available_delivery_channel_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -68,9 +68,7 @@ class NoAvailableDeliveryChannelExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  NoAvailableDeliveryChannelExceptionBuilder() {
-    NoAvailableDeliveryChannelException._init(this);
-  }
+  NoAvailableDeliveryChannelExceptionBuilder();
 
   NoAvailableDeliveryChannelExceptionBuilder get _$this {
     final $v = _$v;

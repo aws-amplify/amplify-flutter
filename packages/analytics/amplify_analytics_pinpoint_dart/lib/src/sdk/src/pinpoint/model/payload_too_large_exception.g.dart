@@ -65,9 +65,7 @@ class PayloadTooLargeExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  PayloadTooLargeExceptionBuilder() {
-    PayloadTooLargeException._init(this);
-  }
+  PayloadTooLargeExceptionBuilder();
 
   PayloadTooLargeExceptionBuilder get _$this {
     final $v = _$v;

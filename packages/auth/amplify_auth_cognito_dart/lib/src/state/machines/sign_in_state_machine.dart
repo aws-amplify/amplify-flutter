@@ -72,6 +72,9 @@ final class SignInStateMachine
   /// The Cognito Identity Provider service client.
   late final CognitoIdentityProviderClient cognitoIdentityProvider = expect();
 
+  /// The advanced security features (ASF) context data provider.
+  ASFContextDataProvider get contextDataProvider => getOrCreate();
+
   /// The user built via the auth flow process.
   var _user = CognitoUserBuilder();
 
@@ -156,10 +159,16 @@ final class SignInStateMachine
   // Current flow state
   AuthenticationResultType? _authenticationResult;
   ChallengeNameType? _challengeName;
-  BuiltMap<String, String> _challengeParameters = BuiltMap();
+  BuiltMap<String, String?> _challengeParameters = BuiltMap();
   String? _session;
   SrpInitResult? _initResult;
   Map<CognitoUserAttributeKey, String>? _attributesNeedingUpdate;
+
+  Map<String, String> get _publicChallengeParameters {
+    final map = _challengeParameters.toMap()
+      ..removeWhere((_, value) => value == null);
+    return map.cast();
+  }
 
   /// Creates the `InitiateAuth` request.
   Future<InitiateAuthRequest> initiate(SignInInitiate event) async {
@@ -191,7 +200,7 @@ final class SignInStateMachine
   Future<RespondToAuthChallengeRequest?> respondToAuthChallenge(
     SignInEvent? event,
     ChallengeNameType challengeName,
-    BuiltMap<String, String> challengeParameters,
+    BuiltMap<String, String?> challengeParameters,
   ) async {
     if (authFlowType == AuthFlowType.customAuth &&
         event is SignInRespondToChallenge) {
@@ -213,7 +222,7 @@ final class SignInStateMachine
   /// Creates the password verifier request in a worker instance.
   @protected
   Future<RespondToAuthChallengeRequest> createPasswordVerifierRequest(
-    BuiltMap<String, String> challengeParameters,
+    BuiltMap<String, String?> challengeParameters,
   ) async {
     final username = parameters.username;
     final password = parameters.password;
@@ -234,7 +243,7 @@ final class SignInStateMachine
         ..clientSecret = config.appClientSecret
         ..poolId = config.poolId
         ..deviceKey = _user.deviceSecrets?.deviceKey
-        ..challengeParameters = challengeParameters
+        ..challengeParameters = BuiltMap(_publicChallengeParameters)
         ..parameters = SignInParameters(
           (b) => b
             ..username = username
@@ -269,7 +278,7 @@ final class SignInStateMachine
   /// Creates the device password verifier request in a worker instance.
   @protected
   Future<RespondToAuthChallengeRequest> createDevicePasswordVerifierRequest(
-    BuiltMap<String, String> challengeParameters,
+    BuiltMap<String, String?> challengeParameters,
   ) async {
     final username = parameters.username;
     final password = parameters.password;
@@ -284,7 +293,7 @@ final class SignInStateMachine
         ..initResult = _initResult
         ..clientId = config.appClientId
         ..clientSecret = config.appClientSecret
-        ..challengeParameters = challengeParameters
+        ..challengeParameters = BuiltMap(_publicChallengeParameters)
         ..parameters = SignInParameters(
           (b) => b
             ..username = username
@@ -462,7 +471,7 @@ final class SignInStateMachine
   Future<RespondToAuthChallengeRequest?> respondToSrpChallenge(
     SignInEvent? event,
     ChallengeNameType challengeName,
-    BuiltMap<String, String> challengeParameters,
+    BuiltMap<String, String?> challengeParameters,
   ) async {
     final hasUserResponse = event is SignInRespondToChallenge;
     return switch (challengeName) {
@@ -593,6 +602,15 @@ final class SignInStateMachine
       }
     });
 
+    final contextDataProvider = this.contextDataProvider;
+    final contextData = await contextDataProvider.buildRequestData(
+      _user.username!,
+    );
+    if (contextData != null) {
+      initRequest = initRequest.rebuild(
+        (b) => b.userContextData.replace(contextData),
+      );
+    }
     final initResponse =
         await cognitoIdentityProvider.initiateAuth(initRequest).result;
 
@@ -656,11 +674,9 @@ final class SignInStateMachine
                 ..accessToken = accessToken
                 ..clientMetadata.addAll(clientMetadata ?? const {})
                 ..userAttributes.addAll([
-                  for (final userAttribute in _attributesNeedingUpdate!.entries)
-                    AttributeType(
-                      name: userAttribute.toString(),
-                      value: userAttribute.value,
-                    )
+                  for (final MapEntry(:key, :value)
+                      in _attributesNeedingUpdate!.entries)
+                    AttributeType(name: key.key, value: value),
                 ]),
             ),
           )
@@ -739,7 +755,7 @@ final class SignInStateMachine
       }
       return SignInState.challenge(
         _challengeName!,
-        _challengeParameters.toMap(),
+        _publicChallengeParameters,
         requiredAttributes,
       );
     }
@@ -754,7 +770,12 @@ final class SignInStateMachine
     SignInEvent? event,
     RespondToAuthChallengeRequest respondRequest,
   ) async {
-    // Include session if not already included.
+    UserContextDataType? userContextData;
+    final contextDataProvider = this.contextDataProvider;
+    userContextData = await contextDataProvider.buildRequestData(
+      _user.username!,
+    );
+
     respondRequest = respondRequest.rebuild((b) {
       b
         ..session ??= _session
@@ -770,6 +791,10 @@ final class SignInStateMachine
           config.appClientId,
           config.appClientSecret!,
         );
+      }
+
+      if (userContextData != null) {
+        b.userContextData.replace(userContextData);
       }
     });
 
@@ -806,7 +831,9 @@ final class SignInStateMachine
   }
 
   /// Updates the CognitoUser from challenge parameters.
-  Future<void> _updateUser(BuiltMap<String, String> challengeParameters) async {
+  Future<void> _updateUser(
+    BuiltMap<String, String?> challengeParameters,
+  ) async {
     // If a Cognito response returned a different username than what was used
     // to login, refresh the device secrets so that they are included in future
     // requests.

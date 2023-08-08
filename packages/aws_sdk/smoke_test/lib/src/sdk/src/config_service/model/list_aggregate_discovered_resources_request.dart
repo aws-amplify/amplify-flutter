@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.list_aggregate_discovered_resources_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -28,6 +28,7 @@ abstract class ListAggregateDiscoveredResourcesRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$ListAggregateDiscoveredResourcesRequest._(
       configurationAggregatorName: configurationAggregatorName,
       resourceType: resourceType,
@@ -50,12 +51,16 @@ abstract class ListAggregateDiscoveredResourcesRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<ListAggregateDiscoveredResourcesRequest>>
+      serializers = [
     ListAggregateDiscoveredResourcesRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListAggregateDiscoveredResourcesRequestBuilder b) {}
+  static void _init(ListAggregateDiscoveredResourcesRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The name of the configuration aggregator.
   String get configurationAggregatorName;
@@ -67,7 +72,7 @@ abstract class ListAggregateDiscoveredResourcesRequest
   _i4.ResourceFilters? get filters;
 
   /// The maximum number of resource identifiers returned on each page. You cannot specify a number greater than 100. If you specify 0, Config uses the default.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -84,27 +89,27 @@ abstract class ListAggregateDiscoveredResourcesRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ListAggregateDiscoveredResourcesRequest');
-    helper.add(
-      'configurationAggregatorName',
-      configurationAggregatorName,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'filters',
-      filters,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        newBuiltValueToStringHelper('ListAggregateDiscoveredResourcesRequest')
+          ..add(
+            'configurationAggregatorName',
+            configurationAggregatorName,
+          )
+          ..add(
+            'resourceType',
+            resourceType,
+          )
+          ..add(
+            'filters',
+            filters,
+          )
+          ..add(
+            'limit',
+            limit,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          );
     return helper.toString();
   }
 }
@@ -198,6 +203,11 @@ class ListAggregateDiscoveredResourcesRequestAwsJson11Serializer extends _i1
         resourceType,
         specifiedType: const FullType(_i3.ResourceType),
       ),
+      'Limit',
+      serializers.serialize(
+        limit,
+        specifiedType: const FullType(int),
+      ),
     ]);
     if (filters != null) {
       result$
@@ -205,14 +215,6 @@ class ListAggregateDiscoveredResourcesRequestAwsJson11Serializer extends _i1
         ..add(serializers.serialize(
           filters,
           specifiedType: const FullType(_i4.ResourceFilters),
-        ));
-    }
-    if (limit != null) {
-      result$
-        ..add('Limit')
-        ..add(serializers.serialize(
-          limit,
-          specifiedType: const FullType(int),
         ));
     }
     if (nextToken != null) {

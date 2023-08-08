@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.rest_json_validation_protocol.model.malformed_enum_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -45,12 +45,10 @@ abstract class MalformedEnumInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<MalformedEnumInput>> serializers = [
     MalformedEnumInputRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedEnumInputBuilder b) {}
   _i3.EnumString? get string;
   _i5.BuiltList<_i3.EnumString>? get list;
   _i5.BuiltMap<_i3.EnumString, _i3.EnumString>? get map;
@@ -66,23 +64,23 @@ abstract class MalformedEnumInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedEnumInput');
-    helper.add(
-      'string',
-      string,
-    );
-    helper.add(
-      'list',
-      list,
-    );
-    helper.add(
-      'map',
-      map,
-    );
-    helper.add(
-      'union',
-      union,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedEnumInput')
+      ..add(
+        'string',
+        string,
+      )
+      ..add(
+        'list',
+        list,
+      )
+      ..add(
+        'map',
+        map,
+      )
+      ..add(
+        'union',
+        union,
+      );
     return helper.toString();
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.batch_describe_type_configurations_output;
+part of 'batch_describe_type_configurations_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -91,9 +91,7 @@ class BatchDescribeTypeConfigurationsOutputBuilder
           _i5.ListBuilder<_i4.TypeConfigurationDetails>? typeConfigurations) =>
       _$this._typeConfigurations = typeConfigurations;
 
-  BatchDescribeTypeConfigurationsOutputBuilder() {
-    BatchDescribeTypeConfigurationsOutput._init(this);
-  }
+  BatchDescribeTypeConfigurationsOutputBuilder();
 
   BatchDescribeTypeConfigurationsOutputBuilder get _$this {
     final $v = _$v;

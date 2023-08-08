@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.transact_get_items_input;
+part of 'transact_get_items_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -67,9 +67,7 @@ class TransactGetItemsInputBuilder
           _i4.ReturnConsumedCapacity? returnConsumedCapacity) =>
       _$this._returnConsumedCapacity = returnConsumedCapacity;
 
-  TransactGetItemsInputBuilder() {
-    TransactGetItemsInput._init(this);
-  }
+  TransactGetItemsInputBuilder();
 
   TransactGetItemsInputBuilder get _$this {
     final $v = _$v;

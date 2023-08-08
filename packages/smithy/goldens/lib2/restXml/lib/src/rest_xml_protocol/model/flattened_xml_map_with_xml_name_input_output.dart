@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_xml_v2.rest_xml_protocol.model.flattened_xml_map_with_xml_name_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,12 +43,9 @@ abstract class FlattenedXmlMapWithXmlNameInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    FlattenedXmlMapWithXmlNameInputOutputRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<FlattenedXmlMapWithXmlNameInputOutput>>
+      serializers = [FlattenedXmlMapWithXmlNameInputOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(FlattenedXmlMapWithXmlNameInputOutputBuilder b) {}
   _i3.BuiltMap<String, String>? get myMap;
   @override
   FlattenedXmlMapWithXmlNameInputOutput getPayload() => this;
@@ -57,11 +54,11 @@ abstract class FlattenedXmlMapWithXmlNameInputOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('FlattenedXmlMapWithXmlNameInputOutput');
-    helper.add(
-      'myMap',
-      myMap,
-    );
+        newBuiltValueToStringHelper('FlattenedXmlMapWithXmlNameInputOutput')
+          ..add(
+            'myMap',
+            myMap,
+          );
     return helper.toString();
   }
 }

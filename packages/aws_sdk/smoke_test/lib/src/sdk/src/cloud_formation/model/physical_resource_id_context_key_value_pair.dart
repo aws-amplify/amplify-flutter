@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.physical_resource_id_context_key_value_pair; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,12 +35,8 @@ abstract class PhysicalResourceIdContextKeyValuePair
 
   const PhysicalResourceIdContextKeyValuePair._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PhysicalResourceIdContextKeyValuePairAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PhysicalResourceIdContextKeyValuePairBuilder b) {}
+  static const List<_i2.SmithySerializer<PhysicalResourceIdContextKeyValuePair>>
+      serializers = [PhysicalResourceIdContextKeyValuePairAwsQuerySerializer()];
 
   /// The resource context key.
   String get key;
@@ -55,15 +51,15 @@ abstract class PhysicalResourceIdContextKeyValuePair
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PhysicalResourceIdContextKeyValuePair');
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'value',
-      value,
-    );
+        newBuiltValueToStringHelper('PhysicalResourceIdContextKeyValuePair')
+          ..add(
+            'key',
+            key,
+          )
+          ..add(
+            'value',
+            value,
+          );
     return helper.toString();
   }
 }

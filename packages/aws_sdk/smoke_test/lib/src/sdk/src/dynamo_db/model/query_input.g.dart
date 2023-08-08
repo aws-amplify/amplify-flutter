@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.query_input;
+part of 'query_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -222,9 +222,7 @@ class QueryInputBuilder implements Builder<QueryInput, QueryInputBuilder> {
               expressionAttributeValues) =>
       _$this._expressionAttributeValues = expressionAttributeValues;
 
-  QueryInputBuilder() {
-    QueryInput._init(this);
-  }
+  QueryInputBuilder();
 
   QueryInputBuilder get _$this {
     final $v = _$v;

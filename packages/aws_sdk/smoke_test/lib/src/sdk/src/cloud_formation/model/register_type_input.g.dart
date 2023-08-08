@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.register_type_input;
+part of 'register_type_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -105,9 +105,7 @@ class RegisterTypeInputBuilder
   set clientRequestToken(String? clientRequestToken) =>
       _$this._clientRequestToken = clientRequestToken;
 
-  RegisterTypeInputBuilder() {
-    RegisterTypeInput._init(this);
-  }
+  RegisterTypeInputBuilder();
 
   RegisterTypeInputBuilder get _$this {
     final $v = _$v;

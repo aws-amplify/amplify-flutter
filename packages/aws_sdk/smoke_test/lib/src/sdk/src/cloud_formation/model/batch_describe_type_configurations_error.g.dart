@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.batch_describe_type_configurations_error;
+part of 'batch_describe_type_configurations_error.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -77,9 +77,7 @@ class BatchDescribeTypeConfigurationsErrorBuilder
               typeConfigurationIdentifier) =>
       _$this._typeConfigurationIdentifier = typeConfigurationIdentifier;
 
-  BatchDescribeTypeConfigurationsErrorBuilder() {
-    BatchDescribeTypeConfigurationsError._init(this);
-  }
+  BatchDescribeTypeConfigurationsErrorBuilder();
 
   BatchDescribeTypeConfigurationsErrorBuilder get _$this {
     final $v = _$v;

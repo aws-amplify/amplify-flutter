@@ -57,9 +57,7 @@ class GetInAppMessagesResponseBuilder
           _i3.InAppMessagesResponseBuilder? inAppMessagesResponse) =>
       _$this._inAppMessagesResponse = inAppMessagesResponse;
 
-  GetInAppMessagesResponseBuilder() {
-    GetInAppMessagesResponse._init(this);
-  }
+  GetInAppMessagesResponseBuilder();
 
   GetInAppMessagesResponseBuilder get _$this {
     final $v = _$v;

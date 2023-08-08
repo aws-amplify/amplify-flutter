@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.invalid_export_time_exception;
+part of 'invalid_export_time_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -62,9 +62,7 @@ class InvalidExportTimeExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InvalidExportTimeExceptionBuilder() {
-    InvalidExportTimeException._init(this);
-  }
+  InvalidExportTimeExceptionBuilder();
 
   InvalidExportTimeExceptionBuilder get _$this {
     final $v = _$v;

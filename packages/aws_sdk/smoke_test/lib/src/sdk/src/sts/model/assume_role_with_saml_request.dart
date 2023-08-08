@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.sts.model.assume_role_with_saml_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -50,12 +50,8 @@ abstract class AssumeRoleWithSamlRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    AssumeRoleWithSamlRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AssumeRoleWithSamlRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<AssumeRoleWithSamlRequest>>
+      serializers = [AssumeRoleWithSamlRequestAwsQuerySerializer()];
 
   /// The Amazon Resource Name (ARN) of the role that the caller is assuming.
   String get roleArn;
@@ -72,7 +68,7 @@ abstract class AssumeRoleWithSamlRequest
   ///
   /// This parameter is optional. You can provide up to 10 managed policy ARNs. However, the plaintext that you use for both inline and managed session policies can't exceed 2,048 characters. For more information about ARNs, see [Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) in the Amazon Web Services General Reference.
   ///
-  /// An Amazon Web Services conversion compresses the passed session policies and session tags into a packed binary format that has a separate limit. Your request can fail for this limit even if your plaintext meets the other requirements. The `PackedPolicySize` response element indicates by percentage how close the policies and tags for your request are to the upper size limit.
+  /// An Amazon Web Services conversion compresses the passed inline session policy, managed policy ARNs, and session tags into a packed binary format that has a separate limit. Your request can fail for this limit even if your plaintext meets the other requirements. The `PackedPolicySize` response element indicates by percentage how close the policies and tags for your request are to the upper size limit.
   ///
   /// Passing policies to this operation returns new temporary credentials. The resulting session's permissions are the intersection of the role's identity-based policy and the session policies. You can use the role's temporary credentials in subsequent Amazon Web Services API calls to access resources in the account that owns the role. You cannot use session policies to grant more permissions than those allowed by the identity-based policy of the role that is being assumed. For more information, see [Session Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session) in the _IAM User Guide_.
   _i4.BuiltList<_i3.PolicyDescriptorType>? get policyArns;
@@ -83,7 +79,7 @@ abstract class AssumeRoleWithSamlRequest
   ///
   /// The plaintext that you use for both inline and managed session policies can't exceed 2,048 characters. The JSON policy characters can be any ASCII character from the space character to the end of the valid character list (\\u0020 through \\u00FF). It can also include the tab (\\u0009), linefeed (\\u000A), and carriage return (\\u000D) characters.
   ///
-  /// An Amazon Web Services conversion compresses the passed session policies and session tags into a packed binary format that has a separate limit. Your request can fail for this limit even if your plaintext meets the other requirements. The `PackedPolicySize` response element indicates by percentage how close the policies and tags for your request are to the upper size limit.
+  /// An Amazon Web Services conversion compresses the passed inline session policy, managed policy ARNs, and session tags into a packed binary format that has a separate limit. Your request can fail for this limit even if your plaintext meets the other requirements. The `PackedPolicySize` response element indicates by percentage how close the policies and tags for your request are to the upper size limit.
   String? get policy;
 
   /// The duration, in seconds, of the role session. Your role session lasts for the duration that you specify for the `DurationSeconds` parameter, or until the time specified in the SAML authentication response's `SessionNotOnOrAfter` value, whichever is shorter. You can provide a `DurationSeconds` value from 900 seconds (15 minutes) up to the maximum session duration setting for the role. This setting can have a value from 1 hour to 12 hours. If you specify a value higher than this setting, the operation fails. For example, if you specify a session duration of 12 hours, but your administrator set the maximum session duration to 6 hours, your operation fails. To learn how to view the maximum value for your role, see [View the Maximum Session Duration Setting for a Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html#id_roles_use_view-role-max-session) in the _IAM User Guide_.
@@ -105,31 +101,31 @@ abstract class AssumeRoleWithSamlRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AssumeRoleWithSamlRequest');
-    helper.add(
-      'roleArn',
-      roleArn,
-    );
-    helper.add(
-      'principalArn',
-      principalArn,
-    );
-    helper.add(
-      'samlAssertion',
-      samlAssertion,
-    );
-    helper.add(
-      'policyArns',
-      policyArns,
-    );
-    helper.add(
-      'policy',
-      policy,
-    );
-    helper.add(
-      'durationSeconds',
-      durationSeconds,
-    );
+    final helper = newBuiltValueToStringHelper('AssumeRoleWithSamlRequest')
+      ..add(
+        'roleArn',
+        roleArn,
+      )
+      ..add(
+        'principalArn',
+        principalArn,
+      )
+      ..add(
+        'samlAssertion',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'policyArns',
+        policyArns,
+      )
+      ..add(
+        'policy',
+        policy,
+      )
+      ..add(
+        'durationSeconds',
+        durationSeconds,
+      );
     return helper.toString();
   }
 }

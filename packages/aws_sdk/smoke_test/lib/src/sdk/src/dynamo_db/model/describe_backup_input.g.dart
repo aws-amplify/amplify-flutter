@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.describe_backup_input;
+part of 'describe_backup_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class DescribeBackupInputBuilder
   String? get backupArn => _$this._backupArn;
   set backupArn(String? backupArn) => _$this._backupArn = backupArn;
 
-  DescribeBackupInputBuilder() {
-    DescribeBackupInput._init(this);
-  }
+  DescribeBackupInputBuilder();
 
   DescribeBackupInputBuilder get _$this {
     final $v = _$v;

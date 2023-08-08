@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.time_to_live_specification; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,10 +16,9 @@ abstract class TimeToLiveSpecification
     implements Built<TimeToLiveSpecification, TimeToLiveSpecificationBuilder> {
   /// Represents the settings used to enable or disable Time to Live (TTL) for the specified table.
   factory TimeToLiveSpecification({
-    bool? enabled,
+    required bool enabled,
     required String attributeName,
   }) {
-    enabled ??= false;
     return _$TimeToLiveSpecification._(
       enabled: enabled,
       attributeName: attributeName,
@@ -33,14 +32,8 @@ abstract class TimeToLiveSpecification
 
   const TimeToLiveSpecification._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    TimeToLiveSpecificationAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TimeToLiveSpecificationBuilder b) {
-    b.enabled = false;
-  }
+  static const List<_i2.SmithySerializer<TimeToLiveSpecification>> serializers =
+      [TimeToLiveSpecificationAwsJson10Serializer()];
 
   /// Indicates whether TTL is to be enabled (true) or disabled (false) on the table.
   bool get enabled;
@@ -54,15 +47,15 @@ abstract class TimeToLiveSpecification
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TimeToLiveSpecification');
-    helper.add(
-      'enabled',
-      enabled,
-    );
-    helper.add(
-      'attributeName',
-      attributeName,
-    );
+    final helper = newBuiltValueToStringHelper('TimeToLiveSpecification')
+      ..add(
+        'enabled',
+        enabled,
+      )
+      ..add(
+        'attributeName',
+        attributeName,
+      );
     return helper.toString();
   }
 }

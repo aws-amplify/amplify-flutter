@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.import_summary;
+part of 'import_summary.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -116,9 +116,7 @@ class ImportSummaryBuilder
   DateTime? get endTime => _$this._endTime;
   set endTime(DateTime? endTime) => _$this._endTime = endTime;
 
-  ImportSummaryBuilder() {
-    ImportSummary._init(this);
-  }
+  ImportSummaryBuilder();
 
   ImportSummaryBuilder get _$this {
     final $v = _$v;

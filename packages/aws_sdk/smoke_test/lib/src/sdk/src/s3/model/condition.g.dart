@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.condition;
+part of 'condition.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -57,9 +57,7 @@ class ConditionBuilder implements Builder<Condition, ConditionBuilder> {
   set keyPrefixEquals(String? keyPrefixEquals) =>
       _$this._keyPrefixEquals = keyPrefixEquals;
 
-  ConditionBuilder() {
-    Condition._init(this);
-  }
+  ConditionBuilder();
 
   ConditionBuilder get _$this {
     final $v = _$v;

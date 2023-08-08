@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.get_account_summary_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,8 @@ abstract class GetAccountSummaryResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    GetAccountSummaryResponseAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetAccountSummaryResponseBuilder b) {}
+  static const List<_i4.SmithySerializer<GetAccountSummaryResponse>>
+      serializers = [GetAccountSummaryResponseAwsQuerySerializer()];
 
   /// A set of key–value pairs containing information about IAM entity usage and IAM quotas.
   _i3.BuiltMap<_i2.SummaryKeyType, int>? get summaryMap;
@@ -51,11 +47,11 @@ abstract class GetAccountSummaryResponse
   List<Object?> get props => [summaryMap];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetAccountSummaryResponse');
-    helper.add(
-      'summaryMap',
-      summaryMap,
-    );
+    final helper = newBuiltValueToStringHelper('GetAccountSummaryResponse')
+      ..add(
+        'summaryMap',
+        summaryMap,
+      );
     return helper.toString();
   }
 }

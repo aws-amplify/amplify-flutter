@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.destination; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -48,12 +48,9 @@ abstract class Destination
 
   const Destination._();
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<_i7.SmithySerializer<Destination>> serializers = [
     DestinationRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DestinationBuilder b) {}
 
   /// The Amazon Resource Name (ARN) of the bucket where you want Amazon S3 to store the results.
   String get bucket;
@@ -89,35 +86,35 @@ abstract class Destination
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Destination');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'account',
-      account,
-    );
-    helper.add(
-      'storageClass',
-      storageClass,
-    );
-    helper.add(
-      'accessControlTranslation',
-      accessControlTranslation,
-    );
-    helper.add(
-      'encryptionConfiguration',
-      encryptionConfiguration,
-    );
-    helper.add(
-      'replicationTime',
-      replicationTime,
-    );
-    helper.add(
-      'metrics',
-      metrics,
-    );
+    final helper = newBuiltValueToStringHelper('Destination')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'account',
+        account,
+      )
+      ..add(
+        'storageClass',
+        storageClass,
+      )
+      ..add(
+        'accessControlTranslation',
+        accessControlTranslation,
+      )
+      ..add(
+        'encryptionConfiguration',
+        encryptionConfiguration,
+      )
+      ..add(
+        'replicationTime',
+        replicationTime,
+      )
+      ..add(
+        'metrics',
+        metrics,
+      );
     return helper.toString();
   }
 }

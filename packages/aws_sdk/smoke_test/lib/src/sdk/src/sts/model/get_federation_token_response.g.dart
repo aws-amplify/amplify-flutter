@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.get_federation_token_response;
+part of 'get_federation_token_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -73,9 +73,7 @@ class GetFederationTokenResponseBuilder
   set packedPolicySize(int? packedPolicySize) =>
       _$this._packedPolicySize = packedPolicySize;
 
-  GetFederationTokenResponseBuilder() {
-    GetFederationTokenResponse._init(this);
-  }
+  GetFederationTokenResponseBuilder();
 
   GetFederationTokenResponseBuilder get _$this {
     final $v = _$v;

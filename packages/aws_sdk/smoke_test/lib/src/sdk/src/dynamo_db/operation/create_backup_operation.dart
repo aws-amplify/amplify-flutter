@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.operation.create_backup_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -152,7 +152,7 @@ class CreateBackupOperation extends _i1.HttpOperation<_i2.CreateBackupInput,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.BackupInUseException, _i9.BackupInUseException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'BackupInUseException',
@@ -161,7 +161,8 @@ class CreateBackupOperation extends _i1.HttpOperation<_i2.CreateBackupInput,
           _i9.BackupInUseException,
           builder: _i9.BackupInUseException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.ContinuousBackupsUnavailableException,
+            _i10.ContinuousBackupsUnavailableException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ContinuousBackupsUnavailableException',
@@ -170,7 +171,7 @@ class CreateBackupOperation extends _i1.HttpOperation<_i2.CreateBackupInput,
           _i10.ContinuousBackupsUnavailableException,
           builder: _i10.ContinuousBackupsUnavailableException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InternalServerError, _i11.InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
@@ -179,7 +180,8 @@ class CreateBackupOperation extends _i1.HttpOperation<_i2.CreateBackupInput,
           _i11.InternalServerError,
           builder: _i11.InternalServerError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.InvalidEndpointException,
+            _i12.InvalidEndpointException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InvalidEndpointException',
@@ -189,7 +191,8 @@ class CreateBackupOperation extends _i1.HttpOperation<_i2.CreateBackupInput,
           statusCode: 421,
           builder: _i12.InvalidEndpointException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.LimitExceededException,
+            _i13.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'LimitExceededException',
@@ -198,7 +201,7 @@ class CreateBackupOperation extends _i1.HttpOperation<_i2.CreateBackupInput,
           _i13.LimitExceededException,
           builder: _i13.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.TableInUseException, _i14.TableInUseException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'TableInUseException',
@@ -207,7 +210,8 @@ class CreateBackupOperation extends _i1.HttpOperation<_i2.CreateBackupInput,
           _i14.TableInUseException,
           builder: _i14.TableInUseException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.TableNotFoundException,
+            _i15.TableNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'TableNotFoundException',
@@ -239,7 +243,7 @@ class CreateBackupOperation extends _i1.HttpOperation<_i2.CreateBackupInput,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

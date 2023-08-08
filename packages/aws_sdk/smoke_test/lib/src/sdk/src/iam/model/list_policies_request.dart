@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.list_policies_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -25,6 +25,7 @@ abstract class ListPoliciesRequest
     String? marker,
     int? maxItems,
   }) {
+    onlyAttached ??= false;
     return _$ListPoliciesRequest._(
       scope: scope,
       onlyAttached: onlyAttached,
@@ -48,12 +49,14 @@ abstract class ListPoliciesRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ListPoliciesRequest>> serializers = [
     ListPoliciesRequestAwsQuerySerializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListPoliciesRequestBuilder b) {}
+  static void _init(ListPoliciesRequestBuilder b) {
+    b.onlyAttached = false;
+  }
 
   /// The scope to use for filtering the results.
   ///
@@ -65,7 +68,7 @@ abstract class ListPoliciesRequest
   /// A flag to filter the results to only the attached policies.
   ///
   /// When `OnlyAttached` is `true`, the returned list contains only the policies that are attached to an IAM user, group, or role. When `OnlyAttached` is `false`, or when the parameter is not included, all policies are returned.
-  bool? get onlyAttached;
+  bool get onlyAttached;
 
   /// The path prefix for filtering the results. This parameter is optional. If it is not included, it defaults to a slash (/), listing all policies. This parameter allows (through its [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can contain any ASCII character from the ! (`\\u0021`) through the DEL character (`\\u007F`), including most punctuation characters, digits, and upper and lowercased letters.
   String? get pathPrefix;
@@ -97,31 +100,31 @@ abstract class ListPoliciesRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListPoliciesRequest');
-    helper.add(
-      'scope',
-      scope,
-    );
-    helper.add(
-      'onlyAttached',
-      onlyAttached,
-    );
-    helper.add(
-      'pathPrefix',
-      pathPrefix,
-    );
-    helper.add(
-      'policyUsageFilter',
-      policyUsageFilter,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'maxItems',
-      maxItems,
-    );
+    final helper = newBuiltValueToStringHelper('ListPoliciesRequest')
+      ..add(
+        'scope',
+        scope,
+      )
+      ..add(
+        'onlyAttached',
+        onlyAttached,
+      )
+      ..add(
+        'pathPrefix',
+        pathPrefix,
+      )
+      ..add(
+        'policyUsageFilter',
+        policyUsageFilter,
+      )
+      ..add(
+        'marker',
+        marker,
+      )
+      ..add(
+        'maxItems',
+        maxItems,
+      );
     return helper.toString();
   }
 }
@@ -222,14 +225,12 @@ class ListPoliciesRequestAwsQuerySerializer
           specifiedType: const FullType.nullable(_i3.PolicyScopeType),
         ));
     }
-    if (onlyAttached != null) {
-      result$
-        ..add(const _i1.XmlElementName('OnlyAttached'))
-        ..add(serializers.serialize(
-          onlyAttached,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result$
+      ..add(const _i1.XmlElementName('OnlyAttached'))
+      ..add(serializers.serialize(
+        onlyAttached,
+        specifiedType: const FullType(bool),
+      ));
     if (pathPrefix != null) {
       result$
         ..add(const _i1.XmlElementName('PathPrefix'))

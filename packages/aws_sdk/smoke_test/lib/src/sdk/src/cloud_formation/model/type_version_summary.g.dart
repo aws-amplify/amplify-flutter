@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.type_version_summary;
+part of 'type_version_summary.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -116,9 +116,7 @@ class TypeVersionSummaryBuilder
   set publicVersionNumber(String? publicVersionNumber) =>
       _$this._publicVersionNumber = publicVersionNumber;
 
-  TypeVersionSummaryBuilder() {
-    TypeVersionSummary._init(this);
-  }
+  TypeVersionSummaryBuilder();
 
   TypeVersionSummaryBuilder get _$this {
     final $v = _$v;

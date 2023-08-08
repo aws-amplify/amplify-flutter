@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.configuration_recorder;
+part of 'configuration_recorder.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -68,9 +68,7 @@ class ConfigurationRecorderBuilder
   set recordingGroup(_i2.RecordingGroupBuilder? recordingGroup) =>
       _$this._recordingGroup = recordingGroup;
 
-  ConfigurationRecorderBuilder() {
-    ConfigurationRecorder._init(this);
-  }
+  ConfigurationRecorderBuilder();
 
   ConfigurationRecorderBuilder get _$this {
     final $v = _$v;

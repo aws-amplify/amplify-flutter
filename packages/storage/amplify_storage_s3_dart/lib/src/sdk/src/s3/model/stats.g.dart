@@ -65,9 +65,7 @@ class StatsBuilder implements Builder<Stats, StatsBuilder> {
   set bytesReturned(_i2.Int64? bytesReturned) =>
       _$this._bytesReturned = bytesReturned;
 
-  StatsBuilder() {
-    Stats._init(this);
-  }
+  StatsBuilder();
 
   StatsBuilder get _$this {
     final $v = _$v;

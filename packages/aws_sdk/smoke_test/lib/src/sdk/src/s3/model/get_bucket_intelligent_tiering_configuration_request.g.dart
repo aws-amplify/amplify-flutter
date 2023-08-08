@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_bucket_intelligent_tiering_configuration_request;
+part of 'get_bucket_intelligent_tiering_configuration_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -73,9 +73,7 @@ class GetBucketIntelligentTieringConfigurationRequestBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  GetBucketIntelligentTieringConfigurationRequestBuilder() {
-    GetBucketIntelligentTieringConfigurationRequest._init(this);
-  }
+  GetBucketIntelligentTieringConfigurationRequestBuilder();
 
   GetBucketIntelligentTieringConfigurationRequestBuilder get _$this {
     final $v = _$v;
@@ -157,9 +155,7 @@ class GetBucketIntelligentTieringConfigurationRequestPayloadBuilder
             GetBucketIntelligentTieringConfigurationRequestPayloadBuilder> {
   _$GetBucketIntelligentTieringConfigurationRequestPayload? _$v;
 
-  GetBucketIntelligentTieringConfigurationRequestPayloadBuilder() {
-    GetBucketIntelligentTieringConfigurationRequestPayload._init(this);
-  }
+  GetBucketIntelligentTieringConfigurationRequestPayloadBuilder();
 
   @override
   void replace(GetBucketIntelligentTieringConfigurationRequestPayload other) {

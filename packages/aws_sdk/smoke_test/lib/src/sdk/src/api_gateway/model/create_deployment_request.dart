@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.create_deployment_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -79,12 +79,8 @@ abstract class CreateDeploymentRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateDeploymentRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateDeploymentRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<CreateDeploymentRequestPayload>>
+      serializers = [CreateDeploymentRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -101,7 +97,7 @@ abstract class CreateDeploymentRequest
   /// Enables a cache cluster for the Stage resource specified in the input.
   bool? get cacheClusterEnabled;
 
-  /// Specifies the cache cluster size for the Stage resource specified in the input, if a cache cluster is enabled.
+  /// The stage's cache capacity in GB. For more information about choosing a cache size, see [Enabling API caching to enhance responsiveness](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html).
   _i3.CacheClusterSize? get cacheClusterSize;
 
   /// A map that defines the stage variables for the Stage resource that is associated with the new deployment. Variable names can have alphanumeric and underscore characters, and the values must match `\[A-Za-z0-9-._~:/?#&=,\]+`.
@@ -154,43 +150,43 @@ abstract class CreateDeploymentRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateDeploymentRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'stageName',
-      stageName,
-    );
-    helper.add(
-      'stageDescription',
-      stageDescription,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'cacheClusterEnabled',
-      cacheClusterEnabled,
-    );
-    helper.add(
-      'cacheClusterSize',
-      cacheClusterSize,
-    );
-    helper.add(
-      'variables',
-      variables,
-    );
-    helper.add(
-      'canarySettings',
-      canarySettings,
-    );
-    helper.add(
-      'tracingEnabled',
-      tracingEnabled,
-    );
+    final helper = newBuiltValueToStringHelper('CreateDeploymentRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'stageName',
+        stageName,
+      )
+      ..add(
+        'stageDescription',
+        stageDescription,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'cacheClusterEnabled',
+        cacheClusterEnabled,
+      )
+      ..add(
+        'cacheClusterSize',
+        cacheClusterSize,
+      )
+      ..add(
+        'variables',
+        variables,
+      )
+      ..add(
+        'canarySettings',
+        canarySettings,
+      )
+      ..add(
+        'tracingEnabled',
+        tracingEnabled,
+      );
     return helper.toString();
   }
 }
@@ -208,13 +204,10 @@ abstract class CreateDeploymentRequestPayload
 
   const CreateDeploymentRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateDeploymentRequestPayloadBuilder b) {}
-
   /// Enables a cache cluster for the Stage resource specified in the input.
   bool? get cacheClusterEnabled;
 
-  /// Specifies the cache cluster size for the Stage resource specified in the input, if a cache cluster is enabled.
+  /// The stage's cache capacity in GB. For more information about choosing a cache size, see [Enabling API caching to enhance responsiveness](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html).
   _i3.CacheClusterSize? get cacheClusterSize;
 
   /// The input configuration for the canary deployment when the deployment is a canary release deployment.
@@ -247,40 +240,39 @@ abstract class CreateDeploymentRequestPayload
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('CreateDeploymentRequestPayload');
-    helper.add(
-      'cacheClusterEnabled',
-      cacheClusterEnabled,
-    );
-    helper.add(
-      'cacheClusterSize',
-      cacheClusterSize,
-    );
-    helper.add(
-      'canarySettings',
-      canarySettings,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'stageDescription',
-      stageDescription,
-    );
-    helper.add(
-      'stageName',
-      stageName,
-    );
-    helper.add(
-      'tracingEnabled',
-      tracingEnabled,
-    );
-    helper.add(
-      'variables',
-      variables,
-    );
+    final helper = newBuiltValueToStringHelper('CreateDeploymentRequestPayload')
+      ..add(
+        'cacheClusterEnabled',
+        cacheClusterEnabled,
+      )
+      ..add(
+        'cacheClusterSize',
+        cacheClusterSize,
+      )
+      ..add(
+        'canarySettings',
+        canarySettings,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'stageDescription',
+        stageDescription,
+      )
+      ..add(
+        'stageName',
+        stageName,
+      )
+      ..add(
+        'tracingEnabled',
+        tracingEnabled,
+      )
+      ..add(
+        'variables',
+        variables,
+      );
     return helper.toString();
   }
 }

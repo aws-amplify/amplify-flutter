@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.stage_key;
+part of 'stage_key.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -53,9 +53,7 @@ class StageKeyBuilder implements Builder<StageKey, StageKeyBuilder> {
   String? get stageName => _$this._stageName;
   set stageName(String? stageName) => _$this._stageName = stageName;
 
-  StageKeyBuilder() {
-    StageKey._init(this);
-  }
+  StageKeyBuilder();
 
   StageKeyBuilder get _$this {
     final $v = _$v;

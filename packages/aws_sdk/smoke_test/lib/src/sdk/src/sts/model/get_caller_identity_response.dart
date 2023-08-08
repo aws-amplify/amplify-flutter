@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.sts.model.get_caller_identity_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,8 @@ abstract class GetCallerIdentityResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetCallerIdentityResponseAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetCallerIdentityResponseBuilder b) {}
+  static const List<_i2.SmithySerializer<GetCallerIdentityResponse>>
+      serializers = [GetCallerIdentityResponseAwsQuerySerializer()];
 
   /// The unique identifier of the calling entity. The exact value depends on the type of entity that is making the call. The values returned are those listed in the **aws:userid** column in the [Principal table](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html#principaltable) found on the **Policy Variables** reference page in the _IAM User Guide_.
   String? get userId;
@@ -65,19 +61,19 @@ abstract class GetCallerIdentityResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetCallerIdentityResponse');
-    helper.add(
-      'userId',
-      userId,
-    );
-    helper.add(
-      'account',
-      account,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
+    final helper = newBuiltValueToStringHelper('GetCallerIdentityResponse')
+      ..add(
+        'userId',
+        userId,
+      )
+      ..add(
+        'account',
+        account,
+      )
+      ..add(
+        'arn',
+        arn,
+      );
     return helper.toString();
   }
 }

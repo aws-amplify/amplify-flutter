@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.transaction_in_progress_exception;
+part of 'transaction_in_progress_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -64,9 +64,7 @@ class TransactionInProgressExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  TransactionInProgressExceptionBuilder() {
-    TransactionInProgressException._init(this);
-  }
+  TransactionInProgressExceptionBuilder();
 
   TransactionInProgressExceptionBuilder get _$this {
     final $v = _$v;

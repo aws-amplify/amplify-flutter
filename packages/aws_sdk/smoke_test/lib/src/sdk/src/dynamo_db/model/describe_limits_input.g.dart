@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.describe_limits_input;
+part of 'describe_limits_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -38,9 +38,7 @@ class DescribeLimitsInputBuilder
     implements Builder<DescribeLimitsInput, DescribeLimitsInputBuilder> {
   _$DescribeLimitsInput? _$v;
 
-  DescribeLimitsInputBuilder() {
-    DescribeLimitsInput._init(this);
-  }
+  DescribeLimitsInputBuilder();
 
   @override
   void replace(DescribeLimitsInput other) {

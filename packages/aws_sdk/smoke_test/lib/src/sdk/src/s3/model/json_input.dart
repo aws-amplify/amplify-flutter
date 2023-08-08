@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.json_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -26,12 +26,9 @@ abstract class JsonInput
 
   const JsonInput._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<JsonInput>> serializers = [
     JsonInputRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(JsonInputBuilder b) {}
 
   /// The type of JSON. Valid values: Document, Lines.
   _i2.JsonType? get type;
@@ -39,11 +36,11 @@ abstract class JsonInput
   List<Object?> get props => [type];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('JsonInput');
-    helper.add(
-      'type',
-      type,
-    );
+    final helper = newBuiltValueToStringHelper('JsonInput')
+      ..add(
+        'type',
+        type,
+      );
     return helper.toString();
   }
 }

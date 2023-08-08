@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.virtual_mfa_device;
+part of 'virtual_mfa_device.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -100,9 +100,7 @@ class VirtualMfaDeviceBuilder
       _$this._tags ??= new _i5.ListBuilder<_i4.Tag>();
   set tags(_i5.ListBuilder<_i4.Tag>? tags) => _$this._tags = tags;
 
-  VirtualMfaDeviceBuilder() {
-    VirtualMfaDevice._init(this);
-  }
+  VirtualMfaDeviceBuilder();
 
   VirtualMfaDeviceBuilder get _$this {
     final $v = _$v;

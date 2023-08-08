@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.create_group_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,12 +36,9 @@ abstract class CreateGroupRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<CreateGroupRequest>> serializers = [
     CreateGroupRequestAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateGroupRequestBuilder b) {}
 
   /// The path to the group. For more information about paths, see [IAM identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html) in the _IAM User Guide_.
   ///
@@ -63,15 +60,15 @@ abstract class CreateGroupRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateGroupRequest');
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'groupName',
-      groupName,
-    );
+    final helper = newBuiltValueToStringHelper('CreateGroupRequest')
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'groupName',
+        groupName,
+      );
     return helper.toString();
   }
 }

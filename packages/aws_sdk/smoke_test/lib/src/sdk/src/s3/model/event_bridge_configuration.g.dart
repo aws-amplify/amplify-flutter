@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.event_bridge_configuration;
+part of 'event_bridge_configuration.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -39,9 +39,7 @@ class EventBridgeConfigurationBuilder
         Builder<EventBridgeConfiguration, EventBridgeConfigurationBuilder> {
   _$EventBridgeConfiguration? _$v;
 
-  EventBridgeConfigurationBuilder() {
-    EventBridgeConfiguration._init(this);
-  }
+  EventBridgeConfigurationBuilder();
 
   @override
   void replace(EventBridgeConfiguration other) {

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.resource_count; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,6 +22,7 @@ abstract class ResourceCount
     _i2.ResourceType? resourceType,
     _i3.Int64? count,
   }) {
+    count ??= _i3.Int64.ZERO;
     return _$ResourceCount._(
       resourceType: resourceType,
       count: count,
@@ -34,18 +35,20 @@ abstract class ResourceCount
 
   const ResourceCount._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ResourceCount>> serializers = [
     ResourceCountAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceCountBuilder b) {}
+  static void _init(ResourceCountBuilder b) {
+    b.count = _i3.Int64.ZERO;
+  }
 
   /// The resource type (for example, `"AWS::EC2::Instance"`).
   _i2.ResourceType? get resourceType;
 
   /// The number of resources.
-  _i3.Int64? get count;
+  _i3.Int64 get count;
   @override
   List<Object?> get props => [
         resourceType,
@@ -53,15 +56,15 @@ abstract class ResourceCount
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResourceCount');
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'count',
-      count,
-    );
+    final helper = newBuiltValueToStringHelper('ResourceCount')
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'count',
+        count,
+      );
     return helper.toString();
   }
 }
@@ -122,20 +125,19 @@ class ResourceCountAwsJson11Serializer
   }) {
     final result$ = <Object?>[];
     final ResourceCount(:resourceType, :count) = object;
+    result$.addAll([
+      'count',
+      serializers.serialize(
+        count,
+        specifiedType: const FullType(_i3.Int64),
+      ),
+    ]);
     if (resourceType != null) {
       result$
         ..add('resourceType')
         ..add(serializers.serialize(
           resourceType,
           specifiedType: const FullType(_i2.ResourceType),
-        ));
-    }
-    if (count != null) {
-      result$
-        ..add('count')
-        ..add(serializers.serialize(
-          count,
-          specifiedType: const FullType(_i3.Int64),
         ));
     }
     return result$;

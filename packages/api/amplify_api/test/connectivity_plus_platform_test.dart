@@ -79,7 +79,7 @@ void main() {
             ConnectivityStatus.connected,
             ConnectivityStatus.connected,
             ConnectivityStatus.disconnected,
-            ConnectivityStatus.connected
+            ConnectivityStatus.connected,
           ]),
         );
         stream.listen(null);

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.get_saml_provider_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -45,12 +45,8 @@ abstract class GetSamlProviderResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    GetSamlProviderResponseAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetSamlProviderResponseBuilder b) {}
+  static const List<_i4.SmithySerializer<GetSamlProviderResponse>> serializers =
+      [GetSamlProviderResponseAwsQuerySerializer()];
 
   /// The XML metadata document that includes information about an identity provider.
   String? get samlMetadataDocument;
@@ -72,23 +68,23 @@ abstract class GetSamlProviderResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetSamlProviderResponse');
-    helper.add(
-      'samlMetadataDocument',
-      samlMetadataDocument,
-    );
-    helper.add(
-      'createDate',
-      createDate,
-    );
-    helper.add(
-      'validUntil',
-      validUntil,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('GetSamlProviderResponse')
+      ..add(
+        'samlMetadataDocument',
+        samlMetadataDocument,
+      )
+      ..add(
+        'createDate',
+        createDate,
+      )
+      ..add(
+        'validUntil',
+        validUntil,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

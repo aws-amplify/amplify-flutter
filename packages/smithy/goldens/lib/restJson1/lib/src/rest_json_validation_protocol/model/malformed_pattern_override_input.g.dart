@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_validation_protocol.model.malformed_pattern_override_input;
+part of 'malformed_pattern_override_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -79,9 +79,7 @@ class MalformedPatternOverrideInputBuilder
   _i3.PatternUnionOverride? get union => _$this._union;
   set union(_i3.PatternUnionOverride? union) => _$this._union = union;
 
-  MalformedPatternOverrideInputBuilder() {
-    MalformedPatternOverrideInput._init(this);
-  }
+  MalformedPatternOverrideInputBuilder();
 
   MalformedPatternOverrideInputBuilder get _$this {
     final $v = _$v;

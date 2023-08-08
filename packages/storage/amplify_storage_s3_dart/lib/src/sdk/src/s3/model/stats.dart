@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_storage_s3_dart.s3.model.stats; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,9 @@ abstract class Stats
 
   const Stats._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<Stats>> serializers = [
     StatsRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StatsBuilder b) {}
 
   /// The total number of object bytes scanned.
   _i2.Int64? get bytesScanned;
@@ -56,19 +53,19 @@ abstract class Stats
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Stats');
-    helper.add(
-      'bytesScanned',
-      bytesScanned,
-    );
-    helper.add(
-      'bytesProcessed',
-      bytesProcessed,
-    );
-    helper.add(
-      'bytesReturned',
-      bytesReturned,
-    );
+    final helper = newBuiltValueToStringHelper('Stats')
+      ..add(
+        'bytesScanned',
+        bytesScanned,
+      )
+      ..add(
+        'bytesProcessed',
+        bytesProcessed,
+      )
+      ..add(
+        'bytesReturned',
+        bytesReturned,
+      );
     return helper.toString();
   }
 }

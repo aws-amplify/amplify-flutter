@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.delete_stored_query_request;
+part of 'delete_stored_query_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -52,9 +52,7 @@ class DeleteStoredQueryRequestBuilder
   String? get queryName => _$this._queryName;
   set queryName(String? queryName) => _$this._queryName = queryName;
 
-  DeleteStoredQueryRequestBuilder() {
-    DeleteStoredQueryRequest._init(this);
-  }
+  DeleteStoredQueryRequestBuilder();
 
   DeleteStoredQueryRequestBuilder get _$this {
     final $v = _$v;

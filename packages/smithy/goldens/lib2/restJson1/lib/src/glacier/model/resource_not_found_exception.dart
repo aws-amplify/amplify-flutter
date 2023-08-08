@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v2.glacier.model.resource_not_found_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,9 @@ abstract class ResourceNotFoundException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ResourceNotFoundExceptionRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<ResourceNotFoundException>>
+      serializers = [ResourceNotFoundExceptionRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceNotFoundExceptionBuilder b) {}
   String? get type;
   String? get code;
   @override
@@ -75,19 +72,19 @@ abstract class ResourceNotFoundException
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResourceNotFoundException');
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'code',
-      code,
-    );
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('ResourceNotFoundException')
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'code',
+        code,
+      )
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

@@ -104,7 +104,7 @@ class _MyAppState extends State<MyApp> {
                   ElevatedButton(
                     onPressed: _onGraphQlApiViewButtonClick,
                     child: const Text('GraphQL API'),
-                  )
+                  ),
                 ],
               ),
             ),

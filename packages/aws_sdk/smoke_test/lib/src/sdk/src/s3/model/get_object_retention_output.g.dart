@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_object_retention_output;
+part of 'get_object_retention_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class GetObjectRetentionOutputBuilder
   set retention(_i3.ObjectLockRetentionBuilder? retention) =>
       _$this._retention = retention;
 
-  GetObjectRetentionOutputBuilder() {
-    GetObjectRetentionOutput._init(this);
-  }
+  GetObjectRetentionOutputBuilder();
 
   GetObjectRetentionOutputBuilder get _$this {
     final $v = _$v;

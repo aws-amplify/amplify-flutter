@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_bucket_request_payment_output;
+part of 'get_bucket_request_payment_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -50,9 +50,7 @@ class GetBucketRequestPaymentOutputBuilder
   _i2.Payer? get payer => _$this._payer;
   set payer(_i2.Payer? payer) => _$this._payer = payer;
 
-  GetBucketRequestPaymentOutputBuilder() {
-    GetBucketRequestPaymentOutput._init(this);
-  }
+  GetBucketRequestPaymentOutputBuilder();
 
   GetBucketRequestPaymentOutputBuilder get _$this {
     final $v = _$v;

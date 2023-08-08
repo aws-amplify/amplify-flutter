@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.delete_user_permissions_boundary_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,12 +34,8 @@ abstract class DeleteUserPermissionsBoundaryRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteUserPermissionsBoundaryRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteUserPermissionsBoundaryRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<DeleteUserPermissionsBoundaryRequest>>
+      serializers = [DeleteUserPermissionsBoundaryRequestAwsQuerySerializer()];
 
   /// The name (friendly name, not ARN) of the IAM user from which you want to remove the permissions boundary.
   String get userName;
@@ -50,11 +46,11 @@ abstract class DeleteUserPermissionsBoundaryRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeleteUserPermissionsBoundaryRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
+        newBuiltValueToStringHelper('DeleteUserPermissionsBoundaryRequest')
+          ..add(
+            'userName',
+            userName,
+          );
     return helper.toString();
   }
 }

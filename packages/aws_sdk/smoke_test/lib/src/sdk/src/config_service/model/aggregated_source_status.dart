@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.aggregated_source_status; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -46,12 +46,8 @@ abstract class AggregatedSourceStatus
 
   const AggregatedSourceStatus._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    AggregatedSourceStatusAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AggregatedSourceStatusBuilder b) {}
+  static const List<_i4.SmithySerializer<AggregatedSourceStatus>> serializers =
+      [AggregatedSourceStatusAwsJson11Serializer()];
 
   /// The source account ID or an organization.
   String? get sourceId;
@@ -91,35 +87,35 @@ abstract class AggregatedSourceStatus
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AggregatedSourceStatus');
-    helper.add(
-      'sourceId',
-      sourceId,
-    );
-    helper.add(
-      'sourceType',
-      sourceType,
-    );
-    helper.add(
-      'awsRegion',
-      awsRegion,
-    );
-    helper.add(
-      'lastUpdateStatus',
-      lastUpdateStatus,
-    );
-    helper.add(
-      'lastUpdateTime',
-      lastUpdateTime,
-    );
-    helper.add(
-      'lastErrorCode',
-      lastErrorCode,
-    );
-    helper.add(
-      'lastErrorMessage',
-      lastErrorMessage,
-    );
+    final helper = newBuiltValueToStringHelper('AggregatedSourceStatus')
+      ..add(
+        'sourceId',
+        sourceId,
+      )
+      ..add(
+        'sourceType',
+        sourceType,
+      )
+      ..add(
+        'awsRegion',
+        awsRegion,
+      )
+      ..add(
+        'lastUpdateStatus',
+        lastUpdateStatus,
+      )
+      ..add(
+        'lastUpdateTime',
+        lastUpdateTime,
+      )
+      ..add(
+        'lastErrorCode',
+        lastErrorCode,
+      )
+      ..add(
+        'lastErrorMessage',
+        lastErrorMessage,
+      );
     return helper.toString();
   }
 }

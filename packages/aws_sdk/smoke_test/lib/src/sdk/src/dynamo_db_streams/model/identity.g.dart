@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db_streams.model.identity;
+part of 'identity.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -53,9 +53,7 @@ class IdentityBuilder implements Builder<Identity, IdentityBuilder> {
   String? get type => _$this._type;
   set type(String? type) => _$this._type = type;
 
-  IdentityBuilder() {
-    Identity._init(this);
-  }
+  IdentityBuilder();
 
   IdentityBuilder get _$this {
     final $v = _$v;

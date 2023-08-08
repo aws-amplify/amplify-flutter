@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of custom_v2.custom.model.aws_config;
+part of 'aws_config.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class AwsConfigBuilder implements Builder<AwsConfig, AwsConfigBuilder> {
   set scopedConfig(_i2.ScopedConfigBuilder? scopedConfig) =>
       _$this._scopedConfig = scopedConfig;
 
-  AwsConfigBuilder() {
-    AwsConfig._init(this);
-  }
+  AwsConfigBuilder();
 
   AwsConfigBuilder get _$this {
     final $v = _$v;

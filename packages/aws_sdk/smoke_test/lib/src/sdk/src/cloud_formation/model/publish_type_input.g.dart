@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.publish_type_input;
+part of 'publish_type_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -75,9 +75,7 @@ class PublishTypeInputBuilder
   set publicVersionNumber(String? publicVersionNumber) =>
       _$this._publicVersionNumber = publicVersionNumber;
 
-  PublishTypeInputBuilder() {
-    PublishTypeInput._init(this);
-  }
+  PublishTypeInputBuilder();
 
   PublishTypeInputBuilder get _$this {
     final $v = _$v;

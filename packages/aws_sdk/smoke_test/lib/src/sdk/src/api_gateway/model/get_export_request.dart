@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.get_export_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -64,12 +64,8 @@ abstract class GetExportRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetExportRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetExportRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetExportRequestPayload>> serializers =
+      [GetExportRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -113,27 +109,27 @@ abstract class GetExportRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetExportRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'stageName',
-      stageName,
-    );
-    helper.add(
-      'exportType',
-      exportType,
-    );
-    helper.add(
-      'parameters',
-      parameters,
-    );
-    helper.add(
-      'accepts',
-      accepts,
-    );
+    final helper = newBuiltValueToStringHelper('GetExportRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'stageName',
+        stageName,
+      )
+      ..add(
+        'exportType',
+        exportType,
+      )
+      ..add(
+        'parameters',
+        parameters,
+      )
+      ..add(
+        'accepts',
+        accepts,
+      );
     return helper.toString();
   }
 }
@@ -150,8 +146,6 @@ abstract class GetExportRequestPayload
 
   const GetExportRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetExportRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_instance_profile_response;
+part of 'get_instance_profile_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class GetInstanceProfileResponseBuilder
   set instanceProfile(_i2.InstanceProfileBuilder? instanceProfile) =>
       _$this._instanceProfile = instanceProfile;
 
-  GetInstanceProfileResponseBuilder() {
-    GetInstanceProfileResponse._init(this);
-  }
+  GetInstanceProfileResponseBuilder();
 
   GetInstanceProfileResponseBuilder get _$this {
     final $v = _$v;

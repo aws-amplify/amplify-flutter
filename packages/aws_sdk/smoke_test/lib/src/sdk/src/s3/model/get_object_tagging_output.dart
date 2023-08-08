@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.get_object_tagging_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -46,12 +46,8 @@ abstract class GetObjectTaggingOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetObjectTaggingOutputRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectTaggingOutputBuilder b) {}
+  static const List<_i2.SmithySerializer<GetObjectTaggingOutputPayload>>
+      serializers = [GetObjectTaggingOutputRestXmlSerializer()];
 
   /// The versionId of the object for which you got the tagging information.
   String? get versionId;
@@ -70,15 +66,15 @@ abstract class GetObjectTaggingOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectTaggingOutput');
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'tagSet',
-      tagSet,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectTaggingOutput')
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'tagSet',
+        tagSet,
+      );
     return helper.toString();
   }
 }
@@ -96,20 +92,17 @@ abstract class GetObjectTaggingOutputPayload
 
   const GetObjectTaggingOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectTaggingOutputPayloadBuilder b) {}
-
   /// Contains the tag set.
   _i4.BuiltList<_i3.Tag> get tagSet;
   @override
   List<Object?> get props => [tagSet];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectTaggingOutputPayload');
-    helper.add(
-      'tagSet',
-      tagSet,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectTaggingOutputPayload')
+      ..add(
+        'tagSet',
+        tagSet,
+      );
     return helper.toString();
   }
 }

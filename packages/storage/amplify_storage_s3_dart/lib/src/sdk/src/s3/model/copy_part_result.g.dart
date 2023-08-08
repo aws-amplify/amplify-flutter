@@ -98,9 +98,7 @@ class CopyPartResultBuilder
   set checksumSha256(String? checksumSha256) =>
       _$this._checksumSha256 = checksumSha256;
 
-  CopyPartResultBuilder() {
-    CopyPartResult._init(this);
-  }
+  CopyPartResultBuilder();
 
   CopyPartResultBuilder get _$this {
     final $v = _$v;

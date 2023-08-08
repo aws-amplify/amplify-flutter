@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.report_generation_limit_exceeded_exception;
+part of 'report_generation_limit_exceeded_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -62,9 +62,7 @@ class ReportGenerationLimitExceededExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ReportGenerationLimitExceededExceptionBuilder() {
-    ReportGenerationLimitExceededException._init(this);
-  }
+  ReportGenerationLimitExceededExceptionBuilder();
 
   ReportGenerationLimitExceededExceptionBuilder get _$this {
     final $v = _$v;

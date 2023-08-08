@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_bucket_logging_output;
+part of 'get_bucket_logging_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class GetBucketLoggingOutputBuilder
   set loggingEnabled(_i2.LoggingEnabledBuilder? loggingEnabled) =>
       _$this._loggingEnabled = loggingEnabled;
 
-  GetBucketLoggingOutputBuilder() {
-    GetBucketLoggingOutput._init(this);
-  }
+  GetBucketLoggingOutputBuilder();
 
   GetBucketLoggingOutputBuilder get _$this {
     final $v = _$v;

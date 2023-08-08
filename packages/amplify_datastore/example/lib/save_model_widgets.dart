@@ -37,8 +37,8 @@ Widget addPostWidget(
     required bool isAmplifyConfigured,
     required List<Blog> allBlogs,
     required Function saveFn,
-    required _MyAppState app,
-    Blog? defaultBlog}) {
+    required Function updateSelectedBlogForNewPost,
+    Blog? selectedBlog}) {
   return Row(
     children: [
       divider,
@@ -62,7 +62,7 @@ Widget addPostWidget(
       ),
       divider,
       DropdownButton<Blog>(
-          value: defaultBlog,
+          value: selectedBlog,
           hint: Text("Blog"),
           items: allBlogs
               .map((e) => DropdownMenuItem(
@@ -70,17 +70,13 @@ Widget addPostWidget(
                     value: e,
                   ))
               .toList(), //_dropdownMenuItems,
-          onChanged: (value) {
-            app.setState(() {
-              app._selectedBlogForNewPost = value;
-            });
-          }),
+          onChanged: (value) => updateSelectedBlogForNewPost(value)),
       divider,
       ElevatedButton(
         onPressed: () async {
           if (isAmplifyConfigured) {
             await saveFn(titleController.text, int.parse(ratingController.text),
-                app._selectedBlogForNewPost);
+                selectedBlog);
             titleController.clear();
             ratingController.clear();
             return;
@@ -99,8 +95,9 @@ Widget addCommentWidget(
     bool isAmplifyConfigured,
     Post? defaultPost,
     List<Post> allPosts,
+    Post? selectedPostForNewComment,
     Function saveFn,
-    _MyAppState app) {
+    Function updateSelectedPostForNewComment) {
   return Row(
     children: [
       divider,
@@ -121,15 +118,13 @@ Widget addCommentWidget(
                   ))
               .toList(), //_dropdownMenuItems,
           onChanged: (value) {
-            app.setState(() {
-              app._selectedPostForNewComment = value;
-            });
+            updateSelectedPostForNewComment(value);
           }),
       divider,
       ElevatedButton(
         onPressed: () async {
           if (isAmplifyConfigured) {
-            await saveFn(controller.text, app._selectedPostForNewComment);
+            await saveFn(controller.text, selectedPostForNewComment);
             controller.clear();
             return;
           }

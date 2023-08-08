@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.failed_delete_remediation_exceptions_batch;
+part of 'failed_delete_remediation_exceptions_batch.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -70,9 +70,7 @@ class FailedDeleteRemediationExceptionsBatchBuilder
           _i3.ListBuilder<_i2.RemediationExceptionResourceKey>? failedItems) =>
       _$this._failedItems = failedItems;
 
-  FailedDeleteRemediationExceptionsBatchBuilder() {
-    FailedDeleteRemediationExceptionsBatch._init(this);
-  }
+  FailedDeleteRemediationExceptionsBatchBuilder();
 
   FailedDeleteRemediationExceptionsBatchBuilder get _$this {
     final $v = _$v;

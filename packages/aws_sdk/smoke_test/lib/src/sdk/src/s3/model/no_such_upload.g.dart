@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.no_such_upload;
+part of 'no_such_upload.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -48,9 +48,7 @@ class NoSuchUploadBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  NoSuchUploadBuilder() {
-    NoSuchUpload._init(this);
-  }
+  NoSuchUploadBuilder();
 
   NoSuchUploadBuilder get _$this {
     final $v = _$v;

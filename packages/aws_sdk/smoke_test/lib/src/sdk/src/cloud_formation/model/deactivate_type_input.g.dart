@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.deactivate_type_input;
+part of 'deactivate_type_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class DeactivateTypeInputBuilder
   String? get arn => _$this._arn;
   set arn(String? arn) => _$this._arn = arn;
 
-  DeactivateTypeInputBuilder() {
-    DeactivateTypeInput._init(this);
-  }
+  DeactivateTypeInputBuilder();
 
   DeactivateTypeInputBuilder get _$this {
     final $v = _$v;

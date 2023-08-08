@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_bucket_tagging_output;
+part of 'get_bucket_tagging_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -52,9 +52,7 @@ class GetBucketTaggingOutputBuilder
       _$this._tagSet ??= new _i3.ListBuilder<_i2.Tag>();
   set tagSet(_i3.ListBuilder<_i2.Tag>? tagSet) => _$this._tagSet = tagSet;
 
-  GetBucketTaggingOutputBuilder() {
-    GetBucketTaggingOutput._init(this);
-  }
+  GetBucketTaggingOutputBuilder();
 
   GetBucketTaggingOutputBuilder get _$this {
     final $v = _$v;

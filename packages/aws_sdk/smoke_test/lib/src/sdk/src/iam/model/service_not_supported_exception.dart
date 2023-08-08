@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.service_not_supported_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,9 @@ abstract class ServiceNotSupportedException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ServiceNotSupportedExceptionAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<ServiceNotSupportedException>>
+      serializers = [ServiceNotSupportedExceptionAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ServiceNotSupportedExceptionBuilder b) {}
   @override
   String? get message;
   @override
@@ -66,11 +63,11 @@ abstract class ServiceNotSupportedException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ServiceNotSupportedException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('ServiceNotSupportedException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

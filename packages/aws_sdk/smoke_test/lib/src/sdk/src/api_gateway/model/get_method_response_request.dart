@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.get_method_response_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -62,12 +62,8 @@ abstract class GetMethodResponseRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetMethodResponseRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetMethodResponseRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetMethodResponseRequestPayload>>
+      serializers = [GetMethodResponseRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -110,23 +106,23 @@ abstract class GetMethodResponseRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetMethodResponseRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'httpMethod',
-      httpMethod,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
-    );
+    final helper = newBuiltValueToStringHelper('GetMethodResponseRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'httpMethod',
+        httpMethod,
+      )
+      ..add(
+        'statusCode',
+        statusCode,
+      );
     return helper.toString();
   }
 }
@@ -145,8 +141,6 @@ abstract class GetMethodResponseRequestPayload
 
   const GetMethodResponseRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetMethodResponseRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

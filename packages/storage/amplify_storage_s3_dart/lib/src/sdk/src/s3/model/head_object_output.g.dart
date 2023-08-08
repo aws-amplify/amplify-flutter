@@ -372,9 +372,7 @@ class HeadObjectOutputBuilder
           _i10.ObjectLockLegalHoldStatus? objectLockLegalHoldStatus) =>
       _$this._objectLockLegalHoldStatus = objectLockLegalHoldStatus;
 
-  HeadObjectOutputBuilder() {
-    HeadObjectOutput._init(this);
-  }
+  HeadObjectOutputBuilder();
 
   HeadObjectOutputBuilder get _$this {
     final $v = _$v;
@@ -520,9 +518,7 @@ class HeadObjectOutputPayloadBuilder
         Builder<HeadObjectOutputPayload, HeadObjectOutputPayloadBuilder> {
   _$HeadObjectOutputPayload? _$v;
 
-  HeadObjectOutputPayloadBuilder() {
-    HeadObjectOutputPayload._init(this);
-  }
+  HeadObjectOutputPayloadBuilder();
 
   @override
   void replace(HeadObjectOutputPayload other) {

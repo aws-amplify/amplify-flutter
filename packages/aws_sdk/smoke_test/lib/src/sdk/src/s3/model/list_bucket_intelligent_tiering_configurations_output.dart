@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.list_bucket_intelligent_tiering_configurations_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -50,13 +50,11 @@ abstract class ListBucketIntelligentTieringConfigurationsOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<
+      _i4.SmithySerializer<
+          ListBucketIntelligentTieringConfigurationsOutput>> serializers = [
     ListBucketIntelligentTieringConfigurationsOutputRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      ListBucketIntelligentTieringConfigurationsOutputBuilder b) {}
 
   /// Indicates whether the returned list of analytics configurations is complete. A value of `true` indicates that the list is not complete and the `NextContinuationToken` will be provided for a subsequent request.
   bool? get isTruncated;
@@ -80,23 +78,23 @@ abstract class ListBucketIntelligentTieringConfigurationsOutput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'ListBucketIntelligentTieringConfigurationsOutput');
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'continuationToken',
-      continuationToken,
-    );
-    helper.add(
-      'nextContinuationToken',
-      nextContinuationToken,
-    );
-    helper.add(
-      'intelligentTieringConfigurationList',
-      intelligentTieringConfigurationList,
-    );
+        'ListBucketIntelligentTieringConfigurationsOutput')
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'continuationToken',
+        continuationToken,
+      )
+      ..add(
+        'nextContinuationToken',
+        nextContinuationToken,
+      )
+      ..add(
+        'intelligentTieringConfigurationList',
+        intelligentTieringConfigurationList,
+      );
     return helper.toString();
   }
 }

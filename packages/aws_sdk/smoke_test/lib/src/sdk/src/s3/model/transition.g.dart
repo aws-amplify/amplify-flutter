@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.transition;
+part of 'transition.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -62,9 +62,7 @@ class TransitionBuilder implements Builder<Transition, TransitionBuilder> {
   set storageClass(_i2.TransitionStorageClass? storageClass) =>
       _$this._storageClass = storageClass;
 
-  TransitionBuilder() {
-    Transition._init(this);
-  }
+  TransitionBuilder();
 
   TransitionBuilder get _$this {
     final $v = _$v;

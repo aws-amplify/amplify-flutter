@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.signal_resource_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -47,12 +47,9 @@ abstract class SignalResourceInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<SignalResourceInput>> serializers = [
     SignalResourceInputAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SignalResourceInputBuilder b) {}
 
   /// The stack name or unique stack ID that includes the resource that you want to signal.
   String get stackName;
@@ -76,23 +73,23 @@ abstract class SignalResourceInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SignalResourceInput');
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'logicalResourceId',
-      logicalResourceId,
-    );
-    helper.add(
-      'uniqueId',
-      uniqueId,
-    );
-    helper.add(
-      'status',
-      status,
-    );
+    final helper = newBuiltValueToStringHelper('SignalResourceInput')
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'logicalResourceId',
+        logicalResourceId,
+      )
+      ..add(
+        'uniqueId',
+        uniqueId,
+      )
+      ..add(
+        'status',
+        status,
+      );
     return helper.toString();
   }
 }

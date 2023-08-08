@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.put_remediation_exceptions_request;
+part of 'put_remediation_exceptions_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -92,9 +92,7 @@ class PutRemediationExceptionsRequestBuilder
   set expirationTime(DateTime? expirationTime) =>
       _$this._expirationTime = expirationTime;
 
-  PutRemediationExceptionsRequestBuilder() {
-    PutRemediationExceptionsRequest._init(this);
-  }
+  PutRemediationExceptionsRequestBuilder();
 
   PutRemediationExceptionsRequestBuilder get _$this {
     final $v = _$v;

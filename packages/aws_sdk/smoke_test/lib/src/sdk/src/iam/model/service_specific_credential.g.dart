@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.service_specific_credential;
+part of 'service_specific_credential.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -125,9 +125,7 @@ class ServiceSpecificCredentialBuilder
   _i2.StatusType? get status => _$this._status;
   set status(_i2.StatusType? status) => _$this._status = status;
 
-  ServiceSpecificCredentialBuilder() {
-    ServiceSpecificCredential._init(this);
-  }
+  ServiceSpecificCredentialBuilder();
 
   ServiceSpecificCredentialBuilder get _$this {
     final $v = _$v;

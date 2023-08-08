@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.get_stored_query_request;
+part of 'get_stored_query_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class GetStoredQueryRequestBuilder
   String? get queryName => _$this._queryName;
   set queryName(String? queryName) => _$this._queryName = queryName;
 
-  GetStoredQueryRequestBuilder() {
-    GetStoredQueryRequest._init(this);
-  }
+  GetStoredQueryRequestBuilder();
 
   GetStoredQueryRequestBuilder get _$this {
     final $v = _$v;

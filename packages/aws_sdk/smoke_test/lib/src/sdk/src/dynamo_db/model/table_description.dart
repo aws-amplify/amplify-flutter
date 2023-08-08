@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.table_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -66,6 +66,7 @@ abstract class TableDescription
     _i13.SseDescription? sseDescription,
     _i14.ArchivalSummary? archivalSummary,
     _i15.TableClassSummary? tableClassSummary,
+    bool? deletionProtectionEnabled,
   }) {
     return _$TableDescription._(
       attributeDefinitions: attributeDefinitions == null
@@ -96,6 +97,7 @@ abstract class TableDescription
       sseDescription: sseDescription,
       archivalSummary: archivalSummary,
       tableClassSummary: tableClassSummary,
+      deletionProtectionEnabled: deletionProtectionEnabled,
     );
   }
 
@@ -105,12 +107,9 @@ abstract class TableDescription
 
   const TableDescription._();
 
-  static const List<_i17.SmithySerializer> serializers = [
+  static const List<_i17.SmithySerializer<TableDescription>> serializers = [
     TableDescriptionAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TableDescriptionBuilder b) {}
 
   /// An array of `AttributeDefinition` objects. Each of these objects describes one attribute in the table and index key schema.
   ///
@@ -147,7 +146,7 @@ abstract class TableDescription
   ///
   /// *   `CREATING` \- The table is being created.
   ///
-  /// *   `UPDATING` \- The table is being updated.
+  /// *   `UPDATING` \- The table/index configuration is being updated. The table/index remains available for data operations when `UPDATING`.
   ///
   /// *   `DELETING` \- The table is being deleted.
   ///
@@ -284,6 +283,9 @@ abstract class TableDescription
 
   /// Contains details of the table class.
   _i15.TableClassSummary? get tableClassSummary;
+
+  /// Indicates whether deletion protection is enabled (true) or disabled (false) on the table.
+  bool? get deletionProtectionEnabled;
   @override
   List<Object?> get props => [
         attributeDefinitions,
@@ -308,98 +310,103 @@ abstract class TableDescription
         sseDescription,
         archivalSummary,
         tableClassSummary,
+        deletionProtectionEnabled,
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TableDescription');
-    helper.add(
-      'attributeDefinitions',
-      attributeDefinitions,
-    );
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'keySchema',
-      keySchema,
-    );
-    helper.add(
-      'tableStatus',
-      tableStatus,
-    );
-    helper.add(
-      'creationDateTime',
-      creationDateTime,
-    );
-    helper.add(
-      'provisionedThroughput',
-      provisionedThroughput,
-    );
-    helper.add(
-      'tableSizeBytes',
-      tableSizeBytes,
-    );
-    helper.add(
-      'itemCount',
-      itemCount,
-    );
-    helper.add(
-      'tableArn',
-      tableArn,
-    );
-    helper.add(
-      'tableId',
-      tableId,
-    );
-    helper.add(
-      'billingModeSummary',
-      billingModeSummary,
-    );
-    helper.add(
-      'localSecondaryIndexes',
-      localSecondaryIndexes,
-    );
-    helper.add(
-      'globalSecondaryIndexes',
-      globalSecondaryIndexes,
-    );
-    helper.add(
-      'streamSpecification',
-      streamSpecification,
-    );
-    helper.add(
-      'latestStreamLabel',
-      latestStreamLabel,
-    );
-    helper.add(
-      'latestStreamArn',
-      latestStreamArn,
-    );
-    helper.add(
-      'globalTableVersion',
-      globalTableVersion,
-    );
-    helper.add(
-      'replicas',
-      replicas,
-    );
-    helper.add(
-      'restoreSummary',
-      restoreSummary,
-    );
-    helper.add(
-      'sseDescription',
-      sseDescription,
-    );
-    helper.add(
-      'archivalSummary',
-      archivalSummary,
-    );
-    helper.add(
-      'tableClassSummary',
-      tableClassSummary,
-    );
+    final helper = newBuiltValueToStringHelper('TableDescription')
+      ..add(
+        'attributeDefinitions',
+        attributeDefinitions,
+      )
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'keySchema',
+        keySchema,
+      )
+      ..add(
+        'tableStatus',
+        tableStatus,
+      )
+      ..add(
+        'creationDateTime',
+        creationDateTime,
+      )
+      ..add(
+        'provisionedThroughput',
+        provisionedThroughput,
+      )
+      ..add(
+        'tableSizeBytes',
+        tableSizeBytes,
+      )
+      ..add(
+        'itemCount',
+        itemCount,
+      )
+      ..add(
+        'tableArn',
+        tableArn,
+      )
+      ..add(
+        'tableId',
+        tableId,
+      )
+      ..add(
+        'billingModeSummary',
+        billingModeSummary,
+      )
+      ..add(
+        'localSecondaryIndexes',
+        localSecondaryIndexes,
+      )
+      ..add(
+        'globalSecondaryIndexes',
+        globalSecondaryIndexes,
+      )
+      ..add(
+        'streamSpecification',
+        streamSpecification,
+      )
+      ..add(
+        'latestStreamLabel',
+        latestStreamLabel,
+      )
+      ..add(
+        'latestStreamArn',
+        latestStreamArn,
+      )
+      ..add(
+        'globalTableVersion',
+        globalTableVersion,
+      )
+      ..add(
+        'replicas',
+        replicas,
+      )
+      ..add(
+        'restoreSummary',
+        restoreSummary,
+      )
+      ..add(
+        'sseDescription',
+        sseDescription,
+      )
+      ..add(
+        'archivalSummary',
+        archivalSummary,
+      )
+      ..add(
+        'tableClassSummary',
+        tableClassSummary,
+      )
+      ..add(
+        'deletionProtectionEnabled',
+        deletionProtectionEnabled,
+      );
     return helper.toString();
   }
 }
@@ -561,6 +568,11 @@ class TableDescriptionAwsJson10Serializer
             value,
             specifiedType: const FullType(_i15.TableClassSummary),
           ) as _i15.TableClassSummary));
+        case 'DeletionProtectionEnabled':
+          result.deletionProtectionEnabled = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool);
       }
     }
 
@@ -596,7 +608,8 @@ class TableDescriptionAwsJson10Serializer
       :restoreSummary,
       :sseDescription,
       :archivalSummary,
-      :tableClassSummary
+      :tableClassSummary,
+      :deletionProtectionEnabled
     ) = object;
     if (attributeDefinitions != null) {
       result$
@@ -787,6 +800,14 @@ class TableDescriptionAwsJson10Serializer
         ..add(serializers.serialize(
           tableClassSummary,
           specifiedType: const FullType(_i15.TableClassSummary),
+        ));
+    }
+    if (deletionProtectionEnabled != null) {
+      result$
+        ..add('DeletionProtectionEnabled')
+        ..add(serializers.serialize(
+          deletionProtectionEnabled,
+          specifiedType: const FullType(bool),
         ));
     }
     return result$;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.list_types_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -55,22 +55,19 @@ abstract class ListTypesInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ListTypesInput>> serializers = [
     ListTypesInputAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListTypesInputBuilder b) {}
 
   /// The scope at which the extensions are visible and usable in CloudFormation operations.
   ///
   /// Valid values include:
   ///
-  /// *   `PRIVATE`: Extensions that are visible and usable within this account and region. This includes:
+  /// *   `PRIVATE`: Extensions that are visible and usable within this account and Region. This includes:
   ///
-  ///     *   Private extensions you have registered in this account and region.
+  ///     *   Private extensions you have registered in this account and Region.
   ///
-  ///     *   Public extensions that you have activated in this account and region.
+  ///     *   Public extensions that you have activated in this account and Region.
   ///
   /// *   `PUBLIC`: Extensions that are publicly visible and available to be activated within any Amazon Web Services account. This includes extensions from Amazon Web Services, in addition to third-party publishers.
   ///
@@ -128,35 +125,35 @@ abstract class ListTypesInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListTypesInput');
-    helper.add(
-      'visibility',
-      visibility,
-    );
-    helper.add(
-      'provisioningType',
-      provisioningType,
-    );
-    helper.add(
-      'deprecatedStatus',
-      deprecatedStatus,
-    );
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'filters',
-      filters,
-    );
-    helper.add(
-      'maxResults',
-      maxResults,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('ListTypesInput')
+      ..add(
+        'visibility',
+        visibility,
+      )
+      ..add(
+        'provisioningType',
+        provisioningType,
+      )
+      ..add(
+        'deprecatedStatus',
+        deprecatedStatus,
+      )
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'filters',
+        filters,
+      )
+      ..add(
+        'maxResults',
+        maxResults,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

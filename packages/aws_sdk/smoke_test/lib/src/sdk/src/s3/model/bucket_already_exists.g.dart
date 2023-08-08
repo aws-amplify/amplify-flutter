@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.bucket_already_exists;
+part of 'bucket_already_exists.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class BucketAlreadyExistsBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  BucketAlreadyExistsBuilder() {
-    BucketAlreadyExists._init(this);
-  }
+  BucketAlreadyExistsBuilder();
 
   BucketAlreadyExistsBuilder get _$this {
     final $v = _$v;

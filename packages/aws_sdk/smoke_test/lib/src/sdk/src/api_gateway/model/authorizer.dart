@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.authorizer; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -57,12 +57,9 @@ abstract class Authorizer
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Authorizer>> serializers = [
     AuthorizerRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AuthorizerBuilder b) {}
 
   /// The identifier for the authorizer resource.
   String? get id;
@@ -108,47 +105,47 @@ abstract class Authorizer
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Authorizer');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'providerArNs',
-      providerArNs,
-    );
-    helper.add(
-      'authType',
-      authType,
-    );
-    helper.add(
-      'authorizerUri',
-      authorizerUri,
-    );
-    helper.add(
-      'authorizerCredentials',
-      authorizerCredentials,
-    );
-    helper.add(
-      'identitySource',
-      identitySource,
-    );
-    helper.add(
-      'identityValidationExpression',
-      identityValidationExpression,
-    );
-    helper.add(
-      'authorizerResultTtlInSeconds',
-      authorizerResultTtlInSeconds,
-    );
+    final helper = newBuiltValueToStringHelper('Authorizer')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'providerArNs',
+        providerArNs,
+      )
+      ..add(
+        'authType',
+        authType,
+      )
+      ..add(
+        'authorizerUri',
+        authorizerUri,
+      )
+      ..add(
+        'authorizerCredentials',
+        authorizerCredentials,
+      )
+      ..add(
+        'identitySource',
+        identitySource,
+      )
+      ..add(
+        'identityValidationExpression',
+        identityValidationExpression,
+      )
+      ..add(
+        'authorizerResultTtlInSeconds',
+        authorizerResultTtlInSeconds,
+      );
     return helper.toString();
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_service_linked_role_deletion_status_response;
+part of 'get_service_linked_role_deletion_status_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -70,9 +70,7 @@ class GetServiceLinkedRoleDeletionStatusResponseBuilder
   set reason(_i3.DeletionTaskFailureReasonTypeBuilder? reason) =>
       _$this._reason = reason;
 
-  GetServiceLinkedRoleDeletionStatusResponseBuilder() {
-    GetServiceLinkedRoleDeletionStatusResponse._init(this);
-  }
+  GetServiceLinkedRoleDeletionStatusResponseBuilder();
 
   GetServiceLinkedRoleDeletionStatusResponseBuilder get _$this {
     final $v = _$v;

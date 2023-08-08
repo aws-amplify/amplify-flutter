@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.change_password_request;
+part of 'change_password_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -64,9 +64,7 @@ class ChangePasswordRequestBuilder
   String? get newPassword => _$this._newPassword;
   set newPassword(String? newPassword) => _$this._newPassword = newPassword;
 
-  ChangePasswordRequestBuilder() {
-    ChangePasswordRequest._init(this);
-  }
+  ChangePasswordRequestBuilder();
 
   ChangePasswordRequestBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.get_open_id_connect_provider_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,12 +36,8 @@ abstract class GetOpenIdConnectProviderRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetOpenIdConnectProviderRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetOpenIdConnectProviderRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetOpenIdConnectProviderRequest>>
+      serializers = [GetOpenIdConnectProviderRequestAwsQuerySerializer()];
 
   /// The Amazon Resource Name (ARN) of the OIDC provider resource object in IAM to get information for. You can get a list of OIDC provider resource ARNs by using the ListOpenIDConnectProviders operation.
   ///
@@ -54,11 +50,11 @@ abstract class GetOpenIdConnectProviderRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetOpenIdConnectProviderRequest');
-    helper.add(
-      'openIdConnectProviderArn',
-      openIdConnectProviderArn,
-    );
+        newBuiltValueToStringHelper('GetOpenIdConnectProviderRequest')
+          ..add(
+            'openIdConnectProviderArn',
+            openIdConnectProviderArn,
+          );
     return helper.toString();
   }
 }

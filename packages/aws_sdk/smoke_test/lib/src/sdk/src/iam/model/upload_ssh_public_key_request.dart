@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.upload_ssh_public_key_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,8 @@ abstract class UploadSshPublicKeyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UploadSshPublicKeyRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UploadSshPublicKeyRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<UploadSshPublicKeyRequest>>
+      serializers = [UploadSshPublicKeyRequestAwsQuerySerializer()];
 
   /// The name of the IAM user to associate the SSH public key with.
   ///
@@ -70,15 +66,15 @@ abstract class UploadSshPublicKeyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UploadSshPublicKeyRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'sshPublicKeyBody',
-      sshPublicKeyBody,
-    );
+    final helper = newBuiltValueToStringHelper('UploadSshPublicKeyRequest')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'sshPublicKeyBody',
+        sshPublicKeyBody,
+      );
     return helper.toString();
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.describe_aggregation_authorizations_response;
+part of 'describe_aggregation_authorizations_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -70,9 +70,7 @@ class DescribeAggregationAuthorizationsResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeAggregationAuthorizationsResponseBuilder() {
-    DescribeAggregationAuthorizationsResponse._init(this);
-  }
+  DescribeAggregationAuthorizationsResponseBuilder();
 
   DescribeAggregationAuthorizationsResponseBuilder get _$this {
     final $v = _$v;

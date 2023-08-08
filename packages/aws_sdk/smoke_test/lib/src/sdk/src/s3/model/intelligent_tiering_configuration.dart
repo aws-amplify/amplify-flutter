@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.intelligent_tiering_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -51,12 +51,8 @@ abstract class IntelligentTieringConfiguration
 
   const IntelligentTieringConfiguration._();
 
-  static const List<_i6.SmithySerializer> serializers = [
-    IntelligentTieringConfigurationRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(IntelligentTieringConfigurationBuilder b) {}
+  static const List<_i6.SmithySerializer<IntelligentTieringConfiguration>>
+      serializers = [IntelligentTieringConfigurationRestXmlSerializer()];
 
   /// The ID used to identify the S3 Intelligent-Tiering configuration.
   String get id;
@@ -79,23 +75,23 @@ abstract class IntelligentTieringConfiguration
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('IntelligentTieringConfiguration');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'filter',
-      filter,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'tierings',
-      tierings,
-    );
+        newBuiltValueToStringHelper('IntelligentTieringConfiguration')
+          ..add(
+            'id',
+            id,
+          )
+          ..add(
+            'filter',
+            filter,
+          )
+          ..add(
+            'status',
+            status,
+          )
+          ..add(
+            'tierings',
+            tierings,
+          );
     return helper.toString();
   }
 }

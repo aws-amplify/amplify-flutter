@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_object_attributes_request;
+part of 'get_object_attributes_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -158,9 +158,7 @@ class GetObjectAttributesRequestBuilder
           _i5.ListBuilder<_i4.ObjectAttributes>? objectAttributes) =>
       _$this._objectAttributes = objectAttributes;
 
-  GetObjectAttributesRequestBuilder() {
-    GetObjectAttributesRequest._init(this);
-  }
+  GetObjectAttributesRequestBuilder();
 
   GetObjectAttributesRequestBuilder get _$this {
     final $v = _$v;
@@ -265,9 +263,7 @@ class GetObjectAttributesRequestPayloadBuilder
             GetObjectAttributesRequestPayloadBuilder> {
   _$GetObjectAttributesRequestPayload? _$v;
 
-  GetObjectAttributesRequestPayloadBuilder() {
-    GetObjectAttributesRequestPayload._init(this);
-  }
+  GetObjectAttributesRequestPayloadBuilder();
 
   @override
   void replace(GetObjectAttributesRequestPayload other) {

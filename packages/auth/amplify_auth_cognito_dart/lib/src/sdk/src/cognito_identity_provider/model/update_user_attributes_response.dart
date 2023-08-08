@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.update_user_attributes_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,9 +43,8 @@ abstract class UpdateUserAttributesResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    UpdateUserAttributesResponseAwsJson11Serializer()
-  ];
+  static const List<_i4.SmithySerializer<UpdateUserAttributesResponse>>
+      serializers = [UpdateUserAttributesResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(UpdateUserAttributesResponseBuilder b) {}
@@ -55,11 +55,11 @@ abstract class UpdateUserAttributesResponse
   List<Object?> get props => [codeDeliveryDetailsList];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateUserAttributesResponse');
-    helper.add(
-      'codeDeliveryDetailsList',
-      codeDeliveryDetailsList,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateUserAttributesResponse')
+      ..add(
+        'codeDeliveryDetailsList',
+        codeDeliveryDetailsList,
+      );
     return helper.toString();
   }
 }
@@ -93,18 +93,18 @@ class UpdateUserAttributesResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'CodeDeliveryDetailsList':
-          if (value != null) {
-            result.codeDeliveryDetailsList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.CodeDeliveryDetailsType)],
-              ),
-            ) as _i3.BuiltList<_i2.CodeDeliveryDetailsType>));
-          }
-          break;
+          result.codeDeliveryDetailsList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.CodeDeliveryDetailsType)],
+            ),
+          ) as _i3.BuiltList<_i2.CodeDeliveryDetailsType>));
       }
     }
 
@@ -114,22 +114,22 @@ class UpdateUserAttributesResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UpdateUserAttributesResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UpdateUserAttributesResponse);
-    final result = <Object?>[];
-    if (payload.codeDeliveryDetailsList != null) {
-      result
+    final result$ = <Object?>[];
+    final UpdateUserAttributesResponse(:codeDeliveryDetailsList) = object;
+    if (codeDeliveryDetailsList != null) {
+      result$
         ..add('CodeDeliveryDetailsList')
         ..add(serializers.serialize(
-          payload.codeDeliveryDetailsList!,
+          codeDeliveryDetailsList,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.CodeDeliveryDetailsType)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

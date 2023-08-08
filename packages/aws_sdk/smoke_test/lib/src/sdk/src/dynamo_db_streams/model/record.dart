@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db_streams.model.record; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -46,12 +46,9 @@ abstract class Record
 
   const Record._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<Record>> serializers = [
     RecordAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RecordBuilder b) {}
 
   /// A globally unique identifier for the event that was recorded in this stream record.
   String? get eventId;
@@ -70,7 +67,7 @@ abstract class Record
   /// Client applications must not assume that `eventVersion` will remain at a particular value, as this number is subject to change at any time. In general, `eventVersion` will only increase as the low-level DynamoDB Streams API evolves.
   String? get eventVersion;
 
-  /// The AWS service from which the stream record originated. For DynamoDB Streams, this is `aws:dynamodb`.
+  /// The Amazon Web Services service from which the stream record originated. For DynamoDB Streams, this is `aws:dynamodb`.
   String? get eventSource;
 
   /// The region in which the `GetRecords` request was received.
@@ -101,35 +98,35 @@ abstract class Record
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Record');
-    helper.add(
-      'eventId',
-      eventId,
-    );
-    helper.add(
-      'eventName',
-      eventName,
-    );
-    helper.add(
-      'eventVersion',
-      eventVersion,
-    );
-    helper.add(
-      'eventSource',
-      eventSource,
-    );
-    helper.add(
-      'awsRegion',
-      awsRegion,
-    );
-    helper.add(
-      'dynamodb',
-      dynamodb,
-    );
-    helper.add(
-      'userIdentity',
-      userIdentity,
-    );
+    final helper = newBuiltValueToStringHelper('Record')
+      ..add(
+        'eventId',
+        eventId,
+      )
+      ..add(
+        'eventName',
+        eventName,
+      )
+      ..add(
+        'eventVersion',
+        eventVersion,
+      )
+      ..add(
+        'eventSource',
+        eventSource,
+      )
+      ..add(
+        'awsRegion',
+        awsRegion,
+      )
+      ..add(
+        'dynamodb',
+        dynamodb,
+      )
+      ..add(
+        'userIdentity',
+        userIdentity,
+      );
     return helper.toString();
   }
 }

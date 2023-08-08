@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.keys_and_attributes;
+part of 'keys_and_attributes.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -98,9 +98,7 @@ class KeysAndAttributesBuilder
           _i3.MapBuilder<String, String>? expressionAttributeNames) =>
       _$this._expressionAttributeNames = expressionAttributeNames;
 
-  KeysAndAttributesBuilder() {
-    KeysAndAttributes._init(this);
-  }
+  KeysAndAttributesBuilder();
 
   KeysAndAttributesBuilder get _$this {
     final $v = _$v;

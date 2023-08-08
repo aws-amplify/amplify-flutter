@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.module_info; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -12,13 +12,13 @@ part 'module_info.g.dart';
 
 /// Contains information about the module from which the resource was created, if the resource was created from a module included in the stack template.
 ///
-/// For more information about modules, see [Using modules to encapsulate and reuse resource configurations](AWSCloudFormation/latest/UserGuide/modules.html) in the _CloudFormation User Guide_.
+/// For more information about modules, see [Using modules to encapsulate and reuse resource configurations](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/modules.html) in the _CloudFormation User Guide_.
 abstract class ModuleInfo
     with _i1.AWSEquatable<ModuleInfo>
     implements Built<ModuleInfo, ModuleInfoBuilder> {
   /// Contains information about the module from which the resource was created, if the resource was created from a module included in the stack template.
   ///
-  /// For more information about modules, see [Using modules to encapsulate and reuse resource configurations](AWSCloudFormation/latest/UserGuide/modules.html) in the _CloudFormation User Guide_.
+  /// For more information about modules, see [Using modules to encapsulate and reuse resource configurations](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/modules.html) in the _CloudFormation User Guide_.
   factory ModuleInfo({
     String? typeHierarchy,
     String? logicalIdHierarchy,
@@ -31,18 +31,15 @@ abstract class ModuleInfo
 
   /// Contains information about the module from which the resource was created, if the resource was created from a module included in the stack template.
   ///
-  /// For more information about modules, see [Using modules to encapsulate and reuse resource configurations](AWSCloudFormation/latest/UserGuide/modules.html) in the _CloudFormation User Guide_.
+  /// For more information about modules, see [Using modules to encapsulate and reuse resource configurations](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/modules.html) in the _CloudFormation User Guide_.
   factory ModuleInfo.build([void Function(ModuleInfoBuilder) updates]) =
       _$ModuleInfo;
 
   const ModuleInfo._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<ModuleInfo>> serializers = [
     ModuleInfoAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ModuleInfoBuilder b) {}
 
   /// A concatenated list of the module type or types containing the resource. Module types are listed starting with the inner-most nested module, and separated by `/`.
   ///
@@ -57,7 +54,7 @@ abstract class ModuleInfo
   ///
   /// `moduleA/moduleB`
   ///
-  /// For more information, see [Referencing resources in a module](AWSCloudFormation/latest/UserGuide/modules.html#module-ref-resources) in the _CloudFormation User Guide_.
+  /// For more information, see [Referencing resources in a module](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/modules.html#module-ref-resources) in the _CloudFormation User Guide_.
   String? get logicalIdHierarchy;
   @override
   List<Object?> get props => [
@@ -66,15 +63,15 @@ abstract class ModuleInfo
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ModuleInfo');
-    helper.add(
-      'typeHierarchy',
-      typeHierarchy,
-    );
-    helper.add(
-      'logicalIdHierarchy',
-      logicalIdHierarchy,
-    );
+    final helper = newBuiltValueToStringHelper('ModuleInfo')
+      ..add(
+        'typeHierarchy',
+        typeHierarchy,
+      )
+      ..add(
+        'logicalIdHierarchy',
+        logicalIdHierarchy,
+      );
     return helper.toString();
   }
 }

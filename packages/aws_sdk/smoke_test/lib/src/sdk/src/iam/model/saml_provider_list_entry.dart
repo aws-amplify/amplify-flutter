@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.saml_provider_list_entry; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,12 +34,9 @@ abstract class SamlProviderListEntry
 
   const SamlProviderListEntry._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<SamlProviderListEntry>> serializers = [
     SamlProviderListEntryAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SamlProviderListEntryBuilder b) {}
 
   /// The Amazon Resource Name (ARN) of the SAML provider.
   String? get arn;
@@ -57,19 +54,19 @@ abstract class SamlProviderListEntry
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SamlProviderListEntry');
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'validUntil',
-      validUntil,
-    );
-    helper.add(
-      'createDate',
-      createDate,
-    );
+    final helper = newBuiltValueToStringHelper('SamlProviderListEntry')
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'validUntil',
+        validUntil,
+      )
+      ..add(
+        'createDate',
+        createDate,
+      );
     return helper.toString();
   }
 }

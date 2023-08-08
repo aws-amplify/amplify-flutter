@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.rest_json_protocol.model.post_union_with_json_name_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,12 +35,9 @@ abstract class PostUnionWithJsonNameInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PostUnionWithJsonNameInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<PostUnionWithJsonNameInput>>
+      serializers = [PostUnionWithJsonNameInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PostUnionWithJsonNameInputBuilder b) {}
   _i3.UnionWithJsonName? get value;
   @override
   PostUnionWithJsonNameInput getPayload() => this;
@@ -48,11 +45,11 @@ abstract class PostUnionWithJsonNameInput
   List<Object?> get props => [value];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PostUnionWithJsonNameInput');
-    helper.add(
-      'value',
-      value,
-    );
+    final helper = newBuiltValueToStringHelper('PostUnionWithJsonNameInput')
+      ..add(
+        'value',
+        value,
+      );
     return helper.toString();
   }
 }

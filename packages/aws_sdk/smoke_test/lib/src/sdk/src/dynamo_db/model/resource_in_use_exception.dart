@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.resource_in_use_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,8 @@ abstract class ResourceInUseException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ResourceInUseExceptionAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceInUseExceptionBuilder b) {}
+  static const List<_i2.SmithySerializer<ResourceInUseException>> serializers =
+      [ResourceInUseExceptionAwsJson10Serializer()];
 
   /// The resource which is being attempted to be changed is in use.
   @override
@@ -67,11 +63,11 @@ abstract class ResourceInUseException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResourceInUseException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('ResourceInUseException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

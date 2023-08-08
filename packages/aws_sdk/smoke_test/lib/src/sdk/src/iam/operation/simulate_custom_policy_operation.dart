@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.operation.simulate_custom_policy_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,7 +33,7 @@ import 'package:smoke_test/src/sdk/src/iam/model/simulate_policy_response.dart'
 ///
 /// If the output is long, you can use `MaxItems` and `Marker` parameters to paginate the results.
 ///
-/// For more information about using the policy simulator, see [Testing IAM policies with the IAM policy simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html) in the _IAM User Guide_.
+/// The IAM policy simulator evaluates statements in the identity-based policy and the inputs that you provide during simulation. The policy simulator results can differ from your live Amazon Web Services environment. We recommend that you check your policies against your live Amazon Web Services environment after testing using the policy simulator to confirm that you have the desired results. For more information about using the policy simulator, see [Testing IAM policies with the IAM policy simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html) in the _IAM User Guide_.
 class SimulateCustomPolicyOperation extends _i1.PaginatedHttpOperation<
     _i2.SimulateCustomPolicyRequest,
     _i2.SimulateCustomPolicyRequest,
@@ -52,7 +52,7 @@ class SimulateCustomPolicyOperation extends _i1.PaginatedHttpOperation<
   ///
   /// If the output is long, you can use `MaxItems` and `Marker` parameters to paginate the results.
   ///
-  /// For more information about using the policy simulator, see [Testing IAM policies with the IAM policy simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html) in the _IAM User Guide_.
+  /// The IAM policy simulator evaluates statements in the identity-based policy and the inputs that you provide during simulation. The policy simulator results can differ from your live Amazon Web Services environment. We recommend that you check your policies against your live Amazon Web Services environment after testing using the policy simulator to confirm that you have the desired results. For more information about using the policy simulator, see [Testing IAM policies with the IAM policy simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html) in the _IAM User Guide_.
   SimulateCustomPolicyOperation({
     required String region,
     Uri? baseUri,
@@ -142,7 +142,7 @@ class SimulateCustomPolicyOperation extends _i1.PaginatedHttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidInputException, _i11.InvalidInputException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'InvalidInputException',
@@ -152,7 +152,8 @@ class SimulateCustomPolicyOperation extends _i1.PaginatedHttpOperation<
           statusCode: 400,
           builder: _i11.InvalidInputException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.PolicyEvaluationException,
+            _i12.PolicyEvaluationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'PolicyEvaluationException',
@@ -185,7 +186,7 @@ class SimulateCustomPolicyOperation extends _i1.PaginatedHttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)}
+        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)},
       },
     );
   }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.sdk_types; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,9 @@ abstract class SdkTypes
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<SdkTypes>> serializers = [
     SdkTypesRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SdkTypesBuilder b) {}
 
   /// The current page of elements from this collection.
   _i3.BuiltList<_i2.SdkType>? get items;
@@ -46,11 +43,11 @@ abstract class SdkTypes
   List<Object?> get props => [items];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SdkTypes');
-    helper.add(
-      'items',
-      items,
-    );
+    final helper = newBuiltValueToStringHelper('SdkTypes')
+      ..add(
+        'items',
+        items,
+      );
     return helper.toString();
   }
 }

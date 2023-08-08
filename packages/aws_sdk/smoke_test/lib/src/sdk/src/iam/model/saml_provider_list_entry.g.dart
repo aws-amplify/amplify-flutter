@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.saml_provider_list_entry;
+part of 'saml_provider_list_entry.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -66,9 +66,7 @@ class SamlProviderListEntryBuilder
   DateTime? get createDate => _$this._createDate;
   set createDate(DateTime? createDate) => _$this._createDate = createDate;
 
-  SamlProviderListEntryBuilder() {
-    SamlProviderListEntry._init(this);
-  }
+  SamlProviderListEntryBuilder();
 
   SamlProviderListEntryBuilder get _$this {
     final $v = _$v;

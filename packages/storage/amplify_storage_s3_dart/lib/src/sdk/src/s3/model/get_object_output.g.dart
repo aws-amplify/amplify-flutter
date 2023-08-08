@@ -8,7 +8,7 @@ part of 'get_object_output.dart';
 
 class _$GetObjectOutput extends GetObjectOutput {
   @override
-  final _i3.Stream<List<int>>? body;
+  final _i3.Stream<List<int>> body;
   @override
   final bool? deleteMarker;
   @override
@@ -84,7 +84,7 @@ class _$GetObjectOutput extends GetObjectOutput {
       (new GetObjectOutputBuilder()..update(updates))._build();
 
   _$GetObjectOutput._(
-      {this.body,
+      {required this.body,
       this.deleteMarker,
       this.acceptRanges,
       this.expiration,
@@ -120,7 +120,9 @@ class _$GetObjectOutput extends GetObjectOutput {
       this.objectLockMode,
       this.objectLockRetainUntilDate,
       this.objectLockLegalHoldStatus})
-      : super._();
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(body, r'GetObjectOutput', 'body');
+  }
 
   @override
   GetObjectOutput rebuild(void Function(GetObjectOutputBuilder) updates) =>
@@ -455,7 +457,8 @@ class GetObjectOutputBuilder
     try {
       _$result = _$v ??
           new _$GetObjectOutput._(
-              body: body,
+              body: BuiltValueNullFieldError.checkNotNull(
+                  body, r'GetObjectOutput', 'body'),
               deleteMarker: deleteMarker,
               acceptRanges: acceptRanges,
               expiration: expiration,

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.client_certificates;
+part of 'client_certificates.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -59,9 +59,7 @@ class ClientCertificatesBuilder
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  ClientCertificatesBuilder() {
-    ClientCertificates._init(this);
-  }
+  ClientCertificatesBuilder();
 
   ClientCertificatesBuilder get _$this {
     final $v = _$v;

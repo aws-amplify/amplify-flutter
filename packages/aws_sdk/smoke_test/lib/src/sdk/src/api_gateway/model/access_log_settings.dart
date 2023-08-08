@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.access_log_settings; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,12 +31,9 @@ abstract class AccessLogSettings
 
   const AccessLogSettings._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<AccessLogSettings>> serializers = [
     AccessLogSettingsRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AccessLogSettingsBuilder b) {}
 
   /// A single line format of the access logs of data, as specified by selected $context variables. The format must include at least `$context.requestId`.
   String? get format;
@@ -50,15 +47,15 @@ abstract class AccessLogSettings
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AccessLogSettings');
-    helper.add(
-      'format',
-      format,
-    );
-    helper.add(
-      'destinationArn',
-      destinationArn,
-    );
+    final helper = newBuiltValueToStringHelper('AccessLogSettings')
+      ..add(
+        'format',
+        format,
+      )
+      ..add(
+        'destinationArn',
+        destinationArn,
+      );
     return helper.toString();
   }
 }

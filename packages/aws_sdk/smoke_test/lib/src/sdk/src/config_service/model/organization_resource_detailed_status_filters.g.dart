@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.organization_resource_detailed_status_filters;
+part of 'organization_resource_detailed_status_filters.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class OrganizationResourceDetailedStatusFiltersBuilder
   set status(_i2.OrganizationResourceDetailedStatus? status) =>
       _$this._status = status;
 
-  OrganizationResourceDetailedStatusFiltersBuilder() {
-    OrganizationResourceDetailedStatusFilters._init(this);
-  }
+  OrganizationResourceDetailedStatusFiltersBuilder();
 
   OrganizationResourceDetailedStatusFiltersBuilder get _$this {
     final $v = _$v;

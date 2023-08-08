@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.deployments;
+part of 'deployments.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class DeploymentsBuilder implements Builder<Deployments, DeploymentsBuilder> {
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  DeploymentsBuilder() {
-    Deployments._init(this);
-  }
+  DeploymentsBuilder();
 
   DeploymentsBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.policy; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,6 +39,7 @@ abstract class Policy
     DateTime? updateDate,
     List<_i2.Tag>? tags,
   }) {
+    isAttachable ??= false;
     return _$Policy._(
       policyName: policyName,
       policyId: policyId,
@@ -64,12 +65,14 @@ abstract class Policy
 
   const Policy._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Policy>> serializers = [
     PolicyAwsQuerySerializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(PolicyBuilder b) {}
+  static void _init(PolicyBuilder b) {
+    b.isAttachable = false;
+  }
 
   /// The friendly name (not ARN) identifying the policy.
   String? get policyName;
@@ -101,7 +104,7 @@ abstract class Policy
   int? get permissionsBoundaryUsageCount;
 
   /// Specifies whether the policy can be attached to an IAM user, group, or role.
-  bool? get isAttachable;
+  bool get isAttachable;
 
   /// A friendly description of the policy.
   ///
@@ -135,55 +138,55 @@ abstract class Policy
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Policy');
-    helper.add(
-      'policyName',
-      policyName,
-    );
-    helper.add(
-      'policyId',
-      policyId,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'defaultVersionId',
-      defaultVersionId,
-    );
-    helper.add(
-      'attachmentCount',
-      attachmentCount,
-    );
-    helper.add(
-      'permissionsBoundaryUsageCount',
-      permissionsBoundaryUsageCount,
-    );
-    helper.add(
-      'isAttachable',
-      isAttachable,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'createDate',
-      createDate,
-    );
-    helper.add(
-      'updateDate',
-      updateDate,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('Policy')
+      ..add(
+        'policyName',
+        policyName,
+      )
+      ..add(
+        'policyId',
+        policyId,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'defaultVersionId',
+        defaultVersionId,
+      )
+      ..add(
+        'attachmentCount',
+        attachmentCount,
+      )
+      ..add(
+        'permissionsBoundaryUsageCount',
+        permissionsBoundaryUsageCount,
+      )
+      ..add(
+        'isAttachable',
+        isAttachable,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'createDate',
+        createDate,
+      )
+      ..add(
+        'updateDate',
+        updateDate,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }
@@ -373,14 +376,12 @@ class PolicyAwsQuerySerializer extends _i4.StructuredSmithySerializer<Policy> {
           specifiedType: const FullType.nullable(int),
         ));
     }
-    if (isAttachable != null) {
-      result$
-        ..add(const _i4.XmlElementName('IsAttachable'))
-        ..add(serializers.serialize(
-          isAttachable,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result$
+      ..add(const _i4.XmlElementName('IsAttachable'))
+      ..add(serializers.serialize(
+        isAttachable,
+        specifiedType: const FullType(bool),
+      ));
     if (description != null) {
       result$
         ..add(const _i4.XmlElementName('Description'))

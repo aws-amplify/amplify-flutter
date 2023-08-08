@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.operation.create_role_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -29,10 +29,14 @@ import 'package:smoke_test/src/sdk/src/iam/model/malformed_policy_document_excep
 import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
     as _i14;
 
-/// Creates a new role for your Amazon Web Services account. For more information about roles, see [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html). For information about quotas for role names and the number of roles you can create, see [IAM and STS quotas](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html) in the _IAM User Guide_.
+/// Creates a new role for your Amazon Web Services account.
+///
+/// For more information about roles, see [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) in the _IAM User Guide_. For information about quotas for role names and the number of roles you can create, see [IAM and STS quotas](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html) in the _IAM User Guide_.
 class CreateRoleOperation extends _i1.HttpOperation<_i2.CreateRoleRequest,
     _i2.CreateRoleRequest, _i3.CreateRoleResponse, _i3.CreateRoleResponse> {
-  /// Creates a new role for your Amazon Web Services account. For more information about roles, see [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html). For information about quotas for role names and the number of roles you can create, see [IAM and STS quotas](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html) in the _IAM User Guide_.
+  /// Creates a new role for your Amazon Web Services account.
+  ///
+  /// For more information about roles, see [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) in the _IAM User Guide_. For information about quotas for role names and the number of roles you can create, see [IAM and STS quotas](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html) in the _IAM User Guide_.
   CreateRoleOperation({
     required String region,
     Uri? baseUri,
@@ -139,7 +143,8 @@ class CreateRoleOperation extends _i1.HttpOperation<_i2.CreateRoleRequest,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ConcurrentModificationException,
+            _i9.ConcurrentModificationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ConcurrentModificationException',
@@ -149,7 +154,8 @@ class CreateRoleOperation extends _i1.HttpOperation<_i2.CreateRoleRequest,
           statusCode: 409,
           builder: _i9.ConcurrentModificationException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.EntityAlreadyExistsException,
+            _i10.EntityAlreadyExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'EntityAlreadyExistsException',
@@ -159,7 +165,7 @@ class CreateRoleOperation extends _i1.HttpOperation<_i2.CreateRoleRequest,
           statusCode: 409,
           builder: _i10.EntityAlreadyExistsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidInputException, _i11.InvalidInputException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'InvalidInputException',
@@ -169,7 +175,8 @@ class CreateRoleOperation extends _i1.HttpOperation<_i2.CreateRoleRequest,
           statusCode: 400,
           builder: _i11.InvalidInputException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.LimitExceededException,
+            _i12.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'LimitExceededException',
@@ -179,7 +186,8 @@ class CreateRoleOperation extends _i1.HttpOperation<_i2.CreateRoleRequest,
           statusCode: 409,
           builder: _i12.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.MalformedPolicyDocumentException,
+            _i13.MalformedPolicyDocumentException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'MalformedPolicyDocumentException',
@@ -189,7 +197,8 @@ class CreateRoleOperation extends _i1.HttpOperation<_i2.CreateRoleRequest,
           statusCode: 400,
           builder: _i13.MalformedPolicyDocumentException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.ServiceFailureException,
+            _i14.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',
@@ -222,7 +231,7 @@ class CreateRoleOperation extends _i1.HttpOperation<_i2.CreateRoleRequest,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

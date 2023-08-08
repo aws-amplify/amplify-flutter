@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.rest_xml_protocol.model.xml_nested_union_struct;
+part of 'xml_nested_union_struct.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -114,9 +114,7 @@ class XmlNestedUnionStructBuilder
   double? get doubleValue => _$this._doubleValue;
   set doubleValue(double? doubleValue) => _$this._doubleValue = doubleValue;
 
-  XmlNestedUnionStructBuilder() {
-    XmlNestedUnionStruct._init(this);
-  }
+  XmlNestedUnionStructBuilder();
 
   XmlNestedUnionStructBuilder get _$this {
     final $v = _$v;

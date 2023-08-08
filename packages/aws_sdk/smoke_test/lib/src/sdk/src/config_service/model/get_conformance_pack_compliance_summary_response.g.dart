@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.get_conformance_pack_compliance_summary_response;
+part of 'get_conformance_pack_compliance_summary_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -76,9 +76,7 @@ class GetConformancePackComplianceSummaryResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  GetConformancePackComplianceSummaryResponseBuilder() {
-    GetConformancePackComplianceSummaryResponse._init(this);
-  }
+  GetConformancePackComplianceSummaryResponseBuilder();
 
   GetConformancePackComplianceSummaryResponseBuilder get _$this {
     final $v = _$v;

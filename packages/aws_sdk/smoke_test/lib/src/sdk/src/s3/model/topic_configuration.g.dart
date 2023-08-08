@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.topic_configuration;
+part of 'topic_configuration.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -83,9 +83,7 @@ class TopicConfigurationBuilder
   set filter(_i3.NotificationConfigurationFilterBuilder? filter) =>
       _$this._filter = filter;
 
-  TopicConfigurationBuilder() {
-    TopicConfiguration._init(this);
-  }
+  TopicConfigurationBuilder();
 
   TopicConfigurationBuilder get _$this {
     final $v = _$v;

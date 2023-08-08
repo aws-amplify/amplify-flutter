@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.documentation_part_ids; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,9 @@ abstract class DocumentationPartIds
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<DocumentationPartIds>> serializers = [
     DocumentationPartIdsRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DocumentationPartIdsBuilder b) {}
 
   /// A list of the returned documentation part identifiers.
   _i2.BuiltList<String>? get ids;
@@ -59,15 +56,15 @@ abstract class DocumentationPartIds
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DocumentationPartIds');
-    helper.add(
-      'ids',
-      ids,
-    );
-    helper.add(
-      'warnings',
-      warnings,
-    );
+    final helper = newBuiltValueToStringHelper('DocumentationPartIds')
+      ..add(
+        'ids',
+        ids,
+      )
+      ..add(
+        'warnings',
+        warnings,
+      );
     return helper.toString();
   }
 }

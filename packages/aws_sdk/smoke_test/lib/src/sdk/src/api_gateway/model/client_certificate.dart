@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.client_certificate; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -47,12 +47,9 @@ abstract class ClientCertificate
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ClientCertificate>> serializers = [
     ClientCertificateRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ClientCertificateBuilder b) {}
 
   /// The identifier of the client certificate.
   String? get clientCertificateId;
@@ -82,31 +79,31 @@ abstract class ClientCertificate
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ClientCertificate');
-    helper.add(
-      'clientCertificateId',
-      clientCertificateId,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'pemEncodedCertificate',
-      pemEncodedCertificate,
-    );
-    helper.add(
-      'createdDate',
-      createdDate,
-    );
-    helper.add(
-      'expirationDate',
-      expirationDate,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('ClientCertificate')
+      ..add(
+        'clientCertificateId',
+        clientCertificateId,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'pemEncodedCertificate',
+        pemEncodedCertificate,
+      )
+      ..add(
+        'createdDate',
+        createdDate,
+      )
+      ..add(
+        'expirationDate',
+        expirationDate,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

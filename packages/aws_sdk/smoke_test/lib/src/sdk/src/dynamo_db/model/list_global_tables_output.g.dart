@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.list_global_tables_output;
+part of 'list_global_tables_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class ListGlobalTablesOutputBuilder
   set lastEvaluatedGlobalTableName(String? lastEvaluatedGlobalTableName) =>
       _$this._lastEvaluatedGlobalTableName = lastEvaluatedGlobalTableName;
 
-  ListGlobalTablesOutputBuilder() {
-    ListGlobalTablesOutput._init(this);
-  }
+  ListGlobalTablesOutputBuilder();
 
   ListGlobalTablesOutputBuilder get _$this {
     final $v = _$v;

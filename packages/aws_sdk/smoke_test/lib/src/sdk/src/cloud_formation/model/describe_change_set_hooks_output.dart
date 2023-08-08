@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.describe_change_set_hooks_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -54,12 +54,8 @@ abstract class DescribeChangeSetHooksOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
-    DescribeChangeSetHooksOutputAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeChangeSetHooksOutputBuilder b) {}
+  static const List<_i5.SmithySerializer<DescribeChangeSetHooksOutput>>
+      serializers = [DescribeChangeSetHooksOutputAwsQuerySerializer()];
 
   /// The change set identifier (stack ID).
   String? get changeSetId;
@@ -93,35 +89,35 @@ abstract class DescribeChangeSetHooksOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeChangeSetHooksOutput');
-    helper.add(
-      'changeSetId',
-      changeSetId,
-    );
-    helper.add(
-      'changeSetName',
-      changeSetName,
-    );
-    helper.add(
-      'hooks',
-      hooks,
-    );
-    helper.add(
-      'status',
-      status,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
-      'stackId',
-      stackId,
-    );
-    helper.add(
-      'stackName',
-      stackName,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeChangeSetHooksOutput')
+      ..add(
+        'changeSetId',
+        changeSetId,
+      )
+      ..add(
+        'changeSetName',
+        changeSetName,
+      )
+      ..add(
+        'hooks',
+        hooks,
+      )
+      ..add(
+        'status',
+        status,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      )
+      ..add(
+        'stackId',
+        stackId,
+      )
+      ..add(
+        'stackName',
+        stackName,
+      );
     return helper.toString();
   }
 }

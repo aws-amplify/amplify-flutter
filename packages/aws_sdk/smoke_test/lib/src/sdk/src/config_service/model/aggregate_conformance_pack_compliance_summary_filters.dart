@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.aggregate_conformance_pack_compliance_summary_filters; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,13 +35,11 @@ abstract class AggregateConformancePackComplianceSummaryFilters
 
   const AggregateConformancePackComplianceSummaryFilters._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<
+      _i2.SmithySerializer<
+          AggregateConformancePackComplianceSummaryFilters>> serializers = [
     AggregateConformancePackComplianceSummaryFiltersAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      AggregateConformancePackComplianceSummaryFiltersBuilder b) {}
 
   /// The 12-digit Amazon Web Services account ID of the source account.
   String? get accountId;
@@ -56,15 +54,15 @@ abstract class AggregateConformancePackComplianceSummaryFilters
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'AggregateConformancePackComplianceSummaryFilters');
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'awsRegion',
-      awsRegion,
-    );
+        'AggregateConformancePackComplianceSummaryFilters')
+      ..add(
+        'accountId',
+        accountId,
+      )
+      ..add(
+        'awsRegion',
+        awsRegion,
+      );
     return helper.toString();
   }
 }

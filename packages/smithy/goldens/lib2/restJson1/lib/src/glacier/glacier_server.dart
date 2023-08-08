@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v2.glacier.glacier_client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -101,7 +101,7 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
     try {
       final payload = (await _uploadArchiveProtocol.wireSerializer.deserialize(
         await awsRequest.bodyBytes,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i4.Stream,
           [
             FullType(
@@ -110,7 +110,7 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
             )
           ],
         ),
-      ) as _i4.Stream<List<int>>?);
+      ) as _i4.Stream<List<int>>);
       final input = _i6.UploadArchiveInput.fromRequest(
         payload,
         awsRequest,
@@ -237,7 +237,7 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
       final payload =
           (await _uploadMultipartPartProtocol.wireSerializer.deserialize(
         await awsRequest.bodyBytes,
-        specifiedType: const FullType.nullable(
+        specifiedType: const FullType(
           _i4.Stream,
           [
             FullType(
@@ -246,7 +246,7 @@ class _GlacierServer extends _i1.HttpServer<GlacierServerBase> {
             )
           ],
         ),
-      ) as _i4.Stream<List<int>>?);
+      ) as _i4.Stream<List<int>>);
       final input = _i8.UploadMultipartPartInput.fromRequest(
         payload,
         awsRequest,

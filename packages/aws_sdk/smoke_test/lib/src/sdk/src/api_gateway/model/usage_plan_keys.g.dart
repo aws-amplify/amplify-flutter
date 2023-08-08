@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.usage_plan_keys;
+part of 'usage_plan_keys.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class UsagePlanKeysBuilder
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  UsagePlanKeysBuilder() {
-    UsagePlanKeys._init(this);
-  }
+  UsagePlanKeysBuilder();
 
   UsagePlanKeysBuilder get _$this {
     final $v = _$v;

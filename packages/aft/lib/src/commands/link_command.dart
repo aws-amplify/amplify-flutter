@@ -88,7 +88,7 @@ Future<void> _createPubspecOverride(
             'url': v.url.toString(),
             if (ref != null) 'ref': ref,
             if (path != null) 'path': path,
-          }
+          },
         });
       }
       if (v is PathDependency) {

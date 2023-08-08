@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.put_bucket_replication_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -72,12 +72,8 @@ abstract class PutBucketReplicationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutBucketReplicationRequestRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketReplicationRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<_i2.ReplicationConfiguration>>
+      serializers = [PutBucketReplicationRequestRestXmlSerializer()];
 
   /// The name of the bucket
   String get bucket;
@@ -125,31 +121,31 @@ abstract class PutBucketReplicationRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutBucketReplicationRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'contentMd5',
-      contentMd5,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'replicationConfiguration',
-      replicationConfiguration,
-    );
-    helper.add(
-      'token',
-      token,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('PutBucketReplicationRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'contentMd5',
+        contentMd5,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      )
+      ..add(
+        'replicationConfiguration',
+        replicationConfiguration,
+      )
+      ..add(
+        'token',
+        token,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

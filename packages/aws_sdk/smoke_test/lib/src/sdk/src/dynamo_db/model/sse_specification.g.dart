@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.sse_specification;
+part of 'sse_specification.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -66,9 +66,7 @@ class SseSpecificationBuilder
   set kmsMasterKeyId(String? kmsMasterKeyId) =>
       _$this._kmsMasterKeyId = kmsMasterKeyId;
 
-  SseSpecificationBuilder() {
-    SseSpecification._init(this);
-  }
+  SseSpecificationBuilder();
 
   SseSpecificationBuilder get _$this {
     final $v = _$v;

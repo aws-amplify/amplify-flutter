@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_xml_v1.rest_xml_protocol.model.host_label_header_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,9 @@ abstract class HostLabelHeaderInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    HostLabelHeaderInputRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<HostLabelHeaderInputPayload>>
+      serializers = [HostLabelHeaderInputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HostLabelHeaderInputBuilder b) {}
   String get accountId;
   @override
   String labelFor(String key) {
@@ -65,11 +62,11 @@ abstract class HostLabelHeaderInput
   List<Object?> get props => [accountId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('HostLabelHeaderInput');
-    helper.add(
-      'accountId',
-      accountId,
-    );
+    final helper = newBuiltValueToStringHelper('HostLabelHeaderInput')
+      ..add(
+        'accountId',
+        accountId,
+      );
     return helper.toString();
   }
 }
@@ -86,8 +83,6 @@ abstract class HostLabelHeaderInputPayload
 
   const HostLabelHeaderInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HostLabelHeaderInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

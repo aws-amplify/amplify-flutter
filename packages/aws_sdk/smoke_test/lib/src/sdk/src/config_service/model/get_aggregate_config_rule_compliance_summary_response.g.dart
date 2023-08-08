@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.get_aggregate_config_rule_compliance_summary_response;
+part of 'get_aggregate_config_rule_compliance_summary_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -81,9 +81,7 @@ class GetAggregateConfigRuleComplianceSummaryResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  GetAggregateConfigRuleComplianceSummaryResponseBuilder() {
-    GetAggregateConfigRuleComplianceSummaryResponse._init(this);
-  }
+  GetAggregateConfigRuleComplianceSummaryResponseBuilder();
 
   GetAggregateConfigRuleComplianceSummaryResponseBuilder get _$this {
     final $v = _$v;

@@ -1,15 +1,17 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.parameterized_statement; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:aws_common/aws_common.dart' as _i1;
-import 'package:built_collection/built_collection.dart' as _i3;
+import 'package:built_collection/built_collection.dart' as _i4;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:smithy/smithy.dart' as _i4;
+import 'package:smithy/smithy.dart' as _i5;
 import 'package:smoke_test/src/sdk/src/dynamo_db/model/attribute_value.dart'
     as _i2;
+import 'package:smoke_test/src/sdk/src/dynamo_db/model/return_values_on_condition_check_failure.dart'
+    as _i3;
 
 part 'parameterized_statement.g.dart';
 
@@ -21,10 +23,13 @@ abstract class ParameterizedStatement
   factory ParameterizedStatement({
     required String statement,
     List<_i2.AttributeValue>? parameters,
+    _i3.ReturnValuesOnConditionCheckFailure?
+        returnValuesOnConditionCheckFailure,
   }) {
     return _$ParameterizedStatement._(
       statement: statement,
-      parameters: parameters == null ? null : _i3.BuiltList(parameters),
+      parameters: parameters == null ? null : _i4.BuiltList(parameters),
+      returnValuesOnConditionCheckFailure: returnValuesOnConditionCheckFailure,
     );
   }
 
@@ -35,40 +40,47 @@ abstract class ParameterizedStatement
 
   const ParameterizedStatement._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ParameterizedStatementAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ParameterizedStatementBuilder b) {}
+  static const List<_i5.SmithySerializer<ParameterizedStatement>> serializers =
+      [ParameterizedStatementAwsJson10Serializer()];
 
   /// A PartiQL statment that uses parameters.
   String get statement;
 
   /// The parameter values.
-  _i3.BuiltList<_i2.AttributeValue>? get parameters;
+  _i4.BuiltList<_i2.AttributeValue>? get parameters;
+
+  /// An optional parameter that returns the item attributes for a PartiQL `ParameterizedStatement` operation that failed a condition check.
+  ///
+  /// There is no additional cost associated with requesting a return value aside from the small network and processing overhead of receiving a larger response. No read capacity units are consumed.
+  _i3.ReturnValuesOnConditionCheckFailure?
+      get returnValuesOnConditionCheckFailure;
   @override
   List<Object?> get props => [
         statement,
         parameters,
+        returnValuesOnConditionCheckFailure,
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ParameterizedStatement');
-    helper.add(
-      'statement',
-      statement,
-    );
-    helper.add(
-      'parameters',
-      parameters,
-    );
+    final helper = newBuiltValueToStringHelper('ParameterizedStatement')
+      ..add(
+        'statement',
+        statement,
+      )
+      ..add(
+        'parameters',
+        parameters,
+      )
+      ..add(
+        'returnValuesOnConditionCheckFailure',
+        returnValuesOnConditionCheckFailure,
+      );
     return helper.toString();
   }
 }
 
 class ParameterizedStatementAwsJson10Serializer
-    extends _i4.StructuredSmithySerializer<ParameterizedStatement> {
+    extends _i5.StructuredSmithySerializer<ParameterizedStatement> {
   const ParameterizedStatementAwsJson10Serializer()
       : super('ParameterizedStatement');
 
@@ -78,8 +90,8 @@ class ParameterizedStatementAwsJson10Serializer
         _$ParameterizedStatement,
       ];
   @override
-  Iterable<_i4.ShapeId> get supportedProtocols => const [
-        _i4.ShapeId(
+  Iterable<_i5.ShapeId> get supportedProtocols => const [
+        _i5.ShapeId(
           namespace: 'aws.protocols',
           shape: 'awsJson1_0',
         )
@@ -109,10 +121,16 @@ class ParameterizedStatementAwsJson10Serializer
           result.parameters.replace((serializers.deserialize(
             value,
             specifiedType: const FullType(
-              _i3.BuiltList,
+              _i4.BuiltList,
               [FullType(_i2.AttributeValue)],
             ),
-          ) as _i3.BuiltList<_i2.AttributeValue>));
+          ) as _i4.BuiltList<_i2.AttributeValue>));
+        case 'ReturnValuesOnConditionCheckFailure':
+          result.returnValuesOnConditionCheckFailure = (serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(_i3.ReturnValuesOnConditionCheckFailure),
+          ) as _i3.ReturnValuesOnConditionCheckFailure);
       }
     }
 
@@ -126,7 +144,11 @@ class ParameterizedStatementAwsJson10Serializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result$ = <Object?>[];
-    final ParameterizedStatement(:statement, :parameters) = object;
+    final ParameterizedStatement(
+      :statement,
+      :parameters,
+      :returnValuesOnConditionCheckFailure
+    ) = object;
     result$.addAll([
       'Statement',
       serializers.serialize(
@@ -140,9 +162,18 @@ class ParameterizedStatementAwsJson10Serializer
         ..add(serializers.serialize(
           parameters,
           specifiedType: const FullType(
-            _i3.BuiltList,
+            _i4.BuiltList,
             [FullType(_i2.AttributeValue)],
           ),
+        ));
+    }
+    if (returnValuesOnConditionCheckFailure != null) {
+      result$
+        ..add('ReturnValuesOnConditionCheckFailure')
+        ..add(serializers.serialize(
+          returnValuesOnConditionCheckFailure,
+          specifiedType:
+              const FullType(_i3.ReturnValuesOnConditionCheckFailure),
         ));
     }
     return result$;

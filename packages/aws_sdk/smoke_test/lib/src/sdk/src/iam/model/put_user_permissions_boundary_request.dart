@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.put_user_permissions_boundary_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,17 +40,17 @@ abstract class PutUserPermissionsBoundaryRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutUserPermissionsBoundaryRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutUserPermissionsBoundaryRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<PutUserPermissionsBoundaryRequest>>
+      serializers = [PutUserPermissionsBoundaryRequestAwsQuerySerializer()];
 
   /// The name (friendly name, not ARN) of the IAM user for which you want to set the permissions boundary.
   String get userName;
 
-  /// The ARN of the policy that is used to set the permissions boundary for the user.
+  /// The ARN of the managed policy that is used to set the permissions boundary for the user.
+  ///
+  /// A permissions boundary policy defines the maximum permissions that identity-based policies can grant to an entity, but does not grant permissions. Permissions boundaries do not define the maximum permissions that a resource-based policy can grant to an entity. To learn more, see [Permissions boundaries for IAM entities](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html) in the _IAM User Guide_.
+  ///
+  /// For more information about policy types, see [Policy types](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#access_policy-types) in the _IAM User Guide_.
   String get permissionsBoundary;
   @override
   PutUserPermissionsBoundaryRequest getPayload() => this;
@@ -62,15 +62,15 @@ abstract class PutUserPermissionsBoundaryRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutUserPermissionsBoundaryRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'permissionsBoundary',
-      permissionsBoundary,
-    );
+        newBuiltValueToStringHelper('PutUserPermissionsBoundaryRequest')
+          ..add(
+            'userName',
+            userName,
+          )
+          ..add(
+            'permissionsBoundary',
+            permissionsBoundary,
+          );
     return helper.toString();
   }
 }

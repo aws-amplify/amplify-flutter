@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.usage;
+part of 'usage.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -86,9 +86,7 @@ class UsageBuilder implements Builder<Usage, UsageBuilder> {
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  UsageBuilder() {
-    Usage._init(this);
-  }
+  UsageBuilder();
 
   UsageBuilder get _$this {
     final $v = _$v;

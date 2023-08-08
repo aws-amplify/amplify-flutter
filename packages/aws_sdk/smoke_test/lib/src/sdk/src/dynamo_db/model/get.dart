@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.get; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,9 @@ abstract class Get
 
   const Get._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Get>> serializers = [
     GetAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBuilder b) {}
 
   /// A map of attribute names to `AttributeValue` objects that specifies the primary key of the item to retrieve.
   _i3.BuiltMap<String, _i2.AttributeValue> get key;
@@ -66,23 +63,23 @@ abstract class Get
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Get');
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'projectionExpression',
-      projectionExpression,
-    );
-    helper.add(
-      'expressionAttributeNames',
-      expressionAttributeNames,
-    );
+    final helper = newBuiltValueToStringHelper('Get')
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'projectionExpression',
+        projectionExpression,
+      )
+      ..add(
+        'expressionAttributeNames',
+        expressionAttributeNames,
+      );
     return helper.toString();
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.list_server_certificate_tags_request;
+part of 'list_server_certificate_tags_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -74,9 +74,7 @@ class ListServerCertificateTagsRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  ListServerCertificateTagsRequestBuilder() {
-    ListServerCertificateTagsRequest._init(this);
-  }
+  ListServerCertificateTagsRequestBuilder();
 
   ListServerCertificateTagsRequestBuilder get _$this {
     final $v = _$v;

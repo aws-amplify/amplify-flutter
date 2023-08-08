@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.update_contributor_insights_input;
+part of 'update_contributor_insights_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -79,9 +79,7 @@ class UpdateContributorInsightsInputBuilder
           _i3.ContributorInsightsAction? contributorInsightsAction) =>
       _$this._contributorInsightsAction = contributorInsightsAction;
 
-  UpdateContributorInsightsInputBuilder() {
-    UpdateContributorInsightsInput._init(this);
-  }
+  UpdateContributorInsightsInputBuilder();
 
   UpdateContributorInsightsInputBuilder get _$this {
     final $v = _$v;

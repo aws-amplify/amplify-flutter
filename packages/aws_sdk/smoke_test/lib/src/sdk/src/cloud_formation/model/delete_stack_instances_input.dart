@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.delete_stack_instances_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,11 +34,6 @@ abstract class DeleteStackInstancesInput
     _i5.CallAs? callAs,
   }) {
     retainStacks ??= false;
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      operationId ??= '00000000-0000-4000-8000-000000000000';
-    } else {
-      operationId ??= _i2.uuid(secure: true);
-    }
     return _$DeleteStackInstancesInput._(
       stackSetName: stackSetName,
       accounts: accounts == null ? null : _i6.BuiltList(accounts),
@@ -64,18 +59,16 @@ abstract class DeleteStackInstancesInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteStackInstancesInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<DeleteStackInstancesInput>>
+      serializers = [DeleteStackInstancesInputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(DeleteStackInstancesInputBuilder b) {
-    b.retainStacks = false;
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      b.operationId = '00000000-0000-4000-8000-000000000000';
-    } else {
-      b.operationId = _i2.uuid(secure: true);
-    }
+    b
+      ..retainStacks = false
+      ..operationId = const bool.hasEnvironment('SMITHY_TEST')
+          ? '00000000-0000-4000-8000-000000000000'
+          : _i2.uuid(secure: true);
   }
 
   /// The name or unique ID of the stack set that you want to delete stack instances for.
@@ -136,39 +129,39 @@ abstract class DeleteStackInstancesInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteStackInstancesInput');
-    helper.add(
-      'stackSetName',
-      stackSetName,
-    );
-    helper.add(
-      'accounts',
-      accounts,
-    );
-    helper.add(
-      'deploymentTargets',
-      deploymentTargets,
-    );
-    helper.add(
-      'regions',
-      regions,
-    );
-    helper.add(
-      'operationPreferences',
-      operationPreferences,
-    );
-    helper.add(
-      'retainStacks',
-      retainStacks,
-    );
-    helper.add(
-      'operationId',
-      operationId,
-    );
-    helper.add(
-      'callAs',
-      callAs,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteStackInstancesInput')
+      ..add(
+        'stackSetName',
+        stackSetName,
+      )
+      ..add(
+        'accounts',
+        accounts,
+      )
+      ..add(
+        'deploymentTargets',
+        deploymentTargets,
+      )
+      ..add(
+        'regions',
+        regions,
+      )
+      ..add(
+        'operationPreferences',
+        operationPreferences,
+      )
+      ..add(
+        'retainStacks',
+        retainStacks,
+      )
+      ..add(
+        'operationId',
+        operationId,
+      )
+      ..add(
+        'callAs',
+        callAs,
+      );
     return helper.toString();
   }
 }
@@ -338,7 +331,7 @@ class DeleteStackInstancesInputAwsQuerySerializer
       ..add(const _i1.XmlElementName('RetainStacks'))
       ..add(serializers.serialize(
         retainStacks,
-        specifiedType: const FullType.nullable(bool),
+        specifiedType: const FullType(bool),
       ));
     if (operationId != null) {
       result$

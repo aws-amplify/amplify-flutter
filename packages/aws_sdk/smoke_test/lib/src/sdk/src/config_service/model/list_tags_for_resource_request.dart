@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.list_tags_for_resource_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,6 +21,7 @@ abstract class ListTagsForResourceRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$ListTagsForResourceRequest._(
       resourceArn: resourceArn,
       limit: limit,
@@ -41,18 +42,19 @@ abstract class ListTagsForResourceRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListTagsForResourceRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<ListTagsForResourceRequest>>
+      serializers = [ListTagsForResourceRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListTagsForResourceRequestBuilder b) {}
+  static void _init(ListTagsForResourceRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The Amazon Resource Name (ARN) that identifies the resource for which to list the tags. Currently, the supported resources are `ConfigRule`, `ConfigurationAggregator` and `AggregatorAuthorization`.
   String get resourceArn;
 
   /// The maximum number of tags returned on each page. The limit maximum is 50. You cannot specify a number greater than 50. If you specify 0, Config uses the default.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -66,19 +68,19 @@ abstract class ListTagsForResourceRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListTagsForResourceRequest');
-    helper.add(
-      'resourceArn',
-      resourceArn,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('ListTagsForResourceRequest')
+      ..add(
+        'resourceArn',
+        resourceArn,
+      )
+      ..add(
+        'limit',
+        limit,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }
@@ -151,15 +153,12 @@ class ListTagsForResourceRequestAwsJson11Serializer
         resourceArn,
         specifiedType: const FullType(String),
       ),
+      'Limit',
+      serializers.serialize(
+        limit,
+        specifiedType: const FullType(int),
+      ),
     ]);
-    if (limit != null) {
-      result$
-        ..add('Limit')
-        ..add(serializers.serialize(
-          limit,
-          specifiedType: const FullType(int),
-        ));
-    }
     if (nextToken != null) {
       result$
         ..add('NextToken')

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.list_global_tables_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,8 @@ abstract class ListGlobalTablesOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ListGlobalTablesOutputAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListGlobalTablesOutputBuilder b) {}
+  static const List<_i4.SmithySerializer<ListGlobalTablesOutput>> serializers =
+      [ListGlobalTablesOutputAwsJson10Serializer()];
 
   /// List of global table names.
   _i3.BuiltList<_i2.GlobalTable>? get globalTables;
@@ -58,15 +54,15 @@ abstract class ListGlobalTablesOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListGlobalTablesOutput');
-    helper.add(
-      'globalTables',
-      globalTables,
-    );
-    helper.add(
-      'lastEvaluatedGlobalTableName',
-      lastEvaluatedGlobalTableName,
-    );
+    final helper = newBuiltValueToStringHelper('ListGlobalTablesOutput')
+      ..add(
+        'globalTables',
+        globalTables,
+      )
+      ..add(
+        'lastEvaluatedGlobalTableName',
+        lastEvaluatedGlobalTableName,
+      );
     return helper.toString();
   }
 }

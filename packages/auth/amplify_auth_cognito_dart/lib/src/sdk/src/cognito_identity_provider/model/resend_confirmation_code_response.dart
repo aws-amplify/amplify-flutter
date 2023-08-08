@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.resend_confirmation_code_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,9 +40,8 @@ abstract class ResendConfirmationCodeResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ResendConfirmationCodeResponseAwsJson11Serializer()
-  ];
+  static const List<_i3.SmithySerializer<ResendConfirmationCodeResponse>>
+      serializers = [ResendConfirmationCodeResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(ResendConfirmationCodeResponseBuilder b) {}
@@ -52,12 +52,11 @@ abstract class ResendConfirmationCodeResponse
   List<Object?> get props => [codeDeliveryDetails];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ResendConfirmationCodeResponse');
-    helper.add(
-      'codeDeliveryDetails',
-      codeDeliveryDetails,
-    );
+    final helper = newBuiltValueToStringHelper('ResendConfirmationCodeResponse')
+      ..add(
+        'codeDeliveryDetails',
+        codeDeliveryDetails,
+      );
     return helper.toString();
   }
 }
@@ -91,15 +90,15 @@ class ResendConfirmationCodeResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'CodeDeliveryDetails':
-          if (value != null) {
-            result.codeDeliveryDetails.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.CodeDeliveryDetailsType),
-            ) as _i2.CodeDeliveryDetailsType));
-          }
-          break;
+          result.codeDeliveryDetails.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.CodeDeliveryDetailsType),
+          ) as _i2.CodeDeliveryDetailsType));
       }
     }
 
@@ -109,19 +108,19 @@ class ResendConfirmationCodeResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ResendConfirmationCodeResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ResendConfirmationCodeResponse);
-    final result = <Object?>[];
-    if (payload.codeDeliveryDetails != null) {
-      result
+    final result$ = <Object?>[];
+    final ResendConfirmationCodeResponse(:codeDeliveryDetails) = object;
+    if (codeDeliveryDetails != null) {
+      result$
         ..add('CodeDeliveryDetails')
         ..add(serializers.serialize(
-          payload.codeDeliveryDetails!,
+          codeDeliveryDetails,
           specifiedType: const FullType(_i2.CodeDeliveryDetailsType),
         ));
     }
-    return result;
+    return result$;
   }
 }

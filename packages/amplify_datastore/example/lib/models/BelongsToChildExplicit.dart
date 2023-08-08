@@ -93,7 +93,7 @@ class BelongsToChildExplicit extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("BelongsToChildExplicit {");
     buffer.write("id=" + "$id" + ", ");
@@ -161,7 +161,7 @@ class BelongsToChildExplicit extends amplify_core.Model {
       };
 
   static final amplify_core
-          .QueryModelIdentifier<BelongsToChildExplicitModelIdentifier>
+      .QueryModelIdentifier<BelongsToChildExplicitModelIdentifier>
       MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<
           BelongsToChildExplicitModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
@@ -229,7 +229,7 @@ class BelongsToChildExplicitModelIdentifier
     implements amplify_core.ModelIdentifier<BelongsToChildExplicit> {
   final String id;
 
-  /// Create an instance of BelongsToChildExplicitModelIdentifier using [id] the primary key.
+  /** Create an instance of BelongsToChildExplicitModelIdentifier using [id] the primary key. */
   const BelongsToChildExplicitModelIdentifier({required this.id});
 
   @override

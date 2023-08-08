@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.list_saml_providers_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,8 @@ abstract class ListSamlProvidersResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ListSamlProvidersResponseAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListSamlProvidersResponseBuilder b) {}
+  static const List<_i4.SmithySerializer<ListSamlProvidersResponse>>
+      serializers = [ListSamlProvidersResponseAwsQuerySerializer()];
 
   /// The list of SAML provider resource objects defined in IAM for this Amazon Web Services account.
   _i3.BuiltList<_i2.SamlProviderListEntry>? get samlProviderList;
@@ -53,11 +49,11 @@ abstract class ListSamlProvidersResponse
   List<Object?> get props => [samlProviderList];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListSamlProvidersResponse');
-    helper.add(
-      'samlProviderList',
-      samlProviderList,
-    );
+    final helper = newBuiltValueToStringHelper('ListSamlProvidersResponse')
+      ..add(
+        'samlProviderList',
+        samlProviderList,
+      );
     return helper.toString();
   }
 }

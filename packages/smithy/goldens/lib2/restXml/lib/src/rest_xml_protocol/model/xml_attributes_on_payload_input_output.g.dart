@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.rest_xml_protocol.model.xml_attributes_on_payload_input_output;
+part of 'xml_attributes_on_payload_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class XmlAttributesOnPayloadInputOutputBuilder
   set payload(_i2.XmlAttributesInputOutputBuilder? payload) =>
       _$this._payload = payload;
 
-  XmlAttributesOnPayloadInputOutputBuilder() {
-    XmlAttributesOnPayloadInputOutput._init(this);
-  }
+  XmlAttributesOnPayloadInputOutputBuilder();
 
   XmlAttributesOnPayloadInputOutputBuilder get _$this {
     final $v = _$v;

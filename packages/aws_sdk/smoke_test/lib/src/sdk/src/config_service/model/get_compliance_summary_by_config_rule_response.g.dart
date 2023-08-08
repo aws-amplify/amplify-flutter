@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.get_compliance_summary_by_config_rule_response;
+part of 'get_compliance_summary_by_config_rule_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -58,9 +58,7 @@ class GetComplianceSummaryByConfigRuleResponseBuilder
   set complianceSummary(_i2.ComplianceSummaryBuilder? complianceSummary) =>
       _$this._complianceSummary = complianceSummary;
 
-  GetComplianceSummaryByConfigRuleResponseBuilder() {
-    GetComplianceSummaryByConfigRuleResponse._init(this);
-  }
+  GetComplianceSummaryByConfigRuleResponseBuilder();
 
   GetComplianceSummaryByConfigRuleResponseBuilder get _$this {
     final $v = _$v;

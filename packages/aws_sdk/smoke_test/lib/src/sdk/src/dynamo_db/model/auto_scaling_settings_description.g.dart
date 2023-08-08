@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.auto_scaling_settings_description;
+part of 'auto_scaling_settings_description.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -97,9 +97,7 @@ class AutoScalingSettingsDescriptionBuilder
           _i4.ListBuilder<_i3.AutoScalingPolicyDescription>? scalingPolicies) =>
       _$this._scalingPolicies = scalingPolicies;
 
-  AutoScalingSettingsDescriptionBuilder() {
-    AutoScalingSettingsDescription._init(this);
-  }
+  AutoScalingSettingsDescriptionBuilder();
 
   AutoScalingSettingsDescriptionBuilder get _$this {
     final $v = _$v;

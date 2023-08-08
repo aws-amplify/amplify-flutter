@@ -7,19 +7,12 @@
   PigeonOptions(
     copyrightHeader: '../../../tool/license.txt',
     dartOut: 'lib/src/native_auth_plugin.g.dart',
-    javaOptions: JavaOptions(
-      className: 'NativeAuthPluginBindingsPigeon',
+    kotlinOptions: KotlinOptions(
       package: 'com.amazonaws.amplify.amplify_auth_cognito',
     ),
-    javaOut:
-        '../amplify_auth_cognito_android/android/src/main/kotlin/com/amazonaws/amplify/amplify_auth_cognito/NativeAuthPluginBindingsPigeon.java',
-    objcOptions: ObjcOptions(
-      headerIncludePath: 'NativeAuthPlugin.h',
-    ),
-    objcHeaderOut:
-        '../amplify_auth_cognito_ios/ios/Classes/pigeons/NativeAuthPlugin.h',
-    objcSourceOut:
-        '../amplify_auth_cognito_ios/ios/Classes/pigeons/NativeAuthPlugin.m',
+    kotlinOut:
+        'android/src/main/kotlin/com/amazonaws/amplify/amplify_auth_cognito/pigeons/NativeAuthPluginBindingsPigeon.kt',
+    swiftOut: 'darwin/classes/pigeons/messages.g.swift',
   ),
 )
 library native_auth_plugin;
@@ -61,6 +54,9 @@ abstract class NativeAuthBridge {
   /// Retrieves the validation data for the current iOS/Android device.
   Map<String, String> getValidationData();
 
+  /// Retrieves context data as required for advanced security features (ASF).
+  NativeUserContextData getContextData();
+
   String getBundleId();
 
   /// Fetch legacy credentials stored by native SDKs.
@@ -73,6 +69,18 @@ abstract class NativeAuthBridge {
   /// Clears the legacy credential store data.
   @async
   void clearLegacyCredentials();
+}
+
+class NativeUserContextData {
+  String? deviceName;
+  String? thirdPartyDeviceId;
+  String? deviceFingerprint;
+  String? applicationName;
+  String? applicationVersion;
+  String? deviceLanguage;
+  String? deviceOsReleaseVersion;
+  int? screenHeightPixels;
+  int? screenWidthPixels;
 }
 
 class LegacyCredentialStoreData {

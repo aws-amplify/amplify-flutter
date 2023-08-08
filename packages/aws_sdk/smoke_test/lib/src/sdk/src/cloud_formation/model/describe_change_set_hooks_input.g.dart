@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.describe_change_set_hooks_input;
+part of 'describe_change_set_hooks_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -85,9 +85,7 @@ class DescribeChangeSetHooksInputBuilder
   set logicalResourceId(String? logicalResourceId) =>
       _$this._logicalResourceId = logicalResourceId;
 
-  DescribeChangeSetHooksInputBuilder() {
-    DescribeChangeSetHooksInput._init(this);
-  }
+  DescribeChangeSetHooksInputBuilder();
 
   DescribeChangeSetHooksInputBuilder get _$this {
     final $v = _$v;

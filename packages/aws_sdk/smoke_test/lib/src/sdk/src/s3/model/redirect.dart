@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.redirect; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,12 +37,9 @@ abstract class Redirect
 
   const Redirect._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<Redirect>> serializers = [
     RedirectRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RedirectBuilder b) {}
 
   /// The host name to use in the redirect request.
   String? get hostName;
@@ -72,27 +69,27 @@ abstract class Redirect
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Redirect');
-    helper.add(
-      'hostName',
-      hostName,
-    );
-    helper.add(
-      'httpRedirectCode',
-      httpRedirectCode,
-    );
-    helper.add(
-      'protocol',
-      protocol,
-    );
-    helper.add(
-      'replaceKeyPrefixWith',
-      replaceKeyPrefixWith,
-    );
-    helper.add(
-      'replaceKeyWith',
-      replaceKeyWith,
-    );
+    final helper = newBuiltValueToStringHelper('Redirect')
+      ..add(
+        'hostName',
+        hostName,
+      )
+      ..add(
+        'httpRedirectCode',
+        httpRedirectCode,
+      )
+      ..add(
+        'protocol',
+        protocol,
+      )
+      ..add(
+        'replaceKeyPrefixWith',
+        replaceKeyPrefixWith,
+      )
+      ..add(
+        'replaceKeyWith',
+        replaceKeyWith,
+      );
     return helper.toString();
   }
 }

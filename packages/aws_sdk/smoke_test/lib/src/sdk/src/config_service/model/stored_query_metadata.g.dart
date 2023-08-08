@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.stored_query_metadata;
+part of 'stored_query_metadata.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -85,9 +85,7 @@ class StoredQueryMetadataBuilder
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  StoredQueryMetadataBuilder() {
-    StoredQueryMetadata._init(this);
-  }
+  StoredQueryMetadataBuilder();
 
   StoredQueryMetadataBuilder get _$this {
     final $v = _$v;

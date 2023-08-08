@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.describe_stacks_input;
+part of 'describe_stacks_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -57,9 +57,7 @@ class DescribeStacksInputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeStacksInputBuilder() {
-    DescribeStacksInput._init(this);
-  }
+  DescribeStacksInputBuilder();
 
   DescribeStacksInputBuilder get _$this {
     final $v = _$v;

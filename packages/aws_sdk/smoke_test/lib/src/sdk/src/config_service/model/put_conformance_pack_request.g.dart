@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.put_conformance_pack_request;
+part of 'put_conformance_pack_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -126,9 +126,7 @@ class PutConformancePackRequestBuilder
           _i4.TemplateSsmDocumentDetailsBuilder? templateSsmDocumentDetails) =>
       _$this._templateSsmDocumentDetails = templateSsmDocumentDetails;
 
-  PutConformancePackRequestBuilder() {
-    PutConformancePackRequest._init(this);
-  }
+  PutConformancePackRequestBuilder();
 
   PutConformancePackRequestBuilder get _$this {
     final $v = _$v;

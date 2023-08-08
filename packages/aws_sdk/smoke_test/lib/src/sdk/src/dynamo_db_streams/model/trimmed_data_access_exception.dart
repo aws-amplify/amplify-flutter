@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db_streams.model.trimmed_data_access_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -56,12 +56,8 @@ abstract class TrimmedDataAccessException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    TrimmedDataAccessExceptionAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TrimmedDataAccessExceptionBuilder b) {}
+  static const List<_i2.SmithySerializer<TrimmedDataAccessException>>
+      serializers = [TrimmedDataAccessExceptionAwsJson10Serializer()];
 
   /// "The data you are trying to access has been trimmed.
   @override
@@ -85,11 +81,11 @@ abstract class TrimmedDataAccessException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TrimmedDataAccessException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('TrimmedDataAccessException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

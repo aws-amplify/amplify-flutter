@@ -161,9 +161,7 @@ class EndpointBatchItemBuilder
       _$this._user ??= new _i5.EndpointUserBuilder();
   set user(_i5.EndpointUserBuilder? user) => _$this._user = user;
 
-  EndpointBatchItemBuilder() {
-    EndpointBatchItem._init(this);
-  }
+  EndpointBatchItemBuilder();
 
   EndpointBatchItemBuilder get _$this {
     final $v = _$v;

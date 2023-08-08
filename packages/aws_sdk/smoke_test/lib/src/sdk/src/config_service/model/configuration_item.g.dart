@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.configuration_item;
+part of 'configuration_item.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -223,9 +223,7 @@ class ConfigurationItemBuilder
           _i5.MapBuilder<String, String>? supplementaryConfiguration) =>
       _$this._supplementaryConfiguration = supplementaryConfiguration;
 
-  ConfigurationItemBuilder() {
-    ConfigurationItem._init(this);
-  }
+  ConfigurationItemBuilder();
 
   ConfigurationItemBuilder get _$this {
     final $v = _$v;

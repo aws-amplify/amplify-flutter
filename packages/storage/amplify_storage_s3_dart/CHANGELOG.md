@@ -1,7 +1,25 @@
+## 0.3.1
+
+### Fixes
+- fix(storage): API doc errors
+
+### Features
+- feat(storage): using path style URLs when bucket name contains dots
+
+## 0.3.0+1
+
+- Minor bug fixes and improvements
+
 ## 0.3.0
 
 ### Features
 - Dart 3 support (must update Dart SDK constraint to `^3.0.0`)
+
+## 0.2.0+3
+
+### Fixes
+- fix(repo): Flutter 3.3 support
+- fix(storage): API doc errors
 
 ## 0.2.0+2
 

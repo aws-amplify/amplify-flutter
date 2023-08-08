@@ -73,8 +73,8 @@ void main() {
         'input': {
           'id': 'firstMtmRelationId',
           'manyToManyPrimaryId': 'mtmPrimaryId',
-          'manyToManySecondaryId': 'mtmSecondaryId'
-        }
+          'manyToManySecondaryId': 'mtmSecondaryId',
+        },
       };
 
       final primary = ManyToManyPrimary(
@@ -110,9 +110,9 @@ void main() {
         'input': {
           'id': 'firstMtmRelationId',
           'manyToManyPrimaryId': 'mtmPrimaryId',
-          'manyToManySecondaryId': 'mtmSecondaryId'
+          'manyToManySecondaryId': 'mtmSecondaryId',
         },
-        'condition': null
+        'condition': null,
       };
 
       final primary = ManyToManyPrimary(
@@ -149,15 +149,15 @@ void main() {
               'id': 'id-first-mtm-relation',
               'manyToManyPrimary': {
                 'id': 'id-mtm-primary',
-                'name': 'mtm primary'
+                'name': 'mtm primary',
               },
               'manyToManySecondary': {
                 'id': 'id-mtm-secondary',
-                'name': 'mtm secondary'
-              }
+                'name': 'mtm secondary',
+              },
             }
-          ]
-        }
+          ],
+        },
       };
 
       final response = GraphQLResponseDecoder.instance

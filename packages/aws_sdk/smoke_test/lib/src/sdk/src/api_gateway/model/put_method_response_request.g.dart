@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.put_method_response_request;
+part of 'put_method_response_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -110,9 +110,7 @@ class PutMethodResponseRequestBuilder
   set responseModels(_i3.MapBuilder<String, String>? responseModels) =>
       _$this._responseModels = responseModels;
 
-  PutMethodResponseRequestBuilder() {
-    PutMethodResponseRequest._init(this);
-  }
+  PutMethodResponseRequestBuilder();
 
   PutMethodResponseRequestBuilder get _$this {
     final $v = _$v;
@@ -235,9 +233,7 @@ class PutMethodResponseRequestPayloadBuilder
   set responseParameters(_i3.MapBuilder<String, bool>? responseParameters) =>
       _$this._responseParameters = responseParameters;
 
-  PutMethodResponseRequestPayloadBuilder() {
-    PutMethodResponseRequestPayload._init(this);
-  }
+  PutMethodResponseRequestPayloadBuilder();
 
   PutMethodResponseRequestPayloadBuilder get _$this {
     final $v = _$v;

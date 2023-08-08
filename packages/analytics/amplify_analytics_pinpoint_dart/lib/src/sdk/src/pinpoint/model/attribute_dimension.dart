@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.attribute_dimension; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,12 +35,9 @@ abstract class AttributeDimension
 
   const AttributeDimension._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<AttributeDimension>> serializers = [
     AttributeDimensionRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AttributeDimensionBuilder b) {}
 
   /// The type of segment dimension to use. Valid values are:
   ///
@@ -62,15 +59,15 @@ abstract class AttributeDimension
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AttributeDimension');
-    helper.add(
-      'attributeType',
-      attributeType,
-    );
-    helper.add(
-      'values',
-      values,
-    );
+    final helper = newBuiltValueToStringHelper('AttributeDimension')
+      ..add(
+        'attributeType',
+        attributeType,
+      )
+      ..add(
+        'values',
+        values,
+      );
     return helper.toString();
   }
 }

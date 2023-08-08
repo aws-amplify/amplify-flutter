@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.mfa_device;
+part of 'mfa_device.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -71,9 +71,7 @@ class MfaDeviceBuilder implements Builder<MfaDevice, MfaDeviceBuilder> {
   DateTime? get enableDate => _$this._enableDate;
   set enableDate(DateTime? enableDate) => _$this._enableDate = enableDate;
 
-  MfaDeviceBuilder() {
-    MfaDevice._init(this);
-  }
+  MfaDeviceBuilder();
 
   MfaDeviceBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_with_namespace_v1.rest_xml_protocol_namespace.model.simple_scalar_properties_input_output;
+part of 'simple_scalar_properties_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -148,9 +148,7 @@ class SimpleScalarPropertiesInputOutputBuilder
   double? get doubleValue => _$this._doubleValue;
   set doubleValue(double? doubleValue) => _$this._doubleValue = doubleValue;
 
-  SimpleScalarPropertiesInputOutputBuilder() {
-    SimpleScalarPropertiesInputOutput._init(this);
-  }
+  SimpleScalarPropertiesInputOutputBuilder();
 
   SimpleScalarPropertiesInputOutputBuilder get _$this {
     final $v = _$v;
@@ -353,9 +351,7 @@ class SimpleScalarPropertiesInputOutputPayloadBuilder
   set trueBooleanValue(bool? trueBooleanValue) =>
       _$this._trueBooleanValue = trueBooleanValue;
 
-  SimpleScalarPropertiesInputOutputPayloadBuilder() {
-    SimpleScalarPropertiesInputOutputPayload._init(this);
-  }
+  SimpleScalarPropertiesInputOutputPayloadBuilder();
 
   SimpleScalarPropertiesInputOutputPayloadBuilder get _$this {
     final $v = _$v;

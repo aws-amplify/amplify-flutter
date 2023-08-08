@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.tag_saml_provider_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,8 @@ abstract class TagSamlProviderRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    TagSamlProviderRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TagSamlProviderRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<TagSamlProviderRequest>> serializers =
+      [TagSamlProviderRequestAwsQuerySerializer()];
 
   /// The ARN of the SAML identity provider in IAM to which you want to add tags.
   ///
@@ -63,15 +59,15 @@ abstract class TagSamlProviderRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TagSamlProviderRequest');
-    helper.add(
-      'samlProviderArn',
-      samlProviderArn,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('TagSamlProviderRequest')
+      ..add(
+        'samlProviderArn',
+        samlProviderArn,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.stack_resource_drift; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -75,12 +75,9 @@ abstract class StackResourceDrift
 
   const StackResourceDrift._();
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<_i7.SmithySerializer<StackResourceDrift>> serializers = [
     StackResourceDriftAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackResourceDriftBuilder b) {}
 
   /// The ID of the stack.
   String get stackId;
@@ -143,51 +140,51 @@ abstract class StackResourceDrift
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StackResourceDrift');
-    helper.add(
-      'stackId',
-      stackId,
-    );
-    helper.add(
-      'logicalResourceId',
-      logicalResourceId,
-    );
-    helper.add(
-      'physicalResourceId',
-      physicalResourceId,
-    );
-    helper.add(
-      'physicalResourceIdContext',
-      physicalResourceIdContext,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'expectedProperties',
-      expectedProperties,
-    );
-    helper.add(
-      'actualProperties',
-      actualProperties,
-    );
-    helper.add(
-      'propertyDifferences',
-      propertyDifferences,
-    );
-    helper.add(
-      'stackResourceDriftStatus',
-      stackResourceDriftStatus,
-    );
-    helper.add(
-      'timestamp',
-      timestamp,
-    );
-    helper.add(
-      'moduleInfo',
-      moduleInfo,
-    );
+    final helper = newBuiltValueToStringHelper('StackResourceDrift')
+      ..add(
+        'stackId',
+        stackId,
+      )
+      ..add(
+        'logicalResourceId',
+        logicalResourceId,
+      )
+      ..add(
+        'physicalResourceId',
+        physicalResourceId,
+      )
+      ..add(
+        'physicalResourceIdContext',
+        physicalResourceIdContext,
+      )
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'expectedProperties',
+        expectedProperties,
+      )
+      ..add(
+        'actualProperties',
+        actualProperties,
+      )
+      ..add(
+        'propertyDifferences',
+        propertyDifferences,
+      )
+      ..add(
+        'stackResourceDriftStatus',
+        stackResourceDriftStatus,
+      )
+      ..add(
+        'timestamp',
+        timestamp,
+      )
+      ..add(
+        'moduleInfo',
+        moduleInfo,
+      );
     return helper.toString();
   }
 }

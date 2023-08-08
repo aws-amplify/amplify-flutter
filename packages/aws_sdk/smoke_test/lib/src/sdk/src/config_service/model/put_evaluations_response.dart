@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.put_evaluations_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,12 +36,8 @@ abstract class PutEvaluationsResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    PutEvaluationsResponseAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutEvaluationsResponseBuilder b) {}
+  static const List<_i4.SmithySerializer<PutEvaluationsResponse>> serializers =
+      [PutEvaluationsResponseAwsJson11Serializer()];
 
   /// Requests that failed because of a client or server error.
   _i3.BuiltList<_i2.Evaluation>? get failedEvaluations;
@@ -49,11 +45,11 @@ abstract class PutEvaluationsResponse
   List<Object?> get props => [failedEvaluations];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutEvaluationsResponse');
-    helper.add(
-      'failedEvaluations',
-      failedEvaluations,
-    );
+    final helper = newBuiltValueToStringHelper('PutEvaluationsResponse')
+      ..add(
+        'failedEvaluations',
+        failedEvaluations,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.set_security_token_service_preferences_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,11 @@ abstract class SetSecurityTokenServicePreferencesRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<SetSecurityTokenServicePreferencesRequest>>
+      serializers = [
     SetSecurityTokenServicePreferencesRequestAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SetSecurityTokenServicePreferencesRequestBuilder b) {}
 
   /// The version of the global endpoint token. Version 1 tokens are valid only in Amazon Web Services Regions that are available by default. These tokens do not work in manually enabled Regions, such as Asia Pacific (Hong Kong). Version 2 tokens are valid in all Regions. However, version 2 tokens are longer and might affect systems where you temporarily store tokens.
   ///
@@ -55,12 +54,12 @@ abstract class SetSecurityTokenServicePreferencesRequest
   List<Object?> get props => [globalEndpointTokenVersion];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'SetSecurityTokenServicePreferencesRequest');
-    helper.add(
-      'globalEndpointTokenVersion',
-      globalEndpointTokenVersion,
-    );
+    final helper =
+        newBuiltValueToStringHelper('SetSecurityTokenServicePreferencesRequest')
+          ..add(
+            'globalEndpointTokenVersion',
+            globalEndpointTokenVersion,
+          );
     return helper.toString();
   }
 }

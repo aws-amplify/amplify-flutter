@@ -38,19 +38,23 @@ jobs:
   test:
     uses: ./.github/workflows/dart_vm.yaml
     with:
+      package-name: aws_query_v1
       working-directory: packages/smithy/goldens/lib/awsQuery
   native_test:
     needs: test
     uses: ./.github/workflows/dart_native.yaml
     with:
+      package-name: aws_query_v1
       working-directory: packages/smithy/goldens/lib/awsQuery
   ddc_test:
     needs: test
     uses: ./.github/workflows/dart_ddc.yaml
     with:
+      package-name: aws_query_v1
       working-directory: packages/smithy/goldens/lib/awsQuery
   dart2js_test:
     needs: test
     uses: ./.github/workflows/dart_dart2js.yaml
     with:
+      package-name: aws_query_v1
       working-directory: packages/smithy/goldens/lib/awsQuery

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.put_external_evaluation_request;
+part of 'put_external_evaluation_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -69,9 +69,7 @@ class PutExternalEvaluationRequestBuilder
   set externalEvaluation(_i3.ExternalEvaluationBuilder? externalEvaluation) =>
       _$this._externalEvaluation = externalEvaluation;
 
-  PutExternalEvaluationRequestBuilder() {
-    PutExternalEvaluationRequest._init(this);
-  }
+  PutExternalEvaluationRequestBuilder();
 
   PutExternalEvaluationRequestBuilder get _$this {
     final $v = _$v;

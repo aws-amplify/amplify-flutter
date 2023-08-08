@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.delete_server_certificate_request;
+part of 'delete_server_certificate_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -56,9 +56,7 @@ class DeleteServerCertificateRequestBuilder
   set serverCertificateName(String? serverCertificateName) =>
       _$this._serverCertificateName = serverCertificateName;
 
-  DeleteServerCertificateRequestBuilder() {
-    DeleteServerCertificateRequest._init(this);
-  }
+  DeleteServerCertificateRequestBuilder();
 
   DeleteServerCertificateRequestBuilder get _$this {
     final $v = _$v;

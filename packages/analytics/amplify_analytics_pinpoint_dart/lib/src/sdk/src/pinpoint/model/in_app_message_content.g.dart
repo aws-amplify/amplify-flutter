@@ -105,9 +105,7 @@ class InAppMessageContentBuilder
   set secondaryBtn(_i4.InAppMessageButtonBuilder? secondaryBtn) =>
       _$this._secondaryBtn = secondaryBtn;
 
-  InAppMessageContentBuilder() {
-    InAppMessageContent._init(this);
-  }
+  InAppMessageContentBuilder();
 
   InAppMessageContentBuilder get _$this {
     final $v = _$v;

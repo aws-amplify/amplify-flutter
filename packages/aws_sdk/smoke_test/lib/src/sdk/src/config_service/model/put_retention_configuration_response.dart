@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.put_retention_configuration_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,12 +37,8 @@ abstract class PutRetentionConfigurationResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    PutRetentionConfigurationResponseAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutRetentionConfigurationResponseBuilder b) {}
+  static const List<_i3.SmithySerializer<PutRetentionConfigurationResponse>>
+      serializers = [PutRetentionConfigurationResponseAwsJson11Serializer()];
 
   /// Returns a retention configuration object.
   _i2.RetentionConfiguration? get retentionConfiguration;
@@ -51,11 +47,11 @@ abstract class PutRetentionConfigurationResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutRetentionConfigurationResponse');
-    helper.add(
-      'retentionConfiguration',
-      retentionConfiguration,
-    );
+        newBuiltValueToStringHelper('PutRetentionConfigurationResponse')
+          ..add(
+            'retentionConfiguration',
+            retentionConfiguration,
+          );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.get_model_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -26,6 +26,7 @@ abstract class GetModelRequest
     required String modelName,
     bool? flatten,
   }) {
+    flatten ??= false;
     return _$GetModelRequest._(
       restApiId: restApiId,
       modelName: modelName,
@@ -56,12 +57,13 @@ abstract class GetModelRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetModelRequestRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetModelRequestPayload>> serializers =
+      [GetModelRequestRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetModelRequestBuilder b) {}
+  static void _init(GetModelRequestBuilder b) {
+    b.flatten = false;
+  }
 
   /// The RestApi identifier under which the Model exists.
   String get restApiId;
@@ -70,7 +72,7 @@ abstract class GetModelRequest
   String get modelName;
 
   /// A query parameter of a Boolean value to resolve (`true`) all external model references and returns a flattened model schema or not (`false`) The default is `false`.
-  bool? get flatten;
+  bool get flatten;
   @override
   String labelFor(String key) {
     switch (key) {
@@ -95,19 +97,19 @@ abstract class GetModelRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetModelRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'modelName',
-      modelName,
-    );
-    helper.add(
-      'flatten',
-      flatten,
-    );
+    final helper = newBuiltValueToStringHelper('GetModelRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'modelName',
+        modelName,
+      )
+      ..add(
+        'flatten',
+        flatten,
+      );
     return helper.toString();
   }
 }
@@ -124,8 +126,6 @@ abstract class GetModelRequestPayload
 
   const GetModelRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetModelRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

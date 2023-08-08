@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.operation.get_bucket_logging_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,7 +16,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_logging_output.dart'
 import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_logging_request.dart'
     as _i2;
 
-/// Returns the logging status of a bucket and the permissions users have to view and modify that status. To use GET, you must be the bucket owner.
+/// Returns the logging status of a bucket and the permissions users have to view and modify that status.
 ///
 /// The following operations are related to `GetBucketLogging`:
 ///
@@ -28,7 +28,7 @@ class GetBucketLoggingOperation extends _i1.HttpOperation<
     _i2.GetBucketLoggingRequest,
     _i3.GetBucketLoggingOutput,
     _i3.GetBucketLoggingOutput> {
-  /// Returns the logging status of a bucket and the permissions users have to view and modify that status. To use GET, you must be the bucket owner.
+  /// Returns the logging status of a bucket and the permissions users have to view and modify that status.
   ///
   /// The following operations are related to `GetBucketLogging`:
   ///
@@ -162,7 +162,7 @@ class GetBucketLoggingOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

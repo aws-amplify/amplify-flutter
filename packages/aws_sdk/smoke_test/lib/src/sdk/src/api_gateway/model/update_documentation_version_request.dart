@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.update_documentation_version_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -61,12 +61,9 @@ abstract class UpdateDocumentationVersionRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateDocumentationVersionRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateDocumentationVersionRequestBuilder b) {}
+  static const List<
+          _i1.SmithySerializer<UpdateDocumentationVersionRequestPayload>>
+      serializers = [UpdateDocumentationVersionRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi..
   String get restApiId;
@@ -106,19 +103,19 @@ abstract class UpdateDocumentationVersionRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateDocumentationVersionRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'documentationVersion',
-      documentationVersion,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+        newBuiltValueToStringHelper('UpdateDocumentationVersionRequest')
+          ..add(
+            'restApiId',
+            restApiId,
+          )
+          ..add(
+            'documentationVersion',
+            documentationVersion,
+          )
+          ..add(
+            'patchOperations',
+            patchOperations,
+          );
     return helper.toString();
   }
 }
@@ -136,9 +133,6 @@ abstract class UpdateDocumentationVersionRequestPayload
 
   const UpdateDocumentationVersionRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateDocumentationVersionRequestPayloadBuilder b) {}
-
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
   @override
@@ -146,11 +140,11 @@ abstract class UpdateDocumentationVersionRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateDocumentationVersionRequestPayload');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+        newBuiltValueToStringHelper('UpdateDocumentationVersionRequestPayload')
+          ..add(
+            'patchOperations',
+            patchOperations,
+          );
     return helper.toString();
   }
 }

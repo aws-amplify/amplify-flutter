@@ -194,7 +194,7 @@ class CpkOneToOneBidirectionalParentCD extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("CpkOneToOneBidirectionalParentCD {");
     buffer.write("customId=" + "$_customId" + ", ");
@@ -342,7 +342,7 @@ class CpkOneToOneBidirectionalParentCD extends amplify_core.Model {
       };
 
   static final amplify_core
-          .QueryModelIdentifier<CpkOneToOneBidirectionalParentCDModelIdentifier>
+      .QueryModelIdentifier<CpkOneToOneBidirectionalParentCDModelIdentifier>
       MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<
           CpkOneToOneBidirectionalParentCDModelIdentifier>();
   static final CUSTOMID = amplify_core.QueryField(fieldName: "customId");
@@ -472,8 +472,10 @@ class CpkOneToOneBidirectionalParentCDModelIdentifier
   final String customId;
   final String name;
 
-  /// Create an instance of CpkOneToOneBidirectionalParentCDModelIdentifier using [customId] the primary key.
-  /// And [name] the sort key.
+  /**
+   * Create an instance of CpkOneToOneBidirectionalParentCDModelIdentifier using [customId] the primary key.
+   * And [name] the sort key.
+   */
   const CpkOneToOneBidirectionalParentCDModelIdentifier(
       {required this.customId, required this.name});
 

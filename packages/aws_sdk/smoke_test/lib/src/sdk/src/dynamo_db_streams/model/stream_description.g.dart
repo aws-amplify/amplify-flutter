@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db_streams.model.stream_description;
+part of 'stream_description.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -129,9 +129,7 @@ class StreamDescriptionBuilder
   set lastEvaluatedShardId(String? lastEvaluatedShardId) =>
       _$this._lastEvaluatedShardId = lastEvaluatedShardId;
 
-  StreamDescriptionBuilder() {
-    StreamDescription._init(this);
-  }
+  StreamDescriptionBuilder();
 
   StreamDescriptionBuilder get _$this {
     final $v = _$v;

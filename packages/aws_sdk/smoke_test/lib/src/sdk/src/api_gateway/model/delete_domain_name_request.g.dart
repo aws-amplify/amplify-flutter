@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.delete_domain_name_request;
+part of 'delete_domain_name_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -52,9 +52,7 @@ class DeleteDomainNameRequestBuilder
   String? get domainName => _$this._domainName;
   set domainName(String? domainName) => _$this._domainName = domainName;
 
-  DeleteDomainNameRequestBuilder() {
-    DeleteDomainNameRequest._init(this);
-  }
+  DeleteDomainNameRequestBuilder();
 
   DeleteDomainNameRequestBuilder get _$this {
     final $v = _$v;
@@ -123,9 +121,7 @@ class DeleteDomainNameRequestPayloadBuilder
             DeleteDomainNameRequestPayloadBuilder> {
   _$DeleteDomainNameRequestPayload? _$v;
 
-  DeleteDomainNameRequestPayloadBuilder() {
-    DeleteDomainNameRequestPayload._init(this);
-  }
+  DeleteDomainNameRequestPayloadBuilder();
 
   @override
   void replace(DeleteDomainNameRequestPayload other) {

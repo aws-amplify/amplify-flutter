@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.get_domain_names_request;
+part of 'get_domain_names_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -57,9 +57,7 @@ class GetDomainNamesRequestBuilder
   int? get limit => _$this._limit;
   set limit(int? limit) => _$this._limit = limit;
 
-  GetDomainNamesRequestBuilder() {
-    GetDomainNamesRequest._init(this);
-  }
+  GetDomainNamesRequestBuilder();
 
   GetDomainNamesRequestBuilder get _$this {
     final $v = _$v;
@@ -127,9 +125,7 @@ class GetDomainNamesRequestPayloadBuilder
             GetDomainNamesRequestPayloadBuilder> {
   _$GetDomainNamesRequestPayload? _$v;
 
-  GetDomainNamesRequestPayloadBuilder() {
-    GetDomainNamesRequestPayload._init(this);
-  }
+  GetDomainNamesRequestPayloadBuilder();
 
   @override
   void replace(GetDomainNamesRequestPayload other) {

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.get_discovered_resource_counts_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,6 +23,7 @@ abstract class GetDiscoveredResourceCountsRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$GetDiscoveredResourceCountsRequest._(
       resourceTypes:
           resourceTypes == null ? null : _i3.BuiltList(resourceTypes),
@@ -44,12 +45,13 @@ abstract class GetDiscoveredResourceCountsRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetDiscoveredResourceCountsRequestAwsJson11Serializer()
-  ];
+  static const List<_i1.SmithySerializer<GetDiscoveredResourceCountsRequest>>
+      serializers = [GetDiscoveredResourceCountsRequestAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetDiscoveredResourceCountsRequestBuilder b) {}
+  static void _init(GetDiscoveredResourceCountsRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The comma-separated list that specifies the resource types that you want Config to return (for example, `"AWS::EC2::Instance"`, `"AWS::IAM::User"`).
   ///
@@ -59,7 +61,7 @@ abstract class GetDiscoveredResourceCountsRequest
   _i3.BuiltList<String>? get resourceTypes;
 
   /// The maximum number of ResourceCount objects returned on each page. The default is 100. You cannot specify a number greater than 100. If you specify 0, Config uses the default.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -74,19 +76,19 @@ abstract class GetDiscoveredResourceCountsRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetDiscoveredResourceCountsRequest');
-    helper.add(
-      'resourceTypes',
-      resourceTypes,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        newBuiltValueToStringHelper('GetDiscoveredResourceCountsRequest')
+          ..add(
+            'resourceTypes',
+            resourceTypes,
+          )
+          ..add(
+            'limit',
+            limit,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          );
     return helper.toString();
   }
 }
@@ -160,6 +162,13 @@ class GetDiscoveredResourceCountsRequestAwsJson11Serializer
       :limit,
       :nextToken
     ) = object;
+    result$.addAll([
+      'limit',
+      serializers.serialize(
+        limit,
+        specifiedType: const FullType(int),
+      ),
+    ]);
     if (resourceTypes != null) {
       result$
         ..add('resourceTypes')
@@ -169,14 +178,6 @@ class GetDiscoveredResourceCountsRequestAwsJson11Serializer
             _i3.BuiltList,
             [FullType(String)],
           ),
-        ));
-    }
-    if (limit != null) {
-      result$
-        ..add('limit')
-        ..add(serializers.serialize(
-          limit,
-          specifiedType: const FullType(int),
         ));
     }
     if (nextToken != null) {

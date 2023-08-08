@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.in_app_message; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,9 @@ abstract class InAppMessage
 
   const InAppMessage._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<InAppMessage>> serializers = [
     InAppMessageRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InAppMessageBuilder b) {}
 
   /// In-app message content.
   _i4.BuiltList<_i2.InAppMessageContent>? get content;
@@ -61,19 +58,19 @@ abstract class InAppMessage
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InAppMessage');
-    helper.add(
-      'content',
-      content,
-    );
-    helper.add(
-      'customConfig',
-      customConfig,
-    );
-    helper.add(
-      'layout',
-      layout,
-    );
+    final helper = newBuiltValueToStringHelper('InAppMessage')
+      ..add(
+        'content',
+        content,
+      )
+      ..add(
+        'customConfig',
+        customConfig,
+      )
+      ..add(
+        'layout',
+        layout,
+      );
     return helper.toString();
   }
 }

@@ -155,7 +155,7 @@ class _VerifyAttributeFieldState
         const InputSelection<InputResolverKey, CognitoUserAttributeKey>(
           label: InputResolverKey.phoneNumberTitle,
           value: CognitoUserAttributeKey.phoneNumber,
-        )
+        ),
     ];
     initialValue = selections.first.value;
     WidgetsBinding.instance.addPostFrameCallback((_) {

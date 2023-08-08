@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.generate_client_certificate_request;
+part of 'generate_client_certificate_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -62,9 +62,7 @@ class GenerateClientCertificateRequestBuilder
       _$this._tags ??= new _i3.MapBuilder<String, String>();
   set tags(_i3.MapBuilder<String, String>? tags) => _$this._tags = tags;
 
-  GenerateClientCertificateRequestBuilder() {
-    GenerateClientCertificateRequest._init(this);
-  }
+  GenerateClientCertificateRequestBuilder();
 
   GenerateClientCertificateRequestBuilder get _$this {
     final $v = _$v;

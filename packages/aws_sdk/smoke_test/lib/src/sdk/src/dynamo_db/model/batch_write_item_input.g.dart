@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.batch_write_item_input;
+part of 'batch_write_item_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -82,9 +82,7 @@ class BatchWriteItemInputBuilder
           _i5.ReturnItemCollectionMetrics? returnItemCollectionMetrics) =>
       _$this._returnItemCollectionMetrics = returnItemCollectionMetrics;
 
-  BatchWriteItemInputBuilder() {
-    BatchWriteItemInput._init(this);
-  }
+  BatchWriteItemInputBuilder();
 
   BatchWriteItemInputBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.list_saml_provider_tags_request;
+part of 'list_saml_provider_tags_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -73,9 +73,7 @@ class ListSamlProviderTagsRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  ListSamlProviderTagsRequestBuilder() {
-    ListSamlProviderTagsRequest._init(this);
-  }
+  ListSamlProviderTagsRequestBuilder();
 
   ListSamlProviderTagsRequestBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.write_get_object_response_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -72,6 +72,7 @@ abstract class WriteGetObjectResponseRequest
     String? versionId,
     bool? bucketKeyEnabled,
   }) {
+    body ??= const _i2.Stream.empty();
     return _$WriteGetObjectResponseRequest._(
       requestRoute: requestRoute,
       requestToken: requestToken,
@@ -123,7 +124,7 @@ abstract class WriteGetObjectResponseRequest
   const WriteGetObjectResponseRequest._();
 
   factory WriteGetObjectResponseRequest.fromRequest(
-    _i2.Stream<List<int>>? payload,
+    _i2.Stream<List<int>> payload,
     _i3.AWSBaseHttpRequest request, {
     Map<String, String> labels = const {},
   }) =>
@@ -304,12 +305,14 @@ abstract class WriteGetObjectResponseRequest
                 )));
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.Stream<List<int>>>> serializers = [
     WriteGetObjectResponseRequestRestXmlSerializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(WriteGetObjectResponseRequestBuilder b) {}
+  static void _init(WriteGetObjectResponseRequestBuilder b) {
+    b.body = const _i2.Stream.empty();
+  }
 
   /// Route prefix to the HTTP URL generated.
   String get requestRoute;
@@ -318,11 +321,9 @@ abstract class WriteGetObjectResponseRequest
   String get requestToken;
 
   /// The object data.
-  _i2.Stream<List<int>>? get body;
+  _i2.Stream<List<int>> get body;
 
-  /// The integer status code for an HTTP response of a corresponding `GetObject` request.
-  ///
-  /// **Status Codes**
+  /// The integer status code for an HTTP response of a corresponding `GetObject` request. The following is a list of status codes.
   ///
   /// *   `200 - OK`
   ///
@@ -445,13 +446,13 @@ abstract class WriteGetObjectResponseRequest
   /// Provides information about object restoration operation and expiration time of the restored object copy.
   String? get restore;
 
-  /// The server-side encryption algorithm used when storing requested object in Amazon S3 (for example, AES256, aws:kms).
+  /// The server-side encryption algorithm used when storing requested object in Amazon S3 (for example, AES256, `aws:kms`).
   _i9.ServerSideEncryption? get serverSideEncryption;
 
   /// Encryption algorithm used if server-side encryption with a customer-provided encryption key was specified for object stored in Amazon S3.
   String? get sseCustomerAlgorithm;
 
-  /// If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric customer managed key that was used for stored in Amazon S3 object.
+  /// If present, specifies the ID of the Amazon Web Services Key Management Service (Amazon Web Services KMS) symmetric encryption customer managed key that was used for stored in Amazon S3 object.
   String? get ssekmsKeyId;
 
   /// 128-bit MD5 digest of customer-provided encryption key used in Amazon S3 to encrypt data stored in S3. For more information, see [Protecting data using server-side encryption with customer-provided encryption keys (SSE-C)](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerSideEncryptionCustomerKeys.html).
@@ -483,7 +484,7 @@ abstract class WriteGetObjectResponseRequest
   }
 
   @override
-  _i2.Stream<List<int>>? getPayload() => body;
+  _i2.Stream<List<int>> getPayload() => body;
   @override
   List<Object?> get props => [
         requestRoute,
@@ -529,167 +530,167 @@ abstract class WriteGetObjectResponseRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('WriteGetObjectResponseRequest');
-    helper.add(
-      'requestRoute',
-      requestRoute,
-    );
-    helper.add(
-      'requestToken',
-      requestToken,
-    );
-    helper.add(
-      'body',
-      body,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
-    );
-    helper.add(
-      'errorCode',
-      errorCode,
-    );
-    helper.add(
-      'errorMessage',
-      errorMessage,
-    );
-    helper.add(
-      'acceptRanges',
-      acceptRanges,
-    );
-    helper.add(
-      'cacheControl',
-      cacheControl,
-    );
-    helper.add(
-      'contentDisposition',
-      contentDisposition,
-    );
-    helper.add(
-      'contentEncoding',
-      contentEncoding,
-    );
-    helper.add(
-      'contentLanguage',
-      contentLanguage,
-    );
-    helper.add(
-      'contentLength',
-      contentLength,
-    );
-    helper.add(
-      'contentRange',
-      contentRange,
-    );
-    helper.add(
-      'contentType',
-      contentType,
-    );
-    helper.add(
-      'checksumCrc32',
-      checksumCrc32,
-    );
-    helper.add(
-      'checksumCrc32C',
-      checksumCrc32C,
-    );
-    helper.add(
-      'checksumSha1',
-      checksumSha1,
-    );
-    helper.add(
-      'checksumSha256',
-      checksumSha256,
-    );
-    helper.add(
-      'deleteMarker',
-      deleteMarker,
-    );
-    helper.add(
-      'eTag',
-      eTag,
-    );
-    helper.add(
-      'expires',
-      expires,
-    );
-    helper.add(
-      'expiration',
-      expiration,
-    );
-    helper.add(
-      'lastModified',
-      lastModified,
-    );
-    helper.add(
-      'missingMeta',
-      missingMeta,
-    );
-    helper.add(
-      'metadata',
-      metadata,
-    );
-    helper.add(
-      'objectLockMode',
-      objectLockMode,
-    );
-    helper.add(
-      'objectLockLegalHoldStatus',
-      objectLockLegalHoldStatus,
-    );
-    helper.add(
-      'objectLockRetainUntilDate',
-      objectLockRetainUntilDate,
-    );
-    helper.add(
-      'partsCount',
-      partsCount,
-    );
-    helper.add(
-      'replicationStatus',
-      replicationStatus,
-    );
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
-    helper.add(
-      'restore',
-      restore,
-    );
-    helper.add(
-      'serverSideEncryption',
-      serverSideEncryption,
-    );
-    helper.add(
-      'sseCustomerAlgorithm',
-      sseCustomerAlgorithm,
-    );
-    helper.add(
-      'ssekmsKeyId',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'sseCustomerKeyMd5',
-      sseCustomerKeyMd5,
-    );
-    helper.add(
-      'storageClass',
-      storageClass,
-    );
-    helper.add(
-      'tagCount',
-      tagCount,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'bucketKeyEnabled',
-      bucketKeyEnabled,
-    );
+    final helper = newBuiltValueToStringHelper('WriteGetObjectResponseRequest')
+      ..add(
+        'requestRoute',
+        requestRoute,
+      )
+      ..add(
+        'requestToken',
+        requestToken,
+      )
+      ..add(
+        'body',
+        body,
+      )
+      ..add(
+        'statusCode',
+        statusCode,
+      )
+      ..add(
+        'errorCode',
+        errorCode,
+      )
+      ..add(
+        'errorMessage',
+        errorMessage,
+      )
+      ..add(
+        'acceptRanges',
+        acceptRanges,
+      )
+      ..add(
+        'cacheControl',
+        cacheControl,
+      )
+      ..add(
+        'contentDisposition',
+        contentDisposition,
+      )
+      ..add(
+        'contentEncoding',
+        contentEncoding,
+      )
+      ..add(
+        'contentLanguage',
+        contentLanguage,
+      )
+      ..add(
+        'contentLength',
+        contentLength,
+      )
+      ..add(
+        'contentRange',
+        contentRange,
+      )
+      ..add(
+        'contentType',
+        contentType,
+      )
+      ..add(
+        'checksumCrc32',
+        checksumCrc32,
+      )
+      ..add(
+        'checksumCrc32C',
+        checksumCrc32C,
+      )
+      ..add(
+        'checksumSha1',
+        checksumSha1,
+      )
+      ..add(
+        'checksumSha256',
+        checksumSha256,
+      )
+      ..add(
+        'deleteMarker',
+        deleteMarker,
+      )
+      ..add(
+        'eTag',
+        eTag,
+      )
+      ..add(
+        'expires',
+        expires,
+      )
+      ..add(
+        'expiration',
+        expiration,
+      )
+      ..add(
+        'lastModified',
+        lastModified,
+      )
+      ..add(
+        'missingMeta',
+        missingMeta,
+      )
+      ..add(
+        'metadata',
+        metadata,
+      )
+      ..add(
+        'objectLockMode',
+        objectLockMode,
+      )
+      ..add(
+        'objectLockLegalHoldStatus',
+        objectLockLegalHoldStatus,
+      )
+      ..add(
+        'objectLockRetainUntilDate',
+        objectLockRetainUntilDate,
+      )
+      ..add(
+        'partsCount',
+        partsCount,
+      )
+      ..add(
+        'replicationStatus',
+        replicationStatus,
+      )
+      ..add(
+        'requestCharged',
+        requestCharged,
+      )
+      ..add(
+        'restore',
+        restore,
+      )
+      ..add(
+        'serverSideEncryption',
+        serverSideEncryption,
+      )
+      ..add(
+        'sseCustomerAlgorithm',
+        sseCustomerAlgorithm,
+      )
+      ..add(
+        'ssekmsKeyId',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'sseCustomerKeyMd5',
+        sseCustomerKeyMd5,
+      )
+      ..add(
+        'storageClass',
+        storageClass,
+      )
+      ..add(
+        'tagCount',
+        tagCount,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'bucketKeyEnabled',
+        bucketKeyEnabled,
+      );
     return helper.toString();
   }
 }

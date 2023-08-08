@@ -101,7 +101,7 @@ class Comment extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("Comment {");
     buffer.write("id=" + "$id" + ", ");
@@ -230,7 +230,7 @@ class _CommentModelType extends amplify_core.ModelType<Comment> {
 class CommentModelIdentifier implements amplify_core.ModelIdentifier<Comment> {
   final String id;
 
-  /// Create an instance of CommentModelIdentifier using [id] the primary key.
+  /** Create an instance of CommentModelIdentifier using [id] the primary key. */
   const CommentModelIdentifier({required this.id});
 
   @override

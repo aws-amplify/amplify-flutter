@@ -60,7 +60,7 @@ class AmplifyPluginRegistry {
 
   void _registerDefaultPlugins() {
     _plugins.addAll({
-      for (var plugin in _defaultPlugins) plugin.name: plugin,
+      for (final plugin in _defaultPlugins) plugin.name: plugin,
     });
   }
 

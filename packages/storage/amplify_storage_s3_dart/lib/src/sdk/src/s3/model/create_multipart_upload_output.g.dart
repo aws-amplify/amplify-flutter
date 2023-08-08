@@ -169,9 +169,7 @@ class CreateMultipartUploadOutputBuilder
   set checksumAlgorithm(_i5.ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
-  CreateMultipartUploadOutputBuilder() {
-    CreateMultipartUploadOutput._init(this);
-  }
+  CreateMultipartUploadOutputBuilder();
 
   CreateMultipartUploadOutputBuilder get _$this {
     final $v = _$v;
@@ -294,9 +292,7 @@ class CreateMultipartUploadOutputPayloadBuilder
   String? get uploadId => _$this._uploadId;
   set uploadId(String? uploadId) => _$this._uploadId = uploadId;
 
-  CreateMultipartUploadOutputPayloadBuilder() {
-    CreateMultipartUploadOutputPayload._init(this);
-  }
+  CreateMultipartUploadOutputPayloadBuilder();
 
   CreateMultipartUploadOutputPayloadBuilder get _$this {
     final $v = _$v;

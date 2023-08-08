@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.delete_service_linked_role_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,12 +34,8 @@ abstract class DeleteServiceLinkedRoleRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteServiceLinkedRoleRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteServiceLinkedRoleRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<DeleteServiceLinkedRoleRequest>>
+      serializers = [DeleteServiceLinkedRoleRequestAwsQuerySerializer()];
 
   /// The name of the service-linked role to be deleted.
   String get roleName;
@@ -49,12 +45,11 @@ abstract class DeleteServiceLinkedRoleRequest
   List<Object?> get props => [roleName];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DeleteServiceLinkedRoleRequest');
-    helper.add(
-      'roleName',
-      roleName,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteServiceLinkedRoleRequest')
+      ..add(
+        'roleName',
+        roleName,
+      );
     return helper.toString();
   }
 }

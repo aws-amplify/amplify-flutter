@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.generate_credential_report_response;
+part of 'generate_credential_report_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -61,9 +61,7 @@ class GenerateCredentialReportResponseBuilder
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  GenerateCredentialReportResponseBuilder() {
-    GenerateCredentialReportResponse._init(this);
-  }
+  GenerateCredentialReportResponseBuilder();
 
   GenerateCredentialReportResponseBuilder get _$this {
     final $v = _$v;

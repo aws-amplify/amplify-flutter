@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.replica_global_secondary_index_settings_update; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,11 @@ abstract class ReplicaGlobalSecondaryIndexSettingsUpdate
 
   const ReplicaGlobalSecondaryIndexSettingsUpdate._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<
+          _i4.SmithySerializer<ReplicaGlobalSecondaryIndexSettingsUpdate>>
+      serializers = [
     ReplicaGlobalSecondaryIndexSettingsUpdateAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicaGlobalSecondaryIndexSettingsUpdateBuilder b) {}
 
   /// The name of the global secondary index. The name must be unique among all other indexes on this table.
   String get indexName;
@@ -66,20 +65,20 @@ abstract class ReplicaGlobalSecondaryIndexSettingsUpdate
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'ReplicaGlobalSecondaryIndexSettingsUpdate');
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'provisionedReadCapacityUnits',
-      provisionedReadCapacityUnits,
-    );
-    helper.add(
-      'provisionedReadCapacityAutoScalingSettingsUpdate',
-      provisionedReadCapacityAutoScalingSettingsUpdate,
-    );
+    final helper =
+        newBuiltValueToStringHelper('ReplicaGlobalSecondaryIndexSettingsUpdate')
+          ..add(
+            'indexName',
+            indexName,
+          )
+          ..add(
+            'provisionedReadCapacityUnits',
+            provisionedReadCapacityUnits,
+          )
+          ..add(
+            'provisionedReadCapacityAutoScalingSettingsUpdate',
+            provisionedReadCapacityAutoScalingSettingsUpdate,
+          );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.login_profile; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -24,6 +24,7 @@ abstract class LoginProfile
     required DateTime createDate,
     bool? passwordResetRequired,
   }) {
+    passwordResetRequired ??= false;
     return _$LoginProfile._(
       userName: userName,
       createDate: createDate,
@@ -39,12 +40,14 @@ abstract class LoginProfile
 
   const LoginProfile._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<LoginProfile>> serializers = [
     LoginProfileAwsQuerySerializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(LoginProfileBuilder b) {}
+  static void _init(LoginProfileBuilder b) {
+    b.passwordResetRequired = false;
+  }
 
   /// The name of the user, which can be used for signing in to the Amazon Web Services Management Console.
   String get userName;
@@ -53,7 +56,7 @@ abstract class LoginProfile
   DateTime get createDate;
 
   /// Specifies whether the user is required to set a new password on next sign-in.
-  bool? get passwordResetRequired;
+  bool get passwordResetRequired;
   @override
   List<Object?> get props => [
         userName,
@@ -62,19 +65,19 @@ abstract class LoginProfile
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('LoginProfile');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'createDate',
-      createDate,
-    );
-    helper.add(
-      'passwordResetRequired',
-      passwordResetRequired,
-    );
+    final helper = newBuiltValueToStringHelper('LoginProfile')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'createDate',
+        createDate,
+      )
+      ..add(
+        'passwordResetRequired',
+        passwordResetRequired,
+      );
     return helper.toString();
   }
 }
@@ -157,14 +160,12 @@ class LoginProfileAwsQuerySerializer
         createDate,
         specifiedType: const FullType.nullable(DateTime),
       ));
-    if (passwordResetRequired != null) {
-      result$
-        ..add(const _i2.XmlElementName('PasswordResetRequired'))
-        ..add(serializers.serialize(
-          passwordResetRequired,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result$
+      ..add(const _i2.XmlElementName('PasswordResetRequired'))
+      ..add(serializers.serialize(
+        passwordResetRequired,
+        specifiedType: const FullType(bool),
+      ));
     return result$;
   }
 }

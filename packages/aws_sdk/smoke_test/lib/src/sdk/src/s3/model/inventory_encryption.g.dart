@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.inventory_encryption;
+part of 'inventory_encryption.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -57,9 +57,7 @@ class InventoryEncryptionBuilder
   _i3.SsekmsBuilder get ssekms => _$this._ssekms ??= new _i3.SsekmsBuilder();
   set ssekms(_i3.SsekmsBuilder? ssekms) => _$this._ssekms = ssekms;
 
-  InventoryEncryptionBuilder() {
-    InventoryEncryption._init(this);
-  }
+  InventoryEncryptionBuilder();
 
   InventoryEncryptionBuilder get _$this {
     final $v = _$v;

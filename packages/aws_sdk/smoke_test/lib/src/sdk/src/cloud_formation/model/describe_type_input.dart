@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.describe_type_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -45,12 +45,9 @@ abstract class DescribeTypeInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<DescribeTypeInput>> serializers = [
     DescribeTypeInputAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeTypeInputBuilder b) {}
 
   /// The kind of extension.
   ///
@@ -92,31 +89,31 @@ abstract class DescribeTypeInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeTypeInput');
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'typeName',
-      typeName,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'publisherId',
-      publisherId,
-    );
-    helper.add(
-      'publicVersionNumber',
-      publicVersionNumber,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeTypeInput')
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'typeName',
+        typeName,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'publisherId',
+        publisherId,
+      )
+      ..add(
+        'publicVersionNumber',
+        publicVersionNumber,
+      );
     return helper.toString();
   }
 }

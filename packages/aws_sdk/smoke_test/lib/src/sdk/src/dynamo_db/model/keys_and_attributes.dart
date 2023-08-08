@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.keys_and_attributes; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -49,12 +49,9 @@ abstract class KeysAndAttributes
 
   const KeysAndAttributes._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<KeysAndAttributes>> serializers = [
     KeysAndAttributesAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(KeysAndAttributesBuilder b) {}
 
   /// The primary key attribute values that define the items and the attributes associated with the items.
   _i3.BuiltList<_i3.BuiltMap<String, _i2.AttributeValue>> get keys;
@@ -110,27 +107,27 @@ abstract class KeysAndAttributes
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('KeysAndAttributes');
-    helper.add(
-      'keys',
-      keys,
-    );
-    helper.add(
-      'attributesToGet',
-      attributesToGet,
-    );
-    helper.add(
-      'consistentRead',
-      consistentRead,
-    );
-    helper.add(
-      'projectionExpression',
-      projectionExpression,
-    );
-    helper.add(
-      'expressionAttributeNames',
-      expressionAttributeNames,
-    );
+    final helper = newBuiltValueToStringHelper('KeysAndAttributes')
+      ..add(
+        'keys',
+        keys,
+      )
+      ..add(
+        'attributesToGet',
+        attributesToGet,
+      )
+      ..add(
+        'consistentRead',
+        consistentRead,
+      )
+      ..add(
+        'projectionExpression',
+        projectionExpression,
+      )
+      ..add(
+        'expressionAttributeNames',
+        expressionAttributeNames,
+      );
     return helper.toString();
   }
 }

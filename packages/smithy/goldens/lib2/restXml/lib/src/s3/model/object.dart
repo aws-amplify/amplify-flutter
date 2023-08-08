@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_xml_v2.s3.model.object; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,12 +37,10 @@ abstract class S3Object
 
   const S3Object._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<S3Object>> serializers = [
     ObjectRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(S3ObjectBuilder b) {}
   String? get key;
   DateTime? get lastModified;
   String? get eTag;
@@ -60,31 +58,31 @@ abstract class S3Object
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('S3Object');
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'lastModified',
-      lastModified,
-    );
-    helper.add(
-      'eTag',
-      eTag,
-    );
-    helper.add(
-      'size',
-      size,
-    );
-    helper.add(
-      'storageClass',
-      storageClass,
-    );
-    helper.add(
-      'owner',
-      owner,
-    );
+    final helper = newBuiltValueToStringHelper('S3Object')
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'lastModified',
+        lastModified,
+      )
+      ..add(
+        'eTag',
+        eTag,
+      )
+      ..add(
+        'size',
+        size,
+      )
+      ..add(
+        'storageClass',
+        storageClass,
+      )
+      ..add(
+        'owner',
+        owner,
+      );
     return helper.toString();
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.malformed_integer_input;
+part of 'malformed_integer_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -85,9 +85,7 @@ class MalformedIntegerInputBuilder
   set integerInHeader(int? integerInHeader) =>
       _$this._integerInHeader = integerInHeader;
 
-  MalformedIntegerInputBuilder() {
-    MalformedIntegerInput._init(this);
-  }
+  MalformedIntegerInputBuilder();
 
   MalformedIntegerInputBuilder get _$this {
     final $v = _$v;
@@ -174,9 +172,7 @@ class MalformedIntegerInputPayloadBuilder
   set integerInBody(int? integerInBody) =>
       _$this._integerInBody = integerInBody;
 
-  MalformedIntegerInputPayloadBuilder() {
-    MalformedIntegerInputPayload._init(this);
-  }
+  MalformedIntegerInputPayloadBuilder();
 
   MalformedIntegerInputPayloadBuilder get _$this {
     final $v = _$v;

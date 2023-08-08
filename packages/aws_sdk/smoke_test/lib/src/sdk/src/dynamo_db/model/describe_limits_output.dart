@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.describe_limits_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,12 +44,9 @@ abstract class DescribeLimitsOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<DescribeLimitsOutput>> serializers = [
     DescribeLimitsOutputAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeLimitsOutputBuilder b) {}
 
   /// The maximum total read capacity units that your account allows you to provision across all of your tables in this Region.
   _i2.Int64? get accountMaxReadCapacityUnits;
@@ -71,23 +68,23 @@ abstract class DescribeLimitsOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeLimitsOutput');
-    helper.add(
-      'accountMaxReadCapacityUnits',
-      accountMaxReadCapacityUnits,
-    );
-    helper.add(
-      'accountMaxWriteCapacityUnits',
-      accountMaxWriteCapacityUnits,
-    );
-    helper.add(
-      'tableMaxReadCapacityUnits',
-      tableMaxReadCapacityUnits,
-    );
-    helper.add(
-      'tableMaxWriteCapacityUnits',
-      tableMaxWriteCapacityUnits,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeLimitsOutput')
+      ..add(
+        'accountMaxReadCapacityUnits',
+        accountMaxReadCapacityUnits,
+      )
+      ..add(
+        'accountMaxWriteCapacityUnits',
+        accountMaxWriteCapacityUnits,
+      )
+      ..add(
+        'tableMaxReadCapacityUnits',
+        tableMaxReadCapacityUnits,
+      )
+      ..add(
+        'tableMaxWriteCapacityUnits',
+        tableMaxWriteCapacityUnits,
+      );
     return helper.toString();
   }
 }

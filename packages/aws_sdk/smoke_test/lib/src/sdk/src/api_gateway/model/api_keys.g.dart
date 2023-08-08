@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.api_keys;
+part of 'api_keys.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -64,9 +64,7 @@ class ApiKeysBuilder implements Builder<ApiKeys, ApiKeysBuilder> {
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  ApiKeysBuilder() {
-    ApiKeys._init(this);
-  }
+  ApiKeysBuilder();
 
   ApiKeysBuilder get _$this {
     final $v = _$v;

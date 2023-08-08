@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.update_group_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,9 @@ abstract class UpdateGroupRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<UpdateGroupRequest>> serializers = [
     UpdateGroupRequestAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateGroupRequestBuilder b) {}
 
   /// Name of the IAM group to update. If you're changing the name of the group, this is the original name.
   ///
@@ -69,19 +66,19 @@ abstract class UpdateGroupRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateGroupRequest');
-    helper.add(
-      'groupName',
-      groupName,
-    );
-    helper.add(
-      'newPath',
-      newPath,
-    );
-    helper.add(
-      'newGroupName',
-      newGroupName,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateGroupRequest')
+      ..add(
+        'groupName',
+        groupName,
+      )
+      ..add(
+        'newPath',
+        newPath,
+      )
+      ..add(
+        'newGroupName',
+        newGroupName,
+      );
     return helper.toString();
   }
 }

@@ -134,7 +134,7 @@ class CpkHasManyUnidirectionalChildImplicit extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("CpkHasManyUnidirectionalChildImplicit {");
     buffer.write("id=" + "$id" + ", ");
@@ -308,8 +308,10 @@ class CpkHasManyUnidirectionalChildImplicitModelIdentifier
   final String id;
   final String name;
 
-  /// Create an instance of CpkHasManyUnidirectionalChildImplicitModelIdentifier using [id] the primary key.
-  /// And [name] the sort key.
+  /**
+   * Create an instance of CpkHasManyUnidirectionalChildImplicitModelIdentifier using [id] the primary key.
+   * And [name] the sort key.
+   */
   const CpkHasManyUnidirectionalChildImplicitModelIdentifier(
       {required this.id, required this.name});
 

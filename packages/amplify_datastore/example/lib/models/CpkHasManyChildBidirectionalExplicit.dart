@@ -114,7 +114,7 @@ class CpkHasManyChildBidirectionalExplicit extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("CpkHasManyChildBidirectionalExplicit {");
     buffer.write("id=" + "$id" + ", ");
@@ -178,8 +178,8 @@ class CpkHasManyChildBidirectionalExplicit extends amplify_core.Model {
         'updatedAt': _updatedAt
       };
 
-  static final amplify_core.QueryModelIdentifier<
-          CpkHasManyChildBidirectionalExplicitModelIdentifier>
+  static final amplify_core
+      .QueryModelIdentifier<CpkHasManyChildBidirectionalExplicitModelIdentifier>
       MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<
           CpkHasManyChildBidirectionalExplicitModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
@@ -256,8 +256,10 @@ class CpkHasManyChildBidirectionalExplicitModelIdentifier
   final String id;
   final String name;
 
-  /// Create an instance of CpkHasManyChildBidirectionalExplicitModelIdentifier using [id] the primary key.
-  /// And [name] the sort key.
+  /**
+   * Create an instance of CpkHasManyChildBidirectionalExplicitModelIdentifier using [id] the primary key.
+   * And [name] the sort key.
+   */
   const CpkHasManyChildBidirectionalExplicitModelIdentifier(
       {required this.id, required this.name});
 

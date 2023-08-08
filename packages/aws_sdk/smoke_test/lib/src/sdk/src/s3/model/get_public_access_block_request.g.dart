@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_public_access_block_request;
+part of 'get_public_access_block_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class GetPublicAccessBlockRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetPublicAccessBlockRequestBuilder() {
-    GetPublicAccessBlockRequest._init(this);
-  }
+  GetPublicAccessBlockRequestBuilder();
 
   GetPublicAccessBlockRequestBuilder get _$this {
     final $v = _$v;
@@ -141,9 +139,7 @@ class GetPublicAccessBlockRequestPayloadBuilder
             GetPublicAccessBlockRequestPayloadBuilder> {
   _$GetPublicAccessBlockRequestPayload? _$v;
 
-  GetPublicAccessBlockRequestPayloadBuilder() {
-    GetPublicAccessBlockRequestPayload._init(this);
-  }
+  GetPublicAccessBlockRequestPayloadBuilder();
 
   @override
   void replace(GetPublicAccessBlockRequestPayload other) {

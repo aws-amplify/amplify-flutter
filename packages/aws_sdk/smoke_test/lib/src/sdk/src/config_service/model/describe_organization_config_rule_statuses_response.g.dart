@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.describe_organization_config_rule_statuses_response;
+part of 'describe_organization_config_rule_statuses_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -76,9 +76,7 @@ class DescribeOrganizationConfigRuleStatusesResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeOrganizationConfigRuleStatusesResponseBuilder() {
-    DescribeOrganizationConfigRuleStatusesResponse._init(this);
-  }
+  DescribeOrganizationConfigRuleStatusesResponseBuilder();
 
   DescribeOrganizationConfigRuleStatusesResponseBuilder get _$this {
     final $v = _$v;

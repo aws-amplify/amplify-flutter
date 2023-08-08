@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.rest_json_protocol.model.timestamp_format_headers_io; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -145,12 +145,9 @@ abstract class TimestampFormatHeadersIo
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    TimestampFormatHeadersIoRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<TimestampFormatHeadersIoPayload>>
+      serializers = [TimestampFormatHeadersIoRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TimestampFormatHeadersIoBuilder b) {}
   DateTime? get memberEpochSeconds;
   DateTime? get memberHttpDate;
   DateTime? get memberDateTime;
@@ -173,35 +170,35 @@ abstract class TimestampFormatHeadersIo
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TimestampFormatHeadersIo');
-    helper.add(
-      'memberEpochSeconds',
-      memberEpochSeconds,
-    );
-    helper.add(
-      'memberHttpDate',
-      memberHttpDate,
-    );
-    helper.add(
-      'memberDateTime',
-      memberDateTime,
-    );
-    helper.add(
-      'defaultFormat',
-      defaultFormat,
-    );
-    helper.add(
-      'targetEpochSeconds',
-      targetEpochSeconds,
-    );
-    helper.add(
-      'targetHttpDate',
-      targetHttpDate,
-    );
-    helper.add(
-      'targetDateTime',
-      targetDateTime,
-    );
+    final helper = newBuiltValueToStringHelper('TimestampFormatHeadersIo')
+      ..add(
+        'memberEpochSeconds',
+        memberEpochSeconds,
+      )
+      ..add(
+        'memberHttpDate',
+        memberHttpDate,
+      )
+      ..add(
+        'memberDateTime',
+        memberDateTime,
+      )
+      ..add(
+        'defaultFormat',
+        defaultFormat,
+      )
+      ..add(
+        'targetEpochSeconds',
+        targetEpochSeconds,
+      )
+      ..add(
+        'targetHttpDate',
+        targetHttpDate,
+      )
+      ..add(
+        'targetDateTime',
+        targetDateTime,
+      );
     return helper.toString();
   }
 }
@@ -220,8 +217,6 @@ abstract class TimestampFormatHeadersIoPayload
 
   const TimestampFormatHeadersIoPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TimestampFormatHeadersIoPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.update_login_profile_request;
+part of 'update_login_profile_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -72,9 +72,7 @@ class UpdateLoginProfileRequestBuilder
   set passwordResetRequired(bool? passwordResetRequired) =>
       _$this._passwordResetRequired = passwordResetRequired;
 
-  UpdateLoginProfileRequestBuilder() {
-    UpdateLoginProfileRequest._init(this);
-  }
+  UpdateLoginProfileRequestBuilder();
 
   UpdateLoginProfileRequestBuilder get _$this {
     final $v = _$v;

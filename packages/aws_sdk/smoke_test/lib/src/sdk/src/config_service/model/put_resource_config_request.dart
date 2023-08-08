@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.put_resource_config_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -48,12 +48,8 @@ abstract class PutResourceConfigRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutResourceConfigRequestAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutResourceConfigRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<PutResourceConfigRequest>>
+      serializers = [PutResourceConfigRequestAwsJson11Serializer()];
 
   /// The type of the resource. The custom resource type must be registered with CloudFormation.
   ///
@@ -91,31 +87,31 @@ abstract class PutResourceConfigRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutResourceConfigRequest');
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'schemaVersionId',
-      schemaVersionId,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'resourceName',
-      resourceName,
-    );
-    helper.add(
-      'configuration',
-      configuration,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('PutResourceConfigRequest')
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'schemaVersionId',
+        schemaVersionId,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'resourceName',
+        resourceName,
+      )
+      ..add(
+        'configuration',
+        configuration,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

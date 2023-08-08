@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.describe_time_to_live_output;
+part of 'describe_time_to_live_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -53,9 +53,7 @@ class DescribeTimeToLiveOutputBuilder
           _i2.TimeToLiveDescriptionBuilder? timeToLiveDescription) =>
       _$this._timeToLiveDescription = timeToLiveDescription;
 
-  DescribeTimeToLiveOutputBuilder() {
-    DescribeTimeToLiveOutput._init(this);
-  }
+  DescribeTimeToLiveOutputBuilder();
 
   DescribeTimeToLiveOutputBuilder get _$this {
     final $v = _$v;

@@ -102,7 +102,7 @@ class Tag extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("Tag {");
     buffer.write("id=" + "$id" + ", ");
@@ -229,7 +229,7 @@ class _TagModelType extends amplify_core.ModelType<Tag> {
 class TagModelIdentifier implements amplify_core.ModelIdentifier<Tag> {
   final String id;
 
-  /// Create an instance of TagModelIdentifier using [id] the primary key.
+  /** Create an instance of TagModelIdentifier using [id] the primary key. */
   const TagModelIdentifier({required this.id});
 
   @override

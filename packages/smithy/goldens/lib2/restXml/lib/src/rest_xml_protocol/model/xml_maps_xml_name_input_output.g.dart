@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.rest_xml_protocol.model.xml_maps_xml_name_input_output;
+part of 'xml_maps_xml_name_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class XmlMapsXmlNameInputOutputBuilder
   set myMap(_i4.MapBuilder<String, _i3.GreetingStruct>? myMap) =>
       _$this._myMap = myMap;
 
-  XmlMapsXmlNameInputOutputBuilder() {
-    XmlMapsXmlNameInputOutput._init(this);
-  }
+  XmlMapsXmlNameInputOutputBuilder();
 
   XmlMapsXmlNameInputOutputBuilder get _$this {
     final $v = _$v;

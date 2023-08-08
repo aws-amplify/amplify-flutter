@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.import_api_keys_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -26,6 +26,7 @@ abstract class ImportApiKeysRequest
     required _i4.ApiKeysFormat format,
     bool? failOnWarnings,
   }) {
+    failOnWarnings ??= false;
     return _$ImportApiKeysRequest._(
       body: body,
       format: format,
@@ -57,12 +58,14 @@ abstract class ImportApiKeysRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.Uint8List>> serializers = [
     ImportApiKeysRequestRestJson1Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ImportApiKeysRequestBuilder b) {}
+  static void _init(ImportApiKeysRequestBuilder b) {
+    b.failOnWarnings = false;
+  }
 
   /// The payload of the POST request to import API keys. For the payload format, see API Key File Format.
   _i2.Uint8List get body;
@@ -71,7 +74,7 @@ abstract class ImportApiKeysRequest
   _i4.ApiKeysFormat get format;
 
   /// A query parameter to indicate whether to rollback ApiKey importation (`true`) or not (`false`) when error is encountered.
-  bool? get failOnWarnings;
+  bool get failOnWarnings;
   @override
   _i2.Uint8List getPayload() => body;
   @override
@@ -82,19 +85,19 @@ abstract class ImportApiKeysRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ImportApiKeysRequest');
-    helper.add(
-      'body',
-      body,
-    );
-    helper.add(
-      'format',
-      format,
-    );
-    helper.add(
-      'failOnWarnings',
-      failOnWarnings,
-    );
+    final helper = newBuiltValueToStringHelper('ImportApiKeysRequest')
+      ..add(
+        'body',
+        body,
+      )
+      ..add(
+        'format',
+        format,
+      )
+      ..add(
+        'failOnWarnings',
+        failOnWarnings,
+      );
     return helper.toString();
   }
 }

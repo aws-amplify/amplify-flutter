@@ -34,6 +34,9 @@ enum CognitoUserPoolKey {
 
   /// The [AuthFlowType] passed to `signIn`.
   authFlowType,
+
+  /// The advanced security feature (ASF) device identifier.
+  asfDeviceId,
 }
 
 /// Discrete keys stored for Cognito User Pool device tracking operations in
@@ -94,6 +97,11 @@ enum HostedUiKey {
   codeVerifier,
 
   /// The OIDC nonce value.
+  @Deprecated(
+    'This value should no longer be used except for removing existing usages. '
+    'The library used to support nonce verification of the OIDC tokens but no '
+    'longer does.',
+  )
   nonce,
 
   /// The [CognitoSignInWithWebUIPluginOptions] passed to `signInWithWebUI`.

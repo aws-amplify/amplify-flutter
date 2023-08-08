@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.invalid_recording_group_exception;
+part of 'invalid_recording_group_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -64,9 +64,7 @@ class InvalidRecordingGroupExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InvalidRecordingGroupExceptionBuilder() {
-    InvalidRecordingGroupException._init(this);
-  }
+  InvalidRecordingGroupExceptionBuilder();
 
   InvalidRecordingGroupExceptionBuilder get _$this {
     final $v = _$v;

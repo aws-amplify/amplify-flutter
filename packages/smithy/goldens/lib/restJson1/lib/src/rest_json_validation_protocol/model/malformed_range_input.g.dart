@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_validation_protocol.model.malformed_range_input;
+part of 'malformed_range_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -177,9 +177,7 @@ class MalformedRangeInputBuilder
   double? get maxFloat => _$this._maxFloat;
   set maxFloat(double? maxFloat) => _$this._maxFloat = maxFloat;
 
-  MalformedRangeInputBuilder() {
-    MalformedRangeInput._init(this);
-  }
+  MalformedRangeInputBuilder();
 
   MalformedRangeInputBuilder get _$this {
     final $v = _$v;

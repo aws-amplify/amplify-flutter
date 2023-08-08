@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.update_endpoint_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -52,12 +52,9 @@ abstract class UpdateEndpointRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.EndpointRequest>> serializers = [
     UpdateEndpointRequestRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateEndpointRequestBuilder b) {}
 
   /// The unique identifier for the application. This identifier is displayed as the **Project ID** on the Amazon Pinpoint console.
   String get applicationId;
@@ -91,19 +88,19 @@ abstract class UpdateEndpointRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateEndpointRequest');
-    helper.add(
-      'applicationId',
-      applicationId,
-    );
-    helper.add(
-      'endpointId',
-      endpointId,
-    );
-    helper.add(
-      'endpointRequest',
-      endpointRequest,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateEndpointRequest')
+      ..add(
+        'applicationId',
+        applicationId,
+      )
+      ..add(
+        'endpointId',
+        endpointId,
+      )
+      ..add(
+        'endpointRequest',
+        endpointRequest,
+      );
     return helper.toString();
   }
 }

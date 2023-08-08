@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.operation.describe_stack_drift_detection_status_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,7 +18,7 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/describe_stack_drif
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/describe_stack_drift_detection_status_output.dart'
     as _i3;
 
-/// Returns information about a stack drift detection operation. A stack drift detection operation detects whether a stack's actual configuration differs, or has _drifted_, from it's expected configuration, as defined in the stack template and any values specified as template parameters. A stack is considered to have drifted if one or more of its resources have drifted. For more information about stack and resource drift, see [Detecting Unregulated Configuration Changes to Stacks and Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
+/// Returns information about a stack drift detection operation. A stack drift detection operation detects whether a stack's actual configuration differs, or has _drifted_, from its expected configuration, as defined in the stack template and any values specified as template parameters. A stack is considered to have drifted if one or more of its resources have drifted. For more information about stack and resource drift, see [Detecting Unregulated Configuration Changes to Stacks and Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
 ///
 /// Use DetectStackDrift to initiate a stack drift detection operation. `DetectStackDrift` returns a `StackDriftDetectionId` you can use to monitor the progress of the operation using `DescribeStackDriftDetectionStatus`. Once the drift detection operation has completed, use DescribeStackResourceDrifts to return drift information about the stack and its resources.
 class DescribeStackDriftDetectionStatusOperation extends _i1.HttpOperation<
@@ -26,7 +26,7 @@ class DescribeStackDriftDetectionStatusOperation extends _i1.HttpOperation<
     _i2.DescribeStackDriftDetectionStatusInput,
     _i3.DescribeStackDriftDetectionStatusOutput,
     _i3.DescribeStackDriftDetectionStatusOutput> {
-  /// Returns information about a stack drift detection operation. A stack drift detection operation detects whether a stack's actual configuration differs, or has _drifted_, from it's expected configuration, as defined in the stack template and any values specified as template parameters. A stack is considered to have drifted if one or more of its resources have drifted. For more information about stack and resource drift, see [Detecting Unregulated Configuration Changes to Stacks and Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
+  /// Returns information about a stack drift detection operation. A stack drift detection operation detects whether a stack's actual configuration differs, or has _drifted_, from its expected configuration, as defined in the stack template and any values specified as template parameters. A stack is considered to have drifted if one or more of its resources have drifted. For more information about stack and resource drift, see [Detecting Unregulated Configuration Changes to Stacks and Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
   ///
   /// Use DetectStackDrift to initiate a stack drift detection operation. `DetectStackDrift` returns a `StackDriftDetectionId` you can use to monitor the progress of the operation using `DescribeStackDriftDetectionStatus`. Once the drift detection operation has completed, use DescribeStackResourceDrifts to return drift information about the stack and its resources.
   DescribeStackDriftDetectionStatusOperation({
@@ -129,7 +129,7 @@ class DescribeStackDriftDetectionStatusOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

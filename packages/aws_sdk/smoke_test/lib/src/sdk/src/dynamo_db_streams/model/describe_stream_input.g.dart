@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db_streams.model.describe_stream_input;
+part of 'describe_stream_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -71,9 +71,7 @@ class DescribeStreamInputBuilder
   set exclusiveStartShardId(String? exclusiveStartShardId) =>
       _$this._exclusiveStartShardId = exclusiveStartShardId;
 
-  DescribeStreamInputBuilder() {
-    DescribeStreamInput._init(this);
-  }
+  DescribeStreamInputBuilder();
 
   DescribeStreamInputBuilder get _$this {
     final $v = _$v;

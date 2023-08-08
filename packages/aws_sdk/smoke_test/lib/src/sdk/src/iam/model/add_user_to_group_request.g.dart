@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.add_user_to_group_request;
+part of 'add_user_to_group_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class AddUserToGroupRequestBuilder
   String? get userName => _$this._userName;
   set userName(String? userName) => _$this._userName = userName;
 
-  AddUserToGroupRequestBuilder() {
-    AddUserToGroupRequest._init(this);
-  }
+  AddUserToGroupRequestBuilder();
 
   AddUserToGroupRequestBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.operation.tag_resource_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,10 +22,10 @@ import 'package:smoke_test/src/sdk/src/config_service/model/too_many_tags_except
 import 'package:smoke_test/src/sdk/src/config_service/model/validation_exception.dart'
     as _i10;
 
-/// Associates the specified tags to a resource with the specified resourceArn. If existing tags on a resource are not specified in the request parameters, they are not changed. When a resource is deleted, the tags associated with that resource are deleted as well.
+/// Associates the specified tags to a resource with the specified resourceArn. If existing tags on a resource are not specified in the request parameters, they are not changed. If existing tags are specified, however, then their values will be updated. When a resource is deleted, the tags associated with that resource are deleted as well.
 class TagResourceOperation extends _i1.HttpOperation<_i2.TagResourceRequest,
     _i2.TagResourceRequest, _i1.Unit, _i1.Unit> {
-  /// Associates the specified tags to a resource with the specified resourceArn. If existing tags on a resource are not specified in the request parameters, they are not changed. When a resource is deleted, the tags associated with that resource are deleted as well.
+  /// Associates the specified tags to a resource with the specified resourceArn. If existing tags on a resource are not specified in the request parameters, they are not changed. If existing tags are specified, however, then their values will be updated. When a resource is deleted, the tags associated with that resource are deleted as well.
   TagResourceOperation({
     required String region,
     Uri? baseUri,
@@ -99,7 +99,8 @@ class TagResourceOperation extends _i1.HttpOperation<_i2.TagResourceRequest,
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.ResourceNotFoundException,
+            _i8.ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ResourceNotFoundException',
@@ -108,7 +109,7 @@ class TagResourceOperation extends _i1.HttpOperation<_i2.TagResourceRequest,
           _i8.ResourceNotFoundException,
           builder: _i8.ResourceNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.TooManyTagsException, _i9.TooManyTagsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'TooManyTagsException',
@@ -117,7 +118,7 @@ class TagResourceOperation extends _i1.HttpOperation<_i2.TagResourceRequest,
           _i9.TooManyTagsException,
           builder: _i9.TooManyTagsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.ValidationException, _i10.ValidationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'ValidationException',
@@ -149,7 +150,7 @@ class TagResourceOperation extends _i1.HttpOperation<_i2.TagResourceRequest,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
+        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
       },
     );
   }

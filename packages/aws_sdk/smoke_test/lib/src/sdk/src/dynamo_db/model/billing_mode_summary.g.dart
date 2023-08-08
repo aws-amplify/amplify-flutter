@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.billing_mode_summary;
+part of 'billing_mode_summary.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class BillingModeSummaryBuilder
       _$this._lastUpdateToPayPerRequestDateTime =
           lastUpdateToPayPerRequestDateTime;
 
-  BillingModeSummaryBuilder() {
-    BillingModeSummary._init(this);
-  }
+  BillingModeSummaryBuilder();
 
   BillingModeSummaryBuilder get _$this {
     final $v = _$v;

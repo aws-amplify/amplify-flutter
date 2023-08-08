@@ -5,6 +5,7 @@ import 'package:amplify_core/amplify_core.dart';
 
 part 'reset_password_step.g.dart';
 
+/// {@category Auth}
 /// {@template amplify_core.reset_password_step}
 /// The next step required for resetting a user's password.
 /// {@endtemplate}

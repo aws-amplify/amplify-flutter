@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.list_contributor_insights_output;
+part of 'list_contributor_insights_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -69,9 +69,7 @@ class ListContributorInsightsOutputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListContributorInsightsOutputBuilder() {
-    ListContributorInsightsOutput._init(this);
-  }
+  ListContributorInsightsOutputBuilder();
 
   ListContributorInsightsOutputBuilder get _$this {
     final $v = _$v;

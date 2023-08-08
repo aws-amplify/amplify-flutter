@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_bucket_tagging_request;
+part of 'get_bucket_tagging_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class GetBucketTaggingRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetBucketTaggingRequestBuilder() {
-    GetBucketTaggingRequest._init(this);
-  }
+  GetBucketTaggingRequestBuilder();
 
   GetBucketTaggingRequestBuilder get _$this {
     final $v = _$v;
@@ -136,9 +134,7 @@ class GetBucketTaggingRequestPayloadBuilder
             GetBucketTaggingRequestPayloadBuilder> {
   _$GetBucketTaggingRequestPayload? _$v;
 
-  GetBucketTaggingRequestPayloadBuilder() {
-    GetBucketTaggingRequestPayload._init(this);
-  }
+  GetBucketTaggingRequestPayloadBuilder();
 
   @override
   void replace(GetBucketTaggingRequestPayload other) {

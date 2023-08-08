@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.invalid_time_range_exception;
+part of 'invalid_time_range_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -62,9 +62,7 @@ class InvalidTimeRangeExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InvalidTimeRangeExceptionBuilder() {
-    InvalidTimeRangeException._init(this);
-  }
+  InvalidTimeRangeExceptionBuilder();
 
   InvalidTimeRangeExceptionBuilder get _$this {
     final $v = _$v;

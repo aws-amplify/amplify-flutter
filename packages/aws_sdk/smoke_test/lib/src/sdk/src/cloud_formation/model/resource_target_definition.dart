@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.resource_target_definition; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,8 @@ abstract class ResourceTargetDefinition
 
   const ResourceTargetDefinition._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ResourceTargetDefinitionAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceTargetDefinitionBuilder b) {}
+  static const List<_i4.SmithySerializer<ResourceTargetDefinition>>
+      serializers = [ResourceTargetDefinitionAwsQuerySerializer()];
 
   /// Indicates which resource attribute is triggering this update, such as a change in the resource attribute's `Metadata`, `Properties`, or `Tags`.
   _i2.ResourceAttribute? get attribute;
@@ -62,19 +58,19 @@ abstract class ResourceTargetDefinition
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResourceTargetDefinition');
-    helper.add(
-      'attribute',
-      attribute,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'requiresRecreation',
-      requiresRecreation,
-    );
+    final helper = newBuiltValueToStringHelper('ResourceTargetDefinition')
+      ..add(
+        'attribute',
+        attribute,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'requiresRecreation',
+        requiresRecreation,
+      );
     return helper.toString();
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.tracked_action_last_accessed;
+part of 'tracked_action_last_accessed.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -82,9 +82,7 @@ class TrackedActionLastAccessedBuilder
   set lastAccessedRegion(String? lastAccessedRegion) =>
       _$this._lastAccessedRegion = lastAccessedRegion;
 
-  TrackedActionLastAccessedBuilder() {
-    TrackedActionLastAccessed._init(this);
-  }
+  TrackedActionLastAccessedBuilder();
 
   TrackedActionLastAccessedBuilder get _$this {
     final $v = _$v;

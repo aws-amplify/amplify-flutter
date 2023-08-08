@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.s3.model.list_objects_v2_request;
+part of 'list_objects_v2_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -139,9 +139,7 @@ class ListObjectsV2RequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  ListObjectsV2RequestBuilder() {
-    ListObjectsV2Request._init(this);
-  }
+  ListObjectsV2RequestBuilder();
 
   ListObjectsV2RequestBuilder get _$this {
     final $v = _$v;
@@ -228,9 +226,7 @@ class ListObjectsV2RequestPayloadBuilder
             ListObjectsV2RequestPayloadBuilder> {
   _$ListObjectsV2RequestPayload? _$v;
 
-  ListObjectsV2RequestPayloadBuilder() {
-    ListObjectsV2RequestPayload._init(this);
-  }
+  ListObjectsV2RequestPayloadBuilder();
 
   @override
   void replace(ListObjectsV2RequestPayload other) {

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.operation.get_bucket_website_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,7 +20,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/get_bucket_website_request.dart'
 ///
 /// This GET action requires the `S3:GetBucketWebsite` permission. By default, only the bucket owner can read the bucket website configuration. However, bucket owners can allow other users to read the website configuration by writing a bucket policy granting them the `S3:GetBucketWebsite` permission.
 ///
-/// The following operations are related to `DeleteBucketWebsite`:
+/// The following operations are related to `GetBucketWebsite`:
 ///
 /// *   [DeleteBucketWebsite](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketWebsite.html)
 ///
@@ -34,7 +34,7 @@ class GetBucketWebsiteOperation extends _i1.HttpOperation<
   ///
   /// This GET action requires the `S3:GetBucketWebsite` permission. By default, only the bucket owner can read the bucket website configuration. However, bucket owners can allow other users to read the website configuration by writing a bucket policy granting them the `S3:GetBucketWebsite` permission.
   ///
-  /// The following operations are related to `DeleteBucketWebsite`:
+  /// The following operations are related to `GetBucketWebsite`:
   ///
   /// *   [DeleteBucketWebsite](https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketWebsite.html)
   ///
@@ -166,7 +166,7 @@ class GetBucketWebsiteOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

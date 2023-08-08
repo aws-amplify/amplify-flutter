@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.list_saml_providers_request;
+part of 'list_saml_providers_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -39,9 +39,7 @@ class ListSamlProvidersRequestBuilder
         Builder<ListSamlProvidersRequest, ListSamlProvidersRequestBuilder> {
   _$ListSamlProvidersRequest? _$v;
 
-  ListSamlProvidersRequestBuilder() {
-    ListSamlProvidersRequest._init(this);
-  }
+  ListSamlProvidersRequestBuilder();
 
   @override
   void replace(ListSamlProvidersRequest other) {

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.stack_set_summary;
+part of 'stack_set_summary.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -128,9 +128,7 @@ class StackSetSummaryBuilder
   set managedExecution(_i6.ManagedExecutionBuilder? managedExecution) =>
       _$this._managedExecution = managedExecution;
 
-  StackSetSummaryBuilder() {
-    StackSetSummary._init(this);
-  }
+  StackSetSummaryBuilder();
 
   StackSetSummaryBuilder get _$this {
     final $v = _$v;

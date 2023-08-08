@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.delete_bucket_ownership_controls_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -51,12 +51,9 @@ abstract class DeleteBucketOwnershipControlsRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteBucketOwnershipControlsRequestRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBucketOwnershipControlsRequestBuilder b) {}
+  static const List<
+          _i1.SmithySerializer<DeleteBucketOwnershipControlsRequestPayload>>
+      serializers = [DeleteBucketOwnershipControlsRequestRestXmlSerializer()];
 
   /// The Amazon S3 bucket whose `OwnershipControls` you want to delete.
   String get bucket;
@@ -86,15 +83,15 @@ abstract class DeleteBucketOwnershipControlsRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeleteBucketOwnershipControlsRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+        newBuiltValueToStringHelper('DeleteBucketOwnershipControlsRequest')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'expectedBucketOwner',
+            expectedBucketOwner,
+          );
     return helper.toString();
   }
 }
@@ -113,8 +110,6 @@ abstract class DeleteBucketOwnershipControlsRequestPayload
 
   const DeleteBucketOwnershipControlsRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBucketOwnershipControlsRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

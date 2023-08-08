@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.error_document;
+part of 'error_document.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -47,9 +47,7 @@ class ErrorDocumentBuilder
   String? get key => _$this._key;
   set key(String? key) => _$this._key = key;
 
-  ErrorDocumentBuilder() {
-    ErrorDocument._init(this);
-  }
+  ErrorDocumentBuilder();
 
   ErrorDocumentBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.rest_json_validation_protocol.model.malformed_required_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -51,12 +51,9 @@ abstract class MalformedRequiredInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    MalformedRequiredInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<MalformedRequiredInputPayload>>
+      serializers = [MalformedRequiredInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedRequiredInputBuilder b) {}
   String get string;
   String get stringInQuery;
   String get stringInHeader;
@@ -73,19 +70,19 @@ abstract class MalformedRequiredInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedRequiredInput');
-    helper.add(
-      'string',
-      string,
-    );
-    helper.add(
-      'stringInQuery',
-      stringInQuery,
-    );
-    helper.add(
-      'stringInHeader',
-      stringInHeader,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedRequiredInput')
+      ..add(
+        'string',
+        string,
+      )
+      ..add(
+        'stringInQuery',
+        stringInQuery,
+      )
+      ..add(
+        'stringInHeader',
+        stringInHeader,
+      );
     return helper.toString();
   }
 }
@@ -103,18 +100,16 @@ abstract class MalformedRequiredInputPayload
 
   const MalformedRequiredInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedRequiredInputPayloadBuilder b) {}
   String get string;
   @override
   List<Object?> get props => [string];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedRequiredInputPayload');
-    helper.add(
-      'string',
-      string,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedRequiredInputPayload')
+      ..add(
+        'string',
+        string,
+      );
     return helper.toString();
   }
 }

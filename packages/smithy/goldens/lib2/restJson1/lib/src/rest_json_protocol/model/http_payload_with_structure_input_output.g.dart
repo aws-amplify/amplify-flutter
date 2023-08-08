@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.http_payload_with_structure_input_output;
+part of 'http_payload_with_structure_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class HttpPayloadWithStructureInputOutputBuilder
       _$this._nested ??= new _i2.NestedPayloadBuilder();
   set nested(_i2.NestedPayloadBuilder? nested) => _$this._nested = nested;
 
-  HttpPayloadWithStructureInputOutputBuilder() {
-    HttpPayloadWithStructureInputOutput._init(this);
-  }
+  HttpPayloadWithStructureInputOutputBuilder();
 
   HttpPayloadWithStructureInputOutputBuilder get _$this {
     final $v = _$v;

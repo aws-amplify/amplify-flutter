@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.describe_account_limits_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,12 +36,8 @@ abstract class DescribeAccountLimitsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DescribeAccountLimitsInputAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeAccountLimitsInputBuilder b) {}
+  static const List<_i1.SmithySerializer<DescribeAccountLimitsInput>>
+      serializers = [DescribeAccountLimitsInputAwsQuerySerializer()];
 
   /// A string that identifies the next page of limits that you want to retrieve.
   String? get nextToken;
@@ -51,11 +47,11 @@ abstract class DescribeAccountLimitsInput
   List<Object?> get props => [nextToken];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeAccountLimitsInput');
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeAccountLimitsInput')
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.abort_multipart_upload_request;
+part of 'abort_multipart_upload_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -98,9 +98,7 @@ class AbortMultipartUploadRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  AbortMultipartUploadRequestBuilder() {
-    AbortMultipartUploadRequest._init(this);
-  }
+  AbortMultipartUploadRequestBuilder();
 
   AbortMultipartUploadRequestBuilder get _$this {
     final $v = _$v;
@@ -182,9 +180,7 @@ class AbortMultipartUploadRequestPayloadBuilder
             AbortMultipartUploadRequestPayloadBuilder> {
   _$AbortMultipartUploadRequestPayload? _$v;
 
-  AbortMultipartUploadRequestPayloadBuilder() {
-    AbortMultipartUploadRequestPayload._init(this);
-  }
+  AbortMultipartUploadRequestPayloadBuilder();
 
   @override
   void replace(AbortMultipartUploadRequestPayload other) {

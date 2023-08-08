@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.operation.list_account_aliases_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,7 +20,7 @@ import 'package:smoke_test/src/sdk/src/iam/model/list_account_aliases_response.d
 import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
     as _i10;
 
-/// Lists the account alias associated with the Amazon Web Services account (Note: you can have only one). For information about using an Amazon Web Services account alias, see [Using an alias for your Amazon Web Services account ID](https://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html) in the _IAM User Guide_.
+/// Lists the account alias associated with the Amazon Web Services account (Note: you can have only one). For information about using an Amazon Web Services account alias, see [Creating, deleting, and listing an Amazon Web Services account alias](https://docs.aws.amazon.com/signin/latest/userguide/CreateAccountAlias.html) in the _Amazon Web Services Sign-In User Guide_.
 class ListAccountAliasesOperation extends _i1.PaginatedHttpOperation<
     _i2.ListAccountAliasesRequest,
     _i2.ListAccountAliasesRequest,
@@ -29,7 +29,7 @@ class ListAccountAliasesOperation extends _i1.PaginatedHttpOperation<
     String,
     int,
     _i4.BuiltList<String>> {
-  /// Lists the account alias associated with the Amazon Web Services account (Note: you can have only one). For information about using an Amazon Web Services account alias, see [Using an alias for your Amazon Web Services account ID](https://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html) in the _IAM User Guide_.
+  /// Lists the account alias associated with the Amazon Web Services account (Note: you can have only one). For information about using an Amazon Web Services account alias, see [Creating, deleting, and listing an Amazon Web Services account alias](https://docs.aws.amazon.com/signin/latest/userguide/CreateAccountAlias.html) in the _Amazon Web Services Sign-In User Guide_.
   ListAccountAliasesOperation({
     required String region,
     Uri? baseUri,
@@ -114,7 +114,8 @@ class ListAccountAliasesOperation extends _i1.PaginatedHttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.ServiceFailureException,
+            _i10.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',
@@ -147,7 +148,7 @@ class ListAccountAliasesOperation extends _i1.PaginatedHttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)}
+        ...{_i8.AWSHeaders.sdkInvocationId: _i8.uuid(secure: true)},
       },
     );
   }

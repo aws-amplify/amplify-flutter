@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.create_login_profile_response;
+part of 'create_login_profile_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class CreateLoginProfileResponseBuilder
   set loginProfile(_i2.LoginProfileBuilder? loginProfile) =>
       _$this._loginProfile = loginProfile;
 
-  CreateLoginProfileResponseBuilder() {
-    CreateLoginProfileResponse._init(this);
-  }
+  CreateLoginProfileResponseBuilder();
 
   CreateLoginProfileResponseBuilder get _$this {
     final $v = _$v;

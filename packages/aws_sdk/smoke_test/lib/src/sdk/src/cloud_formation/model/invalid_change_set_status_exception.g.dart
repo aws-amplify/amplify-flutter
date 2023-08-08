@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.invalid_change_set_status_exception;
+part of 'invalid_change_set_status_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -57,9 +57,7 @@ class InvalidChangeSetStatusExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InvalidChangeSetStatusExceptionBuilder() {
-    InvalidChangeSetStatusException._init(this);
-  }
+  InvalidChangeSetStatusExceptionBuilder();
 
   InvalidChangeSetStatusExceptionBuilder get _$this {
     final $v = _$v;

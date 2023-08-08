@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.csv_input;
+part of 'csv_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -107,9 +107,7 @@ class CsvInputBuilder implements Builder<CsvInput, CsvInputBuilder> {
   set allowQuotedRecordDelimiter(bool? allowQuotedRecordDelimiter) =>
       _$this._allowQuotedRecordDelimiter = allowQuotedRecordDelimiter;
 
-  CsvInputBuilder() {
-    CsvInput._init(this);
-  }
+  CsvInputBuilder();
 
   CsvInputBuilder get _$this {
     final $v = _$v;

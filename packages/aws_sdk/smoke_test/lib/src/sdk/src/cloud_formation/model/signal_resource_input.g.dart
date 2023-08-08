@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.signal_resource_input;
+part of 'signal_resource_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -88,9 +88,7 @@ class SignalResourceInputBuilder
   _i3.ResourceSignalStatus? get status => _$this._status;
   set status(_i3.ResourceSignalStatus? status) => _$this._status = status;
 
-  SignalResourceInputBuilder() {
-    SignalResourceInput._init(this);
-  }
+  SignalResourceInputBuilder();
 
   SignalResourceInputBuilder get _$this {
     final $v = _$v;

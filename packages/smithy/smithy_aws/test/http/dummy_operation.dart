@@ -32,13 +32,13 @@ class DummyHttpOperation extends HttpOperation<Unit, Unit, Unit, Unit> {
 
   @override
   List<SmithyError> get errorTypes => const [
-        SmithyError(
+        SmithyError<DummySmithyException, DummySmithyException>(
           DummySmithyException.id,
           ErrorKind.server,
           DummySmithyException,
           statusCode: 500,
           builder: DummySmithyException.fromResponse,
-        )
+        ),
       ];
 
   @override

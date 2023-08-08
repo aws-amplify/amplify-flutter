@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v2.rest_json_validation_protocol.model.validation_exception_field; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,8 @@ abstract class ValidationExceptionField
 
   const ValidationExceptionField._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ValidationExceptionFieldRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ValidationExceptionFieldBuilder b) {}
+  static const List<_i2.SmithySerializer<ValidationExceptionField>>
+      serializers = [ValidationExceptionFieldRestJson1Serializer()];
 
   /// A JSONPointer expression to the structure member whose value failed to satisfy the modeled constraints.
   String get path;
@@ -52,15 +48,15 @@ abstract class ValidationExceptionField
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ValidationExceptionField');
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('ValidationExceptionField')
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.access_key_metadata;
+part of 'access_key_metadata.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -74,9 +74,7 @@ class AccessKeyMetadataBuilder
   DateTime? get createDate => _$this._createDate;
   set createDate(DateTime? createDate) => _$this._createDate = createDate;
 
-  AccessKeyMetadataBuilder() {
-    AccessKeyMetadata._init(this);
-  }
+  AccessKeyMetadataBuilder();
 
   AccessKeyMetadataBuilder get _$this {
     final $v = _$v;

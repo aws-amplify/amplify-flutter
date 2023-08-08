@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.static_value;
+part of 'static_value.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -47,9 +47,7 @@ class StaticValueBuilder implements Builder<StaticValue, StaticValueBuilder> {
       _$this._values ??= new _i2.ListBuilder<String>();
   set values(_i2.ListBuilder<String>? values) => _$this._values = values;
 
-  StaticValueBuilder() {
-    StaticValue._init(this);
-  }
+  StaticValueBuilder();
 
   StaticValueBuilder get _$this {
     final $v = _$v;

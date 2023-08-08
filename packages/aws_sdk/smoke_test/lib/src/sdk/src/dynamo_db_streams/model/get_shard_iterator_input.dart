@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db_streams.model.get_shard_iterator_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -47,12 +47,9 @@ abstract class GetShardIteratorInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<GetShardIteratorInput>> serializers = [
     GetShardIteratorInputAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetShardIteratorInputBuilder b) {}
 
   /// The Amazon Resource Name (ARN) for the stream.
   String get streamArn;
@@ -84,23 +81,23 @@ abstract class GetShardIteratorInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetShardIteratorInput');
-    helper.add(
-      'streamArn',
-      streamArn,
-    );
-    helper.add(
-      'shardId',
-      shardId,
-    );
-    helper.add(
-      'shardIteratorType',
-      shardIteratorType,
-    );
-    helper.add(
-      'sequenceNumber',
-      sequenceNumber,
-    );
+    final helper = newBuiltValueToStringHelper('GetShardIteratorInput')
+      ..add(
+        'streamArn',
+        streamArn,
+      )
+      ..add(
+        'shardId',
+        shardId,
+      )
+      ..add(
+        'shardIteratorType',
+        shardIteratorType,
+      )
+      ..add(
+        'sequenceNumber',
+        sequenceNumber,
+      );
     return helper.toString();
   }
 }

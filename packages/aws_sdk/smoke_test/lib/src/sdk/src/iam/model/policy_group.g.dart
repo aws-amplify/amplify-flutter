@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.policy_group;
+part of 'policy_group.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -53,9 +53,7 @@ class PolicyGroupBuilder implements Builder<PolicyGroup, PolicyGroupBuilder> {
   String? get groupId => _$this._groupId;
   set groupId(String? groupId) => _$this._groupId = groupId;
 
-  PolicyGroupBuilder() {
-    PolicyGroup._init(this);
-  }
+  PolicyGroupBuilder();
 
   PolicyGroupBuilder get _$this {
     final $v = _$v;

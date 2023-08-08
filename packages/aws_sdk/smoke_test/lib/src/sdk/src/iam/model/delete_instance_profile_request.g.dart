@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.delete_instance_profile_request;
+part of 'delete_instance_profile_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -56,9 +56,7 @@ class DeleteInstanceProfileRequestBuilder
   set instanceProfileName(String? instanceProfileName) =>
       _$this._instanceProfileName = instanceProfileName;
 
-  DeleteInstanceProfileRequestBuilder() {
-    DeleteInstanceProfileRequest._init(this);
-  }
+  DeleteInstanceProfileRequestBuilder();
 
   DeleteInstanceProfileRequestBuilder get _$this {
     final $v = _$v;

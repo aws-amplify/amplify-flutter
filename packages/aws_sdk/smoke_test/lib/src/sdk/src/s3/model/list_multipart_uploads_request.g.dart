@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.list_multipart_uploads_request;
+part of 'list_multipart_uploads_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -23,6 +23,8 @@ class _$ListMultipartUploadsRequest extends ListMultipartUploadsRequest {
   final String? uploadIdMarker;
   @override
   final String? expectedBucketOwner;
+  @override
+  final _i4.RequestPayer? requestPayer;
 
   factory _$ListMultipartUploadsRequest(
           [void Function(ListMultipartUploadsRequestBuilder)? updates]) =>
@@ -36,7 +38,8 @@ class _$ListMultipartUploadsRequest extends ListMultipartUploadsRequest {
       this.maxUploads,
       this.prefix,
       this.uploadIdMarker,
-      this.expectedBucketOwner})
+      this.expectedBucketOwner,
+      this.requestPayer})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'ListMultipartUploadsRequest', 'bucket');
@@ -62,7 +65,8 @@ class _$ListMultipartUploadsRequest extends ListMultipartUploadsRequest {
         maxUploads == other.maxUploads &&
         prefix == other.prefix &&
         uploadIdMarker == other.uploadIdMarker &&
-        expectedBucketOwner == other.expectedBucketOwner;
+        expectedBucketOwner == other.expectedBucketOwner &&
+        requestPayer == other.requestPayer;
   }
 
   @override
@@ -76,6 +80,7 @@ class _$ListMultipartUploadsRequest extends ListMultipartUploadsRequest {
     _$hash = $jc(_$hash, prefix.hashCode);
     _$hash = $jc(_$hash, uploadIdMarker.hashCode);
     _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
+    _$hash = $jc(_$hash, requestPayer.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -122,9 +127,12 @@ class ListMultipartUploadsRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  ListMultipartUploadsRequestBuilder() {
-    ListMultipartUploadsRequest._init(this);
-  }
+  _i4.RequestPayer? _requestPayer;
+  _i4.RequestPayer? get requestPayer => _$this._requestPayer;
+  set requestPayer(_i4.RequestPayer? requestPayer) =>
+      _$this._requestPayer = requestPayer;
+
+  ListMultipartUploadsRequestBuilder();
 
   ListMultipartUploadsRequestBuilder get _$this {
     final $v = _$v;
@@ -137,6 +145,7 @@ class ListMultipartUploadsRequestBuilder
       _prefix = $v.prefix;
       _uploadIdMarker = $v.uploadIdMarker;
       _expectedBucketOwner = $v.expectedBucketOwner;
+      _requestPayer = $v.requestPayer;
       _$v = null;
     }
     return this;
@@ -167,7 +176,8 @@ class ListMultipartUploadsRequestBuilder
             maxUploads: maxUploads,
             prefix: prefix,
             uploadIdMarker: uploadIdMarker,
-            expectedBucketOwner: expectedBucketOwner);
+            expectedBucketOwner: expectedBucketOwner,
+            requestPayer: requestPayer);
     replace(_$result);
     return _$result;
   }
@@ -210,9 +220,7 @@ class ListMultipartUploadsRequestPayloadBuilder
             ListMultipartUploadsRequestPayloadBuilder> {
   _$ListMultipartUploadsRequestPayload? _$v;
 
-  ListMultipartUploadsRequestPayloadBuilder() {
-    ListMultipartUploadsRequestPayload._init(this);
-  }
+  ListMultipartUploadsRequestPayloadBuilder();
 
   @override
   void replace(ListMultipartUploadsRequestPayload other) {

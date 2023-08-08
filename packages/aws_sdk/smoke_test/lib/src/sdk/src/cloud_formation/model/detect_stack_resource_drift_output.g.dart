@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.detect_stack_resource_drift_output;
+part of 'detect_stack_resource_drift_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -57,9 +57,7 @@ class DetectStackResourceDriftOutputBuilder
   set stackResourceDrift(_i2.StackResourceDriftBuilder? stackResourceDrift) =>
       _$this._stackResourceDrift = stackResourceDrift;
 
-  DetectStackResourceDriftOutputBuilder() {
-    DetectStackResourceDriftOutput._init(this);
-  }
+  DetectStackResourceDriftOutputBuilder();
 
   DetectStackResourceDriftOutputBuilder get _$this {
     final $v = _$v;

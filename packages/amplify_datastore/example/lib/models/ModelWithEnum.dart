@@ -97,7 +97,7 @@ class ModelWithEnum extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("ModelWithEnum {");
     buffer.write("id=" + "$id" + ", ");
@@ -240,7 +240,7 @@ class ModelWithEnumModelIdentifier
     implements amplify_core.ModelIdentifier<ModelWithEnum> {
   final String id;
 
-  /// Create an instance of ModelWithEnumModelIdentifier using [id] the primary key.
+  /** Create an instance of ModelWithEnumModelIdentifier using [id] the primary key. */
   const ModelWithEnumModelIdentifier({required this.id});
 
   @override

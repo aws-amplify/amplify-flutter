@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.delete_table_input;
+part of 'delete_table_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -50,9 +50,7 @@ class DeleteTableInputBuilder
   String? get tableName => _$this._tableName;
   set tableName(String? tableName) => _$this._tableName = tableName;
 
-  DeleteTableInputBuilder() {
-    DeleteTableInput._init(this);
-  }
+  DeleteTableInputBuilder();
 
   DeleteTableInputBuilder get _$this {
     final $v = _$v;

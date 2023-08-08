@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.get_context_keys_for_policy_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,8 @@ abstract class GetContextKeysForPolicyResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    GetContextKeysForPolicyResponseAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetContextKeysForPolicyResponseBuilder b) {}
+  static const List<_i3.SmithySerializer<GetContextKeysForPolicyResponse>>
+      serializers = [GetContextKeysForPolicyResponseAwsQuerySerializer()];
 
   /// The list of context keys that are referenced in the input policies.
   _i2.BuiltList<String>? get contextKeyNames;
@@ -53,11 +49,11 @@ abstract class GetContextKeysForPolicyResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetContextKeysForPolicyResponse');
-    helper.add(
-      'contextKeyNames',
-      contextKeyNames,
-    );
+        newBuiltValueToStringHelper('GetContextKeysForPolicyResponse')
+          ..add(
+            'contextKeyNames',
+            contextKeyNames,
+          );
     return helper.toString();
   }
 }

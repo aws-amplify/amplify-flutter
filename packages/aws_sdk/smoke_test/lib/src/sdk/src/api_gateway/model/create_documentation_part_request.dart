@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.create_documentation_part_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -55,12 +55,8 @@ abstract class CreateDocumentationPartRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateDocumentationPartRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateDocumentationPartRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<CreateDocumentationPartRequestPayload>>
+      serializers = [CreateDocumentationPartRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -96,20 +92,19 @@ abstract class CreateDocumentationPartRequest
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('CreateDocumentationPartRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'location',
-      location,
-    );
-    helper.add(
-      'properties',
-      properties,
-    );
+    final helper = newBuiltValueToStringHelper('CreateDocumentationPartRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'location',
+        location,
+      )
+      ..add(
+        'properties',
+        properties,
+      );
     return helper.toString();
   }
 }
@@ -127,9 +122,6 @@ abstract class CreateDocumentationPartRequestPayload
 
   const CreateDocumentationPartRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateDocumentationPartRequestPayloadBuilder b) {}
-
   /// The location of the targeted API entity of the to-be-created documentation part.
   _i3.DocumentationPartLocation get location;
 
@@ -143,15 +135,15 @@ abstract class CreateDocumentationPartRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('CreateDocumentationPartRequestPayload');
-    helper.add(
-      'location',
-      location,
-    );
-    helper.add(
-      'properties',
-      properties,
-    );
+        newBuiltValueToStringHelper('CreateDocumentationPartRequestPayload')
+          ..add(
+            'location',
+            location,
+          )
+          ..add(
+            'properties',
+            properties,
+          );
     return helper.toString();
   }
 }

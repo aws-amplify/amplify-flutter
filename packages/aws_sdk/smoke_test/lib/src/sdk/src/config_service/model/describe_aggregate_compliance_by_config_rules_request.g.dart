@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.describe_aggregate_compliance_by_config_rules_request;
+part of 'describe_aggregate_compliance_by_config_rules_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -13,7 +13,7 @@ class _$DescribeAggregateComplianceByConfigRulesRequest
   @override
   final _i3.ConfigRuleComplianceFilters? filters;
   @override
-  final int? limit;
+  final int limit;
   @override
   final String? nextToken;
 
@@ -28,13 +28,15 @@ class _$DescribeAggregateComplianceByConfigRulesRequest
   _$DescribeAggregateComplianceByConfigRulesRequest._(
       {required this.configurationAggregatorName,
       this.filters,
-      this.limit,
+      required this.limit,
       this.nextToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         configurationAggregatorName,
         r'DescribeAggregateComplianceByConfigRulesRequest',
         'configurationAggregatorName');
+    BuiltValueNullFieldError.checkNotNull(
+        limit, r'DescribeAggregateComplianceByConfigRulesRequest', 'limit');
   }
 
   @override
@@ -139,7 +141,8 @@ class DescribeAggregateComplianceByConfigRulesRequestBuilder
                       r'DescribeAggregateComplianceByConfigRulesRequest',
                       'configurationAggregatorName'),
               filters: _filters?.build(),
-              limit: limit,
+              limit: BuiltValueNullFieldError.checkNotNull(limit,
+                  r'DescribeAggregateComplianceByConfigRulesRequest', 'limit'),
               nextToken: nextToken);
     } catch (_) {
       late String _$failedField;

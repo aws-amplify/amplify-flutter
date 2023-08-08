@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.kinesis_data_stream_destination;
+part of 'kinesis_data_stream_destination.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -74,9 +74,7 @@ class KinesisDataStreamDestinationBuilder
   set destinationStatusDescription(String? destinationStatusDescription) =>
       _$this._destinationStatusDescription = destinationStatusDescription;
 
-  KinesisDataStreamDestinationBuilder() {
-    KinesisDataStreamDestination._init(this);
-  }
+  KinesisDataStreamDestinationBuilder();
 
   KinesisDataStreamDestinationBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.base_path_mapping;
+part of 'base_path_mapping.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class BasePathMappingBuilder
   String? get stage => _$this._stage;
   set stage(String? stage) => _$this._stage = stage;
 
-  BasePathMappingBuilder() {
-    BasePathMapping._init(this);
-  }
+  BasePathMappingBuilder();
 
   BasePathMappingBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.create_bucket_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -96,12 +96,8 @@ abstract class CreateBucketRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateBucketRequestRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateBucketRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<_i2.CreateBucketConfiguration?>>
+      serializers = [CreateBucketRequestRestXmlSerializer()];
 
   /// The canned ACL to apply to the bucket.
   _i4.BucketCannedAcl? get acl;
@@ -170,47 +166,47 @@ abstract class CreateBucketRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateBucketRequest');
-    helper.add(
-      'acl',
-      acl,
-    );
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'createBucketConfiguration',
-      createBucketConfiguration,
-    );
-    helper.add(
-      'grantFullControl',
-      grantFullControl,
-    );
-    helper.add(
-      'grantRead',
-      grantRead,
-    );
-    helper.add(
-      'grantReadAcp',
-      grantReadAcp,
-    );
-    helper.add(
-      'grantWrite',
-      grantWrite,
-    );
-    helper.add(
-      'grantWriteAcp',
-      grantWriteAcp,
-    );
-    helper.add(
-      'objectLockEnabledForBucket',
-      objectLockEnabledForBucket,
-    );
-    helper.add(
-      'objectOwnership',
-      objectOwnership,
-    );
+    final helper = newBuiltValueToStringHelper('CreateBucketRequest')
+      ..add(
+        'acl',
+        acl,
+      )
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'createBucketConfiguration',
+        createBucketConfiguration,
+      )
+      ..add(
+        'grantFullControl',
+        grantFullControl,
+      )
+      ..add(
+        'grantRead',
+        grantRead,
+      )
+      ..add(
+        'grantReadAcp',
+        grantReadAcp,
+      )
+      ..add(
+        'grantWrite',
+        grantWrite,
+      )
+      ..add(
+        'grantWriteAcp',
+        grantWriteAcp,
+      )
+      ..add(
+        'objectLockEnabledForBucket',
+        objectLockEnabledForBucket,
+      )
+      ..add(
+        'objectOwnership',
+        objectOwnership,
+      );
     return helper.toString();
   }
 }

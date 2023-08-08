@@ -58,9 +58,7 @@ class SetDimensionBuilder
       _$this._values ??= new _i3.ListBuilder<String>();
   set values(_i3.ListBuilder<String>? values) => _$this._values = values;
 
-  SetDimensionBuilder() {
-    SetDimension._init(this);
-  }
+  SetDimensionBuilder();
 
   SetDimensionBuilder get _$this {
     final $v = _$v;

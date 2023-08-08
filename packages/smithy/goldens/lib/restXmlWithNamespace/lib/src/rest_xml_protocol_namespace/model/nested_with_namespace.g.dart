@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_with_namespace_v1.rest_xml_protocol_namespace.model.nested_with_namespace;
+part of 'nested_with_namespace.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -48,9 +48,7 @@ class NestedWithNamespaceBuilder
   String? get attrField => _$this._attrField;
   set attrField(String? attrField) => _$this._attrField = attrField;
 
-  NestedWithNamespaceBuilder() {
-    NestedWithNamespace._init(this);
-  }
+  NestedWithNamespaceBuilder();
 
   NestedWithNamespaceBuilder get _$this {
     final $v = _$v;

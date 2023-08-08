@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.list_stored_queries_response;
+part of 'list_stored_queries_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class ListStoredQueriesResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListStoredQueriesResponseBuilder() {
-    ListStoredQueriesResponse._init(this);
-  }
+  ListStoredQueriesResponseBuilder();
 
   ListStoredQueriesResponseBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.describe_continuous_backups_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,12 +34,8 @@ abstract class DescribeContinuousBackupsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DescribeContinuousBackupsInputAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeContinuousBackupsInputBuilder b) {}
+  static const List<_i1.SmithySerializer<DescribeContinuousBackupsInput>>
+      serializers = [DescribeContinuousBackupsInputAwsJson10Serializer()];
 
   /// Name of the table for which the customer wants to check the continuous backups and point in time recovery settings.
   String get tableName;
@@ -49,12 +45,11 @@ abstract class DescribeContinuousBackupsInput
   List<Object?> get props => [tableName];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DescribeContinuousBackupsInput');
-    helper.add(
-      'tableName',
-      tableName,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeContinuousBackupsInput')
+      ..add(
+        'tableName',
+        tableName,
+      );
     return helper.toString();
   }
 }

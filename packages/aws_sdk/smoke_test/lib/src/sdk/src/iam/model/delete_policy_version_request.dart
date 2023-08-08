@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.delete_policy_version_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,8 @@ abstract class DeletePolicyVersionRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeletePolicyVersionRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeletePolicyVersionRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<DeletePolicyVersionRequest>>
+      serializers = [DeletePolicyVersionRequestAwsQuerySerializer()];
 
   /// The Amazon Resource Name (ARN) of the IAM policy from which you want to delete a version.
   ///
@@ -66,15 +62,15 @@ abstract class DeletePolicyVersionRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeletePolicyVersionRequest');
-    helper.add(
-      'policyArn',
-      policyArn,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
+    final helper = newBuiltValueToStringHelper('DeletePolicyVersionRequest')
+      ..add(
+        'policyArn',
+        policyArn,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      );
     return helper.toString();
   }
 }

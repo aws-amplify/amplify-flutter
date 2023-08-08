@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.inventory_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,7 +33,6 @@ abstract class InventoryConfiguration
     List<_i5.InventoryOptionalField>? optionalFields,
     required _i6.InventorySchedule schedule,
   }) {
-    isEnabled ??= false;
     return _$InventoryConfiguration._(
       destination: destination,
       isEnabled: isEnabled,
@@ -53,20 +52,14 @@ abstract class InventoryConfiguration
 
   const InventoryConfiguration._();
 
-  static const List<_i8.SmithySerializer> serializers = [
-    InventoryConfigurationRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InventoryConfigurationBuilder b) {
-    b.isEnabled = false;
-  }
+  static const List<_i8.SmithySerializer<InventoryConfiguration>> serializers =
+      [InventoryConfigurationRestXmlSerializer()];
 
   /// Contains information about where to publish the inventory results.
   _i2.InventoryDestination get destination;
 
   /// Specifies whether the inventory is enabled or disabled. If set to `True`, an inventory list is generated. If set to `False`, no inventory list is generated.
-  bool get isEnabled;
+  bool? get isEnabled;
 
   /// Specifies an inventory filter. The inventory only includes objects that meet the filter's criteria.
   _i3.InventoryFilter? get filter;
@@ -94,35 +87,35 @@ abstract class InventoryConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InventoryConfiguration');
-    helper.add(
-      'destination',
-      destination,
-    );
-    helper.add(
-      'isEnabled',
-      isEnabled,
-    );
-    helper.add(
-      'filter',
-      filter,
-    );
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'includedObjectVersions',
-      includedObjectVersions,
-    );
-    helper.add(
-      'optionalFields',
-      optionalFields,
-    );
-    helper.add(
-      'schedule',
-      schedule,
-    );
+    final helper = newBuiltValueToStringHelper('InventoryConfiguration')
+      ..add(
+        'destination',
+        destination,
+      )
+      ..add(
+        'isEnabled',
+        isEnabled,
+      )
+      ..add(
+        'filter',
+        filter,
+      )
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'includedObjectVersions',
+        includedObjectVersions,
+      )
+      ..add(
+        'optionalFields',
+        optionalFields,
+      )
+      ..add(
+        'schedule',
+        schedule,
+      );
     return helper.toString();
   }
 }
@@ -255,12 +248,14 @@ class InventoryConfigurationRestXmlSerializer
         specifiedType:
             const FullType.nullable(_i4.InventoryIncludedObjectVersions),
       ));
-    result$
-      ..add(const _i8.XmlElementName('IsEnabled'))
-      ..add(serializers.serialize(
-        isEnabled,
-        specifiedType: const FullType.nullable(bool),
-      ));
+    if (isEnabled != null) {
+      result$
+        ..add(const _i8.XmlElementName('IsEnabled'))
+        ..add(serializers.serialize(
+          isEnabled,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
     if (optionalFields != null) {
       result$
         ..add(const _i8.XmlElementName('OptionalFields'))

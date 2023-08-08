@@ -3,6 +3,7 @@
 
 part of '../amplify_exception.dart';
 
+/// {@category Auth}
 /// {@template amplify_core.auth.invalid_state_exception}
 /// Exception thrown when the requested operation is not valid in the current
 /// Amplity Auth state.

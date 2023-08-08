@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.describe_organization_conformance_packs_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,6 +23,7 @@ abstract class DescribeOrganizationConformancePacksRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$DescribeOrganizationConformancePacksRequest._(
       organizationConformancePackNames: organizationConformancePackNames == null
           ? null
@@ -45,18 +46,22 @@ abstract class DescribeOrganizationConformancePacksRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<DescribeOrganizationConformancePacksRequest>>
+      serializers = [
     DescribeOrganizationConformancePacksRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeOrganizationConformancePacksRequestBuilder b) {}
+  static void _init(DescribeOrganizationConformancePacksRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The name that you assign to an organization conformance pack.
   _i3.BuiltList<String>? get organizationConformancePackNames;
 
   /// The maximum number of organization config packs returned on each page. If you do no specify a number, Config uses the default. The default is 100.
-  int? get limit;
+  int get limit;
 
   /// The nextToken string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -71,19 +76,19 @@ abstract class DescribeOrganizationConformancePacksRequest
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'DescribeOrganizationConformancePacksRequest');
-    helper.add(
-      'organizationConformancePackNames',
-      organizationConformancePackNames,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        'DescribeOrganizationConformancePacksRequest')
+      ..add(
+        'organizationConformancePackNames',
+        organizationConformancePackNames,
+      )
+      ..add(
+        'limit',
+        limit,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }
@@ -158,6 +163,13 @@ class DescribeOrganizationConformancePacksRequestAwsJson11Serializer extends _i1
       :limit,
       :nextToken
     ) = object;
+    result$.addAll([
+      'Limit',
+      serializers.serialize(
+        limit,
+        specifiedType: const FullType(int),
+      ),
+    ]);
     if (organizationConformancePackNames != null) {
       result$
         ..add('OrganizationConformancePackNames')
@@ -167,14 +179,6 @@ class DescribeOrganizationConformancePacksRequestAwsJson11Serializer extends _i1
             _i3.BuiltList,
             [FullType(String)],
           ),
-        ));
-    }
-    if (limit != null) {
-      result$
-        ..add('Limit')
-        ..add(serializers.serialize(
-          limit,
-          specifiedType: const FullType(int),
         ));
     }
     if (nextToken != null) {

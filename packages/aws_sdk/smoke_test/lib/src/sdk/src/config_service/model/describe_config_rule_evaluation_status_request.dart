@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.describe_config_rule_evaluation_status_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,6 +23,7 @@ abstract class DescribeConfigRuleEvaluationStatusRequest
     String? nextToken,
     int? limit,
   }) {
+    limit ??= 0;
     return _$DescribeConfigRuleEvaluationStatusRequest._(
       configRuleNames:
           configRuleNames == null ? null : _i3.BuiltList(configRuleNames),
@@ -44,12 +45,16 @@ abstract class DescribeConfigRuleEvaluationStatusRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<DescribeConfigRuleEvaluationStatusRequest>>
+      serializers = [
     DescribeConfigRuleEvaluationStatusRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeConfigRuleEvaluationStatusRequestBuilder b) {}
+  static void _init(DescribeConfigRuleEvaluationStatusRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The name of the Config managed rules for which you want status information. If you do not specify any names, Config returns status information for all Config managed rules that you use.
   _i3.BuiltList<String>? get configRuleNames;
@@ -62,7 +67,7 @@ abstract class DescribeConfigRuleEvaluationStatusRequest
   /// This parameter is required if the rule limit for your account is more than the default of 150 rules.
   ///
   /// For information about requesting a rule limit increase, see [Config Limits](http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_config) in the _Amazon Web Services General Reference Guide_.
-  int? get limit;
+  int get limit;
   @override
   DescribeConfigRuleEvaluationStatusRequest getPayload() => this;
   @override
@@ -73,20 +78,20 @@ abstract class DescribeConfigRuleEvaluationStatusRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'DescribeConfigRuleEvaluationStatusRequest');
-    helper.add(
-      'configRuleNames',
-      configRuleNames,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
+    final helper =
+        newBuiltValueToStringHelper('DescribeConfigRuleEvaluationStatusRequest')
+          ..add(
+            'configRuleNames',
+            configRuleNames,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          )
+          ..add(
+            'limit',
+            limit,
+          );
     return helper.toString();
   }
 }
@@ -160,6 +165,13 @@ class DescribeConfigRuleEvaluationStatusRequestAwsJson11Serializer extends _i1
       :nextToken,
       :limit
     ) = object;
+    result$.addAll([
+      'Limit',
+      serializers.serialize(
+        limit,
+        specifiedType: const FullType(int),
+      ),
+    ]);
     if (configRuleNames != null) {
       result$
         ..add('ConfigRuleNames')
@@ -177,14 +189,6 @@ class DescribeConfigRuleEvaluationStatusRequestAwsJson11Serializer extends _i1
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (limit != null) {
-      result$
-        ..add('Limit')
-        ..add(serializers.serialize(
-          limit,
-          specifiedType: const FullType(int),
         ));
     }
     return result$;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.delete_service_linked_role_request;
+part of 'delete_service_linked_role_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -54,9 +54,7 @@ class DeleteServiceLinkedRoleRequestBuilder
   String? get roleName => _$this._roleName;
   set roleName(String? roleName) => _$this._roleName = roleName;
 
-  DeleteServiceLinkedRoleRequestBuilder() {
-    DeleteServiceLinkedRoleRequest._init(this);
-  }
+  DeleteServiceLinkedRoleRequestBuilder();
 
   DeleteServiceLinkedRoleRequestBuilder get _$this {
     final $v = _$v;

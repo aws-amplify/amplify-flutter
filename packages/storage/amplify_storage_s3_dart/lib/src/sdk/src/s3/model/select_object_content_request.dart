@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_storage_s3_dart.s3.model.select_object_content_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -111,12 +111,8 @@ abstract class SelectObjectContentRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    SelectObjectContentRequestRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SelectObjectContentRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<SelectObjectContentRequestPayload>>
+      serializers = [SelectObjectContentRequestRestXmlSerializer()];
 
   /// The S3 bucket.
   String get bucket;
@@ -206,55 +202,55 @@ abstract class SelectObjectContentRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SelectObjectContentRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'sseCustomerAlgorithm',
-      sseCustomerAlgorithm,
-    );
-    helper.add(
-      'sseCustomerKey',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'sseCustomerKeyMd5',
-      sseCustomerKeyMd5,
-    );
-    helper.add(
-      'expression',
-      expression,
-    );
-    helper.add(
-      'expressionType',
-      expressionType,
-    );
-    helper.add(
-      'requestProgress',
-      requestProgress,
-    );
-    helper.add(
-      'inputSerialization',
-      inputSerialization,
-    );
-    helper.add(
-      'outputSerialization',
-      outputSerialization,
-    );
-    helper.add(
-      'scanRange',
-      scanRange,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('SelectObjectContentRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'sseCustomerAlgorithm',
+        sseCustomerAlgorithm,
+      )
+      ..add(
+        'sseCustomerKey',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'sseCustomerKeyMd5',
+        sseCustomerKeyMd5,
+      )
+      ..add(
+        'expression',
+        expression,
+      )
+      ..add(
+        'expressionType',
+        expressionType,
+      )
+      ..add(
+        'requestProgress',
+        requestProgress,
+      )
+      ..add(
+        'inputSerialization',
+        inputSerialization,
+      )
+      ..add(
+        'outputSerialization',
+        outputSerialization,
+      )
+      ..add(
+        'scanRange',
+        scanRange,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }
@@ -271,9 +267,6 @@ abstract class SelectObjectContentRequestPayload
       _$SelectObjectContentRequestPayload;
 
   const SelectObjectContentRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SelectObjectContentRequestPayloadBuilder b) {}
 
   /// The expression that is used to query the object.
   String get expression;
@@ -312,31 +305,31 @@ abstract class SelectObjectContentRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('SelectObjectContentRequestPayload');
-    helper.add(
-      'expression',
-      expression,
-    );
-    helper.add(
-      'expressionType',
-      expressionType,
-    );
-    helper.add(
-      'inputSerialization',
-      inputSerialization,
-    );
-    helper.add(
-      'outputSerialization',
-      outputSerialization,
-    );
-    helper.add(
-      'requestProgress',
-      requestProgress,
-    );
-    helper.add(
-      'scanRange',
-      scanRange,
-    );
+        newBuiltValueToStringHelper('SelectObjectContentRequestPayload')
+          ..add(
+            'expression',
+            expression,
+          )
+          ..add(
+            'expressionType',
+            expressionType,
+          )
+          ..add(
+            'inputSerialization',
+            inputSerialization,
+          )
+          ..add(
+            'outputSerialization',
+            outputSerialization,
+          )
+          ..add(
+            'requestProgress',
+            requestProgress,
+          )
+          ..add(
+            'scanRange',
+            scanRange,
+          );
     return helper.toString();
   }
 }

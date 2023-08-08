@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v1.rest_xml_protocol.model.http_payload_with_xml_namespace_and_prefix_input_output;
+part of 'http_payload_with_xml_namespace_and_prefix_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -61,9 +61,7 @@ class HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder
   set nested(_i2.PayloadWithXmlNamespaceAndPrefixBuilder? nested) =>
       _$this._nested = nested;
 
-  HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder() {
-    HttpPayloadWithXmlNamespaceAndPrefixInputOutput._init(this);
-  }
+  HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder();
 
   HttpPayloadWithXmlNamespaceAndPrefixInputOutputBuilder get _$this {
     final $v = _$v;

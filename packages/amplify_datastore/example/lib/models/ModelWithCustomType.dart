@@ -104,7 +104,7 @@ class ModelWithCustomType extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("ModelWithCustomType {");
     buffer.write("id=" + "$id" + ", ");
@@ -189,7 +189,7 @@ class ModelWithCustomType extends amplify_core.Model {
       };
 
   static final amplify_core
-          .QueryModelIdentifier<ModelWithCustomTypeModelIdentifier>
+      .QueryModelIdentifier<ModelWithCustomTypeModelIdentifier>
       MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<ModelWithCustomTypeModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
@@ -258,7 +258,7 @@ class ModelWithCustomTypeModelIdentifier
     implements amplify_core.ModelIdentifier<ModelWithCustomType> {
   final String id;
 
-  /// Create an instance of ModelWithCustomTypeModelIdentifier using [id] the primary key.
+  /** Create an instance of ModelWithCustomTypeModelIdentifier using [id] the primary key. */
   const ModelWithCustomTypeModelIdentifier({required this.id});
 
   @override

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.operation.describe_organization_config_rule_statuses_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -130,7 +130,7 @@ class DescribeOrganizationConfigRuleStatusesOperation
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidLimitException, _i11.InvalidLimitException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidLimitException',
@@ -139,7 +139,8 @@ class DescribeOrganizationConfigRuleStatusesOperation
           _i11.InvalidLimitException,
           builder: _i11.InvalidLimitException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.InvalidNextTokenException,
+            _i12.InvalidNextTokenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidNextTokenException',
@@ -148,7 +149,8 @@ class DescribeOrganizationConfigRuleStatusesOperation
           _i12.InvalidNextTokenException,
           builder: _i12.InvalidNextTokenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.NoSuchOrganizationConfigRuleException,
+            _i13.NoSuchOrganizationConfigRuleException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchOrganizationConfigRuleException',
@@ -157,7 +159,8 @@ class DescribeOrganizationConfigRuleStatusesOperation
           _i13.NoSuchOrganizationConfigRuleException,
           builder: _i13.NoSuchOrganizationConfigRuleException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.OrganizationAccessDeniedException,
+            _i14.OrganizationAccessDeniedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'OrganizationAccessDeniedException',
@@ -189,7 +192,7 @@ class DescribeOrganizationConfigRuleStatusesOperation
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)}
+        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)},
       },
     );
   }
@@ -209,8 +212,6 @@ class DescribeOrganizationConfigRuleStatusesOperation
   ) =>
       input.rebuild((b) {
         b.nextToken = token;
-        if (pageSize != null) {
-          b.limit = pageSize;
-        }
+        b.limit = pageSize;
       });
 }

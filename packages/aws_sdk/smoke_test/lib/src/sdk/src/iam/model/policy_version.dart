@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.policy_version; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -29,6 +29,7 @@ abstract class PolicyVersion
     bool? isDefaultVersion,
     DateTime? createDate,
   }) {
+    isDefaultVersion ??= false;
     return _$PolicyVersion._(
       document: document,
       versionId: versionId,
@@ -47,12 +48,14 @@ abstract class PolicyVersion
 
   const PolicyVersion._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<PolicyVersion>> serializers = [
     PolicyVersionAwsQuerySerializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(PolicyVersionBuilder b) {}
+  static void _init(PolicyVersionBuilder b) {
+    b.isDefaultVersion = false;
+  }
 
   /// The policy document.
   ///
@@ -67,7 +70,7 @@ abstract class PolicyVersion
   String? get versionId;
 
   /// Specifies whether the policy version is set as the policy's default version.
-  bool? get isDefaultVersion;
+  bool get isDefaultVersion;
 
   /// The date and time, in [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the policy version was created.
   DateTime? get createDate;
@@ -80,23 +83,23 @@ abstract class PolicyVersion
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PolicyVersion');
-    helper.add(
-      'document',
-      document,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'isDefaultVersion',
-      isDefaultVersion,
-    );
-    helper.add(
-      'createDate',
-      createDate,
-    );
+    final helper = newBuiltValueToStringHelper('PolicyVersion')
+      ..add(
+        'document',
+        document,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'isDefaultVersion',
+        isDefaultVersion,
+      )
+      ..add(
+        'createDate',
+        createDate,
+      );
     return helper.toString();
   }
 }
@@ -189,14 +192,12 @@ class PolicyVersionAwsQuerySerializer
           specifiedType: const FullType(String),
         ));
     }
-    if (isDefaultVersion != null) {
-      result$
-        ..add(const _i2.XmlElementName('IsDefaultVersion'))
-        ..add(serializers.serialize(
-          isDefaultVersion,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result$
+      ..add(const _i2.XmlElementName('IsDefaultVersion'))
+      ..add(serializers.serialize(
+        isDefaultVersion,
+        specifiedType: const FullType(bool),
+      ));
     if (createDate != null) {
       result$
         ..add(const _i2.XmlElementName('CreateDate'))

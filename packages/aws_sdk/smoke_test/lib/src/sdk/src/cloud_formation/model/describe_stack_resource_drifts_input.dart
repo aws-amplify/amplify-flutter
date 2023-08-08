@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.describe_stack_resource_drifts_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -49,12 +49,8 @@ abstract class DescribeStackResourceDriftsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DescribeStackResourceDriftsInputAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeStackResourceDriftsInputBuilder b) {}
+  static const List<_i1.SmithySerializer<DescribeStackResourceDriftsInput>>
+      serializers = [DescribeStackResourceDriftsInputAwsQuerySerializer()];
 
   /// The name of the stack for which you want drift information.
   String get stackName;
@@ -88,23 +84,23 @@ abstract class DescribeStackResourceDriftsInput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DescribeStackResourceDriftsInput');
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'stackResourceDriftStatusFilters',
-      stackResourceDriftStatusFilters,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
-      'maxResults',
-      maxResults,
-    );
+        newBuiltValueToStringHelper('DescribeStackResourceDriftsInput')
+          ..add(
+            'stackName',
+            stackName,
+          )
+          ..add(
+            'stackResourceDriftStatusFilters',
+            stackResourceDriftStatusFilters,
+          )
+          ..add(
+            'nextToken',
+            nextToken,
+          )
+          ..add(
+            'maxResults',
+            maxResults,
+          );
     return helper.toString();
   }
 }

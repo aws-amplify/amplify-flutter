@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.remediation_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,9 @@ abstract class RemediationException
 
   const RemediationException._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<RemediationException>> serializers = [
     RemediationExceptionAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RemediationExceptionBuilder b) {}
 
   /// The name of the Config rule.
   String get configRuleName;
@@ -69,27 +66,27 @@ abstract class RemediationException
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RemediationException');
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'message',
-      message,
-    );
-    helper.add(
-      'expirationTime',
-      expirationTime,
-    );
+    final helper = newBuiltValueToStringHelper('RemediationException')
+      ..add(
+        'configRuleName',
+        configRuleName,
+      )
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'message',
+        message,
+      )
+      ..add(
+        'expirationTime',
+        expirationTime,
+      );
     return helper.toString();
   }
 }

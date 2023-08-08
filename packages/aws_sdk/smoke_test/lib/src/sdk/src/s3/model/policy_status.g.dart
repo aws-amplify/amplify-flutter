@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.policy_status;
+part of 'policy_status.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -45,9 +45,7 @@ class PolicyStatusBuilder
   bool? get isPublic => _$this._isPublic;
   set isPublic(bool? isPublic) => _$this._isPublic = isPublic;
 
-  PolicyStatusBuilder() {
-    PolicyStatus._init(this);
-  }
+  PolicyStatusBuilder();
 
   PolicyStatusBuilder get _$this {
     final $v = _$v;

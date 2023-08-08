@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.get_bucket_inventory_configuration_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -51,12 +51,8 @@ abstract class GetBucketInventoryConfigurationOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetBucketInventoryConfigurationOutputRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketInventoryConfigurationOutputBuilder b) {}
+  static const List<_i2.SmithySerializer<_i3.InventoryConfiguration?>>
+      serializers = [GetBucketInventoryConfigurationOutputRestXmlSerializer()];
 
   /// Specifies the inventory configuration.
   _i3.InventoryConfiguration? get inventoryConfiguration;
@@ -67,11 +63,11 @@ abstract class GetBucketInventoryConfigurationOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetBucketInventoryConfigurationOutput');
-    helper.add(
-      'inventoryConfiguration',
-      inventoryConfiguration,
-    );
+        newBuiltValueToStringHelper('GetBucketInventoryConfigurationOutput')
+          ..add(
+            'inventoryConfiguration',
+            inventoryConfiguration,
+          );
     return helper.toString();
   }
 }
@@ -183,12 +179,14 @@ class GetBucketInventoryConfigurationOutputRestXmlSerializer
         destination,
         specifiedType: const FullType(_i4.InventoryDestination),
       ));
-    result$
-      ..add(const _i2.XmlElementName('IsEnabled'))
-      ..add(serializers.serialize(
-        isEnabled,
-        specifiedType: const FullType.nullable(bool),
-      ));
+    if (isEnabled != null) {
+      result$
+        ..add(const _i2.XmlElementName('IsEnabled'))
+        ..add(serializers.serialize(
+          isEnabled,
+          specifiedType: const FullType.nullable(bool),
+        ));
+    }
     if (filter != null) {
       result$
         ..add(const _i2.XmlElementName('Filter'))

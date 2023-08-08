@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.delete_configuration_aggregator_request;
+part of 'delete_configuration_aggregator_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -61,9 +61,7 @@ class DeleteConfigurationAggregatorRequestBuilder
   set configurationAggregatorName(String? configurationAggregatorName) =>
       _$this._configurationAggregatorName = configurationAggregatorName;
 
-  DeleteConfigurationAggregatorRequestBuilder() {
-    DeleteConfigurationAggregatorRequest._init(this);
-  }
+  DeleteConfigurationAggregatorRequestBuilder();
 
   DeleteConfigurationAggregatorRequestBuilder get _$this {
     final $v = _$v;

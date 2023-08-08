@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.conformance_pack_template_validation_exception;
+part of 'conformance_pack_template_validation_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -69,9 +69,7 @@ class ConformancePackTemplateValidationExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ConformancePackTemplateValidationExceptionBuilder() {
-    ConformancePackTemplateValidationException._init(this);
-  }
+  ConformancePackTemplateValidationExceptionBuilder();
 
   ConformancePackTemplateValidationExceptionBuilder get _$this {
     final $v = _$v;

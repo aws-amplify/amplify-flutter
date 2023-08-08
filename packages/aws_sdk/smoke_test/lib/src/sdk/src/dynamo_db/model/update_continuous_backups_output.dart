@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.update_continuous_backups_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,12 +37,8 @@ abstract class UpdateContinuousBackupsOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    UpdateContinuousBackupsOutputAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateContinuousBackupsOutputBuilder b) {}
+  static const List<_i3.SmithySerializer<UpdateContinuousBackupsOutput>>
+      serializers = [UpdateContinuousBackupsOutputAwsJson10Serializer()];
 
   /// Represents the continuous backups and point in time recovery settings on the table.
   _i2.ContinuousBackupsDescription? get continuousBackupsDescription;
@@ -50,11 +46,11 @@ abstract class UpdateContinuousBackupsOutput
   List<Object?> get props => [continuousBackupsDescription];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateContinuousBackupsOutput');
-    helper.add(
-      'continuousBackupsDescription',
-      continuousBackupsDescription,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateContinuousBackupsOutput')
+      ..add(
+        'continuousBackupsDescription',
+        continuousBackupsDescription,
+      );
     return helper.toString();
   }
 }

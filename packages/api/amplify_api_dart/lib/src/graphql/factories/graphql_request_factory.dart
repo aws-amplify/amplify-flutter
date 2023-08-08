@@ -250,7 +250,7 @@ class GraphQLRequestFactory {
     return <String, dynamic>{
       'filter': filter,
       'limit': limit,
-      'nextToken': nextToken
+      'nextToken': nextToken,
     };
   }
 
@@ -312,7 +312,7 @@ class GraphQLRequestFactory {
       return <String, dynamic>{
         fieldName: _queryFieldOperatorToPartialGraphQLFilter(
           queryPredicate.queryFieldOperator,
-        )
+        ),
       };
     }
 
@@ -329,7 +329,7 @@ class GraphQLRequestFactory {
             typeExpression: queryPredicateToGraphQLFilter(
               queryPredicate.predicates[0],
               modelType,
-            )
+            ),
           };
         }
         // Public not() API only allows 1 condition but QueryPredicateGroup
@@ -346,7 +346,7 @@ class GraphQLRequestFactory {
               (predicate) =>
                   queryPredicateToGraphQLFilter(predicate, modelType)!,
             )
-            .toList()
+            .toList(),
       };
     }
 
@@ -443,15 +443,15 @@ Map<String, dynamic> _queryFieldOperatorToPartialGraphQLFilter(
   final filterExpression = _getGraphQLFilterExpression(queryFieldOperator.type);
   if (queryFieldOperator is QueryFieldOperatorSingleValue) {
     return <String, dynamic>{
-      filterExpression: _getSerializedValue(queryFieldOperator.value)
+      filterExpression: _getSerializedValue(queryFieldOperator.value),
     };
   }
   if (queryFieldOperator is BetweenQueryOperator) {
     return <String, dynamic>{
       filterExpression: <dynamic>[
         _getSerializedValue(queryFieldOperator.start),
-        _getSerializedValue(queryFieldOperator.end)
-      ]
+        _getSerializedValue(queryFieldOperator.end),
+      ],
     };
   }
 
@@ -470,7 +470,7 @@ String _getGraphQLFilterExpression(QueryFieldOperatorType operatorType) {
     QueryFieldOperatorType.greater_or_equal: 'ge',
     QueryFieldOperatorType.between: 'between',
     QueryFieldOperatorType.contains: 'contains',
-    QueryFieldOperatorType.begins_with: 'beginsWith'
+    QueryFieldOperatorType.begins_with: 'beginsWith',
   };
   final result = dictionary[operatorType];
   if (result == null) {

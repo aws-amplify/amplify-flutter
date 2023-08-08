@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.limit_exceeded_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,12 +44,8 @@ abstract class LimitExceededException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    LimitExceededExceptionAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(LimitExceededExceptionBuilder b) {}
+  static const List<_i2.SmithySerializer<LimitExceededException>> serializers =
+      [LimitExceededExceptionAwsJson11Serializer()];
 
   /// Error executing the command
   @override
@@ -73,11 +69,11 @@ abstract class LimitExceededException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('LimitExceededException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('LimitExceededException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

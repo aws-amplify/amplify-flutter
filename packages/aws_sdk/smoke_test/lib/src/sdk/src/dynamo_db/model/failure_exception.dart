@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.failure_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,12 +31,9 @@ abstract class FailureException
 
   const FailureException._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<FailureException>> serializers = [
     FailureExceptionAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(FailureExceptionBuilder b) {}
 
   /// Exception name.
   String? get exceptionName;
@@ -50,15 +47,15 @@ abstract class FailureException
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('FailureException');
-    helper.add(
-      'exceptionName',
-      exceptionName,
-    );
-    helper.add(
-      'exceptionDescription',
-      exceptionDescription,
-    );
+    final helper = newBuiltValueToStringHelper('FailureException')
+      ..add(
+        'exceptionName',
+        exceptionName,
+      )
+      ..add(
+        'exceptionDescription',
+        exceptionDescription,
+      );
     return helper.toString();
   }
 }

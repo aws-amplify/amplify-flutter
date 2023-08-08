@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.operation.get_rest_apis_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -126,7 +126,7 @@ class GetRestApisOperation extends _i1.PaginatedHttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.BadRequestException, _i11.BadRequestException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'BadRequestException',
@@ -136,7 +136,7 @@ class GetRestApisOperation extends _i1.PaginatedHttpOperation<
           statusCode: 400,
           builder: _i11.BadRequestException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.NotFoundException, _i12.NotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'NotFoundException',
@@ -146,7 +146,8 @@ class GetRestApisOperation extends _i1.PaginatedHttpOperation<
           statusCode: 404,
           builder: _i12.NotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.TooManyRequestsExceptionPayload,
+            _i13.TooManyRequestsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'TooManyRequestsException',
@@ -156,7 +157,7 @@ class GetRestApisOperation extends _i1.PaginatedHttpOperation<
           statusCode: 429,
           builder: _i13.TooManyRequestsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.UnauthorizedException, _i14.UnauthorizedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'UnauthorizedException',
@@ -189,7 +190,7 @@ class GetRestApisOperation extends _i1.PaginatedHttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)}
+        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)},
       },
     );
   }

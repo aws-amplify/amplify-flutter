@@ -173,7 +173,7 @@ Future<void> main() async {
 
             logger.debug('Creating user $username...');
             await adminCreateUser(username, password, autoConfirm: true);
-            addTearDown(() => deleteUser(username));
+            addTearDown(() => adminDeleteUser(username));
 
             logger.info('Launching Chrome...');
             driver = await createWebDriver();

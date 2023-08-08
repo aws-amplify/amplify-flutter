@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.delete_rest_api_request;
+part of 'delete_rest_api_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class DeleteRestApiRequestBuilder
   String? get restApiId => _$this._restApiId;
   set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
-  DeleteRestApiRequestBuilder() {
-    DeleteRestApiRequest._init(this);
-  }
+  DeleteRestApiRequestBuilder();
 
   DeleteRestApiRequestBuilder get _$this {
     final $v = _$v;
@@ -122,9 +120,7 @@ class DeleteRestApiRequestPayloadBuilder
             DeleteRestApiRequestPayloadBuilder> {
   _$DeleteRestApiRequestPayload? _$v;
 
-  DeleteRestApiRequestPayloadBuilder() {
-    DeleteRestApiRequestPayload._init(this);
-  }
+  DeleteRestApiRequestPayloadBuilder();
 
   @override
   void replace(DeleteRestApiRequestPayload other) {

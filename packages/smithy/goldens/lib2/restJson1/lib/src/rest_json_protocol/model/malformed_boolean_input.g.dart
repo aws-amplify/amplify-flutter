@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.malformed_boolean_input;
+part of 'malformed_boolean_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -85,9 +85,7 @@ class MalformedBooleanInputBuilder
   set booleanInHeader(bool? booleanInHeader) =>
       _$this._booleanInHeader = booleanInHeader;
 
-  MalformedBooleanInputBuilder() {
-    MalformedBooleanInput._init(this);
-  }
+  MalformedBooleanInputBuilder();
 
   MalformedBooleanInputBuilder get _$this {
     final $v = _$v;
@@ -174,9 +172,7 @@ class MalformedBooleanInputPayloadBuilder
   set booleanInBody(bool? booleanInBody) =>
       _$this._booleanInBody = booleanInBody;
 
-  MalformedBooleanInputPayloadBuilder() {
-    MalformedBooleanInputPayload._init(this);
-  }
+  MalformedBooleanInputPayloadBuilder();
 
   MalformedBooleanInputPayloadBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.list_access_keys_request;
+part of 'list_access_keys_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -66,9 +66,7 @@ class ListAccessKeysRequestBuilder
   int? get maxItems => _$this._maxItems;
   set maxItems(int? maxItems) => _$this._maxItems = maxItems;
 
-  ListAccessKeysRequestBuilder() {
-    ListAccessKeysRequest._init(this);
-  }
+  ListAccessKeysRequestBuilder();
 
   ListAccessKeysRequestBuilder get _$this {
     final $v = _$v;

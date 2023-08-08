@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.delete_service_linked_role_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,8 @@ abstract class DeleteServiceLinkedRoleResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    DeleteServiceLinkedRoleResponseAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteServiceLinkedRoleResponseBuilder b) {}
+  static const List<_i2.SmithySerializer<DeleteServiceLinkedRoleResponse>>
+      serializers = [DeleteServiceLinkedRoleResponseAwsQuerySerializer()];
 
   /// The deletion task identifier that you can use to check the status of the deletion. This identifier is returned in the format `task/aws-service-role///`.
   String get deletionTaskId;
@@ -47,11 +43,11 @@ abstract class DeleteServiceLinkedRoleResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeleteServiceLinkedRoleResponse');
-    helper.add(
-      'deletionTaskId',
-      deletionTaskId,
-    );
+        newBuiltValueToStringHelper('DeleteServiceLinkedRoleResponse')
+          ..add(
+            'deletionTaskId',
+            deletionTaskId,
+          );
     return helper.toString();
   }
 }

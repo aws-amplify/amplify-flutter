@@ -1,3 +1,20 @@
+## 1.2.0
+
+### Fixes
+- fix(auth): Attribute key equality ([#3136](https://github.com/aws-amplify/amplify-flutter/pull/3136))
+- fix(auth): `signOut` after user deletion ([#3162](https://github.com/aws-amplify/amplify-flutter/pull/3162))
+
+### Features
+- feat(storage): using path style URLs when bucket name contains dots
+
+## 1.1.1
+
+### Fixes
+- fix(auth): remove duplicate continuation call for hosted UI ([#3112](https://github.com/aws-amplify/amplify-flutter/pull/3112))
+- fix(datastore): support nested predicates for observe and observeQuery ([#3029](https://github.com/aws-amplify/amplify-flutter/pull/3029))
+- fix: suppress browser on sign out when preferPrivateSession is true ([#3099](https://github.com/aws-amplify/amplify-flutter/pull/3099))
+- fix(auth): User attribute serialization
+
 ## 1.1.0
 
 ### Features
@@ -8,6 +25,12 @@
 - fix(notifications): configure call hangs on Flutter app hot restart ([#3013](https://github.com/aws-amplify/amplify-flutter/pull/3013))
 - fix(repo): AGP 8.0 compatibility ([#2942](https://github.com/aws-amplify/amplify-flutter/pull/2942))
 - fix: wait for addPlugin prior to configuration ([#3018](https://github.com/aws-amplify/amplify-flutter/pull/3018))
+
+## 1.0.1
+
+### Fixes
+- fix(repo): Flutter 3.3 support
+- fix: convert AuthUserAttributeKey in updateUserAttributes
 
 ## 1.0.0
 

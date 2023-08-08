@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.change_set_hook; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -45,12 +45,9 @@ abstract class ChangeSetHook
 
   const ChangeSetHook._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<ChangeSetHook>> serializers = [
     ChangeSetHookAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ChangeSetHookBuilder b) {}
 
   /// Specifies the points in provisioning logic where a hook is invoked.
   _i2.HookInvocationPoint? get invocationPoint;
@@ -100,31 +97,31 @@ abstract class ChangeSetHook
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ChangeSetHook');
-    helper.add(
-      'invocationPoint',
-      invocationPoint,
-    );
-    helper.add(
-      'failureMode',
-      failureMode,
-    );
-    helper.add(
-      'typeName',
-      typeName,
-    );
-    helper.add(
-      'typeVersionId',
-      typeVersionId,
-    );
-    helper.add(
-      'typeConfigurationVersionId',
-      typeConfigurationVersionId,
-    );
-    helper.add(
-      'targetDetails',
-      targetDetails,
-    );
+    final helper = newBuiltValueToStringHelper('ChangeSetHook')
+      ..add(
+        'invocationPoint',
+        invocationPoint,
+      )
+      ..add(
+        'failureMode',
+        failureMode,
+      )
+      ..add(
+        'typeName',
+        typeName,
+      )
+      ..add(
+        'typeVersionId',
+        typeVersionId,
+      )
+      ..add(
+        'typeConfigurationVersionId',
+        typeConfigurationVersionId,
+      )
+      ..add(
+        'targetDetails',
+        targetDetails,
+      );
     return helper.toString();
   }
 }

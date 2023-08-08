@@ -3,8 +3,6 @@
 
 // ignore_for_file: non_constant_identifier_names, invalid_use_of_visible_for_testing_member
 
-import 'dart:convert';
-
 import 'package:amplify_core/amplify_core.dart';
 import 'package:meta/meta.dart';
 
@@ -16,21 +14,8 @@ class AmplifyClassImpl extends AmplifyClass {
   /// {@macro amplify_flutter.amplify_class_impl}
   AmplifyClassImpl() : super.protected();
 
-  /// Share AmplifyAuthProviders with plugins.
-  @protected
-  final AmplifyAuthProviderRepository authProviderRepo =
-      AmplifyAuthProviderRepository();
-
-  final _addPluginFutures = <Future<void>>[];
-
   @override
-  Future<void> addPlugin(AmplifyPluginInterface plugin) {
-    final future = _addPlugin(plugin);
-    _addPluginFutures.add(future);
-    return future;
-  }
-
-  Future<void> _addPlugin(AmplifyPluginInterface plugin) {
+  Future<void> addPluginPlatform(AmplifyPluginInterface plugin) {
     switch (plugin.category) {
       case Category.analytics:
         return Analytics.addPlugin(
@@ -65,42 +50,5 @@ class AmplifyClassImpl extends AmplifyClass {
           authProviderRepo: authProviderRepo,
         );
     }
-  }
-
-  @override
-  Future<void> configurePlatform(String config) async {
-    final amplifyConfig = AmplifyConfig.fromJson(
-      (jsonDecode(config) as Map<Object?, Object?>).cast(),
-    );
-    await Future.wait(_addPluginFutures);
-    _addPluginFutures.clear();
-    await Future.wait(
-      [
-        ...Analytics.plugins,
-        ...API.plugins,
-        ...Auth.plugins,
-        ...DataStore.plugins,
-        ...Storage.plugins,
-      ].map(
-        (p) => p.configure(
-          config: amplifyConfig,
-          authProviderRepo: authProviderRepo,
-        ),
-      ),
-      eagerError: true,
-    );
-  }
-
-  @override
-  Future<void> reset() async {
-    _addPluginFutures.clear();
-    await Future.wait([
-      Analytics.reset(),
-      API.reset(),
-      Auth.reset(),
-      DataStore.reset(),
-      Storage.reset(),
-    ]);
-    await super.reset();
   }
 }

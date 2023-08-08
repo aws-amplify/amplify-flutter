@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.signing_certificate;
+part of 'signing_certificate.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -98,9 +98,7 @@ class SigningCertificateBuilder
   DateTime? get uploadDate => _$this._uploadDate;
   set uploadDate(DateTime? uploadDate) => _$this._uploadDate = uploadDate;
 
-  SigningCertificateBuilder() {
-    SigningCertificate._init(this);
-  }
+  SigningCertificateBuilder();
 
   SigningCertificateBuilder get _$this {
     final $v = _$v;

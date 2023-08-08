@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.put_bucket_intelligent_tiering_configuration_request;
+part of 'put_bucket_intelligent_tiering_configuration_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -94,9 +94,7 @@ class PutBucketIntelligentTieringConfigurationRequestBuilder
               intelligentTieringConfiguration) =>
       _$this._intelligentTieringConfiguration = intelligentTieringConfiguration;
 
-  PutBucketIntelligentTieringConfigurationRequestBuilder() {
-    PutBucketIntelligentTieringConfigurationRequest._init(this);
-  }
+  PutBucketIntelligentTieringConfigurationRequestBuilder();
 
   PutBucketIntelligentTieringConfigurationRequestBuilder get _$this {
     final $v = _$v;

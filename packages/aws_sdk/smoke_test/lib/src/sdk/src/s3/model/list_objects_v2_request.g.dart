@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.list_objects_v2_request;
+part of 'list_objects_v2_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -27,6 +27,8 @@ class _$ListObjectsV2Request extends ListObjectsV2Request {
   final _i4.RequestPayer? requestPayer;
   @override
   final String? expectedBucketOwner;
+  @override
+  final _i6.BuiltList<_i5.OptionalObjectAttributes>? optionalObjectAttributes;
 
   factory _$ListObjectsV2Request(
           [void Function(ListObjectsV2RequestBuilder)? updates]) =>
@@ -42,7 +44,8 @@ class _$ListObjectsV2Request extends ListObjectsV2Request {
       this.fetchOwner,
       this.startAfter,
       this.requestPayer,
-      this.expectedBucketOwner})
+      this.expectedBucketOwner,
+      this.optionalObjectAttributes})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'ListObjectsV2Request', 'bucket');
@@ -70,7 +73,8 @@ class _$ListObjectsV2Request extends ListObjectsV2Request {
         fetchOwner == other.fetchOwner &&
         startAfter == other.startAfter &&
         requestPayer == other.requestPayer &&
-        expectedBucketOwner == other.expectedBucketOwner;
+        expectedBucketOwner == other.expectedBucketOwner &&
+        optionalObjectAttributes == other.optionalObjectAttributes;
   }
 
   @override
@@ -86,6 +90,7 @@ class _$ListObjectsV2Request extends ListObjectsV2Request {
     _$hash = $jc(_$hash, startAfter.hashCode);
     _$hash = $jc(_$hash, requestPayer.hashCode);
     _$hash = $jc(_$hash, expectedBucketOwner.hashCode);
+    _$hash = $jc(_$hash, optionalObjectAttributes.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -139,9 +144,16 @@ class ListObjectsV2RequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  ListObjectsV2RequestBuilder() {
-    ListObjectsV2Request._init(this);
-  }
+  _i6.ListBuilder<_i5.OptionalObjectAttributes>? _optionalObjectAttributes;
+  _i6.ListBuilder<_i5.OptionalObjectAttributes> get optionalObjectAttributes =>
+      _$this._optionalObjectAttributes ??=
+          new _i6.ListBuilder<_i5.OptionalObjectAttributes>();
+  set optionalObjectAttributes(
+          _i6.ListBuilder<_i5.OptionalObjectAttributes>?
+              optionalObjectAttributes) =>
+      _$this._optionalObjectAttributes = optionalObjectAttributes;
+
+  ListObjectsV2RequestBuilder();
 
   ListObjectsV2RequestBuilder get _$this {
     final $v = _$v;
@@ -156,6 +168,7 @@ class ListObjectsV2RequestBuilder
       _startAfter = $v.startAfter;
       _requestPayer = $v.requestPayer;
       _expectedBucketOwner = $v.expectedBucketOwner;
+      _optionalObjectAttributes = $v.optionalObjectAttributes?.toBuilder();
       _$v = null;
     }
     return this;
@@ -176,19 +189,33 @@ class ListObjectsV2RequestBuilder
   ListObjectsV2Request build() => _build();
 
   _$ListObjectsV2Request _build() {
-    final _$result = _$v ??
-        new _$ListObjectsV2Request._(
-            bucket: BuiltValueNullFieldError.checkNotNull(
-                bucket, r'ListObjectsV2Request', 'bucket'),
-            delimiter: delimiter,
-            encodingType: encodingType,
-            maxKeys: maxKeys,
-            prefix: prefix,
-            continuationToken: continuationToken,
-            fetchOwner: fetchOwner,
-            startAfter: startAfter,
-            requestPayer: requestPayer,
-            expectedBucketOwner: expectedBucketOwner);
+    _$ListObjectsV2Request _$result;
+    try {
+      _$result = _$v ??
+          new _$ListObjectsV2Request._(
+              bucket: BuiltValueNullFieldError.checkNotNull(
+                  bucket, r'ListObjectsV2Request', 'bucket'),
+              delimiter: delimiter,
+              encodingType: encodingType,
+              maxKeys: maxKeys,
+              prefix: prefix,
+              continuationToken: continuationToken,
+              fetchOwner: fetchOwner,
+              startAfter: startAfter,
+              requestPayer: requestPayer,
+              expectedBucketOwner: expectedBucketOwner,
+              optionalObjectAttributes: _optionalObjectAttributes?.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'optionalObjectAttributes';
+        _optionalObjectAttributes?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'ListObjectsV2Request', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
@@ -228,9 +255,7 @@ class ListObjectsV2RequestPayloadBuilder
             ListObjectsV2RequestPayloadBuilder> {
   _$ListObjectsV2RequestPayload? _$v;
 
-  ListObjectsV2RequestPayloadBuilder() {
-    ListObjectsV2RequestPayload._init(this);
-  }
+  ListObjectsV2RequestPayloadBuilder();
 
   @override
   void replace(ListObjectsV2RequestPayload other) {

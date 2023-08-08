@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.conformance_pack_status_detail; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -47,12 +47,8 @@ abstract class ConformancePackStatusDetail
 
   const ConformancePackStatusDetail._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ConformancePackStatusDetailAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConformancePackStatusDetailBuilder b) {}
+  static const List<_i3.SmithySerializer<ConformancePackStatusDetail>>
+      serializers = [ConformancePackStatusDetailAwsJson11Serializer()];
 
   /// Name of the conformance pack.
   String get conformancePackName;
@@ -102,39 +98,39 @@ abstract class ConformancePackStatusDetail
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConformancePackStatusDetail');
-    helper.add(
-      'conformancePackName',
-      conformancePackName,
-    );
-    helper.add(
-      'conformancePackId',
-      conformancePackId,
-    );
-    helper.add(
-      'conformancePackArn',
-      conformancePackArn,
-    );
-    helper.add(
-      'conformancePackState',
-      conformancePackState,
-    );
-    helper.add(
-      'stackArn',
-      stackArn,
-    );
-    helper.add(
-      'conformancePackStatusReason',
-      conformancePackStatusReason,
-    );
-    helper.add(
-      'lastUpdateRequestedTime',
-      lastUpdateRequestedTime,
-    );
-    helper.add(
-      'lastUpdateCompletedTime',
-      lastUpdateCompletedTime,
-    );
+    final helper = newBuiltValueToStringHelper('ConformancePackStatusDetail')
+      ..add(
+        'conformancePackName',
+        conformancePackName,
+      )
+      ..add(
+        'conformancePackId',
+        conformancePackId,
+      )
+      ..add(
+        'conformancePackArn',
+        conformancePackArn,
+      )
+      ..add(
+        'conformancePackState',
+        conformancePackState,
+      )
+      ..add(
+        'stackArn',
+        stackArn,
+      )
+      ..add(
+        'conformancePackStatusReason',
+        conformancePackStatusReason,
+      )
+      ..add(
+        'lastUpdateRequestedTime',
+        lastUpdateRequestedTime,
+      )
+      ..add(
+        'lastUpdateCompletedTime',
+        lastUpdateCompletedTime,
+      );
     return helper.toString();
   }
 }

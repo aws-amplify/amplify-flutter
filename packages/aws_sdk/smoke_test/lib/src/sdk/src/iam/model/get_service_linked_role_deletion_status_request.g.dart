@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_service_linked_role_deletion_status_request;
+part of 'get_service_linked_role_deletion_status_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -60,9 +60,7 @@ class GetServiceLinkedRoleDeletionStatusRequestBuilder
   set deletionTaskId(String? deletionTaskId) =>
       _$this._deletionTaskId = deletionTaskId;
 
-  GetServiceLinkedRoleDeletionStatusRequestBuilder() {
-    GetServiceLinkedRoleDeletionStatusRequest._init(this);
-  }
+  GetServiceLinkedRoleDeletionStatusRequestBuilder();
 
   GetServiceLinkedRoleDeletionStatusRequestBuilder get _$this {
     final $v = _$v;

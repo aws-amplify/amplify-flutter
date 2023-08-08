@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.create_backup_output;
+part of 'create_backup_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -50,9 +50,7 @@ class CreateBackupOutputBuilder
   set backupDetails(_i2.BackupDetailsBuilder? backupDetails) =>
       _$this._backupDetails = backupDetails;
 
-  CreateBackupOutputBuilder() {
-    CreateBackupOutput._init(this);
-  }
+  CreateBackupOutputBuilder();
 
   CreateBackupOutputBuilder get _$this {
     final $v = _$v;

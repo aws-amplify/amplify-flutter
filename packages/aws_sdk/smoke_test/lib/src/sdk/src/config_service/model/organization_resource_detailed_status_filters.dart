@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.organization_resource_detailed_status_filters; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,17 +37,16 @@ abstract class OrganizationResourceDetailedStatusFilters
 
   const OrganizationResourceDetailedStatusFilters._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<
+          _i3.SmithySerializer<OrganizationResourceDetailedStatusFilters>>
+      serializers = [
     OrganizationResourceDetailedStatusFiltersAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OrganizationResourceDetailedStatusFiltersBuilder b) {}
 
   /// The 12-digit account ID of the member account within an organization.
   String? get accountId;
 
-  /// Indicates deployment status for conformance pack in a member account. When master account calls `PutOrganizationConformancePack` action for the first time, conformance pack status is created in the member account. When master account calls `PutOrganizationConformancePack` action for the second time, conformance pack status is updated in the member account. Conformance pack status is deleted when the master account deletes `OrganizationConformancePack` and disables service access for `config-multiaccountsetup.amazonaws.com`.
+  /// Indicates deployment status for conformance pack in a member account. When management account calls `PutOrganizationConformancePack` action for the first time, conformance pack status is created in the member account. When management account calls `PutOrganizationConformancePack` action for the second time, conformance pack status is updated in the member account. Conformance pack status is deleted when the management account deletes `OrganizationConformancePack` and disables service access for `config-multiaccountsetup.amazonaws.com`.
   ///
   /// Config sets the state of the conformance pack to:
   ///
@@ -76,16 +75,16 @@ abstract class OrganizationResourceDetailedStatusFilters
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'OrganizationResourceDetailedStatusFilters');
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'status',
-      status,
-    );
+    final helper =
+        newBuiltValueToStringHelper('OrganizationResourceDetailedStatusFilters')
+          ..add(
+            'accountId',
+            accountId,
+          )
+          ..add(
+            'status',
+            status,
+          );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.replica_settings_description; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -68,12 +68,8 @@ abstract class ReplicaSettingsDescription
 
   const ReplicaSettingsDescription._();
 
-  static const List<_i9.SmithySerializer> serializers = [
-    ReplicaSettingsDescriptionAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicaSettingsDescriptionBuilder b) {}
+  static const List<_i9.SmithySerializer<ReplicaSettingsDescription>>
+      serializers = [ReplicaSettingsDescriptionAwsJson10Serializer()];
 
   /// The Region name of the replica.
   String get regionName;
@@ -126,43 +122,43 @@ abstract class ReplicaSettingsDescription
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ReplicaSettingsDescription');
-    helper.add(
-      'regionName',
-      regionName,
-    );
-    helper.add(
-      'replicaStatus',
-      replicaStatus,
-    );
-    helper.add(
-      'replicaBillingModeSummary',
-      replicaBillingModeSummary,
-    );
-    helper.add(
-      'replicaProvisionedReadCapacityUnits',
-      replicaProvisionedReadCapacityUnits,
-    );
-    helper.add(
-      'replicaProvisionedReadCapacityAutoScalingSettings',
-      replicaProvisionedReadCapacityAutoScalingSettings,
-    );
-    helper.add(
-      'replicaProvisionedWriteCapacityUnits',
-      replicaProvisionedWriteCapacityUnits,
-    );
-    helper.add(
-      'replicaProvisionedWriteCapacityAutoScalingSettings',
-      replicaProvisionedWriteCapacityAutoScalingSettings,
-    );
-    helper.add(
-      'replicaGlobalSecondaryIndexSettings',
-      replicaGlobalSecondaryIndexSettings,
-    );
-    helper.add(
-      'replicaTableClassSummary',
-      replicaTableClassSummary,
-    );
+    final helper = newBuiltValueToStringHelper('ReplicaSettingsDescription')
+      ..add(
+        'regionName',
+        regionName,
+      )
+      ..add(
+        'replicaStatus',
+        replicaStatus,
+      )
+      ..add(
+        'replicaBillingModeSummary',
+        replicaBillingModeSummary,
+      )
+      ..add(
+        'replicaProvisionedReadCapacityUnits',
+        replicaProvisionedReadCapacityUnits,
+      )
+      ..add(
+        'replicaProvisionedReadCapacityAutoScalingSettings',
+        replicaProvisionedReadCapacityAutoScalingSettings,
+      )
+      ..add(
+        'replicaProvisionedWriteCapacityUnits',
+        replicaProvisionedWriteCapacityUnits,
+      )
+      ..add(
+        'replicaProvisionedWriteCapacityAutoScalingSettings',
+        replicaProvisionedWriteCapacityAutoScalingSettings,
+      )
+      ..add(
+        'replicaGlobalSecondaryIndexSettings',
+        replicaGlobalSecondaryIndexSettings,
+      )
+      ..add(
+        'replicaTableClassSummary',
+        replicaTableClassSummary,
+      );
     return helper.toString();
   }
 }

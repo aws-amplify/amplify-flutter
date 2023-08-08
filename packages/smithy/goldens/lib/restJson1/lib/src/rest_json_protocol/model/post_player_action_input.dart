@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.rest_json_protocol.model.post_player_action_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,12 +34,10 @@ abstract class PostPlayerActionInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<PostPlayerActionInput>> serializers = [
     PostPlayerActionInputRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PostPlayerActionInputBuilder b) {}
   _i3.PlayerAction? get action;
   @override
   PostPlayerActionInput getPayload() => this;
@@ -47,11 +45,11 @@ abstract class PostPlayerActionInput
   List<Object?> get props => [action];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PostPlayerActionInput');
-    helper.add(
-      'action',
-      action,
-    );
+    final helper = newBuiltValueToStringHelper('PostPlayerActionInput')
+      ..add(
+        'action',
+        action,
+      );
     return helper.toString();
   }
 }

@@ -55,6 +55,9 @@ class FlutterAppLifecycleProvider extends WidgetsBindingObserver
       // foreground inactive due to phone call / etc.
       case AppLifecycleState.inactive:
         break;
+      default: /* AppLifecycleState.hidden */
+        // TODO(fjnoyp): Remove when AppLifecycleState.hidden is added
+        break;
     }
   }
 }

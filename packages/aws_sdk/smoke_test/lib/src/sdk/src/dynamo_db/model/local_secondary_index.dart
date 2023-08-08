@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.local_secondary_index; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,9 @@ abstract class LocalSecondaryIndex
 
   const LocalSecondaryIndex._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<LocalSecondaryIndex>> serializers = [
     LocalSecondaryIndexAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(LocalSecondaryIndexBuilder b) {}
 
   /// The name of the local secondary index. The name must be unique among all other indexes on this table.
   String get indexName;
@@ -70,19 +67,19 @@ abstract class LocalSecondaryIndex
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('LocalSecondaryIndex');
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'keySchema',
-      keySchema,
-    );
-    helper.add(
-      'projection',
-      projection,
-    );
+    final helper = newBuiltValueToStringHelper('LocalSecondaryIndex')
+      ..add(
+        'indexName',
+        indexName,
+      )
+      ..add(
+        'keySchema',
+        keySchema,
+      )
+      ..add(
+        'projection',
+        projection,
+      );
     return helper.toString();
   }
 }

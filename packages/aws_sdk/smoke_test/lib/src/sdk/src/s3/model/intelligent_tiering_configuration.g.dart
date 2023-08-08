@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.intelligent_tiering_configuration;
+part of 'intelligent_tiering_configuration.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -92,9 +92,7 @@ class IntelligentTieringConfigurationBuilder
   set tierings(_i5.ListBuilder<_i4.Tiering>? tierings) =>
       _$this._tierings = tierings;
 
-  IntelligentTieringConfigurationBuilder() {
-    IntelligentTieringConfiguration._init(this);
-  }
+  IntelligentTieringConfigurationBuilder();
 
   IntelligentTieringConfigurationBuilder get _$this {
     final $v = _$v;

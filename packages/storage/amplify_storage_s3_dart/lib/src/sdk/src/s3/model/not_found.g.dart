@@ -47,9 +47,7 @@ class NotFoundBuilder implements Builder<NotFound, NotFoundBuilder> {
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  NotFoundBuilder() {
-    NotFound._init(this);
-  }
+  NotFoundBuilder();
 
   NotFoundBuilder get _$this {
     final $v = _$v;

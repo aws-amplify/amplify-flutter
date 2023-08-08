@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.list_bucket_metrics_configurations_request;
+part of 'list_bucket_metrics_configurations_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -78,9 +78,7 @@ class ListBucketMetricsConfigurationsRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  ListBucketMetricsConfigurationsRequestBuilder() {
-    ListBucketMetricsConfigurationsRequest._init(this);
-  }
+  ListBucketMetricsConfigurationsRequestBuilder();
 
   ListBucketMetricsConfigurationsRequestBuilder get _$this {
     final $v = _$v;
@@ -159,9 +157,7 @@ class ListBucketMetricsConfigurationsRequestPayloadBuilder
             ListBucketMetricsConfigurationsRequestPayloadBuilder> {
   _$ListBucketMetricsConfigurationsRequestPayload? _$v;
 
-  ListBucketMetricsConfigurationsRequestPayloadBuilder() {
-    ListBucketMetricsConfigurationsRequestPayload._init(this);
-  }
+  ListBucketMetricsConfigurationsRequestPayloadBuilder();
 
   @override
   void replace(ListBucketMetricsConfigurationsRequestPayload other) {

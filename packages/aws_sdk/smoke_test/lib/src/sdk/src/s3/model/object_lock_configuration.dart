@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.object_lock_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,12 +35,8 @@ abstract class ObjectLockConfiguration
 
   const ObjectLockConfiguration._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ObjectLockConfigurationRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ObjectLockConfigurationBuilder b) {}
+  static const List<_i4.SmithySerializer<ObjectLockConfiguration>> serializers =
+      [ObjectLockConfigurationRestXmlSerializer()];
 
   /// Indicates whether this bucket has an Object Lock configuration enabled. Enable `ObjectLockEnabled` when you apply `ObjectLockConfiguration` to a bucket.
   _i2.ObjectLockEnabled? get objectLockEnabled;
@@ -54,15 +50,15 @@ abstract class ObjectLockConfiguration
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ObjectLockConfiguration');
-    helper.add(
-      'objectLockEnabled',
-      objectLockEnabled,
-    );
-    helper.add(
-      'rule',
-      rule,
-    );
+    final helper = newBuiltValueToStringHelper('ObjectLockConfiguration')
+      ..add(
+        'objectLockEnabled',
+        objectLockEnabled,
+      )
+      ..add(
+        'rule',
+        rule,
+      );
     return helper.toString();
   }
 }

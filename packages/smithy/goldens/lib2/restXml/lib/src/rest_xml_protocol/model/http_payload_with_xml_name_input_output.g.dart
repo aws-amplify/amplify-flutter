@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.rest_xml_protocol.model.http_payload_with_xml_name_input_output;
+part of 'http_payload_with_xml_name_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -53,9 +53,7 @@ class HttpPayloadWithXmlNameInputOutputBuilder
       _$this._nested ??= new _i2.PayloadWithXmlNameBuilder();
   set nested(_i2.PayloadWithXmlNameBuilder? nested) => _$this._nested = nested;
 
-  HttpPayloadWithXmlNameInputOutputBuilder() {
-    HttpPayloadWithXmlNameInputOutput._init(this);
-  }
+  HttpPayloadWithXmlNameInputOutputBuilder();
 
   HttpPayloadWithXmlNameInputOutputBuilder get _$this {
     final $v = _$v;

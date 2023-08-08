@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.update_signing_certificate_request;
+part of 'update_signing_certificate_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -76,9 +76,7 @@ class UpdateSigningCertificateRequestBuilder
   _i3.StatusType? get status => _$this._status;
   set status(_i3.StatusType? status) => _$this._status = status;
 
-  UpdateSigningCertificateRequestBuilder() {
-    UpdateSigningCertificateRequest._init(this);
-  }
+  UpdateSigningCertificateRequestBuilder();
 
   UpdateSigningCertificateRequestBuilder get _$this {
     final $v = _$v;

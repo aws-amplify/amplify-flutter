@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.put_bucket_tagging_request;
+part of 'put_bucket_tagging_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -96,9 +96,7 @@ class PutBucketTaggingRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  PutBucketTaggingRequestBuilder() {
-    PutBucketTaggingRequest._init(this);
-  }
+  PutBucketTaggingRequestBuilder();
 
   PutBucketTaggingRequestBuilder get _$this {
     final $v = _$v;

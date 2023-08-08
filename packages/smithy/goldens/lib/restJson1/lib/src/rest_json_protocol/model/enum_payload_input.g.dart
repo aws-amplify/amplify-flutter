@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_protocol.model.enum_payload_input;
+part of 'enum_payload_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -47,9 +47,7 @@ class EnumPayloadInputBuilder
   _i2.StringEnum? get payload => _$this._payload;
   set payload(_i2.StringEnum? payload) => _$this._payload = payload;
 
-  EnumPayloadInputBuilder() {
-    EnumPayloadInput._init(this);
-  }
+  EnumPayloadInputBuilder();
 
   EnumPayloadInputBuilder get _$this {
     final $v = _$v;

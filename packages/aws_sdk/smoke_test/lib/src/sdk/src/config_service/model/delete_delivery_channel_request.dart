@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.delete_delivery_channel_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,8 @@ abstract class DeleteDeliveryChannelRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteDeliveryChannelRequestAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteDeliveryChannelRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<DeleteDeliveryChannelRequest>>
+      serializers = [DeleteDeliveryChannelRequestAwsJson11Serializer()];
 
   /// The name of the delivery channel to delete.
   String get deliveryChannelName;
@@ -53,11 +49,11 @@ abstract class DeleteDeliveryChannelRequest
   List<Object?> get props => [deliveryChannelName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteDeliveryChannelRequest');
-    helper.add(
-      'deliveryChannelName',
-      deliveryChannelName,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteDeliveryChannelRequest')
+      ..add(
+        'deliveryChannelName',
+        deliveryChannelName,
+      );
     return helper.toString();
   }
 }

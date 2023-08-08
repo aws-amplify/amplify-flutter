@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.delete_organization_config_rule_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,12 +36,8 @@ abstract class DeleteOrganizationConfigRuleRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteOrganizationConfigRuleRequestAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteOrganizationConfigRuleRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<DeleteOrganizationConfigRuleRequest>>
+      serializers = [DeleteOrganizationConfigRuleRequestAwsJson11Serializer()];
 
   /// The name of organization Config rule that you want to delete.
   String get organizationConfigRuleName;
@@ -52,11 +48,11 @@ abstract class DeleteOrganizationConfigRuleRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeleteOrganizationConfigRuleRequest');
-    helper.add(
-      'organizationConfigRuleName',
-      organizationConfigRuleName,
-    );
+        newBuiltValueToStringHelper('DeleteOrganizationConfigRuleRequest')
+          ..add(
+            'organizationConfigRuleName',
+            organizationConfigRuleName,
+          );
     return helper.toString();
   }
 }

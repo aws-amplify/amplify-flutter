@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.resync_mfa_device_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,8 @@ abstract class ResyncMfaDeviceRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ResyncMfaDeviceRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResyncMfaDeviceRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<ResyncMfaDeviceRequest>> serializers =
+      [ResyncMfaDeviceRequestAwsQuerySerializer()];
 
   /// The name of the user whose MFA device you want to resynchronize.
   ///
@@ -79,23 +75,23 @@ abstract class ResyncMfaDeviceRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResyncMfaDeviceRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'serialNumber',
-      serialNumber,
-    );
-    helper.add(
-      'authenticationCode1',
-      authenticationCode1,
-    );
-    helper.add(
-      'authenticationCode2',
-      authenticationCode2,
-    );
+    final helper = newBuiltValueToStringHelper('ResyncMfaDeviceRequest')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'serialNumber',
+        serialNumber,
+      )
+      ..add(
+        'authenticationCode1',
+        authenticationCode1,
+      )
+      ..add(
+        'authenticationCode2',
+        authenticationCode2,
+      );
     return helper.toString();
   }
 }

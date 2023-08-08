@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.malformed_content_type_without_body_empty_input_input;
+part of 'malformed_content_type_without_body_empty_input_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -57,9 +57,7 @@ class MalformedContentTypeWithoutBodyEmptyInputInputBuilder
   String? get header => _$this._header;
   set header(String? header) => _$this._header = header;
 
-  MalformedContentTypeWithoutBodyEmptyInputInputBuilder() {
-    MalformedContentTypeWithoutBodyEmptyInputInput._init(this);
-  }
+  MalformedContentTypeWithoutBodyEmptyInputInputBuilder();
 
   MalformedContentTypeWithoutBodyEmptyInputInputBuilder get _$this {
     final $v = _$v;
@@ -136,9 +134,7 @@ class MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder
             MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder> {
   _$MalformedContentTypeWithoutBodyEmptyInputInputPayload? _$v;
 
-  MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder() {
-    MalformedContentTypeWithoutBodyEmptyInputInputPayload._init(this);
-  }
+  MalformedContentTypeWithoutBodyEmptyInputInputPayloadBuilder();
 
   @override
   void replace(MalformedContentTypeWithoutBodyEmptyInputInputPayload other) {

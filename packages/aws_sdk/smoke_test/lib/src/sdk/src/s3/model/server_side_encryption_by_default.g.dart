@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.server_side_encryption_by_default;
+part of 'server_side_encryption_by_default.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -66,9 +66,7 @@ class ServerSideEncryptionByDefaultBuilder
   set kmsMasterKeyId(String? kmsMasterKeyId) =>
       _$this._kmsMasterKeyId = kmsMasterKeyId;
 
-  ServerSideEncryptionByDefaultBuilder() {
-    ServerSideEncryptionByDefault._init(this);
-  }
+  ServerSideEncryptionByDefaultBuilder();
 
   ServerSideEncryptionByDefaultBuilder get _$this {
     final $v = _$v;

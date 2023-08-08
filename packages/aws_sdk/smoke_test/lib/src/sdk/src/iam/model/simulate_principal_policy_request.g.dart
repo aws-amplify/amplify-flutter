@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.simulate_principal_policy_request;
+part of 'simulate_principal_policy_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -175,9 +175,7 @@ class SimulatePrincipalPolicyRequestBuilder
   String? get marker => _$this._marker;
   set marker(String? marker) => _$this._marker = marker;
 
-  SimulatePrincipalPolicyRequestBuilder() {
-    SimulatePrincipalPolicyRequest._init(this);
-  }
+  SimulatePrincipalPolicyRequestBuilder();
 
   SimulatePrincipalPolicyRequestBuilder get _$this {
     final $v = _$v;

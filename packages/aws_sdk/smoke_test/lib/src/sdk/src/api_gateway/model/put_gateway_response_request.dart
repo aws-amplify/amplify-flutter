@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.put_gateway_response_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -70,12 +70,8 @@ abstract class PutGatewayResponseRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutGatewayResponseRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutGatewayResponseRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<PutGatewayResponseRequestPayload>>
+      serializers = [PutGatewayResponseRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -126,27 +122,27 @@ abstract class PutGatewayResponseRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutGatewayResponseRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'responseType',
-      responseType,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
-    );
-    helper.add(
-      'responseParameters',
-      responseParameters,
-    );
-    helper.add(
-      'responseTemplates',
-      responseTemplates,
-    );
+    final helper = newBuiltValueToStringHelper('PutGatewayResponseRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'responseType',
+        responseType,
+      )
+      ..add(
+        'statusCode',
+        statusCode,
+      )
+      ..add(
+        'responseParameters',
+        responseParameters,
+      )
+      ..add(
+        'responseTemplates',
+        responseTemplates,
+      );
     return helper.toString();
   }
 }
@@ -163,9 +159,6 @@ abstract class PutGatewayResponseRequestPayload
       _$PutGatewayResponseRequestPayload;
 
   const PutGatewayResponseRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutGatewayResponseRequestPayloadBuilder b) {}
 
   /// Response parameters (paths, query strings and headers) of the GatewayResponse as a string-to-string map of key-value pairs.
   _i4.BuiltMap<String, String>? get responseParameters;
@@ -184,19 +177,19 @@ abstract class PutGatewayResponseRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutGatewayResponseRequestPayload');
-    helper.add(
-      'responseParameters',
-      responseParameters,
-    );
-    helper.add(
-      'responseTemplates',
-      responseTemplates,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
-    );
+        newBuiltValueToStringHelper('PutGatewayResponseRequestPayload')
+          ..add(
+            'responseParameters',
+            responseParameters,
+          )
+          ..add(
+            'responseTemplates',
+            responseTemplates,
+          )
+          ..add(
+            'statusCode',
+            statusCode,
+          );
     return helper.toString();
   }
 }

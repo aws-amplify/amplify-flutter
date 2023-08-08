@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.create_base_path_mapping_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -56,12 +56,8 @@ abstract class CreateBasePathMappingRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateBasePathMappingRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateBasePathMappingRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<CreateBasePathMappingRequestPayload>>
+      serializers = [CreateBasePathMappingRequestRestJson1Serializer()];
 
   /// The domain name of the BasePathMapping resource to create.
   String get domainName;
@@ -102,23 +98,23 @@ abstract class CreateBasePathMappingRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateBasePathMappingRequest');
-    helper.add(
-      'domainName',
-      domainName,
-    );
-    helper.add(
-      'basePath',
-      basePath,
-    );
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'stage',
-      stage,
-    );
+    final helper = newBuiltValueToStringHelper('CreateBasePathMappingRequest')
+      ..add(
+        'domainName',
+        domainName,
+      )
+      ..add(
+        'basePath',
+        basePath,
+      )
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'stage',
+        stage,
+      );
     return helper.toString();
   }
 }
@@ -135,9 +131,6 @@ abstract class CreateBasePathMappingRequestPayload
       _$CreateBasePathMappingRequestPayload;
 
   const CreateBasePathMappingRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateBasePathMappingRequestPayloadBuilder b) {}
 
   /// The base path name that callers of the API must provide as part of the URL after the domain name. This value must be unique for all of the mappings across a single API. Specify '(none)' if you do not want callers to specify a base path name after the domain name.
   String? get basePath;
@@ -156,19 +149,19 @@ abstract class CreateBasePathMappingRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('CreateBasePathMappingRequestPayload');
-    helper.add(
-      'basePath',
-      basePath,
-    );
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'stage',
-      stage,
-    );
+        newBuiltValueToStringHelper('CreateBasePathMappingRequestPayload')
+          ..add(
+            'basePath',
+            basePath,
+          )
+          ..add(
+            'restApiId',
+            restApiId,
+          )
+          ..add(
+            'stage',
+            stage,
+          );
     return helper.toString();
   }
 }

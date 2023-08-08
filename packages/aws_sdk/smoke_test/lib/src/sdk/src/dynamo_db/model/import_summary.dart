@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.import_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -49,12 +49,9 @@ abstract class ImportSummary
 
   const ImportSummary._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<ImportSummary>> serializers = [
     ImportSummaryAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ImportSummaryBuilder b) {}
 
   /// The Amazon Resource Number (ARN) corresponding to the import request.
   String? get importArn;
@@ -92,39 +89,39 @@ abstract class ImportSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ImportSummary');
-    helper.add(
-      'importArn',
-      importArn,
-    );
-    helper.add(
-      'importStatus',
-      importStatus,
-    );
-    helper.add(
-      'tableArn',
-      tableArn,
-    );
-    helper.add(
-      's3BucketSource',
-      s3BucketSource,
-    );
-    helper.add(
-      'cloudWatchLogGroupArn',
-      cloudWatchLogGroupArn,
-    );
-    helper.add(
-      'inputFormat',
-      inputFormat,
-    );
-    helper.add(
-      'startTime',
-      startTime,
-    );
-    helper.add(
-      'endTime',
-      endTime,
-    );
+    final helper = newBuiltValueToStringHelper('ImportSummary')
+      ..add(
+        'importArn',
+        importArn,
+      )
+      ..add(
+        'importStatus',
+        importStatus,
+      )
+      ..add(
+        'tableArn',
+        tableArn,
+      )
+      ..add(
+        's3BucketSource',
+        s3BucketSource,
+      )
+      ..add(
+        'cloudWatchLogGroupArn',
+        cloudWatchLogGroupArn,
+      )
+      ..add(
+        'inputFormat',
+        inputFormat,
+      )
+      ..add(
+        'startTime',
+        startTime,
+      )
+      ..add(
+        'endTime',
+        endTime,
+      );
     return helper.toString();
   }
 }

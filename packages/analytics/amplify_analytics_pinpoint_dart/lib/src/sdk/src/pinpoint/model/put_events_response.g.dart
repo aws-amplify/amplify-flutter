@@ -52,9 +52,7 @@ class PutEventsResponseBuilder
   set eventsResponse(_i3.EventsResponseBuilder? eventsResponse) =>
       _$this._eventsResponse = eventsResponse;
 
-  PutEventsResponseBuilder() {
-    PutEventsResponse._init(this);
-  }
+  PutEventsResponseBuilder();
 
   PutEventsResponseBuilder get _$this {
     final $v = _$v;

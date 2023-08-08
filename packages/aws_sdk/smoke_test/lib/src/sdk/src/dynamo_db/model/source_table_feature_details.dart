@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.source_table_feature_details; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -54,12 +54,8 @@ abstract class SourceTableFeatureDetails
 
   const SourceTableFeatureDetails._();
 
-  static const List<_i8.SmithySerializer> serializers = [
-    SourceTableFeatureDetailsAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SourceTableFeatureDetailsBuilder b) {}
+  static const List<_i8.SmithySerializer<SourceTableFeatureDetails>>
+      serializers = [SourceTableFeatureDetailsAwsJson10Serializer()];
 
   /// Represents the LSI properties for the table when the backup was created. It includes the IndexName, KeySchema and Projection for the LSIs on the table at the time of backup.
   _i7.BuiltList<_i2.LocalSecondaryIndexInfo>? get localSecondaryIndexes;
@@ -85,27 +81,27 @@ abstract class SourceTableFeatureDetails
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SourceTableFeatureDetails');
-    helper.add(
-      'localSecondaryIndexes',
-      localSecondaryIndexes,
-    );
-    helper.add(
-      'globalSecondaryIndexes',
-      globalSecondaryIndexes,
-    );
-    helper.add(
-      'streamDescription',
-      streamDescription,
-    );
-    helper.add(
-      'timeToLiveDescription',
-      timeToLiveDescription,
-    );
-    helper.add(
-      'sseDescription',
-      sseDescription,
-    );
+    final helper = newBuiltValueToStringHelper('SourceTableFeatureDetails')
+      ..add(
+        'localSecondaryIndexes',
+        localSecondaryIndexes,
+      )
+      ..add(
+        'globalSecondaryIndexes',
+        globalSecondaryIndexes,
+      )
+      ..add(
+        'streamDescription',
+        streamDescription,
+      )
+      ..add(
+        'timeToLiveDescription',
+        timeToLiveDescription,
+      )
+      ..add(
+        'sseDescription',
+        sseDescription,
+      );
     return helper.toString();
   }
 }

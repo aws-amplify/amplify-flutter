@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.glacier.model.request_timeout_exception;
+part of 'request_timeout_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -74,9 +74,7 @@ class RequestTimeoutExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  RequestTimeoutExceptionBuilder() {
-    RequestTimeoutException._init(this);
-  }
+  RequestTimeoutExceptionBuilder();
 
   RequestTimeoutExceptionBuilder get _$this {
     final $v = _$v;

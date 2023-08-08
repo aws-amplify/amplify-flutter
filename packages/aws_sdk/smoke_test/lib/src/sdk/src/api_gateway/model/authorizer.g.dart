@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.authorizer;
+part of 'authorizer.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -136,9 +136,7 @@ class AuthorizerBuilder implements Builder<Authorizer, AuthorizerBuilder> {
   set authorizerResultTtlInSeconds(int? authorizerResultTtlInSeconds) =>
       _$this._authorizerResultTtlInSeconds = authorizerResultTtlInSeconds;
 
-  AuthorizerBuilder() {
-    Authorizer._init(this);
-  }
+  AuthorizerBuilder();
 
   AuthorizerBuilder get _$this {
     final $v = _$v;

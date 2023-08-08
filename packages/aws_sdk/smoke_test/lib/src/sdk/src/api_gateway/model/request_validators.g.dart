@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.request_validators;
+part of 'request_validators.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -58,9 +58,7 @@ class RequestValidatorsBuilder
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  RequestValidatorsBuilder() {
-    RequestValidators._init(this);
-  }
+  RequestValidatorsBuilder();
 
   RequestValidatorsBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.create_documentation_version_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -56,12 +56,9 @@ abstract class CreateDocumentationVersionRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateDocumentationVersionRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateDocumentationVersionRequestBuilder b) {}
+  static const List<
+          _i1.SmithySerializer<CreateDocumentationVersionRequestPayload>>
+      serializers = [CreateDocumentationVersionRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -103,23 +100,23 @@ abstract class CreateDocumentationVersionRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('CreateDocumentationVersionRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'documentationVersion',
-      documentationVersion,
-    );
-    helper.add(
-      'stageName',
-      stageName,
-    );
-    helper.add(
-      'description',
-      description,
-    );
+        newBuiltValueToStringHelper('CreateDocumentationVersionRequest')
+          ..add(
+            'restApiId',
+            restApiId,
+          )
+          ..add(
+            'documentationVersion',
+            documentationVersion,
+          )
+          ..add(
+            'stageName',
+            stageName,
+          )
+          ..add(
+            'description',
+            description,
+          );
     return helper.toString();
   }
 }
@@ -136,9 +133,6 @@ abstract class CreateDocumentationVersionRequestPayload
           updates]) = _$CreateDocumentationVersionRequestPayload;
 
   const CreateDocumentationVersionRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateDocumentationVersionRequestPayloadBuilder b) {}
 
   /// A description about the new documentation snapshot.
   String? get description;
@@ -157,19 +151,19 @@ abstract class CreateDocumentationVersionRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('CreateDocumentationVersionRequestPayload');
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'documentationVersion',
-      documentationVersion,
-    );
-    helper.add(
-      'stageName',
-      stageName,
-    );
+        newBuiltValueToStringHelper('CreateDocumentationVersionRequestPayload')
+          ..add(
+            'description',
+            description,
+          )
+          ..add(
+            'documentationVersion',
+            documentationVersion,
+          )
+          ..add(
+            'stageName',
+            stageName,
+          );
     return helper.toString();
   }
 }

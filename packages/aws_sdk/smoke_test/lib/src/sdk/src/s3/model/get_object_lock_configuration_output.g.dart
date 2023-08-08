@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_object_lock_configuration_output;
+part of 'get_object_lock_configuration_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -57,9 +57,7 @@ class GetObjectLockConfigurationOutputBuilder
           _i3.ObjectLockConfigurationBuilder? objectLockConfiguration) =>
       _$this._objectLockConfiguration = objectLockConfiguration;
 
-  GetObjectLockConfigurationOutputBuilder() {
-    GetObjectLockConfigurationOutput._init(this);
-  }
+  GetObjectLockConfigurationOutputBuilder();
 
   GetObjectLockConfigurationOutputBuilder get _$this {
     final $v = _$v;

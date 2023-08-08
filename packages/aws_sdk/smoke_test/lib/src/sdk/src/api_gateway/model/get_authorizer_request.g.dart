@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.get_authorizer_request;
+part of 'get_authorizer_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -64,9 +64,7 @@ class GetAuthorizerRequestBuilder
   String? get authorizerId => _$this._authorizerId;
   set authorizerId(String? authorizerId) => _$this._authorizerId = authorizerId;
 
-  GetAuthorizerRequestBuilder() {
-    GetAuthorizerRequest._init(this);
-  }
+  GetAuthorizerRequestBuilder();
 
   GetAuthorizerRequestBuilder get _$this {
     final $v = _$v;
@@ -138,9 +136,7 @@ class GetAuthorizerRequestPayloadBuilder
             GetAuthorizerRequestPayloadBuilder> {
   _$GetAuthorizerRequestPayload? _$v;
 
-  GetAuthorizerRequestPayloadBuilder() {
-    GetAuthorizerRequestPayload._init(this);
-  }
+  GetAuthorizerRequestPayloadBuilder();
 
   @override
   void replace(GetAuthorizerRequestPayload other) {

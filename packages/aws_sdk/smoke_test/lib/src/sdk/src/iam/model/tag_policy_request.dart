@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.tag_policy_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,12 +37,9 @@ abstract class TagPolicyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<TagPolicyRequest>> serializers = [
     TagPolicyRequestAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TagPolicyRequestBuilder b) {}
 
   /// The ARN of the IAM customer managed policy to which you want to add tags.
   ///
@@ -60,15 +57,15 @@ abstract class TagPolicyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TagPolicyRequest');
-    helper.add(
-      'policyArn',
-      policyArn,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('TagPolicyRequest')
+      ..add(
+        'policyArn',
+        policyArn,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

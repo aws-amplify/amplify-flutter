@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.lambda_function_configuration;
+part of 'lambda_function_configuration.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -89,9 +89,7 @@ class LambdaFunctionConfigurationBuilder
   set filter(_i3.NotificationConfigurationFilterBuilder? filter) =>
       _$this._filter = filter;
 
-  LambdaFunctionConfigurationBuilder() {
-    LambdaFunctionConfiguration._init(this);
-  }
+  LambdaFunctionConfigurationBuilder();
 
   LambdaFunctionConfigurationBuilder get _$this {
     final $v = _$v;

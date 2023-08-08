@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.operation.get_model_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -92,12 +92,10 @@ class GetModelOperation extends _i1.HttpOperation<_i2.GetModelRequestPayload,
       _i1.HttpRequest((b) {
         b.method = 'GET';
         b.path = r'/restapis/{restApiId}/models/{modelName}';
-        if (input.flatten != null) {
-          b.queryParameters.add(
-            'flatten',
-            input.flatten!.toString(),
-          );
-        }
+        b.queryParameters.add(
+          'flatten',
+          input.flatten.toString(),
+        );
       });
   @override
   int successCode([_i3.Model? output]) => 200;
@@ -112,7 +110,7 @@ class GetModelOperation extends _i1.HttpOperation<_i2.GetModelRequestPayload,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.BadRequestException, _i9.BadRequestException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'BadRequestException',
@@ -122,7 +120,7 @@ class GetModelOperation extends _i1.HttpOperation<_i2.GetModelRequestPayload,
           statusCode: 400,
           builder: _i9.BadRequestException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.NotFoundException, _i10.NotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'NotFoundException',
@@ -132,7 +130,8 @@ class GetModelOperation extends _i1.HttpOperation<_i2.GetModelRequestPayload,
           statusCode: 404,
           builder: _i10.NotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.TooManyRequestsExceptionPayload,
+            _i11.TooManyRequestsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'TooManyRequestsException',
@@ -142,7 +141,7 @@ class GetModelOperation extends _i1.HttpOperation<_i2.GetModelRequestPayload,
           statusCode: 429,
           builder: _i11.TooManyRequestsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.UnauthorizedException, _i12.UnauthorizedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'UnauthorizedException',
@@ -175,7 +174,7 @@ class GetModelOperation extends _i1.HttpOperation<_i2.GetModelRequestPayload,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

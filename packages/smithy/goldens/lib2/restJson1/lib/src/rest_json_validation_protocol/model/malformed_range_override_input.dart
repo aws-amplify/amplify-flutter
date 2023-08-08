@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v2.rest_json_validation_protocol.model.malformed_range_override_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -66,12 +66,9 @@ abstract class MalformedRangeOverrideInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    MalformedRangeOverrideInputRestJson1Serializer()
-  ];
+  static const List<_i1.SmithySerializer<MalformedRangeOverrideInput>>
+      serializers = [MalformedRangeOverrideInputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedRangeOverrideInputBuilder b) {}
   int? get byte;
   int? get minByte;
   int? get maxByte;
@@ -109,67 +106,67 @@ abstract class MalformedRangeOverrideInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedRangeOverrideInput');
-    helper.add(
-      'byte',
-      byte,
-    );
-    helper.add(
-      'minByte',
-      minByte,
-    );
-    helper.add(
-      'maxByte',
-      maxByte,
-    );
-    helper.add(
-      'short',
-      short,
-    );
-    helper.add(
-      'minShort',
-      minShort,
-    );
-    helper.add(
-      'maxShort',
-      maxShort,
-    );
-    helper.add(
-      'integer',
-      integer,
-    );
-    helper.add(
-      'minInteger',
-      minInteger,
-    );
-    helper.add(
-      'maxInteger',
-      maxInteger,
-    );
-    helper.add(
-      'long',
-      long,
-    );
-    helper.add(
-      'minLong',
-      minLong,
-    );
-    helper.add(
-      'maxLong',
-      maxLong,
-    );
-    helper.add(
-      'float',
-      float,
-    );
-    helper.add(
-      'minFloat',
-      minFloat,
-    );
-    helper.add(
-      'maxFloat',
-      maxFloat,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedRangeOverrideInput')
+      ..add(
+        'byte',
+        byte,
+      )
+      ..add(
+        'minByte',
+        minByte,
+      )
+      ..add(
+        'maxByte',
+        maxByte,
+      )
+      ..add(
+        'short',
+        short,
+      )
+      ..add(
+        'minShort',
+        minShort,
+      )
+      ..add(
+        'maxShort',
+        maxShort,
+      )
+      ..add(
+        'integer',
+        integer,
+      )
+      ..add(
+        'minInteger',
+        minInteger,
+      )
+      ..add(
+        'maxInteger',
+        maxInteger,
+      )
+      ..add(
+        'long',
+        long,
+      )
+      ..add(
+        'minLong',
+        minLong,
+      )
+      ..add(
+        'maxLong',
+        maxLong,
+      )
+      ..add(
+        'float',
+        float,
+      )
+      ..add(
+        'minFloat',
+        minFloat,
+      )
+      ..add(
+        'maxFloat',
+        maxFloat,
+      );
     return helper.toString();
   }
 }

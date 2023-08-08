@@ -63,9 +63,7 @@ class AttributeDimensionBuilder
       _$this._values ??= new _i3.ListBuilder<String>();
   set values(_i3.ListBuilder<String>? values) => _$this._values = values;
 
-  AttributeDimensionBuilder() {
-    AttributeDimension._init(this);
-  }
+  AttributeDimensionBuilder();
 
   AttributeDimensionBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.delete_public_access_block_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -51,12 +51,8 @@ abstract class DeletePublicAccessBlockRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeletePublicAccessBlockRequestRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeletePublicAccessBlockRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<DeletePublicAccessBlockRequestPayload>>
+      serializers = [DeletePublicAccessBlockRequestRestXmlSerializer()];
 
   /// The Amazon S3 bucket whose `PublicAccessBlock` configuration you want to delete.
   String get bucket;
@@ -85,16 +81,15 @@ abstract class DeletePublicAccessBlockRequest
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('DeletePublicAccessBlockRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('DeletePublicAccessBlockRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }
@@ -113,8 +108,6 @@ abstract class DeletePublicAccessBlockRequestPayload
 
   const DeletePublicAccessBlockRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeletePublicAccessBlockRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.delete_marker_entry;
+part of 'delete_marker_entry.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -83,9 +83,7 @@ class DeleteMarkerEntryBuilder
   set lastModified(DateTime? lastModified) =>
       _$this._lastModified = lastModified;
 
-  DeleteMarkerEntryBuilder() {
-    DeleteMarkerEntry._init(this);
-  }
+  DeleteMarkerEntryBuilder();
 
   DeleteMarkerEntryBuilder get _$this {
     final $v = _$v;

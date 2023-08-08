@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.aggregation_authorization;
+part of 'aggregation_authorization.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -84,9 +84,7 @@ class AggregationAuthorizationBuilder
   set creationTime(DateTime? creationTime) =>
       _$this._creationTime = creationTime;
 
-  AggregationAuthorizationBuilder() {
-    AggregationAuthorization._init(this);
-  }
+  AggregationAuthorizationBuilder();
 
   AggregationAuthorizationBuilder get _$this {
     final $v = _$v;

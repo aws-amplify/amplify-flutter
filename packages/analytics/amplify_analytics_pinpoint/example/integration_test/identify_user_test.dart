@@ -64,7 +64,7 @@ void main() {
             location: location,
             customProperties: properties,
             userAttributes: {
-              stringProperty.key: [stringProperty.value, stringProperty.value]
+              stringProperty.key: [stringProperty.value, stringProperty.value],
             },
           ),
         );

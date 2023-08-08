@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.input_serialization;
+part of 'input_serialization.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -77,9 +77,7 @@ class InputSerializationBuilder
       _$this._parquet ??= new _i5.ParquetInputBuilder();
   set parquet(_i5.ParquetInputBuilder? parquet) => _$this._parquet = parquet;
 
-  InputSerializationBuilder() {
-    InputSerialization._init(this);
-  }
+  InputSerializationBuilder();
 
   InputSerializationBuilder get _$this {
     final $v = _$v;

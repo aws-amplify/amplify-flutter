@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.logging_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,12 +31,9 @@ abstract class LoggingConfig
 
   const LoggingConfig._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<LoggingConfig>> serializers = [
     LoggingConfigAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(LoggingConfigBuilder b) {}
 
   /// The Amazon Resource Name (ARN) of the role that CloudFormation should assume when sending log entries to CloudWatch Logs.
   String get logRoleArn;
@@ -50,15 +47,15 @@ abstract class LoggingConfig
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('LoggingConfig');
-    helper.add(
-      'logRoleArn',
-      logRoleArn,
-    );
-    helper.add(
-      'logGroupName',
-      logGroupName,
-    );
+    final helper = newBuiltValueToStringHelper('LoggingConfig')
+      ..add(
+        'logRoleArn',
+        logRoleArn,
+      )
+      ..add(
+        'logGroupName',
+        logGroupName,
+      );
     return helper.toString();
   }
 }

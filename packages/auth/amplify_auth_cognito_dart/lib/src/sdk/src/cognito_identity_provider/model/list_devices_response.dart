@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.list_devices_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,7 +42,7 @@ abstract class ListDevicesResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ListDevicesResponse>> serializers = [
     ListDevicesResponseAwsJson11Serializer()
   ];
 
@@ -60,15 +61,15 @@ abstract class ListDevicesResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListDevicesResponse');
-    helper.add(
-      'devices',
-      devices,
-    );
-    helper.add(
-      'paginationToken',
-      paginationToken,
-    );
+    final helper = newBuiltValueToStringHelper('ListDevicesResponse')
+      ..add(
+        'devices',
+        devices,
+      )
+      ..add(
+        'paginationToken',
+        paginationToken,
+      );
     return helper.toString();
   }
 }
@@ -101,26 +102,23 @@ class ListDevicesResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Devices':
-          if (value != null) {
-            result.devices.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i3.BuiltList,
-                [FullType(_i2.DeviceType)],
-              ),
-            ) as _i3.BuiltList<_i2.DeviceType>));
-          }
-          break;
+          result.devices.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i3.BuiltList,
+              [FullType(_i2.DeviceType)],
+            ),
+          ) as _i3.BuiltList<_i2.DeviceType>));
         case 'PaginationToken':
-          if (value != null) {
-            result.paginationToken = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.paginationToken = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -130,30 +128,30 @@ class ListDevicesResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    ListDevicesResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as ListDevicesResponse);
-    final result = <Object?>[];
-    if (payload.devices != null) {
-      result
+    final result$ = <Object?>[];
+    final ListDevicesResponse(:devices, :paginationToken) = object;
+    if (devices != null) {
+      result$
         ..add('Devices')
         ..add(serializers.serialize(
-          payload.devices!,
+          devices,
           specifiedType: const FullType(
             _i3.BuiltList,
             [FullType(_i2.DeviceType)],
           ),
         ));
     }
-    if (payload.paginationToken != null) {
-      result
+    if (paginationToken != null) {
+      result$
         ..add('PaginationToken')
         ..add(serializers.serialize(
-          payload.paginationToken!,
+          paginationToken,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

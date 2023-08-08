@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.attached_permissions_boundary;
+part of 'attached_permissions_boundary.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class AttachedPermissionsBoundaryBuilder
   set permissionsBoundaryArn(String? permissionsBoundaryArn) =>
       _$this._permissionsBoundaryArn = permissionsBoundaryArn;
 
-  AttachedPermissionsBoundaryBuilder() {
-    AttachedPermissionsBoundary._init(this);
-  }
+  AttachedPermissionsBoundaryBuilder();
 
   AttachedPermissionsBoundaryBuilder get _$this {
     final $v = _$v;

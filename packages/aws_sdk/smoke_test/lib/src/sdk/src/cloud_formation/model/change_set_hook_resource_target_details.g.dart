@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.change_set_hook_resource_target_details;
+part of 'change_set_hook_resource_target_details.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -74,9 +74,7 @@ class ChangeSetHookResourceTargetDetailsBuilder
   set resourceAction(_i2.ChangeAction? resourceAction) =>
       _$this._resourceAction = resourceAction;
 
-  ChangeSetHookResourceTargetDetailsBuilder() {
-    ChangeSetHookResourceTargetDetails._init(this);
-  }
+  ChangeSetHookResourceTargetDetailsBuilder();
 
   ChangeSetHookResourceTargetDetailsBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.server_side_encryption_configuration;
+part of 'server_side_encryption_configuration.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -57,9 +57,7 @@ class ServerSideEncryptionConfigurationBuilder
   set rules(_i3.ListBuilder<_i2.ServerSideEncryptionRule>? rules) =>
       _$this._rules = rules;
 
-  ServerSideEncryptionConfigurationBuilder() {
-    ServerSideEncryptionConfiguration._init(this);
-  }
+  ServerSideEncryptionConfigurationBuilder();
 
   ServerSideEncryptionConfigurationBuilder get _$this {
     final $v = _$v;

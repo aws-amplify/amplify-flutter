@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.delete_conformance_pack_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,12 +35,8 @@ abstract class DeleteConformancePackRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteConformancePackRequestAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteConformancePackRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<DeleteConformancePackRequest>>
+      serializers = [DeleteConformancePackRequestAwsJson11Serializer()];
 
   /// Name of the conformance pack you want to delete.
   String get conformancePackName;
@@ -50,11 +46,11 @@ abstract class DeleteConformancePackRequest
   List<Object?> get props => [conformancePackName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteConformancePackRequest');
-    helper.add(
-      'conformancePackName',
-      conformancePackName,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteConformancePackRequest')
+      ..add(
+        'conformancePackName',
+        conformancePackName,
+      );
     return helper.toString();
   }
 }

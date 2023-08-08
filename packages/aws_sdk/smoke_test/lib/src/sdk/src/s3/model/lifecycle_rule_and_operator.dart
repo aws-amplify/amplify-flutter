@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.lifecycle_rule_and_operator; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,8 @@ abstract class LifecycleRuleAndOperator
 
   const LifecycleRuleAndOperator._();
 
-  static const List<_i5.SmithySerializer> serializers = [
-    LifecycleRuleAndOperatorRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(LifecycleRuleAndOperatorBuilder b) {}
+  static const List<_i5.SmithySerializer<LifecycleRuleAndOperator>>
+      serializers = [LifecycleRuleAndOperatorRestXmlSerializer()];
 
   /// Prefix identifying one or more objects to which the rule applies.
   String? get prefix;
@@ -67,23 +63,23 @@ abstract class LifecycleRuleAndOperator
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('LifecycleRuleAndOperator');
-    helper.add(
-      'prefix',
-      prefix,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'objectSizeGreaterThan',
-      objectSizeGreaterThan,
-    );
-    helper.add(
-      'objectSizeLessThan',
-      objectSizeLessThan,
-    );
+    final helper = newBuiltValueToStringHelper('LifecycleRuleAndOperator')
+      ..add(
+        'prefix',
+        prefix,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'objectSizeGreaterThan',
+        objectSizeGreaterThan,
+      )
+      ..add(
+        'objectSizeLessThan',
+        objectSizeLessThan,
+      );
     return helper.toString();
   }
 }

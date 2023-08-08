@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.source_detail; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,9 @@ abstract class SourceDetail
 
   const SourceDetail._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<SourceDetail>> serializers = [
     SourceDetailAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SourceDetailBuilder b) {}
 
   /// The source of the event, such as an Amazon Web Services service, that triggers Config to evaluate your Amazon Web Services resources.
   _i2.EventSource? get eventSource;
@@ -77,19 +74,19 @@ abstract class SourceDetail
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SourceDetail');
-    helper.add(
-      'eventSource',
-      eventSource,
-    );
-    helper.add(
-      'messageType',
-      messageType,
-    );
-    helper.add(
-      'maximumExecutionFrequency',
-      maximumExecutionFrequency,
-    );
+    final helper = newBuiltValueToStringHelper('SourceDetail')
+      ..add(
+        'eventSource',
+        eventSource,
+      )
+      ..add(
+        'messageType',
+        messageType,
+      )
+      ..add(
+        'maximumExecutionFrequency',
+        maximumExecutionFrequency,
+      );
     return helper.toString();
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.transaction_canceled_exception;
+part of 'transaction_canceled_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -77,9 +77,7 @@ class TransactionCanceledExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  TransactionCanceledExceptionBuilder() {
-    TransactionCanceledException._init(this);
-  }
+  TransactionCanceledExceptionBuilder();
 
   TransactionCanceledExceptionBuilder get _$this {
     final $v = _$v;

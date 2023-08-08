@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.verify_user_attribute_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,9 +35,8 @@ abstract class VerifyUserAttributeResponse
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    VerifyUserAttributeResponseAwsJson11Serializer()
-  ];
+  static const List<_i2.SmithySerializer<VerifyUserAttributeResponse>>
+      serializers = [VerifyUserAttributeResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(VerifyUserAttributeResponseBuilder b) {}
@@ -78,7 +78,7 @@ class VerifyUserAttributeResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    VerifyUserAttributeResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) =>
       const <Object?>[];

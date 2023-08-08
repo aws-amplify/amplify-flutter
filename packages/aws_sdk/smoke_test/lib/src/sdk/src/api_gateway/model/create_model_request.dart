@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.create_model_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -58,12 +58,8 @@ abstract class CreateModelRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateModelRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateModelRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<CreateModelRequestPayload>>
+      serializers = [CreateModelRequestRestJson1Serializer()];
 
   /// The RestApi identifier under which the Model will be created.
   String get restApiId;
@@ -108,27 +104,27 @@ abstract class CreateModelRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateModelRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'schema',
-      schema,
-    );
-    helper.add(
-      'contentType',
-      contentType,
-    );
+    final helper = newBuiltValueToStringHelper('CreateModelRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'schema',
+        schema,
+      )
+      ..add(
+        'contentType',
+        contentType,
+      );
     return helper.toString();
   }
 }
@@ -143,9 +139,6 @@ abstract class CreateModelRequestPayload
       _$CreateModelRequestPayload;
 
   const CreateModelRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateModelRequestPayloadBuilder b) {}
 
   /// The content-type for the model.
   String get contentType;
@@ -167,23 +160,23 @@ abstract class CreateModelRequestPayload
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateModelRequestPayload');
-    helper.add(
-      'contentType',
-      contentType,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'schema',
-      schema,
-    );
+    final helper = newBuiltValueToStringHelper('CreateModelRequestPayload')
+      ..add(
+        'contentType',
+        contentType,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'schema',
+        schema,
+      );
     return helper.toString();
   }
 }

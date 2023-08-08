@@ -189,9 +189,7 @@ class EndpointResponseBuilder
       _$this._user ??= new _i5.EndpointUserBuilder();
   set user(_i5.EndpointUserBuilder? user) => _$this._user = user;
 
-  EndpointResponseBuilder() {
-    EndpointResponse._init(this);
-  }
+  EndpointResponseBuilder();
 
   EndpointResponseBuilder get _$this {
     final $v = _$v;

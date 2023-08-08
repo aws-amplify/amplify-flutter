@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db_streams.model.internal_server_error;
+part of 'internal_server_error.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -61,9 +61,7 @@ class InternalServerErrorBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InternalServerErrorBuilder() {
-    InternalServerError._init(this);
-  }
+  InternalServerErrorBuilder();
 
   InternalServerErrorBuilder get _$this {
     final $v = _$v;

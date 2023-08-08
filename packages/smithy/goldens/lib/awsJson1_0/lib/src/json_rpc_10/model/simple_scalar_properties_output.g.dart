@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_0_v1.json_rpc_10.model.simple_scalar_properties_output;
+part of 'simple_scalar_properties_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -60,9 +60,7 @@ class SimpleScalarPropertiesOutputBuilder
   double? get doubleValue => _$this._doubleValue;
   set doubleValue(double? doubleValue) => _$this._doubleValue = doubleValue;
 
-  SimpleScalarPropertiesOutputBuilder() {
-    SimpleScalarPropertiesOutput._init(this);
-  }
+  SimpleScalarPropertiesOutputBuilder();
 
   SimpleScalarPropertiesOutputBuilder get _$this {
     final $v = _$v;

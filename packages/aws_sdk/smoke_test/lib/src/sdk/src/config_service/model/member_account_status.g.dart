@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.member_account_status;
+part of 'member_account_status.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -108,9 +108,7 @@ class MemberAccountStatusBuilder
   set lastUpdateTime(DateTime? lastUpdateTime) =>
       _$this._lastUpdateTime = lastUpdateTime;
 
-  MemberAccountStatusBuilder() {
-    MemberAccountStatus._init(this);
-  }
+  MemberAccountStatusBuilder();
 
   MemberAccountStatusBuilder get _$this {
     final $v = _$v;

@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.operation.revoke_token_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -112,7 +113,7 @@ class RevokeTokenOperation extends _i1.HttpOperation<_i2.RevokeTokenRequest,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ForbiddenException, _i9.ForbiddenException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'ForbiddenException',
@@ -122,7 +123,8 @@ class RevokeTokenOperation extends _i1.HttpOperation<_i2.RevokeTokenRequest,
           statusCode: 403,
           builder: _i9.ForbiddenException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InternalErrorException,
+            _i10.InternalErrorException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'InternalErrorException',
@@ -131,7 +133,8 @@ class RevokeTokenOperation extends _i1.HttpOperation<_i2.RevokeTokenRequest,
           _i10.InternalErrorException,
           builder: _i10.InternalErrorException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidParameterException,
+            _i11.InvalidParameterException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'InvalidParameterException',
@@ -141,7 +144,8 @@ class RevokeTokenOperation extends _i1.HttpOperation<_i2.RevokeTokenRequest,
           statusCode: 400,
           builder: _i11.InvalidParameterException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.TooManyRequestsException,
+            _i12.TooManyRequestsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'TooManyRequestsException',
@@ -151,7 +155,7 @@ class RevokeTokenOperation extends _i1.HttpOperation<_i2.RevokeTokenRequest,
           statusCode: 429,
           builder: _i12.TooManyRequestsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.UnauthorizedException, _i13.UnauthorizedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'UnauthorizedException',
@@ -161,7 +165,8 @@ class RevokeTokenOperation extends _i1.HttpOperation<_i2.RevokeTokenRequest,
           statusCode: 401,
           builder: _i13.UnauthorizedException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.UnsupportedOperationException,
+            _i14.UnsupportedOperationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'UnsupportedOperationException',
@@ -171,7 +176,8 @@ class RevokeTokenOperation extends _i1.HttpOperation<_i2.RevokeTokenRequest,
           statusCode: 400,
           builder: _i14.UnsupportedOperationException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.UnsupportedTokenTypeException,
+            _i15.UnsupportedTokenTypeException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cognitoidentityprovider',
             shape: 'UnsupportedTokenTypeException',
@@ -204,7 +210,7 @@ class RevokeTokenOperation extends _i1.HttpOperation<_i2.RevokeTokenRequest,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

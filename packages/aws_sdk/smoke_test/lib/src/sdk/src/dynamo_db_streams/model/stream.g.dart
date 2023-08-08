@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db_streams.model.stream;
+part of 'stream.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -61,9 +61,7 @@ class StreamBuilder implements Builder<Stream, StreamBuilder> {
   String? get streamLabel => _$this._streamLabel;
   set streamLabel(String? streamLabel) => _$this._streamLabel = streamLabel;
 
-  StreamBuilder() {
-    Stream._init(this);
-  }
+  StreamBuilder();
 
   StreamBuilder get _$this {
     final $v = _$v;

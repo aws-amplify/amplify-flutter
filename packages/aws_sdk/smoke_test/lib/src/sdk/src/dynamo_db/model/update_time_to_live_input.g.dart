@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.update_time_to_live_input;
+part of 'update_time_to_live_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -68,9 +68,7 @@ class UpdateTimeToLiveInputBuilder
           _i3.TimeToLiveSpecificationBuilder? timeToLiveSpecification) =>
       _$this._timeToLiveSpecification = timeToLiveSpecification;
 
-  UpdateTimeToLiveInputBuilder() {
-    UpdateTimeToLiveInput._init(this);
-  }
+  UpdateTimeToLiveInputBuilder();
 
   UpdateTimeToLiveInputBuilder get _$this {
     final $v = _$v;

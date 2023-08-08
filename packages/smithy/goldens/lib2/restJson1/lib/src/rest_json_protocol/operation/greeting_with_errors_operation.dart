@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v2.rest_json_protocol.operation.greeting_with_errors_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -87,7 +87,7 @@ class GreetingWithErrorsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i7.ComplexErrorPayload, _i7.ComplexError>(
           _i1.ShapeId(
             namespace: 'aws.protocoltests.restjson',
             shape: 'ComplexError',
@@ -97,7 +97,7 @@ class GreetingWithErrorsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
           statusCode: 403,
           builder: _i7.ComplexError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.FooError, _i8.FooError>(
           _i1.ShapeId(
             namespace: 'aws.protocoltests.restjson',
             shape: 'FooError',
@@ -107,7 +107,7 @@ class GreetingWithErrorsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
           statusCode: 500,
           builder: _i8.FooError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InvalidGreeting, _i9.InvalidGreeting>(
           _i1.ShapeId(
             namespace: 'aws.protocoltests.restjson',
             shape: 'InvalidGreeting',
@@ -140,7 +140,7 @@ class GreetingWithErrorsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
+        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
       },
     );
   }

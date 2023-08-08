@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.property_difference; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,9 @@ abstract class PropertyDifference
 
   const PropertyDifference._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<PropertyDifference>> serializers = [
     PropertyDifferenceAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PropertyDifferenceBuilder b) {}
 
   /// The fully-qualified path to the resource property.
   String get propertyPath;
@@ -71,23 +68,23 @@ abstract class PropertyDifference
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PropertyDifference');
-    helper.add(
-      'propertyPath',
-      propertyPath,
-    );
-    helper.add(
-      'expectedValue',
-      expectedValue,
-    );
-    helper.add(
-      'actualValue',
-      actualValue,
-    );
-    helper.add(
-      'differenceType',
-      differenceType,
-    );
+    final helper = newBuiltValueToStringHelper('PropertyDifference')
+      ..add(
+        'propertyPath',
+        propertyPath,
+      )
+      ..add(
+        'expectedValue',
+        expectedValue,
+      )
+      ..add(
+        'actualValue',
+        actualValue,
+      )
+      ..add(
+        'differenceType',
+        differenceType,
+      );
     return helper.toString();
   }
 }

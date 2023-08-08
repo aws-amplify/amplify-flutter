@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.organization_config_rule;
+part of 'organization_config_rule.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -139,9 +139,7 @@ class OrganizationConfigRuleBuilder
       _$this._organizationCustomPolicyRuleMetadata =
           organizationCustomPolicyRuleMetadata;
 
-  OrganizationConfigRuleBuilder() {
-    OrganizationConfigRule._init(this);
-  }
+  OrganizationConfigRuleBuilder();
 
   OrganizationConfigRuleBuilder get _$this {
     final $v = _$v;

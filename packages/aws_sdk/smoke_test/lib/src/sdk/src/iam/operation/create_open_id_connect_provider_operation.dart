@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.operation.create_open_id_connect_provider_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,14 @@ import 'package:smoke_test/src/sdk/src/iam/model/service_failure_exception.dart'
 ///
 /// *   A list of client IDs (also known as audiences) that identify the application or applications allowed to authenticate using the OIDC provider
 ///
+/// *   A list of tags that are attached to the specified IAM OIDC provider
+///
 /// *   A list of thumbprints of one or more server certificates that the IdP uses
 ///
 ///
 /// You get all of this information from the OIDC IdP you want to use to access Amazon Web Services.
 ///
-/// Amazon Web Services secures communication with some OIDC identity providers (IdPs) through our library of trusted certificate authorities (CAs) instead of using a certificate thumbprint to verify your IdP server certificate. These OIDC IdPs include Google, and those that use an Amazon S3 bucket to host a JSON Web Key Set (JWKS) endpoint. In these cases, your legacy thumbprint remains in your configuration, but is no longer used for validation.
+/// Amazon Web Services secures communication with some OIDC identity providers (IdPs) through our library of trusted root certificate authorities (CAs) instead of using a certificate thumbprint to verify your IdP server certificate. These OIDC IdPs include Auth0, GitHub, Google, and those that use an Amazon S3 bucket to host a JSON Web Key Set (JWKS) endpoint. In these cases, your legacy thumbprint remains in your configuration, but is no longer used for validation.
 ///
 /// The trust for the OIDC provider is derived from the IAM provider that this operation creates. Therefore, it is best to limit access to the CreateOpenIDConnectProvider operation to highly privileged users.
 class CreateOpenIdConnectProviderOperation extends _i1.HttpOperation<
@@ -64,12 +66,14 @@ class CreateOpenIdConnectProviderOperation extends _i1.HttpOperation<
   ///
   /// *   A list of client IDs (also known as audiences) that identify the application or applications allowed to authenticate using the OIDC provider
   ///
+  /// *   A list of tags that are attached to the specified IAM OIDC provider
+  ///
   /// *   A list of thumbprints of one or more server certificates that the IdP uses
   ///
   ///
   /// You get all of this information from the OIDC IdP you want to use to access Amazon Web Services.
   ///
-  /// Amazon Web Services secures communication with some OIDC identity providers (IdPs) through our library of trusted certificate authorities (CAs) instead of using a certificate thumbprint to verify your IdP server certificate. These OIDC IdPs include Google, and those that use an Amazon S3 bucket to host a JSON Web Key Set (JWKS) endpoint. In these cases, your legacy thumbprint remains in your configuration, but is no longer used for validation.
+  /// Amazon Web Services secures communication with some OIDC identity providers (IdPs) through our library of trusted root certificate authorities (CAs) instead of using a certificate thumbprint to verify your IdP server certificate. These OIDC IdPs include Auth0, GitHub, Google, and those that use an Amazon S3 bucket to host a JSON Web Key Set (JWKS) endpoint. In these cases, your legacy thumbprint remains in your configuration, but is no longer used for validation.
   ///
   /// The trust for the OIDC provider is derived from the IAM provider that this operation creates. Therefore, it is best to limit access to the CreateOpenIDConnectProvider operation to highly privileged users.
   CreateOpenIdConnectProviderOperation({
@@ -176,7 +180,8 @@ class CreateOpenIdConnectProviderOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ConcurrentModificationException,
+            _i9.ConcurrentModificationException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ConcurrentModificationException',
@@ -186,7 +191,8 @@ class CreateOpenIdConnectProviderOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i9.ConcurrentModificationException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.EntityAlreadyExistsException,
+            _i10.EntityAlreadyExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'EntityAlreadyExistsException',
@@ -196,7 +202,7 @@ class CreateOpenIdConnectProviderOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i10.EntityAlreadyExistsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidInputException, _i11.InvalidInputException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'InvalidInputException',
@@ -206,7 +212,8 @@ class CreateOpenIdConnectProviderOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i11.InvalidInputException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.LimitExceededException,
+            _i12.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'LimitExceededException',
@@ -216,7 +223,8 @@ class CreateOpenIdConnectProviderOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i12.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.ServiceFailureException,
+            _i13.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',
@@ -249,7 +257,7 @@ class CreateOpenIdConnectProviderOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

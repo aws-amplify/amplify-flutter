@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.create_domain_name_request;
+part of 'create_domain_name_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -184,9 +184,7 @@ class CreateDomainNameRequestBuilder
       _$this._ownershipVerificationCertificateArn =
           ownershipVerificationCertificateArn;
 
-  CreateDomainNameRequestBuilder() {
-    CreateDomainNameRequest._init(this);
-  }
+  CreateDomainNameRequestBuilder();
 
   CreateDomainNameRequestBuilder get _$this {
     final $v = _$v;

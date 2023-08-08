@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.list_contributor_insights_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,6 +22,7 @@ abstract class ListContributorInsightsInput
     String? nextToken,
     int? maxResults,
   }) {
+    maxResults ??= 0;
     return _$ListContributorInsightsInput._(
       tableName: tableName,
       nextToken: nextToken,
@@ -42,12 +43,13 @@ abstract class ListContributorInsightsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListContributorInsightsInputAwsJson10Serializer()
-  ];
+  static const List<_i1.SmithySerializer<ListContributorInsightsInput>>
+      serializers = [ListContributorInsightsInputAwsJson10Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListContributorInsightsInputBuilder b) {}
+  static void _init(ListContributorInsightsInputBuilder b) {
+    b.maxResults = 0;
+  }
 
   /// The name of the table.
   String? get tableName;
@@ -56,7 +58,7 @@ abstract class ListContributorInsightsInput
   String? get nextToken;
 
   /// Maximum number of results to return per page.
-  int? get maxResults;
+  int get maxResults;
   @override
   ListContributorInsightsInput getPayload() => this;
   @override
@@ -67,19 +69,19 @@ abstract class ListContributorInsightsInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListContributorInsightsInput');
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
-    helper.add(
-      'maxResults',
-      maxResults,
-    );
+    final helper = newBuiltValueToStringHelper('ListContributorInsightsInput')
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      )
+      ..add(
+        'maxResults',
+        maxResults,
+      );
     return helper.toString();
   }
 }
@@ -147,6 +149,13 @@ class ListContributorInsightsInputAwsJson10Serializer
     final result$ = <Object?>[];
     final ListContributorInsightsInput(:tableName, :nextToken, :maxResults) =
         object;
+    result$.addAll([
+      'MaxResults',
+      serializers.serialize(
+        maxResults,
+        specifiedType: const FullType(int),
+      ),
+    ]);
     if (tableName != null) {
       result$
         ..add('TableName')
@@ -161,14 +170,6 @@ class ListContributorInsightsInputAwsJson10Serializer
         ..add(serializers.serialize(
           nextToken,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (maxResults != null) {
-      result$
-        ..add('MaxResults')
-        ..add(serializers.serialize(
-          maxResults,
-          specifiedType: const FullType(int),
         ));
     }
     return result$;

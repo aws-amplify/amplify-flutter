@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v1.query_protocol.model.nested_structures_input;
+part of 'nested_structures_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -49,9 +49,7 @@ class NestedStructuresInputBuilder
       _$this._nested ??= new _i3.StructArgBuilder();
   set nested(_i3.StructArgBuilder? nested) => _$this._nested = nested;
 
-  NestedStructuresInputBuilder() {
-    NestedStructuresInput._init(this);
-  }
+  NestedStructuresInputBuilder();
 
   NestedStructuresInputBuilder get _$this {
     final $v = _$v;

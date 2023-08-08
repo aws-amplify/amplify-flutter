@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_storage_s3_dart.s3.model.initiator; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,12 +31,9 @@ abstract class Initiator
 
   const Initiator._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Initiator>> serializers = [
     InitiatorRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InitiatorBuilder b) {}
 
   /// If the principal is an Amazon Web Services account, it provides the Canonical User ID. If the principal is an IAM User, it provides a user ARN value.
   String? get id;
@@ -50,15 +47,15 @@ abstract class Initiator
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Initiator');
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'displayName',
-      displayName,
-    );
+    final helper = newBuiltValueToStringHelper('Initiator')
+      ..add(
+        'id',
+        id,
+      )
+      ..add(
+        'displayName',
+        displayName,
+      );
     return helper.toString();
   }
 }

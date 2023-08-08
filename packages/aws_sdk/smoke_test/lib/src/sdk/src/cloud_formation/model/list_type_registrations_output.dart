@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.list_type_registrations_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,16 +40,12 @@ abstract class ListTypeRegistrationsOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ListTypeRegistrationsOutputAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListTypeRegistrationsOutputBuilder b) {}
+  static const List<_i3.SmithySerializer<ListTypeRegistrationsOutput>>
+      serializers = [ListTypeRegistrationsOutputAwsQuerySerializer()];
 
   /// A list of extension registration tokens.
   ///
-  /// Use `DescribeTypeRegistration` to return detailed information about a type registration request.
+  /// Use DescribeTypeRegistration to return detailed information about a type registration request.
   _i2.BuiltList<String>? get registrationTokenList;
 
   /// If the request doesn't return all the remaining results, `NextToken` is set to a token. To retrieve the next set of results, call this action again and assign that token to the request object's `NextToken` parameter. If the request returns all results, `NextToken` is set to `null`.
@@ -61,15 +57,15 @@ abstract class ListTypeRegistrationsOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListTypeRegistrationsOutput');
-    helper.add(
-      'registrationTokenList',
-      registrationTokenList,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('ListTypeRegistrationsOutput')
+      ..add(
+        'registrationTokenList',
+        registrationTokenList,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.delete_stack_instances_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,12 +31,8 @@ abstract class DeleteStackInstancesOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    DeleteStackInstancesOutputAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteStackInstancesOutputBuilder b) {}
+  static const List<_i2.SmithySerializer<DeleteStackInstancesOutput>>
+      serializers = [DeleteStackInstancesOutputAwsQuerySerializer()];
 
   /// The unique identifier for this stack set operation.
   String? get operationId;
@@ -44,11 +40,11 @@ abstract class DeleteStackInstancesOutput
   List<Object?> get props => [operationId];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteStackInstancesOutput');
-    helper.add(
-      'operationId',
-      operationId,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteStackInstancesOutput')
+      ..add(
+        'operationId',
+        operationId,
+      );
     return helper.toString();
   }
 }

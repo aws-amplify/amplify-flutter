@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.create_group_response;
+part of 'create_group_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class CreateGroupResponseBuilder
   _i2.GroupBuilder get group => _$this._group ??= new _i2.GroupBuilder();
   set group(_i2.GroupBuilder? group) => _$this._group = group;
 
-  CreateGroupResponseBuilder() {
-    CreateGroupResponse._init(this);
-  }
+  CreateGroupResponseBuilder();
 
   CreateGroupResponseBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.compliance_by_resource; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,12 +36,9 @@ abstract class ComplianceByResource
 
   const ComplianceByResource._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ComplianceByResource>> serializers = [
     ComplianceByResourceAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ComplianceByResourceBuilder b) {}
 
   /// The type of the Amazon Web Services resource that was evaluated.
   String? get resourceType;
@@ -59,19 +56,19 @@ abstract class ComplianceByResource
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ComplianceByResource');
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'compliance',
-      compliance,
-    );
+    final helper = newBuiltValueToStringHelper('ComplianceByResource')
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'compliance',
+        compliance,
+      );
     return helper.toString();
   }
 }

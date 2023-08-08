@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.auto_deployment; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,12 +31,9 @@ abstract class AutoDeployment
 
   const AutoDeployment._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<AutoDeployment>> serializers = [
     AutoDeploymentAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AutoDeploymentBuilder b) {}
 
   /// If set to `true`, StackSets automatically deploys additional stack instances to Organizations accounts that are added to a target organization or organizational unit (OU) in the specified Regions. If an account is removed from a target organization or OU, StackSets deletes stack instances from the account in the specified Regions.
   bool? get enabled;
@@ -50,15 +47,15 @@ abstract class AutoDeployment
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AutoDeployment');
-    helper.add(
-      'enabled',
-      enabled,
-    );
-    helper.add(
-      'retainStacksOnAccountRemoval',
-      retainStacksOnAccountRemoval,
-    );
+    final helper = newBuiltValueToStringHelper('AutoDeployment')
+      ..add(
+        'enabled',
+        enabled,
+      )
+      ..add(
+        'retainStacksOnAccountRemoval',
+        retainStacksOnAccountRemoval,
+      );
     return helper.toString();
   }
 }

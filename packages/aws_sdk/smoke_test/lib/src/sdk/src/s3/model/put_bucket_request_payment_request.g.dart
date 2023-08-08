@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.put_bucket_request_payment_request;
+part of 'put_bucket_request_payment_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -101,9 +101,7 @@ class PutBucketRequestPaymentRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  PutBucketRequestPaymentRequestBuilder() {
-    PutBucketRequestPaymentRequest._init(this);
-  }
+  PutBucketRequestPaymentRequestBuilder();
 
   PutBucketRequestPaymentRequestBuilder get _$this {
     final $v = _$v;

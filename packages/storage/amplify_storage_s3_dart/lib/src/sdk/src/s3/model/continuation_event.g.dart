@@ -37,9 +37,7 @@ class ContinuationEventBuilder
     implements Builder<ContinuationEvent, ContinuationEventBuilder> {
   _$ContinuationEvent? _$v;
 
-  ContinuationEventBuilder() {
-    ContinuationEvent._init(this);
-  }
+  ContinuationEventBuilder();
 
   @override
   void replace(ContinuationEvent other) {

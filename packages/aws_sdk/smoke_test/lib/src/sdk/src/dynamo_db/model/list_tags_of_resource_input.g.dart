@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.list_tags_of_resource_input;
+part of 'list_tags_of_resource_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -62,9 +62,7 @@ class ListTagsOfResourceInputBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  ListTagsOfResourceInputBuilder() {
-    ListTagsOfResourceInput._init(this);
-  }
+  ListTagsOfResourceInputBuilder();
 
   ListTagsOfResourceInputBuilder get _$this {
     final $v = _$v;

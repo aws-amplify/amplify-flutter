@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.request_progress;
+part of 'request_progress.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -46,9 +46,7 @@ class RequestProgressBuilder
   bool? get enabled => _$this._enabled;
   set enabled(bool? enabled) => _$this._enabled = enabled;
 
-  RequestProgressBuilder() {
-    RequestProgress._init(this);
-  }
+  RequestProgressBuilder();
 
   RequestProgressBuilder get _$this {
     final $v = _$v;

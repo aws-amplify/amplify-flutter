@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.delete_stack_set_output;
+part of 'delete_stack_set_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -38,9 +38,7 @@ class DeleteStackSetOutputBuilder
     implements Builder<DeleteStackSetOutput, DeleteStackSetOutputBuilder> {
   _$DeleteStackSetOutput? _$v;
 
-  DeleteStackSetOutputBuilder() {
-    DeleteStackSetOutput._init(this);
-  }
+  DeleteStackSetOutputBuilder();
 
   @override
   void replace(DeleteStackSetOutput other) {

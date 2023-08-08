@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.list_policies_granting_service_access_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,12 +43,11 @@ abstract class ListPoliciesGrantingServiceAccessRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<ListPoliciesGrantingServiceAccessRequest>>
+      serializers = [
     ListPoliciesGrantingServiceAccessRequestAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListPoliciesGrantingServiceAccessRequestBuilder b) {}
 
   /// Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the `Marker` element in the response that you received to indicate where the next call should start.
   String? get marker;
@@ -71,19 +70,19 @@ abstract class ListPoliciesGrantingServiceAccessRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ListPoliciesGrantingServiceAccessRequest');
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'serviceNamespaces',
-      serviceNamespaces,
-    );
+        newBuiltValueToStringHelper('ListPoliciesGrantingServiceAccessRequest')
+          ..add(
+            'marker',
+            marker,
+          )
+          ..add(
+            'arn',
+            arn,
+          )
+          ..add(
+            'serviceNamespaces',
+            serviceNamespaces,
+          );
     return helper.toString();
   }
 }

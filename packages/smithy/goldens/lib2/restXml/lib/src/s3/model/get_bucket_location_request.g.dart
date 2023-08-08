@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.s3.model.get_bucket_location_request;
+part of 'get_bucket_location_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -52,9 +52,7 @@ class GetBucketLocationRequestBuilder
   String? get bucket => _$this._bucket;
   set bucket(String? bucket) => _$this._bucket = bucket;
 
-  GetBucketLocationRequestBuilder() {
-    GetBucketLocationRequest._init(this);
-  }
+  GetBucketLocationRequestBuilder();
 
   GetBucketLocationRequestBuilder get _$this {
     final $v = _$v;
@@ -124,9 +122,7 @@ class GetBucketLocationRequestPayloadBuilder
             GetBucketLocationRequestPayloadBuilder> {
   _$GetBucketLocationRequestPayload? _$v;
 
-  GetBucketLocationRequestPayloadBuilder() {
-    GetBucketLocationRequestPayload._init(this);
-  }
+  GetBucketLocationRequestPayloadBuilder();
 
   @override
   void replace(GetBucketLocationRequestPayload other) {

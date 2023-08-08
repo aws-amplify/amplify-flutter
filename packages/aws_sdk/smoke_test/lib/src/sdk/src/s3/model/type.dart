@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -7,16 +7,12 @@ import 'package:smithy/smithy.dart' as _i1;
 
 class S3Type extends _i1.SmithyEnum<S3Type> {
   const S3Type._(
-    int index,
-    String name,
-    String value,
-  ) : super(
-          index,
-          name,
-          value,
-        );
+    super.index,
+    super.name,
+    super.value,
+  );
 
-  const S3Type._sdkUnknown(String value) : super.sdkUnknown(value);
+  const S3Type._sdkUnknown(super.value) : super.sdkUnknown();
 
   static const amazonCustomerByEmail = S3Type._(
     0,

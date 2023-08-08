@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.backup_details;
+part of 'backup_details.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -117,9 +117,7 @@ class BackupDetailsBuilder
   set backupExpiryDateTime(DateTime? backupExpiryDateTime) =>
       _$this._backupExpiryDateTime = backupExpiryDateTime;
 
-  BackupDetailsBuilder() {
-    BackupDetails._init(this);
-  }
+  BackupDetailsBuilder();
 
   BackupDetailsBuilder get _$this {
     final $v = _$v;

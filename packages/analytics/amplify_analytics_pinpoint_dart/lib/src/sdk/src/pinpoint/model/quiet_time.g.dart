@@ -51,9 +51,7 @@ class QuietTimeBuilder implements Builder<QuietTime, QuietTimeBuilder> {
   String? get start => _$this._start;
   set start(String? start) => _$this._start = start;
 
-  QuietTimeBuilder() {
-    QuietTime._init(this);
-  }
+  QuietTimeBuilder();
 
   QuietTimeBuilder get _$this {
     final $v = _$v;

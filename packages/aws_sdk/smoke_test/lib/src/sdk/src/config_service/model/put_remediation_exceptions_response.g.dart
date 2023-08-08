@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.put_remediation_exceptions_response;
+part of 'put_remediation_exceptions_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -57,9 +57,7 @@ class PutRemediationExceptionsResponseBuilder
               failedBatches) =>
       _$this._failedBatches = failedBatches;
 
-  PutRemediationExceptionsResponseBuilder() {
-    PutRemediationExceptionsResponse._init(this);
-  }
+  PutRemediationExceptionsResponseBuilder();
 
   PutRemediationExceptionsResponseBuilder get _$this {
     final $v = _$v;

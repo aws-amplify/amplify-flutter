@@ -3,6 +3,7 @@
 
 @TestOn('windows || mac-os || linux')
 
+import 'package:amplify_api_dart/amplify_api_dart.dart';
 import 'package:amplify_auth_cognito_example/amplifyconfiguration.dart';
 import 'package:amplify_auth_cognito_test/hosted_ui/hosted_ui_client.dart';
 import 'package:amplify_auth_cognito_test/hosted_ui/hosted_ui_common.dart';
@@ -14,41 +15,44 @@ import 'package:io/io.dart';
 import 'package:test/test.dart';
 import 'package:webdriver/async_io.dart' hide LogLevel;
 
+/// To run: `flutter drive --driver=test_driver/hosted_ui_test.dart --target=test_driver/hosted_ui.dart -d <platform>`
 void main() {
   final logger = AWSLogger().createChild('Hosted UI');
   final processManager = ProcessManager();
   AWSLogger().logLevel = LogLevel.verbose;
 
   group('Hosted UI', () {
-    late FlutterDriver driver;
     late WebDriver webDriver;
     late HostedUiClient application;
     late String username;
     late String password;
 
     setUpAll(() async {
-      driver = await FlutterDriver.connect();
+      final driver = await FlutterDriver.connect();
       addTearDown(driver.close);
-    });
 
-    setUp(() async {
-      await processManager.spawnBackgroundInTest('chromedriver', [
-        '--port=$chromedriverPort',
-      ]);
+      final chromedriver = await processManager.spawnBackgroundInTest(
+        'chromedriver',
+        ['--port=$chromedriverPort'],
+      );
+      addTearDown(chromedriver.kill);
 
       final config = amplifyEnvironments['hosted-ui']!;
       application = await HostedUiClient.connect(config);
       addTearDown(application.close);
 
+      await Amplify.addPlugin(AmplifyAPIDart());
       await Amplify.configure(config);
       addTearDown(Amplify.reset);
+    });
 
+    setUp(() async {
       username = generateUsername();
       password = generatePassword();
 
       logger.debug('Creating user $username...');
       await adminCreateUser(username, password, autoConfirm: true);
-      addTearDown(() => deleteUser(username));
+      addTearDown(() => adminDeleteUser(username));
 
       webDriver = await createWebDriver();
       addTearDown(webDriver.quit);

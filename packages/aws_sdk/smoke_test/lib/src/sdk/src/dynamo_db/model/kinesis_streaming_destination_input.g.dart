@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.kinesis_streaming_destination_input;
+part of 'kinesis_streaming_destination_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -67,9 +67,7 @@ class KinesisStreamingDestinationInputBuilder
   String? get streamArn => _$this._streamArn;
   set streamArn(String? streamArn) => _$this._streamArn = streamArn;
 
-  KinesisStreamingDestinationInputBuilder() {
-    KinesisStreamingDestinationInput._init(this);
-  }
+  KinesisStreamingDestinationInputBuilder();
 
   KinesisStreamingDestinationInputBuilder get _$this {
     final $v = _$v;

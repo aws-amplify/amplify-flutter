@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.in_app_message_body_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,12 +36,8 @@ abstract class InAppMessageBodyConfig
 
   const InAppMessageBodyConfig._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    InAppMessageBodyConfigRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InAppMessageBodyConfigBuilder b) {}
+  static const List<_i3.SmithySerializer<InAppMessageBodyConfig>> serializers =
+      [InAppMessageBodyConfigRestJson1Serializer()];
 
   /// The alignment of the text. Valid values: LEFT, CENTER, RIGHT.
   _i2.Alignment get alignment;
@@ -59,19 +55,19 @@ abstract class InAppMessageBodyConfig
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InAppMessageBodyConfig');
-    helper.add(
-      'alignment',
-      alignment,
-    );
-    helper.add(
-      'body',
-      body,
-    );
-    helper.add(
-      'textColor',
-      textColor,
-    );
+    final helper = newBuiltValueToStringHelper('InAppMessageBodyConfig')
+      ..add(
+        'alignment',
+        alignment,
+      )
+      ..add(
+        'body',
+        body,
+      )
+      ..add(
+        'textColor',
+        textColor,
+      );
     return helper.toString();
   }
 }

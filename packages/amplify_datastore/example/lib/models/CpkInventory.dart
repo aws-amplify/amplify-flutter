@@ -153,7 +153,7 @@ class CpkInventory extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("CpkInventory {");
     buffer.write("productId=" + "$_productId" + ", ");
@@ -299,8 +299,10 @@ class CpkInventoryModelIdentifier
   final String productName;
   final String warehouseId;
 
-  /// Create an instance of CpkInventoryModelIdentifier using [productId] the primary key.
-  /// And [productName], [warehouseId] the sort keys.
+  /**
+   * Create an instance of CpkInventoryModelIdentifier using [productId] the primary key.
+   * And [productName], [warehouseId] the sort keys.
+   */
   const CpkInventoryModelIdentifier(
       {required this.productId,
       required this.productName,

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.rest_json_protocol.model.test_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,22 +22,20 @@ abstract class TestConfig
 
   const TestConfig._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<TestConfig>> serializers = [
     TestConfigRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TestConfigBuilder b) {}
   int? get timeout;
   @override
   List<Object?> get props => [timeout];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TestConfig');
-    helper.add(
-      'timeout',
-      timeout,
-    );
+    final helper = newBuiltValueToStringHelper('TestConfig')
+      ..add(
+        'timeout',
+        timeout,
+      );
     return helper.toString();
   }
 }

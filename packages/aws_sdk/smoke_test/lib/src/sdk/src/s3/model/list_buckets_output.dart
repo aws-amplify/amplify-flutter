@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.list_buckets_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,9 @@ abstract class ListBucketsOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<ListBucketsOutput>> serializers = [
     ListBucketsOutputRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListBucketsOutputBuilder b) {}
 
   /// The list of buckets owned by the requester.
   _i4.BuiltList<_i2.Bucket>? get buckets;
@@ -57,15 +54,15 @@ abstract class ListBucketsOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListBucketsOutput');
-    helper.add(
-      'buckets',
-      buckets,
-    );
-    helper.add(
-      'owner',
-      owner,
-    );
+    final helper = newBuiltValueToStringHelper('ListBucketsOutput')
+      ..add(
+        'buckets',
+        buckets,
+      )
+      ..add(
+        'owner',
+        owner,
+      );
     return helper.toString();
   }
 }

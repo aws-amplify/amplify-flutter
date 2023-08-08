@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.upload_part_request;
+part of 'upload_part_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -8,7 +8,7 @@ part of smoke_test.s3.model.upload_part_request;
 
 class _$UploadPartRequest extends UploadPartRequest {
   @override
-  final _i2.Stream<List<int>>? body;
+  final _i2.Stream<List<int>> body;
   @override
   final String bucket;
   @override
@@ -28,7 +28,7 @@ class _$UploadPartRequest extends UploadPartRequest {
   @override
   final String key;
   @override
-  final int partNumber;
+  final int? partNumber;
   @override
   final String uploadId;
   @override
@@ -47,7 +47,7 @@ class _$UploadPartRequest extends UploadPartRequest {
       (new UploadPartRequestBuilder()..update(updates))._build();
 
   _$UploadPartRequest._(
-      {this.body,
+      {required this.body,
       required this.bucket,
       this.contentLength,
       this.contentMd5,
@@ -57,7 +57,7 @@ class _$UploadPartRequest extends UploadPartRequest {
       this.checksumSha1,
       this.checksumSha256,
       required this.key,
-      required this.partNumber,
+      this.partNumber,
       required this.uploadId,
       this.sseCustomerAlgorithm,
       this.sseCustomerKey,
@@ -65,11 +65,10 @@ class _$UploadPartRequest extends UploadPartRequest {
       this.requestPayer,
       this.expectedBucketOwner})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(body, r'UploadPartRequest', 'body');
     BuiltValueNullFieldError.checkNotNull(
         bucket, r'UploadPartRequest', 'bucket');
     BuiltValueNullFieldError.checkNotNull(key, r'UploadPartRequest', 'key');
-    BuiltValueNullFieldError.checkNotNull(
-        partNumber, r'UploadPartRequest', 'partNumber');
     BuiltValueNullFieldError.checkNotNull(
         uploadId, r'UploadPartRequest', 'uploadId');
   }
@@ -258,7 +257,8 @@ class UploadPartRequestBuilder
   _$UploadPartRequest _build() {
     final _$result = _$v ??
         new _$UploadPartRequest._(
-            body: body,
+            body: BuiltValueNullFieldError.checkNotNull(
+                body, r'UploadPartRequest', 'body'),
             bucket: BuiltValueNullFieldError.checkNotNull(
                 bucket, r'UploadPartRequest', 'bucket'),
             contentLength: contentLength,
@@ -270,8 +270,7 @@ class UploadPartRequestBuilder
             checksumSha256: checksumSha256,
             key: BuiltValueNullFieldError.checkNotNull(
                 key, r'UploadPartRequest', 'key'),
-            partNumber: BuiltValueNullFieldError.checkNotNull(
-                partNumber, r'UploadPartRequest', 'partNumber'),
+            partNumber: partNumber,
             uploadId: BuiltValueNullFieldError.checkNotNull(
                 uploadId, r'UploadPartRequest', 'uploadId'),
             sseCustomerAlgorithm: sseCustomerAlgorithm,

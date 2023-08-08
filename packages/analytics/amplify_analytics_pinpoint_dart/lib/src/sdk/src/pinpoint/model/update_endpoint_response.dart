@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.update_endpoint_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,12 +36,9 @@ abstract class UpdateEndpointResponse
         b.messageBody.replace(payload);
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<_i3.MessageBody>> serializers = [
     UpdateEndpointResponseRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateEndpointResponseBuilder b) {}
 
   /// Provides information about an API request or response.
   _i3.MessageBody get messageBody;
@@ -51,11 +48,11 @@ abstract class UpdateEndpointResponse
   List<Object?> get props => [messageBody];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateEndpointResponse');
-    helper.add(
-      'messageBody',
-      messageBody,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateEndpointResponse')
+      ..add(
+        'messageBody',
+        messageBody,
+      );
     return helper.toString();
   }
 }

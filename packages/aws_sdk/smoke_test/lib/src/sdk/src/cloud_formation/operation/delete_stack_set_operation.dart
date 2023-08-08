@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.operation.delete_stack_set_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -115,7 +115,8 @@ class DeleteStackSetOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.OperationInProgressException,
+            _i9.OperationInProgressException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'OperationInProgressException',
@@ -125,7 +126,8 @@ class DeleteStackSetOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i9.OperationInProgressException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.StackSetNotEmptyException,
+            _i10.StackSetNotEmptyException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'StackSetNotEmptyException',
@@ -158,7 +160,7 @@ class DeleteStackSetOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

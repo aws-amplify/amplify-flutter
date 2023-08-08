@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.replica_settings_update;
+part of 'replica_settings_update.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -117,9 +117,7 @@ class ReplicaSettingsUpdateBuilder
   set replicaTableClass(_i5.TableClass? replicaTableClass) =>
       _$this._replicaTableClass = replicaTableClass;
 
-  ReplicaSettingsUpdateBuilder() {
-    ReplicaSettingsUpdate._init(this);
-  }
+  ReplicaSettingsUpdateBuilder();
 
   ReplicaSettingsUpdateBuilder get _$this {
     final $v = _$v;

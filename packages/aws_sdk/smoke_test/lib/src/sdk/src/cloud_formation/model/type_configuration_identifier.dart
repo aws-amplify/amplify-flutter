@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.type_configuration_identifier; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,22 +41,18 @@ abstract class TypeConfigurationIdentifier
 
   const TypeConfigurationIdentifier._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    TypeConfigurationIdentifierAwsQuerySerializer()
-  ];
+  static const List<_i3.SmithySerializer<TypeConfigurationIdentifier>>
+      serializers = [TypeConfigurationIdentifierAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TypeConfigurationIdentifierBuilder b) {}
-
-  /// The Amazon Resource Name (ARN) for the extension, in this account and region.
+  /// The Amazon Resource Name (ARN) for the extension, in this account and Region.
   ///
-  /// For public extensions, this will be the ARN assigned when you [activate the type](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ActivateType.html) in this account and region. For private extensions, this will be the ARN assigned when you [register the type](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html) in this account and region.
+  /// For public extensions, this will be the ARN assigned when you [activate the type](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ActivateType.html) in this account and Region. For private extensions, this will be the ARN assigned when you [register the type](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_RegisterType.html) in this account and Region.
   String? get typeArn;
 
   /// The alias specified for this configuration, if one was specified when the configuration was set.
   String? get typeConfigurationAlias;
 
-  /// The Amazon Resource Name (ARN) for the configuration, in this account and region.
+  /// The Amazon Resource Name (ARN) for the configuration, in this account and Region.
   String? get typeConfigurationArn;
 
   /// The type of extension.
@@ -74,27 +70,27 @@ abstract class TypeConfigurationIdentifier
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TypeConfigurationIdentifier');
-    helper.add(
-      'typeArn',
-      typeArn,
-    );
-    helper.add(
-      'typeConfigurationAlias',
-      typeConfigurationAlias,
-    );
-    helper.add(
-      'typeConfigurationArn',
-      typeConfigurationArn,
-    );
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'typeName',
-      typeName,
-    );
+    final helper = newBuiltValueToStringHelper('TypeConfigurationIdentifier')
+      ..add(
+        'typeArn',
+        typeArn,
+      )
+      ..add(
+        'typeConfigurationAlias',
+        typeConfigurationAlias,
+      )
+      ..add(
+        'typeConfigurationArn',
+        typeConfigurationArn,
+      )
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'typeName',
+        typeName,
+      );
     return helper.toString();
   }
 }

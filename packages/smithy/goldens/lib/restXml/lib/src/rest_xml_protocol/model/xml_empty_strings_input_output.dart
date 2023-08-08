@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_xml_v1.rest_xml_protocol.model.xml_empty_strings_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,9 @@ abstract class XmlEmptyStringsInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    XmlEmptyStringsInputOutputRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<XmlEmptyStringsInputOutput>>
+      serializers = [XmlEmptyStringsInputOutputRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(XmlEmptyStringsInputOutputBuilder b) {}
   String? get emptyString;
   @override
   XmlEmptyStringsInputOutput getPayload() => this;
@@ -53,11 +50,11 @@ abstract class XmlEmptyStringsInputOutput
   List<Object?> get props => [emptyString];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('XmlEmptyStringsInputOutput');
-    helper.add(
-      'emptyString',
-      emptyString,
-    );
+    final helper = newBuiltValueToStringHelper('XmlEmptyStringsInputOutput')
+      ..add(
+        'emptyString',
+        emptyString,
+      );
     return helper.toString();
   }
 }

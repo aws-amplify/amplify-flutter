@@ -5,6 +5,7 @@ import 'package:amplify_core/amplify_core.dart';
 
 part 'auth_next_sign_up_step.g.dart';
 
+/// {@category Auth}
 @zAmplifySerializable
 class AuthNextSignUpStep extends AuthNextStep
     with AWSEquatable<AuthNextSignUpStep>, AWSDebuggable {

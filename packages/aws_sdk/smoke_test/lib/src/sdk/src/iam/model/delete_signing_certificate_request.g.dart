@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.delete_signing_certificate_request;
+part of 'delete_signing_certificate_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -66,9 +66,7 @@ class DeleteSigningCertificateRequestBuilder
   set certificateId(String? certificateId) =>
       _$this._certificateId = certificateId;
 
-  DeleteSigningCertificateRequestBuilder() {
-    DeleteSigningCertificateRequest._init(this);
-  }
+  DeleteSigningCertificateRequestBuilder();
 
   DeleteSigningCertificateRequestBuilder get _$this {
     final $v = _$v;

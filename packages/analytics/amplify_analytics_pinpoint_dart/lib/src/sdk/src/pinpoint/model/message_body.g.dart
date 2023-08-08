@@ -53,9 +53,7 @@ class MessageBodyBuilder implements Builder<MessageBody, MessageBodyBuilder> {
   String? get requestId => _$this._requestId;
   set requestId(String? requestId) => _$this._requestId = requestId;
 
-  MessageBodyBuilder() {
-    MessageBody._init(this);
-  }
+  MessageBodyBuilder();
 
   MessageBodyBuilder get _$this {
     final $v = _$v;

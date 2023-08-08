@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.global_table_already_exists_exception;
+part of 'global_table_already_exists_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -67,9 +67,7 @@ class GlobalTableAlreadyExistsExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  GlobalTableAlreadyExistsExceptionBuilder() {
-    GlobalTableAlreadyExistsException._init(this);
-  }
+  GlobalTableAlreadyExistsExceptionBuilder();
 
   GlobalTableAlreadyExistsExceptionBuilder get _$this {
     final $v = _$v;

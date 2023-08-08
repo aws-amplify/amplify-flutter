@@ -80,27 +80,16 @@ export abstract class IntegrationTestStack<
   public get bucket(): s3.Bucket {
     if (!this._bucket) {
       this._bucket = new s3.Bucket(this, "Bucket", {
-        bucketName: this.bucketName,
+        bucketName: randomBucketName({
+          prefix: `amplify-test-${this.baseName.toLowerCase()}`,
+          stack: this,
+        }),
         removalPolicy: RemovalPolicy.DESTROY,
         autoDeleteObjects: true,
         enforceSSL: true,
       });
     }
     return this._bucket;
-  }
-
-  /**
-   * The bucket name for this stack where configuration files can be saved.
-   *
-   * Naming matches Amplify CLI for discoverability, suffixed with a segment of the stack ID.
-   * https://github.com/aws-amplify/amplify-ci-support/blob/1abe7f7a1d75fa19675ad8ca17ab625a299b765e/src/integ_test_resources/flutter/amplify/cloudformation_template.yaml#L32
-   */
-  private get bucketName(): string {
-    return Fn.join("-", [
-      `amplify-test-${this.baseName.toLowerCase()}`,
-      // https://stackoverflow.com/questions/54897459/how-to-set-semi-random-name-for-s3-bucket-using-cloud-formation
-      Fn.select(0, Fn.split("-", Fn.select(2, Fn.split("/", this.stackId)))),
-    ]);
   }
 
   /**
@@ -165,6 +154,21 @@ export abstract class IntegrationTestStackEnvironment<
     });
     cronRule.addTarget(new targets.LambdaFunction(lambda));
   }
+}
+
+/**
+ * Creates a semi-random bucket name which is stable for a particular stack and guaranteed to
+ * not conflict with other buckets of the same prefix.
+ *
+ * Naming matches Amplify CLI for discoverability, suffixed with a segment of the stack ID.
+ * https://github.com/aws-amplify/amplify-ci-support/blob/1abe7f7a1d75fa19675ad8ca17ab625a299b765e/src/integ_test_resources/flutter/amplify/cloudformation_template.yaml#L32
+ */
+export const randomBucketName = ({ prefix, stack }: { prefix: string, stack: cdk.Stack }): string => {
+  return Fn.join("-", [
+    prefix,
+    // https://stackoverflow.com/questions/54897459/how-to-set-semi-random-name-for-s3-bucket-using-cloud-formation
+    Fn.select(0, Fn.split("-", Fn.select(2, Fn.split("/", stack.stackId)))),
+  ]);
 }
 
 /**

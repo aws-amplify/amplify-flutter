@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.put_bucket_analytics_configuration_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -62,12 +62,8 @@ abstract class PutBucketAnalyticsConfigurationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutBucketAnalyticsConfigurationRequestRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketAnalyticsConfigurationRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<_i2.AnalyticsConfiguration>>
+      serializers = [PutBucketAnalyticsConfigurationRequestRestXmlSerializer()];
 
   /// The name of the bucket to which an analytics configuration is stored.
   String get bucket;
@@ -104,23 +100,23 @@ abstract class PutBucketAnalyticsConfigurationRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutBucketAnalyticsConfigurationRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'analyticsConfiguration',
-      analyticsConfiguration,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+        newBuiltValueToStringHelper('PutBucketAnalyticsConfigurationRequest')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'id',
+            id,
+          )
+          ..add(
+            'analyticsConfiguration',
+            analyticsConfiguration,
+          )
+          ..add(
+            'expectedBucketOwner',
+            expectedBucketOwner,
+          );
     return helper.toString();
   }
 }

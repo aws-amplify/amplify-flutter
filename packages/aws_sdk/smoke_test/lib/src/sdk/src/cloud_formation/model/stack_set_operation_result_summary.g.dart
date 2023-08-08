@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.stack_set_operation_result_summary;
+part of 'stack_set_operation_result_summary.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -102,9 +102,7 @@ class StackSetOperationResultSummaryBuilder
   set organizationalUnitId(String? organizationalUnitId) =>
       _$this._organizationalUnitId = organizationalUnitId;
 
-  StackSetOperationResultSummaryBuilder() {
-    StackSetOperationResultSummary._init(this);
-  }
+  StackSetOperationResultSummaryBuilder();
 
   StackSetOperationResultSummaryBuilder get _$this {
     final $v = _$v;

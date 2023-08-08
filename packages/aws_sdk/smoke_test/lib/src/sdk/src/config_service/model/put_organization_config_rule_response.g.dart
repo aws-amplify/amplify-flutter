@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.put_organization_config_rule_response;
+part of 'put_organization_config_rule_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class PutOrganizationConfigRuleResponseBuilder
   set organizationConfigRuleArn(String? organizationConfigRuleArn) =>
       _$this._organizationConfigRuleArn = organizationConfigRuleArn;
 
-  PutOrganizationConfigRuleResponseBuilder() {
-    PutOrganizationConfigRuleResponse._init(this);
-  }
+  PutOrganizationConfigRuleResponseBuilder();
 
   PutOrganizationConfigRuleResponseBuilder get _$this {
     final $v = _$v;

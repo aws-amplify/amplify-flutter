@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.rest_json_protocol.model.json_lists_input_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -71,12 +71,10 @@ abstract class JsonListsInputOutput
   ) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<JsonListsInputOutput>> serializers = [
     JsonListsInputOutputRestJson1Serializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(JsonListsInputOutputBuilder b) {}
   _i5.BuiltList<String>? get stringList;
   _i5.BuiltList<String?>? get sparseStringList;
   _i5.BuiltSet<String>? get stringSet;
@@ -106,47 +104,47 @@ abstract class JsonListsInputOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('JsonListsInputOutput');
-    helper.add(
-      'stringList',
-      stringList,
-    );
-    helper.add(
-      'sparseStringList',
-      sparseStringList,
-    );
-    helper.add(
-      'stringSet',
-      stringSet,
-    );
-    helper.add(
-      'integerList',
-      integerList,
-    );
-    helper.add(
-      'booleanList',
-      booleanList,
-    );
-    helper.add(
-      'timestampList',
-      timestampList,
-    );
-    helper.add(
-      'enumList',
-      enumList,
-    );
-    helper.add(
-      'intEnumList',
-      intEnumList,
-    );
-    helper.add(
-      'nestedStringList',
-      nestedStringList,
-    );
-    helper.add(
-      'structureList',
-      structureList,
-    );
+    final helper = newBuiltValueToStringHelper('JsonListsInputOutput')
+      ..add(
+        'stringList',
+        stringList,
+      )
+      ..add(
+        'sparseStringList',
+        sparseStringList,
+      )
+      ..add(
+        'stringSet',
+        stringSet,
+      )
+      ..add(
+        'integerList',
+        integerList,
+      )
+      ..add(
+        'booleanList',
+        booleanList,
+      )
+      ..add(
+        'timestampList',
+        timestampList,
+      )
+      ..add(
+        'enumList',
+        enumList,
+      )
+      ..add(
+        'intEnumList',
+        intEnumList,
+      )
+      ..add(
+        'nestedStringList',
+        nestedStringList,
+      )
+      ..add(
+        'structureList',
+        structureList,
+      );
     return helper.toString();
   }
 }

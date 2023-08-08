@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.rollback_configuration;
+part of 'rollback_configuration.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class RollbackConfigurationBuilder
   set monitoringTimeInMinutes(int? monitoringTimeInMinutes) =>
       _$this._monitoringTimeInMinutes = monitoringTimeInMinutes;
 
-  RollbackConfigurationBuilder() {
-    RollbackConfiguration._init(this);
-  }
+  RollbackConfigurationBuilder();
 
   RollbackConfigurationBuilder get _$this {
     final $v = _$v;

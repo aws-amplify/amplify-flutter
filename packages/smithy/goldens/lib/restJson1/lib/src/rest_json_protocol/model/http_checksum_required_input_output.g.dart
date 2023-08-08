@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_protocol.model.http_checksum_required_input_output;
+part of 'http_checksum_required_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class HttpChecksumRequiredInputOutputBuilder
   String? get foo => _$this._foo;
   set foo(String? foo) => _$this._foo = foo;
 
-  HttpChecksumRequiredInputOutputBuilder() {
-    HttpChecksumRequiredInputOutput._init(this);
-  }
+  HttpChecksumRequiredInputOutputBuilder();
 
   HttpChecksumRequiredInputOutputBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.invalid_user_type_exception;
+part of 'invalid_user_type_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class InvalidUserTypeExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InvalidUserTypeExceptionBuilder() {
-    InvalidUserTypeException._init(this);
-  }
+  InvalidUserTypeExceptionBuilder();
 
   InvalidUserTypeExceptionBuilder get _$this {
     final $v = _$v;

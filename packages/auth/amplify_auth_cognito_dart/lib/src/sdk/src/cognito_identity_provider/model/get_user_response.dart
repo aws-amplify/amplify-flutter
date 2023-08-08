@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.get_user_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -49,7 +50,7 @@ abstract class GetUserResponse
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<GetUserResponse>> serializers = [
     GetUserResponseAwsJson11Serializer()
   ];
 
@@ -82,27 +83,27 @@ abstract class GetUserResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetUserResponse');
-    helper.add(
-      'username',
-      '***SENSITIVE***',
-    );
-    helper.add(
-      'userAttributes',
-      userAttributes,
-    );
-    helper.add(
-      'mfaOptions',
-      mfaOptions,
-    );
-    helper.add(
-      'preferredMfaSetting',
-      preferredMfaSetting,
-    );
-    helper.add(
-      'userMfaSettingList',
-      userMfaSettingList,
-    );
+    final helper = newBuiltValueToStringHelper('GetUserResponse')
+      ..add(
+        'username',
+        '***SENSITIVE***',
+      )
+      ..add(
+        'userAttributes',
+        userAttributes,
+      )
+      ..add(
+        'mfaOptions',
+        mfaOptions,
+      )
+      ..add(
+        'preferredMfaSetting',
+        preferredMfaSetting,
+      )
+      ..add(
+        'userMfaSettingList',
+        userMfaSettingList,
+      );
     return helper.toString();
   }
 }
@@ -135,13 +136,15 @@ class GetUserResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'Username':
           result.username = (serializers.deserialize(
-            value!,
+            value,
             specifiedType: const FullType(String),
           ) as String);
-          break;
         case 'UserAttributes':
           result.userAttributes.replace((serializers.deserialize(
             value,
@@ -150,37 +153,27 @@ class GetUserResponseAwsJson11Serializer
               [FullType(_i2.AttributeType)],
             ),
           ) as _i4.BuiltList<_i2.AttributeType>));
-          break;
         case 'MFAOptions':
-          if (value != null) {
-            result.mfaOptions.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(_i3.MfaOptionType)],
-              ),
-            ) as _i4.BuiltList<_i3.MfaOptionType>));
-          }
-          break;
+          result.mfaOptions.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(_i3.MfaOptionType)],
+            ),
+          ) as _i4.BuiltList<_i3.MfaOptionType>));
         case 'PreferredMfaSetting':
-          if (value != null) {
-            result.preferredMfaSetting = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.preferredMfaSetting = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'UserMFASettingList':
-          if (value != null) {
-            result.userMfaSettingList.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltList,
-                [FullType(String)],
-              ),
-            ) as _i4.BuiltList<String>));
-          }
-          break;
+          result.userMfaSettingList.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltList,
+              [FullType(String)],
+            ),
+          ) as _i4.BuiltList<String>));
       }
     }
 
@@ -190,55 +183,62 @@ class GetUserResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    GetUserResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as GetUserResponse);
-    final result = <Object?>[
+    final result$ = <Object?>[];
+    final GetUserResponse(
+      :username,
+      :userAttributes,
+      :mfaOptions,
+      :preferredMfaSetting,
+      :userMfaSettingList
+    ) = object;
+    result$.addAll([
       'Username',
       serializers.serialize(
-        payload.username,
+        username,
         specifiedType: const FullType(String),
       ),
       'UserAttributes',
       serializers.serialize(
-        payload.userAttributes,
+        userAttributes,
         specifiedType: const FullType(
           _i4.BuiltList,
           [FullType(_i2.AttributeType)],
         ),
       ),
-    ];
-    if (payload.mfaOptions != null) {
-      result
+    ]);
+    if (mfaOptions != null) {
+      result$
         ..add('MFAOptions')
         ..add(serializers.serialize(
-          payload.mfaOptions!,
+          mfaOptions,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(_i3.MfaOptionType)],
           ),
         ));
     }
-    if (payload.preferredMfaSetting != null) {
-      result
+    if (preferredMfaSetting != null) {
+      result$
         ..add('PreferredMfaSetting')
         ..add(serializers.serialize(
-          payload.preferredMfaSetting!,
+          preferredMfaSetting,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.userMfaSettingList != null) {
-      result
+    if (userMfaSettingList != null) {
+      result$
         ..add('UserMFASettingList')
         ..add(serializers.serialize(
-          payload.userMfaSettingList!,
+          userMfaSettingList,
           specifiedType: const FullType(
             _i4.BuiltList,
             [FullType(String)],
           ),
         ));
     }
-    return result;
+    return result$;
   }
 }

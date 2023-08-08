@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.put_bucket_notification_configuration_request;
+part of 'put_bucket_notification_configuration_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -97,9 +97,7 @@ class PutBucketNotificationConfigurationRequestBuilder
   set skipDestinationValidation(bool? skipDestinationValidation) =>
       _$this._skipDestinationValidation = skipDestinationValidation;
 
-  PutBucketNotificationConfigurationRequestBuilder() {
-    PutBucketNotificationConfigurationRequest._init(this);
-  }
+  PutBucketNotificationConfigurationRequestBuilder();
 
   PutBucketNotificationConfigurationRequestBuilder get _$this {
     final $v = _$v;

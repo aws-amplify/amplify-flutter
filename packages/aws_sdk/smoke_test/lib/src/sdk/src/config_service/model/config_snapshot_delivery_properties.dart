@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.config_snapshot_delivery_properties; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -99,12 +99,8 @@ abstract class ConfigSnapshotDeliveryProperties
 
   const ConfigSnapshotDeliveryProperties._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ConfigSnapshotDeliveryPropertiesAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConfigSnapshotDeliveryPropertiesBuilder b) {}
+  static const List<_i3.SmithySerializer<ConfigSnapshotDeliveryProperties>>
+      serializers = [ConfigSnapshotDeliveryPropertiesAwsJson11Serializer()];
 
   /// The frequency with which Config delivers configuration snapshots.
   _i2.MaximumExecutionFrequency? get deliveryFrequency;
@@ -113,11 +109,11 @@ abstract class ConfigSnapshotDeliveryProperties
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ConfigSnapshotDeliveryProperties');
-    helper.add(
-      'deliveryFrequency',
-      deliveryFrequency,
-    );
+        newBuiltValueToStringHelper('ConfigSnapshotDeliveryProperties')
+          ..add(
+            'deliveryFrequency',
+            deliveryFrequency,
+          );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.get_method_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -56,12 +56,8 @@ abstract class GetMethodRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetMethodRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetMethodRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetMethodRequestPayload>> serializers =
+      [GetMethodRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -97,19 +93,19 @@ abstract class GetMethodRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetMethodRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'httpMethod',
-      httpMethod,
-    );
+    final helper = newBuiltValueToStringHelper('GetMethodRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'httpMethod',
+        httpMethod,
+      );
     return helper.toString();
   }
 }
@@ -126,8 +122,6 @@ abstract class GetMethodRequestPayload
 
   const GetMethodRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetMethodRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

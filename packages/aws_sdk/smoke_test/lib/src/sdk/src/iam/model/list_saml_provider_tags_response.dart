@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.list_saml_provider_tags_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,6 +23,7 @@ abstract class ListSamlProviderTagsResponse
     bool? isTruncated,
     String? marker,
   }) {
+    isTruncated ??= false;
     return _$ListSamlProviderTagsResponse._(
       tags: _i3.BuiltList(tags),
       isTruncated: isTruncated,
@@ -43,18 +44,19 @@ abstract class ListSamlProviderTagsResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ListSamlProviderTagsResponseAwsQuerySerializer()
-  ];
+  static const List<_i4.SmithySerializer<ListSamlProviderTagsResponse>>
+      serializers = [ListSamlProviderTagsResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListSamlProviderTagsResponseBuilder b) {}
+  static void _init(ListSamlProviderTagsResponseBuilder b) {
+    b.isTruncated = false;
+  }
 
   /// The list of tags that are currently attached to the Security Assertion Markup Language (SAML) identity provider. Each tag consists of a key name and an associated value. If no tags are attached to the specified resource, the response contains an empty list.
   _i3.BuiltList<_i2.Tag> get tags;
 
   /// A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the `Marker` request parameter to retrieve more items. Note that IAM might return fewer than the `MaxItems` number of results even when there are more results available. We recommend that you check `IsTruncated` after every call to ensure that you receive all your results.
-  bool? get isTruncated;
+  bool get isTruncated;
 
   /// When `IsTruncated` is `true`, this element is present and contains the value to use for the `Marker` parameter in a subsequent pagination request.
   String? get marker;
@@ -66,19 +68,19 @@ abstract class ListSamlProviderTagsResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListSamlProviderTagsResponse');
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
+    final helper = newBuiltValueToStringHelper('ListSamlProviderTagsResponse')
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'marker',
+        marker,
+      );
     return helper.toString();
   }
 }
@@ -168,14 +170,12 @@ class ListSamlProviderTagsResponseAwsQuerySerializer
           [FullType(_i2.Tag)],
         ),
       ));
-    if (isTruncated != null) {
-      result$
-        ..add(const _i4.XmlElementName('IsTruncated'))
-        ..add(serializers.serialize(
-          isTruncated,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result$
+      ..add(const _i4.XmlElementName('IsTruncated'))
+      ..add(serializers.serialize(
+        isTruncated,
+        specifiedType: const FullType(bool),
+      ));
     if (marker != null) {
       result$
         ..add(const _i4.XmlElementName('Marker'))

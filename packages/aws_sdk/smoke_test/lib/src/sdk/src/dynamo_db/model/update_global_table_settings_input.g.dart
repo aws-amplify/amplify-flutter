@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.update_global_table_settings_input;
+part of 'update_global_table_settings_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -135,9 +135,7 @@ class UpdateGlobalTableSettingsInputBuilder
           _i8.ListBuilder<_i7.ReplicaSettingsUpdate>? replicaSettingsUpdate) =>
       _$this._replicaSettingsUpdate = replicaSettingsUpdate;
 
-  UpdateGlobalTableSettingsInputBuilder() {
-    UpdateGlobalTableSettingsInput._init(this);
-  }
+  UpdateGlobalTableSettingsInputBuilder();
 
   UpdateGlobalTableSettingsInputBuilder get _$this {
     final $v = _$v;

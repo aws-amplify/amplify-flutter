@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.policy_not_attachable_exception;
+part of 'policy_not_attachable_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -56,9 +56,7 @@ class PolicyNotAttachableExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  PolicyNotAttachableExceptionBuilder() {
-    PolicyNotAttachableException._init(this);
-  }
+  PolicyNotAttachableExceptionBuilder();
 
   PolicyNotAttachableExceptionBuilder get _$this {
     final $v = _$v;

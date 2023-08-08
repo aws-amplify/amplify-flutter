@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.point_in_time_recovery_description;
+part of 'point_in_time_recovery_description.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -77,9 +77,7 @@ class PointInTimeRecoveryDescriptionBuilder
   set latestRestorableDateTime(DateTime? latestRestorableDateTime) =>
       _$this._latestRestorableDateTime = latestRestorableDateTime;
 
-  PointInTimeRecoveryDescriptionBuilder() {
-    PointInTimeRecoveryDescription._init(this);
-  }
+  PointInTimeRecoveryDescriptionBuilder();
 
   PointInTimeRecoveryDescriptionBuilder get _$this {
     final $v = _$v;

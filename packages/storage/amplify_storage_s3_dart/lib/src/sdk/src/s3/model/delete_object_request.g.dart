@@ -112,9 +112,7 @@ class DeleteObjectRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  DeleteObjectRequestBuilder() {
-    DeleteObjectRequest._init(this);
-  }
+  DeleteObjectRequestBuilder();
 
   DeleteObjectRequestBuilder get _$this {
     final $v = _$v;
@@ -195,9 +193,7 @@ class DeleteObjectRequestPayloadBuilder
         Builder<DeleteObjectRequestPayload, DeleteObjectRequestPayloadBuilder> {
   _$DeleteObjectRequestPayload? _$v;
 
-  DeleteObjectRequestPayloadBuilder() {
-    DeleteObjectRequestPayload._init(this);
-  }
+  DeleteObjectRequestPayloadBuilder();
 
   @override
   void replace(DeleteObjectRequestPayload other) {

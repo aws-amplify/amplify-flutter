@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_protocol.model.malformed_timestamp_query_default_input;
+part of 'malformed_timestamp_query_default_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -58,9 +58,7 @@ class MalformedTimestampQueryDefaultInputBuilder
   DateTime? get timestamp => _$this._timestamp;
   set timestamp(DateTime? timestamp) => _$this._timestamp = timestamp;
 
-  MalformedTimestampQueryDefaultInputBuilder() {
-    MalformedTimestampQueryDefaultInput._init(this);
-  }
+  MalformedTimestampQueryDefaultInputBuilder();
 
   MalformedTimestampQueryDefaultInputBuilder get _$this {
     final $v = _$v;
@@ -134,9 +132,7 @@ class MalformedTimestampQueryDefaultInputPayloadBuilder
             MalformedTimestampQueryDefaultInputPayloadBuilder> {
   _$MalformedTimestampQueryDefaultInputPayload? _$v;
 
-  MalformedTimestampQueryDefaultInputPayloadBuilder() {
-    MalformedTimestampQueryDefaultInputPayload._init(this);
-  }
+  MalformedTimestampQueryDefaultInputPayloadBuilder();
 
   @override
   void replace(MalformedTimestampQueryDefaultInputPayload other) {

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.part;
+part of 'part.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -114,9 +114,7 @@ class PartBuilder implements Builder<Part, PartBuilder> {
   set checksumSha256(String? checksumSha256) =>
       _$this._checksumSha256 = checksumSha256;
 
-  PartBuilder() {
-    Part._init(this);
-  }
+  PartBuilder();
 
   PartBuilder get _$this {
     final $v = _$v;

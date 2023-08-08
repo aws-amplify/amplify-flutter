@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.scan_input;
+part of 'scan_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -209,9 +209,7 @@ class ScanInputBuilder implements Builder<ScanInput, ScanInputBuilder> {
   set consistentRead(bool? consistentRead) =>
       _$this._consistentRead = consistentRead;
 
-  ScanInputBuilder() {
-    ScanInput._init(this);
-  }
+  ScanInputBuilder();
 
   ScanInputBuilder get _$this {
     final $v = _$v;

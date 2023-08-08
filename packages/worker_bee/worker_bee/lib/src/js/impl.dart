@@ -148,7 +148,7 @@ mixin WorkerBeeImpl<Request extends Object, Response>
         for (final entrypoint in [
           if (jsEntrypoint != null) jsEntrypoint,
           this.jsEntrypoint,
-          ...fallbackUrls
+          ...fallbackUrls,
         ]) {
           logger.debug('Spawning worker at $entrypoint');
 

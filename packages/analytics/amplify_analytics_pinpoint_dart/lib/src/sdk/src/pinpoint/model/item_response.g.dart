@@ -62,9 +62,7 @@ class ItemResponseBuilder
           _i4.MapBuilder<String, _i3.EventItemResponse>? eventsItemResponse) =>
       _$this._eventsItemResponse = eventsItemResponse;
 
-  ItemResponseBuilder() {
-    ItemResponse._init(this);
-  }
+  ItemResponseBuilder();
 
   ItemResponseBuilder get _$this {
     final $v = _$v;

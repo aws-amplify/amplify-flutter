@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v2.glacier.model.invalid_parameter_value_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,12 +44,9 @@ abstract class InvalidParameterValueException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    InvalidParameterValueExceptionRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<InvalidParameterValueException>>
+      serializers = [InvalidParameterValueExceptionRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InvalidParameterValueExceptionBuilder b) {}
   String? get type;
   String? get code;
   @override
@@ -77,20 +74,19 @@ abstract class InvalidParameterValueException
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('InvalidParameterValueException');
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'code',
-      code,
-    );
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('InvalidParameterValueException')
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'code',
+        code,
+      )
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

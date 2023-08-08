@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_validation_protocol.model.validation_exception;
+part of 'validation_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -76,9 +76,7 @@ class ValidationExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  ValidationExceptionBuilder() {
-    ValidationException._init(this);
-  }
+  ValidationExceptionBuilder();
 
   ValidationExceptionBuilder get _$this {
     final $v = _$v;

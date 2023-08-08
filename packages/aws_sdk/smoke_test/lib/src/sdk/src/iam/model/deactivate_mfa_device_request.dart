@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.deactivate_mfa_device_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,8 @@ abstract class DeactivateMfaDeviceRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeactivateMfaDeviceRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeactivateMfaDeviceRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<DeactivateMfaDeviceRequest>>
+      serializers = [DeactivateMfaDeviceRequestAwsQuerySerializer()];
 
   /// The name of the user whose MFA device you want to deactivate.
   ///
@@ -64,15 +60,15 @@ abstract class DeactivateMfaDeviceRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeactivateMfaDeviceRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'serialNumber',
-      serialNumber,
-    );
+    final helper = newBuiltValueToStringHelper('DeactivateMfaDeviceRequest')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'serialNumber',
+        serialNumber,
+      );
     return helper.toString();
   }
 }

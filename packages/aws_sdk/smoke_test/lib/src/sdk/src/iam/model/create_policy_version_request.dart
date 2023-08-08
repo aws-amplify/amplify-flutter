@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.create_policy_version_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,6 +21,7 @@ abstract class CreatePolicyVersionRequest
     required String policyDocument,
     bool? setAsDefault,
   }) {
+    setAsDefault ??= false;
     return _$CreatePolicyVersionRequest._(
       policyArn: policyArn,
       policyDocument: policyDocument,
@@ -41,12 +42,13 @@ abstract class CreatePolicyVersionRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreatePolicyVersionRequestAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<CreatePolicyVersionRequest>>
+      serializers = [CreatePolicyVersionRequestAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreatePolicyVersionRequestBuilder b) {}
+  static void _init(CreatePolicyVersionRequestBuilder b) {
+    b.setAsDefault = false;
+  }
 
   /// The Amazon Resource Name (ARN) of the IAM policy to which you want to add a new version.
   ///
@@ -73,7 +75,7 @@ abstract class CreatePolicyVersionRequest
   /// When this parameter is `true`, the new policy version becomes the operative version. That is, it becomes the version that is in effect for the IAM users, groups, and roles that the policy is attached to.
   ///
   /// For more information about managed policy versions, see [Versioning for managed policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html) in the _IAM User Guide_.
-  bool? get setAsDefault;
+  bool get setAsDefault;
   @override
   CreatePolicyVersionRequest getPayload() => this;
   @override
@@ -84,19 +86,19 @@ abstract class CreatePolicyVersionRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreatePolicyVersionRequest');
-    helper.add(
-      'policyArn',
-      policyArn,
-    );
-    helper.add(
-      'policyDocument',
-      policyDocument,
-    );
-    helper.add(
-      'setAsDefault',
-      setAsDefault,
-    );
+    final helper = newBuiltValueToStringHelper('CreatePolicyVersionRequest')
+      ..add(
+        'policyArn',
+        policyArn,
+      )
+      ..add(
+        'policyDocument',
+        policyDocument,
+      )
+      ..add(
+        'setAsDefault',
+        setAsDefault,
+      );
     return helper.toString();
   }
 }
@@ -184,14 +186,12 @@ class CreatePolicyVersionRequestAwsQuerySerializer
         policyDocument,
         specifiedType: const FullType(String),
       ));
-    if (setAsDefault != null) {
-      result$
-        ..add(const _i1.XmlElementName('SetAsDefault'))
-        ..add(serializers.serialize(
-          setAsDefault,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result$
+      ..add(const _i1.XmlElementName('SetAsDefault'))
+      ..add(serializers.serialize(
+        setAsDefault,
+        specifiedType: const FullType(bool),
+      ));
     return result$;
   }
 }

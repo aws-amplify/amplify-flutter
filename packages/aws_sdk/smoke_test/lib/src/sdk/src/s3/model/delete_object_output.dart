@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.delete_object_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -54,12 +54,8 @@ abstract class DeleteObjectOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    DeleteObjectOutputRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteObjectOutputBuilder b) {}
+  static const List<_i2.SmithySerializer<DeleteObjectOutputPayload>>
+      serializers = [DeleteObjectOutputRestXmlSerializer()];
 
   /// Specifies whether the versioned object that was permanently deleted was (true) or was not (false) a delete marker.
   bool? get deleteMarker;
@@ -79,19 +75,19 @@ abstract class DeleteObjectOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteObjectOutput');
-    helper.add(
-      'deleteMarker',
-      deleteMarker,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteObjectOutput')
+      ..add(
+        'deleteMarker',
+        deleteMarker,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'requestCharged',
+        requestCharged,
+      );
     return helper.toString();
   }
 }
@@ -108,8 +104,6 @@ abstract class DeleteObjectOutputPayload
 
   const DeleteObjectOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteObjectOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.restore_table_from_backup_input;
+part of 'restore_table_from_backup_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -131,9 +131,7 @@ class RestoreTableFromBackupInputBuilder
           _i7.SseSpecificationBuilder? sseSpecificationOverride) =>
       _$this._sseSpecificationOverride = sseSpecificationOverride;
 
-  RestoreTableFromBackupInputBuilder() {
-    RestoreTableFromBackupInput._init(this);
-  }
+  RestoreTableFromBackupInputBuilder();
 
   RestoreTableFromBackupInputBuilder get _$this {
     final $v = _$v;

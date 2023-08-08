@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.delete_access_key_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,8 @@ abstract class DeleteAccessKeyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteAccessKeyRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteAccessKeyRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<DeleteAccessKeyRequest>> serializers =
+      [DeleteAccessKeyRequestAwsQuerySerializer()];
 
   /// The name of the user whose access key pair you want to delete.
   ///
@@ -63,15 +59,15 @@ abstract class DeleteAccessKeyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteAccessKeyRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'accessKeyId',
-      accessKeyId,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteAccessKeyRequest')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'accessKeyId',
+        accessKeyId,
+      );
     return helper.toString();
   }
 }

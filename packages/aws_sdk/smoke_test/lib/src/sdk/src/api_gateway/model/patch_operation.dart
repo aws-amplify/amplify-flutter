@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.patch_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,12 +36,9 @@ abstract class PatchOperation
 
   const PatchOperation._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<PatchOperation>> serializers = [
     PatchOperationRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PatchOperationBuilder b) {}
 
   /// An update operation to be performed with this PATCH request. The valid value can be add, remove, replace or copy. Not all valid operations are supported for a given resource. Support of the operations depends on specific operational contexts. Attempts to apply an unsupported operation on a resource will return an error message..
   _i2.Op? get op;
@@ -63,23 +60,23 @@ abstract class PatchOperation
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PatchOperation');
-    helper.add(
-      'op',
-      op,
-    );
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'value',
-      value,
-    );
-    helper.add(
-      'from',
-      from,
-    );
+    final helper = newBuiltValueToStringHelper('PatchOperation')
+      ..add(
+        'op',
+        op,
+      )
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'value',
+        value,
+      )
+      ..add(
+        'from',
+        from,
+      );
     return helper.toString();
   }
 }

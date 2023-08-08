@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.user_context_data_type; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,7 +32,7 @@ abstract class UserContextDataType
 
   const UserContextDataType._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<UserContextDataType>> serializers = [
     UserContextDataTypeAwsJson11Serializer()
   ];
 
@@ -50,15 +51,15 @@ abstract class UserContextDataType
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UserContextDataType');
-    helper.add(
-      'ipAddress',
-      ipAddress,
-    );
-    helper.add(
-      'encodedData',
-      encodedData,
-    );
+    final helper = newBuiltValueToStringHelper('UserContextDataType')
+      ..add(
+        'ipAddress',
+        ipAddress,
+      )
+      ..add(
+        'encodedData',
+        encodedData,
+      );
     return helper.toString();
   }
 }
@@ -91,23 +92,20 @@ class UserContextDataTypeAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'IpAddress':
-          if (value != null) {
-            result.ipAddress = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.ipAddress = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'EncodedData':
-          if (value != null) {
-            result.encodedData = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.encodedData = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
       }
     }
 
@@ -117,27 +115,27 @@ class UserContextDataTypeAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    UserContextDataType object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as UserContextDataType);
-    final result = <Object?>[];
-    if (payload.ipAddress != null) {
-      result
+    final result$ = <Object?>[];
+    final UserContextDataType(:ipAddress, :encodedData) = object;
+    if (ipAddress != null) {
+      result$
         ..add('IpAddress')
         ..add(serializers.serialize(
-          payload.ipAddress!,
+          ipAddress,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.encodedData != null) {
-      result
+    if (encodedData != null) {
+      result$
         ..add('EncodedData')
         ..add(serializers.serialize(
-          payload.encodedData!,
+          encodedData,
           specifiedType: const FullType(String),
         ));
     }
-    return result;
+    return result$;
   }
 }

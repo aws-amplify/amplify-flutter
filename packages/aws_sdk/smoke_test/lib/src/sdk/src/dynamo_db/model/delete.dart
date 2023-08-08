@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.delete; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -48,12 +48,9 @@ abstract class Delete
 
   const Delete._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<Delete>> serializers = [
     DeleteAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBuilder b) {}
 
   /// The primary key of the item to be deleted. Each element consists of an attribute name and a value for that attribute.
   _i4.BuiltMap<String, _i2.AttributeValue> get key;
@@ -84,31 +81,31 @@ abstract class Delete
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Delete');
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'tableName',
-      tableName,
-    );
-    helper.add(
-      'conditionExpression',
-      conditionExpression,
-    );
-    helper.add(
-      'expressionAttributeNames',
-      expressionAttributeNames,
-    );
-    helper.add(
-      'expressionAttributeValues',
-      expressionAttributeValues,
-    );
-    helper.add(
-      'returnValuesOnConditionCheckFailure',
-      returnValuesOnConditionCheckFailure,
-    );
+    final helper = newBuiltValueToStringHelper('Delete')
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'tableName',
+        tableName,
+      )
+      ..add(
+        'conditionExpression',
+        conditionExpression,
+      )
+      ..add(
+        'expressionAttributeNames',
+        expressionAttributeNames,
+      )
+      ..add(
+        'expressionAttributeValues',
+        expressionAttributeValues,
+      )
+      ..add(
+        'returnValuesOnConditionCheckFailure',
+        returnValuesOnConditionCheckFailure,
+      );
     return helper.toString();
   }
 }

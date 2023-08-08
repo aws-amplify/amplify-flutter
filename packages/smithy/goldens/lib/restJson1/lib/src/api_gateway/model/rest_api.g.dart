@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.api_gateway.model.rest_api;
+part of 'rest_api.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -166,9 +166,7 @@ class RestApiBuilder implements Builder<RestApi, RestApiBuilder> {
   set disableExecuteApiEndpoint(bool? disableExecuteApiEndpoint) =>
       _$this._disableExecuteApiEndpoint = disableExecuteApiEndpoint;
 
-  RestApiBuilder() {
-    RestApi._init(this);
-  }
+  RestApiBuilder();
 
   RestApiBuilder get _$this {
     final $v = _$v;

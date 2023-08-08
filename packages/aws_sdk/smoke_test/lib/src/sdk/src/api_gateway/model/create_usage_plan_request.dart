@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.create_usage_plan_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -55,12 +55,8 @@ abstract class CreateUsagePlanRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateUsagePlanRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateUsagePlanRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<CreateUsagePlanRequest>> serializers =
+      [CreateUsagePlanRequestRestJson1Serializer()];
 
   /// The name of the usage plan.
   String get name;
@@ -92,31 +88,31 @@ abstract class CreateUsagePlanRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateUsagePlanRequest');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'apiStages',
-      apiStages,
-    );
-    helper.add(
-      'throttle',
-      throttle,
-    );
-    helper.add(
-      'quota',
-      quota,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('CreateUsagePlanRequest')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'apiStages',
+        apiStages,
+      )
+      ..add(
+        'throttle',
+        throttle,
+      )
+      ..add(
+        'quota',
+        quota,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

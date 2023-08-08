@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.conformance_pack_compliance_summary;
+part of 'conformance_pack_compliance_summary.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -73,9 +73,7 @@ class ConformancePackComplianceSummaryBuilder
           _i2.ConformancePackComplianceType? conformancePackComplianceStatus) =>
       _$this._conformancePackComplianceStatus = conformancePackComplianceStatus;
 
-  ConformancePackComplianceSummaryBuilder() {
-    ConformancePackComplianceSummary._init(this);
-  }
+  ConformancePackComplianceSummaryBuilder();
 
   ConformancePackComplianceSummaryBuilder get _$this {
     final $v = _$v;

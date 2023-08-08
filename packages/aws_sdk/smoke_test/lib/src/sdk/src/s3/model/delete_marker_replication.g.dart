@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.delete_marker_replication;
+part of 'delete_marker_replication.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -50,9 +50,7 @@ class DeleteMarkerReplicationBuilder
   set status(_i2.DeleteMarkerReplicationStatus? status) =>
       _$this._status = status;
 
-  DeleteMarkerReplicationBuilder() {
-    DeleteMarkerReplication._init(this);
-  }
+  DeleteMarkerReplicationBuilder();
 
   DeleteMarkerReplicationBuilder get _$this {
     final $v = _$v;

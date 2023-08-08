@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.type_summary;
+part of 'type_summary.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -161,9 +161,7 @@ class TypeSummaryBuilder implements Builder<TypeSummary, TypeSummaryBuilder> {
   bool? get isActivated => _$this._isActivated;
   set isActivated(bool? isActivated) => _$this._isActivated = isActivated;
 
-  TypeSummaryBuilder() {
-    TypeSummary._init(this);
-  }
+  TypeSummaryBuilder();
 
   TypeSummaryBuilder get _$this {
     final $v = _$v;

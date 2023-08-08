@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.put_integration_response_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -83,12 +83,8 @@ abstract class PutIntegrationResponseRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutIntegrationResponseRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutIntegrationResponseRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<PutIntegrationResponseRequestPayload>>
+      serializers = [PutIntegrationResponseRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -158,39 +154,39 @@ abstract class PutIntegrationResponseRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutIntegrationResponseRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'httpMethod',
-      httpMethod,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
-    );
-    helper.add(
-      'selectionPattern',
-      selectionPattern,
-    );
-    helper.add(
-      'responseParameters',
-      responseParameters,
-    );
-    helper.add(
-      'responseTemplates',
-      responseTemplates,
-    );
-    helper.add(
-      'contentHandling',
-      contentHandling,
-    );
+    final helper = newBuiltValueToStringHelper('PutIntegrationResponseRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'httpMethod',
+        httpMethod,
+      )
+      ..add(
+        'statusCode',
+        statusCode,
+      )
+      ..add(
+        'selectionPattern',
+        selectionPattern,
+      )
+      ..add(
+        'responseParameters',
+        responseParameters,
+      )
+      ..add(
+        'responseTemplates',
+        responseTemplates,
+      )
+      ..add(
+        'contentHandling',
+        contentHandling,
+      );
     return helper.toString();
   }
 }
@@ -207,9 +203,6 @@ abstract class PutIntegrationResponseRequestPayload
           updates]) = _$PutIntegrationResponseRequestPayload;
 
   const PutIntegrationResponseRequestPayload._();
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutIntegrationResponseRequestPayloadBuilder b) {}
 
   /// Specifies how to handle response payload content type conversions. Supported values are `CONVERT\_TO\_BINARY` and `CONVERT\_TO\_TEXT`, with the following behaviors:
   ///
@@ -234,23 +227,23 @@ abstract class PutIntegrationResponseRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutIntegrationResponseRequestPayload');
-    helper.add(
-      'contentHandling',
-      contentHandling,
-    );
-    helper.add(
-      'responseParameters',
-      responseParameters,
-    );
-    helper.add(
-      'responseTemplates',
-      responseTemplates,
-    );
-    helper.add(
-      'selectionPattern',
-      selectionPattern,
-    );
+        newBuiltValueToStringHelper('PutIntegrationResponseRequestPayload')
+          ..add(
+            'contentHandling',
+            contentHandling,
+          )
+          ..add(
+            'responseParameters',
+            responseParameters,
+          )
+          ..add(
+            'responseTemplates',
+            responseTemplates,
+          )
+          ..add(
+            'selectionPattern',
+            selectionPattern,
+          );
     return helper.toString();
   }
 }

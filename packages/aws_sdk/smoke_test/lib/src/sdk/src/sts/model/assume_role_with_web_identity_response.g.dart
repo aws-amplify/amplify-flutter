@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.assume_role_with_web_identity_response;
+part of 'assume_role_with_web_identity_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -117,9 +117,7 @@ class AssumeRoleWithWebIdentityResponseBuilder
   set sourceIdentity(String? sourceIdentity) =>
       _$this._sourceIdentity = sourceIdentity;
 
-  AssumeRoleWithWebIdentityResponseBuilder() {
-    AssumeRoleWithWebIdentityResponse._init(this);
-  }
+  AssumeRoleWithWebIdentityResponseBuilder();
 
   AssumeRoleWithWebIdentityResponseBuilder get _$this {
     final $v = _$v;

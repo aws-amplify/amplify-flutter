@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.get_server_certificate_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,8 @@ abstract class GetServerCertificateResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    GetServerCertificateResponseAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetServerCertificateResponseBuilder b) {}
+  static const List<_i3.SmithySerializer<GetServerCertificateResponse>>
+      serializers = [GetServerCertificateResponseAwsQuerySerializer()];
 
   /// A structure containing details about the server certificate.
   _i2.ServerCertificate get serverCertificate;
@@ -53,11 +49,11 @@ abstract class GetServerCertificateResponse
   List<Object?> get props => [serverCertificate];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetServerCertificateResponse');
-    helper.add(
-      'serverCertificate',
-      serverCertificate,
-    );
+    final helper = newBuiltValueToStringHelper('GetServerCertificateResponse')
+      ..add(
+        'serverCertificate',
+        serverCertificate,
+      );
     return helper.toString();
   }
 }

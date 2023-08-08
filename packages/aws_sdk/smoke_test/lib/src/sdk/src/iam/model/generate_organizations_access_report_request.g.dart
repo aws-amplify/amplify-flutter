@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.generate_organizations_access_report_request;
+part of 'generate_organizations_access_report_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -69,9 +69,7 @@ class GenerateOrganizationsAccessReportRequestBuilder
   set organizationsPolicyId(String? organizationsPolicyId) =>
       _$this._organizationsPolicyId = organizationsPolicyId;
 
-  GenerateOrganizationsAccessReportRequestBuilder() {
-    GenerateOrganizationsAccessReportRequest._init(this);
-  }
+  GenerateOrganizationsAccessReportRequestBuilder();
 
   GenerateOrganizationsAccessReportRequestBuilder get _$this {
     final $v = _$v;

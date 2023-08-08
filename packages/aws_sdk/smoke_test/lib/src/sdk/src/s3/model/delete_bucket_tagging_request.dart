@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.delete_bucket_tagging_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -50,12 +50,8 @@ abstract class DeleteBucketTaggingRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteBucketTaggingRequestRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBucketTaggingRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<DeleteBucketTaggingRequestPayload>>
+      serializers = [DeleteBucketTaggingRequestRestXmlSerializer()];
 
   /// The bucket that has the tag set to be removed.
   String get bucket;
@@ -84,15 +80,15 @@ abstract class DeleteBucketTaggingRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteBucketTaggingRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteBucketTaggingRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }
@@ -111,8 +107,6 @@ abstract class DeleteBucketTaggingRequestPayload
 
   const DeleteBucketTaggingRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteBucketTaggingRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

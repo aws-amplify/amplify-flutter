@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.validate_template_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,12 +41,9 @@ abstract class ValidateTemplateInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<ValidateTemplateInput>> serializers = [
     ValidateTemplateInputAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ValidateTemplateInputBuilder b) {}
 
   /// Structure containing the template body with a minimum length of 1 byte and a maximum length of 51,200 bytes. For more information, go to [Template Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html) in the CloudFormation User Guide.
   ///
@@ -66,15 +63,15 @@ abstract class ValidateTemplateInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ValidateTemplateInput');
-    helper.add(
-      'templateBody',
-      templateBody,
-    );
-    helper.add(
-      'templateUrl',
-      templateUrl,
-    );
+    final helper = newBuiltValueToStringHelper('ValidateTemplateInput')
+      ..add(
+        'templateBody',
+        templateBody,
+      )
+      ..add(
+        'templateUrl',
+        templateUrl,
+      );
     return helper.toString();
   }
 }

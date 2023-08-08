@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.create_stack_instances_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,11 +35,6 @@ abstract class CreateStackInstancesInput
     String? operationId,
     _i6.CallAs? callAs,
   }) {
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      operationId ??= '00000000-0000-4000-8000-000000000000';
-    } else {
-      operationId ??= _i2.uuid(secure: true);
-    }
     return _$CreateStackInstancesInput._(
       stackSetName: stackSetName,
       accounts: accounts == null ? null : _i7.BuiltList(accounts),
@@ -66,17 +61,14 @@ abstract class CreateStackInstancesInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    CreateStackInstancesInputAwsQuerySerializer()
-  ];
+  static const List<_i1.SmithySerializer<CreateStackInstancesInput>>
+      serializers = [CreateStackInstancesInputAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateStackInstancesInputBuilder b) {
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      b.operationId = '00000000-0000-4000-8000-000000000000';
-    } else {
-      b.operationId = _i2.uuid(secure: true);
-    }
+    b.operationId = const bool.hasEnvironment('SMITHY_TEST')
+        ? '00000000-0000-4000-8000-000000000000'
+        : _i2.uuid(secure: true);
   }
 
   /// The name or unique ID of the stack set that you want to create stack instances from.
@@ -150,39 +142,39 @@ abstract class CreateStackInstancesInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateStackInstancesInput');
-    helper.add(
-      'stackSetName',
-      stackSetName,
-    );
-    helper.add(
-      'accounts',
-      accounts,
-    );
-    helper.add(
-      'deploymentTargets',
-      deploymentTargets,
-    );
-    helper.add(
-      'regions',
-      regions,
-    );
-    helper.add(
-      'parameterOverrides',
-      parameterOverrides,
-    );
-    helper.add(
-      'operationPreferences',
-      operationPreferences,
-    );
-    helper.add(
-      'operationId',
-      operationId,
-    );
-    helper.add(
-      'callAs',
-      callAs,
-    );
+    final helper = newBuiltValueToStringHelper('CreateStackInstancesInput')
+      ..add(
+        'stackSetName',
+        stackSetName,
+      )
+      ..add(
+        'accounts',
+        accounts,
+      )
+      ..add(
+        'deploymentTargets',
+        deploymentTargets,
+      )
+      ..add(
+        'regions',
+        regions,
+      )
+      ..add(
+        'parameterOverrides',
+        parameterOverrides,
+      )
+      ..add(
+        'operationPreferences',
+        operationPreferences,
+      )
+      ..add(
+        'operationId',
+        operationId,
+      )
+      ..add(
+        'callAs',
+        callAs,
+      );
     return helper.toString();
   }
 }

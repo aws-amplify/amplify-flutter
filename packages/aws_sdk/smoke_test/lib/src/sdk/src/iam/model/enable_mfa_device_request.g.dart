@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.enable_mfa_device_request;
+part of 'enable_mfa_device_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -89,9 +89,7 @@ class EnableMfaDeviceRequestBuilder
   set authenticationCode2(String? authenticationCode2) =>
       _$this._authenticationCode2 = authenticationCode2;
 
-  EnableMfaDeviceRequestBuilder() {
-    EnableMfaDeviceRequest._init(this);
-  }
+  EnableMfaDeviceRequestBuilder();
 
   EnableMfaDeviceRequestBuilder get _$this {
     final $v = _$v;

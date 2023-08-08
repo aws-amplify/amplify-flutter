@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.delete_objects_request;
+part of 'delete_objects_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -114,9 +114,7 @@ class DeleteObjectsRequestBuilder
   set checksumAlgorithm(_i5.ChecksumAlgorithm? checksumAlgorithm) =>
       _$this._checksumAlgorithm = checksumAlgorithm;
 
-  DeleteObjectsRequestBuilder() {
-    DeleteObjectsRequest._init(this);
-  }
+  DeleteObjectsRequestBuilder();
 
   DeleteObjectsRequestBuilder get _$this {
     final $v = _$v;

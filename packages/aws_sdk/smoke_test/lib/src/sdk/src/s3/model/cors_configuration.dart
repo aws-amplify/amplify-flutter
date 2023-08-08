@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.cors_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -27,12 +27,9 @@ abstract class CorsConfiguration
 
   const CorsConfiguration._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<CorsConfiguration>> serializers = [
     CorsConfigurationRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CorsConfigurationBuilder b) {}
 
   /// A set of origins and methods (cross-origin access that you want to allow). You can add up to 100 rules to the configuration.
   _i3.BuiltList<_i2.CorsRule> get corsRules;
@@ -40,11 +37,11 @@ abstract class CorsConfiguration
   List<Object?> get props => [corsRules];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CorsConfiguration');
-    helper.add(
-      'corsRules',
-      corsRules,
-    );
+    final helper = newBuiltValueToStringHelper('CorsConfiguration')
+      ..add(
+        'corsRules',
+        corsRules,
+      );
     return helper.toString();
   }
 }

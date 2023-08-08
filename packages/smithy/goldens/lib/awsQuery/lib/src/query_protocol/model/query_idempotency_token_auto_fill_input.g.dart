@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v1.query_protocol.model.query_idempotency_token_auto_fill_input;
+part of 'query_idempotency_token_auto_fill_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.max_number_of_conformance_packs_exceeded_exception;
+part of 'max_number_of_conformance_packs_exceeded_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -70,9 +70,7 @@ class MaxNumberOfConformancePacksExceededExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  MaxNumberOfConformancePacksExceededExceptionBuilder() {
-    MaxNumberOfConformancePacksExceededException._init(this);
-  }
+  MaxNumberOfConformancePacksExceededExceptionBuilder();
 
   MaxNumberOfConformancePacksExceededExceptionBuilder get _$this {
     final $v = _$v;

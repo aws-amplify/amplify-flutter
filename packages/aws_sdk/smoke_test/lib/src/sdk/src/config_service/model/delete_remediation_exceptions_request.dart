@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.delete_remediation_exceptions_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -43,12 +43,8 @@ abstract class DeleteRemediationExceptionsRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteRemediationExceptionsRequestAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteRemediationExceptionsRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<DeleteRemediationExceptionsRequest>>
+      serializers = [DeleteRemediationExceptionsRequestAwsJson11Serializer()];
 
   /// The name of the Config rule for which you want to delete remediation exception configuration.
   String get configRuleName;
@@ -65,15 +61,15 @@ abstract class DeleteRemediationExceptionsRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeleteRemediationExceptionsRequest');
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'resourceKeys',
-      resourceKeys,
-    );
+        newBuiltValueToStringHelper('DeleteRemediationExceptionsRequest')
+          ..add(
+            'configRuleName',
+            configRuleName,
+          )
+          ..add(
+            'resourceKeys',
+            resourceKeys,
+          );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.aggregate_conformance_pack_compliance_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,12 +37,11 @@ abstract class AggregateConformancePackComplianceSummary
 
   const AggregateConformancePackComplianceSummary._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<
+          _i3.SmithySerializer<AggregateConformancePackComplianceSummary>>
+      serializers = [
     AggregateConformancePackComplianceSummaryAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AggregateConformancePackComplianceSummaryBuilder b) {}
 
   /// Returns an `AggregateConformancePackComplianceCount` object.
   _i2.AggregateConformancePackComplianceCount? get complianceSummary;
@@ -56,16 +55,16 @@ abstract class AggregateConformancePackComplianceSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper(
-        'AggregateConformancePackComplianceSummary');
-    helper.add(
-      'complianceSummary',
-      complianceSummary,
-    );
-    helper.add(
-      'groupName',
-      groupName,
-    );
+    final helper =
+        newBuiltValueToStringHelper('AggregateConformancePackComplianceSummary')
+          ..add(
+            'complianceSummary',
+            complianceSummary,
+          )
+          ..add(
+            'groupName',
+            groupName,
+          );
     return helper.toString();
   }
 }

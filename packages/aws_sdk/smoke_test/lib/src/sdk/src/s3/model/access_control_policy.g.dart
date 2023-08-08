@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.access_control_policy;
+part of 'access_control_policy.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -58,9 +58,7 @@ class AccessControlPolicyBuilder
   _i3.OwnerBuilder get owner => _$this._owner ??= new _i3.OwnerBuilder();
   set owner(_i3.OwnerBuilder? owner) => _$this._owner = owner;
 
-  AccessControlPolicyBuilder() {
-    AccessControlPolicy._init(this);
-  }
+  AccessControlPolicyBuilder();
 
   AccessControlPolicyBuilder get _$this {
     final $v = _$v;

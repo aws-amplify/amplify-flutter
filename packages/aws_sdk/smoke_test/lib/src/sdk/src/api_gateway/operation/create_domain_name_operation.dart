@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.operation.create_domain_name_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -111,7 +111,7 @@ class CreateDomainNameOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.BadRequestException, _i9.BadRequestException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'BadRequestException',
@@ -121,7 +121,7 @@ class CreateDomainNameOperation extends _i1.HttpOperation<
           statusCode: 400,
           builder: _i9.BadRequestException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.ConflictException, _i10.ConflictException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'ConflictException',
@@ -131,7 +131,8 @@ class CreateDomainNameOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i10.ConflictException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.LimitExceededExceptionPayload,
+            _i11.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'LimitExceededException',
@@ -141,7 +142,8 @@ class CreateDomainNameOperation extends _i1.HttpOperation<
           statusCode: 429,
           builder: _i11.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.TooManyRequestsExceptionPayload,
+            _i12.TooManyRequestsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'TooManyRequestsException',
@@ -151,7 +153,7 @@ class CreateDomainNameOperation extends _i1.HttpOperation<
           statusCode: 429,
           builder: _i12.TooManyRequestsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.UnauthorizedException, _i13.UnauthorizedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.apigateway',
             shape: 'UnauthorizedException',
@@ -184,7 +186,7 @@ class CreateDomainNameOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

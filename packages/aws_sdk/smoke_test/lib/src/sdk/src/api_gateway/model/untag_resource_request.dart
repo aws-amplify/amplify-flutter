@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.untag_resource_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -55,12 +55,8 @@ abstract class UntagResourceRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UntagResourceRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UntagResourceRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<UntagResourceRequestPayload>>
+      serializers = [UntagResourceRequestRestJson1Serializer()];
 
   /// The ARN of a resource that can be tagged.
   String get resourceArn;
@@ -88,15 +84,15 @@ abstract class UntagResourceRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UntagResourceRequest');
-    helper.add(
-      'resourceArn',
-      resourceArn,
-    );
-    helper.add(
-      'tagKeys',
-      tagKeys,
-    );
+    final helper = newBuiltValueToStringHelper('UntagResourceRequest')
+      ..add(
+        'resourceArn',
+        resourceArn,
+      )
+      ..add(
+        'tagKeys',
+        tagKeys,
+      );
     return helper.toString();
   }
 }
@@ -113,8 +109,6 @@ abstract class UntagResourceRequestPayload
 
   const UntagResourceRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UntagResourceRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

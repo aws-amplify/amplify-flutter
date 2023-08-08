@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.policy_descriptor_type;
+part of 'policy_descriptor_type.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -48,9 +48,7 @@ class PolicyDescriptorTypeBuilder
   String? get arn => _$this._arn;
   set arn(String? arn) => _$this._arn = arn;
 
-  PolicyDescriptorTypeBuilder() {
-    PolicyDescriptorType._init(this);
-  }
+  PolicyDescriptorTypeBuilder();
 
   PolicyDescriptorTypeBuilder get _$this {
     final $v = _$v;

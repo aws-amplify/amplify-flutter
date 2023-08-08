@@ -395,7 +395,7 @@ class CustomTypeWithAppsyncScalarTypes {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("CustomTypeWithAppsyncScalarTypes {");
     buffer.write("stringValue=" + "$_stringValue" + ", ");

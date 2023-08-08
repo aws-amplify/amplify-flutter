@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.describe_conformance_packs_response;
+part of 'describe_conformance_packs_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -66,9 +66,7 @@ class DescribeConformancePacksResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeConformancePacksResponseBuilder() {
-    DescribeConformancePacksResponse._init(this);
-  }
+  DescribeConformancePacksResponseBuilder();
 
   DescribeConformancePacksResponseBuilder get _$this {
     final $v = _$v;

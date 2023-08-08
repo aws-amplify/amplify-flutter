@@ -30,7 +30,7 @@ class InheritedAuthBloc extends InheritedWidget {
           ErrorSummary('No InheritedAuthBloc widget found.'),
           ErrorDescription(
             'Make sure your app is wrapped with an Authenticator widget.',
-          )
+          ),
         ]);
       }
       return true;

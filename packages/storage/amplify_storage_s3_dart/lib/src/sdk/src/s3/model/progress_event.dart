@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_storage_s3_dart.s3.model.progress_event; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -27,12 +27,9 @@ abstract class ProgressEvent
 
   const ProgressEvent._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<ProgressEvent>> serializers = [
     ProgressEventRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ProgressEventBuilder b) {}
 
   /// The Progress event details.
   _i2.Progress? get details;
@@ -40,11 +37,11 @@ abstract class ProgressEvent
   List<Object?> get props => [details];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ProgressEvent');
-    helper.add(
-      'details',
-      details,
-    );
+    final helper = newBuiltValueToStringHelper('ProgressEvent')
+      ..add(
+        'details',
+        details,
+      );
     return helper.toString();
   }
 }

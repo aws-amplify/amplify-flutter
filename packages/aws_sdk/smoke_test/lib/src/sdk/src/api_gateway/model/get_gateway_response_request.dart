@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.get_gateway_response_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -55,12 +55,8 @@ abstract class GetGatewayResponseRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetGatewayResponseRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetGatewayResponseRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetGatewayResponseRequestPayload>>
+      serializers = [GetGatewayResponseRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -91,15 +87,15 @@ abstract class GetGatewayResponseRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetGatewayResponseRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'responseType',
-      responseType,
-    );
+    final helper = newBuiltValueToStringHelper('GetGatewayResponseRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'responseType',
+        responseType,
+      );
     return helper.toString();
   }
 }
@@ -118,8 +114,6 @@ abstract class GetGatewayResponseRequestPayload
 
   const GetGatewayResponseRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetGatewayResponseRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

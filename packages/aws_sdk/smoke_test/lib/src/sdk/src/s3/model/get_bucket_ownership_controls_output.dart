@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.get_bucket_ownership_controls_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,12 +44,8 @@ abstract class GetBucketOwnershipControlsOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetBucketOwnershipControlsOutputRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketOwnershipControlsOutputBuilder b) {}
+  static const List<_i2.SmithySerializer<_i3.OwnershipControls?>> serializers =
+      [GetBucketOwnershipControlsOutputRestXmlSerializer()];
 
   /// The `OwnershipControls` (BucketOwnerEnforced, BucketOwnerPreferred, or ObjectWriter) currently in effect for this Amazon S3 bucket.
   _i3.OwnershipControls? get ownershipControls;
@@ -60,11 +56,11 @@ abstract class GetBucketOwnershipControlsOutput
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetBucketOwnershipControlsOutput');
-    helper.add(
-      'ownershipControls',
-      ownershipControls,
-    );
+        newBuiltValueToStringHelper('GetBucketOwnershipControlsOutput')
+          ..add(
+            'ownershipControls',
+            ownershipControls,
+          );
     return helper.toString();
   }
 }

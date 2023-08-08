@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.config_stream_delivery_info; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,8 @@ abstract class ConfigStreamDeliveryInfo
 
   const ConfigStreamDeliveryInfo._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ConfigStreamDeliveryInfoAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ConfigStreamDeliveryInfoBuilder b) {}
+  static const List<_i3.SmithySerializer<ConfigStreamDeliveryInfo>>
+      serializers = [ConfigStreamDeliveryInfoAwsJson11Serializer()];
 
   /// Status of the last attempted delivery.
   ///
@@ -68,23 +64,23 @@ abstract class ConfigStreamDeliveryInfo
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ConfigStreamDeliveryInfo');
-    helper.add(
-      'lastStatus',
-      lastStatus,
-    );
-    helper.add(
-      'lastErrorCode',
-      lastErrorCode,
-    );
-    helper.add(
-      'lastErrorMessage',
-      lastErrorMessage,
-    );
-    helper.add(
-      'lastStatusChangeTime',
-      lastStatusChangeTime,
-    );
+    final helper = newBuiltValueToStringHelper('ConfigStreamDeliveryInfo')
+      ..add(
+        'lastStatus',
+        lastStatus,
+      )
+      ..add(
+        'lastErrorCode',
+        lastErrorCode,
+      )
+      ..add(
+        'lastErrorMessage',
+        lastErrorMessage,
+      )
+      ..add(
+        'lastStatusChangeTime',
+        lastStatusChangeTime,
+      );
     return helper.toString();
   }
 }

@@ -51,9 +51,7 @@ class ScanRangeBuilder implements Builder<ScanRange, ScanRangeBuilder> {
   _i2.Int64? get end => _$this._end;
   set end(_i2.Int64? end) => _$this._end = end;
 
-  ScanRangeBuilder() {
-    ScanRange._init(this);
-  }
+  ScanRangeBuilder();
 
   ScanRangeBuilder get _$this {
     final $v = _$v;

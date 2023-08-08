@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.change; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -36,12 +36,9 @@ abstract class Change
 
   const Change._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<Change>> serializers = [
     ChangeAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ChangeBuilder b) {}
 
   /// The type of entity that CloudFormation changes. Currently, the only entity type is `Resource`.
   _i2.ChangeType? get type;
@@ -59,19 +56,19 @@ abstract class Change
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Change');
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'hookInvocationCount',
-      hookInvocationCount,
-    );
-    helper.add(
-      'resourceChange',
-      resourceChange,
-    );
+    final helper = newBuiltValueToStringHelper('Change')
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'hookInvocationCount',
+        hookInvocationCount,
+      )
+      ..add(
+        'resourceChange',
+        resourceChange,
+      );
     return helper.toString();
   }
 }

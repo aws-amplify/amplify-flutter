@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_validation_protocol.model.malformed_length_override_input;
+part of 'malformed_length_override_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -100,9 +100,7 @@ class MalformedLengthOverrideInputBuilder
       _$this._map ??= new _i4.ListMultimapBuilder<String, String>();
   set map(_i4.ListMultimapBuilder<String, String>? map) => _$this._map = map;
 
-  MalformedLengthOverrideInputBuilder() {
-    MalformedLengthOverrideInput._init(this);
-  }
+  MalformedLengthOverrideInputBuilder();
 
   MalformedLengthOverrideInputBuilder get _$this {
     final $v = _$v;

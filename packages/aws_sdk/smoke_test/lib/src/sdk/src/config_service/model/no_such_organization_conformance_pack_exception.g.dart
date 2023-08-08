@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.no_such_organization_conformance_pack_exception;
+part of 'no_such_organization_conformance_pack_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -69,9 +69,7 @@ class NoSuchOrganizationConformancePackExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  NoSuchOrganizationConformancePackExceptionBuilder() {
-    NoSuchOrganizationConformancePackException._init(this);
-  }
+  NoSuchOrganizationConformancePackExceptionBuilder();
 
   NoSuchOrganizationConformancePackExceptionBuilder get _$this {
     final $v = _$v;

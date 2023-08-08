@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.copy_object_request;
+part of 'copy_object_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -454,9 +454,7 @@ class CopyObjectRequestBuilder
   set expectedSourceBucketOwner(String? expectedSourceBucketOwner) =>
       _$this._expectedSourceBucketOwner = expectedSourceBucketOwner;
 
-  CopyObjectRequestBuilder() {
-    CopyObjectRequest._init(this);
-  }
+  CopyObjectRequestBuilder();
 
   CopyObjectRequestBuilder get _$this {
     final $v = _$v;
@@ -619,9 +617,7 @@ class CopyObjectRequestPayloadBuilder
         Builder<CopyObjectRequestPayload, CopyObjectRequestPayloadBuilder> {
   _$CopyObjectRequestPayload? _$v;
 
-  CopyObjectRequestPayloadBuilder() {
-    CopyObjectRequestPayload._init(this);
-  }
+  CopyObjectRequestPayloadBuilder();
 
   @override
   void replace(CopyObjectRequestPayload other) {

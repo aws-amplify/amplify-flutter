@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_query_v1.query_protocol.model.no_input_and_output_input;
+part of 'no_input_and_output_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -38,9 +38,7 @@ class NoInputAndOutputInputBuilder
     implements Builder<NoInputAndOutputInput, NoInputAndOutputInputBuilder> {
   _$NoInputAndOutputInput? _$v;
 
-  NoInputAndOutputInputBuilder() {
-    NoInputAndOutputInput._init(this);
-  }
+  NoInputAndOutputInputBuilder();
 
   @override
   void replace(NoInputAndOutputInput other) {

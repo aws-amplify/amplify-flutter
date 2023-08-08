@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.sdk_configuration_property; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -23,6 +23,7 @@ abstract class SdkConfigurationProperty
     bool? required,
     String? defaultValue,
   }) {
+    required ??= false;
     return _$SdkConfigurationProperty._(
       name: name,
       friendlyName: friendlyName,
@@ -39,12 +40,13 @@ abstract class SdkConfigurationProperty
 
   const SdkConfigurationProperty._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    SdkConfigurationPropertyRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<SdkConfigurationProperty>>
+      serializers = [SdkConfigurationPropertyRestJson1Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(SdkConfigurationPropertyBuilder b) {}
+  static void _init(SdkConfigurationPropertyBuilder b) {
+    b.required = false;
+  }
 
   /// The name of a an SdkType configuration property.
   String? get name;
@@ -56,7 +58,7 @@ abstract class SdkConfigurationProperty
   String? get description;
 
   /// A boolean flag of an SdkType configuration property to indicate if the associated SDK configuration property is required (`true`) or not (`false`).
-  bool? get required;
+  bool get required;
 
   /// The default value of an SdkType configuration property.
   String? get defaultValue;
@@ -70,27 +72,27 @@ abstract class SdkConfigurationProperty
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SdkConfigurationProperty');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'friendlyName',
-      friendlyName,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'required',
-      required,
-    );
-    helper.add(
-      'defaultValue',
-      defaultValue,
-    );
+    final helper = newBuiltValueToStringHelper('SdkConfigurationProperty')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'friendlyName',
+        friendlyName,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'required',
+        required,
+      )
+      ..add(
+        'defaultValue',
+        defaultValue,
+      );
     return helper.toString();
   }
 }
@@ -173,6 +175,13 @@ class SdkConfigurationPropertyRestJson1Serializer
       :name,
       :required
     ) = object;
+    result$.addAll([
+      'required',
+      serializers.serialize(
+        required,
+        specifiedType: const FullType(bool),
+      ),
+    ]);
     if (defaultValue != null) {
       result$
         ..add('defaultValue')
@@ -203,14 +212,6 @@ class SdkConfigurationPropertyRestJson1Serializer
         ..add(serializers.serialize(
           name,
           specifiedType: const FullType(String),
-        ));
-    }
-    if (required != null) {
-      result$
-        ..add('required')
-        ..add(serializers.serialize(
-          required,
-          specifiedType: const FullType(bool),
         ));
     }
     return result$;

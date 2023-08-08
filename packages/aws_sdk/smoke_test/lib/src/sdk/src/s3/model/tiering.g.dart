@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.tiering;
+part of 'tiering.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -8,15 +8,14 @@ part of smoke_test.s3.model.tiering;
 
 class _$Tiering extends Tiering {
   @override
-  final int days;
+  final int? days;
   @override
   final _i2.IntelligentTieringAccessTier accessTier;
 
   factory _$Tiering([void Function(TieringBuilder)? updates]) =>
       (new TieringBuilder()..update(updates))._build();
 
-  _$Tiering._({required this.days, required this.accessTier}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(days, r'Tiering', 'days');
+  _$Tiering._({this.days, required this.accessTier}) : super._() {
     BuiltValueNullFieldError.checkNotNull(accessTier, r'Tiering', 'accessTier');
   }
 
@@ -57,9 +56,7 @@ class TieringBuilder implements Builder<Tiering, TieringBuilder> {
   set accessTier(_i2.IntelligentTieringAccessTier? accessTier) =>
       _$this._accessTier = accessTier;
 
-  TieringBuilder() {
-    Tiering._init(this);
-  }
+  TieringBuilder();
 
   TieringBuilder get _$this {
     final $v = _$v;
@@ -88,8 +85,7 @@ class TieringBuilder implements Builder<Tiering, TieringBuilder> {
   _$Tiering _build() {
     final _$result = _$v ??
         new _$Tiering._(
-            days:
-                BuiltValueNullFieldError.checkNotNull(days, r'Tiering', 'days'),
+            days: days,
             accessTier: BuiltValueNullFieldError.checkNotNull(
                 accessTier, r'Tiering', 'accessTier'));
     replace(_$result);

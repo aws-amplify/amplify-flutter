@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.describe_remediation_configurations_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -37,12 +37,11 @@ abstract class DescribeRemediationConfigurationsRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+          _i1.SmithySerializer<DescribeRemediationConfigurationsRequest>>
+      serializers = [
     DescribeRemediationConfigurationsRequestAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeRemediationConfigurationsRequestBuilder b) {}
 
   /// A list of Config rule names of remediation configurations for which you want details.
   _i3.BuiltList<String> get configRuleNames;
@@ -53,11 +52,11 @@ abstract class DescribeRemediationConfigurationsRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DescribeRemediationConfigurationsRequest');
-    helper.add(
-      'configRuleNames',
-      configRuleNames,
-    );
+        newBuiltValueToStringHelper('DescribeRemediationConfigurationsRequest')
+          ..add(
+            'configRuleNames',
+            configRuleNames,
+          );
     return helper.toString();
   }
 }

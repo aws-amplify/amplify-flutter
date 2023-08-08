@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v2.rest_json_protocol.model.greeting_with_errors_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,9 @@ abstract class GreetingWithErrorsOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GreetingWithErrorsOutputRestJson1Serializer()
-  ];
+  static const List<_i2.SmithySerializer<GreetingWithErrorsOutputPayload>>
+      serializers = [GreetingWithErrorsOutputRestJson1Serializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GreetingWithErrorsOutputBuilder b) {}
   String? get greeting;
   @override
   GreetingWithErrorsOutputPayload getPayload() =>
@@ -52,11 +49,11 @@ abstract class GreetingWithErrorsOutput
   List<Object?> get props => [greeting];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GreetingWithErrorsOutput');
-    helper.add(
-      'greeting',
-      greeting,
-    );
+    final helper = newBuiltValueToStringHelper('GreetingWithErrorsOutput')
+      ..add(
+        'greeting',
+        greeting,
+      );
     return helper.toString();
   }
 }
@@ -75,8 +72,6 @@ abstract class GreetingWithErrorsOutputPayload
 
   const GreetingWithErrorsOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GreetingWithErrorsOutputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

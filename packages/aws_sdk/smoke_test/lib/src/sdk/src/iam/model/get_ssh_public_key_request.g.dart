@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_ssh_public_key_request;
+part of 'get_ssh_public_key_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -77,9 +77,7 @@ class GetSshPublicKeyRequestBuilder
   _i3.EncodingType? get encoding => _$this._encoding;
   set encoding(_i3.EncodingType? encoding) => _$this._encoding = encoding;
 
-  GetSshPublicKeyRequestBuilder() {
-    GetSshPublicKeyRequest._init(this);
-  }
+  GetSshPublicKeyRequestBuilder();
 
   GetSshPublicKeyRequestBuilder get _$this {
     final $v = _$v;

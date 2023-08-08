@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.point_in_time_recovery_unavailable_exception;
+part of 'point_in_time_recovery_unavailable_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -69,9 +69,7 @@ class PointInTimeRecoveryUnavailableExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  PointInTimeRecoveryUnavailableExceptionBuilder() {
-    PointInTimeRecoveryUnavailableException._init(this);
-  }
+  PointInTimeRecoveryUnavailableExceptionBuilder();
 
   PointInTimeRecoveryUnavailableExceptionBuilder get _$this {
     final $v = _$v;

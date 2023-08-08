@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.max_number_of_organization_conformance_packs_exceeded_exception;
+part of 'max_number_of_organization_conformance_packs_exceeded_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -73,9 +73,7 @@ class MaxNumberOfOrganizationConformancePacksExceededExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  MaxNumberOfOrganizationConformancePacksExceededExceptionBuilder() {
-    MaxNumberOfOrganizationConformancePacksExceededException._init(this);
-  }
+  MaxNumberOfOrganizationConformancePacksExceededExceptionBuilder();
 
   MaxNumberOfOrganizationConformancePacksExceededExceptionBuilder get _$this {
     final $v = _$v;

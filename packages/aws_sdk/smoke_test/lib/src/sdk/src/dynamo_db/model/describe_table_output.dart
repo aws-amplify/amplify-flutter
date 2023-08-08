@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.describe_table_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,12 +35,9 @@ abstract class DescribeTableOutput
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<DescribeTableOutput>> serializers = [
     DescribeTableOutputAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeTableOutputBuilder b) {}
 
   /// The properties of the table.
   _i2.TableDescription? get table;
@@ -48,11 +45,11 @@ abstract class DescribeTableOutput
   List<Object?> get props => [table];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeTableOutput');
-    helper.add(
-      'table',
-      table,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeTableOutput')
+      ..add(
+        'table',
+        table,
+      );
     return helper.toString();
   }
 }

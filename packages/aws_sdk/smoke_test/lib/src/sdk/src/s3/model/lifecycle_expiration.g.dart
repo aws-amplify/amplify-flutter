@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.lifecycle_expiration;
+part of 'lifecycle_expiration.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -68,9 +68,7 @@ class LifecycleExpirationBuilder
   set expiredObjectDeleteMarker(bool? expiredObjectDeleteMarker) =>
       _$this._expiredObjectDeleteMarker = expiredObjectDeleteMarker;
 
-  LifecycleExpirationBuilder() {
-    LifecycleExpiration._init(this);
-  }
+  LifecycleExpirationBuilder();
 
   LifecycleExpirationBuilder get _$this {
     final $v = _$v;

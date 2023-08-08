@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.no_such_config_rule_exception;
+part of 'no_such_config_rule_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -62,9 +62,7 @@ class NoSuchConfigRuleExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  NoSuchConfigRuleExceptionBuilder() {
-    NoSuchConfigRuleException._init(this);
-  }
+  NoSuchConfigRuleExceptionBuilder();
 
   NoSuchConfigRuleExceptionBuilder get _$this {
     final $v = _$v;

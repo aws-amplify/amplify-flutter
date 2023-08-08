@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.create_stack_set_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -46,11 +46,6 @@ abstract class CreateStackSetInput
     String? clientRequestToken,
     _i9.ManagedExecution? managedExecution,
   }) {
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      clientRequestToken ??= '00000000-0000-4000-8000-000000000000';
-    } else {
-      clientRequestToken ??= _i2.uuid(secure: true);
-    }
     return _$CreateStackSetInput._(
       stackSetName: stackSetName,
       description: description,
@@ -83,17 +78,15 @@ abstract class CreateStackSetInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<CreateStackSetInput>> serializers = [
     CreateStackSetInputAwsQuerySerializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(CreateStackSetInputBuilder b) {
-    if (const bool.hasEnvironment('SMITHY_TEST')) {
-      b.clientRequestToken = '00000000-0000-4000-8000-000000000000';
-    } else {
-      b.clientRequestToken = _i2.uuid(secure: true);
-    }
+    b.clientRequestToken = const bool.hasEnvironment('SMITHY_TEST')
+        ? '00000000-0000-4000-8000-000000000000'
+        : _i2.uuid(secure: true);
   }
 
   /// The name to associate with the stack set. The name must be unique in the Region where you create your stack set.
@@ -229,67 +222,67 @@ abstract class CreateStackSetInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateStackSetInput');
-    helper.add(
-      'stackSetName',
-      stackSetName,
-    );
-    helper.add(
-      'description',
-      description,
-    );
-    helper.add(
-      'templateBody',
-      templateBody,
-    );
-    helper.add(
-      'templateUrl',
-      templateUrl,
-    );
-    helper.add(
-      'stackId',
-      stackId,
-    );
-    helper.add(
-      'parameters',
-      parameters,
-    );
-    helper.add(
-      'capabilities',
-      capabilities,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
-    helper.add(
-      'administrationRoleArn',
-      administrationRoleArn,
-    );
-    helper.add(
-      'executionRoleName',
-      executionRoleName,
-    );
-    helper.add(
-      'permissionModel',
-      permissionModel,
-    );
-    helper.add(
-      'autoDeployment',
-      autoDeployment,
-    );
-    helper.add(
-      'callAs',
-      callAs,
-    );
-    helper.add(
-      'clientRequestToken',
-      clientRequestToken,
-    );
-    helper.add(
-      'managedExecution',
-      managedExecution,
-    );
+    final helper = newBuiltValueToStringHelper('CreateStackSetInput')
+      ..add(
+        'stackSetName',
+        stackSetName,
+      )
+      ..add(
+        'description',
+        description,
+      )
+      ..add(
+        'templateBody',
+        templateBody,
+      )
+      ..add(
+        'templateUrl',
+        templateUrl,
+      )
+      ..add(
+        'stackId',
+        stackId,
+      )
+      ..add(
+        'parameters',
+        parameters,
+      )
+      ..add(
+        'capabilities',
+        capabilities,
+      )
+      ..add(
+        'tags',
+        tags,
+      )
+      ..add(
+        'administrationRoleArn',
+        administrationRoleArn,
+      )
+      ..add(
+        'executionRoleName',
+        executionRoleName,
+      )
+      ..add(
+        'permissionModel',
+        permissionModel,
+      )
+      ..add(
+        'autoDeployment',
+        autoDeployment,
+      )
+      ..add(
+        'callAs',
+        callAs,
+      )
+      ..add(
+        'clientRequestToken',
+        clientRequestToken,
+      )
+      ..add(
+        'managedExecution',
+        managedExecution,
+      );
     return helper.toString();
   }
 }

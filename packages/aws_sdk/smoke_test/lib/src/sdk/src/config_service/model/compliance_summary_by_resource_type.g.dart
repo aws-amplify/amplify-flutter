@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.compliance_summary_by_resource_type;
+part of 'compliance_summary_by_resource_type.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -64,9 +64,7 @@ class ComplianceSummaryByResourceTypeBuilder
   set complianceSummary(_i2.ComplianceSummaryBuilder? complianceSummary) =>
       _$this._complianceSummary = complianceSummary;
 
-  ComplianceSummaryByResourceTypeBuilder() {
-    ComplianceSummaryByResourceType._init(this);
-  }
+  ComplianceSummaryByResourceTypeBuilder();
 
   ComplianceSummaryByResourceTypeBuilder get _$this {
     final $v = _$v;

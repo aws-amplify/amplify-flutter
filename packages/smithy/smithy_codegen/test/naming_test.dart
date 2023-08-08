@@ -191,7 +191,7 @@ void main() {
           (b) => b
             ..shapeId = ShapeId.parse('com.example#MyEnumBuilder')
             ..traits = TraitMap.fromTraits([
-              const EnumTrait([EnumDefinition(value: 'test')])
+              const EnumTrait([EnumDefinition(value: 'test')]),
             ]),
         );
         final shapes = [myEnum, myEnumBuilder];
@@ -221,7 +221,7 @@ void main() {
               ..traits = TraitMap.fromTraits(const [EnumValueTrait('index')]),
           ),
         ];
-        final memberNames = traits.map((def) => def.variantName);
+        final memberNames = traits.map((def) => def.enumVariantName);
         expect(
           memberNames,
           unorderedEquals([

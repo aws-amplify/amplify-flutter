@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.get_bucket_metrics_configuration_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -56,17 +56,14 @@ abstract class GetBucketMetricsConfigurationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetBucketMetricsConfigurationRequestRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketMetricsConfigurationRequestBuilder b) {}
+  static const List<
+          _i1.SmithySerializer<GetBucketMetricsConfigurationRequestPayload>>
+      serializers = [GetBucketMetricsConfigurationRequestRestXmlSerializer()];
 
   /// The name of the bucket containing the metrics configuration to retrieve.
   String get bucket;
 
-  /// The ID used to identify the metrics configuration.
+  /// The ID used to identify the metrics configuration. The ID has a 64 character limit and can only contain letters, numbers, periods, dashes, and underscores.
   String get id;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
@@ -95,19 +92,19 @@ abstract class GetBucketMetricsConfigurationRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetBucketMetricsConfigurationRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+        newBuiltValueToStringHelper('GetBucketMetricsConfigurationRequest')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'id',
+            id,
+          )
+          ..add(
+            'expectedBucketOwner',
+            expectedBucketOwner,
+          );
     return helper.toString();
   }
 }
@@ -126,8 +123,6 @@ abstract class GetBucketMetricsConfigurationRequestPayload
 
   const GetBucketMetricsConfigurationRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketMetricsConfigurationRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

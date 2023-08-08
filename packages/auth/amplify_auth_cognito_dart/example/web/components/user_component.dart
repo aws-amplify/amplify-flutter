@@ -39,14 +39,14 @@ class UserComponent extends StatefulComponent {
         ['refreshToken', session.userPoolTokensResult.value.refreshToken],
         [
           'credential session',
-          session.credentialsResult.value.sessionToken ?? 'null'
+          session.credentialsResult.value.sessionToken ?? 'null',
         ],
         ...devices.map((device) => device.asCognitoDevice).map(
               (device) => [
                 'Device: ${device.id}',
                 device.attributes.toString(),
               ],
-            )
+            ),
       ];
     });
   }

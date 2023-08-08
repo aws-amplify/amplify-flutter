@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.delete_objects_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -56,12 +56,8 @@ abstract class DeleteObjectsOutput
         }
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    DeleteObjectsOutputRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteObjectsOutputBuilder b) {}
+  static const List<_i2.SmithySerializer<DeleteObjectsOutputPayload>>
+      serializers = [DeleteObjectsOutputRestXmlSerializer()];
 
   /// Container element for a successful delete. It identifies the object that was successfully deleted.
   _i6.BuiltList<_i3.DeletedObject>? get deleted;
@@ -88,19 +84,19 @@ abstract class DeleteObjectsOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteObjectsOutput');
-    helper.add(
-      'deleted',
-      deleted,
-    );
-    helper.add(
-      'requestCharged',
-      requestCharged,
-    );
-    helper.add(
-      'errors',
-      errors,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteObjectsOutput')
+      ..add(
+        'deleted',
+        deleted,
+      )
+      ..add(
+        'requestCharged',
+        requestCharged,
+      )
+      ..add(
+        'errors',
+        errors,
+      );
     return helper.toString();
   }
 }
@@ -116,9 +112,6 @@ abstract class DeleteObjectsOutputPayload
 
   const DeleteObjectsOutputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteObjectsOutputPayloadBuilder b) {}
-
   /// Container element for a successful delete. It identifies the object that was successfully deleted.
   _i6.BuiltList<_i3.DeletedObject>? get deleted;
 
@@ -131,15 +124,15 @@ abstract class DeleteObjectsOutputPayload
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteObjectsOutputPayload');
-    helper.add(
-      'deleted',
-      deleted,
-    );
-    helper.add(
-      'errors',
-      errors,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteObjectsOutputPayload')
+      ..add(
+        'deleted',
+        deleted,
+      )
+      ..add(
+        'errors',
+        errors,
+      );
     return helper.toString();
   }
 }

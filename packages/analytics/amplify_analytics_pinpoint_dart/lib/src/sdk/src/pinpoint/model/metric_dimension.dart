@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.metric_dimension; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -17,9 +17,8 @@ abstract class MetricDimension
   /// Specifies metric-based criteria for including or excluding endpoints from a segment. These criteria derive from custom metrics that you define for endpoints.
   factory MetricDimension({
     required String comparisonOperator,
-    double? value,
+    required double value,
   }) {
-    value ??= 0;
     return _$MetricDimension._(
       comparisonOperator: comparisonOperator,
       value: value,
@@ -32,14 +31,9 @@ abstract class MetricDimension
 
   const MetricDimension._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<MetricDimension>> serializers = [
     MetricDimensionRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MetricDimensionBuilder b) {
-    b.value = 0;
-  }
 
   /// The operator to use when comparing metric values. Valid values are: GREATER\_THAN, LESS\_THAN, GREATER\_THAN\_OR\_EQUAL, LESS\_THAN\_OR\_EQUAL, and EQUAL.
   String get comparisonOperator;
@@ -53,15 +47,15 @@ abstract class MetricDimension
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MetricDimension');
-    helper.add(
-      'comparisonOperator',
-      comparisonOperator,
-    );
-    helper.add(
-      'value',
-      value,
-    );
+    final helper = newBuiltValueToStringHelper('MetricDimension')
+      ..add(
+        'comparisonOperator',
+        comparisonOperator,
+      )
+      ..add(
+        'value',
+        value,
+      );
     return helper.toString();
   }
 }

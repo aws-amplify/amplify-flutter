@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.test_type_input;
+part of 'test_type_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -85,9 +85,7 @@ class TestTypeInputBuilder
   set logDeliveryBucket(String? logDeliveryBucket) =>
       _$this._logDeliveryBucket = logDeliveryBucket;
 
-  TestTypeInputBuilder() {
-    TestTypeInput._init(this);
-  }
+  TestTypeInputBuilder();
 
   TestTypeInputBuilder get _$this {
     final $v = _$v;

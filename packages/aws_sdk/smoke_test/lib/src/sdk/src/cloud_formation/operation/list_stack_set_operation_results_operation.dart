@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.operation.list_stack_set_operation_results_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -124,7 +124,8 @@ class ListStackSetOperationResultsOperation extends _i1.PaginatedHttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.OperationNotFoundException,
+            _i11.OperationNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'OperationNotFoundException',
@@ -134,7 +135,8 @@ class ListStackSetOperationResultsOperation extends _i1.PaginatedHttpOperation<
           statusCode: 404,
           builder: _i11.OperationNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.StackSetNotFoundException,
+            _i12.StackSetNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.cloudformation',
             shape: 'StackSetNotFoundException',
@@ -167,7 +169,7 @@ class ListStackSetOperationResultsOperation extends _i1.PaginatedHttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)}
+        ...{_i9.AWSHeaders.sdkInvocationId: _i9.uuid(secure: true)},
       },
     );
   }

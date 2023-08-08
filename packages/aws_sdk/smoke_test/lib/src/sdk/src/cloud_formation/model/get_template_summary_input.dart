@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.get_template_summary_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -9,6 +9,8 @@ import 'package:built_value/serializer.dart';
 import 'package:smithy/smithy.dart' as _i1;
 import 'package:smoke_test/src/sdk/src/cloud_formation/model/call_as.dart'
     as _i3;
+import 'package:smoke_test/src/sdk/src/cloud_formation/model/template_summary_config.dart'
+    as _i4;
 
 part 'get_template_summary_input.g.dart';
 
@@ -25,6 +27,7 @@ abstract class GetTemplateSummaryInput
     String? stackName,
     String? stackSetName,
     _i3.CallAs? callAs,
+    _i4.TemplateSummaryConfig? templateSummaryConfig,
   }) {
     return _$GetTemplateSummaryInput._(
       templateBody: templateBody,
@@ -32,6 +35,7 @@ abstract class GetTemplateSummaryInput
       stackName: stackName,
       stackSetName: stackSetName,
       callAs: callAs,
+      templateSummaryConfig: templateSummaryConfig,
     );
   }
 
@@ -49,12 +53,8 @@ abstract class GetTemplateSummaryInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetTemplateSummaryInputAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetTemplateSummaryInputBuilder b) {}
+  static const List<_i1.SmithySerializer<GetTemplateSummaryInput>> serializers =
+      [GetTemplateSummaryInputAwsQuerySerializer()];
 
   /// Structure containing the template body with a minimum length of 1 byte and a maximum length of 51,200 bytes. For more information about templates, see [Template anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html) in the CloudFormation User Guide.
   ///
@@ -86,6 +86,9 @@ abstract class GetTemplateSummaryInput
   ///
   ///     Your Amazon Web Services account must be registered as a delegated administrator in the management account. For more information, see [Register a delegated administrator](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html) in the _CloudFormation User Guide_.
   _i3.CallAs? get callAs;
+
+  /// Specifies options for the `GetTemplateSummary` API action.
+  _i4.TemplateSummaryConfig? get templateSummaryConfig;
   @override
   GetTemplateSummaryInput getPayload() => this;
   @override
@@ -95,30 +98,35 @@ abstract class GetTemplateSummaryInput
         stackName,
         stackSetName,
         callAs,
+        templateSummaryConfig,
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetTemplateSummaryInput');
-    helper.add(
-      'templateBody',
-      templateBody,
-    );
-    helper.add(
-      'templateUrl',
-      templateUrl,
-    );
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'stackSetName',
-      stackSetName,
-    );
-    helper.add(
-      'callAs',
-      callAs,
-    );
+    final helper = newBuiltValueToStringHelper('GetTemplateSummaryInput')
+      ..add(
+        'templateBody',
+        templateBody,
+      )
+      ..add(
+        'templateUrl',
+        templateUrl,
+      )
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'stackSetName',
+        stackSetName,
+      )
+      ..add(
+        'callAs',
+        callAs,
+      )
+      ..add(
+        'templateSummaryConfig',
+        templateSummaryConfig,
+      );
     return helper.toString();
   }
 }
@@ -181,6 +189,11 @@ class GetTemplateSummaryInputAwsQuerySerializer
             value,
             specifiedType: const FullType(_i3.CallAs),
           ) as _i3.CallAs);
+        case 'TemplateSummaryConfig':
+          result.templateSummaryConfig.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i4.TemplateSummaryConfig),
+          ) as _i4.TemplateSummaryConfig));
       }
     }
 
@@ -204,7 +217,8 @@ class GetTemplateSummaryInputAwsQuerySerializer
       :templateUrl,
       :stackName,
       :stackSetName,
-      :callAs
+      :callAs,
+      :templateSummaryConfig
     ) = object;
     if (templateBody != null) {
       result$
@@ -244,6 +258,14 @@ class GetTemplateSummaryInputAwsQuerySerializer
         ..add(serializers.serialize(
           callAs,
           specifiedType: const FullType.nullable(_i3.CallAs),
+        ));
+    }
+    if (templateSummaryConfig != null) {
+      result$
+        ..add(const _i1.XmlElementName('TemplateSummaryConfig'))
+        ..add(serializers.serialize(
+          templateSummaryConfig,
+          specifiedType: const FullType(_i4.TemplateSummaryConfig),
         ));
     }
     return result$;

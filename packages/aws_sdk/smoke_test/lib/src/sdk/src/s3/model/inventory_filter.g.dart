@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.inventory_filter;
+part of 'inventory_filter.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -48,9 +48,7 @@ class InventoryFilterBuilder
   String? get prefix => _$this._prefix;
   set prefix(String? prefix) => _$this._prefix = prefix;
 
-  InventoryFilterBuilder() {
-    InventoryFilter._init(this);
-  }
+  InventoryFilterBuilder();
 
   InventoryFilterBuilder get _$this {
     final $v = _$v;

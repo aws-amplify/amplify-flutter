@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.bucket_logging_status;
+part of 'bucket_logging_status.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class BucketLoggingStatusBuilder
   set loggingEnabled(_i2.LoggingEnabledBuilder? loggingEnabled) =>
       _$this._loggingEnabled = loggingEnabled;
 
-  BucketLoggingStatusBuilder() {
-    BucketLoggingStatus._init(this);
-  }
+  BucketLoggingStatusBuilder();
 
   BucketLoggingStatusBuilder get _$this {
     final $v = _$v;

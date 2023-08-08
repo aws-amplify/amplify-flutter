@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.inventory_schedule;
+part of 'inventory_schedule.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -51,9 +51,7 @@ class InventoryScheduleBuilder
   set frequency(_i2.InventoryFrequency? frequency) =>
       _$this._frequency = frequency;
 
-  InventoryScheduleBuilder() {
-    InventorySchedule._init(this);
-  }
+  InventoryScheduleBuilder();
 
   InventoryScheduleBuilder get _$this {
     final $v = _$v;

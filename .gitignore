@@ -18,6 +18,8 @@ temp/
 .fvm/
 .packages
 pubspec_overrides.yaml
+doc/api/
+**/doc/api/
 
 # IDEs
 .idea/

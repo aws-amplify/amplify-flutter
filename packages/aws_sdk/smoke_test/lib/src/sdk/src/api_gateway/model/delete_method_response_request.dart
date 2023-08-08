@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.delete_method_response_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -62,12 +62,8 @@ abstract class DeleteMethodResponseRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DeleteMethodResponseRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteMethodResponseRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<DeleteMethodResponseRequestPayload>>
+      serializers = [DeleteMethodResponseRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -110,23 +106,23 @@ abstract class DeleteMethodResponseRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteMethodResponseRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'resourceId',
-      resourceId,
-    );
-    helper.add(
-      'httpMethod',
-      httpMethod,
-    );
-    helper.add(
-      'statusCode',
-      statusCode,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteMethodResponseRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'resourceId',
+        resourceId,
+      )
+      ..add(
+        'httpMethod',
+        httpMethod,
+      )
+      ..add(
+        'statusCode',
+        statusCode,
+      );
     return helper.toString();
   }
 }
@@ -145,8 +141,6 @@ abstract class DeleteMethodResponseRequestPayload
 
   const DeleteMethodResponseRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteMethodResponseRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

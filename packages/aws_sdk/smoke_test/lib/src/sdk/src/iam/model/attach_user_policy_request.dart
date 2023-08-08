@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.attach_user_policy_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,8 @@ abstract class AttachUserPolicyRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    AttachUserPolicyRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AttachUserPolicyRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<AttachUserPolicyRequest>> serializers =
+      [AttachUserPolicyRequestAwsQuerySerializer()];
 
   /// The name (friendly name, not ARN) of the IAM user to attach the policy to.
   ///
@@ -63,15 +59,15 @@ abstract class AttachUserPolicyRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AttachUserPolicyRequest');
-    helper.add(
-      'userName',
-      userName,
-    );
-    helper.add(
-      'policyArn',
-      policyArn,
-    );
+    final helper = newBuiltValueToStringHelper('AttachUserPolicyRequest')
+      ..add(
+        'userName',
+        userName,
+      )
+      ..add(
+        'policyArn',
+        policyArn,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.template; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,12 +31,9 @@ abstract class Template
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<Template>> serializers = [
     TemplateRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TemplateBuilder b) {}
 
   /// The Apache Velocity Template Language (VTL) template content used for the template resource.
   String? get value;
@@ -44,11 +41,11 @@ abstract class Template
   List<Object?> get props => [value];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Template');
-    helper.add(
-      'value',
-      value,
-    );
+    final helper = newBuiltValueToStringHelper('Template')
+      ..add(
+        'value',
+        value,
+      );
     return helper.toString();
   }
 }

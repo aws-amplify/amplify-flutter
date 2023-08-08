@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.glacier_job_parameters; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -27,12 +27,9 @@ abstract class GlacierJobParameters
 
   const GlacierJobParameters._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<GlacierJobParameters>> serializers = [
     GlacierJobParametersRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GlacierJobParametersBuilder b) {}
 
   /// Retrieval tier at which the restore will be processed.
   _i2.Tier get tier;
@@ -40,11 +37,11 @@ abstract class GlacierJobParameters
   List<Object?> get props => [tier];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GlacierJobParameters');
-    helper.add(
-      'tier',
-      tier,
-    );
+    final helper = newBuiltValueToStringHelper('GlacierJobParameters')
+      ..add(
+        'tier',
+        tier,
+      );
     return helper.toString();
   }
 }

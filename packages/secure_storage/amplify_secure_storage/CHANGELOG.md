@@ -1,3 +1,7 @@
+## 0.4.0+1
+
+- Minor bug fixes and improvements
+
 ## 0.4.0
 
 ### Features
@@ -7,6 +11,11 @@
 - fix(repo): AGP 8.0 compatibility ([#2942](https://github.com/aws-amplify/amplify-flutter/pull/2942))
 - fix(secure_storage): add package to generated kt code ([#3007](https://github.com/aws-amplify/amplify-flutter/pull/3007))
 - fix: remove AndroidKeysetManager log, upgrade to google/tink 1.8.0
+
+## 0.3.0+4
+
+### Fixes
+- fix(repo): Flutter 3.3 support
 
 ## 0.3.0+3
 

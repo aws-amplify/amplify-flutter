@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_protocol.model.json_blobs_input_output;
+part of 'json_blobs_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -48,9 +48,7 @@ class JsonBlobsInputOutputBuilder
   _i3.Uint8List? get data => _$this._data;
   set data(_i3.Uint8List? data) => _$this._data = data;
 
-  JsonBlobsInputOutputBuilder() {
-    JsonBlobsInputOutput._init(this);
-  }
+  JsonBlobsInputOutputBuilder();
 
   JsonBlobsInputOutputBuilder get _$this {
     final $v = _$v;

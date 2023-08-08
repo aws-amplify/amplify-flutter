@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.update_role_description_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,8 @@ abstract class UpdateRoleDescriptionRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateRoleDescriptionRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateRoleDescriptionRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<UpdateRoleDescriptionRequest>>
+      serializers = [UpdateRoleDescriptionRequestAwsQuerySerializer()];
 
   /// The name of the role that you want to modify.
   String get roleName;
@@ -61,15 +57,15 @@ abstract class UpdateRoleDescriptionRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateRoleDescriptionRequest');
-    helper.add(
-      'roleName',
-      roleName,
-    );
-    helper.add(
-      'description',
-      description,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateRoleDescriptionRequest')
+      ..add(
+        'roleName',
+        roleName,
+      )
+      ..add(
+        'description',
+        description,
+      );
     return helper.toString();
   }
 }

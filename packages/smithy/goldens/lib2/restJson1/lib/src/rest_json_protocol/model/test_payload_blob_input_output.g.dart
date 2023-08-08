@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_protocol.model.test_payload_blob_input_output;
+part of 'test_payload_blob_input_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -58,9 +58,7 @@ class TestPayloadBlobInputOutputBuilder
   _i2.Uint8List? get data => _$this._data;
   set data(_i2.Uint8List? data) => _$this._data = data;
 
-  TestPayloadBlobInputOutputBuilder() {
-    TestPayloadBlobInputOutput._init(this);
-  }
+  TestPayloadBlobInputOutputBuilder();
 
   TestPayloadBlobInputOutputBuilder get _$this {
     final $v = _$v;

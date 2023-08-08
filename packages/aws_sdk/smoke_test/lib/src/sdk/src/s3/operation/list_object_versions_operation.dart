@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.operation.list_object_versions_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,9 +18,9 @@ import 'package:smoke_test/src/sdk/src/s3/model/list_object_versions_request.dar
 
 /// Returns metadata about all versions of the objects in a bucket. You can also use request parameters as selection criteria to return metadata about a subset of all the object versions.
 ///
-/// To use this operation, you must have permissions to perform the `s3:ListBucketVersions` action. Be aware of the name difference.
+/// To use this operation, you must have permission to perform the `s3:ListBucketVersions` action. Be aware of the name difference.
 ///
-/// A 200 OK response can contain valid or invalid XML. Make sure to design your application to parse the contents of the response and handle it appropriately.
+/// A `200 OK` response can contain valid or invalid XML. Make sure to design your application to parse the contents of the response and handle it appropriately.
 ///
 /// To use this operation, you must have READ access to the bucket.
 ///
@@ -38,13 +38,13 @@ import 'package:smoke_test/src/sdk/src/s3/model/list_object_versions_request.dar
 class ListObjectVersionsOperation extends _i1.HttpOperation<
     _i2.ListObjectVersionsRequestPayload,
     _i2.ListObjectVersionsRequest,
-    _i3.ListObjectVersionsOutput,
+    _i3.ListObjectVersionsOutputPayload,
     _i3.ListObjectVersionsOutput> {
   /// Returns metadata about all versions of the objects in a bucket. You can also use request parameters as selection criteria to return metadata about a subset of all the object versions.
   ///
-  /// To use this operation, you must have permissions to perform the `s3:ListBucketVersions` action. Be aware of the name difference.
+  /// To use this operation, you must have permission to perform the `s3:ListBucketVersions` action. Be aware of the name difference.
   ///
-  /// A 200 OK response can contain valid or invalid XML. Make sure to design your application to parse the contents of the response and handle it appropriately.
+  /// A `200 OK` response can contain valid or invalid XML. Make sure to design your application to parse the contents of the response and handle it appropriately.
   ///
   /// To use this operation, you must have READ access to the bucket.
   ///
@@ -79,7 +79,7 @@ class ListObjectVersionsOperation extends _i1.HttpOperation<
       _i1.HttpProtocol<
           _i2.ListObjectVersionsRequestPayload,
           _i2.ListObjectVersionsRequest,
-          _i3.ListObjectVersionsOutput,
+          _i3.ListObjectVersionsOutputPayload,
           _i3.ListObjectVersionsOutput>> protocols = [
     _i4.RestXmlProtocol(
       serializers: _i6.serializers,
@@ -135,6 +135,18 @@ class ListObjectVersionsOperation extends _i1.HttpOperation<
                 input.expectedBucketOwner!;
           }
         }
+        if (input.requestPayer != null) {
+          b.headers['x-amz-request-payer'] = input.requestPayer!.value;
+        }
+        if (input.optionalObjectAttributes != null) {
+          if (input.optionalObjectAttributes!.isNotEmpty) {
+            b.headers['x-amz-optional-object-attributes'] = input
+                .optionalObjectAttributes!
+                .map((el) => el.value)
+                .map((el) => _i1.sanitizeHeader(el))
+                .join(', ');
+          }
+        }
         if (input.delimiter != null) {
           b.queryParameters.add(
             'delimiter',
@@ -176,7 +188,7 @@ class ListObjectVersionsOperation extends _i1.HttpOperation<
   int successCode([_i3.ListObjectVersionsOutput? output]) => 200;
   @override
   _i3.ListObjectVersionsOutput buildOutput(
-    _i3.ListObjectVersionsOutput payload,
+    _i3.ListObjectVersionsOutputPayload payload,
     _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.ListObjectVersionsOutput.fromResponse(
@@ -223,7 +235,7 @@ class ListObjectVersionsOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

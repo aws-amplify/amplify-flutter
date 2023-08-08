@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.get_account_authorization_details_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,12 +44,8 @@ abstract class GetAccountAuthorizationDetailsRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetAccountAuthorizationDetailsRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetAccountAuthorizationDetailsRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetAccountAuthorizationDetailsRequest>>
+      serializers = [GetAccountAuthorizationDetailsRequestAwsQuerySerializer()];
 
   /// A list of entity types used to filter the results. Only the entities that match the types you specify are included in the output. Use the value `LocalManagedPolicy` to include customer managed policies.
   ///
@@ -74,19 +70,19 @@ abstract class GetAccountAuthorizationDetailsRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetAccountAuthorizationDetailsRequest');
-    helper.add(
-      'filter',
-      filter,
-    );
-    helper.add(
-      'maxItems',
-      maxItems,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
+        newBuiltValueToStringHelper('GetAccountAuthorizationDetailsRequest')
+          ..add(
+            'filter',
+            filter,
+          )
+          ..add(
+            'maxItems',
+            maxItems,
+          )
+          ..add(
+            'marker',
+            marker,
+          );
     return helper.toString();
   }
 }

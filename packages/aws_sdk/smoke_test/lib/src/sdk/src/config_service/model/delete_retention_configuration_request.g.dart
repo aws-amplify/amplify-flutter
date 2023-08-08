@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.delete_retention_configuration_request;
+part of 'delete_retention_configuration_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -60,9 +60,7 @@ class DeleteRetentionConfigurationRequestBuilder
   set retentionConfigurationName(String? retentionConfigurationName) =>
       _$this._retentionConfigurationName = retentionConfigurationName;
 
-  DeleteRetentionConfigurationRequestBuilder() {
-    DeleteRetentionConfigurationRequest._init(this);
-  }
+  DeleteRetentionConfigurationRequestBuilder();
 
   DeleteRetentionConfigurationRequestBuilder get _$this {
     final $v = _$v;

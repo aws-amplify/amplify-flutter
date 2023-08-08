@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.analytics_s3_bucket_destination; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,12 +41,8 @@ abstract class AnalyticsS3BucketDestination
 
   const AnalyticsS3BucketDestination._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    AnalyticsS3BucketDestinationRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AnalyticsS3BucketDestinationBuilder b) {}
+  static const List<_i3.SmithySerializer<AnalyticsS3BucketDestination>>
+      serializers = [AnalyticsS3BucketDestinationRestXmlSerializer()];
 
   /// Specifies the file format used when exporting data to Amazon S3.
   _i2.AnalyticsS3ExportFileFormat get format;
@@ -70,23 +66,23 @@ abstract class AnalyticsS3BucketDestination
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AnalyticsS3BucketDestination');
-    helper.add(
-      'format',
-      format,
-    );
-    helper.add(
-      'bucketAccountId',
-      bucketAccountId,
-    );
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'prefix',
-      prefix,
-    );
+    final helper = newBuiltValueToStringHelper('AnalyticsS3BucketDestination')
+      ..add(
+        'format',
+        format,
+      )
+      ..add(
+        'bucketAccountId',
+        bucketAccountId,
+      )
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'prefix',
+        prefix,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.put_object_lock_configuration_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -83,12 +83,8 @@ abstract class PutObjectLockConfigurationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    PutObjectLockConfigurationRequestRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutObjectLockConfigurationRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<_i2.ObjectLockConfiguration?>>
+      serializers = [PutObjectLockConfigurationRequestRestXmlSerializer()];
 
   /// The bucket whose Object Lock configuration you want to create or replace.
   String get bucket;
@@ -142,35 +138,35 @@ abstract class PutObjectLockConfigurationRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PutObjectLockConfigurationRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'objectLockConfiguration',
-      objectLockConfiguration,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
-    helper.add(
-      'token',
-      token,
-    );
-    helper.add(
-      'contentMd5',
-      contentMd5,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+        newBuiltValueToStringHelper('PutObjectLockConfigurationRequest')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'objectLockConfiguration',
+            objectLockConfiguration,
+          )
+          ..add(
+            'requestPayer',
+            requestPayer,
+          )
+          ..add(
+            'token',
+            token,
+          )
+          ..add(
+            'contentMd5',
+            contentMd5,
+          )
+          ..add(
+            'checksumAlgorithm',
+            checksumAlgorithm,
+          )
+          ..add(
+            'expectedBucketOwner',
+            expectedBucketOwner,
+          );
     return helper.toString();
   }
 }

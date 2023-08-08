@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1_v1.machine_learning.model.client_config;
+part of 'client_config.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -107,9 +107,7 @@ class ClientConfigBuilder
   String? get awsProfile => _$this._awsProfile;
   set awsProfile(String? awsProfile) => _$this._awsProfile = awsProfile;
 
-  ClientConfigBuilder() {
-    ClientConfig._init(this);
-  }
+  ClientConfigBuilder();
 
   ClientConfigBuilder get _$this {
     final $v = _$v;

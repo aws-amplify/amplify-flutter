@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_storage_s3_dart.s3.operation.list_multipart_uploads_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,7 +42,7 @@ import 'package:smithy_aws/smithy_aws.dart' as _i4;
 class ListMultipartUploadsOperation extends _i1.HttpOperation<
     _i2.ListMultipartUploadsRequestPayload,
     _i2.ListMultipartUploadsRequest,
-    _i3.ListMultipartUploadsOutput,
+    _i3.ListMultipartUploadsOutputPayload,
     _i3.ListMultipartUploadsOutput> {
   /// This action lists in-progress multipart uploads. An in-progress multipart upload is a multipart upload that has been initiated using the Initiate Multipart Upload request, but has not yet been completed or aborted.
   ///
@@ -85,7 +85,7 @@ class ListMultipartUploadsOperation extends _i1.HttpOperation<
       _i1.HttpProtocol<
           _i2.ListMultipartUploadsRequestPayload,
           _i2.ListMultipartUploadsRequest,
-          _i3.ListMultipartUploadsOutput,
+          _i3.ListMultipartUploadsOutputPayload,
           _i3.ListMultipartUploadsOutput>> protocols = [
     _i4.RestXmlProtocol(
       serializers: _i6.serializers,
@@ -140,6 +140,9 @@ class ListMultipartUploadsOperation extends _i1.HttpOperation<
                 input.expectedBucketOwner!;
           }
         }
+        if (input.requestPayer != null) {
+          b.headers['x-amz-request-payer'] = input.requestPayer!.value;
+        }
         if (input.delimiter != null) {
           b.queryParameters.add(
             'delimiter',
@@ -181,7 +184,7 @@ class ListMultipartUploadsOperation extends _i1.HttpOperation<
   int successCode([_i3.ListMultipartUploadsOutput? output]) => 200;
   @override
   _i3.ListMultipartUploadsOutput buildOutput(
-    _i3.ListMultipartUploadsOutput payload,
+    _i3.ListMultipartUploadsOutputPayload payload,
     _i7.AWSBaseHttpResponse response,
   ) =>
       _i3.ListMultipartUploadsOutput.fromResponse(
@@ -228,7 +231,7 @@ class ListMultipartUploadsOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

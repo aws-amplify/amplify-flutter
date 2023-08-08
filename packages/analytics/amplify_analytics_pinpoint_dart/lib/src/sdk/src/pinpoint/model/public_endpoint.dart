@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.public_endpoint; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -58,12 +58,9 @@ abstract class PublicEndpoint
 
   const PublicEndpoint._();
 
-  static const List<_i7.SmithySerializer> serializers = [
+  static const List<_i7.SmithySerializer<PublicEndpoint>> serializers = [
     PublicEndpointRestJson1Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PublicEndpointBuilder b) {}
 
   /// The unique identifier for the recipient, such as a device token, email address, or mobile phone number.
   String? get address;
@@ -115,51 +112,51 @@ abstract class PublicEndpoint
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PublicEndpoint');
-    helper.add(
-      'address',
-      address,
-    );
-    helper.add(
-      'attributes',
-      attributes,
-    );
-    helper.add(
-      'channelType',
-      channelType,
-    );
-    helper.add(
-      'demographic',
-      demographic,
-    );
-    helper.add(
-      'effectiveDate',
-      effectiveDate,
-    );
-    helper.add(
-      'endpointStatus',
-      endpointStatus,
-    );
-    helper.add(
-      'location',
-      location,
-    );
-    helper.add(
-      'metrics',
-      metrics,
-    );
-    helper.add(
-      'optOut',
-      optOut,
-    );
-    helper.add(
-      'requestId',
-      requestId,
-    );
-    helper.add(
-      'user',
-      user,
-    );
+    final helper = newBuiltValueToStringHelper('PublicEndpoint')
+      ..add(
+        'address',
+        address,
+      )
+      ..add(
+        'attributes',
+        attributes,
+      )
+      ..add(
+        'channelType',
+        channelType,
+      )
+      ..add(
+        'demographic',
+        demographic,
+      )
+      ..add(
+        'effectiveDate',
+        effectiveDate,
+      )
+      ..add(
+        'endpointStatus',
+        endpointStatus,
+      )
+      ..add(
+        'location',
+        location,
+      )
+      ..add(
+        'metrics',
+        metrics,
+      )
+      ..add(
+        'optOut',
+        optOut,
+      )
+      ..add(
+        'requestId',
+        requestId,
+      )
+      ..add(
+        'user',
+        user,
+      );
     return helper.toString();
   }
 }

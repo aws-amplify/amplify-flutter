@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.inventory_configuration;
+part of 'inventory_configuration.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -10,7 +10,7 @@ class _$InventoryConfiguration extends InventoryConfiguration {
   @override
   final _i2.InventoryDestination destination;
   @override
-  final bool isEnabled;
+  final bool? isEnabled;
   @override
   final _i3.InventoryFilter? filter;
   @override
@@ -28,7 +28,7 @@ class _$InventoryConfiguration extends InventoryConfiguration {
 
   _$InventoryConfiguration._(
       {required this.destination,
-      required this.isEnabled,
+      this.isEnabled,
       this.filter,
       required this.id,
       required this.includedObjectVersions,
@@ -37,8 +37,6 @@ class _$InventoryConfiguration extends InventoryConfiguration {
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         destination, r'InventoryConfiguration', 'destination');
-    BuiltValueNullFieldError.checkNotNull(
-        isEnabled, r'InventoryConfiguration', 'isEnabled');
     BuiltValueNullFieldError.checkNotNull(id, r'InventoryConfiguration', 'id');
     BuiltValueNullFieldError.checkNotNull(includedObjectVersions,
         r'InventoryConfiguration', 'includedObjectVersions');
@@ -127,9 +125,7 @@ class InventoryConfigurationBuilder
   set schedule(_i6.InventoryScheduleBuilder? schedule) =>
       _$this._schedule = schedule;
 
-  InventoryConfigurationBuilder() {
-    InventoryConfiguration._init(this);
-  }
+  InventoryConfigurationBuilder();
 
   InventoryConfigurationBuilder get _$this {
     final $v = _$v;
@@ -166,8 +162,7 @@ class InventoryConfigurationBuilder
       _$result = _$v ??
           new _$InventoryConfiguration._(
               destination: destination.build(),
-              isEnabled: BuiltValueNullFieldError.checkNotNull(
-                  isEnabled, r'InventoryConfiguration', 'isEnabled'),
+              isEnabled: isEnabled,
               filter: _filter?.build(),
               id: BuiltValueNullFieldError.checkNotNull(
                   id, r'InventoryConfiguration', 'id'),

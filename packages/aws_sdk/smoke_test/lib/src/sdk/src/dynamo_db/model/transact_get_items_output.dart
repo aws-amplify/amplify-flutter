@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.transact_get_items_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,8 @@ abstract class TransactGetItemsOutput
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
-    TransactGetItemsOutputAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(TransactGetItemsOutputBuilder b) {}
+  static const List<_i5.SmithySerializer<TransactGetItemsOutput>> serializers =
+      [TransactGetItemsOutputAwsJson10Serializer()];
 
   /// If the _ReturnConsumedCapacity_ value was `TOTAL`, this is an array of `ConsumedCapacity` objects, one for each table addressed by `TransactGetItem` objects in the _TransactItems_ parameter. These `ConsumedCapacity` objects report the read-capacity units consumed by the `TransactGetItems` call in that table.
   _i4.BuiltList<_i2.ConsumedCapacity>? get consumedCapacity;
@@ -63,15 +59,15 @@ abstract class TransactGetItemsOutput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TransactGetItemsOutput');
-    helper.add(
-      'consumedCapacity',
-      consumedCapacity,
-    );
-    helper.add(
-      'responses',
-      responses,
-    );
+    final helper = newBuiltValueToStringHelper('TransactGetItemsOutput')
+      ..add(
+        'consumedCapacity',
+        consumedCapacity,
+      )
+      ..add(
+        'responses',
+        responses,
+      );
     return helper.toString();
   }
 }

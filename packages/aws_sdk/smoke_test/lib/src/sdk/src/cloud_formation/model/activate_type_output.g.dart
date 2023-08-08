@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.activate_type_output;
+part of 'activate_type_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -48,9 +48,7 @@ class ActivateTypeOutputBuilder
   String? get arn => _$this._arn;
   set arn(String? arn) => _$this._arn = arn;
 
-  ActivateTypeOutputBuilder() {
-    ActivateTypeOutput._init(this);
-  }
+  ActivateTypeOutputBuilder();
 
   ActivateTypeOutputBuilder get _$this {
     final $v = _$v;

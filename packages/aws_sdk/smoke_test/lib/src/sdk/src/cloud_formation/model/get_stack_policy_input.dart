@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.get_stack_policy_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,12 +35,9 @@ abstract class GetStackPolicyInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<GetStackPolicyInput>> serializers = [
     GetStackPolicyInputAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetStackPolicyInputBuilder b) {}
 
   /// The name or unique stack ID that's associated with the stack whose policy you want to get.
   String get stackName;
@@ -50,11 +47,11 @@ abstract class GetStackPolicyInput
   List<Object?> get props => [stackName];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetStackPolicyInput');
-    helper.add(
-      'stackName',
-      stackName,
-    );
+    final helper = newBuiltValueToStringHelper('GetStackPolicyInput')
+      ..add(
+        'stackName',
+        stackName,
+      );
     return helper.toString();
   }
 }

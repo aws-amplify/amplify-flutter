@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.item_response;
+part of 'item_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -47,9 +47,7 @@ class ItemResponseBuilder
   set item(_i3.MapBuilder<String, _i2.AttributeValue>? item) =>
       _$this._item = item;
 
-  ItemResponseBuilder() {
-    ItemResponse._init(this);
-  }
+  ItemResponseBuilder();
 
   ItemResponseBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.credential_report_not_ready_exception;
+part of 'credential_report_not_ready_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -60,9 +60,7 @@ class CredentialReportNotReadyExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  CredentialReportNotReadyExceptionBuilder() {
-    CredentialReportNotReadyException._init(this);
-  }
+  CredentialReportNotReadyExceptionBuilder();
 
   CredentialReportNotReadyExceptionBuilder get _$this {
     final $v = _$v;

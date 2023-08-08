@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.progress; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -33,12 +33,9 @@ abstract class Progress
 
   const Progress._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<Progress>> serializers = [
     ProgressRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ProgressBuilder b) {}
 
   /// The current number of object bytes scanned.
   _i2.Int64? get bytesScanned;
@@ -56,19 +53,19 @@ abstract class Progress
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Progress');
-    helper.add(
-      'bytesScanned',
-      bytesScanned,
-    );
-    helper.add(
-      'bytesProcessed',
-      bytesProcessed,
-    );
-    helper.add(
-      'bytesReturned',
-      bytesReturned,
-    );
+    final helper = newBuiltValueToStringHelper('Progress')
+      ..add(
+        'bytesScanned',
+        bytesScanned,
+      )
+      ..add(
+        'bytesProcessed',
+        bytesProcessed,
+      )
+      ..add(
+        'bytesReturned',
+        bytesReturned,
+      );
     return helper.toString();
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.put_organization_conformance_pack_request;
+part of 'put_organization_conformance_pack_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -134,9 +134,7 @@ class PutOrganizationConformancePackRequestBuilder
   set excludedAccounts(_i4.ListBuilder<String>? excludedAccounts) =>
       _$this._excludedAccounts = excludedAccounts;
 
-  PutOrganizationConformancePackRequestBuilder() {
-    PutOrganizationConformancePackRequest._init(this);
-  }
+  PutOrganizationConformancePackRequestBuilder();
 
   PutOrganizationConformancePackRequestBuilder get _$this {
     final $v = _$v;

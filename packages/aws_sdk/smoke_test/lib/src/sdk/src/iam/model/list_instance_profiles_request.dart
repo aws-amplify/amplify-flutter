@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.list_instance_profiles_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,12 +41,8 @@ abstract class ListInstanceProfilesRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListInstanceProfilesRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListInstanceProfilesRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<ListInstanceProfilesRequest>>
+      serializers = [ListInstanceProfilesRequestAwsQuerySerializer()];
 
   /// The path prefix for filtering the results. For example, the prefix `/application\_abc/component\_xyz/` gets all instance profiles whose path starts with `/application\_abc/component\_xyz/`.
   ///
@@ -70,19 +66,19 @@ abstract class ListInstanceProfilesRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListInstanceProfilesRequest');
-    helper.add(
-      'pathPrefix',
-      pathPrefix,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'maxItems',
-      maxItems,
-    );
+    final helper = newBuiltValueToStringHelper('ListInstanceProfilesRequest')
+      ..add(
+        'pathPrefix',
+        pathPrefix,
+      )
+      ..add(
+        'marker',
+        marker,
+      )
+      ..add(
+        'maxItems',
+        maxItems,
+      );
     return helper.toString();
   }
 }

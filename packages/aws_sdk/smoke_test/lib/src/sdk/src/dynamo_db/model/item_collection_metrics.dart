@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.item_collection_metrics; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,9 @@ abstract class ItemCollectionMetrics
 
   const ItemCollectionMetrics._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ItemCollectionMetrics>> serializers = [
     ItemCollectionMetricsAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ItemCollectionMetricsBuilder b) {}
 
   /// The partition key value of the item collection. This value is the same as the partition key value of the item.
   _i3.BuiltMap<String, _i2.AttributeValue>? get itemCollectionKey;
@@ -59,15 +56,15 @@ abstract class ItemCollectionMetrics
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ItemCollectionMetrics');
-    helper.add(
-      'itemCollectionKey',
-      itemCollectionKey,
-    );
-    helper.add(
-      'sizeEstimateRangeGb',
-      sizeEstimateRangeGb,
-    );
+    final helper = newBuiltValueToStringHelper('ItemCollectionMetrics')
+      ..add(
+        'itemCollectionKey',
+        itemCollectionKey,
+      )
+      ..add(
+        'sizeEstimateRangeGb',
+        sizeEstimateRangeGb,
+      );
     return helper.toString();
   }
 }

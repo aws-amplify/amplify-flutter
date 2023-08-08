@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.operation.put_configuration_recorder_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -24,25 +24,25 @@ import 'package:smoke_test/src/sdk/src/config_service/model/max_number_of_config
 import 'package:smoke_test/src/sdk/src/config_service/model/put_configuration_recorder_request.dart'
     as _i2;
 
-/// Creates a new configuration recorder to record the selected resource configurations.
+/// Creates a new configuration recorder to record configuration changes for specified resource types.
 ///
-/// You can use this action to change the role `roleARN` or the `recordingGroup` of an existing recorder. To change the role, call the action on the existing configuration recorder and specify a role.
+/// You can also use this action to change the `roleARN` or the `recordingGroup` of an existing recorder. For more information, see [**Managing the Configuration Recorder**](https://docs.aws.amazon.com/config/latest/developerguide/stop-start-recorder.html) in the _Config Developer Guide_.
 ///
-/// Currently, you can specify only one configuration recorder per region in your account.
+/// You can specify only one configuration recorder for each Amazon Web Services Region for each account.
 ///
-/// If `ConfigurationRecorder` does not have the **recordingGroup** parameter specified, the default is to record all supported resource types.
+/// If the configuration recorder does not have the `recordingGroup` field specified, the default is to record all supported resource types.
 class PutConfigurationRecorderOperation extends _i1.HttpOperation<
     _i2.PutConfigurationRecorderRequest,
     _i2.PutConfigurationRecorderRequest,
     _i1.Unit,
     _i1.Unit> {
-  /// Creates a new configuration recorder to record the selected resource configurations.
+  /// Creates a new configuration recorder to record configuration changes for specified resource types.
   ///
-  /// You can use this action to change the role `roleARN` or the `recordingGroup` of an existing recorder. To change the role, call the action on the existing configuration recorder and specify a role.
+  /// You can also use this action to change the `roleARN` or the `recordingGroup` of an existing recorder. For more information, see [**Managing the Configuration Recorder**](https://docs.aws.amazon.com/config/latest/developerguide/stop-start-recorder.html) in the _Config Developer Guide_.
   ///
-  /// Currently, you can specify only one configuration recorder per region in your account.
+  /// You can specify only one configuration recorder for each Amazon Web Services Region for each account.
   ///
-  /// If `ConfigurationRecorder` does not have the **recordingGroup** parameter specified, the default is to record all supported resource types.
+  /// If the configuration recorder does not have the `recordingGroup` field specified, the default is to record all supported resource types.
   PutConfigurationRecorderOperation({
     required String region,
     Uri? baseUri,
@@ -119,7 +119,8 @@ class PutConfigurationRecorderOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.InvalidConfigurationRecorderNameException,
+            _i8.InvalidConfigurationRecorderNameException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidConfigurationRecorderNameException',
@@ -128,7 +129,8 @@ class PutConfigurationRecorderOperation extends _i1.HttpOperation<
           _i8.InvalidConfigurationRecorderNameException,
           builder: _i8.InvalidConfigurationRecorderNameException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InvalidRecordingGroupException,
+            _i9.InvalidRecordingGroupException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidRecordingGroupException',
@@ -137,7 +139,7 @@ class PutConfigurationRecorderOperation extends _i1.HttpOperation<
           _i9.InvalidRecordingGroupException,
           builder: _i9.InvalidRecordingGroupException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidRoleException, _i10.InvalidRoleException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'InvalidRoleException',
@@ -146,7 +148,8 @@ class PutConfigurationRecorderOperation extends _i1.HttpOperation<
           _i10.InvalidRoleException,
           builder: _i10.InvalidRoleException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.MaxNumberOfConfigurationRecordersExceededException,
+            _i11.MaxNumberOfConfigurationRecordersExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'MaxNumberOfConfigurationRecordersExceededException',
@@ -179,7 +182,7 @@ class PutConfigurationRecorderOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
+        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
       },
     );
   }

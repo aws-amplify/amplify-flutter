@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.rest_json_protocol.model.malformed_double_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,11 +20,10 @@ abstract class MalformedDoubleInput
         _i1.HasPayload<MalformedDoubleInputPayload> {
   factory MalformedDoubleInput({
     double? doubleInBody,
-    double? doubleInPath,
+    required double doubleInPath,
     double? doubleInQuery,
     double? doubleInHeader,
   }) {
-    doubleInPath ??= 0;
     return _$MalformedDoubleInput._(
       doubleInBody: doubleInBody,
       doubleInPath: doubleInPath,
@@ -58,14 +57,8 @@ abstract class MalformedDoubleInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    MalformedDoubleInputRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedDoubleInputBuilder b) {
-    b.doubleInPath = 0;
-  }
+  static const List<_i1.SmithySerializer<MalformedDoubleInputPayload>>
+      serializers = [MalformedDoubleInputRestJson1Serializer()];
 
   double? get doubleInBody;
   double get doubleInPath;
@@ -96,23 +89,23 @@ abstract class MalformedDoubleInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedDoubleInput');
-    helper.add(
-      'doubleInBody',
-      doubleInBody,
-    );
-    helper.add(
-      'doubleInPath',
-      doubleInPath,
-    );
-    helper.add(
-      'doubleInQuery',
-      doubleInQuery,
-    );
-    helper.add(
-      'doubleInHeader',
-      doubleInHeader,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedDoubleInput')
+      ..add(
+        'doubleInBody',
+        doubleInBody,
+      )
+      ..add(
+        'doubleInPath',
+        doubleInPath,
+      )
+      ..add(
+        'doubleInQuery',
+        doubleInQuery,
+      )
+      ..add(
+        'doubleInHeader',
+        doubleInHeader,
+      );
     return helper.toString();
   }
 }
@@ -128,18 +121,16 @@ abstract class MalformedDoubleInputPayload
 
   const MalformedDoubleInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedDoubleInputPayloadBuilder b) {}
   double? get doubleInBody;
   @override
   List<Object?> get props => [doubleInBody];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedDoubleInputPayload');
-    helper.add(
-      'doubleInBody',
-      doubleInBody,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedDoubleInputPayload')
+      ..add(
+        'doubleInBody',
+        doubleInBody,
+      );
     return helper.toString();
   }
 }

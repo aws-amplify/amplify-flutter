@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.stack_instance_comprehensive_status; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -32,12 +32,8 @@ abstract class StackInstanceComprehensiveStatus
 
   const StackInstanceComprehensiveStatus._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    StackInstanceComprehensiveStatusAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackInstanceComprehensiveStatusBuilder b) {}
+  static const List<_i3.SmithySerializer<StackInstanceComprehensiveStatus>>
+      serializers = [StackInstanceComprehensiveStatusAwsQuerySerializer()];
 
   /// *   `CANCELLED`: The operation in the specified account and Region has been canceled. This is either because a user has stopped the stack set operation, or because the failure tolerance of the stack set operation has been exceeded.
   ///
@@ -49,6 +45,8 @@ abstract class StackInstanceComprehensiveStatus
   ///
   /// *   `RUNNING`: The operation in the specified account and Region is currently in progress.
   ///
+  /// *   `SKIPPED\_SUSPENDED\_ACCOUNT`: The operation in the specified account and Region has been skipped because the account was suspended at the time of the operation.
+  ///
   /// *   `SUCCEEDED`: The operation in the specified account and Region completed successfully.
   _i2.StackInstanceDetailedStatus? get detailedStatus;
   @override
@@ -56,11 +54,11 @@ abstract class StackInstanceComprehensiveStatus
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('StackInstanceComprehensiveStatus');
-    helper.add(
-      'detailedStatus',
-      detailedStatus,
-    );
+        newBuiltValueToStringHelper('StackInstanceComprehensiveStatus')
+          ..add(
+            'detailedStatus',
+            detailedStatus,
+          );
     return helper.toString();
   }
 }

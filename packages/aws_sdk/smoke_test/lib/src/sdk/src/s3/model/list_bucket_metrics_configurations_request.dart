@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.list_bucket_metrics_configurations_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -56,17 +56,14 @@ abstract class ListBucketMetricsConfigurationsRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListBucketMetricsConfigurationsRequestRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListBucketMetricsConfigurationsRequestBuilder b) {}
+  static const List<
+          _i1.SmithySerializer<ListBucketMetricsConfigurationsRequestPayload>>
+      serializers = [ListBucketMetricsConfigurationsRequestRestXmlSerializer()];
 
   /// The name of the bucket containing the metrics configurations to retrieve.
   String get bucket;
 
-  /// The marker that is used to continue a metrics configuration listing that has been truncated. Use the NextContinuationToken from a previously truncated list response to continue the listing. The continuation token is an opaque value that Amazon S3 understands.
+  /// The marker that is used to continue a metrics configuration listing that has been truncated. Use the `NextContinuationToken` from a previously truncated list response to continue the listing. The continuation token is an opaque value that Amazon S3 understands.
   String? get continuationToken;
 
   /// The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with the HTTP status code `403 Forbidden` (access denied).
@@ -95,19 +92,19 @@ abstract class ListBucketMetricsConfigurationsRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('ListBucketMetricsConfigurationsRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'continuationToken',
-      continuationToken,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+        newBuiltValueToStringHelper('ListBucketMetricsConfigurationsRequest')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'continuationToken',
+            continuationToken,
+          )
+          ..add(
+            'expectedBucketOwner',
+            expectedBucketOwner,
+          );
     return helper.toString();
   }
 }
@@ -126,8 +123,6 @@ abstract class ListBucketMetricsConfigurationsRequestPayload
 
   const ListBucketMetricsConfigurationsRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListBucketMetricsConfigurationsRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

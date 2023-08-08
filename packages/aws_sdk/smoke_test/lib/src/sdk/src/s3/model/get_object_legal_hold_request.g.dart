@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_object_legal_hold_request;
+part of 'get_object_legal_hold_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -95,9 +95,7 @@ class GetObjectLegalHoldRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetObjectLegalHoldRequestBuilder() {
-    GetObjectLegalHoldRequest._init(this);
-  }
+  GetObjectLegalHoldRequestBuilder();
 
   GetObjectLegalHoldRequestBuilder get _$this {
     final $v = _$v;
@@ -176,9 +174,7 @@ class GetObjectLegalHoldRequestPayloadBuilder
             GetObjectLegalHoldRequestPayloadBuilder> {
   _$GetObjectLegalHoldRequestPayload? _$v;
 
-  GetObjectLegalHoldRequestPayloadBuilder() {
-    GetObjectLegalHoldRequestPayload._init(this);
-  }
+  GetObjectLegalHoldRequestPayloadBuilder();
 
   @override
   void replace(GetObjectLegalHoldRequestPayload other) {

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.list_stack_resources_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -41,12 +41,8 @@ abstract class ListStackResourcesInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListStackResourcesInputAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListStackResourcesInputBuilder b) {}
+  static const List<_i1.SmithySerializer<ListStackResourcesInput>> serializers =
+      [ListStackResourcesInputAwsQuerySerializer()];
 
   /// The name or the unique stack ID that is associated with the stack, which aren't always interchangeable:
   ///
@@ -69,15 +65,15 @@ abstract class ListStackResourcesInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListStackResourcesInput');
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('ListStackResourcesInput')
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

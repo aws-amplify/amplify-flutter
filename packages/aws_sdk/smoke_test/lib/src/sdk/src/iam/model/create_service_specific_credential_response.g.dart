@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.create_service_specific_credential_response;
+part of 'create_service_specific_credential_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -60,9 +60,7 @@ class CreateServiceSpecificCredentialResponseBuilder
           _i2.ServiceSpecificCredentialBuilder? serviceSpecificCredential) =>
       _$this._serviceSpecificCredential = serviceSpecificCredential;
 
-  CreateServiceSpecificCredentialResponseBuilder() {
-    CreateServiceSpecificCredentialResponse._init(this);
-  }
+  CreateServiceSpecificCredentialResponseBuilder();
 
   CreateServiceSpecificCredentialResponseBuilder get _$this {
     final $v = _$v;

@@ -6,7 +6,6 @@ use aws.api#service
 use aws.protocols#restJson1
 use aws.protocols#httpChecksum
 use smithy.test#httpRequestTests
-use smithy.test#httpResponseTests
 
 @service(sdkId: "Custom")
 @restJson1
@@ -17,7 +16,8 @@ service CustomService {
         HttpChecksumNotRequiredWithMember,
         HttpChecksumReallyRequired,
         HttpChecksumReallyNotRequired,
-        NestedCollections
+        NestedCollections,
+        DefaultValues
     ]
 }
 

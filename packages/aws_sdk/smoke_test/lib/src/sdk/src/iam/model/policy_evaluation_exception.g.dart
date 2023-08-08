@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.policy_evaluation_exception;
+part of 'policy_evaluation_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class PolicyEvaluationExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  PolicyEvaluationExceptionBuilder() {
-    PolicyEvaluationException._init(this);
-  }
+  PolicyEvaluationExceptionBuilder();
 
   PolicyEvaluationExceptionBuilder get _$this {
     final $v = _$v;

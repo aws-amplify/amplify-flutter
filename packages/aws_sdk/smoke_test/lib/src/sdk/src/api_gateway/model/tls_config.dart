@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.tls_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -16,6 +16,7 @@ abstract class TlsConfig
     implements Built<TlsConfig, TlsConfigBuilder> {
   /// Specifies the TLS configuration for an integration.
   factory TlsConfig({bool? insecureSkipVerification}) {
+    insecureSkipVerification ??= false;
     return _$TlsConfig._(insecureSkipVerification: insecureSkipVerification);
   }
 
@@ -25,26 +26,28 @@ abstract class TlsConfig
 
   const TlsConfig._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<TlsConfig>> serializers = [
     TlsConfigRestJson1Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(TlsConfigBuilder b) {}
+  static void _init(TlsConfigBuilder b) {
+    b.insecureSkipVerification = false;
+  }
 
   /// Specifies whether or not API Gateway skips verification that the certificate for an integration endpoint is issued by a supported certificate authority. This isn’t recommended, but it enables you to use certificates that are signed by private certificate authorities, or certificates that are self-signed. If enabled, API Gateway still performs basic certificate validation, which includes checking the certificate's expiration date, hostname, and presence of a root certificate authority. Supported only for `HTTP` and `HTTP_PROXY` integrations.
   ///
   /// Enabling `insecureSkipVerification` isn't recommended, especially for integrations with public HTTPS endpoints. If you enable `insecureSkipVerification`, you increase the risk of man-in-the-middle attacks.
-  bool? get insecureSkipVerification;
+  bool get insecureSkipVerification;
   @override
   List<Object?> get props => [insecureSkipVerification];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('TlsConfig');
-    helper.add(
-      'insecureSkipVerification',
-      insecureSkipVerification,
-    );
+    final helper = newBuiltValueToStringHelper('TlsConfig')
+      ..add(
+        'insecureSkipVerification',
+        insecureSkipVerification,
+      );
     return helper.toString();
   }
 }
@@ -100,14 +103,13 @@ class TlsConfigRestJson1Serializer
   }) {
     final result$ = <Object?>[];
     final TlsConfig(:insecureSkipVerification) = object;
-    if (insecureSkipVerification != null) {
-      result$
-        ..add('insecureSkipVerification')
-        ..add(serializers.serialize(
-          insecureSkipVerification,
-          specifiedType: const FullType(bool),
-        ));
-    }
+    result$.addAll([
+      'insecureSkipVerification',
+      serializers.serialize(
+        insecureSkipVerification,
+        specifiedType: const FullType(bool),
+      ),
+    ]);
     return result$;
   }
 }

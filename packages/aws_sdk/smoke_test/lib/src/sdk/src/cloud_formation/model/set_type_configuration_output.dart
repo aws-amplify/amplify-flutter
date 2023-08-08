@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.set_type_configuration_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,14 +31,10 @@ abstract class SetTypeConfigurationOutput
   ) =>
       payload;
 
-  static const List<_i2.SmithySerializer> serializers = [
-    SetTypeConfigurationOutputAwsQuerySerializer()
-  ];
+  static const List<_i2.SmithySerializer<SetTypeConfigurationOutput>>
+      serializers = [SetTypeConfigurationOutputAwsQuerySerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(SetTypeConfigurationOutputBuilder b) {}
-
-  /// The Amazon Resource Name (ARN) for the configuration data, in this account and region.
+  /// The Amazon Resource Name (ARN) for the configuration data, in this account and Region.
   ///
   /// Conditional: You must specify `ConfigurationArn`, or `Type` and `TypeName`.
   String? get configurationArn;
@@ -46,11 +42,11 @@ abstract class SetTypeConfigurationOutput
   List<Object?> get props => [configurationArn];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('SetTypeConfigurationOutput');
-    helper.add(
-      'configurationArn',
-      configurationArn,
-    );
+    final helper = newBuiltValueToStringHelper('SetTypeConfigurationOutput')
+      ..add(
+        'configurationArn',
+        configurationArn,
+      );
     return helper.toString();
   }
 }

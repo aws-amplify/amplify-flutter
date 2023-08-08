@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db_streams.model.shard;
+part of 'shard.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -66,9 +66,7 @@ class ShardBuilder implements Builder<Shard, ShardBuilder> {
   set parentShardId(String? parentShardId) =>
       _$this._parentShardId = parentShardId;
 
-  ShardBuilder() {
-    Shard._init(this);
-  }
+  ShardBuilder();
 
   ShardBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.put_bucket_cors_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -66,12 +66,9 @@ abstract class PutBucketCorsRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<_i2.CorsConfiguration>> serializers = [
     PutBucketCorsRequestRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PutBucketCorsRequestBuilder b) {}
 
   /// Specifies the bucket impacted by the `cors`configuration.
   String get bucket;
@@ -115,27 +112,27 @@ abstract class PutBucketCorsRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('PutBucketCorsRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'corsConfiguration',
-      corsConfiguration,
-    );
-    helper.add(
-      'contentMd5',
-      contentMd5,
-    );
-    helper.add(
-      'checksumAlgorithm',
-      checksumAlgorithm,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('PutBucketCorsRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'corsConfiguration',
+        corsConfiguration,
+      )
+      ..add(
+        'contentMd5',
+        contentMd5,
+      )
+      ..add(
+        'checksumAlgorithm',
+        checksumAlgorithm,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }

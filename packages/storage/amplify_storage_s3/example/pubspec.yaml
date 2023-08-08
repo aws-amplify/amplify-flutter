@@ -14,9 +14,11 @@ dependencies:
   amplify_flutter: any
   amplify_secure_storage: any
   amplify_storage_s3: any
+  file_picker: any
   flutter:
     sdk: flutter
   go_router: ^6.5.7
+  path_provider: any
 
 dev_dependencies:
   amplify_integration_test: any
@@ -24,12 +26,12 @@ dev_dependencies:
     path: ../../../amplify_lints
   amplify_storage_s3_dart: any
   aws_common: any
-  drift: ">=2.4.0 <2.9.0"
+  drift: ">=2.10.0 <2.11.0"
   flutter_driver:
     sdk: flutter
   flutter_test:
     sdk: flutter
-  http: ^0.13.0
+  http: ">=0.13.0 <2.0.0"
   integration_test:
     sdk: flutter
   path: any

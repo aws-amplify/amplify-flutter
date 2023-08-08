@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.operation.update_server_certificate_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -135,7 +135,8 @@ class UpdateServerCertificateOperation extends _i1.HttpOperation<
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.EntityAlreadyExistsException,
+            _i8.EntityAlreadyExistsException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'EntityAlreadyExistsException',
@@ -145,7 +146,7 @@ class UpdateServerCertificateOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i8.EntityAlreadyExistsException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.LimitExceededException, _i9.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'LimitExceededException',
@@ -155,7 +156,7 @@ class UpdateServerCertificateOperation extends _i1.HttpOperation<
           statusCode: 409,
           builder: _i9.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.NoSuchEntityException, _i10.NoSuchEntityException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'NoSuchEntityException',
@@ -165,7 +166,8 @@ class UpdateServerCertificateOperation extends _i1.HttpOperation<
           statusCode: 404,
           builder: _i10.NoSuchEntityException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.ServiceFailureException,
+            _i11.ServiceFailureException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.iam',
             shape: 'ServiceFailureException',
@@ -198,7 +200,7 @@ class UpdateServerCertificateOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
+        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
       },
     );
   }

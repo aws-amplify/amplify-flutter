@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.remediation_execution_status; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -46,12 +46,8 @@ abstract class RemediationExecutionStatus
 
   const RemediationExecutionStatus._();
 
-  static const List<_i6.SmithySerializer> serializers = [
-    RemediationExecutionStatusAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(RemediationExecutionStatusBuilder b) {}
+  static const List<_i6.SmithySerializer<RemediationExecutionStatus>>
+      serializers = [RemediationExecutionStatusAwsJson11Serializer()];
 
   /// The details that identify a resource within Config, including the resource type and resource ID.
   _i2.ResourceKey? get resourceKey;
@@ -77,27 +73,27 @@ abstract class RemediationExecutionStatus
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('RemediationExecutionStatus');
-    helper.add(
-      'resourceKey',
-      resourceKey,
-    );
-    helper.add(
-      'state',
-      state,
-    );
-    helper.add(
-      'stepDetails',
-      stepDetails,
-    );
-    helper.add(
-      'invocationTime',
-      invocationTime,
-    );
-    helper.add(
-      'lastUpdatedTime',
-      lastUpdatedTime,
-    );
+    final helper = newBuiltValueToStringHelper('RemediationExecutionStatus')
+      ..add(
+        'resourceKey',
+        resourceKey,
+      )
+      ..add(
+        'state',
+        state,
+      )
+      ..add(
+        'stepDetails',
+        stepDetails,
+      )
+      ..add(
+        'invocationTime',
+        invocationTime,
+      )
+      ..add(
+        'lastUpdatedTime',
+        lastUpdatedTime,
+      );
     return helper.toString();
   }
 }

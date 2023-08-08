@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.update_termination_protection_input;
+part of 'update_termination_protection_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -68,9 +68,7 @@ class UpdateTerminationProtectionInputBuilder
   String? get stackName => _$this._stackName;
   set stackName(String? stackName) => _$this._stackName = stackName;
 
-  UpdateTerminationProtectionInputBuilder() {
-    UpdateTerminationProtectionInput._init(this);
-  }
+  UpdateTerminationProtectionInputBuilder();
 
   UpdateTerminationProtectionInputBuilder get _$this {
     final $v = _$v;

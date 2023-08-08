@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.get_bucket_replication_request;
+part of 'get_bucket_replication_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class GetBucketReplicationRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  GetBucketReplicationRequestBuilder() {
-    GetBucketReplicationRequest._init(this);
-  }
+  GetBucketReplicationRequestBuilder();
 
   GetBucketReplicationRequestBuilder get _$this {
     final $v = _$v;
@@ -141,9 +139,7 @@ class GetBucketReplicationRequestPayloadBuilder
             GetBucketReplicationRequestPayloadBuilder> {
   _$GetBucketReplicationRequestPayload? _$v;
 
-  GetBucketReplicationRequestPayloadBuilder() {
-    GetBucketReplicationRequestPayload._init(this);
-  }
+  GetBucketReplicationRequestPayloadBuilder();
 
   @override
   void replace(GetBucketReplicationRequestPayload other) {

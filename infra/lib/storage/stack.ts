@@ -1,10 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import * as cognito_identity from "@aws-cdk/aws-cognito-identitypool-alpha";
 import * as cdk from "aws-cdk-lib";
 import { RemovalPolicy } from "aws-cdk-lib";
 import * as cognito from "aws-cdk-lib/aws-cognito";
-import * as cognito_identity from "@aws-cdk/aws-cognito-identitypool-alpha";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as lambda_nodejs from "aws-cdk-lib/aws-lambda-nodejs";
@@ -14,7 +14,8 @@ import {
   AmplifyCategory,
   IntegrationTestStack,
   IntegrationTestStackEnvironment,
-  IntegrationTestStackEnvironmentProps
+  IntegrationTestStackEnvironmentProps,
+  randomBucketName
 } from "../common";
 
 export enum StorageAccessLevel {
@@ -50,6 +51,16 @@ interface StorageIntegrationTestEnvironmentProps
   ) => string;
 
   prefixOverrides?: Record<StorageAccessLevel, String>;
+
+  /**
+   * The prefix name of the bucket. If not provided, it will be auto-generated.
+   * 
+   * Since bucket names are unique globally, a dedicated bucket name cannot be
+   * used since that would disallow multiple accounts to deploy this stack. 
+   */
+  bucketNamePrefix?: string;
+
+  enableTransferAcceleration?: boolean;
 }
 
 export class StorageIntegrationTestStack extends IntegrationTestStack<
@@ -81,16 +92,17 @@ export class StorageIntegrationTestStack extends IntegrationTestStack<
 
 class StorageIntegrationTestEnvironment extends IntegrationTestStackEnvironment<StorageIntegrationTestEnvironmentProps> {
   constructor(
-    scope: Construct,
+    stack: StorageIntegrationTestStack,
     baseName: string,
     props: StorageIntegrationTestEnvironmentProps
   ) {
-    super(scope, baseName, props);
+    super(stack, baseName, props);
 
     // Create the bucket
 
     const bucket = new s3.Bucket(this, "Bucket", {
-      transferAcceleration: true,
+      bucketName: props.bucketNamePrefix ? randomBucketName({ prefix: props.bucketNamePrefix, stack: this }) : undefined,
+      transferAcceleration: props.enableTransferAcceleration,
       removalPolicy: RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,

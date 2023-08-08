@@ -16,15 +16,15 @@ const androidJourneyMessage = {
       'journey': {
         'journey_activity_id': 'JOURNEY_ACTIVITY_ID',
         'journey_run_id': 'JOURNEY_RUN_ID',
-        'journey_id': 'JOURNEY_ID'
-      }
+        'journey_id': 'JOURNEY_ID',
+      },
     },
     'pinpoint.notification.body': 'BODY',
     'data': {
-      'pinpoint': {'endpointId': 'ENDPOINTID'}
+      'pinpoint': {'endpointId': 'ENDPOINTID'},
     },
-    'pinpoint.notification.silentPush': 0
-  }
+    'pinpoint.notification.silentPush': 0,
+  },
 };
 
 const androidCampaignMessage = {
@@ -41,19 +41,19 @@ const androidCampaignMessage = {
     'pinpoint.notification.title': 'TITTLE',
     'pinpoint.notification.body': 'BODY',
     'data': {
-      'pinpoint': {'endpointId': 'ENDPOINTID'}
+      'pinpoint': {'endpointId': 'ENDPOINTID'},
     },
     'pinpoint.campaign.campaign_id': 'CAMPAIGN_ID',
     'pinpoint.notification.silentPush': 0,
-    'pinpoint.campaign.campaign_activity_id': 'CAMPAIGN_ACTIVITY_ID'
-  }
+    'pinpoint.campaign.campaign_activity_id': 'CAMPAIGN_ACTIVITY_ID',
+  },
 };
 
 const iosCampaignMessage = {
   'aps': {
     'alert': {'title': 'TITTLE', 'body': 'BODY'},
     'mutable-content': 0,
-    'content-available': 1
+    'content-available': 1,
   },
   'data': {
     'pinpoint': {
@@ -61,10 +61,10 @@ const iosCampaignMessage = {
       'campaign': {
         'treatment_id': 0,
         'campaign_id': 'CAMPAIGN_ID',
-        'campaign_activity_id': 'CAMPAIGN_ACTIVITY_ID'
-      }
-    }
-  }
+        'campaign_activity_id': 'CAMPAIGN_ACTIVITY_ID',
+      },
+    },
+  },
 };
 
 const iosJourneyMessage = {
@@ -73,14 +73,14 @@ const iosJourneyMessage = {
       'journey': {
         'journey_run_id': 'JOURNEY_RUN_ID',
         'journey_activity_id': 'JOURNEY_ACTIVITY_ID',
-        'journey_id': 'JOURNEY_ID'
+        'journey_id': 'JOURNEY_ID',
       },
-      'endpointId': 'ENDPOINT_ID'
-    }
+      'endpointId': 'ENDPOINT_ID',
+    },
   },
   'aps': {
     'alert': {'title': 'TITTLE', 'body': 'BODY'},
     'mutable-content': 0,
-    'content-available': 1
-  }
+    'content-available': 1,
+  },
 };

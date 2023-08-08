@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.create_change_set_output;
+part of 'create_change_set_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -57,9 +57,7 @@ class CreateChangeSetOutputBuilder
   String? get stackId => _$this._stackId;
   set stackId(String? stackId) => _$this._stackId = stackId;
 
-  CreateChangeSetOutputBuilder() {
-    CreateChangeSetOutput._init(this);
-  }
+  CreateChangeSetOutputBuilder();
 
   CreateChangeSetOutputBuilder get _$this {
     final $v = _$v;

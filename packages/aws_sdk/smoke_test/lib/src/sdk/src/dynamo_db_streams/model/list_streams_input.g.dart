@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db_streams.model.list_streams_input;
+part of 'list_streams_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -67,9 +67,7 @@ class ListStreamsInputBuilder
   set exclusiveStartStreamArn(String? exclusiveStartStreamArn) =>
       _$this._exclusiveStartStreamArn = exclusiveStartStreamArn;
 
-  ListStreamsInputBuilder() {
-    ListStreamsInput._init(this);
-  }
+  ListStreamsInputBuilder();
 
   ListStreamsInputBuilder get _$this {
     final $v = _$v;

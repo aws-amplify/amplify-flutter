@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.operation.delete_object_tagging_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -22,7 +22,7 @@ import 'package:smoke_test/src/sdk/src/s3/model/delete_object_tagging_request.da
 ///
 /// To delete tags of a specific object version, add the `versionId` query parameter in the request. You will need permission for the `s3:DeleteObjectVersionTagging` action.
 ///
-/// The following operations are related to `DeleteBucketMetricsConfiguration`:
+/// The following operations are related to `DeleteObjectTagging`:
 ///
 /// *   [PutObjectTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectTagging.html)
 ///
@@ -38,7 +38,7 @@ class DeleteObjectTaggingOperation extends _i1.HttpOperation<
   ///
   /// To delete tags of a specific object version, add the `versionId` query parameter in the request. You will need permission for the `s3:DeleteObjectVersionTagging` action.
   ///
-  /// The following operations are related to `DeleteBucketMetricsConfiguration`:
+  /// The following operations are related to `DeleteObjectTagging`:
   ///
   /// *   [PutObjectTagging](https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectTagging.html)
   ///
@@ -177,7 +177,7 @@ class DeleteObjectTaggingOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

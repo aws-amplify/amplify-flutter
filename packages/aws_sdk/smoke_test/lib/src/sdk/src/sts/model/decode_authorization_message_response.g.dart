@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.decode_authorization_message_response;
+part of 'decode_authorization_message_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class DecodeAuthorizationMessageResponseBuilder
   set decodedMessage(String? decodedMessage) =>
       _$this._decodedMessage = decodedMessage;
 
-  DecodeAuthorizationMessageResponseBuilder() {
-    DecodeAuthorizationMessageResponse._init(this);
-  }
+  DecodeAuthorizationMessageResponseBuilder();
 
   DecodeAuthorizationMessageResponseBuilder get _$this {
     final $v = _$v;

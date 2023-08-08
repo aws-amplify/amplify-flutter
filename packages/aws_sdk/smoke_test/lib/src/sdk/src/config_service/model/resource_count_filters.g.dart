@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.resource_count_filters;
+part of 'resource_count_filters.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -67,9 +67,7 @@ class ResourceCountFiltersBuilder
   String? get region => _$this._region;
   set region(String? region) => _$this._region = region;
 
-  ResourceCountFiltersBuilder() {
-    ResourceCountFilters._init(this);
-  }
+  ResourceCountFiltersBuilder();
 
   ResourceCountFiltersBuilder get _$this {
     final $v = _$v;

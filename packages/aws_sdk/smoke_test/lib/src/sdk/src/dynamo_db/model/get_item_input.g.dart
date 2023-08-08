@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.get_item_input;
+part of 'get_item_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -117,9 +117,7 @@ class GetItemInputBuilder
           _i5.MapBuilder<String, String>? expressionAttributeNames) =>
       _$this._expressionAttributeNames = expressionAttributeNames;
 
-  GetItemInputBuilder() {
-    GetItemInput._init(this);
-  }
+  GetItemInputBuilder();
 
   GetItemInputBuilder get _$this {
     final $v = _$v;

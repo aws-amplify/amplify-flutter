@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.describe_stack_instance_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -45,12 +45,8 @@ abstract class DescribeStackInstanceInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DescribeStackInstanceInputAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeStackInstanceInputBuilder b) {}
+  static const List<_i1.SmithySerializer<DescribeStackInstanceInput>>
+      serializers = [DescribeStackInstanceInputAwsQuerySerializer()];
 
   /// The name or the unique stack ID of the stack set that you want to get stack instance information for.
   String get stackSetName;
@@ -82,23 +78,23 @@ abstract class DescribeStackInstanceInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeStackInstanceInput');
-    helper.add(
-      'stackSetName',
-      stackSetName,
-    );
-    helper.add(
-      'stackInstanceAccount',
-      stackInstanceAccount,
-    );
-    helper.add(
-      'stackInstanceRegion',
-      stackInstanceRegion,
-    );
-    helper.add(
-      'callAs',
-      callAs,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeStackInstanceInput')
+      ..add(
+        'stackSetName',
+        stackSetName,
+      )
+      ..add(
+        'stackInstanceAccount',
+        stackInstanceAccount,
+      )
+      ..add(
+        'stackInstanceRegion',
+        stackInstanceRegion,
+      )
+      ..add(
+        'callAs',
+        callAs,
+      );
     return helper.toString();
   }
 }

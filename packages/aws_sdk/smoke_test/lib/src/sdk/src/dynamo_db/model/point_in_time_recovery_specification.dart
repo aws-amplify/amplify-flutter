@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.point_in_time_recovery_specification; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -18,8 +18,8 @@ abstract class PointInTimeRecoverySpecification
         Built<PointInTimeRecoverySpecification,
             PointInTimeRecoverySpecificationBuilder> {
   /// Represents the settings used to enable point in time recovery.
-  factory PointInTimeRecoverySpecification({bool? pointInTimeRecoveryEnabled}) {
-    pointInTimeRecoveryEnabled ??= false;
+  factory PointInTimeRecoverySpecification(
+      {required bool pointInTimeRecoveryEnabled}) {
     return _$PointInTimeRecoverySpecification._(
         pointInTimeRecoveryEnabled: pointInTimeRecoveryEnabled);
   }
@@ -31,14 +31,8 @@ abstract class PointInTimeRecoverySpecification
 
   const PointInTimeRecoverySpecification._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    PointInTimeRecoverySpecificationAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(PointInTimeRecoverySpecificationBuilder b) {
-    b.pointInTimeRecoveryEnabled = false;
-  }
+  static const List<_i2.SmithySerializer<PointInTimeRecoverySpecification>>
+      serializers = [PointInTimeRecoverySpecificationAwsJson10Serializer()];
 
   /// Indicates whether point in time recovery is enabled (true) or disabled (false) on the table.
   bool get pointInTimeRecoveryEnabled;
@@ -47,11 +41,11 @@ abstract class PointInTimeRecoverySpecification
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('PointInTimeRecoverySpecification');
-    helper.add(
-      'pointInTimeRecoveryEnabled',
-      pointInTimeRecoveryEnabled,
-    );
+        newBuiltValueToStringHelper('PointInTimeRecoverySpecification')
+          ..add(
+            'pointInTimeRecoveryEnabled',
+            pointInTimeRecoveryEnabled,
+          );
     return helper.toString();
   }
 }

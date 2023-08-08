@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.no_such_delivery_channel_exception; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,8 @@ abstract class NoSuchDeliveryChannelException
         b.headers = response.headers;
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    NoSuchDeliveryChannelExceptionAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(NoSuchDeliveryChannelExceptionBuilder b) {}
+  static const List<_i2.SmithySerializer<NoSuchDeliveryChannelException>>
+      serializers = [NoSuchDeliveryChannelExceptionAwsJson11Serializer()];
 
   /// Error executing the command
   @override
@@ -69,12 +65,11 @@ abstract class NoSuchDeliveryChannelException
   List<Object?> get props => [message];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('NoSuchDeliveryChannelException');
-    helper.add(
-      'message',
-      message,
-    );
+    final helper = newBuiltValueToStringHelper('NoSuchDeliveryChannelException')
+      ..add(
+        'message',
+        message,
+      );
     return helper.toString();
   }
 }

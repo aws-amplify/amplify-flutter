@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.operation.batch_get_item_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -30,7 +30,7 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/resource_not_found_except
 
 /// The `BatchGetItem` operation returns the attributes of one or more items from one or more tables. You identify requested items by primary key.
 ///
-/// A single operation can retrieve up to 16 MB of data, which can contain as many as 100 items. `BatchGetItem` returns a partial result if the response size limit is exceeded, the table's provisioned throughput is exceeded, or an internal processing failure occurs. If a partial result is returned, the operation returns a value for `UnprocessedKeys`. You can use this value to retry the operation starting with the next item to get.
+/// A single operation can retrieve up to 16 MB of data, which can contain as many as 100 items. `BatchGetItem` returns a partial result if the response size limit is exceeded, the table's provisioned throughput is exceeded, more than 1MB per partition is requested, or an internal processing failure occurs. If a partial result is returned, the operation returns a value for `UnprocessedKeys`. You can use this value to retry the operation starting with the next item to get.
 ///
 /// If you request more than 100 items, `BatchGetItem` returns a `ValidationException` with the message "Too many items requested for the BatchGetItem call."
 ///
@@ -44,7 +44,7 @@ import 'package:smoke_test/src/sdk/src/dynamo_db/model/resource_not_found_except
 ///
 /// By default, `BatchGetItem` performs eventually consistent reads on every table in the request. If you want strongly consistent reads instead, you can set `ConsistentRead` to `true` for any or all tables.
 ///
-/// In order to minimize response latency, `BatchGetItem` retrieves items in parallel.
+/// In order to minimize response latency, `BatchGetItem` may retrieve items in parallel.
 ///
 /// When designing your application, keep in mind that DynamoDB does not return items in any particular order. To help parse the response by item, include the primary key values for the items in your request in the `ProjectionExpression` parameter.
 ///
@@ -53,7 +53,7 @@ class BatchGetItemOperation extends _i1.HttpOperation<_i2.BatchGetItemInput,
     _i2.BatchGetItemInput, _i3.BatchGetItemOutput, _i3.BatchGetItemOutput> {
   /// The `BatchGetItem` operation returns the attributes of one or more items from one or more tables. You identify requested items by primary key.
   ///
-  /// A single operation can retrieve up to 16 MB of data, which can contain as many as 100 items. `BatchGetItem` returns a partial result if the response size limit is exceeded, the table's provisioned throughput is exceeded, or an internal processing failure occurs. If a partial result is returned, the operation returns a value for `UnprocessedKeys`. You can use this value to retry the operation starting with the next item to get.
+  /// A single operation can retrieve up to 16 MB of data, which can contain as many as 100 items. `BatchGetItem` returns a partial result if the response size limit is exceeded, the table's provisioned throughput is exceeded, more than 1MB per partition is requested, or an internal processing failure occurs. If a partial result is returned, the operation returns a value for `UnprocessedKeys`. You can use this value to retry the operation starting with the next item to get.
   ///
   /// If you request more than 100 items, `BatchGetItem` returns a `ValidationException` with the message "Too many items requested for the BatchGetItem call."
   ///
@@ -67,7 +67,7 @@ class BatchGetItemOperation extends _i1.HttpOperation<_i2.BatchGetItemInput,
   ///
   /// By default, `BatchGetItem` performs eventually consistent reads on every table in the request. If you want strongly consistent reads instead, you can set `ConsistentRead` to `true` for any or all tables.
   ///
-  /// In order to minimize response latency, `BatchGetItem` retrieves items in parallel.
+  /// In order to minimize response latency, `BatchGetItem` may retrieve items in parallel.
   ///
   /// When designing your application, keep in mind that DynamoDB does not return items in any particular order. To help parse the response by item, include the primary key values for the items in your request in the `ProjectionExpression` parameter.
   ///
@@ -148,7 +148,7 @@ class BatchGetItemOperation extends _i1.HttpOperation<_i2.BatchGetItemInput,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InternalServerError, _i9.InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
@@ -157,7 +157,8 @@ class BatchGetItemOperation extends _i1.HttpOperation<_i2.BatchGetItemInput,
           _i9.InternalServerError,
           builder: _i9.InternalServerError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InvalidEndpointException,
+            _i10.InvalidEndpointException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InvalidEndpointException',
@@ -167,7 +168,8 @@ class BatchGetItemOperation extends _i1.HttpOperation<_i2.BatchGetItemInput,
           statusCode: 421,
           builder: _i10.InvalidEndpointException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.ProvisionedThroughputExceededException,
+            _i11.ProvisionedThroughputExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ProvisionedThroughputExceededException',
@@ -176,7 +178,7 @@ class BatchGetItemOperation extends _i1.HttpOperation<_i2.BatchGetItemInput,
           _i11.ProvisionedThroughputExceededException,
           builder: _i11.ProvisionedThroughputExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.RequestLimitExceeded, _i12.RequestLimitExceeded>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'RequestLimitExceeded',
@@ -185,7 +187,8 @@ class BatchGetItemOperation extends _i1.HttpOperation<_i2.BatchGetItemInput,
           _i12.RequestLimitExceeded,
           builder: _i12.RequestLimitExceeded.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.ResourceNotFoundException,
+            _i13.ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ResourceNotFoundException',
@@ -217,7 +220,7 @@ class BatchGetItemOperation extends _i1.HttpOperation<_i2.BatchGetItemInput,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

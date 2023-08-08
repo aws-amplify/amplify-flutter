@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.existing_object_replication;
+part of 'existing_object_replication.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -53,9 +53,7 @@ class ExistingObjectReplicationBuilder
   set status(_i2.ExistingObjectReplicationStatus? status) =>
       _$this._status = status;
 
-  ExistingObjectReplicationBuilder() {
-    ExistingObjectReplication._init(this);
-  }
+  ExistingObjectReplicationBuilder();
 
   ExistingObjectReplicationBuilder get _$this {
     final $v = _$v;

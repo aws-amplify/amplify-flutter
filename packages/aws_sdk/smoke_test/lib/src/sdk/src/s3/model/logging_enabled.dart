@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.logging_enabled; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -35,12 +35,9 @@ abstract class LoggingEnabled
 
   const LoggingEnabled._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<LoggingEnabled>> serializers = [
     LoggingEnabledRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(LoggingEnabledBuilder b) {}
 
   /// Specifies the bucket where you want Amazon S3 to store server access logs. You can have your logs delivered to any bucket that you own, including the same bucket that is being logged. You can also configure multiple buckets to deliver their logs to the same target bucket. In this case, you should choose a different `TargetPrefix` for each source bucket so that the delivered log files can be distinguished by key.
   String get targetBucket;
@@ -60,19 +57,19 @@ abstract class LoggingEnabled
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('LoggingEnabled');
-    helper.add(
-      'targetBucket',
-      targetBucket,
-    );
-    helper.add(
-      'targetGrants',
-      targetGrants,
-    );
-    helper.add(
-      'targetPrefix',
-      targetPrefix,
-    );
+    final helper = newBuiltValueToStringHelper('LoggingEnabled')
+      ..add(
+        'targetBucket',
+        targetBucket,
+      )
+      ..add(
+        'targetGrants',
+        targetGrants,
+      )
+      ..add(
+        'targetPrefix',
+        targetPrefix,
+      );
     return helper.toString();
   }
 }

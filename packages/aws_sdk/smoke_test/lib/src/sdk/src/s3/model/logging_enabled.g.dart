@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.logging_enabled;
+part of 'logging_enabled.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -74,9 +74,7 @@ class LoggingEnabledBuilder
   String? get targetPrefix => _$this._targetPrefix;
   set targetPrefix(String? targetPrefix) => _$this._targetPrefix = targetPrefix;
 
-  LoggingEnabledBuilder() {
-    LoggingEnabled._init(this);
-  }
+  LoggingEnabledBuilder();
 
   LoggingEnabledBuilder get _$this {
     final $v = _$v;

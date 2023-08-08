@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.remediation_parameter_value;
+part of 'remediation_parameter_value.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class RemediationParameterValueBuilder
   set staticValue(_i3.StaticValueBuilder? staticValue) =>
       _$this._staticValue = staticValue;
 
-  RemediationParameterValueBuilder() {
-    RemediationParameterValue._init(this);
-  }
+  RemediationParameterValueBuilder();
 
   RemediationParameterValueBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.delete_access_key_request;
+part of 'delete_access_key_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -61,9 +61,7 @@ class DeleteAccessKeyRequestBuilder
   String? get accessKeyId => _$this._accessKeyId;
   set accessKeyId(String? accessKeyId) => _$this._accessKeyId = accessKeyId;
 
-  DeleteAccessKeyRequestBuilder() {
-    DeleteAccessKeyRequest._init(this);
-  }
+  DeleteAccessKeyRequestBuilder();
 
   DeleteAccessKeyRequestBuilder get _$this {
     final $v = _$v;

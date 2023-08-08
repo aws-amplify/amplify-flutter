@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.describe_stack_events_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,8 @@ abstract class DescribeStackEventsInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    DescribeStackEventsInputAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeStackEventsInputBuilder b) {}
+  static const List<_i1.SmithySerializer<DescribeStackEventsInput>>
+      serializers = [DescribeStackEventsInputAwsQuerySerializer()];
 
   /// The name or the unique stack ID that's associated with the stack, which aren't always interchangeable:
   ///
@@ -70,15 +66,15 @@ abstract class DescribeStackEventsInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeStackEventsInput');
-    helper.add(
-      'stackName',
-      stackName,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeStackEventsInput')
+      ..add(
+        'stackName',
+        stackName,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }

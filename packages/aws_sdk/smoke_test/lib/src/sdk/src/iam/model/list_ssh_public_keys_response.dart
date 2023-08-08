@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.list_ssh_public_keys_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -24,6 +24,7 @@ abstract class ListSshPublicKeysResponse
     bool? isTruncated,
     String? marker,
   }) {
+    isTruncated ??= false;
     return _$ListSshPublicKeysResponse._(
       sshPublicKeys:
           sshPublicKeys == null ? null : _i3.BuiltList(sshPublicKeys),
@@ -46,18 +47,19 @@ abstract class ListSshPublicKeysResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    ListSshPublicKeysResponseAwsQuerySerializer()
-  ];
+  static const List<_i4.SmithySerializer<ListSshPublicKeysResponse>>
+      serializers = [ListSshPublicKeysResponseAwsQuerySerializer()];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListSshPublicKeysResponseBuilder b) {}
+  static void _init(ListSshPublicKeysResponseBuilder b) {
+    b.isTruncated = false;
+  }
 
   /// A list of the SSH public keys assigned to IAM user.
   _i3.BuiltList<_i2.SshPublicKeyMetadata>? get sshPublicKeys;
 
   /// A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the `Marker` request parameter to retrieve more items. Note that IAM might return fewer than the `MaxItems` number of results even when there are more results available. We recommend that you check `IsTruncated` after every call to ensure that you receive all your results.
-  bool? get isTruncated;
+  bool get isTruncated;
 
   /// When `IsTruncated` is `true`, this element is present and contains the value to use for the `Marker` parameter in a subsequent pagination request.
   String? get marker;
@@ -69,19 +71,19 @@ abstract class ListSshPublicKeysResponse
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListSshPublicKeysResponse');
-    helper.add(
-      'sshPublicKeys',
-      sshPublicKeys,
-    );
-    helper.add(
-      'isTruncated',
-      isTruncated,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
+    final helper = newBuiltValueToStringHelper('ListSshPublicKeysResponse')
+      ..add(
+        'sshPublicKeys',
+        sshPublicKeys,
+      )
+      ..add(
+        'isTruncated',
+        isTruncated,
+      )
+      ..add(
+        'marker',
+        marker,
+      );
     return helper.toString();
   }
 }
@@ -174,14 +176,12 @@ class ListSshPublicKeysResponseAwsQuerySerializer
           ),
         ));
     }
-    if (isTruncated != null) {
-      result$
-        ..add(const _i4.XmlElementName('IsTruncated'))
-        ..add(serializers.serialize(
-          isTruncated,
-          specifiedType: const FullType.nullable(bool),
-        ));
-    }
+    result$
+      ..add(const _i4.XmlElementName('IsTruncated'))
+      ..add(serializers.serialize(
+        isTruncated,
+        specifiedType: const FullType(bool),
+      ));
     if (marker != null) {
       result$
         ..add(const _i4.XmlElementName('Marker'))

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.get_open_id_connect_provider_request;
+part of 'get_open_id_connect_provider_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -57,9 +57,7 @@ class GetOpenIdConnectProviderRequestBuilder
   set openIdConnectProviderArn(String? openIdConnectProviderArn) =>
       _$this._openIdConnectProviderArn = openIdConnectProviderArn;
 
-  GetOpenIdConnectProviderRequestBuilder() {
-    GetOpenIdConnectProviderRequest._init(this);
-  }
+  GetOpenIdConnectProviderRequestBuilder();
 
   GetOpenIdConnectProviderRequestBuilder get _$this {
     final $v = _$v;

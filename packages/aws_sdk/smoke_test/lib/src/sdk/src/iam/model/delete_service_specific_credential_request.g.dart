@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.delete_service_specific_credential_request;
+part of 'delete_service_specific_credential_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -72,9 +72,7 @@ class DeleteServiceSpecificCredentialRequestBuilder
   set serviceSpecificCredentialId(String? serviceSpecificCredentialId) =>
       _$this._serviceSpecificCredentialId = serviceSpecificCredentialId;
 
-  DeleteServiceSpecificCredentialRequestBuilder() {
-    DeleteServiceSpecificCredentialRequest._init(this);
-  }
+  DeleteServiceSpecificCredentialRequestBuilder();
 
   DeleteServiceSpecificCredentialRequestBuilder get _$this {
     final $v = _$v;

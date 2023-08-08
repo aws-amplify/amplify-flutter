@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.resource_key;
+part of 'resource_key.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -60,9 +60,7 @@ class ResourceKeyBuilder implements Builder<ResourceKey, ResourceKeyBuilder> {
   String? get resourceId => _$this._resourceId;
   set resourceId(String? resourceId) => _$this._resourceId = resourceId;
 
-  ResourceKeyBuilder() {
-    ResourceKey._init(this);
-  }
+  ResourceKeyBuilder();
 
   ResourceKeyBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.set_type_configuration_input;
+part of 'set_type_configuration_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -93,9 +93,7 @@ class SetTypeConfigurationInputBuilder
   _i3.ThirdPartyType? get type => _$this._type;
   set type(_i3.ThirdPartyType? type) => _$this._type = type;
 
-  SetTypeConfigurationInputBuilder() {
-    SetTypeConfigurationInput._init(this);
-  }
+  SetTypeConfigurationInputBuilder();
 
   SetTypeConfigurationInputBuilder get _$this {
     final $v = _$v;

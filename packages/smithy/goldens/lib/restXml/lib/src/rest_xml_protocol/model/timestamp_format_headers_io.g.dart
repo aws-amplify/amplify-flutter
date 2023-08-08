@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v1.rest_xml_protocol.model.timestamp_format_headers_io;
+part of 'timestamp_format_headers_io.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -113,9 +113,7 @@ class TimestampFormatHeadersIoBuilder
   set targetDateTime(DateTime? targetDateTime) =>
       _$this._targetDateTime = targetDateTime;
 
-  TimestampFormatHeadersIoBuilder() {
-    TimestampFormatHeadersIo._init(this);
-  }
+  TimestampFormatHeadersIoBuilder();
 
   TimestampFormatHeadersIoBuilder get _$this {
     final $v = _$v;
@@ -196,9 +194,7 @@ class TimestampFormatHeadersIoPayloadBuilder
             TimestampFormatHeadersIoPayloadBuilder> {
   _$TimestampFormatHeadersIoPayload? _$v;
 
-  TimestampFormatHeadersIoPayloadBuilder() {
-    TimestampFormatHeadersIoPayload._init(this);
-  }
+  TimestampFormatHeadersIoPayloadBuilder();
 
   @override
   void replace(TimestampFormatHeadersIoPayload other) {

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.delivery_channel_status;
+part of 'delivery_channel_status.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -90,9 +90,7 @@ class DeliveryChannelStatusBuilder
           _i3.ConfigStreamDeliveryInfoBuilder? configStreamDeliveryInfo) =>
       _$this._configStreamDeliveryInfo = configStreamDeliveryInfo;
 
-  DeliveryChannelStatusBuilder() {
-    DeliveryChannelStatus._init(this);
-  }
+  DeliveryChannelStatusBuilder();
 
   DeliveryChannelStatusBuilder get _$this {
     final $v = _$v;

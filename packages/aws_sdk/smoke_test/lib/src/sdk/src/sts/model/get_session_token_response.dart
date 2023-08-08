@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.sts.model.get_session_token_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,12 +34,8 @@ abstract class GetSessionTokenResponse
   ) =>
       payload;
 
-  static const List<_i3.SmithySerializer> serializers = [
-    GetSessionTokenResponseAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetSessionTokenResponseBuilder b) {}
+  static const List<_i3.SmithySerializer<GetSessionTokenResponse>> serializers =
+      [GetSessionTokenResponseAwsQuerySerializer()];
 
   /// The temporary security credentials, which include an access key ID, a secret access key, and a security (or session) token.
   ///
@@ -49,11 +45,11 @@ abstract class GetSessionTokenResponse
   List<Object?> get props => [credentials];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetSessionTokenResponse');
-    helper.add(
-      'credentials',
-      credentials,
-    );
+    final helper = newBuiltValueToStringHelper('GetSessionTokenResponse')
+      ..add(
+        'credentials',
+        credentials,
+      );
     return helper.toString();
   }
 }

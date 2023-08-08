@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.generate_service_last_accessed_details_request;
+part of 'generate_service_last_accessed_details_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -69,9 +69,7 @@ class GenerateServiceLastAccessedDetailsRequestBuilder
   set granularity(_i3.AccessAdvisorUsageGranularityType? granularity) =>
       _$this._granularity = granularity;
 
-  GenerateServiceLastAccessedDetailsRequestBuilder() {
-    GenerateServiceLastAccessedDetailsRequest._init(this);
-  }
+  GenerateServiceLastAccessedDetailsRequestBuilder();
 
   GenerateServiceLastAccessedDetailsRequestBuilder get _$this {
     final $v = _$v;

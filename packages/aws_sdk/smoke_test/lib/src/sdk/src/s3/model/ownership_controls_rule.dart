@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.ownership_controls_rule; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -28,12 +28,9 @@ abstract class OwnershipControlsRule
 
   const OwnershipControlsRule._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<OwnershipControlsRule>> serializers = [
     OwnershipControlsRuleRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(OwnershipControlsRuleBuilder b) {}
 
   /// The container element for object ownership for a bucket's ownership controls.
   ///
@@ -47,11 +44,11 @@ abstract class OwnershipControlsRule
   List<Object?> get props => [objectOwnership];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('OwnershipControlsRule');
-    helper.add(
-      'objectOwnership',
-      objectOwnership,
-    );
+    final helper = newBuiltValueToStringHelper('OwnershipControlsRule')
+      ..add(
+        'objectOwnership',
+        objectOwnership,
+      );
     return helper.toString();
   }
 }

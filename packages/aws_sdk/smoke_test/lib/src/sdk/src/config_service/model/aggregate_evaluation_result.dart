@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.aggregate_evaluation_result; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -47,12 +47,8 @@ abstract class AggregateEvaluationResult
 
   const AggregateEvaluationResult._();
 
-  static const List<_i4.SmithySerializer> serializers = [
-    AggregateEvaluationResultAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AggregateEvaluationResultBuilder b) {}
+  static const List<_i4.SmithySerializer<AggregateEvaluationResult>>
+      serializers = [AggregateEvaluationResultAwsJson11Serializer()];
 
   /// Uniquely identifies the evaluation result.
   _i2.EvaluationResultIdentifier? get evaluationResultIdentifier;
@@ -88,35 +84,35 @@ abstract class AggregateEvaluationResult
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AggregateEvaluationResult');
-    helper.add(
-      'evaluationResultIdentifier',
-      evaluationResultIdentifier,
-    );
-    helper.add(
-      'complianceType',
-      complianceType,
-    );
-    helper.add(
-      'resultRecordedTime',
-      resultRecordedTime,
-    );
-    helper.add(
-      'configRuleInvokedTime',
-      configRuleInvokedTime,
-    );
-    helper.add(
-      'annotation',
-      annotation,
-    );
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'awsRegion',
-      awsRegion,
-    );
+    final helper = newBuiltValueToStringHelper('AggregateEvaluationResult')
+      ..add(
+        'evaluationResultIdentifier',
+        evaluationResultIdentifier,
+      )
+      ..add(
+        'complianceType',
+        complianceType,
+      )
+      ..add(
+        'resultRecordedTime',
+        resultRecordedTime,
+      )
+      ..add(
+        'configRuleInvokedTime',
+        configRuleInvokedTime,
+      )
+      ..add(
+        'annotation',
+        annotation,
+      )
+      ..add(
+        'accountId',
+        accountId,
+      )
+      ..add(
+        'awsRegion',
+        awsRegion,
+      );
     return helper.toString();
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.put_object_acl_output;
+part of 'put_object_acl_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -50,9 +50,7 @@ class PutObjectAclOutputBuilder
   set requestCharged(_i3.RequestCharged? requestCharged) =>
       _$this._requestCharged = requestCharged;
 
-  PutObjectAclOutputBuilder() {
-    PutObjectAclOutput._init(this);
-  }
+  PutObjectAclOutputBuilder();
 
   PutObjectAclOutputBuilder get _$this {
     final $v = _$v;
@@ -118,9 +116,7 @@ class PutObjectAclOutputPayloadBuilder
         Builder<PutObjectAclOutputPayload, PutObjectAclOutputPayloadBuilder> {
   _$PutObjectAclOutputPayload? _$v;
 
-  PutObjectAclOutputPayloadBuilder() {
-    PutObjectAclOutputPayload._init(this);
-  }
+  PutObjectAclOutputPayloadBuilder();
 
   @override
   void replace(PutObjectAclOutputPayload other) {

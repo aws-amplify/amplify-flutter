@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.describe_configuration_aggregator_sources_status_response;
+part of 'describe_configuration_aggregator_sources_status_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -74,9 +74,7 @@ class DescribeConfigurationAggregatorSourcesStatusResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeConfigurationAggregatorSourcesStatusResponseBuilder() {
-    DescribeConfigurationAggregatorSourcesStatusResponse._init(this);
-  }
+  DescribeConfigurationAggregatorSourcesStatusResponseBuilder();
 
   DescribeConfigurationAggregatorSourcesStatusResponseBuilder get _$this {
     final $v = _$v;

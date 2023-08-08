@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.operation.tag_resource_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -107,7 +107,7 @@ class TagResourceOperation extends _i1.HttpOperation<_i2.TagResourceInput,
       payload;
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i8.InternalServerError, _i8.InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
@@ -116,7 +116,8 @@ class TagResourceOperation extends _i1.HttpOperation<_i2.TagResourceInput,
           _i8.InternalServerError,
           builder: _i8.InternalServerError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.InvalidEndpointException,
+            _i9.InvalidEndpointException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InvalidEndpointException',
@@ -126,7 +127,8 @@ class TagResourceOperation extends _i1.HttpOperation<_i2.TagResourceInput,
           statusCode: 421,
           builder: _i9.InvalidEndpointException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.LimitExceededException,
+            _i10.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'LimitExceededException',
@@ -135,7 +137,8 @@ class TagResourceOperation extends _i1.HttpOperation<_i2.TagResourceInput,
           _i10.LimitExceededException,
           builder: _i10.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.ResourceInUseException,
+            _i11.ResourceInUseException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ResourceInUseException',
@@ -144,7 +147,8 @@ class TagResourceOperation extends _i1.HttpOperation<_i2.TagResourceInput,
           _i11.ResourceInUseException,
           builder: _i11.ResourceInUseException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.ResourceNotFoundException,
+            _i12.ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ResourceNotFoundException',
@@ -176,7 +180,7 @@ class TagResourceOperation extends _i1.HttpOperation<_i2.TagResourceInput,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
+        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
       },
     );
   }

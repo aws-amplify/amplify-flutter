@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.delete_remediation_exceptions_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,8 @@ abstract class DeleteRemediationExceptionsResponse
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    DeleteRemediationExceptionsResponseAwsJson11Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteRemediationExceptionsResponseBuilder b) {}
+  static const List<_i4.SmithySerializer<DeleteRemediationExceptionsResponse>>
+      serializers = [DeleteRemediationExceptionsResponseAwsJson11Serializer()];
 
   /// Returns a list of failed delete remediation exceptions batch objects. Each object in the batch consists of a list of failed items and failure messages.
   _i3.BuiltList<_i2.FailedDeleteRemediationExceptionsBatch>? get failedBatches;
@@ -53,11 +49,11 @@ abstract class DeleteRemediationExceptionsResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('DeleteRemediationExceptionsResponse');
-    helper.add(
-      'failedBatches',
-      failedBatches,
-    );
+        newBuiltValueToStringHelper('DeleteRemediationExceptionsResponse')
+          ..add(
+            'failedBatches',
+            failedBatches,
+          );
     return helper.toString();
   }
 }

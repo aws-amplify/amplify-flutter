@@ -22,9 +22,16 @@ extension StringRecase on String {
   String get paramCase =>
       groupIntoWords().map((word) => word.toLowerCase()).join('-');
 
+  /// Acronyms for which we should maintain casing.
+  static const _maintainCase = ['AWS'];
+
   /// The `PascalCase` version of `this`.
-  String get pascalCase =>
-      groupIntoWords().map((word) => word.capitalized).join();
+  String get pascalCase => groupIntoWords().map((word) {
+        if (_maintainCase.contains(word)) {
+          return word;
+        }
+        return word.capitalized;
+      }).join();
 
   /// The `snake_case` version of `this`.
   String get snakeCase =>

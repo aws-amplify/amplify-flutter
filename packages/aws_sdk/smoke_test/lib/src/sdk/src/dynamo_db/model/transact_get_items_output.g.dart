@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.transact_get_items_output;
+part of 'transact_get_items_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class TransactGetItemsOutputBuilder
   set responses(_i4.ListBuilder<_i3.ItemResponse>? responses) =>
       _$this._responses = responses;
 
-  TransactGetItemsOutputBuilder() {
-    TransactGetItemsOutput._init(this);
-  }
+  TransactGetItemsOutputBuilder();
 
   TransactGetItemsOutputBuilder get _$this {
     final $v = _$v;

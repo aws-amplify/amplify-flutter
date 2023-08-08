@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.replication_group_update; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -67,12 +67,8 @@ abstract class ReplicationGroupUpdate
 
   const ReplicationGroupUpdate._();
 
-  static const List<_i5.SmithySerializer> serializers = [
-    ReplicationGroupUpdateAwsJson10Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicationGroupUpdateBuilder b) {}
+  static const List<_i5.SmithySerializer<ReplicationGroupUpdate>> serializers =
+      [ReplicationGroupUpdateAwsJson10Serializer()];
 
   /// The parameters required for creating a replica for the table.
   _i2.CreateReplicationGroupMemberAction? get create;
@@ -90,19 +86,19 @@ abstract class ReplicationGroupUpdate
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ReplicationGroupUpdate');
-    helper.add(
-      'create',
-      create,
-    );
-    helper.add(
-      'update_',
-      update_,
-    );
-    helper.add(
-      'delete',
-      delete,
-    );
+    final helper = newBuiltValueToStringHelper('ReplicationGroupUpdate')
+      ..add(
+        'create',
+        create,
+      )
+      ..add(
+        'update_',
+        update_,
+      )
+      ..add(
+        'delete',
+        delete,
+      );
     return helper.toString();
   }
 }

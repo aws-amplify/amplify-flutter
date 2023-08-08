@@ -65,9 +65,7 @@ class TooManyRequestsExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  TooManyRequestsExceptionBuilder() {
-    TooManyRequestsException._init(this);
-  }
+  TooManyRequestsExceptionBuilder();
 
   TooManyRequestsExceptionBuilder get _$this {
     final $v = _$v;

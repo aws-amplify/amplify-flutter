@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db_streams.model.key_schema_element;
+part of 'key_schema_element.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -63,9 +63,7 @@ class KeySchemaElementBuilder
   _i2.KeyType? get keyType => _$this._keyType;
   set keyType(_i2.KeyType? keyType) => _$this._keyType = keyType;
 
-  KeySchemaElementBuilder() {
-    KeySchemaElement._init(this);
-  }
+  KeySchemaElementBuilder();
 
   KeySchemaElementBuilder get _$this {
     final $v = _$v;

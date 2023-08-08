@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.get_rest_api_request;
+part of 'get_rest_api_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -50,9 +50,7 @@ class GetRestApiRequestBuilder
   String? get restApiId => _$this._restApiId;
   set restApiId(String? restApiId) => _$this._restApiId = restApiId;
 
-  GetRestApiRequestBuilder() {
-    GetRestApiRequest._init(this);
-  }
+  GetRestApiRequestBuilder();
 
   GetRestApiRequestBuilder get _$this {
     final $v = _$v;
@@ -120,9 +118,7 @@ class GetRestApiRequestPayloadBuilder
         Builder<GetRestApiRequestPayload, GetRestApiRequestPayloadBuilder> {
   _$GetRestApiRequestPayload? _$v;
 
-  GetRestApiRequestPayloadBuilder() {
-    GetRestApiRequestPayload._init(this);
-  }
+  GetRestApiRequestPayloadBuilder();
 
   @override
   void replace(GetRestApiRequestPayload other) {

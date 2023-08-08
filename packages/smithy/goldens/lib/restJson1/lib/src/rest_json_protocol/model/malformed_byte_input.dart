@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.rest_json_protocol.model.malformed_byte_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,11 +20,10 @@ abstract class MalformedByteInput
         _i1.HasPayload<MalformedByteInputPayload> {
   factory MalformedByteInput({
     int? byteInBody,
-    int? byteInPath,
+    required int byteInPath,
     int? byteInQuery,
     int? byteInHeader,
   }) {
-    byteInPath ??= 0;
     return _$MalformedByteInput._(
       byteInBody: byteInBody,
       byteInPath: byteInPath,
@@ -57,14 +56,8 @@ abstract class MalformedByteInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    MalformedByteInputRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedByteInputBuilder b) {
-    b.byteInPath = 0;
-  }
+  static const List<_i1.SmithySerializer<MalformedByteInputPayload>>
+      serializers = [MalformedByteInputRestJson1Serializer()];
 
   int? get byteInBody;
   int get byteInPath;
@@ -95,23 +88,23 @@ abstract class MalformedByteInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedByteInput');
-    helper.add(
-      'byteInBody',
-      byteInBody,
-    );
-    helper.add(
-      'byteInPath',
-      byteInPath,
-    );
-    helper.add(
-      'byteInQuery',
-      byteInQuery,
-    );
-    helper.add(
-      'byteInHeader',
-      byteInHeader,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedByteInput')
+      ..add(
+        'byteInBody',
+        byteInBody,
+      )
+      ..add(
+        'byteInPath',
+        byteInPath,
+      )
+      ..add(
+        'byteInQuery',
+        byteInQuery,
+      )
+      ..add(
+        'byteInHeader',
+        byteInHeader,
+      );
     return helper.toString();
   }
 }
@@ -127,18 +120,16 @@ abstract class MalformedByteInputPayload
 
   const MalformedByteInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedByteInputPayloadBuilder b) {}
   int? get byteInBody;
   @override
   List<Object?> get props => [byteInBody];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedByteInputPayload');
-    helper.add(
-      'byteInBody',
-      byteInBody,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedByteInputPayload')
+      ..add(
+        'byteInBody',
+        byteInBody,
+      );
     return helper.toString();
   }
 }

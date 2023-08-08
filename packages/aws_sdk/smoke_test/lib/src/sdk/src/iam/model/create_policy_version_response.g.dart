@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.create_policy_version_response;
+part of 'create_policy_version_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -53,9 +53,7 @@ class CreatePolicyVersionResponseBuilder
   set policyVersion(_i2.PolicyVersionBuilder? policyVersion) =>
       _$this._policyVersion = policyVersion;
 
-  CreatePolicyVersionResponseBuilder() {
-    CreatePolicyVersionResponse._init(this);
-  }
+  CreatePolicyVersionResponseBuilder();
 
   CreatePolicyVersionResponseBuilder get _$this {
     final $v = _$v;

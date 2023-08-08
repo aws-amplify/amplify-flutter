@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.stack_instance_filter; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -12,11 +12,11 @@ import 'package:smoke_test/src/sdk/src/cloud_formation/model/stack_instance_filt
 
 part 'stack_instance_filter.g.dart';
 
-/// The status that stack instances are filtered by.
+/// The filter to apply to stack instances
 abstract class StackInstanceFilter
     with _i1.AWSEquatable<StackInstanceFilter>
     implements Built<StackInstanceFilter, StackInstanceFilterBuilder> {
-  /// The status that stack instances are filtered by.
+  /// The filter to apply to stack instances
   factory StackInstanceFilter({
     _i2.StackInstanceFilterName? name,
     String? values,
@@ -27,19 +27,16 @@ abstract class StackInstanceFilter
     );
   }
 
-  /// The status that stack instances are filtered by.
+  /// The filter to apply to stack instances
   factory StackInstanceFilter.build(
           [void Function(StackInstanceFilterBuilder) updates]) =
       _$StackInstanceFilter;
 
   const StackInstanceFilter._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<StackInstanceFilter>> serializers = [
     StackInstanceFilterAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(StackInstanceFilterBuilder b) {}
 
   /// The type of filter to apply.
   _i2.StackInstanceFilterName? get name;
@@ -53,15 +50,15 @@ abstract class StackInstanceFilter
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('StackInstanceFilter');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'values',
-      values,
-    );
+    final helper = newBuiltValueToStringHelper('StackInstanceFilter')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'values',
+        values,
+      );
     return helper.toString();
   }
 }

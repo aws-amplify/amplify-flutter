@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.backup_details; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -45,12 +45,9 @@ abstract class BackupDetails
 
   const BackupDetails._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<BackupDetails>> serializers = [
     BackupDetailsAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BackupDetailsBuilder b) {}
 
   /// ARN associated with the backup.
   String get backupArn;
@@ -90,35 +87,35 @@ abstract class BackupDetails
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('BackupDetails');
-    helper.add(
-      'backupArn',
-      backupArn,
-    );
-    helper.add(
-      'backupName',
-      backupName,
-    );
-    helper.add(
-      'backupSizeBytes',
-      backupSizeBytes,
-    );
-    helper.add(
-      'backupStatus',
-      backupStatus,
-    );
-    helper.add(
-      'backupType',
-      backupType,
-    );
-    helper.add(
-      'backupCreationDateTime',
-      backupCreationDateTime,
-    );
-    helper.add(
-      'backupExpiryDateTime',
-      backupExpiryDateTime,
-    );
+    final helper = newBuiltValueToStringHelper('BackupDetails')
+      ..add(
+        'backupArn',
+        backupArn,
+      )
+      ..add(
+        'backupName',
+        backupName,
+      )
+      ..add(
+        'backupSizeBytes',
+        backupSizeBytes,
+      )
+      ..add(
+        'backupStatus',
+        backupStatus,
+      )
+      ..add(
+        'backupType',
+        backupType,
+      )
+      ..add(
+        'backupCreationDateTime',
+        backupCreationDateTime,
+      )
+      ..add(
+        'backupExpiryDateTime',
+        backupExpiryDateTime,
+      );
     return helper.toString();
   }
 }

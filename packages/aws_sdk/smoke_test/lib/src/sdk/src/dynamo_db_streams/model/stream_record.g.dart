@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db_streams.model.stream_record;
+part of 'stream_record.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -112,9 +112,7 @@ class StreamRecordBuilder
   set streamViewType(_i4.StreamViewType? streamViewType) =>
       _$this._streamViewType = streamViewType;
 
-  StreamRecordBuilder() {
-    StreamRecord._init(this);
-  }
+  StreamRecordBuilder();
 
   StreamRecordBuilder get _$this {
     final $v = _$v;

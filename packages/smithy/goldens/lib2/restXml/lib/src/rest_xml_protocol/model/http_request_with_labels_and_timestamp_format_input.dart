@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_xml_v2.rest_xml_protocol.model.http_request_with_labels_and_timestamp_format_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -96,12 +96,12 @@ abstract class HttpRequestWithLabelsAndTimestampFormatInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+      _i1.SmithySerializer<
+          HttpRequestWithLabelsAndTimestampFormatInputPayload>> serializers = [
     HttpRequestWithLabelsAndTimestampFormatInputRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(HttpRequestWithLabelsAndTimestampFormatInputBuilder b) {}
   DateTime get memberEpochSeconds;
   DateTime get memberHttpDate;
   DateTime get memberDateTime;
@@ -163,35 +163,35 @@ abstract class HttpRequestWithLabelsAndTimestampFormatInput
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'HttpRequestWithLabelsAndTimestampFormatInput');
-    helper.add(
-      'memberEpochSeconds',
-      memberEpochSeconds,
-    );
-    helper.add(
-      'memberHttpDate',
-      memberHttpDate,
-    );
-    helper.add(
-      'memberDateTime',
-      memberDateTime,
-    );
-    helper.add(
-      'defaultFormat',
-      defaultFormat,
-    );
-    helper.add(
-      'targetEpochSeconds',
-      targetEpochSeconds,
-    );
-    helper.add(
-      'targetHttpDate',
-      targetHttpDate,
-    );
-    helper.add(
-      'targetDateTime',
-      targetDateTime,
-    );
+        'HttpRequestWithLabelsAndTimestampFormatInput')
+      ..add(
+        'memberEpochSeconds',
+        memberEpochSeconds,
+      )
+      ..add(
+        'memberHttpDate',
+        memberHttpDate,
+      )
+      ..add(
+        'memberDateTime',
+        memberDateTime,
+      )
+      ..add(
+        'defaultFormat',
+        defaultFormat,
+      )
+      ..add(
+        'targetEpochSeconds',
+        targetEpochSeconds,
+      )
+      ..add(
+        'targetHttpDate',
+        targetHttpDate,
+      )
+      ..add(
+        'targetDateTime',
+        targetDateTime,
+      );
     return helper.toString();
   }
 }
@@ -210,9 +210,6 @@ abstract class HttpRequestWithLabelsAndTimestampFormatInputPayload
 
   const HttpRequestWithLabelsAndTimestampFormatInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      HttpRequestWithLabelsAndTimestampFormatInputPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

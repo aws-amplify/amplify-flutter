@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.list_backups_input;
+part of 'list_backups_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -99,9 +99,7 @@ class ListBackupsInputBuilder
   set backupType(_i3.BackupTypeFilter? backupType) =>
       _$this._backupType = backupType;
 
-  ListBackupsInputBuilder() {
-    ListBackupsInput._init(this);
-  }
+  ListBackupsInputBuilder();
 
   ListBackupsInputBuilder get _$this {
     final $v = _$v;

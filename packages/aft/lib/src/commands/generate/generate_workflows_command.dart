@@ -26,10 +26,50 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
 
   late final bool setExitIfChanged = argResults!['set-exit-if-changed'] as bool;
 
+  final _dependabotConfig = StringBuffer('''
+# Generated with aft. To update, run: `aft generate workflows`
+version: 2
+enable-beta-ecosystems: true
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+''');
+
   @override
   Future<void> run() async {
     await super.run();
     for (final package in commandPackages.values) {
+      final repoRelativePath = p.relative(package.path, from: rootDir.path);
+      final dependentPackages = <PackageInfo>[];
+      dfs(
+        repo.getPackageGraph(includeDevDependencies: true),
+        root: package,
+        (dependent) {
+          if (dependent == package || !dependent.isDevelopmentPackage) {
+            return;
+          }
+          dependentPackages.add(dependent);
+        },
+      );
+      _dependabotConfig.write('''
+  - package-ecosystem: "pub"
+    directory: "$repoRelativePath"
+    schedule:
+      interval: "daily"
+    ignore:
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
+''');
+      if (dependentPackages.isNotEmpty) {
+        _dependabotConfig.write('''
+${dependentPackages.map((dep) => '      - dependency-name: "${dep.name}"').join('\n')}
+''');
+      }
+
       if (package.pubspecInfo.pubspec.publishTo == 'none' &&
           !falsePositiveExamples.contains(package.name)) {
         continue;
@@ -49,7 +89,6 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
         '${package.name}.yaml',
       );
       final workflowFile = File(workflowFilepath);
-      final repoRelativePath = p.relative(package.path, from: rootDir.path);
       final customWorkflow = File(p.join(package.path, 'workflow.yaml'));
       if (customWorkflow.existsSync()) {
         customWorkflow.copySync(workflowFilepath);
@@ -86,30 +125,23 @@ class GenerateWorkflowsCommand extends AmplifyCommand {
         '$repoRelativePath/lib/**/*',
         '$repoRelativePath/test/**/*',
       ];
-      dfs(
-        repo.getPackageGraph(includeDevDependencies: true),
-        root: package,
-        (dependent) {
-          if (dependent == package || !dependent.isDevelopmentPackage) {
-            return;
-          }
-          final repoRelativePath = p.relative(
-            dependent.path,
-            from: rootDir.path,
-          );
-          if (dependent.isLintsPackage) {
-            workflowPaths.addAll([
-              '$repoRelativePath/pubspec.yaml',
-              '$repoRelativePath/lib/**/*.yaml',
-            ]);
-            return;
-          }
+      for (final dependent in dependentPackages) {
+        final repoRelativePath = p.relative(
+          dependent.path,
+          from: rootDir.path,
+        );
+        if (dependent.isLintsPackage) {
           workflowPaths.addAll([
             '$repoRelativePath/pubspec.yaml',
-            '$repoRelativePath/lib/**/*.dart',
+            '$repoRelativePath/lib/**/*.yaml',
           ]);
-        },
-      );
+          continue;
+        }
+        workflowPaths.addAll([
+          '$repoRelativePath/pubspec.yaml',
+          '$repoRelativePath/lib/**/*.dart',
+        ]);
+      }
 
       workflowPaths.sort();
 
@@ -136,6 +168,7 @@ jobs:
   test:
     uses: ./.github/workflows/$analyzeAndTestWorkflow
     with:
+      package-name: ${package.name}
       working-directory: $repoRelativePath
 ''',
       );
@@ -147,6 +180,7 @@ jobs:
     needs: test
     uses: ./.github/workflows/$nativeWorkflow
     with:
+      package-name: ${package.name}
       working-directory: $repoRelativePath
 ''',
         );
@@ -158,11 +192,13 @@ jobs:
     needs: test
     uses: ./.github/workflows/$ddcWorkflow
     with:
+      package-name: ${package.name}
       working-directory: $repoRelativePath
   dart2js_test:
     needs: test
     uses: ./.github/workflows/$dart2JsWorkflow
     with:
+      package-name: ${package.name}
       working-directory: $repoRelativePath
 ''',
           );
@@ -180,6 +216,11 @@ jobs:
         repoRelativePath: repoRelativePath,
       );
     }
+
+    final dependabotFile = File(
+      p.join(rootDir.path, '.github', 'dependabot.yaml'),
+    );
+    writeWorkflowFile(dependabotFile, _dependabotConfig.toString());
 
     // Check if workflow generation caused `git diff` to change.
     if (setExitIfChanged) {
@@ -209,12 +250,46 @@ jobs:
     required PackageInfo package,
     required String repoRelativePath,
   }) async {
-    const androidWorkflow = 'flutter_android.yaml';
+    if (package.flavor != PackageFlavor.flutter) {
+      return;
+    }
+
+    final appFacingAndroidPackageDir =
+        Directory(p.join(package.path, 'android'));
+    final platformAndroidPackageDir = Directory(
+      p.join('${package.path}_android', 'android'),
+    );
+
+    if (!appFacingAndroidPackageDir.existsSync() &&
+        !platformAndroidPackageDir.existsSync()) {
+      return;
+    }
+
+    final androidPackageDir = appFacingAndroidPackageDir.existsSync()
+        ? appFacingAndroidPackageDir.path
+        : platformAndroidPackageDir.path;
+
+    _dependabotConfig.write('''
+  - package-ecosystem: "gradle"
+    directory: "${p.relative(androidPackageDir, from: rootDir.path)}"
+    schedule:
+      interval: "weekly"
+    ignore:
+      # Ignore Kotlin updates since we should always match Flutter stable
+      # to ensure users can have Kt versions >= Flutter stable.
+      - dependency-name: "kotlin_version"
+      - dependency-name: "org.jetbrains.kotlin:kotlin-gradle-plugin"
+      
+      # Ignore patch version bumps
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
+''');
 
     final appFacingAndroidTestDir =
-        Directory(p.join(package.path, 'android', 'src', 'test'));
+        Directory(p.join(appFacingAndroidPackageDir.path, 'src', 'test'));
     final platformAndroidPackageTestDir = Directory(
-      p.join('${package.path}_android', 'android', 'src', 'test'),
+      p.join(platformAndroidPackageDir.path, 'src', 'test'),
     ); // federated _android package
     final androidExampleDir = Directory(
       p.join(package.path, 'example', 'android'),
@@ -228,10 +303,9 @@ jobs:
         (appFacingPackageAndroidTestsDirExists ||
             platformPackageAndroidTestDirExists);
 
-    if (package.flavor != PackageFlavor.flutter || !hasAndroidTests) {
-      return;
-    }
-
+    final androidWorkflow = hasAndroidTests
+        ? 'flutter_android.test.yaml'
+        : 'flutter_android.build.yaml';
     final androidWorkflowFilepath = p.join(
       rootDir.path,
       '.github',
@@ -241,11 +315,11 @@ jobs:
 
     final androidPlatformPackagePaths = [
       if (platformPackageAndroidTestDirExists)
-        '${repoRelativePath}_android/**/*'
+        '${repoRelativePath}_android/**/*',
     ];
     final androidWorkflowPaths = [
       '.github/workflows/$androidWorkflow',
-      p.relative(androidWorkflowFilepath, from: rootDir.path)
+      p.relative(androidWorkflowFilepath, from: rootDir.path),
     ];
     final androidPathString =
         (androidPlatformPackagePaths + androidWorkflowPaths)
@@ -253,6 +327,9 @@ jobs:
             .join('\n');
 
     final androidWorkflowFile = File(androidWorkflowFilepath);
+    final workingDirectory = hasAndroidTests
+        ? '$repoRelativePath/example/android'
+        : '$repoRelativePath/example';
     final androidWorkflowContents = '''
 # Generated with aft. To update, run: `aft generate workflows`
 name: ${package.name} Android
@@ -279,7 +356,7 @@ jobs:
   test:
     uses: ./.github/workflows/$androidWorkflow
     with:
-      working-directory: $repoRelativePath/example/android
+      working-directory: $workingDirectory
       package-name: ${package.name}
 ''';
 
@@ -319,11 +396,11 @@ jobs:
     );
 
     final iosPlatformPackagePaths = [
-      if (platformPackageDirExists) '${repoRelativePath}_ios/**/*'
+      if (platformPackageDirExists) '${repoRelativePath}_ios/**/*',
     ];
     final iosWorkflowPaths = [
       '.github/workflows/$iosWorkflow',
-      p.relative(iosWorkflowFilepath, from: rootDir.path)
+      p.relative(iosWorkflowFilepath, from: rootDir.path),
     ];
     final iosPathString = (iosPlatformPackagePaths + iosWorkflowPaths)
         .map((path) => "      - '$path'")

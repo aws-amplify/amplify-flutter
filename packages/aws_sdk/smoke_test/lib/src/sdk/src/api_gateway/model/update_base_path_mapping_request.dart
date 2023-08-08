@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.update_base_path_mapping_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -61,12 +61,8 @@ abstract class UpdateBasePathMappingRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    UpdateBasePathMappingRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateBasePathMappingRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<UpdateBasePathMappingRequestPayload>>
+      serializers = [UpdateBasePathMappingRequestRestJson1Serializer()];
 
   /// The domain name of the BasePathMapping resource to change.
   String get domainName;
@@ -107,19 +103,19 @@ abstract class UpdateBasePathMappingRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('UpdateBasePathMappingRequest');
-    helper.add(
-      'domainName',
-      domainName,
-    );
-    helper.add(
-      'basePath',
-      basePath,
-    );
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+    final helper = newBuiltValueToStringHelper('UpdateBasePathMappingRequest')
+      ..add(
+        'domainName',
+        domainName,
+      )
+      ..add(
+        'basePath',
+        basePath,
+      )
+      ..add(
+        'patchOperations',
+        patchOperations,
+      );
     return helper.toString();
   }
 }
@@ -137,9 +133,6 @@ abstract class UpdateBasePathMappingRequestPayload
 
   const UpdateBasePathMappingRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(UpdateBasePathMappingRequestPayloadBuilder b) {}
-
   /// For more information about supported patch operations, see [Patch Operations](https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html).
   _i4.BuiltList<_i3.PatchOperation>? get patchOperations;
   @override
@@ -147,11 +140,11 @@ abstract class UpdateBasePathMappingRequestPayload
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('UpdateBasePathMappingRequestPayload');
-    helper.add(
-      'patchOperations',
-      patchOperations,
-    );
+        newBuiltValueToStringHelper('UpdateBasePathMappingRequestPayload')
+          ..add(
+            'patchOperations',
+            patchOperations,
+          );
     return helper.toString();
   }
 }

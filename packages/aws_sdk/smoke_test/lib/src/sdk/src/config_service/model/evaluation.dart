@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.evaluation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,9 @@ abstract class Evaluation
 
   const Evaluation._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<_i3.SmithySerializer<Evaluation>> serializers = [
     EvaluationAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(EvaluationBuilder b) {}
 
   /// The type of Amazon Web Services resource that was evaluated.
   String get complianceResourceType;
@@ -74,27 +71,27 @@ abstract class Evaluation
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('Evaluation');
-    helper.add(
-      'complianceResourceType',
-      complianceResourceType,
-    );
-    helper.add(
-      'complianceResourceId',
-      complianceResourceId,
-    );
-    helper.add(
-      'complianceType',
-      complianceType,
-    );
-    helper.add(
-      'annotation',
-      annotation,
-    );
-    helper.add(
-      'orderingTimestamp',
-      orderingTimestamp,
-    );
+    final helper = newBuiltValueToStringHelper('Evaluation')
+      ..add(
+        'complianceResourceType',
+        complianceResourceType,
+      )
+      ..add(
+        'complianceResourceId',
+        complianceResourceId,
+      )
+      ..add(
+        'complianceType',
+        complianceType,
+      )
+      ..add(
+        'annotation',
+        annotation,
+      )
+      ..add(
+        'orderingTimestamp',
+        orderingTimestamp,
+      );
     return helper.toString();
   }
 }

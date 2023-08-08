@@ -8,6 +8,7 @@ import 'package:smithy_codegen/src/generator/serialization/protocol_traits.dart'
 import 'package:smithy_codegen/src/generator/serialization/serializer_generator.dart';
 import 'package:smithy_codegen/src/generator/types.dart';
 import 'package:smithy_codegen/src/util/protocol_ext.dart';
+import 'package:smithy_codegen/src/util/shape_ext.dart';
 import 'package:smithy_codegen/src/util/symbol_ext.dart';
 
 /// Generates a serializer class for [shape] and [protocol].
@@ -95,7 +96,7 @@ class UnionSerializerGenerator extends SerializerGenerator<UnionShape>
           protocolTraits.memberWireNames[member] ?? member.memberName;
       final variantClass = refer(variantClassName(member));
       final Expression Function(Expression) constructor;
-      if (memberSymbol.requiresConstructorTransformation) {
+      if (member.requiresTransformation) {
         constructor = (deserialized) =>
             variantClass.newInstanceNamed('_', [deserialized]);
       } else if (member.target == Shape.unit) {

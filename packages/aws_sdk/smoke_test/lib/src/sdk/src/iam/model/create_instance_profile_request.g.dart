@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.create_instance_profile_request;
+part of 'create_instance_profile_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -74,9 +74,7 @@ class CreateInstanceProfileRequestBuilder
       _$this._tags ??= new _i4.ListBuilder<_i3.Tag>();
   set tags(_i4.ListBuilder<_i3.Tag>? tags) => _$this._tags = tags;
 
-  CreateInstanceProfileRequestBuilder() {
-    CreateInstanceProfileRequest._init(this);
-  }
+  CreateInstanceProfileRequestBuilder();
 
   CreateInstanceProfileRequestBuilder get _$this {
     final $v = _$v;

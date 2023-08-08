@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.rollback_stack_input;
+part of 'rollback_stack_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -71,9 +71,7 @@ class RollbackStackInputBuilder
   set clientRequestToken(String? clientRequestToken) =>
       _$this._clientRequestToken = clientRequestToken;
 
-  RollbackStackInputBuilder() {
-    RollbackStackInput._init(this);
-  }
+  RollbackStackInputBuilder();
 
   RollbackStackInputBuilder get _$this {
     final $v = _$v;

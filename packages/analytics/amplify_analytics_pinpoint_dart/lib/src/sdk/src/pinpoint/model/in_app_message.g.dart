@@ -66,9 +66,7 @@ class InAppMessageBuilder
   _i3.Layout? get layout => _$this._layout;
   set layout(_i3.Layout? layout) => _$this._layout = layout;
 
-  InAppMessageBuilder() {
-    InAppMessage._init(this);
-  }
+  InAppMessageBuilder();
 
   InAppMessageBuilder get _$this {
     final $v = _$v;

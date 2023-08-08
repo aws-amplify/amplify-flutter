@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.list_instance_profile_tags_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,8 @@ abstract class ListInstanceProfileTagsRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListInstanceProfileTagsRequestAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListInstanceProfileTagsRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<ListInstanceProfileTagsRequest>>
+      serializers = [ListInstanceProfileTagsRequestAwsQuerySerializer()];
 
   /// The name of the IAM instance profile whose tags you want to see.
   ///
@@ -71,20 +67,19 @@ abstract class ListInstanceProfileTagsRequest
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('ListInstanceProfileTagsRequest');
-    helper.add(
-      'instanceProfileName',
-      instanceProfileName,
-    );
-    helper.add(
-      'marker',
-      marker,
-    );
-    helper.add(
-      'maxItems',
-      maxItems,
-    );
+    final helper = newBuiltValueToStringHelper('ListInstanceProfileTagsRequest')
+      ..add(
+        'instanceProfileName',
+        instanceProfileName,
+      )
+      ..add(
+        'marker',
+        marker,
+      )
+      ..add(
+        'maxItems',
+        maxItems,
+      );
     return helper.toString();
   }
 }

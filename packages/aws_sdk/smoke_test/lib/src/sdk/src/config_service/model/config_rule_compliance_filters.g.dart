@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.config_rule_compliance_filters;
+part of 'config_rule_compliance_filters.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -82,9 +82,7 @@ class ConfigRuleComplianceFiltersBuilder
   String? get awsRegion => _$this._awsRegion;
   set awsRegion(String? awsRegion) => _$this._awsRegion = awsRegion;
 
-  ConfigRuleComplianceFiltersBuilder() {
-    ConfigRuleComplianceFilters._init(this);
-  }
+  ConfigRuleComplianceFiltersBuilder();
 
   ConfigRuleComplianceFiltersBuilder get _$this {
     final $v = _$v;

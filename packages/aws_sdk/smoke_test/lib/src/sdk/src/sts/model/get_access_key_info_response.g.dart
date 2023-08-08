@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.sts.model.get_access_key_info_response;
+part of 'get_access_key_info_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -49,9 +49,7 @@ class GetAccessKeyInfoResponseBuilder
   String? get account => _$this._account;
   set account(String? account) => _$this._account = account;
 
-  GetAccessKeyInfoResponseBuilder() {
-    GetAccessKeyInfoResponse._init(this);
-  }
+  GetAccessKeyInfoResponseBuilder();
 
   GetAccessKeyInfoResponseBuilder get _$this {
     final $v = _$v;

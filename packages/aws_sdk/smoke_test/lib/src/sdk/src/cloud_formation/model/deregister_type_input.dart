@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.deregister_type_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,12 +44,9 @@ abstract class DeregisterTypeInput
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<_i1.SmithySerializer<DeregisterTypeInput>> serializers = [
     DeregisterTypeInputAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeregisterTypeInputBuilder b) {}
 
   /// The Amazon Resource Name (ARN) of the extension.
   ///
@@ -79,23 +76,23 @@ abstract class DeregisterTypeInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeregisterTypeInput');
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'type',
-      type,
-    );
-    helper.add(
-      'typeName',
-      typeName,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
+    final helper = newBuiltValueToStringHelper('DeregisterTypeInput')
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'type',
+        type,
+      )
+      ..add(
+        'typeName',
+        typeName,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      );
     return helper.toString();
   }
 }

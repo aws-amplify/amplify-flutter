@@ -1,4 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
 
 library amplify_auth_cognito_dart.cognito_identity_provider.model.respond_to_auth_challenge_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -25,7 +26,7 @@ abstract class RespondToAuthChallengeResponse
   factory RespondToAuthChallengeResponse({
     _i2.ChallengeNameType? challengeName,
     String? session,
-    Map<String, String>? challengeParameters,
+    Map<String, String?>? challengeParameters,
     _i3.AuthenticationResultType? authenticationResult,
   }) {
     return _$RespondToAuthChallengeResponse._(
@@ -52,9 +53,8 @@ abstract class RespondToAuthChallengeResponse
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
-    RespondToAuthChallengeResponseAwsJson11Serializer()
-  ];
+  static const List<_i5.SmithySerializer<RespondToAuthChallengeResponse>>
+      serializers = [RespondToAuthChallengeResponseAwsJson11Serializer()];
 
   @BuiltValueHook(initializeBuilder: true)
   static void _init(RespondToAuthChallengeResponseBuilder b) {}
@@ -66,7 +66,7 @@ abstract class RespondToAuthChallengeResponse
   String? get session;
 
   /// The challenge parameters. For more information, see [InitiateAuth](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html).
-  _i4.BuiltMap<String, String>? get challengeParameters;
+  _i4.BuiltMap<String, String?>? get challengeParameters;
 
   /// The result returned by the server in response to the request to respond to the authentication challenge.
   _i3.AuthenticationResultType? get authenticationResult;
@@ -79,24 +79,23 @@ abstract class RespondToAuthChallengeResponse
       ];
   @override
   String toString() {
-    final helper =
-        newBuiltValueToStringHelper('RespondToAuthChallengeResponse');
-    helper.add(
-      'challengeName',
-      challengeName,
-    );
-    helper.add(
-      'session',
-      session,
-    );
-    helper.add(
-      'challengeParameters',
-      challengeParameters,
-    );
-    helper.add(
-      'authenticationResult',
-      authenticationResult,
-    );
+    final helper = newBuiltValueToStringHelper('RespondToAuthChallengeResponse')
+      ..add(
+        'challengeName',
+        challengeName,
+      )
+      ..add(
+        'session',
+        session,
+      )
+      ..add(
+        'challengeParameters',
+        challengeParameters,
+      )
+      ..add(
+        'authenticationResult',
+        authenticationResult,
+      );
     return helper.toString();
   }
 }
@@ -130,45 +129,36 @@ class RespondToAuthChallengeResponseAwsJson11Serializer
       final key = iterator.current as String;
       iterator.moveNext();
       final value = iterator.current;
+      if (value == null) {
+        continue;
+      }
       switch (key) {
         case 'ChallengeName':
-          if (value != null) {
-            result.challengeName = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i2.ChallengeNameType),
-            ) as _i2.ChallengeNameType);
-          }
-          break;
+          result.challengeName = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i2.ChallengeNameType),
+          ) as _i2.ChallengeNameType);
         case 'Session':
-          if (value != null) {
-            result.session = (serializers.deserialize(
-              value,
-              specifiedType: const FullType(String),
-            ) as String);
-          }
-          break;
+          result.session = (serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String);
         case 'ChallengeParameters':
-          if (value != null) {
-            result.challengeParameters.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(
-                _i4.BuiltMap,
-                [
-                  FullType(String),
-                  FullType(String),
-                ],
-              ),
-            ) as _i4.BuiltMap<String, String>));
-          }
-          break;
+          result.challengeParameters.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+              _i4.BuiltMap,
+              [
+                FullType(String),
+                FullType.nullable(String),
+              ],
+            ),
+          ) as _i4.BuiltMap<String, String?>));
         case 'AuthenticationResult':
-          if (value != null) {
-            result.authenticationResult.replace((serializers.deserialize(
-              value,
-              specifiedType: const FullType(_i3.AuthenticationResultType),
-            ) as _i3.AuthenticationResultType));
-          }
-          break;
+          result.authenticationResult.replace((serializers.deserialize(
+            value,
+            specifiedType: const FullType(_i3.AuthenticationResultType),
+          ) as _i3.AuthenticationResultType));
       }
     }
 
@@ -178,49 +168,54 @@ class RespondToAuthChallengeResponseAwsJson11Serializer
   @override
   Iterable<Object?> serialize(
     Serializers serializers,
-    Object? object, {
+    RespondToAuthChallengeResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final payload = (object as RespondToAuthChallengeResponse);
-    final result = <Object?>[];
-    if (payload.challengeName != null) {
-      result
+    final result$ = <Object?>[];
+    final RespondToAuthChallengeResponse(
+      :challengeName,
+      :session,
+      :challengeParameters,
+      :authenticationResult
+    ) = object;
+    if (challengeName != null) {
+      result$
         ..add('ChallengeName')
         ..add(serializers.serialize(
-          payload.challengeName!,
+          challengeName,
           specifiedType: const FullType(_i2.ChallengeNameType),
         ));
     }
-    if (payload.session != null) {
-      result
+    if (session != null) {
+      result$
         ..add('Session')
         ..add(serializers.serialize(
-          payload.session!,
+          session,
           specifiedType: const FullType(String),
         ));
     }
-    if (payload.challengeParameters != null) {
-      result
+    if (challengeParameters != null) {
+      result$
         ..add('ChallengeParameters')
         ..add(serializers.serialize(
-          payload.challengeParameters!,
+          challengeParameters,
           specifiedType: const FullType(
             _i4.BuiltMap,
             [
               FullType(String),
-              FullType(String),
+              FullType.nullable(String),
             ],
           ),
         ));
     }
-    if (payload.authenticationResult != null) {
-      result
+    if (authenticationResult != null) {
+      result$
         ..add('AuthenticationResult')
         ..add(serializers.serialize(
-          payload.authenticationResult!,
+          authenticationResult,
           specifiedType: const FullType(_i3.AuthenticationResultType),
         ));
     }
-    return result;
+    return result$;
   }
 }

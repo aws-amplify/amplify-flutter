@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of aws_json1_1_v1.json_protocol.model.greeting_with_errors_output;
+part of 'greeting_with_errors_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -49,9 +49,7 @@ class GreetingWithErrorsOutputBuilder
   String? get greeting => _$this._greeting;
   set greeting(String? greeting) => _$this._greeting = greeting;
 
-  GreetingWithErrorsOutputBuilder() {
-    GreetingWithErrorsOutput._init(this);
-  }
+  GreetingWithErrorsOutputBuilder();
 
   GreetingWithErrorsOutputBuilder get _$this {
     final $v = _$v;

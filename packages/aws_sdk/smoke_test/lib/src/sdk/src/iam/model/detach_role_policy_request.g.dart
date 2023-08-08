@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.iam.model.detach_role_policy_request;
+part of 'detach_role_policy_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -64,9 +64,7 @@ class DetachRolePolicyRequestBuilder
   String? get policyArn => _$this._policyArn;
   set policyArn(String? policyArn) => _$this._policyArn = policyArn;
 
-  DetachRolePolicyRequestBuilder() {
-    DetachRolePolicyRequest._init(this);
-  }
+  DetachRolePolicyRequestBuilder();
 
   DetachRolePolicyRequestBuilder get _$this {
     final $v = _$v;

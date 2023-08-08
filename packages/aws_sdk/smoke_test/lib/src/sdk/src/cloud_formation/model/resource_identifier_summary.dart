@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.resource_identifier_summary; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -39,12 +39,8 @@ abstract class ResourceIdentifierSummary
 
   const ResourceIdentifierSummary._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ResourceIdentifierSummaryAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ResourceIdentifierSummaryBuilder b) {}
+  static const List<_i3.SmithySerializer<ResourceIdentifierSummary>>
+      serializers = [ResourceIdentifierSummaryAwsQuerySerializer()];
 
   /// The template resource type of the target resources, such as `AWS::S3::Bucket`.
   String? get resourceType;
@@ -62,19 +58,19 @@ abstract class ResourceIdentifierSummary
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ResourceIdentifierSummary');
-    helper.add(
-      'resourceType',
-      resourceType,
-    );
-    helper.add(
-      'logicalResourceIds',
-      logicalResourceIds,
-    );
-    helper.add(
-      'resourceIdentifiers',
-      resourceIdentifiers,
-    );
+    final helper = newBuiltValueToStringHelper('ResourceIdentifierSummary')
+      ..add(
+        'resourceType',
+        resourceType,
+      )
+      ..add(
+        'logicalResourceIds',
+        logicalResourceIds,
+      )
+      ..add(
+        'resourceIdentifiers',
+        resourceIdentifiers,
+      );
     return helper.toString();
   }
 }

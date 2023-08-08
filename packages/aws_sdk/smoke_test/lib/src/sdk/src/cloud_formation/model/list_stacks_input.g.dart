@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.list_stacks_input;
+part of 'list_stacks_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -57,9 +57,7 @@ class ListStacksInputBuilder
   set stackStatusFilter(_i4.ListBuilder<_i3.StackStatus>? stackStatusFilter) =>
       _$this._stackStatusFilter = stackStatusFilter;
 
-  ListStacksInputBuilder() {
-    ListStacksInput._init(this);
-  }
+  ListStacksInputBuilder();
 
   ListStacksInputBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_xml_v2.s3.model.list_objects_v2_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -94,12 +94,9 @@ abstract class ListObjectsV2Request
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    ListObjectsV2RequestRestXmlSerializer()
-  ];
+  static const List<_i1.SmithySerializer<ListObjectsV2RequestPayload>>
+      serializers = [ListObjectsV2RequestRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListObjectsV2RequestBuilder b) {}
   String get bucket;
   String? get delimiter;
   _i3.EncodingType? get encodingType;
@@ -139,47 +136,47 @@ abstract class ListObjectsV2Request
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ListObjectsV2Request');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'delimiter',
-      delimiter,
-    );
-    helper.add(
-      'encodingType',
-      encodingType,
-    );
-    helper.add(
-      'maxKeys',
-      maxKeys,
-    );
-    helper.add(
-      'prefix',
-      prefix,
-    );
-    helper.add(
-      'continuationToken',
-      continuationToken,
-    );
-    helper.add(
-      'fetchOwner',
-      fetchOwner,
-    );
-    helper.add(
-      'startAfter',
-      startAfter,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('ListObjectsV2Request')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'delimiter',
+        delimiter,
+      )
+      ..add(
+        'encodingType',
+        encodingType,
+      )
+      ..add(
+        'maxKeys',
+        maxKeys,
+      )
+      ..add(
+        'prefix',
+        prefix,
+      )
+      ..add(
+        'continuationToken',
+        continuationToken,
+      )
+      ..add(
+        'fetchOwner',
+        fetchOwner,
+      )
+      ..add(
+        'startAfter',
+        startAfter,
+      )
+      ..add(
+        'requestPayer',
+        requestPayer,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }
@@ -196,8 +193,6 @@ abstract class ListObjectsV2RequestPayload
 
   const ListObjectsV2RequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ListObjectsV2RequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

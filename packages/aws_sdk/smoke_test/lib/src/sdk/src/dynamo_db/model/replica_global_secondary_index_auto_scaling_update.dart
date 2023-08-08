@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.model.replica_global_secondary_index_auto_scaling_update; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,11 @@ abstract class ReplicaGlobalSecondaryIndexAutoScalingUpdate
 
   const ReplicaGlobalSecondaryIndexAutoScalingUpdate._();
 
-  static const List<_i3.SmithySerializer> serializers = [
+  static const List<
+          _i3.SmithySerializer<ReplicaGlobalSecondaryIndexAutoScalingUpdate>>
+      serializers = [
     ReplicaGlobalSecondaryIndexAutoScalingUpdateAwsJson10Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ReplicaGlobalSecondaryIndexAutoScalingUpdateBuilder b) {}
 
   /// The name of the global secondary index.
   String? get indexName;
@@ -58,15 +57,15 @@ abstract class ReplicaGlobalSecondaryIndexAutoScalingUpdate
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'ReplicaGlobalSecondaryIndexAutoScalingUpdate');
-    helper.add(
-      'indexName',
-      indexName,
-    );
-    helper.add(
-      'provisionedReadCapacityAutoScalingUpdate',
-      provisionedReadCapacityAutoScalingUpdate,
-    );
+        'ReplicaGlobalSecondaryIndexAutoScalingUpdate')
+      ..add(
+        'indexName',
+        indexName,
+      )
+      ..add(
+        'provisionedReadCapacityAutoScalingUpdate',
+        provisionedReadCapacityAutoScalingUpdate,
+      );
     return helper.toString();
   }
 }

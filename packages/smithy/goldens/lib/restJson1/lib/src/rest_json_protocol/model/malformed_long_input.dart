@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_json1_v1.rest_json_protocol.model.malformed_long_input; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -21,11 +21,10 @@ abstract class MalformedLongInput
         _i1.HasPayload<MalformedLongInputPayload> {
   factory MalformedLongInput({
     _i3.Int64? longInBody,
-    _i3.Int64? longInPath,
+    required _i3.Int64 longInPath,
     _i3.Int64? longInQuery,
     _i3.Int64? longInHeader,
   }) {
-    longInPath ??= _i3.Int64.ZERO;
     return _$MalformedLongInput._(
       longInBody: longInBody,
       longInPath: longInPath,
@@ -59,14 +58,8 @@ abstract class MalformedLongInput
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    MalformedLongInputRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedLongInputBuilder b) {
-    b.longInPath = _i3.Int64.ZERO;
-  }
+  static const List<_i1.SmithySerializer<MalformedLongInputPayload>>
+      serializers = [MalformedLongInputRestJson1Serializer()];
 
   _i3.Int64? get longInBody;
   _i3.Int64 get longInPath;
@@ -97,23 +90,23 @@ abstract class MalformedLongInput
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedLongInput');
-    helper.add(
-      'longInBody',
-      longInBody,
-    );
-    helper.add(
-      'longInPath',
-      longInPath,
-    );
-    helper.add(
-      'longInQuery',
-      longInQuery,
-    );
-    helper.add(
-      'longInHeader',
-      longInHeader,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedLongInput')
+      ..add(
+        'longInBody',
+        longInBody,
+      )
+      ..add(
+        'longInPath',
+        longInPath,
+      )
+      ..add(
+        'longInQuery',
+        longInQuery,
+      )
+      ..add(
+        'longInHeader',
+        longInHeader,
+      );
     return helper.toString();
   }
 }
@@ -129,18 +122,16 @@ abstract class MalformedLongInputPayload
 
   const MalformedLongInputPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(MalformedLongInputPayloadBuilder b) {}
   _i3.Int64? get longInBody;
   @override
   List<Object?> get props => [longInBody];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('MalformedLongInputPayload');
-    helper.add(
-      'longInBody',
-      longInBody,
-    );
+    final helper = newBuiltValueToStringHelper('MalformedLongInputPayload')
+      ..add(
+        'longInBody',
+        longInBody,
+      );
     return helper.toString();
   }
 }

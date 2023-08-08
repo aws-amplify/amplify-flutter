@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.api_gateway.model.get_stages_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -51,12 +51,8 @@ abstract class GetStagesRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetStagesRequestRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetStagesRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetStagesRequestPayload>> serializers =
+      [GetStagesRequestRestJson1Serializer()];
 
   /// The string identifier of the associated RestApi.
   String get restApiId;
@@ -84,15 +80,15 @@ abstract class GetStagesRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetStagesRequest');
-    helper.add(
-      'restApiId',
-      restApiId,
-    );
-    helper.add(
-      'deploymentId',
-      deploymentId,
-    );
+    final helper = newBuiltValueToStringHelper('GetStagesRequest')
+      ..add(
+        'restApiId',
+        restApiId,
+      )
+      ..add(
+        'deploymentId',
+        deploymentId,
+      );
     return helper.toString();
   }
 }
@@ -109,8 +105,6 @@ abstract class GetStagesRequestPayload
 
   const GetStagesRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetStagesRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

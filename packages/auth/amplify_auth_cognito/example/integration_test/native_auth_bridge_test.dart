@@ -44,7 +44,7 @@ void main() {
 
       asyncTest('signInWithUrl', (_) async {
         const options = CognitoSignInWithWebUIPluginOptions(
-          isPreferPrivateSession: true,
+          isPreferPrivateSession: false,
           browserPackageName: browserPackage,
         );
         dependencyManager
@@ -58,7 +58,7 @@ void main() {
               ) async {
                 expect(argUrl, contains(hostedUiConfig.webDomain));
                 expect(argCallbackurlscheme, testUrlScheme);
-                expect(argPreferprivatesession, isTrue);
+                expect(argPreferprivatesession, isFalse);
                 expect(argBrowserpackagename, browserPackage);
                 return {'code': 'code', 'state': 'state'};
               }),
@@ -72,7 +72,7 @@ void main() {
 
       asyncTest('signOutWithUrl', (_) async {
         const options = CognitoSignInWithWebUIPluginOptions(
-          isPreferPrivateSession: true,
+          isPreferPrivateSession: false,
           browserPackageName: browserPackage,
         );
         dependencyManager
@@ -86,7 +86,7 @@ void main() {
               ) async {
                 expect(argUrl, contains(hostedUiConfig.webDomain));
                 expect(argCallbackurlscheme, testUrlScheme);
-                expect(argPreferprivatesession, isTrue);
+                expect(argPreferprivatesession, isFalse);
                 expect(argBrowserpackagename, browserPackage);
               }),
             ),

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library amplify_analytics_pinpoint_dart.pinpoint.model.get_in_app_messages_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -38,12 +38,8 @@ abstract class GetInAppMessagesResponse
         b.inAppMessagesResponse.replace(payload);
       });
 
-  static const List<_i2.SmithySerializer> serializers = [
-    GetInAppMessagesResponseRestJson1Serializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetInAppMessagesResponseBuilder b) {}
+  static const List<_i2.SmithySerializer<_i3.InAppMessagesResponse>>
+      serializers = [GetInAppMessagesResponseRestJson1Serializer()];
 
   /// Get in-app messages response object.
   _i3.InAppMessagesResponse get inAppMessagesResponse;
@@ -53,11 +49,11 @@ abstract class GetInAppMessagesResponse
   List<Object?> get props => [inAppMessagesResponse];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetInAppMessagesResponse');
-    helper.add(
-      'inAppMessagesResponse',
-      inAppMessagesResponse,
-    );
+    final helper = newBuiltValueToStringHelper('GetInAppMessagesResponse')
+      ..add(
+        'inAppMessagesResponse',
+        inAppMessagesResponse,
+      );
     return helper.toString();
   }
 }

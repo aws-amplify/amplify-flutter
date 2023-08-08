@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_xml_v2.rest_xml_protocol.model.all_query_string_types_input;
+part of 'all_query_string_types_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -256,9 +256,7 @@ class AllQueryStringTypesInputBuilder
           _i6.MapBuilder<String, String>? queryParamsMapOfStrings) =>
       _$this._queryParamsMapOfStrings = queryParamsMapOfStrings;
 
-  AllQueryStringTypesInputBuilder() {
-    AllQueryStringTypesInput._init(this);
-  }
+  AllQueryStringTypesInputBuilder();
 
   AllQueryStringTypesInputBuilder get _$this {
     final $v = _$v;
@@ -404,9 +402,7 @@ class AllQueryStringTypesInputPayloadBuilder
             AllQueryStringTypesInputPayloadBuilder> {
   _$AllQueryStringTypesInputPayload? _$v;
 
-  AllQueryStringTypesInputPayloadBuilder() {
-    AllQueryStringTypesInputPayload._init(this);
-  }
+  AllQueryStringTypesInputPayloadBuilder();
 
   @override
   void replace(AllQueryStringTypesInputPayload other) {

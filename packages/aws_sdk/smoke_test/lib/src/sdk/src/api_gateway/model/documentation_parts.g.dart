@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.api_gateway.model.documentation_parts;
+part of 'documentation_parts.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -59,9 +59,7 @@ class DocumentationPartsBuilder
   String? get position => _$this._position;
   set position(String? position) => _$this._position = position;
 
-  DocumentationPartsBuilder() {
-    DocumentationParts._init(this);
-  }
+  DocumentationPartsBuilder();
 
   DocumentationPartsBuilder get _$this {
     final $v = _$v;

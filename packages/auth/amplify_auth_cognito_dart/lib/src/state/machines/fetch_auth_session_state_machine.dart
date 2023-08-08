@@ -18,6 +18,7 @@ import 'package:amplify_auth_cognito_dart/src/sdk/src/cognito_identity_provider/
 import 'package:amplify_auth_cognito_dart/src/state/cognito_state_machine.dart';
 import 'package:amplify_auth_cognito_dart/src/state/state.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:meta/meta.dart';
 
 /// {@template amplify_auth_cognito.fetch_auth_session_state_machine}
 /// Fetches the user's auth session from the credential store and, optionally,
@@ -56,20 +57,33 @@ final class FetchAuthSessionStateMachine
   /// The registered identity pool config
   CognitoIdentityCredentialsProvider? get _identityPoolConfig => get();
 
+  /// Invalidates the current session, forcing a refresh on the next retrieval
+  /// of credentials.
+  ///
+  /// This is useful in tests for mimicing credential expiration but should
+  /// not be used outside of tests.
+  @visibleForTesting
+  void invalidate() => _invalidated = true;
+  var _invalidated = false;
+
   @override
   Future<void> resolve(FetchAuthSessionEvent event) async {
-    switch (event) {
-      case FetchAuthSessionFetch _:
-        emit(const FetchAuthSessionState.fetching());
-        await onFetchAuthSession(event);
-      case FetchAuthSessionFederate _:
-        emit(const FetchAuthSessionState.fetching());
-        await onFederate(event);
-      case FetchAuthSessionRefresh _:
-        emit(const FetchAuthSessionState.refreshing());
-        await onRefresh(event);
-      case FetchAuthSessionSucceeded(:final session):
-        emit(FetchAuthSessionState.success(session));
+    try {
+      switch (event) {
+        case FetchAuthSessionFetch _:
+          emit(const FetchAuthSessionState.fetching());
+          await onFetchAuthSession(event);
+        case FetchAuthSessionFederate _:
+          emit(const FetchAuthSessionState.fetching());
+          await onFederate(event);
+        case FetchAuthSessionRefresh _:
+          emit(const FetchAuthSessionState.refreshing());
+          await onRefresh(event);
+        case FetchAuthSessionSucceeded(:final session):
+          emit(FetchAuthSessionState.success(session));
+      }
+    } finally {
+      _invalidated = false;
     }
   }
 
@@ -196,7 +210,8 @@ final class FetchAuthSessionStateMachine
     final forceRefreshUserPoolTokens =
         userPoolTokens != null && options.forceRefresh;
     final refreshUserPoolTokens = hasUserPool &&
-        (forceRefreshUserPoolTokens ||
+        (_invalidated ||
+            forceRefreshUserPoolTokens ||
             _isExpired(accessTokenExpiration) ||
             _isExpired(idTokenExpiration));
 
@@ -206,7 +221,8 @@ final class FetchAuthSessionStateMachine
     final forceRefreshAwsCredentials = options.forceRefresh;
     final retrieveAwsCredentials = awsCredentials == null;
     final refreshAwsCredentials = hasIdentityPool &&
-        (retrieveAwsCredentials ||
+        (_invalidated ||
+            retrieveAwsCredentials ||
             forceRefreshAwsCredentials ||
             _isExpired(awsCredentialsExpiration));
 

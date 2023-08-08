@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.parameter;
+part of 'parameter.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -77,9 +77,7 @@ class ParameterBuilder implements Builder<Parameter, ParameterBuilder> {
   set resolvedValue(String? resolvedValue) =>
       _$this._resolvedValue = resolvedValue;
 
-  ParameterBuilder() {
-    Parameter._init(this);
-  }
+  ParameterBuilder();
 
   ParameterBuilder get _$this {
     final $v = _$v;

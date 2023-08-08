@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.local_secondary_index_description;
+part of 'local_secondary_index_description.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -103,9 +103,7 @@ class LocalSecondaryIndexDescriptionBuilder
   String? get indexArn => _$this._indexArn;
   set indexArn(String? indexArn) => _$this._indexArn = indexArn;
 
-  LocalSecondaryIndexDescriptionBuilder() {
-    LocalSecondaryIndexDescription._init(this);
-  }
+  LocalSecondaryIndexDescriptionBuilder();
 
   LocalSecondaryIndexDescriptionBuilder get _$this {
     final $v = _$v;

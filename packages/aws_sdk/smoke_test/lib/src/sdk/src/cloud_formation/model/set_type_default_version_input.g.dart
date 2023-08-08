@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.set_type_default_version_input;
+part of 'set_type_default_version_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -76,9 +76,7 @@ class SetTypeDefaultVersionInputBuilder
   String? get versionId => _$this._versionId;
   set versionId(String? versionId) => _$this._versionId = versionId;
 
-  SetTypeDefaultVersionInputBuilder() {
-    SetTypeDefaultVersionInput._init(this);
-  }
+  SetTypeDefaultVersionInputBuilder();
 
   SetTypeDefaultVersionInputBuilder get _$this {
     final $v = _$v;

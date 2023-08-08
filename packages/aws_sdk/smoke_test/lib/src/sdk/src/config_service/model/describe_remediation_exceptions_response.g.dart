@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.describe_remediation_exceptions_response;
+part of 'describe_remediation_exceptions_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -69,9 +69,7 @@ class DescribeRemediationExceptionsResponseBuilder
   String? get nextToken => _$this._nextToken;
   set nextToken(String? nextToken) => _$this._nextToken = nextToken;
 
-  DescribeRemediationExceptionsResponseBuilder() {
-    DescribeRemediationExceptionsResponse._init(this);
-  }
+  DescribeRemediationExceptionsResponseBuilder();
 
   DescribeRemediationExceptionsResponseBuilder get _$this {
     final $v = _$v;

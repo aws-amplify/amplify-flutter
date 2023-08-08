@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.get_object_acl_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -67,12 +67,8 @@ abstract class GetObjectAclRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetObjectAclRequestRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectAclRequestBuilder b) {}
+  static const List<_i1.SmithySerializer<GetObjectAclRequestPayload>>
+      serializers = [GetObjectAclRequestRestXmlSerializer()];
 
   /// The bucket name that contains the object for which to get the ACL information.
   ///
@@ -116,27 +112,27 @@ abstract class GetObjectAclRequest
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('GetObjectAclRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'key',
-      key,
-    );
-    helper.add(
-      'versionId',
-      versionId,
-    );
-    helper.add(
-      'requestPayer',
-      requestPayer,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+    final helper = newBuiltValueToStringHelper('GetObjectAclRequest')
+      ..add(
+        'bucket',
+        bucket,
+      )
+      ..add(
+        'key',
+        key,
+      )
+      ..add(
+        'versionId',
+        versionId,
+      )
+      ..add(
+        'requestPayer',
+        requestPayer,
+      )
+      ..add(
+        'expectedBucketOwner',
+        expectedBucketOwner,
+      );
     return helper.toString();
   }
 }
@@ -153,8 +149,6 @@ abstract class GetObjectAclRequestPayload
 
   const GetObjectAclRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetObjectAclRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

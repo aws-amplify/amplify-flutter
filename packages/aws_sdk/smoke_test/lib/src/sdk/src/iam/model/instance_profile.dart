@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.instance_profile; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -74,12 +74,9 @@ abstract class InstanceProfile
 
   const InstanceProfile._();
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<_i5.SmithySerializer<InstanceProfile>> serializers = [
     InstanceProfileAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InstanceProfileBuilder b) {}
 
   /// The path to the instance profile. For more information about paths, see [IAM identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html) in the _IAM User Guide_.
   String get path;
@@ -113,35 +110,35 @@ abstract class InstanceProfile
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InstanceProfile');
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'instanceProfileName',
-      instanceProfileName,
-    );
-    helper.add(
-      'instanceProfileId',
-      instanceProfileId,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'createDate',
-      createDate,
-    );
-    helper.add(
-      'roles',
-      roles,
-    );
-    helper.add(
-      'tags',
-      tags,
-    );
+    final helper = newBuiltValueToStringHelper('InstanceProfile')
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'instanceProfileName',
+        instanceProfileName,
+      )
+      ..add(
+        'instanceProfileId',
+        instanceProfileId,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'createDate',
+        createDate,
+      )
+      ..add(
+        'roles',
+        roles,
+      )
+      ..add(
+        'tags',
+        tags,
+      );
     return helper.toString();
   }
 }

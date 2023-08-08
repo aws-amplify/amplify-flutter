@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.inventory_encryption; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -34,12 +34,9 @@ abstract class InventoryEncryption
 
   const InventoryEncryption._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<InventoryEncryption>> serializers = [
     InventoryEncryptionRestXmlSerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(InventoryEncryptionBuilder b) {}
 
   /// Specifies the use of SSE-S3 to encrypt delivered inventory reports.
   _i2.Sses3? get sses3;
@@ -53,15 +50,15 @@ abstract class InventoryEncryption
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('InventoryEncryption');
-    helper.add(
-      'sses3',
-      sses3,
-    );
-    helper.add(
-      'ssekms',
-      ssekms,
-    );
+    final helper = newBuiltValueToStringHelper('InventoryEncryption')
+      ..add(
+        'sses3',
+        sses3,
+      )
+      ..add(
+        'ssekms',
+        ssekms,
+      );
     return helper.toString();
   }
 }

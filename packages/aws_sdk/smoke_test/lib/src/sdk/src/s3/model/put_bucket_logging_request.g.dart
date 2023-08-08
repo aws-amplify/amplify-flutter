@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.put_bucket_logging_request;
+part of 'put_bucket_logging_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -98,9 +98,7 @@ class PutBucketLoggingRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  PutBucketLoggingRequestBuilder() {
-    PutBucketLoggingRequest._init(this);
-  }
+  PutBucketLoggingRequestBuilder();
 
   PutBucketLoggingRequestBuilder get _$this {
     final $v = _$v;

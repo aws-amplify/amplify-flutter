@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.put_bucket_encryption_request;
+part of 'put_bucket_encryption_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -104,9 +104,7 @@ class PutBucketEncryptionRequestBuilder
   set expectedBucketOwner(String? expectedBucketOwner) =>
       _$this._expectedBucketOwner = expectedBucketOwner;
 
-  PutBucketEncryptionRequestBuilder() {
-    PutBucketEncryptionRequest._init(this);
-  }
+  PutBucketEncryptionRequestBuilder();
 
   PutBucketEncryptionRequestBuilder get _$this {
     final $v = _$v;

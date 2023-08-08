@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_protocol.model.malformed_timestamp_header_epoch_input;
+part of 'malformed_timestamp_header_epoch_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -58,9 +58,7 @@ class MalformedTimestampHeaderEpochInputBuilder
   DateTime? get timestamp => _$this._timestamp;
   set timestamp(DateTime? timestamp) => _$this._timestamp = timestamp;
 
-  MalformedTimestampHeaderEpochInputBuilder() {
-    MalformedTimestampHeaderEpochInput._init(this);
-  }
+  MalformedTimestampHeaderEpochInputBuilder();
 
   MalformedTimestampHeaderEpochInputBuilder get _$this {
     final $v = _$v;
@@ -134,9 +132,7 @@ class MalformedTimestampHeaderEpochInputPayloadBuilder
             MalformedTimestampHeaderEpochInputPayloadBuilder> {
   _$MalformedTimestampHeaderEpochInputPayload? _$v;
 
-  MalformedTimestampHeaderEpochInputPayloadBuilder() {
-    MalformedTimestampHeaderEpochInputPayload._init(this);
-  }
+  MalformedTimestampHeaderEpochInputPayloadBuilder();
 
   @override
   void replace(MalformedTimestampHeaderEpochInputPayload other) {

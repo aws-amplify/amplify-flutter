@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.put_remediation_configurations_response;
+part of 'put_remediation_configurations_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -58,9 +58,7 @@ class PutRemediationConfigurationsResponseBuilder
           _i3.ListBuilder<_i2.FailedRemediationBatch>? failedBatches) =>
       _$this._failedBatches = failedBatches;
 
-  PutRemediationConfigurationsResponseBuilder() {
-    PutRemediationConfigurationsResponse._init(this);
-  }
+  PutRemediationConfigurationsResponseBuilder();
 
   PutRemediationConfigurationsResponseBuilder get _$this {
     final $v = _$v;

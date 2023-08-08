@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.csv_output;
+part of 'csv_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -88,9 +88,7 @@ class CsvOutputBuilder implements Builder<CsvOutput, CsvOutputBuilder> {
   set quoteCharacter(String? quoteCharacter) =>
       _$this._quoteCharacter = quoteCharacter;
 
-  CsvOutputBuilder() {
-    CsvOutput._init(this);
-  }
+  CsvOutputBuilder();
 
   CsvOutputBuilder get _$this {
     final $v = _$v;

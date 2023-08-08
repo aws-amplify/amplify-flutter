@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.glacier.model.invalid_parameter_value_exception;
+part of 'invalid_parameter_value_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -75,9 +75,7 @@ class InvalidParameterValueExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  InvalidParameterValueExceptionBuilder() {
-    InvalidParameterValueException._init(this);
-  }
+  InvalidParameterValueExceptionBuilder();
 
   InvalidParameterValueExceptionBuilder get _$this {
     final $v = _$v;

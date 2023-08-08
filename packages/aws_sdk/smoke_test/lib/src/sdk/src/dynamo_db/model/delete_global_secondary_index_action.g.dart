@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.delete_global_secondary_index_action;
+part of 'delete_global_secondary_index_action.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -55,9 +55,7 @@ class DeleteGlobalSecondaryIndexActionBuilder
   String? get indexName => _$this._indexName;
   set indexName(String? indexName) => _$this._indexName = indexName;
 
-  DeleteGlobalSecondaryIndexActionBuilder() {
-    DeleteGlobalSecondaryIndexAction._init(this);
-  }
+  DeleteGlobalSecondaryIndexActionBuilder();
 
   DeleteGlobalSecondaryIndexActionBuilder get _$this {
     final $v = _$v;

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.account_limit; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -64,12 +64,9 @@ abstract class AccountLimit
 
   const AccountLimit._();
 
-  static const List<_i2.SmithySerializer> serializers = [
+  static const List<_i2.SmithySerializer<AccountLimit>> serializers = [
     AccountLimitAwsQuerySerializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(AccountLimitBuilder b) {}
 
   /// The name of the account limit.
   ///
@@ -85,15 +82,15 @@ abstract class AccountLimit
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('AccountLimit');
-    helper.add(
-      'name',
-      name,
-    );
-    helper.add(
-      'value',
-      value,
-    );
+    final helper = newBuiltValueToStringHelper('AccountLimit')
+      ..add(
+        'name',
+        name,
+      )
+      ..add(
+        'value',
+        value,
+      );
     return helper.toString();
   }
 }

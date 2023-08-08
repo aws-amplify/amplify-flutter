@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.config_service.model.aggregate_resource_identifier;
+part of 'aggregate_resource_identifier.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -100,9 +100,7 @@ class AggregateResourceIdentifierBuilder
   String? get resourceName => _$this._resourceName;
   set resourceName(String? resourceName) => _$this._resourceName = resourceName;
 
-  AggregateResourceIdentifierBuilder() {
-    AggregateResourceIdentifier._init(this);
-  }
+  AggregateResourceIdentifierBuilder();
 
   AggregateResourceIdentifierBuilder get _$this {
     final $v = _$v;

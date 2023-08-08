@@ -126,7 +126,7 @@ class CpkHasManyParentBidirectionalImplicit extends amplify_core.Model {
 
   @override
   String toString() {
-    var buffer = StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("CpkHasManyParentBidirectionalImplicit {");
     buffer.write("id=" + "$id" + ", ");
@@ -275,8 +275,10 @@ class CpkHasManyParentBidirectionalImplicitModelIdentifier
   final String id;
   final String name;
 
-  /// Create an instance of CpkHasManyParentBidirectionalImplicitModelIdentifier using [id] the primary key.
-  /// And [name] the sort key.
+  /**
+   * Create an instance of CpkHasManyParentBidirectionalImplicitModelIdentifier using [id] the primary key.
+   * And [name] the sort key.
+   */
   const CpkHasManyParentBidirectionalImplicitModelIdentifier(
       {required this.id, required this.name});
 

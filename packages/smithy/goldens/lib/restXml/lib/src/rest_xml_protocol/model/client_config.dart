@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library rest_xml_v1.rest_xml_protocol.model.client_config; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -44,12 +44,10 @@ abstract class ClientConfig
 
   const ClientConfig._();
 
-  static const List<_i4.SmithySerializer> serializers = [
+  static const List<_i4.SmithySerializer<ClientConfig>> serializers = [
     ClientConfigRestXmlSerializer()
   ];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ClientConfigBuilder b) {}
   String? get awsAccessKeyId;
   String? get awsSecretAccessKey;
   String? get awsSessionToken;
@@ -73,35 +71,35 @@ abstract class ClientConfig
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ClientConfig');
-    helper.add(
-      'awsAccessKeyId',
-      awsAccessKeyId,
-    );
-    helper.add(
-      'awsSecretAccessKey',
-      awsSecretAccessKey,
-    );
-    helper.add(
-      'awsSessionToken',
-      awsSessionToken,
-    );
-    helper.add(
-      'region',
-      region,
-    );
-    helper.add(
-      's3',
-      s3,
-    );
-    helper.add(
-      'retryConfig',
-      retryConfig,
-    );
-    helper.add(
-      'awsProfile',
-      awsProfile,
-    );
+    final helper = newBuiltValueToStringHelper('ClientConfig')
+      ..add(
+        'awsAccessKeyId',
+        awsAccessKeyId,
+      )
+      ..add(
+        'awsSecretAccessKey',
+        awsSecretAccessKey,
+      )
+      ..add(
+        'awsSessionToken',
+        awsSessionToken,
+      )
+      ..add(
+        'region',
+        region,
+      )
+      ..add(
+        's3',
+        s3,
+      )
+      ..add(
+        'retryConfig',
+        retryConfig,
+      )
+      ..add(
+        'awsProfile',
+        awsProfile,
+      );
     return helper.toString();
   }
 }

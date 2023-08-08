@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.cloud_formation.model.describe_stack_resources_output; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -42,12 +42,8 @@ abstract class DescribeStackResourcesOutput
   ) =>
       payload;
 
-  static const List<_i4.SmithySerializer> serializers = [
-    DescribeStackResourcesOutputAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DescribeStackResourcesOutputBuilder b) {}
+  static const List<_i4.SmithySerializer<DescribeStackResourcesOutput>>
+      serializers = [DescribeStackResourcesOutputAwsQuerySerializer()];
 
   /// A list of `StackResource` structures.
   _i3.BuiltList<_i2.StackResource>? get stackResources;
@@ -55,11 +51,11 @@ abstract class DescribeStackResourcesOutput
   List<Object?> get props => [stackResources];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DescribeStackResourcesOutput');
-    helper.add(
-      'stackResources',
-      stackResources,
-    );
+    final helper = newBuiltValueToStringHelper('DescribeStackResourcesOutput')
+      ..add(
+        'stackResources',
+        stackResources,
+      );
     return helper.toString();
   }
 }

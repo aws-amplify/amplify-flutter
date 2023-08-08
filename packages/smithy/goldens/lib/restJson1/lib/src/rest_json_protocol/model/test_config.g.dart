@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_protocol.model.test_config;
+part of 'test_config.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -44,9 +44,7 @@ class TestConfigBuilder implements Builder<TestConfig, TestConfigBuilder> {
   int? get timeout => _$this._timeout;
   set timeout(int? timeout) => _$this._timeout = timeout;
 
-  TestConfigBuilder() {
-    TestConfig._init(this);
-  }
+  TestConfigBuilder();
 
   TestConfigBuilder get _$this {
     final $v = _$v;

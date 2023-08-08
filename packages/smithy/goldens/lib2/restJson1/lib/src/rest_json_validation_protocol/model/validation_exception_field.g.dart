@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v2.rest_json_validation_protocol.model.validation_exception_field;
+part of 'validation_exception_field.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -64,9 +64,7 @@ class ValidationExceptionFieldBuilder
   String? get message => _$this._message;
   set message(String? message) => _$this._message = message;
 
-  ValidationExceptionFieldBuilder() {
-    ValidationExceptionField._init(this);
-  }
+  ValidationExceptionFieldBuilder();
 
   ValidationExceptionFieldBuilder get _$this {
     final $v = _$v;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.stats_event;
+part of 'stats_event.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -44,9 +44,7 @@ class StatsEventBuilder implements Builder<StatsEvent, StatsEventBuilder> {
   _i2.StatsBuilder get details => _$this._details ??= new _i2.StatsBuilder();
   set details(_i2.StatsBuilder? details) => _$this._details = details;
 
-  StatsEventBuilder() {
-    StatsEvent._init(this);
-  }
+  StatsEventBuilder();
 
   StatsEventBuilder get _$this {
     final $v = _$v;

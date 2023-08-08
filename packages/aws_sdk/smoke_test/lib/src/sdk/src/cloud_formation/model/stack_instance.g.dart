@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.stack_instance;
+part of 'stack_instance.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -29,6 +29,8 @@ class _$StackInstance extends StackInstance {
   final _i5.StackDriftStatus? driftStatus;
   @override
   final DateTime? lastDriftCheckTimestamp;
+  @override
+  final String? lastOperationId;
 
   factory _$StackInstance([void Function(StackInstanceBuilder)? updates]) =>
       (new StackInstanceBuilder()..update(updates))._build();
@@ -44,7 +46,8 @@ class _$StackInstance extends StackInstance {
       this.statusReason,
       this.organizationalUnitId,
       this.driftStatus,
-      this.lastDriftCheckTimestamp})
+      this.lastDriftCheckTimestamp,
+      this.lastOperationId})
       : super._();
 
   @override
@@ -68,7 +71,8 @@ class _$StackInstance extends StackInstance {
         statusReason == other.statusReason &&
         organizationalUnitId == other.organizationalUnitId &&
         driftStatus == other.driftStatus &&
-        lastDriftCheckTimestamp == other.lastDriftCheckTimestamp;
+        lastDriftCheckTimestamp == other.lastDriftCheckTimestamp &&
+        lastOperationId == other.lastOperationId;
   }
 
   @override
@@ -85,6 +89,7 @@ class _$StackInstance extends StackInstance {
     _$hash = $jc(_$hash, organizationalUnitId.hashCode);
     _$hash = $jc(_$hash, driftStatus.hashCode);
     _$hash = $jc(_$hash, lastDriftCheckTimestamp.hashCode);
+    _$hash = $jc(_$hash, lastOperationId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -147,9 +152,12 @@ class StackInstanceBuilder
   set lastDriftCheckTimestamp(DateTime? lastDriftCheckTimestamp) =>
       _$this._lastDriftCheckTimestamp = lastDriftCheckTimestamp;
 
-  StackInstanceBuilder() {
-    StackInstance._init(this);
-  }
+  String? _lastOperationId;
+  String? get lastOperationId => _$this._lastOperationId;
+  set lastOperationId(String? lastOperationId) =>
+      _$this._lastOperationId = lastOperationId;
+
+  StackInstanceBuilder();
 
   StackInstanceBuilder get _$this {
     final $v = _$v;
@@ -165,6 +173,7 @@ class StackInstanceBuilder
       _organizationalUnitId = $v.organizationalUnitId;
       _driftStatus = $v.driftStatus;
       _lastDriftCheckTimestamp = $v.lastDriftCheckTimestamp;
+      _lastOperationId = $v.lastOperationId;
       _$v = null;
     }
     return this;
@@ -199,7 +208,8 @@ class StackInstanceBuilder
               statusReason: statusReason,
               organizationalUnitId: organizationalUnitId,
               driftStatus: driftStatus,
-              lastDriftCheckTimestamp: lastDriftCheckTimestamp);
+              lastDriftCheckTimestamp: lastDriftCheckTimestamp,
+              lastOperationId: lastOperationId);
     } catch (_) {
       late String _$failedField;
       try {

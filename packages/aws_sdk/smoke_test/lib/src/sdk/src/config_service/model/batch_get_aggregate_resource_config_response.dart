@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.batch_get_aggregate_resource_config_response; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -48,12 +48,11 @@ abstract class BatchGetAggregateResourceConfigResponse
   ) =>
       payload;
 
-  static const List<_i5.SmithySerializer> serializers = [
+  static const List<
+          _i5.SmithySerializer<BatchGetAggregateResourceConfigResponse>>
+      serializers = [
     BatchGetAggregateResourceConfigResponseAwsJson11Serializer()
   ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(BatchGetAggregateResourceConfigResponseBuilder b) {}
 
   /// A list that contains the current configuration of one or more resources.
   _i4.BuiltList<_i2.BaseConfigurationItem>? get baseConfigurationItems;
@@ -69,15 +68,15 @@ abstract class BatchGetAggregateResourceConfigResponse
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('BatchGetAggregateResourceConfigResponse');
-    helper.add(
-      'baseConfigurationItems',
-      baseConfigurationItems,
-    );
-    helper.add(
-      'unprocessedResourceIdentifiers',
-      unprocessedResourceIdentifiers,
-    );
+        newBuiltValueToStringHelper('BatchGetAggregateResourceConfigResponse')
+          ..add(
+            'baseConfigurationItems',
+            baseConfigurationItems,
+          )
+          ..add(
+            'unprocessedResourceIdentifiers',
+            unprocessedResourceIdentifiers,
+          );
     return helper.toString();
   }
 }

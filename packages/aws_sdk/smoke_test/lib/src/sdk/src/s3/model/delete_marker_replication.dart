@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.delete_marker_replication; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -40,12 +40,8 @@ abstract class DeleteMarkerReplication
 
   const DeleteMarkerReplication._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    DeleteMarkerReplicationRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(DeleteMarkerReplicationBuilder b) {}
+  static const List<_i3.SmithySerializer<DeleteMarkerReplication>> serializers =
+      [DeleteMarkerReplicationRestXmlSerializer()];
 
   /// Indicates whether to replicate delete markers.
   ///
@@ -55,11 +51,11 @@ abstract class DeleteMarkerReplication
   List<Object?> get props => [status];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('DeleteMarkerReplication');
-    helper.add(
-      'status',
-      status,
-    );
+    final helper = newBuiltValueToStringHelper('DeleteMarkerReplication')
+      ..add(
+        'status',
+        status,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.operation.update_item_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -118,7 +118,8 @@ class UpdateItemOperation extends _i1.HttpOperation<_i2.UpdateItemInput,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ConditionalCheckFailedException,
+            _i9.ConditionalCheckFailedException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ConditionalCheckFailedException',
@@ -127,7 +128,7 @@ class UpdateItemOperation extends _i1.HttpOperation<_i2.UpdateItemInput,
           _i9.ConditionalCheckFailedException,
           builder: _i9.ConditionalCheckFailedException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.InternalServerError, _i10.InternalServerError>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InternalServerError',
@@ -136,7 +137,8 @@ class UpdateItemOperation extends _i1.HttpOperation<_i2.UpdateItemInput,
           _i10.InternalServerError,
           builder: _i10.InternalServerError.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.InvalidEndpointException,
+            _i11.InvalidEndpointException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'InvalidEndpointException',
@@ -146,7 +148,8 @@ class UpdateItemOperation extends _i1.HttpOperation<_i2.UpdateItemInput,
           statusCode: 421,
           builder: _i11.InvalidEndpointException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i12.ItemCollectionSizeLimitExceededException,
+            _i12.ItemCollectionSizeLimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ItemCollectionSizeLimitExceededException',
@@ -155,7 +158,8 @@ class UpdateItemOperation extends _i1.HttpOperation<_i2.UpdateItemInput,
           _i12.ItemCollectionSizeLimitExceededException,
           builder: _i12.ItemCollectionSizeLimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i13.ProvisionedThroughputExceededException,
+            _i13.ProvisionedThroughputExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ProvisionedThroughputExceededException',
@@ -164,7 +168,7 @@ class UpdateItemOperation extends _i1.HttpOperation<_i2.UpdateItemInput,
           _i13.ProvisionedThroughputExceededException,
           builder: _i13.ProvisionedThroughputExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i14.RequestLimitExceeded, _i14.RequestLimitExceeded>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'RequestLimitExceeded',
@@ -173,7 +177,8 @@ class UpdateItemOperation extends _i1.HttpOperation<_i2.UpdateItemInput,
           _i14.RequestLimitExceeded,
           builder: _i14.RequestLimitExceeded.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i15.ResourceNotFoundException,
+            _i15.ResourceNotFoundException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ResourceNotFoundException',
@@ -182,7 +187,8 @@ class UpdateItemOperation extends _i1.HttpOperation<_i2.UpdateItemInput,
           _i15.ResourceNotFoundException,
           builder: _i15.ResourceNotFoundException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i16.TransactionConflictException,
+            _i16.TransactionConflictException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'TransactionConflictException',
@@ -214,7 +220,7 @@ class UpdateItemOperation extends _i1.HttpOperation<_i2.UpdateItemInput,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

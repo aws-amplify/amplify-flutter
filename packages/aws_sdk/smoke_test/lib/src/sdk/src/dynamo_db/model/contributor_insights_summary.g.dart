@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.contributor_insights_summary;
+part of 'contributor_insights_summary.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -71,9 +71,7 @@ class ContributorInsightsSummaryBuilder
           _i2.ContributorInsightsStatus? contributorInsightsStatus) =>
       _$this._contributorInsightsStatus = contributorInsightsStatus;
 
-  ContributorInsightsSummaryBuilder() {
-    ContributorInsightsSummary._init(this);
-  }
+  ContributorInsightsSummaryBuilder();
 
   ContributorInsightsSummaryBuilder get _$this {
     final $v = _$v;

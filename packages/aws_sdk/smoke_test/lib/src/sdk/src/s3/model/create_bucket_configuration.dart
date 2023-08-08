@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.create_bucket_configuration; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -31,12 +31,8 @@ abstract class CreateBucketConfiguration
 
   const CreateBucketConfiguration._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    CreateBucketConfigurationRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(CreateBucketConfigurationBuilder b) {}
+  static const List<_i3.SmithySerializer<CreateBucketConfiguration>>
+      serializers = [CreateBucketConfigurationRestXmlSerializer()];
 
   /// Specifies the Region where the bucket will be created. If you don't specify a Region, the bucket is created in the US East (N. Virginia) Region (us-east-1).
   _i2.BucketLocationConstraint? get locationConstraint;
@@ -44,11 +40,11 @@ abstract class CreateBucketConfiguration
   List<Object?> get props => [locationConstraint];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('CreateBucketConfiguration');
-    helper.add(
-      'locationConstraint',
-      locationConstraint,
-    );
+    final helper = newBuiltValueToStringHelper('CreateBucketConfiguration')
+      ..add(
+        'locationConstraint',
+        locationConstraint,
+      );
     return helper.toString();
   }
 }

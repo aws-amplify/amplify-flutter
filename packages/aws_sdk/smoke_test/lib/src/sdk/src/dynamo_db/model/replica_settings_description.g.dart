@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.replica_settings_description;
+part of 'replica_settings_description.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -176,9 +176,7 @@ class ReplicaSettingsDescriptionBuilder
           _i7.TableClassSummaryBuilder? replicaTableClassSummary) =>
       _$this._replicaTableClassSummary = replicaTableClassSummary;
 
-  ReplicaSettingsDescriptionBuilder() {
-    ReplicaSettingsDescription._init(this);
-  }
+  ReplicaSettingsDescriptionBuilder();
 
   ReplicaSettingsDescriptionBuilder get _$this {
     final $v = _$v;

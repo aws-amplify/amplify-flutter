@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of rest_json1_v1.rest_json_protocol.model.http_prefix_headers_in_response_input;
+part of 'http_prefix_headers_in_response_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -41,9 +41,7 @@ class HttpPrefixHeadersInResponseInputBuilder
             HttpPrefixHeadersInResponseInputBuilder> {
   _$HttpPrefixHeadersInResponseInput? _$v;
 
-  HttpPrefixHeadersInResponseInputBuilder() {
-    HttpPrefixHeadersInResponseInput._init(this);
-  }
+  HttpPrefixHeadersInResponseInputBuilder();
 
   @override
   void replace(HttpPrefixHeadersInResponseInput other) {

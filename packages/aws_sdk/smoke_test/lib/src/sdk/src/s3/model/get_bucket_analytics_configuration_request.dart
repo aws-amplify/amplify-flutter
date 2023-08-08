@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.get_bucket_analytics_configuration_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -56,12 +56,9 @@ abstract class GetBucketAnalyticsConfigurationRequest
         }
       });
 
-  static const List<_i1.SmithySerializer> serializers = [
-    GetBucketAnalyticsConfigurationRequestRestXmlSerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketAnalyticsConfigurationRequestBuilder b) {}
+  static const List<
+          _i1.SmithySerializer<GetBucketAnalyticsConfigurationRequestPayload>>
+      serializers = [GetBucketAnalyticsConfigurationRequestRestXmlSerializer()];
 
   /// The name of the bucket from which an analytics configuration is retrieved.
   String get bucket;
@@ -95,19 +92,19 @@ abstract class GetBucketAnalyticsConfigurationRequest
   @override
   String toString() {
     final helper =
-        newBuiltValueToStringHelper('GetBucketAnalyticsConfigurationRequest');
-    helper.add(
-      'bucket',
-      bucket,
-    );
-    helper.add(
-      'id',
-      id,
-    );
-    helper.add(
-      'expectedBucketOwner',
-      expectedBucketOwner,
-    );
+        newBuiltValueToStringHelper('GetBucketAnalyticsConfigurationRequest')
+          ..add(
+            'bucket',
+            bucket,
+          )
+          ..add(
+            'id',
+            id,
+          )
+          ..add(
+            'expectedBucketOwner',
+            expectedBucketOwner,
+          );
     return helper.toString();
   }
 }
@@ -126,8 +123,6 @@ abstract class GetBucketAnalyticsConfigurationRequestPayload
 
   const GetBucketAnalyticsConfigurationRequestPayload._();
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(GetBucketAnalyticsConfigurationRequestPayloadBuilder b) {}
   @override
   List<Object?> get props => [];
   @override

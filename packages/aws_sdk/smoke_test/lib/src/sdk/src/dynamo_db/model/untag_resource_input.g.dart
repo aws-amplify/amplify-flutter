@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.untag_resource_input;
+part of 'untag_resource_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -64,9 +64,7 @@ class UntagResourceInputBuilder
       _$this._tagKeys ??= new _i3.ListBuilder<String>();
   set tagKeys(_i3.ListBuilder<String>? tagKeys) => _$this._tagKeys = tagKeys;
 
-  UntagResourceInputBuilder() {
-    UntagResourceInput._init(this);
-  }
+  UntagResourceInputBuilder();
 
   UntagResourceInputBuilder get _$this {
     final $v = _$v;

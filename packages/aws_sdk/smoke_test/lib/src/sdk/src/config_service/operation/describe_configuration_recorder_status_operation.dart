@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.operation.describe_configuration_recorder_status_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -20,17 +20,17 @@ import 'package:smoke_test/src/sdk/src/config_service/model/describe_configurati
 import 'package:smoke_test/src/sdk/src/config_service/model/no_such_configuration_recorder_exception.dart'
     as _i9;
 
-/// Returns the current status of the specified configuration recorder. If a configuration recorder is not specified, this action returns the status of all configuration recorders associated with the account.
+/// Returns the current status of the specified configuration recorder as well as the status of the last recording event for the recorder. If a configuration recorder is not specified, this action returns the status of all configuration recorders associated with the account.
 ///
-/// Currently, you can specify only one configuration recorder per region in your account.
+/// >You can specify only one configuration recorder for each Amazon Web Services Region for each account. For a detailed status of recording events over time, add your Config events to Amazon CloudWatch metrics and use CloudWatch metrics.
 class DescribeConfigurationRecorderStatusOperation extends _i1.HttpOperation<
     _i2.DescribeConfigurationRecorderStatusRequest,
     _i2.DescribeConfigurationRecorderStatusRequest,
     _i3.DescribeConfigurationRecorderStatusResponse,
     _i3.DescribeConfigurationRecorderStatusResponse> {
-  /// Returns the current status of the specified configuration recorder. If a configuration recorder is not specified, this action returns the status of all configuration recorders associated with the account.
+  /// Returns the current status of the specified configuration recorder as well as the status of the last recording event for the recorder. If a configuration recorder is not specified, this action returns the status of all configuration recorders associated with the account.
   ///
-  /// Currently, you can specify only one configuration recorder per region in your account.
+  /// >You can specify only one configuration recorder for each Amazon Web Services Region for each account. For a detailed status of recording events over time, add your Config events to Amazon CloudWatch metrics and use CloudWatch metrics.
   DescribeConfigurationRecorderStatusOperation({
     required String region,
     Uri? baseUri,
@@ -112,7 +112,8 @@ class DescribeConfigurationRecorderStatusOperation extends _i1.HttpOperation<
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.NoSuchConfigurationRecorderException,
+            _i9.NoSuchConfigurationRecorderException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.configservice',
             shape: 'NoSuchConfigurationRecorderException',
@@ -144,7 +145,7 @@ class DescribeConfigurationRecorderStatusOperation extends _i1.HttpOperation<
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

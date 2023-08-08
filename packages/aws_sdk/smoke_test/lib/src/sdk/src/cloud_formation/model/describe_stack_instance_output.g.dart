@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.describe_stack_instance_output;
+part of 'describe_stack_instance_output.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -53,9 +53,7 @@ class DescribeStackInstanceOutputBuilder
   set stackInstance(_i2.StackInstanceBuilder? stackInstance) =>
       _$this._stackInstance = stackInstance;
 
-  DescribeStackInstanceOutputBuilder() {
-    DescribeStackInstanceOutput._init(this);
-  }
+  DescribeStackInstanceOutputBuilder();
 
   DescribeStackInstanceOutputBuilder get _$this {
     final $v = _$v;

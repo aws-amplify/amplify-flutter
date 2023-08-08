@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.dynamo_db.operation.import_table_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -104,7 +104,8 @@ class ImportTableOperation extends _i1.HttpOperation<_i2.ImportTableInput,
       );
   @override
   List<_i1.SmithyError> get errorTypes => const [
-        _i1.SmithyError(
+        _i1.SmithyError<_i9.ImportConflictException,
+            _i9.ImportConflictException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ImportConflictException',
@@ -113,7 +114,8 @@ class ImportTableOperation extends _i1.HttpOperation<_i2.ImportTableInput,
           _i9.ImportConflictException,
           builder: _i9.ImportConflictException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i10.LimitExceededException,
+            _i10.LimitExceededException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'LimitExceededException',
@@ -122,7 +124,8 @@ class ImportTableOperation extends _i1.HttpOperation<_i2.ImportTableInput,
           _i10.LimitExceededException,
           builder: _i10.LimitExceededException.fromResponse,
         ),
-        _i1.SmithyError(
+        _i1.SmithyError<_i11.ResourceInUseException,
+            _i11.ResourceInUseException>(
           _i1.ShapeId(
             namespace: 'com.amazonaws.dynamodb',
             shape: 'ResourceInUseException',
@@ -154,7 +157,7 @@ class ImportTableOperation extends _i1.HttpOperation<_i2.ImportTableInput,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)}
+        ...{_i7.AWSHeaders.sdkInvocationId: _i7.uuid(secure: true)},
       },
     );
   }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.config_service.model.get_aggregate_compliance_details_by_config_rule_request; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -28,6 +28,7 @@ abstract class GetAggregateComplianceDetailsByConfigRuleRequest
     int? limit,
     String? nextToken,
   }) {
+    limit ??= 0;
     return _$GetAggregateComplianceDetailsByConfigRuleRequest._(
       configurationAggregatorName: configurationAggregatorName,
       configRuleName: configRuleName,
@@ -52,13 +53,16 @@ abstract class GetAggregateComplianceDetailsByConfigRuleRequest
   }) =>
       payload;
 
-  static const List<_i1.SmithySerializer> serializers = [
+  static const List<
+      _i1.SmithySerializer<
+          GetAggregateComplianceDetailsByConfigRuleRequest>> serializers = [
     GetAggregateComplianceDetailsByConfigRuleRequestAwsJson11Serializer()
   ];
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _init(
-      GetAggregateComplianceDetailsByConfigRuleRequestBuilder b) {}
+  static void _init(GetAggregateComplianceDetailsByConfigRuleRequestBuilder b) {
+    b.limit = 0;
+  }
 
   /// The name of the configuration aggregator.
   String get configurationAggregatorName;
@@ -78,7 +82,7 @@ abstract class GetAggregateComplianceDetailsByConfigRuleRequest
   _i3.ComplianceType? get complianceType;
 
   /// The maximum number of evaluation results returned on each page. The default is 50. You cannot specify a number greater than 100. If you specify 0, Config uses the default.
-  int? get limit;
+  int get limit;
 
   /// The `nextToken` string returned on a previous page that you use to get the next page of results in a paginated response.
   String? get nextToken;
@@ -97,35 +101,35 @@ abstract class GetAggregateComplianceDetailsByConfigRuleRequest
   @override
   String toString() {
     final helper = newBuiltValueToStringHelper(
-        'GetAggregateComplianceDetailsByConfigRuleRequest');
-    helper.add(
-      'configurationAggregatorName',
-      configurationAggregatorName,
-    );
-    helper.add(
-      'configRuleName',
-      configRuleName,
-    );
-    helper.add(
-      'accountId',
-      accountId,
-    );
-    helper.add(
-      'awsRegion',
-      awsRegion,
-    );
-    helper.add(
-      'complianceType',
-      complianceType,
-    );
-    helper.add(
-      'limit',
-      limit,
-    );
-    helper.add(
-      'nextToken',
-      nextToken,
-    );
+        'GetAggregateComplianceDetailsByConfigRuleRequest')
+      ..add(
+        'configurationAggregatorName',
+        configurationAggregatorName,
+      )
+      ..add(
+        'configRuleName',
+        configRuleName,
+      )
+      ..add(
+        'accountId',
+        accountId,
+      )
+      ..add(
+        'awsRegion',
+        awsRegion,
+      )
+      ..add(
+        'complianceType',
+        complianceType,
+      )
+      ..add(
+        'limit',
+        limit,
+      )
+      ..add(
+        'nextToken',
+        nextToken,
+      );
     return helper.toString();
   }
 }
@@ -242,6 +246,11 @@ class GetAggregateComplianceDetailsByConfigRuleRequestAwsJson11Serializer
         awsRegion,
         specifiedType: const FullType(String),
       ),
+      'Limit',
+      serializers.serialize(
+        limit,
+        specifiedType: const FullType(int),
+      ),
     ]);
     if (complianceType != null) {
       result$
@@ -249,14 +258,6 @@ class GetAggregateComplianceDetailsByConfigRuleRequestAwsJson11Serializer
         ..add(serializers.serialize(
           complianceType,
           specifiedType: const FullType(_i3.ComplianceType),
-        ));
-    }
-    if (limit != null) {
-      result$
-        ..add('Limit')
-        ..add(serializers.serialize(
-          limit,
-          specifiedType: const FullType(int),
         ));
     }
     if (nextToken != null) {

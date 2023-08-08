@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.iam.model.server_certificate_metadata; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -47,12 +47,8 @@ abstract class ServerCertificateMetadata
 
   const ServerCertificateMetadata._();
 
-  static const List<_i2.SmithySerializer> serializers = [
-    ServerCertificateMetadataAwsQuerySerializer()
-  ];
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ServerCertificateMetadataBuilder b) {}
+  static const List<_i2.SmithySerializer<ServerCertificateMetadata>>
+      serializers = [ServerCertificateMetadataAwsQuerySerializer()];
 
   /// The path to the server certificate. For more information about paths, see [IAM identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html) in the _IAM User Guide_.
   String get path;
@@ -82,31 +78,31 @@ abstract class ServerCertificateMetadata
       ];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ServerCertificateMetadata');
-    helper.add(
-      'path',
-      path,
-    );
-    helper.add(
-      'serverCertificateName',
-      serverCertificateName,
-    );
-    helper.add(
-      'serverCertificateId',
-      serverCertificateId,
-    );
-    helper.add(
-      'arn',
-      arn,
-    );
-    helper.add(
-      'uploadDate',
-      uploadDate,
-    );
-    helper.add(
-      'expiration',
-      expiration,
-    );
+    final helper = newBuiltValueToStringHelper('ServerCertificateMetadata')
+      ..add(
+        'path',
+        path,
+      )
+      ..add(
+        'serverCertificateName',
+        serverCertificateName,
+      )
+      ..add(
+        'serverCertificateId',
+        serverCertificateId,
+      )
+      ..add(
+        'arn',
+        arn,
+      )
+      ..add(
+        'uploadDate',
+        uploadDate,
+      )
+      ..add(
+        'expiration',
+        expiration,
+      );
     return helper.toString();
   }
 }

@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.model.existing_object_replication; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -30,23 +30,20 @@ abstract class ExistingObjectReplication
 
   const ExistingObjectReplication._();
 
-  static const List<_i3.SmithySerializer> serializers = [
-    ExistingObjectReplicationRestXmlSerializer()
-  ];
+  static const List<_i3.SmithySerializer<ExistingObjectReplication>>
+      serializers = [ExistingObjectReplicationRestXmlSerializer()];
 
-  @BuiltValueHook(initializeBuilder: true)
-  static void _init(ExistingObjectReplicationBuilder b) {}
-
+  /// Specifies whether Amazon S3 replicates existing source bucket objects.
   _i2.ExistingObjectReplicationStatus get status;
   @override
   List<Object?> get props => [status];
   @override
   String toString() {
-    final helper = newBuiltValueToStringHelper('ExistingObjectReplication');
-    helper.add(
-      'status',
-      status,
-    );
+    final helper = newBuiltValueToStringHelper('ExistingObjectReplication')
+      ..add(
+        'status',
+        status,
+      );
     return helper.toString();
   }
 }

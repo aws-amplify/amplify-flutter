@@ -1,5 +1,5 @@
 // Generated with smithy-dart 0.3.1. DO NOT MODIFY.
-// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names
+// ignore_for_file: avoid_unused_constructor_parameters,deprecated_member_use_from_same_package,non_constant_identifier_names,require_trailing_commas
 
 library smoke_test.s3.operation.list_buckets_operation; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -15,9 +15,13 @@ import 'package:smoke_test/src/sdk/src/s3/model/list_buckets_output.dart'
     as _i2;
 
 /// Returns a list of all buckets owned by the authenticated sender of the request. To use this operation, you must have the `s3:ListAllMyBuckets` permission.
+///
+/// For information about Amazon S3 buckets, see [Creating, configuring, and working with Amazon S3 buckets](https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-buckets-s3.html).
 class ListBucketsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
     _i2.ListBucketsOutput, _i2.ListBucketsOutput> {
   /// Returns a list of all buckets owned by the authenticated sender of the request. To use this operation, you must have the `s3:ListAllMyBuckets` permission.
+  ///
+  /// For information about Amazon S3 buckets, see [Creating, configuring, and working with Amazon S3 buckets](https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-buckets-s3.html).
   ListBucketsOperation({
     required String region,
     Uri? baseUri,
@@ -133,7 +137,7 @@ class ListBucketsOperation extends _i1.HttpOperation<_i1.Unit, _i1.Unit,
       ),
       zoneValues: {
         ...?_awsEndpoint.credentialScope?.zoneValues,
-        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)}
+        ...{_i6.AWSHeaders.sdkInvocationId: _i6.uuid(secure: true)},
       },
     );
   }

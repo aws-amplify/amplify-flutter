@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.cloud_formation.model.stack_instance_filter;
+part of 'stack_instance_filter.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -57,9 +57,7 @@ class StackInstanceFilterBuilder
   String? get values => _$this._values;
   set values(String? values) => _$this._values = values;
 
-  StackInstanceFilterBuilder() {
-    StackInstanceFilter._init(this);
-  }
+  StackInstanceFilterBuilder();
 
   StackInstanceFilterBuilder get _$this {
     final $v = _$v;

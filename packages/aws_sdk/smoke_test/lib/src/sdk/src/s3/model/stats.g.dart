@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.s3.model.stats;
+part of 'stats.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -65,9 +65,7 @@ class StatsBuilder implements Builder<Stats, StatsBuilder> {
   set bytesReturned(_i2.Int64? bytesReturned) =>
       _$this._bytesReturned = bytesReturned;
 
-  StatsBuilder() {
-    Stats._init(this);
-  }
+  StatsBuilder();
 
   StatsBuilder get _$this {
     final $v = _$v;

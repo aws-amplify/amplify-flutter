@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of smoke_test.dynamo_db.model.backup_not_found_exception;
+part of 'backup_not_found_exception.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
@@ -62,9 +62,7 @@ class BackupNotFoundExceptionBuilder
   Map<String, String>? get headers => _$this._headers;
   set headers(Map<String, String>? headers) => _$this._headers = headers;
 
-  BackupNotFoundExceptionBuilder() {
-    BackupNotFoundException._init(this);
-  }
+  BackupNotFoundExceptionBuilder();
 
   BackupNotFoundExceptionBuilder get _$this {
     final $v = _$v;
