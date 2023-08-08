@@ -196,7 +196,7 @@ jobs:
       - name: Launch iOS simulator (attempt 1)
         id: launch
         uses: ./.github/composite_actions/launch_ios_simulator
-        timeout-minutes: 15
+        timeout-minutes: 30
         continue-on-error: true
         with:
           ios-version: ${{ matrix.ios-version }}
@@ -204,7 +204,7 @@ jobs:
       - name: Launch iOS simulator (attempt 2)
         if: steps.launch.outcome == 'failure'
         uses: ./.github/composite_actions/launch_ios_simulator
-        timeout-minutes: 15
+        timeout-minutes: 30
         with:
           ios-version: ${{ matrix.ios-version }}
 
