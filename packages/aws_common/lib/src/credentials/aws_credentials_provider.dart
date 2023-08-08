@@ -8,6 +8,8 @@ import 'package:aws_common/src/config/aws_config_value.dart';
 import 'package:aws_common/src/config/config_file/file_loader.dart';
 import 'package:os_detect/os_detect.dart' as os;
 
+export 'package:aws_common/src/credentials/aws_credentials_provider_chain.dart';
+
 /// The `AWS_ACCESS_KEY_ID` identifier, used for locating credentials in the
 /// environment.
 const zAccessKeyId = 'AWS_ACCESS_KEY_ID';
@@ -41,7 +43,7 @@ class InvalidCredentialsException implements Exception {
 }
 
 /// A utility for retrieving AWS credentials at runtime.
-abstract class AWSCredentialsProvider {
+abstract interface class AWSCredentialsProvider with AWSDebuggable {
   /// Creates a [StaticCredentialsProvider] with the given [credentials].
   const factory AWSCredentialsProvider(AWSCredentials credentials) =
       StaticCredentialsProvider;
@@ -76,7 +78,17 @@ abstract class AWSCredentialsProvider {
   const factory AWSCredentialsProvider.profile([String profileName]) =
       ProfileCredentialsProvider;
 
-  const AWSCredentialsProvider._();
+  /// {@template aws_signature_v4.default_credentials_provider_chain}
+  /// Uses the default chain to try loading credentials from the following
+  /// sources, in order:
+  ///
+  /// - Environment variables (e.g. `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`)
+  /// - The default AWS profile
+  /// - ECS container (TODO)
+  /// - EC2 IMDS service (TODO)
+  /// {@endtemplate}
+  const factory AWSCredentialsProvider.defaultChain() =
+      DefaultCredentialsProviderChain;
 
   /// Retrieves AWS credentials.
   FutureOr<AWSCredentials> retrieve();
@@ -86,20 +98,23 @@ abstract class AWSCredentialsProvider {
 /// Creates an [AWSCredentialsProvider] for a set of static, compile-time AWS
 /// credentials.
 /// {@endtemplate}
-class StaticCredentialsProvider extends AWSCredentialsProvider {
+class StaticCredentialsProvider implements AWSCredentialsProvider {
   /// {@macro aws_signature_v4.static_credentials_provider}
-  const StaticCredentialsProvider(this._credentials) : super._();
+  const StaticCredentialsProvider(this._credentials);
 
   final AWSCredentials _credentials;
 
   @override
   AWSCredentials retrieve() => _credentials;
+
+  @override
+  String get runtimeTypeName => 'StaticCredentialsProvider';
 }
 
 /// {@macro aws_signature_v4.dart_environment_credentials_provider}
-class DartEnvironmentCredentialsProvider extends AWSCredentialsProvider {
+class DartEnvironmentCredentialsProvider implements AWSCredentialsProvider {
   /// {@macro aws_signature_v4.dart_environment_credentials_provider}
-  const DartEnvironmentCredentialsProvider() : super._();
+  const DartEnvironmentCredentialsProvider();
 
   @override
   AWSCredentials retrieve() {
@@ -129,6 +144,9 @@ class DartEnvironmentCredentialsProvider extends AWSCredentialsProvider {
       sessionToken.isEmpty ? null : sessionToken,
     );
   }
+
+  @override
+  String get runtimeTypeName => 'DartEnvironmentCredentialsProvider';
 }
 
 /// {@macro aws_signature_v4.environment_credentials_provider}
@@ -159,12 +177,15 @@ class EnvironmentCredentialsProvider implements AWSCredentialsProvider {
       sessionToken == null || sessionToken.isEmpty ? null : sessionToken,
     );
   }
+
+  @override
+  String get runtimeTypeName => 'EnvironmentCredentialsProvider';
 }
 
 /// {@macro aws_signature_v4.profile_credentials_provider}
-class ProfileCredentialsProvider extends AWSCredentialsProvider {
+class ProfileCredentialsProvider implements AWSCredentialsProvider {
   /// {@macro aws_signature_v4.profile_credentials_provider}
-  const ProfileCredentialsProvider([this.profileName = 'default']) : super._();
+  const ProfileCredentialsProvider([this.profileName = 'default']);
 
   /// The name of the profile to use from the AWS configuration and shared
   /// credentials files.
@@ -181,4 +202,7 @@ class ProfileCredentialsProvider extends AWSCredentialsProvider {
     }
     return profileCredentials.retrieve();
   }
+
+  @override
+  String get runtimeTypeName => 'ProfileCredentialsProvider';
 }
