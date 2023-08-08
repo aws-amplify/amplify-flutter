@@ -34,7 +34,7 @@ class GetUsageOperation extends _i1.PaginatedHttpOperation<
     required String region,
     Uri? baseUri,
     _i4.AWSCredentialsProvider credentialsProvider =
-        const _i4.AWSCredentialsProvider.environment(),
+        const _i4.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,

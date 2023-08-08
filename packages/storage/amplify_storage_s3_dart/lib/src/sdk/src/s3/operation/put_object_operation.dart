@@ -89,7 +89,7 @@ class PutObjectOperation extends _i1.HttpOperation<_i2.Stream<List<int>>,
     Uri? baseUri,
     _i3.S3ClientConfig s3ClientConfig = const _i3.S3ClientConfig(),
     _i4.AWSCredentialsProvider credentialsProvider =
-        const _i4.AWSCredentialsProvider.environment(),
+        const _i4.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
