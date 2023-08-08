@@ -38,7 +38,7 @@ class GetBucketLoggingOperation extends _i1.HttpOperation<
     Uri? baseUri,
     _i2.S3ClientConfig s3ClientConfig = const _i2.S3ClientConfig(),
     _i3.AWSCredentialsProvider credentialsProvider =
-        const _i3.AWSCredentialsProvider.environment(),
+        const _i3.AWSCredentialsProvider.defaultChain(),
     List<_i1.HttpRequestInterceptor> requestInterceptors = const [],
     List<_i1.HttpResponseInterceptor> responseInterceptors = const [],
   })  : _region = region,
