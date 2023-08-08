@@ -3,7 +3,7 @@
 
 import 'dart:io';
 
-import 'package:aws_common/aws_common.dart';
+import 'package:aws_common/src/config/aws_path_provider.dart';
 import 'package:meta/meta.dart';
 
 /// {@template aws_common.lookup_platform_env}

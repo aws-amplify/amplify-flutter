@@ -132,7 +132,7 @@ Future<void> generateFileLocationTests() async {
     '''
 // Generated with tool/generate_tests.dart. Do not modify by hand.
 
-import 'package:aws_common/aws_common.dart';
+import 'package:aws_common/src/config/aws_path_provider.dart';
 import 'package:os_detect/override.dart';
 import 'package:test/test.dart';
 
