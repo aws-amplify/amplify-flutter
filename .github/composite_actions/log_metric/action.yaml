@@ -1,5 +1,5 @@
 name: Log Metric
-description: Log data point to a metric with the provided value. If the metric is not there, it will create one
+description: Log data point to a metric with the provided value. If the metric is not there, it will create one.
 # To avoid 'Credentials could not be loaded' calling workflows must include:
 # permissions:
 #  id-token: write
@@ -7,20 +7,53 @@ description: Log data point to a metric with the provided value. If the metric i
 inputs:
   aws-region:
     required: true
-    description: The AWS region
+    description: The AWS region.
   role-to-assume:
     required: true
-    description: The role to assume in the STS session
-  metric-name:
-    description: Name of the metric to track in Cloudwatch.
-    required: true
+    description: The role to assume in the STS session.
   value:
     # Why we publish value 0 on success: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html#publishingZero
     description: Value of the metric to track in Cloudwatch.
     required: true
-  dimensions:
-    description: Dimensions of metric to track in Cloudwatch, in format dimensionName1=value,dimensionName2=value,...
+
+  # Global Metric Dimensions 
+  testType:
+    description: canary, integration, unit testType.
+    required: true
+  category:
+    description: analytics, api, authenticator, etc. 
+    required: true
+  workflowName: 
+    description: The Github Action workflow.yaml file name.  ie "AmplifyCanaries".
+    required: true 
+  # failingStep: Look into getting via code 
+
+
+  # FlutterDart Workflows Metric Dimensions 
+  framework:
+    description: flutter, dart. 
     required: false
+  flutterDartChannel:
+    description: beta, stable. 
+    required: false
+  dartVersion: 
+    description: 3, 2.19, 2.18, etc. 
+    required: false
+  flutterVersion:
+    description: 3.10.6, 3.10.5, etc. 
+    required: false
+  dartCompiler:
+    description: dart2js, ddc, dart, dart2wasm.
+    required: false
+
+  # Platform Workflows Metric Dimensions
+  platform:
+    description: android, ios, web, linux, windows.
+    required: false
+  platformVersion: 
+    description: ios-14.5, ios-16, android-25-x86, etc. 
+    required: false 
+
 runs:
   using: 'composite'
   steps:
@@ -33,5 +66,18 @@ runs:
 
     - name: Run Dart script
       # Run a Dart script to put metric data.
-      run: dart ./tool/send_metric_data.dart ${{ inputs.metric-name }} ${{ inputs.value }} ${{ inputs.dimensions }}
+      run: dart ./tool/send_metric_data.dart \
+        "GithubMetric v1.0" \
+        ${{ inputs.value }} \
+        ${{ inputs.testType }} \
+        ${{ inputs.category }} \
+        ${{ inputs.workflowName }} \
+        ${{ inputs.framework }} \
+        ${{ inputs.flutterDartChannel }} \
+        ${{ inputs.dartVersion }} \
+        ${{ inputs.flutterVersion }} \
+        ${{ inputs.dartCompiler }} \
+        ${{ inputs.platform }} \
+        ${{ inputs.platformVersion }} \
+        $GITHUB_RUN_ID 
       shell: bash
