@@ -11,38 +11,54 @@ external Exec get exec;
 @JS()
 extension type Exec(JSObject it) {
   @JS('exec')
-  external JSPromise _exec(String commandLine, [JSArray? args, _ExecOptions? options]);
+  external JSPromise _exec(
+    String commandLine, [
+    JSArray? args,
+    _ExecOptions? options,
+  ]);
 
   /// Exec a command.
   ///
   /// Output will be streamed to the live console. Returns promise with the result of
   /// the process execution.
-  Future<ExecResult> exec(String commandLine, List<String> args, {
-    bool? silent,
+  Future<ExecResult> exec(
+    String commandLine,
+    List<String> args, {
+    bool echoOutput = true,
     String? workingDirectory,
+    bool failOnNonZeroExit = true,
   }) async {
     final stdout = StringBuffer();
     final stderr = StringBuffer();
     final options = _ExecOptions(
       listeners: _ExecListeners(
-        stdout: ((JSUint8Array buffer) => stdout.write(utf8.decode(buffer.toDart))).toJS,
-        stderr: ((JSUint8Array buffer) => stderr.write(utf8.decode(buffer.toDart))).toJS,
+        stdout: ((JSUint8Array buffer) =>
+            stdout.write(utf8.decode(buffer.toDart))).toJS,
+        stderr: ((JSUint8Array buffer) =>
+            stderr.write(utf8.decode(buffer.toDart))).toJS,
       ),
-      silent: silent?.toJS,
+      silent: (!echoOutput).toJS,
       cwd: workingDirectory?.toJS,
+      ignoreReturnCode: (!failOnNonZeroExit).toJS,
     );
-    final exitCode = await promiseToFuture<int>(
-      _exec(
-        commandLine, 
-        args.map((arg) => arg.toJS).toList().toJS,
-        options,
-      ),
-    );
-    return ExecResult(
-      exitCode: exitCode,
-      stdout: stdout.toString(),
-      stderr: stderr.toString(),
-    );
+    try {
+      final exitCode = await promiseToFuture<int>(
+        _exec(
+          commandLine, 
+          args.map((arg) => arg.toJS).toList().toJS,
+          options,
+        ),
+      );
+      return ExecResult(
+        exitCode: exitCode,
+        stdout: stdout.toString(),
+        stderr: stderr.toString(),
+      );
+    } on Object {
+      throw Exception(
+        '"$commandLine ${args.join(' ')}" failed:\n$stdout\n$stderr',
+      );
+    }
   }
 }
 
@@ -54,6 +70,7 @@ class _ExecOptions {
     _ExecListeners? listeners,
     JSString? cwd,
     JSBoolean? silent,
+    JSBoolean? ignoreReturnCode,
   });
 }
 

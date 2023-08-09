@@ -49,7 +49,13 @@ jobs:
 
   test_launch_ios_simulator:
     name: Test Action (launch_ios_simulator)
-    runs-on: macos-latest
+    # It is recommended that all actions requiring a simulator be run on XL runners
+    # since the process of installing new runtimes and building with Xcode can be
+    # incredibly slow otherwise.
+    runs-on: macos-latest-xl
+    # Timeout as a stop-gap for further investigating. This action should never need more
+    # than 20 minutes to do its work.
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
@@ -61,7 +67,6 @@ jobs:
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # 3.5.3
 
       - name: Launch Simulator (iOS ${{ matrix.ios-version }})
-        timeout-minutes: 30
         uses: ./.github/composite_actions/launch_ios_simulator
         with:
           ios-version: ${{ matrix.ios-version }}
