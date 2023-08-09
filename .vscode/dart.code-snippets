@@ -1,0 +1,72 @@
+{
+	// Helpful Dart snippets for the amplify-flutter repo.
+	//
+	// See here for more information about writing snippets: https://code.visualstudio.com/docs/editor/userdefinedsnippets
+	"dataclass": {
+		"scope": "dart",
+		"prefix": "dataclass",
+		"description": "Templates a JSON-serializable data class",
+		"body": [
+			"/// {@template ${TM_FILEPATH/.*[\\\\\\/]([^\\\\/]+)[\\\\\\/](?:lib).*/$1/}.${1/(.*)/${1:/camelcase}/}\\}",
+			"/// $3",
+			"/// {@endtemplate}",
+			"@${2:JsonSerializable()}",
+			"class $1 with AWSEquatable<$1>, AWSSerializable<Map<String, Object?>>, AWSDebuggable {",
+			"  /// {@macro ${TM_FILEPATH/.*[\\\\\\/]([^\\\\/]+)[\\\\\\/](?:lib).*/$1/}.${1/(.*)/${1:/camelcase}/}\\}",
+			"  const $1();",
+			"",
+			"  /// Deserializes a [$1] from JSON.",
+			"  ///",
+			"  /// {@macro ${TM_FILEPATH/.*[\\\\\\/]([^\\\\/]+)[\\\\\\/](?:lib).*/$1/}.${1/(.*)/${1:/camelcase}/}\\}",
+			"  factory $1.fromJson(Map<String, Object?> json) => _\\$$1FromJson(json);",
+			"",
+			"  @override",
+			"  List<Object?> get props => [];",
+			"",
+			"  @override",
+			"  String get runtimeTypeName => '$1';",
+			"",
+			"  @override",
+			"  Map<String, Object?> toJson() => _\\$$1ToJson(this);",
+			"\\}"
+		]
+	},
+	"dataclassfile": {
+		"scope": "dart",
+		"prefix": "dataclassfile",
+		"description": "Templates a file with a single JSON-serializable data class (with the name of the file)",
+		"isFileTemplate": true,
+		"body": [
+			"// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.",
+			"// SPDX-License-Identifier: Apache-2.0",
+			"",
+			"import 'package:aws_common/aws_common.dart';",
+			"import 'package:json_annotation/json_annotation.dart';",
+			"",
+			"part '${TM_FILENAME_BASE}.g.dart';",
+			"",
+			"/// {@template ${TM_FILEPATH/.*[\\\\\\/]([^\\\\/]+)[\\\\\\/](?:lib).*/$1/}.${TM_FILENAME_BASE}\\}",
+			"/// $2",
+			"/// {@endtemplate}",
+			"@${1:JsonSerializable()}",
+			"class ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} with AWSEquatable<${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}>, AWSSerializable<Map<String, Object?>>, AWSDebuggable {",
+			"  /// {@macro ${TM_FILEPATH/.*[\\\\\\/]([^\\\\/]+)[\\\\\\/](?:lib).*/$1/}.${TM_FILENAME_BASE}\\}",
+			"  const ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}();",
+			"",
+			"  /// Deserializes a [${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}] from JSON.",
+			"  ///",
+			"  /// {@macro ${TM_FILEPATH/.*[\\\\\\/]([^\\\\/]+)[\\\\\\/](?:lib).*/$1/}.${TM_FILENAME_BASE}\\}",
+			"  factory ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}.fromJson(Map<String, Object?> json) => _\\$${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}FromJson(json);",
+			"",
+			"  @override",
+			"  List<Object?> get props => [];",
+			"",
+			"  @override",
+			"  String get runtimeTypeName => '${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}';",
+			"",
+			"  @override",
+			"  Map<String, Object?> toJson() => _\\$${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}ToJson(this);",
+			"\\}"
+		]
+	}
+}
