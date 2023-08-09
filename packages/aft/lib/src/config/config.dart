@@ -8,55 +8,81 @@ import 'package:aft/src/models.dart';
 import 'package:aft/src/repo.dart';
 import 'package:aft/src/util.dart';
 import 'package:aws_common/aws_common.dart';
+import 'package:built_collection/built_collection.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 import 'package:collection/collection.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart';
+import 'package:yaml/yaml.dart';
 import 'package:yaml_edit/yaml_edit.dart';
 
 part 'config.g.dart';
 
-@yamlSerializable
-class AftConfig with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
-  const AftConfig({
-    required this.rootDirectory,
-    required this.workingDirectory,
-    required this.allPackages,
-    this.dependencies = const {},
-    required this.environment,
-    this.ignore = const [],
-    this.components = const {},
-    this.scripts = const {},
-  });
+abstract class AftConfig
+    with AWSSerializable<Map<String, Object?>>, AWSDebuggable
+    implements Built<AftConfig, AftConfigBuilder> {
+  factory AftConfig({
+    required Uri rootDirectory,
+    required Uri workingDirectory,
+    required Map<String, PackageInfo> allPackages,
+    Map<String, VersionConstraint> dependencies = const {},
+    required Environment environment,
+    PlatformEnvironment? platforms,
+    List<String> ignore = const [],
+    Map<String, AftComponent> components = const {},
+    Map<String, AftScript> scripts = const {},
+  }) {
+    return _$AftConfig._(
+      rootDirectory: rootDirectory,
+      workingDirectory: workingDirectory,
+      allPackages: allPackages.build(),
+      dependencies: dependencies.build(),
+      environment: environment,
+      platforms: platforms,
+      ignore: ignore.build(),
+      components: components.build(),
+      scripts: scripts.build(),
+    );
+  }
+
+  factory AftConfig.build(void Function(AftConfigBuilder config) updates) =
+      _$AftConfig;
 
   factory AftConfig.fromJson(Map<String, Object?> json) =>
-      _$AftConfigFromJson(json);
+      aftSerializers.deserializeWith(serializer, json)!;
+
+  const AftConfig._();
 
   /// The root directory of the repository.
-  final Uri rootDirectory;
+  Uri get rootDirectory;
 
   /// The current working directory of the `aft` executable.
-  final Uri workingDirectory;
+  Uri get workingDirectory;
 
   /// All packages in the repository.
-  final Map<String, PackageInfo> allPackages;
+  BuiltMap<String, PackageInfo> get allPackages;
 
   /// Global dependency versions for third-party dependencies representing the
   /// values which have been vetted by manual review and/or those should be used
   /// consistently across all packages.
-  final Map<String, VersionConstraint> dependencies;
+  BuiltMap<String, VersionConstraint> get dependencies;
 
   /// The current constraints for Dart + Flutter SDKs.
-  final Environment environment;
+  Environment get environment;
+
+  /// The current constraints for platforms and OSs.
+  PlatformEnvironment? get platforms;
 
   /// Packages to ignore in all repo operations.
-  final List<String> ignore;
+  BuiltList<String> get ignore;
 
   /// {@macro aft.models.aft_component}
-  final Map<String, AftComponent> components;
+  BuiltMap<String, AftComponent> get components;
 
-  final Map<String, AftScript> scripts;
+  BuiltMap<String, AftScript> get scripts;
 
   /// Retrieves the component for [packageName], if any.
   String componentForPackage(String packageName) {
@@ -73,7 +99,10 @@ class AftConfig with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
   String get runtimeTypeName => 'AftConfig';
 
   @override
-  Map<String, Object?> toJson() => _$AftConfigToJson(this);
+  Map<String, Object?> toJson() =>
+      aftSerializers.serializeWith(serializer, this) as Map<String, Object?>;
+
+  static Serializer<AftConfig> get serializer => _$aftConfigSerializer;
 }
 
 @yamlSerializable
@@ -304,6 +333,7 @@ class PubspecInfo with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
   PubspecInfo({
     required this.pubspec,
     required this.pubspecYaml,
+    required this.pubspecMap,
     required this.uri,
   });
 
@@ -313,8 +343,9 @@ class PubspecInfo with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
   factory PubspecInfo.fromUri(Uri uri) {
     final yaml = File.fromUri(uri).readAsStringSync();
     return PubspecInfo(
-      pubspec: Pubspec.parse(yaml),
+      pubspec: Pubspec.parse(yaml, sourceUrl: uri),
       pubspecYaml: yaml,
+      pubspecMap: loadYamlNode(yaml, sourceUrl: uri) as YamlMap,
       uri: uri,
     );
   }
@@ -327,6 +358,9 @@ class PubspecInfo with AWSSerializable<Map<String, Object?>>, AWSDebuggable {
 
   /// The package's pubspec as YAML.
   final String pubspecYaml;
+
+  /// The package's pubspec as a YAML map.
+  final YamlMap pubspecMap;
 
   /// The pubspec as a YAML editor, used to alter dependencies or other info.
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -347,14 +381,8 @@ extension DirectoryX on Directory {
     if (!pubspecFile.existsSync()) {
       return null;
     }
-    final pubspecYaml = pubspecFile.readAsStringSync();
     try {
-      final pubspec = Pubspec.parse(pubspecYaml, sourceUrl: uri);
-      return PubspecInfo(
-        pubspec: pubspec,
-        pubspecYaml: pubspecYaml,
-        uri: pubspecFile.uri,
-      );
+      return PubspecInfo.fromUri(pubspecFile.uri);
     } on Object {
       return null;
     }
