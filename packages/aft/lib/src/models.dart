@@ -1,14 +1,15 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:aft/src/models/raw_config.dart';
+import 'package:aft/src/config/raw_config.dart';
 import 'package:collection/collection.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart';
 
-export 'models/config.dart';
-export 'models/package_selector.dart';
-export 'models/raw_config.dart';
+export 'config/config.dart';
+export 'config/package_selector.dart';
+export 'config/raw_config.dart';
+export 'config/serializers.dart';
 
 /// Packages which report as an example app, but should be considered as
 /// publishable for some purposes.

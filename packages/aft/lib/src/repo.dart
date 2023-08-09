@@ -23,9 +23,9 @@ class Repo {
 
   final AftConfig aftConfig;
 
-  Map<String, PackageInfo> get allPackages => aftConfig.allPackages;
+  Map<String, PackageInfo> get allPackages => aftConfig.allPackages.toMap();
 
-  Map<String, AftComponent> get components => aftConfig.components;
+  Map<String, AftComponent> get components => aftConfig.components.toMap();
 
   /// The root directory of the repository.
   late final Directory rootDir = Directory.fromUri(aftConfig.rootDirectory);
