@@ -36,4 +36,6 @@ extension type Process(JSObject it) {
     'x64' => Arch.x64,
     final unknown => throw StateError('Unknown architecture: $unknown'),
   };
+
+  external Never exit(int exitCode);
 }

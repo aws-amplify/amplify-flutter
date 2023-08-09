@@ -83,7 +83,7 @@ jobs:
           script: aft exec --include=${{ matrix.scope }} -- small=true "<AFT_ROOT>/build-support/integ_test.sh" -d emulator-5554 --retries 1
 
   ios:
-    runs-on: macos-latest
+    runs-on: macos-latest-xl
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
@@ -110,6 +110,7 @@ jobs:
 
       - name: Launch iOS simulator
         uses: ./.github/composite_actions/launch_ios_simulator
+        timeout-minutes: 20
 
       - name: Pub Upgrade
         run: aft exec --include=${{ matrix.scope }} -- flutter pub upgrade
