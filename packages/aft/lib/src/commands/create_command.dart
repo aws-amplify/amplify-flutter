@@ -66,11 +66,11 @@ class CreateCommand extends AmplifyCommand {
         repoPackages['amplify_core']!.version.amplifyConstraint();
     final amplifyFlutterConstraint =
         repoPackages['amplify_flutter']!.version.amplifyConstraint();
-    final dartSdkConstraint = rawAftConfig.environment.sdk.toString();
-    final flutterSdkConstraint = rawAftConfig.environment.flutter.toString();
-    final androidMinSdkVersion = rawAftConfig.environment.android.minSdkVersion;
-    final iosMinOsVersion = rawAftConfig.environment.ios.minOSVersion;
-    final macosMinOsVersion = rawAftConfig.environment.macOS.minOSVersion;
+    final dartSdkConstraint = aftConfig.environment.sdk.toString();
+    final flutterSdkConstraint = aftConfig.environment.flutter.toString();
+    final androidMinSdkVersion = aftConfig.platforms!.android.minSdkVersion;
+    final iosMinOsVersion = aftConfig.platforms!.ios.minOSVersion;
+    final macosMinOsVersion = aftConfig.platforms!.macOS.minOSVersion;
 
     await generator.hooks.preGen(
       workingDirectory: outputDir.path,
