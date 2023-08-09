@@ -12,31 +12,31 @@ Future<void> launch() async {
   final iosVersion = core.getInput('ios-version');
   core.info('Launching simulator for iOS $iosVersion');
 
-  // Use xcodes (https://github.com/XcodesOrg/xcodes) to list runtimes for all Xcode versions
-  final xcodesRes = await core.withGroup(
-    'Install xcodes',
-    () => exec.exec('brew', ['install', 'xcodesorg/made/xcodes']),
-  );
-  if (xcodesRes.exitCode != 0) {
-    throw Exception('Could not install xcodes');
-  }
-
   var runtimeIdentifier = await core.withGroup(
     'Check for existing runtime',
-    () => getRuntimeId(iosVersion),
+    () async {
+      final runtimeId = await getRuntimeId(iosVersion);
+      core.info('Found runtime ID: $runtimeId');
+      return runtimeId;
+    },
   );
   if (runtimeIdentifier == null) {
     core.info('No runtime found for iOS $iosVersion');
-    await core.withGroup('Clear cache', clearCache);
-    await core.withGroup('Install runtime', () => installRuntime(iosVersion));
+    await installXcodes();
+    await installRuntime(iosVersion);
   }
   runtimeIdentifier = await core.withGroup(
     'Get runtime ID',
-    () => getRuntimeId(iosVersion),
+    () async {
+      final runtimeId = await getRuntimeId(iosVersion);
+      core.info('Found runtime ID: $runtimeId');
+      return runtimeId;
+    },
   );
   if (runtimeIdentifier == null) {
     throw Exception('Runtime not found after install');
   }
+
   final createRes = await core.withGroup(
     'Create simulator',
     () => exec.exec(
@@ -65,25 +65,12 @@ Future<void> launch() async {
   }
 }
 
-/// Clears the cache from previous attempts.
-Future<void> clearCache() async {
-  final cacheDirs = [
-    '~/Library/Caches/com.robotsandpencils.xcodes',
-    '~/Downloads',
-  ];
-  for (final dir in cacheDirs) {
-    if (fs.existsSync(dir)) {
-      fs.rmdirSync(dir);
-    }
-  }
-}
-
 /// Gets the iOS runtime identifier for the given [iosVersion].
 Future<String?> getRuntimeId(String iosVersion) async {
   final runtimesRes = await exec.exec(
     'xcrun',
     ['simctl', 'list', 'runtimes', '-j'],
-    silent: true,
+    echoOutput: false,
   );
   if (runtimesRes.exitCode != 0) {
     throw Exception('Could not list runtimes');
@@ -100,13 +87,33 @@ Future<String?> getRuntimeId(String iosVersion) async {
   return versionRuntime['identifier'] as String;
 }
 
+/// Installs the `xcodes` tool (https://github.com/XcodesOrg/xcodes) and
+/// `aria2` for speeding up downloads (as recommended by `xcodes`).
+Future<void> installXcodes() => core.withGroup('Install xcodes', () async {
+      final res = await exec.exec(
+        'brew',
+        ['install', 'xcodesorg/made/xcodes', 'aria2'],
+      );
+      if (res.exitCode != 0) {
+        throw Exception('Could not install xcodes');
+      }
+    });
+
 /// Installs the iOS runtime for the given [iosVersion].
 Future<void> installRuntime(String iosVersion) async {
-  final res = await exec.exec(
-    'sudo',
-    ['xcodes', 'runtimes', 'install', 'iOS $iosVersion'],
-  );
-  if (res.exitCode != 0) {
-    throw Exception('Could not install runtime');
-  }
+  await core.withGroup('Install runtime', () async {
+    final res = await exec.exec(
+      'sudo',
+      [
+        'xcodes',
+        'runtimes',
+        'install',
+        'iOS $iosVersion',
+        '--no-color',
+      ],
+    );
+    if (res.exitCode != 0) {
+      throw Exception('Could not install runtime');
+    }
+  });
 }

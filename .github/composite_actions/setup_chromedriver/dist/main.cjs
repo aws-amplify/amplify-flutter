@@ -4308,12 +4308,17 @@
     _$ChromeVersionDownloadsFromJson_closure0: function _$ChromeVersionDownloadsFromJson_closure0() {
     },
     Exec_exec(_this, commandLine, args) {
+      return A.Exec_exec$body(_this, commandLine, args);
+    },
+    Exec_exec$body(_this, commandLine, args) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.ExecResult),
-        $async$returnValue, options, t2, exitCode, stdout, stderr, t1;
+        $async$returnValue, $async$handler = 2, $async$currentError, options, exitCode, t2, exception, stdout, stderr, t1, $async$exception;
       var $async$Exec_exec = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
-        if ($async$errorCode === 1)
-          return A._asyncRethrow($async$result, $async$completer);
+        if ($async$errorCode === 1) {
+          $async$currentError = $async$result;
+          $async$goto = $async$handler;
+        }
         while (true)
           switch ($async$goto) {
             case 0:
@@ -4322,12 +4327,13 @@
               stderr = new A.StringBuffer("");
               t1 = type$.Function;
               t1 = {stdout: A.allowInterop(new A.Exec_exec_closure(stdout), t1), stderr: A.allowInterop(new A.Exec_exec_closure0(stderr), t1)};
-              options = {listeners: t1, cwd: null, silent: null};
+              options = {listeners: t1, cwd: null, silent: false, ignoreReturnCode: false};
+              $async$handler = 4;
               t1 = A._arrayInstanceType(args);
               t2 = t1._eval$1("MappedListIterable<1,String>");
-              $async$goto = 3;
+              $async$goto = 7;
               return A._asyncAwait(A.promiseToFuture(type$.JSObject._as(_this.exec(commandLine, A.List_List$of(new A.MappedListIterable(args, t1._eval$1("String(1)")._as(new A.Exec_exec_closure1()), t2), true, t2._eval$1("ListIterable.E")), options)), type$.int), $async$Exec_exec);
-            case 3:
+            case 7:
               // returning from await.
               exitCode = $async$result;
               t2 = stdout._contents;
@@ -4336,9 +4342,32 @@
               // goto return
               $async$goto = 1;
               break;
+              $async$handler = 2;
+              // goto after finally
+              $async$goto = 6;
+              break;
+            case 4:
+              // catch
+              $async$handler = 3;
+              $async$exception = $async$currentError;
+              t1 = A.Exception_Exception('"' + commandLine + " " + B.JSArray_methods.join$1(args, " ") + '" failed:\n' + A.S(stdout) + "\n" + A.S(stderr));
+              throw A.wrapException(t1);
+              // goto after finally
+              $async$goto = 6;
+              break;
+            case 3:
+              // uncaught
+              // goto rethrow
+              $async$goto = 2;
+              break;
+            case 6:
+              // after finally
             case 1:
               // return
               return A._asyncReturn($async$returnValue, $async$completer);
+            case 2:
+              // rethrow
+              return A._asyncRethrow($async$currentError, $async$completer);
           }
       });
       return A._asyncStartSync($async$Exec_exec, $async$completer);
