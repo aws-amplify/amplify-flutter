@@ -255,17 +255,17 @@ abstract class AuthenticatorInputLocalizations {
   /// **'at least {numCharacters, plural, =1{1{characterType} character} other{{numCharacters}{characterType} characters}}'**
   String passwordRequirementsAtLeast(int numCharacters, String characterType);
 
-  /// Label for the radio button to select the user's mfa method.
+  /// Label for the radio button to select SMS as the user's chosen MFA method..
   ///
   /// In en, this message translates to:
   /// **'Text Message (SMS)'**
-  String get mfaSmsMethod;
+  String get smsSelection;
 
-  /// Label for the radio button to select the user's mfa method.
+  /// Label for the radio button to select TOTP as the user's chosen MFA method.
   ///
   /// In en, this message translates to:
   /// **'Authenticator App (TOTP)'**
-  String get mfaTotpMethod;
+  String get totpSelection;
 
   /// Message for conflicting password and confirm password fields.
   ///

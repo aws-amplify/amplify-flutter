@@ -22,7 +22,7 @@ class AuthenticatorTitleLocalizationsEn
 
   @override
   String get continueSignInWithMfaSelection =>
-      'Select your preferred MFA Method';
+      'Select your preferred MFA method';
 
   @override
   String get continueSignInWithTotpSetup => 'Enable Two-Factor Auth';

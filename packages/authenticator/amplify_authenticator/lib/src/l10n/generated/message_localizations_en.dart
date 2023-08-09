@@ -15,4 +15,10 @@ class AuthenticatorMessageLocalizationsEn
 
   @override
   String get codeSentUnknown => 'A confirmation code has been sent.';
+
+  @override
+  String get totpKeyCopied => 'Copied to clipboard!';
+
+  @override
+  String get totpKeyCopiedFailed => 'Copy to clipboard failed.';
 }

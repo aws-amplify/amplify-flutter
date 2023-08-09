@@ -52,8 +52,6 @@ void main() {
         final signInPage = SignInPage(tester: tester);
         final confirmSignInPage = ConfirmSignInPage(tester: tester);
 
-        signInPage.expectUsername();
-
         // When I type my "username"
         await signInPage.enterUsername(username);
 
@@ -68,10 +66,10 @@ void main() {
 
         final code_1 = await generateTotpCode(sharedSecret);
 
-        // And I click the TOTP Stepper "Continue" button
+        // When I click the TOTP Stepper "Continue" button
         await confirmSignInPage.totpStepperContinue();
 
-        // When I type an valid TOTP code
+        // And I type a valid TOTP code
         await confirmSignInPage.enterVerificationCode(code_1);
 
         // And I click the "Confirm" button
@@ -104,7 +102,7 @@ void main() {
 
         final code_2 = await generateTotpCode(sharedSecret);
 
-        // Then I type an valid TOTP code
+        // When I type a valid TOTP code
         await confirmSignInPage.enterVerificationCode(code_2);
 
         // And I click the "Confirm" button

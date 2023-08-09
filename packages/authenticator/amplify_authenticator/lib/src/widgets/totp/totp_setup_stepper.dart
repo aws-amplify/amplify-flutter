@@ -78,23 +78,19 @@ class AuthenticatorTotpSetupStepper<T extends AuthenticatorForm>
               return Row(
                 children: <Widget>[
                   if (_index == 0)
-                    FilledButton(
-                      key: keyContinueTotpStepperButton,
-                      onPressed: controlsDetails.onStepContinue,
-                      child: const Text('Continue'),
+                    Expanded(
+                      child: FilledButton(
+                        key: keyContinueTotpStepperButton,
+                        onPressed: controlsDetails.onStepContinue,
+                        child: const Text('Continue'),
+                      ),
                     ),
-                  if (_index == 1) ...[
-                    TextButton(
-                      onPressed: controlsDetails.onStepCancel,
-                      child: const Text('Back'),
-                    ),
-                    const SizedBox(
-                      width: 100,
+                  if (_index == 1)
+                    const Expanded(
                       child: ConfirmSignInMFAButton(
                         key: keyConfirmTotpStepperButton,
                       ),
                     ),
-                  ],
                 ],
               );
             },

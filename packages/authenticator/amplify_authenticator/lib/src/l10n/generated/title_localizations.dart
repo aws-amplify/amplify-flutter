@@ -126,7 +126,7 @@ abstract class AuthenticatorTitleLocalizations {
   /// Title of the SignIn with MFA selection step and form
   ///
   /// In en, this message translates to:
-  /// **'Select your preferred MFA Method'**
+  /// **'Select your preferred MFA method'**
   String get continueSignInWithMfaSelection;
 
   /// Title of the SignIn with TOTP setup step and form
