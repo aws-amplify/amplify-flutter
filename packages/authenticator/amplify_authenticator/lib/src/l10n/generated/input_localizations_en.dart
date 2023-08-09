@@ -131,10 +131,10 @@ class AuthenticatorInputLocalizationsEn
   }
 
   @override
-  String get mfaSmsMethod => 'Text Message (SMS)';
+  String get smsSelection => 'Text Message (SMS)';
 
   @override
-  String get mfaTotpMethod => 'Authenticator App (TOTP)';
+  String get totpSelection => 'Authenticator App (TOTP)';
 
   @override
   String get passwordsDoNotMatch => 'Passwords do not match.';

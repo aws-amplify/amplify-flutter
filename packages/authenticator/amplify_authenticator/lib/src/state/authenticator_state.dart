@@ -385,8 +385,6 @@ class AuthenticatorState extends ChangeNotifier {
 
     _setIsBusy(true);
 
-    TextInput.finishAutofillContext(shouldSave: true);
-
     final confirm = AuthConfirmSignInData(
       confirmationValue: _confirmationCode.trim(),
       attributes: authAttributes,

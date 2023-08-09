@@ -4,6 +4,7 @@
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_authenticator/src/utils/responsive.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
+import 'package:amplify_authenticator/src/widgets/totp/totp_setup_fields.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,6 +21,9 @@ mixin OpenAuthenticationAppButton<FieldType extends Enum,
   /// This will open the app, but not add the account.
   /// Used on confirm totp screen after user has already setup totp
   static final _authenticatorAppLink = Uri.parse('otpauth://');
+
+  @override
+  double? get marginBottom => 0;
 
   Uri get totpUri {
     return switch (state.currentStep) {
@@ -70,14 +74,23 @@ mixin OpenAuthenticationAppButton<FieldType extends Enum,
           return const SizedBox.shrink(); // Return empty widget
         }
 
-        return SizedBox(
-          child: OutlinedButton.icon(
-            onPressed: _launchUrl,
-            icon: const Icon(Icons.app_shortcut),
-            label: Center(
-              child: Text(buttonText),
+        return Column(
+          children: [
+            SizedBox(
+              child: OutlinedButton.icon(
+                onPressed: _launchUrl,
+                icon: const Icon(Icons.app_shortcut),
+                label: Center(
+                  child: Text(buttonText),
+                ),
+              ),
             ),
-          ),
+            if (state.currentStep ==
+                AuthenticatorStep.continueSignInWithTotpSetup) ...[
+              const SizedBox(height: 20),
+              optionDivider(),
+            ],
+          ],
         );
       },
     );

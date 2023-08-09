@@ -15,5 +15,13 @@
     "codeSentUnknown": "A confirmation code has been sent.",
     "@codeSentUnknown": {
         "description": "The message that is displayed after a new confirmation code is sent via an unknown delivery medium"
+    },
+    "totpKeyCopied": "Copied to clipboard!",
+    "@totpKeyCopied": {
+        "description": "The message that is displayed after a TOTP Key was copied to the clipboard"
+    },
+    "totpKeyCopiedFailed": "Copy to clipboard failed.",
+    "@totpKeyCopiedFailed": {
+        "description": "The message that is displayed after a TOTP Key failed to copy to the clipboard"
     }
 }

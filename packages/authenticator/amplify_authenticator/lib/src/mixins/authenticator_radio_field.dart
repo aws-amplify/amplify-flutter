@@ -44,7 +44,6 @@ mixin AuthenticatorRadioField<FieldType extends Enum, FieldValue extends Object,
                   onChanged(value);
                 }
               },
-              activeColor: Theme.of(context).primaryColor,
             ),
             onTap: () {
               setState(() {

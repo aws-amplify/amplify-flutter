@@ -53,8 +53,6 @@ void main() {
         final smsResult =
             await getOtpCode(UserAttribute.phone(phoneNumber.toE164()));
 
-        signInPage.expectUsername();
-
         // When I type my "username"
         await signInPage.enterUsername(username);
 
@@ -67,7 +65,7 @@ void main() {
         // Then I will be redirected to the confirm sms mfa page
         await confirmSignInPage.expectConfirmSignInMFAIsPresent();
 
-        // And I type a valid confirmation code
+        // When I type a valid confirmation code
         await confirmSignInPage.enterVerificationCode(await smsResult.code);
 
         // And I click the "Confirm" button
@@ -76,14 +74,14 @@ void main() {
         // Then I see the authenticated app
         await signInPage.expectAuthenticated();
 
-        // We must programmatically turn on TOTP when SMS & TOTP is enabled
-        // since cognito defaults to SMS
+        // When I enable TOTP for MFA instead of the default set up by cognito (SMS)
         await setUpTotp();
 
-        // When I sign out using Auth.signOut()
+        // And I sign out using Auth.signOut()
         await Amplify.Auth.signOut();
         await tester.pumpAndSettle();
 
+        // Then I see the sign in page
         signInPage.expectUsername();
 
         // When I type my "username"
@@ -109,7 +107,7 @@ void main() {
 
         final code_2 = await generateTotpCode();
 
-        // Then I type an valid TOTP code
+        // When I type a valid TOTP code
         await confirmSignInPage.enterVerificationCode(code_2);
 
         // And I click the "Confirm" button
@@ -159,8 +157,6 @@ void main() {
         final smsResult_1 =
             await getOtpCode(UserAttribute.phone(phoneNumber.toE164()));
 
-        signInPage.expectUsername();
-
         // When I type my "username"
         await signInPage.enterUsername(username);
 
@@ -173,7 +169,7 @@ void main() {
         // Then I will be redirected to the confirm sms mfa page
         await confirmSignInPage.expectConfirmSignInMFAIsPresent();
 
-        // And I type a valid confirmation code
+        // When I type a valid confirmation code
         await confirmSignInPage.enterVerificationCode(await smsResult_1.code);
 
         // And I click the "Confirm" button
@@ -182,13 +178,14 @@ void main() {
         // Then I see the authenticated app
         await signInPage.expectAuthenticated();
 
-        // Turn on totp mfa
+        // When I enable TOTP for MFA instead of the default set up by cognito (SMS)
         await setUpTotp();
 
-        // When I sign out using Auth.signOut()
+        // And I sign out using Auth.signOut()
         await Amplify.Auth.signOut();
         await tester.pumpAndSettle();
 
+        // Then I see the sign in page
         signInPage.expectUsername();
 
         // When I type my "username"
@@ -215,7 +212,7 @@ void main() {
         // Then I will be redirected to the confirm sms mfa page
         await confirmSignInPage.expectConfirmSignInMFAIsPresent();
 
-        // And I type a valid confirmation code
+        // When I type a valid confirmation code
         await confirmSignInPage.enterVerificationCode(await smsResult_2.code);
 
         // And I click the "Confirm" button

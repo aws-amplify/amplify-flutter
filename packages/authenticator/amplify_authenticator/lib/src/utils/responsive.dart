@@ -4,13 +4,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+/// Returns true if the current platform is mobile/tablets or web mobile.
 bool isMobileOrWebMobile(BuildContext context) {
-  final isMobile = Theme.of(context).platform == TargetPlatform.iOS ||
-      Theme.of(context).platform == TargetPlatform.android;
-  final isWebMobile = kIsWeb &&
-      (defaultTargetPlatform == TargetPlatform.iOS ||
-          defaultTargetPlatform == TargetPlatform.android);
-  final show = isMobile || isWebMobile;
+  final mobile = isMobile(context);
+  final isWebMobile = kIsWeb && mobile;
+  return mobile || isWebMobile;
+}
 
-  return show;
+/// Returns true if the current platform is mobile/tablets.
+bool isMobile(BuildContext context) {
+  final platform = Theme.of(context).platform;
+  return platform == TargetPlatform.iOS || platform == TargetPlatform.android;
 }

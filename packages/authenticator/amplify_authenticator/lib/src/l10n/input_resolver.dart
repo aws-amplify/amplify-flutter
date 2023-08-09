@@ -444,9 +444,9 @@ class InputResolver extends Resolver<InputResolverKey> {
       // case InputField.website:
       //   break;
       case InputField.mfaSmsMethod:
-        return AuthenticatorLocalizations.inputsOf(context).mfaSmsMethod;
+        return AuthenticatorLocalizations.inputsOf(context).smsSelection;
       case InputField.mfaTotpMethod:
-        return AuthenticatorLocalizations.inputsOf(context).mfaTotpMethod;
+        return AuthenticatorLocalizations.inputsOf(context).totpSelection;
       case InputField.rememberDevice:
         return AuthenticatorLocalizations.inputsOf(context).rememberDevice;
       case InputField.usernameType:
