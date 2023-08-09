@@ -15,6 +15,11 @@ and copied to `.github/composite_actions/<action-name>`.
 
 ## Building
 
-Building requires a dev release of the Dart compiler.
+> Building requires a dev release of the Dart compiler.
+
+Building the actions involves compiling them to JavaScript and copying their JS bundles to the `.github/composite_actions` directory
+so that they may be referenced in CI.
 
 To build, run `tool/build.dart`.
+
+**NOTE**: This command must be run every time an action is updated.
