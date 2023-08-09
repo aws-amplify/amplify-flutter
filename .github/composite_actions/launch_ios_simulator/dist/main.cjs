@@ -6284,7 +6284,7 @@
             case 0:
               // Function start
               $async$goto = 2;
-              return A._asyncAwait(A.Chain_capture(mainFn, new A.wrapMain_closure(), type$.Future_void), $async$wrapMain);
+              return A._asyncAwait(A.Chain_capture(new A.wrapMain_closure(mainFn), new A.wrapMain_closure0(), type$.Future_Never), $async$wrapMain);
             case 2:
               // returning from await.
               // implicit return
@@ -6293,39 +6293,72 @@
       });
       return A._asyncStartSync($async$wrapMain, $async$completer);
     },
-    wrapMain_closure: function wrapMain_closure() {
+    wrapMain_closure: function wrapMain_closure(t0) {
+      this.mainFn = t0;
     },
-    Exec_exec(_this, commandLine, args, silent) {
+    wrapMain_closure0: function wrapMain_closure0() {
+    },
+    Exec_exec(_this, commandLine, args, echoOutput) {
+      return A.Exec_exec$body(_this, commandLine, args, echoOutput);
+    },
+    Exec_exec$body(_this, commandLine, args, echoOutput) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.ExecResult),
-        $async$returnValue, t2, options, exitCode, stdout, t1;
+        $async$returnValue, $async$handler = 2, $async$currentError, options, exitCode, t2, exception, stdout, stderr, t1, $async$exception;
       var $async$Exec_exec = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
-        if ($async$errorCode === 1)
-          return A._asyncRethrow($async$result, $async$completer);
+        if ($async$errorCode === 1) {
+          $async$currentError = $async$result;
+          $async$goto = $async$handler;
+        }
         while (true)
           switch ($async$goto) {
             case 0:
               // Function start
               stdout = new A.StringBuffer("");
+              stderr = new A.StringBuffer("");
               t1 = type$.Function;
-              t1 = {stdout: A.allowInterop(new A.Exec_exec_closure(stdout), t1), stderr: A.allowInterop(new A.Exec_exec_closure0(new A.StringBuffer("")), t1)};
-              t2 = silent == null ? null : silent;
-              options = {listeners: t1, cwd: null, silent: t2};
+              t1 = {stdout: A.allowInterop(new A.Exec_exec_closure(stdout), t1), stderr: A.allowInterop(new A.Exec_exec_closure0(stderr), t1)};
+              options = {listeners: t1, cwd: null, silent: !echoOutput, ignoreReturnCode: false};
+              $async$handler = 4;
               t1 = A._arrayInstanceType(args);
               t2 = t1._eval$1("MappedListIterable<1,String>");
-              $async$goto = 3;
+              $async$goto = 7;
               return A._asyncAwait(A.promiseToFuture(type$.JSObject._as(_this.exec(commandLine, A.List_List$of(new A.MappedListIterable(args, t1._eval$1("String(1)")._as(new A.Exec_exec_closure1()), t2), true, t2._eval$1("ListIterable.E")), options)), type$.int), $async$Exec_exec);
-            case 3:
+            case 7:
               // returning from await.
               exitCode = $async$result;
               t2 = stdout._contents;
+              stderr.toString;
               $async$returnValue = new A.ExecResult(exitCode, t2.charCodeAt(0) == 0 ? t2 : t2);
               // goto return
               $async$goto = 1;
               break;
+              $async$handler = 2;
+              // goto after finally
+              $async$goto = 6;
+              break;
+            case 4:
+              // catch
+              $async$handler = 3;
+              $async$exception = $async$currentError;
+              t1 = A.Exception_Exception('"' + commandLine + " " + B.JSArray_methods.join$1(args, " ") + '" failed:\n' + A.S(stdout) + "\n" + A.S(stderr));
+              throw A.wrapException(t1);
+              // goto after finally
+              $async$goto = 6;
+              break;
+            case 3:
+              // uncaught
+              // goto rethrow
+              $async$goto = 2;
+              break;
+            case 6:
+              // after finally
             case 1:
               // return
               return A._asyncReturn($async$returnValue, $async$completer);
+            case 2:
+              // rethrow
+              return A._asyncRethrow($async$currentError, $async$completer);
           }
       });
       return A._asyncStartSync($async$Exec_exec, $async$completer);
@@ -6981,7 +7014,7 @@
     launch$body() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        t3, t4, runtimeIdentifier, t5, t1, t2, iosVersion;
+        t3, runtimeIdentifier, t1, t2, iosVersion;
       var $async$launch = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -6993,53 +7026,46 @@
               t2 = type$.JSObject;
               iosVersion = A._asString(t2._as(globalThis.core).getInput("ios-version"));
               t2._as(globalThis.core).info("Launching simulator for iOS " + iosVersion);
-              t3 = type$.ExecResult;
+              t3 = type$.nullable_String;
               $async$goto = 2;
-              return A._asyncAwait(A.Core_withGroup(t2._as(globalThis.core), "Install xcodes", new A.launch_closure(), t3), $async$launch);
+              return A._asyncAwait(A.Core_withGroup(t2._as(globalThis.core), "Check for existing runtime", new A.launch_closure(iosVersion), t3), $async$launch);
             case 2:
-              // returning from await.
-              if ($async$result.exitCode !== 0)
-                throw A.wrapException(A.Exception_Exception("Could not install xcodes"));
-              t4 = type$.nullable_String;
-              $async$goto = 3;
-              return A._asyncAwait(A.Core_withGroup(t2._as(globalThis.core), "Check for existing runtime", new A.launch_closure0(iosVersion), t4), $async$launch);
-            case 3:
               // returning from await.
               runtimeIdentifier = $async$result;
               t1.runtimeIdentifier = runtimeIdentifier;
-              $async$goto = runtimeIdentifier == null ? 4 : 5;
+              $async$goto = runtimeIdentifier == null ? 3 : 4;
               break;
-            case 4:
+            case 3:
               // then
               t2._as(globalThis.core).info("No runtime found for iOS " + iosVersion);
-              t5 = type$.void;
+              $async$goto = 5;
+              return A._asyncAwait(A.installXcodes(), $async$launch);
+            case 5:
+              // returning from await.
               $async$goto = 6;
-              return A._asyncAwait(A.Core_withGroup(t2._as(globalThis.core), "Clear cache", A.launch_ios_simulator__clearCache$closure(), t5), $async$launch);
+              return A._asyncAwait(A.installRuntime(iosVersion), $async$launch);
             case 6:
               // returning from await.
-              $async$goto = 7;
-              return A._asyncAwait(A.Core_withGroup(t2._as(globalThis.core), "Install runtime", new A.launch_closure1(iosVersion), t5), $async$launch);
-            case 7:
-              // returning from await.
-            case 5:
+            case 4:
               // join
-              $async$goto = 8;
-              return A._asyncAwait(A.Core_withGroup(t2._as(globalThis.core), "Get runtime ID", new A.launch_closure2(iosVersion), t4), $async$launch);
-            case 8:
+              $async$goto = 7;
+              return A._asyncAwait(A.Core_withGroup(t2._as(globalThis.core), "Get runtime ID", new A.launch_closure0(iosVersion), t3), $async$launch);
+            case 7:
               // returning from await.
               runtimeIdentifier = $async$result;
               t1.runtimeIdentifier = runtimeIdentifier;
               if (runtimeIdentifier == null)
                 throw A.wrapException(A.Exception_Exception("Runtime not found after install"));
-              $async$goto = 9;
-              return A._asyncAwait(A.Core_withGroup(t2._as(globalThis.core), "Create simulator", new A.launch_closure3(t1), t3), $async$launch);
-            case 9:
+              t3 = type$.ExecResult;
+              $async$goto = 8;
+              return A._asyncAwait(A.Core_withGroup(t2._as(globalThis.core), "Create simulator", new A.launch_closure1(t1), t3), $async$launch);
+            case 8:
               // returning from await.
               if ($async$result.exitCode !== 0)
                 throw A.wrapException(A.Exception_Exception("Could not create simulator"));
-              $async$goto = 10;
-              return A._asyncAwait(A.Core_withGroup(t2._as(globalThis.core), "Boot simulator", new A.launch_closure4(), t3), $async$launch);
-            case 10:
+              $async$goto = 9;
+              return A._asyncAwait(A.Core_withGroup(t2._as(globalThis.core), "Boot simulator", new A.launch_closure2(), t3), $async$launch);
+            case 9:
               // returning from await.
               if ($async$result.exitCode !== 0)
                 throw A.wrapException(A.Exception_Exception("Could not boot simulator"));
@@ -7048,29 +7074,6 @@
           }
       });
       return A._asyncStartSync($async$launch, $async$completer);
-    },
-    clearCache() {
-      var $async$goto = 0,
-        $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        t1, _i, dir, cacheDirs;
-      var $async$clearCache = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
-        if ($async$errorCode === 1)
-          return A._asyncRethrow($async$result, $async$completer);
-        while (true)
-          switch ($async$goto) {
-            case 0:
-              // Function start
-              cacheDirs = ["~/Library/Caches/com.robotsandpencils.xcodes", "~/Downloads"];
-              for (t1 = type$.JSObject, _i = 0; _i < 2; ++_i) {
-                dir = cacheDirs[_i];
-                if (A._asBool(t1._as(globalThis.fs).existsSync(dir)))
-                  t1._as(globalThis.fs).rmdirSync(dir, {recursive: true});
-              }
-              // implicit return
-              return A._asyncReturn(null, $async$completer);
-          }
-      });
-      return A._asyncStartSync($async$clearCache, $async$completer);
     },
     getRuntimeId(iosVersion) {
       var $async$goto = 0,
@@ -7084,7 +7087,7 @@
             case 0:
               // Function start
               $async$goto = 3;
-              return A._asyncAwait(A.Exec_exec(type$.JSObject._as(globalThis.exec), "xcrun", A._setArrayType(["simctl", "list", "runtimes", "-j"], type$.JSArray_String), true), $async$getRuntimeId);
+              return A._asyncAwait(A.Exec_exec(type$.JSObject._as(globalThis.exec), "xcrun", A._setArrayType(["simctl", "list", "runtimes", "-j"], type$.JSArray_String), false), $async$getRuntimeId);
             case 3:
               // returning from await.
               runtimesRes = $async$result;
@@ -7109,6 +7112,9 @@
       });
       return A._asyncStartSync($async$getRuntimeId, $async$completer);
     },
+    installXcodes() {
+      return A.Core_withGroup(type$.JSObject._as(globalThis.core), "Install xcodes", new A.installXcodes_closure(), type$.void);
+    },
     installRuntime(iosVersion) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.void);
@@ -7120,34 +7126,32 @@
             case 0:
               // Function start
               $async$goto = 2;
-              return A._asyncAwait(A.Exec_exec(type$.JSObject._as(globalThis.exec), "sudo", A._setArrayType(["xcodes", "runtimes", "install", "iOS " + iosVersion], type$.JSArray_String), null), $async$installRuntime);
+              return A._asyncAwait(A.Core_withGroup(type$.JSObject._as(globalThis.core), "Install runtime", new A.installRuntime_closure(iosVersion), type$.Null), $async$installRuntime);
             case 2:
               // returning from await.
-              if ($async$result.exitCode !== 0)
-                throw A.wrapException(A.Exception_Exception("Could not install runtime"));
               // implicit return
               return A._asyncReturn(null, $async$completer);
           }
       });
       return A._asyncStartSync($async$installRuntime, $async$completer);
     },
-    launch_closure: function launch_closure() {
+    launch_closure: function launch_closure(t0) {
+      this.iosVersion = t0;
     },
     launch_closure0: function launch_closure0(t0) {
       this.iosVersion = t0;
     },
     launch_closure1: function launch_closure1(t0) {
-      this.iosVersion = t0;
-    },
-    launch_closure2: function launch_closure2(t0) {
-      this.iosVersion = t0;
-    },
-    launch_closure3: function launch_closure3(t0) {
       this._box_0 = t0;
     },
-    launch_closure4: function launch_closure4() {
+    launch_closure2: function launch_closure2() {
     },
     getRuntimeId_closure: function getRuntimeId_closure(t0) {
+      this.iosVersion = t0;
+    },
+    installXcodes_closure: function installXcodes_closure() {
+    },
+    installRuntime_closure: function installRuntime_closure(t0) {
       this.iosVersion = t0;
     },
     printString(string) {
@@ -7228,6 +7232,10 @@
           }
       });
       return A._asyncStartSync($async$Core_withGroup, $async$completer);
+    },
+    Core_setFailed(_this, error) {
+      _this.setFailed(error);
+      type$.Never._as(type$.JSObject._as(globalThis.process).exit(1));
     },
     IterableExtension_firstWhereOrNull(_this, test, $T) {
       var t1, t2, element;
@@ -8934,7 +8942,7 @@
       B.JSArray_methods.add$1(this.$arguments, argument);
       ++t1.argumentCount;
     },
-    $signature: 15
+    $signature: 13
   };
   A.TypeErrorDecoder.prototype = {
     matchTypeError$1(message) {
@@ -9240,19 +9248,19 @@
     call$1(o) {
       return this.getTag(o);
     },
-    $signature: 48
+    $signature: 49
   };
   A.initHooks_closure0.prototype = {
     call$2(o, tag) {
       return this.getUnknownTag(o, tag);
     },
-    $signature: 38
+    $signature: 39
   };
   A.initHooks_closure1.prototype = {
     call$1(tag) {
       return this.prototypeForTag(A._asString(tag));
     },
-    $signature: 47
+    $signature: 48
   };
   A.JSSyntaxRegExp.prototype = {
     toString$0(_) {
@@ -9607,7 +9615,7 @@
       t1.storedCallback = null;
       f.call$0();
     },
-    $signature: 12
+    $signature: 10
   };
   A._AsyncRun__initializeScheduleImmediate_closure.prototype = {
     call$1(callback) {
@@ -9617,7 +9625,7 @@
       t2 = this.span;
       t1.firstChild ? t1.removeChild(t2) : t1.appendChild(t2);
     },
-    $signature: 61
+    $signature: 26
   };
   A._AsyncRun__scheduleImmediateJsOverride_internalCallback.prototype = {
     call$0() {
@@ -9704,13 +9712,13 @@
     call$2(error, stackTrace) {
       this.bodyFunction.call$2(1, new A.ExceptionAndStackTrace(error, type$.StackTrace._as(stackTrace)));
     },
-    $signature: 49
+    $signature: 51
   };
   A._wrapJsFunctionForAsync_closure.prototype = {
     call$2(errorCode, result) {
       this.$protected(A._asInt(errorCode), result);
     },
-    $signature: 63
+    $signature: 64
   };
   A.AsyncError.prototype = {
     toString$0(_) {
@@ -9964,13 +9972,13 @@
         t1._completeError$2(error, stackTrace);
       }
     },
-    $signature: 12
+    $signature: 10
   };
   A._Future__chainForeignFuture_closure0.prototype = {
     call$2(error, stackTrace) {
       this.$this._completeError$2(type$.Object._as(error), type$.StackTrace._as(stackTrace));
     },
-    $signature: 62
+    $signature: 65
   };
   A._Future__chainForeignFuture_closure1.prototype = {
     call$0() {
@@ -10035,7 +10043,7 @@
     call$1(_) {
       return this.originalSource;
     },
-    $signature: 29
+    $signature: 30
   };
   A._Future__propagateToListeners_handleValueCallback.prototype = {
     call$0() {
@@ -10712,7 +10720,7 @@
     call$2(k, v) {
       this.result.$indexSet(0, this.K._as(k), this.V._as(v));
     },
-    $signature: 33
+    $signature: 34
   };
   A.ListBase.prototype = {
     get$iterator(receiver) {
@@ -10809,7 +10817,7 @@
       t1._contents = t2 + ": ";
       t1._contents += A.S(v);
     },
-    $signature: 36
+    $signature: 37
   };
   A._UnmodifiableMapMixin.prototype = {};
   A.MapView.prototype = {
@@ -10942,7 +10950,7 @@
       }
       return null;
     },
-    $signature: 14
+    $signature: 12
   };
   A.Utf8Decoder__decoderNonfatal_closure.prototype = {
     call$0() {
@@ -10954,7 +10962,7 @@
       }
       return null;
     },
-    $signature: 14
+    $signature: 12
   };
   A.AsciiCodec.prototype = {
     encode$1(source) {
@@ -11410,7 +11418,7 @@
       t1._contents += A.Error_safeToString(value);
       t2.comma = ", ";
     },
-    $signature: 39
+    $signature: 40
   };
   A.Duration.prototype = {
     $eq(_, other) {
@@ -11761,7 +11769,7 @@
     call$2(msg, position) {
       throw A.wrapException(A.FormatException$("Illegal IPv6 address, " + msg, this.host, position));
     },
-    $signature: 43
+    $signature: 44
   };
   A.Uri_parseIPv6Address_parseHex.prototype = {
     call$2(start, end) {
@@ -11773,7 +11781,7 @@
         this.error.call$2("each part must be in the range of `0x0..0xFFFF`", start);
       return value;
     },
-    $signature: 45
+    $signature: 46
   };
   A._Uri.prototype = {
     get$_text() {
@@ -12124,7 +12132,7 @@
         target[t2] = transition;
       }
     },
-    $signature: 16
+    $signature: 14
   };
   A._createTables_setRange.prototype = {
     call$3(target, range, transition) {
@@ -12143,7 +12151,7 @@
         target[t1] = transition;
       }
     },
-    $signature: 16
+    $signature: 14
   };
   A._SimpleUri.prototype = {
     get$hasAuthority() {
@@ -12433,6 +12441,31 @@
     $isException: 1
   };
   A.wrapMain_closure.prototype = {
+    call$0() {
+      var $async$goto = 0,
+        $async$completer = A._makeAsyncAwaitCompleter(type$.Never),
+        $async$self = this;
+      var $async$call$0 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
+        if ($async$errorCode === 1)
+          return A._asyncRethrow($async$result, $async$completer);
+        while (true)
+          switch ($async$goto) {
+            case 0:
+              // Function start
+              $async$goto = 2;
+              return A._asyncAwait($async$self.mainFn.call$0(), $async$call$0);
+            case 2:
+              // returning from await.
+              type$.Never._as(type$.JSObject._as(globalThis.process).exit(0));
+              // implicit return
+              return A._asyncReturn(null, $async$completer);
+          }
+      });
+      return A._asyncStartSync($async$call$0, $async$completer);
+    },
+    $signature: 53
+  };
+  A.wrapMain_closure0.prototype = {
     call$2(error, chain) {
       return this.$call$body$wrapMain_closure(type$.Object._as(error), type$.Chain._as(chain));
     },
@@ -12450,33 +12483,33 @@
               t1 = type$.JSObject;
               t2 = t1._as(globalThis.fs);
               t3 = A._asString(globalThis.__dirname);
-              mappedStackChain = A.mapStackTrace(A.parseJson(type$.Map_dynamic_dynamic._as(B.C_JsonCodec.decode$2$reviver(A._asString(t2.readFileSync($.$get$context().join$16(0, t3, "main.cjs.map", null, null, null, null, null, null, null, null, null, null, null, null, null, null))), null)), null, null), chain, false, null, null);
+              mappedStackChain = A.mapStackTrace(A.parseJson(type$.Map_dynamic_dynamic._as(B.C_JsonCodec.decode$2$reviver(A._asString(t2.readFileSync($.$get$context().join$16(0, t3, "main.cjs.map", null, null, null, null, null, null, null, null, null, null, null, null, null, null), "utf8")), null)), null, null), chain, false, null, null);
               t1 = t1._as(globalThis.core);
               t1.error(J.toString$0$(error));
               t1.error(mappedStackChain.toString$0(0));
               t1.error(chain.toString$0(0));
-              t1.setFailed("Action failed with error: " + A.S(error));
+              A.Core_setFailed(t1, "Action failed with error: " + A.S(error));
               // implicit return
               return A._asyncReturn(null, $async$completer);
           }
       });
       return A._asyncStartSync($async$call$2, $async$completer);
     },
-    $signature: 51
+    $signature: 63
   };
   A.Exec_exec_closure.prototype = {
     call$1(buffer) {
       this.stdout._contents += B.C_Utf8Codec.decode$1(type$.Uint8List._as(buffer));
       return null;
     },
-    $signature: 17
+    $signature: 15
   };
   A.Exec_exec_closure0.prototype = {
     call$1(buffer) {
       this.stderr._contents += B.C_Utf8Codec.decode$1(type$.Uint8List._as(buffer));
       return null;
     },
-    $signature: 17
+    $signature: 15
   };
   A.Exec_exec_closure1.prototype = {
     call$1(arg) {
@@ -12987,7 +13020,7 @@
       A._asStringQ(arg);
       return arg == null ? "null" : '"' + arg + '"';
     },
-    $signature: 26
+    $signature: 27
   };
   A._PathDirection.prototype = {
     toString$0(_) {
@@ -13413,7 +13446,7 @@
       var _this = this;
       return A.Trace_Trace$from(A.mapStackTrace(_this.sourceMap, type$.Trace._as(trace), _this.minified, _this.packageMap, _this.sdkRoot));
     },
-    $signature: 27
+    $signature: 28
   };
   A.mapStackTrace_closure0.prototype = {
     call$1(frame) {
@@ -13440,13 +13473,13 @@
       t4 = A._prettifyMember(t4);
       return new A.Frame(t1, t2 + 1, t3 + 1, t4);
     },
-    $signature: 28
+    $signature: 29
   };
   A._prettifyMember_closure.prototype = {
     call$1(match) {
       return B.JSString_methods.$mul(".<fn>", match.$index(0, 1).length);
     },
-    $signature: 18
+    $signature: 16
   };
   A._prettifyMember_closure0.prototype = {
     call$1(match) {
@@ -13454,7 +13487,7 @@
       t1.toString;
       return t1 + ".";
     },
-    $signature: 18
+    $signature: 16
   };
   A.Mapping.prototype = {};
   A.MultiSectionMapping.prototype = {
@@ -13733,19 +13766,19 @@
       if (B.JSString_methods.startsWith$1($name, "x_"))
         this.$this.extensions.$indexSet(0, $name, value);
     },
-    $signature: 15
+    $signature: 13
   };
   A.SingleMapping__findLine_closure.prototype = {
     call$1(e) {
       return type$.TargetLineEntry._as(e).line > this.line;
     },
-    $signature: 30
+    $signature: 31
   };
   A.SingleMapping__findColumn_closure.prototype = {
     call$1(e) {
       return type$.TargetEntry._as(e).column > this.column;
     },
-    $signature: 31
+    $signature: 32
   };
   A.TargetLineEntry.prototype = {
     toString$0(_) {
@@ -13830,7 +13863,7 @@
         map.$indexSet(0, string$.ABCDEF[i], i);
       return map;
     },
-    $signature: 32
+    $signature: 33
   };
   A.SourceFile.prototype = {
     get$length(_) {
@@ -13981,7 +14014,7 @@
     call$1(trace) {
       return type$.Trace._as(trace).get$frames();
     },
-    $signature: 34
+    $signature: 35
   };
   A.Chain_toString_closure0.prototype = {
     call$1(trace) {
@@ -13989,13 +14022,13 @@
         t2 = A._arrayInstanceType(t1);
       return new A.MappedListIterable(t1, t2._eval$1("int(1)")._as(new A.Chain_toString__closure0()), t2._eval$1("MappedListIterable<1,int>")).fold$1$2(0, 0, B.CONSTANT, type$.int);
     },
-    $signature: 35
+    $signature: 36
   };
   A.Chain_toString__closure0.prototype = {
     call$1(frame) {
       return type$.Frame._as(frame).get$location().length;
     },
-    $signature: 19
+    $signature: 17
   };
   A.Chain_toString_closure.prototype = {
     call$1(trace) {
@@ -14003,14 +14036,14 @@
         t2 = A._arrayInstanceType(t1);
       return new A.MappedListIterable(t1, t2._eval$1("String(1)")._as(new A.Chain_toString__closure(this.longest)), t2._eval$1("MappedListIterable<1,String>")).join$0(0);
     },
-    $signature: 37
+    $signature: 38
   };
   A.Chain_toString__closure.prototype = {
     call$1(frame) {
       type$.Frame._as(frame);
       return B.JSString_methods.padRight$1(frame.get$location(), this.longest) + "  " + A.S(frame.get$member()) + "\n";
     },
-    $signature: 20
+    $signature: 18
   };
   A.Frame.prototype = {
     get$library() {
@@ -14148,7 +14181,7 @@
       columnMatch = t1[3];
       return new A.Frame(uri, line, columnMatch != null ? A.int_parse(columnMatch, _null) : _null, member);
     },
-    $signature: 40
+    $signature: 41
   };
   A.Frame_Frame$_parseFirefoxEval_closure.prototype = {
     call$0() {
@@ -14468,7 +14501,7 @@
     call$0() {
       return A.Chain_Chain$parse(this._box_0.trace.toString$0(0));
     },
-    $signature: 46
+    $signature: 47
   };
   A.StackZoneSpecification_chainFor_closure0.prototype = {
     call$0() {
@@ -14592,7 +14625,7 @@
     call$1(frame) {
       return type$.Frame._as(frame).get$location().length;
     },
-    $signature: 19
+    $signature: 17
   };
   A.Trace_toString_closure.prototype = {
     call$1(frame) {
@@ -14601,7 +14634,7 @@
         return frame.toString$0(0) + "\n";
       return B.JSString_methods.padRight$1(frame.get$location(), this.longest) + "  " + A.S(frame.get$member()) + "\n";
     },
-    $signature: 20
+    $signature: 18
   };
   A.UnparsedFrame.prototype = {
     toString$0(_) {
@@ -14626,48 +14659,137 @@
   };
   A.launch_closure.prototype = {
     call$0() {
-      return A.Exec_exec(type$.JSObject._as(globalThis.exec), "brew", A._setArrayType(["install", "xcodesorg/made/xcodes"], type$.JSArray_String), null);
+      var $async$goto = 0,
+        $async$completer = A._makeAsyncAwaitCompleter(type$.nullable_String),
+        $async$returnValue, $async$self = this, runtimeId;
+      var $async$call$0 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
+        if ($async$errorCode === 1)
+          return A._asyncRethrow($async$result, $async$completer);
+        while (true)
+          switch ($async$goto) {
+            case 0:
+              // Function start
+              $async$goto = 3;
+              return A._asyncAwait(A.getRuntimeId($async$self.iosVersion), $async$call$0);
+            case 3:
+              // returning from await.
+              runtimeId = $async$result;
+              type$.JSObject._as(globalThis.core).info("Found runtime ID: " + A.S(runtimeId));
+              $async$returnValue = runtimeId;
+              // goto return
+              $async$goto = 1;
+              break;
+            case 1:
+              // return
+              return A._asyncReturn($async$returnValue, $async$completer);
+          }
+      });
+      return A._asyncStartSync($async$call$0, $async$completer);
     },
-    $signature: 8
+    $signature: 22
   };
   A.launch_closure0.prototype = {
     call$0() {
-      return A.getRuntimeId(this.iosVersion);
+      var $async$goto = 0,
+        $async$completer = A._makeAsyncAwaitCompleter(type$.nullable_String),
+        $async$returnValue, $async$self = this, runtimeId;
+      var $async$call$0 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
+        if ($async$errorCode === 1)
+          return A._asyncRethrow($async$result, $async$completer);
+        while (true)
+          switch ($async$goto) {
+            case 0:
+              // Function start
+              $async$goto = 3;
+              return A._asyncAwait(A.getRuntimeId($async$self.iosVersion), $async$call$0);
+            case 3:
+              // returning from await.
+              runtimeId = $async$result;
+              type$.JSObject._as(globalThis.core).info("Found runtime ID: " + A.S(runtimeId));
+              $async$returnValue = runtimeId;
+              // goto return
+              $async$goto = 1;
+              break;
+            case 1:
+              // return
+              return A._asyncReturn($async$returnValue, $async$completer);
+          }
+      });
+      return A._asyncStartSync($async$call$0, $async$completer);
     },
-    $signature: 24
+    $signature: 22
   };
   A.launch_closure1.prototype = {
-    call$0() {
-      return A.installRuntime(this.iosVersion);
-    },
-    $signature: 9
-  };
-  A.launch_closure2.prototype = {
-    call$0() {
-      return A.getRuntimeId(this.iosVersion);
-    },
-    $signature: 24
-  };
-  A.launch_closure3.prototype = {
     call$0() {
       var t1 = type$.JSObject._as(globalThis.exec),
         t2 = this._box_0.runtimeIdentifier;
       t2.toString;
-      return A.Exec_exec(t1, "xcrun", A._setArrayType(["simctl", "create", "test", "iPhone 11", t2], type$.JSArray_String), null);
+      return A.Exec_exec(t1, "xcrun", A._setArrayType(["simctl", "create", "test", "iPhone 11", t2], type$.JSArray_String), true);
     },
-    $signature: 8
+    $signature: 23
   };
-  A.launch_closure4.prototype = {
+  A.launch_closure2.prototype = {
     call$0() {
-      return A.Exec_exec(type$.JSObject._as(globalThis.exec), "xcrun", A._setArrayType(["simctl", "boot", "test"], type$.JSArray_String), null);
+      return A.Exec_exec(type$.JSObject._as(globalThis.exec), "xcrun", A._setArrayType(["simctl", "boot", "test"], type$.JSArray_String), true);
     },
-    $signature: 8
+    $signature: 23
   };
   A.getRuntimeId_closure.prototype = {
     call$1(runtime) {
       return B.JSString_methods.startsWith$1(A._asString(type$.Map_of_String_and_nullable_Object._as(runtime).$index(0, "name")), "iOS " + this.iosVersion);
     },
     $signature: 50
+  };
+  A.installXcodes_closure.prototype = {
+    call$0() {
+      var $async$goto = 0,
+        $async$completer = A._makeAsyncAwaitCompleter(type$.void);
+      var $async$call$0 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
+        if ($async$errorCode === 1)
+          return A._asyncRethrow($async$result, $async$completer);
+        while (true)
+          switch ($async$goto) {
+            case 0:
+              // Function start
+              $async$goto = 2;
+              return A._asyncAwait(A.Exec_exec(type$.JSObject._as(globalThis.exec), "brew", A._setArrayType(["install", "xcodesorg/made/xcodes", "aria2"], type$.JSArray_String), true), $async$call$0);
+            case 2:
+              // returning from await.
+              if ($async$result.exitCode !== 0)
+                throw A.wrapException(A.Exception_Exception("Could not install xcodes"));
+              // implicit return
+              return A._asyncReturn(null, $async$completer);
+          }
+      });
+      return A._asyncStartSync($async$call$0, $async$completer);
+    },
+    $signature: 24
+  };
+  A.installRuntime_closure.prototype = {
+    call$0() {
+      var $async$goto = 0,
+        $async$completer = A._makeAsyncAwaitCompleter(type$.Null),
+        $async$self = this;
+      var $async$call$0 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
+        if ($async$errorCode === 1)
+          return A._asyncRethrow($async$result, $async$completer);
+        while (true)
+          switch ($async$goto) {
+            case 0:
+              // Function start
+              $async$goto = 2;
+              return A._asyncAwait(A.Exec_exec(type$.JSObject._as(globalThis.exec), "sudo", A._setArrayType(["xcodes", "runtimes", "install", "iOS " + $async$self.iosVersion, "--no-color"], type$.JSArray_String), true), $async$call$0);
+            case 2:
+              // returning from await.
+              if ($async$result.exitCode !== 0)
+                throw A.wrapException(A.Exception_Exception("Could not install runtime"));
+              // implicit return
+              return A._asyncReturn(null, $async$completer);
+          }
+      });
+      return A._asyncStartSync($async$call$0, $async$completer);
+    },
+    $signature: 52
   };
   (function aliases() {
     var _ = J.LegacyJavaScriptObject.prototype;
@@ -14681,35 +14803,35 @@
       _static = hunkHelpers.installStaticTearOff,
       _instance_0_u = hunkHelpers._instance_0u,
       _instance = hunkHelpers.installInstanceTearOff;
-    _static_1(A, "async__AsyncRun__scheduleImmediateJsOverride$closure", "_AsyncRun__scheduleImmediateJsOverride", 10);
-    _static_1(A, "async__AsyncRun__scheduleImmediateWithSetImmediate$closure", "_AsyncRun__scheduleImmediateWithSetImmediate", 10);
-    _static_1(A, "async__AsyncRun__scheduleImmediateWithTimer$closure", "_AsyncRun__scheduleImmediateWithTimer", 10);
+    _static_1(A, "async__AsyncRun__scheduleImmediateJsOverride$closure", "_AsyncRun__scheduleImmediateJsOverride", 8);
+    _static_1(A, "async__AsyncRun__scheduleImmediateWithSetImmediate$closure", "_AsyncRun__scheduleImmediateWithSetImmediate", 8);
+    _static_1(A, "async__AsyncRun__scheduleImmediateWithTimer$closure", "_AsyncRun__scheduleImmediateWithTimer", 8);
     _static_0(A, "async___startMicrotaskLoop$closure", "_startMicrotaskLoop", 0);
-    _static(A, "async___rootHandleUncaughtError$closure", 5, null, ["call$5"], ["_rootHandleUncaughtError"], 52, 0);
+    _static(A, "async___rootHandleUncaughtError$closure", 5, null, ["call$5"], ["_rootHandleUncaughtError"], 54, 0);
     _static(A, "async___rootRun$closure", 4, null, ["call$1$4", "call$4"], ["_rootRun", function($self, $parent, zone, f) {
       return A._rootRun($self, $parent, zone, f, type$.dynamic);
-    }], 53, 1);
+    }], 55, 1);
     _static(A, "async___rootRunUnary$closure", 5, null, ["call$2$5", "call$5"], ["_rootRunUnary", function($self, $parent, zone, f, arg) {
       return A._rootRunUnary($self, $parent, zone, f, arg, type$.dynamic, type$.dynamic);
-    }], 54, 1);
+    }], 56, 1);
     _static(A, "async___rootRunBinary$closure", 6, null, ["call$3$6", "call$6"], ["_rootRunBinary", function($self, $parent, zone, f, arg1, arg2) {
       return A._rootRunBinary($self, $parent, zone, f, arg1, arg2, type$.dynamic, type$.dynamic, type$.dynamic);
-    }], 55, 1);
+    }], 57, 1);
     _static(A, "async___rootRegisterCallback$closure", 4, null, ["call$1$4", "call$4"], ["_rootRegisterCallback", function($self, $parent, zone, f) {
       return A._rootRegisterCallback($self, $parent, zone, f, type$.dynamic);
-    }], 13, 0);
+    }], 19, 0);
     _static(A, "async___rootRegisterUnaryCallback$closure", 4, null, ["call$2$4", "call$4"], ["_rootRegisterUnaryCallback", function($self, $parent, zone, f) {
       return A._rootRegisterUnaryCallback($self, $parent, zone, f, type$.dynamic, type$.dynamic);
-    }], 21, 0);
+    }], 11, 0);
     _static(A, "async___rootRegisterBinaryCallback$closure", 4, null, ["call$3$4", "call$4"], ["_rootRegisterBinaryCallback", function($self, $parent, zone, f) {
       return A._rootRegisterBinaryCallback($self, $parent, zone, f, type$.dynamic, type$.dynamic, type$.dynamic);
-    }], 22, 0);
-    _static(A, "async___rootErrorCallback$closure", 5, null, ["call$5"], ["_rootErrorCallback"], 23, 0);
-    _static(A, "async___rootScheduleMicrotask$closure", 4, null, ["call$4"], ["_rootScheduleMicrotask"], 56, 0);
-    _static(A, "async___rootCreateTimer$closure", 5, null, ["call$5"], ["_rootCreateTimer"], 57, 0);
-    _static(A, "async___rootCreatePeriodicTimer$closure", 5, null, ["call$5"], ["_rootCreatePeriodicTimer"], 58, 0);
-    _static(A, "async___rootPrint$closure", 4, null, ["call$4"], ["_rootPrint"], 59, 0);
-    _static(A, "async___rootFork$closure", 5, null, ["call$5"], ["_rootFork"], 60, 0);
+    }], 20, 0);
+    _static(A, "async___rootErrorCallback$closure", 5, null, ["call$5"], ["_rootErrorCallback"], 21, 0);
+    _static(A, "async___rootScheduleMicrotask$closure", 4, null, ["call$4"], ["_rootScheduleMicrotask"], 58, 0);
+    _static(A, "async___rootCreateTimer$closure", 5, null, ["call$5"], ["_rootCreateTimer"], 59, 0);
+    _static(A, "async___rootCreatePeriodicTimer$closure", 5, null, ["call$5"], ["_rootCreatePeriodicTimer"], 60, 0);
+    _static(A, "async___rootPrint$closure", 4, null, ["call$4"], ["_rootPrint"], 61, 0);
+    _static(A, "async___rootFork$closure", 5, null, ["call$5"], ["_rootFork"], 62, 0);
     _static_1(A, "core_Uri_decodeComponent$closure", "Uri_decodeComponent", 7);
     _instance_0_u(A.Chain.prototype, "get$toTrace", "toTrace$0", 2);
     _static_1(A, "frame_Frame___parseVM_tearOff$closure", "Frame___parseVM_tearOff", 4);
@@ -14718,18 +14840,17 @@
     _static_1(A, "frame_Frame___parseFriendly_tearOff$closure", "Frame___parseFriendly_tearOff", 4);
     _instance_0_u(A.LazyChain.prototype, "get$toTrace", "toTrace$0", 2);
     var _;
-    _instance(_ = A.StackZoneSpecification.prototype, "get$_registerCallback", 0, 4, null, ["call$1$4", "call$4"], ["_registerCallback$1$4", "_registerCallback$4"], 13, 0, 0);
-    _instance(_, "get$_registerUnaryCallback", 0, 4, null, ["call$2$4", "call$4"], ["_registerUnaryCallback$2$4", "_registerUnaryCallback$4"], 21, 0, 0);
-    _instance(_, "get$_registerBinaryCallback", 0, 4, null, ["call$3$4", "call$4"], ["_registerBinaryCallback$3$4", "_registerBinaryCallback$4"], 22, 0, 0);
-    _instance(_, "get$_handleUncaughtError", 0, 5, null, ["call$5"], ["_handleUncaughtError$5"], 44, 0, 0);
-    _instance(_, "get$_errorCallback", 0, 5, null, ["call$5"], ["_errorCallback$5"], 23, 0, 0);
-    _static_1(A, "trace_Trace___parseVM_tearOff$closure", "Trace___parseVM_tearOff", 11);
-    _static_1(A, "trace_Trace___parseFriendly_tearOff$closure", "Trace___parseFriendly_tearOff", 11);
-    _static_0(A, "launch_ios_simulator__launch$closure", "launch", 9);
-    _static_0(A, "launch_ios_simulator__clearCache$closure", "clearCache", 9);
+    _instance(_ = A.StackZoneSpecification.prototype, "get$_registerCallback", 0, 4, null, ["call$1$4", "call$4"], ["_registerCallback$1$4", "_registerCallback$4"], 19, 0, 0);
+    _instance(_, "get$_registerUnaryCallback", 0, 4, null, ["call$2$4", "call$4"], ["_registerUnaryCallback$2$4", "_registerUnaryCallback$4"], 11, 0, 0);
+    _instance(_, "get$_registerBinaryCallback", 0, 4, null, ["call$3$4", "call$4"], ["_registerBinaryCallback$3$4", "_registerBinaryCallback$4"], 20, 0, 0);
+    _instance(_, "get$_handleUncaughtError", 0, 5, null, ["call$5"], ["_handleUncaughtError$5"], 45, 0, 0);
+    _instance(_, "get$_errorCallback", 0, 5, null, ["call$5"], ["_errorCallback$5"], 21, 0, 0);
+    _static_1(A, "trace_Trace___parseVM_tearOff$closure", "Trace___parseVM_tearOff", 9);
+    _static_1(A, "trace_Trace___parseFriendly_tearOff$closure", "Trace___parseFriendly_tearOff", 9);
+    _static_0(A, "launch_ios_simulator__launch$closure", "launch", 24);
     _static(A, "math__max$closure", 2, null, ["call$1$2", "call$2"], ["max", function(a, b) {
       return A.max(a, b, type$.num);
-    }], 41, 1);
+    }], 43, 1);
   })();
   (function inheritance() {
     var _mixin = hunkHelpers.mixin,
@@ -14749,7 +14870,7 @@
     _inherit(A.CastList, A._CastListBase);
     _inheritMany(A.MapBase, [A.CastMap, A.JsLinkedHashMap, A._HashMap, A._JsonMap]);
     _inheritMany(A.Closure, [A.Closure2Args, A.Instantiation, A.Closure0Args, A.TearOffClosure, A.initHooks_closure, A.initHooks_closure1, A._AsyncRun__initializeScheduleImmediate_internalCallback, A._AsyncRun__initializeScheduleImmediate_closure, A._awaitOnObject_closure, A._Future__chainForeignFuture_closure, A._Future__propagateToListeners_handleWhenCompleteCallback_closure, A._CustomZone_bindUnaryCallback_closure, A._RootZone_bindUnaryCallback_closure, A._Uri__makePath_closure, A._createTables_setChars, A._createTables_setRange, A.promiseToFuture_closure, A.promiseToFuture_closure0, A.Exec_exec_closure, A.Exec_exec_closure0, A.Exec_exec_closure1, A.Context_joinAll_closure, A.Context_split_closure, A._validateArgList_closure, A.WindowsStyle_absolutePathToUri_closure, A.mapStackTrace_closure, A.mapStackTrace_closure0, A._prettifyMember_closure, A._prettifyMember_closure0, A.SingleMapping__findLine_closure, A.SingleMapping__findColumn_closure, A.Chain_Chain$parse_closure, A.Chain_toTrace_closure, A.Chain_toString_closure0, A.Chain_toString__closure0, A.Chain_toString_closure, A.Chain_toString__closure, A.StackZoneSpecification__registerUnaryCallback_closure, A.Trace__parseVM_closure, A.Trace$parseV8_closure, A.Trace$parseJSCore_closure, A.Trace$parseFirefox_closure, A.Trace$parseFriendly_closure, A.Trace_toString_closure0, A.Trace_toString_closure, A.getRuntimeId_closure]);
-    _inheritMany(A.Closure2Args, [A.CastMap_forEach_closure, A.Primitives_functionNoSuchMethod_closure, A.initHooks_closure0, A._awaitOnObject_closure0, A._wrapJsFunctionForAsync_closure, A._Future__chainForeignFuture_closure0, A.HashMap_HashMap$from_closure, A.MapBase_mapToString_closure, A.NoSuchMethodError_toString_closure, A.Uri__parseIPv4Address_error, A.Uri_parseIPv6Address_error, A.Uri_parseIPv6Address_parseHex, A._createTables_build, A.wrapMain_closure, A.SingleMapping$fromJson_closure, A.Frame_Frame$parseV8_closure_parseLocation, A.StackZoneSpecification__registerBinaryCallback_closure]);
+    _inheritMany(A.Closure2Args, [A.CastMap_forEach_closure, A.Primitives_functionNoSuchMethod_closure, A.initHooks_closure0, A._awaitOnObject_closure0, A._wrapJsFunctionForAsync_closure, A._Future__chainForeignFuture_closure0, A.HashMap_HashMap$from_closure, A.MapBase_mapToString_closure, A.NoSuchMethodError_toString_closure, A.Uri__parseIPv4Address_error, A.Uri_parseIPv6Address_error, A.Uri_parseIPv6Address_parseHex, A._createTables_build, A.wrapMain_closure0, A.SingleMapping$fromJson_closure, A.Frame_Frame$parseV8_closure_parseLocation, A.StackZoneSpecification__registerBinaryCallback_closure]);
     _inheritMany(A.Error, [A.LateError, A.TypeError, A.JsNoSuchMethodError, A.UnknownJsTypeError, A._CyclicInitializationError, A.RuntimeError, A.AssertionError, A._Error, A.ArgumentError, A.NoSuchMethodError, A.UnsupportedError, A.UnimplementedError, A.StateError, A.ConcurrentModificationError]);
     _inherit(A.UnmodifiableListBase, A.ListBase);
     _inherit(A.CodeUnits, A.UnmodifiableListBase);
@@ -14775,7 +14896,7 @@
     _inheritMany(A.NativeTypedArrayOfDouble, [A.NativeFloat32List, A.NativeFloat64List]);
     _inheritMany(A.NativeTypedArrayOfInt, [A.NativeInt16List, A.NativeInt32List, A.NativeInt8List, A.NativeUint16List, A.NativeUint32List, A.NativeUint8ClampedList, A.NativeUint8List]);
     _inherit(A._TypeError, A._Error);
-    _inheritMany(A.Closure0Args, [A._AsyncRun__scheduleImmediateJsOverride_internalCallback, A._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, A._TimerImpl_internalCallback, A._TimerImpl$periodic_closure, A._Future__addListener_closure, A._Future__prependListeners_closure, A._Future__chainForeignFuture_closure1, A._Future__chainCoreFutureAsync_closure, A._Future__asyncCompleteWithValue_closure, A._Future__asyncCompleteError_closure, A._Future__propagateToListeners_handleWhenCompleteCallback, A._Future__propagateToListeners_handleValueCallback, A._Future__propagateToListeners_handleError, A._CustomZone_bindCallback_closure, A._CustomZone_bindCallbackGuarded_closure, A._rootHandleError_closure, A._RootZone_bindCallback_closure, A._RootZone_bindCallbackGuarded_closure, A.Utf8Decoder__decoder_closure, A.Utf8Decoder__decoderNonfatal_closure, A._digits_closure, A.Chain_capture_closure, A.Frame_Frame$parseVM_closure, A.Frame_Frame$parseV8_closure, A.Frame_Frame$_parseFirefoxEval_closure, A.Frame_Frame$parseFirefox_closure, A.Frame_Frame$parseFriendly_closure, A.StackZoneSpecification_chainFor_closure, A.StackZoneSpecification_chainFor_closure0, A.StackZoneSpecification__registerCallback_closure, A.StackZoneSpecification__registerUnaryCallback__closure, A.StackZoneSpecification__registerBinaryCallback__closure, A.StackZoneSpecification__currentTrace_closure, A.Trace_Trace$from_closure, A.launch_closure, A.launch_closure0, A.launch_closure1, A.launch_closure2, A.launch_closure3, A.launch_closure4]);
+    _inheritMany(A.Closure0Args, [A._AsyncRun__scheduleImmediateJsOverride_internalCallback, A._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, A._TimerImpl_internalCallback, A._TimerImpl$periodic_closure, A._Future__addListener_closure, A._Future__prependListeners_closure, A._Future__chainForeignFuture_closure1, A._Future__chainCoreFutureAsync_closure, A._Future__asyncCompleteWithValue_closure, A._Future__asyncCompleteError_closure, A._Future__propagateToListeners_handleWhenCompleteCallback, A._Future__propagateToListeners_handleValueCallback, A._Future__propagateToListeners_handleError, A._CustomZone_bindCallback_closure, A._CustomZone_bindCallbackGuarded_closure, A._rootHandleError_closure, A._RootZone_bindCallback_closure, A._RootZone_bindCallbackGuarded_closure, A.Utf8Decoder__decoder_closure, A.Utf8Decoder__decoderNonfatal_closure, A.wrapMain_closure, A._digits_closure, A.Chain_capture_closure, A.Frame_Frame$parseVM_closure, A.Frame_Frame$parseV8_closure, A.Frame_Frame$_parseFirefoxEval_closure, A.Frame_Frame$parseFirefox_closure, A.Frame_Frame$parseFriendly_closure, A.StackZoneSpecification_chainFor_closure, A.StackZoneSpecification_chainFor_closure0, A.StackZoneSpecification__registerCallback_closure, A.StackZoneSpecification__registerUnaryCallback__closure, A.StackZoneSpecification__registerBinaryCallback__closure, A.StackZoneSpecification__currentTrace_closure, A.Trace_Trace$from_closure, A.launch_closure, A.launch_closure0, A.launch_closure1, A.launch_closure2, A.installXcodes_closure, A.installRuntime_closure]);
     _inherit(A._AsyncCompleter, A._Completer);
     _inheritMany(A._Zone, [A._CustomZone, A._RootZone]);
     _inheritMany(A.Codec, [A.Encoding, A.Base64Codec, A._FusedCodec, A.JsonCodec]);
@@ -14801,7 +14922,7 @@
     typeUniverse: {eC: new Map(), tR: {}, eT: {}, tPV: {}, sEA: []},
     mangledGlobalNames: {int: "int", double: "double", num: "num", String: "String", bool: "bool", Null: "Null", List: "List"},
     mangledNames: {},
-    types: ["~()", "bool(String)", "Trace()", "Frame()", "Frame(String)", "Null()", "~(@)", "String(String)", "Future<ExecResult>()", "Future<~>()", "~(~())", "Trace(String)", "Null(@)", "0^()(Zone,ZoneDelegate,Zone,0^())<Object?>", "@()", "~(String,@)", "~(Uint8List,String,int)", "~(Uint8List)", "String(Match)", "int(Frame)", "String(Frame)", "0^(1^)(Zone,ZoneDelegate,Zone,0^(1^))<Object?,Object?>", "0^(1^,2^)(Zone,ZoneDelegate,Zone,0^(1^,2^))<Object?,Object?,Object?>", "AsyncError?(Zone,ZoneDelegate,Zone,Object,StackTrace?)", "Future<String?>()", "Uint8List(@,@)", "String(String?)", "Trace(Trace)", "Frame?(Frame)", "_Future<@>(@)", "bool(TargetLineEntry)", "bool(TargetEntry)", "Map<String,int>()", "~(@,@)", "List<Frame>(Trace)", "int(Trace)", "~(Object?,Object?)", "String(Trace)", "@(@,String)", "~(Symbol0,@)", "Frame(String,String)", "0^(0^,0^)<num>", "~(String,int)", "~(String,int?)", "~(Zone,ZoneDelegate,Zone,Object,StackTrace)", "int(int,int)", "Chain()", "@(String)", "@(@)", "Null(@,StackTrace)", "bool(Map<String,Object?>)", "Future<~>(Object,Chain)", "~(Zone?,ZoneDelegate?,Zone,Object,StackTrace)", "0^(Zone?,ZoneDelegate?,Zone,0^())<Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^),1^)<Object?,Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^,2^),1^,2^)<Object?,Object?,Object?>", "~(Zone?,ZoneDelegate?,Zone,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~(Timer))", "~(Zone,ZoneDelegate,Zone,String)", "Zone(Zone?,ZoneDelegate?,Zone,ZoneSpecification?,Map<Object?,Object?>?)", "Null(~())", "Null(Object,StackTrace)", "~(int,@)"],
+    types: ["~()", "bool(String)", "Trace()", "Frame()", "Frame(String)", "Null()", "~(@)", "String(String)", "~(~())", "Trace(String)", "Null(@)", "0^(1^)(Zone,ZoneDelegate,Zone,0^(1^))<Object?,Object?>", "@()", "~(String,@)", "~(Uint8List,String,int)", "~(Uint8List)", "String(Match)", "int(Frame)", "String(Frame)", "0^()(Zone,ZoneDelegate,Zone,0^())<Object?>", "0^(1^,2^)(Zone,ZoneDelegate,Zone,0^(1^,2^))<Object?,Object?,Object?>", "AsyncError?(Zone,ZoneDelegate,Zone,Object,StackTrace?)", "Future<String?>()", "Future<ExecResult>()", "Future<~>()", "Uint8List(@,@)", "Null(~())", "String(String?)", "Trace(Trace)", "Frame?(Frame)", "_Future<@>(@)", "bool(TargetLineEntry)", "bool(TargetEntry)", "Map<String,int>()", "~(@,@)", "List<Frame>(Trace)", "int(Trace)", "~(Object?,Object?)", "String(Trace)", "@(@,String)", "~(Symbol0,@)", "Frame(String,String)", "~(String,int)", "0^(0^,0^)<num>", "~(String,int?)", "~(Zone,ZoneDelegate,Zone,Object,StackTrace)", "int(int,int)", "Chain()", "@(String)", "@(@)", "bool(Map<String,Object?>)", "Null(@,StackTrace)", "Future<Null>()", "Future<0&>()", "~(Zone?,ZoneDelegate?,Zone,Object,StackTrace)", "0^(Zone?,ZoneDelegate?,Zone,0^())<Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^),1^)<Object?,Object?>", "0^(Zone?,ZoneDelegate?,Zone,0^(1^,2^),1^,2^)<Object?,Object?,Object?>", "~(Zone?,ZoneDelegate?,Zone,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~())", "Timer(Zone,ZoneDelegate,Zone,Duration,~(Timer))", "~(Zone,ZoneDelegate,Zone,String)", "Zone(Zone?,ZoneDelegate?,Zone,ZoneSpecification?,Map<Object?,Object?>?)", "Future<~>(Object,Chain)", "~(int,@)", "Null(Object,StackTrace)"],
     interceptorsByTag: null,
     leafTags: null,
     arrayRti: Symbol("$ti")
@@ -14831,8 +14952,8 @@
       Frame: findType("Frame"),
       Frame_Function_String: findType("Frame(String)"),
       Function: findType("Function"),
+      Future_Never: findType("Future<0&>"),
       Future_dynamic: findType("Future<@>"),
-      Future_void: findType("Future<~>"),
       Invocation: findType("Invocation"),
       Iterable_String: findType("Iterable<String>"),
       Iterable_dynamic: findType("Iterable<@>"),
@@ -14861,6 +14982,7 @@
       MappedListIterable_String_Trace: findType("MappedListIterable<String,Trace>"),
       MappedListIterable_String_dynamic: findType("MappedListIterable<String,@>"),
       NativeUint8List: findType("NativeUint8List"),
+      Never: findType("0&"),
       Null: findType("Null"),
       Object: findType("Object"),
       RangeError: findType("RangeError"),
