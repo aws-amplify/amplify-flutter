@@ -11,6 +11,9 @@ dependencies:
   js: ^0.6.7
   json_annotation: ">=4.8.1 <4.9.0"
   path: ^1.8.3
+  source_map_stack_trace: ^2.1.1
+  source_maps: ^0.10.12
+  stack_trace: ^1.11.1
 
 dev_dependencies:
   amplify_lints: ^3.0.0

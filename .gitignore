@@ -41,3 +41,6 @@ amplifytools.xcconfig
 
 # Smithy
 .smithy.lsp.log
+
+# Custom Actions output
+**/*.cjs.deps
