@@ -5,12 +5,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:aft/aft.dart';
+import 'package:aft/src/config/config_loader.dart';
 import 'package:aft/src/repo.dart';
 import 'package:args/command_runner.dart';
 import 'package:aws_common/aws_common.dart';
-import 'package:checked_yaml/checked_yaml.dart';
 import 'package:cli_util/cli_util.dart';
-import 'package:collection/collection.dart';
 import 'package:git/git.dart' as git;
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
@@ -79,134 +78,29 @@ abstract class AmplifyCommand extends Command<void>
     return Directory(directory);
   }();
 
+  late final AftConfigLoader aftConfigLoader = AftConfigLoader(
+    workingDirectory: workingDirectory,
+  );
+
+  /// The processed `aft` configuration for the repo with packages and
+  /// components linked.
+  AftConfig get aftConfig => aftConfigLoader.load();
+
   /// HTTP client for remote operations.
   final AWSHttpClient httpClient = AWSHttpClient();
 
   /// The root directory of the Amplify Flutter repo.
-  late final Directory rootDir = () {
-    var dir = workingDirectory;
-    while (p.absolute(dir.parent.path) != p.absolute(dir.path)) {
-      final files = dir.listSync(followLinks: false).whereType<File>();
-      for (final file in files) {
-        if (p.basename(file.path) == 'aft.yaml') {
-          return dir;
-        }
-      }
-      dir = dir.parent;
-    }
-    throw StateError(
-      'Root directory not found. Make sure to run this command '
-      'from within the Amplify Flutter repo',
-    );
-  }();
+  late final Directory rootDir = Directory.fromUri(aftConfig.rootDirectory);
 
   /// All packages in the Amplify Flutter repo.
-  late final Map<String, PackageInfo> repoPackages = () {
-    final allDirs = rootDir
-        .listSync(recursive: true, followLinks: false)
-        .whereType<Directory>();
-    final allPackages = <PackageInfo>[];
-    for (final dir in allDirs) {
-      final package = PackageInfo.fromDirectory(dir);
-      if (package == null) {
-        continue;
-      }
-      if (rawAftConfig.ignore.contains(package.name)) {
-        continue;
-      }
-      allPackages.add(package);
-    }
-    return UnmodifiableMapView({
-      for (final package in allPackages..sort()) package.name: package,
-    });
-  }();
+  late final Map<String, PackageInfo> repoPackages =
+      aftConfig.allPackages.toMap();
 
   /// All packages included in this command's operation.
   ///
   /// This may be overriden by mixins such that it is a subset of
   /// [repoPackages].
-  late final Map<String, PackageInfo> commandPackages = repoPackages;
-
-  /// The absolute path to the root `aft.yaml` document.
-  late final String aftConfigPath = () {
-    final rootDir = this.rootDir;
-    return p.join(rootDir.path, 'aft.yaml');
-  }();
-
-  String _loadFile(String path) {
-    final file = File(path);
-    if (!file.existsSync()) {
-      throw StateError(
-        'Could not find `${p.basename(path)}`. Expected it to be at: $path',
-      );
-    }
-    return file.readAsStringSync();
-  }
-
-  /// The global `aft` configuration for the repo.
-  ///
-  /// Should not be `late final` to allow re-reading from disk, e.g. when
-  /// updated as part of a command.
-  RawAftConfig get rawAftConfig {
-    var configYaml = _loadFile(aftConfigPath);
-
-    // Merge in the extra config options if provided.
-    final extraConfig = globalResults?['config'] as String?;
-    if (extraConfig != null) {
-      final extraConfigYaml = _loadFile(p.join(rootDir.path, extraConfig));
-      final rootEditor = YamlEditor(configYaml)
-        ..merge(loadYamlNode(extraConfigYaml));
-      configYaml = rootEditor.toString();
-    }
-
-    final config = checkedYamlDecode(configYaml, RawAftConfig.fromJson);
-    return config;
-  }
-
-  /// The processed `aft` configuration for the repo with packages and
-  /// components linked.
-  AftConfig get aftConfig {
-    final rawConfig = rawAftConfig;
-    final components = Map.fromEntries(
-      rawConfig.components.map((component) {
-        final summaryPackage =
-            component.summary == null ? null : repoPackages[component.summary]!;
-        final packages =
-            component.packages.map((name) => repoPackages[name]!).toList();
-        final packageGraph = UnmodifiableMapView({
-          for (final package in packages)
-            package.name: package.pubspecInfo.pubspec.dependencies.keys
-                .map(
-                  (packageName) => packages.firstWhereOrNull(
-                    (pkg) => pkg.name == packageName,
-                  ),
-                )
-                .whereType<PackageInfo>()
-                .toList(),
-        });
-        return MapEntry(
-          component.name,
-          AftComponent(
-            name: component.name,
-            summary: summaryPackage,
-            packages: packages,
-            packageGraph: packageGraph,
-            propagate: component.propagate,
-          ),
-        );
-      }),
-    );
-    return AftConfig(
-      rootDirectory: rootDir.uri,
-      workingDirectory: workingDirectory.uri,
-      allPackages: repoPackages,
-      dependencies: rawConfig.dependencies,
-      environment: rawConfig.environment,
-      ignore: rawConfig.ignore,
-      components: components,
-      scripts: rawConfig.scripts,
-    );
-  }
+  Map<String, PackageInfo> get commandPackages => repoPackages;
 
   /// The environment to inject into subcommands.
   late final Map<String, String> environment = {
@@ -242,13 +136,6 @@ abstract class AmplifyCommand extends Command<void>
         throwOnError: true,
         echoOutput: echoOutput,
       );
-
-  /// The `aft.yaml` document.
-  String get aftConfigYaml {
-    final configFile = File(aftConfigPath);
-    assert(configFile.existsSync(), 'Could not find aft.yaml');
-    return configFile.readAsStringSync();
-  }
 
   /// Displays a prompt to the user and waits for a response on stdin.
   String prompt(String prompt) {
@@ -306,7 +193,7 @@ abstract class AmplifyCommand extends Command<void>
     if (globalResults?['verbose'] as bool? ?? false) {
       AWSLogger().logLevel = LogLevel.verbose;
     }
-    logger.verbose('Got configuration: $rawAftConfig');
+    logger.verbose('Got configuration: $aftConfig');
   }
 
   @override

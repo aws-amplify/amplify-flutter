@@ -10,7 +10,6 @@ import 'package:collection/collection.dart';
 import 'package:pub_api_client/pub_api_client.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart';
-import 'package:yaml_edit/yaml_edit.dart';
 
 enum _ConstraintsAction {
   check(
@@ -149,8 +148,8 @@ class _ConstraintsSubcommand extends AmplifyCommand with GlobOptions {
   }
 
   Future<void> _run(_ConstraintsAction action) async {
-    final globalDependencyConfig = rawAftConfig.dependencies;
-    final globalEnvironmentConfig = rawAftConfig.environment;
+    final globalDependencyConfig = aftConfig.dependencies;
+    final globalEnvironmentConfig = aftConfig.environment;
     for (final package in commandPackages.values) {
       _checkEnvironment(
         package,
@@ -206,9 +205,10 @@ class _ConstraintsUpdateCommand extends _ConstraintsSubcommand {
   @override
   Future<void> run() async {
     await super.run();
-    final globalDependencyConfig = rawAftConfig.dependencies;
+    final globalDependencyConfig = aftConfig.dependencies;
 
-    final aftEditor = YamlEditor(aftConfigYaml);
+    final rootPubspec = Directory.fromUri(aftConfig.rootDirectory).pubspec!;
+    final aftEditor = rootPubspec.pubspecYamlEditor;
     final failedUpdates = <String>[];
     for (final entry in globalDependencyConfig.entries) {
       final package = entry.key;
@@ -319,10 +319,11 @@ class _ConstraintsUpdateCommand extends _ConstraintsSubcommand {
 
     final hasUpdates = aftEditor.edits.isNotEmpty;
     if (hasUpdates) {
-      File(aftConfigPath).writeAsStringSync(
+      File.fromUri(rootPubspec.uri).writeAsStringSync(
         aftEditor.toString(),
         flush: true,
       );
+      aftConfigLoader.reload();
     } else {
       logger.info('No dependencies updated');
     }
