@@ -171,7 +171,9 @@ final class SignInStateMachine
   }
 
   /// Creates the `InitiateAuth` request.
-  Future<InitiateAuthRequest> initiate(SignInInitiate event) async {
+  Future<InitiateAuthRequest> createInitiateAuthRequest(
+    SignInInitiate event,
+  ) async {
     String expectPassword() {
       final password = parameters.password;
       if (password == null) {
@@ -196,8 +198,10 @@ final class SignInStateMachine
   /// Creates the response to a challenge with name [challengeName] and
   /// parameters [challengeParameters].
   ///
-  /// Subclasses should return `null` if they cannot handle [challengeName].
-  Future<RespondToAuthChallengeRequest?> respondToAuthChallenge(
+  /// Returns `null` if the state machine cannot automatically respond given
+  /// the [challengeName], its current state, and the current `event` being
+  /// processed.
+  Future<RespondToAuthChallengeRequest?> createRespondToAuthChallengeRequest(
     SignInEvent? event,
     ChallengeNameType challengeName,
     BuiltMap<String, String?> challengeParameters,
@@ -216,7 +220,11 @@ final class SignInStateMachine
           ..analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder(),
       );
     }
-    return respondToSrpChallenge(event, challengeName, challengeParameters);
+    return createRespondToSrpChallengeRequest(
+      event,
+      challengeName,
+      challengeParameters,
+    );
   }
 
   /// Creates the password verifier request in a worker instance.
@@ -468,7 +476,7 @@ final class SignInStateMachine
 
   /// Responds to an SRP flow challenge.
   @protected
-  Future<RespondToAuthChallengeRequest?> respondToSrpChallenge(
+  Future<RespondToAuthChallengeRequest?> createRespondToSrpChallengeRequest(
     SignInEvent? event,
     ChallengeNameType challengeName,
     BuiltMap<String, String?> challengeParameters,
@@ -583,7 +591,10 @@ final class SignInStateMachine
     _user.username = event.parameters.username;
     await _loadDeviceSecrets();
 
-    var initRequest = await initiate(event);
+    var initRequest = await createInitiateAuthRequest(event);
+    final contextData = await contextDataProvider.buildRequestData(
+      _user.username!,
+    );
     initRequest = initRequest.rebuild((b) {
       b.analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder();
 
@@ -600,19 +611,15 @@ final class SignInStateMachine
       if (deviceKey != null) {
         b.authParameters[CognitoConstants.challengeParamDeviceKey] = deviceKey;
       }
+      if (contextData != null) {
+        b.userContextData.replace(contextData);
+      }
     });
+    logger.verbose('$initRequest');
 
-    final contextDataProvider = this.contextDataProvider;
-    final contextData = await contextDataProvider.buildRequestData(
-      _user.username!,
-    );
-    if (contextData != null) {
-      initRequest = initRequest.rebuild(
-        (b) => b.userContextData.replace(contextData),
-      );
-    }
     final initResponse =
         await cognitoIdentityProvider.initiateAuth(initRequest).result;
+    logger.verbose('$initResponse');
 
     // Current flow state
     _authenticationResult = initResponse.authenticationResult;
@@ -649,7 +656,7 @@ final class SignInStateMachine
         .result;
     final requiresConfirmation = response.userConfirmationNecessary;
 
-    return _CreateDeviceResult(
+    return (
       devicePassword: workerResult.devicePassword,
       deviceStatus: requiresConfirmation
           ? DeviceRememberedStatusType.notRemembered
@@ -699,15 +706,15 @@ final class SignInStateMachine
       final accessToken = await _saveAuthResult(authenticationResult);
       final newDeviceMetadata = authenticationResult.newDeviceMetadata;
       if (newDeviceMetadata != null) {
-        final createDeviceResult = await _createDevice(
+        final (:devicePassword, :deviceStatus) = await _createDevice(
           accessToken,
           newDeviceMetadata,
         );
         _user.deviceSecrets = CognitoDeviceSecretsBuilder()
           ..deviceGroupKey = newDeviceMetadata.deviceGroupKey
           ..deviceKey = newDeviceMetadata.deviceKey
-          ..devicePassword = createDeviceResult.devicePassword
-          ..deviceStatus = createDeviceResult.deviceStatus;
+          ..devicePassword = devicePassword
+          ..deviceStatus = deviceStatus;
 
         await getOrCreate<DeviceMetadataRepository>().put(
           _user.username!,
@@ -727,7 +734,7 @@ final class SignInStateMachine
 
     // Query the state machine for a response given potential user input in
     // `event`.
-    final respondRequest = await respondToAuthChallenge(
+    final respondRequest = await createRespondToAuthChallengeRequest(
       event,
       _challengeName!,
       _challengeParameters,
@@ -764,18 +771,15 @@ final class SignInStateMachine
     return _respondToChallenge(event, respondRequest);
   }
 
-  /// Inner handle to send the request returned from [respondToAuthChallenge]
+  /// Inner handle to send the request returned from [createRespondToAuthChallengeRequest]
   /// and process its response.
   Future<SignInState> _respondToChallenge(
     SignInEvent? event,
     RespondToAuthChallengeRequest respondRequest,
   ) async {
-    UserContextDataType? userContextData;
-    final contextDataProvider = this.contextDataProvider;
-    userContextData = await contextDataProvider.buildRequestData(
+    final userContextData = await contextDataProvider.buildRequestData(
       _user.username!,
     );
-
     respondRequest = respondRequest.rebuild((b) {
       b
         ..session ??= _session
@@ -797,11 +801,13 @@ final class SignInStateMachine
         b.userContextData.replace(userContextData);
       }
     });
+    logger.verbose('$respondRequest');
 
     try {
       final challengeResp = await cognitoIdentityProvider
           .respondToAuthChallenge(respondRequest)
           .result;
+      logger.verbose('$challengeResp');
 
       // Update flow state
       _authenticationResult = challengeResp.authenticationResult;
@@ -814,12 +820,14 @@ final class SignInStateMachine
       // For device flows, retry with normal SRP sign-in when the device is not
       // found. This protects against the case where a device has been removed
       // in Cognito but exists in the local cache.
+      logger.debug('Received ResourceNotFoundException during device flow');
       if (_challengeName == ChallengeNameType.passwordVerifier &&
           _user.deviceSecrets != null) {
+        logger.debug('Retrying without device secrets');
         _user.deviceSecrets = null;
         await getOrCreate<DeviceMetadataRepository>().remove(_user.username!);
 
-        final respondRequest = await respondToAuthChallenge(
+        final respondRequest = await createRespondToAuthChallengeRequest(
           event,
           _challengeName!,
           _challengeParameters,
@@ -886,12 +894,7 @@ final class SignInStateMachine
   }
 }
 
-class _CreateDeviceResult {
-  const _CreateDeviceResult({
-    required this.devicePassword,
-    required this.deviceStatus,
-  });
-
-  final String devicePassword;
-  final DeviceRememberedStatusType deviceStatus;
-}
+typedef _CreateDeviceResult = ({
+  String devicePassword,
+  DeviceRememberedStatusType deviceStatus,
+});
