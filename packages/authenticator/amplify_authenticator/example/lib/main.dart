@@ -3,7 +3,6 @@
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:amplify_authenticator/src/widgets/social/social_button.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_button_resolver.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_dial_code_resolver.dart';
 import 'package:amplify_authenticator_example/resolvers/localized_input_resolver.dart';
@@ -126,13 +125,7 @@ class _MyAppState extends State<MyApp> {
                     height: 1,
                   ),
                   const SizedBox(height: 24),
-                  const SocialSignInButtons(
-                    providers: [
-                      AuthProvider.apple,
-                      AuthProvider.google,
-                      AuthProvider.facebook,
-                    ],
-                  ),
+                  const SocialSignInButtons(),
                 ],
               ),
             );

@@ -8,11 +8,11 @@ import 'package:amplify_authenticator/src/enums/enums.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_username_field.dart';
 import 'package:amplify_authenticator/src/state/inherited_authenticator_state.dart';
 import 'package:amplify_authenticator/src/state/inherited_config.dart';
+import 'package:amplify_authenticator/src/utils/get_social_auth_providers.dart';
 import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
-import 'package:amplify_authenticator/src/widgets/social/social_button.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -435,42 +435,13 @@ class _SignInFormState extends AuthenticatorFormState<SignInForm> {
       return const [];
     }
 
-    final socialProviders = InheritedConfig.of(context)
-        .amplifyConfig
-        ?.auth
-        ?.awsPlugin
-        ?.auth
-        ?.default$
-        ?.socialProviders;
-    if (socialProviders == null || socialProviders.isEmpty) {
+    final socialProviders = getSocialAuthProviders(context);
+    if (socialProviders.isEmpty) {
       return const [];
     }
 
-    // Sort Apple first based off their app guidelines.
-    socialProviders.sort((a, b) {
-      if (a == SocialProvider.apple) {
-        return -1;
-      } else if (b == SocialProvider.apple) {
-        return 1;
-      }
-      return describeEnum(a).compareTo(describeEnum(b));
-    });
-
     return [
-      SocialSignInButtons(
-        providers: socialProviders.map((e) {
-          switch (e) {
-            case SocialProvider.facebook:
-              return AuthProvider.facebook;
-            case SocialProvider.google:
-              return AuthProvider.google;
-            case SocialProvider.amazon:
-              return AuthProvider.amazon;
-            case SocialProvider.apple:
-              return AuthProvider.apple;
-          }
-        }).toList(),
-      ),
+      SocialSignInButtons(providers: socialProviders),
     ];
   }
 }

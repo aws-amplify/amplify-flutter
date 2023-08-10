@@ -3,24 +3,24 @@
 
 import 'dart:math';
 
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/src/l10n/auth_strings_resolver.dart';
 import 'package:amplify_authenticator/src/state/authenticator_state.dart';
+import 'package:amplify_authenticator/src/utils/get_social_auth_providers.dart';
 import 'package:amplify_authenticator/src/utils/list.dart';
 import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/social/social_icons.dart';
-import 'package:aws_common/aws_common.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class SocialSignInButtons extends StatelessAuthenticatorComponent {
   const SocialSignInButtons({
     super.key,
-    required this.providers,
+    this.providers,
   });
 
-  final List<AuthProvider> providers;
+  final List<AuthProvider>? providers;
 
   @override
   Widget builder(
@@ -34,7 +34,9 @@ class SocialSignInButtons extends StatelessAuthenticatorComponent {
         // width, so that we can size all button labels to that width and align
         // the logos in the column.
         var maxWidth = 0.0;
-        for (final provider in providers) {
+        final authProviders = providers ?? getSocialAuthProviders(context);
+
+        for (final provider in authProviders) {
           final text = stringResolver.buttons.resolve(
             context,
             ButtonResolverKey.signInWith(provider),
@@ -58,8 +60,8 @@ class SocialSignInButtons extends StatelessAuthenticatorComponent {
 
         return Column(
           children: <Widget>[
-            for (final provider in providers)
-              SocialSignInButton(provider: provider, maxWidth: maxWidth),
+            for (final provider in authProviders)
+              SocialSignInButton._(provider: provider, maxWidth: maxWidth),
           ].spacedBy(const SizedBox(height: 12)),
         );
       },
@@ -81,24 +83,34 @@ class SocialSignInButton extends AuthenticatorButton<SocialSignInButton> {
   const SocialSignInButton({
     super.key,
     required this.provider,
+    required Widget this.customIcon,
     this.maxWidth = double.infinity,
   });
 
   /// A social sign-in button for Facebook.
   const SocialSignInButton.facebook({Key? key})
-      : this(key: key, provider: AuthProvider.facebook);
+      : this._(key: key, provider: AuthProvider.facebook);
 
   /// A social sign-in button for Google.
   const SocialSignInButton.google({Key? key})
-      : this(key: key, provider: AuthProvider.google);
+      : this._(key: key, provider: AuthProvider.google);
 
   /// A social sign-in button for Amazon.
   const SocialSignInButton.amazon({Key? key})
-      : this(key: key, provider: AuthProvider.amazon);
+      : this._(key: key, provider: AuthProvider.amazon);
 
   /// A social sign-in button for Apple.
   const SocialSignInButton.apple({Key? key})
-      : this(key: key, provider: AuthProvider.apple);
+      : this._(key: key, provider: AuthProvider.apple);
+
+  const SocialSignInButton._({
+    super.key,
+    required this.provider,
+    this.maxWidth = double.infinity,
+    this.customIcon,
+  });
+
+  final Widget? customIcon;
 
   /// The Cognito social sign-in provider.
   final AuthProvider provider;
@@ -119,7 +131,7 @@ class SocialSignInButton extends AuthenticatorButton<SocialSignInButton> {
 
   @override
   AuthenticatorButtonState<SocialSignInButton> createState() =>
-      _SocialSignInButtonState();
+      _SocialSignInButtonState(customIcon);
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
@@ -132,9 +144,15 @@ class SocialSignInButton extends AuthenticatorButton<SocialSignInButton> {
 
 class _SocialSignInButtonState
     extends AuthenticatorButtonState<SocialSignInButton> {
+  _SocialSignInButtonState(this.customIcon);
+
   static const _spacing = 5.0;
+  final Widget? customIcon;
 
   Widget get icon {
+    if (customIcon != null) {
+      return customIcon!;
+    }
     final isDark = Theme.of(context).brightness == Brightness.dark;
     if (widget.provider == AuthProvider.google) {
       return SocialIcons.googleLogo;
