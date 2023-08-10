@@ -13,6 +13,7 @@
     "packages/smithy/goldens/lib",
     "packages/smithy/goldens/lib2"
   ],
+  "dart.onlyAnalyzeProjectsWithOpenFiles": true,
   "files.insertFinalNewline": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
