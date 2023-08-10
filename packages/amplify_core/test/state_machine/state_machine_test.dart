@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:async';
+
 import 'package:amplify_core/amplify_core.dart';
 import 'package:stack_trace/stack_trace.dart';
 import 'package:test/test.dart';
@@ -120,6 +122,52 @@ void main() {
         } on Exception catch (_, st) {
           expect(st, matchesChain('dispatchAndComplete'));
         }
+      });
+    });
+
+    group('cross-zone', () {
+      test('success', () {
+        final completer = stateMachine.accept(const MyEvent(MyType.doWork));
+        runZoned(() {
+          expect(
+            completer.completed,
+            completes,
+            reason: 'Should complete in forked zone',
+          );
+        });
+        runZonedGuarded(
+          () {
+            expect(
+              completer.completed,
+              completes,
+              reason: 'Should complete with different error zone',
+            );
+          },
+          (e, st) {},
+        );
+        expect(completer.completed, completes);
+      });
+
+      test('errors', () {
+        final completer = stateMachine.accept(const MyEvent(MyType.failHard));
+        runZoned(() {
+          expect(
+            completer.completed,
+            throwsA(isA<Error>()),
+            reason: 'Should complete in forked zone',
+          );
+        });
+        runZonedGuarded(
+          () {
+            expect(
+              completer.completed,
+              throwsA(isA<Error>()),
+              reason: 'Should complete with different error zone',
+            );
+          },
+          (e, st) {},
+        );
+        expect(completer.completed, throwsA(isA<Error>()));
       });
     });
 
