@@ -12,7 +12,7 @@ final _builders = <StateMachineToken,
   WorkerMachine.type: WorkerMachine.new,
 };
 
-enum MyType { initial, doWork, tryWork, delegateWork, success, error }
+enum MyType { initial, doWork, tryWork, delegateWork, failHard, success, error }
 
 class MyPreconditionException implements PreconditionException {
   const MyPreconditionException(this.precondition);
@@ -105,6 +105,8 @@ class MyStateMachine extends StateMachine<MyEvent, MyState, StateMachineEvent,
       case MyType.delegateWork:
         await manager.delegateWork();
         emit(const MyState(MyType.success));
+      case MyType.failHard:
+        await Future<void>.error(StateError('Worker crashed'));
     }
   }
 
@@ -240,4 +242,7 @@ class MyStateMachineManager extends StateMachineManager<StateMachineEvent,
     }
     throw ArgumentError('Invalid event: $event');
   }
+
+  @override
+  String get runtimeTypeName => 'MyStateMachineManager';
 }

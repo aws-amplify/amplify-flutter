@@ -68,7 +68,7 @@ abstract class StateMachineManager<
         E extends StateMachineEvent,
         S extends StateMachineState,
         Manager extends StateMachineManager<E, S, Manager>>
-    with Dispatcher<E, S>
+    with Dispatcher<E, S>, AWSDebuggable, AWSLoggerMixin
     implements DependencyManager, Closeable {
   /// {@macro amplify_core.state_machinedispatcher}
   StateMachineManager(
@@ -102,9 +102,16 @@ abstract class StateMachineManager<
 
   Future<void> _listenForEvents() async {
     await for (final completer in _eventController.stream) {
-      await dispatch(completer.event, completer).completed;
+      try {
+        await dispatch(completer.event, completer).completed;
+      } on Object {
+        continue;
+      }
     }
   }
+
+  @override
+  String get runtimeTypeName => 'StateMachineManager';
 
   @override
   void addBuilder<T extends Object>(
@@ -288,8 +295,8 @@ abstract class StateMachine<
     // Chain the stack trace of [_currentEvent]'s creation and the state machine
     // error to create a full picture of the error's lifecycle.
     final eventTrace = Trace.from(_currentCompleter.stackTrace);
-    final stateMachineTrace = Trace.from(stackTrace);
-    stackTrace = Chain([stateMachineTrace, eventTrace]);
+    final stateMachineTrace = Chain.forTrace(stackTrace);
+    stackTrace = Chain([...stateMachineTrace.traces, eventTrace]);
 
     logger.debug('Emitted error', error, stackTrace);
 
@@ -298,8 +305,9 @@ abstract class StateMachine<
     // Add the error to the state stream if it cannot be resolved to a new
     // state internally.
     if (resolution == null) {
-      _currentCompleter.completeError(error, stackTrace);
       _stateController.addError(error, stackTrace);
+      manager._stateController.addError(error, stackTrace);
+      _currentCompleter.completeError(error, stackTrace);
       return;
     }
 
