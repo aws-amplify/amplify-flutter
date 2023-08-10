@@ -125,4 +125,7 @@ class CognitoAuthStateMachine
     final authSession = await loadSession();
     return authSession.userPoolTokensResult.value;
   }
+
+  @override
+  String get runtimeTypeName => 'CognitoAuthStateMachine';
 }
