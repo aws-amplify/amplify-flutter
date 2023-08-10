@@ -25,14 +25,18 @@ const exampleApps = {
 
 late final Directory repoRoot = () {
   Directory dir = Directory.current;
+  Directory? rootDir;
   while (p.absolute(dir.parent.path) != p.absolute(dir.path)) {
     final files = dir.listSync().whereType<File>();
-    if (files.any((f) => p.basename(f.path) == 'aft.yaml')) {
-      return dir;
+    if (files.any((f) => p.basename(f.path) == 'pubspec.yaml')) {
+      rootDir = dir;
     }
     dir = dir.parent;
   }
-  throw StateError('Could not locate repo root');
+  if (rootDir == null) {
+    throw StateError('Could not locate repo root');
+  }
+  return rootDir;
 }();
 
 void main() {
