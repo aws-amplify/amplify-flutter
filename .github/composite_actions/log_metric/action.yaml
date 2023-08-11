@@ -13,20 +13,13 @@ inputs:
     description: The role to assume in the STS session.
   github-token:
     required: true
-    description: Github token for requesting failing steps 
-
-  #value:
-    # Why we publish value 0 on success: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html#publishingZero
-   # description: Value of the metric to track in Cloudwatch.
-#    required: true
-
-  job-status: 
-    description: Job status 
+    description: Github token for requesting failing steps.
+  job-status:
+    description: Used to determine if we track success or failure.
     required: true 
   job-identifier: 
-    desciption: Identifiers for the job
+    description: For differentiating jobs of a run.
     required: true 
-
 
 
   # Global Metric Dimensions 
@@ -39,8 +32,6 @@ inputs:
   workflowName: 
     description: The Github Action workflow.yaml file name.  ie "AmplifyCanaries".
     required: true 
-  # failingStep: Look into getting via code 
-
 
   # FlutterDart Workflows Metric Dimensions 
   framework:
@@ -70,13 +61,13 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    #- name: Exit if not scheduled
-   #   shell: bash
-    #  run: |
-    #    if [ "${{ github.event_name }}" != "schedule" ]; then
-    #      echo "This was not triggered by a schedule, exiting."
-    #      exit 1
-    #    fi
+    - name: Exit if not scheduled
+      shell: bash
+      run: |
+        if [ "${{ github.event_name }}" != "schedule" ]; then
+          echo "This was not triggered by a schedule, exiting."
+          exit 1
+        fi
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@67fbcbb121271f7775d2e7715933280b06314838 # 1.7.0
@@ -114,20 +105,28 @@ runs:
 
         echo "FAILING_STEP=$failing_step_name" >> $GITHUB_ENV
 
+    - name: Change to Dart script directory
+      run: cd ./tool
+      shell: bash
+
+    - name: Install Dart dependencies (args)
+      run: dart pub get
+      shell: bash
+
     - name: Run Dart script
-      # Run a Dart script to put metric data.
-      run: dart ./tool/send_metric_data.dart \
-        github_metric_1.0 \
-        ${{ job.status == 'failure' }} \
-        ${{ inputs.testType }} \
-        ${{ inputs.category }} \
-        ${{ inputs.workflowName }} \
-        ${{ inputs.framework }} \
-        ${{ inputs.flutterDartChannel }} \
-        ${{ inputs.dartVersion }} \
-        ${{ inputs.flutterVersion }} \
-        ${{ inputs.dartCompiler }} \
-        ${{ inputs.platform }} \
-        ${{ inputs.platformVersion }} \
-        ${{ env.FAILING_STEP }}
+      run: |
+        dart ./tool/send_metric_data.dart \
+          --metric-name="github_metric_1.0" \
+          --job-status="${{ job.status == 'failure' }}" \
+          --test-type="${{ inputs.testType }}" \
+          --category="${{ inputs.category }}" \
+          --workflow-name="${{ inputs.workflowName }}" \
+          --framework="${{ inputs.framework }}" \
+          --flutter-dart-channel="${{ inputs.flutterDartChannel }}" \
+          --dart-version="${{ inputs.dartVersion }}" \
+          --flutter-version="${{ inputs.flutterVersion }}" \
+          --dart-compiler="${{ inputs.dartCompiler }}" \
+          --platform="${{ inputs.platform }}" \
+          --platform-version="${{ inputs.platformVersion }}" \
+          --failing-step="${{ env.FAILING_STEP }}"
       shell: bash

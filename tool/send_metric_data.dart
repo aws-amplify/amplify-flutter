@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:io';
+import 'package:args/args.dart';
+
 
 final testTypes = [
   'canary',
@@ -17,19 +19,36 @@ final frameworkTypes = [
 final platformTypes = ['web', 'android', 'ios', 'linux', 'windows'];
 
 void main(List<String> args) {
-  final metricName = args[0].trim();
-  final isFailed = args[1] == 'failed';
-  final testType = args[2].trim();
-  var category = args[3].trim();
-  final workflowName = args[4].trim();
-  final framework = args[5].trim();
-  final flutterDartChannel = args[6].trim();
-  final dartVersion = args[7].trim();
-  final flutterVersion = args[8].trim();
-  final dartCompiler = args[9].trim();
-  final platform = args[10].trim();
-  final platformVersion = args[11].trim();
-  final failingStep = args[12].trim();
+  final parser = ArgParser()
+    ..addOption('metric-name')
+    ..addOption('is-failed')
+    ..addOption('testType')
+    ..addOption('category')
+    ..addOption('workflowName')
+    ..addOption('framework')
+    ..addOption('flutterDartChannel')
+    ..addOption('dartVersion')
+    ..addOption('flutterVersion')
+    ..addOption('dartCompiler')
+    ..addOption('platform')
+    ..addOption('platformVersion')
+    ..addOption('failingStep');
+
+  final results = parser.parse(args);
+
+  final metricName = results['metric-name']?.trim();
+  final isFailed = results['is-failed'] == 'true';
+  final testType = results['testType']?.trim();
+  var category = results['category']?.trim();
+  final workflowName = results['workflowName']?.trim();
+  final framework = results['framework']?.trim();
+  final flutterDartChannel = results['flutterDartChannel']?.trim();
+  final dartVersion = results['dartVersion']?.trim();
+  final flutterVersion = results['flutterVersion']?.trim();
+  final dartCompiler = results['dartCompiler']?.trim();
+  final platform = results['platform']?.trim();
+  final platformVersion = results['platformVersion']?.trim();
+  final failingStep = results['failingStep']?.trim();
 
   if (metricName.isEmpty) {
     print('Must provide metricName');
@@ -89,7 +108,7 @@ void main(List<String> args) {
   final dimensionString =
       dimensions.entries.map((e) => '${e.key}=${e.value}').join(',');
 
-  final cloudArgs = [
+  final List<String> cloudArgs = [
     'cloudwatch',
     'put-metric-data',
     '--metric-name',
