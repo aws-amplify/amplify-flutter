@@ -75,8 +75,16 @@ final class SignInStateMachine
   /// The advanced security features (ASF) context data provider.
   ASFContextDataProvider get contextDataProvider => getOrCreate();
 
+  /// The device metadata repository.
+  DeviceMetadataRepository get deviceRepo => getOrCreate();
+
   /// The user built via the auth flow process.
   var _user = CognitoUserBuilder();
+
+  /// The username of the user being logged in.
+  ///
+  /// Guaranteed to be non-null since it is the first thing set in [run].
+  String get username => _user.username!;
 
   // Lazy initializers for worker types.
   final AsyncMemoizer<SrpInitWorker> _initWorkerMemoizer = AsyncMemoizer();
@@ -168,6 +176,24 @@ final class SignInStateMachine
     final map = _challengeParameters.toMap()
       ..removeWhere((_, value) => value == null);
     return map.cast();
+  }
+
+  List<CognitoUserAttributeKey> get _requiredAttributes {
+    final requiredAttributesStr =
+        _challengeParameters[CognitoConstants.challengeParamRequiredAttributes];
+    if (requiredAttributesStr == null) {
+      return const [];
+    }
+    return (json.decode(requiredAttributesStr) as List<Object?>)
+        .cast<String>()
+        .map(
+          (key) => key.replaceFirst(
+            CognitoConstants.challengeParamUserAttributesPrefix,
+            '',
+          ),
+        )
+        .map(CognitoUserAttributeKey.parse)
+        .toList();
   }
 
   /// Creates the `InitiateAuth` request.
@@ -276,7 +302,7 @@ final class SignInStateMachine
         ..clientId = config.appClientId
         ..challengeName = ChallengeNameType.deviceSrpAuth
         ..challengeResponses.addAll({
-          CognitoConstants.challengeParamUsername: _user.username!,
+          CognitoConstants.challengeParamUsername: username,
           CognitoConstants.challengeParamDeviceKey:
               _user.deviceSecrets!.deviceKey!,
           CognitoConstants.challengeParamSrpA:
@@ -290,7 +316,6 @@ final class SignInStateMachine
   Future<RespondToAuthChallengeRequest> createDevicePasswordVerifierRequest(
     BuiltMap<String, String?> challengeParameters,
   ) async {
-    final username = parameters.username;
     final password = parameters.password;
     if (password == null || password.isEmpty) {
       throw const AuthValidationException('No password given');
@@ -304,11 +329,7 @@ final class SignInStateMachine
         ..clientId = config.appClientId
         ..clientSecret = config.appClientSecret
         ..challengeParameters = BuiltMap(_publicChallengeParameters)
-        ..parameters = SignInParameters(
-          (b) => b
-            ..username = username
-            ..password = password,
-        );
+        ..parameters = parameters;
     });
     worker.sink.add(workerMessage);
     return worker.stream.first;
@@ -324,7 +345,7 @@ final class SignInStateMachine
         ..clientId = config.appClientId
         ..challengeName = _challengeName
         ..challengeResponses.addAll({
-          CognitoConstants.challengeParamUsername: _user.username!,
+          CognitoConstants.challengeParamUsername: username,
           CognitoConstants.challengeParamSmsMfaCode: event.answer,
         })
         ..clientMetadata.addAll(event.clientMetadata);
@@ -341,7 +362,7 @@ final class SignInStateMachine
         ..clientId = config.appClientId
         ..challengeName = _challengeName
         ..challengeResponses.addAll({
-          CognitoConstants.challengeParamUsername: _user.username!,
+          CognitoConstants.challengeParamUsername: username,
           CognitoConstants.challengeParamNewPassword: event.answer,
         })
         ..clientMetadata.addAll(event.clientMetadata);
@@ -353,20 +374,7 @@ final class SignInStateMachine
       // set a value for any keys that Amazon Cognito returned in the
       // `requiredAttributes` parameter, then use the UpdateUserAttributes API
       // operation to modify the value of any additional attributes.
-      final challengeAttributes = _challengeParameters[
-          CognitoConstants.challengeParamRequiredAttributes];
-      final missingRequiredAttributes = (challengeAttributes == null
-              ? const <String>[]
-              // This is returned as a JSON-encoded string instead of a List
-              : json.decode(challengeAttributes) as List<Object?>)
-          .cast<String>()
-          .map(
-            (key) => key.replaceFirst(
-              CognitoConstants.challengeParamUserAttributesPrefix,
-              '',
-            ),
-          )
-          .map(CognitoUserAttributeKey.parse);
+      final missingRequiredAttributes = _requiredAttributes;
       final newAttributes = Map.of(event.userAttributes);
       for (final missingAttributeKey in missingRequiredAttributes) {
         final missingAttributeValue = newAttributes.remove(missingAttributeKey);
@@ -459,18 +467,16 @@ final class SignInStateMachine
       return initRequest.rebuild(
         (b) => b
           ..authFlow = AuthFlowType.customAuth
-          ..authParameters.addAll({
-            CognitoConstants.challengeParamChallengeName: 'SRP_A',
-          }),
+          ..authParameters[CognitoConstants.challengeParamChallengeName] =
+              'SRP_A',
       );
     }
 
     return InitiateAuthRequest.build((b) {
       b
         ..authFlow = AuthFlowType.customAuth
-        ..authParameters.addAll({
-          CognitoConstants.challengeParamUsername: parameters.username,
-        })
+        ..authParameters[CognitoConstants.challengeParamUsername] =
+            parameters.username
         ..clientId = config.appClientId
         ..clientMetadata.addAll(event.clientMetadata);
     });
@@ -556,13 +562,15 @@ final class SignInStateMachine
   /// [_user].
   Future<void> _loadDeviceSecrets() async {
     try {
-      final deviceSecrets =
-          await getOrCreate<DeviceMetadataRepository>().get(_user.username!);
+      final deviceSecrets = await deviceRepo.get(username);
       if (deviceSecrets != null) {
+        logger.debug('Device secrets present for user: ${_user.username}');
         _user.deviceSecrets = deviceSecrets.toBuilder();
+      } else {
+        logger.debug('Device secrets not present for user: ${_user.username}');
       }
     } on Exception catch (e, st) {
-      logger.debug('Could not retrieve credentials', e, st);
+      logger.debug('Could not retrieve device secrets', e, st);
     }
   }
 
@@ -594,9 +602,7 @@ final class SignInStateMachine
     await _loadDeviceSecrets();
 
     var initRequest = await createInitiateAuthRequest(event);
-    final contextData = await contextDataProvider.buildRequestData(
-      _user.username!,
-    );
+    final contextData = await contextDataProvider.buildRequestData(username);
     initRequest = initRequest.rebuild((b) {
       b.analyticsMetadata = get<AnalyticsMetadataType>()?.toBuilder();
 
@@ -712,16 +718,14 @@ final class SignInStateMachine
           accessToken,
           newDeviceMetadata,
         );
-        _user.deviceSecrets = CognitoDeviceSecretsBuilder()
-          ..deviceGroupKey = newDeviceMetadata.deviceGroupKey
-          ..deviceKey = newDeviceMetadata.deviceKey
-          ..devicePassword = devicePassword
-          ..deviceStatus = deviceStatus;
+        final deviceSecrets =
+            _user.deviceSecrets = CognitoDeviceSecretsBuilder()
+              ..deviceGroupKey = newDeviceMetadata.deviceGroupKey
+              ..deviceKey = newDeviceMetadata.deviceKey
+              ..devicePassword = devicePassword
+              ..deviceStatus = deviceStatus;
 
-        await getOrCreate<DeviceMetadataRepository>().put(
-          _user.username!,
-          _user.deviceSecrets!.build(),
-        );
+        await deviceRepo.put(username, deviceSecrets.build());
       }
 
       await _updateAttributes(
@@ -742,32 +746,20 @@ final class SignInStateMachine
       _challengeParameters,
     );
 
+    final challengeState = SignInState.challenge(
+      _challengeName!,
+      _publicChallengeParameters,
+      _requiredAttributes,
+    );
+
     // If we can't internally respond to the challenge, we may need user
     // input. Put the state machine in the `challenge` state and yield
     // control.
     if (respondRequest == null) {
-      final requiredAttributesStr = _challengeParameters[
-          CognitoConstants.challengeParamRequiredAttributes];
-      var requiredAttributes = const <CognitoUserAttributeKey>[];
-      if (requiredAttributesStr != null) {
-        requiredAttributes =
-            (json.decode(requiredAttributesStr) as List<Object?>)
-                .cast<String>()
-                .map(
-                  (key) => key.replaceFirst(
-                    CognitoConstants.challengeParamUserAttributesPrefix,
-                    '',
-                  ),
-                )
-                .map(CognitoUserAttributeKey.parse)
-                .toList();
-      }
-      return SignInState.challenge(
-        _challengeName!,
-        _publicChallengeParameters,
-        requiredAttributes,
-      );
+      return challengeState;
     }
+
+    emit(challengeState);
 
     // Respond to Cognito and evaluate the returned response.
     return _respondToChallenge(event, respondRequest);
@@ -780,7 +772,7 @@ final class SignInStateMachine
     RespondToAuthChallengeRequest respondRequest,
   ) async {
     final userContextData = await contextDataProvider.buildRequestData(
-      _user.username!,
+      username,
     );
     respondRequest = respondRequest.rebuild((b) {
       b
@@ -793,7 +785,7 @@ final class SignInStateMachine
               null) {
         b.challengeResponses[CognitoConstants.challengeParamSecretHash] =
             computeSecretHash(
-          _user.username!,
+          username,
           config.appClientId,
           config.appClientSecret!,
         );
@@ -827,7 +819,7 @@ final class SignInStateMachine
           _user.deviceSecrets != null) {
         logger.debug('Retrying without device secrets');
         _user.deviceSecrets = null;
-        await getOrCreate<DeviceMetadataRepository>().remove(_user.username!);
+        await deviceRepo.remove(username);
 
         final respondRequest = await createRespondToAuthChallengeRequest(
           event,
