@@ -128,7 +128,7 @@ jobs:
           job-status: ${{ job.status }}
           job-identifier: ${{ matrix.sdk }}
           testType: unit test
-          category: ${{ working-directory }}
+          category: ${{ inputs.working-directory }}
           workflowName: ${{ package-name }}/dart_vm
           framework: dart
           flutterDartChannel: ${{ matrix.sdk }}

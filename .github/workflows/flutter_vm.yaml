@@ -95,7 +95,7 @@ jobs:
           job-status: ${{ job.status }}
           job-identifier: ${{ matrix.channel }}, ${{ matrix.flutter-version }}
           testType: unit test
-          category: ${{ working-directory }}
+          category: ${{ inputs.working-directory }}
           workflowName: ${{ package-name }}/flutter_vm
           framework: flutter
           flutterDartChannel: ${{ matrix.channel }}
