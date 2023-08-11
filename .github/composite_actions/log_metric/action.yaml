@@ -66,7 +66,7 @@ runs:
       run: |
         if [ "${{ github.event_name }}" != "schedule" ]; then
           echo "This was not triggered by a schedule, exiting."
-          exit 1
+          exit 0
         fi
 
     - name: Configure AWS credentials

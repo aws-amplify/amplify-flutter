@@ -51,6 +51,7 @@ jobs:
         working-directory: ${{ inputs.working-directory }}
 
       - name: Log success/failure
+        if: always()
         uses: ./.github/composite_actions/log_metric
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
