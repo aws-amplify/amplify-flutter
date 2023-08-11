@@ -13,7 +13,6 @@ import 'package:amplify_authenticator/src/widgets/button.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form_field.dart';
 import 'package:amplify_authenticator/src/widgets/social/social_button.dart';
-import 'package:amplify_authenticator/src/widgets/totp/totp_setup_stepper.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -631,11 +630,32 @@ class ContinueSignInWithMfaSelectionForm extends AuthenticatorForm {
 /// {@endtemplate}
 class ContinueSignInWithTotpSetupForm extends AuthenticatorForm {
   /// {@macro amplify_authenticator.continue_sign_in_with_totp_setup_form}
-  const ContinueSignInWithTotpSetupForm({super.key}) : super(child: null);
+  ContinueSignInWithTotpSetupForm({
+    super.key,
+  }) : super._(
+          fields: [
+            ConfirmSignInFormField.totpSetup(),
+          ],
+          actions: const [
+            ConfirmSignInMFAButton(),
+            BackToSignInButton(),
+          ],
+        );
+
+  /// A custom Confirm Sign In with Totp Setup form.
+  const ContinueSignInWithTotpSetupForm.custom({
+    super.key,
+    required super.fields,
+  }) : super._(
+          actions: const [
+            ConfirmSignInMFAButton(),
+            BackToSignInButton(),
+          ],
+        );
 
   @override
   AuthenticatorFormState<ContinueSignInWithTotpSetupForm> createState() =>
-      AuthenticatorTotpSetupStepper<ContinueSignInWithTotpSetupForm>();
+      AuthenticatorFormState<ContinueSignInWithTotpSetupForm>();
 }
 
 /// {@category Prebuilt Widgets}
@@ -647,7 +667,6 @@ class ConfirmSignInWithTotpMfaCodeForm extends AuthenticatorForm {
   ConfirmSignInWithTotpMfaCodeForm({super.key})
       : super._(
           fields: [
-            ConfirmSignInFormField.openTotpAppButton(),
             ConfirmSignInFormField.verificationCode(),
           ],
           actions: const [

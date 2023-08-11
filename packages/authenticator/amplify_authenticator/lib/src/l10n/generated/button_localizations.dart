@@ -183,35 +183,47 @@ abstract class AuthenticatorButtonLocalizations {
   /// **'Skip'**
   String get skip;
 
-  /// Label of button to open the user's default Authenticator.
+  /// Label of button to copy the TOTP key during TOTP setup.
   ///
   /// In en, this message translates to:
-  /// **'Open Authenticator App'**
-  String get openTotpApp;
+  /// **'Copy Key'**
+  String get totpCopyKey;
 
-  /// Label of button to toggle the TOTP key during TOTP setup.
+  /// The instruction that is displayed at the top of the default TOTP setup screen
   ///
   /// In en, this message translates to:
-  /// **'Manual Key Entry'**
-  String get totpManualKey;
+  /// **'You need to have an authenticator app downloaded.'**
+  String get totpInstruction;
 
-  /// Label of button to toggle the QR code during TOTP setup.
+  /// The instruction that is displayed for the TOTP QR Code field
   ///
   /// In en, this message translates to:
-  /// **'Scan QR Code'**
-  String get totpQrCode;
+  /// **'Scan the QR code below to setup TOTP in your authenticator app.'**
+  String get totpQrCodeInstruction;
 
-  /// Label for the TOTP setup stepper button for the app setup section.
+  /// The instruction that is displayed for the TOTP copy key field
   ///
   /// In en, this message translates to:
-  /// **'Set up Authenticator App'**
-  String get totpStepperSetup;
+  /// **'Copy the key and open your authenticator app.'**
+  String get totpCopyKeyInstruction;
 
-  /// Label for the TOTP confirm stepper button for the app setup section.
+  /// The instruction that is displayed before submitting a TOTP code on the default TOTP setup screen
   ///
   /// In en, this message translates to:
-  /// **'Confirm One-Time Passcode'**
-  String get totpStepperConfirm;
+  /// **'Enter the six digit code from your authenticator app.'**
+  String get totpSubmitKeyInstruction;
+
+  /// The divider text that is displayed between options on the default TOTP setup screen
+  ///
+  /// In en, this message translates to:
+  /// **'OR'**
+  String get totpDividerOr;
+
+  /// The divider text that is displayed between steps on the default TOTP setup screen
+  ///
+  /// In en, this message translates to:
+  /// **'THEN'**
+  String get totpDividerThen;
 
   /// Label of button to sign out the user
   ///

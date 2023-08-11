@@ -699,7 +699,7 @@ class _AuthenticatorState extends State<Authenticator> {
                 continueSignInWithMfaSelectionForm:
                     ContinueSignInWithMfaSelectionForm(),
                 continueSignInWithTotpSetupForm:
-                    const ContinueSignInWithTotpSetupForm(),
+                    ContinueSignInWithTotpSetupForm(),
                 confirmSignInWithTotpMfaCodeForm:
                     ConfirmSignInWithTotpMfaCodeForm(),
                 verifyUserForm: VerifyUserForm(),

@@ -90,7 +90,29 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
         field: ConfirmSignInField.selectMfaMethod,
       );
 
-  /// Creates a verification code component.
+  /// Creates a TOTP QR code component.
+  static ConfirmSignInFormField<String> totpQrCode({
+    Key? key,
+    FormFieldValidator<String>? validator,
+    Iterable<String>? autofillHints,
+  }) =>
+      _ConfirmSignInTotpQrCodeField(
+        key: key ?? keyTotpQrCodeSignInFormField,
+        field: ConfirmSignInField.totpQrCode,
+      );
+
+  /// Creates a TOTP QR code component.
+  static ConfirmSignInFormField<String> totpCopyKey({
+    Key? key,
+    FormFieldValidator<String>? validator,
+    Iterable<String>? autofillHints,
+  }) =>
+      _ConfirmSignInTotpCopyKeyField(
+        key: key ?? keyTotpCopyKeySignInFormField,
+        field: ConfirmSignInField.totpCopyKey,
+      );
+
+  /// Creates a TOTP setup component.
   static ConfirmSignInFormField<String> totpSetup({
     Key? key,
     FormFieldValidator<String>? validator,
@@ -98,29 +120,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
   }) =>
       _ConfirmSignInTotpSetupField(
         key: key ?? keyTotpSetupSignInFormField,
-        field: ConfirmSignInField.setupTotp,
-      );
-
-  /// Creates a button that opens the user's authenticator app.
-  static ConfirmSignInFormField<String> openTotpAppButton({
-    Key? key,
-    FormFieldValidator<String>? validator,
-    Iterable<String>? autofillHints,
-  }) =>
-      _ConfirmSignInTotpAppButtonField(
-        key: key ?? keyTotpAppSignInButton,
-        field: ConfirmSignInField.setupTotp,
-      );
-
-  /// Creates a button that opens the user's authenticator app with an empty uri.
-  static ConfirmSignInFormField<String> openTotpAppEmptyUriButton({
-    Key? key,
-    FormFieldValidator<String>? validator,
-    Iterable<String>? autofillHints,
-  }) =>
-      _ConfirmSignInTotpAppButtonField(
-        key: key ?? keyTotpAppSignInButton,
-        field: ConfirmSignInField.setupTotp,
+        field: ConfirmSignInField.totpSetup,
       );
 
   /// Creates a verification code component.
@@ -359,7 +359,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
       case ConfirmSignInField.code:
       case ConfirmSignInField.customChallenge:
       case ConfirmSignInField.selectMfaMethod:
-      case ConfirmSignInField.setupTotp:
+      case ConfirmSignInField.totpSetup:
         return 10;
       case ConfirmSignInField.address:
       case ConfirmSignInField.birthdate:
@@ -373,6 +373,8 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
       case ConfirmSignInField.phoneNumber:
       case ConfirmSignInField.preferredUsername:
       case ConfirmSignInField.custom:
+      case ConfirmSignInField.totpCopyKey:
+      case ConfirmSignInField.totpQrCode:
         return 1;
     }
   }
@@ -385,7 +387,7 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
       case ConfirmSignInField.newPassword:
       case ConfirmSignInField.confirmNewPassword:
       case ConfirmSignInField.selectMfaMethod:
-      case ConfirmSignInField.setupTotp:
+      case ConfirmSignInField.totpSetup:
         return true;
       case ConfirmSignInField.address:
       case ConfirmSignInField.birthdate:
@@ -398,6 +400,8 @@ abstract class ConfirmSignInFormField<FieldValue extends Object>
       case ConfirmSignInField.nickname:
       case ConfirmSignInField.phoneNumber:
       case ConfirmSignInField.preferredUsername:
+      case ConfirmSignInField.totpCopyKey:
+      case ConfirmSignInField.totpQrCode:
       case ConfirmSignInField.custom:
         return false;
     }
@@ -520,7 +524,9 @@ abstract class _ConfirmSignInFormFieldState<FieldValue extends Object>
       case ConfirmSignInField.custom:
       case ConfirmSignInField.customChallenge:
       case ConfirmSignInField.selectMfaMethod:
-      case ConfirmSignInField.setupTotp:
+      case ConfirmSignInField.totpCopyKey:
+      case ConfirmSignInField.totpQrCode:
+      case ConfirmSignInField.totpSetup:
         return null;
     }
   }
@@ -838,17 +844,30 @@ class _ConfirmSignInTotpSetupField extends ConfirmSignInFormField<String> {
 class _ConfirmSignInTotpSetupFieldState
     extends _ConfirmSignInFormFieldState<String> with TotpSetupFields {}
 
-class _ConfirmSignInTotpAppButtonField extends ConfirmSignInFormField<String> {
-  const _ConfirmSignInTotpAppButtonField({
+class _ConfirmSignInTotpCopyKeyField extends ConfirmSignInFormField<String> {
+  const _ConfirmSignInTotpCopyKeyField({
     super.key,
     required super.field,
   }) : super._();
 
   @override
-  _ConfirmSignInTotpAppButtonFieldState createState() =>
-      _ConfirmSignInTotpAppButtonFieldState();
+  _ConfirmSignInTotpCopyKeyFieldState createState() =>
+      _ConfirmSignInTotpCopyKeyFieldState();
 }
 
-class _ConfirmSignInTotpAppButtonFieldState
-    extends _ConfirmSignInFormFieldState<String>
-    with OpenAuthenticationAppButton {}
+class _ConfirmSignInTotpCopyKeyFieldState
+    extends _ConfirmSignInFormFieldState<String> with TotpCopyKey {}
+
+class _ConfirmSignInTotpQrCodeField extends ConfirmSignInFormField<String> {
+  const _ConfirmSignInTotpQrCodeField({
+    super.key,
+    required super.field,
+  }) : super._();
+
+  @override
+  _ConfirmSignInTotpQrCodeFieldState createState() =>
+      _ConfirmSignInTotpQrCodeFieldState();
+}
+
+class _ConfirmSignInTotpQrCodeFieldState
+    extends _ConfirmSignInFormFieldState<String> with TotpQrCode {}

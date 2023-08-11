@@ -25,11 +25,13 @@ enum ButtonResolverKeyType {
   confirmResetPassword,
   backTo,
   skip,
-  openTotpApp,
-  totpManualKey,
-  totpQrCode,
-  totpStepperSetup,
-  totpStepperConfirm,
+  totpCopyKey,
+  totpInstruction,
+  totpQrCodeInstruction,
+  totpCopyKeyInstruction,
+  totpSubmitKeyInstruction,
+  totpDividerOr,
+  totpDividerThen,
 }
 
 class ButtonResolverKey {
@@ -68,16 +70,20 @@ class ButtonResolverKey {
   static const confirmResetPassword =
       ButtonResolverKey._(ButtonResolverKeyType.confirmResetPassword);
   static const skip = ButtonResolverKey._(ButtonResolverKeyType.skip);
-  static const openTotpApp =
-      ButtonResolverKey._(ButtonResolverKeyType.openTotpApp);
-  static const totpManualKey =
-      ButtonResolverKey._(ButtonResolverKeyType.totpManualKey);
-  static const totpQrCode =
-      ButtonResolverKey._(ButtonResolverKeyType.totpQrCode);
-  static const totpStepperSetup =
-      ButtonResolverKey._(ButtonResolverKeyType.totpStepperSetup);
-  static const totpStepperConfirm =
-      ButtonResolverKey._(ButtonResolverKeyType.totpStepperConfirm);
+  static const totpCopyKey =
+      ButtonResolverKey._(ButtonResolverKeyType.totpCopyKey);
+  static const totpInstruction =
+      ButtonResolverKey._(ButtonResolverKeyType.totpInstruction);
+  static const totpQrCodeInstruction =
+      ButtonResolverKey._(ButtonResolverKeyType.totpQrCodeInstruction);
+  static const totpCopyKeyInstruction =
+      ButtonResolverKey._(ButtonResolverKeyType.totpCopyKeyInstruction);
+  static const totpSubmitKeyInstruction =
+      ButtonResolverKey._(ButtonResolverKeyType.totpSubmitKeyInstruction);
+  static const totpDividerOr =
+      ButtonResolverKey._(ButtonResolverKeyType.totpDividerOr);
+  static const totpDividerThen =
+      ButtonResolverKey._(ButtonResolverKeyType.totpDividerThen);
 
   @override
   String toString() => describeEnum(type);
@@ -174,29 +180,40 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
     return AuthenticatorLocalizations.buttonsOf(context).skip;
   }
 
-  /// Label of button to open the users default authentication app.
-  String openTotpApp(BuildContext context) {
-    return AuthenticatorLocalizations.buttonsOf(context).openTotpApp;
-  }
-
-  /// Label of button to toggle the QR code during TOTP setup.
-  String totpQrCode(BuildContext context) {
-    return AuthenticatorLocalizations.buttonsOf(context).totpQrCode;
-  }
-
   /// Label of button to toggle the TOTP key during TOTP setup.
-  String totpManualKey(BuildContext context) {
-    return AuthenticatorLocalizations.buttonsOf(context).totpManualKey;
+  String totpCopyKey(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).totpCopyKey;
   }
 
-  /// Label of the app setup step button for the TOTP setup stepper.
-  String totpStepperSetup(BuildContext context) {
-    return AuthenticatorLocalizations.buttonsOf(context).totpStepperSetup;
+  /// The instruction that is displayed at the top of the default TOTP setup screen
+  String totpInstruction(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).totpInstruction;
   }
 
-  /// Label of the confirm step button for the TOTP setup stepper.
-  String totpStepperConfirm(BuildContext context) {
-    return AuthenticatorLocalizations.buttonsOf(context).totpStepperConfirm;
+  /// The instruction that is displayed for the TOTP QR Code field
+  String totpQrCodeInstruction(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).totpQrCodeInstruction;
+  }
+
+  /// The instruction that is displayed for the TOTP copy key field
+  String totpCopyKeyInstruction(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).totpCopyKeyInstruction;
+  }
+
+  /// The instruction that is displayed before submitting a TOTP code on the default TOTP setup screen
+  String totpSubmitKeyInstruction(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context)
+        .totpSubmitKeyInstruction;
+  }
+
+  /// The divider text that is displayed between options on the default TOTP setup screen
+  String totpDividerOr(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).totpDividerOr;
+  }
+
+  /// The divider text that is displayed between steps on the default TOTP setup screen
+  String totpDividerThen(BuildContext context) {
+    return AuthenticatorLocalizations.buttonsOf(context).totpDividerThen;
   }
 
   @override
@@ -236,16 +253,20 @@ class ButtonResolver extends Resolver<ButtonResolverKey> {
         return backTo(context, key.previousStep!);
       case ButtonResolverKeyType.skip:
         return skip(context);
-      case ButtonResolverKeyType.openTotpApp:
-        return openTotpApp(context);
-      case ButtonResolverKeyType.totpQrCode:
-        return totpQrCode(context);
-      case ButtonResolverKeyType.totpManualKey:
-        return totpManualKey(context);
-      case ButtonResolverKeyType.totpStepperSetup:
-        return totpStepperSetup(context);
-      case ButtonResolverKeyType.totpStepperConfirm:
-        return totpStepperConfirm(context);
+      case ButtonResolverKeyType.totpCopyKey:
+        return totpCopyKey(context);
+      case ButtonResolverKeyType.totpInstruction:
+        return totpInstruction(context);
+      case ButtonResolverKeyType.totpQrCodeInstruction:
+        return totpQrCodeInstruction(context);
+      case ButtonResolverKeyType.totpCopyKeyInstruction:
+        return totpCopyKeyInstruction(context);
+      case ButtonResolverKeyType.totpSubmitKeyInstruction:
+        return totpSubmitKeyInstruction(context);
+      case ButtonResolverKeyType.totpDividerOr:
+        return totpDividerOr(context);
+      case ButtonResolverKeyType.totpDividerThen:
+        return totpDividerThen(context);
     }
   }
 }
