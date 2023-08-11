@@ -214,6 +214,8 @@ final class SignInStateMachine
           ..challengeResponses.addAll({
             CognitoConstants.challengeParamUsername: parameters.username,
             CognitoConstants.challengeParamAnswer: event.answer,
+            if (_user.deviceSecrets?.deviceKey case final deviceKey?)
+              CognitoConstants.challengeParamDeviceKey: deviceKey,
           })
           ..clientId = config.appClientId
           ..clientMetadata.addAll(event.clientMetadata)
