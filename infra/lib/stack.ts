@@ -289,6 +289,12 @@ export class AmplifyFlutterIntegStack extends cdk.Stack {
       // crossRegionReferences: true,
     });
 
+    // The Logging stack
+    const logging = new LoggingIntegrationTestStack(this, [
+      { environmentName: "main" },
+      { environmentName: "remote-config", remoteConfig: true },
+    ]);
+
     // The Storage stack
     const storage = new StorageIntegrationTestStack(this, [
       {
