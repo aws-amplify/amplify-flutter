@@ -129,7 +129,7 @@ jobs:
           job-identifier: ${{ matrix.sdk }}
           testType: unit test
           category: ${{ inputs.working-directory }}
-          workflowName: ${{ package-name }}/dart_vm
+          workflowName: ${{ inputs.package-name }}/dart_vm
           framework: dart
           flutterDartChannel: ${{ matrix.sdk }}
           dartCompiler: dart

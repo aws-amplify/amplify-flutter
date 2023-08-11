@@ -70,7 +70,7 @@ jobs:
           job-identifier: ${{ matrix.channel }}
           testType: unit test
           category: ${{ inputs.working-directory }}
-          workflowName: ${{ package-name }}/flutter_ios
+          workflowName: ${{ inputs.package-name }}/flutter_ios
           framework: flutter
           flutterDartChannel: ${{ matrix.channel }}
           platform: ios

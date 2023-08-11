@@ -95,7 +95,7 @@ jobs:
           job-identifier: ${{ matrix.sdk }}, ${{ matrix.browser }}
           testType: unit test
           category: ${{ inputs.working-directory }}
-          workflowName: ${{ package-name }}/dart_dart2js
+          workflowName: ${{ inputs.package-name }}/dart_dart2js
           framework: dart
           flutterDartChannel: ${{ matrix.sdk }}
           dartCompiler: dart2js

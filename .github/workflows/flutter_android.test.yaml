@@ -60,7 +60,7 @@ jobs:
           job-identifier: ${{ matrix.channel }}
           testType: unit test
           category: ${{ inputs.working-directory }}
-          workflowName: ${{ package-name }}/flutter_android.test
+          workflowName: ${{ inputs.package-name }}/flutter_android.test
           framework: flutter
           flutterDartChannel: ${{ matrix.channel }}
           platform: android
