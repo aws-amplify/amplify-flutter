@@ -27,10 +27,6 @@ class ConfirmSignInPage extends AuthenticatorPage {
       find.byKey(keyConfirmSignInMfaSelectionButton);
   Finder get mfaSelection => find.byKey(keyMfaSelectionTotpSignInFormField);
   Finder get backToSignIn => find.byKey(keyBackToSignInButton);
-  Finder get totpStepperContinueButton =>
-      find.byKey(keyContinueTotpStepperButton);
-  Finder get totpStepperConfirmButton =>
-      find.byKey(keyConfirmTotpStepperButton);
 
   /// Then I see "Confirm Sign In - New Password"
   Future<void> expectConfirmSignInNewPasswordIsPresent() async {
@@ -145,20 +141,6 @@ class ConfirmSignInPage extends AuthenticatorPage {
   /// When I navigate to the "Sign In" step.
   Future<void> navigateToSignIn() async {
     await tester.tap(backToSignIn);
-    await tester.pumpAndSettle();
-  }
-
-  /// When I click the TOTP Stepper "Continue" button
-  Future<void> totpStepperContinue() async {
-    await tester.ensureVisible(totpStepperContinueButton.first);
-    await tester.tap(totpStepperContinueButton.first);
-    await tester.pumpAndSettle();
-  }
-
-  /// When I click the TOTP Stepper "Confirm" button
-  Future<void> totpStepperConfirm() async {
-    await tester.ensureVisible(totpStepperConfirmButton.at(1));
-    await tester.tap(totpStepperConfirmButton.at(1));
     await tester.pumpAndSettle();
   }
 }

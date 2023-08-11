@@ -12,6 +12,8 @@ import 'package:amplify_authenticator/src/mixins/authenticator_phone_field.dart'
 import 'package:amplify_authenticator/src/mixins/authenticator_radio_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_text_field.dart';
 import 'package:amplify_authenticator/src/mixins/authenticator_username_field.dart';
+import 'package:amplify_authenticator/src/mixins/totp_copy_key_field.dart';
+import 'package:amplify_authenticator/src/mixins/totp_qr_code_field.dart';
 import 'package:amplify_authenticator/src/models/username_input.dart';
 import 'package:amplify_authenticator/src/state/auth_state.dart';
 import 'package:amplify_authenticator/src/state/inherited_auth_bloc.dart';
@@ -20,8 +22,7 @@ import 'package:amplify_authenticator/src/utils/validators.dart';
 import 'package:amplify_authenticator/src/widgets/authenticator_input_config.dart';
 import 'package:amplify_authenticator/src/widgets/component.dart';
 import 'package:amplify_authenticator/src/widgets/form.dart';
-import 'package:amplify_authenticator/src/widgets/totp/totp_open_app_button.dart';
-import 'package:amplify_authenticator/src/widgets/totp/totp_setup_fields.dart';
+import 'package:amplify_authenticator/src/widgets/form_fields/totp_setup_fields.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

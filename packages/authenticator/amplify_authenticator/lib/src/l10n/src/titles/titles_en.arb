@@ -17,7 +17,7 @@
     "@confirmSignInNewPassword": {
         "description": "Title of the Confirm Sign In with New Password step and form"
     },
-    "continueSignInWithMfaSelection": "Select your preferred MFA method",
+    "continueSignInWithMfaSelection": "Select your preferred Two-Factor Auth method",
     "@continueSignInWithMfaSelection": {
         "description": "Title of the SignIn with MFA selection step and form"
     },

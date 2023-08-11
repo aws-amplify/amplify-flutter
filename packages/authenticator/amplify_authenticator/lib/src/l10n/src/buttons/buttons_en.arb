@@ -57,25 +57,33 @@
     "@skip": {
         "description": "Label of button to skip the current step or action."
     },
-    "openTotpApp": "Open Authenticator App",
-    "@openTotpApp": {
-        "description": "Label of button to open the user's default Authenticator."
+    "totpCopyKey": "Copy Key",
+    "@totpCopyKey": {
+        "description": "Label of button to copy the TOTP key during TOTP setup."
     },
-    "totpManualKey": "Manual Key Entry",
-    "@totpManualKey": {
-        "description": "Label of button to toggle the TOTP key during TOTP setup."
+    "totpInstruction": "You need to have an authenticator app downloaded.",
+    "@totpInstruction": {
+        "description": "The instruction that is displayed at the top of the default TOTP setup screen"
     },
-    "totpQrCode": "Scan QR Code",
-    "@totpQrCode": {
-        "description": "Label of button to toggle the QR code during TOTP setup."
+    "totpQrCodeInstruction": "Scan the QR code to set up your authenticator app",
+    "@totpQrCodeInstruction": {
+        "description": "The instruction that is displayed for the TOTP QR Code field"
     },
-    "totpStepperSetup": "Set up Authenticator App",
-    "@totpStepperSetup": {
-        "description": "Label for the TOTP setup stepper button for the app setup section."
+    "totpCopyKeyInstruction": "Copy the key and open your authenticator app.",
+    "@totpCopyKeyInstruction": {
+        "description": "The instruction that is displayed for the TOTP copy key field"
     },
-    "totpStepperConfirm": "Confirm One-Time Passcode",
-    "@totpStepperConfirm": {
-        "description": "Label for the TOTP confirm stepper button for the app setup section."
+    "totpSubmitKeyInstruction": "Enter the six digit code from your authenticator app.",
+    "@totpSubmitKeyInstruction": {
+        "description":  "The instruction that is displayed before submitting a TOTP code on the default TOTP setup screen"
+    },
+    "totpDividerOr": "OR",
+    "@totpDividerOr": {
+        "description": "The divider text that is displayed between options on the default TOTP setup screen"
+    },
+    "totpDividerThen": "THEN",
+    "@totpDividerThen": {
+        "description": "The divider text that is displayed between steps on the default TOTP setup screen"
     },
     "signOut": "Sign Out",
     "@signOut": {

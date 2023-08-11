@@ -53,8 +53,9 @@ const keyCustomChallengeConfirmSignInFormField =
 const keyMfaSelectionTotpSignInFormField =
     Key('mfaSelectionTotpSignInFormField');
 const keyMfaSelectionSmsSignInFormField = Key('mfaSelectionSmsSignInFormField');
+const keyTotpQrCodeSignInFormField = Key('totpQrCodeSignInFormField');
+const keyTotpCopyKeySignInFormField = Key('totpCopyKeySignInFormField');
 const keyTotpSetupSignInFormField = Key('totpSetupSignInFormField');
-const keyTotpAppSignInButton = Key('totpAppSignInButton');
 const keyUsernameConfirmSignInFormField = Key('usernameConfirmSignInFormField');
 const keyPasswordConfirmSignInFormField = Key('passwordConfirmSignInFormField');
 const keyNewPasswordConfirmSignInFormField =
@@ -138,7 +139,3 @@ const keyInheritedAuthBloc = Key('inheritedAuthBloc');
 // Banner Keys
 
 const keyAuthenticatorBanner = Key('authenticatorBanner');
-
-// Stepper Keys
-const keyContinueTotpStepperButton = Key('continueTotpStepperButton');
-const keyConfirmTotpStepperButton = Key('confirmTotpStepperButton');

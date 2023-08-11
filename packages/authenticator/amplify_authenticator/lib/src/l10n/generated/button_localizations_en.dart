@@ -52,19 +52,29 @@ class AuthenticatorButtonLocalizationsEn
   String get skip => 'Skip';
 
   @override
-  String get openTotpApp => 'Open Authenticator App';
+  String get totpCopyKey => 'Copy Key';
 
   @override
-  String get totpManualKey => 'Manual Key Entry';
+  String get totpInstruction =>
+      'You need to have an authenticator app downloaded.';
 
   @override
-  String get totpQrCode => 'Scan QR Code';
+  String get totpQrCodeInstruction =>
+      'Scan the QR code below to setup TOTP in your authenticator app.';
 
   @override
-  String get totpStepperSetup => 'Set up Authenticator App';
+  String get totpCopyKeyInstruction =>
+      'Copy the key and open your authenticator app.';
 
   @override
-  String get totpStepperConfirm => 'Confirm One-Time Passcode';
+  String get totpSubmitKeyInstruction =>
+      'Enter the six digit code from your authenticator app.';
+
+  @override
+  String get totpDividerOr => 'OR';
+
+  @override
+  String get totpDividerThen => 'THEN';
 
   @override
   String get signOut => 'Sign Out';
