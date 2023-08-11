@@ -181,7 +181,7 @@ export const createAmplifyConfig = (
   region: string,
   config: AmplifyConfig
 ): any => {
-  const { analyticsConfig, apiConfig, authConfig, storageConfig } = config;
+  const { analyticsConfig, apiConfig, authConfig, storageConfig } = config || {};
   const analytics: any = {};
   if (analyticsConfig) {
     analytics.analytics = {
@@ -359,6 +359,7 @@ export enum AmplifyCategory {
   Auth = "auth",
   DataStore = "dataStore",
   Storage = "storage",
+  Logging = "logging",
 }
 
 export type APIAuthorizationType =

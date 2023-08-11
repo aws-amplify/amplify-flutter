@@ -1,0 +1,16 @@
+{
+    "defaultLogLevel": "ERROR",
+    "categoryLogLevel": {
+        "API": "DEBUG",
+        "AUTH": "DEBUG"
+    },
+    "userLogLevel": {
+        "cognito-sub-xyz-123": {
+            "defaultLogLevel": "VERBOSE",
+            "categoryLogLevel": {
+                "API": "VERBOSE",
+                "AUTH": "VERBOSE"
+            }
+        }
+    }
+}
