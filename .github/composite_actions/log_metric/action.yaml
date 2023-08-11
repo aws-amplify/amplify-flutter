@@ -1,5 +1,5 @@
 name: Log Metric
-description: Log data point to a metric with the provided value. If the metric is not there, it will create one
+description: Log data point to a metric with the provided value. If the metric is not there, it will create one.
 # To avoid 'Credentials could not be loaded' calling workflows must include:
 # permissions:
 #  id-token: write
@@ -7,23 +7,77 @@ description: Log data point to a metric with the provided value. If the metric i
 inputs:
   aws-region:
     required: true
-    description: The AWS region
+    description: The AWS region.
   role-to-assume:
     required: true
-    description: The role to assume in the STS session
-  metric-name:
-    description: Name of the metric to track in Cloudwatch.
+    description: The role to assume in the STS session.
+  github-token:
     required: true
-  value:
+    description: Github token for requesting failing steps 
+
+  #value:
     # Why we publish value 0 on success: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html#publishingZero
-    description: Value of the metric to track in Cloudwatch.
+   # description: Value of the metric to track in Cloudwatch.
+#    required: true
+
+  job-status: 
+    description: Job status 
+    required: true 
+  job-identifier: 
+    desciption: Identifiers for the job
+    required: true 
+
+
+
+  # Global Metric Dimensions 
+  testType:
+    description: canary, integration, unit testType.
     required: true
-  dimensions:
-    description: Dimensions of metric to track in Cloudwatch, in format dimensionName1=value,dimensionName2=value,...
+  category:
+    description: analytics, api, authenticator, etc. 
+    required: true
+  workflowName: 
+    description: The Github Action workflow.yaml file name.  ie "AmplifyCanaries".
+    required: true 
+  # failingStep: Look into getting via code 
+
+
+  # FlutterDart Workflows Metric Dimensions 
+  framework:
+    description: flutter, dart. 
     required: false
+  flutterDartChannel:
+    description: beta, stable. 
+    required: false
+  dartVersion: 
+    description: 3, 2.19, 2.18, etc. 
+    required: false
+  flutterVersion:
+    description: 3.10.6, 3.10.5, etc. 
+    required: false
+  dartCompiler:
+    description: dart2js, ddc, dart, dart2wasm.
+    required: false
+
+  # Platform Workflows Metric Dimensions
+  platform:
+    description: android, ios, web, linux, windows.
+    required: false
+  platformVersion: 
+    description: ios-14.5, ios-16, android-25-x86, etc. 
+    required: false 
+
 runs:
   using: 'composite'
   steps:
+    #- name: Exit if not scheduled
+   #   shell: bash
+    #  run: |
+    #    if [ "${{ github.event_name }}" != "schedule" ]; then
+    #      echo "This was not triggered by a schedule, exiting."
+    #      exit 1
+    #    fi
+
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@67fbcbb121271f7775d2e7715933280b06314838 # 1.7.0
       with:
@@ -31,7 +85,49 @@ runs:
         aws-region: ${{ inputs.aws-region }}
         role-duration-seconds: 900
 
+    - name: Get Job ID
+      run: |
+        substring="${{ inputs.job-identifier }}"
+
+        jobs_json=$(curl -s -H "Authorization: token ${{ inputs.github-token }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          "https://api.github.com/repos/fjnoyp/amplify-flutter/actions/runs/${{ github.run_id }}/jobs")
+
+        job_id=$(echo "$jobs_json" | jq --arg substring "$substring" '.jobs[] | select(.name | contains($substring)) | .id')
+
+        echo "substring is $substring"
+        echo "job json is $jobs_json"
+        echo "github run id is ${{ github.run_id}}"
+
+        echo "Job ID for job containing $substring is $job_id"
+        echo "job_id=$job_id" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Get Failing Step
+      if: ${{ job.status == 'failure' }}
+      shell: bash
+      run: |
+        response=$(curl -s -H "Authorization: token ${{ inputs.github-token }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          "https://api.github.com/repos/fjnoyp/amplify-flutter/actions/jobs/${{ env.job_id }}")
+        failing_step_name=$(echo "$response" | jq -r '.steps[] | select(.conclusion == "failure") | .name')
+
+        echo "FAILING_STEP=$failing_step_name" >> $GITHUB_ENV
+
     - name: Run Dart script
       # Run a Dart script to put metric data.
-      run: dart ./tool/send_metric_data.dart ${{ inputs.metric-name }} ${{ inputs.value }} ${{ inputs.dimensions }}
+      run: dart ./tool/send_metric_data.dart \
+        github_metric_1.0 \
+        ${{ job.status == 'failure' }} \
+        ${{ inputs.testType }} \
+        ${{ inputs.category }} \
+        ${{ inputs.workflowName }} \
+        ${{ inputs.framework }} \
+        ${{ inputs.flutterDartChannel }} \
+        ${{ inputs.dartVersion }} \
+        ${{ inputs.flutterVersion }} \
+        ${{ inputs.dartCompiler }} \
+        ${{ inputs.platform }} \
+        ${{ inputs.platformVersion }} \
+        ${{ env.FAILING_STEP }}
       shell: bash

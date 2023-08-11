@@ -47,3 +47,18 @@ jobs:
       - name: Build for Android
         run: flutter build apk --debug --verbose
         working-directory: ${{ inputs.working-directory }}
+
+      - name: Log success/failure
+        uses: ./.github/composite_actions/log_metric
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}     
+          github-token: ${{ secrets.GH_TOKEN }}    
+          job-status: ${{ job.status }}
+          job-identifier: ${{ matrix.channel }}
+          testType: unit test
+          category: ${{ working-directory }}
+          workflowName: ${{ package-name }}/flutter_android.build
+          framework: flutter
+          flutterDartChannel: ${{ matrix.channel }}
+          platform: android
