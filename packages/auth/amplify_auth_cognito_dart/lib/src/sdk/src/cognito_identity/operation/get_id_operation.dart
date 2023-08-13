@@ -45,9 +45,8 @@ class GetIdOperation extends _i1
 
   @override
   late final List<
-          _i1
-          .HttpProtocol<GetIdInput, GetIdInput, GetIdResponse, GetIdResponse>>
-      protocols = [
+      _i1.HttpProtocol<GetIdInput, GetIdInput, GetIdResponse,
+          GetIdResponse>> protocols = [
     _i3.AwsJson1_1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,
