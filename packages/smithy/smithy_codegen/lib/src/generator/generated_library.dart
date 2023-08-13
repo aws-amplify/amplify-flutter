@@ -22,12 +22,12 @@ class GeneratedLibrary with AWSEquatable<GeneratedLibrary> {
   final String? libraryDocs;
 
   String emit({
-    PrefixStrategy withPrefixing = PrefixStrategy.runtimeOnly,
+    PrefixStrategy withPrefixingStrategy = PrefixStrategy.runtimeOnly,
   }) {
     final allocator = SmithyAllocator(
       library,
       smithyLibrary,
-      withPrefixing: withPrefixing,
+      withPrefixing: withPrefixingStrategy,
     );
     final output = StringBuffer()
       ..write(header)
