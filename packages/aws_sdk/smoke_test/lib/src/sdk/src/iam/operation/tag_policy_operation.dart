@@ -59,9 +59,8 @@ class TagPolicyOperation extends _i1
 
   @override
   late final List<
-          _i1
-          .HttpProtocol<TagPolicyRequest, TagPolicyRequest, _i1.Unit, _i1.Unit>>
-      protocols = [
+      _i1.HttpProtocol<TagPolicyRequest, TagPolicyRequest, _i1.Unit,
+          _i1.Unit>> protocols = [
     _i3.AwsQueryProtocol(
       serializers: serializers,
       builderFactories: builderFactories,

@@ -13,8 +13,8 @@ part 'auto_scaling_target_tracking_scaling_policy_configuration_update.g.dart';
 /// Represents the settings of a target tracking scaling policy that will be modified.
 abstract class AutoScalingTargetTrackingScalingPolicyConfigurationUpdate
     with
-        _i1
-        .AWSEquatable<AutoScalingTargetTrackingScalingPolicyConfigurationUpdate>
+        _i1.AWSEquatable<
+            AutoScalingTargetTrackingScalingPolicyConfigurationUpdate>
     implements
         Built<AutoScalingTargetTrackingScalingPolicyConfigurationUpdate,
             AutoScalingTargetTrackingScalingPolicyConfigurationUpdateBuilder> {

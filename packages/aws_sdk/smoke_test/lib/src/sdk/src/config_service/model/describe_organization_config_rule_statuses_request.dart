@@ -94,8 +94,8 @@ abstract class DescribeOrganizationConfigRuleStatusesRequest
 }
 
 class DescribeOrganizationConfigRuleStatusesRequestAwsJson11Serializer
-    extends _i1
-    .StructuredSmithySerializer<DescribeOrganizationConfigRuleStatusesRequest> {
+    extends _i1.StructuredSmithySerializer<
+        DescribeOrganizationConfigRuleStatusesRequest> {
   const DescribeOrganizationConfigRuleStatusesRequestAwsJson11Serializer()
       : super('DescribeOrganizationConfigRuleStatusesRequest');
 

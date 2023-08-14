@@ -97,7 +97,10 @@ void main() {
         const OperatingSystem('windows', ''),
         () {
           overrideEnvironment(
-            {'HOMEDRIVE': r'C:', 'HOMEPATH': r'\users\user'},
+            {
+              'HOMEDRIVE': r'C:',
+              'HOMEPATH': r'\users\user',
+            },
             () {
               expect(
                 pathProvider.configFileLocation,
@@ -120,7 +123,10 @@ void main() {
         const OperatingSystem('linux', ''),
         () {
           overrideEnvironment(
-            {'AWS_CONFIG_FILE': r'/other/path/config', 'HOME': r'/home/user'},
+            {
+              'AWS_CONFIG_FILE': r'/other/path/config',
+              'HOME': r'/home/user',
+            },
             () {
               expect(
                 pathProvider.configFileLocation,
@@ -220,7 +226,10 @@ void main() {
         const OperatingSystem('linux', ''),
         () {
           overrideEnvironment(
-            {'AWS_PROFILE': r'other', 'HOME': r'/home/user'},
+            {
+              'AWS_PROFILE': r'other',
+              'HOME': r'/home/user',
+            },
             () {
               expect(
                 pathProvider.configFileLocation,

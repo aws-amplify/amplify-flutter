@@ -26,9 +26,8 @@ class HttpStringPayloadOperation extends _i1
 
   @override
   late final List<
-          _i1
-          .HttpProtocol<String, StringPayloadInput, String, StringPayloadInput>>
-      protocols = [
+      _i1.HttpProtocol<String, StringPayloadInput, String,
+          StringPayloadInput>> protocols = [
     _i2.RestJson1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,

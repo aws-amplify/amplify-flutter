@@ -44,9 +44,8 @@ abstract class GetAggregateComplianceDetailsByConfigRuleResponse
       payload;
 
   static const List<
-          _i3
-          .SmithySerializer<GetAggregateComplianceDetailsByConfigRuleResponse>>
-      serializers = [
+      _i3.SmithySerializer<
+          GetAggregateComplianceDetailsByConfigRuleResponse>> serializers = [
     GetAggregateComplianceDetailsByConfigRuleResponseAwsJson11Serializer()
   ];
 

@@ -47,9 +47,8 @@ abstract class DescribeOrganizationConformancePackStatusesRequest
       payload;
 
   static const List<
-          _i1
-          .SmithySerializer<DescribeOrganizationConformancePackStatusesRequest>>
-      serializers = [
+      _i1.SmithySerializer<
+          DescribeOrganizationConformancePackStatusesRequest>> serializers = [
     DescribeOrganizationConformancePackStatusesRequestAwsJson11Serializer()
   ];
 
