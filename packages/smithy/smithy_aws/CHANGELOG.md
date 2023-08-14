@@ -1,3 +1,16 @@
+## 0.5.1
+
+### Features
+- feat(smithy): `ec2Query` protocol
+
+## 0.5.0+4
+
+- Minor bug fixes and improvements
+
+## 0.5.0+3
+
+- Minor bug fixes and improvements
+
 ## 0.5.0+2
 
 - Minor bug fixes and improvements
