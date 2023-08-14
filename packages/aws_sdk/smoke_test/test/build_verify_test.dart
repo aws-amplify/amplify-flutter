@@ -14,5 +14,7 @@ void main() {
       packageRelativeDirectory: 'packages/aws_sdk/smoke_test',
     ),
     timeout: const Timeout(Duration(minutes: 10)),
+    // TODO(dnys1): Re-enable when we have larger runners
+    skip: 'Skipping until we have larger runners',
   );
 }
