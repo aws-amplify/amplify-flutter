@@ -175,13 +175,10 @@ class PubServer {
       switch (file.name.toLowerCase()) {
         case 'pubspec.yaml':
           pubspecYaml = utf8.decode(file.content as List<int>);
-          break;
         case 'readme.md':
           readme = utf8.decode(file.content as List<int>);
-          break;
         case 'changelog.md':
           changelog = utf8.decode(file.content as List<int>);
-          break;
       }
     }
 
