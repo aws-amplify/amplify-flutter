@@ -3,6 +3,7 @@
 
 import 'dart:io';
 
+import 'package:aws_common/aws_common.dart';
 import 'package:pub_api_client/pub_api_client.dart';
 import 'package:pub_server/pub_server.dart';
 import 'package:shelf/shelf_io.dart' as io;
@@ -11,6 +12,8 @@ import 'package:test/test.dart';
 import 'common.dart';
 
 void main() {
+  AWSLogger().logLevel = LogLevel.verbose;
+
   group('PubLauncher', () {
     late HttpServer server;
     late Directory tmpDir;
@@ -21,7 +24,10 @@ void main() {
       final pubServer = PubServer.test();
       server = await io.serve(pubServer.handler, 'localhost', 0);
       pubServerUri = Uri.parse('http://localhost:${server.port}');
-      client = PubClient(pubUrl: pubServerUri.toString());
+      client = PubClient(
+        pubUrl: pubServerUri.toString(),
+        debug: true,
+      );
       tmpDir = await Directory.systemTemp.createTemp('pub_launcher_test_');
     });
 

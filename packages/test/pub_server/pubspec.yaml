@@ -17,6 +17,7 @@ dependencies:
   drift: ">=2.10.0 <2.11.0"
   file: ">=6.0.0 <8.0.0"
   git: ^2.2.0
+  graphs: ^2.3.1
   json_annotation: ">=4.8.1 <4.9.0"
   meta: ^1.7.0
   path: ^1.8.0
