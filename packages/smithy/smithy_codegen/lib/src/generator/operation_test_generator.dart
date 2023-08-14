@@ -36,7 +36,12 @@ class OperationTestGenerator extends LibraryGenerator<OperationShape>
         'bool.fromEnvironment is not working in tests for some reason',
     'QueryProtocolIdempotencyTokenAutoFill':
         'bool.fromEnvironment is not working in tests for some reason',
+    'Ec2ProtocolIdempotencyTokenAutoFill':
+        'bool.fromEnvironment is not working in tests for some reason',
+    'Ec2ProtocolIdempotencyTokenAutoFillIsSet':
+        'bool.fromEnvironment is not working in tests for some reason',
     'EmptyQueryLists': 'Unclear how to reconcile with QueryEmptyQueryMaps',
+    'Ec2EmptyQueryLists': 'Unclear how to reconcile with QueryEmptyQueryMaps',
     'RestJsonSerializesSparseSetMap':
         'Cannot handle this at the moment (empty vs. null).',
     'RestJsonSerializesDenseSetMap':

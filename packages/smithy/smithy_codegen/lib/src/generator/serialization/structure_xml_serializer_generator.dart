@@ -31,6 +31,15 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
         super.wireName;
   }
 
+  String serializeMemberWireName(MemberShape member) => memberWireName(member);
+  String deserializeMemberWireName(MemberShape member) {
+    if (protocol is Ec2QueryTrait) {
+      final xmlName = member.getTrait<XmlNameTrait>()?.value;
+      return xmlName ?? member.memberName;
+    }
+    return memberWireName(member);
+  }
+
   @override
   bool get isStructuredSerializer =>
       payloadShape is NamedMembersShape && payloadShape is! EnumShape;
@@ -66,7 +75,16 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
   late final Map<MemberShape, String> wireNames = () {
     final renames = <MemberShape, String>{};
     for (final member in payloadMembers) {
-      final rename = member.getTrait<XmlNameTrait>()?.value;
+      var rename = member.getTrait<Ec2QueryNameTrait>()?.value;
+      var xmlName = member.getTrait<XmlNameTrait>()?.value;
+      if (xmlName != null && protocol is Ec2QueryTrait) {
+        xmlName = xmlName[0].toUpperCase() + xmlName.substring(1);
+      }
+      rename ??= xmlName;
+      if (protocol is Ec2QueryTrait) {
+        final memberName = member.memberName;
+        rename ??= memberName[0].toUpperCase() + memberName.substring(1);
+      }
       if (rename != null) {
         renames[member] = rename;
       }
@@ -88,8 +106,14 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
       .toList();
 
   /// The custom BuiltX constructor for XML payloads.
-  Expression _builtXmlConstructor(MemberShape member, Shape targetShape) {
+  Expression _builtXmlConstructor(
+    MemberShape member,
+    Shape targetShape, {
+    required bool isSerialize,
+  }) {
     final Expression ctor;
+    final memberWireName =
+        isSerialize ? serializeMemberWireName : deserializeMemberWireName;
     final isFlattened = member.hasTrait<XmlFlattenedTrait>();
     var memberName = isFlattened ? memberWireName(member) : null;
     if (targetShape is ListShape) {
@@ -100,7 +124,9 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
         if (memberNamespace != null)
           'memberNamespace': memberNamespace.constructedInstance,
         if (protocol is AwsQueryTrait)
-          'indexer': DartTypes.smithy.xmlIndexer.property('awsQueryList'),
+          'indexer': DartTypes.smithy.xmlIndexer.property('awsQueryList')
+        else if (protocol is Ec2QueryTrait)
+          'indexer': DartTypes.smithy.xmlIndexer.property('ec2QueryList'),
       });
     } else if (targetShape is SetShape) {
       memberName ??= targetShape.member.getTrait<XmlNameTrait>()?.value;
@@ -110,7 +136,9 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
         if (memberNamespace != null)
           'memberNamespace': memberNamespace.constructedInstance,
         if (protocol is AwsQueryTrait)
-          'indexer': DartTypes.smithy.xmlIndexer.property('awsQueryList'),
+          'indexer': DartTypes.smithy.xmlIndexer.property('awsQueryList')
+        else if (protocol is Ec2QueryTrait)
+          'indexer': DartTypes.smithy.xmlIndexer.property('ec2QueryList'),
       });
     } else {
       targetShape as MapShape;
@@ -153,9 +181,11 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
     if (targetType == ShapeType.list ||
         targetType == ShapeType.set ||
         targetType == ShapeType.map) {
-      return _builtXmlConstructor(member, targetShape)
-          .property('serialize')
-          .call([
+      return _builtXmlConstructor(
+        member,
+        targetShape,
+        isSerialize: true,
+      ).property('serialize').call([
         refer('serializers'),
         memberRef,
       ], {
@@ -183,9 +213,10 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
 
     // Create a result object to store serialized members.
     final namespace = this.namespace;
-    final payloadResponseName = protocol is AwsQueryTrait
-        ? '${payloadWireName}Response'
-        : payloadWireName;
+    final payloadResponseName =
+        protocol is AwsQueryTrait || protocol is Ec2QueryTrait
+            ? '${payloadWireName}Response'
+            : payloadWireName;
     builder.addExpression(
       declareFinal(resultVar.symbol!).assign(
         literalList(
@@ -216,7 +247,7 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
             .call([
               DartTypes.xml.xmlAttribute.newInstance([
                 DartTypes.xml.xmlName.newInstance([
-                  literalString(memberWireName(member)),
+                  literalString(serializeMemberWireName(member)),
                 ]),
                 serializerFor(
                   member,
@@ -258,7 +289,7 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
       if (!isFlattened) {
         addRes = addRes.cascade('add').call([
           DartTypes.smithy.xmlElementName.constInstance([
-            literalString(memberWireName(member)),
+            literalString(serializeMemberWireName(member)),
             if (memberNs != null) memberNs.constructedInstance,
           ]),
         ]);
@@ -293,9 +324,11 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
         targetType == ShapeType.set ||
         targetType == ShapeType.map) {
       final iterableType = DartTypes.core.iterable(DartTypes.core.object.boxed);
-      final deserialized = _builtXmlConstructor(member, targetShape)
-          .property('deserialize')
-          .call([
+      final deserialized = _builtXmlConstructor(
+        member,
+        targetShape,
+        isSerialize: false,
+      ).property('deserialize').call([
         refer('serializers'),
         value
             .isA(DartTypes.core.string)
@@ -331,10 +364,27 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
         switch (key) {
       ''',
     );
+    final unwrapErrors = shape.isError && protocol is Ec2QueryTrait;
+    final unwrapError = shape.isError &&
+        ((protocol is RestXmlTrait &&
+                !(protocol as RestXmlTrait).noErrorWrapping) ||
+            protocol is Ec2QueryTrait ||
+            protocol is AwsQueryTrait);
+    final unwrapResult = protocol is AwsQueryTrait;
     return Block.of([
-      if (shape.isError &&
-          protocol is RestXmlTrait &&
-          !(protocol as RestXmlTrait).noErrorWrapping)
+      if (unwrapErrors)
+        Code.scope(
+          (allocate) => '''
+      final errorsIterator = serialized.iterator;
+      while (errorsIterator.moveNext()) {
+        final key = errorsIterator.current;
+        errorsIterator.moveNext();
+        if (key == 'Errors') {
+          serialized = errorsIterator.current as ${allocate(DartTypes.core.iterable(DartTypes.core.object.boxed))};
+        }
+      }''',
+        ),
+      if (unwrapError)
         Code.scope(
           (allocate) => '''
       final errorIterator = serialized.iterator;
@@ -346,6 +396,18 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
         }
       }''',
         ),
+      if (unwrapResult)
+        Code.scope(
+          (allocate) => '''
+      final responseIterator = serialized.iterator; 
+      while (responseIterator.moveNext()) {
+        final key = responseIterator.current as String;
+        responseIterator.moveNext();
+        if (key.endsWith('Result')) {
+          serialized = responseIterator.current as ${allocate(DartTypes.core.iterable(DartTypes.core.object.boxed))};
+        }
+      }''',
+        ),
       preamble,
     ]);
   }
@@ -353,7 +415,7 @@ class StructureXmlSerializerGenerator extends StructureSerializerGenerator {
   @override
   Iterable<Code> get fieldDeserializers sync* {
     for (final member in serializedMembers) {
-      final wireName = memberWireName(member);
+      final wireName = deserializeMemberWireName(member);
       var memberSymbol = memberSymbols[member]!;
       final targetShape = context.shapeFor(member.target);
       final hasNestedBuilder = targetShape.hasNestedBuilder;
