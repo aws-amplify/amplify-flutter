@@ -54,7 +54,7 @@ jobs:
         uses: subosito/flutter-action@48cafc24713cca54bbe03cdc3a423187d413aafa # 2.10.0
         with:
           cache: true
-          channel: beta
+          channel: stable
 
       - name: Setup Dart
         uses: dart-lang/setup-dart@cdb51fff2b088939ef86fe041b18e82cb4733522 # main
