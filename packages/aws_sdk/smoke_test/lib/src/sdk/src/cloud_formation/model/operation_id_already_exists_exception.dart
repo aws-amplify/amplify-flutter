@@ -97,6 +97,22 @@ class OperationIdAlreadyExistsExceptionAwsQuerySerializer
     FullType specifiedType = FullType.unspecified,
   }) {
     final result = OperationIdAlreadyExistsExceptionBuilder();
+    final errorIterator = serialized.iterator;
+    while (errorIterator.moveNext()) {
+      final key = errorIterator.current;
+      errorIterator.moveNext();
+      if (key == 'Error') {
+        serialized = errorIterator.current as Iterable;
+      }
+    }
+    final responseIterator = serialized.iterator;
+    while (responseIterator.moveNext()) {
+      final key = responseIterator.current as String;
+      responseIterator.moveNext();
+      if (key.endsWith('Result')) {
+        serialized = responseIterator.current as Iterable;
+      }
+    }
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;

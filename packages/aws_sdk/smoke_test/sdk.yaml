@@ -8,7 +8,7 @@ apis:
   config:
 
   # EC2 (ec2Query)
-  # ec2:
+  ec2:
 
   # DynamoDB (awsJson1_0)
   dynamodb:
