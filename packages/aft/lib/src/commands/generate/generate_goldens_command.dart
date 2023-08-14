@@ -24,6 +24,7 @@ const awsProtocols = [
   'awsJson1_0',
   'awsJson1_1',
   'awsQuery',
+  'ec2Query',
   'restJson1',
   'restXml',
   'restXmlWithNamespace',
