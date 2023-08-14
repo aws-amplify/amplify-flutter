@@ -142,6 +142,8 @@ abstract class Trait<TraitValue extends Object>
     AwsQueryTrait.id: AwsQueryTrait.fromJson,
     AwsQueryErrorTrait.id: AwsQueryErrorTrait.fromJson,
     AwsQueryCompatibleTrait.id: AwsQueryCompatibleTrait.fromJson,
+    Ec2QueryTrait.id: Ec2QueryTrait.fromJson,
+    Ec2QueryNameTrait.id: Ec2QueryNameTrait.fromJson,
     RestJson1Trait.id: RestJson1Trait.fromJson,
     RestXmlTrait.id: RestXmlTrait.fromJson,
     S3UnwrappedXmlOutputTrait.id: S3UnwrappedXmlOutputTrait.fromJson,

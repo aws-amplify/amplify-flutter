@@ -870,6 +870,9 @@ class _SmithyAws {
   /// Creates a [smithy_aws.CredentialScope] refererence.
   Reference get credentialScope => const Reference('CredentialScope', _url);
 
+  /// Creates a [smithy_aws.Ec2QueryProtocol] refererence.
+  Reference get ec2QueryProtocol => const Reference('Ec2QueryProtocol', _url);
+
   /// Creates a [smithy_aws.EndpointDefinition] refererence.
   Reference get endpointDefinition =>
       const Reference('EndpointDefinition', _url);
