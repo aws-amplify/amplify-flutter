@@ -1,3 +1,8 @@
+## 0.5.0
+
+### Breaking Changes
+- feat(aws_common)!: Add credentials provider chain
+
 ## 0.4.0+3
 
 - Minor bug fixes and improvements
