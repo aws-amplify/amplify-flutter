@@ -36,9 +36,8 @@ abstract class AggregateConformancePackComplianceSummaryFilters
   const AggregateConformancePackComplianceSummaryFilters._();
 
   static const List<
-          _i2
-          .SmithySerializer<AggregateConformancePackComplianceSummaryFilters>>
-      serializers = [
+      _i2.SmithySerializer<
+          AggregateConformancePackComplianceSummaryFilters>> serializers = [
     AggregateConformancePackComplianceSummaryFiltersAwsJson11Serializer()
   ];
 

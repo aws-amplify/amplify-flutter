@@ -37,9 +37,8 @@ class GetModelOperation extends _i1
 
   @override
   late final List<
-          _i1
-          .HttpProtocol<GetModelRequestPayload, GetModelRequest, Model, Model>>
-      protocols = [
+      _i1.HttpProtocol<GetModelRequestPayload, GetModelRequest, Model,
+          Model>> protocols = [
     _i3.RestJson1Protocol(
       serializers: serializers,
       builderFactories: builderFactories,

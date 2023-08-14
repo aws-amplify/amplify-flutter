@@ -79,8 +79,8 @@ abstract class MaxNumberOfConformancePacksExceededException
 }
 
 class MaxNumberOfConformancePacksExceededExceptionAwsJson11Serializer
-    extends _i2
-    .StructuredSmithySerializer<MaxNumberOfConformancePacksExceededException> {
+    extends _i2.StructuredSmithySerializer<
+        MaxNumberOfConformancePacksExceededException> {
   const MaxNumberOfConformancePacksExceededExceptionAwsJson11Serializer()
       : super('MaxNumberOfConformancePacksExceededException');
 

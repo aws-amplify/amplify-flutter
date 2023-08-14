@@ -52,9 +52,8 @@ abstract class GetBucketNotificationConfigurationRequest
       });
 
   static const List<
-          _i1
-          .SmithySerializer<GetBucketNotificationConfigurationRequestPayload>>
-      serializers = [
+      _i1.SmithySerializer<
+          GetBucketNotificationConfigurationRequestPayload>> serializers = [
     GetBucketNotificationConfigurationRequestRestXmlSerializer()
   ];
 
@@ -127,8 +126,8 @@ abstract class GetBucketNotificationConfigurationRequestPayload
   }
 }
 
-class GetBucketNotificationConfigurationRequestRestXmlSerializer extends _i1
-    .StructuredSmithySerializer<
+class GetBucketNotificationConfigurationRequestRestXmlSerializer
+    extends _i1.StructuredSmithySerializer<
         GetBucketNotificationConfigurationRequestPayload> {
   const GetBucketNotificationConfigurationRequestRestXmlSerializer()
       : super('GetBucketNotificationConfigurationRequest');

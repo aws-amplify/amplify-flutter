@@ -20,8 +20,8 @@ import 'package:smoke_test/src/sdk/src/config_service/model/invalid_parameter_va
 import 'package:smoke_test/src/sdk/src/config_service/model/pending_aggregation_request.dart';
 
 /// Returns a list of all pending aggregation requests.
-class DescribePendingAggregationRequestsOperation extends _i1
-    .PaginatedHttpOperation<
+class DescribePendingAggregationRequestsOperation
+    extends _i1.PaginatedHttpOperation<
         DescribePendingAggregationRequestsRequest,
         DescribePendingAggregationRequestsRequest,
         DescribePendingAggregationRequestsResponse,

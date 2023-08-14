@@ -53,9 +53,8 @@ class _MachineLearningServer extends _i1.HttpServer<MachineLearningServerBase> {
   @override
   final MachineLearningServerBase service;
 
-  late final _i1
-      .HttpProtocol<PredictInput, PredictInput, PredictOutput, PredictOutput>
-      _predictProtocol = _i2.AwsJson1_1Protocol(
+  late final _i1.HttpProtocol<PredictInput, PredictInput, PredictOutput,
+      PredictOutput> _predictProtocol = _i2.AwsJson1_1Protocol(
     serializers: serializers,
     builderFactories: builderFactories,
   );

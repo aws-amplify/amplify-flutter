@@ -165,7 +165,7 @@ void main() {
 test(r'${test.name}', () {
   overrideOperatingSystem(const OperatingSystem('${test.platform.name}', ''), () {
      overrideEnvironment({
-      ${test.environment.entries.map((entry) => "'${entry.key}': r'${entry.value}'").join(',\n')}
+      ${test.environment.entries.map((entry) => "'${entry.key}': r'${entry.value}',").join('\n')}
      }, () {
           expect(pathProvider.configFileLocation, completion(r'${test.configLocation}'),);
           expect(pathProvider.sharedCredentialsFileLocation, completion(r'${test.credentialsLocation}'),);
@@ -178,7 +178,13 @@ test(r'${test.name}', () {
   output.writeln('});}');
 
   await File(outputFilepath).writeAsString(output.toString());
-  await Process.run('dart', ['format', '--fix', outputFilepath]);
+  final formatRes = await Process.run(
+    'dart',
+    ['format', '--fix', outputFilepath],
+  );
+  if (formatRes.exitCode != 0) {
+    throw Exception(formatRes.stderr);
+  }
 }
 
 Future<void> generateProfileTests() async {
