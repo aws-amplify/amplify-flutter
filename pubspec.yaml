@@ -21,7 +21,9 @@ dependencies:
   built_value_generator: 8.6.1
   code_builder: 4.5.0
   connectivity_plus: ^4.0.1
-  dart_style: 2.3.2
+  # This must exactly match what's included in `dart format`
+  # on stable so that CI checks pass for generated code.
+  dart_style: 2.3.1
   device_info_plus: ^9.0.0
   drift: ">=2.10.0 <2.11.0"
   ffigen: ^9.0.0
